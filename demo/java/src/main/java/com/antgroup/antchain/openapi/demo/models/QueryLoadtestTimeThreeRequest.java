@@ -14,7 +14,7 @@ public class QueryLoadtestTimeThreeRequest extends TeaModel {
     // ms
     @NameInMap("timeout")
     @Validation(required = true)
-    public Long timeout;
+    public String timeout;
 
     public static QueryLoadtestTimeThreeRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryLoadtestTimeThreeRequest self = new QueryLoadtestTimeThreeRequest();
@@ -37,11 +37,11 @@ public class QueryLoadtestTimeThreeRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryLoadtestTimeThreeRequest setTimeout(Long timeout) {
+    public QueryLoadtestTimeThreeRequest setTimeout(String timeout) {
         this.timeout = timeout;
         return this;
     }
-    public Long getTimeout() {
+    public String getTimeout() {
         return this.timeout;
     }
 

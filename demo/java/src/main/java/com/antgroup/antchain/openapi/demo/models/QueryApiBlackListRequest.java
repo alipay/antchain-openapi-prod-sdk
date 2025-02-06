@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class QueryLoadtestTimeOneRequest extends TeaModel {
+public class QueryApiBlackListRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,17 +11,17 @@ public class QueryLoadtestTimeOneRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 毫秒值
-    @NameInMap("timeout")
+    // 查询输入
+    @NameInMap("data")
     @Validation(required = true)
-    public String timeout;
+    public String data;
 
-    public static QueryLoadtestTimeOneRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryLoadtestTimeOneRequest self = new QueryLoadtestTimeOneRequest();
+    public static QueryApiBlackListRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryApiBlackListRequest self = new QueryApiBlackListRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryLoadtestTimeOneRequest setAuthToken(String authToken) {
+    public QueryApiBlackListRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class QueryLoadtestTimeOneRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryLoadtestTimeOneRequest setProductInstanceId(String productInstanceId) {
+    public QueryApiBlackListRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,12 +37,12 @@ public class QueryLoadtestTimeOneRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryLoadtestTimeOneRequest setTimeout(String timeout) {
-        this.timeout = timeout;
+    public QueryApiBlackListRequest setData(String data) {
+        this.data = data;
         return this;
     }
-    public String getTimeout() {
-        return this.timeout;
+    public String getData() {
+        return this.data;
     }
 
 }

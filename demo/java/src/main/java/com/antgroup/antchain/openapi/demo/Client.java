@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.15"),
+                    new TeaPair("sdk_version", "1.1.20"),
                     new TeaPair("_prod_code", "DEMO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -622,6 +622,101 @@ public class Client {
     public QueryAasSaSaResponse queryAasSaSaEx(QueryAasSaSaRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "demo.aas.sa.sa.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAasSaSaResponse());
+    }
+
+    /**
+     * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+     * Summary: 自动化测试需要，【请勿做任何改动！】
+     */
+    public QueryApiWhiteListResponse queryApiWhiteList(QueryApiWhiteListRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryApiWhiteListEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+     * Summary: 自动化测试需要，【请勿做任何改动！】
+     */
+    public QueryApiWhiteListResponse queryApiWhiteListEx(QueryApiWhiteListRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.api.white.list.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryApiWhiteListResponse());
+    }
+
+    /**
+     * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+     * Summary: 自动化测试需要，【请勿做任何改动！】
+     */
+    public QueryApiBlackListResponse queryApiBlackList(QueryApiBlackListRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryApiBlackListEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+     * Summary: 自动化测试需要，【请勿做任何改动！】
+     */
+    public QueryApiBlackListResponse queryApiBlackListEx(QueryApiBlackListRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.api.black.list.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryApiBlackListResponse());
+    }
+
+    /**
+     * Description: ip访问白名单测试
+     * Summary: 【自动化】ip访问白名单测试
+     */
+    public QueryIpWhiteListResponse queryIpWhiteList(QueryIpWhiteListRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIpWhiteListEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: ip访问白名单测试
+     * Summary: 【自动化】ip访问白名单测试
+     */
+    public QueryIpWhiteListResponse queryIpWhiteListEx(QueryIpWhiteListRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.ip.white.list.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIpWhiteListResponse());
+    }
+
+    /**
+     * Description: ip访问白名单测试
+     * Summary: 【自动化】ip访问黑名单测试
+     */
+    public QueryIpBlackListResponse queryIpBlackList(QueryIpBlackListRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIpBlackListEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: ip访问白名单测试
+     * Summary: 【自动化】ip访问黑名单测试
+     */
+    public QueryIpBlackListResponse queryIpBlackListEx(QueryIpBlackListRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.ip.black.list.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIpBlackListResponse());
+    }
+
+    /**
+     * Description: 重试策略
+     * Summary: 【自动化】重试策略
+     */
+    public QueryIpRetryResponse queryIpRetry(QueryIpRetryRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIpRetryEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 重试策略
+     * Summary: 【自动化】重试策略
+     */
+    public QueryIpRetryResponse queryIpRetryEx(QueryIpRetryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.ip.retry.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIpRetryResponse());
     }
 
     /**
