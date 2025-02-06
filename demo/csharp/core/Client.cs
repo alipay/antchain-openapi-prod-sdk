@@ -137,7 +137,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.15"},
+                        {"sdk_version", "1.1.20"},
                         {"_prod_code", "DEMO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.15"},
+                        {"sdk_version", "1.1.20"},
                         {"_prod_code", "DEMO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1291,6 +1291,216 @@ namespace AntChain.SDK.DEMO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAasSaSaResponse>(await DoRequestAsync("1.0", "demo.aas.sa.sa.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+         * Summary: 自动化测试需要，【请勿做任何改动！】
+         */
+        public QueryApiWhiteListResponse QueryApiWhiteList(QueryApiWhiteListRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryApiWhiteListEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+         * Summary: 自动化测试需要，【请勿做任何改动！】
+         */
+        public async Task<QueryApiWhiteListResponse> QueryApiWhiteListAsync(QueryApiWhiteListRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryApiWhiteListExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+         * Summary: 自动化测试需要，【请勿做任何改动！】
+         */
+        public QueryApiWhiteListResponse QueryApiWhiteListEx(QueryApiWhiteListRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryApiWhiteListResponse>(DoRequest("1.0", "demo.api.white.list.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+         * Summary: 自动化测试需要，【请勿做任何改动！】
+         */
+        public async Task<QueryApiWhiteListResponse> QueryApiWhiteListExAsync(QueryApiWhiteListRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryApiWhiteListResponse>(await DoRequestAsync("1.0", "demo.api.white.list.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+         * Summary: 自动化测试需要，【请勿做任何改动！】
+         */
+        public QueryApiBlackListResponse QueryApiBlackList(QueryApiBlackListRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryApiBlackListEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+         * Summary: 自动化测试需要，【请勿做任何改动！】
+         */
+        public async Task<QueryApiBlackListResponse> QueryApiBlackListAsync(QueryApiBlackListRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryApiBlackListExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+         * Summary: 自动化测试需要，【请勿做任何改动！】
+         */
+        public QueryApiBlackListResponse QueryApiBlackListEx(QueryApiBlackListRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryApiBlackListResponse>(DoRequest("1.0", "demo.api.black.list.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+         * Summary: 自动化测试需要，【请勿做任何改动！】
+         */
+        public async Task<QueryApiBlackListResponse> QueryApiBlackListExAsync(QueryApiBlackListRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryApiBlackListResponse>(await DoRequestAsync("1.0", "demo.api.black.list.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: ip访问白名单测试
+         * Summary: 【自动化】ip访问白名单测试
+         */
+        public QueryIpWhiteListResponse QueryIpWhiteList(QueryIpWhiteListRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryIpWhiteListEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: ip访问白名单测试
+         * Summary: 【自动化】ip访问白名单测试
+         */
+        public async Task<QueryIpWhiteListResponse> QueryIpWhiteListAsync(QueryIpWhiteListRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryIpWhiteListExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: ip访问白名单测试
+         * Summary: 【自动化】ip访问白名单测试
+         */
+        public QueryIpWhiteListResponse QueryIpWhiteListEx(QueryIpWhiteListRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIpWhiteListResponse>(DoRequest("1.0", "demo.ip.white.list.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: ip访问白名单测试
+         * Summary: 【自动化】ip访问白名单测试
+         */
+        public async Task<QueryIpWhiteListResponse> QueryIpWhiteListExAsync(QueryIpWhiteListRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIpWhiteListResponse>(await DoRequestAsync("1.0", "demo.ip.white.list.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: ip访问白名单测试
+         * Summary: 【自动化】ip访问黑名单测试
+         */
+        public QueryIpBlackListResponse QueryIpBlackList(QueryIpBlackListRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryIpBlackListEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: ip访问白名单测试
+         * Summary: 【自动化】ip访问黑名单测试
+         */
+        public async Task<QueryIpBlackListResponse> QueryIpBlackListAsync(QueryIpBlackListRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryIpBlackListExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: ip访问白名单测试
+         * Summary: 【自动化】ip访问黑名单测试
+         */
+        public QueryIpBlackListResponse QueryIpBlackListEx(QueryIpBlackListRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIpBlackListResponse>(DoRequest("1.0", "demo.ip.black.list.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: ip访问白名单测试
+         * Summary: 【自动化】ip访问黑名单测试
+         */
+        public async Task<QueryIpBlackListResponse> QueryIpBlackListExAsync(QueryIpBlackListRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIpBlackListResponse>(await DoRequestAsync("1.0", "demo.ip.black.list.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 重试策略
+         * Summary: 【自动化】重试策略
+         */
+        public QueryIpRetryResponse QueryIpRetry(QueryIpRetryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryIpRetryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 重试策略
+         * Summary: 【自动化】重试策略
+         */
+        public async Task<QueryIpRetryResponse> QueryIpRetryAsync(QueryIpRetryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryIpRetryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 重试策略
+         * Summary: 【自动化】重试策略
+         */
+        public QueryIpRetryResponse QueryIpRetryEx(QueryIpRetryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIpRetryResponse>(DoRequest("1.0", "demo.ip.retry.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 重试策略
+         * Summary: 【自动化】重试策略
+         */
+        public async Task<QueryIpRetryResponse> QueryIpRetryExAsync(QueryIpRetryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIpRetryResponse>(await DoRequestAsync("1.0", "demo.ip.retry.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
