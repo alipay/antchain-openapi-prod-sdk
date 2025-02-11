@@ -421,6 +421,95 @@ class RegByDeviceIdParm(TeaModel):
         return self
 
 
+class AssetElementRelationInfo(TeaModel):
+    def __init__(
+        self,
+        source_element_id: str = None,
+        target_element_id: str = None,
+        relation_type: int = None,
+        relation_dependency_type: str = None,
+        relation_dependency: str = None,
+        transform_relation_dependency: str = None,
+        project_id: str = None,
+        source_element_name: str = None,
+        target_element_name: str = None,
+    ):
+        # 来源要素ID
+        self.source_element_id = source_element_id
+        # 目标要素ID
+        self.target_element_id = target_element_id
+        # 关联类型
+        self.relation_type = relation_type
+        # 关联依据类型
+        self.relation_dependency_type = relation_dependency_type
+        # 关联依据
+        self.relation_dependency = relation_dependency
+        # 关系依据, 支持泛型反序列化的格式
+        self.transform_relation_dependency = transform_relation_dependency
+        # 项目ID
+        self.project_id = project_id
+        # 来源要素名称
+        self.source_element_name = source_element_name
+        # 目标要素名称
+        self.target_element_name = target_element_name
+
+    def validate(self):
+        self.validate_required(self.source_element_id, 'source_element_id')
+        self.validate_required(self.target_element_id, 'target_element_id')
+        self.validate_required(self.relation_type, 'relation_type')
+        self.validate_required(self.project_id, 'project_id')
+        self.validate_required(self.source_element_name, 'source_element_name')
+        self.validate_required(self.target_element_name, 'target_element_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.source_element_id is not None:
+            result['source_element_id'] = self.source_element_id
+        if self.target_element_id is not None:
+            result['target_element_id'] = self.target_element_id
+        if self.relation_type is not None:
+            result['relation_type'] = self.relation_type
+        if self.relation_dependency_type is not None:
+            result['relation_dependency_type'] = self.relation_dependency_type
+        if self.relation_dependency is not None:
+            result['relation_dependency'] = self.relation_dependency
+        if self.transform_relation_dependency is not None:
+            result['transform_relation_dependency'] = self.transform_relation_dependency
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.source_element_name is not None:
+            result['source_element_name'] = self.source_element_name
+        if self.target_element_name is not None:
+            result['target_element_name'] = self.target_element_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('source_element_id') is not None:
+            self.source_element_id = m.get('source_element_id')
+        if m.get('target_element_id') is not None:
+            self.target_element_id = m.get('target_element_id')
+        if m.get('relation_type') is not None:
+            self.relation_type = m.get('relation_type')
+        if m.get('relation_dependency_type') is not None:
+            self.relation_dependency_type = m.get('relation_dependency_type')
+        if m.get('relation_dependency') is not None:
+            self.relation_dependency = m.get('relation_dependency')
+        if m.get('transform_relation_dependency') is not None:
+            self.transform_relation_dependency = m.get('transform_relation_dependency')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('source_element_name') is not None:
+            self.source_element_name = m.get('source_element_name')
+        if m.get('target_element_name') is not None:
+            self.target_element_name = m.get('target_element_name')
+        return self
+
+
 class RegByDeviceParm(TeaModel):
     def __init__(
         self,
@@ -676,6 +765,156 @@ class Device(TeaModel):
             self.device_status = m.get('device_status')
         if m.get('trustiot_device_id') is not None:
             self.trustiot_device_id = m.get('trustiot_device_id')
+        return self
+
+
+class AssetElementInfo(TeaModel):
+    def __init__(
+        self,
+        project_id: str = None,
+        element_id: str = None,
+        element_name: str = None,
+        element_type: str = None,
+        from_type: str = None,
+        data_element_type: str = None,
+        property_list: str = None,
+        transform_property_list: str = None,
+        frequency: str = None,
+        physics_element_type_code: str = None,
+        biz_type: str = None,
+        persistent_location: str = None,
+        element_instance_config: str = None,
+        element_instance_info: str = None,
+        property_source_type: int = None,
+        property_source_id: str = None,
+        primary_key_info: str = None,
+        remark: str = None,
+    ):
+        # 项目ID
+        self.project_id = project_id
+        # 要素ID
+        self.element_id = element_id
+        # 要素名称
+        self.element_name = element_name
+        # 要素类型
+        self.element_type = element_type
+        # 数据来源渠道， 物理要素非必填；数据要素必填；
+        self.from_type = from_type
+        # 平台领域类型， 物理要素非必填；数据要素必填；
+        self.data_element_type = data_element_type
+        # 属性列表， 物理要素非必填；数据要素必填；
+        self.property_list = property_list
+        # 格式处理过的属性列表（支持泛型反序列化）
+        self.transform_property_list = transform_property_list
+        # 数据上报频率
+        self.frequency = frequency
+        # 物理要素类型码，包含iot和资管的
+        self.physics_element_type_code = physics_element_type_code
+        # 业务类型
+        self.biz_type = biz_type
+        # 该要素的存储位置， index代表数据流转顺序，location为库表/logstore名称，remark备注
+        self.persistent_location = persistent_location
+        # 要素实例信息，用于捞取最小闭环数据
+        self.element_instance_config = element_instance_config
+        # 要素实例
+        self.element_instance_info = element_instance_info
+        # 属性列表来源平台 1.IOT 2.DM
+        self.property_source_type = property_source_type
+        # 拉取数据字段code请求值
+        self.property_source_id = property_source_id
+        # 要素主键字段信息
+        self.primary_key_info = primary_key_info
+        # 备注
+        self.remark = remark
+
+    def validate(self):
+        self.validate_required(self.project_id, 'project_id')
+        self.validate_required(self.element_id, 'element_id')
+        self.validate_required(self.element_type, 'element_type')
+        self.validate_required(self.physics_element_type_code, 'physics_element_type_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.element_id is not None:
+            result['element_id'] = self.element_id
+        if self.element_name is not None:
+            result['element_name'] = self.element_name
+        if self.element_type is not None:
+            result['element_type'] = self.element_type
+        if self.from_type is not None:
+            result['from_type'] = self.from_type
+        if self.data_element_type is not None:
+            result['data_element_type'] = self.data_element_type
+        if self.property_list is not None:
+            result['property_list'] = self.property_list
+        if self.transform_property_list is not None:
+            result['transform_property_list'] = self.transform_property_list
+        if self.frequency is not None:
+            result['frequency'] = self.frequency
+        if self.physics_element_type_code is not None:
+            result['physics_element_type_code'] = self.physics_element_type_code
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.persistent_location is not None:
+            result['persistent_location'] = self.persistent_location
+        if self.element_instance_config is not None:
+            result['element_instance_config'] = self.element_instance_config
+        if self.element_instance_info is not None:
+            result['element_instance_info'] = self.element_instance_info
+        if self.property_source_type is not None:
+            result['property_source_type'] = self.property_source_type
+        if self.property_source_id is not None:
+            result['property_source_id'] = self.property_source_id
+        if self.primary_key_info is not None:
+            result['primary_key_info'] = self.primary_key_info
+        if self.remark is not None:
+            result['remark'] = self.remark
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('element_id') is not None:
+            self.element_id = m.get('element_id')
+        if m.get('element_name') is not None:
+            self.element_name = m.get('element_name')
+        if m.get('element_type') is not None:
+            self.element_type = m.get('element_type')
+        if m.get('from_type') is not None:
+            self.from_type = m.get('from_type')
+        if m.get('data_element_type') is not None:
+            self.data_element_type = m.get('data_element_type')
+        if m.get('property_list') is not None:
+            self.property_list = m.get('property_list')
+        if m.get('transform_property_list') is not None:
+            self.transform_property_list = m.get('transform_property_list')
+        if m.get('frequency') is not None:
+            self.frequency = m.get('frequency')
+        if m.get('physics_element_type_code') is not None:
+            self.physics_element_type_code = m.get('physics_element_type_code')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('persistent_location') is not None:
+            self.persistent_location = m.get('persistent_location')
+        if m.get('element_instance_config') is not None:
+            self.element_instance_config = m.get('element_instance_config')
+        if m.get('element_instance_info') is not None:
+            self.element_instance_info = m.get('element_instance_info')
+        if m.get('property_source_type') is not None:
+            self.property_source_type = m.get('property_source_type')
+        if m.get('property_source_id') is not None:
+            self.property_source_id = m.get('property_source_id')
+        if m.get('primary_key_info') is not None:
+            self.primary_key_info = m.get('primary_key_info')
+        if m.get('remark') is not None:
+            self.remark = m.get('remark')
         return self
 
 
@@ -1202,6 +1441,181 @@ class GetDeviceBydeviceidResponse(TeaModel):
             self.miss_device_id_list = m.get('miss_device_id_list')
         if m.get('success_device_id_list') is not None:
             self.success_device_id_list = m.get('success_device_id_list')
+        return self
+
+
+class SyncAssetelementProjectRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        cover_exist_project: bool = None,
+        destination: str = None,
+        project_id: str = None,
+        project_name: str = None,
+        root_elements: str = None,
+        read_only: bool = None,
+        remark: str = None,
+        attachment_list: str = None,
+        pd_owner: str = None,
+        asset_element_info_list: List[AssetElementInfo] = None,
+        asset_element_relation_info_list: List[AssetElementRelationInfo] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 若要素项目已存在，是否进行全量覆盖
+        self.cover_exist_project = cover_exist_project
+        # 同步目标
+        self.destination = destination
+        # 项目ID
+        self.project_id = project_id
+        # 项目名称
+        self.project_name = project_name
+        # 根元素ID列表
+        self.root_elements = root_elements
+        # 是否只读
+        self.read_only = read_only
+        # 备注
+        self.remark = remark
+        # 附件列表
+        self.attachment_list = attachment_list
+        # 产品Owner
+        self.pd_owner = pd_owner
+        # 要素列表
+        self.asset_element_info_list = asset_element_info_list
+        # 要素关系列表
+        self.asset_element_relation_info_list = asset_element_relation_info_list
+
+    def validate(self):
+        self.validate_required(self.cover_exist_project, 'cover_exist_project')
+        self.validate_required(self.destination, 'destination')
+        self.validate_required(self.project_id, 'project_id')
+        self.validate_required(self.project_name, 'project_name')
+        self.validate_required(self.read_only, 'read_only')
+        if self.asset_element_info_list:
+            for k in self.asset_element_info_list:
+                if k:
+                    k.validate()
+        if self.asset_element_relation_info_list:
+            for k in self.asset_element_relation_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.cover_exist_project is not None:
+            result['cover_exist_project'] = self.cover_exist_project
+        if self.destination is not None:
+            result['destination'] = self.destination
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.project_name is not None:
+            result['project_name'] = self.project_name
+        if self.root_elements is not None:
+            result['root_elements'] = self.root_elements
+        if self.read_only is not None:
+            result['read_only'] = self.read_only
+        if self.remark is not None:
+            result['remark'] = self.remark
+        if self.attachment_list is not None:
+            result['attachment_list'] = self.attachment_list
+        if self.pd_owner is not None:
+            result['pd_owner'] = self.pd_owner
+        result['asset_element_info_list'] = []
+        if self.asset_element_info_list is not None:
+            for k in self.asset_element_info_list:
+                result['asset_element_info_list'].append(k.to_map() if k else None)
+        result['asset_element_relation_info_list'] = []
+        if self.asset_element_relation_info_list is not None:
+            for k in self.asset_element_relation_info_list:
+                result['asset_element_relation_info_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('cover_exist_project') is not None:
+            self.cover_exist_project = m.get('cover_exist_project')
+        if m.get('destination') is not None:
+            self.destination = m.get('destination')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('project_name') is not None:
+            self.project_name = m.get('project_name')
+        if m.get('root_elements') is not None:
+            self.root_elements = m.get('root_elements')
+        if m.get('read_only') is not None:
+            self.read_only = m.get('read_only')
+        if m.get('remark') is not None:
+            self.remark = m.get('remark')
+        if m.get('attachment_list') is not None:
+            self.attachment_list = m.get('attachment_list')
+        if m.get('pd_owner') is not None:
+            self.pd_owner = m.get('pd_owner')
+        self.asset_element_info_list = []
+        if m.get('asset_element_info_list') is not None:
+            for k in m.get('asset_element_info_list'):
+                temp_model = AssetElementInfo()
+                self.asset_element_info_list.append(temp_model.from_map(k))
+        self.asset_element_relation_info_list = []
+        if m.get('asset_element_relation_info_list') is not None:
+            for k in m.get('asset_element_relation_info_list'):
+                temp_model = AssetElementRelationInfo()
+                self.asset_element_relation_info_list.append(temp_model.from_map(k))
+        return self
+
+
+class SyncAssetelementProjectResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 

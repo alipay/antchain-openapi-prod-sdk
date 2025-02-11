@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.0.2',
                     '_prod_code': 'BOTHK',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.0.2',
                     '_prod_code': 'BOTHK',
                     '_prod_channel': 'default'
                 }
@@ -497,4 +497,60 @@ class Client:
         return TeaCore.from_map(
             bothk_models.GetDeviceBydeviceidResponse(),
             await self.do_request_async('1.0', 'antdigital.bothk.device.bydeviceid.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_assetelement_project(
+        self,
+        request: bothk_models.SyncAssetelementProjectRequest,
+    ) -> bothk_models.SyncAssetelementProjectResponse:
+        """
+        Description: 要素项目同步
+        Summary: 要素项目同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_assetelement_project_ex(request, headers, runtime)
+
+    async def sync_assetelement_project_async(
+        self,
+        request: bothk_models.SyncAssetelementProjectRequest,
+    ) -> bothk_models.SyncAssetelementProjectResponse:
+        """
+        Description: 要素项目同步
+        Summary: 要素项目同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_assetelement_project_ex_async(request, headers, runtime)
+
+    def sync_assetelement_project_ex(
+        self,
+        request: bothk_models.SyncAssetelementProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bothk_models.SyncAssetelementProjectResponse:
+        """
+        Description: 要素项目同步
+        Summary: 要素项目同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bothk_models.SyncAssetelementProjectResponse(),
+            self.do_request('1.0', 'antdigital.bothk.assetelement.project.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_assetelement_project_ex_async(
+        self,
+        request: bothk_models.SyncAssetelementProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bothk_models.SyncAssetelementProjectResponse:
+        """
+        Description: 要素项目同步
+        Summary: 要素项目同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bothk_models.SyncAssetelementProjectResponse(),
+            await self.do_request_async('1.0', 'antdigital.bothk.assetelement.project.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
