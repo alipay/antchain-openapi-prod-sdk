@@ -373,6 +373,81 @@ func (s *RegByDeviceIdParm) SetCorpName(v string) *RegByDeviceIdParm {
 	return s
 }
 
+// 要素关系信息
+type AssetElementRelationInfo struct {
+	// 来源要素ID
+	SourceElementId *string `json:"source_element_id,omitempty" xml:"source_element_id,omitempty" require:"true"`
+	// 目标要素ID
+	TargetElementId *string `json:"target_element_id,omitempty" xml:"target_element_id,omitempty" require:"true"`
+	// 关联类型
+	RelationType *int64 `json:"relation_type,omitempty" xml:"relation_type,omitempty" require:"true"`
+	// 关联依据类型
+	RelationDependencyType *string `json:"relation_dependency_type,omitempty" xml:"relation_dependency_type,omitempty"`
+	// 关联依据
+	RelationDependency *string `json:"relation_dependency,omitempty" xml:"relation_dependency,omitempty"`
+	// 关系依据, 支持泛型反序列化的格式
+	TransformRelationDependency *string `json:"transform_relation_dependency,omitempty" xml:"transform_relation_dependency,omitempty"`
+	// 项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 来源要素名称
+	SourceElementName *string `json:"source_element_name,omitempty" xml:"source_element_name,omitempty" require:"true"`
+	// 目标要素名称
+	TargetElementName *string `json:"target_element_name,omitempty" xml:"target_element_name,omitempty" require:"true"`
+}
+
+func (s AssetElementRelationInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AssetElementRelationInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AssetElementRelationInfo) SetSourceElementId(v string) *AssetElementRelationInfo {
+	s.SourceElementId = &v
+	return s
+}
+
+func (s *AssetElementRelationInfo) SetTargetElementId(v string) *AssetElementRelationInfo {
+	s.TargetElementId = &v
+	return s
+}
+
+func (s *AssetElementRelationInfo) SetRelationType(v int64) *AssetElementRelationInfo {
+	s.RelationType = &v
+	return s
+}
+
+func (s *AssetElementRelationInfo) SetRelationDependencyType(v string) *AssetElementRelationInfo {
+	s.RelationDependencyType = &v
+	return s
+}
+
+func (s *AssetElementRelationInfo) SetRelationDependency(v string) *AssetElementRelationInfo {
+	s.RelationDependency = &v
+	return s
+}
+
+func (s *AssetElementRelationInfo) SetTransformRelationDependency(v string) *AssetElementRelationInfo {
+	s.TransformRelationDependency = &v
+	return s
+}
+
+func (s *AssetElementRelationInfo) SetProjectId(v string) *AssetElementRelationInfo {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *AssetElementRelationInfo) SetSourceElementName(v string) *AssetElementRelationInfo {
+	s.SourceElementName = &v
+	return s
+}
+
+func (s *AssetElementRelationInfo) SetTargetElementName(v string) *AssetElementRelationInfo {
+	s.TargetElementName = &v
+	return s
+}
+
 // 通过设备注册发行时的设备参数 （与RegByDeviceIdParam的区别在于设备端有无植入蚂蚁SDK或模组）
 type RegByDeviceParm struct {
 	// 一般是业务上唯一的设备ID/资产编码
@@ -590,6 +665,144 @@ func (s *Device) SetDeviceStatus(v string) *Device {
 
 func (s *Device) SetTrustiotDeviceId(v int64) *Device {
 	s.TrustiotDeviceId = &v
+	return s
+}
+
+// 要素信息
+type AssetElementInfo struct {
+	// 项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 要素ID
+	ElementId *string `json:"element_id,omitempty" xml:"element_id,omitempty" require:"true"`
+	// 要素名称
+	ElementName *string `json:"element_name,omitempty" xml:"element_name,omitempty"`
+	// 要素类型
+	ElementType *string `json:"element_type,omitempty" xml:"element_type,omitempty" require:"true"`
+	// 数据来源渠道， 物理要素非必填；数据要素必填；
+	FromType *string `json:"from_type,omitempty" xml:"from_type,omitempty"`
+	// 平台领域类型， 物理要素非必填；数据要素必填；
+	DataElementType *string `json:"data_element_type,omitempty" xml:"data_element_type,omitempty"`
+	// 属性列表， 物理要素非必填；数据要素必填；
+	PropertyList *string `json:"property_list,omitempty" xml:"property_list,omitempty"`
+	// 格式处理过的属性列表（支持泛型反序列化）
+	TransformPropertyList *string `json:"transform_property_list,omitempty" xml:"transform_property_list,omitempty"`
+	// 数据上报频率
+	Frequency *string `json:"frequency,omitempty" xml:"frequency,omitempty"`
+	// 物理要素类型码，包含iot和资管的
+	PhysicsElementTypeCode *string `json:"physics_element_type_code,omitempty" xml:"physics_element_type_code,omitempty" require:"true"`
+	// 业务类型
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
+	// 该要素的存储位置， index代表数据流转顺序，location为库表/logstore名称，remark备注
+	PersistentLocation *string `json:"persistent_location,omitempty" xml:"persistent_location,omitempty"`
+	// 要素实例信息，用于捞取最小闭环数据
+	ElementInstanceConfig *string `json:"element_instance_config,omitempty" xml:"element_instance_config,omitempty"`
+	// 要素实例
+	ElementInstanceInfo *string `json:"element_instance_info,omitempty" xml:"element_instance_info,omitempty"`
+	// 属性列表来源平台 1.IOT 2.DM
+	PropertySourceType *int64 `json:"property_source_type,omitempty" xml:"property_source_type,omitempty"`
+	// 拉取数据字段code请求值
+	PropertySourceId *string `json:"property_source_id,omitempty" xml:"property_source_id,omitempty"`
+	// 要素主键字段信息
+	PrimaryKeyInfo *string `json:"primary_key_info,omitempty" xml:"primary_key_info,omitempty"`
+	// 备注
+	Remark *string `json:"remark,omitempty" xml:"remark,omitempty"`
+}
+
+func (s AssetElementInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AssetElementInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AssetElementInfo) SetProjectId(v string) *AssetElementInfo {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *AssetElementInfo) SetElementId(v string) *AssetElementInfo {
+	s.ElementId = &v
+	return s
+}
+
+func (s *AssetElementInfo) SetElementName(v string) *AssetElementInfo {
+	s.ElementName = &v
+	return s
+}
+
+func (s *AssetElementInfo) SetElementType(v string) *AssetElementInfo {
+	s.ElementType = &v
+	return s
+}
+
+func (s *AssetElementInfo) SetFromType(v string) *AssetElementInfo {
+	s.FromType = &v
+	return s
+}
+
+func (s *AssetElementInfo) SetDataElementType(v string) *AssetElementInfo {
+	s.DataElementType = &v
+	return s
+}
+
+func (s *AssetElementInfo) SetPropertyList(v string) *AssetElementInfo {
+	s.PropertyList = &v
+	return s
+}
+
+func (s *AssetElementInfo) SetTransformPropertyList(v string) *AssetElementInfo {
+	s.TransformPropertyList = &v
+	return s
+}
+
+func (s *AssetElementInfo) SetFrequency(v string) *AssetElementInfo {
+	s.Frequency = &v
+	return s
+}
+
+func (s *AssetElementInfo) SetPhysicsElementTypeCode(v string) *AssetElementInfo {
+	s.PhysicsElementTypeCode = &v
+	return s
+}
+
+func (s *AssetElementInfo) SetBizType(v string) *AssetElementInfo {
+	s.BizType = &v
+	return s
+}
+
+func (s *AssetElementInfo) SetPersistentLocation(v string) *AssetElementInfo {
+	s.PersistentLocation = &v
+	return s
+}
+
+func (s *AssetElementInfo) SetElementInstanceConfig(v string) *AssetElementInfo {
+	s.ElementInstanceConfig = &v
+	return s
+}
+
+func (s *AssetElementInfo) SetElementInstanceInfo(v string) *AssetElementInfo {
+	s.ElementInstanceInfo = &v
+	return s
+}
+
+func (s *AssetElementInfo) SetPropertySourceType(v int64) *AssetElementInfo {
+	s.PropertySourceType = &v
+	return s
+}
+
+func (s *AssetElementInfo) SetPropertySourceId(v string) *AssetElementInfo {
+	s.PropertySourceId = &v
+	return s
+}
+
+func (s *AssetElementInfo) SetPrimaryKeyInfo(v string) *AssetElementInfo {
+	s.PrimaryKeyInfo = &v
+	return s
+}
+
+func (s *AssetElementInfo) SetRemark(v string) *AssetElementInfo {
+	s.Remark = &v
 	return s
 }
 
@@ -963,6 +1176,139 @@ func (s *GetDeviceBydeviceidResponse) SetSuccessDeviceIdList(v []*string) *GetDe
 	return s
 }
 
+type SyncAssetelementProjectRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 若要素项目已存在，是否进行全量覆盖
+	CoverExistProject *bool `json:"cover_exist_project,omitempty" xml:"cover_exist_project,omitempty" require:"true"`
+	// 同步目标
+	Destination *string `json:"destination,omitempty" xml:"destination,omitempty" require:"true"`
+	// 项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 项目名称
+	ProjectName *string `json:"project_name,omitempty" xml:"project_name,omitempty" require:"true"`
+	// 根元素ID列表
+	RootElements *string `json:"root_elements,omitempty" xml:"root_elements,omitempty"`
+	// 是否只读
+	ReadOnly *bool `json:"read_only,omitempty" xml:"read_only,omitempty" require:"true"`
+	// 备注
+	Remark *string `json:"remark,omitempty" xml:"remark,omitempty"`
+	// 附件列表
+	AttachmentList *string `json:"attachment_list,omitempty" xml:"attachment_list,omitempty"`
+	// 产品Owner
+	PdOwner *string `json:"pd_owner,omitempty" xml:"pd_owner,omitempty"`
+	// 要素列表
+	AssetElementInfoList []*AssetElementInfo `json:"asset_element_info_list,omitempty" xml:"asset_element_info_list,omitempty" type:"Repeated"`
+	// 要素关系列表
+	AssetElementRelationInfoList []*AssetElementRelationInfo `json:"asset_element_relation_info_list,omitempty" xml:"asset_element_relation_info_list,omitempty" type:"Repeated"`
+}
+
+func (s SyncAssetelementProjectRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncAssetelementProjectRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncAssetelementProjectRequest) SetAuthToken(v string) *SyncAssetelementProjectRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncAssetelementProjectRequest) SetProductInstanceId(v string) *SyncAssetelementProjectRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncAssetelementProjectRequest) SetCoverExistProject(v bool) *SyncAssetelementProjectRequest {
+	s.CoverExistProject = &v
+	return s
+}
+
+func (s *SyncAssetelementProjectRequest) SetDestination(v string) *SyncAssetelementProjectRequest {
+	s.Destination = &v
+	return s
+}
+
+func (s *SyncAssetelementProjectRequest) SetProjectId(v string) *SyncAssetelementProjectRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *SyncAssetelementProjectRequest) SetProjectName(v string) *SyncAssetelementProjectRequest {
+	s.ProjectName = &v
+	return s
+}
+
+func (s *SyncAssetelementProjectRequest) SetRootElements(v string) *SyncAssetelementProjectRequest {
+	s.RootElements = &v
+	return s
+}
+
+func (s *SyncAssetelementProjectRequest) SetReadOnly(v bool) *SyncAssetelementProjectRequest {
+	s.ReadOnly = &v
+	return s
+}
+
+func (s *SyncAssetelementProjectRequest) SetRemark(v string) *SyncAssetelementProjectRequest {
+	s.Remark = &v
+	return s
+}
+
+func (s *SyncAssetelementProjectRequest) SetAttachmentList(v string) *SyncAssetelementProjectRequest {
+	s.AttachmentList = &v
+	return s
+}
+
+func (s *SyncAssetelementProjectRequest) SetPdOwner(v string) *SyncAssetelementProjectRequest {
+	s.PdOwner = &v
+	return s
+}
+
+func (s *SyncAssetelementProjectRequest) SetAssetElementInfoList(v []*AssetElementInfo) *SyncAssetelementProjectRequest {
+	s.AssetElementInfoList = v
+	return s
+}
+
+func (s *SyncAssetelementProjectRequest) SetAssetElementRelationInfoList(v []*AssetElementRelationInfo) *SyncAssetelementProjectRequest {
+	s.AssetElementRelationInfoList = v
+	return s
+}
+
+type SyncAssetelementProjectResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SyncAssetelementProjectResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncAssetelementProjectResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncAssetelementProjectResponse) SetReqMsgId(v string) *SyncAssetelementProjectResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncAssetelementProjectResponse) SetResultCode(v string) *SyncAssetelementProjectResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncAssetelementProjectResponse) SetResultMsg(v string) *SyncAssetelementProjectResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1085,7 +1431,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("1.0.2"),
 				"_prod_code":       tea.String("BOTHK"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1272,6 +1618,40 @@ func (client *Client) GetDeviceBydeviceidEx(request *GetDeviceBydeviceidRequest,
 	}
 	_result = &GetDeviceBydeviceidResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.bothk.device.bydeviceid.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 要素项目同步
+ * Summary: 要素项目同步
+ */
+func (client *Client) SyncAssetelementProject(request *SyncAssetelementProjectRequest) (_result *SyncAssetelementProjectResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncAssetelementProjectResponse{}
+	_body, _err := client.SyncAssetelementProjectEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 要素项目同步
+ * Summary: 要素项目同步
+ */
+func (client *Client) SyncAssetelementProjectEx(request *SyncAssetelementProjectRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncAssetelementProjectResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncAssetelementProjectResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.bothk.assetelement.project.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
