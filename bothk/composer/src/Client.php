@@ -19,6 +19,8 @@ use AntChain\BOTHK\Models\GetDeviceBydeviceidRequest;
 use AntChain\BOTHK\Models\GetDeviceBydeviceidResponse;
 use AntChain\BOTHK\Models\SendEventDataRequest;
 use AntChain\BOTHK\Models\SendEventDataResponse;
+use AntChain\BOTHK\Models\SyncAssetelementProjectRequest;
+use AntChain\BOTHK\Models\SyncAssetelementProjectResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -166,7 +168,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.1',
+                    'sdk_version'      => '1.0.2',
                     '_prod_code'       => 'BOTHK',
                     '_prod_channel'    => 'default',
                 ];
@@ -344,5 +346,38 @@ class Client
         Utils::validateModel($request);
 
         return GetDeviceBydeviceidResponse::fromMap($this->doRequest('1.0', 'antdigital.bothk.device.bydeviceid.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 要素项目同步
+     * Summary: 要素项目同步.
+     *
+     * @param SyncAssetelementProjectRequest $request
+     *
+     * @return SyncAssetelementProjectResponse
+     */
+    public function syncAssetelementProject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAssetelementProjectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 要素项目同步
+     * Summary: 要素项目同步.
+     *
+     * @param SyncAssetelementProjectRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return SyncAssetelementProjectResponse
+     */
+    public function syncAssetelementProjectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAssetelementProjectResponse::fromMap($this->doRequest('1.0', 'antdigital.bothk.assetelement.project.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
