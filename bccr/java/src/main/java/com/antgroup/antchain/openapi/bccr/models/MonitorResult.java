@@ -81,6 +81,10 @@ public class MonitorResult extends TeaModel {
     @NameInMap("infr_feedback_time")
     public Long infrFeedbackTime;
 
+    // 个人主页链接
+    @NameInMap("poster_id_url")
+    public String posterIdUrl;
+
     public static MonitorResult build(java.util.Map<String, ?> map) throws Exception {
         MonitorResult self = new MonitorResult();
         return TeaModel.build(map, self);
@@ -212,6 +216,14 @@ public class MonitorResult extends TeaModel {
     }
     public Long getInfrFeedbackTime() {
         return this.infrFeedbackTime;
+    }
+
+    public MonitorResult setPosterIdUrl(String posterIdUrl) {
+        this.posterIdUrl = posterIdUrl;
+        return this;
+    }
+    public String getPosterIdUrl() {
+        return this.posterIdUrl;
     }
 
 }
