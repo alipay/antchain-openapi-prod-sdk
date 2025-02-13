@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.7"},
+                        {"sdk_version", "1.12.8"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.7"},
+                        {"sdk_version", "1.12.8"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -10999,6 +10999,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryOssDownloadjoburlResponse>(await DoRequestAsync("1.0", "blockchain.bot.oss.downloadjoburl.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 要素项目同步
+         * Summary: 要素项目同步
+         */
+        public SyncAssetelementProjectResponse SyncAssetelementProject(SyncAssetelementProjectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncAssetelementProjectEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 要素项目同步
+         * Summary: 要素项目同步
+         */
+        public async Task<SyncAssetelementProjectResponse> SyncAssetelementProjectAsync(SyncAssetelementProjectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncAssetelementProjectExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 要素项目同步
+         * Summary: 要素项目同步
+         */
+        public SyncAssetelementProjectResponse SyncAssetelementProjectEx(SyncAssetelementProjectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncAssetelementProjectResponse>(DoRequest("1.0", "blockchain.bot.assetelement.project.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 要素项目同步
+         * Summary: 要素项目同步
+         */
+        public async Task<SyncAssetelementProjectResponse> SyncAssetelementProjectExAsync(SyncAssetelementProjectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncAssetelementProjectResponse>(await DoRequestAsync("1.0", "blockchain.bot.assetelement.project.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
