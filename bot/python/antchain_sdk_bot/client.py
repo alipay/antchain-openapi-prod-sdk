@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.7',
+                    'sdk_version': '1.12.8',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.7',
+                    'sdk_version': '1.12.8',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -14457,6 +14457,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryOssDownloadjoburlResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.oss.downloadjoburl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_assetelement_project(
+        self,
+        request: bot_models.SyncAssetelementProjectRequest,
+    ) -> bot_models.SyncAssetelementProjectResponse:
+        """
+        Description: 要素项目同步
+        Summary: 要素项目同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_assetelement_project_ex(request, headers, runtime)
+
+    async def sync_assetelement_project_async(
+        self,
+        request: bot_models.SyncAssetelementProjectRequest,
+    ) -> bot_models.SyncAssetelementProjectResponse:
+        """
+        Description: 要素项目同步
+        Summary: 要素项目同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_assetelement_project_ex_async(request, headers, runtime)
+
+    def sync_assetelement_project_ex(
+        self,
+        request: bot_models.SyncAssetelementProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SyncAssetelementProjectResponse:
+        """
+        Description: 要素项目同步
+        Summary: 要素项目同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SyncAssetelementProjectResponse(),
+            self.do_request('1.0', 'blockchain.bot.assetelement.project.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_assetelement_project_ex_async(
+        self,
+        request: bot_models.SyncAssetelementProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SyncAssetelementProjectResponse:
+        """
+        Description: 要素项目同步
+        Summary: 要素项目同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SyncAssetelementProjectResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.assetelement.project.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
