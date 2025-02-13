@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.7',
+    sdk_version = '1.12.8',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -1130,6 +1130,26 @@ model XrTicketPoolSuccessList {
   xrTicketPoolName: string(name='xr_ticket_pool_name', example='券池名称'),
   // 核销类型
   xrVerificationType: string(name='xr_verification_type', example='XR_DEVICE'),
+}
+
+// 要素关系信息
+model AssetElementRelationInfo {
+  // 来源要素ID
+  sourceElementId: string(name='source_element_id', example='112233'),
+  // 目标要素ID
+  targetElementId: string(name='target_element_id', example='112233'),
+  // 关联类型
+  relationType: long(name='relation_type', example='1'),
+  // 关联依据类型
+  relationDependencyType?: string(name='relation_dependency_type', example='NORMAL'),
+  // 关联依据
+  relationDependency?: string(name='relation_dependency', example='{...}'),
+  // 项目ID
+  projectId: string(name='project_id', example='112233'),
+  // 来源要素名称
+  sourceElementName: string(name='source_element_name', example='来源要素'),
+  // 目标要素名称
+  targetElementName: string(name='target_element_name', example='目标要素'),
 }
 
 // 更新设备和空间关联请求结构体
@@ -2502,6 +2522,44 @@ model DidBaseQueryResp {
   userDidList?: [ string ](name='user_did_list', example='["did:iot:xxxxx","did:iot:yyyyy"]'),
   // 查询的did
   did?: string(name='did', example='"did:iot:xxxx"'),
+}
+
+// 要素信息
+model AssetElementInfo {
+  // 项目ID
+  projectId: string(name='project_id', example='112233'),
+  // 要素ID
+  elementId: string(name='element_id', example='112233'),
+  // 要素名称
+  elementName?: string(name='element_name', example='注册要素'),
+  // 要素类型
+  elementType: string(name='element_type', example='资产要素'),
+  // 数据来源渠道， 物理要素非必填；数据要素必填；
+  fromType?: string(name='from_type', example='MAAS'),
+  // 平台领域类型， 物理要素非必填；数据要素必填；
+  dataElementType?: string(name='data_element_type', example='COLLECT_BIZ_DATA'),
+  // 属性列表， 物理要素非必填；数据要素必填；
+  propertyList?: string(name='property_list', example='[{...},{...}]'),
+  // 数据上报频率
+  frequency?: string(name='frequency', example='{...}'),
+  // 物理要素类型码，包含iot和资管的
+  physicsElementTypeCode: string(name='physics_element_type_code', example='{"iot":[23001], "tap":[1201]}'),
+  // 业务类型
+  bizType?: string(name='biz_type', example='ORDER'),
+  // 该要素的存储位置， index代表数据流转顺序，location为库表/logstore名称，remark备注
+  persistentLocation?: string(name='persistent_location', example='{...}'),
+  // 要素实例信息，用于捞取最小闭环数据
+  elementInstanceConfig?: string(name='element_instance_config', example='{"scene": "XXX", "entityId": ["XXX"], "featureId": "XXX", "startTime": "XXX", "endTime": "XXX"}'),
+  // 要素实例
+  elementInstanceInfo?: string(name='element_instance_info', example='{...}'),
+  // 属性列表来源平台 1.IOT 2.DM
+  propertySourceType?: long(name='property_source_type', example='1'),
+  // 拉取数据字段code请求值
+  propertySourceId?: string(name='property_source_id', example='xxx'),
+  // 要素主键字段信息
+  primaryKeyInfo?: string(name='primary_key_info', example='identifier'),
+  // 备注
+  remark?: string(name='remark', example='xxx'),
 }
 
 // 用户通行证创建详情
@@ -14902,6 +14960,64 @@ async function queryOssDownloadjoburl(request: QueryOssDownloadjoburlRequest): Q
 async function queryOssDownloadjoburlEx(request: QueryOssDownloadjoburlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryOssDownloadjoburlResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.oss.downloadjoburl.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncAssetelementProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 若要素项目已存在，是否进行全量覆盖
+  coverExistProject: boolean(name='cover_exist_project'),
+  // 同步目标
+  destination: string(name='destination'),
+  // 项目ID
+  projectId: string(name='project_id'),
+  // 项目名称
+  projectName: string(name='project_name'),
+  // 根元素ID列表
+  rootElements?: string(name='root_elements'),
+  // 是否只读
+  readOnly: boolean(name='read_only'),
+  // 备注
+  remark?: string(name='remark'),
+  // 附件列表
+  attachmentList?: string(name='attachment_list'),
+  // 产品Owner
+  pdOwner?: string(name='pd_owner'),
+  // 要素列表
+  assetElementInfoList?: [ AssetElementInfo ](name='asset_element_info_list'),
+  // 要素关系列表
+  assetElementRelationInfoList?: [ AssetElementRelationInfo ](name='asset_element_relation_info_list'),
+}
+
+model SyncAssetelementProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 同步结果
+  syncStatus?: string(name='sync_status'),
+}
+
+/**
+ * Description: 要素项目同步
+ * Summary: 要素项目同步
+ */
+async function syncAssetelementProject(request: SyncAssetelementProjectRequest): SyncAssetelementProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncAssetelementProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 要素项目同步
+ * Summary: 要素项目同步
+ */
+async function syncAssetelementProjectEx(request: SyncAssetelementProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncAssetelementProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.assetelement.project.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
