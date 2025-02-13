@@ -101,6 +101,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public long? InfrFeedbackTime { get; set; }
 
+        // 个人主页链接
+        [NameInMap("poster_id_url")]
+        [Validation(Required=false)]
+        public string PosterIdUrl { get; set; }
+
     }
 
 }
