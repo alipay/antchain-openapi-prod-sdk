@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.9',
+    sdk_version = '1.4.5',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -239,6 +239,12 @@ model FaceShieldResult {
   sugAction: string(name='sug_action', example='建议直接拦截'),
 }
 
+// 两轮车一体机销售信息
+model SimSalesInfo {
+  // 销售对外业务id
+  salesId: string(name='sales_id', example=' '),
+}
+
 // 终端安全-Android加固-Response
 model FileTokenForUpload {
   // .
@@ -371,6 +377,61 @@ model ClassMethodConfig {
   methods: string(name='methods', example='methods'),
 }
 
+// 两轮车一体机订单信息
+model SimOrderInfo {
+  // 订单ID
+  orderId: string(name='order_id', example=' '),
+  // 必填	销售id
+  salesId: string(name='sales_id', example=' '),
+  // 车辆SN号
+  sn?: string(name='sn', example=' '),
+  // 支付类型，枚举值FULL（全额付款）, INSTALLMENT（分期付款）
+  paymentType?: string(name='payment_type', example='FULL'),
+  // 支付时间，格式yyyy-MM-dd HH:mm:ss
+  paymentTime?: string(name='payment_time', example='2025-01-01 00:00:00'),
+  // 总金额，单位元
+  totalAmount?: string(name='total_amount', example='1000.00'),
+  // 订单状态，枚举值
+  // UNPAID（未支付），
+  // PAID（已支付），
+  // CANCEL（订单取消），
+  // PENDING（支付中），
+  // FAILED（支付失败）
+  status: string(name='status', example='PAID'),
+  // 车辆SKU名字
+  skuName?: string(name='sku_name', example=' '),
+  // 车型
+  vehicleModel?: string(name='vehicle_model', example=' '),
+  // 颜色
+  color?: string(name='color', example=' '),
+}
+
+// 二轮车一体机车辆SKU
+model SimSkuInfo {
+  // sku对外id
+  skuId: string(name='sku_id', example=' '),
+  // sku名称
+  skuName: string(name='sku_name', example=' '),
+  // sku官方指导价：单位为元
+  price: string(name='price', example='1000.00'),
+  // sku门店优惠价：单位为元
+  storePrice: string(name='store_price', example='1000.00'),
+  // 车型
+  vehicleModel: string(name='vehicle_model', example=' '),
+  // 续航里程，单位KM
+  rangeKm: long(name='range_km', example=''),
+  // 关键词，逗号分隔
+  keywords: string(name='keywords', example='A,B,C'),
+  // 颜色，逗号分隔
+  colors: string(name='colors', example='A,B,C'),
+  // 配件信息，逗号分隔
+  accessories: string(name='accessories', example='A,B,C'),
+  // 图片url json
+  images: string(name='images', example='{}'),
+  // 门店id
+  storeId: string(name='store_id', example=' '),
+}
+
 // eKYT可信签约查询数据
 model TrustSignQueryData {
   // 请求唯一标识Id
@@ -475,12 +536,30 @@ model DeviceRiskResp {
   riskLabels: [ string ](name='risk_labels', example='.'),
 }
 
+// 分页器
+model Paginator {
+  // 当前页
+  page: long(name='page', example=''),
+  // 单页项数
+  itemsPerPage: long(name='items_per_page', example=''),
+  // 总项数
+  items: long(name='items', example=''),
+}
+
 // 内容安全请求体datamap
 model CctDataMap {
   // text
   text?: [ string ](name='text', example='text'),
   // PICTURE
   picture?: [ string ](name='picture', example='PICTURE'),
+}
+
+// 两轮车一体机门店信息
+model SimStoreInfo {
+  // 门店对外业务id
+  storeId: string(name='store_id', example=' '),
+  // 门店名称
+  storeName: string(name='store_name', example=' '),
 }
 
 // 司机签约信息列表
@@ -567,6 +646,18 @@ model EtcTripInfo {
   tripId?: string(name='trip_id', example='230390390303'),
   // 交易单号
   tradeNo?: string(name='trade_no', example='20230916988938938393'),
+}
+
+// 两轮车一体机营销活动信息
+model SimCampaignInfo {
+  // 营销活动id
+  campaignId: string(name='campaign_id', example=' '),
+  // 营销活动名
+  campaignName: string(name='campaign_name', example=' '),
+  // 营销图片
+  imageUrl: string(name='image_url', example=' '),
+  // 营销活动内容
+  content: string(name='content', example='{}'),
 }
 
 model RunGeneralRequest = {
@@ -939,6 +1030,452 @@ async function queryEtcTrip(request: QueryEtcTripRequest): QueryEtcTripResponse 
 async function queryEtcTripEx(request: QueryEtcTripRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEtcTripResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.etc.trip.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitSimLoginRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备编号
+  deviceId: string(name='device_id'),
+}
+
+model InitSimLoginResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 支付宝登录url
+  url?: string(name='url'),
+  // 登录token
+  token?: string(name='token'),
+}
+
+/**
+ * Description: 两轮车一体机获取授权登录地址
+ * Summary: 两轮车一体机获取授权登录地址
+ */
+async function initSimLogin(request: InitSimLoginRequest): InitSimLoginResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initSimLoginEx(request, headers, runtime);
+}
+
+/**
+ * Description: 两轮车一体机获取授权登录地址
+ * Summary: 两轮车一体机获取授权登录地址
+ */
+async function initSimLoginEx(request: InitSimLoginRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitSimLoginResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.sim.login.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySimLoginRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备编号
+  deviceId: string(name='device_id'),
+  // 登录态token
+  token?: string(name='token'),
+}
+
+model QuerySimLoginResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 登录结果
+  // NO_RESULT：暂无登录结果
+  // EXPIRED：token过期
+  // ACTIVATE_OK：激活成功，店长首次登录成功
+  // LOGIN_OK：登录成功
+  // USER_NOT_EXIST：用户不存在
+  // STORE_NOT_ACTIVATED：门店未激活
+  loginResult?: string(name='login_result'),
+  // 登录结果中文信息
+  loginMsg?: string(name='login_msg'),
+  // 是否已经激活
+  activated?: boolean(name='activated'),
+  // 登录/激活时间，格式yyyy-MM-dd HH:mm:ss
+  loginTime?: string(name='login_time'),
+  // 当前登录的门店信息
+  storeInfo?: SimStoreInfo(name='store_info'),
+  // 当前登录的销售信息
+  salesInfo?: SimSalesInfo(name='sales_info'),
+}
+
+/**
+ * Description: 两轮车一体机查询登录结果
+ * Summary: 两轮车一体机查询登录结果
+ */
+async function querySimLogin(request: QuerySimLoginRequest): QuerySimLoginResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySimLoginEx(request, headers, runtime);
+}
+
+/**
+ * Description: 两轮车一体机查询登录结果
+ * Summary: 两轮车一体机查询登录结果
+ */
+async function querySimLoginEx(request: QuerySimLoginRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySimLoginResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.sim.login.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListSimCampaignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备编号
+  deviceId: string(name='device_id'),
+  // 登录态token
+  token: string(name='token'),
+}
+
+model ListSimCampaignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 营销活动列表
+  campaignList?: [ SimCampaignInfo ](name='campaign_list'),
+}
+
+/**
+ * Description: 两轮车一体机获取营销活动
+ * Summary: 两轮车一体机获取营销活动
+ */
+async function listSimCampaign(request: ListSimCampaignRequest): ListSimCampaignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listSimCampaignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 两轮车一体机获取营销活动
+ * Summary: 两轮车一体机获取营销活动
+ */
+async function listSimCampaignEx(request: ListSimCampaignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListSimCampaignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.sim.campaign.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySimSkuRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备编号
+  deviceId: string(name='device_id'),
+  // 车辆SN，与skuId二选一
+  sn?: string(name='sn'),
+  // sku对外id列表，与sn二选一
+  skuIdList?: [ string ](name='sku_id_list'),
+  // 登录态token
+  token: string(name='token'),
+}
+
+model QuerySimSkuResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 车辆SKU，如果查无返回空列表
+  skuInfoList?: [ SimSkuInfo ](name='sku_info_list'),
+}
+
+/**
+ * Description: 两轮车一体机查询车辆SKU
+ * Summary: 两轮车一体机查询车辆SKU
+ */
+async function querySimSku(request: QuerySimSkuRequest): QuerySimSkuResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySimSkuEx(request, headers, runtime);
+}
+
+/**
+ * Description: 两轮车一体机查询车辆SKU
+ * Summary: 两轮车一体机查询车辆SKU
+ */
+async function querySimSkuEx(request: QuerySimSkuRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySimSkuResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.sim.sku.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListSimSkuRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备编号
+  deviceId: string(name='device_id'),
+  // 请求的页数
+  pageNo: long(name='page_no'),
+  // 单页项数
+  pageSize: long(name='page_size'),
+  // 登录态token
+  token: string(name='token'),
+}
+
+model ListSimSkuResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 分页器
+  paginator?: Paginator(name='paginator'),
+  // 车辆SKU列表
+  skuInfoList?: [ SimSkuInfo ](name='sku_info_list'),
+}
+
+/**
+ * Description: 两轮车一体机列举车辆SKU
+ * Summary: 两轮车一体机列举车辆SKU
+ */
+async function listSimSku(request: ListSimSkuRequest): ListSimSkuResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listSimSkuEx(request, headers, runtime);
+}
+
+/**
+ * Description: 两轮车一体机列举车辆SKU
+ * Summary: 两轮车一体机列举车辆SKU
+ */
+async function listSimSkuEx(request: ListSimSkuRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListSimSkuResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.sim.sku.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateSimOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备编号
+  deviceId: string(name='device_id'),
+  // sku id
+  skuId: string(name='sku_id'),
+  // 车辆sn号
+  sn?: string(name='sn'),
+  // 颜色
+  color: string(name='color'),
+  // 登录态token
+  token: string(name='token'),
+}
+
+model CreateSimOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单号
+  orderId?: string(name='order_id'),
+}
+
+/**
+ * Description: 两轮车一体机创建订单信息
+ * Summary: 两轮车一体机创建订单信息
+ */
+async function createSimOrder(request: CreateSimOrderRequest): CreateSimOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createSimOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 两轮车一体机创建订单信息
+ * Summary: 两轮车一体机创建订单信息
+ */
+async function createSimOrderEx(request: CreateSimOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateSimOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.sim.order.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySimOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备编号
+  deviceId: string(name='device_id'),
+  // 订单号
+  orderId: string(name='order_id'),
+  // 登录态token
+  token: string(name='token'),
+}
+
+model QuerySimOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单信息，如果查无返回空对象
+  orderInfo?: SimOrderInfo(name='order_info'),
+}
+
+/**
+ * Description: 两轮车一体机查询订单信息
+ * Summary: 两轮车一体机查询订单信息
+ */
+async function querySimOrder(request: QuerySimOrderRequest): QuerySimOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySimOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 两轮车一体机查询订单信息
+ * Summary: 两轮车一体机查询订单信息
+ */
+async function querySimOrderEx(request: QuerySimOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySimOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.sim.order.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListSimOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备编号
+  deviceId: string(name='device_id'),
+  // 请求的页数
+  pageNo: long(name='page_no'),
+  // 单页项数
+  pageSize: long(name='page_size'),
+  // 登录态token
+  token: string(name='token'),
+}
+
+model ListSimOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 分页器
+  paginator?: Paginator(name='paginator'),
+  // 订单信息列表
+  orderInfoList?: [ SimOrderInfo ](name='order_info_list'),
+}
+
+/**
+ * Description: 两轮车一体机列举订单信息
+ * Summary: 两轮车一体机列举订单信息
+ */
+async function listSimOrder(request: ListSimOrderRequest): ListSimOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listSimOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 两轮车一体机列举订单信息
+ * Summary: 两轮车一体机列举订单信息
+ */
+async function listSimOrderEx(request: ListSimOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListSimOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.sim.order.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelSimOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备编号
+  deviceId: string(name='device_id'),
+  // 订单号
+  orderId: string(name='order_id'),
+  // 登录态token
+  token: string(name='token'),
+}
+
+model CancelSimOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否取消成功
+  success?: boolean(name='success'),
+  // 更新后订单信息，如果查无返回空对象
+  orderInfo?: SimOrderInfo(name='order_info'),
+}
+
+/**
+ * Description: 两轮车一体机取消订单信息
+ * Summary: 两轮车一体机取消订单信息
+ */
+async function cancelSimOrder(request: CancelSimOrderRequest): CancelSimOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelSimOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 两轮车一体机取消订单信息
+ * Summary: 两轮车一体机取消订单信息
+ */
+async function cancelSimOrderEx(request: CancelSimOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelSimOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.sim.order.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PullSimSkuRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求的页数
+  pageNo: long(name='page_no'),
+  // 单页项数
+  pageSize: long(name='page_size'),
+}
+
+model PullSimSkuResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 分页器
+  paginator?: Paginator(name='paginator'),
+  // 车辆SKU列表
+  skuInfoList?: [ SimSkuInfo ](name='sku_info_list'),
+}
+
+/**
+ * Description: 两轮车一体机拉取车辆SKU
+ * Summary: 两轮车一体机拉取车辆SKU
+ */
+async function pullSimSku(request: PullSimSkuRequest): PullSimSkuResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pullSimSkuEx(request, headers, runtime);
+}
+
+/**
+ * Description: 两轮车一体机拉取车辆SKU
+ * Summary: 两轮车一体机拉取车辆SKU
+ */
+async function pullSimSkuEx(request: PullSimSkuRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PullSimSkuResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.sim.sku.pull', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateBssecpicRequest = {
