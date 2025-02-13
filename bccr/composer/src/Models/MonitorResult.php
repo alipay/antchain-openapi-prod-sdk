@@ -146,6 +146,14 @@ class MonitorResult extends Model
      * @var int
      */
     public $infrFeedbackTime;
+
+    // 个人主页链接
+    /**
+     * @example https://xxxx
+     *
+     * @var string
+     */
+    public $posterIdUrl;
     protected $_name = [
         'monitorTaskId'    => 'monitor_task_id',
         'monitorResultId'  => 'monitor_result_id',
@@ -163,6 +171,7 @@ class MonitorResult extends Model
         'repostCount'      => 'repost_count',
         'downloadUrl'      => 'download_url',
         'infrFeedbackTime' => 'infr_feedback_time',
+        'posterIdUrl'      => 'poster_id_url',
     ];
 
     public function validate()
@@ -221,6 +230,9 @@ class MonitorResult extends Model
         }
         if (null !== $this->infrFeedbackTime) {
             $res['infr_feedback_time'] = $this->infrFeedbackTime;
+        }
+        if (null !== $this->posterIdUrl) {
+            $res['poster_id_url'] = $this->posterIdUrl;
         }
 
         return $res;
@@ -281,6 +293,9 @@ class MonitorResult extends Model
         }
         if (isset($map['infr_feedback_time'])) {
             $model->infrFeedbackTime = $map['infr_feedback_time'];
+        }
+        if (isset($map['poster_id_url'])) {
+            $model->posterIdUrl = $map['poster_id_url'];
         }
 
         return $model;
