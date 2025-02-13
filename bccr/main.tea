@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.37',
+    sdk_version = '1.19.38',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -977,6 +977,8 @@ model MonitorResult {
   downloadUrl?: string(name='download_url', example='https://xxxx'),
   // 疑似侵权反馈时间
   infrFeedbackTime?: long(name='infr_feedback_time', example='1592807928'),
+  // 个人主页链接
+  posterIdUrl?: string(name='poster_id_url', example='https://xxxx'),
 }
 
 // 用户信息
