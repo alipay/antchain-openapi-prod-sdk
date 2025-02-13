@@ -3304,6 +3304,7 @@ class MonitorResult(TeaModel):
         repost_count: int = None,
         download_url: str = None,
         infr_feedback_time: int = None,
+        poster_id_url: str = None,
     ):
         # 监测任务ID
         # 
@@ -3348,6 +3349,8 @@ class MonitorResult(TeaModel):
         self.download_url = download_url
         # 疑似侵权反馈时间
         self.infr_feedback_time = infr_feedback_time
+        # 个人主页链接
+        self.poster_id_url = poster_id_url
 
     def validate(self):
         self.validate_required(self.monitor_task_id, 'monitor_task_id')
@@ -3391,6 +3394,8 @@ class MonitorResult(TeaModel):
             result['download_url'] = self.download_url
         if self.infr_feedback_time is not None:
             result['infr_feedback_time'] = self.infr_feedback_time
+        if self.poster_id_url is not None:
+            result['poster_id_url'] = self.poster_id_url
         return result
 
     def from_map(self, m: dict = None):
@@ -3427,6 +3432,8 @@ class MonitorResult(TeaModel):
             self.download_url = m.get('download_url')
         if m.get('infr_feedback_time') is not None:
             self.infr_feedback_time = m.get('infr_feedback_time')
+        if m.get('poster_id_url') is not None:
+            self.poster_id_url = m.get('poster_id_url')
         return self
 
 
