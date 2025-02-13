@@ -491,6 +491,8 @@ use AntChain\BOT\Models\StopAcecContractRequest;
 use AntChain\BOT\Models\StopAcecContractResponse;
 use AntChain\BOT\Models\StopIotplantformProductRequest;
 use AntChain\BOT\Models\StopIotplantformProductResponse;
+use AntChain\BOT\Models\SyncAssetelementProjectRequest;
+use AntChain\BOT\Models\SyncAssetelementProjectResponse;
 use AntChain\BOT\Models\SyncDeviceScreenstatusRequest;
 use AntChain\BOT\Models\SyncDeviceScreenstatusResponse;
 use AntChain\BOT\Models\SyncFourwheelerCareventRequest;
@@ -696,7 +698,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.7',
+                    'sdk_version'      => '1.12.8',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -9096,6 +9098,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryOssDownloadjoburlResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.oss.downloadjoburl.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 要素项目同步
+     * Summary: 要素项目同步.
+     *
+     * @param SyncAssetelementProjectRequest $request
+     *
+     * @return SyncAssetelementProjectResponse
+     */
+    public function syncAssetelementProject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAssetelementProjectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 要素项目同步
+     * Summary: 要素项目同步.
+     *
+     * @param SyncAssetelementProjectRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return SyncAssetelementProjectResponse
+     */
+    public function syncAssetelementProjectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAssetelementProjectResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.assetelement.project.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
