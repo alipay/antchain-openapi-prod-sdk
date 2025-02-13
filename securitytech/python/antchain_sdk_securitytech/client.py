@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.9',
+                    'sdk_version': '1.4.5',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.9',
+                    'sdk_version': '1.4.5',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -669,6 +669,566 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.QueryEtcTripResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.etc.trip.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_sim_login(
+        self,
+        request: securitytech_models.InitSimLoginRequest,
+    ) -> securitytech_models.InitSimLoginResponse:
+        """
+        Description: 两轮车一体机获取授权登录地址
+        Summary: 两轮车一体机获取授权登录地址
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_sim_login_ex(request, headers, runtime)
+
+    async def init_sim_login_async(
+        self,
+        request: securitytech_models.InitSimLoginRequest,
+    ) -> securitytech_models.InitSimLoginResponse:
+        """
+        Description: 两轮车一体机获取授权登录地址
+        Summary: 两轮车一体机获取授权登录地址
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_sim_login_ex_async(request, headers, runtime)
+
+    def init_sim_login_ex(
+        self,
+        request: securitytech_models.InitSimLoginRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.InitSimLoginResponse:
+        """
+        Description: 两轮车一体机获取授权登录地址
+        Summary: 两轮车一体机获取授权登录地址
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.InitSimLoginResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.sim.login.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_sim_login_ex_async(
+        self,
+        request: securitytech_models.InitSimLoginRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.InitSimLoginResponse:
+        """
+        Description: 两轮车一体机获取授权登录地址
+        Summary: 两轮车一体机获取授权登录地址
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.InitSimLoginResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.sim.login.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_sim_login(
+        self,
+        request: securitytech_models.QuerySimLoginRequest,
+    ) -> securitytech_models.QuerySimLoginResponse:
+        """
+        Description: 两轮车一体机查询登录结果
+        Summary: 两轮车一体机查询登录结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_sim_login_ex(request, headers, runtime)
+
+    async def query_sim_login_async(
+        self,
+        request: securitytech_models.QuerySimLoginRequest,
+    ) -> securitytech_models.QuerySimLoginResponse:
+        """
+        Description: 两轮车一体机查询登录结果
+        Summary: 两轮车一体机查询登录结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_sim_login_ex_async(request, headers, runtime)
+
+    def query_sim_login_ex(
+        self,
+        request: securitytech_models.QuerySimLoginRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QuerySimLoginResponse:
+        """
+        Description: 两轮车一体机查询登录结果
+        Summary: 两轮车一体机查询登录结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QuerySimLoginResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.sim.login.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_sim_login_ex_async(
+        self,
+        request: securitytech_models.QuerySimLoginRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QuerySimLoginResponse:
+        """
+        Description: 两轮车一体机查询登录结果
+        Summary: 两轮车一体机查询登录结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QuerySimLoginResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.sim.login.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_sim_campaign(
+        self,
+        request: securitytech_models.ListSimCampaignRequest,
+    ) -> securitytech_models.ListSimCampaignResponse:
+        """
+        Description: 两轮车一体机获取营销活动
+        Summary: 两轮车一体机获取营销活动
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_sim_campaign_ex(request, headers, runtime)
+
+    async def list_sim_campaign_async(
+        self,
+        request: securitytech_models.ListSimCampaignRequest,
+    ) -> securitytech_models.ListSimCampaignResponse:
+        """
+        Description: 两轮车一体机获取营销活动
+        Summary: 两轮车一体机获取营销活动
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_sim_campaign_ex_async(request, headers, runtime)
+
+    def list_sim_campaign_ex(
+        self,
+        request: securitytech_models.ListSimCampaignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ListSimCampaignResponse:
+        """
+        Description: 两轮车一体机获取营销活动
+        Summary: 两轮车一体机获取营销活动
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ListSimCampaignResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.sim.campaign.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_sim_campaign_ex_async(
+        self,
+        request: securitytech_models.ListSimCampaignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ListSimCampaignResponse:
+        """
+        Description: 两轮车一体机获取营销活动
+        Summary: 两轮车一体机获取营销活动
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ListSimCampaignResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.sim.campaign.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_sim_sku(
+        self,
+        request: securitytech_models.QuerySimSkuRequest,
+    ) -> securitytech_models.QuerySimSkuResponse:
+        """
+        Description: 两轮车一体机查询车辆SKU
+        Summary: 两轮车一体机查询车辆SKU
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_sim_sku_ex(request, headers, runtime)
+
+    async def query_sim_sku_async(
+        self,
+        request: securitytech_models.QuerySimSkuRequest,
+    ) -> securitytech_models.QuerySimSkuResponse:
+        """
+        Description: 两轮车一体机查询车辆SKU
+        Summary: 两轮车一体机查询车辆SKU
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_sim_sku_ex_async(request, headers, runtime)
+
+    def query_sim_sku_ex(
+        self,
+        request: securitytech_models.QuerySimSkuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QuerySimSkuResponse:
+        """
+        Description: 两轮车一体机查询车辆SKU
+        Summary: 两轮车一体机查询车辆SKU
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QuerySimSkuResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.sim.sku.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_sim_sku_ex_async(
+        self,
+        request: securitytech_models.QuerySimSkuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QuerySimSkuResponse:
+        """
+        Description: 两轮车一体机查询车辆SKU
+        Summary: 两轮车一体机查询车辆SKU
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QuerySimSkuResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.sim.sku.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_sim_sku(
+        self,
+        request: securitytech_models.ListSimSkuRequest,
+    ) -> securitytech_models.ListSimSkuResponse:
+        """
+        Description: 两轮车一体机列举车辆SKU
+        Summary: 两轮车一体机列举车辆SKU
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_sim_sku_ex(request, headers, runtime)
+
+    async def list_sim_sku_async(
+        self,
+        request: securitytech_models.ListSimSkuRequest,
+    ) -> securitytech_models.ListSimSkuResponse:
+        """
+        Description: 两轮车一体机列举车辆SKU
+        Summary: 两轮车一体机列举车辆SKU
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_sim_sku_ex_async(request, headers, runtime)
+
+    def list_sim_sku_ex(
+        self,
+        request: securitytech_models.ListSimSkuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ListSimSkuResponse:
+        """
+        Description: 两轮车一体机列举车辆SKU
+        Summary: 两轮车一体机列举车辆SKU
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ListSimSkuResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.sim.sku.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_sim_sku_ex_async(
+        self,
+        request: securitytech_models.ListSimSkuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ListSimSkuResponse:
+        """
+        Description: 两轮车一体机列举车辆SKU
+        Summary: 两轮车一体机列举车辆SKU
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ListSimSkuResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.sim.sku.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_sim_order(
+        self,
+        request: securitytech_models.CreateSimOrderRequest,
+    ) -> securitytech_models.CreateSimOrderResponse:
+        """
+        Description: 两轮车一体机创建订单信息
+        Summary: 两轮车一体机创建订单信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_sim_order_ex(request, headers, runtime)
+
+    async def create_sim_order_async(
+        self,
+        request: securitytech_models.CreateSimOrderRequest,
+    ) -> securitytech_models.CreateSimOrderResponse:
+        """
+        Description: 两轮车一体机创建订单信息
+        Summary: 两轮车一体机创建订单信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_sim_order_ex_async(request, headers, runtime)
+
+    def create_sim_order_ex(
+        self,
+        request: securitytech_models.CreateSimOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.CreateSimOrderResponse:
+        """
+        Description: 两轮车一体机创建订单信息
+        Summary: 两轮车一体机创建订单信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.CreateSimOrderResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.sim.order.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_sim_order_ex_async(
+        self,
+        request: securitytech_models.CreateSimOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.CreateSimOrderResponse:
+        """
+        Description: 两轮车一体机创建订单信息
+        Summary: 两轮车一体机创建订单信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.CreateSimOrderResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.sim.order.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_sim_order(
+        self,
+        request: securitytech_models.QuerySimOrderRequest,
+    ) -> securitytech_models.QuerySimOrderResponse:
+        """
+        Description: 两轮车一体机查询订单信息
+        Summary: 两轮车一体机查询订单信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_sim_order_ex(request, headers, runtime)
+
+    async def query_sim_order_async(
+        self,
+        request: securitytech_models.QuerySimOrderRequest,
+    ) -> securitytech_models.QuerySimOrderResponse:
+        """
+        Description: 两轮车一体机查询订单信息
+        Summary: 两轮车一体机查询订单信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_sim_order_ex_async(request, headers, runtime)
+
+    def query_sim_order_ex(
+        self,
+        request: securitytech_models.QuerySimOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QuerySimOrderResponse:
+        """
+        Description: 两轮车一体机查询订单信息
+        Summary: 两轮车一体机查询订单信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QuerySimOrderResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.sim.order.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_sim_order_ex_async(
+        self,
+        request: securitytech_models.QuerySimOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QuerySimOrderResponse:
+        """
+        Description: 两轮车一体机查询订单信息
+        Summary: 两轮车一体机查询订单信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QuerySimOrderResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.sim.order.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_sim_order(
+        self,
+        request: securitytech_models.ListSimOrderRequest,
+    ) -> securitytech_models.ListSimOrderResponse:
+        """
+        Description: 两轮车一体机列举订单信息
+        Summary: 两轮车一体机列举订单信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_sim_order_ex(request, headers, runtime)
+
+    async def list_sim_order_async(
+        self,
+        request: securitytech_models.ListSimOrderRequest,
+    ) -> securitytech_models.ListSimOrderResponse:
+        """
+        Description: 两轮车一体机列举订单信息
+        Summary: 两轮车一体机列举订单信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_sim_order_ex_async(request, headers, runtime)
+
+    def list_sim_order_ex(
+        self,
+        request: securitytech_models.ListSimOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ListSimOrderResponse:
+        """
+        Description: 两轮车一体机列举订单信息
+        Summary: 两轮车一体机列举订单信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ListSimOrderResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.sim.order.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_sim_order_ex_async(
+        self,
+        request: securitytech_models.ListSimOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ListSimOrderResponse:
+        """
+        Description: 两轮车一体机列举订单信息
+        Summary: 两轮车一体机列举订单信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ListSimOrderResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.sim.order.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_sim_order(
+        self,
+        request: securitytech_models.CancelSimOrderRequest,
+    ) -> securitytech_models.CancelSimOrderResponse:
+        """
+        Description: 两轮车一体机取消订单信息
+        Summary: 两轮车一体机取消订单信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_sim_order_ex(request, headers, runtime)
+
+    async def cancel_sim_order_async(
+        self,
+        request: securitytech_models.CancelSimOrderRequest,
+    ) -> securitytech_models.CancelSimOrderResponse:
+        """
+        Description: 两轮车一体机取消订单信息
+        Summary: 两轮车一体机取消订单信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_sim_order_ex_async(request, headers, runtime)
+
+    def cancel_sim_order_ex(
+        self,
+        request: securitytech_models.CancelSimOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.CancelSimOrderResponse:
+        """
+        Description: 两轮车一体机取消订单信息
+        Summary: 两轮车一体机取消订单信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.CancelSimOrderResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.sim.order.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_sim_order_ex_async(
+        self,
+        request: securitytech_models.CancelSimOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.CancelSimOrderResponse:
+        """
+        Description: 两轮车一体机取消订单信息
+        Summary: 两轮车一体机取消订单信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.CancelSimOrderResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.sim.order.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pull_sim_sku(
+        self,
+        request: securitytech_models.PullSimSkuRequest,
+    ) -> securitytech_models.PullSimSkuResponse:
+        """
+        Description: 两轮车一体机拉取车辆SKU
+        Summary: 两轮车一体机拉取车辆SKU
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pull_sim_sku_ex(request, headers, runtime)
+
+    async def pull_sim_sku_async(
+        self,
+        request: securitytech_models.PullSimSkuRequest,
+    ) -> securitytech_models.PullSimSkuResponse:
+        """
+        Description: 两轮车一体机拉取车辆SKU
+        Summary: 两轮车一体机拉取车辆SKU
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pull_sim_sku_ex_async(request, headers, runtime)
+
+    def pull_sim_sku_ex(
+        self,
+        request: securitytech_models.PullSimSkuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.PullSimSkuResponse:
+        """
+        Description: 两轮车一体机拉取车辆SKU
+        Summary: 两轮车一体机拉取车辆SKU
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.PullSimSkuResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.sim.sku.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pull_sim_sku_ex_async(
+        self,
+        request: securitytech_models.PullSimSkuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.PullSimSkuResponse:
+        """
+        Description: 两轮车一体机拉取车辆SKU
+        Summary: 两轮车一体机拉取车辆SKU
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.PullSimSkuResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.sim.sku.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_bssecpic(

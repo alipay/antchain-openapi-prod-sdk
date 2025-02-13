@@ -507,6 +507,34 @@ class FaceShieldResult(TeaModel):
         return self
 
 
+class SimSalesInfo(TeaModel):
+    def __init__(
+        self,
+        sales_id: str = None,
+    ):
+        # 销售对外业务id
+        self.sales_id = sales_id
+
+    def validate(self):
+        self.validate_required(self.sales_id, 'sales_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.sales_id is not None:
+            result['sales_id'] = self.sales_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('sales_id') is not None:
+            self.sales_id = m.get('sales_id')
+        return self
+
+
 class FileTokenForUpload(TeaModel):
     def __init__(
         self,
@@ -1074,6 +1102,212 @@ class ClassMethodConfig(TeaModel):
         return self
 
 
+class SimOrderInfo(TeaModel):
+    def __init__(
+        self,
+        order_id: str = None,
+        sales_id: str = None,
+        sn: str = None,
+        payment_type: str = None,
+        payment_time: str = None,
+        total_amount: str = None,
+        status: str = None,
+        sku_name: str = None,
+        vehicle_model: str = None,
+        color: str = None,
+    ):
+        # 订单ID
+        self.order_id = order_id
+        # 必填	销售id
+        self.sales_id = sales_id
+        # 车辆SN号
+        self.sn = sn
+        # 支付类型，枚举值FULL（全额付款）, INSTALLMENT（分期付款）
+        self.payment_type = payment_type
+        # 支付时间，格式yyyy-MM-dd HH:mm:ss
+        self.payment_time = payment_time
+        # 总金额，单位元
+        self.total_amount = total_amount
+        # 订单状态，枚举值
+        # UNPAID（未支付），
+        # PAID（已支付），
+        # CANCEL（订单取消），
+        # PENDING（支付中），
+        # FAILED（支付失败）
+        self.status = status
+        # 车辆SKU名字
+        self.sku_name = sku_name
+        # 车型
+        self.vehicle_model = vehicle_model
+        # 颜色
+        self.color = color
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.sales_id, 'sales_id')
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.sales_id is not None:
+            result['sales_id'] = self.sales_id
+        if self.sn is not None:
+            result['sn'] = self.sn
+        if self.payment_type is not None:
+            result['payment_type'] = self.payment_type
+        if self.payment_time is not None:
+            result['payment_time'] = self.payment_time
+        if self.total_amount is not None:
+            result['total_amount'] = self.total_amount
+        if self.status is not None:
+            result['status'] = self.status
+        if self.sku_name is not None:
+            result['sku_name'] = self.sku_name
+        if self.vehicle_model is not None:
+            result['vehicle_model'] = self.vehicle_model
+        if self.color is not None:
+            result['color'] = self.color
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('sales_id') is not None:
+            self.sales_id = m.get('sales_id')
+        if m.get('sn') is not None:
+            self.sn = m.get('sn')
+        if m.get('payment_type') is not None:
+            self.payment_type = m.get('payment_type')
+        if m.get('payment_time') is not None:
+            self.payment_time = m.get('payment_time')
+        if m.get('total_amount') is not None:
+            self.total_amount = m.get('total_amount')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('sku_name') is not None:
+            self.sku_name = m.get('sku_name')
+        if m.get('vehicle_model') is not None:
+            self.vehicle_model = m.get('vehicle_model')
+        if m.get('color') is not None:
+            self.color = m.get('color')
+        return self
+
+
+class SimSkuInfo(TeaModel):
+    def __init__(
+        self,
+        sku_id: str = None,
+        sku_name: str = None,
+        price: str = None,
+        store_price: str = None,
+        vehicle_model: str = None,
+        range_km: int = None,
+        keywords: str = None,
+        colors: str = None,
+        accessories: str = None,
+        images: str = None,
+        store_id: str = None,
+    ):
+        # sku对外id
+        self.sku_id = sku_id
+        # sku名称
+        self.sku_name = sku_name
+        # sku官方指导价：单位为元
+        self.price = price
+        # sku门店优惠价：单位为元
+        self.store_price = store_price
+        # 车型
+        self.vehicle_model = vehicle_model
+        # 续航里程，单位KM
+        self.range_km = range_km
+        # 关键词，逗号分隔
+        self.keywords = keywords
+        # 颜色，逗号分隔
+        self.colors = colors
+        # 配件信息，逗号分隔
+        self.accessories = accessories
+        # 图片url json
+        self.images = images
+        # 门店id
+        self.store_id = store_id
+
+    def validate(self):
+        self.validate_required(self.sku_id, 'sku_id')
+        self.validate_required(self.sku_name, 'sku_name')
+        self.validate_required(self.price, 'price')
+        self.validate_required(self.store_price, 'store_price')
+        self.validate_required(self.vehicle_model, 'vehicle_model')
+        self.validate_required(self.range_km, 'range_km')
+        self.validate_required(self.keywords, 'keywords')
+        self.validate_required(self.colors, 'colors')
+        self.validate_required(self.accessories, 'accessories')
+        self.validate_required(self.images, 'images')
+        self.validate_required(self.store_id, 'store_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.sku_id is not None:
+            result['sku_id'] = self.sku_id
+        if self.sku_name is not None:
+            result['sku_name'] = self.sku_name
+        if self.price is not None:
+            result['price'] = self.price
+        if self.store_price is not None:
+            result['store_price'] = self.store_price
+        if self.vehicle_model is not None:
+            result['vehicle_model'] = self.vehicle_model
+        if self.range_km is not None:
+            result['range_km'] = self.range_km
+        if self.keywords is not None:
+            result['keywords'] = self.keywords
+        if self.colors is not None:
+            result['colors'] = self.colors
+        if self.accessories is not None:
+            result['accessories'] = self.accessories
+        if self.images is not None:
+            result['images'] = self.images
+        if self.store_id is not None:
+            result['store_id'] = self.store_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('sku_id') is not None:
+            self.sku_id = m.get('sku_id')
+        if m.get('sku_name') is not None:
+            self.sku_name = m.get('sku_name')
+        if m.get('price') is not None:
+            self.price = m.get('price')
+        if m.get('store_price') is not None:
+            self.store_price = m.get('store_price')
+        if m.get('vehicle_model') is not None:
+            self.vehicle_model = m.get('vehicle_model')
+        if m.get('range_km') is not None:
+            self.range_km = m.get('range_km')
+        if m.get('keywords') is not None:
+            self.keywords = m.get('keywords')
+        if m.get('colors') is not None:
+            self.colors = m.get('colors')
+        if m.get('accessories') is not None:
+            self.accessories = m.get('accessories')
+        if m.get('images') is not None:
+            self.images = m.get('images')
+        if m.get('store_id') is not None:
+            self.store_id = m.get('store_id')
+        return self
+
+
 class TrustSignQueryData(TeaModel):
     def __init__(
         self,
@@ -1522,6 +1756,50 @@ class DeviceRiskResp(TeaModel):
         return self
 
 
+class Paginator(TeaModel):
+    def __init__(
+        self,
+        page: int = None,
+        items_per_page: int = None,
+        items: int = None,
+    ):
+        # 当前页
+        self.page = page
+        # 单页项数
+        self.items_per_page = items_per_page
+        # 总项数
+        self.items = items
+
+    def validate(self):
+        self.validate_required(self.page, 'page')
+        self.validate_required(self.items_per_page, 'items_per_page')
+        self.validate_required(self.items, 'items')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page is not None:
+            result['page'] = self.page
+        if self.items_per_page is not None:
+            result['items_per_page'] = self.items_per_page
+        if self.items is not None:
+            result['items'] = self.items
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('page') is not None:
+            self.page = m.get('page')
+        if m.get('items_per_page') is not None:
+            self.items_per_page = m.get('items_per_page')
+        if m.get('items') is not None:
+            self.items = m.get('items')
+        return self
+
+
 class CctDataMap(TeaModel):
     def __init__(
         self,
@@ -1554,6 +1832,42 @@ class CctDataMap(TeaModel):
             self.text = m.get('text')
         if m.get('picture') is not None:
             self.picture = m.get('picture')
+        return self
+
+
+class SimStoreInfo(TeaModel):
+    def __init__(
+        self,
+        store_id: str = None,
+        store_name: str = None,
+    ):
+        # 门店对外业务id
+        self.store_id = store_id
+        # 门店名称
+        self.store_name = store_name
+
+    def validate(self):
+        self.validate_required(self.store_id, 'store_id')
+        self.validate_required(self.store_name, 'store_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.store_id is not None:
+            result['store_id'] = self.store_id
+        if self.store_name is not None:
+            result['store_name'] = self.store_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('store_id') is not None:
+            self.store_id = m.get('store_id')
+        if m.get('store_name') is not None:
+            self.store_name = m.get('store_name')
         return self
 
 
@@ -1941,6 +2255,58 @@ class EtcTripInfo(TeaModel):
             self.trip_id = m.get('trip_id')
         if m.get('trade_no') is not None:
             self.trade_no = m.get('trade_no')
+        return self
+
+
+class SimCampaignInfo(TeaModel):
+    def __init__(
+        self,
+        campaign_id: str = None,
+        campaign_name: str = None,
+        image_url: str = None,
+        content: str = None,
+    ):
+        # 营销活动id
+        self.campaign_id = campaign_id
+        # 营销活动名
+        self.campaign_name = campaign_name
+        # 营销图片
+        self.image_url = image_url
+        # 营销活动内容
+        self.content = content
+
+    def validate(self):
+        self.validate_required(self.campaign_id, 'campaign_id')
+        self.validate_required(self.campaign_name, 'campaign_name')
+        self.validate_required(self.image_url, 'image_url')
+        self.validate_required(self.content, 'content')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.campaign_id is not None:
+            result['campaign_id'] = self.campaign_id
+        if self.campaign_name is not None:
+            result['campaign_name'] = self.campaign_name
+        if self.image_url is not None:
+            result['image_url'] = self.image_url
+        if self.content is not None:
+            result['content'] = self.content
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('campaign_id') is not None:
+            self.campaign_id = m.get('campaign_id')
+        if m.get('campaign_name') is not None:
+            self.campaign_name = m.get('campaign_name')
+        if m.get('image_url') is not None:
+            self.image_url = m.get('image_url')
+        if m.get('content') is not None:
+            self.content = m.get('content')
         return self
 
 
@@ -2924,6 +3290,1196 @@ class QueryEtcTripResponse(TeaModel):
                 self.trip_list.append(temp_model.from_map(k))
         if m.get('extern_info') is not None:
             self.extern_info = m.get('extern_info')
+        return self
+
+
+class InitSimLoginRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        device_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备编号
+        self.device_id = device_id
+
+    def validate(self):
+        self.validate_required(self.device_id, 'device_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.device_id is not None:
+            result['device_id'] = self.device_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('device_id') is not None:
+            self.device_id = m.get('device_id')
+        return self
+
+
+class InitSimLoginResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        url: str = None,
+        token: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 支付宝登录url
+        self.url = url
+        # 登录token
+        self.token = token
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.url is not None:
+            result['url'] = self.url
+        if self.token is not None:
+            result['token'] = self.token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        return self
+
+
+class QuerySimLoginRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        device_id: str = None,
+        token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备编号
+        self.device_id = device_id
+        # 登录态token
+        self.token = token
+
+    def validate(self):
+        self.validate_required(self.device_id, 'device_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.device_id is not None:
+            result['device_id'] = self.device_id
+        if self.token is not None:
+            result['token'] = self.token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('device_id') is not None:
+            self.device_id = m.get('device_id')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        return self
+
+
+class QuerySimLoginResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        login_result: str = None,
+        login_msg: str = None,
+        activated: bool = None,
+        login_time: str = None,
+        store_info: SimStoreInfo = None,
+        sales_info: SimSalesInfo = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 登录结果
+        # NO_RESULT：暂无登录结果
+        # EXPIRED：token过期
+        # ACTIVATE_OK：激活成功，店长首次登录成功
+        # LOGIN_OK：登录成功
+        # USER_NOT_EXIST：用户不存在
+        # STORE_NOT_ACTIVATED：门店未激活
+        self.login_result = login_result
+        # 登录结果中文信息
+        self.login_msg = login_msg
+        # 是否已经激活
+        self.activated = activated
+        # 登录/激活时间，格式yyyy-MM-dd HH:mm:ss
+        self.login_time = login_time
+        # 当前登录的门店信息
+        self.store_info = store_info
+        # 当前登录的销售信息
+        self.sales_info = sales_info
+
+    def validate(self):
+        if self.store_info:
+            self.store_info.validate()
+        if self.sales_info:
+            self.sales_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.login_result is not None:
+            result['login_result'] = self.login_result
+        if self.login_msg is not None:
+            result['login_msg'] = self.login_msg
+        if self.activated is not None:
+            result['activated'] = self.activated
+        if self.login_time is not None:
+            result['login_time'] = self.login_time
+        if self.store_info is not None:
+            result['store_info'] = self.store_info.to_map()
+        if self.sales_info is not None:
+            result['sales_info'] = self.sales_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('login_result') is not None:
+            self.login_result = m.get('login_result')
+        if m.get('login_msg') is not None:
+            self.login_msg = m.get('login_msg')
+        if m.get('activated') is not None:
+            self.activated = m.get('activated')
+        if m.get('login_time') is not None:
+            self.login_time = m.get('login_time')
+        if m.get('store_info') is not None:
+            temp_model = SimStoreInfo()
+            self.store_info = temp_model.from_map(m['store_info'])
+        if m.get('sales_info') is not None:
+            temp_model = SimSalesInfo()
+            self.sales_info = temp_model.from_map(m['sales_info'])
+        return self
+
+
+class ListSimCampaignRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        device_id: str = None,
+        token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备编号
+        self.device_id = device_id
+        # 登录态token
+        self.token = token
+
+    def validate(self):
+        self.validate_required(self.device_id, 'device_id')
+        self.validate_required(self.token, 'token')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.device_id is not None:
+            result['device_id'] = self.device_id
+        if self.token is not None:
+            result['token'] = self.token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('device_id') is not None:
+            self.device_id = m.get('device_id')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        return self
+
+
+class ListSimCampaignResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        campaign_list: List[SimCampaignInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 营销活动列表
+        self.campaign_list = campaign_list
+
+    def validate(self):
+        if self.campaign_list:
+            for k in self.campaign_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['campaign_list'] = []
+        if self.campaign_list is not None:
+            for k in self.campaign_list:
+                result['campaign_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.campaign_list = []
+        if m.get('campaign_list') is not None:
+            for k in m.get('campaign_list'):
+                temp_model = SimCampaignInfo()
+                self.campaign_list.append(temp_model.from_map(k))
+        return self
+
+
+class QuerySimSkuRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        device_id: str = None,
+        sn: str = None,
+        sku_id_list: List[str] = None,
+        token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备编号
+        self.device_id = device_id
+        # 车辆SN，与skuId二选一
+        self.sn = sn
+        # sku对外id列表，与sn二选一
+        self.sku_id_list = sku_id_list
+        # 登录态token
+        self.token = token
+
+    def validate(self):
+        self.validate_required(self.device_id, 'device_id')
+        self.validate_required(self.token, 'token')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.device_id is not None:
+            result['device_id'] = self.device_id
+        if self.sn is not None:
+            result['sn'] = self.sn
+        if self.sku_id_list is not None:
+            result['sku_id_list'] = self.sku_id_list
+        if self.token is not None:
+            result['token'] = self.token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('device_id') is not None:
+            self.device_id = m.get('device_id')
+        if m.get('sn') is not None:
+            self.sn = m.get('sn')
+        if m.get('sku_id_list') is not None:
+            self.sku_id_list = m.get('sku_id_list')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        return self
+
+
+class QuerySimSkuResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        sku_info_list: List[SimSkuInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 车辆SKU，如果查无返回空列表
+        self.sku_info_list = sku_info_list
+
+    def validate(self):
+        if self.sku_info_list:
+            for k in self.sku_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['sku_info_list'] = []
+        if self.sku_info_list is not None:
+            for k in self.sku_info_list:
+                result['sku_info_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.sku_info_list = []
+        if m.get('sku_info_list') is not None:
+            for k in m.get('sku_info_list'):
+                temp_model = SimSkuInfo()
+                self.sku_info_list.append(temp_model.from_map(k))
+        return self
+
+
+class ListSimSkuRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        device_id: str = None,
+        page_no: int = None,
+        page_size: int = None,
+        token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备编号
+        self.device_id = device_id
+        # 请求的页数
+        self.page_no = page_no
+        # 单页项数
+        self.page_size = page_size
+        # 登录态token
+        self.token = token
+
+    def validate(self):
+        self.validate_required(self.device_id, 'device_id')
+        self.validate_required(self.page_no, 'page_no')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.token, 'token')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.device_id is not None:
+            result['device_id'] = self.device_id
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.token is not None:
+            result['token'] = self.token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('device_id') is not None:
+            self.device_id = m.get('device_id')
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        return self
+
+
+class ListSimSkuResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        paginator: Paginator = None,
+        sku_info_list: List[SimSkuInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 分页器
+        self.paginator = paginator
+        # 车辆SKU列表
+        self.sku_info_list = sku_info_list
+
+    def validate(self):
+        if self.paginator:
+            self.paginator.validate()
+        if self.sku_info_list:
+            for k in self.sku_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.paginator is not None:
+            result['paginator'] = self.paginator.to_map()
+        result['sku_info_list'] = []
+        if self.sku_info_list is not None:
+            for k in self.sku_info_list:
+                result['sku_info_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('paginator') is not None:
+            temp_model = Paginator()
+            self.paginator = temp_model.from_map(m['paginator'])
+        self.sku_info_list = []
+        if m.get('sku_info_list') is not None:
+            for k in m.get('sku_info_list'):
+                temp_model = SimSkuInfo()
+                self.sku_info_list.append(temp_model.from_map(k))
+        return self
+
+
+class CreateSimOrderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        device_id: str = None,
+        sku_id: str = None,
+        sn: str = None,
+        color: str = None,
+        token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备编号
+        self.device_id = device_id
+        # sku id
+        self.sku_id = sku_id
+        # 车辆sn号
+        self.sn = sn
+        # 颜色
+        self.color = color
+        # 登录态token
+        self.token = token
+
+    def validate(self):
+        self.validate_required(self.device_id, 'device_id')
+        self.validate_required(self.sku_id, 'sku_id')
+        self.validate_required(self.color, 'color')
+        self.validate_required(self.token, 'token')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.device_id is not None:
+            result['device_id'] = self.device_id
+        if self.sku_id is not None:
+            result['sku_id'] = self.sku_id
+        if self.sn is not None:
+            result['sn'] = self.sn
+        if self.color is not None:
+            result['color'] = self.color
+        if self.token is not None:
+            result['token'] = self.token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('device_id') is not None:
+            self.device_id = m.get('device_id')
+        if m.get('sku_id') is not None:
+            self.sku_id = m.get('sku_id')
+        if m.get('sn') is not None:
+            self.sn = m.get('sn')
+        if m.get('color') is not None:
+            self.color = m.get('color')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        return self
+
+
+class CreateSimOrderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        order_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 订单号
+        self.order_id = order_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        return self
+
+
+class QuerySimOrderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        device_id: str = None,
+        order_id: str = None,
+        token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备编号
+        self.device_id = device_id
+        # 订单号
+        self.order_id = order_id
+        # 登录态token
+        self.token = token
+
+    def validate(self):
+        self.validate_required(self.device_id, 'device_id')
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.token, 'token')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.device_id is not None:
+            result['device_id'] = self.device_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.token is not None:
+            result['token'] = self.token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('device_id') is not None:
+            self.device_id = m.get('device_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        return self
+
+
+class QuerySimOrderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        order_info: SimOrderInfo = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 订单信息，如果查无返回空对象
+        self.order_info = order_info
+
+    def validate(self):
+        if self.order_info:
+            self.order_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.order_info is not None:
+            result['order_info'] = self.order_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('order_info') is not None:
+            temp_model = SimOrderInfo()
+            self.order_info = temp_model.from_map(m['order_info'])
+        return self
+
+
+class ListSimOrderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        device_id: str = None,
+        page_no: int = None,
+        page_size: int = None,
+        token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备编号
+        self.device_id = device_id
+        # 请求的页数
+        self.page_no = page_no
+        # 单页项数
+        self.page_size = page_size
+        # 登录态token
+        self.token = token
+
+    def validate(self):
+        self.validate_required(self.device_id, 'device_id')
+        self.validate_required(self.page_no, 'page_no')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.token, 'token')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.device_id is not None:
+            result['device_id'] = self.device_id
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.token is not None:
+            result['token'] = self.token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('device_id') is not None:
+            self.device_id = m.get('device_id')
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        return self
+
+
+class ListSimOrderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        paginator: Paginator = None,
+        order_info_list: List[SimOrderInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 分页器
+        self.paginator = paginator
+        # 订单信息列表
+        self.order_info_list = order_info_list
+
+    def validate(self):
+        if self.paginator:
+            self.paginator.validate()
+        if self.order_info_list:
+            for k in self.order_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.paginator is not None:
+            result['paginator'] = self.paginator.to_map()
+        result['order_info_list'] = []
+        if self.order_info_list is not None:
+            for k in self.order_info_list:
+                result['order_info_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('paginator') is not None:
+            temp_model = Paginator()
+            self.paginator = temp_model.from_map(m['paginator'])
+        self.order_info_list = []
+        if m.get('order_info_list') is not None:
+            for k in m.get('order_info_list'):
+                temp_model = SimOrderInfo()
+                self.order_info_list.append(temp_model.from_map(k))
+        return self
+
+
+class CancelSimOrderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        device_id: str = None,
+        order_id: str = None,
+        token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备编号
+        self.device_id = device_id
+        # 订单号
+        self.order_id = order_id
+        # 登录态token
+        self.token = token
+
+    def validate(self):
+        self.validate_required(self.device_id, 'device_id')
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.token, 'token')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.device_id is not None:
+            result['device_id'] = self.device_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.token is not None:
+            result['token'] = self.token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('device_id') is not None:
+            self.device_id = m.get('device_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        return self
+
+
+class CancelSimOrderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        order_info: SimOrderInfo = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否取消成功
+        self.success = success
+        # 更新后订单信息，如果查无返回空对象
+        self.order_info = order_info
+
+    def validate(self):
+        if self.order_info:
+            self.order_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.order_info is not None:
+            result['order_info'] = self.order_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('order_info') is not None:
+            temp_model = SimOrderInfo()
+            self.order_info = temp_model.from_map(m['order_info'])
+        return self
+
+
+class PullSimSkuRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        page_no: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求的页数
+        self.page_no = page_no
+        # 单页项数
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.page_no, 'page_no')
+        self.validate_required(self.page_size, 'page_size')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.page_no is not None:
+            result['page_no'] = self.page_no
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('page_no') is not None:
+            self.page_no = m.get('page_no')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class PullSimSkuResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        paginator: Paginator = None,
+        sku_info_list: List[SimSkuInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 分页器
+        self.paginator = paginator
+        # 车辆SKU列表
+        self.sku_info_list = sku_info_list
+
+    def validate(self):
+        if self.paginator:
+            self.paginator.validate()
+        if self.sku_info_list:
+            for k in self.sku_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.paginator is not None:
+            result['paginator'] = self.paginator.to_map()
+        result['sku_info_list'] = []
+        if self.sku_info_list is not None:
+            for k in self.sku_info_list:
+                result['sku_info_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('paginator') is not None:
+            temp_model = Paginator()
+            self.paginator = temp_model.from_map(m['paginator'])
+        self.sku_info_list = []
+        if m.get('sku_info_list') is not None:
+            for k in m.get('sku_info_list'):
+                temp_model = SimSkuInfo()
+                self.sku_info_list.append(temp_model.from_map(k))
         return self
 
 
