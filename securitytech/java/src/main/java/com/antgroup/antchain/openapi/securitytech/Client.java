@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.9"),
+                    new TeaPair("sdk_version", "1.4.5"),
                     new TeaPair("_prod_code", "SECURITYTECH"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -317,6 +317,196 @@ public class Client {
     public QueryEtcTripResponse queryEtcTripEx(QueryEtcTripRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.etc.trip.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEtcTripResponse());
+    }
+
+    /**
+     * Description: 两轮车一体机获取授权登录地址
+     * Summary: 两轮车一体机获取授权登录地址
+     */
+    public InitSimLoginResponse initSimLogin(InitSimLoginRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initSimLoginEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机获取授权登录地址
+     * Summary: 两轮车一体机获取授权登录地址
+     */
+    public InitSimLoginResponse initSimLoginEx(InitSimLoginRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.sim.login.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitSimLoginResponse());
+    }
+
+    /**
+     * Description: 两轮车一体机查询登录结果
+     * Summary: 两轮车一体机查询登录结果
+     */
+    public QuerySimLoginResponse querySimLogin(QuerySimLoginRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.querySimLoginEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机查询登录结果
+     * Summary: 两轮车一体机查询登录结果
+     */
+    public QuerySimLoginResponse querySimLoginEx(QuerySimLoginRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.sim.login.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySimLoginResponse());
+    }
+
+    /**
+     * Description: 两轮车一体机获取营销活动
+     * Summary: 两轮车一体机获取营销活动
+     */
+    public ListSimCampaignResponse listSimCampaign(ListSimCampaignRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listSimCampaignEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机获取营销活动
+     * Summary: 两轮车一体机获取营销活动
+     */
+    public ListSimCampaignResponse listSimCampaignEx(ListSimCampaignRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.sim.campaign.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListSimCampaignResponse());
+    }
+
+    /**
+     * Description: 两轮车一体机查询车辆SKU
+     * Summary: 两轮车一体机查询车辆SKU
+     */
+    public QuerySimSkuResponse querySimSku(QuerySimSkuRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.querySimSkuEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机查询车辆SKU
+     * Summary: 两轮车一体机查询车辆SKU
+     */
+    public QuerySimSkuResponse querySimSkuEx(QuerySimSkuRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.sim.sku.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySimSkuResponse());
+    }
+
+    /**
+     * Description: 两轮车一体机列举车辆SKU
+     * Summary: 两轮车一体机列举车辆SKU
+     */
+    public ListSimSkuResponse listSimSku(ListSimSkuRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listSimSkuEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机列举车辆SKU
+     * Summary: 两轮车一体机列举车辆SKU
+     */
+    public ListSimSkuResponse listSimSkuEx(ListSimSkuRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.sim.sku.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListSimSkuResponse());
+    }
+
+    /**
+     * Description: 两轮车一体机创建订单信息
+     * Summary: 两轮车一体机创建订单信息
+     */
+    public CreateSimOrderResponse createSimOrder(CreateSimOrderRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createSimOrderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机创建订单信息
+     * Summary: 两轮车一体机创建订单信息
+     */
+    public CreateSimOrderResponse createSimOrderEx(CreateSimOrderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.sim.order.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateSimOrderResponse());
+    }
+
+    /**
+     * Description: 两轮车一体机查询订单信息
+     * Summary: 两轮车一体机查询订单信息
+     */
+    public QuerySimOrderResponse querySimOrder(QuerySimOrderRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.querySimOrderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机查询订单信息
+     * Summary: 两轮车一体机查询订单信息
+     */
+    public QuerySimOrderResponse querySimOrderEx(QuerySimOrderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.sim.order.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySimOrderResponse());
+    }
+
+    /**
+     * Description: 两轮车一体机列举订单信息
+     * Summary: 两轮车一体机列举订单信息
+     */
+    public ListSimOrderResponse listSimOrder(ListSimOrderRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listSimOrderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机列举订单信息
+     * Summary: 两轮车一体机列举订单信息
+     */
+    public ListSimOrderResponse listSimOrderEx(ListSimOrderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.sim.order.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListSimOrderResponse());
+    }
+
+    /**
+     * Description: 两轮车一体机取消订单信息
+     * Summary: 两轮车一体机取消订单信息
+     */
+    public CancelSimOrderResponse cancelSimOrder(CancelSimOrderRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.cancelSimOrderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机取消订单信息
+     * Summary: 两轮车一体机取消订单信息
+     */
+    public CancelSimOrderResponse cancelSimOrderEx(CancelSimOrderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.sim.order.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelSimOrderResponse());
+    }
+
+    /**
+     * Description: 两轮车一体机拉取车辆SKU
+     * Summary: 两轮车一体机拉取车辆SKU
+     */
+    public PullSimSkuResponse pullSimSku(PullSimSkuRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pullSimSkuEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机拉取车辆SKU
+     * Summary: 两轮车一体机拉取车辆SKU
+     */
+    public PullSimSkuResponse pullSimSkuEx(PullSimSkuRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.sim.sku.pull", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PullSimSkuResponse());
     }
 
     /**
