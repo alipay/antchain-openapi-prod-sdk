@@ -13,12 +13,16 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\SECURITYTECH\Models\ApplyIifaaDevicekeyRequest;
 use AntChain\SECURITYTECH\Models\ApplyIifaaDevicekeyResponse;
+use AntChain\SECURITYTECH\Models\CancelSimOrderRequest;
+use AntChain\SECURITYTECH\Models\CancelSimOrderResponse;
 use AntChain\SECURITYTECH\Models\CheckOpticalIdentifyRequest;
 use AntChain\SECURITYTECH\Models\CheckOpticalIdentifyResponse;
 use AntChain\SECURITYTECH\Models\CreateBlueshieldSecuritypictureRequest;
 use AntChain\SECURITYTECH\Models\CreateBlueshieldSecuritypictureResponse;
 use AntChain\SECURITYTECH\Models\CreateBssecpicRequest;
 use AntChain\SECURITYTECH\Models\CreateBssecpicResponse;
+use AntChain\SECURITYTECH\Models\CreateSimOrderRequest;
+use AntChain\SECURITYTECH\Models\CreateSimOrderResponse;
 use AntChain\SECURITYTECH\Models\DeleteIifaaDigitalkeyRequest;
 use AntChain\SECURITYTECH\Models\DeleteIifaaDigitalkeyResponse;
 use AntChain\SECURITYTECH\Models\DeprecateIifaaDeviceRequest;
@@ -43,10 +47,20 @@ use AntChain\SECURITYTECH\Models\InitEkytTrustsignRequest;
 use AntChain\SECURITYTECH\Models\InitEkytTrustsignResponse;
 use AntChain\SECURITYTECH\Models\InitIifaaDeviceRequest;
 use AntChain\SECURITYTECH\Models\InitIifaaDeviceResponse;
+use AntChain\SECURITYTECH\Models\InitSimLoginRequest;
+use AntChain\SECURITYTECH\Models\InitSimLoginResponse;
 use AntChain\SECURITYTECH\Models\ListDcpAccountbookRequest;
 use AntChain\SECURITYTECH\Models\ListDcpAccountbookResponse;
 use AntChain\SECURITYTECH\Models\ListDcpRequest;
 use AntChain\SECURITYTECH\Models\ListDcpResponse;
+use AntChain\SECURITYTECH\Models\ListSimCampaignRequest;
+use AntChain\SECURITYTECH\Models\ListSimCampaignResponse;
+use AntChain\SECURITYTECH\Models\ListSimOrderRequest;
+use AntChain\SECURITYTECH\Models\ListSimOrderResponse;
+use AntChain\SECURITYTECH\Models\ListSimSkuRequest;
+use AntChain\SECURITYTECH\Models\ListSimSkuResponse;
+use AntChain\SECURITYTECH\Models\PullSimSkuRequest;
+use AntChain\SECURITYTECH\Models\PullSimSkuResponse;
 use AntChain\SECURITYTECH\Models\QueryCctPictureRequest;
 use AntChain\SECURITYTECH\Models\QueryCctPictureResponse;
 use AntChain\SECURITYTECH\Models\QueryDeviceplusMpaasRequest;
@@ -79,6 +93,12 @@ use AntChain\SECURITYTECH\Models\QueryGuardAskRequest;
 use AntChain\SECURITYTECH\Models\QueryGuardAskResponse;
 use AntChain\SECURITYTECH\Models\QueryRiskGeneralRequest;
 use AntChain\SECURITYTECH\Models\QueryRiskGeneralResponse;
+use AntChain\SECURITYTECH\Models\QuerySimLoginRequest;
+use AntChain\SECURITYTECH\Models\QuerySimLoginResponse;
+use AntChain\SECURITYTECH\Models\QuerySimOrderRequest;
+use AntChain\SECURITYTECH\Models\QuerySimOrderResponse;
+use AntChain\SECURITYTECH\Models\QuerySimSkuRequest;
+use AntChain\SECURITYTECH\Models\QuerySimSkuResponse;
 use AntChain\SECURITYTECH\Models\QueryYhllRequest;
 use AntChain\SECURITYTECH\Models\QueryYhllResponse;
 use AntChain\SECURITYTECH\Models\RecognizeCctAnalyzeRequest;
@@ -248,7 +268,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.9',
+                    'sdk_version'      => '1.4.5',
                     '_prod_code'       => 'SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -527,6 +547,336 @@ class Client
         Utils::validateModel($request);
 
         return QueryEtcTripResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.etc.trip.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机获取授权登录地址
+     * Summary: 两轮车一体机获取授权登录地址
+     *
+     * @param InitSimLoginRequest $request
+     *
+     * @return InitSimLoginResponse
+     */
+    public function initSimLogin($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initSimLoginEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机获取授权登录地址
+     * Summary: 两轮车一体机获取授权登录地址
+     *
+     * @param InitSimLoginRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return InitSimLoginResponse
+     */
+    public function initSimLoginEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitSimLoginResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.sim.login.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机查询登录结果
+     * Summary: 两轮车一体机查询登录结果.
+     *
+     * @param QuerySimLoginRequest $request
+     *
+     * @return QuerySimLoginResponse
+     */
+    public function querySimLogin($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySimLoginEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机查询登录结果
+     * Summary: 两轮车一体机查询登录结果.
+     *
+     * @param QuerySimLoginRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QuerySimLoginResponse
+     */
+    public function querySimLoginEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySimLoginResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.sim.login.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机获取营销活动
+     * Summary: 两轮车一体机获取营销活动.
+     *
+     * @param ListSimCampaignRequest $request
+     *
+     * @return ListSimCampaignResponse
+     */
+    public function listSimCampaign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listSimCampaignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机获取营销活动
+     * Summary: 两轮车一体机获取营销活动.
+     *
+     * @param ListSimCampaignRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return ListSimCampaignResponse
+     */
+    public function listSimCampaignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListSimCampaignResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.sim.campaign.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机查询车辆SKU
+     * Summary: 两轮车一体机查询车辆SKU.
+     *
+     * @param QuerySimSkuRequest $request
+     *
+     * @return QuerySimSkuResponse
+     */
+    public function querySimSku($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySimSkuEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机查询车辆SKU
+     * Summary: 两轮车一体机查询车辆SKU.
+     *
+     * @param QuerySimSkuRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return QuerySimSkuResponse
+     */
+    public function querySimSkuEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySimSkuResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.sim.sku.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机列举车辆SKU
+     * Summary: 两轮车一体机列举车辆SKU.
+     *
+     * @param ListSimSkuRequest $request
+     *
+     * @return ListSimSkuResponse
+     */
+    public function listSimSku($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listSimSkuEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机列举车辆SKU
+     * Summary: 两轮车一体机列举车辆SKU.
+     *
+     * @param ListSimSkuRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return ListSimSkuResponse
+     */
+    public function listSimSkuEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListSimSkuResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.sim.sku.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机创建订单信息
+     * Summary: 两轮车一体机创建订单信息.
+     *
+     * @param CreateSimOrderRequest $request
+     *
+     * @return CreateSimOrderResponse
+     */
+    public function createSimOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createSimOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机创建订单信息
+     * Summary: 两轮车一体机创建订单信息.
+     *
+     * @param CreateSimOrderRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return CreateSimOrderResponse
+     */
+    public function createSimOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateSimOrderResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.sim.order.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机查询订单信息
+     * Summary: 两轮车一体机查询订单信息.
+     *
+     * @param QuerySimOrderRequest $request
+     *
+     * @return QuerySimOrderResponse
+     */
+    public function querySimOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySimOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机查询订单信息
+     * Summary: 两轮车一体机查询订单信息.
+     *
+     * @param QuerySimOrderRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QuerySimOrderResponse
+     */
+    public function querySimOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySimOrderResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.sim.order.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机列举订单信息
+     * Summary: 两轮车一体机列举订单信息.
+     *
+     * @param ListSimOrderRequest $request
+     *
+     * @return ListSimOrderResponse
+     */
+    public function listSimOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listSimOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机列举订单信息
+     * Summary: 两轮车一体机列举订单信息.
+     *
+     * @param ListSimOrderRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return ListSimOrderResponse
+     */
+    public function listSimOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListSimOrderResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.sim.order.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机取消订单信息
+     * Summary: 两轮车一体机取消订单信息.
+     *
+     * @param CancelSimOrderRequest $request
+     *
+     * @return CancelSimOrderResponse
+     */
+    public function cancelSimOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelSimOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机取消订单信息
+     * Summary: 两轮车一体机取消订单信息.
+     *
+     * @param CancelSimOrderRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return CancelSimOrderResponse
+     */
+    public function cancelSimOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelSimOrderResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.sim.order.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机拉取车辆SKU
+     * Summary: 两轮车一体机拉取车辆SKU.
+     *
+     * @param PullSimSkuRequest $request
+     *
+     * @return PullSimSkuResponse
+     */
+    public function pullSimSku($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pullSimSkuEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机拉取车辆SKU
+     * Summary: 两轮车一体机拉取车辆SKU.
+     *
+     * @param PullSimSkuRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return PullSimSkuResponse
+     */
+    public function pullSimSkuEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PullSimSkuResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.sim.sku.pull', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
