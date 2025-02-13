@@ -2679,6 +2679,8 @@ type MonitorResult struct {
 	DownloadUrl *string `json:"download_url,omitempty" xml:"download_url,omitempty"`
 	// 疑似侵权反馈时间
 	InfrFeedbackTime *int64 `json:"infr_feedback_time,omitempty" xml:"infr_feedback_time,omitempty"`
+	// 个人主页链接
+	PosterIdUrl *string `json:"poster_id_url,omitempty" xml:"poster_id_url,omitempty"`
 }
 
 func (s MonitorResult) String() string {
@@ -2766,6 +2768,11 @@ func (s *MonitorResult) SetDownloadUrl(v string) *MonitorResult {
 
 func (s *MonitorResult) SetInfrFeedbackTime(v int64) *MonitorResult {
 	s.InfrFeedbackTime = &v
+	return s
+}
+
+func (s *MonitorResult) SetPosterIdUrl(v string) *MonitorResult {
+	s.PosterIdUrl = &v
 	return s
 }
 
@@ -13947,7 +13954,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.37"),
+				"sdk_version":      tea.String("1.19.38"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
