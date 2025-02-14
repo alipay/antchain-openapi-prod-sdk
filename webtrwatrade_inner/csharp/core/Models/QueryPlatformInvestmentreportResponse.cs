@@ -24,45 +24,10 @@ namespace AntChain.SDK.WEBTRWATRADE_INNER.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 预期收益
-        [NameInMap("estimated_annualized")]
+        // 内部投资者报表数据
+        [NameInMap("data")]
         [Validation(Required=false)]
-        public long? EstimatedAnnualized { get; set; }
-
-        // 实际收益率（Annual Yield）
-        [NameInMap("actual_annualized_yield")]
-        [Validation(Required=false)]
-        public long? ActualAnnualizedYield { get; set; }
-
-        // 预期收益率（Expect Yield）
-        [NameInMap("estimated_annualized_yield")]
-        [Validation(Required=false)]
-        public long? EstimatedAnnualizedYield { get; set; }
-
-        // 毛利吻合率（Gross Profit Conformity）
-        [NameInMap("match_rate")]
-        [Validation(Required=false)]
-        public long? MatchRate { get; set; }
-
-        // 投资金额（Investment Allocation）
-        [NameInMap("investment_amount")]
-        [Validation(Required=false)]
-        public long? InvestmentAmount { get; set; }
-
-        // 实际收益
-        [NameInMap("actual_annualized")]
-        [Validation(Required=false)]
-        public long? ActualAnnualized { get; set; }
-
-        // 资产抵押率（Collateral Ratio）
-        [NameInMap("collateral_rate")]
-        [Validation(Required=false)]
-        public long? CollateralRate { get; set; }
-
-        // 数据日期
-        [NameInMap("dt")]
-        [Validation(Required=false)]
-        public string Dt { get; set; }
+        public InvestmentReportInner Data { get; set; }
 
     }
 
