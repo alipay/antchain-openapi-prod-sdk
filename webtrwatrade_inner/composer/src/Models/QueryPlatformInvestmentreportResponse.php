@@ -26,65 +26,16 @@ class QueryPlatformInvestmentreportResponse extends Model
      */
     public $resultMsg;
 
-    // 预期收益
+    // 内部投资者报表数据
     /**
-     * @var int
+     * @var InvestmentReportInner
      */
-    public $estimatedAnnualized;
-
-    // 实际收益率（Annual Yield）
-    /**
-     * @var int
-     */
-    public $actualAnnualizedYield;
-
-    // 预期收益率（Expect Yield）
-    /**
-     * @var int
-     */
-    public $estimatedAnnualizedYield;
-
-    // 毛利吻合率（Gross Profit Conformity）
-    /**
-     * @var int
-     */
-    public $matchRate;
-
-    // 投资金额（Investment Allocation）
-    /**
-     * @var int
-     */
-    public $investmentAmount;
-
-    // 实际收益
-    /**
-     * @var int
-     */
-    public $actualAnnualized;
-
-    // 资产抵押率（Collateral Ratio）
-    /**
-     * @var int
-     */
-    public $collateralRate;
-
-    // 数据日期
-    /**
-     * @var string
-     */
-    public $dt;
+    public $data;
     protected $_name = [
-        'reqMsgId'                 => 'req_msg_id',
-        'resultCode'               => 'result_code',
-        'resultMsg'                => 'result_msg',
-        'estimatedAnnualized'      => 'estimated_annualized',
-        'actualAnnualizedYield'    => 'actual_annualized_yield',
-        'estimatedAnnualizedYield' => 'estimated_annualized_yield',
-        'matchRate'                => 'match_rate',
-        'investmentAmount'         => 'investment_amount',
-        'actualAnnualized'         => 'actual_annualized',
-        'collateralRate'           => 'collateral_rate',
-        'dt'                       => 'dt',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'data'       => 'data',
     ];
 
     public function validate()
@@ -103,29 +54,8 @@ class QueryPlatformInvestmentreportResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->estimatedAnnualized) {
-            $res['estimated_annualized'] = $this->estimatedAnnualized;
-        }
-        if (null !== $this->actualAnnualizedYield) {
-            $res['actual_annualized_yield'] = $this->actualAnnualizedYield;
-        }
-        if (null !== $this->estimatedAnnualizedYield) {
-            $res['estimated_annualized_yield'] = $this->estimatedAnnualizedYield;
-        }
-        if (null !== $this->matchRate) {
-            $res['match_rate'] = $this->matchRate;
-        }
-        if (null !== $this->investmentAmount) {
-            $res['investment_amount'] = $this->investmentAmount;
-        }
-        if (null !== $this->actualAnnualized) {
-            $res['actual_annualized'] = $this->actualAnnualized;
-        }
-        if (null !== $this->collateralRate) {
-            $res['collateral_rate'] = $this->collateralRate;
-        }
-        if (null !== $this->dt) {
-            $res['dt'] = $this->dt;
+        if (null !== $this->data) {
+            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
         }
 
         return $res;
@@ -148,29 +78,8 @@ class QueryPlatformInvestmentreportResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['estimated_annualized'])) {
-            $model->estimatedAnnualized = $map['estimated_annualized'];
-        }
-        if (isset($map['actual_annualized_yield'])) {
-            $model->actualAnnualizedYield = $map['actual_annualized_yield'];
-        }
-        if (isset($map['estimated_annualized_yield'])) {
-            $model->estimatedAnnualizedYield = $map['estimated_annualized_yield'];
-        }
-        if (isset($map['match_rate'])) {
-            $model->matchRate = $map['match_rate'];
-        }
-        if (isset($map['investment_amount'])) {
-            $model->investmentAmount = $map['investment_amount'];
-        }
-        if (isset($map['actual_annualized'])) {
-            $model->actualAnnualized = $map['actual_annualized'];
-        }
-        if (isset($map['collateral_rate'])) {
-            $model->collateralRate = $map['collateral_rate'];
-        }
-        if (isset($map['dt'])) {
-            $model->dt = $map['dt'];
+        if (isset($map['data'])) {
+            $model->data = InvestmentReportInner::fromMap($map['data']);
         }
 
         return $model;
