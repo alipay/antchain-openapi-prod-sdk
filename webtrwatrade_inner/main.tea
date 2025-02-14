@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.1',
     _prod_code = 'WEBTRWATRADE_INNER',
     _prod_channel = 'default'
   };
@@ -161,6 +161,28 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+//   内部投资者报表数据
+model InvestmentReportInner {
+  // 预期收益
+  // 
+  estimatedAnnualized: long(name='estimated_annualized', example='23.45 '),
+  // 实际收益率（Annual Yield）
+  // 
+  actualAnnualizedYield: long(name='actual_annualized_yield', example='12.34'),
+  // 预期收益率（Expect Yield）
+  estimatedAnnualizedYield: long(name='estimated_annualized_yield', example='12.34'),
+  // 毛利吻合率（Gross Profit Conformity）
+  matchRate: long(name='match_rate', example='12.34'),
+  // 投资金额（Investment Allocation）
+  investmentAmount: long(name='investment_amount', example='12.34'),
+  // 实际收益
+  actualAnnualized: long(name='actual_annualized', example='12.34'),
+  // 资产抵押率（Collateral Ratio）
+  collateralRate: long(name='collateral_rate', example='12.34'),
+  // 数据日期
+  dt: string(name='dt', example='20250214'),
+}
+
 model QueryPlatformInvestmentreportRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -176,22 +198,8 @@ model QueryPlatformInvestmentreportResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 预期收益
-  estimatedAnnualized?: long(name='estimated_annualized'),
-  // 实际收益率（Annual Yield）
-  actualAnnualizedYield?: long(name='actual_annualized_yield'),
-  // 预期收益率（Expect Yield）
-  estimatedAnnualizedYield?: long(name='estimated_annualized_yield'),
-  // 毛利吻合率（Gross Profit Conformity）
-  matchRate?: long(name='match_rate'),
-  // 投资金额（Investment Allocation）
-  investmentAmount?: long(name='investment_amount'),
-  // 实际收益
-  actualAnnualized?: long(name='actual_annualized'),
-  // 资产抵押率（Collateral Ratio）
-  collateralRate?: long(name='collateral_rate'),
-  // 数据日期
-  dt?: string(name='dt'),
+  // 内部投资者报表数据
+  data?: InvestmentReportInner(name='data'),
 }
 
 /**
