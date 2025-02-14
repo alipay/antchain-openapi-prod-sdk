@@ -153,6 +153,92 @@ class Config(TeaModel):
         return self
 
 
+class InvestmentReportInner(TeaModel):
+    def __init__(
+        self,
+        estimated_annualized: int = None,
+        actual_annualized_yield: int = None,
+        estimated_annualized_yield: int = None,
+        match_rate: int = None,
+        investment_amount: int = None,
+        actual_annualized: int = None,
+        collateral_rate: int = None,
+        dt: str = None,
+    ):
+        # 预期收益
+        # 
+        self.estimated_annualized = estimated_annualized
+        # 实际收益率（Annual Yield）
+        # 
+        self.actual_annualized_yield = actual_annualized_yield
+        # 预期收益率（Expect Yield）
+        self.estimated_annualized_yield = estimated_annualized_yield
+        # 毛利吻合率（Gross Profit Conformity）
+        self.match_rate = match_rate
+        # 投资金额（Investment Allocation）
+        self.investment_amount = investment_amount
+        # 实际收益
+        self.actual_annualized = actual_annualized
+        # 资产抵押率（Collateral Ratio）
+        self.collateral_rate = collateral_rate
+        # 数据日期
+        self.dt = dt
+
+    def validate(self):
+        self.validate_required(self.estimated_annualized, 'estimated_annualized')
+        self.validate_required(self.actual_annualized_yield, 'actual_annualized_yield')
+        self.validate_required(self.estimated_annualized_yield, 'estimated_annualized_yield')
+        self.validate_required(self.match_rate, 'match_rate')
+        self.validate_required(self.investment_amount, 'investment_amount')
+        self.validate_required(self.actual_annualized, 'actual_annualized')
+        self.validate_required(self.collateral_rate, 'collateral_rate')
+        self.validate_required(self.dt, 'dt')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.estimated_annualized is not None:
+            result['estimated_annualized'] = self.estimated_annualized
+        if self.actual_annualized_yield is not None:
+            result['actual_annualized_yield'] = self.actual_annualized_yield
+        if self.estimated_annualized_yield is not None:
+            result['estimated_annualized_yield'] = self.estimated_annualized_yield
+        if self.match_rate is not None:
+            result['match_rate'] = self.match_rate
+        if self.investment_amount is not None:
+            result['investment_amount'] = self.investment_amount
+        if self.actual_annualized is not None:
+            result['actual_annualized'] = self.actual_annualized
+        if self.collateral_rate is not None:
+            result['collateral_rate'] = self.collateral_rate
+        if self.dt is not None:
+            result['dt'] = self.dt
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('estimated_annualized') is not None:
+            self.estimated_annualized = m.get('estimated_annualized')
+        if m.get('actual_annualized_yield') is not None:
+            self.actual_annualized_yield = m.get('actual_annualized_yield')
+        if m.get('estimated_annualized_yield') is not None:
+            self.estimated_annualized_yield = m.get('estimated_annualized_yield')
+        if m.get('match_rate') is not None:
+            self.match_rate = m.get('match_rate')
+        if m.get('investment_amount') is not None:
+            self.investment_amount = m.get('investment_amount')
+        if m.get('actual_annualized') is not None:
+            self.actual_annualized = m.get('actual_annualized')
+        if m.get('collateral_rate') is not None:
+            self.collateral_rate = m.get('collateral_rate')
+        if m.get('dt') is not None:
+            self.dt = m.get('dt')
+        return self
+
+
 class QueryPlatformInvestmentreportRequest(TeaModel):
     def __init__(
         self,
@@ -200,14 +286,7 @@ class QueryPlatformInvestmentreportResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        estimated_annualized: int = None,
-        actual_annualized_yield: int = None,
-        estimated_annualized_yield: int = None,
-        match_rate: int = None,
-        investment_amount: int = None,
-        actual_annualized: int = None,
-        collateral_rate: int = None,
-        dt: str = None,
+        data: InvestmentReportInner = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -215,25 +294,12 @@ class QueryPlatformInvestmentreportResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 预期收益
-        self.estimated_annualized = estimated_annualized
-        # 实际收益率（Annual Yield）
-        self.actual_annualized_yield = actual_annualized_yield
-        # 预期收益率（Expect Yield）
-        self.estimated_annualized_yield = estimated_annualized_yield
-        # 毛利吻合率（Gross Profit Conformity）
-        self.match_rate = match_rate
-        # 投资金额（Investment Allocation）
-        self.investment_amount = investment_amount
-        # 实际收益
-        self.actual_annualized = actual_annualized
-        # 资产抵押率（Collateral Ratio）
-        self.collateral_rate = collateral_rate
-        # 数据日期
-        self.dt = dt
+        # 内部投资者报表数据
+        self.data = data
 
     def validate(self):
-        pass
+        if self.data:
+            self.data.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -247,22 +313,8 @@ class QueryPlatformInvestmentreportResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.estimated_annualized is not None:
-            result['estimated_annualized'] = self.estimated_annualized
-        if self.actual_annualized_yield is not None:
-            result['actual_annualized_yield'] = self.actual_annualized_yield
-        if self.estimated_annualized_yield is not None:
-            result['estimated_annualized_yield'] = self.estimated_annualized_yield
-        if self.match_rate is not None:
-            result['match_rate'] = self.match_rate
-        if self.investment_amount is not None:
-            result['investment_amount'] = self.investment_amount
-        if self.actual_annualized is not None:
-            result['actual_annualized'] = self.actual_annualized
-        if self.collateral_rate is not None:
-            result['collateral_rate'] = self.collateral_rate
-        if self.dt is not None:
-            result['dt'] = self.dt
+        if self.data is not None:
+            result['data'] = self.data.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -273,22 +325,9 @@ class QueryPlatformInvestmentreportResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('estimated_annualized') is not None:
-            self.estimated_annualized = m.get('estimated_annualized')
-        if m.get('actual_annualized_yield') is not None:
-            self.actual_annualized_yield = m.get('actual_annualized_yield')
-        if m.get('estimated_annualized_yield') is not None:
-            self.estimated_annualized_yield = m.get('estimated_annualized_yield')
-        if m.get('match_rate') is not None:
-            self.match_rate = m.get('match_rate')
-        if m.get('investment_amount') is not None:
-            self.investment_amount = m.get('investment_amount')
-        if m.get('actual_annualized') is not None:
-            self.actual_annualized = m.get('actual_annualized')
-        if m.get('collateral_rate') is not None:
-            self.collateral_rate = m.get('collateral_rate')
-        if m.get('dt') is not None:
-            self.dt = m.get('dt')
+        if m.get('data') is not None:
+            temp_model = InvestmentReportInner()
+            self.data = temp_model.from_map(m['data'])
         return self
 
 
