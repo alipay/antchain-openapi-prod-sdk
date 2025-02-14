@@ -1,0 +1,71 @@
+{
+  "scope": "antchain",
+  "name": "WEBTRWATRADE_INNER",
+  "version": "1.0.0",
+  "main": "./main.tea",
+  "maintainers": [
+    {
+      "name": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  ],
+  "releases": {
+    "java": "com.antgroup.antchain.openapi:openapi-webtrwatrade_inner:0.0.1",
+    "go": "github.com/antchain-openapi-sdk-go/webtrwatrade_inner/client:v1.0.0",
+    "csharp": "AntChain.SDK.WEBTRWATRADE_INNER:1.0.0",
+    "ts": "@antchain/webtrwatrade_inner:^1.0.0",
+    "php": "antchain/webtrwatrade_inner:1.0.0",
+    "python": "antchain_sdk_webtrwatrade_inner:1.0.0"
+  },
+  "libraries": {
+    "Util": "darabonba:Util:*",
+    "RPCUtil": "alibabacloud:RPCUtil:*",
+    "AntchainUtil": "antchain:AntchainUtil:*"
+  },
+  "java": {
+    "package": "com.antgroup.antchain.openapi.webtrwatrade_inner",
+    "packageInfo": {
+      "description": "Ant Chain WEBTRWATRADE_INNER SDK for Java",
+      "url": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "licenseNmae": "The Apache License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "developerId": "alipayproducts",
+      "developerName": "Ant Chain SDK",
+      "groupId": "com.antgroup.antchain.openapi",
+      "developerEmail": "alipaysdk@alipay.com"
+    }
+  },
+  "csharp": {
+    "className": "Client",
+    "namespace": "AntChain.SDK.WEBTRWATRADE_INNER",
+    "packageInfo": {
+      "name": "webtrwatrade_inner",
+      "title": "antchain-webtrwatrade_inner",
+      "description": "Ant Chain WEBTRWATRADE_INNER SDK Library for .NET",
+      "company": "Ant Chain, Inc"
+    }
+  },
+  "php": {
+    "package": "AntChain.WEBTRWATRADE_INNER",
+    "clientName": "Client",
+    "packageInfo": {
+      "name": "antchain/webtrwatrade_inner",
+      "desc": "Ant Chain SDK Library for PHP",
+      "github": "https://github.com/alipay/antchain-openapi-sdk-php",
+      "files": {
+        "LICENSE": "../LICENSE"
+      }
+    }
+  },
+  "python": {
+    "package": "antchain_sdk_webtrwatrade_inner",
+    "clientName": "client",
+    "packageInfo": {
+      "name": "antchain_webtrwatrade_inner",
+      "desc": "Ant Chain WEBTRWATRADE_INNER SDK Library for Python",
+      "github": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "author": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  }
+}
