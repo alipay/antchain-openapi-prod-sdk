@@ -148,6 +148,76 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+//   内部投资者报表数据
+type InvestmentReportInner struct {
+	// 预期收益
+	//
+	EstimatedAnnualized *int64 `json:"estimated_annualized,omitempty" xml:"estimated_annualized,omitempty" require:"true"`
+	// 实际收益率（Annual Yield）
+	//
+	ActualAnnualizedYield *int64 `json:"actual_annualized_yield,omitempty" xml:"actual_annualized_yield,omitempty" require:"true"`
+	// 预期收益率（Expect Yield）
+	EstimatedAnnualizedYield *int64 `json:"estimated_annualized_yield,omitempty" xml:"estimated_annualized_yield,omitempty" require:"true"`
+	// 毛利吻合率（Gross Profit Conformity）
+	MatchRate *int64 `json:"match_rate,omitempty" xml:"match_rate,omitempty" require:"true"`
+	// 投资金额（Investment Allocation）
+	InvestmentAmount *int64 `json:"investment_amount,omitempty" xml:"investment_amount,omitempty" require:"true"`
+	// 实际收益
+	ActualAnnualized *int64 `json:"actual_annualized,omitempty" xml:"actual_annualized,omitempty" require:"true"`
+	// 资产抵押率（Collateral Ratio）
+	CollateralRate *int64 `json:"collateral_rate,omitempty" xml:"collateral_rate,omitempty" require:"true"`
+	// 数据日期
+	Dt *string `json:"dt,omitempty" xml:"dt,omitempty" require:"true"`
+}
+
+func (s InvestmentReportInner) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InvestmentReportInner) GoString() string {
+	return s.String()
+}
+
+func (s *InvestmentReportInner) SetEstimatedAnnualized(v int64) *InvestmentReportInner {
+	s.EstimatedAnnualized = &v
+	return s
+}
+
+func (s *InvestmentReportInner) SetActualAnnualizedYield(v int64) *InvestmentReportInner {
+	s.ActualAnnualizedYield = &v
+	return s
+}
+
+func (s *InvestmentReportInner) SetEstimatedAnnualizedYield(v int64) *InvestmentReportInner {
+	s.EstimatedAnnualizedYield = &v
+	return s
+}
+
+func (s *InvestmentReportInner) SetMatchRate(v int64) *InvestmentReportInner {
+	s.MatchRate = &v
+	return s
+}
+
+func (s *InvestmentReportInner) SetInvestmentAmount(v int64) *InvestmentReportInner {
+	s.InvestmentAmount = &v
+	return s
+}
+
+func (s *InvestmentReportInner) SetActualAnnualized(v int64) *InvestmentReportInner {
+	s.ActualAnnualized = &v
+	return s
+}
+
+func (s *InvestmentReportInner) SetCollateralRate(v int64) *InvestmentReportInner {
+	s.CollateralRate = &v
+	return s
+}
+
+func (s *InvestmentReportInner) SetDt(v string) *InvestmentReportInner {
+	s.Dt = &v
+	return s
+}
+
 type QueryPlatformInvestmentreportRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -186,22 +256,8 @@ type QueryPlatformInvestmentreportResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 预期收益
-	EstimatedAnnualized *int64 `json:"estimated_annualized,omitempty" xml:"estimated_annualized,omitempty"`
-	// 实际收益率（Annual Yield）
-	ActualAnnualizedYield *int64 `json:"actual_annualized_yield,omitempty" xml:"actual_annualized_yield,omitempty"`
-	// 预期收益率（Expect Yield）
-	EstimatedAnnualizedYield *int64 `json:"estimated_annualized_yield,omitempty" xml:"estimated_annualized_yield,omitempty"`
-	// 毛利吻合率（Gross Profit Conformity）
-	MatchRate *int64 `json:"match_rate,omitempty" xml:"match_rate,omitempty"`
-	// 投资金额（Investment Allocation）
-	InvestmentAmount *int64 `json:"investment_amount,omitempty" xml:"investment_amount,omitempty"`
-	// 实际收益
-	ActualAnnualized *int64 `json:"actual_annualized,omitempty" xml:"actual_annualized,omitempty"`
-	// 资产抵押率（Collateral Ratio）
-	CollateralRate *int64 `json:"collateral_rate,omitempty" xml:"collateral_rate,omitempty"`
-	// 数据日期
-	Dt *string `json:"dt,omitempty" xml:"dt,omitempty"`
+	// 内部投资者报表数据
+	Data *InvestmentReportInner `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s QueryPlatformInvestmentreportResponse) String() string {
@@ -227,43 +283,8 @@ func (s *QueryPlatformInvestmentreportResponse) SetResultMsg(v string) *QueryPla
 	return s
 }
 
-func (s *QueryPlatformInvestmentreportResponse) SetEstimatedAnnualized(v int64) *QueryPlatformInvestmentreportResponse {
-	s.EstimatedAnnualized = &v
-	return s
-}
-
-func (s *QueryPlatformInvestmentreportResponse) SetActualAnnualizedYield(v int64) *QueryPlatformInvestmentreportResponse {
-	s.ActualAnnualizedYield = &v
-	return s
-}
-
-func (s *QueryPlatformInvestmentreportResponse) SetEstimatedAnnualizedYield(v int64) *QueryPlatformInvestmentreportResponse {
-	s.EstimatedAnnualizedYield = &v
-	return s
-}
-
-func (s *QueryPlatformInvestmentreportResponse) SetMatchRate(v int64) *QueryPlatformInvestmentreportResponse {
-	s.MatchRate = &v
-	return s
-}
-
-func (s *QueryPlatformInvestmentreportResponse) SetInvestmentAmount(v int64) *QueryPlatformInvestmentreportResponse {
-	s.InvestmentAmount = &v
-	return s
-}
-
-func (s *QueryPlatformInvestmentreportResponse) SetActualAnnualized(v int64) *QueryPlatformInvestmentreportResponse {
-	s.ActualAnnualized = &v
-	return s
-}
-
-func (s *QueryPlatformInvestmentreportResponse) SetCollateralRate(v int64) *QueryPlatformInvestmentreportResponse {
-	s.CollateralRate = &v
-	return s
-}
-
-func (s *QueryPlatformInvestmentreportResponse) SetDt(v string) *QueryPlatformInvestmentreportResponse {
-	s.Dt = &v
+func (s *QueryPlatformInvestmentreportResponse) SetData(v *InvestmentReportInner) *QueryPlatformInvestmentreportResponse {
+	s.Data = v
 	return s
 }
 
@@ -389,7 +410,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("WEBTRWATRADE_INNER"),
 				"_prod_channel":    tea.String("default"),
 			}
