@@ -3259,6 +3259,8 @@ type CreateApiAuthurlRequest struct {
 	IdentityNumber *string `json:"identity_number,omitempty" xml:"identity_number,omitempty"`
 	// 订单号，用于幂等控制，每次新生成，如果不填我方会自动生成一个
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
+	// 登录方式，ACCOUNT_PASS：账密，ALL：全部(包括账密和扫码)，默认为ALL（全部）
+	LoginMode *string `json:"login_mode,omitempty" xml:"login_mode,omitempty"`
 }
 
 func (s CreateApiAuthurlRequest) String() string {
@@ -3321,6 +3323,11 @@ func (s *CreateApiAuthurlRequest) SetIdentityNumber(v string) *CreateApiAuthurlR
 
 func (s *CreateApiAuthurlRequest) SetOrderNo(v string) *CreateApiAuthurlRequest {
 	s.OrderNo = &v
+	return s
+}
+
+func (s *CreateApiAuthurlRequest) SetLoginMode(v string) *CreateApiAuthurlRequest {
+	s.LoginMode = &v
 	return s
 }
 
@@ -5673,6 +5680,104 @@ func (s *RunApiDataprocessResponse) SetData(v string) *RunApiDataprocessResponse
 	return s
 }
 
+type QueryIcmInvoicecontinuedRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户号
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 授权类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 纳税人识别号
+	Nsrsbh *string `json:"nsrsbh,omitempty" xml:"nsrsbh,omitempty" require:"true"`
+	// 请求号，调用方企业保证每次调用唯一，蚂蚁发票平台通过该字段和app_id两个字段做幂等判断
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 数据通知地址接口 ，用于数据采集完毕后通知该接口如何取发票数据，也可以通过后台指定配置
+	CallbackUrl *string `json:"callback_url,omitempty" xml:"callback_url,omitempty"`
+	// 贷款期限，格式:yyyy-MM-dd，不晚于当前时间，包含贷款截止日期当天
+	CreditTerm *string `json:"credit_term,omitempty" xml:"credit_term,omitempty" require:"true"`
+}
+
+func (s QueryIcmInvoicecontinuedRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIcmInvoicecontinuedRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIcmInvoicecontinuedRequest) SetAuthToken(v string) *QueryIcmInvoicecontinuedRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIcmInvoicecontinuedRequest) SetProductInstanceId(v string) *QueryIcmInvoicecontinuedRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIcmInvoicecontinuedRequest) SetAppId(v string) *QueryIcmInvoicecontinuedRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *QueryIcmInvoicecontinuedRequest) SetAuthType(v string) *QueryIcmInvoicecontinuedRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *QueryIcmInvoicecontinuedRequest) SetNsrsbh(v string) *QueryIcmInvoicecontinuedRequest {
+	s.Nsrsbh = &v
+	return s
+}
+
+func (s *QueryIcmInvoicecontinuedRequest) SetRequestId(v string) *QueryIcmInvoicecontinuedRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryIcmInvoicecontinuedRequest) SetCallbackUrl(v string) *QueryIcmInvoicecontinuedRequest {
+	s.CallbackUrl = &v
+	return s
+}
+
+func (s *QueryIcmInvoicecontinuedRequest) SetCreditTerm(v string) *QueryIcmInvoicecontinuedRequest {
+	s.CreditTerm = &v
+	return s
+}
+
+type QueryIcmInvoicecontinuedResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryIcmInvoicecontinuedResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIcmInvoicecontinuedResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIcmInvoicecontinuedResponse) SetReqMsgId(v string) *QueryIcmInvoicecontinuedResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIcmInvoicecontinuedResponse) SetResultCode(v string) *QueryIcmInvoicecontinuedResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIcmInvoicecontinuedResponse) SetResultMsg(v string) *QueryIcmInvoicecontinuedResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type QueryPdataPersonalincomeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -6530,7 +6635,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.42"),
+				"sdk_version":      tea.String("1.8.43"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -7839,6 +7944,40 @@ func (client *Client) RunApiDataprocessEx(request *RunApiDataprocessRequest, hea
 	}
 	_result = &RunApiDataprocessResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.dataprocess.run"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
+ * Summary: 区块链发票信息持续取数查询
+ */
+func (client *Client) QueryIcmInvoicecontinued(request *QueryIcmInvoicecontinuedRequest) (_result *QueryIcmInvoicecontinuedResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIcmInvoicecontinuedResponse{}
+	_body, _err := client.QueryIcmInvoicecontinuedEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
+ * Summary: 区块链发票信息持续取数查询
+ */
+func (client *Client) QueryIcmInvoicecontinuedEx(request *QueryIcmInvoicecontinuedRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIcmInvoicecontinuedResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIcmInvoicecontinuedResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.icm.invoicecontinued.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
