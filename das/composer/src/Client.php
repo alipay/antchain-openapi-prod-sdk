@@ -25,6 +25,8 @@ use AntChain\DAS\Models\DeleteDasDatasourceRequest;
 use AntChain\DAS\Models\DeleteDasDatasourceResponse;
 use AntChain\DAS\Models\GetApplicationFileentranceRequest;
 use AntChain\DAS\Models\GetApplicationFileentranceResponse;
+use AntChain\DAS\Models\GetApplicationProxysignRequest;
+use AntChain\DAS\Models\GetApplicationProxysignResponse;
 use AntChain\DAS\Models\GetDasEnterprisevcRequest;
 use AntChain\DAS\Models\GetDasEnterprisevcResponse;
 use AntChain\DAS\Models\GetDasIndividualvcRequest;
@@ -238,7 +240,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.65',
+                    'sdk_version'      => '1.1.67',
                     '_prod_code'       => 'DAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1199,6 +1201,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryMainsiteUnifiedentranceResponse::fromMap($this->doRequest('1.0', 'antchain.das.mainsite.unifiedentrance.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代客签名
+     * Summary: 代客签名.
+     *
+     * @param GetApplicationProxysignRequest $request
+     *
+     * @return GetApplicationProxysignResponse
+     */
+    public function getApplicationProxysign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getApplicationProxysignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代客签名
+     * Summary: 代客签名.
+     *
+     * @param GetApplicationProxysignRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return GetApplicationProxysignResponse
+     */
+    public function getApplicationProxysignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetApplicationProxysignResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.proxysign.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
