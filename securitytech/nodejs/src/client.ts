@@ -305,6 +305,27 @@ export class FaceShieldResult extends $tea.Model {
   }
 }
 
+// 两轮车一体机销售信息
+export class SimSalesInfo extends $tea.Model {
+  // 销售对外业务id
+  salesId: string;
+  static names(): { [key: string]: string } {
+    return {
+      salesId: 'sales_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      salesId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 终端安全-Android加固-Response
 export class FileTokenForUpload extends $tea.Model {
   // .
@@ -655,6 +676,141 @@ export class ClassMethodConfig extends $tea.Model {
   }
 }
 
+// 两轮车一体机订单信息
+export class SimOrderInfo extends $tea.Model {
+  // 订单ID
+  orderId: string;
+  // 必填	销售id
+  salesId: string;
+  // 车辆SN号
+  sn?: string;
+  // 订单时间，格式yyyy-MM-dd HH:mm:ss
+  orderTime: string;
+  // 支付类型，枚举值FULL（全额付款）, INSTALLMENT（分期付款）
+  paymentType?: string;
+  // 支付时间，格式yyyy-MM-dd HH:mm:ss
+  paymentTime?: string;
+  // 总金额，单位元
+  totalAmount?: string;
+  // 订单状态，枚举值
+  // UNPAID（未支付），
+  // PAID（已支付），
+  // CANCEL（订单取消），
+  // PENDING（支付中），
+  // FAILED（支付失败）
+  status: string;
+  // 车辆SKU名字
+  skuName?: string;
+  // 车型
+  vehicleModel?: string;
+  // 颜色
+  color?: string;
+  // 配件信息，逗号分隔
+  accessories?: string;
+  // 图片json
+  images?: string;
+  static names(): { [key: string]: string } {
+    return {
+      orderId: 'order_id',
+      salesId: 'sales_id',
+      sn: 'sn',
+      orderTime: 'order_time',
+      paymentType: 'payment_type',
+      paymentTime: 'payment_time',
+      totalAmount: 'total_amount',
+      status: 'status',
+      skuName: 'sku_name',
+      vehicleModel: 'vehicle_model',
+      color: 'color',
+      accessories: 'accessories',
+      images: 'images',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderId: 'string',
+      salesId: 'string',
+      sn: 'string',
+      orderTime: 'string',
+      paymentType: 'string',
+      paymentTime: 'string',
+      totalAmount: 'string',
+      status: 'string',
+      skuName: 'string',
+      vehicleModel: 'string',
+      color: 'string',
+      accessories: 'string',
+      images: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 二轮车一体机车辆SKU
+export class SimSkuInfo extends $tea.Model {
+  // sku对外id
+  skuId: string;
+  // sku名称
+  skuName: string;
+  // sku官方指导价：单位为元
+  price: string;
+  // sku门店优惠价：单位为元
+  storePrice: string;
+  // 车型
+  vehicleModel: string;
+  // 续航里程，单位KM
+  rangeKm: number;
+  // 关键词，逗号分隔
+  keywords: string;
+  // 颜色，逗号分隔
+  colors: string;
+  // 配件信息，逗号分隔
+  accessories: string;
+  // 图片url json
+  images: string;
+  // 门店id
+  storeId: string;
+  static names(): { [key: string]: string } {
+    return {
+      skuId: 'sku_id',
+      skuName: 'sku_name',
+      price: 'price',
+      storePrice: 'store_price',
+      vehicleModel: 'vehicle_model',
+      rangeKm: 'range_km',
+      keywords: 'keywords',
+      colors: 'colors',
+      accessories: 'accessories',
+      images: 'images',
+      storeId: 'store_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      skuId: 'string',
+      skuName: 'string',
+      price: 'string',
+      storePrice: 'string',
+      vehicleModel: 'string',
+      rangeKm: 'number',
+      keywords: 'string',
+      colors: 'string',
+      accessories: 'string',
+      images: 'string',
+      storeId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // eKYT可信签约查询数据
 export class TrustSignQueryData extends $tea.Model {
   // 请求唯一标识Id
@@ -935,6 +1091,35 @@ export class DeviceRiskResp extends $tea.Model {
   }
 }
 
+// 分页器
+export class Paginator extends $tea.Model {
+  // 当前页
+  page: number;
+  // 单页项数
+  itemsPerPage: number;
+  // 总项数
+  items: number;
+  static names(): { [key: string]: string } {
+    return {
+      page: 'page',
+      itemsPerPage: 'items_per_page',
+      items: 'items',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      page: 'number',
+      itemsPerPage: 'number',
+      items: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 内容安全请求体datamap
 export class CctDataMap extends $tea.Model {
   // text
@@ -952,6 +1137,31 @@ export class CctDataMap extends $tea.Model {
     return {
       text: { 'type': 'array', 'itemType': 'string' },
       picture: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 两轮车一体机门店信息
+export class SimStoreInfo extends $tea.Model {
+  // 门店对外业务id
+  storeId: string;
+  // 门店名称
+  storeName: string;
+  static names(): { [key: string]: string } {
+    return {
+      storeId: 'store_id',
+      storeName: 'store_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      storeId: 'string',
+      storeName: 'string',
     };
   }
 
@@ -1176,6 +1386,39 @@ export class EtcTripInfo extends $tea.Model {
       totalAmount: 'string',
       tripId: 'string',
       tradeNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 两轮车一体机营销活动信息
+export class SimCampaignInfo extends $tea.Model {
+  // 营销活动id
+  campaignId: string;
+  // 营销活动名
+  campaignName: string;
+  // 营销图片
+  imageUrl: string;
+  // 营销活动内容
+  content: string;
+  static names(): { [key: string]: string } {
+    return {
+      campaignId: 'campaign_id',
+      campaignName: 'campaign_name',
+      imageUrl: 'image_url',
+      content: 'content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      campaignId: 'string',
+      campaignName: 'string',
+      imageUrl: 'string',
+      content: 'string',
     };
   }
 
@@ -1773,6 +2016,722 @@ export class QueryEtcTripResponse extends $tea.Model {
       hasNext: 'boolean',
       tripList: { 'type': 'array', 'itemType': EtcTripInfo },
       externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitSimLoginRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备编号
+  deviceId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceId: 'device_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitSimLoginResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 支付宝登录url
+  url?: string;
+  // 登录token
+  token?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      url: 'url',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      url: 'string',
+      token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySimLoginRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备编号
+  deviceId: string;
+  // 登录态token
+  token?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceId: 'device_id',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceId: 'string',
+      token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySimLoginResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 登录结果
+  // NO_RESULT：暂无登录结果
+  // EXPIRED：token过期
+  // ACTIVATE_OK：激活成功，店长首次登录成功
+  // LOGIN_OK：登录成功
+  // USER_NOT_EXIST：用户不存在
+  // STORE_NOT_ACTIVATED：门店未激活
+  loginResult?: string;
+  // 登录结果中文信息
+  loginMsg?: string;
+  // 是否已经激活
+  activated?: boolean;
+  // 登录/激活时间，格式yyyy-MM-dd HH:mm:ss
+  loginTime?: string;
+  // 当前登录的门店信息
+  storeInfo?: SimStoreInfo;
+  // 当前登录的销售信息
+  salesInfo?: SimSalesInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      loginResult: 'login_result',
+      loginMsg: 'login_msg',
+      activated: 'activated',
+      loginTime: 'login_time',
+      storeInfo: 'store_info',
+      salesInfo: 'sales_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      loginResult: 'string',
+      loginMsg: 'string',
+      activated: 'boolean',
+      loginTime: 'string',
+      storeInfo: SimStoreInfo,
+      salesInfo: SimSalesInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListSimCampaignRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备编号
+  deviceId: string;
+  // 登录态token
+  token: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceId: 'device_id',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceId: 'string',
+      token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListSimCampaignResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 营销活动列表
+  campaignList?: SimCampaignInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      campaignList: 'campaign_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      campaignList: { 'type': 'array', 'itemType': SimCampaignInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySimSkuRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备编号
+  deviceId: string;
+  // 车辆SN，与skuId二选一
+  sn?: string;
+  // sku对外id列表，与sn二选一
+  skuIdList?: string[];
+  // 登录态token
+  token: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceId: 'device_id',
+      sn: 'sn',
+      skuIdList: 'sku_id_list',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceId: 'string',
+      sn: 'string',
+      skuIdList: { 'type': 'array', 'itemType': 'string' },
+      token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySimSkuResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 车辆SKU，如果查无返回空列表
+  skuInfoList?: SimSkuInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      skuInfoList: 'sku_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      skuInfoList: { 'type': 'array', 'itemType': SimSkuInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListSimSkuRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备编号
+  deviceId: string;
+  // 请求的页数
+  pageNo: number;
+  // 单页项数
+  pageSize: number;
+  // 登录态token
+  token: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceId: 'device_id',
+      pageNo: 'page_no',
+      pageSize: 'page_size',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceId: 'string',
+      pageNo: 'number',
+      pageSize: 'number',
+      token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListSimSkuResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 分页器
+  paginator?: Paginator;
+  // 车辆SKU列表
+  skuInfoList?: SimSkuInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      paginator: 'paginator',
+      skuInfoList: 'sku_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      paginator: Paginator,
+      skuInfoList: { 'type': 'array', 'itemType': SimSkuInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateSimOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备编号
+  deviceId: string;
+  // sku id
+  skuId: string;
+  // 车辆sn号
+  sn?: string;
+  // 颜色
+  color: string;
+  // 登录态token
+  token: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceId: 'device_id',
+      skuId: 'sku_id',
+      sn: 'sn',
+      color: 'color',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceId: 'string',
+      skuId: 'string',
+      sn: 'string',
+      color: 'string',
+      token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateSimOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单号
+  orderId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySimOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备编号
+  deviceId: string;
+  // 订单号
+  orderId: string;
+  // 登录态token
+  token: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceId: 'device_id',
+      orderId: 'order_id',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceId: 'string',
+      orderId: 'string',
+      token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySimOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单信息，如果查无返回空对象
+  orderInfo?: SimOrderInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderInfo: 'order_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderInfo: SimOrderInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListSimOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备编号
+  deviceId: string;
+  // 请求的页数
+  pageNo: number;
+  // 单页项数
+  pageSize: number;
+  // 登录态token
+  token: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceId: 'device_id',
+      pageNo: 'page_no',
+      pageSize: 'page_size',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceId: 'string',
+      pageNo: 'number',
+      pageSize: 'number',
+      token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListSimOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 分页器
+  paginator?: Paginator;
+  // 订单信息列表
+  orderInfoList?: SimOrderInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      paginator: 'paginator',
+      orderInfoList: 'order_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      paginator: Paginator,
+      orderInfoList: { 'type': 'array', 'itemType': SimOrderInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelSimOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备编号
+  deviceId: string;
+  // 订单号
+  orderId: string;
+  // 登录态token
+  token: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceId: 'device_id',
+      orderId: 'order_id',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceId: 'string',
+      orderId: 'string',
+      token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelSimOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否取消成功
+  success?: boolean;
+  // 更新后订单信息，如果查无返回空对象
+  orderInfo?: SimOrderInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      orderInfo: 'order_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      orderInfo: SimOrderInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PullSimSkuRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求的页数
+  pageNo: number;
+  // 单页项数
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      pageNo: 'page_no',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      pageNo: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PullSimSkuResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 分页器
+  paginator?: Paginator;
+  // 车辆SKU列表
+  skuInfoList?: SimSkuInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      paginator: 'paginator',
+      skuInfoList: 'sku_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      paginator: Paginator,
+      skuInfoList: { 'type': 'array', 'itemType': SimSkuInfo },
     };
   }
 
@@ -5087,7 +6046,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.9",
+          sdk_version: "1.4.6",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -5268,6 +6227,196 @@ export default class Client {
   async queryEtcTripEx(request: QueryEtcTripRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEtcTripResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryEtcTripResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.etc.trip.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEtcTripResponse({}));
+  }
+
+  /**
+   * Description: 两轮车一体机获取授权登录地址
+   * Summary: 两轮车一体机获取授权登录地址
+   */
+  async initSimLogin(request: InitSimLoginRequest): Promise<InitSimLoginResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initSimLoginEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 两轮车一体机获取授权登录地址
+   * Summary: 两轮车一体机获取授权登录地址
+   */
+  async initSimLoginEx(request: InitSimLoginRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitSimLoginResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitSimLoginResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.sim.login.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitSimLoginResponse({}));
+  }
+
+  /**
+   * Description: 两轮车一体机查询登录结果
+   * Summary: 两轮车一体机查询登录结果
+   */
+  async querySimLogin(request: QuerySimLoginRequest): Promise<QuerySimLoginResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.querySimLoginEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 两轮车一体机查询登录结果
+   * Summary: 两轮车一体机查询登录结果
+   */
+  async querySimLoginEx(request: QuerySimLoginRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySimLoginResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QuerySimLoginResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.sim.login.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySimLoginResponse({}));
+  }
+
+  /**
+   * Description: 两轮车一体机获取营销活动
+   * Summary: 两轮车一体机获取营销活动
+   */
+  async listSimCampaign(request: ListSimCampaignRequest): Promise<ListSimCampaignResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listSimCampaignEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 两轮车一体机获取营销活动
+   * Summary: 两轮车一体机获取营销活动
+   */
+  async listSimCampaignEx(request: ListSimCampaignRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListSimCampaignResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListSimCampaignResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.sim.campaign.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListSimCampaignResponse({}));
+  }
+
+  /**
+   * Description: 两轮车一体机查询车辆SKU
+   * Summary: 两轮车一体机查询车辆SKU
+   */
+  async querySimSku(request: QuerySimSkuRequest): Promise<QuerySimSkuResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.querySimSkuEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 两轮车一体机查询车辆SKU
+   * Summary: 两轮车一体机查询车辆SKU
+   */
+  async querySimSkuEx(request: QuerySimSkuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySimSkuResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QuerySimSkuResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.sim.sku.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySimSkuResponse({}));
+  }
+
+  /**
+   * Description: 两轮车一体机列举车辆SKU
+   * Summary: 两轮车一体机列举车辆SKU
+   */
+  async listSimSku(request: ListSimSkuRequest): Promise<ListSimSkuResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listSimSkuEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 两轮车一体机列举车辆SKU
+   * Summary: 两轮车一体机列举车辆SKU
+   */
+  async listSimSkuEx(request: ListSimSkuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListSimSkuResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListSimSkuResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.sim.sku.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListSimSkuResponse({}));
+  }
+
+  /**
+   * Description: 两轮车一体机创建订单信息
+   * Summary: 两轮车一体机创建订单信息
+   */
+  async createSimOrder(request: CreateSimOrderRequest): Promise<CreateSimOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createSimOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 两轮车一体机创建订单信息
+   * Summary: 两轮车一体机创建订单信息
+   */
+  async createSimOrderEx(request: CreateSimOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateSimOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateSimOrderResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.sim.order.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateSimOrderResponse({}));
+  }
+
+  /**
+   * Description: 两轮车一体机查询订单信息
+   * Summary: 两轮车一体机查询订单信息
+   */
+  async querySimOrder(request: QuerySimOrderRequest): Promise<QuerySimOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.querySimOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 两轮车一体机查询订单信息
+   * Summary: 两轮车一体机查询订单信息
+   */
+  async querySimOrderEx(request: QuerySimOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySimOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QuerySimOrderResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.sim.order.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySimOrderResponse({}));
+  }
+
+  /**
+   * Description: 两轮车一体机列举订单信息
+   * Summary: 两轮车一体机列举订单信息
+   */
+  async listSimOrder(request: ListSimOrderRequest): Promise<ListSimOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listSimOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 两轮车一体机列举订单信息
+   * Summary: 两轮车一体机列举订单信息
+   */
+  async listSimOrderEx(request: ListSimOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListSimOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListSimOrderResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.sim.order.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListSimOrderResponse({}));
+  }
+
+  /**
+   * Description: 两轮车一体机取消订单信息
+   * Summary: 两轮车一体机取消订单信息
+   */
+  async cancelSimOrder(request: CancelSimOrderRequest): Promise<CancelSimOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.cancelSimOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 两轮车一体机取消订单信息
+   * Summary: 两轮车一体机取消订单信息
+   */
+  async cancelSimOrderEx(request: CancelSimOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelSimOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CancelSimOrderResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.sim.order.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelSimOrderResponse({}));
+  }
+
+  /**
+   * Description: 两轮车一体机拉取车辆SKU
+   * Summary: 两轮车一体机拉取车辆SKU
+   */
+  async pullSimSku(request: PullSimSkuRequest): Promise<PullSimSkuResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pullSimSkuEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 两轮车一体机拉取车辆SKU
+   * Summary: 两轮车一体机拉取车辆SKU
+   */
+  async pullSimSkuEx(request: PullSimSkuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PullSimSkuResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PullSimSkuResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.sim.sku.pull", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PullSimSkuResponse({}));
   }
 
   /**
