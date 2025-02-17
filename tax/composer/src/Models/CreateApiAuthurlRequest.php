@@ -72,6 +72,12 @@ class CreateApiAuthurlRequest extends Model
      * @var string
      */
     public $orderNo;
+
+    // 登录方式，ACCOUNT_PASS：账密，ALL：全部(包括账密和扫码)，默认为ALL（全部）
+    /**
+     * @var string
+     */
+    public $loginMode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -84,6 +90,7 @@ class CreateApiAuthurlRequest extends Model
         'cognizantName'     => 'cognizant_name',
         'identityNumber'    => 'identity_number',
         'orderNo'           => 'order_no',
+        'loginMode'         => 'login_mode',
     ];
 
     public function validate()
@@ -131,6 +138,9 @@ class CreateApiAuthurlRequest extends Model
         if (null !== $this->orderNo) {
             $res['order_no'] = $this->orderNo;
         }
+        if (null !== $this->loginMode) {
+            $res['login_mode'] = $this->loginMode;
+        }
 
         return $res;
     }
@@ -175,6 +185,9 @@ class CreateApiAuthurlRequest extends Model
         }
         if (isset($map['order_no'])) {
             $model->orderNo = $map['order_no'];
+        }
+        if (isset($map['login_mode'])) {
+            $model->loginMode = $map['login_mode'];
         }
 
         return $model;

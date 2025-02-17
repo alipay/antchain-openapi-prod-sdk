@@ -71,6 +71,8 @@ use AntChain\TAX\Models\QueryChargeAuthRequest;
 use AntChain\TAX\Models\QueryChargeAuthResponse;
 use AntChain\TAX\Models\QueryEnterpriseElectronicasyncRequest;
 use AntChain\TAX\Models\QueryEnterpriseElectronicasyncResponse;
+use AntChain\TAX\Models\QueryIcmInvoicecontinuedRequest;
+use AntChain\TAX\Models\QueryIcmInvoicecontinuedResponse;
 use AntChain\TAX\Models\QueryIcmInvoiceRequest;
 use AntChain\TAX\Models\QueryIcmInvoiceResponse;
 use AntChain\TAX\Models\QueryIcmSimpleauthRequest;
@@ -244,7 +246,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.42',
+                    'sdk_version'      => '1.8.43',
                     '_prod_code'       => 'TAX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1511,6 +1513,39 @@ class Client
         Utils::validateModel($request);
 
         return RunApiDataprocessResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.dataprocess.run', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
+     * Summary: 区块链发票信息持续取数查询.
+     *
+     * @param QueryIcmInvoicecontinuedRequest $request
+     *
+     * @return QueryIcmInvoicecontinuedResponse
+     */
+    public function queryIcmInvoicecontinued($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIcmInvoicecontinuedEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
+     * Summary: 区块链发票信息持续取数查询.
+     *
+     * @param QueryIcmInvoicecontinuedRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryIcmInvoicecontinuedResponse
+     */
+    public function queryIcmInvoicecontinuedEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIcmInvoicecontinuedResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.icm.invoicecontinued.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
