@@ -4092,6 +4092,7 @@ class CreateApiAuthurlRequest(TeaModel):
         cognizant_name: str = None,
         identity_number: str = None,
         order_no: str = None,
+        login_mode: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4114,6 +4115,8 @@ class CreateApiAuthurlRequest(TeaModel):
         self.identity_number = identity_number
         # 订单号，用于幂等控制，每次新生成，如果不填我方会自动生成一个
         self.order_no = order_no
+        # 登录方式，ACCOUNT_PASS：账密，ALL：全部(包括账密和扫码)，默认为ALL（全部）
+        self.login_mode = login_mode
 
     def validate(self):
         self.validate_required(self.auth_type, 'auth_type')
@@ -4150,6 +4153,8 @@ class CreateApiAuthurlRequest(TeaModel):
             result['identity_number'] = self.identity_number
         if self.order_no is not None:
             result['order_no'] = self.order_no
+        if self.login_mode is not None:
+            result['login_mode'] = self.login_mode
         return result
 
     def from_map(self, m: dict = None):
@@ -4176,6 +4181,8 @@ class CreateApiAuthurlRequest(TeaModel):
             self.identity_number = m.get('identity_number')
         if m.get('order_no') is not None:
             self.order_no = m.get('order_no')
+        if m.get('login_mode') is not None:
+            self.login_mode = m.get('login_mode')
         return self
 
 
@@ -7074,6 +7081,128 @@ class RunApiDataprocessResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('data') is not None:
             self.data = m.get('data')
+        return self
+
+
+class QueryIcmInvoicecontinuedRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        app_id: str = None,
+        auth_type: str = None,
+        nsrsbh: str = None,
+        request_id: str = None,
+        callback_url: str = None,
+        credit_term: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户号
+        self.app_id = app_id
+        # 授权类型
+        self.auth_type = auth_type
+        # 纳税人识别号
+        self.nsrsbh = nsrsbh
+        # 请求号，调用方企业保证每次调用唯一，蚂蚁发票平台通过该字段和app_id两个字段做幂等判断
+        self.request_id = request_id
+        # 数据通知地址接口 ，用于数据采集完毕后通知该接口如何取发票数据，也可以通过后台指定配置
+        self.callback_url = callback_url
+        # 贷款期限，格式:yyyy-MM-dd，不晚于当前时间，包含贷款截止日期当天
+        self.credit_term = credit_term
+
+    def validate(self):
+        self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.auth_type, 'auth_type')
+        self.validate_required(self.nsrsbh, 'nsrsbh')
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.credit_term, 'credit_term')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.auth_type is not None:
+            result['auth_type'] = self.auth_type
+        if self.nsrsbh is not None:
+            result['nsrsbh'] = self.nsrsbh
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.callback_url is not None:
+            result['callback_url'] = self.callback_url
+        if self.credit_term is not None:
+            result['credit_term'] = self.credit_term
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('auth_type') is not None:
+            self.auth_type = m.get('auth_type')
+        if m.get('nsrsbh') is not None:
+            self.nsrsbh = m.get('nsrsbh')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('callback_url') is not None:
+            self.callback_url = m.get('callback_url')
+        if m.get('credit_term') is not None:
+            self.credit_term = m.get('credit_term')
+        return self
+
+
+class QueryIcmInvoicecontinuedResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 

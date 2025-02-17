@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.42',
+                    'sdk_version': '1.8.43',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.42',
+                    'sdk_version': '1.8.43',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -2345,6 +2345,62 @@ class Client:
         return TeaCore.from_map(
             tax_models.RunApiDataprocessResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.api.dataprocess.run', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_icm_invoicecontinued(
+        self,
+        request: tax_models.QueryIcmInvoicecontinuedRequest,
+    ) -> tax_models.QueryIcmInvoicecontinuedResponse:
+        """
+        Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
+        Summary: 区块链发票信息持续取数查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_icm_invoicecontinued_ex(request, headers, runtime)
+
+    async def query_icm_invoicecontinued_async(
+        self,
+        request: tax_models.QueryIcmInvoicecontinuedRequest,
+    ) -> tax_models.QueryIcmInvoicecontinuedResponse:
+        """
+        Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
+        Summary: 区块链发票信息持续取数查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_icm_invoicecontinued_ex_async(request, headers, runtime)
+
+    def query_icm_invoicecontinued_ex(
+        self,
+        request: tax_models.QueryIcmInvoicecontinuedRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryIcmInvoicecontinuedResponse:
+        """
+        Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
+        Summary: 区块链发票信息持续取数查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryIcmInvoicecontinuedResponse(),
+            self.do_request('1.0', 'blockchain.tax.icm.invoicecontinued.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_icm_invoicecontinued_ex_async(
+        self,
+        request: tax_models.QueryIcmInvoicecontinuedRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryIcmInvoicecontinuedResponse:
+        """
+        Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
+        Summary: 区块链发票信息持续取数查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryIcmInvoicecontinuedResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.icm.invoicecontinued.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_pdata_personalincome(
