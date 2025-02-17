@@ -1327,6 +1327,32 @@ func (s *DetailCarInfo) SetDisplacement(v string) *DetailCarInfo {
 	return s
 }
 
+// Das平台自定义pair，key和value只能为String类型
+type StringPair struct {
+	// key
+	Key *string `json:"key,omitempty" xml:"key,omitempty" require:"true"`
+	// 对应key的具体value
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s StringPair) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StringPair) GoString() string {
+	return s.String()
+}
+
+func (s *StringPair) SetKey(v string) *StringPair {
+	s.Key = &v
+	return s
+}
+
+func (s *StringPair) SetValue(v string) *StringPair {
+	s.Value = &v
+	return s
+}
+
 // 国内商标扩展信息
 type DomesticTmExtensionInfo struct {
 	// 商标logo URL地址
@@ -4389,6 +4415,90 @@ func (s *QueryMainsiteUnifiedentranceResponse) SetData(v string) *QueryMainsiteU
 	return s
 }
 
+type GetApplicationProxysignRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 代签名相关参数
+	SignParams *string `json:"sign_params,omitempty" xml:"sign_params,omitempty" require:"true"`
+	// 对应的服务id
+	DataSetId *string `json:"data_set_id,omitempty" xml:"data_set_id,omitempty"`
+}
+
+func (s GetApplicationProxysignRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetApplicationProxysignRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetApplicationProxysignRequest) SetAuthToken(v string) *GetApplicationProxysignRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetApplicationProxysignRequest) SetProductInstanceId(v string) *GetApplicationProxysignRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetApplicationProxysignRequest) SetSignParams(v string) *GetApplicationProxysignRequest {
+	s.SignParams = &v
+	return s
+}
+
+func (s *GetApplicationProxysignRequest) SetDataSetId(v string) *GetApplicationProxysignRequest {
+	s.DataSetId = &v
+	return s
+}
+
+type GetApplicationProxysignResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 代客签名结果
+	Sign *string `json:"sign,omitempty" xml:"sign,omitempty"`
+	// 扩展字段
+	Ext *string `json:"ext,omitempty" xml:"ext,omitempty"`
+}
+
+func (s GetApplicationProxysignResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetApplicationProxysignResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetApplicationProxysignResponse) SetReqMsgId(v string) *GetApplicationProxysignResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetApplicationProxysignResponse) SetResultCode(v string) *GetApplicationProxysignResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetApplicationProxysignResponse) SetResultMsg(v string) *GetApplicationProxysignResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetApplicationProxysignResponse) SetSign(v string) *GetApplicationProxysignResponse {
+	s.Sign = &v
+	return s
+}
+
+func (s *GetApplicationProxysignResponse) SetExt(v string) *GetApplicationProxysignResponse {
+	s.Ext = &v
+	return s
+}
+
 type GetDasLinkRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -5765,7 +5875,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.65"),
+				"sdk_version":      tea.String("1.1.67"),
 				"_prod_code":       tea.String("DAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6790,6 +6900,40 @@ func (client *Client) QueryMainsiteUnifiedentranceEx(request *QueryMainsiteUnifi
 	}
 	_result = &QueryMainsiteUnifiedentranceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.mainsite.unifiedentrance.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 代客签名
+ * Summary: 代客签名
+ */
+func (client *Client) GetApplicationProxysign(request *GetApplicationProxysignRequest) (_result *GetApplicationProxysignResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetApplicationProxysignResponse{}
+	_body, _err := client.GetApplicationProxysignEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 代客签名
+ * Summary: 代客签名
+ */
+func (client *Client) GetApplicationProxysignEx(request *GetApplicationProxysignRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetApplicationProxysignResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetApplicationProxysignResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.application.proxysign.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
