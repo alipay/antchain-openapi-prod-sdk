@@ -25,6 +25,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public string Sn { get; set; }
 
+        // 订单时间，格式yyyy-MM-dd HH:mm:ss
+        [NameInMap("order_time")]
+        [Validation(Required=true)]
+        public string OrderTime { get; set; }
+
         // 支付类型，枚举值FULL（全额付款）, INSTALLMENT（分期付款）
         [NameInMap("payment_type")]
         [Validation(Required=false)]
@@ -64,6 +69,16 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [NameInMap("color")]
         [Validation(Required=false)]
         public string Color { get; set; }
+
+        // 配件信息，逗号分隔
+        [NameInMap("accessories")]
+        [Validation(Required=false)]
+        public string Accessories { get; set; }
+
+        // 图片json
+        [NameInMap("images")]
+        [Validation(Required=false)]
+        public string Images { get; set; }
 
     }
 
