@@ -137,7 +137,7 @@ namespace AntChain.SDK.DAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.65"},
+                        {"sdk_version", "1.1.67"},
                         {"_prod_code", "DAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.65"},
+                        {"sdk_version", "1.1.67"},
                         {"_prod_code", "DAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1555,6 +1555,48 @@ namespace AntChain.SDK.DAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryMainsiteUnifiedentranceResponse>(await DoRequestAsync("1.0", "antchain.das.mainsite.unifiedentrance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代客签名
+         * Summary: 代客签名
+         */
+        public GetApplicationProxysignResponse GetApplicationProxysign(GetApplicationProxysignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetApplicationProxysignEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代客签名
+         * Summary: 代客签名
+         */
+        public async Task<GetApplicationProxysignResponse> GetApplicationProxysignAsync(GetApplicationProxysignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetApplicationProxysignExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代客签名
+         * Summary: 代客签名
+         */
+        public GetApplicationProxysignResponse GetApplicationProxysignEx(GetApplicationProxysignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetApplicationProxysignResponse>(DoRequest("1.0", "antchain.das.application.proxysign.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代客签名
+         * Summary: 代客签名
+         */
+        public async Task<GetApplicationProxysignResponse> GetApplicationProxysignExAsync(GetApplicationProxysignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetApplicationProxysignResponse>(await DoRequestAsync("1.0", "antchain.das.application.proxysign.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
