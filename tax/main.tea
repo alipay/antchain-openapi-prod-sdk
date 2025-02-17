@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.42',
+    sdk_version = '1.8.43',
     _prod_code = 'TAX',
     _prod_channel = 'undefined'
   };
@@ -1404,6 +1404,8 @@ model CreateApiAuthurlRequest = {
   identityNumber?: string(name='identity_number'),
   // 订单号，用于幂等控制，每次新生成，如果不填我方会自动生成一个
   orderNo?: string(name='order_no'),
+  // 登录方式，ACCOUNT_PASS：账密，ALL：全部(包括账密和扫码)，默认为ALL（全部）
+  loginMode?: string(name='login_mode'),
 }
 
 model CreateApiAuthurlResponse = {
@@ -2482,6 +2484,52 @@ async function runApiDataprocess(request: RunApiDataprocessRequest): RunApiDatap
 async function runApiDataprocessEx(request: RunApiDataprocessRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RunApiDataprocessResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.tax.api.dataprocess.run', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIcmInvoicecontinuedRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户号
+  appId: string(name='app_id'),
+  // 授权类型
+  authType: string(name='auth_type'),
+  // 纳税人识别号
+  nsrsbh: string(name='nsrsbh'),
+  // 请求号，调用方企业保证每次调用唯一，蚂蚁发票平台通过该字段和app_id两个字段做幂等判断
+  requestId: string(name='request_id'),
+  // 数据通知地址接口 ，用于数据采集完毕后通知该接口如何取发票数据，也可以通过后台指定配置
+  callbackUrl?: string(name='callback_url'),
+  // 贷款期限，格式:yyyy-MM-dd，不晚于当前时间，包含贷款截止日期当天
+  creditTerm: string(name='credit_term'),
+}
+
+model QueryIcmInvoicecontinuedResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
+ * Summary: 区块链发票信息持续取数查询
+ */
+async function queryIcmInvoicecontinued(request: QueryIcmInvoicecontinuedRequest): QueryIcmInvoicecontinuedResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIcmInvoicecontinuedEx(request, headers, runtime);
+}
+
+/**
+ * Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
+ * Summary: 区块链发票信息持续取数查询
+ */
+async function queryIcmInvoicecontinuedEx(request: QueryIcmInvoicecontinuedRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIcmInvoicecontinuedResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.icm.invoicecontinued.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryPdataPersonalincomeRequest = {
