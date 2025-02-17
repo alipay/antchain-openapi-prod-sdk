@@ -52,6 +52,10 @@ public class CreateApiAuthurlRequest extends TeaModel {
     @NameInMap("order_no")
     public String orderNo;
 
+    // 登录方式，ACCOUNT_PASS：账密，ALL：全部(包括账密和扫码)，默认为ALL（全部）
+    @NameInMap("login_mode")
+    public String loginMode;
+
     public static CreateApiAuthurlRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateApiAuthurlRequest self = new CreateApiAuthurlRequest();
         return TeaModel.build(map, self);
@@ -143,6 +147,14 @@ public class CreateApiAuthurlRequest extends TeaModel {
     }
     public String getOrderNo() {
         return this.orderNo;
+    }
+
+    public CreateApiAuthurlRequest setLoginMode(String loginMode) {
+        this.loginMode = loginMode;
+        return this;
+    }
+    public String getLoginMode() {
+        return this.loginMode;
     }
 
 }

@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.8.42"),
+                    new TeaPair("sdk_version", "1.8.43"),
                     new TeaPair("_prod_code", "TAX"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -885,6 +885,25 @@ public class Client {
     public RunApiDataprocessResponse runApiDataprocessEx(RunApiDataprocessRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.api.dataprocess.run", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RunApiDataprocessResponse());
+    }
+
+    /**
+     * Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
+     * Summary: 区块链发票信息持续取数查询
+     */
+    public QueryIcmInvoicecontinuedResponse queryIcmInvoicecontinued(QueryIcmInvoicecontinuedRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIcmInvoicecontinuedEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
+     * Summary: 区块链发票信息持续取数查询
+     */
+    public QueryIcmInvoicecontinuedResponse queryIcmInvoicecontinuedEx(QueryIcmInvoicecontinuedRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.icm.invoicecontinued.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIcmInvoicecontinuedResponse());
     }
 
     /**
