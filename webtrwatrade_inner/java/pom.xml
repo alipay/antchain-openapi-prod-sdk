@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-webtrwatrade_inner</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <packaging>jar</packaging>
   <name>openapi-webtrwatrade_inner</name>
   <description>Ant Chain WEBTRWATRADE_INNER SDK for Java
