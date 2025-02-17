@@ -965,6 +965,31 @@ export class DetailCarInfo extends $tea.Model {
   }
 }
 
+// Das平台自定义pair，key和value只能为String类型
+export class StringPair extends $tea.Model {
+  // key
+  key: string;
+  // 对应key的具体value
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      key: 'key',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      key: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 国内商标扩展信息
 export class DomesticTmExtensionInfo extends $tea.Model {
   // 商标logo URL地址
@@ -3314,6 +3339,73 @@ export class QueryMainsiteUnifiedentranceResponse extends $tea.Model {
   }
 }
 
+export class GetApplicationProxysignRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 代签名相关参数
+  signParams: string;
+  // 对应的服务id
+  dataSetId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      signParams: 'sign_params',
+      dataSetId: 'data_set_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      signParams: 'string',
+      dataSetId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetApplicationProxysignResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 代客签名结果
+  sign?: string;
+  // 扩展字段
+  ext?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      sign: 'sign',
+      ext: 'ext',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      sign: 'string',
+      ext: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class GetDasLinkRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -4410,7 +4502,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.65",
+          sdk_version: "1.1.67",
           _prod_code: "DAS",
           _prod_channel: "undefined",
         };
@@ -5016,6 +5108,25 @@ export default class Client {
   async queryMainsiteUnifiedentranceEx(request: QueryMainsiteUnifiedentranceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMainsiteUnifiedentranceResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryMainsiteUnifiedentranceResponse>(await this.doRequest("1.0", "antchain.das.mainsite.unifiedentrance.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMainsiteUnifiedentranceResponse({}));
+  }
+
+  /**
+   * Description: 代客签名
+   * Summary: 代客签名
+   */
+  async getApplicationProxysign(request: GetApplicationProxysignRequest): Promise<GetApplicationProxysignResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getApplicationProxysignEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 代客签名
+   * Summary: 代客签名
+   */
+  async getApplicationProxysignEx(request: GetApplicationProxysignRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetApplicationProxysignResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetApplicationProxysignResponse>(await this.doRequest("1.0", "antchain.das.application.proxysign.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetApplicationProxysignResponse({}));
   }
 
   /**
