@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.65',
+                    'sdk_version': '1.1.67',
                     '_prod_code': 'DAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.65',
+                    'sdk_version': '1.1.67',
                     '_prod_code': 'DAS',
                     '_prod_channel': 'undefined'
                 }
@@ -1837,6 +1837,62 @@ class Client:
         return TeaCore.from_map(
             das_models.QueryMainsiteUnifiedentranceResponse(),
             await self.do_request_async('1.0', 'antchain.das.mainsite.unifiedentrance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_application_proxysign(
+        self,
+        request: das_models.GetApplicationProxysignRequest,
+    ) -> das_models.GetApplicationProxysignResponse:
+        """
+        Description: 代客签名
+        Summary: 代客签名
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_application_proxysign_ex(request, headers, runtime)
+
+    async def get_application_proxysign_async(
+        self,
+        request: das_models.GetApplicationProxysignRequest,
+    ) -> das_models.GetApplicationProxysignResponse:
+        """
+        Description: 代客签名
+        Summary: 代客签名
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_application_proxysign_ex_async(request, headers, runtime)
+
+    def get_application_proxysign_ex(
+        self,
+        request: das_models.GetApplicationProxysignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.GetApplicationProxysignResponse:
+        """
+        Description: 代客签名
+        Summary: 代客签名
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.GetApplicationProxysignResponse(),
+            self.do_request('1.0', 'antchain.das.application.proxysign.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_application_proxysign_ex_async(
+        self,
+        request: das_models.GetApplicationProxysignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.GetApplicationProxysignResponse:
+        """
+        Description: 代客签名
+        Summary: 代客签名
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.GetApplicationProxysignResponse(),
+            await self.do_request_async('1.0', 'antchain.das.application.proxysign.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_das_link(
