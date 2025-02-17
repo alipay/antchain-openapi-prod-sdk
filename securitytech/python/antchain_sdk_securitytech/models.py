@@ -1108,6 +1108,7 @@ class SimOrderInfo(TeaModel):
         order_id: str = None,
         sales_id: str = None,
         sn: str = None,
+        order_time: str = None,
         payment_type: str = None,
         payment_time: str = None,
         total_amount: str = None,
@@ -1115,6 +1116,8 @@ class SimOrderInfo(TeaModel):
         sku_name: str = None,
         vehicle_model: str = None,
         color: str = None,
+        accessories: str = None,
+        images: str = None,
     ):
         # 订单ID
         self.order_id = order_id
@@ -1122,6 +1125,8 @@ class SimOrderInfo(TeaModel):
         self.sales_id = sales_id
         # 车辆SN号
         self.sn = sn
+        # 订单时间，格式yyyy-MM-dd HH:mm:ss
+        self.order_time = order_time
         # 支付类型，枚举值FULL（全额付款）, INSTALLMENT（分期付款）
         self.payment_type = payment_type
         # 支付时间，格式yyyy-MM-dd HH:mm:ss
@@ -1141,10 +1146,15 @@ class SimOrderInfo(TeaModel):
         self.vehicle_model = vehicle_model
         # 颜色
         self.color = color
+        # 配件信息，逗号分隔
+        self.accessories = accessories
+        # 图片json
+        self.images = images
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
         self.validate_required(self.sales_id, 'sales_id')
+        self.validate_required(self.order_time, 'order_time')
         self.validate_required(self.status, 'status')
 
     def to_map(self):
@@ -1159,6 +1169,8 @@ class SimOrderInfo(TeaModel):
             result['sales_id'] = self.sales_id
         if self.sn is not None:
             result['sn'] = self.sn
+        if self.order_time is not None:
+            result['order_time'] = self.order_time
         if self.payment_type is not None:
             result['payment_type'] = self.payment_type
         if self.payment_time is not None:
@@ -1173,6 +1185,10 @@ class SimOrderInfo(TeaModel):
             result['vehicle_model'] = self.vehicle_model
         if self.color is not None:
             result['color'] = self.color
+        if self.accessories is not None:
+            result['accessories'] = self.accessories
+        if self.images is not None:
+            result['images'] = self.images
         return result
 
     def from_map(self, m: dict = None):
@@ -1183,6 +1199,8 @@ class SimOrderInfo(TeaModel):
             self.sales_id = m.get('sales_id')
         if m.get('sn') is not None:
             self.sn = m.get('sn')
+        if m.get('order_time') is not None:
+            self.order_time = m.get('order_time')
         if m.get('payment_type') is not None:
             self.payment_type = m.get('payment_type')
         if m.get('payment_time') is not None:
@@ -1197,6 +1215,10 @@ class SimOrderInfo(TeaModel):
             self.vehicle_model = m.get('vehicle_model')
         if m.get('color') is not None:
             self.color = m.get('color')
+        if m.get('accessories') is not None:
+            self.accessories = m.get('accessories')
+        if m.get('images') is not None:
+            self.images = m.get('images')
         return self
 
 
