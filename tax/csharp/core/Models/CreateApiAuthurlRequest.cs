@@ -63,6 +63,11 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=false)]
         public string OrderNo { get; set; }
 
+        // 登录方式，ACCOUNT_PASS：账密，ALL：全部(包括账密和扫码)，默认为ALL（全部）
+        [NameInMap("login_mode")]
+        [Validation(Required=false)]
+        public string LoginMode { get; set; }
+
     }
 
 }

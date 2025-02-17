@@ -137,7 +137,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.42"},
+                        {"sdk_version", "1.8.43"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.42"},
+                        {"sdk_version", "1.8.43"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1873,6 +1873,48 @@ namespace AntChain.SDK.TAX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<RunApiDataprocessResponse>(await DoRequestAsync("1.0", "blockchain.tax.api.dataprocess.run", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
+         * Summary: 区块链发票信息持续取数查询
+         */
+        public QueryIcmInvoicecontinuedResponse QueryIcmInvoicecontinued(QueryIcmInvoicecontinuedRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryIcmInvoicecontinuedEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
+         * Summary: 区块链发票信息持续取数查询
+         */
+        public async Task<QueryIcmInvoicecontinuedResponse> QueryIcmInvoicecontinuedAsync(QueryIcmInvoicecontinuedRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryIcmInvoicecontinuedExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
+         * Summary: 区块链发票信息持续取数查询
+         */
+        public QueryIcmInvoicecontinuedResponse QueryIcmInvoicecontinuedEx(QueryIcmInvoicecontinuedRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIcmInvoicecontinuedResponse>(DoRequest("1.0", "blockchain.tax.icm.invoicecontinued.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
+         * Summary: 区块链发票信息持续取数查询
+         */
+        public async Task<QueryIcmInvoicecontinuedResponse> QueryIcmInvoicecontinuedExAsync(QueryIcmInvoicecontinuedRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIcmInvoicecontinuedResponse>(await DoRequestAsync("1.0", "blockchain.tax.icm.invoicecontinued.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
