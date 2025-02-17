@@ -2494,6 +2494,8 @@ export class CreateApiAuthurlRequest extends $tea.Model {
   identityNumber?: string;
   // 订单号，用于幂等控制，每次新生成，如果不填我方会自动生成一个
   orderNo?: string;
+  // 登录方式，ACCOUNT_PASS：账密，ALL：全部(包括账密和扫码)，默认为ALL（全部）
+  loginMode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2507,6 +2509,7 @@ export class CreateApiAuthurlRequest extends $tea.Model {
       cognizantName: 'cognizant_name',
       identityNumber: 'identity_number',
       orderNo: 'order_no',
+      loginMode: 'login_mode',
     };
   }
 
@@ -2523,6 +2526,7 @@ export class CreateApiAuthurlRequest extends $tea.Model {
       cognizantName: 'string',
       identityNumber: 'string',
       orderNo: 'string',
+      loginMode: 'string',
     };
   }
 
@@ -4288,6 +4292,81 @@ export class RunApiDataprocessResponse extends $tea.Model {
   }
 }
 
+export class QueryIcmInvoicecontinuedRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户号
+  appId: string;
+  // 授权类型
+  authType: string;
+  // 纳税人识别号
+  nsrsbh: string;
+  // 请求号，调用方企业保证每次调用唯一，蚂蚁发票平台通过该字段和app_id两个字段做幂等判断
+  requestId: string;
+  // 数据通知地址接口 ，用于数据采集完毕后通知该接口如何取发票数据，也可以通过后台指定配置
+  callbackUrl?: string;
+  // 贷款期限，格式:yyyy-MM-dd，不晚于当前时间，包含贷款截止日期当天
+  creditTerm: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      appId: 'app_id',
+      authType: 'auth_type',
+      nsrsbh: 'nsrsbh',
+      requestId: 'request_id',
+      callbackUrl: 'callback_url',
+      creditTerm: 'credit_term',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      appId: 'string',
+      authType: 'string',
+      nsrsbh: 'string',
+      requestId: 'string',
+      callbackUrl: 'string',
+      creditTerm: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIcmInvoicecontinuedResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryPdataPersonalincomeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -4935,7 +5014,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.42",
+          sdk_version: "1.8.43",
           _prod_code: "TAX",
           _prod_channel: "undefined",
         };
@@ -5684,6 +5763,25 @@ export default class Client {
   async runApiDataprocessEx(request: RunApiDataprocessRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RunApiDataprocessResponse> {
     Util.validateModel(request);
     return $tea.cast<RunApiDataprocessResponse>(await this.doRequest("1.0", "blockchain.tax.api.dataprocess.run", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RunApiDataprocessResponse({}));
+  }
+
+  /**
+   * Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
+   * Summary: 区块链发票信息持续取数查询
+   */
+  async queryIcmInvoicecontinued(request: QueryIcmInvoicecontinuedRequest): Promise<QueryIcmInvoicecontinuedResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIcmInvoicecontinuedEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
+   * Summary: 区块链发票信息持续取数查询
+   */
+  async queryIcmInvoicecontinuedEx(request: QueryIcmInvoicecontinuedRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIcmInvoicecontinuedResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIcmInvoicecontinuedResponse>(await this.doRequest("1.0", "blockchain.tax.icm.invoicecontinued.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIcmInvoicecontinuedResponse({}));
   }
 
   /**
