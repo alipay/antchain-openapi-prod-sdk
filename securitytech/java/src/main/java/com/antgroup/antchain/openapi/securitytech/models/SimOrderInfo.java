@@ -18,6 +18,11 @@ public class SimOrderInfo extends TeaModel {
     @NameInMap("sn")
     public String sn;
 
+    // 订单时间，格式yyyy-MM-dd HH:mm:ss
+    @NameInMap("order_time")
+    @Validation(required = true)
+    public String orderTime;
+
     // 支付类型，枚举值FULL（全额付款）, INSTALLMENT（分期付款）
     @NameInMap("payment_type")
     public String paymentType;
@@ -52,6 +57,14 @@ public class SimOrderInfo extends TeaModel {
     @NameInMap("color")
     public String color;
 
+    // 配件信息，逗号分隔
+    @NameInMap("accessories")
+    public String accessories;
+
+    // 图片json
+    @NameInMap("images")
+    public String images;
+
     public static SimOrderInfo build(java.util.Map<String, ?> map) throws Exception {
         SimOrderInfo self = new SimOrderInfo();
         return TeaModel.build(map, self);
@@ -79,6 +92,14 @@ public class SimOrderInfo extends TeaModel {
     }
     public String getSn() {
         return this.sn;
+    }
+
+    public SimOrderInfo setOrderTime(String orderTime) {
+        this.orderTime = orderTime;
+        return this;
+    }
+    public String getOrderTime() {
+        return this.orderTime;
     }
 
     public SimOrderInfo setPaymentType(String paymentType) {
@@ -135,6 +156,22 @@ public class SimOrderInfo extends TeaModel {
     }
     public String getColor() {
         return this.color;
+    }
+
+    public SimOrderInfo setAccessories(String accessories) {
+        this.accessories = accessories;
+        return this;
+    }
+    public String getAccessories() {
+        return this.accessories;
+    }
+
+    public SimOrderInfo setImages(String images) {
+        this.images = images;
+        return this;
+    }
+    public String getImages() {
+        return this.images;
     }
 
 }
