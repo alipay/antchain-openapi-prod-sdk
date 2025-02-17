@@ -864,6 +864,8 @@ type SimOrderInfo struct {
 	SalesId *string `json:"sales_id,omitempty" xml:"sales_id,omitempty" require:"true"`
 	// 车辆SN号
 	Sn *string `json:"sn,omitempty" xml:"sn,omitempty"`
+	// 订单时间，格式yyyy-MM-dd HH:mm:ss
+	OrderTime *string `json:"order_time,omitempty" xml:"order_time,omitempty" require:"true"`
 	// 支付类型，枚举值FULL（全额付款）, INSTALLMENT（分期付款）
 	PaymentType *string `json:"payment_type,omitempty" xml:"payment_type,omitempty"`
 	// 支付时间，格式yyyy-MM-dd HH:mm:ss
@@ -883,6 +885,10 @@ type SimOrderInfo struct {
 	VehicleModel *string `json:"vehicle_model,omitempty" xml:"vehicle_model,omitempty"`
 	// 颜色
 	Color *string `json:"color,omitempty" xml:"color,omitempty"`
+	// 配件信息，逗号分隔
+	Accessories *string `json:"accessories,omitempty" xml:"accessories,omitempty"`
+	// 图片json
+	Images *string `json:"images,omitempty" xml:"images,omitempty"`
 }
 
 func (s SimOrderInfo) String() string {
@@ -905,6 +911,11 @@ func (s *SimOrderInfo) SetSalesId(v string) *SimOrderInfo {
 
 func (s *SimOrderInfo) SetSn(v string) *SimOrderInfo {
 	s.Sn = &v
+	return s
+}
+
+func (s *SimOrderInfo) SetOrderTime(v string) *SimOrderInfo {
+	s.OrderTime = &v
 	return s
 }
 
@@ -940,6 +951,16 @@ func (s *SimOrderInfo) SetVehicleModel(v string) *SimOrderInfo {
 
 func (s *SimOrderInfo) SetColor(v string) *SimOrderInfo {
 	s.Color = &v
+	return s
+}
+
+func (s *SimOrderInfo) SetAccessories(v string) *SimOrderInfo {
+	s.Accessories = &v
+	return s
+}
+
+func (s *SimOrderInfo) SetImages(v string) *SimOrderInfo {
+	s.Images = &v
 	return s
 }
 
@@ -7928,7 +7949,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.5"),
+				"sdk_version":      tea.String("1.4.6"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
