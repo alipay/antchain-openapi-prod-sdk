@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.65',
+    sdk_version = '1.1.67',
     _prod_code = 'DAS',
     _prod_channel = 'undefined'
   };
@@ -509,6 +509,14 @@ model DetailCarInfo {
   fuelType: string(name='fuel_type', example='10'),
   // 排量，数字
   displacement: string(name='displacement', example='10'),
+}
+
+// Das平台自定义pair，key和value只能为String类型
+model StringPair {
+  // key
+  key: string(name='key', example='appid'),
+  // 对应key的具体value
+  value: string(name='value', example='12312312'),
 }
 
 // 国内商标扩展信息
@@ -1928,6 +1936,48 @@ async function queryMainsiteUnifiedentrance(request: QueryMainsiteUnifiedentranc
 async function queryMainsiteUnifiedentranceEx(request: QueryMainsiteUnifiedentranceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMainsiteUnifiedentranceResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.das.mainsite.unifiedentrance.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetApplicationProxysignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 代签名相关参数
+  signParams: string(name='sign_params'),
+  // 对应的服务id
+  dataSetId?: string(name='data_set_id'),
+}
+
+model GetApplicationProxysignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 代客签名结果
+  sign?: string(name='sign'),
+  // 扩展字段
+  ext?: string(name='ext'),
+}
+
+/**
+ * Description: 代客签名
+ * Summary: 代客签名
+ */
+async function getApplicationProxysign(request: GetApplicationProxysignRequest): GetApplicationProxysignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getApplicationProxysignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代客签名
+ * Summary: 代客签名
+ */
+async function getApplicationProxysignEx(request: GetApplicationProxysignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetApplicationProxysignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.application.proxysign.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model GetDasLinkRequest = {
