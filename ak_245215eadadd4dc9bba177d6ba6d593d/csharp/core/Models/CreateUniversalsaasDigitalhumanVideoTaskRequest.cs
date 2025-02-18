@@ -78,6 +78,11 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
         [Validation(Required=false)]
         public long? Width { get; set; }
 
+        // 是否返回字幕时间戳，但不合成到视频画面里面
+        [NameInMap("return_captions")]
+        [Validation(Required=false)]
+        public bool? ReturnCaptions { get; set; }
+
     }
 
 }

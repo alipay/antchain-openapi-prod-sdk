@@ -25,6 +25,11 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
         [Validation(Required=false)]
         public long? VideoDuration { get; set; }
 
+        // 字幕时间戳信息
+        [NameInMap("captions_info")]
+        [Validation(Required=false)]
+        public CaptionsInfo CaptionsInfo { get; set; }
+
     }
 
 }
