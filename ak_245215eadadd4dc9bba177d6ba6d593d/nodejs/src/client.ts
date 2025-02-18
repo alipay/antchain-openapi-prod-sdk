@@ -551,11 +551,14 @@ export class VideoTask extends $tea.Model {
   videoUrl?: string;
   // 视频时长
   videoDuration?: number;
+  // 字幕时间戳信息
+  captionsInfo?: CaptionsInfo;
   static names(): { [key: string]: string } {
     return {
       state: 'state',
       videoUrl: 'video_url',
       videoDuration: 'video_duration',
+      captionsInfo: 'captions_info',
     };
   }
 
@@ -564,6 +567,7 @@ export class VideoTask extends $tea.Model {
       state: 'string',
       videoUrl: 'string',
       videoDuration: 'number',
+      captionsInfo: CaptionsInfo,
     };
   }
 
@@ -802,6 +806,8 @@ export class CreateUniversalsaasDigitalhumanVideoTaskRequest extends $tea.Model 
   format?: string;
   // 画布大小
   width?: number;
+  // 是否返回字幕时间戳，但不合成到视频画面里面
+  returnCaptions?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -818,6 +824,7 @@ export class CreateUniversalsaasDigitalhumanVideoTaskRequest extends $tea.Model 
       pasters: 'pasters',
       format: 'format',
       width: 'width',
+      returnCaptions: 'return_captions',
     };
   }
 
@@ -837,6 +844,7 @@ export class CreateUniversalsaasDigitalhumanVideoTaskRequest extends $tea.Model 
       pasters: { 'type': 'array', 'itemType': Paster },
       format: 'string',
       width: 'number',
+      returnCaptions: 'boolean',
     };
   }
 
@@ -1752,7 +1760,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.4",
+          sdk_version: "1.2.5",
           _prod_code: "ak_245215eadadd4dc9bba177d6ba6d593d",
           _prod_channel: "saas",
         };
