@@ -17,6 +17,10 @@ public class VideoTask extends TeaModel {
     @NameInMap("video_duration")
     public Long videoDuration;
 
+    // 字幕时间戳信息
+    @NameInMap("captions_info")
+    public CaptionsInfo captionsInfo;
+
     public static VideoTask build(java.util.Map<String, ?> map) throws Exception {
         VideoTask self = new VideoTask();
         return TeaModel.build(map, self);
@@ -44,6 +48,14 @@ public class VideoTask extends TeaModel {
     }
     public Long getVideoDuration() {
         return this.videoDuration;
+    }
+
+    public VideoTask setCaptionsInfo(CaptionsInfo captionsInfo) {
+        this.captionsInfo = captionsInfo;
+        return this;
+    }
+    public CaptionsInfo getCaptionsInfo() {
+        return this.captionsInfo;
     }
 
 }

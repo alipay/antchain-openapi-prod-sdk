@@ -63,6 +63,10 @@ public class CreateUniversalsaasDigitalhumanVideoTaskRequest extends TeaModel {
     @NameInMap("width")
     public Long width;
 
+    // 是否返回字幕时间戳，但不合成到视频画面里面
+    @NameInMap("return_captions")
+    public Boolean returnCaptions;
+
     public static CreateUniversalsaasDigitalhumanVideoTaskRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateUniversalsaasDigitalhumanVideoTaskRequest self = new CreateUniversalsaasDigitalhumanVideoTaskRequest();
         return TeaModel.build(map, self);
@@ -178,6 +182,14 @@ public class CreateUniversalsaasDigitalhumanVideoTaskRequest extends TeaModel {
     }
     public Long getWidth() {
         return this.width;
+    }
+
+    public CreateUniversalsaasDigitalhumanVideoTaskRequest setReturnCaptions(Boolean returnCaptions) {
+        this.returnCaptions = returnCaptions;
+        return this;
+    }
+    public Boolean getReturnCaptions() {
+        return this.returnCaptions;
     }
 
 }
