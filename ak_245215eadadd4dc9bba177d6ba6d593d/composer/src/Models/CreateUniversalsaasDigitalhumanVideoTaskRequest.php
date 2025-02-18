@@ -90,6 +90,12 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
      * @var int
      */
     public $width;
+
+    // 是否返回字幕时间戳，但不合成到视频画面里面
+    /**
+     * @var bool
+     */
+    public $returnCaptions;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -105,6 +111,7 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
         'pasters'           => 'pasters',
         'format'            => 'format',
         'width'             => 'width',
+        'returnCaptions'    => 'return_captions',
     ];
 
     public function validate()
@@ -166,6 +173,9 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
         if (null !== $this->width) {
             $res['width'] = $this->width;
         }
+        if (null !== $this->returnCaptions) {
+            $res['return_captions'] = $this->returnCaptions;
+        }
 
         return $res;
     }
@@ -225,6 +235,9 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
         }
         if (isset($map['width'])) {
             $model->width = $map['width'];
+        }
+        if (isset($map['return_captions'])) {
+            $model->returnCaptions = $map['return_captions'];
         }
 
         return $model;

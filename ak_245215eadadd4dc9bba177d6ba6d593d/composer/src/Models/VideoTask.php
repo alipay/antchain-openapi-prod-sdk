@@ -31,10 +31,19 @@ class VideoTask extends Model
      * @var int
      */
     public $videoDuration;
+
+    // 字幕时间戳信息
+    /**
+     * @example
+     *
+     * @var CaptionsInfo
+     */
+    public $captionsInfo;
     protected $_name = [
         'state'         => 'state',
         'videoUrl'      => 'video_url',
         'videoDuration' => 'video_duration',
+        'captionsInfo'  => 'captions_info',
     ];
 
     public function validate()
@@ -53,6 +62,9 @@ class VideoTask extends Model
         }
         if (null !== $this->videoDuration) {
             $res['video_duration'] = $this->videoDuration;
+        }
+        if (null !== $this->captionsInfo) {
+            $res['captions_info'] = null !== $this->captionsInfo ? $this->captionsInfo->toMap() : null;
         }
 
         return $res;
@@ -74,6 +86,9 @@ class VideoTask extends Model
         }
         if (isset($map['video_duration'])) {
             $model->videoDuration = $map['video_duration'];
+        }
+        if (isset($map['captions_info'])) {
+            $model->captionsInfo = CaptionsInfo::fromMap($map['captions_info']);
         }
 
         return $model;
