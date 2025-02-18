@@ -904,6 +904,7 @@ class VideoTask(TeaModel):
         state: str = None,
         video_url: str = None,
         video_duration: int = None,
+        captions_info: CaptionsInfo = None,
     ):
         # RUNNING, COMPLETE,FAIL
         self.state = state
@@ -911,9 +912,13 @@ class VideoTask(TeaModel):
         self.video_url = video_url
         # 视频时长
         self.video_duration = video_duration
+        # 字幕时间戳信息
+        self.captions_info = captions_info
 
     def validate(self):
         self.validate_required(self.state, 'state')
+        if self.captions_info:
+            self.captions_info.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -927,6 +932,8 @@ class VideoTask(TeaModel):
             result['video_url'] = self.video_url
         if self.video_duration is not None:
             result['video_duration'] = self.video_duration
+        if self.captions_info is not None:
+            result['captions_info'] = self.captions_info.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -937,6 +944,9 @@ class VideoTask(TeaModel):
             self.video_url = m.get('video_url')
         if m.get('video_duration') is not None:
             self.video_duration = m.get('video_duration')
+        if m.get('captions_info') is not None:
+            temp_model = CaptionsInfo()
+            self.captions_info = temp_model.from_map(m['captions_info'])
         return self
 
 
@@ -1279,6 +1289,7 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
         pasters: List[Paster] = None,
         format: str = None,
         width: int = None,
+        return_captions: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1307,6 +1318,8 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
         self.format = format
         # 画布大小
         self.width = width
+        # 是否返回字幕时间戳，但不合成到视频画面里面
+        self.return_captions = return_captions
 
     def validate(self):
         self.validate_required(self.avatar_id, 'avatar_id')
@@ -1362,6 +1375,8 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
             result['format'] = self.format
         if self.width is not None:
             result['width'] = self.width
+        if self.return_captions is not None:
+            result['return_captions'] = self.return_captions
         return result
 
     def from_map(self, m: dict = None):
@@ -1401,6 +1416,8 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
             self.format = m.get('format')
         if m.get('width') is not None:
             self.width = m.get('width')
+        if m.get('return_captions') is not None:
+            self.return_captions = m.get('return_captions')
         return self
 
 
