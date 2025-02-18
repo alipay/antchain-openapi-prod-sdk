@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "WEBTRWATRADE_INNER",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,7 +10,7 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-webtrwatrade_inner:1.0.1",
+    "java": "com.antgroup.antchain.openapi:openapi-webtrwatrade_inner:1.0.2",
     "go": "github.com/antchain-openapi-sdk-go/webtrwatrade_inner/client:v1.0.2",
     "csharp": "AntChain.SDK.WEBTRWATRADE_INNER:1.0.2",
     "ts": "@antchain/webtrwatrade_inner:1.0.2",
