@@ -737,6 +737,8 @@ type VideoTask struct {
 	VideoUrl *string `json:"video_url,omitempty" xml:"video_url,omitempty"`
 	// 视频时长
 	VideoDuration *int64 `json:"video_duration,omitempty" xml:"video_duration,omitempty"`
+	// 字幕时间戳信息
+	CaptionsInfo *CaptionsInfo `json:"captions_info,omitempty" xml:"captions_info,omitempty"`
 }
 
 func (s VideoTask) String() string {
@@ -759,6 +761,11 @@ func (s *VideoTask) SetVideoUrl(v string) *VideoTask {
 
 func (s *VideoTask) SetVideoDuration(v int64) *VideoTask {
 	s.VideoDuration = &v
+	return s
+}
+
+func (s *VideoTask) SetCaptionsInfo(v *CaptionsInfo) *VideoTask {
+	s.CaptionsInfo = v
 	return s
 }
 
@@ -1037,6 +1044,8 @@ type CreateUniversalsaasDigitalhumanVideoTaskRequest struct {
 	Format *string `json:"format,omitempty" xml:"format,omitempty"`
 	// 画布大小
 	Width *int64 `json:"width,omitempty" xml:"width,omitempty"`
+	// 是否返回字幕时间戳，但不合成到视频画面里面
+	ReturnCaptions *bool `json:"return_captions,omitempty" xml:"return_captions,omitempty"`
 }
 
 func (s CreateUniversalsaasDigitalhumanVideoTaskRequest) String() string {
@@ -1114,6 +1123,11 @@ func (s *CreateUniversalsaasDigitalhumanVideoTaskRequest) SetFormat(v string) *C
 
 func (s *CreateUniversalsaasDigitalhumanVideoTaskRequest) SetWidth(v int64) *CreateUniversalsaasDigitalhumanVideoTaskRequest {
 	s.Width = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanVideoTaskRequest) SetReturnCaptions(v bool) *CreateUniversalsaasDigitalhumanVideoTaskRequest {
+	s.ReturnCaptions = &v
 	return s
 }
 
@@ -2245,7 +2259,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.4"),
+				"sdk_version":      tea.String("1.2.5"),
 				"_prod_code":       tea.String("ak_245215eadadd4dc9bba177d6ba6d593d"),
 				"_prod_channel":    tea.String("saas"),
 			}
