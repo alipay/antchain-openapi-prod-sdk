@@ -586,8 +586,6 @@ type ApplyAuditImageResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 请求ID，必须唯一
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 	// 任务ID，必须唯一
 	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
 	// 数据ID，必须唯一
@@ -618,11 +616,6 @@ func (s *ApplyAuditImageResponse) SetResultCode(v string) *ApplyAuditImageRespon
 
 func (s *ApplyAuditImageResponse) SetResultMsg(v string) *ApplyAuditImageResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *ApplyAuditImageResponse) SetRequestId(v string) *ApplyAuditImageResponse {
-	s.RequestId = &v
 	return s
 }
 
@@ -736,16 +729,16 @@ type SubmitAuditTextRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 待人工审核的文本内容，最长不超过10000个字符（包含中文、英文和标点符号）
 	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
-	// 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
+	// 审核场景码，该接口固定输入BASE_TEXT_AUDIT，其他值无效
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
 	// 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
 	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
 	// 结果通知地址，不指定时需要调用方主动查询结果
 	Callback *string `json:"callback,omitempty" xml:"callback,omitempty"`
 	// 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
 	Seed *string `json:"seed,omitempty" xml:"seed,omitempty"`
-	// 审核场景码，该接口固定输入BASE_TEXT_AUDIT，其他值无效
-	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
 }
 
 func (s SubmitAuditTextRequest) String() string {
@@ -771,13 +764,18 @@ func (s *SubmitAuditTextRequest) SetContent(v string) *SubmitAuditTextRequest {
 	return s
 }
 
-func (s *SubmitAuditTextRequest) SetBusinessId(v string) *SubmitAuditTextRequest {
-	s.BusinessId = &v
+func (s *SubmitAuditTextRequest) SetScene(v string) *SubmitAuditTextRequest {
+	s.Scene = &v
 	return s
 }
 
 func (s *SubmitAuditTextRequest) SetDataId(v string) *SubmitAuditTextRequest {
 	s.DataId = &v
+	return s
+}
+
+func (s *SubmitAuditTextRequest) SetBusinessId(v string) *SubmitAuditTextRequest {
+	s.BusinessId = &v
 	return s
 }
 
@@ -791,11 +789,6 @@ func (s *SubmitAuditTextRequest) SetSeed(v string) *SubmitAuditTextRequest {
 	return s
 }
 
-func (s *SubmitAuditTextRequest) SetScene(v string) *SubmitAuditTextRequest {
-	s.Scene = &v
-	return s
-}
-
 type SubmitAuditTextResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -803,8 +796,6 @@ type SubmitAuditTextResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 	// 任务ID
 	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
 	// 检测对象对应的数据ID
@@ -831,11 +822,6 @@ func (s *SubmitAuditTextResponse) SetResultCode(v string) *SubmitAuditTextRespon
 
 func (s *SubmitAuditTextResponse) SetResultMsg(v string) *SubmitAuditTextResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *SubmitAuditTextResponse) SetRequestId(v string) *SubmitAuditTextResponse {
-	s.RequestId = &v
 	return s
 }
 
@@ -887,8 +873,6 @@ type QueryAuditTextResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 	// 文本审核结果
 	Result *string `json:"result,omitempty" xml:"result,omitempty"`
 }
@@ -916,11 +900,6 @@ func (s *QueryAuditTextResponse) SetResultMsg(v string) *QueryAuditTextResponse 
 	return s
 }
 
-func (s *QueryAuditTextResponse) SetRequestId(v string) *QueryAuditTextResponse {
-	s.RequestId = &v
-	return s
-}
-
 func (s *QueryAuditTextResponse) SetResult(v string) *QueryAuditTextResponse {
 	s.Result = &v
 	return s
@@ -935,12 +914,12 @@ type SubmitAuditImageRequest struct {
 	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
 	// 审核场景码，该接口固定输入BASE_IMAGE_AUDIT，其他值无效
 	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
-	// 客户业务ID。
-	// 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
 	// 检测对象对应的数据ID。
 	// 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
 	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 客户业务ID。
+	// 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
 	// 结果通知地址，不指定时需要调用方主动查询结果
 	Callback *string `json:"callback,omitempty" xml:"callback,omitempty"`
 	// 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
@@ -975,13 +954,13 @@ func (s *SubmitAuditImageRequest) SetScene(v string) *SubmitAuditImageRequest {
 	return s
 }
 
-func (s *SubmitAuditImageRequest) SetBusinessId(v string) *SubmitAuditImageRequest {
-	s.BusinessId = &v
+func (s *SubmitAuditImageRequest) SetDataId(v string) *SubmitAuditImageRequest {
+	s.DataId = &v
 	return s
 }
 
-func (s *SubmitAuditImageRequest) SetDataId(v string) *SubmitAuditImageRequest {
-	s.DataId = &v
+func (s *SubmitAuditImageRequest) SetBusinessId(v string) *SubmitAuditImageRequest {
+	s.BusinessId = &v
 	return s
 }
 
@@ -1002,8 +981,6 @@ type SubmitAuditImageResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 	// 任务ID
 	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
 	// 检测对象对应的数据ID。
@@ -1031,11 +1008,6 @@ func (s *SubmitAuditImageResponse) SetResultCode(v string) *SubmitAuditImageResp
 
 func (s *SubmitAuditImageResponse) SetResultMsg(v string) *SubmitAuditImageResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *SubmitAuditImageResponse) SetRequestId(v string) *SubmitAuditImageResponse {
-	s.RequestId = &v
 	return s
 }
 
@@ -1087,8 +1059,6 @@ type QueryAuditImageResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 	// 图片审核结果
 	Result *string `json:"result,omitempty" xml:"result,omitempty"`
 }
@@ -1116,11 +1086,6 @@ func (s *QueryAuditImageResponse) SetResultMsg(v string) *QueryAuditImageRespons
 	return s
 }
 
-func (s *QueryAuditImageResponse) SetRequestId(v string) *QueryAuditImageResponse {
-	s.RequestId = &v
-	return s
-}
-
 func (s *QueryAuditImageResponse) SetResult(v string) *QueryAuditImageResponse {
 	s.Result = &v
 	return s
@@ -1136,12 +1101,12 @@ type SubmitAuditAudioRequest struct {
 	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
 	// 审核场景码，该接口固定输入BASE_AUDIO_AUDIT，其他值无效
 	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
-	// 客户业务ID。
-	// 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
 	// 检测对象对应的数据ID。
 	// 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
 	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 客户业务ID。
+	// 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
 	// 结果通知地址，不指定时需要调用方主动查询结果
 	Callback *string `json:"callback,omitempty" xml:"callback,omitempty"`
 	// 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
@@ -1176,13 +1141,13 @@ func (s *SubmitAuditAudioRequest) SetScene(v string) *SubmitAuditAudioRequest {
 	return s
 }
 
-func (s *SubmitAuditAudioRequest) SetBusinessId(v string) *SubmitAuditAudioRequest {
-	s.BusinessId = &v
+func (s *SubmitAuditAudioRequest) SetDataId(v string) *SubmitAuditAudioRequest {
+	s.DataId = &v
 	return s
 }
 
-func (s *SubmitAuditAudioRequest) SetDataId(v string) *SubmitAuditAudioRequest {
-	s.DataId = &v
+func (s *SubmitAuditAudioRequest) SetBusinessId(v string) *SubmitAuditAudioRequest {
+	s.BusinessId = &v
 	return s
 }
 
@@ -1203,8 +1168,6 @@ type SubmitAuditAudioResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 	// 任务ID
 	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
 	// 检测对象对应的数据ID。
@@ -1232,11 +1195,6 @@ func (s *SubmitAuditAudioResponse) SetResultCode(v string) *SubmitAuditAudioResp
 
 func (s *SubmitAuditAudioResponse) SetResultMsg(v string) *SubmitAuditAudioResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *SubmitAuditAudioResponse) SetRequestId(v string) *SubmitAuditAudioResponse {
-	s.RequestId = &v
 	return s
 }
 
@@ -1288,8 +1246,6 @@ type QueryAuditAudioResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 	// 音频审核结果
 	Result *string `json:"result,omitempty" xml:"result,omitempty"`
 }
@@ -1317,11 +1273,6 @@ func (s *QueryAuditAudioResponse) SetResultMsg(v string) *QueryAuditAudioRespons
 	return s
 }
 
-func (s *QueryAuditAudioResponse) SetRequestId(v string) *QueryAuditAudioResponse {
-	s.RequestId = &v
-	return s
-}
-
 func (s *QueryAuditAudioResponse) SetResult(v string) *QueryAuditAudioResponse {
 	s.Result = &v
 	return s
@@ -1336,12 +1287,12 @@ type SubmitAuditVideoRequest struct {
 	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
 	// 审核场景码，该接口固定输入BASE_VIDEO_AUDIT，其他值无效
 	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
-	// 客户业务ID。
-	// 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
 	// 检测对象对应的数据ID。
 	// 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
 	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 客户业务ID。
+	// 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
 	// 结果通知地址，不指定时需要调用方主动查询结果
 	Callback *string `json:"callback,omitempty" xml:"callback,omitempty"`
 	// 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
@@ -1376,13 +1327,13 @@ func (s *SubmitAuditVideoRequest) SetScene(v string) *SubmitAuditVideoRequest {
 	return s
 }
 
-func (s *SubmitAuditVideoRequest) SetBusinessId(v string) *SubmitAuditVideoRequest {
-	s.BusinessId = &v
+func (s *SubmitAuditVideoRequest) SetDataId(v string) *SubmitAuditVideoRequest {
+	s.DataId = &v
 	return s
 }
 
-func (s *SubmitAuditVideoRequest) SetDataId(v string) *SubmitAuditVideoRequest {
-	s.DataId = &v
+func (s *SubmitAuditVideoRequest) SetBusinessId(v string) *SubmitAuditVideoRequest {
+	s.BusinessId = &v
 	return s
 }
 
@@ -1403,8 +1354,6 @@ type SubmitAuditVideoResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 	// 任务ID
 	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
 	// 检测对象对应的数据ID。
@@ -1432,11 +1381,6 @@ func (s *SubmitAuditVideoResponse) SetResultCode(v string) *SubmitAuditVideoResp
 
 func (s *SubmitAuditVideoResponse) SetResultMsg(v string) *SubmitAuditVideoResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *SubmitAuditVideoResponse) SetRequestId(v string) *SubmitAuditVideoResponse {
-	s.RequestId = &v
 	return s
 }
 
@@ -1488,8 +1432,6 @@ type QueryAuditVideoResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 	// 视频审核结果
 	Result *string `json:"result,omitempty" xml:"result,omitempty"`
 }
@@ -1517,11 +1459,6 @@ func (s *QueryAuditVideoResponse) SetResultMsg(v string) *QueryAuditVideoRespons
 	return s
 }
 
-func (s *QueryAuditVideoResponse) SetRequestId(v string) *QueryAuditVideoResponse {
-	s.RequestId = &v
-	return s
-}
-
 func (s *QueryAuditVideoResponse) SetResult(v string) *QueryAuditVideoResponse {
 	s.Result = &v
 	return s
@@ -1535,10 +1472,10 @@ type ApplyAuditTextRequest struct {
 	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
 	// 审核场景码，建议BASE_TEXT_SEC代指阿里云，文本审核增强版PLUS服务的某一个Service
 	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
-	// 客户业务ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
 	// 检测对象对应的数据ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
 	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 客户业务ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
 }
 
 func (s ApplyAuditTextRequest) String() string {
@@ -1569,13 +1506,13 @@ func (s *ApplyAuditTextRequest) SetScene(v string) *ApplyAuditTextRequest {
 	return s
 }
 
-func (s *ApplyAuditTextRequest) SetBusinessId(v string) *ApplyAuditTextRequest {
-	s.BusinessId = &v
+func (s *ApplyAuditTextRequest) SetDataId(v string) *ApplyAuditTextRequest {
+	s.DataId = &v
 	return s
 }
 
-func (s *ApplyAuditTextRequest) SetDataId(v string) *ApplyAuditTextRequest {
-	s.DataId = &v
+func (s *ApplyAuditTextRequest) SetBusinessId(v string) *ApplyAuditTextRequest {
+	s.BusinessId = &v
 	return s
 }
 
@@ -1586,8 +1523,6 @@ type ApplyAuditTextResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 	// 文本同步审核结果，字段含义见：TextSyncAuditResult
 	Result *string `json:"result,omitempty" xml:"result,omitempty"`
 }
@@ -1615,11 +1550,6 @@ func (s *ApplyAuditTextResponse) SetResultMsg(v string) *ApplyAuditTextResponse 
 	return s
 }
 
-func (s *ApplyAuditTextResponse) SetRequestId(v string) *ApplyAuditTextResponse {
-	s.RequestId = &v
-	return s
-}
-
 func (s *ApplyAuditTextResponse) SetResult(v string) *ApplyAuditTextResponse {
 	s.Result = &v
 	return s
@@ -1635,11 +1565,11 @@ type ApplyAuditImagebaseRequest struct {
 	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
 	// 场景，固定填写：BASE_IMAGE_SEC
 	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 数据Id，调用方入审数据的唯一Id
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
 	// 客户业务ID
 	// 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
 	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
-	// 数据Id，调用方入审数据的唯一Id
-	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
 }
 
 func (s ApplyAuditImagebaseRequest) String() string {
@@ -1670,13 +1600,13 @@ func (s *ApplyAuditImagebaseRequest) SetScene(v string) *ApplyAuditImagebaseRequ
 	return s
 }
 
-func (s *ApplyAuditImagebaseRequest) SetBusinessId(v string) *ApplyAuditImagebaseRequest {
-	s.BusinessId = &v
+func (s *ApplyAuditImagebaseRequest) SetDataId(v string) *ApplyAuditImagebaseRequest {
+	s.DataId = &v
 	return s
 }
 
-func (s *ApplyAuditImagebaseRequest) SetDataId(v string) *ApplyAuditImagebaseRequest {
-	s.DataId = &v
+func (s *ApplyAuditImagebaseRequest) SetBusinessId(v string) *ApplyAuditImagebaseRequest {
+	s.BusinessId = &v
 	return s
 }
 
@@ -1687,8 +1617,6 @@ type ApplyAuditImagebaseResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，...
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 	// 图片基础版审核结果
 	Result *string `json:"result,omitempty" xml:"result,omitempty"`
 }
@@ -1716,11 +1644,6 @@ func (s *ApplyAuditImagebaseResponse) SetResultMsg(v string) *ApplyAuditImagebas
 	return s
 }
 
-func (s *ApplyAuditImagebaseResponse) SetRequestId(v string) *ApplyAuditImagebaseResponse {
-	s.RequestId = &v
-	return s
-}
-
 func (s *ApplyAuditImagebaseResponse) SetResult(v string) *ApplyAuditImagebaseResponse {
 	s.Result = &v
 	return s
@@ -1736,11 +1659,11 @@ type ApplyAuditImageadvancedRequest struct {
 	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
 	// 场景，固定填写：ADVANCED_IMAGE_SEC
 	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 数据Id，调用方入审数据的唯一Id
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
 	// 客户业务ID
 	// 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
 	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
-	// 数据Id，调用方入审数据的唯一Id
-	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
 }
 
 func (s ApplyAuditImageadvancedRequest) String() string {
@@ -1771,13 +1694,13 @@ func (s *ApplyAuditImageadvancedRequest) SetScene(v string) *ApplyAuditImageadva
 	return s
 }
 
-func (s *ApplyAuditImageadvancedRequest) SetBusinessId(v string) *ApplyAuditImageadvancedRequest {
-	s.BusinessId = &v
+func (s *ApplyAuditImageadvancedRequest) SetDataId(v string) *ApplyAuditImageadvancedRequest {
+	s.DataId = &v
 	return s
 }
 
-func (s *ApplyAuditImageadvancedRequest) SetDataId(v string) *ApplyAuditImageadvancedRequest {
-	s.DataId = &v
+func (s *ApplyAuditImageadvancedRequest) SetBusinessId(v string) *ApplyAuditImageadvancedRequest {
+	s.BusinessId = &v
 	return s
 }
 
@@ -1788,8 +1711,6 @@ type ApplyAuditImageadvancedResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，...
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 	// 图片增强版审核结果
 	Result *string `json:"result,omitempty" xml:"result,omitempty"`
 }
@@ -1817,11 +1738,6 @@ func (s *ApplyAuditImageadvancedResponse) SetResultMsg(v string) *ApplyAuditImag
 	return s
 }
 
-func (s *ApplyAuditImageadvancedResponse) SetRequestId(v string) *ApplyAuditImageadvancedResponse {
-	s.RequestId = &v
-	return s
-}
-
 func (s *ApplyAuditImageadvancedResponse) SetResult(v string) *ApplyAuditImageadvancedResponse {
 	s.Result = &v
 	return s
@@ -1839,11 +1755,11 @@ type SubmitAuditAudiobaseRequest struct {
 	// 审核场景类型
 	// 目前支持 BASE_AUDIO_SEC：音视频媒体通用检测
 	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
-	// 客户业务ID
-	// 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
 	// 检测对象对应的数据ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
 	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 客户业务ID
+	// 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
 	// 结果通知地址，不指定时需要调用方主动查询结果
 	Callback *string `json:"callback,omitempty" xml:"callback,omitempty"`
 	// 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
@@ -1878,13 +1794,13 @@ func (s *SubmitAuditAudiobaseRequest) SetScene(v string) *SubmitAuditAudiobaseRe
 	return s
 }
 
-func (s *SubmitAuditAudiobaseRequest) SetBusinessId(v string) *SubmitAuditAudiobaseRequest {
-	s.BusinessId = &v
+func (s *SubmitAuditAudiobaseRequest) SetDataId(v string) *SubmitAuditAudiobaseRequest {
+	s.DataId = &v
 	return s
 }
 
-func (s *SubmitAuditAudiobaseRequest) SetDataId(v string) *SubmitAuditAudiobaseRequest {
-	s.DataId = &v
+func (s *SubmitAuditAudiobaseRequest) SetBusinessId(v string) *SubmitAuditAudiobaseRequest {
+	s.BusinessId = &v
 	return s
 }
 
@@ -1905,8 +1821,6 @@ type SubmitAuditAudiobaseResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 	// 任务ID
 	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
 	// 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
@@ -1933,11 +1847,6 @@ func (s *SubmitAuditAudiobaseResponse) SetResultCode(v string) *SubmitAuditAudio
 
 func (s *SubmitAuditAudiobaseResponse) SetResultMsg(v string) *SubmitAuditAudiobaseResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *SubmitAuditAudiobaseResponse) SetRequestId(v string) *SubmitAuditAudiobaseResponse {
-	s.RequestId = &v
 	return s
 }
 
@@ -1989,8 +1898,6 @@ type QueryAuditAudiobaseResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 	// 音频通用版审核结果
 	//
 	Result *string `json:"result,omitempty" xml:"result,omitempty"`
@@ -2019,11 +1926,6 @@ func (s *QueryAuditAudiobaseResponse) SetResultMsg(v string) *QueryAuditAudiobas
 	return s
 }
 
-func (s *QueryAuditAudiobaseResponse) SetRequestId(v string) *QueryAuditAudiobaseResponse {
-	s.RequestId = &v
-	return s
-}
-
 func (s *QueryAuditAudiobaseResponse) SetResult(v string) *QueryAuditAudiobaseResponse {
 	s.Result = &v
 	return s
@@ -2043,10 +1945,10 @@ type SubmitAuditVideobaseRequest struct {
 	// 审核场景类型
 	// 目前支持通用版 BASE_VIDEO_SEC
 	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
-	// 客户业务ID 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
 	// 检测对象对应的数据ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
 	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 客户业务ID 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
 	// 结果通知地址，不指定时需要调用方主动查询结果
 	Callback *string `json:"callback,omitempty" xml:"callback,omitempty"`
 	// 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
@@ -2081,13 +1983,13 @@ func (s *SubmitAuditVideobaseRequest) SetScene(v string) *SubmitAuditVideobaseRe
 	return s
 }
 
-func (s *SubmitAuditVideobaseRequest) SetBusinessId(v string) *SubmitAuditVideobaseRequest {
-	s.BusinessId = &v
+func (s *SubmitAuditVideobaseRequest) SetDataId(v string) *SubmitAuditVideobaseRequest {
+	s.DataId = &v
 	return s
 }
 
-func (s *SubmitAuditVideobaseRequest) SetDataId(v string) *SubmitAuditVideobaseRequest {
-	s.DataId = &v
+func (s *SubmitAuditVideobaseRequest) SetBusinessId(v string) *SubmitAuditVideobaseRequest {
+	s.BusinessId = &v
 	return s
 }
 
@@ -2108,8 +2010,6 @@ type SubmitAuditVideobaseResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 	// 任务ID
 	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
 	// 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
@@ -2136,11 +2036,6 @@ func (s *SubmitAuditVideobaseResponse) SetResultCode(v string) *SubmitAuditVideo
 
 func (s *SubmitAuditVideobaseResponse) SetResultMsg(v string) *SubmitAuditVideobaseResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *SubmitAuditVideobaseResponse) SetRequestId(v string) *SubmitAuditVideobaseResponse {
-	s.RequestId = &v
 	return s
 }
 
@@ -2192,8 +2087,6 @@ type QueryAuditVideobaseResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 	// 视频通用版审核结果
 	Result *string `json:"result,omitempty" xml:"result,omitempty"`
 }
@@ -2218,11 +2111,6 @@ func (s *QueryAuditVideobaseResponse) SetResultCode(v string) *QueryAuditVideoba
 
 func (s *QueryAuditVideobaseResponse) SetResultMsg(v string) *QueryAuditVideobaseResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *QueryAuditVideobaseResponse) SetRequestId(v string) *QueryAuditVideobaseResponse {
-	s.RequestId = &v
 	return s
 }
 
@@ -2434,6 +2322,132 @@ func (s *QueryGuardcoreRedgptResponse) SetData(v *MayaStreamResult) *QueryGuardc
 	return s
 }
 
+type QueryAicoguardAdbsinkRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 区域id
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
+	// DB实例id
+	DbInstanceId *string `json:"db_instance_id,omitempty" xml:"db_instance_id,omitempty" require:"true"`
+	// 数据库空间名称
+	NameSpace *string `json:"name_space,omitempty" xml:"name_space,omitempty" require:"true"`
+	// 数据库空间密码
+	NameSpacePassword *string `json:"name_space_password,omitempty" xml:"name_space_password,omitempty" require:"true"`
+	// 数据库表名
+	CollectionName *string `json:"collection_name,omitempty" xml:"collection_name,omitempty" require:"true"`
+	// 要查询的内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+}
+
+func (s QueryAicoguardAdbsinkRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAicoguardAdbsinkRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAicoguardAdbsinkRequest) SetAuthToken(v string) *QueryAicoguardAdbsinkRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAicoguardAdbsinkRequest) SetProductInstanceId(v string) *QueryAicoguardAdbsinkRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAicoguardAdbsinkRequest) SetRegionId(v string) *QueryAicoguardAdbsinkRequest {
+	s.RegionId = &v
+	return s
+}
+
+func (s *QueryAicoguardAdbsinkRequest) SetDbInstanceId(v string) *QueryAicoguardAdbsinkRequest {
+	s.DbInstanceId = &v
+	return s
+}
+
+func (s *QueryAicoguardAdbsinkRequest) SetNameSpace(v string) *QueryAicoguardAdbsinkRequest {
+	s.NameSpace = &v
+	return s
+}
+
+func (s *QueryAicoguardAdbsinkRequest) SetNameSpacePassword(v string) *QueryAicoguardAdbsinkRequest {
+	s.NameSpacePassword = &v
+	return s
+}
+
+func (s *QueryAicoguardAdbsinkRequest) SetCollectionName(v string) *QueryAicoguardAdbsinkRequest {
+	s.CollectionName = &v
+	return s
+}
+
+func (s *QueryAicoguardAdbsinkRequest) SetContent(v string) *QueryAicoguardAdbsinkRequest {
+	s.Content = &v
+	return s
+}
+
+type QueryAicoguardAdbsinkResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求的问题
+	Question *string `json:"question,omitempty" xml:"question,omitempty"`
+	// 代答结果
+	Answer *string `json:"answer,omitempty" xml:"answer,omitempty"`
+	// 匹配度分数
+	Score *string `json:"score,omitempty" xml:"score,omitempty"`
+	// adb的请求id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+}
+
+func (s QueryAicoguardAdbsinkResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAicoguardAdbsinkResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAicoguardAdbsinkResponse) SetReqMsgId(v string) *QueryAicoguardAdbsinkResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAicoguardAdbsinkResponse) SetResultCode(v string) *QueryAicoguardAdbsinkResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAicoguardAdbsinkResponse) SetResultMsg(v string) *QueryAicoguardAdbsinkResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAicoguardAdbsinkResponse) SetQuestion(v string) *QueryAicoguardAdbsinkResponse {
+	s.Question = &v
+	return s
+}
+
+func (s *QueryAicoguardAdbsinkResponse) SetAnswer(v string) *QueryAicoguardAdbsinkResponse {
+	s.Answer = &v
+	return s
+}
+
+func (s *QueryAicoguardAdbsinkResponse) SetScore(v string) *QueryAicoguardAdbsinkResponse {
+	s.Score = &v
+	return s
+}
+
+func (s *QueryAicoguardAdbsinkResponse) SetRequestId(v string) *QueryAicoguardAdbsinkResponse {
+	s.RequestId = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2556,7 +2570,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.9"),
+				"sdk_version":      tea.String("1.1.10"),
 				"_prod_code":       tea.String("AITECH"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -3253,6 +3267,40 @@ func (client *Client) QueryGuardcoreRedgptEx(request *QueryGuardcoreRedgptReques
 	}
 	_result = &QueryGuardcoreRedgptResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guardcore.redgpt.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 阿里云ADB调用接口
+ * Summary: 阿里云ADB调用接口
+ */
+func (client *Client) QueryAicoguardAdbsink(request *QueryAicoguardAdbsinkRequest) (_result *QueryAicoguardAdbsinkResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAicoguardAdbsinkResponse{}
+	_body, _err := client.QueryAicoguardAdbsinkEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 阿里云ADB调用接口
+ * Summary: 阿里云ADB调用接口
+ */
+func (client *Client) QueryAicoguardAdbsinkEx(request *QueryAicoguardAdbsinkRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAicoguardAdbsinkResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAicoguardAdbsinkResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.aicoguard.adbsink.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
