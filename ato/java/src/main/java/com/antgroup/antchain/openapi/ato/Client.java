@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.11"),
+                    new TeaPair("sdk_version", "1.13.11"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -641,6 +641,44 @@ public class Client {
     public GetFundOrderfinanceinfoResponse getFundOrderfinanceinfoEx(GetFundOrderfinanceinfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.orderfinanceinfo.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetFundOrderfinanceinfoResponse());
+    }
+
+    /**
+     * Description: 添加分账绑定关系
+     * Summary: 添加分账绑定关系
+     */
+    public AddFundDividerelationResponse addFundDividerelation(AddFundDividerelationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addFundDividerelationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 添加分账绑定关系
+     * Summary: 添加分账绑定关系
+     */
+    public AddFundDividerelationResponse addFundDividerelationEx(AddFundDividerelationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.dividerelation.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddFundDividerelationResponse());
+    }
+
+    /**
+     * Description: 分账绑定关系查询
+     * Summary: 分账绑定关系查询
+     */
+    public QueryFundDividerelationResponse queryFundDividerelation(QueryFundDividerelationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryFundDividerelationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分账绑定关系查询
+     * Summary: 分账绑定关系查询
+     */
+    public QueryFundDividerelationResponse queryFundDividerelationEx(QueryFundDividerelationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.dividerelation.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFundDividerelationResponse());
     }
 
     /**
@@ -2090,6 +2128,44 @@ public class Client {
     }
 
     /**
+     * Description: 添加分账绑定关系
+     * Summary: 添加分账绑定关系
+     */
+    public AddMerchantexpandDividerelationResponse addMerchantexpandDividerelation(AddMerchantexpandDividerelationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addMerchantexpandDividerelationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 添加分账绑定关系
+     * Summary: 添加分账绑定关系
+     */
+    public AddMerchantexpandDividerelationResponse addMerchantexpandDividerelationEx(AddMerchantexpandDividerelationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.merchantexpand.dividerelation.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddMerchantexpandDividerelationResponse());
+    }
+
+    /**
+     * Description: 分账绑定关系查询
+     * Summary: 分账绑定关系查询
+     */
+    public QueryMerchantexpandDividerelationResponse queryMerchantexpandDividerelation(QueryMerchantexpandDividerelationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryMerchantexpandDividerelationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分账绑定关系查询
+     * Summary: 分账绑定关系查询
+     */
+    public QueryMerchantexpandDividerelationResponse queryMerchantexpandDividerelationEx(QueryMerchantexpandDividerelationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.merchantexpand.dividerelation.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMerchantexpandDividerelationResponse());
+    }
+
+    /**
      * Description: 可信身份认证，创建认证
      * Summary: 创建认证
      */
@@ -2163,6 +2239,25 @@ public class Client {
     public QueryRiskGoResponse queryRiskGoEx(QueryRiskGoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.risk.go.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRiskGoResponse());
+    }
+
+    /**
+     * Description: 小程序云调用，上报计量信息
+     * Summary: 小程序云调用，上报计量信息
+     */
+    public UploadInnerRiskcallResponse uploadInnerRiskcall(UploadInnerRiskcallRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadInnerRiskcallEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 小程序云调用，上报计量信息
+     * Summary: 小程序云调用，上报计量信息
+     */
+    public UploadInnerRiskcallResponse uploadInnerRiskcallEx(UploadInnerRiskcallRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.riskcall.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadInnerRiskcallResponse());
     }
 
     /**
@@ -2720,6 +2815,63 @@ public class Client {
     public GetTradeOrderfinanceinfoResponse getTradeOrderfinanceinfoEx(GetTradeOrderfinanceinfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.orderfinanceinfo.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetTradeOrderfinanceinfoResponse());
+    }
+
+    /**
+     * Description: 订单代扣计划延期
+     * Summary: 订单代扣计划延期
+     */
+    public SyncTradeUserpromisedelayResponse syncTradeUserpromisedelay(SyncTradeUserpromisedelayRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncTradeUserpromisedelayEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 订单代扣计划延期
+     * Summary: 订单代扣计划延期
+     */
+    public SyncTradeUserpromisedelayResponse syncTradeUserpromisedelayEx(SyncTradeUserpromisedelayRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.userpromisedelay.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncTradeUserpromisedelayResponse());
+    }
+
+    /**
+     * Description: 订单代扣计划暂停
+     * Summary: 订单代扣计划暂停
+     */
+    public PauseTradeUserpromiseResponse pauseTradeUserpromise(PauseTradeUserpromiseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pauseTradeUserpromiseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 订单代扣计划暂停
+     * Summary: 订单代扣计划暂停
+     */
+    public PauseTradeUserpromiseResponse pauseTradeUserpromiseEx(PauseTradeUserpromiseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.userpromise.pause", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PauseTradeUserpromiseResponse());
+    }
+
+    /**
+     * Description: 代扣计划重启
+     * Summary: 代扣计划重启
+     */
+    public ResumeTradeUserpromiseResponse resumeTradeUserpromise(ResumeTradeUserpromiseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.resumeTradeUserpromiseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 代扣计划重启
+     * Summary: 代扣计划重启
+     */
+    public ResumeTradeUserpromiseResponse resumeTradeUserpromiseEx(ResumeTradeUserpromiseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.userpromise.resume", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ResumeTradeUserpromiseResponse());
     }
 
     /**

@@ -21,6 +21,10 @@ public class QueryInnerMerchantagreementRequest extends TeaModel {
     @Validation(required = true)
     public String agreementId;
 
+    // 租户账号
+    @NameInMap("user_name")
+    public String userName;
+
     public static QueryInnerMerchantagreementRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryInnerMerchantagreementRequest self = new QueryInnerMerchantagreementRequest();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class QueryInnerMerchantagreementRequest extends TeaModel {
     }
     public String getAgreementId() {
         return this.agreementId;
+    }
+
+    public QueryInnerMerchantagreementRequest setUserName(String userName) {
+        this.userName = userName;
+        return this;
+    }
+    public String getUserName() {
+        return this.userName;
     }
 
 }

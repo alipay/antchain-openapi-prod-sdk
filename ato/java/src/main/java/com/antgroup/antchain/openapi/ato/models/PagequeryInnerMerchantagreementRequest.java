@@ -21,6 +21,10 @@ public class PagequeryInnerMerchantagreementRequest extends TeaModel {
     @Validation(required = true)
     public PageQuery pageInfo;
 
+    // 租户账号
+    @NameInMap("user_name")
+    public String userName;
+
     public static PagequeryInnerMerchantagreementRequest build(java.util.Map<String, ?> map) throws Exception {
         PagequeryInnerMerchantagreementRequest self = new PagequeryInnerMerchantagreementRequest();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class PagequeryInnerMerchantagreementRequest extends TeaModel {
     }
     public PageQuery getPageInfo() {
         return this.pageInfo;
+    }
+
+    public PagequeryInnerMerchantagreementRequest setUserName(String userName) {
+        this.userName = userName;
+        return this;
+    }
+    public String getUserName() {
+        return this.userName;
     }
 
 }

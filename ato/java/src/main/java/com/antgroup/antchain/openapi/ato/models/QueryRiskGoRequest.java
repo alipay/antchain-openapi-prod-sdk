@@ -16,6 +16,11 @@ public class QueryRiskGoRequest extends TeaModel {
     @Validation(required = true, maxLength = 50, minLength = 1)
     public String riskType;
 
+    // 单次请求流水号，需要保证唯一
+    @NameInMap("flow_id")
+    @Validation(required = true, maxLength = 32, minLength = 10)
+    public String flowId;
+
     // 调用行业，枚举值：
     // insurance 保险；retail 零售；finance 金融行业；logistics 物流行业；city_services 城市服务；medical 医疗服务；digital_media 数媒行业；recycle 回收行业；payment 缴费行业；vehicle 汽车；travel 旅游；air_travel 航旅行业；FMCG 快消零售；education 教育行业；fashion_retail 时尚零售；game_industry 文体行业；rental 租赁；advertisement 广告行业；restaurants 餐饮行业；ticket 票务行业；complexes 综合体行业
     @NameInMap("business_code")
@@ -93,6 +98,10 @@ public class QueryRiskGoRequest extends TeaModel {
     @NameInMap("baddebt_query_model")
     public BaddebtQueryModel baddebtQueryModel;
 
+    // 商户appId,当openId不为空时必填
+    @NameInMap("merchant_app_id")
+    public String merchantAppId;
+
     public static QueryRiskGoRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryRiskGoRequest self = new QueryRiskGoRequest();
         return TeaModel.build(map, self);
@@ -120,6 +129,14 @@ public class QueryRiskGoRequest extends TeaModel {
     }
     public String getRiskType() {
         return this.riskType;
+    }
+
+    public QueryRiskGoRequest setFlowId(String flowId) {
+        this.flowId = flowId;
+        return this;
+    }
+    public String getFlowId() {
+        return this.flowId;
     }
 
     public QueryRiskGoRequest setBusinessCode(String businessCode) {
@@ -248,6 +265,14 @@ public class QueryRiskGoRequest extends TeaModel {
     }
     public BaddebtQueryModel getBaddebtQueryModel() {
         return this.baddebtQueryModel;
+    }
+
+    public QueryRiskGoRequest setMerchantAppId(String merchantAppId) {
+        this.merchantAppId = merchantAppId;
+        return this;
+    }
+    public String getMerchantAppId() {
+        return this.merchantAppId;
     }
 
 }
