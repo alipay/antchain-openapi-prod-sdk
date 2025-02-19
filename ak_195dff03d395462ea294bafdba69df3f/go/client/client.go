@@ -524,6 +524,25 @@ func (s *ApplicationInfo) SetSiteInfo(v []*SiteInfo) *ApplicationInfo {
 	return s
 }
 
+// 分账关系绑定收入方信息
+type DivideBindingTransInInfo struct {
+	// 分账方支付宝pid
+	AlipayPid *string `json:"alipay_pid,omitempty" xml:"alipay_pid,omitempty" require:"true"`
+}
+
+func (s DivideBindingTransInInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DivideBindingTransInInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DivideBindingTransInInfo) SetAlipayPid(v string) *DivideBindingTransInInfo {
+	s.AlipayPid = &v
+	return s
+}
+
 // 应用信息修改
 type ApplicationInfoUpdate struct {
 	// 应用场景 MINI_APP 小程序 APP 自有app ALL 两种都有
@@ -1203,6 +1222,11 @@ type AllAntchainAtoSignTemplateRequest struct {
 	ContractType *string `json:"contract_type,omitempty" xml:"contract_type,omitempty"`
 	// 商户统一社会信用代码，SIT环境，非融必填
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" maxLength:"42"`
+	// 查询融资类型时，需要传入资方统一社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty"`
+	// -FINANCE 融资
+	// -NON_FINANCE 非融资
+	FundType *string `json:"fund_type,omitempty" xml:"fund_type,omitempty"`
 	// 模板id
 	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty"`
 }
@@ -1232,6 +1256,16 @@ func (s *AllAntchainAtoSignTemplateRequest) SetContractType(v string) *AllAntcha
 
 func (s *AllAntchainAtoSignTemplateRequest) SetMerchantId(v string) *AllAntchainAtoSignTemplateRequest {
 	s.MerchantId = &v
+	return s
+}
+
+func (s *AllAntchainAtoSignTemplateRequest) SetFundId(v string) *AllAntchainAtoSignTemplateRequest {
+	s.FundId = &v
+	return s
+}
+
+func (s *AllAntchainAtoSignTemplateRequest) SetFundType(v string) *AllAntchainAtoSignTemplateRequest {
+	s.FundType = &v
 	return s
 }
 
@@ -7298,6 +7332,433 @@ func (s *GetAntchainAtoFundOrderfinanceinfoResponse) SetResponseData(v string) *
 	return s
 }
 
+type SyncAntchainAtoTradeUserpromisedelayRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// order_id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" minLength:"1"`
+	// merchant_id
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" minLength:"1"`
+	// 1
+	DelayStartPeriod *int64 `json:"delay_start_period,omitempty" xml:"delay_start_period,omitempty" require:"true" minimum:"1"`
+	// 延期时间单位
+	DelayTimeUnit *string `json:"delay_time_unit,omitempty" xml:"delay_time_unit,omitempty" require:"true" minLength:"1"`
+	// 延期时间数值
+	DelayTimeValue *int64 `json:"delay_time_value,omitempty" xml:"delay_time_value,omitempty" require:"true" minimum:"1"`
+	// 原因描述
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty" require:"true" minLength:"1"`
+}
+
+func (s SyncAntchainAtoTradeUserpromisedelayRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncAntchainAtoTradeUserpromisedelayRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncAntchainAtoTradeUserpromisedelayRequest) SetAuthToken(v string) *SyncAntchainAtoTradeUserpromisedelayRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncAntchainAtoTradeUserpromisedelayRequest) SetProductInstanceId(v string) *SyncAntchainAtoTradeUserpromisedelayRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncAntchainAtoTradeUserpromisedelayRequest) SetOrderId(v string) *SyncAntchainAtoTradeUserpromisedelayRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *SyncAntchainAtoTradeUserpromisedelayRequest) SetMerchantId(v string) *SyncAntchainAtoTradeUserpromisedelayRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *SyncAntchainAtoTradeUserpromisedelayRequest) SetDelayStartPeriod(v int64) *SyncAntchainAtoTradeUserpromisedelayRequest {
+	s.DelayStartPeriod = &v
+	return s
+}
+
+func (s *SyncAntchainAtoTradeUserpromisedelayRequest) SetDelayTimeUnit(v string) *SyncAntchainAtoTradeUserpromisedelayRequest {
+	s.DelayTimeUnit = &v
+	return s
+}
+
+func (s *SyncAntchainAtoTradeUserpromisedelayRequest) SetDelayTimeValue(v int64) *SyncAntchainAtoTradeUserpromisedelayRequest {
+	s.DelayTimeValue = &v
+	return s
+}
+
+func (s *SyncAntchainAtoTradeUserpromisedelayRequest) SetReason(v string) *SyncAntchainAtoTradeUserpromisedelayRequest {
+	s.Reason = &v
+	return s
+}
+
+type SyncAntchainAtoTradeUserpromisedelayResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SyncAntchainAtoTradeUserpromisedelayResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncAntchainAtoTradeUserpromisedelayResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncAntchainAtoTradeUserpromisedelayResponse) SetReqMsgId(v string) *SyncAntchainAtoTradeUserpromisedelayResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncAntchainAtoTradeUserpromisedelayResponse) SetResultCode(v string) *SyncAntchainAtoTradeUserpromisedelayResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncAntchainAtoTradeUserpromisedelayResponse) SetResultMsg(v string) *SyncAntchainAtoTradeUserpromisedelayResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PauseAntchainAtoTradeUserpromiseRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" minLength:"1"`
+	// 社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" minLength:"1"`
+	// 理由
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty" require:"true" minLength:"1"`
+}
+
+func (s PauseAntchainAtoTradeUserpromiseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PauseAntchainAtoTradeUserpromiseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PauseAntchainAtoTradeUserpromiseRequest) SetAuthToken(v string) *PauseAntchainAtoTradeUserpromiseRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PauseAntchainAtoTradeUserpromiseRequest) SetProductInstanceId(v string) *PauseAntchainAtoTradeUserpromiseRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PauseAntchainAtoTradeUserpromiseRequest) SetOrderId(v string) *PauseAntchainAtoTradeUserpromiseRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *PauseAntchainAtoTradeUserpromiseRequest) SetMerchantId(v string) *PauseAntchainAtoTradeUserpromiseRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *PauseAntchainAtoTradeUserpromiseRequest) SetReason(v string) *PauseAntchainAtoTradeUserpromiseRequest {
+	s.Reason = &v
+	return s
+}
+
+type PauseAntchainAtoTradeUserpromiseResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 暂停后自动重启时间
+	AutoResumeDay *string `json:"auto_resume_day,omitempty" xml:"auto_resume_day,omitempty"`
+	// 暂停后自动执行代扣时间，为autoResumeDay的第二天重新开始执行代扣计划
+	AutoWithholdRestartDay *string `json:"auto_withhold_restart_day,omitempty" xml:"auto_withhold_restart_day,omitempty"`
+}
+
+func (s PauseAntchainAtoTradeUserpromiseResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PauseAntchainAtoTradeUserpromiseResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PauseAntchainAtoTradeUserpromiseResponse) SetReqMsgId(v string) *PauseAntchainAtoTradeUserpromiseResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PauseAntchainAtoTradeUserpromiseResponse) SetResultCode(v string) *PauseAntchainAtoTradeUserpromiseResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PauseAntchainAtoTradeUserpromiseResponse) SetResultMsg(v string) *PauseAntchainAtoTradeUserpromiseResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PauseAntchainAtoTradeUserpromiseResponse) SetAutoResumeDay(v string) *PauseAntchainAtoTradeUserpromiseResponse {
+	s.AutoResumeDay = &v
+	return s
+}
+
+func (s *PauseAntchainAtoTradeUserpromiseResponse) SetAutoWithholdRestartDay(v string) *PauseAntchainAtoTradeUserpromiseResponse {
+	s.AutoWithholdRestartDay = &v
+	return s
+}
+
+type ResumeAntchainAtoTradeUserpromiseRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// order_id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" minLength:"1"`
+	// merchant_id
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" minLength:"1"`
+}
+
+func (s ResumeAntchainAtoTradeUserpromiseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResumeAntchainAtoTradeUserpromiseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ResumeAntchainAtoTradeUserpromiseRequest) SetAuthToken(v string) *ResumeAntchainAtoTradeUserpromiseRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ResumeAntchainAtoTradeUserpromiseRequest) SetProductInstanceId(v string) *ResumeAntchainAtoTradeUserpromiseRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ResumeAntchainAtoTradeUserpromiseRequest) SetOrderId(v string) *ResumeAntchainAtoTradeUserpromiseRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *ResumeAntchainAtoTradeUserpromiseRequest) SetMerchantId(v string) *ResumeAntchainAtoTradeUserpromiseRequest {
+	s.MerchantId = &v
+	return s
+}
+
+type ResumeAntchainAtoTradeUserpromiseResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单重启时间
+	ResumeDay *string `json:"resume_day,omitempty" xml:"resume_day,omitempty"`
+	// withhold_restart_day
+	WithholdRestartDay *string `json:"withhold_restart_day,omitempty" xml:"withhold_restart_day,omitempty"`
+}
+
+func (s ResumeAntchainAtoTradeUserpromiseResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResumeAntchainAtoTradeUserpromiseResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ResumeAntchainAtoTradeUserpromiseResponse) SetReqMsgId(v string) *ResumeAntchainAtoTradeUserpromiseResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ResumeAntchainAtoTradeUserpromiseResponse) SetResultCode(v string) *ResumeAntchainAtoTradeUserpromiseResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ResumeAntchainAtoTradeUserpromiseResponse) SetResultMsg(v string) *ResumeAntchainAtoTradeUserpromiseResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ResumeAntchainAtoTradeUserpromiseResponse) SetResumeDay(v string) *ResumeAntchainAtoTradeUserpromiseResponse {
+	s.ResumeDay = &v
+	return s
+}
+
+func (s *ResumeAntchainAtoTradeUserpromiseResponse) SetWithholdRestartDay(v string) *ResumeAntchainAtoTradeUserpromiseResponse {
+	s.WithholdRestartDay = &v
+	return s
+}
+
+type AddAntchainAtoMerchantexpandDividerelationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 被分账方社会统一信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
+	// 分账方信息，最多支持10组
+	DivideBindingTransInInfoList []*DivideBindingTransInInfo `json:"divide_binding_trans_in_info_list,omitempty" xml:"divide_binding_trans_in_info_list,omitempty" require:"true" type:"Repeated"`
+	// 分账比例上限
+	DivideRadio *string `json:"divide_radio,omitempty" xml:"divide_radio,omitempty"`
+}
+
+func (s AddAntchainAtoMerchantexpandDividerelationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddAntchainAtoMerchantexpandDividerelationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddAntchainAtoMerchantexpandDividerelationRequest) SetAuthToken(v string) *AddAntchainAtoMerchantexpandDividerelationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddAntchainAtoMerchantexpandDividerelationRequest) SetProductInstanceId(v string) *AddAntchainAtoMerchantexpandDividerelationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AddAntchainAtoMerchantexpandDividerelationRequest) SetMerchantId(v string) *AddAntchainAtoMerchantexpandDividerelationRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *AddAntchainAtoMerchantexpandDividerelationRequest) SetDivideBindingTransInInfoList(v []*DivideBindingTransInInfo) *AddAntchainAtoMerchantexpandDividerelationRequest {
+	s.DivideBindingTransInInfoList = v
+	return s
+}
+
+func (s *AddAntchainAtoMerchantexpandDividerelationRequest) SetDivideRadio(v string) *AddAntchainAtoMerchantexpandDividerelationRequest {
+	s.DivideRadio = &v
+	return s
+}
+
+type AddAntchainAtoMerchantexpandDividerelationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s AddAntchainAtoMerchantexpandDividerelationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddAntchainAtoMerchantexpandDividerelationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddAntchainAtoMerchantexpandDividerelationResponse) SetReqMsgId(v string) *AddAntchainAtoMerchantexpandDividerelationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddAntchainAtoMerchantexpandDividerelationResponse) SetResultCode(v string) *AddAntchainAtoMerchantexpandDividerelationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddAntchainAtoMerchantexpandDividerelationResponse) SetResultMsg(v string) *AddAntchainAtoMerchantexpandDividerelationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryAntchainAtoMerchantexpandDividerelationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 被分账方社会统一信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
+}
+
+func (s QueryAntchainAtoMerchantexpandDividerelationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainAtoMerchantexpandDividerelationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainAtoMerchantexpandDividerelationRequest) SetAuthToken(v string) *QueryAntchainAtoMerchantexpandDividerelationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntchainAtoMerchantexpandDividerelationRequest) SetProductInstanceId(v string) *QueryAntchainAtoMerchantexpandDividerelationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntchainAtoMerchantexpandDividerelationRequest) SetMerchantId(v string) *QueryAntchainAtoMerchantexpandDividerelationRequest {
+	s.MerchantId = &v
+	return s
+}
+
+type QueryAntchainAtoMerchantexpandDividerelationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 分账绑定关系支付宝pid
+	AlipayPidList []*string `json:"alipay_pid_list,omitempty" xml:"alipay_pid_list,omitempty" type:"Repeated"`
+	// 分账比例上限
+	DivideRadio *string `json:"divide_radio,omitempty" xml:"divide_radio,omitempty"`
+}
+
+func (s QueryAntchainAtoMerchantexpandDividerelationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainAtoMerchantexpandDividerelationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainAtoMerchantexpandDividerelationResponse) SetReqMsgId(v string) *QueryAntchainAtoMerchantexpandDividerelationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntchainAtoMerchantexpandDividerelationResponse) SetResultCode(v string) *QueryAntchainAtoMerchantexpandDividerelationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntchainAtoMerchantexpandDividerelationResponse) SetResultMsg(v string) *QueryAntchainAtoMerchantexpandDividerelationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntchainAtoMerchantexpandDividerelationResponse) SetAlipayPidList(v []*string) *QueryAntchainAtoMerchantexpandDividerelationResponse {
+	s.AlipayPidList = v
+	return s
+}
+
+func (s *QueryAntchainAtoMerchantexpandDividerelationResponse) SetDivideRadio(v string) *QueryAntchainAtoMerchantexpandDividerelationResponse {
+	s.DivideRadio = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -7540,7 +8001,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.12"),
+				"sdk_version":      tea.String("1.4.0"),
 				"_prod_code":       tea.String("ak_195dff03d395462ea294bafdba69df3f"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -9861,6 +10322,176 @@ func (client *Client) GetAntchainAtoFundOrderfinanceinfoEx(request *GetAntchainA
 	}
 	_result = &GetAntchainAtoFundOrderfinanceinfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.orderfinanceinfo.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 订单代扣计划延期
+ * Summary: 订单代扣计划延期
+ */
+func (client *Client) SyncAntchainAtoTradeUserpromisedelay(request *SyncAntchainAtoTradeUserpromisedelayRequest) (_result *SyncAntchainAtoTradeUserpromisedelayResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncAntchainAtoTradeUserpromisedelayResponse{}
+	_body, _err := client.SyncAntchainAtoTradeUserpromisedelayEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 订单代扣计划延期
+ * Summary: 订单代扣计划延期
+ */
+func (client *Client) SyncAntchainAtoTradeUserpromisedelayEx(request *SyncAntchainAtoTradeUserpromisedelayRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncAntchainAtoTradeUserpromisedelayResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncAntchainAtoTradeUserpromisedelayResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.trade.userpromisedelay.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 订单代扣计划暂停
+ * Summary: 订单代扣计划暂停
+ */
+func (client *Client) PauseAntchainAtoTradeUserpromise(request *PauseAntchainAtoTradeUserpromiseRequest) (_result *PauseAntchainAtoTradeUserpromiseResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PauseAntchainAtoTradeUserpromiseResponse{}
+	_body, _err := client.PauseAntchainAtoTradeUserpromiseEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 订单代扣计划暂停
+ * Summary: 订单代扣计划暂停
+ */
+func (client *Client) PauseAntchainAtoTradeUserpromiseEx(request *PauseAntchainAtoTradeUserpromiseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PauseAntchainAtoTradeUserpromiseResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PauseAntchainAtoTradeUserpromiseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.trade.userpromise.pause"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 代扣计划重启
+ * Summary: 代扣计划重启
+ */
+func (client *Client) ResumeAntchainAtoTradeUserpromise(request *ResumeAntchainAtoTradeUserpromiseRequest) (_result *ResumeAntchainAtoTradeUserpromiseResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ResumeAntchainAtoTradeUserpromiseResponse{}
+	_body, _err := client.ResumeAntchainAtoTradeUserpromiseEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 代扣计划重启
+ * Summary: 代扣计划重启
+ */
+func (client *Client) ResumeAntchainAtoTradeUserpromiseEx(request *ResumeAntchainAtoTradeUserpromiseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ResumeAntchainAtoTradeUserpromiseResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ResumeAntchainAtoTradeUserpromiseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.trade.userpromise.resume"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 添加分账绑定关系
+ * Summary: 添加分账绑定关系
+ */
+func (client *Client) AddAntchainAtoMerchantexpandDividerelation(request *AddAntchainAtoMerchantexpandDividerelationRequest) (_result *AddAntchainAtoMerchantexpandDividerelationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddAntchainAtoMerchantexpandDividerelationResponse{}
+	_body, _err := client.AddAntchainAtoMerchantexpandDividerelationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 添加分账绑定关系
+ * Summary: 添加分账绑定关系
+ */
+func (client *Client) AddAntchainAtoMerchantexpandDividerelationEx(request *AddAntchainAtoMerchantexpandDividerelationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddAntchainAtoMerchantexpandDividerelationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddAntchainAtoMerchantexpandDividerelationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.merchantexpand.dividerelation.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分账绑定关系查询
+ * Summary: 分账绑定关系查询
+ */
+func (client *Client) QueryAntchainAtoMerchantexpandDividerelation(request *QueryAntchainAtoMerchantexpandDividerelationRequest) (_result *QueryAntchainAtoMerchantexpandDividerelationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntchainAtoMerchantexpandDividerelationResponse{}
+	_body, _err := client.QueryAntchainAtoMerchantexpandDividerelationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分账绑定关系查询
+ * Summary: 分账绑定关系查询
+ */
+func (client *Client) QueryAntchainAtoMerchantexpandDividerelationEx(request *QueryAntchainAtoMerchantexpandDividerelationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainAtoMerchantexpandDividerelationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntchainAtoMerchantexpandDividerelationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.merchantexpand.dividerelation.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
