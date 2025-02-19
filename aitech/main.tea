@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.10',
+    sdk_version = '1.1.11',
     _prod_code = 'AITECH',
     _prod_channel = 'default'
   };
@@ -1098,6 +1098,60 @@ async function callbackAliyunAudit(request: CallbackAliyunAuditRequest): Callbac
 async function callbackAliyunAuditEx(request: CallbackAliyunAuditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackAliyunAuditResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'aitech.comm.aliyun.audit.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAicoguardcloudAdbsinkRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 区域id
+  regionId: string(name='region_id'),
+  // DB实例id
+  dbInstanceId: string(name='db_instance_id'),
+  // 数据库空间名称
+  nameSpace: string(name='name_space'),
+  // 数据库空间密码
+  nameSpacePassword: string(name='name_space_password'),
+  // 数据库表名
+  collectionName: string(name='collection_name'),
+  // 查询的内容
+  content: string(name='content'),
+}
+
+model QueryAicoguardcloudAdbsinkResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求的问题
+  question?: string(name='question'),
+  // 代答结果
+  answer?: string(name='answer'),
+  // 匹配度分数
+  score?: string(name='score'),
+  // adb的请求id
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 阿里云ADB调用接口
+ * Summary: 阿里云ADB调用接口
+ */
+async function queryAicoguardcloudAdbsink(request: QueryAicoguardcloudAdbsinkRequest): QueryAicoguardcloudAdbsinkResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAicoguardcloudAdbsinkEx(request, headers, runtime);
+}
+
+/**
+ * Description: 阿里云ADB调用接口
+ * Summary: 阿里云ADB调用接口
+ */
+async function queryAicoguardcloudAdbsinkEx(request: QueryAicoguardcloudAdbsinkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAicoguardcloudAdbsinkResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.aicoguardcloud.adbsink.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryGuardcoreRedgptRequest = {
