@@ -363,6 +363,27 @@ export class ApplicationInfo extends $tea.Model {
   }
 }
 
+// 分账关系绑定收入方信息
+export class DivideBindingTransInInfo extends $tea.Model {
+  // 分账方支付宝pid
+  alipayPid: string;
+  static names(): { [key: string]: string } {
+    return {
+      alipayPid: 'alipay_pid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      alipayPid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 应用信息修改
 export class ApplicationInfoUpdate extends $tea.Model {
   // 应用场景 MINI_APP 小程序 APP 自有app ALL 两种都有
@@ -899,6 +920,11 @@ export class AllAntchainAtoSignTemplateRequest extends $tea.Model {
   contractType?: string;
   // 商户统一社会信用代码，SIT环境，非融必填
   merchantId?: string;
+  // 查询融资类型时，需要传入资方统一社会信用代码
+  fundId?: string;
+  // -FINANCE 融资
+  // -NON_FINANCE 非融资
+  fundType?: string;
   // 模板id
   templateId?: string;
   static names(): { [key: string]: string } {
@@ -907,6 +933,8 @@ export class AllAntchainAtoSignTemplateRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       contractType: 'contract_type',
       merchantId: 'merchant_id',
+      fundId: 'fund_id',
+      fundType: 'fund_type',
       templateId: 'template_id',
     };
   }
@@ -917,6 +945,8 @@ export class AllAntchainAtoSignTemplateRequest extends $tea.Model {
       productInstanceId: 'string',
       contractType: 'string',
       merchantId: 'string',
+      fundId: 'string',
+      fundType: 'string',
       templateId: 'string',
     };
   }
@@ -5548,6 +5578,345 @@ export class GetAntchainAtoFundOrderfinanceinfoResponse extends $tea.Model {
   }
 }
 
+export class SyncAntchainAtoTradeUserpromisedelayRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // order_id
+  orderId: string;
+  // merchant_id
+  merchantId: string;
+  // 1
+  delayStartPeriod: number;
+  // 延期时间单位
+  delayTimeUnit: string;
+  // 延期时间数值
+  delayTimeValue: number;
+  // 原因描述
+  reason: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      merchantId: 'merchant_id',
+      delayStartPeriod: 'delay_start_period',
+      delayTimeUnit: 'delay_time_unit',
+      delayTimeValue: 'delay_time_value',
+      reason: 'reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      merchantId: 'string',
+      delayStartPeriod: 'number',
+      delayTimeUnit: 'string',
+      delayTimeValue: 'number',
+      reason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncAntchainAtoTradeUserpromisedelayResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PauseAntchainAtoTradeUserpromiseRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id
+  orderId: string;
+  // 社会信用代码
+  merchantId: string;
+  // 理由
+  reason: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      merchantId: 'merchant_id',
+      reason: 'reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      merchantId: 'string',
+      reason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PauseAntchainAtoTradeUserpromiseResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 暂停后自动重启时间
+  autoResumeDay?: string;
+  // 暂停后自动执行代扣时间，为autoResumeDay的第二天重新开始执行代扣计划
+  autoWithholdRestartDay?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      autoResumeDay: 'auto_resume_day',
+      autoWithholdRestartDay: 'auto_withhold_restart_day',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      autoResumeDay: 'string',
+      autoWithholdRestartDay: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResumeAntchainAtoTradeUserpromiseRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // order_id
+  orderId: string;
+  // merchant_id
+  merchantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      merchantId: 'merchant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      merchantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResumeAntchainAtoTradeUserpromiseResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单重启时间
+  resumeDay?: string;
+  // withhold_restart_day
+  withholdRestartDay?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      resumeDay: 'resume_day',
+      withholdRestartDay: 'withhold_restart_day',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      resumeDay: 'string',
+      withholdRestartDay: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddAntchainAtoMerchantexpandDividerelationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 被分账方社会统一信用代码
+  merchantId: string;
+  // 分账方信息，最多支持10组
+  divideBindingTransInInfoList: DivideBindingTransInInfo[];
+  // 分账比例上限
+  divideRadio?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      merchantId: 'merchant_id',
+      divideBindingTransInInfoList: 'divide_binding_trans_in_info_list',
+      divideRadio: 'divide_radio',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      merchantId: 'string',
+      divideBindingTransInInfoList: { 'type': 'array', 'itemType': DivideBindingTransInInfo },
+      divideRadio: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddAntchainAtoMerchantexpandDividerelationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntchainAtoMerchantexpandDividerelationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 被分账方社会统一信用代码
+  merchantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      merchantId: 'merchant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      merchantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntchainAtoMerchantexpandDividerelationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 分账绑定关系支付宝pid
+  alipayPidList?: string[];
+  // 分账比例上限
+  divideRadio?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      alipayPidList: 'alipay_pid_list',
+      divideRadio: 'divide_radio',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      alipayPidList: { 'type': 'array', 'itemType': 'string' },
+      divideRadio: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -5749,7 +6118,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.12",
+          sdk_version: "1.4.0",
           _prod_code: "ak_195dff03d395462ea294bafdba69df3f",
           _prod_channel: "saas",
         };
@@ -7081,6 +7450,101 @@ export default class Client {
   async getAntchainAtoFundOrderfinanceinfoEx(request: GetAntchainAtoFundOrderfinanceinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAntchainAtoFundOrderfinanceinfoResponse> {
     Util.validateModel(request);
     return $tea.cast<GetAntchainAtoFundOrderfinanceinfoResponse>(await this.doRequest("1.0", "antchain.ato.fund.orderfinanceinfo.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAntchainAtoFundOrderfinanceinfoResponse({}));
+  }
+
+  /**
+   * Description: 订单代扣计划延期
+   * Summary: 订单代扣计划延期
+   */
+  async syncAntchainAtoTradeUserpromisedelay(request: SyncAntchainAtoTradeUserpromisedelayRequest): Promise<SyncAntchainAtoTradeUserpromisedelayResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncAntchainAtoTradeUserpromisedelayEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 订单代扣计划延期
+   * Summary: 订单代扣计划延期
+   */
+  async syncAntchainAtoTradeUserpromisedelayEx(request: SyncAntchainAtoTradeUserpromisedelayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncAntchainAtoTradeUserpromisedelayResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncAntchainAtoTradeUserpromisedelayResponse>(await this.doRequest("1.0", "antchain.ato.trade.userpromisedelay.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncAntchainAtoTradeUserpromisedelayResponse({}));
+  }
+
+  /**
+   * Description: 订单代扣计划暂停
+   * Summary: 订单代扣计划暂停
+   */
+  async pauseAntchainAtoTradeUserpromise(request: PauseAntchainAtoTradeUserpromiseRequest): Promise<PauseAntchainAtoTradeUserpromiseResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pauseAntchainAtoTradeUserpromiseEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 订单代扣计划暂停
+   * Summary: 订单代扣计划暂停
+   */
+  async pauseAntchainAtoTradeUserpromiseEx(request: PauseAntchainAtoTradeUserpromiseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PauseAntchainAtoTradeUserpromiseResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PauseAntchainAtoTradeUserpromiseResponse>(await this.doRequest("1.0", "antchain.ato.trade.userpromise.pause", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PauseAntchainAtoTradeUserpromiseResponse({}));
+  }
+
+  /**
+   * Description: 代扣计划重启
+   * Summary: 代扣计划重启
+   */
+  async resumeAntchainAtoTradeUserpromise(request: ResumeAntchainAtoTradeUserpromiseRequest): Promise<ResumeAntchainAtoTradeUserpromiseResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.resumeAntchainAtoTradeUserpromiseEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 代扣计划重启
+   * Summary: 代扣计划重启
+   */
+  async resumeAntchainAtoTradeUserpromiseEx(request: ResumeAntchainAtoTradeUserpromiseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ResumeAntchainAtoTradeUserpromiseResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ResumeAntchainAtoTradeUserpromiseResponse>(await this.doRequest("1.0", "antchain.ato.trade.userpromise.resume", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ResumeAntchainAtoTradeUserpromiseResponse({}));
+  }
+
+  /**
+   * Description: 添加分账绑定关系
+   * Summary: 添加分账绑定关系
+   */
+  async addAntchainAtoMerchantexpandDividerelation(request: AddAntchainAtoMerchantexpandDividerelationRequest): Promise<AddAntchainAtoMerchantexpandDividerelationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addAntchainAtoMerchantexpandDividerelationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 添加分账绑定关系
+   * Summary: 添加分账绑定关系
+   */
+  async addAntchainAtoMerchantexpandDividerelationEx(request: AddAntchainAtoMerchantexpandDividerelationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddAntchainAtoMerchantexpandDividerelationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddAntchainAtoMerchantexpandDividerelationResponse>(await this.doRequest("1.0", "antchain.ato.merchantexpand.dividerelation.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddAntchainAtoMerchantexpandDividerelationResponse({}));
+  }
+
+  /**
+   * Description: 分账绑定关系查询
+   * Summary: 分账绑定关系查询
+   */
+  async queryAntchainAtoMerchantexpandDividerelation(request: QueryAntchainAtoMerchantexpandDividerelationRequest): Promise<QueryAntchainAtoMerchantexpandDividerelationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntchainAtoMerchantexpandDividerelationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 分账绑定关系查询
+   * Summary: 分账绑定关系查询
+   */
+  async queryAntchainAtoMerchantexpandDividerelationEx(request: QueryAntchainAtoMerchantexpandDividerelationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainAtoMerchantexpandDividerelationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntchainAtoMerchantexpandDividerelationResponse>(await this.doRequest("1.0", "antchain.ato.merchantexpand.dividerelation.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainAtoMerchantexpandDividerelationResponse({}));
   }
 
   /**
