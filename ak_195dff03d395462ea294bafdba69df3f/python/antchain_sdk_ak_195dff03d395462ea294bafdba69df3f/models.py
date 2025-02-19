@@ -635,6 +635,34 @@ class ApplicationInfo(TeaModel):
         return self
 
 
+class DivideBindingTransInInfo(TeaModel):
+    def __init__(
+        self,
+        alipay_pid: str = None,
+    ):
+        # 分账方支付宝pid
+        self.alipay_pid = alipay_pid
+
+    def validate(self):
+        self.validate_required(self.alipay_pid, 'alipay_pid')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alipay_pid is not None:
+            result['alipay_pid'] = self.alipay_pid
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('alipay_pid') is not None:
+            self.alipay_pid = m.get('alipay_pid')
+        return self
+
+
 class ApplicationInfoUpdate(TeaModel):
     def __init__(
         self,
@@ -1483,6 +1511,8 @@ class AllAntchainAtoSignTemplateRequest(TeaModel):
         product_instance_id: str = None,
         contract_type: str = None,
         merchant_id: str = None,
+        fund_id: str = None,
+        fund_type: str = None,
         template_id: str = None,
     ):
         # OAuth模式下的授权token
@@ -1492,6 +1522,11 @@ class AllAntchainAtoSignTemplateRequest(TeaModel):
         self.contract_type = contract_type
         # 商户统一社会信用代码，SIT环境，非融必填
         self.merchant_id = merchant_id
+        # 查询融资类型时，需要传入资方统一社会信用代码
+        self.fund_id = fund_id
+        # -FINANCE 融资
+        # -NON_FINANCE 非融资
+        self.fund_type = fund_type
         # 模板id
         self.template_id = template_id
 
@@ -1513,6 +1548,10 @@ class AllAntchainAtoSignTemplateRequest(TeaModel):
             result['contract_type'] = self.contract_type
         if self.merchant_id is not None:
             result['merchant_id'] = self.merchant_id
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
+        if self.fund_type is not None:
+            result['fund_type'] = self.fund_type
         if self.template_id is not None:
             result['template_id'] = self.template_id
         return result
@@ -1527,6 +1566,10 @@ class AllAntchainAtoSignTemplateRequest(TeaModel):
             self.contract_type = m.get('contract_type')
         if m.get('merchant_id') is not None:
             self.merchant_id = m.get('merchant_id')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
+        if m.get('fund_type') is not None:
+            self.fund_type = m.get('fund_type')
         if m.get('template_id') is not None:
             self.template_id = m.get('template_id')
         return self
@@ -9171,6 +9214,555 @@ class GetAntchainAtoFundOrderfinanceinfoResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('response_data') is not None:
             self.response_data = m.get('response_data')
+        return self
+
+
+class SyncAntchainAtoTradeUserpromisedelayRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        merchant_id: str = None,
+        delay_start_period: int = None,
+        delay_time_unit: str = None,
+        delay_time_value: int = None,
+        reason: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # order_id
+        self.order_id = order_id
+        # merchant_id
+        self.merchant_id = merchant_id
+        # 1
+        self.delay_start_period = delay_start_period
+        # 延期时间单位
+        self.delay_time_unit = delay_time_unit
+        # 延期时间数值
+        self.delay_time_value = delay_time_value
+        # 原因描述
+        self.reason = reason
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.merchant_id, 'merchant_id')
+        self.validate_required(self.delay_start_period, 'delay_start_period')
+        if self.delay_start_period is not None:
+            self.validate_minimum(self.delay_start_period, 'delay_start_period', 1)
+        self.validate_required(self.delay_time_unit, 'delay_time_unit')
+        self.validate_required(self.delay_time_value, 'delay_time_value')
+        if self.delay_time_value is not None:
+            self.validate_minimum(self.delay_time_value, 'delay_time_value', 1)
+        self.validate_required(self.reason, 'reason')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.delay_start_period is not None:
+            result['delay_start_period'] = self.delay_start_period
+        if self.delay_time_unit is not None:
+            result['delay_time_unit'] = self.delay_time_unit
+        if self.delay_time_value is not None:
+            result['delay_time_value'] = self.delay_time_value
+        if self.reason is not None:
+            result['reason'] = self.reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('delay_start_period') is not None:
+            self.delay_start_period = m.get('delay_start_period')
+        if m.get('delay_time_unit') is not None:
+            self.delay_time_unit = m.get('delay_time_unit')
+        if m.get('delay_time_value') is not None:
+            self.delay_time_value = m.get('delay_time_value')
+        if m.get('reason') is not None:
+            self.reason = m.get('reason')
+        return self
+
+
+class SyncAntchainAtoTradeUserpromisedelayResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class PauseAntchainAtoTradeUserpromiseRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        merchant_id: str = None,
+        reason: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 订单id
+        self.order_id = order_id
+        # 社会信用代码
+        self.merchant_id = merchant_id
+        # 理由
+        self.reason = reason
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.merchant_id, 'merchant_id')
+        self.validate_required(self.reason, 'reason')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.reason is not None:
+            result['reason'] = self.reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('reason') is not None:
+            self.reason = m.get('reason')
+        return self
+
+
+class PauseAntchainAtoTradeUserpromiseResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        auto_resume_day: str = None,
+        auto_withhold_restart_day: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 暂停后自动重启时间
+        self.auto_resume_day = auto_resume_day
+        # 暂停后自动执行代扣时间，为autoResumeDay的第二天重新开始执行代扣计划
+        self.auto_withhold_restart_day = auto_withhold_restart_day
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.auto_resume_day is not None:
+            result['auto_resume_day'] = self.auto_resume_day
+        if self.auto_withhold_restart_day is not None:
+            result['auto_withhold_restart_day'] = self.auto_withhold_restart_day
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('auto_resume_day') is not None:
+            self.auto_resume_day = m.get('auto_resume_day')
+        if m.get('auto_withhold_restart_day') is not None:
+            self.auto_withhold_restart_day = m.get('auto_withhold_restart_day')
+        return self
+
+
+class ResumeAntchainAtoTradeUserpromiseRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        merchant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # order_id
+        self.order_id = order_id
+        # merchant_id
+        self.merchant_id = merchant_id
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.merchant_id, 'merchant_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        return self
+
+
+class ResumeAntchainAtoTradeUserpromiseResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        resume_day: str = None,
+        withhold_restart_day: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 订单重启时间
+        self.resume_day = resume_day
+        # withhold_restart_day
+        self.withhold_restart_day = withhold_restart_day
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.resume_day is not None:
+            result['resume_day'] = self.resume_day
+        if self.withhold_restart_day is not None:
+            result['withhold_restart_day'] = self.withhold_restart_day
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('resume_day') is not None:
+            self.resume_day = m.get('resume_day')
+        if m.get('withhold_restart_day') is not None:
+            self.withhold_restart_day = m.get('withhold_restart_day')
+        return self
+
+
+class AddAntchainAtoMerchantexpandDividerelationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        merchant_id: str = None,
+        divide_binding_trans_in_info_list: List[DivideBindingTransInInfo] = None,
+        divide_radio: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 被分账方社会统一信用代码
+        self.merchant_id = merchant_id
+        # 分账方信息，最多支持10组
+        self.divide_binding_trans_in_info_list = divide_binding_trans_in_info_list
+        # 分账比例上限
+        self.divide_radio = divide_radio
+
+    def validate(self):
+        self.validate_required(self.merchant_id, 'merchant_id')
+        self.validate_required(self.divide_binding_trans_in_info_list, 'divide_binding_trans_in_info_list')
+        if self.divide_binding_trans_in_info_list:
+            for k in self.divide_binding_trans_in_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        result['divide_binding_trans_in_info_list'] = []
+        if self.divide_binding_trans_in_info_list is not None:
+            for k in self.divide_binding_trans_in_info_list:
+                result['divide_binding_trans_in_info_list'].append(k.to_map() if k else None)
+        if self.divide_radio is not None:
+            result['divide_radio'] = self.divide_radio
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        self.divide_binding_trans_in_info_list = []
+        if m.get('divide_binding_trans_in_info_list') is not None:
+            for k in m.get('divide_binding_trans_in_info_list'):
+                temp_model = DivideBindingTransInInfo()
+                self.divide_binding_trans_in_info_list.append(temp_model.from_map(k))
+        if m.get('divide_radio') is not None:
+            self.divide_radio = m.get('divide_radio')
+        return self
+
+
+class AddAntchainAtoMerchantexpandDividerelationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryAntchainAtoMerchantexpandDividerelationRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        merchant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 被分账方社会统一信用代码
+        self.merchant_id = merchant_id
+
+    def validate(self):
+        self.validate_required(self.merchant_id, 'merchant_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        return self
+
+
+class QueryAntchainAtoMerchantexpandDividerelationResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        alipay_pid_list: List[str] = None,
+        divide_radio: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 分账绑定关系支付宝pid
+        self.alipay_pid_list = alipay_pid_list
+        # 分账比例上限
+        self.divide_radio = divide_radio
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.alipay_pid_list is not None:
+            result['alipay_pid_list'] = self.alipay_pid_list
+        if self.divide_radio is not None:
+            result['divide_radio'] = self.divide_radio
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('alipay_pid_list') is not None:
+            self.alipay_pid_list = m.get('alipay_pid_list')
+        if m.get('divide_radio') is not None:
+            self.divide_radio = m.get('divide_radio')
         return self
 
 
