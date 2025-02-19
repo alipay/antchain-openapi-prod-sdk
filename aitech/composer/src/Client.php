@@ -25,6 +25,8 @@ use AntChain\AITECH\Models\CallbackSofaAuditRequest;
 use AntChain\AITECH\Models\CallbackSofaAuditResponse;
 use AntChain\AITECH\Models\QueryAicoguardAdbsinkRequest;
 use AntChain\AITECH\Models\QueryAicoguardAdbsinkResponse;
+use AntChain\AITECH\Models\QueryAicoguardcloudAdbsinkRequest;
+use AntChain\AITECH\Models\QueryAicoguardcloudAdbsinkResponse;
 use AntChain\AITECH\Models\QueryAuditAudiobaseRequest;
 use AntChain\AITECH\Models\QueryAuditAudiobaseResponse;
 use AntChain\AITECH\Models\QueryAuditAudioRequest;
@@ -198,7 +200,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.10',
+                    'sdk_version'      => '1.1.11',
                     '_prod_code'       => 'AITECH',
                     '_prod_channel'    => 'default',
                 ];
@@ -838,6 +840,39 @@ class Client
         Utils::validateModel($request);
 
         return CallbackAliyunAuditResponse::fromMap($this->doRequest('1.0', 'aitech.comm.aliyun.audit.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云ADB调用接口
+     * Summary: 阿里云ADB调用接口.
+     *
+     * @param QueryAicoguardcloudAdbsinkRequest $request
+     *
+     * @return QueryAicoguardcloudAdbsinkResponse
+     */
+    public function queryAicoguardcloudAdbsink($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAicoguardcloudAdbsinkEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云ADB调用接口
+     * Summary: 阿里云ADB调用接口.
+     *
+     * @param QueryAicoguardcloudAdbsinkRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryAicoguardcloudAdbsinkResponse
+     */
+    public function queryAicoguardcloudAdbsinkEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAicoguardcloudAdbsinkResponse::fromMap($this->doRequest('1.0', 'aitech.comm.aicoguardcloud.adbsink.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
