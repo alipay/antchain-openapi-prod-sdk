@@ -1708,6 +1708,97 @@ export class CallbackAliyunAuditResponse extends $tea.Model {
   }
 }
 
+export class QueryAicoguardcloudAdbsinkRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 区域id
+  regionId: string;
+  // DB实例id
+  dbInstanceId: string;
+  // 数据库空间名称
+  nameSpace: string;
+  // 数据库空间密码
+  nameSpacePassword: string;
+  // 数据库表名
+  collectionName: string;
+  // 查询的内容
+  content: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      regionId: 'region_id',
+      dbInstanceId: 'db_instance_id',
+      nameSpace: 'name_space',
+      nameSpacePassword: 'name_space_password',
+      collectionName: 'collection_name',
+      content: 'content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      regionId: 'string',
+      dbInstanceId: 'string',
+      nameSpace: 'string',
+      nameSpacePassword: 'string',
+      collectionName: 'string',
+      content: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAicoguardcloudAdbsinkResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求的问题
+  question?: string;
+  // 代答结果
+  answer?: string;
+  // 匹配度分数
+  score?: string;
+  // adb的请求id
+  requestId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      question: 'question',
+      answer: 'answer',
+      score: 'score',
+      requestId: 'request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      question: 'string',
+      answer: 'string',
+      score: 'string',
+      requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryGuardcoreRedgptRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1999,7 +2090,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.10",
+          sdk_version: "1.1.11",
           _prod_code: "AITECH",
           _prod_channel: "default",
         };
@@ -2387,6 +2478,25 @@ export default class Client {
   async callbackAliyunAuditEx(request: CallbackAliyunAuditRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackAliyunAuditResponse> {
     Util.validateModel(request);
     return $tea.cast<CallbackAliyunAuditResponse>(await this.doRequest("1.0", "aitech.comm.aliyun.audit.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackAliyunAuditResponse({}));
+  }
+
+  /**
+   * Description: 阿里云ADB调用接口
+   * Summary: 阿里云ADB调用接口
+   */
+  async queryAicoguardcloudAdbsink(request: QueryAicoguardcloudAdbsinkRequest): Promise<QueryAicoguardcloudAdbsinkResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAicoguardcloudAdbsinkEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 阿里云ADB调用接口
+   * Summary: 阿里云ADB调用接口
+   */
+  async queryAicoguardcloudAdbsinkEx(request: QueryAicoguardcloudAdbsinkRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAicoguardcloudAdbsinkResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAicoguardcloudAdbsinkResponse>(await this.doRequest("1.0", "aitech.comm.aicoguardcloud.adbsink.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAicoguardcloudAdbsinkResponse({}));
   }
 
   /**
