@@ -441,8 +441,6 @@ export class ApplyAuditImageResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 请求ID，必须唯一
-  requestId?: string;
   // 任务ID，必须唯一
   taskId?: string;
   // 数据ID，必须唯一
@@ -456,7 +454,6 @@ export class ApplyAuditImageResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      requestId: 'request_id',
       taskId: 'task_id',
       dataId: 'data_id',
       contentType: 'content_type',
@@ -469,7 +466,6 @@ export class ApplyAuditImageResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      requestId: 'string',
       taskId: 'string',
       dataId: 'string',
       contentType: 'string',
@@ -555,26 +551,26 @@ export class SubmitAuditTextRequest extends $tea.Model {
   productInstanceId?: string;
   // 待人工审核的文本内容，最长不超过10000个字符（包含中文、英文和标点符号）
   content: string;
-  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-  businessId: string;
+  // 审核场景码，该接口固定输入BASE_TEXT_AUDIT，其他值无效
+  scene: string;
   // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
   dataId: string;
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string;
   // 结果通知地址，不指定时需要调用方主动查询结果
   callback?: string;
   // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
   seed?: string;
-  // 审核场景码，该接口固定输入BASE_TEXT_AUDIT，其他值无效
-  scene: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       content: 'content',
-      businessId: 'business_id',
+      scene: 'scene',
       dataId: 'data_id',
+      businessId: 'business_id',
       callback: 'callback',
       seed: 'seed',
-      scene: 'scene',
     };
   }
 
@@ -583,11 +579,11 @@ export class SubmitAuditTextRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       content: 'string',
-      businessId: 'string',
+      scene: 'string',
       dataId: 'string',
+      businessId: 'string',
       callback: 'string',
       seed: 'string',
-      scene: 'string',
     };
   }
 
@@ -603,8 +599,6 @@ export class SubmitAuditTextResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string;
   // 任务ID
   taskId?: string;
   // 检测对象对应的数据ID
@@ -614,7 +608,6 @@ export class SubmitAuditTextResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      requestId: 'request_id',
       taskId: 'task_id',
       dataId: 'data_id',
     };
@@ -625,7 +618,6 @@ export class SubmitAuditTextResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      requestId: 'string',
       taskId: 'string',
       dataId: 'string',
     };
@@ -670,8 +662,6 @@ export class QueryAuditTextResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string;
   // 文本审核结果
   result?: string;
   static names(): { [key: string]: string } {
@@ -679,7 +669,6 @@ export class QueryAuditTextResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      requestId: 'request_id',
       result: 'result',
     };
   }
@@ -689,7 +678,6 @@ export class QueryAuditTextResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      requestId: 'string',
       result: 'string',
     };
   }
@@ -708,12 +696,12 @@ export class SubmitAuditImageRequest extends $tea.Model {
   url: string;
   // 审核场景码，该接口固定输入BASE_IMAGE_AUDIT，其他值无效
   scene: string;
-  // 客户业务ID。
-  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-  businessId: string;
   // 检测对象对应的数据ID。
   // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
   dataId: string;
+  // 客户业务ID。
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string;
   // 结果通知地址，不指定时需要调用方主动查询结果
   callback?: string;
   // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
@@ -724,8 +712,8 @@ export class SubmitAuditImageRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       url: 'url',
       scene: 'scene',
-      businessId: 'business_id',
       dataId: 'data_id',
+      businessId: 'business_id',
       callback: 'callback',
       seed: 'seed',
     };
@@ -737,8 +725,8 @@ export class SubmitAuditImageRequest extends $tea.Model {
       productInstanceId: 'string',
       url: 'string',
       scene: 'string',
-      businessId: 'string',
       dataId: 'string',
+      businessId: 'string',
       callback: 'string',
       seed: 'string',
     };
@@ -756,8 +744,6 @@ export class SubmitAuditImageResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string;
   // 任务ID
   taskId?: string;
   // 检测对象对应的数据ID。
@@ -768,7 +754,6 @@ export class SubmitAuditImageResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      requestId: 'request_id',
       taskId: 'task_id',
       dataId: 'data_id',
     };
@@ -779,7 +764,6 @@ export class SubmitAuditImageResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      requestId: 'string',
       taskId: 'string',
       dataId: 'string',
     };
@@ -824,8 +808,6 @@ export class QueryAuditImageResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string;
   // 图片审核结果
   result?: string;
   static names(): { [key: string]: string } {
@@ -833,7 +815,6 @@ export class QueryAuditImageResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      requestId: 'request_id',
       result: 'result',
     };
   }
@@ -843,7 +824,6 @@ export class QueryAuditImageResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      requestId: 'string',
       result: 'string',
     };
   }
@@ -863,12 +843,12 @@ export class SubmitAuditAudioRequest extends $tea.Model {
   url: string;
   // 审核场景码，该接口固定输入BASE_AUDIO_AUDIT，其他值无效
   scene: string;
-  // 客户业务ID。
-  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-  businessId: string;
   // 检测对象对应的数据ID。
   // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
   dataId: string;
+  // 客户业务ID。
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string;
   // 结果通知地址，不指定时需要调用方主动查询结果
   callback?: string;
   // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
@@ -879,8 +859,8 @@ export class SubmitAuditAudioRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       url: 'url',
       scene: 'scene',
-      businessId: 'business_id',
       dataId: 'data_id',
+      businessId: 'business_id',
       callback: 'callback',
       seed: 'seed',
     };
@@ -892,8 +872,8 @@ export class SubmitAuditAudioRequest extends $tea.Model {
       productInstanceId: 'string',
       url: 'string',
       scene: 'string',
-      businessId: 'string',
       dataId: 'string',
+      businessId: 'string',
       callback: 'string',
       seed: 'string',
     };
@@ -911,8 +891,6 @@ export class SubmitAuditAudioResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string;
   // 任务ID
   taskId?: string;
   // 检测对象对应的数据ID。
@@ -923,7 +901,6 @@ export class SubmitAuditAudioResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      requestId: 'request_id',
       taskId: 'task_id',
       dataId: 'data_id',
     };
@@ -934,7 +911,6 @@ export class SubmitAuditAudioResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      requestId: 'string',
       taskId: 'string',
       dataId: 'string',
     };
@@ -979,8 +955,6 @@ export class QueryAuditAudioResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string;
   // 音频审核结果
   result?: string;
   static names(): { [key: string]: string } {
@@ -988,7 +962,6 @@ export class QueryAuditAudioResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      requestId: 'request_id',
       result: 'result',
     };
   }
@@ -998,7 +971,6 @@ export class QueryAuditAudioResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      requestId: 'string',
       result: 'string',
     };
   }
@@ -1017,12 +989,12 @@ export class SubmitAuditVideoRequest extends $tea.Model {
   url: string;
   // 审核场景码，该接口固定输入BASE_VIDEO_AUDIT，其他值无效
   scene: string;
-  // 客户业务ID。
-  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-  businessId: string;
   // 检测对象对应的数据ID。
   // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
   dataId: string;
+  // 客户业务ID。
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string;
   // 结果通知地址，不指定时需要调用方主动查询结果
   callback?: string;
   // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
@@ -1033,8 +1005,8 @@ export class SubmitAuditVideoRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       url: 'url',
       scene: 'scene',
-      businessId: 'business_id',
       dataId: 'data_id',
+      businessId: 'business_id',
       callback: 'callback',
       seed: 'seed',
     };
@@ -1046,8 +1018,8 @@ export class SubmitAuditVideoRequest extends $tea.Model {
       productInstanceId: 'string',
       url: 'string',
       scene: 'string',
-      businessId: 'string',
       dataId: 'string',
+      businessId: 'string',
       callback: 'string',
       seed: 'string',
     };
@@ -1065,8 +1037,6 @@ export class SubmitAuditVideoResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string;
   // 任务ID
   taskId?: string;
   // 检测对象对应的数据ID。
@@ -1077,7 +1047,6 @@ export class SubmitAuditVideoResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      requestId: 'request_id',
       taskId: 'task_id',
       dataId: 'data_id',
     };
@@ -1088,7 +1057,6 @@ export class SubmitAuditVideoResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      requestId: 'string',
       taskId: 'string',
       dataId: 'string',
     };
@@ -1133,8 +1101,6 @@ export class QueryAuditVideoResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string;
   // 视频审核结果
   result?: string;
   static names(): { [key: string]: string } {
@@ -1142,7 +1108,6 @@ export class QueryAuditVideoResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      requestId: 'request_id',
       result: 'result',
     };
   }
@@ -1152,7 +1117,6 @@ export class QueryAuditVideoResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      requestId: 'string',
       result: 'string',
     };
   }
@@ -1170,18 +1134,18 @@ export class ApplyAuditTextRequest extends $tea.Model {
   content: string;
   // 审核场景码，建议BASE_TEXT_SEC代指阿里云，文本审核增强版PLUS服务的某一个Service
   scene: string;
-  // 客户业务ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-  businessId: string;
   // 检测对象对应的数据ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
   dataId: string;
+  // 客户业务ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       content: 'content',
       scene: 'scene',
-      businessId: 'business_id',
       dataId: 'data_id',
+      businessId: 'business_id',
     };
   }
 
@@ -1191,8 +1155,8 @@ export class ApplyAuditTextRequest extends $tea.Model {
       productInstanceId: 'string',
       content: 'string',
       scene: 'string',
-      businessId: 'string',
       dataId: 'string',
+      businessId: 'string',
     };
   }
 
@@ -1208,8 +1172,6 @@ export class ApplyAuditTextResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string;
   // 文本同步审核结果，字段含义见：TextSyncAuditResult
   result?: string;
   static names(): { [key: string]: string } {
@@ -1217,7 +1179,6 @@ export class ApplyAuditTextResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      requestId: 'request_id',
       result: 'result',
     };
   }
@@ -1227,7 +1188,6 @@ export class ApplyAuditTextResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      requestId: 'string',
       result: 'string',
     };
   }
@@ -1247,19 +1207,19 @@ export class ApplyAuditImagebaseRequest extends $tea.Model {
   url: string;
   // 场景，固定填写：BASE_IMAGE_SEC
   scene: string;
+  // 数据Id，调用方入审数据的唯一Id
+  dataId: string;
   // 客户业务ID
   // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
   businessId?: string;
-  // 数据Id，调用方入审数据的唯一Id
-  dataId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       url: 'url',
       scene: 'scene',
-      businessId: 'business_id',
       dataId: 'data_id',
+      businessId: 'business_id',
     };
   }
 
@@ -1269,8 +1229,8 @@ export class ApplyAuditImagebaseRequest extends $tea.Model {
       productInstanceId: 'string',
       url: 'string',
       scene: 'string',
-      businessId: 'string',
       dataId: 'string',
+      businessId: 'string',
     };
   }
 
@@ -1286,8 +1246,6 @@ export class ApplyAuditImagebaseResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，...
-  requestId?: string;
   // 图片基础版审核结果
   result?: string;
   static names(): { [key: string]: string } {
@@ -1295,7 +1253,6 @@ export class ApplyAuditImagebaseResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      requestId: 'request_id',
       result: 'result',
     };
   }
@@ -1305,7 +1262,6 @@ export class ApplyAuditImagebaseResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      requestId: 'string',
       result: 'string',
     };
   }
@@ -1325,19 +1281,19 @@ export class ApplyAuditImageadvancedRequest extends $tea.Model {
   url: string;
   // 场景，固定填写：ADVANCED_IMAGE_SEC
   scene: string;
+  // 数据Id，调用方入审数据的唯一Id
+  dataId: string;
   // 客户业务ID
   // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
   businessId?: string;
-  // 数据Id，调用方入审数据的唯一Id
-  dataId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       url: 'url',
       scene: 'scene',
-      businessId: 'business_id',
       dataId: 'data_id',
+      businessId: 'business_id',
     };
   }
 
@@ -1347,8 +1303,8 @@ export class ApplyAuditImageadvancedRequest extends $tea.Model {
       productInstanceId: 'string',
       url: 'string',
       scene: 'string',
-      businessId: 'string',
       dataId: 'string',
+      businessId: 'string',
     };
   }
 
@@ -1364,8 +1320,6 @@ export class ApplyAuditImageadvancedResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，...
-  requestId?: string;
   // 图片增强版审核结果
   result?: string;
   static names(): { [key: string]: string } {
@@ -1373,7 +1327,6 @@ export class ApplyAuditImageadvancedResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      requestId: 'request_id',
       result: 'result',
     };
   }
@@ -1383,7 +1336,6 @@ export class ApplyAuditImageadvancedResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      requestId: 'string',
       result: 'string',
     };
   }
@@ -1405,11 +1357,11 @@ export class SubmitAuditAudiobaseRequest extends $tea.Model {
   // 审核场景类型
   // 目前支持 BASE_AUDIO_SEC：音视频媒体通用检测
   scene: string;
-  // 客户业务ID
-  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-  businessId: string;
   // 检测对象对应的数据ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
   dataId: string;
+  // 客户业务ID
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string;
   // 结果通知地址，不指定时需要调用方主动查询结果
   callback?: string;
   // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
@@ -1420,8 +1372,8 @@ export class SubmitAuditAudiobaseRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       url: 'url',
       scene: 'scene',
-      businessId: 'business_id',
       dataId: 'data_id',
+      businessId: 'business_id',
       callback: 'callback',
       seed: 'seed',
     };
@@ -1433,8 +1385,8 @@ export class SubmitAuditAudiobaseRequest extends $tea.Model {
       productInstanceId: 'string',
       url: 'string',
       scene: 'string',
-      businessId: 'string',
       dataId: 'string',
+      businessId: 'string',
       callback: 'string',
       seed: 'string',
     };
@@ -1452,8 +1404,6 @@ export class SubmitAuditAudiobaseResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string;
   // 任务ID
   taskId?: string;
   // 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
@@ -1463,7 +1413,6 @@ export class SubmitAuditAudiobaseResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      requestId: 'request_id',
       taskId: 'task_id',
       dataId: 'data_id',
     };
@@ -1474,7 +1423,6 @@ export class SubmitAuditAudiobaseResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      requestId: 'string',
       taskId: 'string',
       dataId: 'string',
     };
@@ -1519,8 +1467,6 @@ export class QueryAuditAudiobaseResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string;
   // 音频通用版审核结果
   // 
   result?: string;
@@ -1529,7 +1475,6 @@ export class QueryAuditAudiobaseResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      requestId: 'request_id',
       result: 'result',
     };
   }
@@ -1539,7 +1484,6 @@ export class QueryAuditAudiobaseResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      requestId: 'string',
       result: 'string',
     };
   }
@@ -1563,10 +1507,10 @@ export class SubmitAuditVideobaseRequest extends $tea.Model {
   // 审核场景类型
   // 目前支持通用版 BASE_VIDEO_SEC
   scene: string;
-  // 客户业务ID 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-  businessId: string;
   // 检测对象对应的数据ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
   dataId: string;
+  // 客户业务ID 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string;
   // 结果通知地址，不指定时需要调用方主动查询结果
   callback?: string;
   // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
@@ -1577,8 +1521,8 @@ export class SubmitAuditVideobaseRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       url: 'url',
       scene: 'scene',
-      businessId: 'business_id',
       dataId: 'data_id',
+      businessId: 'business_id',
       callback: 'callback',
       seed: 'seed',
     };
@@ -1590,8 +1534,8 @@ export class SubmitAuditVideobaseRequest extends $tea.Model {
       productInstanceId: 'string',
       url: 'string',
       scene: 'string',
-      businessId: 'string',
       dataId: 'string',
+      businessId: 'string',
       callback: 'string',
       seed: 'string',
     };
@@ -1609,8 +1553,6 @@ export class SubmitAuditVideobaseResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string;
   // 任务ID
   taskId?: string;
   // 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
@@ -1620,7 +1562,6 @@ export class SubmitAuditVideobaseResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      requestId: 'request_id',
       taskId: 'task_id',
       dataId: 'data_id',
     };
@@ -1631,7 +1572,6 @@ export class SubmitAuditVideobaseResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      requestId: 'string',
       taskId: 'string',
       dataId: 'string',
     };
@@ -1676,8 +1616,6 @@ export class QueryAuditVideobaseResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string;
   // 视频通用版审核结果
   result?: string;
   static names(): { [key: string]: string } {
@@ -1685,7 +1623,6 @@ export class QueryAuditVideobaseResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      requestId: 'request_id',
       result: 'result',
     };
   }
@@ -1695,7 +1632,6 @@ export class QueryAuditVideobaseResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      requestId: 'string',
       result: 'string',
     };
   }
@@ -1859,6 +1795,97 @@ export class QueryGuardcoreRedgptResponse extends $tea.Model {
   }
 }
 
+export class QueryAicoguardAdbsinkRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 区域id
+  regionId: string;
+  // DB实例id
+  dbInstanceId: string;
+  // 数据库空间名称
+  nameSpace: string;
+  // 数据库空间密码
+  nameSpacePassword: string;
+  // 数据库表名
+  collectionName: string;
+  // 要查询的内容
+  content: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      regionId: 'region_id',
+      dbInstanceId: 'db_instance_id',
+      nameSpace: 'name_space',
+      nameSpacePassword: 'name_space_password',
+      collectionName: 'collection_name',
+      content: 'content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      regionId: 'string',
+      dbInstanceId: 'string',
+      nameSpace: 'string',
+      nameSpacePassword: 'string',
+      collectionName: 'string',
+      content: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAicoguardAdbsinkResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求的问题
+  question?: string;
+  // 代答结果
+  answer?: string;
+  // 匹配度分数
+  score?: string;
+  // adb的请求id
+  requestId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      question: 'question',
+      answer: 'answer',
+      score: 'score',
+      requestId: 'request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      question: 'string',
+      answer: 'string',
+      score: 'string',
+      requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1972,7 +1999,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.9",
+          sdk_version: "1.1.10",
           _prod_code: "AITECH",
           _prod_channel: "default",
         };
@@ -2379,6 +2406,25 @@ export default class Client {
   async queryGuardcoreRedgptEx(request: QueryGuardcoreRedgptRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryGuardcoreRedgptResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryGuardcoreRedgptResponse>(await this.doRequest("1.0", "aitech.comm.guardcore.redgpt.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryGuardcoreRedgptResponse({}));
+  }
+
+  /**
+   * Description: 阿里云ADB调用接口
+   * Summary: 阿里云ADB调用接口
+   */
+  async queryAicoguardAdbsink(request: QueryAicoguardAdbsinkRequest): Promise<QueryAicoguardAdbsinkResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAicoguardAdbsinkEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 阿里云ADB调用接口
+   * Summary: 阿里云ADB调用接口
+   */
+  async queryAicoguardAdbsinkEx(request: QueryAicoguardAdbsinkRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAicoguardAdbsinkResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAicoguardAdbsinkResponse>(await this.doRequest("1.0", "aitech.comm.aicoguard.adbsink.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAicoguardAdbsinkResponse({}));
   }
 
 }
