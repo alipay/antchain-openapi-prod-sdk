@@ -23,6 +23,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true, MaxLength=50)]
         public string RiskType { get; set; }
 
+        // 单次请求流水号，需要保证唯一
+        [NameInMap("flow_id")]
+        [Validation(Required=true, MaxLength=32)]
+        public string FlowId { get; set; }
+
         // 调用行业，枚举值：
         // insurance 保险；retail 零售；finance 金融行业；logistics 物流行业；city_services 城市服务；medical 医疗服务；digital_media 数媒行业；recycle 回收行业；payment 缴费行业；vehicle 汽车；travel 旅游；air_travel 航旅行业；FMCG 快消零售；education 教育行业；fashion_retail 时尚零售；game_industry 文体行业；rental 租赁；advertisement 广告行业；restaurants 餐饮行业；ticket 票务行业；complexes 综合体行业
         [NameInMap("business_code")]
@@ -104,6 +109,11 @@ namespace AntChain.SDK.ATO.Models
         [NameInMap("baddebt_query_model")]
         [Validation(Required=false)]
         public BaddebtQueryModel BaddebtQueryModel { get; set; }
+
+        // 商户appId,当openId不为空时必填
+        [NameInMap("merchant_app_id")]
+        [Validation(Required=false)]
+        public string MerchantAppId { get; set; }
 
     }
 

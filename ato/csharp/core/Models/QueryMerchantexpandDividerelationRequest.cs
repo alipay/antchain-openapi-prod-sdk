@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class PagequeryInnerMerchantagreementRequest : TeaModel {
+    public class QueryMerchantexpandDividerelationRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,10 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 租户8位id
-        [NameInMap("tenant_id")]
+        // 被分账方社会统一信用代码
+        [NameInMap("merchant_id")]
         [Validation(Required=true)]
-        public string TenantId { get; set; }
-
-        // 分页对象
-        [NameInMap("page_info")]
-        [Validation(Required=true)]
-        public PageQuery PageInfo { get; set; }
-
-        // 租户账号
-        [NameInMap("user_name")]
-        [Validation(Required=false)]
-        public string UserName { get; set; }
+        public string MerchantId { get; set; }
 
     }
 

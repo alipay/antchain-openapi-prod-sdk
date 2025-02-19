@@ -28,6 +28,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string AgreementId { get; set; }
 
+        // 租户账号
+        [NameInMap("user_name")]
+        [Validation(Required=false)]
+        public string UserName { get; set; }
+
     }
 
 }

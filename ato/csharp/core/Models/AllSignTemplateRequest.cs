@@ -28,6 +28,17 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false, MaxLength=42)]
         public string MerchantId { get; set; }
 
+        // 查询融资类型时，需要传入资方统一社会信用代码
+        [NameInMap("fund_id")]
+        [Validation(Required=false)]
+        public string FundId { get; set; }
+
+        // -FINANCE 融资
+        // -NON_FINANCE 非融资
+        [NameInMap("fund_type")]
+        [Validation(Required=false)]
+        public string FundType { get; set; }
+
         // 模板id
         [NameInMap("template_id")]
         [Validation(Required=false)]
