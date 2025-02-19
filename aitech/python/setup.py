@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_aitech.
 
-Created on 29/10/2024
+Created on 19/02/2025
 
 @author: Ant Chain SDK
 """

@@ -759,7 +759,6 @@ class ApplyAuditImageResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        request_id: str = None,
         task_id: str = None,
         data_id: str = None,
         content_type: str = None,
@@ -771,8 +770,6 @@ class ApplyAuditImageResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 请求ID，必须唯一
-        self.request_id = request_id
         # 任务ID，必须唯一
         self.task_id = task_id
         # 数据ID，必须唯一
@@ -797,8 +794,6 @@ class ApplyAuditImageResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
         if self.task_id is not None:
             result['task_id'] = self.task_id
         if self.data_id is not None:
@@ -817,8 +812,6 @@ class ApplyAuditImageResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
         if m.get('task_id') is not None:
             self.task_id = m.get('task_id')
         if m.get('data_id') is not None:
@@ -941,33 +934,32 @@ class SubmitAuditTextRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         content: str = None,
-        business_id: str = None,
+        scene: str = None,
         data_id: str = None,
+        business_id: str = None,
         callback: str = None,
         seed: str = None,
-        scene: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 待人工审核的文本内容，最长不超过10000个字符（包含中文、英文和标点符号）
         self.content = content
-        # 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-        self.business_id = business_id
+        # 审核场景码，该接口固定输入BASE_TEXT_AUDIT，其他值无效
+        self.scene = scene
         # 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
         self.data_id = data_id
+        # 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+        self.business_id = business_id
         # 结果通知地址，不指定时需要调用方主动查询结果
         self.callback = callback
         # 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
         self.seed = seed
-        # 审核场景码，该接口固定输入BASE_TEXT_AUDIT，其他值无效
-        self.scene = scene
 
     def validate(self):
         self.validate_required(self.content, 'content')
-        self.validate_required(self.business_id, 'business_id')
-        self.validate_required(self.data_id, 'data_id')
         self.validate_required(self.scene, 'scene')
+        self.validate_required(self.data_id, 'data_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -981,16 +973,16 @@ class SubmitAuditTextRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.content is not None:
             result['content'] = self.content
-        if self.business_id is not None:
-            result['business_id'] = self.business_id
+        if self.scene is not None:
+            result['scene'] = self.scene
         if self.data_id is not None:
             result['data_id'] = self.data_id
+        if self.business_id is not None:
+            result['business_id'] = self.business_id
         if self.callback is not None:
             result['callback'] = self.callback
         if self.seed is not None:
             result['seed'] = self.seed
-        if self.scene is not None:
-            result['scene'] = self.scene
         return result
 
     def from_map(self, m: dict = None):
@@ -1001,16 +993,16 @@ class SubmitAuditTextRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('content') is not None:
             self.content = m.get('content')
-        if m.get('business_id') is not None:
-            self.business_id = m.get('business_id')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
         if m.get('data_id') is not None:
             self.data_id = m.get('data_id')
+        if m.get('business_id') is not None:
+            self.business_id = m.get('business_id')
         if m.get('callback') is not None:
             self.callback = m.get('callback')
         if m.get('seed') is not None:
             self.seed = m.get('seed')
-        if m.get('scene') is not None:
-            self.scene = m.get('scene')
         return self
 
 
@@ -1020,7 +1012,6 @@ class SubmitAuditTextResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        request_id: str = None,
         task_id: str = None,
         data_id: str = None,
     ):
@@ -1030,8 +1021,6 @@ class SubmitAuditTextResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-        self.request_id = request_id
         # 任务ID
         self.task_id = task_id
         # 检测对象对应的数据ID
@@ -1052,8 +1041,6 @@ class SubmitAuditTextResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
         if self.task_id is not None:
             result['task_id'] = self.task_id
         if self.data_id is not None:
@@ -1068,8 +1055,6 @@ class SubmitAuditTextResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
         if m.get('task_id') is not None:
             self.task_id = m.get('task_id')
         if m.get('data_id') is not None:
@@ -1124,7 +1109,6 @@ class QueryAuditTextResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        request_id: str = None,
         result: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -1133,8 +1117,6 @@ class QueryAuditTextResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-        self.request_id = request_id
         # 文本审核结果
         self.result = result
 
@@ -1153,8 +1135,6 @@ class QueryAuditTextResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
         if self.result is not None:
             result['result'] = self.result
         return result
@@ -1167,8 +1147,6 @@ class QueryAuditTextResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
         if m.get('result') is not None:
             self.result = m.get('result')
         return self
@@ -1181,8 +1159,8 @@ class SubmitAuditImageRequest(TeaModel):
         product_instance_id: str = None,
         url: str = None,
         scene: str = None,
-        business_id: str = None,
         data_id: str = None,
+        business_id: str = None,
         callback: str = None,
         seed: str = None,
     ):
@@ -1194,12 +1172,12 @@ class SubmitAuditImageRequest(TeaModel):
         self.url = url
         # 审核场景码，该接口固定输入BASE_IMAGE_AUDIT，其他值无效
         self.scene = scene
-        # 客户业务ID。
-        # 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-        self.business_id = business_id
         # 检测对象对应的数据ID。
         # 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
         self.data_id = data_id
+        # 客户业务ID。
+        # 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+        self.business_id = business_id
         # 结果通知地址，不指定时需要调用方主动查询结果
         self.callback = callback
         # 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
@@ -1208,7 +1186,6 @@ class SubmitAuditImageRequest(TeaModel):
     def validate(self):
         self.validate_required(self.url, 'url')
         self.validate_required(self.scene, 'scene')
-        self.validate_required(self.business_id, 'business_id')
         self.validate_required(self.data_id, 'data_id')
 
     def to_map(self):
@@ -1225,10 +1202,10 @@ class SubmitAuditImageRequest(TeaModel):
             result['url'] = self.url
         if self.scene is not None:
             result['scene'] = self.scene
-        if self.business_id is not None:
-            result['business_id'] = self.business_id
         if self.data_id is not None:
             result['data_id'] = self.data_id
+        if self.business_id is not None:
+            result['business_id'] = self.business_id
         if self.callback is not None:
             result['callback'] = self.callback
         if self.seed is not None:
@@ -1245,10 +1222,10 @@ class SubmitAuditImageRequest(TeaModel):
             self.url = m.get('url')
         if m.get('scene') is not None:
             self.scene = m.get('scene')
-        if m.get('business_id') is not None:
-            self.business_id = m.get('business_id')
         if m.get('data_id') is not None:
             self.data_id = m.get('data_id')
+        if m.get('business_id') is not None:
+            self.business_id = m.get('business_id')
         if m.get('callback') is not None:
             self.callback = m.get('callback')
         if m.get('seed') is not None:
@@ -1262,7 +1239,6 @@ class SubmitAuditImageResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        request_id: str = None,
         task_id: str = None,
         data_id: str = None,
     ):
@@ -1272,8 +1248,6 @@ class SubmitAuditImageResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-        self.request_id = request_id
         # 任务ID
         self.task_id = task_id
         # 检测对象对应的数据ID。
@@ -1295,8 +1269,6 @@ class SubmitAuditImageResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
         if self.task_id is not None:
             result['task_id'] = self.task_id
         if self.data_id is not None:
@@ -1311,8 +1283,6 @@ class SubmitAuditImageResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
         if m.get('task_id') is not None:
             self.task_id = m.get('task_id')
         if m.get('data_id') is not None:
@@ -1367,7 +1337,6 @@ class QueryAuditImageResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        request_id: str = None,
         result: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -1376,8 +1345,6 @@ class QueryAuditImageResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-        self.request_id = request_id
         # 图片审核结果
         self.result = result
 
@@ -1396,8 +1363,6 @@ class QueryAuditImageResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
         if self.result is not None:
             result['result'] = self.result
         return result
@@ -1410,8 +1375,6 @@ class QueryAuditImageResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
         if m.get('result') is not None:
             self.result = m.get('result')
         return self
@@ -1424,8 +1387,8 @@ class SubmitAuditAudioRequest(TeaModel):
         product_instance_id: str = None,
         url: str = None,
         scene: str = None,
-        business_id: str = None,
         data_id: str = None,
+        business_id: str = None,
         callback: str = None,
         seed: str = None,
     ):
@@ -1438,12 +1401,12 @@ class SubmitAuditAudioRequest(TeaModel):
         self.url = url
         # 审核场景码，该接口固定输入BASE_AUDIO_AUDIT，其他值无效
         self.scene = scene
-        # 客户业务ID。
-        # 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-        self.business_id = business_id
         # 检测对象对应的数据ID。
         # 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
         self.data_id = data_id
+        # 客户业务ID。
+        # 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+        self.business_id = business_id
         # 结果通知地址，不指定时需要调用方主动查询结果
         self.callback = callback
         # 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
@@ -1452,7 +1415,6 @@ class SubmitAuditAudioRequest(TeaModel):
     def validate(self):
         self.validate_required(self.url, 'url')
         self.validate_required(self.scene, 'scene')
-        self.validate_required(self.business_id, 'business_id')
         self.validate_required(self.data_id, 'data_id')
 
     def to_map(self):
@@ -1469,10 +1431,10 @@ class SubmitAuditAudioRequest(TeaModel):
             result['url'] = self.url
         if self.scene is not None:
             result['scene'] = self.scene
-        if self.business_id is not None:
-            result['business_id'] = self.business_id
         if self.data_id is not None:
             result['data_id'] = self.data_id
+        if self.business_id is not None:
+            result['business_id'] = self.business_id
         if self.callback is not None:
             result['callback'] = self.callback
         if self.seed is not None:
@@ -1489,10 +1451,10 @@ class SubmitAuditAudioRequest(TeaModel):
             self.url = m.get('url')
         if m.get('scene') is not None:
             self.scene = m.get('scene')
-        if m.get('business_id') is not None:
-            self.business_id = m.get('business_id')
         if m.get('data_id') is not None:
             self.data_id = m.get('data_id')
+        if m.get('business_id') is not None:
+            self.business_id = m.get('business_id')
         if m.get('callback') is not None:
             self.callback = m.get('callback')
         if m.get('seed') is not None:
@@ -1506,7 +1468,6 @@ class SubmitAuditAudioResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        request_id: str = None,
         task_id: str = None,
         data_id: str = None,
     ):
@@ -1516,8 +1477,6 @@ class SubmitAuditAudioResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-        self.request_id = request_id
         # 任务ID
         self.task_id = task_id
         # 检测对象对应的数据ID。
@@ -1539,8 +1498,6 @@ class SubmitAuditAudioResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
         if self.task_id is not None:
             result['task_id'] = self.task_id
         if self.data_id is not None:
@@ -1555,8 +1512,6 @@ class SubmitAuditAudioResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
         if m.get('task_id') is not None:
             self.task_id = m.get('task_id')
         if m.get('data_id') is not None:
@@ -1611,7 +1566,6 @@ class QueryAuditAudioResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        request_id: str = None,
         result: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -1620,8 +1574,6 @@ class QueryAuditAudioResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-        self.request_id = request_id
         # 音频审核结果
         self.result = result
 
@@ -1640,8 +1592,6 @@ class QueryAuditAudioResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
         if self.result is not None:
             result['result'] = self.result
         return result
@@ -1654,8 +1604,6 @@ class QueryAuditAudioResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
         if m.get('result') is not None:
             self.result = m.get('result')
         return self
@@ -1668,8 +1616,8 @@ class SubmitAuditVideoRequest(TeaModel):
         product_instance_id: str = None,
         url: str = None,
         scene: str = None,
-        business_id: str = None,
         data_id: str = None,
+        business_id: str = None,
         callback: str = None,
         seed: str = None,
     ):
@@ -1681,12 +1629,12 @@ class SubmitAuditVideoRequest(TeaModel):
         self.url = url
         # 审核场景码，该接口固定输入BASE_VIDEO_AUDIT，其他值无效
         self.scene = scene
-        # 客户业务ID。
-        # 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-        self.business_id = business_id
         # 检测对象对应的数据ID。
         # 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
         self.data_id = data_id
+        # 客户业务ID。
+        # 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+        self.business_id = business_id
         # 结果通知地址，不指定时需要调用方主动查询结果
         self.callback = callback
         # 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
@@ -1695,7 +1643,6 @@ class SubmitAuditVideoRequest(TeaModel):
     def validate(self):
         self.validate_required(self.url, 'url')
         self.validate_required(self.scene, 'scene')
-        self.validate_required(self.business_id, 'business_id')
         self.validate_required(self.data_id, 'data_id')
 
     def to_map(self):
@@ -1712,10 +1659,10 @@ class SubmitAuditVideoRequest(TeaModel):
             result['url'] = self.url
         if self.scene is not None:
             result['scene'] = self.scene
-        if self.business_id is not None:
-            result['business_id'] = self.business_id
         if self.data_id is not None:
             result['data_id'] = self.data_id
+        if self.business_id is not None:
+            result['business_id'] = self.business_id
         if self.callback is not None:
             result['callback'] = self.callback
         if self.seed is not None:
@@ -1732,10 +1679,10 @@ class SubmitAuditVideoRequest(TeaModel):
             self.url = m.get('url')
         if m.get('scene') is not None:
             self.scene = m.get('scene')
-        if m.get('business_id') is not None:
-            self.business_id = m.get('business_id')
         if m.get('data_id') is not None:
             self.data_id = m.get('data_id')
+        if m.get('business_id') is not None:
+            self.business_id = m.get('business_id')
         if m.get('callback') is not None:
             self.callback = m.get('callback')
         if m.get('seed') is not None:
@@ -1749,7 +1696,6 @@ class SubmitAuditVideoResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        request_id: str = None,
         task_id: str = None,
         data_id: str = None,
     ):
@@ -1759,8 +1705,6 @@ class SubmitAuditVideoResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-        self.request_id = request_id
         # 任务ID
         self.task_id = task_id
         # 检测对象对应的数据ID。
@@ -1782,8 +1726,6 @@ class SubmitAuditVideoResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
         if self.task_id is not None:
             result['task_id'] = self.task_id
         if self.data_id is not None:
@@ -1798,8 +1740,6 @@ class SubmitAuditVideoResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
         if m.get('task_id') is not None:
             self.task_id = m.get('task_id')
         if m.get('data_id') is not None:
@@ -1854,7 +1794,6 @@ class QueryAuditVideoResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        request_id: str = None,
         result: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -1863,8 +1802,6 @@ class QueryAuditVideoResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-        self.request_id = request_id
         # 视频审核结果
         self.result = result
 
@@ -1883,8 +1820,6 @@ class QueryAuditVideoResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
         if self.result is not None:
             result['result'] = self.result
         return result
@@ -1897,8 +1832,6 @@ class QueryAuditVideoResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
         if m.get('result') is not None:
             self.result = m.get('result')
         return self
@@ -1911,8 +1844,8 @@ class ApplyAuditTextRequest(TeaModel):
         product_instance_id: str = None,
         content: str = None,
         scene: str = None,
-        business_id: str = None,
         data_id: str = None,
+        business_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1921,15 +1854,14 @@ class ApplyAuditTextRequest(TeaModel):
         self.content = content
         # 审核场景码，建议BASE_TEXT_SEC代指阿里云，文本审核增强版PLUS服务的某一个Service
         self.scene = scene
-        # 客户业务ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-        self.business_id = business_id
         # 检测对象对应的数据ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
         self.data_id = data_id
+        # 客户业务ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+        self.business_id = business_id
 
     def validate(self):
         self.validate_required(self.content, 'content')
         self.validate_required(self.scene, 'scene')
-        self.validate_required(self.business_id, 'business_id')
         self.validate_required(self.data_id, 'data_id')
 
     def to_map(self):
@@ -1946,10 +1878,10 @@ class ApplyAuditTextRequest(TeaModel):
             result['content'] = self.content
         if self.scene is not None:
             result['scene'] = self.scene
-        if self.business_id is not None:
-            result['business_id'] = self.business_id
         if self.data_id is not None:
             result['data_id'] = self.data_id
+        if self.business_id is not None:
+            result['business_id'] = self.business_id
         return result
 
     def from_map(self, m: dict = None):
@@ -1962,10 +1894,10 @@ class ApplyAuditTextRequest(TeaModel):
             self.content = m.get('content')
         if m.get('scene') is not None:
             self.scene = m.get('scene')
-        if m.get('business_id') is not None:
-            self.business_id = m.get('business_id')
         if m.get('data_id') is not None:
             self.data_id = m.get('data_id')
+        if m.get('business_id') is not None:
+            self.business_id = m.get('business_id')
         return self
 
 
@@ -1975,7 +1907,6 @@ class ApplyAuditTextResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        request_id: str = None,
         result: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -1984,8 +1915,6 @@ class ApplyAuditTextResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-        self.request_id = request_id
         # 文本同步审核结果，字段含义见：TextSyncAuditResult
         self.result = result
 
@@ -2004,8 +1933,6 @@ class ApplyAuditTextResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
         if self.result is not None:
             result['result'] = self.result
         return result
@@ -2018,8 +1945,6 @@ class ApplyAuditTextResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
         if m.get('result') is not None:
             self.result = m.get('result')
         return self
@@ -2032,8 +1957,8 @@ class ApplyAuditImagebaseRequest(TeaModel):
         product_instance_id: str = None,
         url: str = None,
         scene: str = None,
-        business_id: str = None,
         data_id: str = None,
+        business_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2044,11 +1969,11 @@ class ApplyAuditImagebaseRequest(TeaModel):
         self.url = url
         # 场景，固定填写：BASE_IMAGE_SEC
         self.scene = scene
+        # 数据Id，调用方入审数据的唯一Id
+        self.data_id = data_id
         # 客户业务ID
         # 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
         self.business_id = business_id
-        # 数据Id，调用方入审数据的唯一Id
-        self.data_id = data_id
 
     def validate(self):
         self.validate_required(self.url, 'url')
@@ -2069,10 +1994,10 @@ class ApplyAuditImagebaseRequest(TeaModel):
             result['url'] = self.url
         if self.scene is not None:
             result['scene'] = self.scene
-        if self.business_id is not None:
-            result['business_id'] = self.business_id
         if self.data_id is not None:
             result['data_id'] = self.data_id
+        if self.business_id is not None:
+            result['business_id'] = self.business_id
         return result
 
     def from_map(self, m: dict = None):
@@ -2085,10 +2010,10 @@ class ApplyAuditImagebaseRequest(TeaModel):
             self.url = m.get('url')
         if m.get('scene') is not None:
             self.scene = m.get('scene')
-        if m.get('business_id') is not None:
-            self.business_id = m.get('business_id')
         if m.get('data_id') is not None:
             self.data_id = m.get('data_id')
+        if m.get('business_id') is not None:
+            self.business_id = m.get('business_id')
         return self
 
 
@@ -2098,7 +2023,6 @@ class ApplyAuditImagebaseResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        request_id: str = None,
         result: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -2107,8 +2031,6 @@ class ApplyAuditImagebaseResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，...
-        self.request_id = request_id
         # 图片基础版审核结果
         self.result = result
 
@@ -2127,8 +2049,6 @@ class ApplyAuditImagebaseResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
         if self.result is not None:
             result['result'] = self.result
         return result
@@ -2141,8 +2061,6 @@ class ApplyAuditImagebaseResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
         if m.get('result') is not None:
             self.result = m.get('result')
         return self
@@ -2155,8 +2073,8 @@ class ApplyAuditImageadvancedRequest(TeaModel):
         product_instance_id: str = None,
         url: str = None,
         scene: str = None,
-        business_id: str = None,
         data_id: str = None,
+        business_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2167,11 +2085,11 @@ class ApplyAuditImageadvancedRequest(TeaModel):
         self.url = url
         # 场景，固定填写：ADVANCED_IMAGE_SEC
         self.scene = scene
+        # 数据Id，调用方入审数据的唯一Id
+        self.data_id = data_id
         # 客户业务ID
         # 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
         self.business_id = business_id
-        # 数据Id，调用方入审数据的唯一Id
-        self.data_id = data_id
 
     def validate(self):
         self.validate_required(self.url, 'url')
@@ -2192,10 +2110,10 @@ class ApplyAuditImageadvancedRequest(TeaModel):
             result['url'] = self.url
         if self.scene is not None:
             result['scene'] = self.scene
-        if self.business_id is not None:
-            result['business_id'] = self.business_id
         if self.data_id is not None:
             result['data_id'] = self.data_id
+        if self.business_id is not None:
+            result['business_id'] = self.business_id
         return result
 
     def from_map(self, m: dict = None):
@@ -2208,10 +2126,10 @@ class ApplyAuditImageadvancedRequest(TeaModel):
             self.url = m.get('url')
         if m.get('scene') is not None:
             self.scene = m.get('scene')
-        if m.get('business_id') is not None:
-            self.business_id = m.get('business_id')
         if m.get('data_id') is not None:
             self.data_id = m.get('data_id')
+        if m.get('business_id') is not None:
+            self.business_id = m.get('business_id')
         return self
 
 
@@ -2221,7 +2139,6 @@ class ApplyAuditImageadvancedResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        request_id: str = None,
         result: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -2230,8 +2147,6 @@ class ApplyAuditImageadvancedResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，...
-        self.request_id = request_id
         # 图片增强版审核结果
         self.result = result
 
@@ -2250,8 +2165,6 @@ class ApplyAuditImageadvancedResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
         if self.result is not None:
             result['result'] = self.result
         return result
@@ -2264,8 +2177,6 @@ class ApplyAuditImageadvancedResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
         if m.get('result') is not None:
             self.result = m.get('result')
         return self
@@ -2278,8 +2189,8 @@ class SubmitAuditAudiobaseRequest(TeaModel):
         product_instance_id: str = None,
         url: str = None,
         scene: str = None,
-        business_id: str = None,
         data_id: str = None,
+        business_id: str = None,
         callback: str = None,
         seed: str = None,
     ):
@@ -2294,11 +2205,11 @@ class SubmitAuditAudiobaseRequest(TeaModel):
         # 审核场景类型
         # 目前支持 BASE_AUDIO_SEC：音视频媒体通用检测
         self.scene = scene
+        # 检测对象对应的数据ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+        self.data_id = data_id
         # 客户业务ID
         # 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
         self.business_id = business_id
-        # 检测对象对应的数据ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-        self.data_id = data_id
         # 结果通知地址，不指定时需要调用方主动查询结果
         self.callback = callback
         # 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
@@ -2307,7 +2218,6 @@ class SubmitAuditAudiobaseRequest(TeaModel):
     def validate(self):
         self.validate_required(self.url, 'url')
         self.validate_required(self.scene, 'scene')
-        self.validate_required(self.business_id, 'business_id')
         self.validate_required(self.data_id, 'data_id')
 
     def to_map(self):
@@ -2324,10 +2234,10 @@ class SubmitAuditAudiobaseRequest(TeaModel):
             result['url'] = self.url
         if self.scene is not None:
             result['scene'] = self.scene
-        if self.business_id is not None:
-            result['business_id'] = self.business_id
         if self.data_id is not None:
             result['data_id'] = self.data_id
+        if self.business_id is not None:
+            result['business_id'] = self.business_id
         if self.callback is not None:
             result['callback'] = self.callback
         if self.seed is not None:
@@ -2344,10 +2254,10 @@ class SubmitAuditAudiobaseRequest(TeaModel):
             self.url = m.get('url')
         if m.get('scene') is not None:
             self.scene = m.get('scene')
-        if m.get('business_id') is not None:
-            self.business_id = m.get('business_id')
         if m.get('data_id') is not None:
             self.data_id = m.get('data_id')
+        if m.get('business_id') is not None:
+            self.business_id = m.get('business_id')
         if m.get('callback') is not None:
             self.callback = m.get('callback')
         if m.get('seed') is not None:
@@ -2361,7 +2271,6 @@ class SubmitAuditAudiobaseResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        request_id: str = None,
         task_id: str = None,
         data_id: str = None,
     ):
@@ -2371,8 +2280,6 @@ class SubmitAuditAudiobaseResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-        self.request_id = request_id
         # 任务ID
         self.task_id = task_id
         # 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
@@ -2393,8 +2300,6 @@ class SubmitAuditAudiobaseResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
         if self.task_id is not None:
             result['task_id'] = self.task_id
         if self.data_id is not None:
@@ -2409,8 +2314,6 @@ class SubmitAuditAudiobaseResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
         if m.get('task_id') is not None:
             self.task_id = m.get('task_id')
         if m.get('data_id') is not None:
@@ -2465,7 +2368,6 @@ class QueryAuditAudiobaseResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        request_id: str = None,
         result: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -2474,8 +2376,6 @@ class QueryAuditAudiobaseResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-        self.request_id = request_id
         # 音频通用版审核结果
         # 
         self.result = result
@@ -2495,8 +2395,6 @@ class QueryAuditAudiobaseResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
         if self.result is not None:
             result['result'] = self.result
         return result
@@ -2509,8 +2407,6 @@ class QueryAuditAudiobaseResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
         if m.get('result') is not None:
             self.result = m.get('result')
         return self
@@ -2523,8 +2419,8 @@ class SubmitAuditVideobaseRequest(TeaModel):
         product_instance_id: str = None,
         url: str = None,
         scene: str = None,
-        business_id: str = None,
         data_id: str = None,
+        business_id: str = None,
         callback: str = None,
         seed: str = None,
     ):
@@ -2541,10 +2437,10 @@ class SubmitAuditVideobaseRequest(TeaModel):
         # 审核场景类型
         # 目前支持通用版 BASE_VIDEO_SEC
         self.scene = scene
-        # 客户业务ID 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-        self.business_id = business_id
         # 检测对象对应的数据ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
         self.data_id = data_id
+        # 客户业务ID 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+        self.business_id = business_id
         # 结果通知地址，不指定时需要调用方主动查询结果
         self.callback = callback
         # 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
@@ -2553,7 +2449,6 @@ class SubmitAuditVideobaseRequest(TeaModel):
     def validate(self):
         self.validate_required(self.url, 'url')
         self.validate_required(self.scene, 'scene')
-        self.validate_required(self.business_id, 'business_id')
         self.validate_required(self.data_id, 'data_id')
 
     def to_map(self):
@@ -2570,10 +2465,10 @@ class SubmitAuditVideobaseRequest(TeaModel):
             result['url'] = self.url
         if self.scene is not None:
             result['scene'] = self.scene
-        if self.business_id is not None:
-            result['business_id'] = self.business_id
         if self.data_id is not None:
             result['data_id'] = self.data_id
+        if self.business_id is not None:
+            result['business_id'] = self.business_id
         if self.callback is not None:
             result['callback'] = self.callback
         if self.seed is not None:
@@ -2590,10 +2485,10 @@ class SubmitAuditVideobaseRequest(TeaModel):
             self.url = m.get('url')
         if m.get('scene') is not None:
             self.scene = m.get('scene')
-        if m.get('business_id') is not None:
-            self.business_id = m.get('business_id')
         if m.get('data_id') is not None:
             self.data_id = m.get('data_id')
+        if m.get('business_id') is not None:
+            self.business_id = m.get('business_id')
         if m.get('callback') is not None:
             self.callback = m.get('callback')
         if m.get('seed') is not None:
@@ -2607,7 +2502,6 @@ class SubmitAuditVideobaseResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        request_id: str = None,
         task_id: str = None,
         data_id: str = None,
     ):
@@ -2617,8 +2511,6 @@ class SubmitAuditVideobaseResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-        self.request_id = request_id
         # 任务ID
         self.task_id = task_id
         # 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
@@ -2639,8 +2531,6 @@ class SubmitAuditVideobaseResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
         if self.task_id is not None:
             result['task_id'] = self.task_id
         if self.data_id is not None:
@@ -2655,8 +2545,6 @@ class SubmitAuditVideobaseResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
         if m.get('task_id') is not None:
             self.task_id = m.get('task_id')
         if m.get('data_id') is not None:
@@ -2711,7 +2599,6 @@ class QueryAuditVideobaseResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        request_id: str = None,
         result: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -2720,8 +2607,6 @@ class QueryAuditVideobaseResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-        self.request_id = request_id
         # 视频通用版审核结果
         self.result = result
 
@@ -2740,8 +2625,6 @@ class QueryAuditVideobaseResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
         if self.result is not None:
             result['result'] = self.result
         return result
@@ -2754,8 +2637,6 @@ class QueryAuditVideobaseResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
         if m.get('result') is not None:
             self.result = m.get('result')
         return self
@@ -3011,6 +2892,157 @@ class QueryGuardcoreRedgptResponse(TeaModel):
         if m.get('data') is not None:
             temp_model = MayaStreamResult()
             self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class QueryAicoguardAdbsinkRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        region_id: str = None,
+        db_instance_id: str = None,
+        name_space: str = None,
+        name_space_password: str = None,
+        collection_name: str = None,
+        content: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 区域id
+        self.region_id = region_id
+        # DB实例id
+        self.db_instance_id = db_instance_id
+        # 数据库空间名称
+        self.name_space = name_space
+        # 数据库空间密码
+        self.name_space_password = name_space_password
+        # 数据库表名
+        self.collection_name = collection_name
+        # 要查询的内容
+        self.content = content
+
+    def validate(self):
+        self.validate_required(self.region_id, 'region_id')
+        self.validate_required(self.db_instance_id, 'db_instance_id')
+        self.validate_required(self.name_space, 'name_space')
+        self.validate_required(self.name_space_password, 'name_space_password')
+        self.validate_required(self.collection_name, 'collection_name')
+        self.validate_required(self.content, 'content')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        if self.db_instance_id is not None:
+            result['db_instance_id'] = self.db_instance_id
+        if self.name_space is not None:
+            result['name_space'] = self.name_space
+        if self.name_space_password is not None:
+            result['name_space_password'] = self.name_space_password
+        if self.collection_name is not None:
+            result['collection_name'] = self.collection_name
+        if self.content is not None:
+            result['content'] = self.content
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
+        if m.get('db_instance_id') is not None:
+            self.db_instance_id = m.get('db_instance_id')
+        if m.get('name_space') is not None:
+            self.name_space = m.get('name_space')
+        if m.get('name_space_password') is not None:
+            self.name_space_password = m.get('name_space_password')
+        if m.get('collection_name') is not None:
+            self.collection_name = m.get('collection_name')
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        return self
+
+
+class QueryAicoguardAdbsinkResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        question: str = None,
+        answer: str = None,
+        score: str = None,
+        request_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求的问题
+        self.question = question
+        # 代答结果
+        self.answer = answer
+        # 匹配度分数
+        self.score = score
+        # adb的请求id
+        self.request_id = request_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.question is not None:
+            result['question'] = self.question
+        if self.answer is not None:
+            result['answer'] = self.answer
+        if self.score is not None:
+            result['score'] = self.score
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('question') is not None:
+            self.question = m.get('question')
+        if m.get('answer') is not None:
+            self.answer = m.get('answer')
+        if m.get('score') is not None:
+            self.score = m.get('score')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
         return self
 
 
