@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "AITECH",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-aitech:1.1.9",
-    "go": "github.com/antchain-openapi-sdk-go/aitech/client:v1.1.9",
-    "csharp": "AntChain.SDK.AITECH:1.1.9",
-    "ts": "@antchain/aitech:1.1.9",
-    "php": "antchain/aitech:1.1.9",
-    "python": "antchain_sdk_aitech:1.1.9"
+    "java": "com.antgroup.antchain.openapi:openapi-aitech:1.1.10",
+    "go": "github.com/antchain-openapi-sdk-go/aitech/client:v1.1.10",
+    "csharp": "AntChain.SDK.AITECH:1.1.10",
+    "ts": "@antchain/aitech:1.1.10",
+    "php": "antchain/aitech:1.1.10",
+    "python": "antchain_sdk_aitech:1.1.10"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

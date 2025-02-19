@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.9',
+    sdk_version = '1.1.10',
     _prod_code = 'AITECH',
     _prod_channel = 'default'
   };
@@ -296,8 +296,6 @@ model ApplyAuditImageResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 请求ID，必须唯一
-  requestId?: string(name='request_id'),
   // 任务ID，必须唯一
   taskId?: string(name='task_id'),
   // 数据ID，必须唯一
@@ -375,16 +373,16 @@ model SubmitAuditTextRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 待人工审核的文本内容，最长不超过10000个字符（包含中文、英文和标点符号）
   content: string(name='content'),
-  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-  businessId: string(name='business_id'),
+  // 审核场景码，该接口固定输入BASE_TEXT_AUDIT，其他值无效
+  scene: string(name='scene'),
   // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
   dataId: string(name='data_id'),
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string(name='business_id'),
   // 结果通知地址，不指定时需要调用方主动查询结果
   callback?: string(name='callback'),
   // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
   seed?: string(name='seed'),
-  // 审核场景码，该接口固定输入BASE_TEXT_AUDIT，其他值无效
-  scene: string(name='scene'),
 }
 
 model SubmitAuditTextResponse = {
@@ -394,8 +392,6 @@ model SubmitAuditTextResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string(name='request_id'),
   // 任务ID
   taskId?: string(name='task_id'),
   // 检测对象对应的数据ID
@@ -436,8 +432,6 @@ model QueryAuditTextResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string(name='request_id'),
   // 文本审核结果
   result?: string(name='result'),
 }
@@ -470,12 +464,12 @@ model SubmitAuditImageRequest = {
   url: string(name='url'),
   // 审核场景码，该接口固定输入BASE_IMAGE_AUDIT，其他值无效
   scene: string(name='scene'),
-  // 客户业务ID。
-  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-  businessId: string(name='business_id'),
   // 检测对象对应的数据ID。
   // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
   dataId: string(name='data_id'),
+  // 客户业务ID。
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string(name='business_id'),
   // 结果通知地址，不指定时需要调用方主动查询结果
   callback?: string(name='callback'),
   // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
@@ -489,8 +483,6 @@ model SubmitAuditImageResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string(name='request_id'),
   // 任务ID
   taskId?: string(name='task_id'),
   // 检测对象对应的数据ID。
@@ -532,8 +524,6 @@ model QueryAuditImageResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string(name='request_id'),
   // 图片审核结果
   result?: string(name='result'),
 }
@@ -567,12 +557,12 @@ model SubmitAuditAudioRequest = {
   url: string(name='url'),
   // 审核场景码，该接口固定输入BASE_AUDIO_AUDIT，其他值无效
   scene: string(name='scene'),
-  // 客户业务ID。
-  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-  businessId: string(name='business_id'),
   // 检测对象对应的数据ID。
   // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
   dataId: string(name='data_id'),
+  // 客户业务ID。
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string(name='business_id'),
   // 结果通知地址，不指定时需要调用方主动查询结果
   callback?: string(name='callback'),
   // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
@@ -586,8 +576,6 @@ model SubmitAuditAudioResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string(name='request_id'),
   // 任务ID
   taskId?: string(name='task_id'),
   // 检测对象对应的数据ID。
@@ -629,8 +617,6 @@ model QueryAuditAudioResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string(name='request_id'),
   // 音频审核结果
   result?: string(name='result'),
 }
@@ -663,12 +649,12 @@ model SubmitAuditVideoRequest = {
   url: string(name='url'),
   // 审核场景码，该接口固定输入BASE_VIDEO_AUDIT，其他值无效
   scene: string(name='scene'),
-  // 客户业务ID。
-  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-  businessId: string(name='business_id'),
   // 检测对象对应的数据ID。
   // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
   dataId: string(name='data_id'),
+  // 客户业务ID。
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string(name='business_id'),
   // 结果通知地址，不指定时需要调用方主动查询结果
   callback?: string(name='callback'),
   // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
@@ -682,8 +668,6 @@ model SubmitAuditVideoResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string(name='request_id'),
   // 任务ID
   taskId?: string(name='task_id'),
   // 检测对象对应的数据ID。
@@ -725,8 +709,6 @@ model QueryAuditVideoResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string(name='request_id'),
   // 视频审核结果
   result?: string(name='result'),
 }
@@ -758,10 +740,10 @@ model ApplyAuditTextRequest = {
   content: string(name='content'),
   // 审核场景码，建议BASE_TEXT_SEC代指阿里云，文本审核增强版PLUS服务的某一个Service
   scene: string(name='scene'),
-  // 客户业务ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-  businessId: string(name='business_id'),
   // 检测对象对应的数据ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
   dataId: string(name='data_id'),
+  // 客户业务ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string(name='business_id'),
 }
 
 model ApplyAuditTextResponse = {
@@ -771,8 +753,6 @@ model ApplyAuditTextResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string(name='request_id'),
   // 文本同步审核结果，字段含义见：TextSyncAuditResult
   result?: string(name='result'),
 }
@@ -806,11 +786,11 @@ model ApplyAuditImagebaseRequest = {
   url: string(name='url'),
   // 场景，固定填写：BASE_IMAGE_SEC
   scene: string(name='scene'),
+  // 数据Id，调用方入审数据的唯一Id
+  dataId: string(name='data_id'),
   // 客户业务ID
   // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
   businessId?: string(name='business_id'),
-  // 数据Id，调用方入审数据的唯一Id
-  dataId: string(name='data_id'),
 }
 
 model ApplyAuditImagebaseResponse = {
@@ -820,8 +800,6 @@ model ApplyAuditImagebaseResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，...
-  requestId?: string(name='request_id'),
   // 图片基础版审核结果
   result?: string(name='result'),
 }
@@ -855,11 +833,11 @@ model ApplyAuditImageadvancedRequest = {
   url: string(name='url'),
   // 场景，固定填写：ADVANCED_IMAGE_SEC
   scene: string(name='scene'),
+  // 数据Id，调用方入审数据的唯一Id
+  dataId: string(name='data_id'),
   // 客户业务ID
   // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
   businessId?: string(name='business_id'),
-  // 数据Id，调用方入审数据的唯一Id
-  dataId: string(name='data_id'),
 }
 
 model ApplyAuditImageadvancedResponse = {
@@ -869,8 +847,6 @@ model ApplyAuditImageadvancedResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，...
-  requestId?: string(name='request_id'),
   // 图片增强版审核结果
   result?: string(name='result'),
 }
@@ -906,11 +882,11 @@ model SubmitAuditAudiobaseRequest = {
   // 审核场景类型
   // 目前支持 BASE_AUDIO_SEC：音视频媒体通用检测
   scene: string(name='scene'),
-  // 客户业务ID
-  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-  businessId: string(name='business_id'),
   // 检测对象对应的数据ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
   dataId: string(name='data_id'),
+  // 客户业务ID
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string(name='business_id'),
   // 结果通知地址，不指定时需要调用方主动查询结果
   callback?: string(name='callback'),
   // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
@@ -924,8 +900,6 @@ model SubmitAuditAudiobaseResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string(name='request_id'),
   // 任务ID
   taskId?: string(name='task_id'),
   // 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
@@ -966,8 +940,6 @@ model QueryAuditAudiobaseResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string(name='request_id'),
   // 音频通用版审核结果
   // 
   result?: string(name='result'),
@@ -1006,10 +978,10 @@ model SubmitAuditVideobaseRequest = {
   // 审核场景类型
   // 目前支持通用版 BASE_VIDEO_SEC
   scene: string(name='scene'),
-  // 客户业务ID 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-  businessId: string(name='business_id'),
   // 检测对象对应的数据ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
   dataId: string(name='data_id'),
+  // 客户业务ID 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string(name='business_id'),
   // 结果通知地址，不指定时需要调用方主动查询结果
   callback?: string(name='callback'),
   // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
@@ -1023,8 +995,6 @@ model SubmitAuditVideobaseResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string(name='request_id'),
   // 任务ID
   taskId?: string(name='task_id'),
   // 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
@@ -1065,8 +1035,6 @@ model QueryAuditVideobaseResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-  requestId?: string(name='request_id'),
   // 视频通用版审核结果
   result?: string(name='result'),
 }
@@ -1182,5 +1150,59 @@ async function queryGuardcoreRedgpt(request: QueryGuardcoreRedgptRequest): Query
 async function queryGuardcoreRedgptEx(request: QueryGuardcoreRedgptRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGuardcoreRedgptResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'aitech.comm.guardcore.redgpt.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAicoguardAdbsinkRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 区域id
+  regionId: string(name='region_id'),
+  // DB实例id
+  dbInstanceId: string(name='db_instance_id'),
+  // 数据库空间名称
+  nameSpace: string(name='name_space'),
+  // 数据库空间密码
+  nameSpacePassword: string(name='name_space_password'),
+  // 数据库表名
+  collectionName: string(name='collection_name'),
+  // 要查询的内容
+  content: string(name='content'),
+}
+
+model QueryAicoguardAdbsinkResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求的问题
+  question?: string(name='question'),
+  // 代答结果
+  answer?: string(name='answer'),
+  // 匹配度分数
+  score?: string(name='score'),
+  // adb的请求id
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 阿里云ADB调用接口
+ * Summary: 阿里云ADB调用接口
+ */
+async function queryAicoguardAdbsink(request: QueryAicoguardAdbsinkRequest): QueryAicoguardAdbsinkResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAicoguardAdbsinkEx(request, headers, runtime);
+}
+
+/**
+ * Description: 阿里云ADB调用接口
+ * Summary: 阿里云ADB调用接口
+ */
+async function queryAicoguardAdbsinkEx(request: QueryAicoguardAdbsinkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAicoguardAdbsinkResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.aicoguard.adbsink.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
