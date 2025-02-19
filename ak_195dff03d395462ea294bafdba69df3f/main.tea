@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.12',
+    sdk_version = '1.4.0',
     _prod_code = 'ak_195dff03d395462ea294bafdba69df3f',
     _prod_channel = 'saas'
   };
@@ -286,6 +286,12 @@ model ApplicationInfo {
   merchantServiceDesc: string(name='merchant_service_desc', example='xx服务描述'),
   // 站点信息
   siteInfo?: [ SiteInfo ](name='site_info', example=''),
+}
+
+// 分账关系绑定收入方信息
+model DivideBindingTransInInfo {
+  // 分账方支付宝pid
+  alipayPid: string(name='alipay_pid', example='2088123456789'),
 }
 
 // 应用信息修改
@@ -576,6 +582,11 @@ model AllAntchainAtoSignTemplateRequest = {
   contractType?: string(name='contract_type'),
   // 商户统一社会信用代码，SIT环境，非融必填
   merchantId?: string(maxLength=42, name='merchant_id'),
+  // 查询融资类型时，需要传入资方统一社会信用代码
+  fundId?: string(name='fund_id'),
+  // -FINANCE 融资
+  // -NON_FINANCE 非融资
+  fundType?: string(name='fund_type'),
   // 模板id
   templateId?: string(name='template_id'),
 }
@@ -3507,6 +3518,218 @@ async function getAntchainAtoFundOrderfinanceinfo(request: GetAntchainAtoFundOrd
 async function getAntchainAtoFundOrderfinanceinfoEx(request: GetAntchainAtoFundOrderfinanceinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAntchainAtoFundOrderfinanceinfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.ato.fund.orderfinanceinfo.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncAntchainAtoTradeUserpromisedelayRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // order_id
+  orderId: string(minLength=1, name='order_id'),
+  // merchant_id
+  merchantId: string(minLength=1, name='merchant_id'),
+  // 1
+  delayStartPeriod: long(minimum=1, name='delay_start_period'),
+  // 延期时间单位
+  delayTimeUnit: string(minLength=1, name='delay_time_unit'),
+  // 延期时间数值
+  delayTimeValue: long(minimum=1, name='delay_time_value'),
+  // 原因描述
+  reason: string(minLength=1, name='reason'),
+}
+
+model SyncAntchainAtoTradeUserpromisedelayResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 订单代扣计划延期
+ * Summary: 订单代扣计划延期
+ */
+async function syncAntchainAtoTradeUserpromisedelay(request: SyncAntchainAtoTradeUserpromisedelayRequest): SyncAntchainAtoTradeUserpromisedelayResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncAntchainAtoTradeUserpromisedelayEx(request, headers, runtime);
+}
+
+/**
+ * Description: 订单代扣计划延期
+ * Summary: 订单代扣计划延期
+ */
+async function syncAntchainAtoTradeUserpromisedelayEx(request: SyncAntchainAtoTradeUserpromisedelayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncAntchainAtoTradeUserpromisedelayResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.trade.userpromisedelay.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PauseAntchainAtoTradeUserpromiseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id
+  orderId: string(minLength=1, name='order_id'),
+  // 社会信用代码
+  merchantId: string(minLength=1, name='merchant_id'),
+  // 理由
+  reason: string(minLength=1, name='reason'),
+}
+
+model PauseAntchainAtoTradeUserpromiseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 暂停后自动重启时间
+  autoResumeDay?: string(name='auto_resume_day'),
+  // 暂停后自动执行代扣时间，为autoResumeDay的第二天重新开始执行代扣计划
+  autoWithholdRestartDay?: string(name='auto_withhold_restart_day'),
+}
+
+/**
+ * Description: 订单代扣计划暂停
+ * Summary: 订单代扣计划暂停
+ */
+async function pauseAntchainAtoTradeUserpromise(request: PauseAntchainAtoTradeUserpromiseRequest): PauseAntchainAtoTradeUserpromiseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pauseAntchainAtoTradeUserpromiseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 订单代扣计划暂停
+ * Summary: 订单代扣计划暂停
+ */
+async function pauseAntchainAtoTradeUserpromiseEx(request: PauseAntchainAtoTradeUserpromiseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PauseAntchainAtoTradeUserpromiseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.trade.userpromise.pause', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ResumeAntchainAtoTradeUserpromiseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // order_id
+  orderId: string(minLength=1, name='order_id'),
+  // merchant_id
+  merchantId: string(minLength=1, name='merchant_id'),
+}
+
+model ResumeAntchainAtoTradeUserpromiseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单重启时间
+  resumeDay?: string(name='resume_day'),
+  // withhold_restart_day
+  withholdRestartDay?: string(name='withhold_restart_day'),
+}
+
+/**
+ * Description: 代扣计划重启
+ * Summary: 代扣计划重启
+ */
+async function resumeAntchainAtoTradeUserpromise(request: ResumeAntchainAtoTradeUserpromiseRequest): ResumeAntchainAtoTradeUserpromiseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return resumeAntchainAtoTradeUserpromiseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣计划重启
+ * Summary: 代扣计划重启
+ */
+async function resumeAntchainAtoTradeUserpromiseEx(request: ResumeAntchainAtoTradeUserpromiseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ResumeAntchainAtoTradeUserpromiseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.trade.userpromise.resume', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddAntchainAtoMerchantexpandDividerelationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 被分账方社会统一信用代码
+  merchantId: string(name='merchant_id'),
+  // 分账方信息，最多支持10组
+  divideBindingTransInInfoList: [ DivideBindingTransInInfo ](name='divide_binding_trans_in_info_list'),
+  // 分账比例上限
+  divideRadio?: string(name='divide_radio'),
+}
+
+model AddAntchainAtoMerchantexpandDividerelationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 添加分账绑定关系
+ * Summary: 添加分账绑定关系
+ */
+async function addAntchainAtoMerchantexpandDividerelation(request: AddAntchainAtoMerchantexpandDividerelationRequest): AddAntchainAtoMerchantexpandDividerelationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addAntchainAtoMerchantexpandDividerelationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 添加分账绑定关系
+ * Summary: 添加分账绑定关系
+ */
+async function addAntchainAtoMerchantexpandDividerelationEx(request: AddAntchainAtoMerchantexpandDividerelationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddAntchainAtoMerchantexpandDividerelationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.merchantexpand.dividerelation.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntchainAtoMerchantexpandDividerelationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 被分账方社会统一信用代码
+  merchantId: string(name='merchant_id'),
+}
+
+model QueryAntchainAtoMerchantexpandDividerelationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 分账绑定关系支付宝pid
+  alipayPidList?: [ string ](name='alipay_pid_list'),
+  // 分账比例上限
+  divideRadio?: string(name='divide_radio'),
+}
+
+/**
+ * Description: 分账绑定关系查询
+ * Summary: 分账绑定关系查询
+ */
+async function queryAntchainAtoMerchantexpandDividerelation(request: QueryAntchainAtoMerchantexpandDividerelationRequest): QueryAntchainAtoMerchantexpandDividerelationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainAtoMerchantexpandDividerelationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分账绑定关系查询
+ * Summary: 分账绑定关系查询
+ */
+async function queryAntchainAtoMerchantexpandDividerelationEx(request: QueryAntchainAtoMerchantexpandDividerelationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainAtoMerchantexpandDividerelationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.merchantexpand.dividerelation.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
