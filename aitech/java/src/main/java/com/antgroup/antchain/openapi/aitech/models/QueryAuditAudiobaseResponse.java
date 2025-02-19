@@ -16,10 +16,6 @@ public class QueryAuditAudiobaseResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-    @NameInMap("request_id")
-    public String requestId;
-
     // 音频通用版审核结果
     // 
     @NameInMap("result")
@@ -52,14 +48,6 @@ public class QueryAuditAudiobaseResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public QueryAuditAudiobaseResponse setRequestId(String requestId) {
-        this.requestId = requestId;
-        return this;
-    }
-    public String getRequestId() {
-        return this.requestId;
     }
 
     public QueryAuditAudiobaseResponse setResult(String result) {

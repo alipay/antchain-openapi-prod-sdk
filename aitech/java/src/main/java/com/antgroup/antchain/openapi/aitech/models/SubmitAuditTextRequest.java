@@ -16,15 +16,19 @@ public class SubmitAuditTextRequest extends TeaModel {
     @Validation(required = true)
     public String content;
 
-    // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-    @NameInMap("business_id")
+    // 审核场景码，该接口固定输入BASE_TEXT_AUDIT，其他值无效
+    @NameInMap("scene")
     @Validation(required = true)
-    public String businessId;
+    public String scene;
 
     // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
     @NameInMap("data_id")
     @Validation(required = true)
     public String dataId;
+
+    // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+    @NameInMap("business_id")
+    public String businessId;
 
     // 结果通知地址，不指定时需要调用方主动查询结果
     @NameInMap("callback")
@@ -33,11 +37,6 @@ public class SubmitAuditTextRequest extends TeaModel {
     // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
     @NameInMap("seed")
     public String seed;
-
-    // 审核场景码，该接口固定输入BASE_TEXT_AUDIT，其他值无效
-    @NameInMap("scene")
-    @Validation(required = true)
-    public String scene;
 
     public static SubmitAuditTextRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitAuditTextRequest self = new SubmitAuditTextRequest();
@@ -68,12 +67,12 @@ public class SubmitAuditTextRequest extends TeaModel {
         return this.content;
     }
 
-    public SubmitAuditTextRequest setBusinessId(String businessId) {
-        this.businessId = businessId;
+    public SubmitAuditTextRequest setScene(String scene) {
+        this.scene = scene;
         return this;
     }
-    public String getBusinessId() {
-        return this.businessId;
+    public String getScene() {
+        return this.scene;
     }
 
     public SubmitAuditTextRequest setDataId(String dataId) {
@@ -82,6 +81,14 @@ public class SubmitAuditTextRequest extends TeaModel {
     }
     public String getDataId() {
         return this.dataId;
+    }
+
+    public SubmitAuditTextRequest setBusinessId(String businessId) {
+        this.businessId = businessId;
+        return this;
+    }
+    public String getBusinessId() {
+        return this.businessId;
     }
 
     public SubmitAuditTextRequest setCallback(String callback) {
@@ -98,14 +105,6 @@ public class SubmitAuditTextRequest extends TeaModel {
     }
     public String getSeed() {
         return this.seed;
-    }
-
-    public SubmitAuditTextRequest setScene(String scene) {
-        this.scene = scene;
-        return this;
-    }
-    public String getScene() {
-        return this.scene;
     }
 
 }

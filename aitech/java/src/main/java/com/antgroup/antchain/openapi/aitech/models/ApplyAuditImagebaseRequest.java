@@ -23,15 +23,15 @@ public class ApplyAuditImagebaseRequest extends TeaModel {
     @Validation(required = true)
     public String scene;
 
-    // 客户业务ID
-    // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-    @NameInMap("business_id")
-    public String businessId;
-
     // 数据Id，调用方入审数据的唯一Id
     @NameInMap("data_id")
     @Validation(required = true)
     public String dataId;
+
+    // 客户业务ID
+    // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+    @NameInMap("business_id")
+    public String businessId;
 
     public static ApplyAuditImagebaseRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyAuditImagebaseRequest self = new ApplyAuditImagebaseRequest();
@@ -70,20 +70,20 @@ public class ApplyAuditImagebaseRequest extends TeaModel {
         return this.scene;
     }
 
-    public ApplyAuditImagebaseRequest setBusinessId(String businessId) {
-        this.businessId = businessId;
-        return this;
-    }
-    public String getBusinessId() {
-        return this.businessId;
-    }
-
     public ApplyAuditImagebaseRequest setDataId(String dataId) {
         this.dataId = dataId;
         return this;
     }
     public String getDataId() {
         return this.dataId;
+    }
+
+    public ApplyAuditImagebaseRequest setBusinessId(String businessId) {
+        this.businessId = businessId;
+        return this;
+    }
+    public String getBusinessId() {
+        return this.businessId;
     }
 
 }

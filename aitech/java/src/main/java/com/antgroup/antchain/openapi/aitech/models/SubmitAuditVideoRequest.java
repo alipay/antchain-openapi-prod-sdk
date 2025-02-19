@@ -22,17 +22,16 @@ public class SubmitAuditVideoRequest extends TeaModel {
     @Validation(required = true)
     public String scene;
 
-    // 客户业务ID。
-    // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-    @NameInMap("business_id")
-    @Validation(required = true)
-    public String businessId;
-
     // 检测对象对应的数据ID。
     // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
     @NameInMap("data_id")
     @Validation(required = true)
     public String dataId;
+
+    // 客户业务ID。
+    // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+    @NameInMap("business_id")
+    public String businessId;
 
     // 结果通知地址，不指定时需要调用方主动查询结果
     @NameInMap("callback")
@@ -79,20 +78,20 @@ public class SubmitAuditVideoRequest extends TeaModel {
         return this.scene;
     }
 
-    public SubmitAuditVideoRequest setBusinessId(String businessId) {
-        this.businessId = businessId;
-        return this;
-    }
-    public String getBusinessId() {
-        return this.businessId;
-    }
-
     public SubmitAuditVideoRequest setDataId(String dataId) {
         this.dataId = dataId;
         return this;
     }
     public String getDataId() {
         return this.dataId;
+    }
+
+    public SubmitAuditVideoRequest setBusinessId(String businessId) {
+        this.businessId = businessId;
+        return this;
+    }
+    public String getBusinessId() {
+        return this.businessId;
     }
 
     public SubmitAuditVideoRequest setCallback(String callback) {

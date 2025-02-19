@@ -16,10 +16,6 @@ public class SubmitAuditVideobaseResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-    @NameInMap("request_id")
-    public String requestId;
-
     // 任务ID
     @NameInMap("task_id")
     public String taskId;
@@ -55,14 +51,6 @@ public class SubmitAuditVideobaseResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public SubmitAuditVideobaseResponse setRequestId(String requestId) {
-        this.requestId = requestId;
-        return this;
-    }
-    public String getRequestId() {
-        return this.requestId;
     }
 
     public SubmitAuditVideobaseResponse setTaskId(String taskId) {
