@@ -31,6 +31,19 @@ class AllSignTemplateRequest extends Model
      */
     public $merchantId;
 
+    // 查询融资类型时，需要传入资方统一社会信用代码
+    /**
+     * @var string
+     */
+    public $fundId;
+
+    // -FINANCE 融资
+    // -NON_FINANCE 非融资
+    /**
+     * @var string
+     */
+    public $fundType;
+
     // 模板id
     /**
      * @var string
@@ -41,6 +54,8 @@ class AllSignTemplateRequest extends Model
         'productInstanceId' => 'product_instance_id',
         'contractType'      => 'contract_type',
         'merchantId'        => 'merchant_id',
+        'fundId'            => 'fund_id',
+        'fundType'          => 'fund_type',
         'templateId'        => 'template_id',
     ];
 
@@ -63,6 +78,12 @@ class AllSignTemplateRequest extends Model
         }
         if (null !== $this->merchantId) {
             $res['merchant_id'] = $this->merchantId;
+        }
+        if (null !== $this->fundId) {
+            $res['fund_id'] = $this->fundId;
+        }
+        if (null !== $this->fundType) {
+            $res['fund_type'] = $this->fundType;
         }
         if (null !== $this->templateId) {
             $res['template_id'] = $this->templateId;
@@ -90,6 +111,12 @@ class AllSignTemplateRequest extends Model
         }
         if (isset($map['merchant_id'])) {
             $model->merchantId = $map['merchant_id'];
+        }
+        if (isset($map['fund_id'])) {
+            $model->fundId = $map['fund_id'];
+        }
+        if (isset($map['fund_type'])) {
+            $model->fundType = $map['fund_type'];
         }
         if (isset($map['template_id'])) {
             $model->templateId = $map['template_id'];

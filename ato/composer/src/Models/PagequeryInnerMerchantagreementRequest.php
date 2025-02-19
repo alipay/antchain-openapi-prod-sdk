@@ -30,11 +30,18 @@ class PagequeryInnerMerchantagreementRequest extends Model
      * @var PageQuery
      */
     public $pageInfo;
+
+    // 租户账号
+    /**
+     * @var string
+     */
+    public $userName;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'tenantId'          => 'tenant_id',
         'pageInfo'          => 'page_info',
+        'userName'          => 'user_name',
     ];
 
     public function validate()
@@ -57,6 +64,9 @@ class PagequeryInnerMerchantagreementRequest extends Model
         }
         if (null !== $this->pageInfo) {
             $res['page_info'] = null !== $this->pageInfo ? $this->pageInfo->toMap() : null;
+        }
+        if (null !== $this->userName) {
+            $res['user_name'] = $this->userName;
         }
 
         return $res;
@@ -81,6 +91,9 @@ class PagequeryInnerMerchantagreementRequest extends Model
         }
         if (isset($map['page_info'])) {
             $model->pageInfo = PageQuery::fromMap($map['page_info']);
+        }
+        if (isset($map['user_name'])) {
+            $model->userName = $map['user_name'];
         }
 
         return $model;

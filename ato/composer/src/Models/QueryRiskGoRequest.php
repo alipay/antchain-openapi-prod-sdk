@@ -25,6 +25,12 @@ class QueryRiskGoRequest extends Model
      */
     public $riskType;
 
+    // 单次请求流水号，需要保证唯一
+    /**
+     * @var string
+     */
+    public $flowId;
+
     // 调用行业，枚举值：
     // insurance 保险；retail 零售；finance 金融行业；logistics 物流行业；city_services 城市服务；medical 医疗服务；digital_media 数媒行业；recycle 回收行业；payment 缴费行业；vehicle 汽车；travel 旅游；air_travel 航旅行业；FMCG 快消零售；education 教育行业；fashion_retail 时尚零售；game_industry 文体行业；rental 租赁；advertisement 广告行业；restaurants 餐饮行业；ticket 票务行业；complexes 综合体行业
     /**
@@ -122,10 +128,17 @@ class QueryRiskGoRequest extends Model
      * @var BaddebtQueryModel
      */
     public $baddebtQueryModel;
+
+    // 商户appId,当openId不为空时必填
+    /**
+     * @var string
+     */
+    public $merchantAppId;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
         'riskType'           => 'risk_type',
+        'flowId'             => 'flow_id',
         'businessCode'       => 'business_code',
         'scene'              => 'scene',
         'userId'             => 'user_id',
@@ -142,14 +155,17 @@ class QueryRiskGoRequest extends Model
         'awardingQueryModel' => 'awarding_query_model',
         'farmingQueryModel'  => 'farming_query_model',
         'baddebtQueryModel'  => 'baddebt_query_model',
+        'merchantAppId'      => 'merchant_app_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('riskType', $this->riskType, true);
+        Model::validateRequired('flowId', $this->flowId, true);
         Model::validateRequired('businessCode', $this->businessCode, true);
         Model::validateRequired('scene', $this->scene, true);
         Model::validateMaxLength('riskType', $this->riskType, 50);
+        Model::validateMaxLength('flowId', $this->flowId, 32);
         Model::validateMaxLength('businessCode', $this->businessCode, 30);
         Model::validateMaxLength('scene', $this->scene, 50);
         Model::validateMaxLength('userId', $this->userId, 50);
@@ -162,6 +178,7 @@ class QueryRiskGoRequest extends Model
         Model::validateMaxLength('role', $this->role, 128);
         Model::validateMaxLength('activityInfo', $this->activityInfo, 100);
         Model::validateMinLength('riskType', $this->riskType, 1);
+        Model::validateMinLength('flowId', $this->flowId, 10);
         Model::validateMinLength('businessCode', $this->businessCode, 1);
         Model::validateMinLength('scene', $this->scene, 1);
         Model::validateMinLength('userId', $this->userId, 1);
@@ -173,6 +190,7 @@ class QueryRiskGoRequest extends Model
         Model::validateMinLength('lbs', $this->lbs, 1);
         Model::validateMinLength('role', $this->role, 1);
         Model::validateMinLength('activityInfo', $this->activityInfo, 1);
+        Model::validateMinLength('merchantAppId', $this->merchantAppId, 1);
     }
 
     public function toMap()
@@ -186,6 +204,9 @@ class QueryRiskGoRequest extends Model
         }
         if (null !== $this->riskType) {
             $res['risk_type'] = $this->riskType;
+        }
+        if (null !== $this->flowId) {
+            $res['flow_id'] = $this->flowId;
         }
         if (null !== $this->businessCode) {
             $res['business_code'] = $this->businessCode;
@@ -235,6 +256,9 @@ class QueryRiskGoRequest extends Model
         if (null !== $this->baddebtQueryModel) {
             $res['baddebt_query_model'] = null !== $this->baddebtQueryModel ? $this->baddebtQueryModel->toMap() : null;
         }
+        if (null !== $this->merchantAppId) {
+            $res['merchant_app_id'] = $this->merchantAppId;
+        }
 
         return $res;
     }
@@ -255,6 +279,9 @@ class QueryRiskGoRequest extends Model
         }
         if (isset($map['risk_type'])) {
             $model->riskType = $map['risk_type'];
+        }
+        if (isset($map['flow_id'])) {
+            $model->flowId = $map['flow_id'];
         }
         if (isset($map['business_code'])) {
             $model->businessCode = $map['business_code'];
@@ -303,6 +330,9 @@ class QueryRiskGoRequest extends Model
         }
         if (isset($map['baddebt_query_model'])) {
             $model->baddebtQueryModel = BaddebtQueryModel::fromMap($map['baddebt_query_model']);
+        }
+        if (isset($map['merchant_app_id'])) {
+            $model->merchantAppId = $map['merchant_app_id'];
         }
 
         return $model;

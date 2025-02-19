@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryInnerMerchantagreementRequest extends Model
+class ResumeTradeUserpromiseRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,35 +19,30 @@ class QueryInnerMerchantagreementRequest extends Model
      */
     public $productInstanceId;
 
-    // 租户8位id
+    // order_id
     /**
      * @var string
      */
-    public $tenantId;
+    public $orderId;
 
-    // 协议id
+    // merchant_id
     /**
      * @var string
      */
-    public $agreementId;
-
-    // 租户账号
-    /**
-     * @var string
-     */
-    public $userName;
+    public $merchantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'tenantId'          => 'tenant_id',
-        'agreementId'       => 'agreement_id',
-        'userName'          => 'user_name',
+        'orderId'           => 'order_id',
+        'merchantId'        => 'merchant_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('tenantId', $this->tenantId, true);
-        Model::validateRequired('agreementId', $this->agreementId, true);
+        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('merchantId', $this->merchantId, true);
+        Model::validateMinLength('orderId', $this->orderId, 1);
+        Model::validateMinLength('merchantId', $this->merchantId, 1);
     }
 
     public function toMap()
@@ -59,14 +54,11 @@ class QueryInnerMerchantagreementRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->tenantId) {
-            $res['tenant_id'] = $this->tenantId;
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
         }
-        if (null !== $this->agreementId) {
-            $res['agreement_id'] = $this->agreementId;
-        }
-        if (null !== $this->userName) {
-            $res['user_name'] = $this->userName;
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
         }
 
         return $res;
@@ -75,7 +67,7 @@ class QueryInnerMerchantagreementRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryInnerMerchantagreementRequest
+     * @return ResumeTradeUserpromiseRequest
      */
     public static function fromMap($map = [])
     {
@@ -86,14 +78,11 @@ class QueryInnerMerchantagreementRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['tenant_id'])) {
-            $model->tenantId = $map['tenant_id'];
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
         }
-        if (isset($map['agreement_id'])) {
-            $model->agreementId = $map['agreement_id'];
-        }
-        if (isset($map['user_name'])) {
-            $model->userName = $map['user_name'];
+        if (isset($map['merchant_id'])) {
+            $model->merchantId = $map['merchant_id'];
         }
 
         return $model;

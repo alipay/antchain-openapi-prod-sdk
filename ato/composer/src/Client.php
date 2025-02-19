@@ -11,6 +11,10 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\ATO\Models\AddFundDividerelationRequest;
+use AntChain\ATO\Models\AddFundDividerelationResponse;
+use AntChain\ATO\Models\AddMerchantexpandDividerelationRequest;
+use AntChain\ATO\Models\AddMerchantexpandDividerelationResponse;
 use AntChain\ATO\Models\AddTradeFinanceprecheckRequest;
 use AntChain\ATO\Models\AddTradeFinanceprecheckResponse;
 use AntChain\ATO\Models\AllInnerTemplateRequest;
@@ -145,6 +149,8 @@ use AntChain\ATO\Models\PagequeryInnerOrderRequest;
 use AntChain\ATO\Models\PagequeryInnerOrderResponse;
 use AntChain\ATO\Models\PagequeryInnerProductRequest;
 use AntChain\ATO\Models\PagequeryInnerProductResponse;
+use AntChain\ATO\Models\PauseTradeUserpromiseRequest;
+use AntChain\ATO\Models\PauseTradeUserpromiseResponse;
 use AntChain\ATO\Models\PreviewInnerTemplateRequest;
 use AntChain\ATO\Models\PreviewInnerTemplateResponse;
 use AntChain\ATO\Models\PublishInnerTemplateRequest;
@@ -153,6 +159,8 @@ use AntChain\ATO\Models\QueryFundCompensateaccountRequest;
 use AntChain\ATO\Models\QueryFundCompensateaccountResponse;
 use AntChain\ATO\Models\QueryFundCreditRequest;
 use AntChain\ATO\Models\QueryFundCreditResponse;
+use AntChain\ATO\Models\QueryFundDividerelationRequest;
+use AntChain\ATO\Models\QueryFundDividerelationResponse;
 use AntChain\ATO\Models\QueryInnerAuthorizationRequest;
 use AntChain\ATO\Models\QueryInnerAuthorizationResponse;
 use AntChain\ATO\Models\QueryInnerFunddividerelationRequest;
@@ -185,6 +193,8 @@ use AntChain\ATO\Models\QueryInnerWithholdsignRequest;
 use AntChain\ATO\Models\QueryInnerWithholdsignResponse;
 use AntChain\ATO\Models\QueryInsureRequest;
 use AntChain\ATO\Models\QueryInsureResponse;
+use AntChain\ATO\Models\QueryMerchantexpandDividerelationRequest;
+use AntChain\ATO\Models\QueryMerchantexpandDividerelationResponse;
 use AntChain\ATO\Models\QueryMerchantexpandMerchantRequest;
 use AntChain\ATO\Models\QueryMerchantexpandMerchantResponse;
 use AntChain\ATO\Models\QueryRealpersonFacevrfRequest;
@@ -215,6 +225,8 @@ use AntChain\ATO\Models\RepayWithholdPlanRequest;
 use AntChain\ATO\Models\RepayWithholdPlanResponse;
 use AntChain\ATO\Models\ReplaceTradeUserpromiseRequest;
 use AntChain\ATO\Models\ReplaceTradeUserpromiseResponse;
+use AntChain\ATO\Models\ResumeTradeUserpromiseRequest;
+use AntChain\ATO\Models\ResumeTradeUserpromiseResponse;
 use AntChain\ATO\Models\RetryInnerOrdermsgRequest;
 use AntChain\ATO\Models\RetryInnerOrdermsgResponse;
 use AntChain\ATO\Models\RetryInsurePayRequest;
@@ -269,6 +281,8 @@ use AntChain\ATO\Models\SyncTradeIndirectorderRequest;
 use AntChain\ATO\Models\SyncTradeIndirectorderResponse;
 use AntChain\ATO\Models\SyncTradeRequest;
 use AntChain\ATO\Models\SyncTradeResponse;
+use AntChain\ATO\Models\SyncTradeUserpromisedelayRequest;
+use AntChain\ATO\Models\SyncTradeUserpromisedelayResponse;
 use AntChain\ATO\Models\TransferTradeFinanceRequest;
 use AntChain\ATO\Models\TransferTradeFinanceResponse;
 use AntChain\ATO\Models\UnbindWithholdSignRequest;
@@ -291,6 +305,8 @@ use AntChain\ATO\Models\UploadFundFlowRequest;
 use AntChain\ATO\Models\UploadFundFlowResponse;
 use AntChain\ATO\Models\UploadInnerFileRequest;
 use AntChain\ATO\Models\UploadInnerFileResponse;
+use AntChain\ATO\Models\UploadInnerRiskcallRequest;
+use AntChain\ATO\Models\UploadInnerRiskcallResponse;
 use AntChain\ATO\Models\UploadMerchantexpandFileRequest;
 use AntChain\ATO\Models\UploadMerchantexpandFileResponse;
 use AntChain\ATO\Models\UploadSignCreditRequest;
@@ -446,7 +462,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.11',
+                    'sdk_version'      => '1.13.11',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1270,6 +1286,72 @@ class Client
         Utils::validateModel($request);
 
         return GetFundOrderfinanceinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.orderfinanceinfo.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 添加分账绑定关系
+     * Summary: 添加分账绑定关系.
+     *
+     * @param AddFundDividerelationRequest $request
+     *
+     * @return AddFundDividerelationResponse
+     */
+    public function addFundDividerelation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addFundDividerelationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 添加分账绑定关系
+     * Summary: 添加分账绑定关系.
+     *
+     * @param AddFundDividerelationRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return AddFundDividerelationResponse
+     */
+    public function addFundDividerelationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddFundDividerelationResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.dividerelation.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分账绑定关系查询
+     * Summary: 分账绑定关系查询.
+     *
+     * @param QueryFundDividerelationRequest $request
+     *
+     * @return QueryFundDividerelationResponse
+     */
+    public function queryFundDividerelation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryFundDividerelationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分账绑定关系查询
+     * Summary: 分账绑定关系查询.
+     *
+     * @param QueryFundDividerelationRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryFundDividerelationResponse
+     */
+    public function queryFundDividerelationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryFundDividerelationResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.dividerelation.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -3783,6 +3865,72 @@ class Client
     }
 
     /**
+     * Description: 添加分账绑定关系
+     * Summary: 添加分账绑定关系.
+     *
+     * @param AddMerchantexpandDividerelationRequest $request
+     *
+     * @return AddMerchantexpandDividerelationResponse
+     */
+    public function addMerchantexpandDividerelation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addMerchantexpandDividerelationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 添加分账绑定关系
+     * Summary: 添加分账绑定关系.
+     *
+     * @param AddMerchantexpandDividerelationRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return AddMerchantexpandDividerelationResponse
+     */
+    public function addMerchantexpandDividerelationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddMerchantexpandDividerelationResponse::fromMap($this->doRequest('1.0', 'antchain.ato.merchantexpand.dividerelation.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分账绑定关系查询
+     * Summary: 分账绑定关系查询.
+     *
+     * @param QueryMerchantexpandDividerelationRequest $request
+     *
+     * @return QueryMerchantexpandDividerelationResponse
+     */
+    public function queryMerchantexpandDividerelation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMerchantexpandDividerelationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分账绑定关系查询
+     * Summary: 分账绑定关系查询.
+     *
+     * @param QueryMerchantexpandDividerelationRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return QueryMerchantexpandDividerelationResponse
+     */
+    public function queryMerchantexpandDividerelationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMerchantexpandDividerelationResponse::fromMap($this->doRequest('1.0', 'antchain.ato.merchantexpand.dividerelation.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 可信身份认证，创建认证
      * Summary: 创建认证
      *
@@ -3912,6 +4060,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryRiskGoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.risk.go.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 小程序云调用，上报计量信息
+     * Summary: 小程序云调用，上报计量信息.
+     *
+     * @param UploadInnerRiskcallRequest $request
+     *
+     * @return UploadInnerRiskcallResponse
+     */
+    public function uploadInnerRiskcall($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadInnerRiskcallEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 小程序云调用，上报计量信息
+     * Summary: 小程序云调用，上报计量信息.
+     *
+     * @param UploadInnerRiskcallRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return UploadInnerRiskcallResponse
+     */
+    public function uploadInnerRiskcallEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadInnerRiskcallResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.riskcall.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -4841,6 +5022,105 @@ class Client
         Utils::validateModel($request);
 
         return GetTradeOrderfinanceinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.orderfinanceinfo.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 订单代扣计划延期
+     * Summary: 订单代扣计划延期
+     *
+     * @param SyncTradeUserpromisedelayRequest $request
+     *
+     * @return SyncTradeUserpromisedelayResponse
+     */
+    public function syncTradeUserpromisedelay($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncTradeUserpromisedelayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 订单代扣计划延期
+     * Summary: 订单代扣计划延期
+     *
+     * @param SyncTradeUserpromisedelayRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return SyncTradeUserpromisedelayResponse
+     */
+    public function syncTradeUserpromisedelayEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncTradeUserpromisedelayResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.userpromisedelay.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 订单代扣计划暂停
+     * Summary: 订单代扣计划暂停.
+     *
+     * @param PauseTradeUserpromiseRequest $request
+     *
+     * @return PauseTradeUserpromiseResponse
+     */
+    public function pauseTradeUserpromise($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pauseTradeUserpromiseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 订单代扣计划暂停
+     * Summary: 订单代扣计划暂停.
+     *
+     * @param PauseTradeUserpromiseRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return PauseTradeUserpromiseResponse
+     */
+    public function pauseTradeUserpromiseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PauseTradeUserpromiseResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.userpromise.pause', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣计划重启
+     * Summary: 代扣计划重启.
+     *
+     * @param ResumeTradeUserpromiseRequest $request
+     *
+     * @return ResumeTradeUserpromiseResponse
+     */
+    public function resumeTradeUserpromise($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->resumeTradeUserpromiseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣计划重启
+     * Summary: 代扣计划重启.
+     *
+     * @param ResumeTradeUserpromiseRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return ResumeTradeUserpromiseResponse
+     */
+    public function resumeTradeUserpromiseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ResumeTradeUserpromiseResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.userpromise.resume', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
