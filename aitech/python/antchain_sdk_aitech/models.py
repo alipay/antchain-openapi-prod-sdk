@@ -2747,6 +2747,157 @@ class CallbackAliyunAuditResponse(TeaModel):
         return self
 
 
+class QueryAicoguardcloudAdbsinkRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        region_id: str = None,
+        db_instance_id: str = None,
+        name_space: str = None,
+        name_space_password: str = None,
+        collection_name: str = None,
+        content: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 区域id
+        self.region_id = region_id
+        # DB实例id
+        self.db_instance_id = db_instance_id
+        # 数据库空间名称
+        self.name_space = name_space
+        # 数据库空间密码
+        self.name_space_password = name_space_password
+        # 数据库表名
+        self.collection_name = collection_name
+        # 查询的内容
+        self.content = content
+
+    def validate(self):
+        self.validate_required(self.region_id, 'region_id')
+        self.validate_required(self.db_instance_id, 'db_instance_id')
+        self.validate_required(self.name_space, 'name_space')
+        self.validate_required(self.name_space_password, 'name_space_password')
+        self.validate_required(self.collection_name, 'collection_name')
+        self.validate_required(self.content, 'content')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        if self.db_instance_id is not None:
+            result['db_instance_id'] = self.db_instance_id
+        if self.name_space is not None:
+            result['name_space'] = self.name_space
+        if self.name_space_password is not None:
+            result['name_space_password'] = self.name_space_password
+        if self.collection_name is not None:
+            result['collection_name'] = self.collection_name
+        if self.content is not None:
+            result['content'] = self.content
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
+        if m.get('db_instance_id') is not None:
+            self.db_instance_id = m.get('db_instance_id')
+        if m.get('name_space') is not None:
+            self.name_space = m.get('name_space')
+        if m.get('name_space_password') is not None:
+            self.name_space_password = m.get('name_space_password')
+        if m.get('collection_name') is not None:
+            self.collection_name = m.get('collection_name')
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        return self
+
+
+class QueryAicoguardcloudAdbsinkResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        question: str = None,
+        answer: str = None,
+        score: str = None,
+        request_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求的问题
+        self.question = question
+        # 代答结果
+        self.answer = answer
+        # 匹配度分数
+        self.score = score
+        # adb的请求id
+        self.request_id = request_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.question is not None:
+            result['question'] = self.question
+        if self.answer is not None:
+            result['answer'] = self.answer
+        if self.score is not None:
+            result['score'] = self.score
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('question') is not None:
+            self.question = m.get('question')
+        if m.get('answer') is not None:
+            self.answer = m.get('answer')
+        if m.get('score') is not None:
+            self.score = m.get('score')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        return self
+
+
 class QueryGuardcoreRedgptRequest(TeaModel):
     def __init__(
         self,
