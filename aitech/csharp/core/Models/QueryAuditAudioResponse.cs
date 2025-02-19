@@ -24,11 +24,6 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-        [NameInMap("request_id")]
-        [Validation(Required=false)]
-        public string RequestId { get; set; }
-
         // 音频审核结果
         [NameInMap("result")]
         [Validation(Required=false)]

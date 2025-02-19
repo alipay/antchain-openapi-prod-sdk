@@ -30,16 +30,16 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=true)]
         public string Scene { get; set; }
 
+        // 数据Id，调用方入审数据的唯一Id
+        [NameInMap("data_id")]
+        [Validation(Required=true)]
+        public string DataId { get; set; }
+
         // 客户业务ID
         // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
         [NameInMap("business_id")]
         [Validation(Required=false)]
         public string BusinessId { get; set; }
-
-        // 数据Id，调用方入审数据的唯一Id
-        [NameInMap("data_id")]
-        [Validation(Required=true)]
-        public string DataId { get; set; }
 
     }
 

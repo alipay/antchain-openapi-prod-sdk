@@ -24,11 +24,6 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 请求ID，必须唯一
-        [NameInMap("request_id")]
-        [Validation(Required=false)]
-        public string RequestId { get; set; }
-
         // 任务ID，必须唯一
         [NameInMap("task_id")]
         [Validation(Required=false)]

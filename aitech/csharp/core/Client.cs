@@ -137,7 +137,7 @@ namespace AntChain.SDK.AITECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.9"},
+                        {"sdk_version", "1.1.10"},
                         {"_prod_code", "AITECH"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.AITECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.9"},
+                        {"sdk_version", "1.1.10"},
                         {"_prod_code", "AITECH"},
                         {"_prod_channel", "default"},
                     };
@@ -1117,6 +1117,48 @@ namespace AntChain.SDK.AITECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryGuardcoreRedgptResponse>(await DoRequestAsync("1.0", "aitech.comm.guardcore.redgpt.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 阿里云ADB调用接口
+         * Summary: 阿里云ADB调用接口
+         */
+        public QueryAicoguardAdbsinkResponse QueryAicoguardAdbsink(QueryAicoguardAdbsinkRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAicoguardAdbsinkEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 阿里云ADB调用接口
+         * Summary: 阿里云ADB调用接口
+         */
+        public async Task<QueryAicoguardAdbsinkResponse> QueryAicoguardAdbsinkAsync(QueryAicoguardAdbsinkRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAicoguardAdbsinkExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 阿里云ADB调用接口
+         * Summary: 阿里云ADB调用接口
+         */
+        public QueryAicoguardAdbsinkResponse QueryAicoguardAdbsinkEx(QueryAicoguardAdbsinkRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAicoguardAdbsinkResponse>(DoRequest("1.0", "aitech.comm.aicoguard.adbsink.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 阿里云ADB调用接口
+         * Summary: 阿里云ADB调用接口
+         */
+        public async Task<QueryAicoguardAdbsinkResponse> QueryAicoguardAdbsinkExAsync(QueryAicoguardAdbsinkRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAicoguardAdbsinkResponse>(await DoRequestAsync("1.0", "aitech.comm.aicoguard.adbsink.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

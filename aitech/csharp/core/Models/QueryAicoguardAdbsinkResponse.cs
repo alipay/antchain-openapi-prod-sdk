@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.AITECH.Models
 {
-    public class SubmitAuditImageResponse : TeaModel {
+    public class QueryAicoguardAdbsinkResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,16 +24,25 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 任务ID
-        [NameInMap("task_id")]
+        // 请求的问题
+        [NameInMap("question")]
         [Validation(Required=false)]
-        public string TaskId { get; set; }
+        public string Question { get; set; }
 
-        // 检测对象对应的数据ID。
-        // 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
-        [NameInMap("data_id")]
+        // 代答结果
+        [NameInMap("answer")]
         [Validation(Required=false)]
-        public string DataId { get; set; }
+        public string Answer { get; set; }
+
+        // 匹配度分数
+        [NameInMap("score")]
+        [Validation(Required=false)]
+        public string Score { get; set; }
+
+        // adb的请求id
+        [NameInMap("request_id")]
+        [Validation(Required=false)]
+        public string RequestId { get; set; }
 
     }
 

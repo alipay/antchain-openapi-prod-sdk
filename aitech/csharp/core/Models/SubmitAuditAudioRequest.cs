@@ -30,17 +30,17 @@ namespace AntChain.SDK.AITECH.Models
         [Validation(Required=true)]
         public string Scene { get; set; }
 
-        // 客户业务ID。
-        // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-        [NameInMap("business_id")]
-        [Validation(Required=true)]
-        public string BusinessId { get; set; }
-
         // 检测对象对应的数据ID。
         // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
         [NameInMap("data_id")]
         [Validation(Required=true)]
         public string DataId { get; set; }
+
+        // 客户业务ID。
+        // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+        [NameInMap("business_id")]
+        [Validation(Required=false)]
+        public string BusinessId { get; set; }
 
         // 结果通知地址，不指定时需要调用方主动查询结果
         [NameInMap("callback")]
