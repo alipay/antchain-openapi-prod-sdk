@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.11',
+                    'sdk_version': '1.13.11',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.11',
+                    'sdk_version': '1.13.11',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -1597,6 +1597,118 @@ class Client:
         return TeaCore.from_map(
             ato_models.GetFundOrderfinanceinfoResponse(),
             await self.do_request_async('1.0', 'antchain.ato.fund.orderfinanceinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_fund_dividerelation(
+        self,
+        request: ato_models.AddFundDividerelationRequest,
+    ) -> ato_models.AddFundDividerelationResponse:
+        """
+        Description: 添加分账绑定关系
+        Summary: 添加分账绑定关系
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_fund_dividerelation_ex(request, headers, runtime)
+
+    async def add_fund_dividerelation_async(
+        self,
+        request: ato_models.AddFundDividerelationRequest,
+    ) -> ato_models.AddFundDividerelationResponse:
+        """
+        Description: 添加分账绑定关系
+        Summary: 添加分账绑定关系
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_fund_dividerelation_ex_async(request, headers, runtime)
+
+    def add_fund_dividerelation_ex(
+        self,
+        request: ato_models.AddFundDividerelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.AddFundDividerelationResponse:
+        """
+        Description: 添加分账绑定关系
+        Summary: 添加分账绑定关系
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.AddFundDividerelationResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.dividerelation.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_fund_dividerelation_ex_async(
+        self,
+        request: ato_models.AddFundDividerelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.AddFundDividerelationResponse:
+        """
+        Description: 添加分账绑定关系
+        Summary: 添加分账绑定关系
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.AddFundDividerelationResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.dividerelation.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_fund_dividerelation(
+        self,
+        request: ato_models.QueryFundDividerelationRequest,
+    ) -> ato_models.QueryFundDividerelationResponse:
+        """
+        Description: 分账绑定关系查询
+        Summary: 分账绑定关系查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_fund_dividerelation_ex(request, headers, runtime)
+
+    async def query_fund_dividerelation_async(
+        self,
+        request: ato_models.QueryFundDividerelationRequest,
+    ) -> ato_models.QueryFundDividerelationResponse:
+        """
+        Description: 分账绑定关系查询
+        Summary: 分账绑定关系查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_fund_dividerelation_ex_async(request, headers, runtime)
+
+    def query_fund_dividerelation_ex(
+        self,
+        request: ato_models.QueryFundDividerelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryFundDividerelationResponse:
+        """
+        Description: 分账绑定关系查询
+        Summary: 分账绑定关系查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryFundDividerelationResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.dividerelation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_fund_dividerelation_ex_async(
+        self,
+        request: ato_models.QueryFundDividerelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryFundDividerelationResponse:
+        """
+        Description: 分账绑定关系查询
+        Summary: 分账绑定关系查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryFundDividerelationResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.dividerelation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_inner_product(
@@ -5859,6 +5971,118 @@ class Client:
             await self.do_request_async('1.0', 'antchain.ato.merchantexpand.merchant.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def add_merchantexpand_dividerelation(
+        self,
+        request: ato_models.AddMerchantexpandDividerelationRequest,
+    ) -> ato_models.AddMerchantexpandDividerelationResponse:
+        """
+        Description: 添加分账绑定关系
+        Summary: 添加分账绑定关系
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_merchantexpand_dividerelation_ex(request, headers, runtime)
+
+    async def add_merchantexpand_dividerelation_async(
+        self,
+        request: ato_models.AddMerchantexpandDividerelationRequest,
+    ) -> ato_models.AddMerchantexpandDividerelationResponse:
+        """
+        Description: 添加分账绑定关系
+        Summary: 添加分账绑定关系
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_merchantexpand_dividerelation_ex_async(request, headers, runtime)
+
+    def add_merchantexpand_dividerelation_ex(
+        self,
+        request: ato_models.AddMerchantexpandDividerelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.AddMerchantexpandDividerelationResponse:
+        """
+        Description: 添加分账绑定关系
+        Summary: 添加分账绑定关系
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.AddMerchantexpandDividerelationResponse(),
+            self.do_request('1.0', 'antchain.ato.merchantexpand.dividerelation.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_merchantexpand_dividerelation_ex_async(
+        self,
+        request: ato_models.AddMerchantexpandDividerelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.AddMerchantexpandDividerelationResponse:
+        """
+        Description: 添加分账绑定关系
+        Summary: 添加分账绑定关系
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.AddMerchantexpandDividerelationResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.merchantexpand.dividerelation.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_merchantexpand_dividerelation(
+        self,
+        request: ato_models.QueryMerchantexpandDividerelationRequest,
+    ) -> ato_models.QueryMerchantexpandDividerelationResponse:
+        """
+        Description: 分账绑定关系查询
+        Summary: 分账绑定关系查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_merchantexpand_dividerelation_ex(request, headers, runtime)
+
+    async def query_merchantexpand_dividerelation_async(
+        self,
+        request: ato_models.QueryMerchantexpandDividerelationRequest,
+    ) -> ato_models.QueryMerchantexpandDividerelationResponse:
+        """
+        Description: 分账绑定关系查询
+        Summary: 分账绑定关系查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_merchantexpand_dividerelation_ex_async(request, headers, runtime)
+
+    def query_merchantexpand_dividerelation_ex(
+        self,
+        request: ato_models.QueryMerchantexpandDividerelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryMerchantexpandDividerelationResponse:
+        """
+        Description: 分账绑定关系查询
+        Summary: 分账绑定关系查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryMerchantexpandDividerelationResponse(),
+            self.do_request('1.0', 'antchain.ato.merchantexpand.dividerelation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_merchantexpand_dividerelation_ex_async(
+        self,
+        request: ato_models.QueryMerchantexpandDividerelationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryMerchantexpandDividerelationResponse:
+        """
+        Description: 分账绑定关系查询
+        Summary: 分账绑定关系查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryMerchantexpandDividerelationResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.merchantexpand.dividerelation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def create_realperson_facevrf(
         self,
         request: ato_models.CreateRealpersonFacevrfRequest,
@@ -6081,6 +6305,62 @@ class Client:
         return TeaCore.from_map(
             ato_models.QueryRiskGoResponse(),
             await self.do_request_async('1.0', 'antchain.ato.risk.go.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_inner_riskcall(
+        self,
+        request: ato_models.UploadInnerRiskcallRequest,
+    ) -> ato_models.UploadInnerRiskcallResponse:
+        """
+        Description: 小程序云调用，上报计量信息
+        Summary: 小程序云调用，上报计量信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_inner_riskcall_ex(request, headers, runtime)
+
+    async def upload_inner_riskcall_async(
+        self,
+        request: ato_models.UploadInnerRiskcallRequest,
+    ) -> ato_models.UploadInnerRiskcallResponse:
+        """
+        Description: 小程序云调用，上报计量信息
+        Summary: 小程序云调用，上报计量信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_inner_riskcall_ex_async(request, headers, runtime)
+
+    def upload_inner_riskcall_ex(
+        self,
+        request: ato_models.UploadInnerRiskcallRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UploadInnerRiskcallResponse:
+        """
+        Description: 小程序云调用，上报计量信息
+        Summary: 小程序云调用，上报计量信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UploadInnerRiskcallResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.riskcall.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_inner_riskcall_ex_async(
+        self,
+        request: ato_models.UploadInnerRiskcallRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UploadInnerRiskcallResponse:
+        """
+        Description: 小程序云调用，上报计量信息
+        Summary: 小程序云调用，上报计量信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UploadInnerRiskcallResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.riskcall.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def all_sign_template(
@@ -7665,6 +7945,174 @@ class Client:
         return TeaCore.from_map(
             ato_models.GetTradeOrderfinanceinfoResponse(),
             await self.do_request_async('1.0', 'antchain.ato.trade.orderfinanceinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_trade_userpromisedelay(
+        self,
+        request: ato_models.SyncTradeUserpromisedelayRequest,
+    ) -> ato_models.SyncTradeUserpromisedelayResponse:
+        """
+        Description: 订单代扣计划延期
+        Summary: 订单代扣计划延期
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_trade_userpromisedelay_ex(request, headers, runtime)
+
+    async def sync_trade_userpromisedelay_async(
+        self,
+        request: ato_models.SyncTradeUserpromisedelayRequest,
+    ) -> ato_models.SyncTradeUserpromisedelayResponse:
+        """
+        Description: 订单代扣计划延期
+        Summary: 订单代扣计划延期
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_trade_userpromisedelay_ex_async(request, headers, runtime)
+
+    def sync_trade_userpromisedelay_ex(
+        self,
+        request: ato_models.SyncTradeUserpromisedelayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SyncTradeUserpromisedelayResponse:
+        """
+        Description: 订单代扣计划延期
+        Summary: 订单代扣计划延期
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SyncTradeUserpromisedelayResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.userpromisedelay.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_trade_userpromisedelay_ex_async(
+        self,
+        request: ato_models.SyncTradeUserpromisedelayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SyncTradeUserpromisedelayResponse:
+        """
+        Description: 订单代扣计划延期
+        Summary: 订单代扣计划延期
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SyncTradeUserpromisedelayResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.userpromisedelay.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pause_trade_userpromise(
+        self,
+        request: ato_models.PauseTradeUserpromiseRequest,
+    ) -> ato_models.PauseTradeUserpromiseResponse:
+        """
+        Description: 订单代扣计划暂停
+        Summary: 订单代扣计划暂停
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pause_trade_userpromise_ex(request, headers, runtime)
+
+    async def pause_trade_userpromise_async(
+        self,
+        request: ato_models.PauseTradeUserpromiseRequest,
+    ) -> ato_models.PauseTradeUserpromiseResponse:
+        """
+        Description: 订单代扣计划暂停
+        Summary: 订单代扣计划暂停
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pause_trade_userpromise_ex_async(request, headers, runtime)
+
+    def pause_trade_userpromise_ex(
+        self,
+        request: ato_models.PauseTradeUserpromiseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PauseTradeUserpromiseResponse:
+        """
+        Description: 订单代扣计划暂停
+        Summary: 订单代扣计划暂停
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PauseTradeUserpromiseResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.userpromise.pause', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pause_trade_userpromise_ex_async(
+        self,
+        request: ato_models.PauseTradeUserpromiseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PauseTradeUserpromiseResponse:
+        """
+        Description: 订单代扣计划暂停
+        Summary: 订单代扣计划暂停
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PauseTradeUserpromiseResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.userpromise.pause', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def resume_trade_userpromise(
+        self,
+        request: ato_models.ResumeTradeUserpromiseRequest,
+    ) -> ato_models.ResumeTradeUserpromiseResponse:
+        """
+        Description: 代扣计划重启
+        Summary: 代扣计划重启
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.resume_trade_userpromise_ex(request, headers, runtime)
+
+    async def resume_trade_userpromise_async(
+        self,
+        request: ato_models.ResumeTradeUserpromiseRequest,
+    ) -> ato_models.ResumeTradeUserpromiseResponse:
+        """
+        Description: 代扣计划重启
+        Summary: 代扣计划重启
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.resume_trade_userpromise_ex_async(request, headers, runtime)
+
+    def resume_trade_userpromise_ex(
+        self,
+        request: ato_models.ResumeTradeUserpromiseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.ResumeTradeUserpromiseResponse:
+        """
+        Description: 代扣计划重启
+        Summary: 代扣计划重启
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.ResumeTradeUserpromiseResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.userpromise.resume', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def resume_trade_userpromise_ex_async(
+        self,
+        request: ato_models.ResumeTradeUserpromiseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.ResumeTradeUserpromiseResponse:
+        """
+        Description: 代扣计划重启
+        Summary: 代扣计划重启
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.ResumeTradeUserpromiseResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.userpromise.resume', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_withhold_sign(
