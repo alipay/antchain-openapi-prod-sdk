@@ -2203,6 +2203,132 @@ func (s *CallbackAliyunAuditResponse) SetErrorMessage(v string) *CallbackAliyunA
 	return s
 }
 
+type QueryAicoguardcloudAdbsinkRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 区域id
+	RegionId *string `json:"region_id,omitempty" xml:"region_id,omitempty" require:"true"`
+	// DB实例id
+	DbInstanceId *string `json:"db_instance_id,omitempty" xml:"db_instance_id,omitempty" require:"true"`
+	// 数据库空间名称
+	NameSpace *string `json:"name_space,omitempty" xml:"name_space,omitempty" require:"true"`
+	// 数据库空间密码
+	NameSpacePassword *string `json:"name_space_password,omitempty" xml:"name_space_password,omitempty" require:"true"`
+	// 数据库表名
+	CollectionName *string `json:"collection_name,omitempty" xml:"collection_name,omitempty" require:"true"`
+	// 查询的内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+}
+
+func (s QueryAicoguardcloudAdbsinkRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAicoguardcloudAdbsinkRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAicoguardcloudAdbsinkRequest) SetAuthToken(v string) *QueryAicoguardcloudAdbsinkRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAicoguardcloudAdbsinkRequest) SetProductInstanceId(v string) *QueryAicoguardcloudAdbsinkRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAicoguardcloudAdbsinkRequest) SetRegionId(v string) *QueryAicoguardcloudAdbsinkRequest {
+	s.RegionId = &v
+	return s
+}
+
+func (s *QueryAicoguardcloudAdbsinkRequest) SetDbInstanceId(v string) *QueryAicoguardcloudAdbsinkRequest {
+	s.DbInstanceId = &v
+	return s
+}
+
+func (s *QueryAicoguardcloudAdbsinkRequest) SetNameSpace(v string) *QueryAicoguardcloudAdbsinkRequest {
+	s.NameSpace = &v
+	return s
+}
+
+func (s *QueryAicoguardcloudAdbsinkRequest) SetNameSpacePassword(v string) *QueryAicoguardcloudAdbsinkRequest {
+	s.NameSpacePassword = &v
+	return s
+}
+
+func (s *QueryAicoguardcloudAdbsinkRequest) SetCollectionName(v string) *QueryAicoguardcloudAdbsinkRequest {
+	s.CollectionName = &v
+	return s
+}
+
+func (s *QueryAicoguardcloudAdbsinkRequest) SetContent(v string) *QueryAicoguardcloudAdbsinkRequest {
+	s.Content = &v
+	return s
+}
+
+type QueryAicoguardcloudAdbsinkResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求的问题
+	Question *string `json:"question,omitempty" xml:"question,omitempty"`
+	// 代答结果
+	Answer *string `json:"answer,omitempty" xml:"answer,omitempty"`
+	// 匹配度分数
+	Score *string `json:"score,omitempty" xml:"score,omitempty"`
+	// adb的请求id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+}
+
+func (s QueryAicoguardcloudAdbsinkResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAicoguardcloudAdbsinkResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAicoguardcloudAdbsinkResponse) SetReqMsgId(v string) *QueryAicoguardcloudAdbsinkResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAicoguardcloudAdbsinkResponse) SetResultCode(v string) *QueryAicoguardcloudAdbsinkResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAicoguardcloudAdbsinkResponse) SetResultMsg(v string) *QueryAicoguardcloudAdbsinkResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAicoguardcloudAdbsinkResponse) SetQuestion(v string) *QueryAicoguardcloudAdbsinkResponse {
+	s.Question = &v
+	return s
+}
+
+func (s *QueryAicoguardcloudAdbsinkResponse) SetAnswer(v string) *QueryAicoguardcloudAdbsinkResponse {
+	s.Answer = &v
+	return s
+}
+
+func (s *QueryAicoguardcloudAdbsinkResponse) SetScore(v string) *QueryAicoguardcloudAdbsinkResponse {
+	s.Score = &v
+	return s
+}
+
+func (s *QueryAicoguardcloudAdbsinkResponse) SetRequestId(v string) *QueryAicoguardcloudAdbsinkResponse {
+	s.RequestId = &v
+	return s
+}
+
 type QueryGuardcoreRedgptRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2570,7 +2696,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.10"),
+				"sdk_version":      tea.String("1.1.11"),
 				"_prod_code":       tea.String("AITECH"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -3233,6 +3359,40 @@ func (client *Client) CallbackAliyunAuditEx(request *CallbackAliyunAuditRequest,
 	}
 	_result = &CallbackAliyunAuditResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.aliyun.audit.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 阿里云ADB调用接口
+ * Summary: 阿里云ADB调用接口
+ */
+func (client *Client) QueryAicoguardcloudAdbsink(request *QueryAicoguardcloudAdbsinkRequest) (_result *QueryAicoguardcloudAdbsinkResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAicoguardcloudAdbsinkResponse{}
+	_body, _err := client.QueryAicoguardcloudAdbsinkEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 阿里云ADB调用接口
+ * Summary: 阿里云ADB调用接口
+ */
+func (client *Client) QueryAicoguardcloudAdbsinkEx(request *QueryAicoguardcloudAdbsinkRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAicoguardcloudAdbsinkResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAicoguardcloudAdbsinkResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.aicoguardcloud.adbsink.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
