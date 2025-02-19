@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.12"},
+                        {"sdk_version", "1.4.0"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.12"},
+                        {"sdk_version", "1.4.0"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -3159,6 +3159,216 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetAntchainAtoFundOrderfinanceinfoResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.orderfinanceinfo.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 订单代扣计划延期
+         * Summary: 订单代扣计划延期
+         */
+        public SyncAntchainAtoTradeUserpromisedelayResponse SyncAntchainAtoTradeUserpromisedelay(SyncAntchainAtoTradeUserpromisedelayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncAntchainAtoTradeUserpromisedelayEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 订单代扣计划延期
+         * Summary: 订单代扣计划延期
+         */
+        public async Task<SyncAntchainAtoTradeUserpromisedelayResponse> SyncAntchainAtoTradeUserpromisedelayAsync(SyncAntchainAtoTradeUserpromisedelayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncAntchainAtoTradeUserpromisedelayExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 订单代扣计划延期
+         * Summary: 订单代扣计划延期
+         */
+        public SyncAntchainAtoTradeUserpromisedelayResponse SyncAntchainAtoTradeUserpromisedelayEx(SyncAntchainAtoTradeUserpromisedelayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncAntchainAtoTradeUserpromisedelayResponse>(DoRequest("1.0", "antchain.ato.trade.userpromisedelay.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 订单代扣计划延期
+         * Summary: 订单代扣计划延期
+         */
+        public async Task<SyncAntchainAtoTradeUserpromisedelayResponse> SyncAntchainAtoTradeUserpromisedelayExAsync(SyncAntchainAtoTradeUserpromisedelayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncAntchainAtoTradeUserpromisedelayResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.userpromisedelay.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 订单代扣计划暂停
+         * Summary: 订单代扣计划暂停
+         */
+        public PauseAntchainAtoTradeUserpromiseResponse PauseAntchainAtoTradeUserpromise(PauseAntchainAtoTradeUserpromiseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PauseAntchainAtoTradeUserpromiseEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 订单代扣计划暂停
+         * Summary: 订单代扣计划暂停
+         */
+        public async Task<PauseAntchainAtoTradeUserpromiseResponse> PauseAntchainAtoTradeUserpromiseAsync(PauseAntchainAtoTradeUserpromiseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PauseAntchainAtoTradeUserpromiseExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 订单代扣计划暂停
+         * Summary: 订单代扣计划暂停
+         */
+        public PauseAntchainAtoTradeUserpromiseResponse PauseAntchainAtoTradeUserpromiseEx(PauseAntchainAtoTradeUserpromiseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PauseAntchainAtoTradeUserpromiseResponse>(DoRequest("1.0", "antchain.ato.trade.userpromise.pause", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 订单代扣计划暂停
+         * Summary: 订单代扣计划暂停
+         */
+        public async Task<PauseAntchainAtoTradeUserpromiseResponse> PauseAntchainAtoTradeUserpromiseExAsync(PauseAntchainAtoTradeUserpromiseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PauseAntchainAtoTradeUserpromiseResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.userpromise.pause", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代扣计划重启
+         * Summary: 代扣计划重启
+         */
+        public ResumeAntchainAtoTradeUserpromiseResponse ResumeAntchainAtoTradeUserpromise(ResumeAntchainAtoTradeUserpromiseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ResumeAntchainAtoTradeUserpromiseEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代扣计划重启
+         * Summary: 代扣计划重启
+         */
+        public async Task<ResumeAntchainAtoTradeUserpromiseResponse> ResumeAntchainAtoTradeUserpromiseAsync(ResumeAntchainAtoTradeUserpromiseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ResumeAntchainAtoTradeUserpromiseExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代扣计划重启
+         * Summary: 代扣计划重启
+         */
+        public ResumeAntchainAtoTradeUserpromiseResponse ResumeAntchainAtoTradeUserpromiseEx(ResumeAntchainAtoTradeUserpromiseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResumeAntchainAtoTradeUserpromiseResponse>(DoRequest("1.0", "antchain.ato.trade.userpromise.resume", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代扣计划重启
+         * Summary: 代扣计划重启
+         */
+        public async Task<ResumeAntchainAtoTradeUserpromiseResponse> ResumeAntchainAtoTradeUserpromiseExAsync(ResumeAntchainAtoTradeUserpromiseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResumeAntchainAtoTradeUserpromiseResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.userpromise.resume", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 添加分账绑定关系
+         * Summary: 添加分账绑定关系
+         */
+        public AddAntchainAtoMerchantexpandDividerelationResponse AddAntchainAtoMerchantexpandDividerelation(AddAntchainAtoMerchantexpandDividerelationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddAntchainAtoMerchantexpandDividerelationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 添加分账绑定关系
+         * Summary: 添加分账绑定关系
+         */
+        public async Task<AddAntchainAtoMerchantexpandDividerelationResponse> AddAntchainAtoMerchantexpandDividerelationAsync(AddAntchainAtoMerchantexpandDividerelationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddAntchainAtoMerchantexpandDividerelationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 添加分账绑定关系
+         * Summary: 添加分账绑定关系
+         */
+        public AddAntchainAtoMerchantexpandDividerelationResponse AddAntchainAtoMerchantexpandDividerelationEx(AddAntchainAtoMerchantexpandDividerelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddAntchainAtoMerchantexpandDividerelationResponse>(DoRequest("1.0", "antchain.ato.merchantexpand.dividerelation.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 添加分账绑定关系
+         * Summary: 添加分账绑定关系
+         */
+        public async Task<AddAntchainAtoMerchantexpandDividerelationResponse> AddAntchainAtoMerchantexpandDividerelationExAsync(AddAntchainAtoMerchantexpandDividerelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddAntchainAtoMerchantexpandDividerelationResponse>(await DoRequestAsync("1.0", "antchain.ato.merchantexpand.dividerelation.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分账绑定关系查询
+         * Summary: 分账绑定关系查询
+         */
+        public QueryAntchainAtoMerchantexpandDividerelationResponse QueryAntchainAtoMerchantexpandDividerelation(QueryAntchainAtoMerchantexpandDividerelationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntchainAtoMerchantexpandDividerelationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分账绑定关系查询
+         * Summary: 分账绑定关系查询
+         */
+        public async Task<QueryAntchainAtoMerchantexpandDividerelationResponse> QueryAntchainAtoMerchantexpandDividerelationAsync(QueryAntchainAtoMerchantexpandDividerelationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntchainAtoMerchantexpandDividerelationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分账绑定关系查询
+         * Summary: 分账绑定关系查询
+         */
+        public QueryAntchainAtoMerchantexpandDividerelationResponse QueryAntchainAtoMerchantexpandDividerelationEx(QueryAntchainAtoMerchantexpandDividerelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainAtoMerchantexpandDividerelationResponse>(DoRequest("1.0", "antchain.ato.merchantexpand.dividerelation.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分账绑定关系查询
+         * Summary: 分账绑定关系查询
+         */
+        public async Task<QueryAntchainAtoMerchantexpandDividerelationResponse> QueryAntchainAtoMerchantexpandDividerelationExAsync(QueryAntchainAtoMerchantexpandDividerelationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainAtoMerchantexpandDividerelationResponse>(await DoRequestAsync("1.0", "antchain.ato.merchantexpand.dividerelation.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
