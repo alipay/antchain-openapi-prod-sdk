@@ -20,6 +20,15 @@ public class AllAntchainAtoSignTemplateRequest extends TeaModel {
     @Validation(maxLength = 42)
     public String merchantId;
 
+    // 查询融资类型时，需要传入资方统一社会信用代码
+    @NameInMap("fund_id")
+    public String fundId;
+
+    // -FINANCE 融资
+    // -NON_FINANCE 非融资
+    @NameInMap("fund_type")
+    public String fundType;
+
     // 模板id
     @NameInMap("template_id")
     public String templateId;
@@ -59,6 +68,22 @@ public class AllAntchainAtoSignTemplateRequest extends TeaModel {
     }
     public String getMerchantId() {
         return this.merchantId;
+    }
+
+    public AllAntchainAtoSignTemplateRequest setFundId(String fundId) {
+        this.fundId = fundId;
+        return this;
+    }
+    public String getFundId() {
+        return this.fundId;
+    }
+
+    public AllAntchainAtoSignTemplateRequest setFundType(String fundType) {
+        this.fundType = fundType;
+        return this;
+    }
+    public String getFundType() {
+        return this.fundType;
     }
 
     public AllAntchainAtoSignTemplateRequest setTemplateId(String templateId) {
