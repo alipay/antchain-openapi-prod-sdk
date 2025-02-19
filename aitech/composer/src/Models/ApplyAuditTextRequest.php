@@ -31,31 +31,30 @@ class ApplyAuditTextRequest extends Model
      */
     public $scene;
 
-    // 客户业务ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-    /**
-     * @var string
-     */
-    public $businessId;
-
     // 检测对象对应的数据ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
     /**
      * @var string
      */
     public $dataId;
+
+    // 客户业务ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+    /**
+     * @var string
+     */
+    public $businessId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'content'           => 'content',
         'scene'             => 'scene',
-        'businessId'        => 'business_id',
         'dataId'            => 'data_id',
+        'businessId'        => 'business_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('content', $this->content, true);
         Model::validateRequired('scene', $this->scene, true);
-        Model::validateRequired('businessId', $this->businessId, true);
         Model::validateRequired('dataId', $this->dataId, true);
     }
 
@@ -74,11 +73,11 @@ class ApplyAuditTextRequest extends Model
         if (null !== $this->scene) {
             $res['scene'] = $this->scene;
         }
-        if (null !== $this->businessId) {
-            $res['business_id'] = $this->businessId;
-        }
         if (null !== $this->dataId) {
             $res['data_id'] = $this->dataId;
+        }
+        if (null !== $this->businessId) {
+            $res['business_id'] = $this->businessId;
         }
 
         return $res;
@@ -104,11 +103,11 @@ class ApplyAuditTextRequest extends Model
         if (isset($map['scene'])) {
             $model->scene = $map['scene'];
         }
-        if (isset($map['business_id'])) {
-            $model->businessId = $map['business_id'];
-        }
         if (isset($map['data_id'])) {
             $model->dataId = $map['data_id'];
+        }
+        if (isset($map['business_id'])) {
+            $model->businessId = $map['business_id'];
         }
 
         return $model;

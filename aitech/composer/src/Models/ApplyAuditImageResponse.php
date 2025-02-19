@@ -26,12 +26,6 @@ class ApplyAuditImageResponse extends Model
      */
     public $resultMsg;
 
-    // 请求ID，必须唯一
-    /**
-     * @var string
-     */
-    public $requestId;
-
     // 任务ID，必须唯一
     /**
      * @var string
@@ -59,7 +53,6 @@ class ApplyAuditImageResponse extends Model
         'reqMsgId'    => 'req_msg_id',
         'resultCode'  => 'result_code',
         'resultMsg'   => 'result_msg',
-        'requestId'   => 'request_id',
         'taskId'      => 'task_id',
         'dataId'      => 'data_id',
         'contentType' => 'content_type',
@@ -81,9 +74,6 @@ class ApplyAuditImageResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->requestId) {
-            $res['request_id'] = $this->requestId;
         }
         if (null !== $this->taskId) {
             $res['task_id'] = $this->taskId;
@@ -117,9 +107,6 @@ class ApplyAuditImageResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['request_id'])) {
-            $model->requestId = $map['request_id'];
         }
         if (isset($map['task_id'])) {
             $model->taskId = $map['task_id'];

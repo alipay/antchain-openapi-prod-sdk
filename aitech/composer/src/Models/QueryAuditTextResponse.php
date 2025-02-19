@@ -26,12 +26,6 @@ class QueryAuditTextResponse extends Model
      */
     public $resultMsg;
 
-    // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
-    /**
-     * @var string
-     */
-    public $requestId;
-
     // 文本审核结果
     /**
      * @var string
@@ -41,7 +35,6 @@ class QueryAuditTextResponse extends Model
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'requestId'  => 'request_id',
         'result'     => 'result',
     ];
 
@@ -60,9 +53,6 @@ class QueryAuditTextResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->requestId) {
-            $res['request_id'] = $this->requestId;
         }
         if (null !== $this->result) {
             $res['result'] = $this->result;
@@ -87,9 +77,6 @@ class QueryAuditTextResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['request_id'])) {
-            $model->requestId = $map['request_id'];
         }
         if (isset($map['result'])) {
             $model->result = $map['result'];

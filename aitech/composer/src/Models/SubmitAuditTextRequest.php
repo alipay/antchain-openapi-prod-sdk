@@ -25,17 +25,23 @@ class SubmitAuditTextRequest extends Model
      */
     public $content;
 
-    // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+    // 审核场景码，该接口固定输入BASE_TEXT_AUDIT，其他值无效
     /**
      * @var string
      */
-    public $businessId;
+    public $scene;
 
     // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
     /**
      * @var string
      */
     public $dataId;
+
+    // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+    /**
+     * @var string
+     */
+    public $businessId;
 
     // 结果通知地址，不指定时需要调用方主动查询结果
     /**
@@ -48,29 +54,22 @@ class SubmitAuditTextRequest extends Model
      * @var string
      */
     public $seed;
-
-    // 审核场景码，该接口固定输入BASE_TEXT_AUDIT，其他值无效
-    /**
-     * @var string
-     */
-    public $scene;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'content'           => 'content',
-        'businessId'        => 'business_id',
+        'scene'             => 'scene',
         'dataId'            => 'data_id',
+        'businessId'        => 'business_id',
         'callback'          => 'callback',
         'seed'              => 'seed',
-        'scene'             => 'scene',
     ];
 
     public function validate()
     {
         Model::validateRequired('content', $this->content, true);
-        Model::validateRequired('businessId', $this->businessId, true);
-        Model::validateRequired('dataId', $this->dataId, true);
         Model::validateRequired('scene', $this->scene, true);
+        Model::validateRequired('dataId', $this->dataId, true);
     }
 
     public function toMap()
@@ -85,20 +84,20 @@ class SubmitAuditTextRequest extends Model
         if (null !== $this->content) {
             $res['content'] = $this->content;
         }
-        if (null !== $this->businessId) {
-            $res['business_id'] = $this->businessId;
+        if (null !== $this->scene) {
+            $res['scene'] = $this->scene;
         }
         if (null !== $this->dataId) {
             $res['data_id'] = $this->dataId;
+        }
+        if (null !== $this->businessId) {
+            $res['business_id'] = $this->businessId;
         }
         if (null !== $this->callback) {
             $res['callback'] = $this->callback;
         }
         if (null !== $this->seed) {
             $res['seed'] = $this->seed;
-        }
-        if (null !== $this->scene) {
-            $res['scene'] = $this->scene;
         }
 
         return $res;
@@ -121,20 +120,20 @@ class SubmitAuditTextRequest extends Model
         if (isset($map['content'])) {
             $model->content = $map['content'];
         }
-        if (isset($map['business_id'])) {
-            $model->businessId = $map['business_id'];
+        if (isset($map['scene'])) {
+            $model->scene = $map['scene'];
         }
         if (isset($map['data_id'])) {
             $model->dataId = $map['data_id'];
+        }
+        if (isset($map['business_id'])) {
+            $model->businessId = $map['business_id'];
         }
         if (isset($map['callback'])) {
             $model->callback = $map['callback'];
         }
         if (isset($map['seed'])) {
             $model->seed = $map['seed'];
-        }
-        if (isset($map['scene'])) {
-            $model->scene = $map['scene'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\AITECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SubmitAuditImageResponse extends Model
+class QueryAicoguardAdbsinkResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,24 +26,37 @@ class SubmitAuditImageResponse extends Model
      */
     public $resultMsg;
 
-    // 任务ID
+    // 请求的问题
     /**
      * @var string
      */
-    public $taskId;
+    public $question;
 
-    // 检测对象对应的数据ID。
-    // 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
+    // 代答结果
     /**
      * @var string
      */
-    public $dataId;
+    public $answer;
+
+    // 匹配度分数
+    /**
+     * @var string
+     */
+    public $score;
+
+    // adb的请求id
+    /**
+     * @var string
+     */
+    public $requestId;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'taskId'     => 'task_id',
-        'dataId'     => 'data_id',
+        'question'   => 'question',
+        'answer'     => 'answer',
+        'score'      => 'score',
+        'requestId'  => 'request_id',
     ];
 
     public function validate()
@@ -62,11 +75,17 @@ class SubmitAuditImageResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->taskId) {
-            $res['task_id'] = $this->taskId;
+        if (null !== $this->question) {
+            $res['question'] = $this->question;
         }
-        if (null !== $this->dataId) {
-            $res['data_id'] = $this->dataId;
+        if (null !== $this->answer) {
+            $res['answer'] = $this->answer;
+        }
+        if (null !== $this->score) {
+            $res['score'] = $this->score;
+        }
+        if (null !== $this->requestId) {
+            $res['request_id'] = $this->requestId;
         }
 
         return $res;
@@ -75,7 +94,7 @@ class SubmitAuditImageResponse extends Model
     /**
      * @param array $map
      *
-     * @return SubmitAuditImageResponse
+     * @return QueryAicoguardAdbsinkResponse
      */
     public static function fromMap($map = [])
     {
@@ -89,11 +108,17 @@ class SubmitAuditImageResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['task_id'])) {
-            $model->taskId = $map['task_id'];
+        if (isset($map['question'])) {
+            $model->question = $map['question'];
         }
-        if (isset($map['data_id'])) {
-            $model->dataId = $map['data_id'];
+        if (isset($map['answer'])) {
+            $model->answer = $map['answer'];
+        }
+        if (isset($map['score'])) {
+            $model->score = $map['score'];
+        }
+        if (isset($map['request_id'])) {
+            $model->requestId = $map['request_id'];
         }
 
         return $model;
