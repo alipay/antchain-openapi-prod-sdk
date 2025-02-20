@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.13.6',
+    sdk_version = '1.13.8',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -7385,6 +7385,9 @@ model CreateContractOnestepflowRequest = {
   signValidity?: long(name='sign_validity'),
   // 是否合并签署，默认不是（false）
   combineSignModel?: boolean(name='combine_sign_model'),
+  // 合并签署是否开启人脸识别(默认true-开启),非合并签署无需设值
+  // 
+  needFace?: boolean(name='need_face'),
 }
 
 model CreateContractOnestepflowResponse = {
@@ -10465,6 +10468,209 @@ async function transferInnerShorturl(request: TransferInnerShorturlRequest): Tra
 async function transferInnerShorturlEx(request: TransferInnerShorturlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): TransferInnerShorturlResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.inner.shorturl.transfer', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyLeasePetrecognitionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 算法服务
+  sceneCode: string(name='scene_code'),
+  // 算法功能
+  uri: string(name='uri'),
+  // 来源系统
+  source: string(name='source'),
+  // 宠物图片url
+  imageUrl: string(name='image_url'),
+  // 额外参数
+  ext: string(name='ext'),
+}
+
+model VerifyLeasePetrecognitionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用于追踪业务调用流程
+  traceId?: string(name='trace_id'),
+  // 图片合格性结果码值
+  verifyCode?: string(name='verify_code'),
+  // 取值范围0~1，值越大代表本次校验结果越可信
+  confidence?: string(name='confidence'),
+}
+
+/**
+ * Description: 宠物比对能力图片资源合格性校验
+ * Summary: 宠物合格性校验
+ */
+async function verifyLeasePetrecognition(request: VerifyLeasePetrecognitionRequest): VerifyLeasePetrecognitionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyLeasePetrecognitionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 宠物比对能力图片资源合格性校验
+ * Summary: 宠物合格性校验
+ */
+async function verifyLeasePetrecognitionEx(request: VerifyLeasePetrecognitionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyLeasePetrecognitionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.petrecognition.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterLeasePetrecognitionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 算法服务
+  sceneCode: string(name='scene_code'),
+  // 算法功能
+  uri: string(name='uri'),
+  // 来源系统
+  source: string(name='source'),
+  // 额外参数
+  ext: string(name='ext'),
+}
+
+model RegisterLeasePetrecognitionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用于追踪业务调用流程
+  traceId?: string(name='trace_id'),
+  // 注册结果：_0_注册不成功，_1_注册成功
+  isRegisterSuccess?: string(name='is_register_success'),
+  // 注册成功宠物档案ID
+  petId?: string(name='pet_id'),
+}
+
+/**
+ * Description: 宠物比对能力建档注册功能
+ * Summary: 宠物建档注册
+ */
+async function registerLeasePetrecognition(request: RegisterLeasePetrecognitionRequest): RegisterLeasePetrecognitionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerLeasePetrecognitionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 宠物比对能力建档注册功能
+ * Summary: 宠物建档注册
+ */
+async function registerLeasePetrecognitionEx(request: RegisterLeasePetrecognitionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterLeasePetrecognitionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.petrecognition.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateLeasePetcomparepetidRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 算法服务
+  sceneCode: string(name='scene_code'),
+  // 算法功能
+  uri: string(name='uri'),
+  // 来源系统
+  source: string(name='source'),
+  // 额外参数
+  ext: string(name='ext'),
+}
+
+model OperateLeasePetcomparepetidResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用于追踪业务调用流程
+  traceId?: string(name='trace_id'),
+  // 取值范围0~1，值越大代表本次校验结果越可信
+  confidence?: string(name='confidence'),
+  // 比对结果：1通过，0不通过
+  isSamePet?: string(name='is_same_pet'),
+  // 鼻纹相似度
+  noseSimilarity?: string(name='nose_similarity'),
+  // 正脸相似度
+  faceSimilarity?: string(name='face_similarity'),
+}
+
+/**
+ * Description: 宠物比对能力建档比对
+ * Summary: 宠物建档比对
+ */
+async function operateLeasePetcomparepetid(request: OperateLeasePetcomparepetidRequest): OperateLeasePetcomparepetidResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateLeasePetcomparepetidEx(request, headers, runtime);
+}
+
+/**
+ * Description: 宠物比对能力建档比对
+ * Summary: 宠物建档比对
+ */
+async function operateLeasePetcomparepetidEx(request: OperateLeasePetcomparepetidRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateLeasePetcomparepetidResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.petcomparepetid.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateLeasePetcomparepetsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 	
+  // 算法服务
+  sceneCode: string(name='scene_code'),
+  // 算法功能
+  uri: string(name='uri'),
+  // 来源系统
+  source: string(name='source'),
+  // 额外参数
+  ext: string(name='ext'),
+}
+
+model OperateLeasePetcomparepetsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用于追踪业务调用流程
+  traceId?: string(name='trace_id'),
+  // 取值范围0~1，值越大代表本次校验结果越可信
+  confidence?: string(name='confidence'),
+  // 比对结果：1通过，0不通过
+  isSamePet?: string(name='is_same_pet'),
+  // 鼻纹相似度
+  noseSimilarity?: string(name='nose_similarity'),
+  // 正脸相似度
+  faceSimilarity?: string(name='face_similarity'),
+}
+
+/**
+ * Description: 宠物比对能力图片资源直接比对
+ * Summary: 宠物资源直接比对
+ */
+async function operateLeasePetcomparepets(request: OperateLeasePetcomparepetsRequest): OperateLeasePetcomparepetsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateLeasePetcomparepetsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 宠物比对能力图片资源直接比对
+ * Summary: 宠物资源直接比对
+ */
+async function operateLeasePetcomparepetsEx(request: OperateLeasePetcomparepetsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateLeasePetcomparepetsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.lease.petcomparepets.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CheckEpidentityTwometaRequest = {
