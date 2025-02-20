@@ -18530,6 +18530,9 @@ type CreateContractOnestepflowRequest struct {
 	SignValidity *int64 `json:"sign_validity,omitempty" xml:"sign_validity,omitempty"`
 	// 是否合并签署，默认不是（false）
 	CombineSignModel *bool `json:"combine_sign_model,omitempty" xml:"combine_sign_model,omitempty"`
+	// 合并签署是否开启人脸识别(默认true-开启),非合并签署无需设值
+	//
+	NeedFace *bool `json:"need_face,omitempty" xml:"need_face,omitempty"`
 }
 
 func (s CreateContractOnestepflowRequest) String() string {
@@ -18607,6 +18610,11 @@ func (s *CreateContractOnestepflowRequest) SetSignValidity(v int64) *CreateContr
 
 func (s *CreateContractOnestepflowRequest) SetCombineSignModel(v bool) *CreateContractOnestepflowRequest {
 	s.CombineSignModel = &v
+	return s
+}
+
+func (s *CreateContractOnestepflowRequest) SetNeedFace(v bool) *CreateContractOnestepflowRequest {
+	s.NeedFace = &v
 	return s
 }
 
@@ -25174,6 +25182,462 @@ func (s *TransferInnerShorturlResponse) SetTargetUrl(v string) *TransferInnerSho
 
 func (s *TransferInnerShorturlResponse) SetSourceUrl(v string) *TransferInnerShorturlResponse {
 	s.SourceUrl = &v
+	return s
+}
+
+type VerifyLeasePetrecognitionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 算法服务
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 算法功能
+	Uri *string `json:"uri,omitempty" xml:"uri,omitempty" require:"true"`
+	// 来源系统
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+	// 宠物图片url
+	ImageUrl *string `json:"image_url,omitempty" xml:"image_url,omitempty" require:"true"`
+	// 额外参数
+	Ext *string `json:"ext,omitempty" xml:"ext,omitempty" require:"true"`
+}
+
+func (s VerifyLeasePetrecognitionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyLeasePetrecognitionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyLeasePetrecognitionRequest) SetAuthToken(v string) *VerifyLeasePetrecognitionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *VerifyLeasePetrecognitionRequest) SetProductInstanceId(v string) *VerifyLeasePetrecognitionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *VerifyLeasePetrecognitionRequest) SetSceneCode(v string) *VerifyLeasePetrecognitionRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *VerifyLeasePetrecognitionRequest) SetUri(v string) *VerifyLeasePetrecognitionRequest {
+	s.Uri = &v
+	return s
+}
+
+func (s *VerifyLeasePetrecognitionRequest) SetSource(v string) *VerifyLeasePetrecognitionRequest {
+	s.Source = &v
+	return s
+}
+
+func (s *VerifyLeasePetrecognitionRequest) SetImageUrl(v string) *VerifyLeasePetrecognitionRequest {
+	s.ImageUrl = &v
+	return s
+}
+
+func (s *VerifyLeasePetrecognitionRequest) SetExt(v string) *VerifyLeasePetrecognitionRequest {
+	s.Ext = &v
+	return s
+}
+
+type VerifyLeasePetrecognitionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用于追踪业务调用流程
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty"`
+	// 图片合格性结果码值
+	VerifyCode *string `json:"verify_code,omitempty" xml:"verify_code,omitempty"`
+	// 取值范围0~1，值越大代表本次校验结果越可信
+	Confidence *string `json:"confidence,omitempty" xml:"confidence,omitempty"`
+}
+
+func (s VerifyLeasePetrecognitionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyLeasePetrecognitionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyLeasePetrecognitionResponse) SetReqMsgId(v string) *VerifyLeasePetrecognitionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *VerifyLeasePetrecognitionResponse) SetResultCode(v string) *VerifyLeasePetrecognitionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *VerifyLeasePetrecognitionResponse) SetResultMsg(v string) *VerifyLeasePetrecognitionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *VerifyLeasePetrecognitionResponse) SetTraceId(v string) *VerifyLeasePetrecognitionResponse {
+	s.TraceId = &v
+	return s
+}
+
+func (s *VerifyLeasePetrecognitionResponse) SetVerifyCode(v string) *VerifyLeasePetrecognitionResponse {
+	s.VerifyCode = &v
+	return s
+}
+
+func (s *VerifyLeasePetrecognitionResponse) SetConfidence(v string) *VerifyLeasePetrecognitionResponse {
+	s.Confidence = &v
+	return s
+}
+
+type RegisterLeasePetrecognitionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 算法服务
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 算法功能
+	Uri *string `json:"uri,omitempty" xml:"uri,omitempty" require:"true"`
+	// 来源系统
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+	// 额外参数
+	Ext *string `json:"ext,omitempty" xml:"ext,omitempty" require:"true"`
+}
+
+func (s RegisterLeasePetrecognitionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterLeasePetrecognitionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterLeasePetrecognitionRequest) SetAuthToken(v string) *RegisterLeasePetrecognitionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RegisterLeasePetrecognitionRequest) SetProductInstanceId(v string) *RegisterLeasePetrecognitionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RegisterLeasePetrecognitionRequest) SetSceneCode(v string) *RegisterLeasePetrecognitionRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *RegisterLeasePetrecognitionRequest) SetUri(v string) *RegisterLeasePetrecognitionRequest {
+	s.Uri = &v
+	return s
+}
+
+func (s *RegisterLeasePetrecognitionRequest) SetSource(v string) *RegisterLeasePetrecognitionRequest {
+	s.Source = &v
+	return s
+}
+
+func (s *RegisterLeasePetrecognitionRequest) SetExt(v string) *RegisterLeasePetrecognitionRequest {
+	s.Ext = &v
+	return s
+}
+
+type RegisterLeasePetrecognitionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用于追踪业务调用流程
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty"`
+	// 注册结果：_0_注册不成功，_1_注册成功
+	IsRegisterSuccess *string `json:"is_register_success,omitempty" xml:"is_register_success,omitempty"`
+	// 注册成功宠物档案ID
+	PetId *string `json:"pet_id,omitempty" xml:"pet_id,omitempty"`
+}
+
+func (s RegisterLeasePetrecognitionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterLeasePetrecognitionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterLeasePetrecognitionResponse) SetReqMsgId(v string) *RegisterLeasePetrecognitionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RegisterLeasePetrecognitionResponse) SetResultCode(v string) *RegisterLeasePetrecognitionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RegisterLeasePetrecognitionResponse) SetResultMsg(v string) *RegisterLeasePetrecognitionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RegisterLeasePetrecognitionResponse) SetTraceId(v string) *RegisterLeasePetrecognitionResponse {
+	s.TraceId = &v
+	return s
+}
+
+func (s *RegisterLeasePetrecognitionResponse) SetIsRegisterSuccess(v string) *RegisterLeasePetrecognitionResponse {
+	s.IsRegisterSuccess = &v
+	return s
+}
+
+func (s *RegisterLeasePetrecognitionResponse) SetPetId(v string) *RegisterLeasePetrecognitionResponse {
+	s.PetId = &v
+	return s
+}
+
+type OperateLeasePetcomparepetidRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 算法服务
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 算法功能
+	Uri *string `json:"uri,omitempty" xml:"uri,omitempty" require:"true"`
+	// 来源系统
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+	// 额外参数
+	Ext *string `json:"ext,omitempty" xml:"ext,omitempty" require:"true"`
+}
+
+func (s OperateLeasePetcomparepetidRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateLeasePetcomparepetidRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateLeasePetcomparepetidRequest) SetAuthToken(v string) *OperateLeasePetcomparepetidRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetidRequest) SetProductInstanceId(v string) *OperateLeasePetcomparepetidRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetidRequest) SetSceneCode(v string) *OperateLeasePetcomparepetidRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetidRequest) SetUri(v string) *OperateLeasePetcomparepetidRequest {
+	s.Uri = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetidRequest) SetSource(v string) *OperateLeasePetcomparepetidRequest {
+	s.Source = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetidRequest) SetExt(v string) *OperateLeasePetcomparepetidRequest {
+	s.Ext = &v
+	return s
+}
+
+type OperateLeasePetcomparepetidResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用于追踪业务调用流程
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty"`
+	// 取值范围0~1，值越大代表本次校验结果越可信
+	Confidence *string `json:"confidence,omitempty" xml:"confidence,omitempty"`
+	// 比对结果：1通过，0不通过
+	IsSamePet *string `json:"is_same_pet,omitempty" xml:"is_same_pet,omitempty"`
+	// 鼻纹相似度
+	NoseSimilarity *string `json:"nose_similarity,omitempty" xml:"nose_similarity,omitempty"`
+	// 正脸相似度
+	FaceSimilarity *string `json:"face_similarity,omitempty" xml:"face_similarity,omitempty"`
+}
+
+func (s OperateLeasePetcomparepetidResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateLeasePetcomparepetidResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateLeasePetcomparepetidResponse) SetReqMsgId(v string) *OperateLeasePetcomparepetidResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetidResponse) SetResultCode(v string) *OperateLeasePetcomparepetidResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetidResponse) SetResultMsg(v string) *OperateLeasePetcomparepetidResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetidResponse) SetTraceId(v string) *OperateLeasePetcomparepetidResponse {
+	s.TraceId = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetidResponse) SetConfidence(v string) *OperateLeasePetcomparepetidResponse {
+	s.Confidence = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetidResponse) SetIsSamePet(v string) *OperateLeasePetcomparepetidResponse {
+	s.IsSamePet = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetidResponse) SetNoseSimilarity(v string) *OperateLeasePetcomparepetidResponse {
+	s.NoseSimilarity = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetidResponse) SetFaceSimilarity(v string) *OperateLeasePetcomparepetidResponse {
+	s.FaceSimilarity = &v
+	return s
+}
+
+type OperateLeasePetcomparepetsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	//
+	// 算法服务
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 算法功能
+	Uri *string `json:"uri,omitempty" xml:"uri,omitempty" require:"true"`
+	// 来源系统
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+	// 额外参数
+	Ext *string `json:"ext,omitempty" xml:"ext,omitempty" require:"true"`
+}
+
+func (s OperateLeasePetcomparepetsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateLeasePetcomparepetsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateLeasePetcomparepetsRequest) SetAuthToken(v string) *OperateLeasePetcomparepetsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetsRequest) SetProductInstanceId(v string) *OperateLeasePetcomparepetsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetsRequest) SetSceneCode(v string) *OperateLeasePetcomparepetsRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetsRequest) SetUri(v string) *OperateLeasePetcomparepetsRequest {
+	s.Uri = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetsRequest) SetSource(v string) *OperateLeasePetcomparepetsRequest {
+	s.Source = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetsRequest) SetExt(v string) *OperateLeasePetcomparepetsRequest {
+	s.Ext = &v
+	return s
+}
+
+type OperateLeasePetcomparepetsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用于追踪业务调用流程
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty"`
+	// 取值范围0~1，值越大代表本次校验结果越可信
+	Confidence *string `json:"confidence,omitempty" xml:"confidence,omitempty"`
+	// 比对结果：1通过，0不通过
+	IsSamePet *string `json:"is_same_pet,omitempty" xml:"is_same_pet,omitempty"`
+	// 鼻纹相似度
+	NoseSimilarity *string `json:"nose_similarity,omitempty" xml:"nose_similarity,omitempty"`
+	// 正脸相似度
+	FaceSimilarity *string `json:"face_similarity,omitempty" xml:"face_similarity,omitempty"`
+}
+
+func (s OperateLeasePetcomparepetsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateLeasePetcomparepetsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateLeasePetcomparepetsResponse) SetReqMsgId(v string) *OperateLeasePetcomparepetsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetsResponse) SetResultCode(v string) *OperateLeasePetcomparepetsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetsResponse) SetResultMsg(v string) *OperateLeasePetcomparepetsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetsResponse) SetTraceId(v string) *OperateLeasePetcomparepetsResponse {
+	s.TraceId = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetsResponse) SetConfidence(v string) *OperateLeasePetcomparepetsResponse {
+	s.Confidence = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetsResponse) SetIsSamePet(v string) *OperateLeasePetcomparepetsResponse {
+	s.IsSamePet = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetsResponse) SetNoseSimilarity(v string) *OperateLeasePetcomparepetsResponse {
+	s.NoseSimilarity = &v
+	return s
+}
+
+func (s *OperateLeasePetcomparepetsResponse) SetFaceSimilarity(v string) *OperateLeasePetcomparepetsResponse {
+	s.FaceSimilarity = &v
 	return s
 }
 
@@ -48671,7 +49135,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.13.6"),
+				"sdk_version":      tea.String("1.13.8"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -53962,6 +54426,142 @@ func (client *Client) TransferInnerShorturlEx(request *TransferInnerShorturlRequ
 	}
 	_result = &TransferInnerShorturlResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.inner.shorturl.transfer"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 宠物比对能力图片资源合格性校验
+ * Summary: 宠物合格性校验
+ */
+func (client *Client) VerifyLeasePetrecognition(request *VerifyLeasePetrecognitionRequest) (_result *VerifyLeasePetrecognitionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &VerifyLeasePetrecognitionResponse{}
+	_body, _err := client.VerifyLeasePetrecognitionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 宠物比对能力图片资源合格性校验
+ * Summary: 宠物合格性校验
+ */
+func (client *Client) VerifyLeasePetrecognitionEx(request *VerifyLeasePetrecognitionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerifyLeasePetrecognitionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &VerifyLeasePetrecognitionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.petrecognition.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 宠物比对能力建档注册功能
+ * Summary: 宠物建档注册
+ */
+func (client *Client) RegisterLeasePetrecognition(request *RegisterLeasePetrecognitionRequest) (_result *RegisterLeasePetrecognitionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RegisterLeasePetrecognitionResponse{}
+	_body, _err := client.RegisterLeasePetrecognitionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 宠物比对能力建档注册功能
+ * Summary: 宠物建档注册
+ */
+func (client *Client) RegisterLeasePetrecognitionEx(request *RegisterLeasePetrecognitionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RegisterLeasePetrecognitionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RegisterLeasePetrecognitionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.petrecognition.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 宠物比对能力建档比对
+ * Summary: 宠物建档比对
+ */
+func (client *Client) OperateLeasePetcomparepetid(request *OperateLeasePetcomparepetidRequest) (_result *OperateLeasePetcomparepetidResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateLeasePetcomparepetidResponse{}
+	_body, _err := client.OperateLeasePetcomparepetidEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 宠物比对能力建档比对
+ * Summary: 宠物建档比对
+ */
+func (client *Client) OperateLeasePetcomparepetidEx(request *OperateLeasePetcomparepetidRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateLeasePetcomparepetidResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateLeasePetcomparepetidResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.petcomparepetid.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 宠物比对能力图片资源直接比对
+ * Summary: 宠物资源直接比对
+ */
+func (client *Client) OperateLeasePetcomparepets(request *OperateLeasePetcomparepetsRequest) (_result *OperateLeasePetcomparepetsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateLeasePetcomparepetsResponse{}
+	_body, _err := client.OperateLeasePetcomparepetsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 宠物比对能力图片资源直接比对
+ * Summary: 宠物资源直接比对
+ */
+func (client *Client) OperateLeasePetcomparepetsEx(request *OperateLeasePetcomparepetsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateLeasePetcomparepetsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateLeasePetcomparepetsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.lease.petcomparepets.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
