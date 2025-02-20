@@ -22952,6 +22952,7 @@ class CreateContractOnestepflowRequest(TeaModel):
         sign_platform: str = None,
         sign_validity: int = None,
         combine_sign_model: bool = None,
+        need_face: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -22980,6 +22981,9 @@ class CreateContractOnestepflowRequest(TeaModel):
         self.sign_validity = sign_validity
         # 是否合并签署，默认不是（false）
         self.combine_sign_model = combine_sign_model
+        # 合并签署是否开启人脸识别(默认true-开启),非合并签署无需设值
+        # 
+        self.need_face = need_face
 
     def validate(self):
         self.validate_required(self.business_scene, 'business_scene')
@@ -23032,6 +23036,8 @@ class CreateContractOnestepflowRequest(TeaModel):
             result['sign_validity'] = self.sign_validity
         if self.combine_sign_model is not None:
             result['combine_sign_model'] = self.combine_sign_model
+        if self.need_face is not None:
+            result['need_face'] = self.need_face
         return result
 
     def from_map(self, m: dict = None):
@@ -23071,6 +23077,8 @@ class CreateContractOnestepflowRequest(TeaModel):
             self.sign_validity = m.get('sign_validity')
         if m.get('combine_sign_model') is not None:
             self.combine_sign_model = m.get('combine_sign_model')
+        if m.get('need_face') is not None:
+            self.need_face = m.get('need_face')
         return self
 
 
@@ -31151,6 +31159,555 @@ class TransferInnerShorturlResponse(TeaModel):
             self.target_url = m.get('target_url')
         if m.get('source_url') is not None:
             self.source_url = m.get('source_url')
+        return self
+
+
+class VerifyLeasePetrecognitionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_code: str = None,
+        uri: str = None,
+        source: str = None,
+        image_url: str = None,
+        ext: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 算法服务
+        self.scene_code = scene_code
+        # 算法功能
+        self.uri = uri
+        # 来源系统
+        self.source = source
+        # 宠物图片url
+        self.image_url = image_url
+        # 额外参数
+        self.ext = ext
+
+    def validate(self):
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.uri, 'uri')
+        self.validate_required(self.source, 'source')
+        self.validate_required(self.image_url, 'image_url')
+        self.validate_required(self.ext, 'ext')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.uri is not None:
+            result['uri'] = self.uri
+        if self.source is not None:
+            result['source'] = self.source
+        if self.image_url is not None:
+            result['image_url'] = self.image_url
+        if self.ext is not None:
+            result['ext'] = self.ext
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('uri') is not None:
+            self.uri = m.get('uri')
+        if m.get('source') is not None:
+            self.source = m.get('source')
+        if m.get('image_url') is not None:
+            self.image_url = m.get('image_url')
+        if m.get('ext') is not None:
+            self.ext = m.get('ext')
+        return self
+
+
+class VerifyLeasePetrecognitionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trace_id: str = None,
+        verify_code: str = None,
+        confidence: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 用于追踪业务调用流程
+        self.trace_id = trace_id
+        # 图片合格性结果码值
+        self.verify_code = verify_code
+        # 取值范围0~1，值越大代表本次校验结果越可信
+        self.confidence = confidence
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.verify_code is not None:
+            result['verify_code'] = self.verify_code
+        if self.confidence is not None:
+            result['confidence'] = self.confidence
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('verify_code') is not None:
+            self.verify_code = m.get('verify_code')
+        if m.get('confidence') is not None:
+            self.confidence = m.get('confidence')
+        return self
+
+
+class RegisterLeasePetrecognitionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_code: str = None,
+        uri: str = None,
+        source: str = None,
+        ext: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 算法服务
+        self.scene_code = scene_code
+        # 算法功能
+        self.uri = uri
+        # 来源系统
+        self.source = source
+        # 额外参数
+        self.ext = ext
+
+    def validate(self):
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.uri, 'uri')
+        self.validate_required(self.source, 'source')
+        self.validate_required(self.ext, 'ext')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.uri is not None:
+            result['uri'] = self.uri
+        if self.source is not None:
+            result['source'] = self.source
+        if self.ext is not None:
+            result['ext'] = self.ext
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('uri') is not None:
+            self.uri = m.get('uri')
+        if m.get('source') is not None:
+            self.source = m.get('source')
+        if m.get('ext') is not None:
+            self.ext = m.get('ext')
+        return self
+
+
+class RegisterLeasePetrecognitionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trace_id: str = None,
+        is_register_success: str = None,
+        pet_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 用于追踪业务调用流程
+        self.trace_id = trace_id
+        # 注册结果：_0_注册不成功，_1_注册成功
+        self.is_register_success = is_register_success
+        # 注册成功宠物档案ID
+        self.pet_id = pet_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.is_register_success is not None:
+            result['is_register_success'] = self.is_register_success
+        if self.pet_id is not None:
+            result['pet_id'] = self.pet_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('is_register_success') is not None:
+            self.is_register_success = m.get('is_register_success')
+        if m.get('pet_id') is not None:
+            self.pet_id = m.get('pet_id')
+        return self
+
+
+class OperateLeasePetcomparepetidRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_code: str = None,
+        uri: str = None,
+        source: str = None,
+        ext: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 算法服务
+        self.scene_code = scene_code
+        # 算法功能
+        self.uri = uri
+        # 来源系统
+        self.source = source
+        # 额外参数
+        self.ext = ext
+
+    def validate(self):
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.uri, 'uri')
+        self.validate_required(self.source, 'source')
+        self.validate_required(self.ext, 'ext')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.uri is not None:
+            result['uri'] = self.uri
+        if self.source is not None:
+            result['source'] = self.source
+        if self.ext is not None:
+            result['ext'] = self.ext
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('uri') is not None:
+            self.uri = m.get('uri')
+        if m.get('source') is not None:
+            self.source = m.get('source')
+        if m.get('ext') is not None:
+            self.ext = m.get('ext')
+        return self
+
+
+class OperateLeasePetcomparepetidResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trace_id: str = None,
+        confidence: str = None,
+        is_same_pet: str = None,
+        nose_similarity: str = None,
+        face_similarity: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 用于追踪业务调用流程
+        self.trace_id = trace_id
+        # 取值范围0~1，值越大代表本次校验结果越可信
+        self.confidence = confidence
+        # 比对结果：1通过，0不通过
+        self.is_same_pet = is_same_pet
+        # 鼻纹相似度
+        self.nose_similarity = nose_similarity
+        # 正脸相似度
+        self.face_similarity = face_similarity
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.confidence is not None:
+            result['confidence'] = self.confidence
+        if self.is_same_pet is not None:
+            result['is_same_pet'] = self.is_same_pet
+        if self.nose_similarity is not None:
+            result['nose_similarity'] = self.nose_similarity
+        if self.face_similarity is not None:
+            result['face_similarity'] = self.face_similarity
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('confidence') is not None:
+            self.confidence = m.get('confidence')
+        if m.get('is_same_pet') is not None:
+            self.is_same_pet = m.get('is_same_pet')
+        if m.get('nose_similarity') is not None:
+            self.nose_similarity = m.get('nose_similarity')
+        if m.get('face_similarity') is not None:
+            self.face_similarity = m.get('face_similarity')
+        return self
+
+
+class OperateLeasePetcomparepetsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_code: str = None,
+        uri: str = None,
+        source: str = None,
+        ext: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 
+        # 算法服务
+        self.scene_code = scene_code
+        # 算法功能
+        self.uri = uri
+        # 来源系统
+        self.source = source
+        # 额外参数
+        self.ext = ext
+
+    def validate(self):
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.uri, 'uri')
+        self.validate_required(self.source, 'source')
+        self.validate_required(self.ext, 'ext')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.uri is not None:
+            result['uri'] = self.uri
+        if self.source is not None:
+            result['source'] = self.source
+        if self.ext is not None:
+            result['ext'] = self.ext
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('uri') is not None:
+            self.uri = m.get('uri')
+        if m.get('source') is not None:
+            self.source = m.get('source')
+        if m.get('ext') is not None:
+            self.ext = m.get('ext')
+        return self
+
+
+class OperateLeasePetcomparepetsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trace_id: str = None,
+        confidence: str = None,
+        is_same_pet: str = None,
+        nose_similarity: str = None,
+        face_similarity: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 用于追踪业务调用流程
+        self.trace_id = trace_id
+        # 取值范围0~1，值越大代表本次校验结果越可信
+        self.confidence = confidence
+        # 比对结果：1通过，0不通过
+        self.is_same_pet = is_same_pet
+        # 鼻纹相似度
+        self.nose_similarity = nose_similarity
+        # 正脸相似度
+        self.face_similarity = face_similarity
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.confidence is not None:
+            result['confidence'] = self.confidence
+        if self.is_same_pet is not None:
+            result['is_same_pet'] = self.is_same_pet
+        if self.nose_similarity is not None:
+            result['nose_similarity'] = self.nose_similarity
+        if self.face_similarity is not None:
+            result['face_similarity'] = self.face_similarity
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('confidence') is not None:
+            self.confidence = m.get('confidence')
+        if m.get('is_same_pet') is not None:
+            self.is_same_pet = m.get('is_same_pet')
+        if m.get('nose_similarity') is not None:
+            self.nose_similarity = m.get('nose_similarity')
+        if m.get('face_similarity') is not None:
+            self.face_similarity = m.get('face_similarity')
         return self
 
 

@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.6',
+                    'sdk_version': '1.13.8',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.6',
+                    'sdk_version': '1.13.8',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -8905,6 +8905,230 @@ class Client:
         return TeaCore.from_map(
             twc_models.TransferInnerShorturlResponse(),
             await self.do_request_async('1.0', 'twc.notary.inner.shorturl.transfer', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_lease_petrecognition(
+        self,
+        request: twc_models.VerifyLeasePetrecognitionRequest,
+    ) -> twc_models.VerifyLeasePetrecognitionResponse:
+        """
+        Description: 宠物比对能力图片资源合格性校验
+        Summary: 宠物合格性校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_lease_petrecognition_ex(request, headers, runtime)
+
+    async def verify_lease_petrecognition_async(
+        self,
+        request: twc_models.VerifyLeasePetrecognitionRequest,
+    ) -> twc_models.VerifyLeasePetrecognitionResponse:
+        """
+        Description: 宠物比对能力图片资源合格性校验
+        Summary: 宠物合格性校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_lease_petrecognition_ex_async(request, headers, runtime)
+
+    def verify_lease_petrecognition_ex(
+        self,
+        request: twc_models.VerifyLeasePetrecognitionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.VerifyLeasePetrecognitionResponse:
+        """
+        Description: 宠物比对能力图片资源合格性校验
+        Summary: 宠物合格性校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.VerifyLeasePetrecognitionResponse(),
+            self.do_request('1.0', 'twc.notary.lease.petrecognition.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_lease_petrecognition_ex_async(
+        self,
+        request: twc_models.VerifyLeasePetrecognitionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.VerifyLeasePetrecognitionResponse:
+        """
+        Description: 宠物比对能力图片资源合格性校验
+        Summary: 宠物合格性校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.VerifyLeasePetrecognitionResponse(),
+            await self.do_request_async('1.0', 'twc.notary.lease.petrecognition.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_lease_petrecognition(
+        self,
+        request: twc_models.RegisterLeasePetrecognitionRequest,
+    ) -> twc_models.RegisterLeasePetrecognitionResponse:
+        """
+        Description: 宠物比对能力建档注册功能
+        Summary: 宠物建档注册
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_lease_petrecognition_ex(request, headers, runtime)
+
+    async def register_lease_petrecognition_async(
+        self,
+        request: twc_models.RegisterLeasePetrecognitionRequest,
+    ) -> twc_models.RegisterLeasePetrecognitionResponse:
+        """
+        Description: 宠物比对能力建档注册功能
+        Summary: 宠物建档注册
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_lease_petrecognition_ex_async(request, headers, runtime)
+
+    def register_lease_petrecognition_ex(
+        self,
+        request: twc_models.RegisterLeasePetrecognitionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.RegisterLeasePetrecognitionResponse:
+        """
+        Description: 宠物比对能力建档注册功能
+        Summary: 宠物建档注册
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.RegisterLeasePetrecognitionResponse(),
+            self.do_request('1.0', 'twc.notary.lease.petrecognition.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_lease_petrecognition_ex_async(
+        self,
+        request: twc_models.RegisterLeasePetrecognitionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.RegisterLeasePetrecognitionResponse:
+        """
+        Description: 宠物比对能力建档注册功能
+        Summary: 宠物建档注册
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.RegisterLeasePetrecognitionResponse(),
+            await self.do_request_async('1.0', 'twc.notary.lease.petrecognition.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_lease_petcomparepetid(
+        self,
+        request: twc_models.OperateLeasePetcomparepetidRequest,
+    ) -> twc_models.OperateLeasePetcomparepetidResponse:
+        """
+        Description: 宠物比对能力建档比对
+        Summary: 宠物建档比对
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_lease_petcomparepetid_ex(request, headers, runtime)
+
+    async def operate_lease_petcomparepetid_async(
+        self,
+        request: twc_models.OperateLeasePetcomparepetidRequest,
+    ) -> twc_models.OperateLeasePetcomparepetidResponse:
+        """
+        Description: 宠物比对能力建档比对
+        Summary: 宠物建档比对
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_lease_petcomparepetid_ex_async(request, headers, runtime)
+
+    def operate_lease_petcomparepetid_ex(
+        self,
+        request: twc_models.OperateLeasePetcomparepetidRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.OperateLeasePetcomparepetidResponse:
+        """
+        Description: 宠物比对能力建档比对
+        Summary: 宠物建档比对
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.OperateLeasePetcomparepetidResponse(),
+            self.do_request('1.0', 'twc.notary.lease.petcomparepetid.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_lease_petcomparepetid_ex_async(
+        self,
+        request: twc_models.OperateLeasePetcomparepetidRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.OperateLeasePetcomparepetidResponse:
+        """
+        Description: 宠物比对能力建档比对
+        Summary: 宠物建档比对
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.OperateLeasePetcomparepetidResponse(),
+            await self.do_request_async('1.0', 'twc.notary.lease.petcomparepetid.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_lease_petcomparepets(
+        self,
+        request: twc_models.OperateLeasePetcomparepetsRequest,
+    ) -> twc_models.OperateLeasePetcomparepetsResponse:
+        """
+        Description: 宠物比对能力图片资源直接比对
+        Summary: 宠物资源直接比对
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_lease_petcomparepets_ex(request, headers, runtime)
+
+    async def operate_lease_petcomparepets_async(
+        self,
+        request: twc_models.OperateLeasePetcomparepetsRequest,
+    ) -> twc_models.OperateLeasePetcomparepetsResponse:
+        """
+        Description: 宠物比对能力图片资源直接比对
+        Summary: 宠物资源直接比对
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_lease_petcomparepets_ex_async(request, headers, runtime)
+
+    def operate_lease_petcomparepets_ex(
+        self,
+        request: twc_models.OperateLeasePetcomparepetsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.OperateLeasePetcomparepetsResponse:
+        """
+        Description: 宠物比对能力图片资源直接比对
+        Summary: 宠物资源直接比对
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.OperateLeasePetcomparepetsResponse(),
+            self.do_request('1.0', 'twc.notary.lease.petcomparepets.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_lease_petcomparepets_ex_async(
+        self,
+        request: twc_models.OperateLeasePetcomparepetsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.OperateLeasePetcomparepetsResponse:
+        """
+        Description: 宠物比对能力图片资源直接比对
+        Summary: 宠物资源直接比对
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.OperateLeasePetcomparepetsResponse(),
+            await self.do_request_async('1.0', 'twc.notary.lease.petcomparepets.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def check_epidentity_twometa(
