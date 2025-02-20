@@ -31,11 +31,18 @@ class CreateSimOrderResponse extends Model
      * @var string
      */
     public $orderId;
+
+    // 支付宝小程序链接
+    /**
+     * @var string
+     */
+    public $miniappLink;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'orderId'    => 'order_id',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'orderId'     => 'order_id',
+        'miniappLink' => 'miniapp_link',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class CreateSimOrderResponse extends Model
         }
         if (null !== $this->orderId) {
             $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->miniappLink) {
+            $res['miniapp_link'] = $this->miniappLink;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class CreateSimOrderResponse extends Model
         }
         if (isset($map['order_id'])) {
             $model->orderId = $map['order_id'];
+        }
+        if (isset($map['miniapp_link'])) {
+            $model->miniappLink = $map['miniapp_link'];
         }
 
         return $model;

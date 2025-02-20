@@ -31,11 +31,18 @@ class QuerySimOrderResponse extends Model
      * @var SimOrderInfo
      */
     public $orderInfo;
+
+    // 小程序链接
+    /**
+     * @var string
+     */
+    public $miniappLink;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'orderInfo'  => 'order_info',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'orderInfo'   => 'order_info',
+        'miniappLink' => 'miniapp_link',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class QuerySimOrderResponse extends Model
         }
         if (null !== $this->orderInfo) {
             $res['order_info'] = null !== $this->orderInfo ? $this->orderInfo->toMap() : null;
+        }
+        if (null !== $this->miniappLink) {
+            $res['miniapp_link'] = $this->miniappLink;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class QuerySimOrderResponse extends Model
         }
         if (isset($map['order_info'])) {
             $model->orderInfo = SimOrderInfo::fromMap($map['order_info']);
+        }
+        if (isset($map['miniapp_link'])) {
+            $model->miniappLink = $map['miniapp_link'];
         }
 
         return $model;
