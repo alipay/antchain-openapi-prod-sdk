@@ -13893,6 +13893,9 @@ export class CreateContractOnestepflowRequest extends $tea.Model {
   signValidity?: number;
   // 是否合并签署，默认不是（false）
   combineSignModel?: boolean;
+  // 合并签署是否开启人脸识别(默认true-开启),非合并签署无需设值
+  // 
+  needFace?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -13909,6 +13912,7 @@ export class CreateContractOnestepflowRequest extends $tea.Model {
       signPlatform: 'sign_platform',
       signValidity: 'sign_validity',
       combineSignModel: 'combine_sign_model',
+      needFace: 'need_face',
     };
   }
 
@@ -13928,6 +13932,7 @@ export class CreateContractOnestepflowRequest extends $tea.Model {
       signPlatform: 'string',
       signValidity: 'number',
       combineSignModel: 'boolean',
+      needFace: 'boolean',
     };
   }
 
@@ -18926,6 +18931,343 @@ export class TransferInnerShorturlResponse extends $tea.Model {
       resultMsg: 'string',
       targetUrl: 'string',
       sourceUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class VerifyLeasePetrecognitionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 算法服务
+  sceneCode: string;
+  // 算法功能
+  uri: string;
+  // 来源系统
+  source: string;
+  // 宠物图片url
+  imageUrl: string;
+  // 额外参数
+  ext: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneCode: 'scene_code',
+      uri: 'uri',
+      source: 'source',
+      imageUrl: 'image_url',
+      ext: 'ext',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneCode: 'string',
+      uri: 'string',
+      source: 'string',
+      imageUrl: 'string',
+      ext: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class VerifyLeasePetrecognitionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用于追踪业务调用流程
+  traceId?: string;
+  // 图片合格性结果码值
+  verifyCode?: string;
+  // 取值范围0~1，值越大代表本次校验结果越可信
+  confidence?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      traceId: 'trace_id',
+      verifyCode: 'verify_code',
+      confidence: 'confidence',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      traceId: 'string',
+      verifyCode: 'string',
+      confidence: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterLeasePetrecognitionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 算法服务
+  sceneCode: string;
+  // 算法功能
+  uri: string;
+  // 来源系统
+  source: string;
+  // 额外参数
+  ext: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneCode: 'scene_code',
+      uri: 'uri',
+      source: 'source',
+      ext: 'ext',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneCode: 'string',
+      uri: 'string',
+      source: 'string',
+      ext: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterLeasePetrecognitionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用于追踪业务调用流程
+  traceId?: string;
+  // 注册结果：_0_注册不成功，_1_注册成功
+  isRegisterSuccess?: string;
+  // 注册成功宠物档案ID
+  petId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      traceId: 'trace_id',
+      isRegisterSuccess: 'is_register_success',
+      petId: 'pet_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      traceId: 'string',
+      isRegisterSuccess: 'string',
+      petId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateLeasePetcomparepetidRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 算法服务
+  sceneCode: string;
+  // 算法功能
+  uri: string;
+  // 来源系统
+  source: string;
+  // 额外参数
+  ext: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneCode: 'scene_code',
+      uri: 'uri',
+      source: 'source',
+      ext: 'ext',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneCode: 'string',
+      uri: 'string',
+      source: 'string',
+      ext: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateLeasePetcomparepetidResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用于追踪业务调用流程
+  traceId?: string;
+  // 取值范围0~1，值越大代表本次校验结果越可信
+  confidence?: string;
+  // 比对结果：1通过，0不通过
+  isSamePet?: string;
+  // 鼻纹相似度
+  noseSimilarity?: string;
+  // 正脸相似度
+  faceSimilarity?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      traceId: 'trace_id',
+      confidence: 'confidence',
+      isSamePet: 'is_same_pet',
+      noseSimilarity: 'nose_similarity',
+      faceSimilarity: 'face_similarity',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      traceId: 'string',
+      confidence: 'string',
+      isSamePet: 'string',
+      noseSimilarity: 'string',
+      faceSimilarity: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateLeasePetcomparepetsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 	
+  // 算法服务
+  sceneCode: string;
+  // 算法功能
+  uri: string;
+  // 来源系统
+  source: string;
+  // 额外参数
+  ext: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneCode: 'scene_code',
+      uri: 'uri',
+      source: 'source',
+      ext: 'ext',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneCode: 'string',
+      uri: 'string',
+      source: 'string',
+      ext: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateLeasePetcomparepetsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用于追踪业务调用流程
+  traceId?: string;
+  // 取值范围0~1，值越大代表本次校验结果越可信
+  confidence?: string;
+  // 比对结果：1通过，0不通过
+  isSamePet?: string;
+  // 鼻纹相似度
+  noseSimilarity?: string;
+  // 正脸相似度
+  faceSimilarity?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      traceId: 'trace_id',
+      confidence: 'confidence',
+      isSamePet: 'is_same_pet',
+      noseSimilarity: 'nose_similarity',
+      faceSimilarity: 'face_similarity',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      traceId: 'string',
+      confidence: 'string',
+      isSamePet: 'string',
+      noseSimilarity: 'string',
+      faceSimilarity: 'string',
     };
   }
 
@@ -36264,7 +36606,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.13.6",
+          sdk_version: "1.13.8",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
@@ -39240,6 +39582,82 @@ export default class Client {
   async transferInnerShorturlEx(request: TransferInnerShorturlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<TransferInnerShorturlResponse> {
     Util.validateModel(request);
     return $tea.cast<TransferInnerShorturlResponse>(await this.doRequest("1.0", "twc.notary.inner.shorturl.transfer", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new TransferInnerShorturlResponse({}));
+  }
+
+  /**
+   * Description: 宠物比对能力图片资源合格性校验
+   * Summary: 宠物合格性校验
+   */
+  async verifyLeasePetrecognition(request: VerifyLeasePetrecognitionRequest): Promise<VerifyLeasePetrecognitionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.verifyLeasePetrecognitionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 宠物比对能力图片资源合格性校验
+   * Summary: 宠物合格性校验
+   */
+  async verifyLeasePetrecognitionEx(request: VerifyLeasePetrecognitionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<VerifyLeasePetrecognitionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<VerifyLeasePetrecognitionResponse>(await this.doRequest("1.0", "twc.notary.lease.petrecognition.verify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new VerifyLeasePetrecognitionResponse({}));
+  }
+
+  /**
+   * Description: 宠物比对能力建档注册功能
+   * Summary: 宠物建档注册
+   */
+  async registerLeasePetrecognition(request: RegisterLeasePetrecognitionRequest): Promise<RegisterLeasePetrecognitionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.registerLeasePetrecognitionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 宠物比对能力建档注册功能
+   * Summary: 宠物建档注册
+   */
+  async registerLeasePetrecognitionEx(request: RegisterLeasePetrecognitionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterLeasePetrecognitionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RegisterLeasePetrecognitionResponse>(await this.doRequest("1.0", "twc.notary.lease.petrecognition.register", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RegisterLeasePetrecognitionResponse({}));
+  }
+
+  /**
+   * Description: 宠物比对能力建档比对
+   * Summary: 宠物建档比对
+   */
+  async operateLeasePetcomparepetid(request: OperateLeasePetcomparepetidRequest): Promise<OperateLeasePetcomparepetidResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.operateLeasePetcomparepetidEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 宠物比对能力建档比对
+   * Summary: 宠物建档比对
+   */
+  async operateLeasePetcomparepetidEx(request: OperateLeasePetcomparepetidRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateLeasePetcomparepetidResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OperateLeasePetcomparepetidResponse>(await this.doRequest("1.0", "twc.notary.lease.petcomparepetid.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateLeasePetcomparepetidResponse({}));
+  }
+
+  /**
+   * Description: 宠物比对能力图片资源直接比对
+   * Summary: 宠物资源直接比对
+   */
+  async operateLeasePetcomparepets(request: OperateLeasePetcomparepetsRequest): Promise<OperateLeasePetcomparepetsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.operateLeasePetcomparepetsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 宠物比对能力图片资源直接比对
+   * Summary: 宠物资源直接比对
+   */
+  async operateLeasePetcomparepetsEx(request: OperateLeasePetcomparepetsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateLeasePetcomparepetsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OperateLeasePetcomparepetsResponse>(await this.doRequest("1.0", "twc.notary.lease.petcomparepets.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateLeasePetcomparepetsResponse({}));
   }
 
   /**
