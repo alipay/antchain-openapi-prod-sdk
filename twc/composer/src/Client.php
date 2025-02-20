@@ -433,6 +433,10 @@ use AntChain\TWC\Models\OpenInternalTwcRequest;
 use AntChain\TWC\Models\OpenInternalTwcResponse;
 use AntChain\TWC\Models\OperateJusticeEventRequest;
 use AntChain\TWC\Models\OperateJusticeEventResponse;
+use AntChain\TWC\Models\OperateLeasePetcomparepetidRequest;
+use AntChain\TWC\Models\OperateLeasePetcomparepetidResponse;
+use AntChain\TWC\Models\OperateLeasePetcomparepetsRequest;
+use AntChain\TWC\Models\OperateLeasePetcomparepetsResponse;
 use AntChain\TWC\Models\PushDigitalcontentUsageRequest;
 use AntChain\TWC\Models\PushDigitalcontentUsageResponse;
 use AntChain\TWC\Models\PushPrivatecontractGaugeRequest;
@@ -607,6 +611,8 @@ use AntChain\TWC\Models\QueryWithholdPayresultRequest;
 use AntChain\TWC\Models\QueryWithholdPayresultResponse;
 use AntChain\TWC\Models\RegisterBclMerchantRequest;
 use AntChain\TWC\Models\RegisterBclMerchantResponse;
+use AntChain\TWC\Models\RegisterLeasePetrecognitionRequest;
+use AntChain\TWC\Models\RegisterLeasePetrecognitionResponse;
 use AntChain\TWC\Models\ResetContractMerchantapplyRequest;
 use AntChain\TWC\Models\ResetContractMerchantapplyResponse;
 use AntChain\TWC\Models\SaveContractFlowRequest;
@@ -709,6 +715,8 @@ use AntChain\TWC\Models\VerifyContractDocsignRequest;
 use AntChain\TWC\Models\VerifyContractDocsignResponse;
 use AntChain\TWC\Models\VerifyContractTextsignRequest;
 use AntChain\TWC\Models\VerifyContractTextsignResponse;
+use AntChain\TWC\Models\VerifyLeasePetrecognitionRequest;
+use AntChain\TWC\Models\VerifyLeasePetrecognitionResponse;
 use AntChain\TWC\Models\VerifyPrivatecompanyFourmetaRequest;
 use AntChain\TWC\Models\VerifyPrivatecompanyFourmetaResponse;
 use AntChain\TWC\Models\VerifyPrivatecompanyTwometaRequest;
@@ -864,7 +872,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.13.6',
+                    'sdk_version'      => '1.13.8',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5996,6 +6004,138 @@ class Client
         Utils::validateModel($request);
 
         return TransferInnerShorturlResponse::fromMap($this->doRequest('1.0', 'twc.notary.inner.shorturl.transfer', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 宠物比对能力图片资源合格性校验
+     * Summary: 宠物合格性校验.
+     *
+     * @param VerifyLeasePetrecognitionRequest $request
+     *
+     * @return VerifyLeasePetrecognitionResponse
+     */
+    public function verifyLeasePetrecognition($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyLeasePetrecognitionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 宠物比对能力图片资源合格性校验
+     * Summary: 宠物合格性校验.
+     *
+     * @param VerifyLeasePetrecognitionRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return VerifyLeasePetrecognitionResponse
+     */
+    public function verifyLeasePetrecognitionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyLeasePetrecognitionResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.petrecognition.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 宠物比对能力建档注册功能
+     * Summary: 宠物建档注册.
+     *
+     * @param RegisterLeasePetrecognitionRequest $request
+     *
+     * @return RegisterLeasePetrecognitionResponse
+     */
+    public function registerLeasePetrecognition($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerLeasePetrecognitionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 宠物比对能力建档注册功能
+     * Summary: 宠物建档注册.
+     *
+     * @param RegisterLeasePetrecognitionRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return RegisterLeasePetrecognitionResponse
+     */
+    public function registerLeasePetrecognitionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterLeasePetrecognitionResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.petrecognition.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 宠物比对能力建档比对
+     * Summary: 宠物建档比对.
+     *
+     * @param OperateLeasePetcomparepetidRequest $request
+     *
+     * @return OperateLeasePetcomparepetidResponse
+     */
+    public function operateLeasePetcomparepetid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateLeasePetcomparepetidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 宠物比对能力建档比对
+     * Summary: 宠物建档比对.
+     *
+     * @param OperateLeasePetcomparepetidRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return OperateLeasePetcomparepetidResponse
+     */
+    public function operateLeasePetcomparepetidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateLeasePetcomparepetidResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.petcomparepetid.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 宠物比对能力图片资源直接比对
+     * Summary: 宠物资源直接比对.
+     *
+     * @param OperateLeasePetcomparepetsRequest $request
+     *
+     * @return OperateLeasePetcomparepetsResponse
+     */
+    public function operateLeasePetcomparepets($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateLeasePetcomparepetsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 宠物比对能力图片资源直接比对
+     * Summary: 宠物资源直接比对.
+     *
+     * @param OperateLeasePetcomparepetsRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return OperateLeasePetcomparepetsResponse
+     */
+    public function operateLeasePetcomparepetsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateLeasePetcomparepetsResponse::fromMap($this->doRequest('1.0', 'twc.notary.lease.petcomparepets.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -90,6 +90,13 @@ class CreateContractOnestepflowRequest extends Model
      * @var bool
      */
     public $combineSignModel;
+
+    // 合并签署是否开启人脸识别(默认true-开启),非合并签署无需设值
+    //
+    /**
+     * @var bool
+     */
+    public $needFace;
     protected $_name = [
         'authToken'                    => 'auth_token',
         'productInstanceId'            => 'product_instance_id',
@@ -105,6 +112,7 @@ class CreateContractOnestepflowRequest extends Model
         'signPlatform'                 => 'sign_platform',
         'signValidity'                 => 'sign_validity',
         'combineSignModel'             => 'combine_sign_model',
+        'needFace'                     => 'need_face',
     ];
 
     public function validate()
@@ -168,6 +176,9 @@ class CreateContractOnestepflowRequest extends Model
         }
         if (null !== $this->combineSignModel) {
             $res['combine_sign_model'] = $this->combineSignModel;
+        }
+        if (null !== $this->needFace) {
+            $res['need_face'] = $this->needFace;
         }
 
         return $res;
@@ -234,6 +245,9 @@ class CreateContractOnestepflowRequest extends Model
         }
         if (isset($map['combine_sign_model'])) {
             $model->combineSignModel = $map['combine_sign_model'];
+        }
+        if (isset($map['need_face'])) {
+            $model->needFace = $map['need_face'];
         }
 
         return $model;
