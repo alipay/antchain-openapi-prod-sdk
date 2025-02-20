@@ -2437,12 +2437,15 @@ export class CreateSimOrderResponse extends $tea.Model {
   resultMsg?: string;
   // 订单号
   orderId?: string;
+  // 支付宝小程序链接
+  miniappLink?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       orderId: 'order_id',
+      miniappLink: 'miniapp_link',
     };
   }
 
@@ -2452,6 +2455,7 @@ export class CreateSimOrderResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       orderId: 'string',
+      miniappLink: 'string',
     };
   }
 
@@ -2504,12 +2508,15 @@ export class QuerySimOrderResponse extends $tea.Model {
   resultMsg?: string;
   // 订单信息，如果查无返回空对象
   orderInfo?: SimOrderInfo;
+  // 小程序链接
+  miniappLink?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       orderInfo: 'order_info',
+      miniappLink: 'miniapp_link',
     };
   }
 
@@ -2519,6 +2526,7 @@ export class QuerySimOrderResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       orderInfo: SimOrderInfo,
+      miniappLink: 'string',
     };
   }
 
@@ -6046,7 +6054,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.6",
+          sdk_version: "1.4.8",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
