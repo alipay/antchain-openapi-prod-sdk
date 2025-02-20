@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.6"},
+                        {"sdk_version", "1.13.8"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.6"},
+                        {"sdk_version", "1.13.8"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6795,6 +6795,174 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<TransferInnerShorturlResponse>(await DoRequestAsync("1.0", "twc.notary.inner.shorturl.transfer", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 宠物比对能力图片资源合格性校验
+         * Summary: 宠物合格性校验
+         */
+        public VerifyLeasePetrecognitionResponse VerifyLeasePetrecognition(VerifyLeasePetrecognitionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return VerifyLeasePetrecognitionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 宠物比对能力图片资源合格性校验
+         * Summary: 宠物合格性校验
+         */
+        public async Task<VerifyLeasePetrecognitionResponse> VerifyLeasePetrecognitionAsync(VerifyLeasePetrecognitionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await VerifyLeasePetrecognitionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 宠物比对能力图片资源合格性校验
+         * Summary: 宠物合格性校验
+         */
+        public VerifyLeasePetrecognitionResponse VerifyLeasePetrecognitionEx(VerifyLeasePetrecognitionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyLeasePetrecognitionResponse>(DoRequest("1.0", "twc.notary.lease.petrecognition.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 宠物比对能力图片资源合格性校验
+         * Summary: 宠物合格性校验
+         */
+        public async Task<VerifyLeasePetrecognitionResponse> VerifyLeasePetrecognitionExAsync(VerifyLeasePetrecognitionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyLeasePetrecognitionResponse>(await DoRequestAsync("1.0", "twc.notary.lease.petrecognition.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 宠物比对能力建档注册功能
+         * Summary: 宠物建档注册
+         */
+        public RegisterLeasePetrecognitionResponse RegisterLeasePetrecognition(RegisterLeasePetrecognitionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RegisterLeasePetrecognitionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 宠物比对能力建档注册功能
+         * Summary: 宠物建档注册
+         */
+        public async Task<RegisterLeasePetrecognitionResponse> RegisterLeasePetrecognitionAsync(RegisterLeasePetrecognitionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RegisterLeasePetrecognitionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 宠物比对能力建档注册功能
+         * Summary: 宠物建档注册
+         */
+        public RegisterLeasePetrecognitionResponse RegisterLeasePetrecognitionEx(RegisterLeasePetrecognitionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterLeasePetrecognitionResponse>(DoRequest("1.0", "twc.notary.lease.petrecognition.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 宠物比对能力建档注册功能
+         * Summary: 宠物建档注册
+         */
+        public async Task<RegisterLeasePetrecognitionResponse> RegisterLeasePetrecognitionExAsync(RegisterLeasePetrecognitionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterLeasePetrecognitionResponse>(await DoRequestAsync("1.0", "twc.notary.lease.petrecognition.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 宠物比对能力建档比对
+         * Summary: 宠物建档比对
+         */
+        public OperateLeasePetcomparepetidResponse OperateLeasePetcomparepetid(OperateLeasePetcomparepetidRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateLeasePetcomparepetidEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 宠物比对能力建档比对
+         * Summary: 宠物建档比对
+         */
+        public async Task<OperateLeasePetcomparepetidResponse> OperateLeasePetcomparepetidAsync(OperateLeasePetcomparepetidRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateLeasePetcomparepetidExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 宠物比对能力建档比对
+         * Summary: 宠物建档比对
+         */
+        public OperateLeasePetcomparepetidResponse OperateLeasePetcomparepetidEx(OperateLeasePetcomparepetidRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateLeasePetcomparepetidResponse>(DoRequest("1.0", "twc.notary.lease.petcomparepetid.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 宠物比对能力建档比对
+         * Summary: 宠物建档比对
+         */
+        public async Task<OperateLeasePetcomparepetidResponse> OperateLeasePetcomparepetidExAsync(OperateLeasePetcomparepetidRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateLeasePetcomparepetidResponse>(await DoRequestAsync("1.0", "twc.notary.lease.petcomparepetid.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 宠物比对能力图片资源直接比对
+         * Summary: 宠物资源直接比对
+         */
+        public OperateLeasePetcomparepetsResponse OperateLeasePetcomparepets(OperateLeasePetcomparepetsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateLeasePetcomparepetsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 宠物比对能力图片资源直接比对
+         * Summary: 宠物资源直接比对
+         */
+        public async Task<OperateLeasePetcomparepetsResponse> OperateLeasePetcomparepetsAsync(OperateLeasePetcomparepetsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateLeasePetcomparepetsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 宠物比对能力图片资源直接比对
+         * Summary: 宠物资源直接比对
+         */
+        public OperateLeasePetcomparepetsResponse OperateLeasePetcomparepetsEx(OperateLeasePetcomparepetsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateLeasePetcomparepetsResponse>(DoRequest("1.0", "twc.notary.lease.petcomparepets.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 宠物比对能力图片资源直接比对
+         * Summary: 宠物资源直接比对
+         */
+        public async Task<OperateLeasePetcomparepetsResponse> OperateLeasePetcomparepetsExAsync(OperateLeasePetcomparepetsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateLeasePetcomparepetsResponse>(await DoRequestAsync("1.0", "twc.notary.lease.petcomparepets.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
