@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.13.6"),
+                    new TeaPair("sdk_version", "1.13.8"),
                     new TeaPair("_prod_code", "TWC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -3112,6 +3112,82 @@ public class Client {
     public TransferInnerShorturlResponse transferInnerShorturlEx(TransferInnerShorturlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.inner.shorturl.transfer", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new TransferInnerShorturlResponse());
+    }
+
+    /**
+     * Description: 宠物比对能力图片资源合格性校验
+     * Summary: 宠物合格性校验
+     */
+    public VerifyLeasePetrecognitionResponse verifyLeasePetrecognition(VerifyLeasePetrecognitionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyLeasePetrecognitionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 宠物比对能力图片资源合格性校验
+     * Summary: 宠物合格性校验
+     */
+    public VerifyLeasePetrecognitionResponse verifyLeasePetrecognitionEx(VerifyLeasePetrecognitionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.petrecognition.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyLeasePetrecognitionResponse());
+    }
+
+    /**
+     * Description: 宠物比对能力建档注册功能
+     * Summary: 宠物建档注册
+     */
+    public RegisterLeasePetrecognitionResponse registerLeasePetrecognition(RegisterLeasePetrecognitionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.registerLeasePetrecognitionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 宠物比对能力建档注册功能
+     * Summary: 宠物建档注册
+     */
+    public RegisterLeasePetrecognitionResponse registerLeasePetrecognitionEx(RegisterLeasePetrecognitionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.petrecognition.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterLeasePetrecognitionResponse());
+    }
+
+    /**
+     * Description: 宠物比对能力建档比对
+     * Summary: 宠物建档比对
+     */
+    public OperateLeasePetcomparepetidResponse operateLeasePetcomparepetid(OperateLeasePetcomparepetidRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateLeasePetcomparepetidEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 宠物比对能力建档比对
+     * Summary: 宠物建档比对
+     */
+    public OperateLeasePetcomparepetidResponse operateLeasePetcomparepetidEx(OperateLeasePetcomparepetidRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.petcomparepetid.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateLeasePetcomparepetidResponse());
+    }
+
+    /**
+     * Description: 宠物比对能力图片资源直接比对
+     * Summary: 宠物资源直接比对
+     */
+    public OperateLeasePetcomparepetsResponse operateLeasePetcomparepets(OperateLeasePetcomparepetsRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateLeasePetcomparepetsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 宠物比对能力图片资源直接比对
+     * Summary: 宠物资源直接比对
+     */
+    public OperateLeasePetcomparepetsResponse operateLeasePetcomparepetsEx(OperateLeasePetcomparepetsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.lease.petcomparepets.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateLeasePetcomparepetsResponse());
     }
 
     /**
