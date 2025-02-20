@@ -3133,6 +3133,8 @@ type CreateSimOrderResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 订单号
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// 支付宝小程序链接
+	MiniappLink *string `json:"miniapp_link,omitempty" xml:"miniapp_link,omitempty"`
 }
 
 func (s CreateSimOrderResponse) String() string {
@@ -3160,6 +3162,11 @@ func (s *CreateSimOrderResponse) SetResultMsg(v string) *CreateSimOrderResponse 
 
 func (s *CreateSimOrderResponse) SetOrderId(v string) *CreateSimOrderResponse {
 	s.OrderId = &v
+	return s
+}
+
+func (s *CreateSimOrderResponse) SetMiniappLink(v string) *CreateSimOrderResponse {
+	s.MiniappLink = &v
 	return s
 }
 
@@ -3217,6 +3224,8 @@ type QuerySimOrderResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 订单信息，如果查无返回空对象
 	OrderInfo *SimOrderInfo `json:"order_info,omitempty" xml:"order_info,omitempty"`
+	// 小程序链接
+	MiniappLink *string `json:"miniapp_link,omitempty" xml:"miniapp_link,omitempty"`
 }
 
 func (s QuerySimOrderResponse) String() string {
@@ -3244,6 +3253,11 @@ func (s *QuerySimOrderResponse) SetResultMsg(v string) *QuerySimOrderResponse {
 
 func (s *QuerySimOrderResponse) SetOrderInfo(v *SimOrderInfo) *QuerySimOrderResponse {
 	s.OrderInfo = v
+	return s
+}
+
+func (s *QuerySimOrderResponse) SetMiniappLink(v string) *QuerySimOrderResponse {
+	s.MiniappLink = &v
 	return s
 }
 
@@ -7949,7 +7963,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.6"),
+				"sdk_version":      tea.String("1.4.8"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
