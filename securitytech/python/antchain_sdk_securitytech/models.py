@@ -3992,6 +3992,7 @@ class CreateSimOrderResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         order_id: str = None,
+        miniapp_link: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -4001,6 +4002,8 @@ class CreateSimOrderResponse(TeaModel):
         self.result_msg = result_msg
         # 订单号
         self.order_id = order_id
+        # 支付宝小程序链接
+        self.miniapp_link = miniapp_link
 
     def validate(self):
         pass
@@ -4019,6 +4022,8 @@ class CreateSimOrderResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.order_id is not None:
             result['order_id'] = self.order_id
+        if self.miniapp_link is not None:
+            result['miniapp_link'] = self.miniapp_link
         return result
 
     def from_map(self, m: dict = None):
@@ -4031,6 +4036,8 @@ class CreateSimOrderResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('order_id') is not None:
             self.order_id = m.get('order_id')
+        if m.get('miniapp_link') is not None:
+            self.miniapp_link = m.get('miniapp_link')
         return self
 
 
@@ -4098,6 +4105,7 @@ class QuerySimOrderResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         order_info: SimOrderInfo = None,
+        miniapp_link: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -4107,6 +4115,8 @@ class QuerySimOrderResponse(TeaModel):
         self.result_msg = result_msg
         # 订单信息，如果查无返回空对象
         self.order_info = order_info
+        # 小程序链接
+        self.miniapp_link = miniapp_link
 
     def validate(self):
         if self.order_info:
@@ -4126,6 +4136,8 @@ class QuerySimOrderResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.order_info is not None:
             result['order_info'] = self.order_info.to_map()
+        if self.miniapp_link is not None:
+            result['miniapp_link'] = self.miniapp_link
         return result
 
     def from_map(self, m: dict = None):
@@ -4139,6 +4151,8 @@ class QuerySimOrderResponse(TeaModel):
         if m.get('order_info') is not None:
             temp_model = SimOrderInfo()
             self.order_info = temp_model.from_map(m['order_info'])
+        if m.get('miniapp_link') is not None:
+            self.miniapp_link = m.get('miniapp_link')
         return self
 
 
