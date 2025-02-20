@@ -20,6 +20,10 @@ public class QuerySimOrderResponse extends TeaModel {
     @NameInMap("order_info")
     public SimOrderInfo orderInfo;
 
+    // 小程序链接
+    @NameInMap("miniapp_link")
+    public String miniappLink;
+
     public static QuerySimOrderResponse build(java.util.Map<String, ?> map) throws Exception {
         QuerySimOrderResponse self = new QuerySimOrderResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class QuerySimOrderResponse extends TeaModel {
     }
     public SimOrderInfo getOrderInfo() {
         return this.orderInfo;
+    }
+
+    public QuerySimOrderResponse setMiniappLink(String miniappLink) {
+        this.miniappLink = miniappLink;
+        return this;
+    }
+    public String getMiniappLink() {
+        return this.miniappLink;
     }
 
 }

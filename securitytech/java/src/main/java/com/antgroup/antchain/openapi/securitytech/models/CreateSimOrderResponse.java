@@ -20,6 +20,10 @@ public class CreateSimOrderResponse extends TeaModel {
     @NameInMap("order_id")
     public String orderId;
 
+    // 支付宝小程序链接
+    @NameInMap("miniapp_link")
+    public String miniappLink;
+
     public static CreateSimOrderResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateSimOrderResponse self = new CreateSimOrderResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class CreateSimOrderResponse extends TeaModel {
     }
     public String getOrderId() {
         return this.orderId;
+    }
+
+    public CreateSimOrderResponse setMiniappLink(String miniappLink) {
+        this.miniappLink = miniappLink;
+        return this;
+    }
+    public String getMiniappLink() {
+        return this.miniappLink;
     }
 
 }
