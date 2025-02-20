@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.6',
+    sdk_version = '1.4.8',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -1289,6 +1289,8 @@ model CreateSimOrderResponse = {
   resultMsg?: string(name='result_msg'),
   // 订单号
   orderId?: string(name='order_id'),
+  // 支付宝小程序链接
+  miniappLink?: string(name='miniapp_link'),
 }
 
 /**
@@ -1331,6 +1333,8 @@ model QuerySimOrderResponse = {
   resultMsg?: string(name='result_msg'),
   // 订单信息，如果查无返回空对象
   orderInfo?: SimOrderInfo(name='order_info'),
+  // 小程序链接
+  miniappLink?: string(name='miniapp_link'),
 }
 
 /**
