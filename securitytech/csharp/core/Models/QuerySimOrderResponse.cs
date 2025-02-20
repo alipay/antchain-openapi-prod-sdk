@@ -29,6 +29,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public SimOrderInfo OrderInfo { get; set; }
 
+        // 小程序链接
+        [NameInMap("miniapp_link")]
+        [Validation(Required=false)]
+        public string MiniappLink { get; set; }
+
     }
 
 }

@@ -29,6 +29,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public string OrderId { get; set; }
 
+        // 支付宝小程序链接
+        [NameInMap("miniapp_link")]
+        [Validation(Required=false)]
+        public string MiniappLink { get; set; }
+
     }
 
 }
