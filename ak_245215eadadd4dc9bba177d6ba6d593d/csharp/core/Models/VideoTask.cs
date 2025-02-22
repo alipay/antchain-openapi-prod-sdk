@@ -30,6 +30,11 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
         [Validation(Required=false)]
         public CaptionsInfo CaptionsInfo { get; set; }
 
+        // 短视频生成失败原因
+        [NameInMap("fail_reason")]
+        [Validation(Required=false)]
+        public string FailReason { get; set; }
+
     }
 
 }
