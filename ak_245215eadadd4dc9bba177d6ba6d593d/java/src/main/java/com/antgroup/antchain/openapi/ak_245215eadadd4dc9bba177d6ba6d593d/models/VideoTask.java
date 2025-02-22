@@ -21,6 +21,10 @@ public class VideoTask extends TeaModel {
     @NameInMap("captions_info")
     public CaptionsInfo captionsInfo;
 
+    // 短视频生成失败原因
+    @NameInMap("fail_reason")
+    public String failReason;
+
     public static VideoTask build(java.util.Map<String, ?> map) throws Exception {
         VideoTask self = new VideoTask();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class VideoTask extends TeaModel {
     }
     public CaptionsInfo getCaptionsInfo() {
         return this.captionsInfo;
+    }
+
+    public VideoTask setFailReason(String failReason) {
+        this.failReason = failReason;
+        return this;
+    }
+    public String getFailReason() {
+        return this.failReason;
     }
 
 }
