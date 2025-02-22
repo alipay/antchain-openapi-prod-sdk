@@ -39,11 +39,20 @@ class VideoTask extends Model
      * @var CaptionsInfo
      */
     public $captionsInfo;
+
+    // 短视频生成失败原因
+    /**
+     * @example 失败原因
+     *
+     * @var string
+     */
+    public $failReason;
     protected $_name = [
         'state'         => 'state',
         'videoUrl'      => 'video_url',
         'videoDuration' => 'video_duration',
         'captionsInfo'  => 'captions_info',
+        'failReason'    => 'fail_reason',
     ];
 
     public function validate()
@@ -65,6 +74,9 @@ class VideoTask extends Model
         }
         if (null !== $this->captionsInfo) {
             $res['captions_info'] = null !== $this->captionsInfo ? $this->captionsInfo->toMap() : null;
+        }
+        if (null !== $this->failReason) {
+            $res['fail_reason'] = $this->failReason;
         }
 
         return $res;
@@ -89,6 +101,9 @@ class VideoTask extends Model
         }
         if (isset($map['captions_info'])) {
             $model->captionsInfo = CaptionsInfo::fromMap($map['captions_info']);
+        }
+        if (isset($map['fail_reason'])) {
+            $model->failReason = $map['fail_reason'];
         }
 
         return $model;
