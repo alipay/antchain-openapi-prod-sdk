@@ -553,12 +553,15 @@ export class VideoTask extends $tea.Model {
   videoDuration?: number;
   // 字幕时间戳信息
   captionsInfo?: CaptionsInfo;
+  // 短视频生成失败原因
+  failReason?: string;
   static names(): { [key: string]: string } {
     return {
       state: 'state',
       videoUrl: 'video_url',
       videoDuration: 'video_duration',
       captionsInfo: 'captions_info',
+      failReason: 'fail_reason',
     };
   }
 
@@ -568,6 +571,7 @@ export class VideoTask extends $tea.Model {
       videoUrl: 'string',
       videoDuration: 'number',
       captionsInfo: CaptionsInfo,
+      failReason: 'string',
     };
   }
 
@@ -1760,7 +1764,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.5",
+          sdk_version: "1.2.6",
           _prod_code: "ak_245215eadadd4dc9bba177d6ba6d593d",
           _prod_channel: "saas",
         };
