@@ -905,6 +905,7 @@ class VideoTask(TeaModel):
         video_url: str = None,
         video_duration: int = None,
         captions_info: CaptionsInfo = None,
+        fail_reason: str = None,
     ):
         # RUNNING, COMPLETE,FAIL
         self.state = state
@@ -914,6 +915,8 @@ class VideoTask(TeaModel):
         self.video_duration = video_duration
         # 字幕时间戳信息
         self.captions_info = captions_info
+        # 短视频生成失败原因
+        self.fail_reason = fail_reason
 
     def validate(self):
         self.validate_required(self.state, 'state')
@@ -934,6 +937,8 @@ class VideoTask(TeaModel):
             result['video_duration'] = self.video_duration
         if self.captions_info is not None:
             result['captions_info'] = self.captions_info.to_map()
+        if self.fail_reason is not None:
+            result['fail_reason'] = self.fail_reason
         return result
 
     def from_map(self, m: dict = None):
@@ -947,6 +952,8 @@ class VideoTask(TeaModel):
         if m.get('captions_info') is not None:
             temp_model = CaptionsInfo()
             self.captions_info = temp_model.from_map(m['captions_info'])
+        if m.get('fail_reason') is not None:
+            self.fail_reason = m.get('fail_reason')
         return self
 
 
