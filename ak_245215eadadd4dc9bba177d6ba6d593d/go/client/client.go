@@ -739,6 +739,8 @@ type VideoTask struct {
 	VideoDuration *int64 `json:"video_duration,omitempty" xml:"video_duration,omitempty"`
 	// 字幕时间戳信息
 	CaptionsInfo *CaptionsInfo `json:"captions_info,omitempty" xml:"captions_info,omitempty"`
+	// 短视频生成失败原因
+	FailReason *string `json:"fail_reason,omitempty" xml:"fail_reason,omitempty"`
 }
 
 func (s VideoTask) String() string {
@@ -766,6 +768,11 @@ func (s *VideoTask) SetVideoDuration(v int64) *VideoTask {
 
 func (s *VideoTask) SetCaptionsInfo(v *CaptionsInfo) *VideoTask {
 	s.CaptionsInfo = v
+	return s
+}
+
+func (s *VideoTask) SetFailReason(v string) *VideoTask {
+	s.FailReason = &v
 	return s
 }
 
@@ -2259,7 +2266,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.5"),
+				"sdk_version":      tea.String("1.2.6"),
 				"_prod_code":       tea.String("ak_245215eadadd4dc9bba177d6ba6d593d"),
 				"_prod_channel":    tea.String("saas"),
 			}
