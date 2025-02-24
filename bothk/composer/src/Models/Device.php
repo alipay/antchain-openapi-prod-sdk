@@ -119,6 +119,32 @@ class Device extends Model
      * @var int
      */
     public $trustiotDeviceId;
+
+    // 设备链上Id
+    //
+    /**
+     * @example 223344
+     *
+     * @var string
+     */
+    public $chainDeviceId;
+
+    // 上链哈希
+    //
+    /**
+     * @example 3344
+     *
+     * @var string
+     */
+    public $txHash;
+
+    // 上链时间
+    /**
+     * @example 224455
+     *
+     * @var int
+     */
+    public $txTime;
     protected $_name = [
         'deviceId'          => 'device_id',
         'deviceDataModelId' => 'device_data_model_id',
@@ -134,6 +160,9 @@ class Device extends Model
         'factoryTime'       => 'factory_time',
         'deviceStatus'      => 'device_status',
         'trustiotDeviceId'  => 'trustiot_device_id',
+        'chainDeviceId'     => 'chain_device_id',
+        'txHash'            => 'tx_hash',
+        'txTime'            => 'tx_time',
     ];
 
     public function validate()
@@ -196,6 +225,15 @@ class Device extends Model
         if (null !== $this->trustiotDeviceId) {
             $res['trustiot_device_id'] = $this->trustiotDeviceId;
         }
+        if (null !== $this->chainDeviceId) {
+            $res['chain_device_id'] = $this->chainDeviceId;
+        }
+        if (null !== $this->txHash) {
+            $res['tx_hash'] = $this->txHash;
+        }
+        if (null !== $this->txTime) {
+            $res['tx_time'] = $this->txTime;
+        }
 
         return $res;
     }
@@ -249,6 +287,15 @@ class Device extends Model
         }
         if (isset($map['trustiot_device_id'])) {
             $model->trustiotDeviceId = $map['trustiot_device_id'];
+        }
+        if (isset($map['chain_device_id'])) {
+            $model->chainDeviceId = $map['chain_device_id'];
+        }
+        if (isset($map['tx_hash'])) {
+            $model->txHash = $map['tx_hash'];
+        }
+        if (isset($map['tx_time'])) {
+            $model->txTime = $map['tx_time'];
         }
 
         return $model;

@@ -40,11 +40,20 @@ class SendCollectorResult extends Model
      * @var string
      */
     public $extraInfo;
+
+    // 数据的链上哈希
+    /**
+     * @example 2c952456827828cdedad06afccef75a9f2c2840cbb6b0b659f653da1e5916cb2
+     *
+     * @var string
+     */
+    public $txHash;
     protected $_name = [
         'originalIndex' => 'original_index',
         'errorCode'     => 'error_code',
         'errorMsg'      => 'error_msg',
         'extraInfo'     => 'extra_info',
+        'txHash'        => 'tx_hash',
     ];
 
     public function validate()
@@ -66,6 +75,9 @@ class SendCollectorResult extends Model
         }
         if (null !== $this->extraInfo) {
             $res['extra_info'] = $this->extraInfo;
+        }
+        if (null !== $this->txHash) {
+            $res['tx_hash'] = $this->txHash;
         }
 
         return $res;
@@ -90,6 +102,9 @@ class SendCollectorResult extends Model
         }
         if (isset($map['extra_info'])) {
             $model->extraInfo = $map['extra_info'];
+        }
+        if (isset($map['tx_hash'])) {
+            $model->txHash = $map['tx_hash'];
         }
 
         return $model;

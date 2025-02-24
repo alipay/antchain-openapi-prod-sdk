@@ -23,15 +23,25 @@ class TrustiotDeviceIdMap extends Model
      * @var string
      */
     public $deviceId;
+
+    // 设备注册的上链哈希
+    /**
+     * @example ba9de337190b017ea6255bffa226ea5ed91cbb03babb42e5a35d652ca30cdce1
+     *
+     * @var string
+     */
+    public $chainDeviceId;
     protected $_name = [
         'trustiotDeviceId' => 'trustiot_device_id',
         'deviceId'         => 'device_id',
+        'chainDeviceId'    => 'chain_device_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('trustiotDeviceId', $this->trustiotDeviceId, true);
         Model::validateRequired('deviceId', $this->deviceId, true);
+        Model::validateRequired('chainDeviceId', $this->chainDeviceId, true);
     }
 
     public function toMap()
@@ -42,6 +52,9 @@ class TrustiotDeviceIdMap extends Model
         }
         if (null !== $this->deviceId) {
             $res['device_id'] = $this->deviceId;
+        }
+        if (null !== $this->chainDeviceId) {
+            $res['chain_device_id'] = $this->chainDeviceId;
         }
 
         return $res;
@@ -60,6 +73,9 @@ class TrustiotDeviceIdMap extends Model
         }
         if (isset($map['device_id'])) {
             $model->deviceId = $map['device_id'];
+        }
+        if (isset($map['chain_device_id'])) {
+            $model->chainDeviceId = $map['chain_device_id'];
         }
 
         return $model;

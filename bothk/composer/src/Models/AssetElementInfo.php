@@ -64,14 +64,6 @@ class AssetElementInfo extends Model
      */
     public $propertyList;
 
-    // 格式处理过的属性列表（支持泛型反序列化）
-    /**
-     * @example [{...},{...}]
-     *
-     * @var string
-     */
-    public $transformPropertyList;
-
     // 数据上报频率
     /**
      * @example {...}
@@ -159,7 +151,6 @@ class AssetElementInfo extends Model
         'fromType'               => 'from_type',
         'dataElementType'        => 'data_element_type',
         'propertyList'           => 'property_list',
-        'transformPropertyList'  => 'transform_property_list',
         'frequency'              => 'frequency',
         'physicsElementTypeCode' => 'physics_element_type_code',
         'bizType'                => 'biz_type',
@@ -203,9 +194,6 @@ class AssetElementInfo extends Model
         }
         if (null !== $this->propertyList) {
             $res['property_list'] = $this->propertyList;
-        }
-        if (null !== $this->transformPropertyList) {
-            $res['transform_property_list'] = $this->transformPropertyList;
         }
         if (null !== $this->frequency) {
             $res['frequency'] = $this->frequency;
@@ -269,9 +257,6 @@ class AssetElementInfo extends Model
         }
         if (isset($map['property_list'])) {
             $model->propertyList = $map['property_list'];
-        }
-        if (isset($map['transform_property_list'])) {
-            $model->transformPropertyList = $map['transform_property_list'];
         }
         if (isset($map['frequency'])) {
             $model->frequency = $map['frequency'];

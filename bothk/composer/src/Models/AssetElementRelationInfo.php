@@ -48,14 +48,6 @@ class AssetElementRelationInfo extends Model
      */
     public $relationDependency;
 
-    // 关系依据, 支持泛型反序列化的格式
-    /**
-     * @example {...}
-     *
-     * @var string
-     */
-    public $transformRelationDependency;
-
     // 项目ID
     /**
      * @example 112233
@@ -80,15 +72,14 @@ class AssetElementRelationInfo extends Model
      */
     public $targetElementName;
     protected $_name = [
-        'sourceElementId'             => 'source_element_id',
-        'targetElementId'             => 'target_element_id',
-        'relationType'                => 'relation_type',
-        'relationDependencyType'      => 'relation_dependency_type',
-        'relationDependency'          => 'relation_dependency',
-        'transformRelationDependency' => 'transform_relation_dependency',
-        'projectId'                   => 'project_id',
-        'sourceElementName'           => 'source_element_name',
-        'targetElementName'           => 'target_element_name',
+        'sourceElementId'        => 'source_element_id',
+        'targetElementId'        => 'target_element_id',
+        'relationType'           => 'relation_type',
+        'relationDependencyType' => 'relation_dependency_type',
+        'relationDependency'     => 'relation_dependency',
+        'projectId'              => 'project_id',
+        'sourceElementName'      => 'source_element_name',
+        'targetElementName'      => 'target_element_name',
     ];
 
     public function validate()
@@ -118,9 +109,6 @@ class AssetElementRelationInfo extends Model
         }
         if (null !== $this->relationDependency) {
             $res['relation_dependency'] = $this->relationDependency;
-        }
-        if (null !== $this->transformRelationDependency) {
-            $res['transform_relation_dependency'] = $this->transformRelationDependency;
         }
         if (null !== $this->projectId) {
             $res['project_id'] = $this->projectId;
@@ -157,9 +145,6 @@ class AssetElementRelationInfo extends Model
         }
         if (isset($map['relation_dependency'])) {
             $model->relationDependency = $map['relation_dependency'];
-        }
-        if (isset($map['transform_relation_dependency'])) {
-            $model->transformRelationDependency = $map['transform_relation_dependency'];
         }
         if (isset($map['project_id'])) {
             $model->projectId = $map['project_id'];

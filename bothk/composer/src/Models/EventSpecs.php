@@ -24,9 +24,7 @@ class EventSpecs extends Model
      */
     public $bizType;
 
-    //
-    // submit_date	STRING	否	2024-08-15
-    //
+    // 提交日期
     /**
      * @example 2024-08-15
      *
@@ -41,11 +39,20 @@ class EventSpecs extends Model
      * @var bool
      */
     public $returnHash;
+
+    // 是否是补数据内容
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $isRepaired;
     protected $_name = [
         'eventModelId' => 'event_model_id',
         'bizType'      => 'biz_type',
         'submitDate'   => 'submit_date',
         'returnHash'   => 'return_hash',
+        'isRepaired'   => 'is_repaired',
     ];
 
     public function validate()
@@ -67,6 +74,9 @@ class EventSpecs extends Model
         }
         if (null !== $this->returnHash) {
             $res['return_hash'] = $this->returnHash;
+        }
+        if (null !== $this->isRepaired) {
+            $res['is_repaired'] = $this->isRepaired;
         }
 
         return $res;
@@ -91,6 +101,9 @@ class EventSpecs extends Model
         }
         if (isset($map['return_hash'])) {
             $model->returnHash = $map['return_hash'];
+        }
+        if (isset($map['is_repaired'])) {
+            $model->isRepaired = $map['is_repaired'];
         }
 
         return $model;

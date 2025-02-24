@@ -25,10 +25,17 @@ class SyncAssetelementProjectResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 同步结果
+    /**
+     * @var string
+     */
+    public $syncStatus;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'syncStatus' => 'sync_status',
     ];
 
     public function validate()
@@ -46,6 +53,9 @@ class SyncAssetelementProjectResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->syncStatus) {
+            $res['sync_status'] = $this->syncStatus;
         }
 
         return $res;
@@ -67,6 +77,9 @@ class SyncAssetelementProjectResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['sync_status'])) {
+            $model->syncStatus = $map['sync_status'];
         }
 
         return $model;
