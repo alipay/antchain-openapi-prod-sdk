@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.2',
+    sdk_version = '1.0.5',
     _prod_code = 'BOTHK',
     _prod_channel = 'default'
   };
@@ -181,12 +181,12 @@ model EventSpecs {
   eventModelId: string(name='event_model_id', example='7084744398341955584'),
   // 业务数据标识
   bizType?: string(name='biz_type', example='ORDER'),
-  // 
-  // submit_date	STRING	否	2024-08-15		
-  // 
+  // 提交日期
   submitDate?: string(name='submit_date', example='2024-08-15'),
   // 冗余字段，请忽略
   returnHash?: boolean(name='return_hash', example='true, false'),
+  // 是否是补数据内容
+  isRepaired?: boolean(name='is_repaired', example='true, false'),
 }
 
 // 可信设备ID及其关联的设备ID
@@ -195,6 +195,8 @@ model TrustiotDeviceIdMap {
   trustiotDeviceId: long(name='trustiot_device_id', example='7006413673662394390'),
   // 设备ID
   deviceId: string(name='device_id', example='1122'),
+  // 设备注册的上链哈希
+  chainDeviceId: string(name='chain_device_id', example='ba9de337190b017ea6255bffa226ea5ed91cbb03babb42e5a35d652ca30cdce1'),
 }
 
 // 通过设备ID注册发行时的设备参数
@@ -241,8 +243,6 @@ model AssetElementRelationInfo {
   relationDependencyType?: string(name='relation_dependency_type', example='NORMAL'),
   // 关联依据
   relationDependency?: string(name='relation_dependency', example='{...}'),
-  // 关系依据, 支持泛型反序列化的格式
-  transformRelationDependency?: string(name='transform_relation_dependency', example='{...}'),
   // 项目ID
   projectId: string(name='project_id', example='112233'),
   // 来源要素名称
@@ -313,6 +313,14 @@ model Device {
   deviceStatus?: string(name='device_status', example='NORMAL'),
   // 可信设备ID
   trustiotDeviceId: long(name='trustiot_device_id', example='7006071575276187649'),
+  // 设备链上Id
+  // 
+  chainDeviceId?: string(name='chain_device_id', example='223344'),
+  // 上链哈希
+  // 
+  txHash?: string(name='tx_hash', example='3344'),
+  // 上链时间
+  txTime?: long(name='tx_time', example='224455'),
 }
 
 // 要素信息
@@ -331,8 +339,6 @@ model AssetElementInfo {
   dataElementType?: string(name='data_element_type', example='COLLECT_BIZ_DATA'),
   // 属性列表， 物理要素非必填；数据要素必填；
   propertyList?: string(name='property_list', example='[{...},{...}]'),
-  // 格式处理过的属性列表（支持泛型反序列化）
-  transformPropertyList?: string(name='transform_property_list', example='[{...},{...}]'),
   // 数据上报频率
   frequency?: string(name='frequency', example='{...}'),
   // 物理要素类型码，包含iot和资管的
@@ -366,6 +372,8 @@ model SendCollectorResult {
   errorMsg?: string(name='error_msg', example='可信设备与DEVICE-ID不匹配'),
   // 返回的扩展信息
   extraInfo?: string(name='extra_info', example='{"assetId":"Q02GYQGAY5","labelId":"86F000001A51A01000003836"}'),
+  // 数据的链上哈希
+  txHash?: string(name='tx_hash', example='2c952456827828cdedad06afccef75a9f2c2840cbb6b0b659f653da1e5916cb2'),
 }
 
 model CreateDistributedeviceBydeviceidmulRequest = {
@@ -569,6 +577,8 @@ model SyncAssetelementProjectResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 同步结果
+  syncStatus?: string(name='sync_status'),
 }
 
 /**
