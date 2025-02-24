@@ -201,12 +201,12 @@ type EventSpecs struct {
 	EventModelId *string `json:"event_model_id,omitempty" xml:"event_model_id,omitempty" require:"true"`
 	// 业务数据标识
 	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
-	//
-	// submit_date	STRING	否	2024-08-15
-	//
+	// 提交日期
 	SubmitDate *string `json:"submit_date,omitempty" xml:"submit_date,omitempty"`
 	// 冗余字段，请忽略
 	ReturnHash *bool `json:"return_hash,omitempty" xml:"return_hash,omitempty"`
+	// 是否是补数据内容
+	IsRepaired *bool `json:"is_repaired,omitempty" xml:"is_repaired,omitempty"`
 }
 
 func (s EventSpecs) String() string {
@@ -237,12 +237,19 @@ func (s *EventSpecs) SetReturnHash(v bool) *EventSpecs {
 	return s
 }
 
+func (s *EventSpecs) SetIsRepaired(v bool) *EventSpecs {
+	s.IsRepaired = &v
+	return s
+}
+
 // 可信设备ID及其关联的设备ID
 type TrustiotDeviceIdMap struct {
 	// 可信设备ID
 	TrustiotDeviceId *int64 `json:"trustiot_device_id,omitempty" xml:"trustiot_device_id,omitempty" require:"true"`
 	// 设备ID
 	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 设备注册的上链哈希
+	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty" require:"true"`
 }
 
 func (s TrustiotDeviceIdMap) String() string {
@@ -260,6 +267,11 @@ func (s *TrustiotDeviceIdMap) SetTrustiotDeviceId(v int64) *TrustiotDeviceIdMap 
 
 func (s *TrustiotDeviceIdMap) SetDeviceId(v string) *TrustiotDeviceIdMap {
 	s.DeviceId = &v
+	return s
+}
+
+func (s *TrustiotDeviceIdMap) SetChainDeviceId(v string) *TrustiotDeviceIdMap {
+	s.ChainDeviceId = &v
 	return s
 }
 
@@ -385,8 +397,6 @@ type AssetElementRelationInfo struct {
 	RelationDependencyType *string `json:"relation_dependency_type,omitempty" xml:"relation_dependency_type,omitempty"`
 	// 关联依据
 	RelationDependency *string `json:"relation_dependency,omitempty" xml:"relation_dependency,omitempty"`
-	// 关系依据, 支持泛型反序列化的格式
-	TransformRelationDependency *string `json:"transform_relation_dependency,omitempty" xml:"transform_relation_dependency,omitempty"`
 	// 项目ID
 	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
 	// 来源要素名称
@@ -425,11 +435,6 @@ func (s *AssetElementRelationInfo) SetRelationDependencyType(v string) *AssetEle
 
 func (s *AssetElementRelationInfo) SetRelationDependency(v string) *AssetElementRelationInfo {
 	s.RelationDependency = &v
-	return s
-}
-
-func (s *AssetElementRelationInfo) SetTransformRelationDependency(v string) *AssetElementRelationInfo {
-	s.TransformRelationDependency = &v
 	return s
 }
 
@@ -588,6 +593,14 @@ type Device struct {
 	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty"`
 	// 可信设备ID
 	TrustiotDeviceId *int64 `json:"trustiot_device_id,omitempty" xml:"trustiot_device_id,omitempty" require:"true"`
+	// 设备链上Id
+	//
+	ChainDeviceId *string `json:"chain_device_id,omitempty" xml:"chain_device_id,omitempty"`
+	// 上链哈希
+	//
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+	// 上链时间
+	TxTime *int64 `json:"tx_time,omitempty" xml:"tx_time,omitempty"`
 }
 
 func (s Device) String() string {
@@ -668,6 +681,21 @@ func (s *Device) SetTrustiotDeviceId(v int64) *Device {
 	return s
 }
 
+func (s *Device) SetChainDeviceId(v string) *Device {
+	s.ChainDeviceId = &v
+	return s
+}
+
+func (s *Device) SetTxHash(v string) *Device {
+	s.TxHash = &v
+	return s
+}
+
+func (s *Device) SetTxTime(v int64) *Device {
+	s.TxTime = &v
+	return s
+}
+
 // 要素信息
 type AssetElementInfo struct {
 	// 项目ID
@@ -684,8 +712,6 @@ type AssetElementInfo struct {
 	DataElementType *string `json:"data_element_type,omitempty" xml:"data_element_type,omitempty"`
 	// 属性列表， 物理要素非必填；数据要素必填；
 	PropertyList *string `json:"property_list,omitempty" xml:"property_list,omitempty"`
-	// 格式处理过的属性列表（支持泛型反序列化）
-	TransformPropertyList *string `json:"transform_property_list,omitempty" xml:"transform_property_list,omitempty"`
 	// 数据上报频率
 	Frequency *string `json:"frequency,omitempty" xml:"frequency,omitempty"`
 	// 物理要素类型码，包含iot和资管的
@@ -751,11 +777,6 @@ func (s *AssetElementInfo) SetPropertyList(v string) *AssetElementInfo {
 	return s
 }
 
-func (s *AssetElementInfo) SetTransformPropertyList(v string) *AssetElementInfo {
-	s.TransformPropertyList = &v
-	return s
-}
-
 func (s *AssetElementInfo) SetFrequency(v string) *AssetElementInfo {
 	s.Frequency = &v
 	return s
@@ -817,6 +838,8 @@ type SendCollectorResult struct {
 	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
 	// 返回的扩展信息
 	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+	// 数据的链上哈希
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
 }
 
 func (s SendCollectorResult) String() string {
@@ -844,6 +867,11 @@ func (s *SendCollectorResult) SetErrorMsg(v string) *SendCollectorResult {
 
 func (s *SendCollectorResult) SetExtraInfo(v string) *SendCollectorResult {
 	s.ExtraInfo = &v
+	return s
+}
+
+func (s *SendCollectorResult) SetTxHash(v string) *SendCollectorResult {
+	s.TxHash = &v
 	return s
 }
 
@@ -1284,6 +1312,8 @@ type SyncAssetelementProjectResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 同步结果
+	SyncStatus *string `json:"sync_status,omitempty" xml:"sync_status,omitempty"`
 }
 
 func (s SyncAssetelementProjectResponse) String() string {
@@ -1306,6 +1336,11 @@ func (s *SyncAssetelementProjectResponse) SetResultCode(v string) *SyncAssetelem
 
 func (s *SyncAssetelementProjectResponse) SetResultMsg(v string) *SyncAssetelementProjectResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *SyncAssetelementProjectResponse) SetSyncStatus(v string) *SyncAssetelementProjectResponse {
+	s.SyncStatus = &v
 	return s
 }
 
@@ -1431,7 +1466,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.2"),
+				"sdk_version":      tea.String("1.0.5"),
 				"_prod_code":       tea.String("BOTHK"),
 				"_prod_channel":    tea.String("default"),
 			}
