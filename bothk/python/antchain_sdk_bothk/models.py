@@ -217,17 +217,18 @@ class EventSpecs(TeaModel):
         biz_type: str = None,
         submit_date: str = None,
         return_hash: bool = None,
+        is_repaired: bool = None,
     ):
         # 物模型事件ID
         self.event_model_id = event_model_id
         # 业务数据标识
         self.biz_type = biz_type
-        # 
-        # submit_date	STRING	否	2024-08-15
-        # 
+        # 提交日期
         self.submit_date = submit_date
         # 冗余字段，请忽略
         self.return_hash = return_hash
+        # 是否是补数据内容
+        self.is_repaired = is_repaired
 
     def validate(self):
         self.validate_required(self.event_model_id, 'event_model_id')
@@ -246,6 +247,8 @@ class EventSpecs(TeaModel):
             result['submit_date'] = self.submit_date
         if self.return_hash is not None:
             result['return_hash'] = self.return_hash
+        if self.is_repaired is not None:
+            result['is_repaired'] = self.is_repaired
         return result
 
     def from_map(self, m: dict = None):
@@ -258,6 +261,8 @@ class EventSpecs(TeaModel):
             self.submit_date = m.get('submit_date')
         if m.get('return_hash') is not None:
             self.return_hash = m.get('return_hash')
+        if m.get('is_repaired') is not None:
+            self.is_repaired = m.get('is_repaired')
         return self
 
 
@@ -266,15 +271,19 @@ class TrustiotDeviceIdMap(TeaModel):
         self,
         trustiot_device_id: int = None,
         device_id: str = None,
+        chain_device_id: str = None,
     ):
         # 可信设备ID
         self.trustiot_device_id = trustiot_device_id
         # 设备ID
         self.device_id = device_id
+        # 设备注册的上链哈希
+        self.chain_device_id = chain_device_id
 
     def validate(self):
         self.validate_required(self.trustiot_device_id, 'trustiot_device_id')
         self.validate_required(self.device_id, 'device_id')
+        self.validate_required(self.chain_device_id, 'chain_device_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -286,6 +295,8 @@ class TrustiotDeviceIdMap(TeaModel):
             result['trustiot_device_id'] = self.trustiot_device_id
         if self.device_id is not None:
             result['device_id'] = self.device_id
+        if self.chain_device_id is not None:
+            result['chain_device_id'] = self.chain_device_id
         return result
 
     def from_map(self, m: dict = None):
@@ -294,6 +305,8 @@ class TrustiotDeviceIdMap(TeaModel):
             self.trustiot_device_id = m.get('trustiot_device_id')
         if m.get('device_id') is not None:
             self.device_id = m.get('device_id')
+        if m.get('chain_device_id') is not None:
+            self.chain_device_id = m.get('chain_device_id')
         return self
 
 
@@ -429,7 +442,6 @@ class AssetElementRelationInfo(TeaModel):
         relation_type: int = None,
         relation_dependency_type: str = None,
         relation_dependency: str = None,
-        transform_relation_dependency: str = None,
         project_id: str = None,
         source_element_name: str = None,
         target_element_name: str = None,
@@ -444,8 +456,6 @@ class AssetElementRelationInfo(TeaModel):
         self.relation_dependency_type = relation_dependency_type
         # 关联依据
         self.relation_dependency = relation_dependency
-        # 关系依据, 支持泛型反序列化的格式
-        self.transform_relation_dependency = transform_relation_dependency
         # 项目ID
         self.project_id = project_id
         # 来源要素名称
@@ -477,8 +487,6 @@ class AssetElementRelationInfo(TeaModel):
             result['relation_dependency_type'] = self.relation_dependency_type
         if self.relation_dependency is not None:
             result['relation_dependency'] = self.relation_dependency
-        if self.transform_relation_dependency is not None:
-            result['transform_relation_dependency'] = self.transform_relation_dependency
         if self.project_id is not None:
             result['project_id'] = self.project_id
         if self.source_element_name is not None:
@@ -499,8 +507,6 @@ class AssetElementRelationInfo(TeaModel):
             self.relation_dependency_type = m.get('relation_dependency_type')
         if m.get('relation_dependency') is not None:
             self.relation_dependency = m.get('relation_dependency')
-        if m.get('transform_relation_dependency') is not None:
-            self.transform_relation_dependency = m.get('transform_relation_dependency')
         if m.get('project_id') is not None:
             self.project_id = m.get('project_id')
         if m.get('source_element_name') is not None:
@@ -654,6 +660,9 @@ class Device(TeaModel):
         factory_time: str = None,
         device_status: str = None,
         trustiot_device_id: int = None,
+        chain_device_id: str = None,
+        tx_hash: str = None,
+        tx_time: int = None,
     ):
         # 设备ID，一般是设备的出厂编码或业务上的资产ID
         self.device_id = device_id
@@ -683,6 +692,14 @@ class Device(TeaModel):
         self.device_status = device_status
         # 可信设备ID
         self.trustiot_device_id = trustiot_device_id
+        # 设备链上Id
+        # 
+        self.chain_device_id = chain_device_id
+        # 上链哈希
+        # 
+        self.tx_hash = tx_hash
+        # 上链时间
+        self.tx_time = tx_time
 
     def validate(self):
         self.validate_required(self.device_id, 'device_id')
@@ -733,6 +750,12 @@ class Device(TeaModel):
             result['device_status'] = self.device_status
         if self.trustiot_device_id is not None:
             result['trustiot_device_id'] = self.trustiot_device_id
+        if self.chain_device_id is not None:
+            result['chain_device_id'] = self.chain_device_id
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        if self.tx_time is not None:
+            result['tx_time'] = self.tx_time
         return result
 
     def from_map(self, m: dict = None):
@@ -765,6 +788,12 @@ class Device(TeaModel):
             self.device_status = m.get('device_status')
         if m.get('trustiot_device_id') is not None:
             self.trustiot_device_id = m.get('trustiot_device_id')
+        if m.get('chain_device_id') is not None:
+            self.chain_device_id = m.get('chain_device_id')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        if m.get('tx_time') is not None:
+            self.tx_time = m.get('tx_time')
         return self
 
 
@@ -778,7 +807,6 @@ class AssetElementInfo(TeaModel):
         from_type: str = None,
         data_element_type: str = None,
         property_list: str = None,
-        transform_property_list: str = None,
         frequency: str = None,
         physics_element_type_code: str = None,
         biz_type: str = None,
@@ -804,8 +832,6 @@ class AssetElementInfo(TeaModel):
         self.data_element_type = data_element_type
         # 属性列表， 物理要素非必填；数据要素必填；
         self.property_list = property_list
-        # 格式处理过的属性列表（支持泛型反序列化）
-        self.transform_property_list = transform_property_list
         # 数据上报频率
         self.frequency = frequency
         # 物理要素类型码，包含iot和资管的
@@ -853,8 +879,6 @@ class AssetElementInfo(TeaModel):
             result['data_element_type'] = self.data_element_type
         if self.property_list is not None:
             result['property_list'] = self.property_list
-        if self.transform_property_list is not None:
-            result['transform_property_list'] = self.transform_property_list
         if self.frequency is not None:
             result['frequency'] = self.frequency
         if self.physics_element_type_code is not None:
@@ -893,8 +917,6 @@ class AssetElementInfo(TeaModel):
             self.data_element_type = m.get('data_element_type')
         if m.get('property_list') is not None:
             self.property_list = m.get('property_list')
-        if m.get('transform_property_list') is not None:
-            self.transform_property_list = m.get('transform_property_list')
         if m.get('frequency') is not None:
             self.frequency = m.get('frequency')
         if m.get('physics_element_type_code') is not None:
@@ -925,6 +947,7 @@ class SendCollectorResult(TeaModel):
         error_code: str = None,
         error_msg: str = None,
         extra_info: str = None,
+        tx_hash: str = None,
     ):
         # 原入参的数组索引
         # 
@@ -935,6 +958,8 @@ class SendCollectorResult(TeaModel):
         self.error_msg = error_msg
         # 返回的扩展信息
         self.extra_info = extra_info
+        # 数据的链上哈希
+        self.tx_hash = tx_hash
 
     def validate(self):
         self.validate_required(self.original_index, 'original_index')
@@ -953,6 +978,8 @@ class SendCollectorResult(TeaModel):
             result['error_msg'] = self.error_msg
         if self.extra_info is not None:
             result['extra_info'] = self.extra_info
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
         return result
 
     def from_map(self, m: dict = None):
@@ -965,6 +992,8 @@ class SendCollectorResult(TeaModel):
             self.error_msg = m.get('error_msg')
         if m.get('extra_info') is not None:
             self.extra_info = m.get('extra_info')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
         return self
 
 
@@ -1583,6 +1612,7 @@ class SyncAssetelementProjectResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        sync_status: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -1590,6 +1620,8 @@ class SyncAssetelementProjectResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 同步结果
+        self.sync_status = sync_status
 
     def validate(self):
         pass
@@ -1606,6 +1638,8 @@ class SyncAssetelementProjectResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.sync_status is not None:
+            result['sync_status'] = self.sync_status
         return result
 
     def from_map(self, m: dict = None):
@@ -1616,6 +1650,8 @@ class SyncAssetelementProjectResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('sync_status') is not None:
+            self.sync_status = m.get('sync_status')
         return self
 
 
