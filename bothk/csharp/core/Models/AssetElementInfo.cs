@@ -45,11 +45,6 @@ namespace AntChain.SDK.BOTHK.Models
         [Validation(Required=false)]
         public string PropertyList { get; set; }
 
-        // 格式处理过的属性列表（支持泛型反序列化）
-        [NameInMap("transform_property_list")]
-        [Validation(Required=false)]
-        public string TransformPropertyList { get; set; }
-
         // 数据上报频率
         [NameInMap("frequency")]
         [Validation(Required=false)]

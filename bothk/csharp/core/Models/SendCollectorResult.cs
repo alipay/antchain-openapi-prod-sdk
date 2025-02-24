@@ -31,6 +31,11 @@ namespace AntChain.SDK.BOTHK.Models
         [Validation(Required=false)]
         public string ExtraInfo { get; set; }
 
+        // 数据的链上哈希
+        [NameInMap("tx_hash")]
+        [Validation(Required=false)]
+        public string TxHash { get; set; }
+
     }
 
 }

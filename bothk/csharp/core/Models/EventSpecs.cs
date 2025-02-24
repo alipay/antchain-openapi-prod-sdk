@@ -20,9 +20,7 @@ namespace AntChain.SDK.BOTHK.Models
         [Validation(Required=false)]
         public string BizType { get; set; }
 
-        // 
-        // submit_date	STRING	否	2024-08-15		
-        // 
+        // 提交日期
         [NameInMap("submit_date")]
         [Validation(Required=false)]
         public string SubmitDate { get; set; }
@@ -31,6 +29,11 @@ namespace AntChain.SDK.BOTHK.Models
         [NameInMap("return_hash")]
         [Validation(Required=false)]
         public bool? ReturnHash { get; set; }
+
+        // 是否是补数据内容
+        [NameInMap("is_repaired")]
+        [Validation(Required=false)]
+        public bool? IsRepaired { get; set; }
 
     }
 

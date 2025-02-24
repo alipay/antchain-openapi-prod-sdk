@@ -35,11 +35,6 @@ namespace AntChain.SDK.BOTHK.Models
         [Validation(Required=false)]
         public string RelationDependency { get; set; }
 
-        // 关系依据, 支持泛型反序列化的格式
-        [NameInMap("transform_relation_dependency")]
-        [Validation(Required=false)]
-        public string TransformRelationDependency { get; set; }
-
         // 项目ID
         [NameInMap("project_id")]
         [Validation(Required=true)]

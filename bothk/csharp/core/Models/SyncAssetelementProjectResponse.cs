@@ -24,6 +24,11 @@ namespace AntChain.SDK.BOTHK.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 同步结果
+        [NameInMap("sync_status")]
+        [Validation(Required=false)]
+        public string SyncStatus { get; set; }
+
     }
 
 }

@@ -80,6 +80,23 @@ namespace AntChain.SDK.BOTHK.Models
         [Validation(Required=true)]
         public long? TrustiotDeviceId { get; set; }
 
+        // 设备链上Id
+        // 
+        [NameInMap("chain_device_id")]
+        [Validation(Required=false)]
+        public string ChainDeviceId { get; set; }
+
+        // 上链哈希
+        // 
+        [NameInMap("tx_hash")]
+        [Validation(Required=false)]
+        public string TxHash { get; set; }
+
+        // 上链时间
+        [NameInMap("tx_time")]
+        [Validation(Required=false)]
+        public long? TxTime { get; set; }
+
     }
 
 }
