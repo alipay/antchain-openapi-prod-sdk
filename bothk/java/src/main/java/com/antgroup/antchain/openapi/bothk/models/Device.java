@@ -69,6 +69,20 @@ public class Device extends TeaModel {
     @Validation(required = true)
     public Long trustiotDeviceId;
 
+    // 设备链上Id
+    // 
+    @NameInMap("chain_device_id")
+    public String chainDeviceId;
+
+    // 上链哈希
+    // 
+    @NameInMap("tx_hash")
+    public String txHash;
+
+    // 上链时间
+    @NameInMap("tx_time")
+    public Long txTime;
+
     public static Device build(java.util.Map<String, ?> map) throws Exception {
         Device self = new Device();
         return TeaModel.build(map, self);
@@ -184,6 +198,30 @@ public class Device extends TeaModel {
     }
     public Long getTrustiotDeviceId() {
         return this.trustiotDeviceId;
+    }
+
+    public Device setChainDeviceId(String chainDeviceId) {
+        this.chainDeviceId = chainDeviceId;
+        return this;
+    }
+    public String getChainDeviceId() {
+        return this.chainDeviceId;
+    }
+
+    public Device setTxHash(String txHash) {
+        this.txHash = txHash;
+        return this;
+    }
+    public String getTxHash() {
+        return this.txHash;
+    }
+
+    public Device setTxTime(Long txTime) {
+        this.txTime = txTime;
+        return this;
+    }
+    public Long getTxTime() {
+        return this.txTime;
     }
 
 }

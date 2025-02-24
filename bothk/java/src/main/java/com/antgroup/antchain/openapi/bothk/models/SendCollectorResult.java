@@ -22,6 +22,10 @@ public class SendCollectorResult extends TeaModel {
     @NameInMap("extra_info")
     public String extraInfo;
 
+    // 数据的链上哈希
+    @NameInMap("tx_hash")
+    public String txHash;
+
     public static SendCollectorResult build(java.util.Map<String, ?> map) throws Exception {
         SendCollectorResult self = new SendCollectorResult();
         return TeaModel.build(map, self);
@@ -57,6 +61,14 @@ public class SendCollectorResult extends TeaModel {
     }
     public String getExtraInfo() {
         return this.extraInfo;
+    }
+
+    public SendCollectorResult setTxHash(String txHash) {
+        this.txHash = txHash;
+        return this;
+    }
+    public String getTxHash() {
+        return this.txHash;
     }
 
 }

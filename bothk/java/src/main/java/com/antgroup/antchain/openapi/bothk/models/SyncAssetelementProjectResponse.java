@@ -16,6 +16,10 @@ public class SyncAssetelementProjectResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 同步结果
+    @NameInMap("sync_status")
+    public String syncStatus;
+
     public static SyncAssetelementProjectResponse build(java.util.Map<String, ?> map) throws Exception {
         SyncAssetelementProjectResponse self = new SyncAssetelementProjectResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class SyncAssetelementProjectResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public SyncAssetelementProjectResponse setSyncStatus(String syncStatus) {
+        this.syncStatus = syncStatus;
+        return this;
+    }
+    public String getSyncStatus() {
+        return this.syncStatus;
     }
 
 }

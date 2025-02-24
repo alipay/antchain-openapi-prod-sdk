@@ -13,15 +13,17 @@ public class EventSpecs extends TeaModel {
     @NameInMap("biz_type")
     public String bizType;
 
-    // 
-    // submit_date	STRING	否	2024-08-15		
-    // 
+    // 提交日期
     @NameInMap("submit_date")
     public String submitDate;
 
     // 冗余字段，请忽略
     @NameInMap("return_hash")
     public Boolean returnHash;
+
+    // 是否是补数据内容
+    @NameInMap("is_repaired")
+    public Boolean isRepaired;
 
     public static EventSpecs build(java.util.Map<String, ?> map) throws Exception {
         EventSpecs self = new EventSpecs();
@@ -58,6 +60,14 @@ public class EventSpecs extends TeaModel {
     }
     public Boolean getReturnHash() {
         return this.returnHash;
+    }
+
+    public EventSpecs setIsRepaired(Boolean isRepaired) {
+        this.isRepaired = isRepaired;
+        return this;
+    }
+    public Boolean getIsRepaired() {
+        return this.isRepaired;
     }
 
 }

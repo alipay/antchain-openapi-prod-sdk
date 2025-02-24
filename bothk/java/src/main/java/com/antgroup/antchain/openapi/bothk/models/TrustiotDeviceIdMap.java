@@ -14,6 +14,11 @@ public class TrustiotDeviceIdMap extends TeaModel {
     @Validation(required = true)
     public String deviceId;
 
+    // 设备注册的上链哈希
+    @NameInMap("chain_device_id")
+    @Validation(required = true)
+    public String chainDeviceId;
+
     public static TrustiotDeviceIdMap build(java.util.Map<String, ?> map) throws Exception {
         TrustiotDeviceIdMap self = new TrustiotDeviceIdMap();
         return TeaModel.build(map, self);
@@ -33,6 +38,14 @@ public class TrustiotDeviceIdMap extends TeaModel {
     }
     public String getDeviceId() {
         return this.deviceId;
+    }
+
+    public TrustiotDeviceIdMap setChainDeviceId(String chainDeviceId) {
+        this.chainDeviceId = chainDeviceId;
+        return this;
+    }
+    public String getChainDeviceId() {
+        return this.chainDeviceId;
     }
 
 }

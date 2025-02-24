@@ -27,10 +27,6 @@ public class AssetElementRelationInfo extends TeaModel {
     @NameInMap("relation_dependency")
     public String relationDependency;
 
-    // 关系依据, 支持泛型反序列化的格式
-    @NameInMap("transform_relation_dependency")
-    public String transformRelationDependency;
-
     // 项目ID
     @NameInMap("project_id")
     @Validation(required = true)
@@ -89,14 +85,6 @@ public class AssetElementRelationInfo extends TeaModel {
     }
     public String getRelationDependency() {
         return this.relationDependency;
-    }
-
-    public AssetElementRelationInfo setTransformRelationDependency(String transformRelationDependency) {
-        this.transformRelationDependency = transformRelationDependency;
-        return this;
-    }
-    public String getTransformRelationDependency() {
-        return this.transformRelationDependency;
     }
 
     public AssetElementRelationInfo setProjectId(String projectId) {

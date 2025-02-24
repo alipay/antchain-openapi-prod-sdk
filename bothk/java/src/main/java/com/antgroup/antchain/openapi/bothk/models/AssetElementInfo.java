@@ -35,10 +35,6 @@ public class AssetElementInfo extends TeaModel {
     @NameInMap("property_list")
     public String propertyList;
 
-    // 格式处理过的属性列表（支持泛型反序列化）
-    @NameInMap("transform_property_list")
-    public String transformPropertyList;
-
     // 数据上报频率
     @NameInMap("frequency")
     public String frequency;
@@ -139,14 +135,6 @@ public class AssetElementInfo extends TeaModel {
     }
     public String getPropertyList() {
         return this.propertyList;
-    }
-
-    public AssetElementInfo setTransformPropertyList(String transformPropertyList) {
-        this.transformPropertyList = transformPropertyList;
-        return this;
-    }
-    public String getTransformPropertyList() {
-        return this.transformPropertyList;
     }
 
     public AssetElementInfo setFrequency(String frequency) {
