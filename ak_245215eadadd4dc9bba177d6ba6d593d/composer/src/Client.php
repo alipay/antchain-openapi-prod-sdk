@@ -27,6 +27,8 @@ use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\ListUniversalsaasDigital
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\ListUniversalsaasDigitalhumanVideoProfileResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\ListUniversalsaasDigitalhumanVideoVoiceRequest;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\ListUniversalsaasDigitalhumanVideoVoiceResponse;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanAudioCaptionsRequest;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanAudioCaptionsResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanAvatarActionRequest;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanAvatarActionResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanCloneTaskRequest;
@@ -37,6 +39,8 @@ use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigita
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanVoiceNoiseResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanVoiceTaskRequest;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanVoiceTaskResponse;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\SubmitUniversalsaasDigitalhumanOrderRequest;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\SubmitUniversalsaasDigitalhumanOrderResponse;
 use AntChain\Util\UtilClient;
@@ -186,7 +190,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.6',
+                    'sdk_version'      => '1.3.0',
                     '_prod_code'       => 'ak_245215eadadd4dc9bba177d6ba6d593d',
                     '_prod_channel'    => 'saas',
                 ];
@@ -694,5 +698,71 @@ class Client
         Utils::validateModel($request);
 
         return QueryUniversalsaasDigitalhumanVoiceNoiseResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.voice.noise.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 音频字幕识别任务创建
+     * Summary: 音频字幕识别任务创建.
+     *
+     * @param RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest $request
+     *
+     * @return RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse
+     */
+    public function recognizeUniversalsaasDigitalhumanAudioCaptions($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->recognizeUniversalsaasDigitalhumanAudioCaptionsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 音频字幕识别任务创建
+     * Summary: 音频字幕识别任务创建.
+     *
+     * @param RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest $request
+     * @param string[]                                               $headers
+     * @param RuntimeOptions                                         $runtime
+     *
+     * @return RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse
+     */
+    public function recognizeUniversalsaasDigitalhumanAudioCaptionsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.audio.captions.recognize', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 音频字幕识别任务结果查询
+     * Summary: 音频字幕识别任务结果查询.
+     *
+     * @param QueryUniversalsaasDigitalhumanAudioCaptionsRequest $request
+     *
+     * @return QueryUniversalsaasDigitalhumanAudioCaptionsResponse
+     */
+    public function queryUniversalsaasDigitalhumanAudioCaptions($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUniversalsaasDigitalhumanAudioCaptionsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 音频字幕识别任务结果查询
+     * Summary: 音频字幕识别任务结果查询.
+     *
+     * @param QueryUniversalsaasDigitalhumanAudioCaptionsRequest $request
+     * @param string[]                                           $headers
+     * @param RuntimeOptions                                     $runtime
+     *
+     * @return QueryUniversalsaasDigitalhumanAudioCaptionsResponse
+     */
+    public function queryUniversalsaasDigitalhumanAudioCaptionsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUniversalsaasDigitalhumanAudioCaptionsResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.audio.captions.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
