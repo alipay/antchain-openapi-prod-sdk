@@ -275,6 +275,39 @@ func (s *Map) SetValue(v string) *Map {
 	return s
 }
 
+// 标签个性化
+type PersonalLabelCustomization struct {
+	// 标签需求类型。0,1-只需要这些标签，2-不需要这些标签，默认0
+	FilterType *int64 `json:"filter_type,omitempty" xml:"filter_type,omitempty"`
+	// 需要个性化处理的一级标签
+	CustomLabelV1 []*string `json:"custom_label_v1,omitempty" xml:"custom_label_v1,omitempty" type:"Repeated"`
+	// 需要个性化处理的二级标签
+	CustomLabelV2 []*string `json:"custom_label_v2,omitempty" xml:"custom_label_v2,omitempty" type:"Repeated"`
+}
+
+func (s PersonalLabelCustomization) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PersonalLabelCustomization) GoString() string {
+	return s.String()
+}
+
+func (s *PersonalLabelCustomization) SetFilterType(v int64) *PersonalLabelCustomization {
+	s.FilterType = &v
+	return s
+}
+
+func (s *PersonalLabelCustomization) SetCustomLabelV1(v []*string) *PersonalLabelCustomization {
+	s.CustomLabelV1 = v
+	return s
+}
+
+func (s *PersonalLabelCustomization) SetCustomLabelV2(v []*string) *PersonalLabelCustomization {
+	s.CustomLabelV2 = v
+	return s
+}
+
 type CheckDemoAicoguardcoreAicoguardrailsQuestionRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -453,6 +486,10 @@ type CheckAntcloudAitechguardAicoguardrailsAskRequest struct {
 	QuestionFormat *string `json:"question_format,omitempty" xml:"question_format,omitempty" require:"true"`
 	// 加密的uid，仅用于唯一标示调用方
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 多轮对话最后一次回答
+	LastAnswer *string `json:"last_answer,omitempty" xml:"last_answer,omitempty"`
+	// 需要个性化处理的标签
+	PersonalLabelCustomization *PersonalLabelCustomization `json:"personal_label_customization,omitempty" xml:"personal_label_customization,omitempty"`
 }
 
 func (s CheckAntcloudAitechguardAicoguardrailsAskRequest) String() string {
@@ -503,6 +540,16 @@ func (s *CheckAntcloudAitechguardAicoguardrailsAskRequest) SetUserId(v string) *
 	return s
 }
 
+func (s *CheckAntcloudAitechguardAicoguardrailsAskRequest) SetLastAnswer(v string) *CheckAntcloudAitechguardAicoguardrailsAskRequest {
+	s.LastAnswer = &v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAskRequest) SetPersonalLabelCustomization(v *PersonalLabelCustomization) *CheckAntcloudAitechguardAicoguardrailsAskRequest {
+	s.PersonalLabelCustomization = v
+	return s
+}
+
 type CheckAntcloudAitechguardAicoguardrailsAskResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -526,8 +573,16 @@ type CheckAntcloudAitechguardAicoguardrailsAskResponse struct {
 	SecurityAnswer *string `json:"security_answer,omitempty" xml:"security_answer,omitempty"`
 	// 有安全风险时的提问改写
 	SecurityPrompt *string `json:"security_prompt,omitempty" xml:"security_prompt,omitempty"`
-	// 有风险时的风险标签
+	// 有风险时的风险类型，一级风险分类
+	RiskCategory *string `json:"risk_category,omitempty" xml:"risk_category,omitempty"`
+	// 有风险时的风险类型，二级风险明细分类
 	RiskLabel *string `json:"risk_label,omitempty" xml:"risk_label,omitempty"`
+	// 风险等级分数，0-100，分数越高风险等级越高
+	RiskScore *int64 `json:"risk_score,omitempty" xml:"risk_score,omitempty"`
+	// 命中风险场景的风险词
+	RiskWords []*string `json:"risk_words,omitempty" xml:"risk_words,omitempty" type:"Repeated"`
+	// 风险词索引
+	RiskWordsIndex []*string `json:"risk_words_index,omitempty" xml:"risk_words_index,omitempty" type:"Repeated"`
 	// 会话动作
 	//    END_SESSION：终止会话
 	//    RECALL_QUERY：撤回提问
@@ -587,8 +642,28 @@ func (s *CheckAntcloudAitechguardAicoguardrailsAskResponse) SetSecurityPrompt(v 
 	return s
 }
 
+func (s *CheckAntcloudAitechguardAicoguardrailsAskResponse) SetRiskCategory(v string) *CheckAntcloudAitechguardAicoguardrailsAskResponse {
+	s.RiskCategory = &v
+	return s
+}
+
 func (s *CheckAntcloudAitechguardAicoguardrailsAskResponse) SetRiskLabel(v string) *CheckAntcloudAitechguardAicoguardrailsAskResponse {
 	s.RiskLabel = &v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAskResponse) SetRiskScore(v int64) *CheckAntcloudAitechguardAicoguardrailsAskResponse {
+	s.RiskScore = &v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAskResponse) SetRiskWords(v []*string) *CheckAntcloudAitechguardAicoguardrailsAskResponse {
+	s.RiskWords = v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAskResponse) SetRiskWordsIndex(v []*string) *CheckAntcloudAitechguardAicoguardrailsAskResponse {
+	s.RiskWordsIndex = v
 	return s
 }
 
@@ -609,13 +684,9 @@ type CheckAntcloudAitechguardAicoguardrailsAnswerRequest struct {
 	// 场景code，走SOP流程申请
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
 	// 当前提问内容，最大长度800个字符。
-	Question *string `json:"question,omitempty" xml:"question,omitempty" require:"true"`
-	// 当前提问内容格式, 默认值:PLAINTEXT
-	QuestionFormat *string `json:"question_format,omitempty" xml:"question_format,omitempty"`
-	// 当前回答内容，最大长度800个字符。
-	Answer *string `json:"answer,omitempty" xml:"answer,omitempty" require:"true"`
-	// 当前回答内容格式, 默认取PLAINTEXT
-	AnswerFormat *string `json:"answer_format,omitempty" xml:"answer_format,omitempty"`
+	Question *string `json:"question,omitempty" xml:"question,omitempty"`
+	// 当前回答内容，最大长度10000个字符。
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
 	// 用户ID，用于主体风险判断
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
 }
@@ -658,18 +729,8 @@ func (s *CheckAntcloudAitechguardAicoguardrailsAnswerRequest) SetQuestion(v stri
 	return s
 }
 
-func (s *CheckAntcloudAitechguardAicoguardrailsAnswerRequest) SetQuestionFormat(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerRequest {
-	s.QuestionFormat = &v
-	return s
-}
-
-func (s *CheckAntcloudAitechguardAicoguardrailsAnswerRequest) SetAnswer(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerRequest {
-	s.Answer = &v
-	return s
-}
-
-func (s *CheckAntcloudAitechguardAicoguardrailsAnswerRequest) SetAnswerFormat(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerRequest {
-	s.AnswerFormat = &v
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerRequest) SetContent(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerRequest {
+	s.Content = &v
 	return s
 }
 
@@ -691,14 +752,16 @@ type CheckAntcloudAitechguardAicoguardrailsAnswerResponse struct {
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 	// 是否安全无风险
 	Safe *bool `json:"safe,omitempty" xml:"safe,omitempty"`
-	// 有风险时的安全动作, BLOCK: 拦截; SECURITY_ANSWER:安全代答;SECURITY_PROMPT:安全提示增强
-	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty"`
-	// 会话动作
-	// END_SESSION：终止会话
-	// RECALL_QUERY：撤回提问
-	SessionAction *string `json:"session_action,omitempty" xml:"session_action,omitempty"`
-	// 安全动作相关文案，比如安全提示增强的文案、安全代答的回答、回答里补充的安全提示
-	ActionMsg *string `json:"action_msg,omitempty" xml:"action_msg,omitempty"`
+	// 风险一级分类标签
+	RiskCategory *string `json:"risk_category,omitempty" xml:"risk_category,omitempty"`
+	// 风险二级分类标签
+	RiskLabel *string `json:"risk_label,omitempty" xml:"risk_label,omitempty"`
+	// 风险等级分数，百分之，分数越高风险等级越高
+	RiskScore *int64 `json:"risk_score,omitempty" xml:"risk_score,omitempty"`
+	// 风险关键词列表
+	RiskWords []*string `json:"risk_words,omitempty" xml:"risk_words,omitempty" type:"Repeated"`
+	// 风险关键词位置，逗号分割左右下标，左闭右开区间
+	RiskWordsIndex []*string `json:"risk_words_index,omitempty" xml:"risk_words_index,omitempty" type:"Repeated"`
 }
 
 func (s CheckAntcloudAitechguardAicoguardrailsAnswerResponse) String() string {
@@ -739,18 +802,28 @@ func (s *CheckAntcloudAitechguardAicoguardrailsAnswerResponse) SetSafe(v bool) *
 	return s
 }
 
-func (s *CheckAntcloudAitechguardAicoguardrailsAnswerResponse) SetActionCode(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerResponse {
-	s.ActionCode = &v
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerResponse) SetRiskCategory(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerResponse {
+	s.RiskCategory = &v
 	return s
 }
 
-func (s *CheckAntcloudAitechguardAicoguardrailsAnswerResponse) SetSessionAction(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerResponse {
-	s.SessionAction = &v
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerResponse) SetRiskLabel(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerResponse {
+	s.RiskLabel = &v
 	return s
 }
 
-func (s *CheckAntcloudAitechguardAicoguardrailsAnswerResponse) SetActionMsg(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerResponse {
-	s.ActionMsg = &v
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerResponse) SetRiskScore(v int64) *CheckAntcloudAitechguardAicoguardrailsAnswerResponse {
+	s.RiskScore = &v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerResponse) SetRiskWords(v []*string) *CheckAntcloudAitechguardAicoguardrailsAnswerResponse {
+	s.RiskWords = v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerResponse) SetRiskWordsIndex(v []*string) *CheckAntcloudAitechguardAicoguardrailsAnswerResponse {
+	s.RiskWordsIndex = v
 	return s
 }
 
@@ -995,7 +1068,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.2"),
+				"sdk_version":      tea.String("1.0.3"),
 				"_prod_code":       tea.String("ak_63625f64df2048aca9ff5bea9e227854"),
 				"_prod_channel":    tea.String("saas"),
 			}
