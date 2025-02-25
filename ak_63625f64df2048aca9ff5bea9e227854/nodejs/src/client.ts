@@ -180,6 +180,35 @@ export class Map extends $tea.Model {
   }
 }
 
+// 标签个性化
+export class PersonalLabelCustomization extends $tea.Model {
+  // 标签需求类型。0,1-只需要这些标签，2-不需要这些标签，默认0
+  filterType?: number;
+  // 需要个性化处理的一级标签
+  customLabelV1?: string[];
+  // 需要个性化处理的二级标签
+  customLabelV2?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      filterType: 'filter_type',
+      customLabelV1: 'custom_label_v1',
+      customLabelV2: 'custom_label_v2',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      filterType: 'number',
+      customLabelV1: { 'type': 'array', 'itemType': 'string' },
+      customLabelV2: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CheckDemoAicoguardcoreAicoguardrailsQuestionRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -308,6 +337,10 @@ export class CheckAntcloudAitechguardAicoguardrailsAskRequest extends $tea.Model
   questionFormat: string;
   // 加密的uid，仅用于唯一标示调用方
   userId?: string;
+  // 多轮对话最后一次回答
+  lastAnswer?: string;
+  // 需要个性化处理的标签
+  personalLabelCustomization?: PersonalLabelCustomization;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -318,6 +351,8 @@ export class CheckAntcloudAitechguardAicoguardrailsAskRequest extends $tea.Model
       question: 'question',
       questionFormat: 'question_format',
       userId: 'user_id',
+      lastAnswer: 'last_answer',
+      personalLabelCustomization: 'personal_label_customization',
     };
   }
 
@@ -331,6 +366,8 @@ export class CheckAntcloudAitechguardAicoguardrailsAskRequest extends $tea.Model
       question: 'string',
       questionFormat: 'string',
       userId: 'string',
+      lastAnswer: 'string',
+      personalLabelCustomization: PersonalLabelCustomization,
     };
   }
 
@@ -362,8 +399,16 @@ export class CheckAntcloudAitechguardAicoguardrailsAskResponse extends $tea.Mode
   securityAnswer?: string;
   // 有安全风险时的提问改写
   securityPrompt?: string;
-  // 有风险时的风险标签
+  // 有风险时的风险类型，一级风险分类
+  riskCategory?: string;
+  // 有风险时的风险类型，二级风险明细分类
   riskLabel?: string;
+  // 风险等级分数，0-100，分数越高风险等级越高
+  riskScore?: number;
+  // 命中风险场景的风险词
+  riskWords?: string[];
+  // 风险词索引
+  riskWordsIndex?: string[];
   // 会话动作
   //    END_SESSION：终止会话
   //    RECALL_QUERY：撤回提问
@@ -379,7 +424,11 @@ export class CheckAntcloudAitechguardAicoguardrailsAskResponse extends $tea.Mode
       actionCode: 'action_code',
       securityAnswer: 'security_answer',
       securityPrompt: 'security_prompt',
+      riskCategory: 'risk_category',
       riskLabel: 'risk_label',
+      riskScore: 'risk_score',
+      riskWords: 'risk_words',
+      riskWordsIndex: 'risk_words_index',
       sessionAction: 'session_action',
     };
   }
@@ -395,7 +444,11 @@ export class CheckAntcloudAitechguardAicoguardrailsAskResponse extends $tea.Mode
       actionCode: 'string',
       securityAnswer: 'string',
       securityPrompt: 'string',
+      riskCategory: 'string',
       riskLabel: 'string',
+      riskScore: 'number',
+      riskWords: { 'type': 'array', 'itemType': 'string' },
+      riskWordsIndex: { 'type': 'array', 'itemType': 'string' },
       sessionAction: 'string',
     };
   }
@@ -417,13 +470,9 @@ export class CheckAntcloudAitechguardAicoguardrailsAnswerRequest extends $tea.Mo
   // 场景code，走SOP流程申请
   sceneCode: string;
   // 当前提问内容，最大长度800个字符。
-  question: string;
-  // 当前提问内容格式, 默认值:PLAINTEXT
-  questionFormat?: string;
-  // 当前回答内容，最大长度800个字符。
-  answer: string;
-  // 当前回答内容格式, 默认取PLAINTEXT
-  answerFormat?: string;
+  question?: string;
+  // 当前回答内容，最大长度10000个字符。
+  content: string;
   // 用户ID，用于主体风险判断
   userId?: string;
   static names(): { [key: string]: string } {
@@ -434,9 +483,7 @@ export class CheckAntcloudAitechguardAicoguardrailsAnswerRequest extends $tea.Mo
       appCode: 'app_code',
       sceneCode: 'scene_code',
       question: 'question',
-      questionFormat: 'question_format',
-      answer: 'answer',
-      answerFormat: 'answer_format',
+      content: 'content',
       userId: 'user_id',
     };
   }
@@ -449,9 +496,7 @@ export class CheckAntcloudAitechguardAicoguardrailsAnswerRequest extends $tea.Mo
       appCode: 'string',
       sceneCode: 'string',
       question: 'string',
-      questionFormat: 'string',
-      answer: 'string',
-      answerFormat: 'string',
+      content: 'string',
       userId: 'string',
     };
   }
@@ -474,14 +519,16 @@ export class CheckAntcloudAitechguardAicoguardrailsAnswerResponse extends $tea.M
   requestId?: string;
   // 是否安全无风险
   safe?: boolean;
-  // 有风险时的安全动作, BLOCK: 拦截; SECURITY_ANSWER:安全代答;SECURITY_PROMPT:安全提示增强
-  actionCode?: string;
-  // 会话动作
-  // END_SESSION：终止会话
-  // RECALL_QUERY：撤回提问
-  sessionAction?: string;
-  // 安全动作相关文案，比如安全提示增强的文案、安全代答的回答、回答里补充的安全提示
-  actionMsg?: string;
+  // 风险一级分类标签
+  riskCategory?: string;
+  // 风险二级分类标签
+  riskLabel?: string;
+  // 风险等级分数，百分之，分数越高风险等级越高
+  riskScore?: number;
+  // 风险关键词列表
+  riskWords?: string[];
+  // 风险关键词位置，逗号分割左右下标，左闭右开区间
+  riskWordsIndex?: string[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -490,9 +537,11 @@ export class CheckAntcloudAitechguardAicoguardrailsAnswerResponse extends $tea.M
       sessionId: 'session_id',
       requestId: 'request_id',
       safe: 'safe',
-      actionCode: 'action_code',
-      sessionAction: 'session_action',
-      actionMsg: 'action_msg',
+      riskCategory: 'risk_category',
+      riskLabel: 'risk_label',
+      riskScore: 'risk_score',
+      riskWords: 'risk_words',
+      riskWordsIndex: 'risk_words_index',
     };
   }
 
@@ -504,9 +553,11 @@ export class CheckAntcloudAitechguardAicoguardrailsAnswerResponse extends $tea.M
       sessionId: 'string',
       requestId: 'string',
       safe: 'boolean',
-      actionCode: 'string',
-      sessionAction: 'string',
-      actionMsg: 'string',
+      riskCategory: 'string',
+      riskLabel: 'string',
+      riskScore: 'number',
+      riskWords: { 'type': 'array', 'itemType': 'string' },
+      riskWordsIndex: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -715,7 +766,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.2",
+          sdk_version: "1.0.3",
           _prod_code: "ak_63625f64df2048aca9ff5bea9e227854",
           _prod_channel: "saas",
         };
