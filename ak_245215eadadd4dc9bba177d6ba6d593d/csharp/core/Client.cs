@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.6"},
+                        {"sdk_version", "1.3.0"},
                         {"_prod_code", "ak_245215eadadd4dc9bba177d6ba6d593d"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.6"},
+                        {"sdk_version", "1.3.0"},
                         {"_prod_code", "ak_245215eadadd4dc9bba177d6ba6d593d"},
                         {"_prod_channel", "saas"},
                     };
@@ -907,6 +907,90 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryUniversalsaasDigitalhumanVoiceNoiseResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.voice.noise.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 音频字幕识别任务创建
+         * Summary: 音频字幕识别任务创建
+         */
+        public RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse RecognizeUniversalsaasDigitalhumanAudioCaptions(RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RecognizeUniversalsaasDigitalhumanAudioCaptionsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 音频字幕识别任务创建
+         * Summary: 音频字幕识别任务创建
+         */
+        public async Task<RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse> RecognizeUniversalsaasDigitalhumanAudioCaptionsAsync(RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RecognizeUniversalsaasDigitalhumanAudioCaptionsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 音频字幕识别任务创建
+         * Summary: 音频字幕识别任务创建
+         */
+        public RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse RecognizeUniversalsaasDigitalhumanAudioCaptionsEx(RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse>(DoRequest("1.0", "universalsaas.digitalhuman.audio.captions.recognize", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 音频字幕识别任务创建
+         * Summary: 音频字幕识别任务创建
+         */
+        public async Task<RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse> RecognizeUniversalsaasDigitalhumanAudioCaptionsExAsync(RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.audio.captions.recognize", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 音频字幕识别任务结果查询
+         * Summary: 音频字幕识别任务结果查询
+         */
+        public QueryUniversalsaasDigitalhumanAudioCaptionsResponse QueryUniversalsaasDigitalhumanAudioCaptions(QueryUniversalsaasDigitalhumanAudioCaptionsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryUniversalsaasDigitalhumanAudioCaptionsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 音频字幕识别任务结果查询
+         * Summary: 音频字幕识别任务结果查询
+         */
+        public async Task<QueryUniversalsaasDigitalhumanAudioCaptionsResponse> QueryUniversalsaasDigitalhumanAudioCaptionsAsync(QueryUniversalsaasDigitalhumanAudioCaptionsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryUniversalsaasDigitalhumanAudioCaptionsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 音频字幕识别任务结果查询
+         * Summary: 音频字幕识别任务结果查询
+         */
+        public QueryUniversalsaasDigitalhumanAudioCaptionsResponse QueryUniversalsaasDigitalhumanAudioCaptionsEx(QueryUniversalsaasDigitalhumanAudioCaptionsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUniversalsaasDigitalhumanAudioCaptionsResponse>(DoRequest("1.0", "universalsaas.digitalhuman.audio.captions.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 音频字幕识别任务结果查询
+         * Summary: 音频字幕识别任务结果查询
+         */
+        public async Task<QueryUniversalsaasDigitalhumanAudioCaptionsResponse> QueryUniversalsaasDigitalhumanAudioCaptionsExAsync(QueryUniversalsaasDigitalhumanAudioCaptionsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUniversalsaasDigitalhumanAudioCaptionsResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.audio.captions.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
