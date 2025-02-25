@@ -310,6 +310,32 @@ func (s *CaptionsInfo) SetSplitWords(v int64) *CaptionsInfo {
 	return s
 }
 
+// 字幕对齐任务结果
+type CaptionsResult struct {
+	// 音频时长
+	Duration *int64 `json:"duration,omitempty" xml:"duration,omitempty" require:"true"`
+	// 字幕时间戳信息
+	Sentences []*Sentence `json:"sentences,omitempty" xml:"sentences,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s CaptionsResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CaptionsResult) GoString() string {
+	return s.String()
+}
+
+func (s *CaptionsResult) SetDuration(v int64) *CaptionsResult {
+	s.Duration = &v
+	return s
+}
+
+func (s *CaptionsResult) SetSentences(v []*Sentence) *CaptionsResult {
+	s.Sentences = v
+	return s
+}
+
 // 数字人形象
 type AvatarProfile struct {
 	// 190087
@@ -402,6 +428,32 @@ func (s *AvatarProfileResult) SetPageIndex(v int64) *AvatarProfileResult {
 
 func (s *AvatarProfileResult) SetItemList(v []*AvatarProfile) *AvatarProfileResult {
 	s.ItemList = v
+	return s
+}
+
+// 字幕对齐任务返回结果
+type CaptionsTask struct {
+	// 任务状态
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// 字幕对齐结果
+	Result *CaptionsResult `json:"result,omitempty" xml:"result,omitempty" require:"true"`
+}
+
+func (s CaptionsTask) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CaptionsTask) GoString() string {
+	return s.String()
+}
+
+func (s *CaptionsTask) SetState(v string) *CaptionsTask {
+	s.State = &v
+	return s
+}
+
+func (s *CaptionsTask) SetResult(v *CaptionsResult) *CaptionsTask {
+	s.Result = v
 	return s
 }
 
@@ -2144,6 +2196,167 @@ func (s *QueryUniversalsaasDigitalhumanVoiceNoiseResponse) SetData(v *NoiseResul
 	return s
 }
 
+type RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 文案
+	Text *string `json:"text,omitempty" xml:"text,omitempty" require:"true"`
+	// 音频url
+	AudioUrl *string `json:"audio_url,omitempty" xml:"audio_url,omitempty" require:"true"`
+}
+
+func (s RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest) SetAuthToken(v string) *RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest) SetProductInstanceId(v string) *RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest) SetText(v string) *RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest {
+	s.Text = &v
+	return s
+}
+
+func (s *RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest) SetAudioUrl(v string) *RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest {
+	s.AudioUrl = &v
+	return s
+}
+
+type RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 返回结果状态
+	Status *bool `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse) SetReqMsgId(v string) *RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse) SetResultCode(v string) *RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse) SetResultMsg(v string) *RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse) SetTaskId(v string) *RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse) SetStatus(v bool) *RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse {
+	s.Status = &v
+	return s
+}
+
+type QueryUniversalsaasDigitalhumanAudioCaptionsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryUniversalsaasDigitalhumanAudioCaptionsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUniversalsaasDigitalhumanAudioCaptionsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUniversalsaasDigitalhumanAudioCaptionsRequest) SetAuthToken(v string) *QueryUniversalsaasDigitalhumanAudioCaptionsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanAudioCaptionsRequest) SetProductInstanceId(v string) *QueryUniversalsaasDigitalhumanAudioCaptionsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanAudioCaptionsRequest) SetTaskId(v string) *QueryUniversalsaasDigitalhumanAudioCaptionsRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryUniversalsaasDigitalhumanAudioCaptionsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果状态
+	Status *bool `json:"status,omitempty" xml:"status,omitempty"`
+	// 字幕对齐任务查询结果
+	Data *CaptionsTask `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryUniversalsaasDigitalhumanAudioCaptionsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUniversalsaasDigitalhumanAudioCaptionsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUniversalsaasDigitalhumanAudioCaptionsResponse) SetReqMsgId(v string) *QueryUniversalsaasDigitalhumanAudioCaptionsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanAudioCaptionsResponse) SetResultCode(v string) *QueryUniversalsaasDigitalhumanAudioCaptionsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanAudioCaptionsResponse) SetResultMsg(v string) *QueryUniversalsaasDigitalhumanAudioCaptionsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanAudioCaptionsResponse) SetStatus(v bool) *QueryUniversalsaasDigitalhumanAudioCaptionsResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanAudioCaptionsResponse) SetData(v *CaptionsTask) *QueryUniversalsaasDigitalhumanAudioCaptionsResponse {
+	s.Data = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2266,7 +2479,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.6"),
+				"sdk_version":      tea.String("1.3.0"),
 				"_prod_code":       tea.String("ak_245215eadadd4dc9bba177d6ba6d593d"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -2793,6 +3006,74 @@ func (client *Client) QueryUniversalsaasDigitalhumanVoiceNoiseEx(request *QueryU
 	}
 	_result = &QueryUniversalsaasDigitalhumanVoiceNoiseResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.voice.noise.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 音频字幕识别任务创建
+ * Summary: 音频字幕识别任务创建
+ */
+func (client *Client) RecognizeUniversalsaasDigitalhumanAudioCaptions(request *RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest) (_result *RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse{}
+	_body, _err := client.RecognizeUniversalsaasDigitalhumanAudioCaptionsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 音频字幕识别任务创建
+ * Summary: 音频字幕识别任务创建
+ */
+func (client *Client) RecognizeUniversalsaasDigitalhumanAudioCaptionsEx(request *RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.audio.captions.recognize"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 音频字幕识别任务结果查询
+ * Summary: 音频字幕识别任务结果查询
+ */
+func (client *Client) QueryUniversalsaasDigitalhumanAudioCaptions(request *QueryUniversalsaasDigitalhumanAudioCaptionsRequest) (_result *QueryUniversalsaasDigitalhumanAudioCaptionsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUniversalsaasDigitalhumanAudioCaptionsResponse{}
+	_body, _err := client.QueryUniversalsaasDigitalhumanAudioCaptionsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 音频字幕识别任务结果查询
+ * Summary: 音频字幕识别任务结果查询
+ */
+func (client *Client) QueryUniversalsaasDigitalhumanAudioCaptionsEx(request *QueryUniversalsaasDigitalhumanAudioCaptionsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUniversalsaasDigitalhumanAudioCaptionsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUniversalsaasDigitalhumanAudioCaptionsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.audio.captions.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
