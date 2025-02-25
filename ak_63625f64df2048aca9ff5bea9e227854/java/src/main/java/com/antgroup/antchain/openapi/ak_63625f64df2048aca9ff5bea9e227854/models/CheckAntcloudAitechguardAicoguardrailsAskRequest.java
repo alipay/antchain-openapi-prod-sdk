@@ -42,6 +42,14 @@ public class CheckAntcloudAitechguardAicoguardrailsAskRequest extends TeaModel {
     @NameInMap("user_id")
     public String userId;
 
+    // 多轮对话最后一次回答
+    @NameInMap("last_answer")
+    public String lastAnswer;
+
+    // 需要个性化处理的标签
+    @NameInMap("personal_label_customization")
+    public PersonalLabelCustomization personalLabelCustomization;
+
     public static CheckAntcloudAitechguardAicoguardrailsAskRequest build(java.util.Map<String, ?> map) throws Exception {
         CheckAntcloudAitechguardAicoguardrailsAskRequest self = new CheckAntcloudAitechguardAicoguardrailsAskRequest();
         return TeaModel.build(map, self);
@@ -109,6 +117,22 @@ public class CheckAntcloudAitechguardAicoguardrailsAskRequest extends TeaModel {
     }
     public String getUserId() {
         return this.userId;
+    }
+
+    public CheckAntcloudAitechguardAicoguardrailsAskRequest setLastAnswer(String lastAnswer) {
+        this.lastAnswer = lastAnswer;
+        return this;
+    }
+    public String getLastAnswer() {
+        return this.lastAnswer;
+    }
+
+    public CheckAntcloudAitechguardAicoguardrailsAskRequest setPersonalLabelCustomization(PersonalLabelCustomization personalLabelCustomization) {
+        this.personalLabelCustomization = personalLabelCustomization;
+        return this;
+    }
+    public PersonalLabelCustomization getPersonalLabelCustomization() {
+        return this.personalLabelCustomization;
     }
 
 }

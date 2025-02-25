@@ -44,9 +44,25 @@ public class CheckAntcloudAitechguardAicoguardrailsAskResponse extends TeaModel 
     @NameInMap("security_prompt")
     public String securityPrompt;
 
-    // 有风险时的风险标签
+    // 有风险时的风险类型，一级风险分类
+    @NameInMap("risk_category")
+    public String riskCategory;
+
+    // 有风险时的风险类型，二级风险明细分类
     @NameInMap("risk_label")
     public String riskLabel;
+
+    // 风险等级分数，0-100，分数越高风险等级越高
+    @NameInMap("risk_score")
+    public Long riskScore;
+
+    // 命中风险场景的风险词
+    @NameInMap("risk_words")
+    public java.util.List<String> riskWords;
+
+    // 风险词索引
+    @NameInMap("risk_words_index")
+    public java.util.List<String> riskWordsIndex;
 
     // 会话动作
     //    END_SESSION：终止会话
@@ -131,12 +147,44 @@ public class CheckAntcloudAitechguardAicoguardrailsAskResponse extends TeaModel 
         return this.securityPrompt;
     }
 
+    public CheckAntcloudAitechguardAicoguardrailsAskResponse setRiskCategory(String riskCategory) {
+        this.riskCategory = riskCategory;
+        return this;
+    }
+    public String getRiskCategory() {
+        return this.riskCategory;
+    }
+
     public CheckAntcloudAitechguardAicoguardrailsAskResponse setRiskLabel(String riskLabel) {
         this.riskLabel = riskLabel;
         return this;
     }
     public String getRiskLabel() {
         return this.riskLabel;
+    }
+
+    public CheckAntcloudAitechguardAicoguardrailsAskResponse setRiskScore(Long riskScore) {
+        this.riskScore = riskScore;
+        return this;
+    }
+    public Long getRiskScore() {
+        return this.riskScore;
+    }
+
+    public CheckAntcloudAitechguardAicoguardrailsAskResponse setRiskWords(java.util.List<String> riskWords) {
+        this.riskWords = riskWords;
+        return this;
+    }
+    public java.util.List<String> getRiskWords() {
+        return this.riskWords;
+    }
+
+    public CheckAntcloudAitechguardAicoguardrailsAskResponse setRiskWordsIndex(java.util.List<String> riskWordsIndex) {
+        this.riskWordsIndex = riskWordsIndex;
+        return this;
+    }
+    public java.util.List<String> getRiskWordsIndex() {
+        return this.riskWordsIndex;
     }
 
     public CheckAntcloudAitechguardAicoguardrailsAskResponse setSessionAction(String sessionAction) {
