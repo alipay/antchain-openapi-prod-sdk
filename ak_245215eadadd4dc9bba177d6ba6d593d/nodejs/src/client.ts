@@ -200,6 +200,31 @@ export class CaptionsInfo extends $tea.Model {
   }
 }
 
+// 字幕对齐任务结果
+export class CaptionsResult extends $tea.Model {
+  // 音频时长
+  duration: number;
+  // 字幕时间戳信息
+  sentences: Sentence[];
+  static names(): { [key: string]: string } {
+    return {
+      duration: 'duration',
+      sentences: 'sentences',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      duration: 'number',
+      sentences: { 'type': 'array', 'itemType': Sentence },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 数字人形象
 export class AvatarProfile extends $tea.Model {
   // 190087
@@ -267,6 +292,31 @@ export class AvatarProfileResult extends $tea.Model {
       total: 'number',
       pageIndex: 'number',
       itemList: { 'type': 'array', 'itemType': AvatarProfile },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 字幕对齐任务返回结果
+export class CaptionsTask extends $tea.Model {
+  // 任务状态
+  state: string;
+  // 字幕对齐结果
+  result: CaptionsResult;
+  static names(): { [key: string]: string } {
+    return {
+      state: 'state',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      state: 'string',
+      result: CaptionsResult,
     };
   }
 
@@ -1651,6 +1701,136 @@ export class QueryUniversalsaasDigitalhumanVoiceNoiseResponse extends $tea.Model
   }
 }
 
+export class RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 文案
+  text: string;
+  // 音频url
+  audioUrl: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      text: 'text',
+      audioUrl: 'audio_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      text: 'string',
+      audioUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 任务id
+  taskId?: string;
+  // 返回结果状态
+  status?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      status: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUniversalsaasDigitalhumanAudioCaptionsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务id
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUniversalsaasDigitalhumanAudioCaptionsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果状态
+  status?: boolean;
+  // 字幕对齐任务查询结果
+  data?: CaptionsTask;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'boolean',
+      data: CaptionsTask,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1764,7 +1944,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.6",
+          sdk_version: "1.3.0",
           _prod_code: "ak_245215eadadd4dc9bba177d6ba6d593d",
           _prod_channel: "saas",
         };
@@ -2076,6 +2256,44 @@ export default class Client {
   async queryUniversalsaasDigitalhumanVoiceNoiseEx(request: QueryUniversalsaasDigitalhumanVoiceNoiseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUniversalsaasDigitalhumanVoiceNoiseResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryUniversalsaasDigitalhumanVoiceNoiseResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.voice.noise.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUniversalsaasDigitalhumanVoiceNoiseResponse({}));
+  }
+
+  /**
+   * Description: 音频字幕识别任务创建
+   * Summary: 音频字幕识别任务创建
+   */
+  async recognizeUniversalsaasDigitalhumanAudioCaptions(request: RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest): Promise<RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.recognizeUniversalsaasDigitalhumanAudioCaptionsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 音频字幕识别任务创建
+   * Summary: 音频字幕识别任务创建
+   */
+  async recognizeUniversalsaasDigitalhumanAudioCaptionsEx(request: RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.audio.captions.recognize", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse({}));
+  }
+
+  /**
+   * Description: 音频字幕识别任务结果查询
+   * Summary: 音频字幕识别任务结果查询
+   */
+  async queryUniversalsaasDigitalhumanAudioCaptions(request: QueryUniversalsaasDigitalhumanAudioCaptionsRequest): Promise<QueryUniversalsaasDigitalhumanAudioCaptionsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUniversalsaasDigitalhumanAudioCaptionsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 音频字幕识别任务结果查询
+   * Summary: 音频字幕识别任务结果查询
+   */
+  async queryUniversalsaasDigitalhumanAudioCaptionsEx(request: QueryUniversalsaasDigitalhumanAudioCaptionsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUniversalsaasDigitalhumanAudioCaptionsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUniversalsaasDigitalhumanAudioCaptionsResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.audio.captions.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUniversalsaasDigitalhumanAudioCaptionsResponse({}));
   }
 
 }
