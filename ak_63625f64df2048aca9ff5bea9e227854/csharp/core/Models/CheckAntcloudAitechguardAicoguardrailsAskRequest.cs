@@ -49,6 +49,16 @@ namespace AntChain.SDK.Ak_63625f64df2048aca9ff5bea9e227854.Models
         [Validation(Required=false)]
         public string UserId { get; set; }
 
+        // 多轮对话最后一次回答
+        [NameInMap("last_answer")]
+        [Validation(Required=false)]
+        public string LastAnswer { get; set; }
+
+        // 需要个性化处理的标签
+        [NameInMap("personal_label_customization")]
+        [Validation(Required=false)]
+        public PersonalLabelCustomization PersonalLabelCustomization { get; set; }
+
     }
 
 }

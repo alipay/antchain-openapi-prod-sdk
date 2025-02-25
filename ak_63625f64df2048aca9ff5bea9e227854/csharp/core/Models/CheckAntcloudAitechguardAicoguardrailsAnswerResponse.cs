@@ -39,22 +39,30 @@ namespace AntChain.SDK.Ak_63625f64df2048aca9ff5bea9e227854.Models
         [Validation(Required=false)]
         public bool? Safe { get; set; }
 
-        // 有风险时的安全动作, BLOCK: 拦截; SECURITY_ANSWER:安全代答;SECURITY_PROMPT:安全提示增强
-        [NameInMap("action_code")]
+        // 风险一级分类标签
+        [NameInMap("risk_category")]
         [Validation(Required=false)]
-        public string ActionCode { get; set; }
+        public string RiskCategory { get; set; }
 
-        // 会话动作
-        // END_SESSION：终止会话
-        // RECALL_QUERY：撤回提问
-        [NameInMap("session_action")]
+        // 风险二级分类标签
+        [NameInMap("risk_label")]
         [Validation(Required=false)]
-        public string SessionAction { get; set; }
+        public string RiskLabel { get; set; }
 
-        // 安全动作相关文案，比如安全提示增强的文案、安全代答的回答、回答里补充的安全提示
-        [NameInMap("action_msg")]
+        // 风险等级分数，百分之，分数越高风险等级越高
+        [NameInMap("risk_score")]
         [Validation(Required=false)]
-        public string ActionMsg { get; set; }
+        public long? RiskScore { get; set; }
+
+        // 风险关键词列表
+        [NameInMap("risk_words")]
+        [Validation(Required=false)]
+        public List<string> RiskWords { get; set; }
+
+        // 风险关键词位置，逗号分割左右下标，左闭右开区间
+        [NameInMap("risk_words_index")]
+        [Validation(Required=false)]
+        public List<string> RiskWordsIndex { get; set; }
 
     }
 

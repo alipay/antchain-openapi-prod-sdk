@@ -58,10 +58,30 @@ namespace AntChain.SDK.Ak_63625f64df2048aca9ff5bea9e227854.Models
         [Validation(Required=false)]
         public string SecurityPrompt { get; set; }
 
-        // 有风险时的风险标签
+        // 有风险时的风险类型，一级风险分类
+        [NameInMap("risk_category")]
+        [Validation(Required=false)]
+        public string RiskCategory { get; set; }
+
+        // 有风险时的风险类型，二级风险明细分类
         [NameInMap("risk_label")]
         [Validation(Required=false)]
         public string RiskLabel { get; set; }
+
+        // 风险等级分数，0-100，分数越高风险等级越高
+        [NameInMap("risk_score")]
+        [Validation(Required=false)]
+        public long? RiskScore { get; set; }
+
+        // 命中风险场景的风险词
+        [NameInMap("risk_words")]
+        [Validation(Required=false)]
+        public List<string> RiskWords { get; set; }
+
+        // 风险词索引
+        [NameInMap("risk_words_index")]
+        [Validation(Required=false)]
+        public List<string> RiskWordsIndex { get; set; }
 
         // 会话动作
         //    END_SESSION：终止会话
