@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.2',
+    sdk_version = '1.0.3',
     _prod_code = 'ak_63625f64df2048aca9ff5bea9e227854',
     _prod_channel = 'saas'
   };
@@ -199,6 +199,16 @@ model Map {
   value?: string(name='value', example='value1'),
 }
 
+// 标签个性化
+model PersonalLabelCustomization {
+  // 标签需求类型。0,1-只需要这些标签，2-不需要这些标签，默认0
+  filterType?: long(name='filter_type', example='1'),
+  // 需要个性化处理的一级标签
+  customLabelV1?: [ string ](name='custom_label_v1', example=''),
+  // 需要个性化处理的二级标签
+  customLabelV2?: [ string ](name='custom_label_v2', example=''),
+}
+
 model CheckDemoAicoguardcoreAicoguardrailsQuestionRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -280,6 +290,10 @@ model CheckAntcloudAitechguardAicoguardrailsAskRequest = {
   questionFormat: string(name='question_format'),
   // 加密的uid，仅用于唯一标示调用方
   userId?: string(name='user_id'),
+  // 多轮对话最后一次回答
+  lastAnswer?: string(name='last_answer'),
+  // 需要个性化处理的标签
+  personalLabelCustomization?: PersonalLabelCustomization(name='personal_label_customization'),
 }
 
 model CheckAntcloudAitechguardAicoguardrailsAskResponse = {
@@ -305,8 +319,16 @@ model CheckAntcloudAitechguardAicoguardrailsAskResponse = {
   securityAnswer?: string(name='security_answer'),
   // 有安全风险时的提问改写
   securityPrompt?: string(name='security_prompt'),
-  // 有风险时的风险标签
+  // 有风险时的风险类型，一级风险分类
+  riskCategory?: string(name='risk_category'),
+  // 有风险时的风险类型，二级风险明细分类
   riskLabel?: string(name='risk_label'),
+  // 风险等级分数，0-100，分数越高风险等级越高
+  riskScore?: long(name='risk_score'),
+  // 命中风险场景的风险词
+  riskWords?: [ string ](name='risk_words'),
+  // 风险词索引
+  riskWordsIndex?: [ string ](name='risk_words_index'),
   // 会话动作
   //    END_SESSION：终止会话
   //    RECALL_QUERY：撤回提问
@@ -344,13 +366,9 @@ model CheckAntcloudAitechguardAicoguardrailsAnswerRequest = {
   // 场景code，走SOP流程申请
   sceneCode: string(name='scene_code'),
   // 当前提问内容，最大长度800个字符。
-  question: string(name='question'),
-  // 当前提问内容格式, 默认值:PLAINTEXT
-  questionFormat?: string(name='question_format'),
-  // 当前回答内容，最大长度800个字符。
-  answer: string(name='answer'),
-  // 当前回答内容格式, 默认取PLAINTEXT
-  answerFormat?: string(name='answer_format'),
+  question?: string(name='question'),
+  // 当前回答内容，最大长度10000个字符。
+  content: string(name='content'),
   // 用户ID，用于主体风险判断
   userId?: string(name='user_id'),
 }
@@ -368,14 +386,16 @@ model CheckAntcloudAitechguardAicoguardrailsAnswerResponse = {
   requestId?: string(name='request_id'),
   // 是否安全无风险
   safe?: boolean(name='safe'),
-  // 有风险时的安全动作, BLOCK: 拦截; SECURITY_ANSWER:安全代答;SECURITY_PROMPT:安全提示增强
-  actionCode?: string(name='action_code'),
-  // 会话动作
-  // END_SESSION：终止会话
-  // RECALL_QUERY：撤回提问
-  sessionAction?: string(name='session_action'),
-  // 安全动作相关文案，比如安全提示增强的文案、安全代答的回答、回答里补充的安全提示
-  actionMsg?: string(name='action_msg'),
+  // 风险一级分类标签
+  riskCategory?: string(name='risk_category'),
+  // 风险二级分类标签
+  riskLabel?: string(name='risk_label'),
+  // 风险等级分数，百分之，分数越高风险等级越高
+  riskScore?: long(name='risk_score'),
+  // 风险关键词列表
+  riskWords?: [ string ](name='risk_words'),
+  // 风险关键词位置，逗号分割左右下标，左闭右开区间
+  riskWordsIndex?: [ string ](name='risk_words_index'),
 }
 
 /**
