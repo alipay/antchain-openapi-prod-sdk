@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.6"),
+                    new TeaPair("sdk_version", "1.3.0"),
                     new TeaPair("_prod_code", "ak_245215eadadd4dc9bba177d6ba6d593d"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -448,5 +448,43 @@ public class Client {
     public QueryUniversalsaasDigitalhumanVoiceNoiseResponse queryUniversalsaasDigitalhumanVoiceNoiseEx(QueryUniversalsaasDigitalhumanVoiceNoiseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.voice.noise.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUniversalsaasDigitalhumanVoiceNoiseResponse());
+    }
+
+    /**
+     * Description: 音频字幕识别任务创建
+     * Summary: 音频字幕识别任务创建
+     */
+    public RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse recognizeUniversalsaasDigitalhumanAudioCaptions(RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.recognizeUniversalsaasDigitalhumanAudioCaptionsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 音频字幕识别任务创建
+     * Summary: 音频字幕识别任务创建
+     */
+    public RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse recognizeUniversalsaasDigitalhumanAudioCaptionsEx(RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.audio.captions.recognize", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse());
+    }
+
+    /**
+     * Description: 音频字幕识别任务结果查询
+     * Summary: 音频字幕识别任务结果查询
+     */
+    public QueryUniversalsaasDigitalhumanAudioCaptionsResponse queryUniversalsaasDigitalhumanAudioCaptions(QueryUniversalsaasDigitalhumanAudioCaptionsRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryUniversalsaasDigitalhumanAudioCaptionsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 音频字幕识别任务结果查询
+     * Summary: 音频字幕识别任务结果查询
+     */
+    public QueryUniversalsaasDigitalhumanAudioCaptionsResponse queryUniversalsaasDigitalhumanAudioCaptionsEx(QueryUniversalsaasDigitalhumanAudioCaptionsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.audio.captions.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUniversalsaasDigitalhumanAudioCaptionsResponse());
     }
 }
