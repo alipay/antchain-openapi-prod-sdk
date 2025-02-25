@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.6',
+                    'sdk_version': '1.3.0',
                     '_prod_code': 'ak_245215eadadd4dc9bba177d6ba6d593d',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.6',
+                    'sdk_version': '1.3.0',
                     '_prod_code': 'ak_245215eadadd4dc9bba177d6ba6d593d',
                     '_prod_channel': 'saas'
                 }
@@ -1057,4 +1057,116 @@ class Client:
         return TeaCore.from_map(
             ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanVoiceNoiseResponse(),
             await self.do_request_async('1.0', 'universalsaas.digitalhuman.voice.noise.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def recognize_universalsaas_digitalhuman_audio_captions(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse:
+        """
+        Description: 音频字幕识别任务创建
+        Summary: 音频字幕识别任务创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.recognize_universalsaas_digitalhuman_audio_captions_ex(request, headers, runtime)
+
+    async def recognize_universalsaas_digitalhuman_audio_captions_async(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse:
+        """
+        Description: 音频字幕识别任务创建
+        Summary: 音频字幕识别任务创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.recognize_universalsaas_digitalhuman_audio_captions_ex_async(request, headers, runtime)
+
+    def recognize_universalsaas_digitalhuman_audio_captions_ex(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse:
+        """
+        Description: 音频字幕识别任务创建
+        Summary: 音频字幕识别任务创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.audio.captions.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def recognize_universalsaas_digitalhuman_audio_captions_ex_async(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse:
+        """
+        Description: 音频字幕识别任务创建
+        Summary: 音频字幕识别任务创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.audio.captions.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_universalsaas_digitalhuman_audio_captions(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanAudioCaptionsRequest,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanAudioCaptionsResponse:
+        """
+        Description: 音频字幕识别任务结果查询
+        Summary: 音频字幕识别任务结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_universalsaas_digitalhuman_audio_captions_ex(request, headers, runtime)
+
+    async def query_universalsaas_digitalhuman_audio_captions_async(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanAudioCaptionsRequest,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanAudioCaptionsResponse:
+        """
+        Description: 音频字幕识别任务结果查询
+        Summary: 音频字幕识别任务结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_universalsaas_digitalhuman_audio_captions_ex_async(request, headers, runtime)
+
+    def query_universalsaas_digitalhuman_audio_captions_ex(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanAudioCaptionsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanAudioCaptionsResponse:
+        """
+        Description: 音频字幕识别任务结果查询
+        Summary: 音频字幕识别任务结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanAudioCaptionsResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.audio.captions.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_universalsaas_digitalhuman_audio_captions_ex_async(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanAudioCaptionsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanAudioCaptionsResponse:
+        """
+        Description: 音频字幕识别任务结果查询
+        Summary: 音频字幕识别任务结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanAudioCaptionsResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.audio.captions.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
