@@ -65,6 +65,8 @@ use AntChain\BCCR\Models\CreateScreenshotRequest;
 use AntChain\BCCR\Models\CreateScreenshotResponse;
 use AntChain\BCCR\Models\ExecTradeCoverRequest;
 use AntChain\BCCR\Models\ExecTradeCoverResponse;
+use AntChain\BCCR\Models\FinishDciRegistrationcertRequest;
+use AntChain\BCCR\Models\FinishDciRegistrationcertResponse;
 use AntChain\BCCR\Models\GetCertificateRequest;
 use AntChain\BCCR\Models\GetCertificateResponse;
 use AntChain\BCCR\Models\GetDciPayurlRequest;
@@ -320,7 +322,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.19.38',
+                    'sdk_version'      => '1.19.39',
                     '_prod_code'       => 'BCCR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2775,6 +2777,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryOrderPayurlResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.order.payurl.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 版保完成数登证书回调
+     * Summary: 版保完成数登证书回调.
+     *
+     * @param FinishDciRegistrationcertRequest $request
+     *
+     * @return FinishDciRegistrationcertResponse
+     */
+    public function finishDciRegistrationcert($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->finishDciRegistrationcertEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 版保完成数登证书回调
+     * Summary: 版保完成数登证书回调.
+     *
+     * @param FinishDciRegistrationcertRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return FinishDciRegistrationcertResponse
+     */
+    public function finishDciRegistrationcertEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return FinishDciRegistrationcertResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.registrationcert.finish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
