@@ -69,9 +69,9 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
         public List<Paster> Pasters { get; set; }
 
         // 数字人视频生成格式，默认不填
-        [NameInMap("format")]
+        [NameInMap("video_format")]
         [Validation(Required=false)]
-        public string Format { get; set; }
+        public string VideoFormat { get; set; }
 
         // 画布大小
         [NameInMap("width")]
