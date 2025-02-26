@@ -1378,7 +1378,7 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
         replace_sensitive: bool = None,
         background: Background = None,
         pasters: List[Paster] = None,
-        format: str = None,
+        video_format: str = None,
         width: int = None,
         return_captions: bool = None,
     ):
@@ -1406,7 +1406,7 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
         # 贴片元素信息
         self.pasters = pasters
         # 数字人视频生成格式，默认不填
-        self.format = format
+        self.video_format = video_format
         # 画布大小
         self.width = width
         # 是否返回字幕时间戳，但不合成到视频画面里面
@@ -1462,8 +1462,8 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
         if self.pasters is not None:
             for k in self.pasters:
                 result['pasters'].append(k.to_map() if k else None)
-        if self.format is not None:
-            result['format'] = self.format
+        if self.video_format is not None:
+            result['video_format'] = self.video_format
         if self.width is not None:
             result['width'] = self.width
         if self.return_captions is not None:
@@ -1503,8 +1503,8 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
             for k in m.get('pasters'):
                 temp_model = Paster()
                 self.pasters.append(temp_model.from_map(k))
-        if m.get('format') is not None:
-            self.format = m.get('format')
+        if m.get('video_format') is not None:
+            self.video_format = m.get('video_format')
         if m.get('width') is not None:
             self.width = m.get('width')
         if m.get('return_captions') is not None:
