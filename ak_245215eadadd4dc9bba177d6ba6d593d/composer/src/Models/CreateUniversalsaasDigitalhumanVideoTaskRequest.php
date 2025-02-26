@@ -83,7 +83,7 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
     /**
      * @var string
      */
-    public $format;
+    public $videoFormat;
 
     // 画布大小
     /**
@@ -109,7 +109,7 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
         'replaceSensitive'  => 'replace_sensitive',
         'background'        => 'background',
         'pasters'           => 'pasters',
-        'format'            => 'format',
+        'videoFormat'       => 'video_format',
         'width'             => 'width',
         'returnCaptions'    => 'return_captions',
     ];
@@ -167,8 +167,8 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
                 }
             }
         }
-        if (null !== $this->format) {
-            $res['format'] = $this->format;
+        if (null !== $this->videoFormat) {
+            $res['video_format'] = $this->videoFormat;
         }
         if (null !== $this->width) {
             $res['width'] = $this->width;
@@ -230,8 +230,8 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
                 }
             }
         }
-        if (isset($map['format'])) {
-            $model->format = $map['format'];
+        if (isset($map['video_format'])) {
+            $model->videoFormat = $map['video_format'];
         }
         if (isset($map['width'])) {
             $model->width = $map['width'];
