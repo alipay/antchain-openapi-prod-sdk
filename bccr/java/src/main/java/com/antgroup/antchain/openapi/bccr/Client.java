@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.19.38"),
+                    new TeaPair("sdk_version", "1.19.39"),
                     new TeaPair("_prod_code", "BCCR"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1569,6 +1569,25 @@ public class Client {
     public QueryOrderPayurlResponse queryOrderPayurlEx(QueryOrderPayurlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.order.payurl.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryOrderPayurlResponse());
+    }
+
+    /**
+     * Description: 版保完成数登证书回调
+     * Summary: 版保完成数登证书回调
+     */
+    public FinishDciRegistrationcertResponse finishDciRegistrationcert(FinishDciRegistrationcertRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.finishDciRegistrationcertEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 版保完成数登证书回调
+     * Summary: 版保完成数登证书回调
+     */
+    public FinishDciRegistrationcertResponse finishDciRegistrationcertEx(FinishDciRegistrationcertRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.dci.registrationcert.finish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FinishDciRegistrationcertResponse());
     }
 
     /**
