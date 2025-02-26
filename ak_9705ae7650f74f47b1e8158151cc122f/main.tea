@@ -1,0 +1,981 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.0',
+    _prod_code = 'ak_9705ae7650f74f47b1e8158151cc122f',
+    _prod_channel = 'saas'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 联系人信息
+model ContactInfo {
+  // 联系人
+  contactName: string(name='contact_name', example='张三'),
+  // 联系电话
+  contactPhone: string(name='contact_phone', example='17688887777'),
+}
+
+// 证书信息
+model CertificateData {
+  // 任务ID
+  taskId: string(name='task_id', example='任务ID'),
+  // 版权用户UID
+  userId: string(name='user_id', example='版权用户UID'),
+  // DCI码
+  dciCode: string(name='dci_code', example='DCI码'),
+  // 证书下载的链接地址
+  certificateUrl: string(name='certificate_url', example='证书下载的链接地址'),
+}
+
+// 发票信息
+model InvoiceInfo {
+  // 发票类型 InvoiceTypeEnum目前只支持普票
+  // (NORMAL,ELC,普票)
+  // (SPECIAL,VAT,专票)
+  invoiceType: string(name='invoice_type', example='NORMAL'),
+  // 发票抬头（著作权人之一）
+  invoiceHeader: string(name='invoice_header', example='000'),
+  // 纳税人识别号（机构必填）
+  taxpayerNumber?: string(name='taxpayer_number', example='纳税人识别号'),
+  // 注册地址（专票必填）
+  registeredAddress?: string(name='registered_address', example='注册地址'),
+  // 注册电话（专票必填）
+  registeredTel?: string(name='registered_tel', example='注册电话'),
+  // 开户电话（专票必填）
+  openAccountTel?: string(name='open_account_tel', example='开户电话'),
+  // 开户银行（专票必填）
+  openAccountBank?: string(name='open_account_bank', example='开户银行'),
+  // 银行账号（专票必填）
+  bankAccount?: string(name='bank_account', example='银行账号'),
+}
+
+// 订单明细
+model OrderItem {
+  // 项目ID
+  itemId: string(name='item_id', example='11111'),
+  // 项目类型（数登申请）
+  itemType: string(name='item_type', example='数登申请'),
+}
+
+// 数登上传文件结构体
+model AdditionalFileInfo {
+  // 内容梗概文件fileId
+  contentSummaryFileId?: string(name='content_summary_file_id', example='202212131900example001.png'),
+  // 权利归属证明文件
+  ownershipFileIds?: [ string ](name='ownership_file_ids', example=''),
+  // 肖像权授权文件fileId
+  portraitAuthFileId?: string(name='portrait_auth_file_id', example='202212131900example003.png'),
+  // 他人作品授权文件fileId
+  othersWorkAuthFileId?: string(name='others_work_auth_file_id', example='202212131900example004.png'),
+  // 其他文件fileId列表
+  otherFileIdList?: [ string ](name='other_file_id_list', example=''),
+  // 商用授权字体授权文件fileId
+  fontAuthorizeFileId?: string(name='font_authorize_file_id', example='202212131900example004.png '),
+}
+
+// 数登申请声明：包括创作目的、创作过程、独创性和字体申明
+model DciExplanationInfo {
+  // 创作目的，描述作品创作的目的
+  creationPurpose: string(name='creation_purpose', example='xx的创作目的'),
+  // 创作过程，具体的创作过程
+  creationProcess: string(name='creation_process', example='xx的创作过程'),
+  // 阐述作品的独创性
+  originality: string(name='originality', example='独创性说明'),
+  // 创作过程涉及到字体使用相关版权说明
+  fontCopyright?: string(name='font_copyright', example='字体申明'),
+  // 创作过程涉及到字体使用相关版权说明	
+  // 
+  fontTypes?: [ string ](name='font_types', example=''),
+}
+
+model CreateBlockchainBccrDciRegistrationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // DC123456
+  dciContentId: string(name='dci_content_id'),
+  // 数登申请声明
+  explanationInfo: DciExplanationInfo(name='explanation_info'),
+  // 补充文件相关信息
+  additionalFileInfo?: AdditionalFileInfo(name='additional_file_info'),
+  // 发票信息--当前支持普票
+  invoiceInfo?: InvoiceInfo(name='invoice_info'),
+  // 幂等字段
+  clientToken: string(name='client_token'),
+  // 废弃待删除
+  creationStatement?: string(name='creation_statement'),
+  // 废弃待删除
+  ancillaryEvidencePathList?: [ string ](name='ancillary_evidence_path_list'),
+  // 申领人联系信息
+  applyerContactInfo?: ContactInfo(name='applyer_contact_info'),
+  // 代理人联系信息
+  platformContactInfo?: ContactInfo(name='platform_contact_info'),
+  // 权利描述
+  rightScopeDesc?: string(name='right_scope_desc'),
+}
+
+model CreateBlockchainBccrDciRegistrationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数登申请id
+  digitalRegisterId?: string(name='digital_register_id'),
+  // 错误信息
+  errorMsg?: string(name='error_msg'),
+}
+
+/**
+ * Description: 发起数登申请
+ * Summary: 发起数登申请
+ */
+async function createBlockchainBccrDciRegistration(request: CreateBlockchainBccrDciRegistrationRequest): CreateBlockchainBccrDciRegistrationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBlockchainBccrDciRegistrationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发起数登申请
+ * Summary: 发起数登申请
+ */
+async function createBlockchainBccrDciRegistrationEx(request: CreateBlockchainBccrDciRegistrationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBlockchainBccrDciRegistrationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.registration.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBlockchainBccrDciRegistrationsubmitRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // dci内容id
+  dciContentId: string(name='dci_content_id'),
+}
+
+model QueryBlockchainBccrDciRegistrationsubmitResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数登提交状态
+  contentStatus?: string(name='content_status'),
+}
+
+/**
+ * Description: 已废弃接口
+ * Summary: 已废弃接口
+ */
+async function queryBlockchainBccrDciRegistrationsubmit(request: QueryBlockchainBccrDciRegistrationsubmitRequest): QueryBlockchainBccrDciRegistrationsubmitResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBlockchainBccrDciRegistrationsubmitEx(request, headers, runtime);
+}
+
+/**
+ * Description: 已废弃接口
+ * Summary: 已废弃接口
+ */
+async function queryBlockchainBccrDciRegistrationsubmitEx(request: QueryBlockchainBccrDciRegistrationsubmitRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBlockchainBccrDciRegistrationsubmitResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.registrationsubmit.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBlockchainBccrDciRegistrationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数登申请id
+  digitalRegisterId?: string(name='digital_register_id'),
+  // dci申领id
+  dciContentId?: string(name='dci_content_id'),
+}
+
+model QueryBlockchainBccrDciRegistrationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 废弃待删除
+  contentStatus?: string(name='content_status'),
+  // 废弃待删除
+  registerCertTxHash?: string(name='register_cert_tx_hash'),
+  // 废弃待删除
+  registerCertBlockHeight?: string(name='register_cert_block_height'),
+  // 废弃待删除
+  registerCertTsr?: string(name='register_cert_tsr'),
+  // 废弃待删除
+  registerCertPngFileId?: string(name='register_cert_png_file_id'),
+  // 废弃待删除
+  registerSampleFileId?: string(name='register_sample_file_id'),
+  // 废弃待删除
+  registerSamplePngFileId?: string(name='register_sample_png_file_id'),
+  // 废弃待删除
+  registerDownloadTimesLeft?: long(name='register_download_times_left'),
+  // 废弃待删除
+  errorReason?: string(name='error_reason'),
+  // 废弃待删除
+  errorReasonCn?: string(name='error_reason_cn'),
+  // 废弃待删除
+  invoiceFileIdList?: [ string ](name='invoice_file_id_list'),
+  // 废弃待删除
+  applyRegisterTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='apply_register_time'),
+  // 数登登记号
+  regNumber?: string(name='reg_number'),
+  // 数登id
+  digitalRegisterId?: string(name='digital_register_id'),
+  // dci申领id
+  dciContentId?: string(name='dci_content_id'),
+  // 数登状态
+  digitalRegisterStatus?: string(name='digital_register_status'),
+  // 数登申请时间
+  digitalRegisterApplyTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='digital_register_apply_time'),
+  // 数登完成时间
+  digitalRegisterCompletionTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='digital_register_completion_time'),
+  // 数登证书预览图url
+  digitalRegisterCertPngUrl?: string(name='digital_register_cert_png_url'),
+  // 样本证书预览图url
+  digitalRegisterSamplePngUrl?: string(name='digital_register_sample_png_url'),
+  // 证书本月剩余下载次数
+  downloadTimesLeft?: long(name='download_times_left'),
+  // 发票下载链接list
+  invoiceUrlList?: [ string ](name='invoice_url_list'),
+  // 数登失败详情
+  failDetail?: string(name='fail_detail'),
+  // 补正类型
+  amendType?: string(name='amend_type'),
+  // 用户申请表url
+  applyFormUrl?: string(name='apply_form_url'),
+  // 数登流水号
+  flowNumber?: string(name='flow_number'),
+}
+
+/**
+ * Description: 查询数登结果
+ * Summary: 查询数登结果
+ */
+async function queryBlockchainBccrDciRegistration(request: QueryBlockchainBccrDciRegistrationRequest): QueryBlockchainBccrDciRegistrationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBlockchainBccrDciRegistrationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询数登结果
+ * Summary: 查询数登结果
+ */
+async function queryBlockchainBccrDciRegistrationEx(request: QueryBlockchainBccrDciRegistrationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBlockchainBccrDciRegistrationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.registration.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetBlockchainBccrDciRegistrationcertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数登申请id
+  digitalRegisterId: string(name='digital_register_id'),
+  // 幂等字段
+  clientToken: string(name='client_token'),
+  // 废弃待删除
+  dciContentId?: string(name='dci_content_id'),
+}
+
+model GetBlockchainBccrDciRegistrationcertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 废弃待删除
+  certStatus?: string(name='cert_status'),
+  // 废弃待删除
+  certificateUrl?: string(name='certificate_url'),
+  // 废弃待删除
+  errorReason?: string(name='error_reason'),
+  // 废弃待删除
+  errorReasonCn?: string(name='error_reason_cn'),
+  // 数登状态
+  digitalRegisterStatus?: string(name='digital_register_status'),
+  // 数登证书&样本证书压缩包url
+  downloadUrl?: string(name='download_url'),
+  // 剩余下载次数
+  downloadTimesLeft?: long(name='download_times_left'),
+  // 失败详情
+  failDetail?: string(name='fail_detail'),
+  // 数登证书下载链接
+  digitalRegisterCertUrl?: string(name='digital_register_cert_url'),
+  // 数登样本证书下载链接
+  digitalRegisterSampleUrl?: string(name='digital_register_sample_url'),
+}
+
+/**
+ * Description: 获取数登证书下载链接
+ * Summary: 获取数登证书下载链接
+ */
+async function getBlockchainBccrDciRegistrationcert(request: GetBlockchainBccrDciRegistrationcertRequest): GetBlockchainBccrDciRegistrationcertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getBlockchainBccrDciRegistrationcertEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取数登证书下载链接
+ * Summary: 获取数登证书下载链接
+ */
+async function getBlockchainBccrDciRegistrationcertEx(request: GetBlockchainBccrDciRegistrationcertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetBlockchainBccrDciRegistrationcertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.registrationcert.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBlockchainBccrDciRegistrationcertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+  // 版权用户ID
+  userId: string(name='user_id'),
+  // DCI码
+  dciCode: string(name='dci_code'),
+  // 登记号
+  regNumber: string(name='reg_number'),
+  // 二维码
+  qrCodeUrl: string(name='qr_code_url'),
+  // 客户端token
+  clientToken?: string(name='client_token'),
+}
+
+model CreateBlockchainBccrDciRegistrationcertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建数字登记证书
+ * Summary: 创建数字登记证书
+ */
+async function createBlockchainBccrDciRegistrationcert(request: CreateBlockchainBccrDciRegistrationcertRequest): CreateBlockchainBccrDciRegistrationcertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBlockchainBccrDciRegistrationcertEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建数字登记证书
+ * Summary: 创建数字登记证书
+ */
+async function createBlockchainBccrDciRegistrationcertEx(request: CreateBlockchainBccrDciRegistrationcertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBlockchainBccrDciRegistrationcertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.registrationcert.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBlockchainBccrDciRegistrationcertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+}
+
+model QueryBlockchainBccrDciRegistrationcertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 证书信息
+  certificateData?: CertificateData(name='certificate_data'),
+}
+
+/**
+ * Description: 已废弃接口
+ * Summary: 已废弃接口
+ */
+async function queryBlockchainBccrDciRegistrationcert(request: QueryBlockchainBccrDciRegistrationcertRequest): QueryBlockchainBccrDciRegistrationcertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBlockchainBccrDciRegistrationcertEx(request, headers, runtime);
+}
+
+/**
+ * Description: 已废弃接口
+ * Summary: 已废弃接口
+ */
+async function queryBlockchainBccrDciRegistrationcertEx(request: QueryBlockchainBccrDciRegistrationcertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBlockchainBccrDciRegistrationcertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.registrationcert.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetBlockchainBccrDciPayurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数登申请id
+  digitalRegisterId: string(name='digital_register_id'),
+  // 幂等字段
+  clientToken: string(name='client_token'),
+  // 废弃待删除
+  dciUserId?: string(name='dci_user_id'),
+  // 废弃待删除
+  dciContentId?: string(name='dci_content_id'),
+  // 废弃待删除
+  payMent?: string(name='pay_ment'),
+  // 废弃待删除
+  invoiceInfo?: InvoiceInfo(name='invoice_info'),
+}
+
+model GetBlockchainBccrDciPayurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 支付链接
+  payUrl?: string(name='pay_url'),
+  // 错误信息
+  errorMsg?: string(name='error_msg'),
+}
+
+/**
+ * Description: 发起支付，获取支付链接
+ * Summary: 数登支付-发起支付
+ */
+async function getBlockchainBccrDciPayurl(request: GetBlockchainBccrDciPayurlRequest): GetBlockchainBccrDciPayurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getBlockchainBccrDciPayurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发起支付，获取支付链接
+ * Summary: 数登支付-发起支付
+ */
+async function getBlockchainBccrDciPayurlEx(request: GetBlockchainBccrDciPayurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetBlockchainBccrDciPayurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.payurl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBlockchainBccrDciPayRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数登申请id
+  digitalRegisterId: string(name='digital_register_id'),
+  // 废弃待删除
+  dciUserId?: string(name='dci_user_id'),
+  // 废弃待删除
+  dciContentId?: string(name='dci_content_id'),
+}
+
+model QueryBlockchainBccrDciPayResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 支付状态
+  // （INIT 用户点击支付，待获取链接；GET_PAY_URL_FAIL 获取支付链接失败；PAY_FAIL 支付失败；TIMEOUT 支付超时；PAY_SUCCESS 支付成功；PAYING 支付中；PAY_EXCEPTION	支付异常，待重试）
+  payStatus?: string(name='pay_status'),
+  // 废弃待删除
+  payState?: string(name='pay_state'),
+}
+
+/**
+ * Description: 查询数登支付结果
+ * Summary: 查询数登支付结果
+ */
+async function queryBlockchainBccrDciPay(request: QueryBlockchainBccrDciPayRequest): QueryBlockchainBccrDciPayResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBlockchainBccrDciPayEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询数登支付结果
+ * Summary: 查询数登支付结果
+ */
+async function queryBlockchainBccrDciPayEx(request: QueryBlockchainBccrDciPayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBlockchainBccrDciPayResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.pay.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackBlockchainBccrDciPayresultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 与中心约定的任务ID，同一个作品可能会发起多次登记
+  taskId: string(name='task_id'),
+  // 平台Id
+  appId: string(name='app_id'),
+  // 订单ID 
+  orderId: string(name='order_id'),
+  // 支付方式 (ALIPAY,0,支付宝)
+  payMent: string(name='pay_ment'),
+  // 订单金额
+  money: string(name='money'),
+  // 结果描述，如：支付成功
+  resultContent: string(name='result_content'),
+  // 状态，2001代表支付成功
+  code: string(name='code'),
+}
+
+model CallbackBlockchainBccrDciPayresultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 支付结果回调
+ * Summary: 数登支付-支付结果回调
+ */
+async function callbackBlockchainBccrDciPayresult(request: CallbackBlockchainBccrDciPayresultRequest): CallbackBlockchainBccrDciPayresultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackBlockchainBccrDciPayresultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支付结果回调
+ * Summary: 数登支付-支付结果回调
+ */
+async function callbackBlockchainBccrDciPayresultEx(request: CallbackBlockchainBccrDciPayresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackBlockchainBccrDciPayresultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.payresult.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RefuseBlockchainBccrDciRegistrationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+  // 复审失败原因
+  code: string(name='code'),
+  // 失败详情
+  failDetail: string(name='fail_detail'),
+  // 幂等字段
+  clientToken: string(name='client_token'),
+}
+
+model RefuseBlockchainBccrDciRegistrationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 数登审核失败结果回调
+ * Summary: 数登审核失败结果回调
+ */
+async function refuseBlockchainBccrDciRegistration(request: RefuseBlockchainBccrDciRegistrationRequest): RefuseBlockchainBccrDciRegistrationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return refuseBlockchainBccrDciRegistrationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数登审核失败结果回调
+ * Summary: 数登审核失败结果回调
+ */
+async function refuseBlockchainBccrDciRegistrationEx(request: RefuseBlockchainBccrDciRegistrationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RefuseBlockchainBccrDciRegistrationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.registration.refuse', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RetryBlockchainBccrDciRegistrationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待补正数登申请id
+  digitalRegisterId: string(name='digital_register_id'),
+  // 替换dci申领id
+  dciContentId?: string(name='dci_content_id'),
+  // 数登申请声明
+  explanationInfo: DciExplanationInfo(name='explanation_info'),
+  // 补充文件信息
+  additionalFileInfo?: AdditionalFileInfo(name='additional_file_info'),
+  // 幂等字段
+  clientToken: string(name='client_token'),
+  // 权利描述
+  rightScopeDesc?: string(name='right_scope_desc'),
+  // 申领人联系信息
+  applyerContactInfo?: ContactInfo(name='applyer_contact_info'),
+  // 代理人联系信息
+  platformContactInfo?: ContactInfo(name='platform_contact_info'),
+}
+
+model RetryBlockchainBccrDciRegistrationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 错误信息
+  errorMsg?: string(name='error_msg'),
+}
+
+/**
+ * Description: 补正数登申请
+ * Summary: 补正数登申请
+ */
+async function retryBlockchainBccrDciRegistration(request: RetryBlockchainBccrDciRegistrationRequest): RetryBlockchainBccrDciRegistrationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return retryBlockchainBccrDciRegistrationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 补正数登申请
+ * Summary: 补正数登申请
+ */
+async function retryBlockchainBccrDciRegistrationEx(request: RetryBlockchainBccrDciRegistrationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RetryBlockchainBccrDciRegistrationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.registration.retry', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CloseBlockchainBccrDciRegistrationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数登id
+  digitalRegisterId: string(name='digital_register_id'),
+  // 退费人名称
+  name: string(name='name'),
+  // 联系手机号
+  mobileNo: string(name='mobile_no'),
+  // 幂等字段
+  clientToken: string(name='client_token'),
+}
+
+model CloseBlockchainBccrDciRegistrationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 数登停止申请
+ * Summary: 数登停止申请
+ */
+async function closeBlockchainBccrDciRegistration(request: CloseBlockchainBccrDciRegistrationRequest): CloseBlockchainBccrDciRegistrationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return closeBlockchainBccrDciRegistrationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数登停止申请
+ * Summary: 数登停止申请
+ */
+async function closeBlockchainBccrDciRegistrationEx(request: CloseBlockchainBccrDciRegistrationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CloseBlockchainBccrDciRegistrationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.registration.close', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBlockchainBccrOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 幂等字段
+  clientToken: string(name='client_token'),
+  // 幂等id【标废弃， 幂等id已client_token为准】
+  requestId?: string(name='request_id'),
+  // 发票信息
+  invoiceInfo: InvoiceInfo(name='invoice_info'),
+  // 订单明细列表
+  orderItem: [ OrderItem ](name='order_item'),
+}
+
+model CreateBlockchainBccrOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用于查询支付链接
+  orderId?: string(name='order_id'),
+  // 创建订单失败
+  errorMsg?: string(name='error_msg'),
+}
+
+/**
+ * Description: 创建订单
+ * Summary: 创建订单
+ */
+async function createBlockchainBccrOrder(request: CreateBlockchainBccrOrderRequest): CreateBlockchainBccrOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBlockchainBccrOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建订单
+ * Summary: 创建订单
+ */
+async function createBlockchainBccrOrderEx(request: CreateBlockchainBccrOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBlockchainBccrOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.order.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBlockchainBccrOrderPayurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id
+  orderId: string(name='order_id'),
+}
+
+model QueryBlockchainBccrOrderPayurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 支付链接
+  payUrl?: string(name='pay_url'),
+  // 查询支付链接失败
+  errorMsg?: string(name='error_msg'),
+}
+
+/**
+ * Description: 查询订单支付链接
+ * Summary: 查询订单支付链接
+ */
+async function queryBlockchainBccrOrderPayurl(request: QueryBlockchainBccrOrderPayurlRequest): QueryBlockchainBccrOrderPayurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBlockchainBccrOrderPayurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询订单支付链接
+ * Summary: 查询订单支付链接
+ */
+async function queryBlockchainBccrOrderPayurlEx(request: QueryBlockchainBccrOrderPayurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBlockchainBccrOrderPayurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.order.payurl.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model FinishBlockchainBccrDciRegistrationcertRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 登记号
+  regNumber: string(name='reg_number'),
+  // 数登证书地址
+  certificateUrl?: string(name='certificate_url'),
+  // 数登样本地址
+  sampleUrl?: string(name='sample_url'),
+  // 客户端幂等token
+  clientToken: string(name='client_token'),
+}
+
+model FinishBlockchainBccrDciRegistrationcertResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 版保完成数登证书回调
+ * Summary: 版保完成数登证书回调
+ */
+async function finishBlockchainBccrDciRegistrationcert(request: FinishBlockchainBccrDciRegistrationcertRequest): FinishBlockchainBccrDciRegistrationcertResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return finishBlockchainBccrDciRegistrationcertEx(request, headers, runtime);
+}
+
+/**
+ * Description: 版保完成数登证书回调
+ * Summary: 版保完成数登证书回调
+ */
+async function finishBlockchainBccrDciRegistrationcertEx(request: FinishBlockchainBccrDciRegistrationcertRequest, headers: map[string]string, runtime: Util.RuntimeOptions): FinishBlockchainBccrDciRegistrationcertResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.registrationcert.finish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
