@@ -12992,6 +12992,90 @@ func (s *QueryOrderPayurlResponse) SetErrorMsg(v string) *QueryOrderPayurlRespon
 	return s
 }
 
+type FinishDciRegistrationcertRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 登记号
+	RegNumber *string `json:"reg_number,omitempty" xml:"reg_number,omitempty" require:"true"`
+	// 数登证书地址
+	CertificateUrl *string `json:"certificate_url,omitempty" xml:"certificate_url,omitempty"`
+	// 数登样本地址
+	SampleUrl *string `json:"sample_url,omitempty" xml:"sample_url,omitempty"`
+	// 客户端幂等token
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+}
+
+func (s FinishDciRegistrationcertRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FinishDciRegistrationcertRequest) GoString() string {
+	return s.String()
+}
+
+func (s *FinishDciRegistrationcertRequest) SetAuthToken(v string) *FinishDciRegistrationcertRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *FinishDciRegistrationcertRequest) SetProductInstanceId(v string) *FinishDciRegistrationcertRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *FinishDciRegistrationcertRequest) SetRegNumber(v string) *FinishDciRegistrationcertRequest {
+	s.RegNumber = &v
+	return s
+}
+
+func (s *FinishDciRegistrationcertRequest) SetCertificateUrl(v string) *FinishDciRegistrationcertRequest {
+	s.CertificateUrl = &v
+	return s
+}
+
+func (s *FinishDciRegistrationcertRequest) SetSampleUrl(v string) *FinishDciRegistrationcertRequest {
+	s.SampleUrl = &v
+	return s
+}
+
+func (s *FinishDciRegistrationcertRequest) SetClientToken(v string) *FinishDciRegistrationcertRequest {
+	s.ClientToken = &v
+	return s
+}
+
+type FinishDciRegistrationcertResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s FinishDciRegistrationcertResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FinishDciRegistrationcertResponse) GoString() string {
+	return s.String()
+}
+
+func (s *FinishDciRegistrationcertResponse) SetReqMsgId(v string) *FinishDciRegistrationcertResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *FinishDciRegistrationcertResponse) SetResultCode(v string) *FinishDciRegistrationcertResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *FinishDciRegistrationcertResponse) SetResultMsg(v string) *FinishDciRegistrationcertResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type AddContentRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -13954,7 +14038,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.38"),
+				"sdk_version":      tea.String("1.19.39"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -16487,6 +16571,40 @@ func (client *Client) QueryOrderPayurlEx(request *QueryOrderPayurlRequest, heade
 	}
 	_result = &QueryOrderPayurlResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.order.payurl.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 版保完成数登证书回调
+ * Summary: 版保完成数登证书回调
+ */
+func (client *Client) FinishDciRegistrationcert(request *FinishDciRegistrationcertRequest) (_result *FinishDciRegistrationcertResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &FinishDciRegistrationcertResponse{}
+	_body, _err := client.FinishDciRegistrationcertEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 版保完成数登证书回调
+ * Summary: 版保完成数登证书回调
+ */
+func (client *Client) FinishDciRegistrationcertEx(request *FinishDciRegistrationcertRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *FinishDciRegistrationcertResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &FinishDciRegistrationcertResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.dci.registrationcert.finish"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
