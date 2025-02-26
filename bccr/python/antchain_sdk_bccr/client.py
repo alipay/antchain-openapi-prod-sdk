@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.38',
+                    'sdk_version': '1.19.39',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.38',
+                    'sdk_version': '1.19.39',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -4361,6 +4361,62 @@ class Client:
         return TeaCore.from_map(
             bccr_models.QueryOrderPayurlResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.order.payurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def finish_dci_registrationcert(
+        self,
+        request: bccr_models.FinishDciRegistrationcertRequest,
+    ) -> bccr_models.FinishDciRegistrationcertResponse:
+        """
+        Description: 版保完成数登证书回调
+        Summary: 版保完成数登证书回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.finish_dci_registrationcert_ex(request, headers, runtime)
+
+    async def finish_dci_registrationcert_async(
+        self,
+        request: bccr_models.FinishDciRegistrationcertRequest,
+    ) -> bccr_models.FinishDciRegistrationcertResponse:
+        """
+        Description: 版保完成数登证书回调
+        Summary: 版保完成数登证书回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.finish_dci_registrationcert_ex_async(request, headers, runtime)
+
+    def finish_dci_registrationcert_ex(
+        self,
+        request: bccr_models.FinishDciRegistrationcertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.FinishDciRegistrationcertResponse:
+        """
+        Description: 版保完成数登证书回调
+        Summary: 版保完成数登证书回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.FinishDciRegistrationcertResponse(),
+            self.do_request('1.0', 'blockchain.bccr.dci.registrationcert.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def finish_dci_registrationcert_ex_async(
+        self,
+        request: bccr_models.FinishDciRegistrationcertRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.FinishDciRegistrationcertResponse:
+        """
+        Description: 版保完成数登证书回调
+        Summary: 版保完成数登证书回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.FinishDciRegistrationcertResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.dci.registrationcert.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def add_content(
