@@ -1100,7 +1100,7 @@ type CreateUniversalsaasDigitalhumanVideoTaskRequest struct {
 	// 贴片元素信息
 	Pasters []*Paster `json:"pasters,omitempty" xml:"pasters,omitempty" type:"Repeated"`
 	// 数字人视频生成格式，默认不填
-	Format *string `json:"format,omitempty" xml:"format,omitempty"`
+	VideoFormat *string `json:"video_format,omitempty" xml:"video_format,omitempty"`
 	// 画布大小
 	Width *int64 `json:"width,omitempty" xml:"width,omitempty"`
 	// 是否返回字幕时间戳，但不合成到视频画面里面
@@ -1175,8 +1175,8 @@ func (s *CreateUniversalsaasDigitalhumanVideoTaskRequest) SetPasters(v []*Paster
 	return s
 }
 
-func (s *CreateUniversalsaasDigitalhumanVideoTaskRequest) SetFormat(v string) *CreateUniversalsaasDigitalhumanVideoTaskRequest {
-	s.Format = &v
+func (s *CreateUniversalsaasDigitalhumanVideoTaskRequest) SetVideoFormat(v string) *CreateUniversalsaasDigitalhumanVideoTaskRequest {
+	s.VideoFormat = &v
 	return s
 }
 
@@ -2479,7 +2479,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.0"),
+				"sdk_version":      tea.String("1.3.1"),
 				"_prod_code":       tea.String("ak_245215eadadd4dc9bba177d6ba6d593d"),
 				"_prod_channel":    tea.String("saas"),
 			}
