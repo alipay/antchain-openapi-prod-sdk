@@ -56,8 +56,8 @@ public class CreateUniversalsaasDigitalhumanVideoTaskRequest extends TeaModel {
     public java.util.List<Paster> pasters;
 
     // 数字人视频生成格式，默认不填
-    @NameInMap("format")
-    public String format;
+    @NameInMap("video_format")
+    public String videoFormat;
 
     // 画布大小
     @NameInMap("width")
@@ -168,12 +168,12 @@ public class CreateUniversalsaasDigitalhumanVideoTaskRequest extends TeaModel {
         return this.pasters;
     }
 
-    public CreateUniversalsaasDigitalhumanVideoTaskRequest setFormat(String format) {
-        this.format = format;
+    public CreateUniversalsaasDigitalhumanVideoTaskRequest setVideoFormat(String videoFormat) {
+        this.videoFormat = videoFormat;
         return this;
     }
-    public String getFormat() {
-        return this.format;
+    public String getVideoFormat() {
+        return this.videoFormat;
     }
 
     public CreateUniversalsaasDigitalhumanVideoTaskRequest setWidth(Long width) {
