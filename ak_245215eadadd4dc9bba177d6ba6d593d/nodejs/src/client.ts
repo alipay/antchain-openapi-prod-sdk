@@ -857,7 +857,7 @@ export class CreateUniversalsaasDigitalhumanVideoTaskRequest extends $tea.Model 
   // 贴片元素信息
   pasters?: Paster[];
   // 数字人视频生成格式，默认不填
-  format?: string;
+  videoFormat?: string;
   // 画布大小
   width?: number;
   // 是否返回字幕时间戳，但不合成到视频画面里面
@@ -876,7 +876,7 @@ export class CreateUniversalsaasDigitalhumanVideoTaskRequest extends $tea.Model 
       replaceSensitive: 'replace_sensitive',
       background: 'background',
       pasters: 'pasters',
-      format: 'format',
+      videoFormat: 'video_format',
       width: 'width',
       returnCaptions: 'return_captions',
     };
@@ -896,7 +896,7 @@ export class CreateUniversalsaasDigitalhumanVideoTaskRequest extends $tea.Model 
       replaceSensitive: 'boolean',
       background: Background,
       pasters: { 'type': 'array', 'itemType': Paster },
-      format: 'string',
+      videoFormat: 'string',
       width: 'number',
       returnCaptions: 'boolean',
     };
@@ -1944,7 +1944,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.0",
+          sdk_version: "1.3.1",
           _prod_code: "ak_245215eadadd4dc9bba177d6ba6d593d",
           _prod_channel: "saas",
         };
