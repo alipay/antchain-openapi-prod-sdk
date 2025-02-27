@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.13.11"),
+                    new TeaPair("sdk_version", "1.13.15"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -679,6 +679,27 @@ public class Client {
     public QueryFundDividerelationResponse queryFundDividerelationEx(QueryFundDividerelationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.dividerelation.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFundDividerelationResponse());
+    }
+
+    /**
+     * Description: ● 本接口获取用信授权
+    ● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+     * Summary: 用信申请接口
+     */
+    public ApplyFundCreditutilizationResponse applyFundCreditutilization(ApplyFundCreditutilizationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyFundCreditutilizationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: ● 本接口获取用信授权
+    ● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+     * Summary: 用信申请接口
+     */
+    public ApplyFundCreditutilizationResponse applyFundCreditutilizationEx(ApplyFundCreditutilizationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.creditutilization.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyFundCreditutilizationResponse());
     }
 
     /**
@@ -1992,6 +2013,82 @@ public class Client {
     public SubmitInnerTemplatesyncreviewResponse submitInnerTemplatesyncreviewEx(SubmitInnerTemplatesyncreviewRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.templatesyncreview.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitInnerTemplatesyncreviewResponse());
+    }
+
+    /**
+     * Description: 待办事件处理
+     * Summary: 待办事件处理
+     */
+    public SubmitInnerPendingeventResponse submitInnerPendingevent(SubmitInnerPendingeventRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitInnerPendingeventEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 待办事件处理
+     * Summary: 待办事件处理
+     */
+    public SubmitInnerPendingeventResponse submitInnerPendingeventEx(SubmitInnerPendingeventRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.pendingevent.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitInnerPendingeventResponse());
+    }
+
+    /**
+     * Description: 待办事件详情查询
+     * Summary: 待办事件详情查询
+     */
+    public DetailInnerPendingeventResponse detailInnerPendingevent(DetailInnerPendingeventRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailInnerPendingeventEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 待办事件详情查询
+     * Summary: 待办事件详情查询
+     */
+    public DetailInnerPendingeventResponse detailInnerPendingeventEx(DetailInnerPendingeventRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.pendingevent.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailInnerPendingeventResponse());
+    }
+
+    /**
+     * Description: 合同模板制作根据已有模板新增合同模板文件
+     * Summary: 根据已有模板新增合同模板文件
+     */
+    public AddInnerTemplateResponse addInnerTemplate(AddInnerTemplateRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addInnerTemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 合同模板制作根据已有模板新增合同模板文件
+     * Summary: 根据已有模板新增合同模板文件
+     */
+    public AddInnerTemplateResponse addInnerTemplateEx(AddInnerTemplateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.template.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddInnerTemplateResponse());
+    }
+
+    /**
+     * Description: 查询待办列表
+     * Summary: 查询待办列表
+     */
+    public PagequeryInnerPendingeventResponse pagequeryInnerPendingevent(PagequeryInnerPendingeventRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryInnerPendingeventEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询待办列表
+     * Summary: 查询待办列表
+     */
+    public PagequeryInnerPendingeventResponse pagequeryInnerPendingeventEx(PagequeryInnerPendingeventRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.pendingevent.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryInnerPendingeventResponse());
     }
 
     /**
