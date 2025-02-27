@@ -2293,6 +2293,63 @@ func (s *MarketingScoreInfo) SetScore(v string) *MarketingScoreInfo {
 	return s
 }
 
+// 待办信息
+type PendingEventInfo struct {
+	// 事件id
+	EventId *string `json:"event_id,omitempty" xml:"event_id,omitempty"`
+	// 通知:NOTIFICATION
+	// 确认函:CONFIRMATION
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// ("PENDING","待办中"),  ("CONFIRMED","确认"),
+	// ("REJECTED","已拒绝")
+	// ("FAILED","失败"),("EXPIRED","已过期");
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 待办内容主题
+	ContentSubject *string `json:"content_subject,omitempty" xml:"content_subject,omitempty"`
+	// 事件有效期开始
+	EffectiveStartTime *string `json:"effective_start_time,omitempty" xml:"effective_start_time,omitempty"`
+	// 事件有效期结束
+	EffectiveEndTime *string `json:"effective_end_time,omitempty" xml:"effective_end_time,omitempty"`
+}
+
+func (s PendingEventInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PendingEventInfo) GoString() string {
+	return s.String()
+}
+
+func (s *PendingEventInfo) SetEventId(v string) *PendingEventInfo {
+	s.EventId = &v
+	return s
+}
+
+func (s *PendingEventInfo) SetType(v string) *PendingEventInfo {
+	s.Type = &v
+	return s
+}
+
+func (s *PendingEventInfo) SetStatus(v string) *PendingEventInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *PendingEventInfo) SetContentSubject(v string) *PendingEventInfo {
+	s.ContentSubject = &v
+	return s
+}
+
+func (s *PendingEventInfo) SetEffectiveStartTime(v string) *PendingEventInfo {
+	s.EffectiveStartTime = &v
+	return s
+}
+
+func (s *PendingEventInfo) SetEffectiveEndTime(v string) *PendingEventInfo {
+	s.EffectiveEndTime = &v
+	return s
+}
+
 // 智租风控-商品价格
 type PriceDetail struct {
 	// 商品租赁期数
@@ -2830,6 +2887,39 @@ func (s *OrderProductInfo) SetProductName(v string) *OrderProductInfo {
 
 func (s *OrderProductInfo) SetProductNumber(v int64) *OrderProductInfo {
 	s.ProductNumber = &v
+	return s
+}
+
+// 用信订单信息
+type CreditUtilizationOrder struct {
+	// 123
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50" minLength:"6"`
+	// 订单用信额度，单位为分
+	OrderCreditLine *int64 `json:"order_credit_line,omitempty" xml:"order_credit_line,omitempty" require:"true" minimum:"1"`
+	// 订单商户应还金额，单位为分
+	OrderMerchantRepaymentMoney *int64 `json:"order_merchant_repayment_money,omitempty" xml:"order_merchant_repayment_money,omitempty" require:"true" minimum:"1"`
+}
+
+func (s CreditUtilizationOrder) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreditUtilizationOrder) GoString() string {
+	return s.String()
+}
+
+func (s *CreditUtilizationOrder) SetOrderId(v string) *CreditUtilizationOrder {
+	s.OrderId = &v
+	return s
+}
+
+func (s *CreditUtilizationOrder) SetOrderCreditLine(v int64) *CreditUtilizationOrder {
+	s.OrderCreditLine = &v
+	return s
+}
+
+func (s *CreditUtilizationOrder) SetOrderMerchantRepaymentMoney(v int64) *CreditUtilizationOrder {
+	s.OrderMerchantRepaymentMoney = &v
 	return s
 }
 
@@ -5416,6 +5506,125 @@ func (s *QueryFundDividerelationResponse) SetAlipayPidList(v []*string) *QueryFu
 
 func (s *QueryFundDividerelationResponse) SetDivideRadio(v string) *QueryFundDividerelationResponse {
 	s.DivideRadio = &v
+	return s
+}
+
+type ApplyFundCreditutilizationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单列表
+	OrderList []*CreditUtilizationOrder `json:"order_list,omitempty" xml:"order_list,omitempty" require:"true" type:"Repeated"`
+	// 商户租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true" maxLength:"20" minLength:"1"`
+	// 商户统一社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" maxLength:"200" minLength:"1"`
+	// 资方统一社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" require:"true" maxLength:"200" minLength:"1"`
+	// 授信Id
+	GrantingId *string `json:"granting_id,omitempty" xml:"granting_id,omitempty" require:"true" maxLength:"20" minLength:"10"`
+	// 用信授权id
+	UtilizationAuthId *string `json:"utilization_auth_id,omitempty" xml:"utilization_auth_id,omitempty" require:"true" maxLength:"20" minLength:"10"`
+	// 用信id, 需保证唯一性
+	UtilizationId *string `json:"utilization_id,omitempty" xml:"utilization_id,omitempty" require:"true" maxLength:"20" minLength:"10"`
+}
+
+func (s ApplyFundCreditutilizationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyFundCreditutilizationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyFundCreditutilizationRequest) SetAuthToken(v string) *ApplyFundCreditutilizationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyFundCreditutilizationRequest) SetProductInstanceId(v string) *ApplyFundCreditutilizationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyFundCreditutilizationRequest) SetOrderList(v []*CreditUtilizationOrder) *ApplyFundCreditutilizationRequest {
+	s.OrderList = v
+	return s
+}
+
+func (s *ApplyFundCreditutilizationRequest) SetTenantId(v string) *ApplyFundCreditutilizationRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *ApplyFundCreditutilizationRequest) SetMerchantId(v string) *ApplyFundCreditutilizationRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *ApplyFundCreditutilizationRequest) SetFundId(v string) *ApplyFundCreditutilizationRequest {
+	s.FundId = &v
+	return s
+}
+
+func (s *ApplyFundCreditutilizationRequest) SetGrantingId(v string) *ApplyFundCreditutilizationRequest {
+	s.GrantingId = &v
+	return s
+}
+
+func (s *ApplyFundCreditutilizationRequest) SetUtilizationAuthId(v string) *ApplyFundCreditutilizationRequest {
+	s.UtilizationAuthId = &v
+	return s
+}
+
+func (s *ApplyFundCreditutilizationRequest) SetUtilizationId(v string) *ApplyFundCreditutilizationRequest {
+	s.UtilizationId = &v
+	return s
+}
+
+type ApplyFundCreditutilizationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用信Id
+	UtilizationId *string `json:"utilization_id,omitempty" xml:"utilization_id,omitempty"`
+	// 用信授权id
+	UtilizationAuthId *string `json:"utilization_auth_id,omitempty" xml:"utilization_auth_id,omitempty"`
+}
+
+func (s ApplyFundCreditutilizationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyFundCreditutilizationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyFundCreditutilizationResponse) SetReqMsgId(v string) *ApplyFundCreditutilizationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyFundCreditutilizationResponse) SetResultCode(v string) *ApplyFundCreditutilizationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyFundCreditutilizationResponse) SetResultMsg(v string) *ApplyFundCreditutilizationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyFundCreditutilizationResponse) SetUtilizationId(v string) *ApplyFundCreditutilizationResponse {
+	s.UtilizationId = &v
+	return s
+}
+
+func (s *ApplyFundCreditutilizationResponse) SetUtilizationAuthId(v string) *ApplyFundCreditutilizationResponse {
+	s.UtilizationAuthId = &v
 	return s
 }
 
@@ -12102,6 +12311,392 @@ func (s *SubmitInnerTemplatesyncreviewResponse) SetSourceTemplateCode(v string) 
 	return s
 }
 
+type SubmitInnerPendingeventRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 待办事件id
+	EventId *string `json:"event_id,omitempty" xml:"event_id,omitempty" require:"true"`
+	// 商家处理动作
+	// REJECT拒绝，APPROVE 同意
+	Action *string `json:"action,omitempty" xml:"action,omitempty" require:"true"`
+	// 操作人
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+}
+
+func (s SubmitInnerPendingeventRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitInnerPendingeventRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitInnerPendingeventRequest) SetAuthToken(v string) *SubmitInnerPendingeventRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitInnerPendingeventRequest) SetProductInstanceId(v string) *SubmitInnerPendingeventRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitInnerPendingeventRequest) SetTenantId(v string) *SubmitInnerPendingeventRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *SubmitInnerPendingeventRequest) SetEventId(v string) *SubmitInnerPendingeventRequest {
+	s.EventId = &v
+	return s
+}
+
+func (s *SubmitInnerPendingeventRequest) SetAction(v string) *SubmitInnerPendingeventRequest {
+	s.Action = &v
+	return s
+}
+
+func (s *SubmitInnerPendingeventRequest) SetOperator(v string) *SubmitInnerPendingeventRequest {
+	s.Operator = &v
+	return s
+}
+
+type SubmitInnerPendingeventResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SubmitInnerPendingeventResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitInnerPendingeventResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitInnerPendingeventResponse) SetReqMsgId(v string) *SubmitInnerPendingeventResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitInnerPendingeventResponse) SetResultCode(v string) *SubmitInnerPendingeventResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitInnerPendingeventResponse) SetResultMsg(v string) *SubmitInnerPendingeventResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type DetailInnerPendingeventRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 事件id
+	EventId *string `json:"event_id,omitempty" xml:"event_id,omitempty" require:"true"`
+}
+
+func (s DetailInnerPendingeventRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailInnerPendingeventRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailInnerPendingeventRequest) SetAuthToken(v string) *DetailInnerPendingeventRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailInnerPendingeventRequest) SetProductInstanceId(v string) *DetailInnerPendingeventRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailInnerPendingeventRequest) SetTenantId(v string) *DetailInnerPendingeventRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *DetailInnerPendingeventRequest) SetEventId(v string) *DetailInnerPendingeventRequest {
+	s.EventId = &v
+	return s
+}
+
+type DetailInnerPendingeventResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 事件id
+	EventId *string `json:"event_id,omitempty" xml:"event_id,omitempty"`
+	// 通知:NOTIFICATION
+	// 确认函:CONFIRMATION
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// ("PENDING","待办中"), ("CONFIRMED","确认"), ("REJECTED","已拒绝") ("FAILED","失败"),("EXPIRED","已过期");
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 待办内容主题
+	ContentSubject *string `json:"content_subject,omitempty" xml:"content_subject,omitempty"`
+	// 待办内容详情
+	ContentDetails *string `json:"content_details,omitempty" xml:"content_details,omitempty"`
+	// 待办处理页面操作按钮
+	// ACKNOWLEDGE 我已知晓
+	//  CONFIRM 确认
+	//  RETURN 返回
+	// REJECT 拒绝
+	ActionOptionsConfig *string `json:"action_options_config,omitempty" xml:"action_options_config,omitempty"`
+	// 事件有效期开始
+	EffectiveStartTime *string `json:"effective_start_time,omitempty" xml:"effective_start_time,omitempty"`
+	// 事件有效期结束
+	EffectiveEndTime *string `json:"effective_end_time,omitempty" xml:"effective_end_time,omitempty"`
+}
+
+func (s DetailInnerPendingeventResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailInnerPendingeventResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailInnerPendingeventResponse) SetReqMsgId(v string) *DetailInnerPendingeventResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailInnerPendingeventResponse) SetResultCode(v string) *DetailInnerPendingeventResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailInnerPendingeventResponse) SetResultMsg(v string) *DetailInnerPendingeventResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailInnerPendingeventResponse) SetEventId(v string) *DetailInnerPendingeventResponse {
+	s.EventId = &v
+	return s
+}
+
+func (s *DetailInnerPendingeventResponse) SetType(v string) *DetailInnerPendingeventResponse {
+	s.Type = &v
+	return s
+}
+
+func (s *DetailInnerPendingeventResponse) SetStatus(v string) *DetailInnerPendingeventResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *DetailInnerPendingeventResponse) SetContentSubject(v string) *DetailInnerPendingeventResponse {
+	s.ContentSubject = &v
+	return s
+}
+
+func (s *DetailInnerPendingeventResponse) SetContentDetails(v string) *DetailInnerPendingeventResponse {
+	s.ContentDetails = &v
+	return s
+}
+
+func (s *DetailInnerPendingeventResponse) SetActionOptionsConfig(v string) *DetailInnerPendingeventResponse {
+	s.ActionOptionsConfig = &v
+	return s
+}
+
+func (s *DetailInnerPendingeventResponse) SetEffectiveStartTime(v string) *DetailInnerPendingeventResponse {
+	s.EffectiveStartTime = &v
+	return s
+}
+
+func (s *DetailInnerPendingeventResponse) SetEffectiveEndTime(v string) *DetailInnerPendingeventResponse {
+	s.EffectiveEndTime = &v
+	return s
+}
+
+type AddInnerTemplateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 合同模板code
+	TemplateCode *string `json:"template_code,omitempty" xml:"template_code,omitempty" require:"true"`
+}
+
+func (s AddInnerTemplateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddInnerTemplateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddInnerTemplateRequest) SetAuthToken(v string) *AddInnerTemplateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddInnerTemplateRequest) SetProductInstanceId(v string) *AddInnerTemplateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AddInnerTemplateRequest) SetTenantId(v string) *AddInnerTemplateRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *AddInnerTemplateRequest) SetTemplateCode(v string) *AddInnerTemplateRequest {
+	s.TemplateCode = &v
+	return s
+}
+
+type AddInnerTemplateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s AddInnerTemplateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddInnerTemplateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddInnerTemplateResponse) SetReqMsgId(v string) *AddInnerTemplateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddInnerTemplateResponse) SetResultCode(v string) *AddInnerTemplateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddInnerTemplateResponse) SetResultMsg(v string) *AddInnerTemplateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PagequeryInnerPendingeventRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 待办状态
+	StatusList []*string `json:"status_list,omitempty" xml:"status_list,omitempty" type:"Repeated"`
+	// 事件类型
+	// 通知:NOTIFICATION
+	// 确认函:CONFIRMATION
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 分页
+	PageInfo *PageQuery `json:"page_info,omitempty" xml:"page_info,omitempty" require:"true"`
+}
+
+func (s PagequeryInnerPendingeventRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryInnerPendingeventRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryInnerPendingeventRequest) SetAuthToken(v string) *PagequeryInnerPendingeventRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryInnerPendingeventRequest) SetProductInstanceId(v string) *PagequeryInnerPendingeventRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryInnerPendingeventRequest) SetTenantId(v string) *PagequeryInnerPendingeventRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *PagequeryInnerPendingeventRequest) SetStatusList(v []*string) *PagequeryInnerPendingeventRequest {
+	s.StatusList = v
+	return s
+}
+
+func (s *PagequeryInnerPendingeventRequest) SetType(v string) *PagequeryInnerPendingeventRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *PagequeryInnerPendingeventRequest) SetPageInfo(v *PageQuery) *PagequeryInnerPendingeventRequest {
+	s.PageInfo = v
+	return s
+}
+
+type PagequeryInnerPendingeventResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总量
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 待办列表信息
+	PendingEventInfoList []*PendingEventInfo `json:"pending_event_info_list,omitempty" xml:"pending_event_info_list,omitempty" type:"Repeated"`
+}
+
+func (s PagequeryInnerPendingeventResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryInnerPendingeventResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryInnerPendingeventResponse) SetReqMsgId(v string) *PagequeryInnerPendingeventResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryInnerPendingeventResponse) SetResultCode(v string) *PagequeryInnerPendingeventResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryInnerPendingeventResponse) SetResultMsg(v string) *PagequeryInnerPendingeventResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryInnerPendingeventResponse) SetTotal(v int64) *PagequeryInnerPendingeventResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *PagequeryInnerPendingeventResponse) SetPendingEventInfoList(v []*PendingEventInfo) *PagequeryInnerPendingeventResponse {
+	s.PendingEventInfoList = v
+	return s
+}
+
 type CreateInsureRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -18401,7 +18996,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.13.11"),
+				"sdk_version":      tea.String("1.13.15"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -19332,6 +19927,42 @@ func (client *Client) QueryFundDividerelationEx(request *QueryFundDividerelation
 	}
 	_result = &QueryFundDividerelationResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.dividerelation.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: ● 本接口获取用信授权
+● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+ * Summary: 用信申请接口
+*/
+func (client *Client) ApplyFundCreditutilization(request *ApplyFundCreditutilizationRequest) (_result *ApplyFundCreditutilizationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyFundCreditutilizationResponse{}
+	_body, _err := client.ApplyFundCreditutilizationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: ● 本接口获取用信授权
+● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+ * Summary: 用信申请接口
+*/
+func (client *Client) ApplyFundCreditutilizationEx(request *ApplyFundCreditutilizationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyFundCreditutilizationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyFundCreditutilizationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.creditutilization.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -21680,6 +22311,142 @@ func (client *Client) SubmitInnerTemplatesyncreviewEx(request *SubmitInnerTempla
 	}
 	_result = &SubmitInnerTemplatesyncreviewResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.templatesyncreview.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 待办事件处理
+ * Summary: 待办事件处理
+ */
+func (client *Client) SubmitInnerPendingevent(request *SubmitInnerPendingeventRequest) (_result *SubmitInnerPendingeventResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitInnerPendingeventResponse{}
+	_body, _err := client.SubmitInnerPendingeventEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 待办事件处理
+ * Summary: 待办事件处理
+ */
+func (client *Client) SubmitInnerPendingeventEx(request *SubmitInnerPendingeventRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitInnerPendingeventResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitInnerPendingeventResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.pendingevent.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 待办事件详情查询
+ * Summary: 待办事件详情查询
+ */
+func (client *Client) DetailInnerPendingevent(request *DetailInnerPendingeventRequest) (_result *DetailInnerPendingeventResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailInnerPendingeventResponse{}
+	_body, _err := client.DetailInnerPendingeventEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 待办事件详情查询
+ * Summary: 待办事件详情查询
+ */
+func (client *Client) DetailInnerPendingeventEx(request *DetailInnerPendingeventRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailInnerPendingeventResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailInnerPendingeventResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.pendingevent.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 合同模板制作根据已有模板新增合同模板文件
+ * Summary: 根据已有模板新增合同模板文件
+ */
+func (client *Client) AddInnerTemplate(request *AddInnerTemplateRequest) (_result *AddInnerTemplateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddInnerTemplateResponse{}
+	_body, _err := client.AddInnerTemplateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 合同模板制作根据已有模板新增合同模板文件
+ * Summary: 根据已有模板新增合同模板文件
+ */
+func (client *Client) AddInnerTemplateEx(request *AddInnerTemplateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddInnerTemplateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddInnerTemplateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.template.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询待办列表
+ * Summary: 查询待办列表
+ */
+func (client *Client) PagequeryInnerPendingevent(request *PagequeryInnerPendingeventRequest) (_result *PagequeryInnerPendingeventResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryInnerPendingeventResponse{}
+	_body, _err := client.PagequeryInnerPendingeventEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询待办列表
+ * Summary: 查询待办列表
+ */
+func (client *Client) PagequeryInnerPendingeventEx(request *PagequeryInnerPendingeventRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryInnerPendingeventResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryInnerPendingeventResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.pendingevent.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
