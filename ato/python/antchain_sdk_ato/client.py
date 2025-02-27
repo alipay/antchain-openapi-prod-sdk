@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.11',
+                    'sdk_version': '1.13.15',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.11',
+                    'sdk_version': '1.13.15',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -1709,6 +1709,66 @@ class Client:
         return TeaCore.from_map(
             ato_models.QueryFundDividerelationResponse(),
             await self.do_request_async('1.0', 'antchain.ato.fund.dividerelation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_fund_creditutilization(
+        self,
+        request: ato_models.ApplyFundCreditutilizationRequest,
+    ) -> ato_models.ApplyFundCreditutilizationResponse:
+        """
+        Description: ● 本接口获取用信授权
+        ● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+        Summary: 用信申请接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_fund_creditutilization_ex(request, headers, runtime)
+
+    async def apply_fund_creditutilization_async(
+        self,
+        request: ato_models.ApplyFundCreditutilizationRequest,
+    ) -> ato_models.ApplyFundCreditutilizationResponse:
+        """
+        Description: ● 本接口获取用信授权
+        ● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+        Summary: 用信申请接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_fund_creditutilization_ex_async(request, headers, runtime)
+
+    def apply_fund_creditutilization_ex(
+        self,
+        request: ato_models.ApplyFundCreditutilizationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.ApplyFundCreditutilizationResponse:
+        """
+        Description: ● 本接口获取用信授权
+        ● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+        Summary: 用信申请接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.ApplyFundCreditutilizationResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.creditutilization.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_fund_creditutilization_ex_async(
+        self,
+        request: ato_models.ApplyFundCreditutilizationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.ApplyFundCreditutilizationResponse:
+        """
+        Description: ● 本接口获取用信授权
+        ● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+        Summary: 用信申请接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.ApplyFundCreditutilizationResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.creditutilization.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_inner_product(
@@ -5577,6 +5637,230 @@ class Client:
         return TeaCore.from_map(
             ato_models.SubmitInnerTemplatesyncreviewResponse(),
             await self.do_request_async('1.0', 'antchain.ato.inner.templatesyncreview.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_inner_pendingevent(
+        self,
+        request: ato_models.SubmitInnerPendingeventRequest,
+    ) -> ato_models.SubmitInnerPendingeventResponse:
+        """
+        Description: 待办事件处理
+        Summary: 待办事件处理
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_inner_pendingevent_ex(request, headers, runtime)
+
+    async def submit_inner_pendingevent_async(
+        self,
+        request: ato_models.SubmitInnerPendingeventRequest,
+    ) -> ato_models.SubmitInnerPendingeventResponse:
+        """
+        Description: 待办事件处理
+        Summary: 待办事件处理
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_inner_pendingevent_ex_async(request, headers, runtime)
+
+    def submit_inner_pendingevent_ex(
+        self,
+        request: ato_models.SubmitInnerPendingeventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SubmitInnerPendingeventResponse:
+        """
+        Description: 待办事件处理
+        Summary: 待办事件处理
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SubmitInnerPendingeventResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.pendingevent.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_inner_pendingevent_ex_async(
+        self,
+        request: ato_models.SubmitInnerPendingeventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SubmitInnerPendingeventResponse:
+        """
+        Description: 待办事件处理
+        Summary: 待办事件处理
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SubmitInnerPendingeventResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.pendingevent.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_inner_pendingevent(
+        self,
+        request: ato_models.DetailInnerPendingeventRequest,
+    ) -> ato_models.DetailInnerPendingeventResponse:
+        """
+        Description: 待办事件详情查询
+        Summary: 待办事件详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_inner_pendingevent_ex(request, headers, runtime)
+
+    async def detail_inner_pendingevent_async(
+        self,
+        request: ato_models.DetailInnerPendingeventRequest,
+    ) -> ato_models.DetailInnerPendingeventResponse:
+        """
+        Description: 待办事件详情查询
+        Summary: 待办事件详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_inner_pendingevent_ex_async(request, headers, runtime)
+
+    def detail_inner_pendingevent_ex(
+        self,
+        request: ato_models.DetailInnerPendingeventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DetailInnerPendingeventResponse:
+        """
+        Description: 待办事件详情查询
+        Summary: 待办事件详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DetailInnerPendingeventResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.pendingevent.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_inner_pendingevent_ex_async(
+        self,
+        request: ato_models.DetailInnerPendingeventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DetailInnerPendingeventResponse:
+        """
+        Description: 待办事件详情查询
+        Summary: 待办事件详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DetailInnerPendingeventResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.pendingevent.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_inner_template(
+        self,
+        request: ato_models.AddInnerTemplateRequest,
+    ) -> ato_models.AddInnerTemplateResponse:
+        """
+        Description: 合同模板制作根据已有模板新增合同模板文件
+        Summary: 根据已有模板新增合同模板文件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_inner_template_ex(request, headers, runtime)
+
+    async def add_inner_template_async(
+        self,
+        request: ato_models.AddInnerTemplateRequest,
+    ) -> ato_models.AddInnerTemplateResponse:
+        """
+        Description: 合同模板制作根据已有模板新增合同模板文件
+        Summary: 根据已有模板新增合同模板文件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_inner_template_ex_async(request, headers, runtime)
+
+    def add_inner_template_ex(
+        self,
+        request: ato_models.AddInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.AddInnerTemplateResponse:
+        """
+        Description: 合同模板制作根据已有模板新增合同模板文件
+        Summary: 根据已有模板新增合同模板文件
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.AddInnerTemplateResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.template.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_inner_template_ex_async(
+        self,
+        request: ato_models.AddInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.AddInnerTemplateResponse:
+        """
+        Description: 合同模板制作根据已有模板新增合同模板文件
+        Summary: 根据已有模板新增合同模板文件
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.AddInnerTemplateResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.template.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_inner_pendingevent(
+        self,
+        request: ato_models.PagequeryInnerPendingeventRequest,
+    ) -> ato_models.PagequeryInnerPendingeventResponse:
+        """
+        Description: 查询待办列表
+        Summary: 查询待办列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_inner_pendingevent_ex(request, headers, runtime)
+
+    async def pagequery_inner_pendingevent_async(
+        self,
+        request: ato_models.PagequeryInnerPendingeventRequest,
+    ) -> ato_models.PagequeryInnerPendingeventResponse:
+        """
+        Description: 查询待办列表
+        Summary: 查询待办列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_inner_pendingevent_ex_async(request, headers, runtime)
+
+    def pagequery_inner_pendingevent_ex(
+        self,
+        request: ato_models.PagequeryInnerPendingeventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerPendingeventResponse:
+        """
+        Description: 查询待办列表
+        Summary: 查询待办列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerPendingeventResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.pendingevent.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_inner_pendingevent_ex_async(
+        self,
+        request: ato_models.PagequeryInnerPendingeventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerPendingeventResponse:
+        """
+        Description: 查询待办列表
+        Summary: 查询待办列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerPendingeventResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.pendingevent.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_insure(
