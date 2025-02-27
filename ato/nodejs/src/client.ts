@@ -1753,6 +1753,50 @@ export class MarketingScoreInfo extends $tea.Model {
   }
 }
 
+// 待办信息
+export class PendingEventInfo extends $tea.Model {
+  // 事件id
+  eventId?: string;
+  // 通知:NOTIFICATION
+  // 确认函:CONFIRMATION
+  type?: string;
+  // ("PENDING","待办中"),  ("CONFIRMED","确认"),  
+  // ("REJECTED","已拒绝")
+  // ("FAILED","失败"),("EXPIRED","已过期");
+  status?: string;
+  // 待办内容主题
+  contentSubject?: string;
+  // 事件有效期开始
+  effectiveStartTime?: string;
+  // 事件有效期结束
+  effectiveEndTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      eventId: 'event_id',
+      type: 'type',
+      status: 'status',
+      contentSubject: 'content_subject',
+      effectiveStartTime: 'effective_start_time',
+      effectiveEndTime: 'effective_end_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      eventId: 'string',
+      type: 'string',
+      status: 'string',
+      contentSubject: 'string',
+      effectiveStartTime: 'string',
+      effectiveEndTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 智租风控-商品价格
 export class PriceDetail extends $tea.Model {
   // 商品租赁期数
@@ -2158,6 +2202,35 @@ export class OrderProductInfo extends $tea.Model {
       productId: 'string',
       productName: 'string',
       productNumber: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用信订单信息
+export class CreditUtilizationOrder extends $tea.Model {
+  // 123
+  orderId: string;
+  // 订单用信额度，单位为分
+  orderCreditLine: number;
+  // 订单商户应还金额，单位为分
+  orderMerchantRepaymentMoney: number;
+  static names(): { [key: string]: string } {
+    return {
+      orderId: 'order_id',
+      orderCreditLine: 'order_credit_line',
+      orderMerchantRepaymentMoney: 'order_merchant_repayment_money',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderId: 'string',
+      orderCreditLine: 'number',
+      orderMerchantRepaymentMoney: 'number',
     };
   }
 
@@ -4171,6 +4244,93 @@ export class QueryFundDividerelationResponse extends $tea.Model {
       resultMsg: 'string',
       alipayPidList: { 'type': 'array', 'itemType': 'string' },
       divideRadio: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyFundCreditutilizationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单列表
+  orderList: CreditUtilizationOrder[];
+  // 商户租户id
+  tenantId: string;
+  // 商户统一社会信用代码
+  merchantId: string;
+  // 资方统一社会信用代码
+  fundId: string;
+  // 授信Id
+  grantingId: string;
+  // 用信授权id
+  utilizationAuthId: string;
+  // 用信id, 需保证唯一性
+  utilizationId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderList: 'order_list',
+      tenantId: 'tenant_id',
+      merchantId: 'merchant_id',
+      fundId: 'fund_id',
+      grantingId: 'granting_id',
+      utilizationAuthId: 'utilization_auth_id',
+      utilizationId: 'utilization_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderList: { 'type': 'array', 'itemType': CreditUtilizationOrder },
+      tenantId: 'string',
+      merchantId: 'string',
+      fundId: 'string',
+      grantingId: 'string',
+      utilizationAuthId: 'string',
+      utilizationId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyFundCreditutilizationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用信Id
+  utilizationId?: string;
+  // 用信授权id
+  utilizationAuthId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      utilizationId: 'utilization_id',
+      utilizationAuthId: 'utilization_auth_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      utilizationId: 'string',
+      utilizationAuthId: 'string',
     };
   }
 
@@ -9335,6 +9495,306 @@ export class SubmitInnerTemplatesyncreviewResponse extends $tea.Model {
   }
 }
 
+export class SubmitInnerPendingeventRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 待办事件id
+  eventId: string;
+  // 商家处理动作
+  // REJECT拒绝，APPROVE 同意
+  action: string;
+  // 操作人
+  operator: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      eventId: 'event_id',
+      action: 'action',
+      operator: 'operator',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      eventId: 'string',
+      action: 'string',
+      operator: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitInnerPendingeventResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailInnerPendingeventRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 事件id
+  eventId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      eventId: 'event_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      eventId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailInnerPendingeventResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 事件id
+  eventId?: string;
+  // 通知:NOTIFICATION 
+  // 确认函:CONFIRMATION
+  type?: string;
+  // ("PENDING","待办中"), ("CONFIRMED","确认"), ("REJECTED","已拒绝") ("FAILED","失败"),("EXPIRED","已过期");
+  status?: string;
+  // 待办内容主题
+  contentSubject?: string;
+  // 待办内容详情
+  contentDetails?: string;
+  // 待办处理页面操作按钮 
+  // ACKNOWLEDGE 我已知晓
+  //  CONFIRM 确认
+  //  RETURN 返回 
+  // REJECT 拒绝
+  actionOptionsConfig?: string;
+  // 事件有效期开始
+  effectiveStartTime?: string;
+  // 事件有效期结束
+  effectiveEndTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      eventId: 'event_id',
+      type: 'type',
+      status: 'status',
+      contentSubject: 'content_subject',
+      contentDetails: 'content_details',
+      actionOptionsConfig: 'action_options_config',
+      effectiveStartTime: 'effective_start_time',
+      effectiveEndTime: 'effective_end_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      eventId: 'string',
+      type: 'string',
+      status: 'string',
+      contentSubject: 'string',
+      contentDetails: 'string',
+      actionOptionsConfig: 'string',
+      effectiveStartTime: 'string',
+      effectiveEndTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddInnerTemplateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 合同模板code
+  templateCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      templateCode: 'template_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      templateCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddInnerTemplateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryInnerPendingeventRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 待办状态
+  statusList?: string[];
+  // 事件类型
+  // 通知:NOTIFICATION 
+  // 确认函:CONFIRMATION
+  type?: string;
+  // 分页
+  pageInfo: PageQuery;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      statusList: 'status_list',
+      type: 'type',
+      pageInfo: 'page_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      statusList: { 'type': 'array', 'itemType': 'string' },
+      type: 'string',
+      pageInfo: PageQuery,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryInnerPendingeventResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 总量
+  total?: number;
+  // 待办列表信息
+  pendingEventInfoList?: PendingEventInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      total: 'total',
+      pendingEventInfoList: 'pending_event_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      total: 'number',
+      pendingEventInfoList: { 'type': 'array', 'itemType': PendingEventInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateInsureRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -14119,7 +14579,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.13.11",
+          sdk_version: "1.13.15",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
@@ -14662,6 +15122,27 @@ export default class Client {
   async queryFundDividerelationEx(request: QueryFundDividerelationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFundDividerelationResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryFundDividerelationResponse>(await this.doRequest("1.0", "antchain.ato.fund.dividerelation.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFundDividerelationResponse({}));
+  }
+
+  /**
+   * Description: ● 本接口获取用信授权
+  ● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+   * Summary: 用信申请接口
+   */
+  async applyFundCreditutilization(request: ApplyFundCreditutilizationRequest): Promise<ApplyFundCreditutilizationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyFundCreditutilizationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: ● 本接口获取用信授权
+  ● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+   * Summary: 用信申请接口
+   */
+  async applyFundCreditutilizationEx(request: ApplyFundCreditutilizationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyFundCreditutilizationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyFundCreditutilizationResponse>(await this.doRequest("1.0", "antchain.ato.fund.creditutilization.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyFundCreditutilizationResponse({}));
   }
 
   /**
@@ -15975,6 +16456,82 @@ export default class Client {
   async submitInnerTemplatesyncreviewEx(request: SubmitInnerTemplatesyncreviewRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitInnerTemplatesyncreviewResponse> {
     Util.validateModel(request);
     return $tea.cast<SubmitInnerTemplatesyncreviewResponse>(await this.doRequest("1.0", "antchain.ato.inner.templatesyncreview.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitInnerTemplatesyncreviewResponse({}));
+  }
+
+  /**
+   * Description: 待办事件处理
+   * Summary: 待办事件处理
+   */
+  async submitInnerPendingevent(request: SubmitInnerPendingeventRequest): Promise<SubmitInnerPendingeventResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitInnerPendingeventEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 待办事件处理
+   * Summary: 待办事件处理
+   */
+  async submitInnerPendingeventEx(request: SubmitInnerPendingeventRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitInnerPendingeventResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitInnerPendingeventResponse>(await this.doRequest("1.0", "antchain.ato.inner.pendingevent.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitInnerPendingeventResponse({}));
+  }
+
+  /**
+   * Description: 待办事件详情查询
+   * Summary: 待办事件详情查询
+   */
+  async detailInnerPendingevent(request: DetailInnerPendingeventRequest): Promise<DetailInnerPendingeventResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.detailInnerPendingeventEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 待办事件详情查询
+   * Summary: 待办事件详情查询
+   */
+  async detailInnerPendingeventEx(request: DetailInnerPendingeventRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailInnerPendingeventResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DetailInnerPendingeventResponse>(await this.doRequest("1.0", "antchain.ato.inner.pendingevent.detail", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DetailInnerPendingeventResponse({}));
+  }
+
+  /**
+   * Description: 合同模板制作根据已有模板新增合同模板文件
+   * Summary: 根据已有模板新增合同模板文件
+   */
+  async addInnerTemplate(request: AddInnerTemplateRequest): Promise<AddInnerTemplateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addInnerTemplateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 合同模板制作根据已有模板新增合同模板文件
+   * Summary: 根据已有模板新增合同模板文件
+   */
+  async addInnerTemplateEx(request: AddInnerTemplateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddInnerTemplateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddInnerTemplateResponse>(await this.doRequest("1.0", "antchain.ato.inner.template.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddInnerTemplateResponse({}));
+  }
+
+  /**
+   * Description: 查询待办列表
+   * Summary: 查询待办列表
+   */
+  async pagequeryInnerPendingevent(request: PagequeryInnerPendingeventRequest): Promise<PagequeryInnerPendingeventResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryInnerPendingeventEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询待办列表
+   * Summary: 查询待办列表
+   */
+  async pagequeryInnerPendingeventEx(request: PagequeryInnerPendingeventRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryInnerPendingeventResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryInnerPendingeventResponse>(await this.doRequest("1.0", "antchain.ato.inner.pendingevent.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryInnerPendingeventResponse({}));
   }
 
   /**
