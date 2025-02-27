@@ -13,6 +13,8 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\ATO\Models\AddFundDividerelationRequest;
 use AntChain\ATO\Models\AddFundDividerelationResponse;
+use AntChain\ATO\Models\AddInnerTemplateRequest;
+use AntChain\ATO\Models\AddInnerTemplateResponse;
 use AntChain\ATO\Models\AddMerchantexpandDividerelationRequest;
 use AntChain\ATO\Models\AddMerchantexpandDividerelationResponse;
 use AntChain\ATO\Models\AddTradeFinanceprecheckRequest;
@@ -21,6 +23,8 @@ use AntChain\ATO\Models\AllInnerTemplateRequest;
 use AntChain\ATO\Models\AllInnerTemplateResponse;
 use AntChain\ATO\Models\AllSignTemplateRequest;
 use AntChain\ATO\Models\AllSignTemplateResponse;
+use AntChain\ATO\Models\ApplyFundCreditutilizationRequest;
+use AntChain\ATO\Models\ApplyFundCreditutilizationResponse;
 use AntChain\ATO\Models\ApplyTradeFinanceprecheckRequest;
 use AntChain\ATO\Models\ApplyTradeFinanceprecheckResponse;
 use AntChain\ATO\Models\AuthFundFlowRequest;
@@ -81,6 +85,8 @@ use AntChain\ATO\Models\DetailInnerNoticeRequest;
 use AntChain\ATO\Models\DetailInnerNoticeResponse;
 use AntChain\ATO\Models\DetailInnerOrderRequest;
 use AntChain\ATO\Models\DetailInnerOrderResponse;
+use AntChain\ATO\Models\DetailInnerPendingeventRequest;
+use AntChain\ATO\Models\DetailInnerPendingeventResponse;
 use AntChain\ATO\Models\DetailInnerTemplateRequest;
 use AntChain\ATO\Models\DetailInnerTemplateResponse;
 use AntChain\ATO\Models\DownloadInnerFileRequest;
@@ -147,6 +153,8 @@ use AntChain\ATO\Models\PagequeryInnerOrdermsgRequest;
 use AntChain\ATO\Models\PagequeryInnerOrdermsgResponse;
 use AntChain\ATO\Models\PagequeryInnerOrderRequest;
 use AntChain\ATO\Models\PagequeryInnerOrderResponse;
+use AntChain\ATO\Models\PagequeryInnerPendingeventRequest;
+use AntChain\ATO\Models\PagequeryInnerPendingeventResponse;
 use AntChain\ATO\Models\PagequeryInnerProductRequest;
 use AntChain\ATO\Models\PagequeryInnerProductResponse;
 use AntChain\ATO\Models\PauseTradeUserpromiseRequest;
@@ -247,6 +255,8 @@ use AntChain\ATO\Models\SubmitInnerFunddividerelationRequest;
 use AntChain\ATO\Models\SubmitInnerFunddividerelationResponse;
 use AntChain\ATO\Models\SubmitInnerMerchantpayexpandRequest;
 use AntChain\ATO\Models\SubmitInnerMerchantpayexpandResponse;
+use AntChain\ATO\Models\SubmitInnerPendingeventRequest;
+use AntChain\ATO\Models\SubmitInnerPendingeventResponse;
 use AntChain\ATO\Models\SubmitInnerTemplatesyncreviewRequest;
 use AntChain\ATO\Models\SubmitInnerTemplatesyncreviewResponse;
 use AntChain\ATO\Models\SubmitSignFlowRequest;
@@ -462,7 +472,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.13.11',
+                    'sdk_version'      => '1.13.15',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1352,6 +1362,41 @@ class Client
         Utils::validateModel($request);
 
         return QueryFundDividerelationResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.dividerelation.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: ● 本接口获取用信授权
+     * ● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+     * Summary: 用信申请接口.
+     *
+     * @param ApplyFundCreditutilizationRequest $request
+     *
+     * @return ApplyFundCreditutilizationResponse
+     */
+    public function applyFundCreditutilization($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyFundCreditutilizationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: ● 本接口获取用信授权
+     * ● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+     * Summary: 用信申请接口.
+     *
+     * @param ApplyFundCreditutilizationRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return ApplyFundCreditutilizationResponse
+     */
+    public function applyFundCreditutilizationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyFundCreditutilizationResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.creditutilization.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -3631,6 +3676,138 @@ class Client
         Utils::validateModel($request);
 
         return SubmitInnerTemplatesyncreviewResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.templatesyncreview.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 待办事件处理
+     * Summary: 待办事件处理.
+     *
+     * @param SubmitInnerPendingeventRequest $request
+     *
+     * @return SubmitInnerPendingeventResponse
+     */
+    public function submitInnerPendingevent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitInnerPendingeventEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 待办事件处理
+     * Summary: 待办事件处理.
+     *
+     * @param SubmitInnerPendingeventRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return SubmitInnerPendingeventResponse
+     */
+    public function submitInnerPendingeventEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitInnerPendingeventResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.pendingevent.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 待办事件详情查询
+     * Summary: 待办事件详情查询.
+     *
+     * @param DetailInnerPendingeventRequest $request
+     *
+     * @return DetailInnerPendingeventResponse
+     */
+    public function detailInnerPendingevent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailInnerPendingeventEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 待办事件详情查询
+     * Summary: 待办事件详情查询.
+     *
+     * @param DetailInnerPendingeventRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return DetailInnerPendingeventResponse
+     */
+    public function detailInnerPendingeventEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailInnerPendingeventResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.pendingevent.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 合同模板制作根据已有模板新增合同模板文件
+     * Summary: 根据已有模板新增合同模板文件.
+     *
+     * @param AddInnerTemplateRequest $request
+     *
+     * @return AddInnerTemplateResponse
+     */
+    public function addInnerTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addInnerTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 合同模板制作根据已有模板新增合同模板文件
+     * Summary: 根据已有模板新增合同模板文件.
+     *
+     * @param AddInnerTemplateRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return AddInnerTemplateResponse
+     */
+    public function addInnerTemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddInnerTemplateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.template.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询待办列表
+     * Summary: 查询待办列表.
+     *
+     * @param PagequeryInnerPendingeventRequest $request
+     *
+     * @return PagequeryInnerPendingeventResponse
+     */
+    public function pagequeryInnerPendingevent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryInnerPendingeventEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询待办列表
+     * Summary: 查询待办列表.
+     *
+     * @param PagequeryInnerPendingeventRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return PagequeryInnerPendingeventResponse
+     */
+    public function pagequeryInnerPendingeventEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryInnerPendingeventResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.pendingevent.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
