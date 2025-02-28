@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyFundCreditutilizationResponse extends Model
+class AuthFundCreditgrantingResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,31 +25,10 @@ class ApplyFundCreditutilizationResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 用信Id
-    /**
-     * @var string
-     */
-    public $utilizationId;
-
-    // 用信授权id
-    /**
-     * @var string
-     */
-    public $utilizationAuthId;
-
-    // 资产包id
-    /**
-     * @var string
-     */
-    public $assetPackageId;
     protected $_name = [
-        'reqMsgId'          => 'req_msg_id',
-        'resultCode'        => 'result_code',
-        'resultMsg'         => 'result_msg',
-        'utilizationId'     => 'utilization_id',
-        'utilizationAuthId' => 'utilization_auth_id',
-        'assetPackageId'    => 'asset_package_id',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
     ];
 
     public function validate()
@@ -68,15 +47,6 @@ class ApplyFundCreditutilizationResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->utilizationId) {
-            $res['utilization_id'] = $this->utilizationId;
-        }
-        if (null !== $this->utilizationAuthId) {
-            $res['utilization_auth_id'] = $this->utilizationAuthId;
-        }
-        if (null !== $this->assetPackageId) {
-            $res['asset_package_id'] = $this->assetPackageId;
-        }
 
         return $res;
     }
@@ -84,7 +54,7 @@ class ApplyFundCreditutilizationResponse extends Model
     /**
      * @param array $map
      *
-     * @return ApplyFundCreditutilizationResponse
+     * @return AuthFundCreditgrantingResponse
      */
     public static function fromMap($map = [])
     {
@@ -97,15 +67,6 @@ class ApplyFundCreditutilizationResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['utilization_id'])) {
-            $model->utilizationId = $map['utilization_id'];
-        }
-        if (isset($map['utilization_auth_id'])) {
-            $model->utilizationAuthId = $map['utilization_auth_id'];
-        }
-        if (isset($map['asset_package_id'])) {
-            $model->assetPackageId = $map['asset_package_id'];
         }
 
         return $model;

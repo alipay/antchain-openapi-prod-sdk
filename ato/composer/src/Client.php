@@ -23,10 +23,14 @@ use AntChain\ATO\Models\AllInnerTemplateRequest;
 use AntChain\ATO\Models\AllInnerTemplateResponse;
 use AntChain\ATO\Models\AllSignTemplateRequest;
 use AntChain\ATO\Models\AllSignTemplateResponse;
+use AntChain\ATO\Models\ApplyFundAssertorderRequest;
+use AntChain\ATO\Models\ApplyFundAssertorderResponse;
 use AntChain\ATO\Models\ApplyFundCreditutilizationRequest;
 use AntChain\ATO\Models\ApplyFundCreditutilizationResponse;
 use AntChain\ATO\Models\ApplyTradeFinanceprecheckRequest;
 use AntChain\ATO\Models\ApplyTradeFinanceprecheckResponse;
+use AntChain\ATO\Models\AuthFundCreditgrantingRequest;
+use AntChain\ATO\Models\AuthFundCreditgrantingResponse;
 use AntChain\ATO\Models\AuthFundFlowRequest;
 use AntChain\ATO\Models\AuthFundFlowResponse;
 use AntChain\ATO\Models\AuthSignFlowRequest;
@@ -163,6 +167,10 @@ use AntChain\ATO\Models\PreviewInnerTemplateRequest;
 use AntChain\ATO\Models\PreviewInnerTemplateResponse;
 use AntChain\ATO\Models\PublishInnerTemplateRequest;
 use AntChain\ATO\Models\PublishInnerTemplateResponse;
+use AntChain\ATO\Models\QueryFundAssertorderRequest;
+use AntChain\ATO\Models\QueryFundAssertorderResponse;
+use AntChain\ATO\Models\QueryFundAssertreportRequest;
+use AntChain\ATO\Models\QueryFundAssertreportResponse;
 use AntChain\ATO\Models\QueryFundCompensateaccountRequest;
 use AntChain\ATO\Models\QueryFundCompensateaccountResponse;
 use AntChain\ATO\Models\QueryFundCreditRequest;
@@ -265,6 +273,8 @@ use AntChain\ATO\Models\SyncFrontIndirectorderRequest;
 use AntChain\ATO\Models\SyncFrontIndirectorderResponse;
 use AntChain\ATO\Models\SyncFrontTradeRequest;
 use AntChain\ATO\Models\SyncFrontTradeResponse;
+use AntChain\ATO\Models\SyncFundCreditgrantingRequest;
+use AntChain\ATO\Models\SyncFundCreditgrantingResponse;
 use AntChain\ATO\Models\SyncFundFinanceloanresultsRequest;
 use AntChain\ATO\Models\SyncFundFinanceloanresultsResponse;
 use AntChain\ATO\Models\SyncFundFinanceprecheckresultRequest;
@@ -472,7 +482,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.13.15',
+                    'sdk_version'      => '1.14.1',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1397,6 +1407,173 @@ class Client
         Utils::validateModel($request);
 
         return ApplyFundCreditutilizationResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.creditutilization.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 小贷融资用信申请订单履约信息
+     * Summary: 用信申请订单履约信息.
+     *
+     * @param ApplyFundAssertorderRequest $request
+     *
+     * @return ApplyFundAssertorderResponse
+     */
+    public function applyFundAssertorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyFundAssertorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 小贷融资用信申请订单履约信息
+     * Summary: 用信申请订单履约信息.
+     *
+     * @param ApplyFundAssertorderRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return ApplyFundAssertorderResponse
+     */
+    public function applyFundAssertorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyFundAssertorderResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.assertorder.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用信查询订单履约信息
+     * Summary: 用信查询订单履约信息.
+     *
+     * @param QueryFundAssertorderRequest $request
+     *
+     * @return QueryFundAssertorderResponse
+     */
+    public function queryFundAssertorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryFundAssertorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用信查询订单履约信息
+     * Summary: 用信查询订单履约信息.
+     *
+     * @param QueryFundAssertorderRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryFundAssertorderResponse
+     */
+    public function queryFundAssertorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryFundAssertorderResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.assertorder.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 调用说明：
+     * ● 本接口用于授信额度试算完成后同步授信结果。
+     * Summary: 授信结果同步接口.
+     *
+     * @param SyncFundCreditgrantingRequest $request
+     *
+     * @return SyncFundCreditgrantingResponse
+     */
+    public function syncFundCreditgranting($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncFundCreditgrantingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调用说明：
+     * ● 本接口用于授信额度试算完成后同步授信结果。
+     * Summary: 授信结果同步接口.
+     *
+     * @param SyncFundCreditgrantingRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return SyncFundCreditgrantingResponse
+     */
+    public function syncFundCreditgrantingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncFundCreditgrantingResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.creditgranting.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 本接口用于授信授权。本接口返回成功后，代表授权申请已发起。如果授权通过，会发送异步通知。
+     * Summary: 授信授权申请接口.
+     *
+     * @param AuthFundCreditgrantingRequest $request
+     *
+     * @return AuthFundCreditgrantingResponse
+     */
+    public function authFundCreditgranting($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->authFundCreditgrantingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 本接口用于授信授权。本接口返回成功后，代表授权申请已发起。如果授权通过，会发送异步通知。
+     * Summary: 授信授权申请接口.
+     *
+     * @param AuthFundCreditgrantingRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return AuthFundCreditgrantingResponse
+     */
+    public function authFundCreditgrantingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AuthFundCreditgrantingResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.creditgranting.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 小贷融资查询资产报告
+     * Summary: 查询资产报告.
+     *
+     * @param QueryFundAssertreportRequest $request
+     *
+     * @return QueryFundAssertreportResponse
+     */
+    public function queryFundAssertreport($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryFundAssertreportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 小贷融资查询资产报告
+     * Summary: 查询资产报告.
+     *
+     * @param QueryFundAssertreportRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryFundAssertreportResponse
+     */
+    public function queryFundAssertreportEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryFundAssertreportResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.assertreport.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
