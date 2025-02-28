@@ -19,9 +19,9 @@ namespace AntChain.SDK.BCCR.Models
         public string ProductInstanceId { get; set; }
 
         // 任务ID
-        [NameInMap("api_task_id")]
+        [NameInMap("task_id")]
         [Validation(Required=true)]
-        public string ApiTaskId { get; set; }
+        public string TaskId { get; set; }
 
         // 登记号
         [NameInMap("reg_number")]
