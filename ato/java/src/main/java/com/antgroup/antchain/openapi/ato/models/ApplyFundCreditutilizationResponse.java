@@ -24,6 +24,10 @@ public class ApplyFundCreditutilizationResponse extends TeaModel {
     @NameInMap("utilization_auth_id")
     public String utilizationAuthId;
 
+    // 资产包id
+    @NameInMap("asset_package_id")
+    public String assetPackageId;
+
     public static ApplyFundCreditutilizationResponse build(java.util.Map<String, ?> map) throws Exception {
         ApplyFundCreditutilizationResponse self = new ApplyFundCreditutilizationResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class ApplyFundCreditutilizationResponse extends TeaModel {
     }
     public String getUtilizationAuthId() {
         return this.utilizationAuthId;
+    }
+
+    public ApplyFundCreditutilizationResponse setAssetPackageId(String assetPackageId) {
+        this.assetPackageId = assetPackageId;
+        return this;
+    }
+    public String getAssetPackageId() {
+        return this.assetPackageId;
     }
 
 }

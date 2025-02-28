@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.13.15"),
+                    new TeaPair("sdk_version", "1.14.1"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -700,6 +700,103 @@ public class Client {
     public ApplyFundCreditutilizationResponse applyFundCreditutilizationEx(ApplyFundCreditutilizationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.creditutilization.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyFundCreditutilizationResponse());
+    }
+
+    /**
+     * Description: 小贷融资用信申请订单履约信息
+     * Summary: 用信申请订单履约信息
+     */
+    public ApplyFundAssertorderResponse applyFundAssertorder(ApplyFundAssertorderRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyFundAssertorderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 小贷融资用信申请订单履约信息
+     * Summary: 用信申请订单履约信息
+     */
+    public ApplyFundAssertorderResponse applyFundAssertorderEx(ApplyFundAssertorderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.assertorder.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyFundAssertorderResponse());
+    }
+
+    /**
+     * Description: 用信查询订单履约信息
+     * Summary: 用信查询订单履约信息
+     */
+    public QueryFundAssertorderResponse queryFundAssertorder(QueryFundAssertorderRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryFundAssertorderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 用信查询订单履约信息
+     * Summary: 用信查询订单履约信息
+     */
+    public QueryFundAssertorderResponse queryFundAssertorderEx(QueryFundAssertorderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.assertorder.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFundAssertorderResponse());
+    }
+
+    /**
+     * Description: 调用说明：
+    ● 本接口用于授信额度试算完成后同步授信结果。
+     * Summary: 授信结果同步接口
+     */
+    public SyncFundCreditgrantingResponse syncFundCreditgranting(SyncFundCreditgrantingRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncFundCreditgrantingEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 调用说明：
+    ● 本接口用于授信额度试算完成后同步授信结果。
+     * Summary: 授信结果同步接口
+     */
+    public SyncFundCreditgrantingResponse syncFundCreditgrantingEx(SyncFundCreditgrantingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.creditgranting.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncFundCreditgrantingResponse());
+    }
+
+    /**
+     * Description: 本接口用于授信授权。本接口返回成功后，代表授权申请已发起。如果授权通过，会发送异步通知。
+     * Summary: 授信授权申请接口
+     */
+    public AuthFundCreditgrantingResponse authFundCreditgranting(AuthFundCreditgrantingRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.authFundCreditgrantingEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 本接口用于授信授权。本接口返回成功后，代表授权申请已发起。如果授权通过，会发送异步通知。
+     * Summary: 授信授权申请接口
+     */
+    public AuthFundCreditgrantingResponse authFundCreditgrantingEx(AuthFundCreditgrantingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.creditgranting.auth", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AuthFundCreditgrantingResponse());
+    }
+
+    /**
+     * Description: 小贷融资查询资产报告
+     * Summary: 查询资产报告
+     */
+    public QueryFundAssertreportResponse queryFundAssertreport(QueryFundAssertreportRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryFundAssertreportEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 小贷融资查询资产报告
+     * Summary: 查询资产报告
+     */
+    public QueryFundAssertreportResponse queryFundAssertreportEx(QueryFundAssertreportRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.assertreport.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFundAssertreportResponse());
     }
 
     /**
