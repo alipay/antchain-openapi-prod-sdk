@@ -16029,6 +16029,7 @@ class FinishDciRegistrationcertRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
+        api_task_id: str = None,
         reg_number: str = None,
         certificate_url: str = None,
         sample_url: str = None,
@@ -16037,6 +16038,8 @@ class FinishDciRegistrationcertRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
+        # 任务ID
+        self.api_task_id = api_task_id
         # 登记号
         self.reg_number = reg_number
         # 数登证书地址
@@ -16047,6 +16050,7 @@ class FinishDciRegistrationcertRequest(TeaModel):
         self.client_token = client_token
 
     def validate(self):
+        self.validate_required(self.api_task_id, 'api_task_id')
         self.validate_required(self.reg_number, 'reg_number')
         self.validate_required(self.client_token, 'client_token')
 
@@ -16060,6 +16064,8 @@ class FinishDciRegistrationcertRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
+        if self.api_task_id is not None:
+            result['api_task_id'] = self.api_task_id
         if self.reg_number is not None:
             result['reg_number'] = self.reg_number
         if self.certificate_url is not None:
@@ -16076,6 +16082,8 @@ class FinishDciRegistrationcertRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
+        if m.get('api_task_id') is not None:
+            self.api_task_id = m.get('api_task_id')
         if m.get('reg_number') is not None:
             self.reg_number = m.get('reg_number')
         if m.get('certificate_url') is not None:
