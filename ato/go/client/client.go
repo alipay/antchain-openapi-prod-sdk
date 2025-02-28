@@ -6208,6 +6208,8 @@ type AuthFundCreditgrantingResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 商家授权链接
+	MerchantAuthUrl *string `json:"merchant_auth_url,omitempty" xml:"merchant_auth_url,omitempty"`
 }
 
 func (s AuthFundCreditgrantingResponse) String() string {
@@ -6230,6 +6232,11 @@ func (s *AuthFundCreditgrantingResponse) SetResultCode(v string) *AuthFundCredit
 
 func (s *AuthFundCreditgrantingResponse) SetResultMsg(v string) *AuthFundCreditgrantingResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *AuthFundCreditgrantingResponse) SetMerchantAuthUrl(v string) *AuthFundCreditgrantingResponse {
+	s.MerchantAuthUrl = &v
 	return s
 }
 
@@ -19692,7 +19699,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.14.1"),
+				"sdk_version":      tea.String("1.14.2"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
