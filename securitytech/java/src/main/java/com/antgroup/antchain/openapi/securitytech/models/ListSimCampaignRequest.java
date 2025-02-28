@@ -16,11 +16,6 @@ public class ListSimCampaignRequest extends TeaModel {
     @Validation(required = true)
     public String deviceId;
 
-    // 登录态token
-    @NameInMap("token")
-    @Validation(required = true)
-    public String token;
-
     public static ListSimCampaignRequest build(java.util.Map<String, ?> map) throws Exception {
         ListSimCampaignRequest self = new ListSimCampaignRequest();
         return TeaModel.build(map, self);
@@ -48,14 +43,6 @@ public class ListSimCampaignRequest extends TeaModel {
     }
     public String getDeviceId() {
         return this.deviceId;
-    }
-
-    public ListSimCampaignRequest setToken(String token) {
-        this.token = token;
-        return this;
-    }
-    public String getToken() {
-        return this.token;
     }
 
 }
