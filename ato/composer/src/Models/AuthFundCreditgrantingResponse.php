@@ -25,10 +25,17 @@ class AuthFundCreditgrantingResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 商家授权链接
+    /**
+     * @var string
+     */
+    public $merchantAuthUrl;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
+        'reqMsgId'        => 'req_msg_id',
+        'resultCode'      => 'result_code',
+        'resultMsg'       => 'result_msg',
+        'merchantAuthUrl' => 'merchant_auth_url',
     ];
 
     public function validate()
@@ -46,6 +53,9 @@ class AuthFundCreditgrantingResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->merchantAuthUrl) {
+            $res['merchant_auth_url'] = $this->merchantAuthUrl;
         }
 
         return $res;
@@ -67,6 +77,9 @@ class AuthFundCreditgrantingResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['merchant_auth_url'])) {
+            $model->merchantAuthUrl = $map['merchant_auth_url'];
         }
 
         return $model;
