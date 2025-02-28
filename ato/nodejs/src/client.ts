@@ -798,6 +798,67 @@ export class PromiseInfo extends $tea.Model {
   }
 }
 
+// 资产报告详情
+export class FundAssertReport extends $tea.Model {
+  // 投放月份 (整月)
+  deliveryMonth: string;
+  // 账单金额
+  totalBillAmount: number;
+  // 平均期限
+  averageTerm: string;
+  // 状态为取消的账单金额
+  cancelledBillAmount: number;
+  // 状态为逾期1天及以上的账单金额
+  billAmountOverdueBy1dayOrMore: number;
+  // 状态为逾期30天及以上的账单金额
+  billAmountOverdueBy30DaysOrMore: number;
+  // Y期的订单的账单金额
+  totalBillAmountYPeriod: number;
+  // 已到Y期订单中Y期平均期限(y期订单的平均期限)
+  averageTermYPeriod: string;
+  // Y期的订单中状态为取消的账单金额
+  cancelledBillAmountYPeriod: number;
+  // Y期的订单中状态为逾期1天及以上的账单金额
+  billAmountOverdueBy1dayOrMoreYPeriod: number;
+  // Y期的订单中状态为逾期30天及以上的账单金额
+  billAmountOverdueBy30DaysOrMoreYPeriod: number;
+  static names(): { [key: string]: string } {
+    return {
+      deliveryMonth: 'delivery_month',
+      totalBillAmount: 'total_bill_amount',
+      averageTerm: 'average_term',
+      cancelledBillAmount: 'cancelled_bill_amount',
+      billAmountOverdueBy1dayOrMore: 'bill_amount_overdue_by_1day_or_more',
+      billAmountOverdueBy30DaysOrMore: 'bill_amount_overdue_by_30_days_or_more',
+      totalBillAmountYPeriod: 'total_bill_amount_y_period',
+      averageTermYPeriod: 'average_term_y_period',
+      cancelledBillAmountYPeriod: 'cancelled_bill_amount_y_period',
+      billAmountOverdueBy1dayOrMoreYPeriod: 'bill_amount_overdue_by_1day_or_more_y_period',
+      billAmountOverdueBy30DaysOrMoreYPeriod: 'bill_amount_overdue_by_30_days_or_more_y_period',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      deliveryMonth: 'string',
+      totalBillAmount: 'number',
+      averageTerm: 'string',
+      cancelledBillAmount: 'number',
+      billAmountOverdueBy1dayOrMore: 'number',
+      billAmountOverdueBy30DaysOrMore: 'number',
+      totalBillAmountYPeriod: 'number',
+      averageTermYPeriod: 'string',
+      cancelledBillAmountYPeriod: 'number',
+      billAmountOverdueBy1dayOrMoreYPeriod: 'number',
+      billAmountOverdueBy30DaysOrMoreYPeriod: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 客服信息
 export class CustomerServiceInfo extends $tea.Model {
   // 公司社会统一信息代码
@@ -1945,6 +2006,35 @@ export class AwardingQueryModel extends $tea.Model {
       storeMccDesc: 'string',
       customerId: 'string',
       qrCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用信查询订单履约信息结构体
+export class OrderPrimiseExcelInfo extends $tea.Model {
+  // 文件下载地址
+  downloadUrl?: string;
+  // 文件类型,订单明细表:ORDER_DETAIL 还款记录表:ORDER_FULFILLMENT
+  fileType: string;
+  //  生成中, 已生成,无效
+  taskStatus: string;
+  static names(): { [key: string]: string } {
+    return {
+      downloadUrl: 'download_url',
+      fileType: 'file_type',
+      taskStatus: 'task_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      downloadUrl: 'string',
+      fileType: 'string',
+      taskStatus: 'string',
     };
   }
 
@@ -4314,6 +4404,8 @@ export class ApplyFundCreditutilizationResponse extends $tea.Model {
   utilizationId?: string;
   // 用信授权id
   utilizationAuthId?: string;
+  // 资产包id
+  assetPackageId?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -4321,6 +4413,7 @@ export class ApplyFundCreditutilizationResponse extends $tea.Model {
       resultMsg: 'result_msg',
       utilizationId: 'utilization_id',
       utilizationAuthId: 'utilization_auth_id',
+      assetPackageId: 'asset_package_id',
     };
   }
 
@@ -4331,6 +4424,426 @@ export class ApplyFundCreditutilizationResponse extends $tea.Model {
       resultMsg: 'string',
       utilizationId: 'string',
       utilizationAuthId: 'string',
+      assetPackageId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyFundAssertorderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 授权id
+  authId: string;
+  // 资方统一社会信用代码
+  fundId: string;
+  // 商户的租户id
+  tenantId: string;
+  // 商家统一社会信用代码
+  merchantId: string;
+  // 异步生成文件任务流水号
+  bizNo: string;
+  // 查询开始时间
+  startTime: string;
+  // 查询结束时间
+  endTime: string;
+  // 是否过滤被其他资方标记的订单（融资申请中+融资申请通过），默认值false
+  filterFinancingStatus?: boolean;
+  // 是否过滤已取消订单 （无剩余应还期数），默认值false
+  filterCance?: boolean;
+  // 是否过滤提前结清订单,默认值false
+  filterEarlySettlement?: boolean;
+  // 是否过滤某一期已逾期的订单,默认值false
+  filterOverdue?: boolean;
+  // 是否过滤最新一期晚于计划扣款日的重试中订单 ,默认值false
+  filterRetry?: boolean;
+  // 是否过滤付款日为当日（查询日）的订单 （当日需执行扣款的）,默认值false
+  filterTodayPay?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      authId: 'auth_id',
+      fundId: 'fund_id',
+      tenantId: 'tenant_id',
+      merchantId: 'merchant_id',
+      bizNo: 'biz_no',
+      startTime: 'start_time',
+      endTime: 'end_time',
+      filterFinancingStatus: 'filter_financing_status',
+      filterCance: 'filter_cance',
+      filterEarlySettlement: 'filter_early_settlement',
+      filterOverdue: 'filter_overdue',
+      filterRetry: 'filter_retry',
+      filterTodayPay: 'filter_today_pay',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      authId: 'string',
+      fundId: 'string',
+      tenantId: 'string',
+      merchantId: 'string',
+      bizNo: 'string',
+      startTime: 'string',
+      endTime: 'string',
+      filterFinancingStatus: 'boolean',
+      filterCance: 'boolean',
+      filterEarlySettlement: 'boolean',
+      filterOverdue: 'boolean',
+      filterRetry: 'boolean',
+      filterTodayPay: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyFundAssertorderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 生成中: TODO、已生成,:FINISH、无效:FAILURE
+  taskStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskStatus: 'task_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFundAssertorderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 授权id
+  authId: string;
+  // 资方统一社会信用代码
+  fundId: string;
+  // 商户的租户id
+  tenantId: string;
+  // 商家统一社会信用代码
+  merchantId: string;
+  // 异步生成文件任务流水号
+  bizNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      authId: 'auth_id',
+      fundId: 'fund_id',
+      tenantId: 'tenant_id',
+      merchantId: 'merchant_id',
+      bizNo: 'biz_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      authId: 'string',
+      fundId: 'string',
+      tenantId: 'string',
+      merchantId: 'string',
+      bizNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFundAssertorderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用信订单履约信息
+  data?: OrderPrimiseExcelInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': OrderPrimiseExcelInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncFundCreditgrantingRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 授信id
+  grantingId: string;
+  // 授信授权id
+  authId: string;
+  // 资方社会信用代码
+  fundId: string;
+  // 商户社会信用代码
+  merchantId: string;
+  // 商户租户id
+  tenantId: string;
+  // 授权额度，单位为分
+  grantingLine: number;
+  // 授信有效期开始时间(yyyy-MM-dd HH:mm:ss)
+  effectStartTime: string;
+  // 授信有效期结束时间(yyyy-MM-dd HH:mm:ss)
+  effectEndTime: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      grantingId: 'granting_id',
+      authId: 'auth_id',
+      fundId: 'fund_id',
+      merchantId: 'merchant_id',
+      tenantId: 'tenant_id',
+      grantingLine: 'granting_line',
+      effectStartTime: 'effect_start_time',
+      effectEndTime: 'effect_end_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      grantingId: 'string',
+      authId: 'string',
+      fundId: 'string',
+      merchantId: 'string',
+      tenantId: 'string',
+      grantingLine: 'number',
+      effectStartTime: 'string',
+      effectEndTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncFundCreditgrantingResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AuthFundCreditgrantingRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 商户统一社会信用代码
+  merchantId: string;
+  // 资方统一社会信用代码
+  fundId: string;
+  // 授权id
+  authId: string;
+  // 授权开始时间，格式为yyyy-MM-dd
+  authBeginTime: string;
+  // 授权结束时间，格式为yyyy-MM-dd
+  authEndTime: string;
+  // 订单查询开始时间，格式为yyyy-MM-dd HH:mm:ss，需要在auth_begin_time之后。
+  orderQueryBegin: string;
+  // 订单查询结束时间，格式为yyyy-MM-dd HH:mm:ss，需要在auth_end_time之前
+  orderQueryEnd: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      merchantId: 'merchant_id',
+      fundId: 'fund_id',
+      authId: 'auth_id',
+      authBeginTime: 'auth_begin_time',
+      authEndTime: 'auth_end_time',
+      orderQueryBegin: 'order_query_begin',
+      orderQueryEnd: 'order_query_end',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      merchantId: 'string',
+      fundId: 'string',
+      authId: 'string',
+      authBeginTime: 'string',
+      authEndTime: 'string',
+      orderQueryBegin: 'string',
+      orderQueryEnd: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AuthFundCreditgrantingResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFundAssertreportRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 授权id
+  authId: string;
+  // 资方统一社会信用代码
+  fundId: string;
+  // 商户的租户id
+  tenantId: string;
+  // 商家统一社会信用代码
+  merchantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      authId: 'auth_id',
+      fundId: 'fund_id',
+      tenantId: 'tenant_id',
+      merchantId: 'merchant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      authId: 'string',
+      fundId: 'string',
+      tenantId: 'string',
+      merchantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFundAssertreportResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 资产报告详情
+  data?: FundAssertReport[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': FundAssertReport },
     };
   }
 
@@ -14579,7 +15092,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.13.15",
+          sdk_version: "1.14.1",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
@@ -15143,6 +15656,103 @@ export default class Client {
   async applyFundCreditutilizationEx(request: ApplyFundCreditutilizationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyFundCreditutilizationResponse> {
     Util.validateModel(request);
     return $tea.cast<ApplyFundCreditutilizationResponse>(await this.doRequest("1.0", "antchain.ato.fund.creditutilization.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyFundCreditutilizationResponse({}));
+  }
+
+  /**
+   * Description: 小贷融资用信申请订单履约信息
+   * Summary: 用信申请订单履约信息
+   */
+  async applyFundAssertorder(request: ApplyFundAssertorderRequest): Promise<ApplyFundAssertorderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyFundAssertorderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 小贷融资用信申请订单履约信息
+   * Summary: 用信申请订单履约信息
+   */
+  async applyFundAssertorderEx(request: ApplyFundAssertorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyFundAssertorderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyFundAssertorderResponse>(await this.doRequest("1.0", "antchain.ato.fund.assertorder.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyFundAssertorderResponse({}));
+  }
+
+  /**
+   * Description: 用信查询订单履约信息
+   * Summary: 用信查询订单履约信息
+   */
+  async queryFundAssertorder(request: QueryFundAssertorderRequest): Promise<QueryFundAssertorderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryFundAssertorderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用信查询订单履约信息
+   * Summary: 用信查询订单履约信息
+   */
+  async queryFundAssertorderEx(request: QueryFundAssertorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFundAssertorderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryFundAssertorderResponse>(await this.doRequest("1.0", "antchain.ato.fund.assertorder.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFundAssertorderResponse({}));
+  }
+
+  /**
+   * Description: 调用说明：
+  ● 本接口用于授信额度试算完成后同步授信结果。
+   * Summary: 授信结果同步接口
+   */
+  async syncFundCreditgranting(request: SyncFundCreditgrantingRequest): Promise<SyncFundCreditgrantingResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncFundCreditgrantingEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 调用说明：
+  ● 本接口用于授信额度试算完成后同步授信结果。
+   * Summary: 授信结果同步接口
+   */
+  async syncFundCreditgrantingEx(request: SyncFundCreditgrantingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncFundCreditgrantingResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncFundCreditgrantingResponse>(await this.doRequest("1.0", "antchain.ato.fund.creditgranting.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncFundCreditgrantingResponse({}));
+  }
+
+  /**
+   * Description: 本接口用于授信授权。本接口返回成功后，代表授权申请已发起。如果授权通过，会发送异步通知。
+   * Summary: 授信授权申请接口
+   */
+  async authFundCreditgranting(request: AuthFundCreditgrantingRequest): Promise<AuthFundCreditgrantingResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.authFundCreditgrantingEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 本接口用于授信授权。本接口返回成功后，代表授权申请已发起。如果授权通过，会发送异步通知。
+   * Summary: 授信授权申请接口
+   */
+  async authFundCreditgrantingEx(request: AuthFundCreditgrantingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AuthFundCreditgrantingResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AuthFundCreditgrantingResponse>(await this.doRequest("1.0", "antchain.ato.fund.creditgranting.auth", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AuthFundCreditgrantingResponse({}));
+  }
+
+  /**
+   * Description: 小贷融资查询资产报告
+   * Summary: 查询资产报告
+   */
+  async queryFundAssertreport(request: QueryFundAssertreportRequest): Promise<QueryFundAssertreportResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryFundAssertreportEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 小贷融资查询资产报告
+   * Summary: 查询资产报告
+   */
+  async queryFundAssertreportEx(request: QueryFundAssertreportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFundAssertreportResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryFundAssertreportResponse>(await this.doRequest("1.0", "antchain.ato.fund.assertreport.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFundAssertreportResponse({}));
   }
 
   /**
