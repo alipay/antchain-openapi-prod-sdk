@@ -9620,7 +9620,7 @@ export class FinishDciRegistrationcertRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 任务ID
-  apiTaskId: string;
+  taskId: string;
   // 登记号
   regNumber: string;
   // 数登证书地址
@@ -9633,7 +9633,7 @@ export class FinishDciRegistrationcertRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      apiTaskId: 'api_task_id',
+      taskId: 'task_id',
       regNumber: 'reg_number',
       certificateUrl: 'certificate_url',
       sampleUrl: 'sample_url',
@@ -9645,7 +9645,7 @@ export class FinishDciRegistrationcertRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      apiTaskId: 'string',
+      taskId: 'string',
       regNumber: 'string',
       certificateUrl: 'string',
       sampleUrl: 'string',
@@ -10431,7 +10431,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.40",
+          sdk_version: "1.19.41",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
