@@ -12997,7 +12997,7 @@ type FinishDciRegistrationcertRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 任务ID
-	ApiTaskId *string `json:"api_task_id,omitempty" xml:"api_task_id,omitempty" require:"true"`
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
 	// 登记号
 	RegNumber *string `json:"reg_number,omitempty" xml:"reg_number,omitempty" require:"true"`
 	// 数登证书地址
@@ -13026,8 +13026,8 @@ func (s *FinishDciRegistrationcertRequest) SetProductInstanceId(v string) *Finis
 	return s
 }
 
-func (s *FinishDciRegistrationcertRequest) SetApiTaskId(v string) *FinishDciRegistrationcertRequest {
-	s.ApiTaskId = &v
+func (s *FinishDciRegistrationcertRequest) SetTaskId(v string) *FinishDciRegistrationcertRequest {
+	s.TaskId = &v
 	return s
 }
 
@@ -14045,7 +14045,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.40"),
+				"sdk_version":      tea.String("1.19.41"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
