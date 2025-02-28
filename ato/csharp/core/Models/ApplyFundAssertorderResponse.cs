@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class ApplyFundCreditutilizationResponse : TeaModel {
+    public class ApplyFundAssertorderResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,10 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 用信Id
-        [NameInMap("utilization_id")]
+        // 生成中: TODO、已生成,:FINISH、无效:FAILURE
+        [NameInMap("task_status")]
         [Validation(Required=false)]
-        public string UtilizationId { get; set; }
-
-        // 用信授权id
-        [NameInMap("utilization_auth_id")]
-        [Validation(Required=false)]
-        public string UtilizationAuthId { get; set; }
-
-        // 资产包id
-        [NameInMap("asset_package_id")]
-        [Validation(Required=false)]
-        public string AssetPackageId { get; set; }
+        public string TaskStatus { get; set; }
 
     }
 
