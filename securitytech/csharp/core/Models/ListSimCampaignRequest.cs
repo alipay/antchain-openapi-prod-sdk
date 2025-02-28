@@ -23,11 +23,6 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=true)]
         public string DeviceId { get; set; }
 
-        // 登录态token
-        [NameInMap("token")]
-        [Validation(Required=true)]
-        public string Token { get; set; }
-
     }
 
 }
