@@ -24,23 +24,15 @@ class ListSimCampaignRequest extends Model
      * @var string
      */
     public $deviceId;
-
-    // 登录态token
-    /**
-     * @var string
-     */
-    public $token;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'deviceId'          => 'device_id',
-        'token'             => 'token',
     ];
 
     public function validate()
     {
         Model::validateRequired('deviceId', $this->deviceId, true);
-        Model::validateRequired('token', $this->token, true);
     }
 
     public function toMap()
@@ -54,9 +46,6 @@ class ListSimCampaignRequest extends Model
         }
         if (null !== $this->deviceId) {
             $res['device_id'] = $this->deviceId;
-        }
-        if (null !== $this->token) {
-            $res['token'] = $this->token;
         }
 
         return $res;
@@ -78,9 +67,6 @@ class ListSimCampaignRequest extends Model
         }
         if (isset($map['device_id'])) {
             $model->deviceId = $map['device_id'];
-        }
-        if (isset($map['token'])) {
-            $model->token = $map['token'];
         }
 
         return $model;
