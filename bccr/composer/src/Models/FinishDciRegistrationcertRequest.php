@@ -19,6 +19,12 @@ class FinishDciRegistrationcertRequest extends Model
      */
     public $productInstanceId;
 
+    // 任务ID
+    /**
+     * @var string
+     */
+    public $apiTaskId;
+
     // 登记号
     /**
      * @var string
@@ -45,6 +51,7 @@ class FinishDciRegistrationcertRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'apiTaskId'         => 'api_task_id',
         'regNumber'         => 'reg_number',
         'certificateUrl'    => 'certificate_url',
         'sampleUrl'         => 'sample_url',
@@ -53,6 +60,7 @@ class FinishDciRegistrationcertRequest extends Model
 
     public function validate()
     {
+        Model::validateRequired('apiTaskId', $this->apiTaskId, true);
         Model::validateRequired('regNumber', $this->regNumber, true);
         Model::validateRequired('clientToken', $this->clientToken, true);
     }
@@ -65,6 +73,9 @@ class FinishDciRegistrationcertRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->apiTaskId) {
+            $res['api_task_id'] = $this->apiTaskId;
         }
         if (null !== $this->regNumber) {
             $res['reg_number'] = $this->regNumber;
@@ -95,6 +106,9 @@ class FinishDciRegistrationcertRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['api_task_id'])) {
+            $model->apiTaskId = $map['api_task_id'];
         }
         if (isset($map['reg_number'])) {
             $model->regNumber = $map['reg_number'];
