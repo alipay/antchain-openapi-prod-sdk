@@ -7934,6 +7934,7 @@ class AuthFundCreditgrantingResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        merchant_auth_url: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -7941,6 +7942,8 @@ class AuthFundCreditgrantingResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 商家授权链接
+        self.merchant_auth_url = merchant_auth_url
 
     def validate(self):
         pass
@@ -7957,6 +7960,8 @@ class AuthFundCreditgrantingResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.merchant_auth_url is not None:
+            result['merchant_auth_url'] = self.merchant_auth_url
         return result
 
     def from_map(self, m: dict = None):
@@ -7967,6 +7972,8 @@ class AuthFundCreditgrantingResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('merchant_auth_url') is not None:
+            self.merchant_auth_url = m.get('merchant_auth_url')
         return self
 
 
