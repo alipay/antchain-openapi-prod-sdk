@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.15',
+                    'sdk_version': '1.14.1',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.15',
+                    'sdk_version': '1.14.1',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -1769,6 +1769,290 @@ class Client:
         return TeaCore.from_map(
             ato_models.ApplyFundCreditutilizationResponse(),
             await self.do_request_async('1.0', 'antchain.ato.fund.creditutilization.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_fund_assertorder(
+        self,
+        request: ato_models.ApplyFundAssertorderRequest,
+    ) -> ato_models.ApplyFundAssertorderResponse:
+        """
+        Description: 小贷融资用信申请订单履约信息
+        Summary: 用信申请订单履约信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_fund_assertorder_ex(request, headers, runtime)
+
+    async def apply_fund_assertorder_async(
+        self,
+        request: ato_models.ApplyFundAssertorderRequest,
+    ) -> ato_models.ApplyFundAssertorderResponse:
+        """
+        Description: 小贷融资用信申请订单履约信息
+        Summary: 用信申请订单履约信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_fund_assertorder_ex_async(request, headers, runtime)
+
+    def apply_fund_assertorder_ex(
+        self,
+        request: ato_models.ApplyFundAssertorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.ApplyFundAssertorderResponse:
+        """
+        Description: 小贷融资用信申请订单履约信息
+        Summary: 用信申请订单履约信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.ApplyFundAssertorderResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.assertorder.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_fund_assertorder_ex_async(
+        self,
+        request: ato_models.ApplyFundAssertorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.ApplyFundAssertorderResponse:
+        """
+        Description: 小贷融资用信申请订单履约信息
+        Summary: 用信申请订单履约信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.ApplyFundAssertorderResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.assertorder.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_fund_assertorder(
+        self,
+        request: ato_models.QueryFundAssertorderRequest,
+    ) -> ato_models.QueryFundAssertorderResponse:
+        """
+        Description: 用信查询订单履约信息
+        Summary: 用信查询订单履约信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_fund_assertorder_ex(request, headers, runtime)
+
+    async def query_fund_assertorder_async(
+        self,
+        request: ato_models.QueryFundAssertorderRequest,
+    ) -> ato_models.QueryFundAssertorderResponse:
+        """
+        Description: 用信查询订单履约信息
+        Summary: 用信查询订单履约信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_fund_assertorder_ex_async(request, headers, runtime)
+
+    def query_fund_assertorder_ex(
+        self,
+        request: ato_models.QueryFundAssertorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryFundAssertorderResponse:
+        """
+        Description: 用信查询订单履约信息
+        Summary: 用信查询订单履约信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryFundAssertorderResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.assertorder.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_fund_assertorder_ex_async(
+        self,
+        request: ato_models.QueryFundAssertorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryFundAssertorderResponse:
+        """
+        Description: 用信查询订单履约信息
+        Summary: 用信查询订单履约信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryFundAssertorderResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.assertorder.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_fund_creditgranting(
+        self,
+        request: ato_models.SyncFundCreditgrantingRequest,
+    ) -> ato_models.SyncFundCreditgrantingResponse:
+        """
+        Description: 调用说明：
+        ● 本接口用于授信额度试算完成后同步授信结果。
+        Summary: 授信结果同步接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_fund_creditgranting_ex(request, headers, runtime)
+
+    async def sync_fund_creditgranting_async(
+        self,
+        request: ato_models.SyncFundCreditgrantingRequest,
+    ) -> ato_models.SyncFundCreditgrantingResponse:
+        """
+        Description: 调用说明：
+        ● 本接口用于授信额度试算完成后同步授信结果。
+        Summary: 授信结果同步接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_fund_creditgranting_ex_async(request, headers, runtime)
+
+    def sync_fund_creditgranting_ex(
+        self,
+        request: ato_models.SyncFundCreditgrantingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SyncFundCreditgrantingResponse:
+        """
+        Description: 调用说明：
+        ● 本接口用于授信额度试算完成后同步授信结果。
+        Summary: 授信结果同步接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SyncFundCreditgrantingResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.creditgranting.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_fund_creditgranting_ex_async(
+        self,
+        request: ato_models.SyncFundCreditgrantingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SyncFundCreditgrantingResponse:
+        """
+        Description: 调用说明：
+        ● 本接口用于授信额度试算完成后同步授信结果。
+        Summary: 授信结果同步接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SyncFundCreditgrantingResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.creditgranting.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def auth_fund_creditgranting(
+        self,
+        request: ato_models.AuthFundCreditgrantingRequest,
+    ) -> ato_models.AuthFundCreditgrantingResponse:
+        """
+        Description: 本接口用于授信授权。本接口返回成功后，代表授权申请已发起。如果授权通过，会发送异步通知。
+        Summary: 授信授权申请接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.auth_fund_creditgranting_ex(request, headers, runtime)
+
+    async def auth_fund_creditgranting_async(
+        self,
+        request: ato_models.AuthFundCreditgrantingRequest,
+    ) -> ato_models.AuthFundCreditgrantingResponse:
+        """
+        Description: 本接口用于授信授权。本接口返回成功后，代表授权申请已发起。如果授权通过，会发送异步通知。
+        Summary: 授信授权申请接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.auth_fund_creditgranting_ex_async(request, headers, runtime)
+
+    def auth_fund_creditgranting_ex(
+        self,
+        request: ato_models.AuthFundCreditgrantingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.AuthFundCreditgrantingResponse:
+        """
+        Description: 本接口用于授信授权。本接口返回成功后，代表授权申请已发起。如果授权通过，会发送异步通知。
+        Summary: 授信授权申请接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.AuthFundCreditgrantingResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.creditgranting.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def auth_fund_creditgranting_ex_async(
+        self,
+        request: ato_models.AuthFundCreditgrantingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.AuthFundCreditgrantingResponse:
+        """
+        Description: 本接口用于授信授权。本接口返回成功后，代表授权申请已发起。如果授权通过，会发送异步通知。
+        Summary: 授信授权申请接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.AuthFundCreditgrantingResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.creditgranting.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_fund_assertreport(
+        self,
+        request: ato_models.QueryFundAssertreportRequest,
+    ) -> ato_models.QueryFundAssertreportResponse:
+        """
+        Description: 小贷融资查询资产报告
+        Summary: 查询资产报告
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_fund_assertreport_ex(request, headers, runtime)
+
+    async def query_fund_assertreport_async(
+        self,
+        request: ato_models.QueryFundAssertreportRequest,
+    ) -> ato_models.QueryFundAssertreportResponse:
+        """
+        Description: 小贷融资查询资产报告
+        Summary: 查询资产报告
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_fund_assertreport_ex_async(request, headers, runtime)
+
+    def query_fund_assertreport_ex(
+        self,
+        request: ato_models.QueryFundAssertreportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryFundAssertreportResponse:
+        """
+        Description: 小贷融资查询资产报告
+        Summary: 查询资产报告
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryFundAssertreportResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.assertreport.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_fund_assertreport_ex_async(
+        self,
+        request: ato_models.QueryFundAssertreportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryFundAssertreportResponse:
+        """
+        Description: 小贷融资查询资产报告
+        Summary: 查询资产报告
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryFundAssertreportResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.assertreport.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_inner_product(
