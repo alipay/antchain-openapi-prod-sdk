@@ -2805,8 +2805,6 @@ type ListSimCampaignRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 设备编号
 	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
-	// 登录态token
-	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
 }
 
 func (s ListSimCampaignRequest) String() string {
@@ -2829,11 +2827,6 @@ func (s *ListSimCampaignRequest) SetProductInstanceId(v string) *ListSimCampaign
 
 func (s *ListSimCampaignRequest) SetDeviceId(v string) *ListSimCampaignRequest {
 	s.DeviceId = &v
-	return s
-}
-
-func (s *ListSimCampaignRequest) SetToken(v string) *ListSimCampaignRequest {
-	s.Token = &v
 	return s
 }
 
@@ -7963,7 +7956,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.8"),
+				"sdk_version":      tea.String("1.4.9"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
