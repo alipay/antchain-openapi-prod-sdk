@@ -2182,14 +2182,11 @@ export class ListSimCampaignRequest extends $tea.Model {
   productInstanceId?: string;
   // 设备编号
   deviceId: string;
-  // 登录态token
-  token: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       deviceId: 'device_id',
-      token: 'token',
     };
   }
 
@@ -2198,7 +2195,6 @@ export class ListSimCampaignRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       deviceId: 'string',
-      token: 'string',
     };
   }
 
@@ -6054,7 +6050,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.8",
+          sdk_version: "1.4.9",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
