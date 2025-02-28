@@ -12,9 +12,9 @@ public class FinishDciRegistrationcertRequest extends TeaModel {
     public String productInstanceId;
 
     // 任务ID
-    @NameInMap("api_task_id")
+    @NameInMap("task_id")
     @Validation(required = true)
-    public String apiTaskId;
+    public String taskId;
 
     // 登记号
     @NameInMap("reg_number")
@@ -55,12 +55,12 @@ public class FinishDciRegistrationcertRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public FinishDciRegistrationcertRequest setApiTaskId(String apiTaskId) {
-        this.apiTaskId = apiTaskId;
+    public FinishDciRegistrationcertRequest setTaskId(String taskId) {
+        this.taskId = taskId;
         return this;
     }
-    public String getApiTaskId() {
-        return this.apiTaskId;
+    public String getTaskId() {
+        return this.taskId;
     }
 
     public FinishDciRegistrationcertRequest setRegNumber(String regNumber) {
