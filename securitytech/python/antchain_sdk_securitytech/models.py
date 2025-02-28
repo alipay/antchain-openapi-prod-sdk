@@ -3561,19 +3561,15 @@ class ListSimCampaignRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         device_id: str = None,
-        token: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 设备编号
         self.device_id = device_id
-        # 登录态token
-        self.token = token
 
     def validate(self):
         self.validate_required(self.device_id, 'device_id')
-        self.validate_required(self.token, 'token')
 
     def to_map(self):
         _map = super().to_map()
@@ -3587,8 +3583,6 @@ class ListSimCampaignRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.device_id is not None:
             result['device_id'] = self.device_id
-        if self.token is not None:
-            result['token'] = self.token
         return result
 
     def from_map(self, m: dict = None):
@@ -3599,8 +3593,6 @@ class ListSimCampaignRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('device_id') is not None:
             self.device_id = m.get('device_id')
-        if m.get('token') is not None:
-            self.token = m.get('token')
         return self
 
 
