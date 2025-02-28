@@ -4760,11 +4760,14 @@ export class AuthFundCreditgrantingResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 商家授权链接
+  merchantAuthUrl?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      merchantAuthUrl: 'merchant_auth_url',
     };
   }
 
@@ -4773,6 +4776,7 @@ export class AuthFundCreditgrantingResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      merchantAuthUrl: 'string',
     };
   }
 
@@ -15092,7 +15096,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.14.1",
+          sdk_version: "1.14.2",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
