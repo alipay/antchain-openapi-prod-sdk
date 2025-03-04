@@ -31,10 +31,19 @@ class CreditUtilizationOrder extends Model
      * @var int
      */
     public $orderMerchantRepaymentMoney;
+
+    // 分账起始日期
+    /**
+     * @example 1
+     *
+     * @var int
+     */
+    public $divideStartTermIndex;
     protected $_name = [
         'orderId'                     => 'order_id',
         'orderCreditLine'             => 'order_credit_line',
         'orderMerchantRepaymentMoney' => 'order_merchant_repayment_money',
+        'divideStartTermIndex'        => 'divide_start_term_index',
     ];
 
     public function validate()
@@ -42,10 +51,12 @@ class CreditUtilizationOrder extends Model
         Model::validateRequired('orderId', $this->orderId, true);
         Model::validateRequired('orderCreditLine', $this->orderCreditLine, true);
         Model::validateRequired('orderMerchantRepaymentMoney', $this->orderMerchantRepaymentMoney, true);
+        Model::validateRequired('divideStartTermIndex', $this->divideStartTermIndex, true);
         Model::validateMaxLength('orderId', $this->orderId, 50);
         Model::validateMinLength('orderId', $this->orderId, 6);
         Model::validateMinimum('orderCreditLine', $this->orderCreditLine, 1);
         Model::validateMinimum('orderMerchantRepaymentMoney', $this->orderMerchantRepaymentMoney, 1);
+        Model::validateMinimum('divideStartTermIndex', $this->divideStartTermIndex, 1);
     }
 
     public function toMap()
@@ -59,6 +70,9 @@ class CreditUtilizationOrder extends Model
         }
         if (null !== $this->orderMerchantRepaymentMoney) {
             $res['order_merchant_repayment_money'] = $this->orderMerchantRepaymentMoney;
+        }
+        if (null !== $this->divideStartTermIndex) {
+            $res['divide_start_term_index'] = $this->divideStartTermIndex;
         }
 
         return $res;
@@ -80,6 +94,9 @@ class CreditUtilizationOrder extends Model
         }
         if (isset($map['order_merchant_repayment_money'])) {
             $model->orderMerchantRepaymentMoney = $map['order_merchant_repayment_money'];
+        }
+        if (isset($map['divide_start_term_index'])) {
+            $model->divideStartTermIndex = $map['divide_start_term_index'];
         }
 
         return $model;

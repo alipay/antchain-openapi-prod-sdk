@@ -88,7 +88,6 @@ class AuthFundCreditgrantingRequest extends Model
         Model::validateRequired('authBeginTime', $this->authBeginTime, true);
         Model::validateRequired('authEndTime', $this->authEndTime, true);
         Model::validateRequired('orderQueryBegin', $this->orderQueryBegin, true);
-        Model::validateRequired('orderQueryEnd', $this->orderQueryEnd, true);
     }
 
     public function toMap()
