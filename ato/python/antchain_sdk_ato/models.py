@@ -3839,6 +3839,7 @@ class CreditUtilizationOrder(TeaModel):
         order_id: str = None,
         order_credit_line: int = None,
         order_merchant_repayment_money: int = None,
+        divide_start_term_index: int = None,
     ):
         # 123
         self.order_id = order_id
@@ -3846,6 +3847,8 @@ class CreditUtilizationOrder(TeaModel):
         self.order_credit_line = order_credit_line
         # 订单商户应还金额，单位为分
         self.order_merchant_repayment_money = order_merchant_repayment_money
+        # 分账起始日期
+        self.divide_start_term_index = divide_start_term_index
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -3857,6 +3860,9 @@ class CreditUtilizationOrder(TeaModel):
         self.validate_required(self.order_merchant_repayment_money, 'order_merchant_repayment_money')
         if self.order_merchant_repayment_money is not None:
             self.validate_minimum(self.order_merchant_repayment_money, 'order_merchant_repayment_money', 1)
+        self.validate_required(self.divide_start_term_index, 'divide_start_term_index')
+        if self.divide_start_term_index is not None:
+            self.validate_minimum(self.divide_start_term_index, 'divide_start_term_index', 1)
 
     def to_map(self):
         _map = super().to_map()
@@ -3870,6 +3876,8 @@ class CreditUtilizationOrder(TeaModel):
             result['order_credit_line'] = self.order_credit_line
         if self.order_merchant_repayment_money is not None:
             result['order_merchant_repayment_money'] = self.order_merchant_repayment_money
+        if self.divide_start_term_index is not None:
+            result['divide_start_term_index'] = self.divide_start_term_index
         return result
 
     def from_map(self, m: dict = None):
@@ -3880,6 +3888,8 @@ class CreditUtilizationOrder(TeaModel):
             self.order_credit_line = m.get('order_credit_line')
         if m.get('order_merchant_repayment_money') is not None:
             self.order_merchant_repayment_money = m.get('order_merchant_repayment_money')
+        if m.get('divide_start_term_index') is not None:
+            self.divide_start_term_index = m.get('divide_start_term_index')
         return self
 
 
@@ -7873,7 +7883,6 @@ class AuthFundCreditgrantingRequest(TeaModel):
         self.validate_required(self.auth_begin_time, 'auth_begin_time')
         self.validate_required(self.auth_end_time, 'auth_end_time')
         self.validate_required(self.order_query_begin, 'order_query_begin')
-        self.validate_required(self.order_query_end, 'order_query_end')
 
     def to_map(self):
         _map = super().to_map()
@@ -17833,6 +17842,7 @@ class QueryMerchantexpandMerchantResponse(TeaModel):
         result_msg: str = None,
         enrollment_status: str = None,
         fail_reason: str = None,
+        pending_event_link: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -17849,6 +17859,8 @@ class QueryMerchantexpandMerchantResponse(TeaModel):
         self.enrollment_status = enrollment_status
         # 入驻失败原因
         self.fail_reason = fail_reason
+        # 商户进件流程待办事件跳转链接
+        self.pending_event_link = pending_event_link
 
     def validate(self):
         pass
@@ -17869,6 +17881,8 @@ class QueryMerchantexpandMerchantResponse(TeaModel):
             result['enrollment_status'] = self.enrollment_status
         if self.fail_reason is not None:
             result['fail_reason'] = self.fail_reason
+        if self.pending_event_link is not None:
+            result['pending_event_link'] = self.pending_event_link
         return result
 
     def from_map(self, m: dict = None):
@@ -17883,6 +17897,8 @@ class QueryMerchantexpandMerchantResponse(TeaModel):
             self.enrollment_status = m.get('enrollment_status')
         if m.get('fail_reason') is not None:
             self.fail_reason = m.get('fail_reason')
+        if m.get('pending_event_link') is not None:
+            self.pending_event_link = m.get('pending_event_link')
         return self
 
 
