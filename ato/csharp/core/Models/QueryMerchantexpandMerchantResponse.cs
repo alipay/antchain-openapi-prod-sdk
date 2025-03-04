@@ -39,6 +39,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string FailReason { get; set; }
 
+        // 商户进件流程待办事件跳转链接
+        [NameInMap("pending_event_link")]
+        [Validation(Required=false)]
+        public string PendingEventLink { get; set; }
+
     }
 
 }

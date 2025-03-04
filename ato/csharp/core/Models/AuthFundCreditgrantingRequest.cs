@@ -55,7 +55,7 @@ namespace AntChain.SDK.ATO.Models
 
         // 订单查询结束时间，格式为yyyy-MM-dd HH:mm:ss，需要在auth_end_time之前
         [NameInMap("order_query_end")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string OrderQueryEnd { get; set; }
 
     }

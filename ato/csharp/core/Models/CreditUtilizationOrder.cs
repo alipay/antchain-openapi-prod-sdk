@@ -25,6 +25,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public long? OrderMerchantRepaymentMoney { get; set; }
 
+        // 分账起始日期
+        [NameInMap("divide_start_term_index")]
+        [Validation(Required=true)]
+        public long? DivideStartTermIndex { get; set; }
+
     }
 
 }
