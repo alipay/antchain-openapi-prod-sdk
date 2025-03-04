@@ -48,7 +48,6 @@ public class AuthFundCreditgrantingRequest extends TeaModel {
 
     // 订单查询结束时间，格式为yyyy-MM-dd HH:mm:ss，需要在auth_end_time之前
     @NameInMap("order_query_end")
-    @Validation(required = true)
     public String orderQueryEnd;
 
     public static AuthFundCreditgrantingRequest build(java.util.Map<String, ?> map) throws Exception {

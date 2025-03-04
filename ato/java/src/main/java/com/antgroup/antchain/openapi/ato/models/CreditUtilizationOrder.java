@@ -19,6 +19,11 @@ public class CreditUtilizationOrder extends TeaModel {
     @Validation(required = true, minimum = 1)
     public Long orderMerchantRepaymentMoney;
 
+    // 分账起始日期
+    @NameInMap("divide_start_term_index")
+    @Validation(required = true, minimum = 1)
+    public Long divideStartTermIndex;
+
     public static CreditUtilizationOrder build(java.util.Map<String, ?> map) throws Exception {
         CreditUtilizationOrder self = new CreditUtilizationOrder();
         return TeaModel.build(map, self);
@@ -46,6 +51,14 @@ public class CreditUtilizationOrder extends TeaModel {
     }
     public Long getOrderMerchantRepaymentMoney() {
         return this.orderMerchantRepaymentMoney;
+    }
+
+    public CreditUtilizationOrder setDivideStartTermIndex(Long divideStartTermIndex) {
+        this.divideStartTermIndex = divideStartTermIndex;
+        return this;
+    }
+    public Long getDivideStartTermIndex() {
+        return this.divideStartTermIndex;
     }
 
 }
