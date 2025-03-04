@@ -3020,6 +3020,8 @@ type CreditUtilizationOrder struct {
 	OrderCreditLine *int64 `json:"order_credit_line,omitempty" xml:"order_credit_line,omitempty" require:"true" minimum:"1"`
 	// 订单商户应还金额，单位为分
 	OrderMerchantRepaymentMoney *int64 `json:"order_merchant_repayment_money,omitempty" xml:"order_merchant_repayment_money,omitempty" require:"true" minimum:"1"`
+	// 分账起始日期
+	DivideStartTermIndex *int64 `json:"divide_start_term_index,omitempty" xml:"divide_start_term_index,omitempty" require:"true" minimum:"1"`
 }
 
 func (s CreditUtilizationOrder) String() string {
@@ -3042,6 +3044,11 @@ func (s *CreditUtilizationOrder) SetOrderCreditLine(v int64) *CreditUtilizationO
 
 func (s *CreditUtilizationOrder) SetOrderMerchantRepaymentMoney(v int64) *CreditUtilizationOrder {
 	s.OrderMerchantRepaymentMoney = &v
+	return s
+}
+
+func (s *CreditUtilizationOrder) SetDivideStartTermIndex(v int64) *CreditUtilizationOrder {
+	s.DivideStartTermIndex = &v
 	return s
 }
 
@@ -6140,7 +6147,7 @@ type AuthFundCreditgrantingRequest struct {
 	// 订单查询开始时间，格式为yyyy-MM-dd HH:mm:ss，需要在auth_begin_time之后。
 	OrderQueryBegin *string `json:"order_query_begin,omitempty" xml:"order_query_begin,omitempty" require:"true"`
 	// 订单查询结束时间，格式为yyyy-MM-dd HH:mm:ss，需要在auth_end_time之前
-	OrderQueryEnd *string `json:"order_query_end,omitempty" xml:"order_query_end,omitempty" require:"true"`
+	OrderQueryEnd *string `json:"order_query_end,omitempty" xml:"order_query_end,omitempty"`
 }
 
 func (s AuthFundCreditgrantingRequest) String() string {
@@ -13995,6 +14002,8 @@ type QueryMerchantexpandMerchantResponse struct {
 	EnrollmentStatus *string `json:"enrollment_status,omitempty" xml:"enrollment_status,omitempty"`
 	// 入驻失败原因
 	FailReason *string `json:"fail_reason,omitempty" xml:"fail_reason,omitempty"`
+	// 商户进件流程待办事件跳转链接
+	PendingEventLink *string `json:"pending_event_link,omitempty" xml:"pending_event_link,omitempty"`
 }
 
 func (s QueryMerchantexpandMerchantResponse) String() string {
@@ -14027,6 +14036,11 @@ func (s *QueryMerchantexpandMerchantResponse) SetEnrollmentStatus(v string) *Que
 
 func (s *QueryMerchantexpandMerchantResponse) SetFailReason(v string) *QueryMerchantexpandMerchantResponse {
 	s.FailReason = &v
+	return s
+}
+
+func (s *QueryMerchantexpandMerchantResponse) SetPendingEventLink(v string) *QueryMerchantexpandMerchantResponse {
+	s.PendingEventLink = &v
 	return s
 }
 
@@ -19699,7 +19713,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.14.2"),
+				"sdk_version":      tea.String("1.14.3"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
