@@ -2308,11 +2308,14 @@ export class CreditUtilizationOrder extends $tea.Model {
   orderCreditLine: number;
   // 订单商户应还金额，单位为分
   orderMerchantRepaymentMoney: number;
+  // 分账起始日期
+  divideStartTermIndex: number;
   static names(): { [key: string]: string } {
     return {
       orderId: 'order_id',
       orderCreditLine: 'order_credit_line',
       orderMerchantRepaymentMoney: 'order_merchant_repayment_money',
+      divideStartTermIndex: 'divide_start_term_index',
     };
   }
 
@@ -2321,6 +2324,7 @@ export class CreditUtilizationOrder extends $tea.Model {
       orderId: 'string',
       orderCreditLine: 'number',
       orderMerchantRepaymentMoney: 'number',
+      divideStartTermIndex: 'number',
     };
   }
 
@@ -4717,7 +4721,7 @@ export class AuthFundCreditgrantingRequest extends $tea.Model {
   // 订单查询开始时间，格式为yyyy-MM-dd HH:mm:ss，需要在auth_begin_time之后。
   orderQueryBegin: string;
   // 订单查询结束时间，格式为yyyy-MM-dd HH:mm:ss，需要在auth_end_time之前
-  orderQueryEnd: string;
+  orderQueryEnd?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10764,6 +10768,8 @@ export class QueryMerchantexpandMerchantResponse extends $tea.Model {
   enrollmentStatus?: string;
   // 入驻失败原因
   failReason?: string;
+  // 商户进件流程待办事件跳转链接
+  pendingEventLink?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -10771,6 +10777,7 @@ export class QueryMerchantexpandMerchantResponse extends $tea.Model {
       resultMsg: 'result_msg',
       enrollmentStatus: 'enrollment_status',
       failReason: 'fail_reason',
+      pendingEventLink: 'pending_event_link',
     };
   }
 
@@ -10781,6 +10788,7 @@ export class QueryMerchantexpandMerchantResponse extends $tea.Model {
       resultMsg: 'string',
       enrollmentStatus: 'string',
       failReason: 'string',
+      pendingEventLink: 'string',
     };
   }
 
@@ -15096,7 +15104,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.14.2",
+          sdk_version: "1.14.3",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
