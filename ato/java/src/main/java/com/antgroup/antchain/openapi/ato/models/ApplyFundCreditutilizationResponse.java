@@ -28,6 +28,10 @@ public class ApplyFundCreditutilizationResponse extends TeaModel {
     @NameInMap("asset_package_id")
     public String assetPackageId;
 
+    // 商户授权链接
+    @NameInMap("merchant_auth_url")
+    public String merchantAuthUrl;
+
     public static ApplyFundCreditutilizationResponse build(java.util.Map<String, ?> map) throws Exception {
         ApplyFundCreditutilizationResponse self = new ApplyFundCreditutilizationResponse();
         return TeaModel.build(map, self);
@@ -79,6 +83,14 @@ public class ApplyFundCreditutilizationResponse extends TeaModel {
     }
     public String getAssetPackageId() {
         return this.assetPackageId;
+    }
+
+    public ApplyFundCreditutilizationResponse setMerchantAuthUrl(String merchantAuthUrl) {
+        this.merchantAuthUrl = merchantAuthUrl;
+        return this;
+    }
+    public String getMerchantAuthUrl() {
+        return this.merchantAuthUrl;
     }
 
 }
