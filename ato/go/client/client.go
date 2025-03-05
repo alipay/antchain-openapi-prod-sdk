@@ -5724,6 +5724,8 @@ type ApplyFundCreditutilizationResponse struct {
 	UtilizationAuthId *string `json:"utilization_auth_id,omitempty" xml:"utilization_auth_id,omitempty"`
 	// 资产包id
 	AssetPackageId *string `json:"asset_package_id,omitempty" xml:"asset_package_id,omitempty"`
+	// 商户授权链接
+	MerchantAuthUrl *string `json:"merchant_auth_url,omitempty" xml:"merchant_auth_url,omitempty"`
 }
 
 func (s ApplyFundCreditutilizationResponse) String() string {
@@ -5761,6 +5763,11 @@ func (s *ApplyFundCreditutilizationResponse) SetUtilizationAuthId(v string) *App
 
 func (s *ApplyFundCreditutilizationResponse) SetAssetPackageId(v string) *ApplyFundCreditutilizationResponse {
 	s.AssetPackageId = &v
+	return s
+}
+
+func (s *ApplyFundCreditutilizationResponse) SetMerchantAuthUrl(v string) *ApplyFundCreditutilizationResponse {
+	s.MerchantAuthUrl = &v
 	return s
 }
 
