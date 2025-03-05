@@ -7322,6 +7322,7 @@ class ApplyFundCreditutilizationResponse(TeaModel):
         utilization_id: str = None,
         utilization_auth_id: str = None,
         asset_package_id: str = None,
+        merchant_auth_url: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -7335,6 +7336,8 @@ class ApplyFundCreditutilizationResponse(TeaModel):
         self.utilization_auth_id = utilization_auth_id
         # 资产包id
         self.asset_package_id = asset_package_id
+        # 商户授权链接
+        self.merchant_auth_url = merchant_auth_url
 
     def validate(self):
         pass
@@ -7357,6 +7360,8 @@ class ApplyFundCreditutilizationResponse(TeaModel):
             result['utilization_auth_id'] = self.utilization_auth_id
         if self.asset_package_id is not None:
             result['asset_package_id'] = self.asset_package_id
+        if self.merchant_auth_url is not None:
+            result['merchant_auth_url'] = self.merchant_auth_url
         return result
 
     def from_map(self, m: dict = None):
@@ -7373,6 +7378,8 @@ class ApplyFundCreditutilizationResponse(TeaModel):
             self.utilization_auth_id = m.get('utilization_auth_id')
         if m.get('asset_package_id') is not None:
             self.asset_package_id = m.get('asset_package_id')
+        if m.get('merchant_auth_url') is not None:
+            self.merchant_auth_url = m.get('merchant_auth_url')
         return self
 
 
