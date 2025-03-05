@@ -4410,6 +4410,8 @@ export class ApplyFundCreditutilizationResponse extends $tea.Model {
   utilizationAuthId?: string;
   // 资产包id
   assetPackageId?: string;
+  // 商户授权链接
+  merchantAuthUrl?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -4418,6 +4420,7 @@ export class ApplyFundCreditutilizationResponse extends $tea.Model {
       utilizationId: 'utilization_id',
       utilizationAuthId: 'utilization_auth_id',
       assetPackageId: 'asset_package_id',
+      merchantAuthUrl: 'merchant_auth_url',
     };
   }
 
@@ -4429,6 +4432,7 @@ export class ApplyFundCreditutilizationResponse extends $tea.Model {
       utilizationId: 'string',
       utilizationAuthId: 'string',
       assetPackageId: 'string',
+      merchantAuthUrl: 'string',
     };
   }
 
