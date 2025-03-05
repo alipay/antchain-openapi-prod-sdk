@@ -43,6 +43,12 @@ class ApplyFundCreditutilizationResponse extends Model
      * @var string
      */
     public $assetPackageId;
+
+    // 商户授权链接
+    /**
+     * @var string
+     */
+    public $merchantAuthUrl;
     protected $_name = [
         'reqMsgId'          => 'req_msg_id',
         'resultCode'        => 'result_code',
@@ -50,6 +56,7 @@ class ApplyFundCreditutilizationResponse extends Model
         'utilizationId'     => 'utilization_id',
         'utilizationAuthId' => 'utilization_auth_id',
         'assetPackageId'    => 'asset_package_id',
+        'merchantAuthUrl'   => 'merchant_auth_url',
     ];
 
     public function validate()
@@ -76,6 +83,9 @@ class ApplyFundCreditutilizationResponse extends Model
         }
         if (null !== $this->assetPackageId) {
             $res['asset_package_id'] = $this->assetPackageId;
+        }
+        if (null !== $this->merchantAuthUrl) {
+            $res['merchant_auth_url'] = $this->merchantAuthUrl;
         }
 
         return $res;
@@ -106,6 +116,9 @@ class ApplyFundCreditutilizationResponse extends Model
         }
         if (isset($map['asset_package_id'])) {
             $model->assetPackageId = $map['asset_package_id'];
+        }
+        if (isset($map['merchant_auth_url'])) {
+            $model->merchantAuthUrl = $map['merchant_auth_url'];
         }
 
         return $model;
