@@ -4719,9 +4719,9 @@ export class AuthFundCreditgrantingRequest extends $tea.Model {
   // 授权id
   authId: string;
   // 授权开始时间，格式为yyyy-MM-dd
-  authBeginTime: string;
+  authBeginTime?: string;
   // 授权结束时间，格式为yyyy-MM-dd
-  authEndTime: string;
+  authEndTime?: string;
   // 订单查询开始时间，格式为yyyy-MM-dd HH:mm:ss，需要在auth_begin_time之后。
   orderQueryBegin: string;
   // 订单查询结束时间，格式为yyyy-MM-dd HH:mm:ss，需要在auth_end_time之前
@@ -15108,7 +15108,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.14.5",
+          sdk_version: "1.14.6",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
