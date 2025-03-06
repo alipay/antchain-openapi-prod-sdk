@@ -6148,9 +6148,9 @@ type AuthFundCreditgrantingRequest struct {
 	// 授权id
 	AuthId *string `json:"auth_id,omitempty" xml:"auth_id,omitempty" require:"true"`
 	// 授权开始时间，格式为yyyy-MM-dd
-	AuthBeginTime *string `json:"auth_begin_time,omitempty" xml:"auth_begin_time,omitempty" require:"true"`
+	AuthBeginTime *string `json:"auth_begin_time,omitempty" xml:"auth_begin_time,omitempty"`
 	// 授权结束时间，格式为yyyy-MM-dd
-	AuthEndTime *string `json:"auth_end_time,omitempty" xml:"auth_end_time,omitempty" require:"true"`
+	AuthEndTime *string `json:"auth_end_time,omitempty" xml:"auth_end_time,omitempty"`
 	// 订单查询开始时间，格式为yyyy-MM-dd HH:mm:ss，需要在auth_begin_time之后。
 	OrderQueryBegin *string `json:"order_query_begin,omitempty" xml:"order_query_begin,omitempty" require:"true"`
 	// 订单查询结束时间，格式为yyyy-MM-dd HH:mm:ss，需要在auth_end_time之前
@@ -19720,7 +19720,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.14.5"),
+				"sdk_version":      tea.String("1.14.6"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
