@@ -40,12 +40,12 @@ namespace AntChain.SDK.ATO.Models
 
         // 授权开始时间，格式为yyyy-MM-dd
         [NameInMap("auth_begin_time")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string AuthBeginTime { get; set; }
 
         // 授权结束时间，格式为yyyy-MM-dd
         [NameInMap("auth_end_time")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string AuthEndTime { get; set; }
 
         // 订单查询开始时间，格式为yyyy-MM-dd HH:mm:ss，需要在auth_begin_time之后。
