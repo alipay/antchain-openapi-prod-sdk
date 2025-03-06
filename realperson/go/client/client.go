@@ -4705,6 +4705,468 @@ func (s *QueryBankLivenessResponse) SetExternInfo(v string) *QueryBankLivenessRe
 	return s
 }
 
+type CreateConsoleDomainRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景id
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+	// 用于排查问题
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 客户填自己需要绑定的小程序名称
+	MiniProgramName *string `json:"mini_program_name,omitempty" xml:"mini_program_name,omitempty" require:"true"`
+	// 所属平台，微信、支付宝
+	Platform *string `json:"platform,omitempty" xml:"platform,omitempty" require:"true"`
+	// 校验文件的名称
+	CheckFileName *string `json:"check_file_name,omitempty" xml:"check_file_name,omitempty" require:"true"`
+	// 填校验文件里面的内容
+	CheckFileBody *string `json:"check_file_body,omitempty" xml:"check_file_body,omitempty" require:"true"`
+}
+
+func (s CreateConsoleDomainRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateConsoleDomainRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateConsoleDomainRequest) SetAuthToken(v string) *CreateConsoleDomainRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateConsoleDomainRequest) SetProductInstanceId(v string) *CreateConsoleDomainRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateConsoleDomainRequest) SetSceneId(v string) *CreateConsoleDomainRequest {
+	s.SceneId = &v
+	return s
+}
+
+func (s *CreateConsoleDomainRequest) SetBizId(v string) *CreateConsoleDomainRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *CreateConsoleDomainRequest) SetMiniProgramName(v string) *CreateConsoleDomainRequest {
+	s.MiniProgramName = &v
+	return s
+}
+
+func (s *CreateConsoleDomainRequest) SetPlatform(v string) *CreateConsoleDomainRequest {
+	s.Platform = &v
+	return s
+}
+
+func (s *CreateConsoleDomainRequest) SetCheckFileName(v string) *CreateConsoleDomainRequest {
+	s.CheckFileName = &v
+	return s
+}
+
+func (s *CreateConsoleDomainRequest) SetCheckFileBody(v string) *CreateConsoleDomainRequest {
+	s.CheckFileBody = &v
+	return s
+}
+
+type CreateConsoleDomainResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回绑定的域名
+	Domain *string `json:"domain,omitempty" xml:"domain,omitempty"`
+}
+
+func (s CreateConsoleDomainResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateConsoleDomainResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateConsoleDomainResponse) SetReqMsgId(v string) *CreateConsoleDomainResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateConsoleDomainResponse) SetResultCode(v string) *CreateConsoleDomainResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateConsoleDomainResponse) SetResultMsg(v string) *CreateConsoleDomainResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateConsoleDomainResponse) SetDomain(v string) *CreateConsoleDomainResponse {
+	s.Domain = &v
+	return s
+}
+
+type DeleteConsoleDomainRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 控制台场景id
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+}
+
+func (s DeleteConsoleDomainRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteConsoleDomainRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteConsoleDomainRequest) SetAuthToken(v string) *DeleteConsoleDomainRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteConsoleDomainRequest) SetProductInstanceId(v string) *DeleteConsoleDomainRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeleteConsoleDomainRequest) SetSceneId(v string) *DeleteConsoleDomainRequest {
+	s.SceneId = &v
+	return s
+}
+
+type DeleteConsoleDomainResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s DeleteConsoleDomainResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteConsoleDomainResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteConsoleDomainResponse) SetReqMsgId(v string) *DeleteConsoleDomainResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteConsoleDomainResponse) SetResultCode(v string) *DeleteConsoleDomainResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteConsoleDomainResponse) SetResultMsg(v string) *DeleteConsoleDomainResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type InitCarrierRepairmobileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 流程ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，用于流程串联。
+	ProcessId *string `json:"process_id,omitempty" xml:"process_id,omitempty" require:"true"`
+	// 运营商类型，取值如下：
+	// CHINA_TELECOM：中国电信
+	// CHINA_MOBILE：中国移动
+	// CHINA_UNICOM：中国联通
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty" require:"true"`
+	// 入参加密模式：
+	// "0"（默认值）：不加密；
+	// "2"：身份证号、曾用手机号字段都需填写SHA256加密后的字符串。
+	// 默认未"0"
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
+	// 失联修复身份证号，使用入参加密模式加密
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 曾用手机号码，使用入参加密模式加密
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+}
+
+func (s InitCarrierRepairmobileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitCarrierRepairmobileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitCarrierRepairmobileRequest) SetAuthToken(v string) *InitCarrierRepairmobileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileRequest) SetProductInstanceId(v string) *InitCarrierRepairmobileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileRequest) SetOuterOrderNo(v string) *InitCarrierRepairmobileRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileRequest) SetProcessId(v string) *InitCarrierRepairmobileRequest {
+	s.ProcessId = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileRequest) SetCarrier(v string) *InitCarrierRepairmobileRequest {
+	s.Carrier = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileRequest) SetEncryptType(v string) *InitCarrierRepairmobileRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileRequest) SetCertNo(v string) *InitCarrierRepairmobileRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileRequest) SetMobile(v string) *InitCarrierRepairmobileRequest {
+	s.Mobile = &v
+	return s
+}
+
+type InitCarrierRepairmobileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 流程ID，和客户入参的process_id一致
+	ProcessId *string `json:"process_id,omitempty" xml:"process_id,omitempty"`
+}
+
+func (s InitCarrierRepairmobileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitCarrierRepairmobileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitCarrierRepairmobileResponse) SetReqMsgId(v string) *InitCarrierRepairmobileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileResponse) SetResultCode(v string) *InitCarrierRepairmobileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileResponse) SetResultMsg(v string) *InitCarrierRepairmobileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitCarrierRepairmobileResponse) SetProcessId(v string) *InitCarrierRepairmobileResponse {
+	s.ProcessId = &v
+	return s
+}
+
+type QueryCarrierRepairmobileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 失联修复初始化的流程ID
+	ProcessId *string `json:"process_id,omitempty" xml:"process_id,omitempty" require:"true"`
+}
+
+func (s QueryCarrierRepairmobileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarrierRepairmobileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarrierRepairmobileRequest) SetAuthToken(v string) *QueryCarrierRepairmobileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCarrierRepairmobileRequest) SetProductInstanceId(v string) *QueryCarrierRepairmobileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCarrierRepairmobileRequest) SetOuterOrderNo(v string) *QueryCarrierRepairmobileRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCarrierRepairmobileRequest) SetProcessId(v string) *QueryCarrierRepairmobileRequest {
+	s.ProcessId = &v
+	return s
+}
+
+type QueryCarrierRepairmobileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 失联人手机号修复数量
+	Count *string `json:"count,omitempty" xml:"count,omitempty"`
+}
+
+func (s QueryCarrierRepairmobileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarrierRepairmobileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarrierRepairmobileResponse) SetReqMsgId(v string) *QueryCarrierRepairmobileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCarrierRepairmobileResponse) SetResultCode(v string) *QueryCarrierRepairmobileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCarrierRepairmobileResponse) SetResultMsg(v string) *QueryCarrierRepairmobileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCarrierRepairmobileResponse) SetCount(v string) *QueryCarrierRepairmobileResponse {
+	s.Count = &v
+	return s
+}
+
+type BindCarrierRepairmobileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 失联修复初始化的流程ID
+	ProcessId *string `json:"process_id,omitempty" xml:"process_id,omitempty" require:"true"`
+	// 身份证号，和失联修复初始化接口身份证号加密方式保持一致
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 修复的手机号排序，例如绑定第一个修复手机号填入1
+	MobileNum *string `json:"mobile_num,omitempty" xml:"mobile_num,omitempty" require:"true"`
+	// 主叫号码
+	MobileA *string `json:"mobile_a,omitempty" xml:"mobile_a,omitempty" require:"true"`
+	// 主叫类型1-手机号码 2-固话
+	// 默认为1
+	MobileType *string `json:"mobile_type,omitempty" xml:"mobile_type,omitempty"`
+}
+
+func (s BindCarrierRepairmobileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindCarrierRepairmobileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindCarrierRepairmobileRequest) SetAuthToken(v string) *BindCarrierRepairmobileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileRequest) SetProductInstanceId(v string) *BindCarrierRepairmobileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileRequest) SetOuterOrderNo(v string) *BindCarrierRepairmobileRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileRequest) SetProcessId(v string) *BindCarrierRepairmobileRequest {
+	s.ProcessId = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileRequest) SetCertNo(v string) *BindCarrierRepairmobileRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileRequest) SetMobileNum(v string) *BindCarrierRepairmobileRequest {
+	s.MobileNum = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileRequest) SetMobileA(v string) *BindCarrierRepairmobileRequest {
+	s.MobileA = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileRequest) SetMobileType(v string) *BindCarrierRepairmobileRequest {
+	s.MobileType = &v
+	return s
+}
+
+type BindCarrierRepairmobileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 小号（实际拨打返回的虚拟小号）
+	MobileX *string `json:"mobile_x,omitempty" xml:"mobile_x,omitempty"`
+}
+
+func (s BindCarrierRepairmobileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindCarrierRepairmobileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindCarrierRepairmobileResponse) SetReqMsgId(v string) *BindCarrierRepairmobileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileResponse) SetResultCode(v string) *BindCarrierRepairmobileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileResponse) SetResultMsg(v string) *BindCarrierRepairmobileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BindCarrierRepairmobileResponse) SetMobileX(v string) *BindCarrierRepairmobileResponse {
+	s.MobileX = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4947,7 +5409,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.15.33"),
+				"sdk_version":      tea.String("1.16.0"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6282,6 +6744,176 @@ func (client *Client) QueryBankLivenessEx(request *QueryBankLivenessRequest, hea
 	}
 	_result = &QueryBankLivenessResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.bank.liveness.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用于阿里云渠道小程序域名的绑定
+ * Summary: 新增场景与域名映射
+ */
+func (client *Client) CreateConsoleDomain(request *CreateConsoleDomainRequest) (_result *CreateConsoleDomainResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateConsoleDomainResponse{}
+	_body, _err := client.CreateConsoleDomainEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用于阿里云渠道小程序域名的绑定
+ * Summary: 新增场景与域名映射
+ */
+func (client *Client) CreateConsoleDomainEx(request *CreateConsoleDomainRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateConsoleDomainResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateConsoleDomainResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.console.domain.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 阿里云控制台删除场景与域名映射
+ * Summary: 删除场景与域名映射
+ */
+func (client *Client) DeleteConsoleDomain(request *DeleteConsoleDomainRequest) (_result *DeleteConsoleDomainResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteConsoleDomainResponse{}
+	_body, _err := client.DeleteConsoleDomainEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 阿里云控制台删除场景与域名映射
+ * Summary: 删除场景与域名映射
+ */
+func (client *Client) DeleteConsoleDomainEx(request *DeleteConsoleDomainRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteConsoleDomainResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteConsoleDomainResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.console.domain.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 失联修复初始化
+ * Summary: 失联修复初始化
+ */
+func (client *Client) InitCarrierRepairmobile(request *InitCarrierRepairmobileRequest) (_result *InitCarrierRepairmobileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitCarrierRepairmobileResponse{}
+	_body, _err := client.InitCarrierRepairmobileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 失联修复初始化
+ * Summary: 失联修复初始化
+ */
+func (client *Client) InitCarrierRepairmobileEx(request *InitCarrierRepairmobileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitCarrierRepairmobileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitCarrierRepairmobileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.carrier.repairmobile.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 失联修复查询修复结果
+ * Summary: 失联修复查询修复结果
+ */
+func (client *Client) QueryCarrierRepairmobile(request *QueryCarrierRepairmobileRequest) (_result *QueryCarrierRepairmobileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCarrierRepairmobileResponse{}
+	_body, _err := client.QueryCarrierRepairmobileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 失联修复查询修复结果
+ * Summary: 失联修复查询修复结果
+ */
+func (client *Client) QueryCarrierRepairmobileEx(request *QueryCarrierRepairmobileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCarrierRepairmobileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCarrierRepairmobileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.carrier.repairmobile.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 失联修复小号绑定
+ * Summary: 失联修复小号绑定
+ */
+func (client *Client) BindCarrierRepairmobile(request *BindCarrierRepairmobileRequest) (_result *BindCarrierRepairmobileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindCarrierRepairmobileResponse{}
+	_body, _err := client.BindCarrierRepairmobileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 失联修复小号绑定
+ * Summary: 失联修复小号绑定
+ */
+func (client *Client) BindCarrierRepairmobileEx(request *BindCarrierRepairmobileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindCarrierRepairmobileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindCarrierRepairmobileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.carrier.repairmobile.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
