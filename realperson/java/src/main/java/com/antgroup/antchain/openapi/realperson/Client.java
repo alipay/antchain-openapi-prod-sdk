@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.15.33"),
+                    new TeaPair("sdk_version", "1.16.0"),
                     new TeaPair("_prod_code", "REALPERSON"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -910,6 +910,101 @@ public class Client {
     public QueryBankLivenessResponse queryBankLivenessEx(QueryBankLivenessRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.bank.liveness.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBankLivenessResponse());
+    }
+
+    /**
+     * Description: 用于阿里云渠道小程序域名的绑定
+     * Summary: 新增场景与域名映射
+     */
+    public CreateConsoleDomainResponse createConsoleDomain(CreateConsoleDomainRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createConsoleDomainEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 用于阿里云渠道小程序域名的绑定
+     * Summary: 新增场景与域名映射
+     */
+    public CreateConsoleDomainResponse createConsoleDomainEx(CreateConsoleDomainRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.console.domain.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateConsoleDomainResponse());
+    }
+
+    /**
+     * Description: 阿里云控制台删除场景与域名映射
+     * Summary: 删除场景与域名映射
+     */
+    public DeleteConsoleDomainResponse deleteConsoleDomain(DeleteConsoleDomainRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteConsoleDomainEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云控制台删除场景与域名映射
+     * Summary: 删除场景与域名映射
+     */
+    public DeleteConsoleDomainResponse deleteConsoleDomainEx(DeleteConsoleDomainRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.console.domain.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteConsoleDomainResponse());
+    }
+
+    /**
+     * Description: 失联修复初始化
+     * Summary: 失联修复初始化
+     */
+    public InitCarrierRepairmobileResponse initCarrierRepairmobile(InitCarrierRepairmobileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initCarrierRepairmobileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 失联修复初始化
+     * Summary: 失联修复初始化
+     */
+    public InitCarrierRepairmobileResponse initCarrierRepairmobileEx(InitCarrierRepairmobileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.carrier.repairmobile.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitCarrierRepairmobileResponse());
+    }
+
+    /**
+     * Description: 失联修复查询修复结果
+     * Summary: 失联修复查询修复结果
+     */
+    public QueryCarrierRepairmobileResponse queryCarrierRepairmobile(QueryCarrierRepairmobileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCarrierRepairmobileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 失联修复查询修复结果
+     * Summary: 失联修复查询修复结果
+     */
+    public QueryCarrierRepairmobileResponse queryCarrierRepairmobileEx(QueryCarrierRepairmobileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.carrier.repairmobile.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCarrierRepairmobileResponse());
+    }
+
+    /**
+     * Description: 失联修复小号绑定
+     * Summary: 失联修复小号绑定
+     */
+    public BindCarrierRepairmobileResponse bindCarrierRepairmobile(BindCarrierRepairmobileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindCarrierRepairmobileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 失联修复小号绑定
+     * Summary: 失联修复小号绑定
+     */
+    public BindCarrierRepairmobileResponse bindCarrierRepairmobileEx(BindCarrierRepairmobileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.carrier.repairmobile.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindCarrierRepairmobileResponse());
     }
 
     /**
