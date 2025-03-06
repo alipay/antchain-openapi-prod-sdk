@@ -85,8 +85,6 @@ class AuthFundCreditgrantingRequest extends Model
         Model::validateRequired('merchantId', $this->merchantId, true);
         Model::validateRequired('fundId', $this->fundId, true);
         Model::validateRequired('authId', $this->authId, true);
-        Model::validateRequired('authBeginTime', $this->authBeginTime, true);
-        Model::validateRequired('authEndTime', $this->authEndTime, true);
         Model::validateRequired('orderQueryBegin', $this->orderQueryBegin, true);
     }
 
