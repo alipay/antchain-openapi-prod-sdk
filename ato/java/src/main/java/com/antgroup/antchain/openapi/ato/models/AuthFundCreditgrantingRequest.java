@@ -33,12 +33,10 @@ public class AuthFundCreditgrantingRequest extends TeaModel {
 
     // 授权开始时间，格式为yyyy-MM-dd
     @NameInMap("auth_begin_time")
-    @Validation(required = true)
     public String authBeginTime;
 
     // 授权结束时间，格式为yyyy-MM-dd
     @NameInMap("auth_end_time")
-    @Validation(required = true)
     public String authEndTime;
 
     // 订单查询开始时间，格式为yyyy-MM-dd HH:mm:ss，需要在auth_begin_time之后。
