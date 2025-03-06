@@ -3415,6 +3415,368 @@ export class QueryBankLivenessResponse extends $tea.Model {
   }
 }
 
+export class CreateConsoleDomainRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景id
+  sceneId: string;
+  // 用于排查问题
+  bizId: string;
+  // 客户填自己需要绑定的小程序名称
+  miniProgramName: string;
+  // 所属平台，微信、支付宝
+  platform: string;
+  // 校验文件的名称
+  checkFileName: string;
+  // 填校验文件里面的内容
+  checkFileBody: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneId: 'scene_id',
+      bizId: 'biz_id',
+      miniProgramName: 'mini_program_name',
+      platform: 'platform',
+      checkFileName: 'check_file_name',
+      checkFileBody: 'check_file_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneId: 'string',
+      bizId: 'string',
+      miniProgramName: 'string',
+      platform: 'string',
+      checkFileName: 'string',
+      checkFileBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateConsoleDomainResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回绑定的域名
+  domain?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      domain: 'domain',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      domain: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteConsoleDomainRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 控制台场景id
+  sceneId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneId: 'scene_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteConsoleDomainResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitCarrierRepairmobileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+  outerOrderNo: string;
+  // 流程ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，用于流程串联。
+  processId: string;
+  // 运营商类型，取值如下：
+  // CHINA_TELECOM：中国电信
+  // CHINA_MOBILE：中国移动
+  // CHINA_UNICOM：中国联通
+  carrier: string;
+  // 入参加密模式：
+  // "0"（默认值）：不加密；
+  // "2"：身份证号、曾用手机号字段都需填写SHA256加密后的字符串。
+  // 默认未"0"
+  encryptType?: string;
+  // 失联修复身份证号，使用入参加密模式加密
+  certNo: string;
+  // 曾用手机号码，使用入参加密模式加密
+  mobile?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      processId: 'process_id',
+      carrier: 'carrier',
+      encryptType: 'encrypt_type',
+      certNo: 'cert_no',
+      mobile: 'mobile',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      processId: 'string',
+      carrier: 'string',
+      encryptType: 'string',
+      certNo: 'string',
+      mobile: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitCarrierRepairmobileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 流程ID，和客户入参的process_id一致
+  processId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      processId: 'process_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      processId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCarrierRepairmobileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+  outerOrderNo: string;
+  // 失联修复初始化的流程ID
+  processId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      processId: 'process_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      processId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCarrierRepairmobileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 失联人手机号修复数量
+  count?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      count: 'count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      count: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindCarrierRepairmobileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+  outerOrderNo: string;
+  // 失联修复初始化的流程ID
+  processId: string;
+  // 身份证号，和失联修复初始化接口身份证号加密方式保持一致
+  certNo: string;
+  // 修复的手机号排序，例如绑定第一个修复手机号填入1
+  mobileNum: string;
+  // 主叫号码
+  mobileA: string;
+  // 主叫类型1-手机号码 2-固话
+  // 默认为1
+  mobileType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      processId: 'process_id',
+      certNo: 'cert_no',
+      mobileNum: 'mobile_num',
+      mobileA: 'mobile_a',
+      mobileType: 'mobile_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      processId: 'string',
+      certNo: 'string',
+      mobileNum: 'string',
+      mobileA: 'string',
+      mobileType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BindCarrierRepairmobileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 小号（实际拨打返回的虚拟小号）
+  mobileX?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      mobileX: 'mobile_x',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      mobileX: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3616,7 +3978,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.15.33",
+          sdk_version: "1.16.0",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
@@ -4390,6 +4752,101 @@ export default class Client {
   async queryBankLivenessEx(request: QueryBankLivenessRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBankLivenessResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryBankLivenessResponse>(await this.doRequest("1.0", "di.realperson.bank.liveness.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBankLivenessResponse({}));
+  }
+
+  /**
+   * Description: 用于阿里云渠道小程序域名的绑定
+   * Summary: 新增场景与域名映射
+   */
+  async createConsoleDomain(request: CreateConsoleDomainRequest): Promise<CreateConsoleDomainResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createConsoleDomainEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用于阿里云渠道小程序域名的绑定
+   * Summary: 新增场景与域名映射
+   */
+  async createConsoleDomainEx(request: CreateConsoleDomainRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateConsoleDomainResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateConsoleDomainResponse>(await this.doRequest("1.0", "di.realperson.console.domain.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateConsoleDomainResponse({}));
+  }
+
+  /**
+   * Description: 阿里云控制台删除场景与域名映射
+   * Summary: 删除场景与域名映射
+   */
+  async deleteConsoleDomain(request: DeleteConsoleDomainRequest): Promise<DeleteConsoleDomainResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deleteConsoleDomainEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 阿里云控制台删除场景与域名映射
+   * Summary: 删除场景与域名映射
+   */
+  async deleteConsoleDomainEx(request: DeleteConsoleDomainRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteConsoleDomainResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeleteConsoleDomainResponse>(await this.doRequest("1.0", "di.realperson.console.domain.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteConsoleDomainResponse({}));
+  }
+
+  /**
+   * Description: 失联修复初始化
+   * Summary: 失联修复初始化
+   */
+  async initCarrierRepairmobile(request: InitCarrierRepairmobileRequest): Promise<InitCarrierRepairmobileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initCarrierRepairmobileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 失联修复初始化
+   * Summary: 失联修复初始化
+   */
+  async initCarrierRepairmobileEx(request: InitCarrierRepairmobileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitCarrierRepairmobileResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitCarrierRepairmobileResponse>(await this.doRequest("1.0", "di.realperson.carrier.repairmobile.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitCarrierRepairmobileResponse({}));
+  }
+
+  /**
+   * Description: 失联修复查询修复结果
+   * Summary: 失联修复查询修复结果
+   */
+  async queryCarrierRepairmobile(request: QueryCarrierRepairmobileRequest): Promise<QueryCarrierRepairmobileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCarrierRepairmobileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 失联修复查询修复结果
+   * Summary: 失联修复查询修复结果
+   */
+  async queryCarrierRepairmobileEx(request: QueryCarrierRepairmobileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCarrierRepairmobileResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCarrierRepairmobileResponse>(await this.doRequest("1.0", "di.realperson.carrier.repairmobile.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCarrierRepairmobileResponse({}));
+  }
+
+  /**
+   * Description: 失联修复小号绑定
+   * Summary: 失联修复小号绑定
+   */
+  async bindCarrierRepairmobile(request: BindCarrierRepairmobileRequest): Promise<BindCarrierRepairmobileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.bindCarrierRepairmobileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 失联修复小号绑定
+   * Summary: 失联修复小号绑定
+   */
+  async bindCarrierRepairmobileEx(request: BindCarrierRepairmobileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindCarrierRepairmobileResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BindCarrierRepairmobileResponse>(await this.doRequest("1.0", "di.realperson.carrier.repairmobile.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindCarrierRepairmobileResponse({}));
   }
 
   /**
