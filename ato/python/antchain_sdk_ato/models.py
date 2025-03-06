@@ -7887,8 +7887,6 @@ class AuthFundCreditgrantingRequest(TeaModel):
         self.validate_required(self.merchant_id, 'merchant_id')
         self.validate_required(self.fund_id, 'fund_id')
         self.validate_required(self.auth_id, 'auth_id')
-        self.validate_required(self.auth_begin_time, 'auth_begin_time')
-        self.validate_required(self.auth_end_time, 'auth_end_time')
         self.validate_required(self.order_query_begin, 'order_query_begin')
 
     def to_map(self):
