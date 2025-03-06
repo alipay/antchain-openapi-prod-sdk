@@ -137,7 +137,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.15.33"},
+                        {"sdk_version", "1.16.0"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.15.33"},
+                        {"sdk_version", "1.16.0"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1927,6 +1927,216 @@ namespace AntChain.SDK.REALPERSON
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryBankLivenessResponse>(await DoRequestAsync("1.0", "di.realperson.bank.liveness.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于阿里云渠道小程序域名的绑定
+         * Summary: 新增场景与域名映射
+         */
+        public CreateConsoleDomainResponse CreateConsoleDomain(CreateConsoleDomainRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateConsoleDomainEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于阿里云渠道小程序域名的绑定
+         * Summary: 新增场景与域名映射
+         */
+        public async Task<CreateConsoleDomainResponse> CreateConsoleDomainAsync(CreateConsoleDomainRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateConsoleDomainExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于阿里云渠道小程序域名的绑定
+         * Summary: 新增场景与域名映射
+         */
+        public CreateConsoleDomainResponse CreateConsoleDomainEx(CreateConsoleDomainRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateConsoleDomainResponse>(DoRequest("1.0", "di.realperson.console.domain.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于阿里云渠道小程序域名的绑定
+         * Summary: 新增场景与域名映射
+         */
+        public async Task<CreateConsoleDomainResponse> CreateConsoleDomainExAsync(CreateConsoleDomainRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateConsoleDomainResponse>(await DoRequestAsync("1.0", "di.realperson.console.domain.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 阿里云控制台删除场景与域名映射
+         * Summary: 删除场景与域名映射
+         */
+        public DeleteConsoleDomainResponse DeleteConsoleDomain(DeleteConsoleDomainRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteConsoleDomainEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 阿里云控制台删除场景与域名映射
+         * Summary: 删除场景与域名映射
+         */
+        public async Task<DeleteConsoleDomainResponse> DeleteConsoleDomainAsync(DeleteConsoleDomainRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteConsoleDomainExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 阿里云控制台删除场景与域名映射
+         * Summary: 删除场景与域名映射
+         */
+        public DeleteConsoleDomainResponse DeleteConsoleDomainEx(DeleteConsoleDomainRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteConsoleDomainResponse>(DoRequest("1.0", "di.realperson.console.domain.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 阿里云控制台删除场景与域名映射
+         * Summary: 删除场景与域名映射
+         */
+        public async Task<DeleteConsoleDomainResponse> DeleteConsoleDomainExAsync(DeleteConsoleDomainRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteConsoleDomainResponse>(await DoRequestAsync("1.0", "di.realperson.console.domain.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 失联修复初始化
+         * Summary: 失联修复初始化
+         */
+        public InitCarrierRepairmobileResponse InitCarrierRepairmobile(InitCarrierRepairmobileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitCarrierRepairmobileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 失联修复初始化
+         * Summary: 失联修复初始化
+         */
+        public async Task<InitCarrierRepairmobileResponse> InitCarrierRepairmobileAsync(InitCarrierRepairmobileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitCarrierRepairmobileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 失联修复初始化
+         * Summary: 失联修复初始化
+         */
+        public InitCarrierRepairmobileResponse InitCarrierRepairmobileEx(InitCarrierRepairmobileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitCarrierRepairmobileResponse>(DoRequest("1.0", "di.realperson.carrier.repairmobile.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 失联修复初始化
+         * Summary: 失联修复初始化
+         */
+        public async Task<InitCarrierRepairmobileResponse> InitCarrierRepairmobileExAsync(InitCarrierRepairmobileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitCarrierRepairmobileResponse>(await DoRequestAsync("1.0", "di.realperson.carrier.repairmobile.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 失联修复查询修复结果
+         * Summary: 失联修复查询修复结果
+         */
+        public QueryCarrierRepairmobileResponse QueryCarrierRepairmobile(QueryCarrierRepairmobileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCarrierRepairmobileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 失联修复查询修复结果
+         * Summary: 失联修复查询修复结果
+         */
+        public async Task<QueryCarrierRepairmobileResponse> QueryCarrierRepairmobileAsync(QueryCarrierRepairmobileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCarrierRepairmobileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 失联修复查询修复结果
+         * Summary: 失联修复查询修复结果
+         */
+        public QueryCarrierRepairmobileResponse QueryCarrierRepairmobileEx(QueryCarrierRepairmobileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCarrierRepairmobileResponse>(DoRequest("1.0", "di.realperson.carrier.repairmobile.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 失联修复查询修复结果
+         * Summary: 失联修复查询修复结果
+         */
+        public async Task<QueryCarrierRepairmobileResponse> QueryCarrierRepairmobileExAsync(QueryCarrierRepairmobileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCarrierRepairmobileResponse>(await DoRequestAsync("1.0", "di.realperson.carrier.repairmobile.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 失联修复小号绑定
+         * Summary: 失联修复小号绑定
+         */
+        public BindCarrierRepairmobileResponse BindCarrierRepairmobile(BindCarrierRepairmobileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BindCarrierRepairmobileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 失联修复小号绑定
+         * Summary: 失联修复小号绑定
+         */
+        public async Task<BindCarrierRepairmobileResponse> BindCarrierRepairmobileAsync(BindCarrierRepairmobileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BindCarrierRepairmobileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 失联修复小号绑定
+         * Summary: 失联修复小号绑定
+         */
+        public BindCarrierRepairmobileResponse BindCarrierRepairmobileEx(BindCarrierRepairmobileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindCarrierRepairmobileResponse>(DoRequest("1.0", "di.realperson.carrier.repairmobile.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 失联修复小号绑定
+         * Summary: 失联修复小号绑定
+         */
+        public async Task<BindCarrierRepairmobileResponse> BindCarrierRepairmobileExAsync(BindCarrierRepairmobileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindCarrierRepairmobileResponse>(await DoRequestAsync("1.0", "di.realperson.carrier.repairmobile.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
