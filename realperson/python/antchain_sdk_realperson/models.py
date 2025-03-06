@@ -5551,6 +5551,581 @@ class QueryBankLivenessResponse(TeaModel):
         return self
 
 
+class CreateConsoleDomainRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_id: str = None,
+        biz_id: str = None,
+        mini_program_name: str = None,
+        platform: str = None,
+        check_file_name: str = None,
+        check_file_body: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景id
+        self.scene_id = scene_id
+        # 用于排查问题
+        self.biz_id = biz_id
+        # 客户填自己需要绑定的小程序名称
+        self.mini_program_name = mini_program_name
+        # 所属平台，微信、支付宝
+        self.platform = platform
+        # 校验文件的名称
+        self.check_file_name = check_file_name
+        # 填校验文件里面的内容
+        self.check_file_body = check_file_body
+
+    def validate(self):
+        self.validate_required(self.scene_id, 'scene_id')
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.mini_program_name, 'mini_program_name')
+        self.validate_required(self.platform, 'platform')
+        self.validate_required(self.check_file_name, 'check_file_name')
+        self.validate_required(self.check_file_body, 'check_file_body')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_id is not None:
+            result['scene_id'] = self.scene_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.mini_program_name is not None:
+            result['mini_program_name'] = self.mini_program_name
+        if self.platform is not None:
+            result['platform'] = self.platform
+        if self.check_file_name is not None:
+            result['check_file_name'] = self.check_file_name
+        if self.check_file_body is not None:
+            result['check_file_body'] = self.check_file_body
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_id') is not None:
+            self.scene_id = m.get('scene_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('mini_program_name') is not None:
+            self.mini_program_name = m.get('mini_program_name')
+        if m.get('platform') is not None:
+            self.platform = m.get('platform')
+        if m.get('check_file_name') is not None:
+            self.check_file_name = m.get('check_file_name')
+        if m.get('check_file_body') is not None:
+            self.check_file_body = m.get('check_file_body')
+        return self
+
+
+class CreateConsoleDomainResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        domain: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回绑定的域名
+        self.domain = domain
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.domain is not None:
+            result['domain'] = self.domain
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('domain') is not None:
+            self.domain = m.get('domain')
+        return self
+
+
+class DeleteConsoleDomainRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 控制台场景id
+        self.scene_id = scene_id
+
+    def validate(self):
+        self.validate_required(self.scene_id, 'scene_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_id is not None:
+            result['scene_id'] = self.scene_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_id') is not None:
+            self.scene_id = m.get('scene_id')
+        return self
+
+
+class DeleteConsoleDomainResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class InitCarrierRepairmobileRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        outer_order_no: str = None,
+        process_id: str = None,
+        carrier: str = None,
+        encrypt_type: str = None,
+        cert_no: str = None,
+        mobile: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+        self.outer_order_no = outer_order_no
+        # 流程ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，用于流程串联。
+        self.process_id = process_id
+        # 运营商类型，取值如下：
+        # CHINA_TELECOM：中国电信
+        # CHINA_MOBILE：中国移动
+        # CHINA_UNICOM：中国联通
+        self.carrier = carrier
+        # 入参加密模式：
+        # "0"（默认值）：不加密；
+        # "2"：身份证号、曾用手机号字段都需填写SHA256加密后的字符串。
+        # 默认未"0"
+        self.encrypt_type = encrypt_type
+        # 失联修复身份证号，使用入参加密模式加密
+        self.cert_no = cert_no
+        # 曾用手机号码，使用入参加密模式加密
+        self.mobile = mobile
+
+    def validate(self):
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+        self.validate_required(self.process_id, 'process_id')
+        self.validate_required(self.carrier, 'carrier')
+        self.validate_required(self.cert_no, 'cert_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        if self.process_id is not None:
+            result['process_id'] = self.process_id
+        if self.carrier is not None:
+            result['carrier'] = self.carrier
+        if self.encrypt_type is not None:
+            result['encrypt_type'] = self.encrypt_type
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        if m.get('process_id') is not None:
+            self.process_id = m.get('process_id')
+        if m.get('carrier') is not None:
+            self.carrier = m.get('carrier')
+        if m.get('encrypt_type') is not None:
+            self.encrypt_type = m.get('encrypt_type')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        return self
+
+
+class InitCarrierRepairmobileResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        process_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 流程ID，和客户入参的process_id一致
+        self.process_id = process_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.process_id is not None:
+            result['process_id'] = self.process_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('process_id') is not None:
+            self.process_id = m.get('process_id')
+        return self
+
+
+class QueryCarrierRepairmobileRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        outer_order_no: str = None,
+        process_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+        self.outer_order_no = outer_order_no
+        # 失联修复初始化的流程ID
+        self.process_id = process_id
+
+    def validate(self):
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+        self.validate_required(self.process_id, 'process_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        if self.process_id is not None:
+            result['process_id'] = self.process_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        if m.get('process_id') is not None:
+            self.process_id = m.get('process_id')
+        return self
+
+
+class QueryCarrierRepairmobileResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        count: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 失联人手机号修复数量
+        self.count = count
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.count is not None:
+            result['count'] = self.count
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('count') is not None:
+            self.count = m.get('count')
+        return self
+
+
+class BindCarrierRepairmobileRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        outer_order_no: str = None,
+        process_id: str = None,
+        cert_no: str = None,
+        mobile_num: str = None,
+        mobile_a: str = None,
+        mobile_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+        self.outer_order_no = outer_order_no
+        # 失联修复初始化的流程ID
+        self.process_id = process_id
+        # 身份证号，和失联修复初始化接口身份证号加密方式保持一致
+        self.cert_no = cert_no
+        # 修复的手机号排序，例如绑定第一个修复手机号填入1
+        self.mobile_num = mobile_num
+        # 主叫号码
+        self.mobile_a = mobile_a
+        # 主叫类型1-手机号码 2-固话
+        # 默认为1
+        self.mobile_type = mobile_type
+
+    def validate(self):
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+        self.validate_required(self.process_id, 'process_id')
+        self.validate_required(self.cert_no, 'cert_no')
+        self.validate_required(self.mobile_num, 'mobile_num')
+        self.validate_required(self.mobile_a, 'mobile_a')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        if self.process_id is not None:
+            result['process_id'] = self.process_id
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.mobile_num is not None:
+            result['mobile_num'] = self.mobile_num
+        if self.mobile_a is not None:
+            result['mobile_a'] = self.mobile_a
+        if self.mobile_type is not None:
+            result['mobile_type'] = self.mobile_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        if m.get('process_id') is not None:
+            self.process_id = m.get('process_id')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('mobile_num') is not None:
+            self.mobile_num = m.get('mobile_num')
+        if m.get('mobile_a') is not None:
+            self.mobile_a = m.get('mobile_a')
+        if m.get('mobile_type') is not None:
+            self.mobile_type = m.get('mobile_type')
+        return self
+
+
+class BindCarrierRepairmobileResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        mobile_x: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 小号（实际拨打返回的虚拟小号）
+        self.mobile_x = mobile_x
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.mobile_x is not None:
+            result['mobile_x'] = self.mobile_x
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('mobile_x') is not None:
+            self.mobile_x = m.get('mobile_x')
+        return self
+
+
 class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
     def __init__(
         self,

@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.33',
+                    'sdk_version': '1.16.0',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.33',
+                    'sdk_version': '1.16.0',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -2361,6 +2361,286 @@ class Client:
         return TeaCore.from_map(
             realperson_models.QueryBankLivenessResponse(),
             await self.do_request_async('1.0', 'di.realperson.bank.liveness.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_console_domain(
+        self,
+        request: realperson_models.CreateConsoleDomainRequest,
+    ) -> realperson_models.CreateConsoleDomainResponse:
+        """
+        Description: 用于阿里云渠道小程序域名的绑定
+        Summary: 新增场景与域名映射
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_console_domain_ex(request, headers, runtime)
+
+    async def create_console_domain_async(
+        self,
+        request: realperson_models.CreateConsoleDomainRequest,
+    ) -> realperson_models.CreateConsoleDomainResponse:
+        """
+        Description: 用于阿里云渠道小程序域名的绑定
+        Summary: 新增场景与域名映射
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_console_domain_ex_async(request, headers, runtime)
+
+    def create_console_domain_ex(
+        self,
+        request: realperson_models.CreateConsoleDomainRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CreateConsoleDomainResponse:
+        """
+        Description: 用于阿里云渠道小程序域名的绑定
+        Summary: 新增场景与域名映射
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.CreateConsoleDomainResponse(),
+            self.do_request('1.0', 'di.realperson.console.domain.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_console_domain_ex_async(
+        self,
+        request: realperson_models.CreateConsoleDomainRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CreateConsoleDomainResponse:
+        """
+        Description: 用于阿里云渠道小程序域名的绑定
+        Summary: 新增场景与域名映射
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.CreateConsoleDomainResponse(),
+            await self.do_request_async('1.0', 'di.realperson.console.domain.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_console_domain(
+        self,
+        request: realperson_models.DeleteConsoleDomainRequest,
+    ) -> realperson_models.DeleteConsoleDomainResponse:
+        """
+        Description: 阿里云控制台删除场景与域名映射
+        Summary: 删除场景与域名映射
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_console_domain_ex(request, headers, runtime)
+
+    async def delete_console_domain_async(
+        self,
+        request: realperson_models.DeleteConsoleDomainRequest,
+    ) -> realperson_models.DeleteConsoleDomainResponse:
+        """
+        Description: 阿里云控制台删除场景与域名映射
+        Summary: 删除场景与域名映射
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_console_domain_ex_async(request, headers, runtime)
+
+    def delete_console_domain_ex(
+        self,
+        request: realperson_models.DeleteConsoleDomainRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.DeleteConsoleDomainResponse:
+        """
+        Description: 阿里云控制台删除场景与域名映射
+        Summary: 删除场景与域名映射
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.DeleteConsoleDomainResponse(),
+            self.do_request('1.0', 'di.realperson.console.domain.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_console_domain_ex_async(
+        self,
+        request: realperson_models.DeleteConsoleDomainRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.DeleteConsoleDomainResponse:
+        """
+        Description: 阿里云控制台删除场景与域名映射
+        Summary: 删除场景与域名映射
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.DeleteConsoleDomainResponse(),
+            await self.do_request_async('1.0', 'di.realperson.console.domain.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_carrier_repairmobile(
+        self,
+        request: realperson_models.InitCarrierRepairmobileRequest,
+    ) -> realperson_models.InitCarrierRepairmobileResponse:
+        """
+        Description: 失联修复初始化
+        Summary: 失联修复初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_carrier_repairmobile_ex(request, headers, runtime)
+
+    async def init_carrier_repairmobile_async(
+        self,
+        request: realperson_models.InitCarrierRepairmobileRequest,
+    ) -> realperson_models.InitCarrierRepairmobileResponse:
+        """
+        Description: 失联修复初始化
+        Summary: 失联修复初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_carrier_repairmobile_ex_async(request, headers, runtime)
+
+    def init_carrier_repairmobile_ex(
+        self,
+        request: realperson_models.InitCarrierRepairmobileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.InitCarrierRepairmobileResponse:
+        """
+        Description: 失联修复初始化
+        Summary: 失联修复初始化
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.InitCarrierRepairmobileResponse(),
+            self.do_request('1.0', 'di.realperson.carrier.repairmobile.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_carrier_repairmobile_ex_async(
+        self,
+        request: realperson_models.InitCarrierRepairmobileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.InitCarrierRepairmobileResponse:
+        """
+        Description: 失联修复初始化
+        Summary: 失联修复初始化
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.InitCarrierRepairmobileResponse(),
+            await self.do_request_async('1.0', 'di.realperson.carrier.repairmobile.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_carrier_repairmobile(
+        self,
+        request: realperson_models.QueryCarrierRepairmobileRequest,
+    ) -> realperson_models.QueryCarrierRepairmobileResponse:
+        """
+        Description: 失联修复查询修复结果
+        Summary: 失联修复查询修复结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_carrier_repairmobile_ex(request, headers, runtime)
+
+    async def query_carrier_repairmobile_async(
+        self,
+        request: realperson_models.QueryCarrierRepairmobileRequest,
+    ) -> realperson_models.QueryCarrierRepairmobileResponse:
+        """
+        Description: 失联修复查询修复结果
+        Summary: 失联修复查询修复结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_carrier_repairmobile_ex_async(request, headers, runtime)
+
+    def query_carrier_repairmobile_ex(
+        self,
+        request: realperson_models.QueryCarrierRepairmobileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryCarrierRepairmobileResponse:
+        """
+        Description: 失联修复查询修复结果
+        Summary: 失联修复查询修复结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryCarrierRepairmobileResponse(),
+            self.do_request('1.0', 'di.realperson.carrier.repairmobile.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_carrier_repairmobile_ex_async(
+        self,
+        request: realperson_models.QueryCarrierRepairmobileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryCarrierRepairmobileResponse:
+        """
+        Description: 失联修复查询修复结果
+        Summary: 失联修复查询修复结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryCarrierRepairmobileResponse(),
+            await self.do_request_async('1.0', 'di.realperson.carrier.repairmobile.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_carrier_repairmobile(
+        self,
+        request: realperson_models.BindCarrierRepairmobileRequest,
+    ) -> realperson_models.BindCarrierRepairmobileResponse:
+        """
+        Description: 失联修复小号绑定
+        Summary: 失联修复小号绑定
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_carrier_repairmobile_ex(request, headers, runtime)
+
+    async def bind_carrier_repairmobile_async(
+        self,
+        request: realperson_models.BindCarrierRepairmobileRequest,
+    ) -> realperson_models.BindCarrierRepairmobileResponse:
+        """
+        Description: 失联修复小号绑定
+        Summary: 失联修复小号绑定
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_carrier_repairmobile_ex_async(request, headers, runtime)
+
+    def bind_carrier_repairmobile_ex(
+        self,
+        request: realperson_models.BindCarrierRepairmobileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.BindCarrierRepairmobileResponse:
+        """
+        Description: 失联修复小号绑定
+        Summary: 失联修复小号绑定
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.BindCarrierRepairmobileResponse(),
+            self.do_request('1.0', 'di.realperson.carrier.repairmobile.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_carrier_repairmobile_ex_async(
+        self,
+        request: realperson_models.BindCarrierRepairmobileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.BindCarrierRepairmobileResponse:
+        """
+        Description: 失联修复小号绑定
+        Summary: 失联修复小号绑定
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.BindCarrierRepairmobileResponse(),
+            await self.do_request_async('1.0', 'di.realperson.carrier.repairmobile.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
