@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\REALPERSON\Models\BindCarrierRepairmobileRequest;
+use AntChain\REALPERSON\Models\BindCarrierRepairmobileResponse;
 use AntChain\REALPERSON\Models\CheckAnticheatPersonalRequest;
 use AntChain\REALPERSON\Models\CheckAnticheatPersonalResponse;
 use AntChain\REALPERSON\Models\CheckBankcardTwometaRequest;
@@ -33,12 +35,16 @@ use AntChain\REALPERSON\Models\CheckTwometaHashRequest;
 use AntChain\REALPERSON\Models\CheckTwometaHashResponse;
 use AntChain\REALPERSON\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\REALPERSON\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\REALPERSON\Models\CreateConsoleDomainRequest;
+use AntChain\REALPERSON\Models\CreateConsoleDomainResponse;
 use AntChain\REALPERSON\Models\CreateFacevrfServerRequest;
 use AntChain\REALPERSON\Models\CreateFacevrfServerResponse;
 use AntChain\REALPERSON\Models\CreateNfcServerRequest;
 use AntChain\REALPERSON\Models\CreateNfcServerResponse;
 use AntChain\REALPERSON\Models\CreateVoiceprintServermodeRequest;
 use AntChain\REALPERSON\Models\CreateVoiceprintServermodeResponse;
+use AntChain\REALPERSON\Models\DeleteConsoleDomainRequest;
+use AntChain\REALPERSON\Models\DeleteConsoleDomainResponse;
 use AntChain\REALPERSON\Models\DetailFacevrfServerRequest;
 use AntChain\REALPERSON\Models\DetailFacevrfServerResponse;
 use AntChain\REALPERSON\Models\ExecFacevrfServermodeRequest;
@@ -47,12 +53,16 @@ use AntChain\REALPERSON\Models\ExecFacevrfServerRequest;
 use AntChain\REALPERSON\Models\ExecFacevrfServerResponse;
 use AntChain\REALPERSON\Models\GetFacevrfEvidenceRequest;
 use AntChain\REALPERSON\Models\GetFacevrfEvidenceResponse;
+use AntChain\REALPERSON\Models\InitCarrierRepairmobileRequest;
+use AntChain\REALPERSON\Models\InitCarrierRepairmobileResponse;
 use AntChain\REALPERSON\Models\InitFacevrfZimRequest;
 use AntChain\REALPERSON\Models\InitFacevrfZimResponse;
 use AntChain\REALPERSON\Models\QueryBankLivenessRequest;
 use AntChain\REALPERSON\Models\QueryBankLivenessResponse;
 use AntChain\REALPERSON\Models\QueryCarrierNetstatusRequest;
 use AntChain\REALPERSON\Models\QueryCarrierNetstatusResponse;
+use AntChain\REALPERSON\Models\QueryCarrierRepairmobileRequest;
+use AntChain\REALPERSON\Models\QueryCarrierRepairmobileResponse;
 use AntChain\REALPERSON\Models\QueryDeepsecRiskRequest;
 use AntChain\REALPERSON\Models\QueryDeepsecRiskResponse;
 use AntChain\REALPERSON\Models\QueryDeepsecTsbmrqRequest;
@@ -232,7 +242,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.15.33',
+                    'sdk_version'      => '1.16.0',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1504,6 +1514,171 @@ class Client
         Utils::validateModel($request);
 
         return QueryBankLivenessResponse::fromMap($this->doRequest('1.0', 'di.realperson.bank.liveness.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于阿里云渠道小程序域名的绑定
+     * Summary: 新增场景与域名映射.
+     *
+     * @param CreateConsoleDomainRequest $request
+     *
+     * @return CreateConsoleDomainResponse
+     */
+    public function createConsoleDomain($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createConsoleDomainEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于阿里云渠道小程序域名的绑定
+     * Summary: 新增场景与域名映射.
+     *
+     * @param CreateConsoleDomainRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CreateConsoleDomainResponse
+     */
+    public function createConsoleDomainEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateConsoleDomainResponse::fromMap($this->doRequest('1.0', 'di.realperson.console.domain.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云控制台删除场景与域名映射
+     * Summary: 删除场景与域名映射.
+     *
+     * @param DeleteConsoleDomainRequest $request
+     *
+     * @return DeleteConsoleDomainResponse
+     */
+    public function deleteConsoleDomain($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteConsoleDomainEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云控制台删除场景与域名映射
+     * Summary: 删除场景与域名映射.
+     *
+     * @param DeleteConsoleDomainRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return DeleteConsoleDomainResponse
+     */
+    public function deleteConsoleDomainEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteConsoleDomainResponse::fromMap($this->doRequest('1.0', 'di.realperson.console.domain.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 失联修复初始化
+     * Summary: 失联修复初始化.
+     *
+     * @param InitCarrierRepairmobileRequest $request
+     *
+     * @return InitCarrierRepairmobileResponse
+     */
+    public function initCarrierRepairmobile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initCarrierRepairmobileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 失联修复初始化
+     * Summary: 失联修复初始化.
+     *
+     * @param InitCarrierRepairmobileRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return InitCarrierRepairmobileResponse
+     */
+    public function initCarrierRepairmobileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitCarrierRepairmobileResponse::fromMap($this->doRequest('1.0', 'di.realperson.carrier.repairmobile.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 失联修复查询修复结果
+     * Summary: 失联修复查询修复结果.
+     *
+     * @param QueryCarrierRepairmobileRequest $request
+     *
+     * @return QueryCarrierRepairmobileResponse
+     */
+    public function queryCarrierRepairmobile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCarrierRepairmobileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 失联修复查询修复结果
+     * Summary: 失联修复查询修复结果.
+     *
+     * @param QueryCarrierRepairmobileRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryCarrierRepairmobileResponse
+     */
+    public function queryCarrierRepairmobileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCarrierRepairmobileResponse::fromMap($this->doRequest('1.0', 'di.realperson.carrier.repairmobile.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 失联修复小号绑定
+     * Summary: 失联修复小号绑定.
+     *
+     * @param BindCarrierRepairmobileRequest $request
+     *
+     * @return BindCarrierRepairmobileResponse
+     */
+    public function bindCarrierRepairmobile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindCarrierRepairmobileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 失联修复小号绑定
+     * Summary: 失联修复小号绑定.
+     *
+     * @param BindCarrierRepairmobileRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return BindCarrierRepairmobileResponse
+     */
+    public function bindCarrierRepairmobileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindCarrierRepairmobileResponse::fromMap($this->doRequest('1.0', 'di.realperson.carrier.repairmobile.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
