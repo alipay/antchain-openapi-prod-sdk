@@ -28,7 +28,7 @@ class QueryFundAssertorderResponse extends Model
 
     // 用信订单履约信息
     /**
-     * @var OrderPrimiseExcelInfo[]
+     * @var OrderPromiseExcelInfo[]
      */
     public $data;
     protected $_name = [
@@ -89,7 +89,7 @@ class QueryFundAssertorderResponse extends Model
                 $model->data = [];
                 $n           = 0;
                 foreach ($map['data'] as $item) {
-                    $model->data[$n++] = null !== $item ? OrderPrimiseExcelInfo::fromMap($item) : $item;
+                    $model->data[$n++] = null !== $item ? OrderPromiseExcelInfo::fromMap($item) : $item;
                 }
             }
         }

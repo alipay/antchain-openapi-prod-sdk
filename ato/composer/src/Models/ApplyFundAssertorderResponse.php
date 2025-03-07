@@ -26,7 +26,10 @@ class ApplyFundAssertorderResponse extends Model
      */
     public $resultMsg;
 
-    // 生成中: TODO、已生成,:FINISH、无效:FAILURE
+    // 任务状态
+    // ● RUNNING:生成中
+    // ● SUCCESS:已生成
+    // ● FAILED:失败
     /**
      * @var string
      */

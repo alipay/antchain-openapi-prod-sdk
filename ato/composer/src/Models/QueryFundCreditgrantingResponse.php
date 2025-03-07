@@ -6,18 +6,25 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SyncFundCreditgrantingRequest extends Model
+class QueryFundCreditgrantingResponse extends Model
 {
-    // OAuth模式下的授权token
+    // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
      */
-    public $authToken;
+    public $reqMsgId;
 
+    // 结果码，一般OK表示调用成功
     /**
      * @var string
      */
-    public $productInstanceId;
+    public $resultCode;
+
+    // 异常信息的文本描述
+    /**
+     * @var string
+     */
+    public $resultMsg;
 
     // 授信id
     /**
@@ -44,6 +51,7 @@ class SyncFundCreditgrantingRequest extends Model
     public $merchantId;
 
     // 商户租户id
+    //
     /**
      * @var string
      */
@@ -66,54 +74,43 @@ class SyncFundCreditgrantingRequest extends Model
      * @var string
      */
     public $effectEndTime;
+
+    // 授信状态
+    // CREDITED:已授信
+    /**
+     * @var string
+     */
+    public $status;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'grantingId'        => 'granting_id',
-        'authId'            => 'auth_id',
-        'fundId'            => 'fund_id',
-        'merchantId'        => 'merchant_id',
-        'tenantId'          => 'tenant_id',
-        'grantingLine'      => 'granting_line',
-        'effectStartTime'   => 'effect_start_time',
-        'effectEndTime'     => 'effect_end_time',
+        'reqMsgId'        => 'req_msg_id',
+        'resultCode'      => 'result_code',
+        'resultMsg'       => 'result_msg',
+        'grantingId'      => 'granting_id',
+        'authId'          => 'auth_id',
+        'fundId'          => 'fund_id',
+        'merchantId'      => 'merchant_id',
+        'tenantId'        => 'tenant_id',
+        'grantingLine'    => 'granting_line',
+        'effectStartTime' => 'effect_start_time',
+        'effectEndTime'   => 'effect_end_time',
+        'status'          => 'status',
     ];
 
     public function validate()
     {
-        Model::validateRequired('grantingId', $this->grantingId, true);
-        Model::validateRequired('authId', $this->authId, true);
-        Model::validateRequired('fundId', $this->fundId, true);
-        Model::validateRequired('merchantId', $this->merchantId, true);
-        Model::validateRequired('tenantId', $this->tenantId, true);
-        Model::validateRequired('grantingLine', $this->grantingLine, true);
-        Model::validateRequired('effectStartTime', $this->effectStartTime, true);
-        Model::validateRequired('effectEndTime', $this->effectEndTime, true);
-        Model::validateMaxLength('grantingId', $this->grantingId, 20);
-        Model::validateMaxLength('authId', $this->authId, 20);
-        Model::validateMaxLength('fundId', $this->fundId, 32);
-        Model::validateMaxLength('merchantId', $this->merchantId, 32);
-        Model::validateMaxLength('tenantId', $this->tenantId, 32);
-        Model::validateMaxLength('effectStartTime', $this->effectStartTime, 20);
-        Model::validateMaxLength('effectEndTime', $this->effectEndTime, 20);
-        Model::validateMinLength('grantingId', $this->grantingId, 10);
-        Model::validateMinLength('authId', $this->authId, 10);
-        Model::validateMinLength('fundId', $this->fundId, 1);
-        Model::validateMinLength('merchantId', $this->merchantId, 1);
-        Model::validateMinLength('tenantId', $this->tenantId, 1);
-        Model::validateMinLength('effectStartTime', $this->effectStartTime, 10);
-        Model::validateMinLength('effectEndTime', $this->effectEndTime, 10);
-        Model::validateMinimum('grantingLine', $this->grantingLine, 1);
     }
 
     public function toMap()
     {
         $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
         }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
         }
         if (null !== $this->grantingId) {
             $res['granting_id'] = $this->grantingId;
@@ -139,6 +136,9 @@ class SyncFundCreditgrantingRequest extends Model
         if (null !== $this->effectEndTime) {
             $res['effect_end_time'] = $this->effectEndTime;
         }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
 
         return $res;
     }
@@ -146,16 +146,19 @@ class SyncFundCreditgrantingRequest extends Model
     /**
      * @param array $map
      *
-     * @return SyncFundCreditgrantingRequest
+     * @return QueryFundCreditgrantingResponse
      */
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
+        if (isset($map['req_msg_id'])) {
+            $model->reqMsgId = $map['req_msg_id'];
         }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
+        if (isset($map['result_code'])) {
+            $model->resultCode = $map['result_code'];
+        }
+        if (isset($map['result_msg'])) {
+            $model->resultMsg = $map['result_msg'];
         }
         if (isset($map['granting_id'])) {
             $model->grantingId = $map['granting_id'];
@@ -180,6 +183,9 @@ class SyncFundCreditgrantingRequest extends Model
         }
         if (isset($map['effect_end_time'])) {
             $model->effectEndTime = $map['effect_end_time'];
+        }
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
         }
 
         return $model;

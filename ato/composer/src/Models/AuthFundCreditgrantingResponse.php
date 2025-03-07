@@ -31,11 +31,18 @@ class AuthFundCreditgrantingResponse extends Model
      * @var string
      */
     public $merchantAuthUrl;
+
+    // 传入的auth_id
+    /**
+     * @var string
+     */
+    public $authId;
     protected $_name = [
         'reqMsgId'        => 'req_msg_id',
         'resultCode'      => 'result_code',
         'resultMsg'       => 'result_msg',
         'merchantAuthUrl' => 'merchant_auth_url',
+        'authId'          => 'auth_id',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class AuthFundCreditgrantingResponse extends Model
         }
         if (null !== $this->merchantAuthUrl) {
             $res['merchant_auth_url'] = $this->merchantAuthUrl;
+        }
+        if (null !== $this->authId) {
+            $res['auth_id'] = $this->authId;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class AuthFundCreditgrantingResponse extends Model
         }
         if (isset($map['merchant_auth_url'])) {
             $model->merchantAuthUrl = $map['merchant_auth_url'];
+        }
+        if (isset($map['auth_id'])) {
+            $model->authId = $map['auth_id'];
         }
 
         return $model;

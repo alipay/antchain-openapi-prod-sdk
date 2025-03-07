@@ -71,7 +71,7 @@ class ApplyFundAssertorderRequest extends Model
     /**
      * @var bool
      */
-    public $filterCance;
+    public $filterCancel;
 
     // 是否过滤提前结清订单,默认值false
     /**
@@ -107,7 +107,7 @@ class ApplyFundAssertorderRequest extends Model
         'startTime'             => 'start_time',
         'endTime'               => 'end_time',
         'filterFinancingStatus' => 'filter_financing_status',
-        'filterCance'           => 'filter_cance',
+        'filterCancel'          => 'filter_cancel',
         'filterEarlySettlement' => 'filter_early_settlement',
         'filterOverdue'         => 'filter_overdue',
         'filterRetry'           => 'filter_retry',
@@ -158,8 +158,8 @@ class ApplyFundAssertorderRequest extends Model
         if (null !== $this->filterFinancingStatus) {
             $res['filter_financing_status'] = $this->filterFinancingStatus;
         }
-        if (null !== $this->filterCance) {
-            $res['filter_cance'] = $this->filterCance;
+        if (null !== $this->filterCancel) {
+            $res['filter_cancel'] = $this->filterCancel;
         }
         if (null !== $this->filterEarlySettlement) {
             $res['filter_early_settlement'] = $this->filterEarlySettlement;
@@ -215,8 +215,8 @@ class ApplyFundAssertorderRequest extends Model
         if (isset($map['filter_financing_status'])) {
             $model->filterFinancingStatus = $map['filter_financing_status'];
         }
-        if (isset($map['filter_cance'])) {
-            $model->filterCance = $map['filter_cance'];
+        if (isset($map['filter_cancel'])) {
+            $model->filterCancel = $map['filter_cancel'];
         }
         if (isset($map['filter_early_settlement'])) {
             $model->filterEarlySettlement = $map['filter_early_settlement'];

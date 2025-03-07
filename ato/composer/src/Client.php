@@ -173,6 +173,10 @@ use AntChain\ATO\Models\QueryFundAssertreportRequest;
 use AntChain\ATO\Models\QueryFundAssertreportResponse;
 use AntChain\ATO\Models\QueryFundCompensateaccountRequest;
 use AntChain\ATO\Models\QueryFundCompensateaccountResponse;
+use AntChain\ATO\Models\QueryFundCreditauthRequest;
+use AntChain\ATO\Models\QueryFundCreditauthResponse;
+use AntChain\ATO\Models\QueryFundCreditgrantingRequest;
+use AntChain\ATO\Models\QueryFundCreditgrantingResponse;
 use AntChain\ATO\Models\QueryFundCreditRequest;
 use AntChain\ATO\Models\QueryFundCreditResponse;
 use AntChain\ATO\Models\QueryFundDividerelationRequest;
@@ -482,7 +486,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.14.6',
+                    'sdk_version'      => '1.14.9',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1574,6 +1578,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryFundAssertreportResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.assertreport.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 本接口用于查询授信结果
+     * Summary: 授信结果查询.
+     *
+     * @param QueryFundCreditgrantingRequest $request
+     *
+     * @return QueryFundCreditgrantingResponse
+     */
+    public function queryFundCreditgranting($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryFundCreditgrantingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 本接口用于查询授信结果
+     * Summary: 授信结果查询.
+     *
+     * @param QueryFundCreditgrantingRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryFundCreditgrantingResponse
+     */
+    public function queryFundCreditgrantingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryFundCreditgrantingResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.creditgranting.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授权信息查询
+     * Summary: 授权信息查询.
+     *
+     * @param QueryFundCreditauthRequest $request
+     *
+     * @return QueryFundCreditauthResponse
+     */
+    public function queryFundCreditauth($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryFundCreditauthEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授权信息查询
+     * Summary: 授权信息查询.
+     *
+     * @param QueryFundCreditauthRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryFundCreditauthResponse
+     */
+    public function queryFundCreditauthEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryFundCreditauthResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.creditauth.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class OrderPrimiseExcelInfo extends Model
+class OrderPromiseExcelInfo extends Model
 {
     // 文件下载地址
     /**
@@ -24,9 +24,12 @@ class OrderPrimiseExcelInfo extends Model
      */
     public $fileType;
 
-    // 生成中, 已生成,无效
+    // 任务状态
+    // ● RUNNING:生成中
+    // ● SUCCESS:已生成
+    // ● FAILED:失败
     /**
-     * @example  生成中
+     * @example RUNNING
      *
      * @var string
      */
@@ -62,7 +65,7 @@ class OrderPrimiseExcelInfo extends Model
     /**
      * @param array $map
      *
-     * @return OrderPrimiseExcelInfo
+     * @return OrderPromiseExcelInfo
      */
     public static function fromMap($map = [])
     {
