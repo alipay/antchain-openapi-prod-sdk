@@ -2234,6 +2234,42 @@ func (s *MarketingScoreQueryInfo) SetPhoneNum(v string) *MarketingScoreQueryInfo
 	return s
 }
 
+// 用信查询订单履约信息结构体
+type OrderPromiseExcelInfo struct {
+	// 文件下载地址
+	DownloadUrl *string `json:"download_url,omitempty" xml:"download_url,omitempty"`
+	// 文件类型,订单明细表:ORDER_DETAIL 还款记录表:ORDER_FULFILLMENT
+	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
+	// 任务状态
+	// ● RUNNING:生成中
+	// ● SUCCESS:已生成
+	// ● FAILED:失败
+	TaskStatus *string `json:"task_status,omitempty" xml:"task_status,omitempty" require:"true"`
+}
+
+func (s OrderPromiseExcelInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrderPromiseExcelInfo) GoString() string {
+	return s.String()
+}
+
+func (s *OrderPromiseExcelInfo) SetDownloadUrl(v string) *OrderPromiseExcelInfo {
+	s.DownloadUrl = &v
+	return s
+}
+
+func (s *OrderPromiseExcelInfo) SetFileType(v string) *OrderPromiseExcelInfo {
+	s.FileType = &v
+	return s
+}
+
+func (s *OrderPromiseExcelInfo) SetTaskStatus(v string) *OrderPromiseExcelInfo {
+	s.TaskStatus = &v
+	return s
+}
+
 // 策略结果详情
 type RiskStrategy struct {
 	// 策略ID
@@ -2652,39 +2688,6 @@ func (s *AwardingQueryModel) SetCustomerId(v string) *AwardingQueryModel {
 
 func (s *AwardingQueryModel) SetQrCode(v string) *AwardingQueryModel {
 	s.QrCode = &v
-	return s
-}
-
-// 用信查询订单履约信息结构体
-type OrderPrimiseExcelInfo struct {
-	// 文件下载地址
-	DownloadUrl *string `json:"download_url,omitempty" xml:"download_url,omitempty"`
-	// 文件类型,订单明细表:ORDER_DETAIL 还款记录表:ORDER_FULFILLMENT
-	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
-	//  生成中, 已生成,无效
-	TaskStatus *string `json:"task_status,omitempty" xml:"task_status,omitempty" require:"true"`
-}
-
-func (s OrderPrimiseExcelInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OrderPrimiseExcelInfo) GoString() string {
-	return s.String()
-}
-
-func (s *OrderPrimiseExcelInfo) SetDownloadUrl(v string) *OrderPrimiseExcelInfo {
-	s.DownloadUrl = &v
-	return s
-}
-
-func (s *OrderPrimiseExcelInfo) SetFileType(v string) *OrderPrimiseExcelInfo {
-	s.FileType = &v
-	return s
-}
-
-func (s *OrderPrimiseExcelInfo) SetTaskStatus(v string) *OrderPrimiseExcelInfo {
-	s.TaskStatus = &v
 	return s
 }
 
@@ -5792,7 +5795,7 @@ type ApplyFundAssertorderRequest struct {
 	// 是否过滤被其他资方标记的订单（融资申请中+融资申请通过），默认值false
 	FilterFinancingStatus *bool `json:"filter_financing_status,omitempty" xml:"filter_financing_status,omitempty"`
 	// 是否过滤已取消订单 （无剩余应还期数），默认值false
-	FilterCance *bool `json:"filter_cance,omitempty" xml:"filter_cance,omitempty"`
+	FilterCancel *bool `json:"filter_cancel,omitempty" xml:"filter_cancel,omitempty"`
 	// 是否过滤提前结清订单,默认值false
 	FilterEarlySettlement *bool `json:"filter_early_settlement,omitempty" xml:"filter_early_settlement,omitempty"`
 	// 是否过滤某一期已逾期的订单,默认值false
@@ -5861,8 +5864,8 @@ func (s *ApplyFundAssertorderRequest) SetFilterFinancingStatus(v bool) *ApplyFun
 	return s
 }
 
-func (s *ApplyFundAssertorderRequest) SetFilterCance(v bool) *ApplyFundAssertorderRequest {
-	s.FilterCance = &v
+func (s *ApplyFundAssertorderRequest) SetFilterCancel(v bool) *ApplyFundAssertorderRequest {
+	s.FilterCancel = &v
 	return s
 }
 
@@ -5893,7 +5896,10 @@ type ApplyFundAssertorderResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 生成中: TODO、已生成,:FINISH、无效:FAILURE
+	// 任务状态
+	// ● RUNNING:生成中
+	// ● SUCCESS:已生成
+	// ● FAILED:失败
 	TaskStatus *string `json:"task_status,omitempty" xml:"task_status,omitempty"`
 }
 
@@ -5992,7 +5998,7 @@ type QueryFundAssertorderResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 用信订单履约信息
-	Data []*OrderPrimiseExcelInfo `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	Data []*OrderPromiseExcelInfo `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
 }
 
 func (s QueryFundAssertorderResponse) String() string {
@@ -6018,7 +6024,7 @@ func (s *QueryFundAssertorderResponse) SetResultMsg(v string) *QueryFundAssertor
 	return s
 }
 
-func (s *QueryFundAssertorderResponse) SetData(v []*OrderPrimiseExcelInfo) *QueryFundAssertorderResponse {
+func (s *QueryFundAssertorderResponse) SetData(v []*OrderPromiseExcelInfo) *QueryFundAssertorderResponse {
 	s.Data = v
 	return s
 }
@@ -6037,7 +6043,7 @@ type SyncFundCreditgrantingRequest struct {
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" maxLength:"32" minLength:"1"`
 	// 商户租户id
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true" maxLength:"32" minLength:"1"`
-	// 授权额度，单位为分
+	// 授信额度，单位为分
 	GrantingLine *int64 `json:"granting_line,omitempty" xml:"granting_line,omitempty" require:"true" minimum:"1"`
 	// 授信有效期开始时间(yyyy-MM-dd HH:mm:ss)
 	EffectStartTime *string `json:"effect_start_time,omitempty" xml:"effect_start_time,omitempty" require:"true" maxLength:"20" minLength:"10"`
@@ -6224,6 +6230,8 @@ type AuthFundCreditgrantingResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 商家授权链接
 	MerchantAuthUrl *string `json:"merchant_auth_url,omitempty" xml:"merchant_auth_url,omitempty"`
+	// 传入的auth_id
+	AuthId *string `json:"auth_id,omitempty" xml:"auth_id,omitempty"`
 }
 
 func (s AuthFundCreditgrantingResponse) String() string {
@@ -6251,6 +6259,11 @@ func (s *AuthFundCreditgrantingResponse) SetResultMsg(v string) *AuthFundCreditg
 
 func (s *AuthFundCreditgrantingResponse) SetMerchantAuthUrl(v string) *AuthFundCreditgrantingResponse {
 	s.MerchantAuthUrl = &v
+	return s
+}
+
+func (s *AuthFundCreditgrantingResponse) SetAuthId(v string) *AuthFundCreditgrantingResponse {
+	s.AuthId = &v
 	return s
 }
 
@@ -6342,6 +6355,274 @@ func (s *QueryFundAssertreportResponse) SetResultMsg(v string) *QueryFundAssertr
 
 func (s *QueryFundAssertreportResponse) SetData(v []*FundAssertReport) *QueryFundAssertreportResponse {
 	s.Data = v
+	return s
+}
+
+type QueryFundCreditgrantingRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 授信id
+	GrantingId *string `json:"granting_id,omitempty" xml:"granting_id,omitempty" require:"true" maxLength:"20" minLength:"1"`
+	// 资方社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" require:"true" maxLength:"32" minLength:"1"`
+}
+
+func (s QueryFundCreditgrantingRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFundCreditgrantingRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFundCreditgrantingRequest) SetAuthToken(v string) *QueryFundCreditgrantingRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryFundCreditgrantingRequest) SetProductInstanceId(v string) *QueryFundCreditgrantingRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryFundCreditgrantingRequest) SetGrantingId(v string) *QueryFundCreditgrantingRequest {
+	s.GrantingId = &v
+	return s
+}
+
+func (s *QueryFundCreditgrantingRequest) SetFundId(v string) *QueryFundCreditgrantingRequest {
+	s.FundId = &v
+	return s
+}
+
+type QueryFundCreditgrantingResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 授信id
+	GrantingId *string `json:"granting_id,omitempty" xml:"granting_id,omitempty"`
+	// 授信授权id
+	AuthId *string `json:"auth_id,omitempty" xml:"auth_id,omitempty"`
+	// 资方社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty"`
+	// 商户社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+	// 商户租户id
+	//
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 授信额度，单位为分
+	GrantingLine *int64 `json:"granting_line,omitempty" xml:"granting_line,omitempty"`
+	// 授信有效期开始时间(yyyy-MM-dd HH:mm:ss)
+	EffectStartTime *string `json:"effect_start_time,omitempty" xml:"effect_start_time,omitempty"`
+	// 授信有效期结束时间(yyyy-MM-dd HH:mm:ss)
+	EffectEndTime *string `json:"effect_end_time,omitempty" xml:"effect_end_time,omitempty"`
+	// 授信状态
+	// CREDITED:已授信
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s QueryFundCreditgrantingResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFundCreditgrantingResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFundCreditgrantingResponse) SetReqMsgId(v string) *QueryFundCreditgrantingResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryFundCreditgrantingResponse) SetResultCode(v string) *QueryFundCreditgrantingResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryFundCreditgrantingResponse) SetResultMsg(v string) *QueryFundCreditgrantingResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryFundCreditgrantingResponse) SetGrantingId(v string) *QueryFundCreditgrantingResponse {
+	s.GrantingId = &v
+	return s
+}
+
+func (s *QueryFundCreditgrantingResponse) SetAuthId(v string) *QueryFundCreditgrantingResponse {
+	s.AuthId = &v
+	return s
+}
+
+func (s *QueryFundCreditgrantingResponse) SetFundId(v string) *QueryFundCreditgrantingResponse {
+	s.FundId = &v
+	return s
+}
+
+func (s *QueryFundCreditgrantingResponse) SetMerchantId(v string) *QueryFundCreditgrantingResponse {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *QueryFundCreditgrantingResponse) SetTenantId(v string) *QueryFundCreditgrantingResponse {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryFundCreditgrantingResponse) SetGrantingLine(v int64) *QueryFundCreditgrantingResponse {
+	s.GrantingLine = &v
+	return s
+}
+
+func (s *QueryFundCreditgrantingResponse) SetEffectStartTime(v string) *QueryFundCreditgrantingResponse {
+	s.EffectStartTime = &v
+	return s
+}
+
+func (s *QueryFundCreditgrantingResponse) SetEffectEndTime(v string) *QueryFundCreditgrantingResponse {
+	s.EffectEndTime = &v
+	return s
+}
+
+func (s *QueryFundCreditgrantingResponse) SetStatus(v string) *QueryFundCreditgrantingResponse {
+	s.Status = &v
+	return s
+}
+
+type QueryFundCreditauthRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 资方社会引用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" require:"true"`
+	// 授权id
+	AuthId *string `json:"auth_id,omitempty" xml:"auth_id,omitempty" require:"true"`
+	// 授权类型
+	// CREDIT_GRANTING 授信
+	// CREDIT_UTILIZATION 用信
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+}
+
+func (s QueryFundCreditauthRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFundCreditauthRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFundCreditauthRequest) SetAuthToken(v string) *QueryFundCreditauthRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryFundCreditauthRequest) SetProductInstanceId(v string) *QueryFundCreditauthRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryFundCreditauthRequest) SetFundId(v string) *QueryFundCreditauthRequest {
+	s.FundId = &v
+	return s
+}
+
+func (s *QueryFundCreditauthRequest) SetAuthId(v string) *QueryFundCreditauthRequest {
+	s.AuthId = &v
+	return s
+}
+
+func (s *QueryFundCreditauthRequest) SetAuthType(v string) *QueryFundCreditauthRequest {
+	s.AuthType = &v
+	return s
+}
+
+type QueryFundCreditauthResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 授权id
+	AuthId *string `json:"auth_id,omitempty" xml:"auth_id,omitempty"`
+	// 授权类型
+	// ● CREDIT_GRANTING 授信
+	// ● CREDIT_UTILIZATION 用信
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty"`
+	// 授权结果
+	// AUTHORIZED 已同意
+	// REJECTED 已拒绝
+	// EXPIRED 已过期
+	AuthResult *string `json:"auth_result,omitempty" xml:"auth_result,omitempty"`
+	// 授权开始时间
+	AuthBeginTime *string `json:"auth_begin_time,omitempty" xml:"auth_begin_time,omitempty"`
+	// 授权结束时间
+	AuthEndTime *string `json:"auth_end_time,omitempty" xml:"auth_end_time,omitempty"`
+	// 授权申请过期时间
+	AuthApplyExpireTime *string `json:"auth_apply_expire_time,omitempty" xml:"auth_apply_expire_time,omitempty"`
+	// 授信/用信授权信息,json结构
+	AuthInfo *string `json:"auth_info,omitempty" xml:"auth_info,omitempty"`
+}
+
+func (s QueryFundCreditauthResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFundCreditauthResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFundCreditauthResponse) SetReqMsgId(v string) *QueryFundCreditauthResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryFundCreditauthResponse) SetResultCode(v string) *QueryFundCreditauthResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryFundCreditauthResponse) SetResultMsg(v string) *QueryFundCreditauthResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryFundCreditauthResponse) SetAuthId(v string) *QueryFundCreditauthResponse {
+	s.AuthId = &v
+	return s
+}
+
+func (s *QueryFundCreditauthResponse) SetAuthType(v string) *QueryFundCreditauthResponse {
+	s.AuthType = &v
+	return s
+}
+
+func (s *QueryFundCreditauthResponse) SetAuthResult(v string) *QueryFundCreditauthResponse {
+	s.AuthResult = &v
+	return s
+}
+
+func (s *QueryFundCreditauthResponse) SetAuthBeginTime(v string) *QueryFundCreditauthResponse {
+	s.AuthBeginTime = &v
+	return s
+}
+
+func (s *QueryFundCreditauthResponse) SetAuthEndTime(v string) *QueryFundCreditauthResponse {
+	s.AuthEndTime = &v
+	return s
+}
+
+func (s *QueryFundCreditauthResponse) SetAuthApplyExpireTime(v string) *QueryFundCreditauthResponse {
+	s.AuthApplyExpireTime = &v
+	return s
+}
+
+func (s *QueryFundCreditauthResponse) SetAuthInfo(v string) *QueryFundCreditauthResponse {
+	s.AuthInfo = &v
 	return s
 }
 
@@ -19720,7 +20001,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.14.6"),
+				"sdk_version":      tea.String("1.14.9"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -20859,6 +21140,74 @@ func (client *Client) QueryFundAssertreportEx(request *QueryFundAssertreportRequ
 	}
 	_result = &QueryFundAssertreportResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.assertreport.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 本接口用于查询授信结果
+ * Summary: 授信结果查询
+ */
+func (client *Client) QueryFundCreditgranting(request *QueryFundCreditgrantingRequest) (_result *QueryFundCreditgrantingResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryFundCreditgrantingResponse{}
+	_body, _err := client.QueryFundCreditgrantingEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 本接口用于查询授信结果
+ * Summary: 授信结果查询
+ */
+func (client *Client) QueryFundCreditgrantingEx(request *QueryFundCreditgrantingRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryFundCreditgrantingResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryFundCreditgrantingResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.creditgranting.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 授权信息查询
+ * Summary: 授权信息查询
+ */
+func (client *Client) QueryFundCreditauth(request *QueryFundCreditauthRequest) (_result *QueryFundCreditauthResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryFundCreditauthResponse{}
+	_body, _err := client.QueryFundCreditauthEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 授权信息查询
+ * Summary: 授权信息查询
+ */
+func (client *Client) QueryFundCreditauthEx(request *QueryFundCreditauthRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryFundCreditauthResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryFundCreditauthResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.creditauth.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
