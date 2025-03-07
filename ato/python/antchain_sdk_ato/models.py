@@ -2843,6 +2843,52 @@ class MarketingScoreQueryInfo(TeaModel):
         return self
 
 
+class OrderPromiseExcelInfo(TeaModel):
+    def __init__(
+        self,
+        download_url: str = None,
+        file_type: str = None,
+        task_status: str = None,
+    ):
+        # 文件下载地址
+        self.download_url = download_url
+        # 文件类型,订单明细表:ORDER_DETAIL 还款记录表:ORDER_FULFILLMENT
+        self.file_type = file_type
+        # 任务状态
+        # ● RUNNING:生成中
+        # ● SUCCESS:已生成
+        # ● FAILED:失败
+        self.task_status = task_status
+
+    def validate(self):
+        self.validate_required(self.file_type, 'file_type')
+        self.validate_required(self.task_status, 'task_status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.download_url is not None:
+            result['download_url'] = self.download_url
+        if self.file_type is not None:
+            result['file_type'] = self.file_type
+        if self.task_status is not None:
+            result['task_status'] = self.task_status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('download_url') is not None:
+            self.download_url = m.get('download_url')
+        if m.get('file_type') is not None:
+            self.file_type = m.get('file_type')
+        if m.get('task_status') is not None:
+            self.task_status = m.get('task_status')
+        return self
+
+
 class RiskStrategy(TeaModel):
     def __init__(
         self,
@@ -3373,49 +3419,6 @@ class AwardingQueryModel(TeaModel):
             self.customer_id = m.get('customer_id')
         if m.get('qr_code') is not None:
             self.qr_code = m.get('qr_code')
-        return self
-
-
-class OrderPrimiseExcelInfo(TeaModel):
-    def __init__(
-        self,
-        download_url: str = None,
-        file_type: str = None,
-        task_status: str = None,
-    ):
-        # 文件下载地址
-        self.download_url = download_url
-        # 文件类型,订单明细表:ORDER_DETAIL 还款记录表:ORDER_FULFILLMENT
-        self.file_type = file_type
-        # 生成中, 已生成,无效
-        self.task_status = task_status
-
-    def validate(self):
-        self.validate_required(self.file_type, 'file_type')
-        self.validate_required(self.task_status, 'task_status')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.download_url is not None:
-            result['download_url'] = self.download_url
-        if self.file_type is not None:
-            result['file_type'] = self.file_type
-        if self.task_status is not None:
-            result['task_status'] = self.task_status
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('download_url') is not None:
-            self.download_url = m.get('download_url')
-        if m.get('file_type') is not None:
-            self.file_type = m.get('file_type')
-        if m.get('task_status') is not None:
-            self.task_status = m.get('task_status')
         return self
 
 
@@ -7396,7 +7399,7 @@ class ApplyFundAssertorderRequest(TeaModel):
         start_time: str = None,
         end_time: str = None,
         filter_financing_status: bool = None,
-        filter_cance: bool = None,
+        filter_cancel: bool = None,
         filter_early_settlement: bool = None,
         filter_overdue: bool = None,
         filter_retry: bool = None,
@@ -7422,7 +7425,7 @@ class ApplyFundAssertorderRequest(TeaModel):
         # 是否过滤被其他资方标记的订单（融资申请中+融资申请通过），默认值false
         self.filter_financing_status = filter_financing_status
         # 是否过滤已取消订单 （无剩余应还期数），默认值false
-        self.filter_cance = filter_cance
+        self.filter_cancel = filter_cancel
         # 是否过滤提前结清订单,默认值false
         self.filter_early_settlement = filter_early_settlement
         # 是否过滤某一期已逾期的订单,默认值false
@@ -7467,8 +7470,8 @@ class ApplyFundAssertorderRequest(TeaModel):
             result['end_time'] = self.end_time
         if self.filter_financing_status is not None:
             result['filter_financing_status'] = self.filter_financing_status
-        if self.filter_cance is not None:
-            result['filter_cance'] = self.filter_cance
+        if self.filter_cancel is not None:
+            result['filter_cancel'] = self.filter_cancel
         if self.filter_early_settlement is not None:
             result['filter_early_settlement'] = self.filter_early_settlement
         if self.filter_overdue is not None:
@@ -7501,8 +7504,8 @@ class ApplyFundAssertorderRequest(TeaModel):
             self.end_time = m.get('end_time')
         if m.get('filter_financing_status') is not None:
             self.filter_financing_status = m.get('filter_financing_status')
-        if m.get('filter_cance') is not None:
-            self.filter_cance = m.get('filter_cance')
+        if m.get('filter_cancel') is not None:
+            self.filter_cancel = m.get('filter_cancel')
         if m.get('filter_early_settlement') is not None:
             self.filter_early_settlement = m.get('filter_early_settlement')
         if m.get('filter_overdue') is not None:
@@ -7528,7 +7531,10 @@ class ApplyFundAssertorderResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 生成中: TODO、已生成,:FINISH、无效:FAILURE
+        # 任务状态
+        # ● RUNNING:生成中
+        # ● SUCCESS:已生成
+        # ● FAILED:失败
         self.task_status = task_status
 
     def validate(self):
@@ -7642,7 +7648,7 @@ class QueryFundAssertorderResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        data: List[OrderPrimiseExcelInfo] = None,
+        data: List[OrderPromiseExcelInfo] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -7688,7 +7694,7 @@ class QueryFundAssertorderResponse(TeaModel):
         self.data = []
         if m.get('data') is not None:
             for k in m.get('data'):
-                temp_model = OrderPrimiseExcelInfo()
+                temp_model = OrderPromiseExcelInfo()
                 self.data.append(temp_model.from_map(k))
         return self
 
@@ -7720,7 +7726,7 @@ class SyncFundCreditgrantingRequest(TeaModel):
         self.merchant_id = merchant_id
         # 商户租户id
         self.tenant_id = tenant_id
-        # 授权额度，单位为分
+        # 授信额度，单位为分
         self.granting_line = granting_line
         # 授信有效期开始时间(yyyy-MM-dd HH:mm:ss)
         self.effect_start_time = effect_start_time
@@ -7949,6 +7955,7 @@ class AuthFundCreditgrantingResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         merchant_auth_url: str = None,
+        auth_id: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -7958,6 +7965,8 @@ class AuthFundCreditgrantingResponse(TeaModel):
         self.result_msg = result_msg
         # 商家授权链接
         self.merchant_auth_url = merchant_auth_url
+        # 传入的auth_id
+        self.auth_id = auth_id
 
     def validate(self):
         pass
@@ -7976,6 +7985,8 @@ class AuthFundCreditgrantingResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.merchant_auth_url is not None:
             result['merchant_auth_url'] = self.merchant_auth_url
+        if self.auth_id is not None:
+            result['auth_id'] = self.auth_id
         return result
 
     def from_map(self, m: dict = None):
@@ -7988,6 +7999,8 @@ class AuthFundCreditgrantingResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('merchant_auth_url') is not None:
             self.merchant_auth_url = m.get('merchant_auth_url')
+        if m.get('auth_id') is not None:
+            self.auth_id = m.get('auth_id')
         return self
 
 
@@ -8110,6 +8123,321 @@ class QueryFundAssertreportResponse(TeaModel):
             for k in m.get('data'):
                 temp_model = FundAssertReport()
                 self.data.append(temp_model.from_map(k))
+        return self
+
+
+class QueryFundCreditgrantingRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        granting_id: str = None,
+        fund_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 授信id
+        self.granting_id = granting_id
+        # 资方社会信用代码
+        self.fund_id = fund_id
+
+    def validate(self):
+        self.validate_required(self.granting_id, 'granting_id')
+        if self.granting_id is not None:
+            self.validate_max_length(self.granting_id, 'granting_id', 20)
+        self.validate_required(self.fund_id, 'fund_id')
+        if self.fund_id is not None:
+            self.validate_max_length(self.fund_id, 'fund_id', 32)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.granting_id is not None:
+            result['granting_id'] = self.granting_id
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('granting_id') is not None:
+            self.granting_id = m.get('granting_id')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
+        return self
+
+
+class QueryFundCreditgrantingResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        granting_id: str = None,
+        auth_id: str = None,
+        fund_id: str = None,
+        merchant_id: str = None,
+        tenant_id: str = None,
+        granting_line: int = None,
+        effect_start_time: str = None,
+        effect_end_time: str = None,
+        status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 授信id
+        self.granting_id = granting_id
+        # 授信授权id
+        self.auth_id = auth_id
+        # 资方社会信用代码
+        self.fund_id = fund_id
+        # 商户社会信用代码
+        self.merchant_id = merchant_id
+        # 商户租户id
+        # 
+        self.tenant_id = tenant_id
+        # 授信额度，单位为分
+        self.granting_line = granting_line
+        # 授信有效期开始时间(yyyy-MM-dd HH:mm:ss)
+        self.effect_start_time = effect_start_time
+        # 授信有效期结束时间(yyyy-MM-dd HH:mm:ss)
+        self.effect_end_time = effect_end_time
+        # 授信状态
+        # CREDITED:已授信
+        self.status = status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.granting_id is not None:
+            result['granting_id'] = self.granting_id
+        if self.auth_id is not None:
+            result['auth_id'] = self.auth_id
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.granting_line is not None:
+            result['granting_line'] = self.granting_line
+        if self.effect_start_time is not None:
+            result['effect_start_time'] = self.effect_start_time
+        if self.effect_end_time is not None:
+            result['effect_end_time'] = self.effect_end_time
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('granting_id') is not None:
+            self.granting_id = m.get('granting_id')
+        if m.get('auth_id') is not None:
+            self.auth_id = m.get('auth_id')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('granting_line') is not None:
+            self.granting_line = m.get('granting_line')
+        if m.get('effect_start_time') is not None:
+            self.effect_start_time = m.get('effect_start_time')
+        if m.get('effect_end_time') is not None:
+            self.effect_end_time = m.get('effect_end_time')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class QueryFundCreditauthRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        fund_id: str = None,
+        auth_id: str = None,
+        auth_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 资方社会引用代码
+        self.fund_id = fund_id
+        # 授权id
+        self.auth_id = auth_id
+        # 授权类型
+        # CREDIT_GRANTING 授信
+        # CREDIT_UTILIZATION 用信
+        self.auth_type = auth_type
+
+    def validate(self):
+        self.validate_required(self.fund_id, 'fund_id')
+        self.validate_required(self.auth_id, 'auth_id')
+        self.validate_required(self.auth_type, 'auth_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
+        if self.auth_id is not None:
+            result['auth_id'] = self.auth_id
+        if self.auth_type is not None:
+            result['auth_type'] = self.auth_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
+        if m.get('auth_id') is not None:
+            self.auth_id = m.get('auth_id')
+        if m.get('auth_type') is not None:
+            self.auth_type = m.get('auth_type')
+        return self
+
+
+class QueryFundCreditauthResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        auth_id: str = None,
+        auth_type: str = None,
+        auth_result: str = None,
+        auth_begin_time: str = None,
+        auth_end_time: str = None,
+        auth_apply_expire_time: str = None,
+        auth_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 授权id
+        self.auth_id = auth_id
+        # 授权类型
+        # ● CREDIT_GRANTING 授信
+        # ● CREDIT_UTILIZATION 用信
+        self.auth_type = auth_type
+        # 授权结果
+        # AUTHORIZED 已同意
+        # REJECTED 已拒绝
+        # EXPIRED 已过期
+        self.auth_result = auth_result
+        # 授权开始时间
+        self.auth_begin_time = auth_begin_time
+        # 授权结束时间
+        self.auth_end_time = auth_end_time
+        # 授权申请过期时间
+        self.auth_apply_expire_time = auth_apply_expire_time
+        # 授信/用信授权信息,json结构
+        self.auth_info = auth_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.auth_id is not None:
+            result['auth_id'] = self.auth_id
+        if self.auth_type is not None:
+            result['auth_type'] = self.auth_type
+        if self.auth_result is not None:
+            result['auth_result'] = self.auth_result
+        if self.auth_begin_time is not None:
+            result['auth_begin_time'] = self.auth_begin_time
+        if self.auth_end_time is not None:
+            result['auth_end_time'] = self.auth_end_time
+        if self.auth_apply_expire_time is not None:
+            result['auth_apply_expire_time'] = self.auth_apply_expire_time
+        if self.auth_info is not None:
+            result['auth_info'] = self.auth_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('auth_id') is not None:
+            self.auth_id = m.get('auth_id')
+        if m.get('auth_type') is not None:
+            self.auth_type = m.get('auth_type')
+        if m.get('auth_result') is not None:
+            self.auth_result = m.get('auth_result')
+        if m.get('auth_begin_time') is not None:
+            self.auth_begin_time = m.get('auth_begin_time')
+        if m.get('auth_end_time') is not None:
+            self.auth_end_time = m.get('auth_end_time')
+        if m.get('auth_apply_expire_time') is not None:
+            self.auth_apply_expire_time = m.get('auth_apply_expire_time')
+        if m.get('auth_info') is not None:
+            self.auth_info = m.get('auth_info')
         return self
 
 

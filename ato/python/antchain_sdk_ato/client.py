@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.14.6',
+                    'sdk_version': '1.14.9',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.14.6',
+                    'sdk_version': '1.14.9',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -2053,6 +2053,118 @@ class Client:
         return TeaCore.from_map(
             ato_models.QueryFundAssertreportResponse(),
             await self.do_request_async('1.0', 'antchain.ato.fund.assertreport.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_fund_creditgranting(
+        self,
+        request: ato_models.QueryFundCreditgrantingRequest,
+    ) -> ato_models.QueryFundCreditgrantingResponse:
+        """
+        Description: 本接口用于查询授信结果
+        Summary: 授信结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_fund_creditgranting_ex(request, headers, runtime)
+
+    async def query_fund_creditgranting_async(
+        self,
+        request: ato_models.QueryFundCreditgrantingRequest,
+    ) -> ato_models.QueryFundCreditgrantingResponse:
+        """
+        Description: 本接口用于查询授信结果
+        Summary: 授信结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_fund_creditgranting_ex_async(request, headers, runtime)
+
+    def query_fund_creditgranting_ex(
+        self,
+        request: ato_models.QueryFundCreditgrantingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryFundCreditgrantingResponse:
+        """
+        Description: 本接口用于查询授信结果
+        Summary: 授信结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryFundCreditgrantingResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.creditgranting.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_fund_creditgranting_ex_async(
+        self,
+        request: ato_models.QueryFundCreditgrantingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryFundCreditgrantingResponse:
+        """
+        Description: 本接口用于查询授信结果
+        Summary: 授信结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryFundCreditgrantingResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.creditgranting.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_fund_creditauth(
+        self,
+        request: ato_models.QueryFundCreditauthRequest,
+    ) -> ato_models.QueryFundCreditauthResponse:
+        """
+        Description: 授权信息查询
+        Summary: 授权信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_fund_creditauth_ex(request, headers, runtime)
+
+    async def query_fund_creditauth_async(
+        self,
+        request: ato_models.QueryFundCreditauthRequest,
+    ) -> ato_models.QueryFundCreditauthResponse:
+        """
+        Description: 授权信息查询
+        Summary: 授权信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_fund_creditauth_ex_async(request, headers, runtime)
+
+    def query_fund_creditauth_ex(
+        self,
+        request: ato_models.QueryFundCreditauthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryFundCreditauthResponse:
+        """
+        Description: 授权信息查询
+        Summary: 授权信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryFundCreditauthResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.creditauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_fund_creditauth_ex_async(
+        self,
+        request: ato_models.QueryFundCreditauthRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryFundCreditauthResponse:
+        """
+        Description: 授权信息查询
+        Summary: 授权信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryFundCreditauthResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.creditauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_inner_product(
