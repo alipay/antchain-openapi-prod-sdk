@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class OrderPrimiseExcelInfo extends TeaModel {
+public class OrderPromiseExcelInfo extends TeaModel {
     // 文件下载地址
     @NameInMap("download_url")
     public String downloadUrl;
@@ -13,17 +13,20 @@ public class OrderPrimiseExcelInfo extends TeaModel {
     @Validation(required = true)
     public String fileType;
 
-    //  生成中, 已生成,无效
+    // 任务状态
+    // ● RUNNING:生成中
+    // ● SUCCESS:已生成
+    // ● FAILED:失败
     @NameInMap("task_status")
     @Validation(required = true)
     public String taskStatus;
 
-    public static OrderPrimiseExcelInfo build(java.util.Map<String, ?> map) throws Exception {
-        OrderPrimiseExcelInfo self = new OrderPrimiseExcelInfo();
+    public static OrderPromiseExcelInfo build(java.util.Map<String, ?> map) throws Exception {
+        OrderPromiseExcelInfo self = new OrderPromiseExcelInfo();
         return TeaModel.build(map, self);
     }
 
-    public OrderPrimiseExcelInfo setDownloadUrl(String downloadUrl) {
+    public OrderPromiseExcelInfo setDownloadUrl(String downloadUrl) {
         this.downloadUrl = downloadUrl;
         return this;
     }
@@ -31,7 +34,7 @@ public class OrderPrimiseExcelInfo extends TeaModel {
         return this.downloadUrl;
     }
 
-    public OrderPrimiseExcelInfo setFileType(String fileType) {
+    public OrderPromiseExcelInfo setFileType(String fileType) {
         this.fileType = fileType;
         return this;
     }
@@ -39,7 +42,7 @@ public class OrderPrimiseExcelInfo extends TeaModel {
         return this.fileType;
     }
 
-    public OrderPrimiseExcelInfo setTaskStatus(String taskStatus) {
+    public OrderPromiseExcelInfo setTaskStatus(String taskStatus) {
         this.taskStatus = taskStatus;
         return this;
     }

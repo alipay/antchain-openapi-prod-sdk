@@ -16,7 +16,10 @@ public class ApplyFundAssertorderResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 生成中: TODO、已生成,:FINISH、无效:FAILURE
+    // 任务状态
+    // ● RUNNING:生成中
+    // ● SUCCESS:已生成
+    // ● FAILED:失败
     @NameInMap("task_status")
     public String taskStatus;
 

@@ -51,8 +51,8 @@ public class ApplyFundAssertorderRequest extends TeaModel {
     public Boolean filterFinancingStatus;
 
     // 是否过滤已取消订单 （无剩余应还期数），默认值false
-    @NameInMap("filter_cance")
-    public Boolean filterCance;
+    @NameInMap("filter_cancel")
+    public Boolean filterCancel;
 
     // 是否过滤提前结清订单,默认值false
     @NameInMap("filter_early_settlement")
@@ -155,12 +155,12 @@ public class ApplyFundAssertorderRequest extends TeaModel {
         return this.filterFinancingStatus;
     }
 
-    public ApplyFundAssertorderRequest setFilterCance(Boolean filterCance) {
-        this.filterCance = filterCance;
+    public ApplyFundAssertorderRequest setFilterCancel(Boolean filterCancel) {
+        this.filterCancel = filterCancel;
         return this;
     }
-    public Boolean getFilterCance() {
-        return this.filterCance;
+    public Boolean getFilterCancel() {
+        return this.filterCancel;
     }
 
     public ApplyFundAssertorderRequest setFilterEarlySettlement(Boolean filterEarlySettlement) {

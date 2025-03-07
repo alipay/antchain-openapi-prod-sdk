@@ -18,7 +18,7 @@ public class QueryFundAssertorderResponse extends TeaModel {
 
     // 用信订单履约信息
     @NameInMap("data")
-    public java.util.List<OrderPrimiseExcelInfo> data;
+    public java.util.List<OrderPromiseExcelInfo> data;
 
     public static QueryFundAssertorderResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryFundAssertorderResponse self = new QueryFundAssertorderResponse();
@@ -49,11 +49,11 @@ public class QueryFundAssertorderResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryFundAssertorderResponse setData(java.util.List<OrderPrimiseExcelInfo> data) {
+    public QueryFundAssertorderResponse setData(java.util.List<OrderPromiseExcelInfo> data) {
         this.data = data;
         return this;
     }
-    public java.util.List<OrderPrimiseExcelInfo> getData() {
+    public java.util.List<OrderPromiseExcelInfo> getData() {
         return this.data;
     }
 

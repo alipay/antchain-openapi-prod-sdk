@@ -3,76 +3,87 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class SyncFundCreditgrantingRequest extends TeaModel {
-    // OAuth模式下的授权token
-    @NameInMap("auth_token")
-    public String authToken;
+public class QueryFundCreditgrantingResponse extends TeaModel {
+    // 请求唯一ID，用于链路跟踪和问题排查
+    @NameInMap("req_msg_id")
+    public String reqMsgId;
 
-    @NameInMap("product_instance_id")
-    public String productInstanceId;
+    // 结果码，一般OK表示调用成功
+    @NameInMap("result_code")
+    public String resultCode;
+
+    // 异常信息的文本描述
+    @NameInMap("result_msg")
+    public String resultMsg;
 
     // 授信id
     @NameInMap("granting_id")
-    @Validation(required = true, maxLength = 20, minLength = 10)
     public String grantingId;
 
     // 授信授权id
     @NameInMap("auth_id")
-    @Validation(required = true, maxLength = 20, minLength = 10)
     public String authId;
 
     // 资方社会信用代码
     @NameInMap("fund_id")
-    @Validation(required = true, maxLength = 32, minLength = 1)
     public String fundId;
 
     // 商户社会信用代码
     @NameInMap("merchant_id")
-    @Validation(required = true, maxLength = 32, minLength = 1)
     public String merchantId;
 
     // 商户租户id
+    // 
     @NameInMap("tenant_id")
-    @Validation(required = true, maxLength = 32, minLength = 1)
     public String tenantId;
 
     // 授信额度，单位为分
     @NameInMap("granting_line")
-    @Validation(required = true, minimum = 1)
     public Long grantingLine;
 
     // 授信有效期开始时间(yyyy-MM-dd HH:mm:ss)
     @NameInMap("effect_start_time")
-    @Validation(required = true, maxLength = 20, minLength = 10)
     public String effectStartTime;
 
     // 授信有效期结束时间(yyyy-MM-dd HH:mm:ss)
     @NameInMap("effect_end_time")
-    @Validation(required = true, maxLength = 20, minLength = 10)
     public String effectEndTime;
 
-    public static SyncFundCreditgrantingRequest build(java.util.Map<String, ?> map) throws Exception {
-        SyncFundCreditgrantingRequest self = new SyncFundCreditgrantingRequest();
+    // 授信状态
+    // CREDITED:已授信
+    @NameInMap("status")
+    public String status;
+
+    public static QueryFundCreditgrantingResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryFundCreditgrantingResponse self = new QueryFundCreditgrantingResponse();
         return TeaModel.build(map, self);
     }
 
-    public SyncFundCreditgrantingRequest setAuthToken(String authToken) {
-        this.authToken = authToken;
+    public QueryFundCreditgrantingResponse setReqMsgId(String reqMsgId) {
+        this.reqMsgId = reqMsgId;
         return this;
     }
-    public String getAuthToken() {
-        return this.authToken;
+    public String getReqMsgId() {
+        return this.reqMsgId;
     }
 
-    public SyncFundCreditgrantingRequest setProductInstanceId(String productInstanceId) {
-        this.productInstanceId = productInstanceId;
+    public QueryFundCreditgrantingResponse setResultCode(String resultCode) {
+        this.resultCode = resultCode;
         return this;
     }
-    public String getProductInstanceId() {
-        return this.productInstanceId;
+    public String getResultCode() {
+        return this.resultCode;
     }
 
-    public SyncFundCreditgrantingRequest setGrantingId(String grantingId) {
+    public QueryFundCreditgrantingResponse setResultMsg(String resultMsg) {
+        this.resultMsg = resultMsg;
+        return this;
+    }
+    public String getResultMsg() {
+        return this.resultMsg;
+    }
+
+    public QueryFundCreditgrantingResponse setGrantingId(String grantingId) {
         this.grantingId = grantingId;
         return this;
     }
@@ -80,7 +91,7 @@ public class SyncFundCreditgrantingRequest extends TeaModel {
         return this.grantingId;
     }
 
-    public SyncFundCreditgrantingRequest setAuthId(String authId) {
+    public QueryFundCreditgrantingResponse setAuthId(String authId) {
         this.authId = authId;
         return this;
     }
@@ -88,7 +99,7 @@ public class SyncFundCreditgrantingRequest extends TeaModel {
         return this.authId;
     }
 
-    public SyncFundCreditgrantingRequest setFundId(String fundId) {
+    public QueryFundCreditgrantingResponse setFundId(String fundId) {
         this.fundId = fundId;
         return this;
     }
@@ -96,7 +107,7 @@ public class SyncFundCreditgrantingRequest extends TeaModel {
         return this.fundId;
     }
 
-    public SyncFundCreditgrantingRequest setMerchantId(String merchantId) {
+    public QueryFundCreditgrantingResponse setMerchantId(String merchantId) {
         this.merchantId = merchantId;
         return this;
     }
@@ -104,7 +115,7 @@ public class SyncFundCreditgrantingRequest extends TeaModel {
         return this.merchantId;
     }
 
-    public SyncFundCreditgrantingRequest setTenantId(String tenantId) {
+    public QueryFundCreditgrantingResponse setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }
@@ -112,7 +123,7 @@ public class SyncFundCreditgrantingRequest extends TeaModel {
         return this.tenantId;
     }
 
-    public SyncFundCreditgrantingRequest setGrantingLine(Long grantingLine) {
+    public QueryFundCreditgrantingResponse setGrantingLine(Long grantingLine) {
         this.grantingLine = grantingLine;
         return this;
     }
@@ -120,7 +131,7 @@ public class SyncFundCreditgrantingRequest extends TeaModel {
         return this.grantingLine;
     }
 
-    public SyncFundCreditgrantingRequest setEffectStartTime(String effectStartTime) {
+    public QueryFundCreditgrantingResponse setEffectStartTime(String effectStartTime) {
         this.effectStartTime = effectStartTime;
         return this;
     }
@@ -128,12 +139,20 @@ public class SyncFundCreditgrantingRequest extends TeaModel {
         return this.effectStartTime;
     }
 
-    public SyncFundCreditgrantingRequest setEffectEndTime(String effectEndTime) {
+    public QueryFundCreditgrantingResponse setEffectEndTime(String effectEndTime) {
         this.effectEndTime = effectEndTime;
         return this;
     }
     public String getEffectEndTime() {
         return this.effectEndTime;
+    }
+
+    public QueryFundCreditgrantingResponse setStatus(String status) {
+        this.status = status;
+        return this;
+    }
+    public String getStatus() {
+        return this.status;
     }
 
 }

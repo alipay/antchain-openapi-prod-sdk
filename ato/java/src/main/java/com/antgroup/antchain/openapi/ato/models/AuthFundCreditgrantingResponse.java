@@ -20,6 +20,10 @@ public class AuthFundCreditgrantingResponse extends TeaModel {
     @NameInMap("merchant_auth_url")
     public String merchantAuthUrl;
 
+    // 传入的auth_id
+    @NameInMap("auth_id")
+    public String authId;
+
     public static AuthFundCreditgrantingResponse build(java.util.Map<String, ?> map) throws Exception {
         AuthFundCreditgrantingResponse self = new AuthFundCreditgrantingResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class AuthFundCreditgrantingResponse extends TeaModel {
     }
     public String getMerchantAuthUrl() {
         return this.merchantAuthUrl;
+    }
+
+    public AuthFundCreditgrantingResponse setAuthId(String authId) {
+        this.authId = authId;
+        return this;
+    }
+    public String getAuthId() {
+        return this.authId;
     }
 
 }
