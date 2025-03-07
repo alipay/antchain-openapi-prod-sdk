@@ -59,9 +59,9 @@ namespace AntChain.SDK.ATO.Models
         public bool? FilterFinancingStatus { get; set; }
 
         // 是否过滤已取消订单 （无剩余应还期数），默认值false
-        [NameInMap("filter_cance")]
+        [NameInMap("filter_cancel")]
         [Validation(Required=false)]
-        public bool? FilterCance { get; set; }
+        public bool? FilterCancel { get; set; }
 
         // 是否过滤提前结清订单,默认值false
         [NameInMap("filter_early_settlement")]

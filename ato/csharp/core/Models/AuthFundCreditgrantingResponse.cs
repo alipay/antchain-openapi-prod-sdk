@@ -29,6 +29,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string MerchantAuthUrl { get; set; }
 
+        // 传入的auth_id
+        [NameInMap("auth_id")]
+        [Validation(Required=false)]
+        public string AuthId { get; set; }
+
     }
 
 }

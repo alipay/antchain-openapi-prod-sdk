@@ -137,7 +137,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.14.6"},
+                        {"sdk_version", "1.14.9"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.14.6"},
+                        {"sdk_version", "1.14.9"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1677,6 +1677,90 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryFundAssertreportResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.assertreport.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口用于查询授信结果
+         * Summary: 授信结果查询
+         */
+        public QueryFundCreditgrantingResponse QueryFundCreditgranting(QueryFundCreditgrantingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryFundCreditgrantingEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口用于查询授信结果
+         * Summary: 授信结果查询
+         */
+        public async Task<QueryFundCreditgrantingResponse> QueryFundCreditgrantingAsync(QueryFundCreditgrantingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryFundCreditgrantingExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口用于查询授信结果
+         * Summary: 授信结果查询
+         */
+        public QueryFundCreditgrantingResponse QueryFundCreditgrantingEx(QueryFundCreditgrantingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFundCreditgrantingResponse>(DoRequest("1.0", "antchain.ato.fund.creditgranting.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口用于查询授信结果
+         * Summary: 授信结果查询
+         */
+        public async Task<QueryFundCreditgrantingResponse> QueryFundCreditgrantingExAsync(QueryFundCreditgrantingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFundCreditgrantingResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.creditgranting.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 授权信息查询
+         * Summary: 授权信息查询
+         */
+        public QueryFundCreditauthResponse QueryFundCreditauth(QueryFundCreditauthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryFundCreditauthEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 授权信息查询
+         * Summary: 授权信息查询
+         */
+        public async Task<QueryFundCreditauthResponse> QueryFundCreditauthAsync(QueryFundCreditauthRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryFundCreditauthExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 授权信息查询
+         * Summary: 授权信息查询
+         */
+        public QueryFundCreditauthResponse QueryFundCreditauthEx(QueryFundCreditauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFundCreditauthResponse>(DoRequest("1.0", "antchain.ato.fund.creditauth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 授权信息查询
+         * Summary: 授权信息查询
+         */
+        public async Task<QueryFundCreditauthResponse> QueryFundCreditauthExAsync(QueryFundCreditauthRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFundCreditauthResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.creditauth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

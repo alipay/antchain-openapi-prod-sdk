@@ -9,7 +9,7 @@ using Tea;
 namespace AntChain.SDK.ATO.Models
 {
     // 用信查询订单履约信息结构体
-    public class OrderPrimiseExcelInfo : TeaModel {
+    public class OrderPromiseExcelInfo : TeaModel {
         // 文件下载地址
         [NameInMap("download_url")]
         [Validation(Required=false)]
@@ -20,7 +20,10 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string FileType { get; set; }
 
-        //  生成中, 已生成,无效
+        // 任务状态
+        // ● RUNNING:生成中
+        // ● SUCCESS:已生成
+        // ● FAILED:失败
         [NameInMap("task_status")]
         [Validation(Required=true)]
         public string TaskStatus { get; set; }

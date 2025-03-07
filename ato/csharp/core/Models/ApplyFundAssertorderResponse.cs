@@ -24,7 +24,10 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 生成中: TODO、已生成,:FINISH、无效:FAILURE
+        // 任务状态
+        // ● RUNNING:生成中
+        // ● SUCCESS:已生成
+        // ● FAILED:失败
         [NameInMap("task_status")]
         [Validation(Required=false)]
         public string TaskStatus { get; set; }

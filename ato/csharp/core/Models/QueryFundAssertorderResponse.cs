@@ -27,7 +27,7 @@ namespace AntChain.SDK.ATO.Models
         // 用信订单履约信息
         [NameInMap("data")]
         [Validation(Required=false)]
-        public List<OrderPrimiseExcelInfo> Data { get; set; }
+        public List<OrderPromiseExcelInfo> Data { get; set; }
 
     }
 
