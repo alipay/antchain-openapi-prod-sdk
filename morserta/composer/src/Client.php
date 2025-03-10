@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\MORSERTA\Models\ConvertAdDataRequest;
+use AntChain\MORSERTA\Models\ConvertAdDataResponse;
 use AntChain\MORSERTA\Models\FeedbackReportDataRequest;
 use AntChain\MORSERTA\Models\FeedbackReportDataResponse;
 use AntChain\Util\UtilClient;
@@ -159,7 +161,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '2.0.0',
+                    'sdk_version'      => '2.0.1',
                     '_prod_code'       => 'MORSERTA',
                     '_prod_channel'    => 'default',
                 ];
@@ -238,5 +240,38 @@ class Client
         Utils::validateModel($request);
 
         return FeedbackReportDataResponse::fromMap($this->doRequest('1.0', 'antcloud.morserta.report.data.feedback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 摩斯RTA提供的转化回传接口
+     * Summary: 摩斯RTA提供的转化回传接口.
+     *
+     * @param ConvertAdDataRequest $request
+     *
+     * @return ConvertAdDataResponse
+     */
+    public function convertAdData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->convertAdDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 摩斯RTA提供的转化回传接口
+     * Summary: 摩斯RTA提供的转化回传接口.
+     *
+     * @param ConvertAdDataRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return ConvertAdDataResponse
+     */
+    public function convertAdDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConvertAdDataResponse::fromMap($this->doRequest('1.0', 'antcloud.morserta.ad.data.convert', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
