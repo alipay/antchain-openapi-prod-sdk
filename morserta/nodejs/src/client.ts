@@ -141,6 +141,130 @@ export class FeedbackReportDataResponse extends $tea.Model {
   }
 }
 
+export class ConvertAdDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 广告主id
+  accountId: number;
+  // ios/android
+  deviceOsType: string;
+  // 设备ID（imei或idfa的加密值）
+  muid: string;
+  // 点击ID
+  clickId: string;
+  // 转化时间
+  convTime: number;
+  // 点击时间
+  clickTime: number;
+  // 曝光时间
+  impressionTime: string;
+  // 投放日期年月日时分秒（准确到秒），格式为 yyyyMMddhhmmss
+  dt: string;
+  // 手机号MD5
+  mobileMd5: string;
+  // 是否提单标签0,1
+  labelSubmit: number;
+  // 是否支付标签0,1
+  labelPay: number;
+  // 是否升级标签0,1
+  labelUp?: number;
+  // m2是否续期
+  labelM2Renewal: number;
+  // 是否退保
+  labelSurrender?: number;
+  // 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
+  platform?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      accountId: 'account_id',
+      deviceOsType: 'device_os_type',
+      muid: 'muid',
+      clickId: 'click_id',
+      convTime: 'conv_time',
+      clickTime: 'click_time',
+      impressionTime: 'impression_time',
+      dt: 'dt',
+      mobileMd5: 'mobile_md5',
+      labelSubmit: 'label_submit',
+      labelPay: 'label_pay',
+      labelUp: 'label_up',
+      labelM2Renewal: 'label_m2_renewal',
+      labelSurrender: 'label_surrender',
+      platform: 'platform',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      accountId: 'number',
+      deviceOsType: 'string',
+      muid: 'string',
+      clickId: 'string',
+      convTime: 'number',
+      clickTime: 'number',
+      impressionTime: 'string',
+      dt: 'string',
+      mobileMd5: 'string',
+      labelSubmit: 'number',
+      labelPay: 'number',
+      labelUp: 'number',
+      labelM2Renewal: 'number',
+      labelSurrender: 'number',
+      platform: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConvertAdDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 调用是否成功
+  success?: boolean;
+  // 返回码
+  code?: string;
+  // 返回码描述
+  message?: string;
+  // 请求的唯一id
+  requestId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      code: 'code',
+      message: 'message',
+      requestId: 'request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      code: 'string',
+      message: 'string',
+      requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -254,7 +378,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.0.0",
+          sdk_version: "2.0.1",
           _prod_code: "MORSERTA",
           _prod_channel: "default",
         };
@@ -319,6 +443,25 @@ export default class Client {
   async feedbackReportDataEx(request: FeedbackReportDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<FeedbackReportDataResponse> {
     Util.validateModel(request);
     return $tea.cast<FeedbackReportDataResponse>(await this.doRequest("1.0", "antcloud.morserta.report.data.feedback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new FeedbackReportDataResponse({}));
+  }
+
+  /**
+   * Description: 摩斯RTA提供的转化回传接口
+   * Summary: 摩斯RTA提供的转化回传接口
+   */
+  async convertAdData(request: ConvertAdDataRequest): Promise<ConvertAdDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.convertAdDataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 摩斯RTA提供的转化回传接口
+   * Summary: 摩斯RTA提供的转化回传接口
+   */
+  async convertAdDataEx(request: ConvertAdDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConvertAdDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConvertAdDataResponse>(await this.doRequest("1.0", "antcloud.morserta.ad.data.convert", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConvertAdDataResponse({}));
   }
 
 }
