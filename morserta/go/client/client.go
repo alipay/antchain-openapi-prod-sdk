@@ -226,6 +226,189 @@ func (s *FeedbackReportDataResponse) SetSuccess(v bool) *FeedbackReportDataRespo
 	return s
 }
 
+type ConvertAdDataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 广告主id
+	AccountId *int64 `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// ios/android
+	DeviceOsType *string `json:"device_os_type,omitempty" xml:"device_os_type,omitempty" require:"true"`
+	// 设备ID（imei或idfa的加密值）
+	Muid *string `json:"muid,omitempty" xml:"muid,omitempty" require:"true"`
+	// 点击ID
+	ClickId *string `json:"click_id,omitempty" xml:"click_id,omitempty" require:"true"`
+	// 转化时间
+	ConvTime *int64 `json:"conv_time,omitempty" xml:"conv_time,omitempty" require:"true"`
+	// 点击时间
+	ClickTime *int64 `json:"click_time,omitempty" xml:"click_time,omitempty" require:"true"`
+	// 曝光时间
+	ImpressionTime *string `json:"impression_time,omitempty" xml:"impression_time,omitempty" require:"true"`
+	// 投放日期年月日时分秒（准确到秒），格式为 yyyyMMddhhmmss
+	Dt *string `json:"dt,omitempty" xml:"dt,omitempty" require:"true"`
+	// 手机号MD5
+	MobileMd5 *string `json:"mobile_md5,omitempty" xml:"mobile_md5,omitempty" require:"true"`
+	// 是否提单标签0,1
+	LabelSubmit *int64 `json:"label_submit,omitempty" xml:"label_submit,omitempty" require:"true"`
+	// 是否支付标签0,1
+	LabelPay *int64 `json:"label_pay,omitempty" xml:"label_pay,omitempty" require:"true"`
+	// 是否升级标签0,1
+	LabelUp *int64 `json:"label_up,omitempty" xml:"label_up,omitempty"`
+	// m2是否续期
+	LabelM2Renewal *int64 `json:"label_m2_renewal,omitempty" xml:"label_m2_renewal,omitempty" require:"true"`
+	// 是否退保
+	LabelSurrender *int64 `json:"label_surrender,omitempty" xml:"label_surrender,omitempty"`
+	// 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
+	Platform *int64 `json:"platform,omitempty" xml:"platform,omitempty"`
+}
+
+func (s ConvertAdDataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConvertAdDataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ConvertAdDataRequest) SetAuthToken(v string) *ConvertAdDataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetAccountId(v int64) *ConvertAdDataRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetDeviceOsType(v string) *ConvertAdDataRequest {
+	s.DeviceOsType = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetMuid(v string) *ConvertAdDataRequest {
+	s.Muid = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetClickId(v string) *ConvertAdDataRequest {
+	s.ClickId = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetConvTime(v int64) *ConvertAdDataRequest {
+	s.ConvTime = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetClickTime(v int64) *ConvertAdDataRequest {
+	s.ClickTime = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetImpressionTime(v string) *ConvertAdDataRequest {
+	s.ImpressionTime = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetDt(v string) *ConvertAdDataRequest {
+	s.Dt = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetMobileMd5(v string) *ConvertAdDataRequest {
+	s.MobileMd5 = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetLabelSubmit(v int64) *ConvertAdDataRequest {
+	s.LabelSubmit = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetLabelPay(v int64) *ConvertAdDataRequest {
+	s.LabelPay = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetLabelUp(v int64) *ConvertAdDataRequest {
+	s.LabelUp = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetLabelM2Renewal(v int64) *ConvertAdDataRequest {
+	s.LabelM2Renewal = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetLabelSurrender(v int64) *ConvertAdDataRequest {
+	s.LabelSurrender = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetPlatform(v int64) *ConvertAdDataRequest {
+	s.Platform = &v
+	return s
+}
+
+type ConvertAdDataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 调用是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 返回码
+	Code *string `json:"code,omitempty" xml:"code,omitempty"`
+	// 返回码描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 请求的唯一id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+}
+
+func (s ConvertAdDataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConvertAdDataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ConvertAdDataResponse) SetReqMsgId(v string) *ConvertAdDataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ConvertAdDataResponse) SetResultCode(v string) *ConvertAdDataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ConvertAdDataResponse) SetResultMsg(v string) *ConvertAdDataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ConvertAdDataResponse) SetSuccess(v bool) *ConvertAdDataResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *ConvertAdDataResponse) SetCode(v string) *ConvertAdDataResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *ConvertAdDataResponse) SetMessage(v string) *ConvertAdDataResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *ConvertAdDataResponse) SetRequestId(v string) *ConvertAdDataResponse {
+	s.RequestId = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -348,7 +531,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.0.0"),
+				"sdk_version":      tea.String("2.0.1"),
 				"_prod_code":       tea.String("MORSERTA"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -433,6 +616,40 @@ func (client *Client) FeedbackReportDataEx(request *FeedbackReportDataRequest, h
 	}
 	_result = &FeedbackReportDataResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.morserta.report.data.feedback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 摩斯RTA提供的转化回传接口
+ * Summary: 摩斯RTA提供的转化回传接口
+ */
+func (client *Client) ConvertAdData(request *ConvertAdDataRequest) (_result *ConvertAdDataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ConvertAdDataResponse{}
+	_body, _err := client.ConvertAdDataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 摩斯RTA提供的转化回传接口
+ * Summary: 摩斯RTA提供的转化回传接口
+ */
+func (client *Client) ConvertAdDataEx(request *ConvertAdDataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConvertAdDataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ConvertAdDataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.morserta.ad.data.convert"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
