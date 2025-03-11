@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '2.0.0',
+    sdk_version = '2.0.2',
     _prod_code = 'MORSERTA',
     _prod_channel = 'default'
   };
@@ -200,5 +200,76 @@ async function feedbackReportData(request: FeedbackReportDataRequest): FeedbackR
 async function feedbackReportDataEx(request: FeedbackReportDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): FeedbackReportDataResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.morserta.report.data.feedback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConvertAdDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 广告主id
+  accountId: long(name='account_id'),
+  // ios/android
+  deviceOsType: string(name='device_os_type'),
+  // 设备ID（imei或idfa的加密值）
+  muid: string(name='muid'),
+  // 点击ID
+  clickId: string(name='click_id'),
+  // 转化时间
+  convTime: long(name='conv_time'),
+  // 点击时间
+  clickTime: long(name='click_time'),
+  // 曝光时间
+  impressionTime: string(name='impression_time'),
+  // 投放日期年月日时分秒（准确到秒），格式为 yyyyMMddhhmmss
+  dt: string(name='dt'),
+  // 手机号MD5
+  mobileMd5: string(name='mobile_md5'),
+  // 是否提单标签0,1
+  labelSubmit: long(name='label_submit'),
+  // 是否支付标签0,1
+  labelPay: long(name='label_pay'),
+  // 是否升级标签0,1
+  labelUp?: long(name='label_up'),
+  // m2是否续期
+  labelM2Renewal: long(name='label_m2_renewal'),
+  // 是否退保
+  labelSurrender?: long(name='label_surrender'),
+  // 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
+  platform?: long(name='platform'),
+}
+
+model ConvertAdDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 调用是否成功
+  success?: boolean(name='success'),
+  // 返回码
+  code?: string(name='code'),
+  // 返回码描述
+  message?: string(name='message'),
+  // 请求的唯一id
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 摩斯RTA提供的转化回传接口
+ * Summary: 摩斯RTA提供的转化回传接口
+ */
+async function convertAdData(request: ConvertAdDataRequest): ConvertAdDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return convertAdDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 摩斯RTA提供的转化回传接口
+ * Summary: 摩斯RTA提供的转化回传接口
+ */
+async function convertAdDataEx(request: ConvertAdDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConvertAdDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.morserta.ad.data.convert', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
