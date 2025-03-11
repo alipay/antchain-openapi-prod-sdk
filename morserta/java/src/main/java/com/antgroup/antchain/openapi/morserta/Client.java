@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "2.0.0"),
+                    new TeaPair("sdk_version", "2.0.2"),
                     new TeaPair("_prod_code", "MORSERTA"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -201,5 +201,24 @@ public class Client {
     public FeedbackReportDataResponse feedbackReportDataEx(FeedbackReportDataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.morserta.report.data.feedback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FeedbackReportDataResponse());
+    }
+
+    /**
+     * Description: 摩斯RTA提供的转化回传接口
+     * Summary: 摩斯RTA提供的转化回传接口
+     */
+    public ConvertAdDataResponse convertAdData(ConvertAdDataRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.convertAdDataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 摩斯RTA提供的转化回传接口
+     * Summary: 摩斯RTA提供的转化回传接口
+     */
+    public ConvertAdDataResponse convertAdDataEx(ConvertAdDataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.morserta.ad.data.convert", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConvertAdDataResponse());
     }
 }
