@@ -920,6 +920,47 @@ export class OperationDivideTransInModel extends $tea.Model {
   }
 }
 
+// 资产订单信息
+export class AssetPackageOrderInfo extends $tea.Model {
+  // 订单id
+  orderId: string;
+  // 订单状态
+  status: string;
+  // 出包原因
+  outReason?: string;
+  // 订单用信额度
+  orderCreditLine?: number;
+  // 商户应还款金额
+  orderMerchantRepaymentMoney?: number;
+  // 订单分账起始账期
+  divideStartTermIndex?: number;
+  static names(): { [key: string]: string } {
+    return {
+      orderId: 'order_id',
+      status: 'status',
+      outReason: 'out_reason',
+      orderCreditLine: 'order_credit_line',
+      orderMerchantRepaymentMoney: 'order_merchant_repayment_money',
+      divideStartTermIndex: 'divide_start_term_index',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderId: 'string',
+      status: 'string',
+      outReason: 'string',
+      orderCreditLine: 'number',
+      orderMerchantRepaymentMoney: 'number',
+      divideStartTermIndex: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 营销抢购风险识别入参模型
 export class PurchaseQueryModel extends $tea.Model {
   // 支付宝外部交易号
@@ -5061,6 +5102,97 @@ export class QueryFundCreditauthResponse extends $tea.Model {
       authEndTime: 'string',
       authApplyExpireTime: 'string',
       authInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFundAssetpackageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 资方社会信用代码
+  fundId: string;
+  // 商家统一社会信用代码
+  merchantId: string;
+  // 商户的租户id
+  tenantId: string;
+  // 用信id
+  utilizationId?: string;
+  // 资产包id
+  assetPackageId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fundId: 'fund_id',
+      merchantId: 'merchant_id',
+      tenantId: 'tenant_id',
+      utilizationId: 'utilization_id',
+      assetPackageId: 'asset_package_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fundId: 'string',
+      merchantId: 'string',
+      tenantId: 'string',
+      utilizationId: 'string',
+      assetPackageId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFundAssetpackageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 资产包id
+  assetPackageId?: string;
+  // 用信id
+  utilizationId?: string;
+  // 资产包状态
+  status?: string;
+  // 组包完成时间， yyyy-MM-dd HH:mm:ss
+  gmtGroupingEnd?: string;
+  // 订单列表
+  orderList?: AssetPackageOrderInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      assetPackageId: 'asset_package_id',
+      utilizationId: 'utilization_id',
+      status: 'status',
+      gmtGroupingEnd: 'gmt_grouping_end',
+      orderList: 'order_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      assetPackageId: 'string',
+      utilizationId: 'string',
+      status: 'string',
+      gmtGroupingEnd: 'string',
+      orderList: { 'type': 'array', 'itemType': AssetPackageOrderInfo },
     };
   }
 
@@ -10525,6 +10657,81 @@ export class PagequeryInnerPendingeventResponse extends $tea.Model {
   }
 }
 
+export class UpdateInnerMerchantpayexpandRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 公司信息
+  companyInfo: CompanyInfoUpdate;
+  // 法人信息
+  legalInfo: LegalInfoUpdate;
+  // 应用信息
+  applicationInfo: ApplicationInfoUpdate;
+  // 进件流水号
+  payExpandId: string;
+  // 社会统一信用代码
+  merchantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      companyInfo: 'company_info',
+      legalInfo: 'legal_info',
+      applicationInfo: 'application_info',
+      payExpandId: 'pay_expand_id',
+      merchantId: 'merchant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      companyInfo: CompanyInfoUpdate,
+      legalInfo: LegalInfoUpdate,
+      applicationInfo: ApplicationInfoUpdate,
+      payExpandId: 'string',
+      merchantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateInnerMerchantpayexpandResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 进件流水号
+  payExpandId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      payExpandId: 'pay_expand_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      payExpandId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateInsureRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -15313,7 +15520,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.14.10",
+          sdk_version: "1.14.12",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
@@ -16012,6 +16219,25 @@ export default class Client {
   async queryFundCreditauthEx(request: QueryFundCreditauthRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFundCreditauthResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryFundCreditauthResponse>(await this.doRequest("1.0", "antchain.ato.fund.creditauth.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFundCreditauthResponse({}));
+  }
+
+  /**
+   * Description: 资产包详情查询
+   * Summary: 资产包详情查询
+   */
+  async queryFundAssetpackage(request: QueryFundAssetpackageRequest): Promise<QueryFundAssetpackageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryFundAssetpackageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 资产包详情查询
+   * Summary: 资产包详情查询
+   */
+  async queryFundAssetpackageEx(request: QueryFundAssetpackageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFundAssetpackageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryFundAssetpackageResponse>(await this.doRequest("1.0", "antchain.ato.fund.assetpackage.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFundAssetpackageResponse({}));
   }
 
   /**
@@ -17401,6 +17627,25 @@ export default class Client {
   async pagequeryInnerPendingeventEx(request: PagequeryInnerPendingeventRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryInnerPendingeventResponse> {
     Util.validateModel(request);
     return $tea.cast<PagequeryInnerPendingeventResponse>(await this.doRequest("1.0", "antchain.ato.inner.pendingevent.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryInnerPendingeventResponse({}));
+  }
+
+  /**
+   * Description: 修改进件信息
+   * Summary: 修改进件信息
+   */
+  async updateInnerMerchantpayexpand(request: UpdateInnerMerchantpayexpandRequest): Promise<UpdateInnerMerchantpayexpandResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateInnerMerchantpayexpandEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 修改进件信息
+   * Summary: 修改进件信息
+   */
+  async updateInnerMerchantpayexpandEx(request: UpdateInnerMerchantpayexpandRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateInnerMerchantpayexpandResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateInnerMerchantpayexpandResponse>(await this.doRequest("1.0", "antchain.ato.inner.merchantpayexpand.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateInnerMerchantpayexpandResponse({}));
   }
 
   /**
