@@ -137,7 +137,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.14.10"},
+                        {"sdk_version", "1.14.12"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.14.10"},
+                        {"sdk_version", "1.14.12"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1761,6 +1761,48 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryFundCreditauthResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.creditauth.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资产包详情查询
+         * Summary: 资产包详情查询
+         */
+        public QueryFundAssetpackageResponse QueryFundAssetpackage(QueryFundAssetpackageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryFundAssetpackageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资产包详情查询
+         * Summary: 资产包详情查询
+         */
+        public async Task<QueryFundAssetpackageResponse> QueryFundAssetpackageAsync(QueryFundAssetpackageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryFundAssetpackageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资产包详情查询
+         * Summary: 资产包详情查询
+         */
+        public QueryFundAssetpackageResponse QueryFundAssetpackageEx(QueryFundAssetpackageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFundAssetpackageResponse>(DoRequest("1.0", "antchain.ato.fund.assetpackage.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资产包详情查询
+         * Summary: 资产包详情查询
+         */
+        public async Task<QueryFundAssetpackageResponse> QueryFundAssetpackageExAsync(QueryFundAssetpackageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFundAssetpackageResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.assetpackage.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -4831,6 +4873,48 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PagequeryInnerPendingeventResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.pendingevent.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 修改进件信息
+         * Summary: 修改进件信息
+         */
+        public UpdateInnerMerchantpayexpandResponse UpdateInnerMerchantpayexpand(UpdateInnerMerchantpayexpandRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateInnerMerchantpayexpandEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 修改进件信息
+         * Summary: 修改进件信息
+         */
+        public async Task<UpdateInnerMerchantpayexpandResponse> UpdateInnerMerchantpayexpandAsync(UpdateInnerMerchantpayexpandRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateInnerMerchantpayexpandExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 修改进件信息
+         * Summary: 修改进件信息
+         */
+        public UpdateInnerMerchantpayexpandResponse UpdateInnerMerchantpayexpandEx(UpdateInnerMerchantpayexpandRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateInnerMerchantpayexpandResponse>(DoRequest("1.0", "antchain.ato.inner.merchantpayexpand.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 修改进件信息
+         * Summary: 修改进件信息
+         */
+        public async Task<UpdateInnerMerchantpayexpandResponse> UpdateInnerMerchantpayexpandExAsync(UpdateInnerMerchantpayexpandRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateInnerMerchantpayexpandResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.merchantpayexpand.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
