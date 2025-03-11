@@ -171,6 +171,8 @@ use AntChain\ATO\Models\QueryFundAssertorderRequest;
 use AntChain\ATO\Models\QueryFundAssertorderResponse;
 use AntChain\ATO\Models\QueryFundAssertreportRequest;
 use AntChain\ATO\Models\QueryFundAssertreportResponse;
+use AntChain\ATO\Models\QueryFundAssetpackageRequest;
+use AntChain\ATO\Models\QueryFundAssetpackageResponse;
 use AntChain\ATO\Models\QueryFundCompensateaccountRequest;
 use AntChain\ATO\Models\QueryFundCompensateaccountResponse;
 use AntChain\ATO\Models\QueryFundCreditauthRequest;
@@ -313,6 +315,8 @@ use AntChain\ATO\Models\UnbindWithholdSignRequest;
 use AntChain\ATO\Models\UnbindWithholdSignResponse;
 use AntChain\ATO\Models\UpdateInnerCustomerserviceRequest;
 use AntChain\ATO\Models\UpdateInnerCustomerserviceResponse;
+use AntChain\ATO\Models\UpdateInnerMerchantpayexpandRequest;
+use AntChain\ATO\Models\UpdateInnerMerchantpayexpandResponse;
 use AntChain\ATO\Models\UpdateInnerTemplateRequest;
 use AntChain\ATO\Models\UpdateInnerTemplateResponse;
 use AntChain\ATO\Models\UpdateInnerTenantindirectmainclassRequest;
@@ -486,7 +490,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.14.10',
+                    'sdk_version'      => '1.14.12',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1644,6 +1648,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryFundCreditauthResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.creditauth.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资产包详情查询
+     * Summary: 资产包详情查询.
+     *
+     * @param QueryFundAssetpackageRequest $request
+     *
+     * @return QueryFundAssetpackageResponse
+     */
+    public function queryFundAssetpackage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryFundAssetpackageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资产包详情查询
+     * Summary: 资产包详情查询.
+     *
+     * @param QueryFundAssetpackageRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryFundAssetpackageResponse
+     */
+    public function queryFundAssetpackageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryFundAssetpackageResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.assetpackage.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -4055,6 +4092,39 @@ class Client
         Utils::validateModel($request);
 
         return PagequeryInnerPendingeventResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.pendingevent.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 修改进件信息
+     * Summary: 修改进件信息.
+     *
+     * @param UpdateInnerMerchantpayexpandRequest $request
+     *
+     * @return UpdateInnerMerchantpayexpandResponse
+     */
+    public function updateInnerMerchantpayexpand($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateInnerMerchantpayexpandEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 修改进件信息
+     * Summary: 修改进件信息.
+     *
+     * @param UpdateInnerMerchantpayexpandRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return UpdateInnerMerchantpayexpandResponse
+     */
+    public function updateInnerMerchantpayexpandEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateInnerMerchantpayexpandResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.merchantpayexpand.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
