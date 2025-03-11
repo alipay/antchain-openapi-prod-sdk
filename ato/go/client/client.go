@@ -1200,6 +1200,60 @@ func (s *OperationDivideTransInModel) SetDesc(v string) *OperationDivideTransInM
 	return s
 }
 
+// 资产订单信息
+type AssetPackageOrderInfo struct {
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 订单状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 出包原因
+	OutReason *string `json:"out_reason,omitempty" xml:"out_reason,omitempty"`
+	// 订单用信额度
+	OrderCreditLine *int64 `json:"order_credit_line,omitempty" xml:"order_credit_line,omitempty"`
+	// 商户应还款金额
+	OrderMerchantRepaymentMoney *int64 `json:"order_merchant_repayment_money,omitempty" xml:"order_merchant_repayment_money,omitempty"`
+	// 订单分账起始账期
+	DivideStartTermIndex *int64 `json:"divide_start_term_index,omitempty" xml:"divide_start_term_index,omitempty"`
+}
+
+func (s AssetPackageOrderInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AssetPackageOrderInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AssetPackageOrderInfo) SetOrderId(v string) *AssetPackageOrderInfo {
+	s.OrderId = &v
+	return s
+}
+
+func (s *AssetPackageOrderInfo) SetStatus(v string) *AssetPackageOrderInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *AssetPackageOrderInfo) SetOutReason(v string) *AssetPackageOrderInfo {
+	s.OutReason = &v
+	return s
+}
+
+func (s *AssetPackageOrderInfo) SetOrderCreditLine(v int64) *AssetPackageOrderInfo {
+	s.OrderCreditLine = &v
+	return s
+}
+
+func (s *AssetPackageOrderInfo) SetOrderMerchantRepaymentMoney(v int64) *AssetPackageOrderInfo {
+	s.OrderMerchantRepaymentMoney = &v
+	return s
+}
+
+func (s *AssetPackageOrderInfo) SetDivideStartTermIndex(v int64) *AssetPackageOrderInfo {
+	s.DivideStartTermIndex = &v
+	return s
+}
+
 // 营销抢购风险识别入参模型
 type PurchaseQueryModel struct {
 	// 支付宝外部交易号
@@ -6623,6 +6677,132 @@ func (s *QueryFundCreditauthResponse) SetAuthApplyExpireTime(v string) *QueryFun
 
 func (s *QueryFundCreditauthResponse) SetAuthInfo(v string) *QueryFundCreditauthResponse {
 	s.AuthInfo = &v
+	return s
+}
+
+type QueryFundAssetpackageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 资方社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" require:"true" maxLength:"200" minLength:"1"`
+	// 商家统一社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" maxLength:"200" minLength:"1"`
+	// 商户的租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true" maxLength:"10" minLength:"1"`
+	// 用信id
+	UtilizationId *string `json:"utilization_id,omitempty" xml:"utilization_id,omitempty" maxLength:"32" minLength:"1"`
+	// 资产包id
+	AssetPackageId *string `json:"asset_package_id,omitempty" xml:"asset_package_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
+}
+
+func (s QueryFundAssetpackageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFundAssetpackageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFundAssetpackageRequest) SetAuthToken(v string) *QueryFundAssetpackageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryFundAssetpackageRequest) SetProductInstanceId(v string) *QueryFundAssetpackageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryFundAssetpackageRequest) SetFundId(v string) *QueryFundAssetpackageRequest {
+	s.FundId = &v
+	return s
+}
+
+func (s *QueryFundAssetpackageRequest) SetMerchantId(v string) *QueryFundAssetpackageRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *QueryFundAssetpackageRequest) SetTenantId(v string) *QueryFundAssetpackageRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryFundAssetpackageRequest) SetUtilizationId(v string) *QueryFundAssetpackageRequest {
+	s.UtilizationId = &v
+	return s
+}
+
+func (s *QueryFundAssetpackageRequest) SetAssetPackageId(v string) *QueryFundAssetpackageRequest {
+	s.AssetPackageId = &v
+	return s
+}
+
+type QueryFundAssetpackageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 资产包id
+	AssetPackageId *string `json:"asset_package_id,omitempty" xml:"asset_package_id,omitempty"`
+	// 用信id
+	UtilizationId *string `json:"utilization_id,omitempty" xml:"utilization_id,omitempty"`
+	// 资产包状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 组包完成时间， yyyy-MM-dd HH:mm:ss
+	GmtGroupingEnd *string `json:"gmt_grouping_end,omitempty" xml:"gmt_grouping_end,omitempty"`
+	// 订单列表
+	OrderList []*AssetPackageOrderInfo `json:"order_list,omitempty" xml:"order_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryFundAssetpackageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFundAssetpackageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFundAssetpackageResponse) SetReqMsgId(v string) *QueryFundAssetpackageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryFundAssetpackageResponse) SetResultCode(v string) *QueryFundAssetpackageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryFundAssetpackageResponse) SetResultMsg(v string) *QueryFundAssetpackageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryFundAssetpackageResponse) SetAssetPackageId(v string) *QueryFundAssetpackageResponse {
+	s.AssetPackageId = &v
+	return s
+}
+
+func (s *QueryFundAssetpackageResponse) SetUtilizationId(v string) *QueryFundAssetpackageResponse {
+	s.UtilizationId = &v
+	return s
+}
+
+func (s *QueryFundAssetpackageResponse) SetStatus(v string) *QueryFundAssetpackageResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryFundAssetpackageResponse) SetGmtGroupingEnd(v string) *QueryFundAssetpackageResponse {
+	s.GmtGroupingEnd = &v
+	return s
+}
+
+func (s *QueryFundAssetpackageResponse) SetOrderList(v []*AssetPackageOrderInfo) *QueryFundAssetpackageResponse {
+	s.OrderList = v
 	return s
 }
 
@@ -13695,6 +13875,104 @@ func (s *PagequeryInnerPendingeventResponse) SetPendingEventInfoList(v []*Pendin
 	return s
 }
 
+type UpdateInnerMerchantpayexpandRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 公司信息
+	CompanyInfo *CompanyInfoUpdate `json:"company_info,omitempty" xml:"company_info,omitempty" require:"true"`
+	// 法人信息
+	LegalInfo *LegalInfoUpdate `json:"legal_info,omitempty" xml:"legal_info,omitempty" require:"true"`
+	// 应用信息
+	ApplicationInfo *ApplicationInfoUpdate `json:"application_info,omitempty" xml:"application_info,omitempty" require:"true"`
+	// 进件流水号
+	PayExpandId *string `json:"pay_expand_id,omitempty" xml:"pay_expand_id,omitempty" require:"true"`
+	// 社会统一信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
+}
+
+func (s UpdateInnerMerchantpayexpandRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateInnerMerchantpayexpandRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateInnerMerchantpayexpandRequest) SetAuthToken(v string) *UpdateInnerMerchantpayexpandRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateInnerMerchantpayexpandRequest) SetProductInstanceId(v string) *UpdateInnerMerchantpayexpandRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateInnerMerchantpayexpandRequest) SetCompanyInfo(v *CompanyInfoUpdate) *UpdateInnerMerchantpayexpandRequest {
+	s.CompanyInfo = v
+	return s
+}
+
+func (s *UpdateInnerMerchantpayexpandRequest) SetLegalInfo(v *LegalInfoUpdate) *UpdateInnerMerchantpayexpandRequest {
+	s.LegalInfo = v
+	return s
+}
+
+func (s *UpdateInnerMerchantpayexpandRequest) SetApplicationInfo(v *ApplicationInfoUpdate) *UpdateInnerMerchantpayexpandRequest {
+	s.ApplicationInfo = v
+	return s
+}
+
+func (s *UpdateInnerMerchantpayexpandRequest) SetPayExpandId(v string) *UpdateInnerMerchantpayexpandRequest {
+	s.PayExpandId = &v
+	return s
+}
+
+func (s *UpdateInnerMerchantpayexpandRequest) SetMerchantId(v string) *UpdateInnerMerchantpayexpandRequest {
+	s.MerchantId = &v
+	return s
+}
+
+type UpdateInnerMerchantpayexpandResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 进件流水号
+	PayExpandId *string `json:"pay_expand_id,omitempty" xml:"pay_expand_id,omitempty"`
+}
+
+func (s UpdateInnerMerchantpayexpandResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateInnerMerchantpayexpandResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateInnerMerchantpayexpandResponse) SetReqMsgId(v string) *UpdateInnerMerchantpayexpandResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateInnerMerchantpayexpandResponse) SetResultCode(v string) *UpdateInnerMerchantpayexpandResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateInnerMerchantpayexpandResponse) SetResultMsg(v string) *UpdateInnerMerchantpayexpandResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdateInnerMerchantpayexpandResponse) SetPayExpandId(v string) *UpdateInnerMerchantpayexpandResponse {
+	s.PayExpandId = &v
+	return s
+}
+
 type CreateInsureRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -20001,7 +20279,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.14.10"),
+				"sdk_version":      tea.String("1.14.12"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -21208,6 +21486,40 @@ func (client *Client) QueryFundCreditauthEx(request *QueryFundCreditauthRequest,
 	}
 	_result = &QueryFundCreditauthResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.creditauth.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 资产包详情查询
+ * Summary: 资产包详情查询
+ */
+func (client *Client) QueryFundAssetpackage(request *QueryFundAssetpackageRequest) (_result *QueryFundAssetpackageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryFundAssetpackageResponse{}
+	_body, _err := client.QueryFundAssetpackageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 资产包详情查询
+ * Summary: 资产包详情查询
+ */
+func (client *Client) QueryFundAssetpackageEx(request *QueryFundAssetpackageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryFundAssetpackageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryFundAssetpackageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.assetpackage.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -23692,6 +24004,40 @@ func (client *Client) PagequeryInnerPendingeventEx(request *PagequeryInnerPendin
 	}
 	_result = &PagequeryInnerPendingeventResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.pendingevent.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 修改进件信息
+ * Summary: 修改进件信息
+ */
+func (client *Client) UpdateInnerMerchantpayexpand(request *UpdateInnerMerchantpayexpandRequest) (_result *UpdateInnerMerchantpayexpandResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateInnerMerchantpayexpandResponse{}
+	_body, _err := client.UpdateInnerMerchantpayexpandEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 修改进件信息
+ * Summary: 修改进件信息
+ */
+func (client *Client) UpdateInnerMerchantpayexpandEx(request *UpdateInnerMerchantpayexpandRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateInnerMerchantpayexpandResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateInnerMerchantpayexpandResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.merchantpayexpand.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
