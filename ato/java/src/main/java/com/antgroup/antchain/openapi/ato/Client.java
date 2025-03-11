@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.14.10"),
+                    new TeaPair("sdk_version", "1.14.12"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -835,6 +835,25 @@ public class Client {
     public QueryFundCreditauthResponse queryFundCreditauthEx(QueryFundCreditauthRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.creditauth.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFundCreditauthResponse());
+    }
+
+    /**
+     * Description: 资产包详情查询
+     * Summary: 资产包详情查询
+     */
+    public QueryFundAssetpackageResponse queryFundAssetpackage(QueryFundAssetpackageRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryFundAssetpackageEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 资产包详情查询
+     * Summary: 资产包详情查询
+     */
+    public QueryFundAssetpackageResponse queryFundAssetpackageEx(QueryFundAssetpackageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.assetpackage.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFundAssetpackageResponse());
     }
 
     /**
@@ -2224,6 +2243,25 @@ public class Client {
     public PagequeryInnerPendingeventResponse pagequeryInnerPendingeventEx(PagequeryInnerPendingeventRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.pendingevent.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryInnerPendingeventResponse());
+    }
+
+    /**
+     * Description: 修改进件信息
+     * Summary: 修改进件信息
+     */
+    public UpdateInnerMerchantpayexpandResponse updateInnerMerchantpayexpand(UpdateInnerMerchantpayexpandRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateInnerMerchantpayexpandEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 修改进件信息
+     * Summary: 修改进件信息
+     */
+    public UpdateInnerMerchantpayexpandResponse updateInnerMerchantpayexpandEx(UpdateInnerMerchantpayexpandRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.merchantpayexpand.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateInnerMerchantpayexpandResponse());
     }
 
     /**
