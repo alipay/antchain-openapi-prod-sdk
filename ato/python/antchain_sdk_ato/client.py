@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.14.10',
+                    'sdk_version': '1.14.12',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.14.10',
+                    'sdk_version': '1.14.12',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -2165,6 +2165,62 @@ class Client:
         return TeaCore.from_map(
             ato_models.QueryFundCreditauthResponse(),
             await self.do_request_async('1.0', 'antchain.ato.fund.creditauth.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_fund_assetpackage(
+        self,
+        request: ato_models.QueryFundAssetpackageRequest,
+    ) -> ato_models.QueryFundAssetpackageResponse:
+        """
+        Description: 资产包详情查询
+        Summary: 资产包详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_fund_assetpackage_ex(request, headers, runtime)
+
+    async def query_fund_assetpackage_async(
+        self,
+        request: ato_models.QueryFundAssetpackageRequest,
+    ) -> ato_models.QueryFundAssetpackageResponse:
+        """
+        Description: 资产包详情查询
+        Summary: 资产包详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_fund_assetpackage_ex_async(request, headers, runtime)
+
+    def query_fund_assetpackage_ex(
+        self,
+        request: ato_models.QueryFundAssetpackageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryFundAssetpackageResponse:
+        """
+        Description: 资产包详情查询
+        Summary: 资产包详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryFundAssetpackageResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.assetpackage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_fund_assetpackage_ex_async(
+        self,
+        request: ato_models.QueryFundAssetpackageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryFundAssetpackageResponse:
+        """
+        Description: 资产包详情查询
+        Summary: 资产包详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryFundAssetpackageResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.assetpackage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_inner_product(
@@ -6257,6 +6313,62 @@ class Client:
         return TeaCore.from_map(
             ato_models.PagequeryInnerPendingeventResponse(),
             await self.do_request_async('1.0', 'antchain.ato.inner.pendingevent.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_inner_merchantpayexpand(
+        self,
+        request: ato_models.UpdateInnerMerchantpayexpandRequest,
+    ) -> ato_models.UpdateInnerMerchantpayexpandResponse:
+        """
+        Description: 修改进件信息
+        Summary: 修改进件信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_inner_merchantpayexpand_ex(request, headers, runtime)
+
+    async def update_inner_merchantpayexpand_async(
+        self,
+        request: ato_models.UpdateInnerMerchantpayexpandRequest,
+    ) -> ato_models.UpdateInnerMerchantpayexpandResponse:
+        """
+        Description: 修改进件信息
+        Summary: 修改进件信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_inner_merchantpayexpand_ex_async(request, headers, runtime)
+
+    def update_inner_merchantpayexpand_ex(
+        self,
+        request: ato_models.UpdateInnerMerchantpayexpandRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UpdateInnerMerchantpayexpandResponse:
+        """
+        Description: 修改进件信息
+        Summary: 修改进件信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UpdateInnerMerchantpayexpandResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.merchantpayexpand.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_inner_merchantpayexpand_ex_async(
+        self,
+        request: ato_models.UpdateInnerMerchantpayexpandRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UpdateInnerMerchantpayexpandResponse:
+        """
+        Description: 修改进件信息
+        Summary: 修改进件信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UpdateInnerMerchantpayexpandResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.merchantpayexpand.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_insure(
