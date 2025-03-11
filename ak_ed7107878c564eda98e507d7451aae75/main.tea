@@ -1,0 +1,889 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.0',
+    _prod_code = 'ak_ed7107878c564eda98e507d7451aae75',
+    _prod_channel = 'saas'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 数字人平台--角色信息
+model AvatarHumanInfo {
+  // 数字人角色id
+  id: long(name='id', example='100001'),
+  // 数字人角色名
+  humanName: string(name='human_name', example='小忆'),
+  // 数字人形象id
+  modelId: long(name='model_id', example='1886'),
+  // 数字人音色编码
+  voiceCode: string(name='voice_code', example='269'),
+  // 数字人音色名
+  voiceName?: string(name='voice_name', example='小忆'),
+  // 数字人音色预览图
+  voiceImage?: string(name='voice_image', example='www.123.com'),
+  // 语速
+  speechRate?: long(name='speech_rate', example='10'),
+  // 音调
+  pitchRate?: string(name='pitch_rate', example='10'),
+  // 音量
+  volume?: string(name='volume', example='10'),
+}
+
+// 数字人平台--知识库信息
+model AvatarLibraryInfo {
+  // 知识点数量
+  questionCount: long(name='question_count', example='1'),
+  // 知识库id
+  id: long(name='id', example='73423001'),
+  // 知识库名称
+  title: string(name='title', example='知识库'),
+  // 数字人角色信息
+  humanInfo: AvatarHumanInfo(name='human_info', example=''),
+}
+
+// 数字人平台--大模型对话配置信息
+model AvatarLlmChatInfo {
+  // 大模型对话配置编码
+  llmChatCode: string(name='llm_chat_code', example='8810606430954027635'),
+  // 大模型对话配置名
+  llmChatName: string(name='llm_chat_name', example='智能体'),
+  // 描述
+  description?: string(name='description', example='大模型'),
+  // 模型配置名
+  modelName: string(name='model_name', example='百炼'),
+  // 模型配置编码
+  modelCode: string(name='model_code', example='bailian'),
+  // 模型配置id
+  modelId: string(name='model_id', example='1'),
+  // 大模型对话自定义配置信息
+  config?: string(name='config', example='{}'),
+}
+
+// 数字人平台--自定义组件信息
+model AvatarComponentInfo {
+  // 组件标题
+  title: string(name='title', example='-'),
+  // 组件编码
+  code: string(name='code', example='-'),
+  // 组件值
+  value: string(name='value', example='-'),
+}
+
+// 数字人平台--气泡按钮信息
+model AvatarBubbleInfo {
+  // 气泡标题
+  title: string(name='title', example='点我'),
+  // 气泡类型
+  type: string(name='type', example='KNOWLEDGE,LINK,TEL,OUT_BIZ_ID'),
+  // 知识点id
+  knowId?: string(name='know_id', example='72300001'),
+  // 电话号码
+  tel?: string(name='tel', example='13260088903'),
+  // 外部链接
+  link?: string(name='link', example='www.123.com'),
+}
+
+// 数字人平台--交互配置信息
+model AvatarConfigInfo {
+  // 交互配置id
+  id: long(name='id', example='1'),
+  // 交互配置名
+  configName: string(name='config_name', example='测试交互配置'),
+  // 交互配置编码
+  virtualCode: string(name='virtual_code', example='1e077a39c88140f196449e43d3efb'),
+  // 数字人角色id
+  humanId: long(name='human_id', example='100001'),
+}
+
+// 数字人平台--话术配置信息
+model AvatarScriptConfigInfo {
+  // 唤醒词列表
+  wakeWords?: [ string ](name='wake_words', example='["你好"]'),
+  // 欢迎语列表
+  welcomePhrases?: [ string ](name='welcome_phrases', example='["你好我是数字人"]'),
+  // 兜底语列表
+  fallbackPhrases?: [ string ](name='fallback_phrases', example='["对不起"]'),
+}
+
+model ListUniversalsaasDigitalhumanHumanRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 获取数字人角色的类型
+  classification: string(name='classification'),
+}
+
+model ListUniversalsaasDigitalhumanHumanResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数字人角色列表
+  itemList?: [ AvatarHumanInfo ](name='item_list'),
+}
+
+/**
+ * Description: 数字人角色列表查询接口
+ * Summary: 数字人角色列表查询接口
+ */
+async function listUniversalsaasDigitalhumanHuman(request: ListUniversalsaasDigitalhumanHumanRequest): ListUniversalsaasDigitalhumanHumanResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listUniversalsaasDigitalhumanHumanEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字人角色列表查询接口
+ * Summary: 数字人角色列表查询接口
+ */
+async function listUniversalsaasDigitalhumanHumanEx(request: ListUniversalsaasDigitalhumanHumanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListUniversalsaasDigitalhumanHumanResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.human.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListUniversalsaasDigitalhumanLibraryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 知识库类型
+  classification: string(name='classification'),
+}
+
+model ListUniversalsaasDigitalhumanLibraryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 知识库列表
+  itemList?: [ AvatarLibraryInfo ](name='item_list'),
+}
+
+/**
+ * Description: 知识库列表查询接口
+ * Summary: 知识库列表查询接口
+ */
+async function listUniversalsaasDigitalhumanLibrary(request: ListUniversalsaasDigitalhumanLibraryRequest): ListUniversalsaasDigitalhumanLibraryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listUniversalsaasDigitalhumanLibraryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 知识库列表查询接口
+ * Summary: 知识库列表查询接口
+ */
+async function listUniversalsaasDigitalhumanLibraryEx(request: ListUniversalsaasDigitalhumanLibraryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListUniversalsaasDigitalhumanLibraryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.library.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddUniversalsaasDigitalhumanLibraryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 知识库类型
+  classification: string(name='classification'),
+  // 角色id
+  humanId: long(name='human_id'),
+  // 知识库名称
+  title: string(name='title'),
+}
+
+model AddUniversalsaasDigitalhumanLibraryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 知识库id
+  data?: long(name='data'),
+}
+
+/**
+ * Description: 创建知识库接口
+ * Summary: 创建知识库接口
+ */
+async function addUniversalsaasDigitalhumanLibrary(request: AddUniversalsaasDigitalhumanLibraryRequest): AddUniversalsaasDigitalhumanLibraryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addUniversalsaasDigitalhumanLibraryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建知识库接口
+ * Summary: 创建知识库接口
+ */
+async function addUniversalsaasDigitalhumanLibraryEx(request: AddUniversalsaasDigitalhumanLibraryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddUniversalsaasDigitalhumanLibraryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.library.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateUniversalsaasDigitalhumanLibraryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 知识库id
+  id: long(name='id'),
+  // 知识库名称
+  title: string(name='title'),
+}
+
+model UpdateUniversalsaasDigitalhumanLibraryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 编辑知识库接口
+ * Summary: 编辑知识库接口
+ */
+async function updateUniversalsaasDigitalhumanLibrary(request: UpdateUniversalsaasDigitalhumanLibraryRequest): UpdateUniversalsaasDigitalhumanLibraryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateUniversalsaasDigitalhumanLibraryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 编辑知识库接口
+ * Summary: 编辑知识库接口
+ */
+async function updateUniversalsaasDigitalhumanLibraryEx(request: UpdateUniversalsaasDigitalhumanLibraryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateUniversalsaasDigitalhumanLibraryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.library.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteUniversalsaasDigitalhumanLibraryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 知识库id
+  id: long(name='id'),
+}
+
+model DeleteUniversalsaasDigitalhumanLibraryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除知识库接口
+ * Summary: 删除知识库接口
+ */
+async function deleteUniversalsaasDigitalhumanLibrary(request: DeleteUniversalsaasDigitalhumanLibraryRequest): DeleteUniversalsaasDigitalhumanLibraryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteUniversalsaasDigitalhumanLibraryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除知识库接口
+ * Summary: 删除知识库接口
+ */
+async function deleteUniversalsaasDigitalhumanLibraryEx(request: DeleteUniversalsaasDigitalhumanLibraryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteUniversalsaasDigitalhumanLibraryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.library.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddUniversalsaasDigitalhumanKnowledgeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 知识库id
+  libraryId: long(name='library_id'),
+  // 标问标题
+  questionTitle: string(name='question_title'),
+  // 问法列表
+  sentenceList: [ string ](name='sentence_list'),
+  // 答案文案
+  content: string(name='content'),
+}
+
+model AddUniversalsaasDigitalhumanKnowledgeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 知识点id
+  data?: long(name='data'),
+}
+
+/**
+ * Description: 新增知识点接口
+ * Summary: 新增知识点接口
+ */
+async function addUniversalsaasDigitalhumanKnowledge(request: AddUniversalsaasDigitalhumanKnowledgeRequest): AddUniversalsaasDigitalhumanKnowledgeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addUniversalsaasDigitalhumanKnowledgeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新增知识点接口
+ * Summary: 新增知识点接口
+ */
+async function addUniversalsaasDigitalhumanKnowledgeEx(request: AddUniversalsaasDigitalhumanKnowledgeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddUniversalsaasDigitalhumanKnowledgeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.knowledge.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateUniversalsaasDigitalhumanKnowledgeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 知识库ID
+  libraryId: long(name='library_id'),
+  // 知识点id
+  id: long(name='id'),
+  // 标问标题
+  questionTitle: string(name='question_title'),
+  // 问法列表
+  sentenceList: [ string ](name='sentence_list'),
+  // 答案文案
+  content: string(name='content'),
+}
+
+model UpdateUniversalsaasDigitalhumanKnowledgeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 编辑知识点接口
+ * Summary: 编辑知识点接口
+ */
+async function updateUniversalsaasDigitalhumanKnowledge(request: UpdateUniversalsaasDigitalhumanKnowledgeRequest): UpdateUniversalsaasDigitalhumanKnowledgeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateUniversalsaasDigitalhumanKnowledgeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 编辑知识点接口
+ * Summary: 编辑知识点接口
+ */
+async function updateUniversalsaasDigitalhumanKnowledgeEx(request: UpdateUniversalsaasDigitalhumanKnowledgeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateUniversalsaasDigitalhumanKnowledgeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.knowledge.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OnlineUniversalsaasDigitalhumanKnowledgeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 知识库id
+  libraryId: long(name='library_id'),
+  // 知识点id列表
+  ids: [ long ](name='ids'),
+}
+
+model OnlineUniversalsaasDigitalhumanKnowledgeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 发布知识点接口
+ * Summary: 发布知识点接口
+ */
+async function onlineUniversalsaasDigitalhumanKnowledge(request: OnlineUniversalsaasDigitalhumanKnowledgeRequest): OnlineUniversalsaasDigitalhumanKnowledgeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return onlineUniversalsaasDigitalhumanKnowledgeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发布知识点接口
+ * Summary: 发布知识点接口
+ */
+async function onlineUniversalsaasDigitalhumanKnowledgeEx(request: OnlineUniversalsaasDigitalhumanKnowledgeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OnlineUniversalsaasDigitalhumanKnowledgeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.knowledge.online', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OfflineUniversalsaasDigitalhumanKnowledgeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 知识库ID
+  libraryId: long(name='library_id'),
+  // 知识点id列表
+  ids: [ long ](name='ids'),
+}
+
+model OfflineUniversalsaasDigitalhumanKnowledgeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 下线知识点接口
+ * Summary: 下线知识点接口
+ */
+async function offlineUniversalsaasDigitalhumanKnowledge(request: OfflineUniversalsaasDigitalhumanKnowledgeRequest): OfflineUniversalsaasDigitalhumanKnowledgeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return offlineUniversalsaasDigitalhumanKnowledgeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 下线知识点接口
+ * Summary: 下线知识点接口
+ */
+async function offlineUniversalsaasDigitalhumanKnowledgeEx(request: OfflineUniversalsaasDigitalhumanKnowledgeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OfflineUniversalsaasDigitalhumanKnowledgeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.knowledge.offline', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListUniversalsaasDigitalhumanLlmChatRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 页面大小
+  pageSizr?: long(name='page_sizr'),
+  // 页面大小
+  pageSize?: long(name='page_size'),
+}
+
+model ListUniversalsaasDigitalhumanLlmChatResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 大模型对话列表
+  itemList?: [ AvatarLlmChatInfo ](name='item_list'),
+}
+
+/**
+ * Description: 查询大模型对话列表接口
+ * Summary: 查询大模型对话列表接口
+ */
+async function listUniversalsaasDigitalhumanLlmChat(request: ListUniversalsaasDigitalhumanLlmChatRequest): ListUniversalsaasDigitalhumanLlmChatResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listUniversalsaasDigitalhumanLlmChatEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询大模型对话列表接口
+ * Summary: 查询大模型对话列表接口
+ */
+async function listUniversalsaasDigitalhumanLlmChatEx(request: ListUniversalsaasDigitalhumanLlmChatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListUniversalsaasDigitalhumanLlmChatResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.llm.chat.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddUniversalsaasDigitalhumanChatSettingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 交互配置名称
+  configName: string(name='config_name'),
+  // 角色id
+  humanId: long(name='human_id'),
+}
+
+model AddUniversalsaasDigitalhumanChatSettingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交互配置信息
+  data?: AvatarConfigInfo(name='data'),
+}
+
+/**
+ * Description: 新增交互配置接口
+ * Summary: 新增交互配置接口
+ */
+async function addUniversalsaasDigitalhumanChatSetting(request: AddUniversalsaasDigitalhumanChatSettingRequest): AddUniversalsaasDigitalhumanChatSettingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addUniversalsaasDigitalhumanChatSettingEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新增交互配置接口
+ * Summary: 新增交互配置接口
+ */
+async function addUniversalsaasDigitalhumanChatSettingEx(request: AddUniversalsaasDigitalhumanChatSettingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddUniversalsaasDigitalhumanChatSettingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.chat.setting.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SetUniversalsaasDigitalhumanChatSettingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 交互配置ID
+  id: long(name='id'),
+  // 交互配置名
+  title?: string(name='title'),
+  // 背景图片url
+  bgImg?: string(name='bg_img'),
+  // logo图片url
+  logoImg?: string(name='logo_img'),
+  // 气泡配置
+  bubbleConfig?: [ AvatarBubbleInfo ](name='bubble_config'),
+  // 自定义组件配置
+  componentConfig?: [ AvatarComponentInfo ](name='component_config'),
+  // 关联大模型对话配置编码
+  llmCode?: string(name='llm_code'),
+  // 关联知识库列表
+  libraryIds?: [ long ](name='library_ids'),
+  // 话术配置
+  scriptConfig?: AvatarScriptConfigInfo(name='script_config'),
+}
+
+model SetUniversalsaasDigitalhumanChatSettingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 编辑交互配置接口
+ * Summary: 编辑交互配置接口
+ */
+async function setUniversalsaasDigitalhumanChatSetting(request: SetUniversalsaasDigitalhumanChatSettingRequest): SetUniversalsaasDigitalhumanChatSettingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return setUniversalsaasDigitalhumanChatSettingEx(request, headers, runtime);
+}
+
+/**
+ * Description: 编辑交互配置接口
+ * Summary: 编辑交互配置接口
+ */
+async function setUniversalsaasDigitalhumanChatSettingEx(request: SetUniversalsaasDigitalhumanChatSettingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SetUniversalsaasDigitalhumanChatSettingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.chat.setting.set', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteUniversalsaasDigitalhumanChatSettingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 交互配置id
+  id: long(name='id'),
+}
+
+model DeleteUniversalsaasDigitalhumanChatSettingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除交互配置接口
+ * Summary: 删除交互配置接口
+ */
+async function deleteUniversalsaasDigitalhumanChatSetting(request: DeleteUniversalsaasDigitalhumanChatSettingRequest): DeleteUniversalsaasDigitalhumanChatSettingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteUniversalsaasDigitalhumanChatSettingEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除交互配置接口
+ * Summary: 删除交互配置接口
+ */
+async function deleteUniversalsaasDigitalhumanChatSettingEx(request: DeleteUniversalsaasDigitalhumanChatSettingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteUniversalsaasDigitalhumanChatSettingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.chat.setting.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OnlineUniversalsaasDigitalhumanChatSettingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 交互配置id
+  id: long(name='id'),
+}
+
+model OnlineUniversalsaasDigitalhumanChatSettingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 发布交互配置接口
+ * Summary: 发布交互配置接口
+ */
+async function onlineUniversalsaasDigitalhumanChatSetting(request: OnlineUniversalsaasDigitalhumanChatSettingRequest): OnlineUniversalsaasDigitalhumanChatSettingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return onlineUniversalsaasDigitalhumanChatSettingEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发布交互配置接口
+ * Summary: 发布交互配置接口
+ */
+async function onlineUniversalsaasDigitalhumanChatSettingEx(request: OnlineUniversalsaasDigitalhumanChatSettingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OnlineUniversalsaasDigitalhumanChatSettingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.chat.setting.online', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OfflineUniversalsaasDigitalhumanChatSettingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 交互配置id
+  id: long(name='id'),
+}
+
+model OfflineUniversalsaasDigitalhumanChatSettingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 下线交互配置接口
+ * Summary: 下线交互配置接口
+ */
+async function offlineUniversalsaasDigitalhumanChatSetting(request: OfflineUniversalsaasDigitalhumanChatSettingRequest): OfflineUniversalsaasDigitalhumanChatSettingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return offlineUniversalsaasDigitalhumanChatSettingEx(request, headers, runtime);
+}
+
+/**
+ * Description: 下线交互配置接口
+ * Summary: 下线交互配置接口
+ */
+async function offlineUniversalsaasDigitalhumanChatSettingEx(request: OfflineUniversalsaasDigitalhumanChatSettingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OfflineUniversalsaasDigitalhumanChatSettingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.chat.setting.offline', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
