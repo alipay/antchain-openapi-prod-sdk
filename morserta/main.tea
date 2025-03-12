@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '2.0.4',
+    sdk_version = '2.0.5',
     _prod_code = 'MORSERTA',
     _prod_channel = 'default'
   };
@@ -213,28 +213,41 @@ model ConvertAdDataRequest = {
   muid: string(name='muid'),
   // 点击ID
   clickId: string(name='click_id'),
-  // 转化时间
-  convTime: long(name='conv_time'),
   // 点击时间
   clickTime: long(name='click_time'),
   // 曝光时间
   impressionTime: string(name='impression_time'),
-  // 投放日期年月日时分秒（准确到秒），格式为 yyyyMMddhhmmss
-  dt: string(name='dt'),
   // 手机号MD5
   mobileMd5: string(name='mobile_md5'),
-  // 是否提单标签0,1
-  labelSubmit: long(name='label_submit'),
-  // 是否支付标签0,1
-  labelPay: long(name='label_pay'),
-  // 是否升级标签0,1
-  labelUp?: long(name='label_up'),
-  // m2是否续期
-  labelM2Renewal: long(name='label_m2_renewal'),
-  // 是否退保
-  labelSurrender?: long(name='label_surrender'),
   // 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
   platform?: long(name='platform'),
+  // 事件类型，枚举值如下：
+  // submit-提交表单
+  // pay-付费
+  // renewal-续费
+  // m2_renewal-m2续期
+  // surrender-退保
+  eventCode: string(name='event_code'),
+  // 转化事件时间
+  eventTime: long(name='event_time'),
+  // 设备oaid
+  oaid?: string(name='oaid'),
+  // oaid_md5
+  oaidMd5?: string(name='oaid_md5'),
+  // caid
+  caid?: string(name='caid'),
+  // caid_md5
+  caidMd5?: string(name='caid_md5'),
+  // android_id
+  androidId?: string(name='android_id'),
+  // imei
+  imei?: string(name='imei'),
+  // imei_md5
+  imeiMd5?: string(name='imei_md5'),
+  // idfa
+  idfa?: string(name='idfa'),
+  // idfa_md5
+  idfaMd5?: string(name='idfa_md5'),
 }
 
 model ConvertAdDataResponse = {
@@ -255,8 +268,8 @@ model ConvertAdDataResponse = {
 }
 
 /**
- * Description: 摩斯RTA提供的转化回传接口
- * Summary: 摩斯RTA提供的转化回传接口
+ * Description: 转化数据回传接口
+ * Summary: 转化数据回传接口
  */
 async function convertAdData(request: ConvertAdDataRequest): ConvertAdDataResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -265,8 +278,8 @@ async function convertAdData(request: ConvertAdDataRequest): ConvertAdDataRespon
 }
 
 /**
- * Description: 摩斯RTA提供的转化回传接口
- * Summary: 摩斯RTA提供的转化回传接口
+ * Description: 转化数据回传接口
+ * Summary: 转化数据回传接口
  */
 async function convertAdDataEx(request: ConvertAdDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConvertAdDataResponse {
   Util.validateModel(request);
@@ -318,5 +331,46 @@ async function clickAdData(request: ClickAdDataRequest): ClickAdDataResponse {
 async function clickAdDataEx(request: ClickAdDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ClickAdDataResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.morserta.ad.data.click', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ReportAdDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 广告主账号Id
+  accountId: string(name='account_id'),
+  // 报表级别level
+  level: string(name='level'),
+  // 回传数据，json array
+  data: string(name='data'),
+}
+
+model ReportAdDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 广告汇总数据
+ * Summary: 广告汇总数据
+ */
+async function reportAdData(request: ReportAdDataRequest): ReportAdDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return reportAdDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 广告汇总数据
+ * Summary: 广告汇总数据
+ */
+async function reportAdDataEx(request: ReportAdDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReportAdDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.morserta.ad.data.report', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
