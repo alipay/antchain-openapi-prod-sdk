@@ -2472,6 +2472,67 @@ func (s *MarketingScoreInfo) SetScore(v string) *MarketingScoreInfo {
 	return s
 }
 
+// 订单电子合同信息对象
+type OrderContractInfo struct {
+	// 电子合同签署单号
+	SignNo *string `json:"sign_no,omitempty" xml:"sign_no,omitempty"`
+	// 签署时间
+	SignTime *string `json:"sign_time,omitempty" xml:"sign_time,omitempty"`
+	// 合同签署类型
+	ContractType *string `json:"contract_type,omitempty" xml:"contract_type,omitempty"`
+	// 文件合同类型
+	AgreementType *string `json:"agreement_type,omitempty" xml:"agreement_type,omitempty"`
+	// 模板ID
+	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty"`
+	// 模板文件名称
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty"`
+	// 合同文件下载地址
+	DownloadUrl *string `json:"download_url,omitempty" xml:"download_url,omitempty"`
+}
+
+func (s OrderContractInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrderContractInfo) GoString() string {
+	return s.String()
+}
+
+func (s *OrderContractInfo) SetSignNo(v string) *OrderContractInfo {
+	s.SignNo = &v
+	return s
+}
+
+func (s *OrderContractInfo) SetSignTime(v string) *OrderContractInfo {
+	s.SignTime = &v
+	return s
+}
+
+func (s *OrderContractInfo) SetContractType(v string) *OrderContractInfo {
+	s.ContractType = &v
+	return s
+}
+
+func (s *OrderContractInfo) SetAgreementType(v string) *OrderContractInfo {
+	s.AgreementType = &v
+	return s
+}
+
+func (s *OrderContractInfo) SetTemplateId(v string) *OrderContractInfo {
+	s.TemplateId = &v
+	return s
+}
+
+func (s *OrderContractInfo) SetFileName(v string) *OrderContractInfo {
+	s.FileName = &v
+	return s
+}
+
+func (s *OrderContractInfo) SetDownloadUrl(v string) *OrderContractInfo {
+	s.DownloadUrl = &v
+	return s
+}
+
 // 待办信息
 type PendingEventInfo struct {
 	// 事件id
@@ -2761,6 +2822,8 @@ type ApplicationInfoUpdate struct {
 	MerchantServiceName *string `json:"merchant_service_name,omitempty" xml:"merchant_service_name,omitempty"`
 	// 商户服务描述。 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
 	MerchantServiceDesc *string `json:"merchant_service_desc,omitempty" xml:"merchant_service_desc,omitempty"`
+	// 站点信息
+	SiteInfo []*SiteInfo `json:"site_info,omitempty" xml:"site_info,omitempty" type:"Repeated"`
 }
 
 func (s ApplicationInfoUpdate) String() string {
@@ -2803,6 +2866,11 @@ func (s *ApplicationInfoUpdate) SetMerchantServiceName(v string) *ApplicationInf
 
 func (s *ApplicationInfoUpdate) SetMerchantServiceDesc(v string) *ApplicationInfoUpdate {
 	s.MerchantServiceDesc = &v
+	return s
+}
+
+func (s *ApplicationInfoUpdate) SetSiteInfo(v []*SiteInfo) *ApplicationInfoUpdate {
+	s.SiteInfo = v
 	return s
 }
 
@@ -6555,10 +6623,6 @@ type QueryFundCreditauthRequest struct {
 	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" require:"true"`
 	// 授权id
 	AuthId *string `json:"auth_id,omitempty" xml:"auth_id,omitempty" require:"true"`
-	// 授权类型
-	// CREDIT_GRANTING 授信
-	// CREDIT_UTILIZATION 用信
-	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
 }
 
 func (s QueryFundCreditauthRequest) String() string {
@@ -6586,11 +6650,6 @@ func (s *QueryFundCreditauthRequest) SetFundId(v string) *QueryFundCreditauthReq
 
 func (s *QueryFundCreditauthRequest) SetAuthId(v string) *QueryFundCreditauthRequest {
 	s.AuthId = &v
-	return s
-}
-
-func (s *QueryFundCreditauthRequest) SetAuthType(v string) *QueryFundCreditauthRequest {
-	s.AuthType = &v
 	return s
 }
 
@@ -12214,6 +12273,8 @@ type DetailInnerOrderResponse struct {
 	OrderProductInfoList []*OrderProductInfo `json:"order_product_info_list,omitempty" xml:"order_product_info_list,omitempty" type:"Repeated"`
 	// 经营分账信息
 	OperateDivideInfoList []*OperateDivideInfo `json:"operate_divide_info_list,omitempty" xml:"operate_divide_info_list,omitempty" type:"Repeated"`
+	// 订单合同信息
+	OrderContractInfoList []*OrderContractInfo `json:"order_contract_info_list,omitempty" xml:"order_contract_info_list,omitempty" type:"Repeated"`
 }
 
 func (s DetailInnerOrderResponse) String() string {
@@ -12281,6 +12342,11 @@ func (s *DetailInnerOrderResponse) SetOrderProductInfoList(v []*OrderProductInfo
 
 func (s *DetailInnerOrderResponse) SetOperateDivideInfoList(v []*OperateDivideInfo) *DetailInnerOrderResponse {
 	s.OperateDivideInfoList = v
+	return s
+}
+
+func (s *DetailInnerOrderResponse) SetOrderContractInfoList(v []*OrderContractInfo) *DetailInnerOrderResponse {
+	s.OrderContractInfoList = v
 	return s
 }
 
@@ -20279,7 +20345,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.14.12"),
+				"sdk_version":      tea.String("1.14.15"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
