@@ -137,7 +137,7 @@ namespace AntChain.SDK.MORSERTA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.0.4"},
+                        {"sdk_version", "2.0.5"},
                         {"_prod_code", "MORSERTA"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MORSERTA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.0.4"},
+                        {"sdk_version", "2.0.5"},
                         {"_prod_code", "MORSERTA"},
                         {"_prod_channel", "default"},
                     };
@@ -364,8 +364,8 @@ namespace AntChain.SDK.MORSERTA
         }
 
         /**
-         * Description: 摩斯RTA提供的转化回传接口
-         * Summary: 摩斯RTA提供的转化回传接口
+         * Description: 转化数据回传接口
+         * Summary: 转化数据回传接口
          */
         public ConvertAdDataResponse ConvertAdData(ConvertAdDataRequest request)
         {
@@ -375,8 +375,8 @@ namespace AntChain.SDK.MORSERTA
         }
 
         /**
-         * Description: 摩斯RTA提供的转化回传接口
-         * Summary: 摩斯RTA提供的转化回传接口
+         * Description: 转化数据回传接口
+         * Summary: 转化数据回传接口
          */
         public async Task<ConvertAdDataResponse> ConvertAdDataAsync(ConvertAdDataRequest request)
         {
@@ -386,8 +386,8 @@ namespace AntChain.SDK.MORSERTA
         }
 
         /**
-         * Description: 摩斯RTA提供的转化回传接口
-         * Summary: 摩斯RTA提供的转化回传接口
+         * Description: 转化数据回传接口
+         * Summary: 转化数据回传接口
          */
         public ConvertAdDataResponse ConvertAdDataEx(ConvertAdDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -396,8 +396,8 @@ namespace AntChain.SDK.MORSERTA
         }
 
         /**
-         * Description: 摩斯RTA提供的转化回传接口
-         * Summary: 摩斯RTA提供的转化回传接口
+         * Description: 转化数据回传接口
+         * Summary: 转化数据回传接口
          */
         public async Task<ConvertAdDataResponse> ConvertAdDataExAsync(ConvertAdDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -445,6 +445,48 @@ namespace AntChain.SDK.MORSERTA
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ClickAdDataResponse>(await DoRequestAsync("1.0", "antcloud.morserta.ad.data.click", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 广告汇总数据
+         * Summary: 广告汇总数据
+         */
+        public ReportAdDataResponse ReportAdData(ReportAdDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ReportAdDataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 广告汇总数据
+         * Summary: 广告汇总数据
+         */
+        public async Task<ReportAdDataResponse> ReportAdDataAsync(ReportAdDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ReportAdDataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 广告汇总数据
+         * Summary: 广告汇总数据
+         */
+        public ReportAdDataResponse ReportAdDataEx(ReportAdDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReportAdDataResponse>(DoRequest("1.0", "antcloud.morserta.ad.data.report", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 广告汇总数据
+         * Summary: 广告汇总数据
+         */
+        public async Task<ReportAdDataResponse> ReportAdDataExAsync(ReportAdDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReportAdDataResponse>(await DoRequestAsync("1.0", "antcloud.morserta.ad.data.report", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

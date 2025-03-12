@@ -34,11 +34,6 @@ namespace AntChain.SDK.MORSERTA.Models
         [Validation(Required=true)]
         public string ClickId { get; set; }
 
-        // 转化时间
-        [NameInMap("conv_time")]
-        [Validation(Required=true)]
-        public long? ConvTime { get; set; }
-
         // 点击时间
         [NameInMap("click_time")]
         [Validation(Required=true)]
@@ -49,45 +44,75 @@ namespace AntChain.SDK.MORSERTA.Models
         [Validation(Required=true)]
         public string ImpressionTime { get; set; }
 
-        // 投放日期年月日时分秒（准确到秒），格式为 yyyyMMddhhmmss
-        [NameInMap("dt")]
-        [Validation(Required=true)]
-        public string Dt { get; set; }
-
         // 手机号MD5
         [NameInMap("mobile_md5")]
         [Validation(Required=true)]
         public string MobileMd5 { get; set; }
 
-        // 是否提单标签0,1
-        [NameInMap("label_submit")]
-        [Validation(Required=true)]
-        public long? LabelSubmit { get; set; }
-
-        // 是否支付标签0,1
-        [NameInMap("label_pay")]
-        [Validation(Required=true)]
-        public long? LabelPay { get; set; }
-
-        // 是否升级标签0,1
-        [NameInMap("label_up")]
-        [Validation(Required=false)]
-        public long? LabelUp { get; set; }
-
-        // m2是否续期
-        [NameInMap("label_m2_renewal")]
-        [Validation(Required=true)]
-        public long? LabelM2Renewal { get; set; }
-
-        // 是否退保
-        [NameInMap("label_surrender")]
-        [Validation(Required=false)]
-        public long? LabelSurrender { get; set; }
-
         // 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
         [NameInMap("platform")]
         [Validation(Required=false)]
         public long? Platform { get; set; }
+
+        // 事件类型，枚举值如下：
+        // submit-提交表单
+        // pay-付费
+        // renewal-续费
+        // m2_renewal-m2续期
+        // surrender-退保
+        [NameInMap("event_code")]
+        [Validation(Required=true)]
+        public string EventCode { get; set; }
+
+        // 转化事件时间
+        [NameInMap("event_time")]
+        [Validation(Required=true)]
+        public long? EventTime { get; set; }
+
+        // 设备oaid
+        [NameInMap("oaid")]
+        [Validation(Required=false)]
+        public string Oaid { get; set; }
+
+        // oaid_md5
+        [NameInMap("oaid_md5")]
+        [Validation(Required=false)]
+        public string OaidMd5 { get; set; }
+
+        // caid
+        [NameInMap("caid")]
+        [Validation(Required=false)]
+        public string Caid { get; set; }
+
+        // caid_md5
+        [NameInMap("caid_md5")]
+        [Validation(Required=false)]
+        public string CaidMd5 { get; set; }
+
+        // android_id
+        [NameInMap("android_id")]
+        [Validation(Required=false)]
+        public string AndroidId { get; set; }
+
+        // imei
+        [NameInMap("imei")]
+        [Validation(Required=false)]
+        public string Imei { get; set; }
+
+        // imei_md5
+        [NameInMap("imei_md5")]
+        [Validation(Required=false)]
+        public string ImeiMd5 { get; set; }
+
+        // idfa
+        [NameInMap("idfa")]
+        [Validation(Required=false)]
+        public string Idfa { get; set; }
+
+        // idfa_md5
+        [NameInMap("idfa_md5")]
+        [Validation(Required=false)]
+        public string IdfaMd5 { get; set; }
 
     }
 
