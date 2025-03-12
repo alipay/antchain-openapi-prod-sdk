@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.0.2',
+                    'sdk_version': '2.0.4',
                     '_prod_code': 'MORSERTA',
                     '_prod_channel': 'default'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.0.2',
+                    'sdk_version': '2.0.4',
                     '_prod_code': 'MORSERTA',
                     '_prod_channel': 'default'
                 }
@@ -383,4 +383,60 @@ class Client:
         return TeaCore.from_map(
             morserta_models.ConvertAdDataResponse(),
             await self.do_request_async('1.0', 'antcloud.morserta.ad.data.convert', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def click_ad_data(
+        self,
+        request: morserta_models.ClickAdDataRequest,
+    ) -> morserta_models.ClickAdDataResponse:
+        """
+        Description: 广告主点击数据回传
+        Summary: 广告主点击数据回传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.click_ad_data_ex(request, headers, runtime)
+
+    async def click_ad_data_async(
+        self,
+        request: morserta_models.ClickAdDataRequest,
+    ) -> morserta_models.ClickAdDataResponse:
+        """
+        Description: 广告主点击数据回传
+        Summary: 广告主点击数据回传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.click_ad_data_ex_async(request, headers, runtime)
+
+    def click_ad_data_ex(
+        self,
+        request: morserta_models.ClickAdDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> morserta_models.ClickAdDataResponse:
+        """
+        Description: 广告主点击数据回传
+        Summary: 广告主点击数据回传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            morserta_models.ClickAdDataResponse(),
+            self.do_request('1.0', 'antcloud.morserta.ad.data.click', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def click_ad_data_ex_async(
+        self,
+        request: morserta_models.ClickAdDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> morserta_models.ClickAdDataResponse:
+        """
+        Description: 广告主点击数据回传
+        Summary: 广告主点击数据回传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            morserta_models.ClickAdDataResponse(),
+            await self.do_request_async('1.0', 'antcloud.morserta.ad.data.click', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
