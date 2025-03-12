@@ -38,12 +38,6 @@ class ConvertAdDataRequest extends Model
      */
     public $clickId;
 
-    // 转化时间
-    /**
-     * @var int
-     */
-    public $convTime;
-
     // 点击时间
     /**
      * @var int
@@ -56,70 +50,109 @@ class ConvertAdDataRequest extends Model
      */
     public $impressionTime;
 
-    // 投放日期年月日时分秒（准确到秒），格式为 yyyyMMddhhmmss
-    /**
-     * @var string
-     */
-    public $dt;
-
     // 手机号MD5
     /**
      * @var string
      */
     public $mobileMd5;
 
-    // 是否提单标签0,1
-    /**
-     * @var int
-     */
-    public $labelSubmit;
-
-    // 是否支付标签0,1
-    /**
-     * @var int
-     */
-    public $labelPay;
-
-    // 是否升级标签0,1
-    /**
-     * @var int
-     */
-    public $labelUp;
-
-    // m2是否续期
-    /**
-     * @var int
-     */
-    public $labelM2Renewal;
-
-    // 是否退保
-    /**
-     * @var int
-     */
-    public $labelSurrender;
-
     // 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
     /**
      * @var int
      */
     public $platform;
+
+    // 事件类型，枚举值如下：
+    // submit-提交表单
+    // pay-付费
+    // renewal-续费
+    // m2_renewal-m2续期
+    // surrender-退保
+    /**
+     * @var string
+     */
+    public $eventCode;
+
+    // 转化事件时间
+    /**
+     * @var int
+     */
+    public $eventTime;
+
+    // 设备oaid
+    /**
+     * @var string
+     */
+    public $oaid;
+
+    // oaid_md5
+    /**
+     * @var string
+     */
+    public $oaidMd5;
+
+    // caid
+    /**
+     * @var string
+     */
+    public $caid;
+
+    // caid_md5
+    /**
+     * @var string
+     */
+    public $caidMd5;
+
+    // android_id
+    /**
+     * @var string
+     */
+    public $androidId;
+
+    // imei
+    /**
+     * @var string
+     */
+    public $imei;
+
+    // imei_md5
+    /**
+     * @var string
+     */
+    public $imeiMd5;
+
+    // idfa
+    /**
+     * @var string
+     */
+    public $idfa;
+
+    // idfa_md5
+    /**
+     * @var string
+     */
+    public $idfaMd5;
     protected $_name = [
         'authToken'      => 'auth_token',
         'accountId'      => 'account_id',
         'deviceOsType'   => 'device_os_type',
         'muid'           => 'muid',
         'clickId'        => 'click_id',
-        'convTime'       => 'conv_time',
         'clickTime'      => 'click_time',
         'impressionTime' => 'impression_time',
-        'dt'             => 'dt',
         'mobileMd5'      => 'mobile_md5',
-        'labelSubmit'    => 'label_submit',
-        'labelPay'       => 'label_pay',
-        'labelUp'        => 'label_up',
-        'labelM2Renewal' => 'label_m2_renewal',
-        'labelSurrender' => 'label_surrender',
         'platform'       => 'platform',
+        'eventCode'      => 'event_code',
+        'eventTime'      => 'event_time',
+        'oaid'           => 'oaid',
+        'oaidMd5'        => 'oaid_md5',
+        'caid'           => 'caid',
+        'caidMd5'        => 'caid_md5',
+        'androidId'      => 'android_id',
+        'imei'           => 'imei',
+        'imeiMd5'        => 'imei_md5',
+        'idfa'           => 'idfa',
+        'idfaMd5'        => 'idfa_md5',
     ];
 
     public function validate()
@@ -128,14 +161,11 @@ class ConvertAdDataRequest extends Model
         Model::validateRequired('deviceOsType', $this->deviceOsType, true);
         Model::validateRequired('muid', $this->muid, true);
         Model::validateRequired('clickId', $this->clickId, true);
-        Model::validateRequired('convTime', $this->convTime, true);
         Model::validateRequired('clickTime', $this->clickTime, true);
         Model::validateRequired('impressionTime', $this->impressionTime, true);
-        Model::validateRequired('dt', $this->dt, true);
         Model::validateRequired('mobileMd5', $this->mobileMd5, true);
-        Model::validateRequired('labelSubmit', $this->labelSubmit, true);
-        Model::validateRequired('labelPay', $this->labelPay, true);
-        Model::validateRequired('labelM2Renewal', $this->labelM2Renewal, true);
+        Model::validateRequired('eventCode', $this->eventCode, true);
+        Model::validateRequired('eventTime', $this->eventTime, true);
     }
 
     public function toMap()
@@ -156,38 +186,50 @@ class ConvertAdDataRequest extends Model
         if (null !== $this->clickId) {
             $res['click_id'] = $this->clickId;
         }
-        if (null !== $this->convTime) {
-            $res['conv_time'] = $this->convTime;
-        }
         if (null !== $this->clickTime) {
             $res['click_time'] = $this->clickTime;
         }
         if (null !== $this->impressionTime) {
             $res['impression_time'] = $this->impressionTime;
         }
-        if (null !== $this->dt) {
-            $res['dt'] = $this->dt;
-        }
         if (null !== $this->mobileMd5) {
             $res['mobile_md5'] = $this->mobileMd5;
         }
-        if (null !== $this->labelSubmit) {
-            $res['label_submit'] = $this->labelSubmit;
-        }
-        if (null !== $this->labelPay) {
-            $res['label_pay'] = $this->labelPay;
-        }
-        if (null !== $this->labelUp) {
-            $res['label_up'] = $this->labelUp;
-        }
-        if (null !== $this->labelM2Renewal) {
-            $res['label_m2_renewal'] = $this->labelM2Renewal;
-        }
-        if (null !== $this->labelSurrender) {
-            $res['label_surrender'] = $this->labelSurrender;
-        }
         if (null !== $this->platform) {
             $res['platform'] = $this->platform;
+        }
+        if (null !== $this->eventCode) {
+            $res['event_code'] = $this->eventCode;
+        }
+        if (null !== $this->eventTime) {
+            $res['event_time'] = $this->eventTime;
+        }
+        if (null !== $this->oaid) {
+            $res['oaid'] = $this->oaid;
+        }
+        if (null !== $this->oaidMd5) {
+            $res['oaid_md5'] = $this->oaidMd5;
+        }
+        if (null !== $this->caid) {
+            $res['caid'] = $this->caid;
+        }
+        if (null !== $this->caidMd5) {
+            $res['caid_md5'] = $this->caidMd5;
+        }
+        if (null !== $this->androidId) {
+            $res['android_id'] = $this->androidId;
+        }
+        if (null !== $this->imei) {
+            $res['imei'] = $this->imei;
+        }
+        if (null !== $this->imeiMd5) {
+            $res['imei_md5'] = $this->imeiMd5;
+        }
+        if (null !== $this->idfa) {
+            $res['idfa'] = $this->idfa;
+        }
+        if (null !== $this->idfaMd5) {
+            $res['idfa_md5'] = $this->idfaMd5;
         }
 
         return $res;
@@ -216,38 +258,50 @@ class ConvertAdDataRequest extends Model
         if (isset($map['click_id'])) {
             $model->clickId = $map['click_id'];
         }
-        if (isset($map['conv_time'])) {
-            $model->convTime = $map['conv_time'];
-        }
         if (isset($map['click_time'])) {
             $model->clickTime = $map['click_time'];
         }
         if (isset($map['impression_time'])) {
             $model->impressionTime = $map['impression_time'];
         }
-        if (isset($map['dt'])) {
-            $model->dt = $map['dt'];
-        }
         if (isset($map['mobile_md5'])) {
             $model->mobileMd5 = $map['mobile_md5'];
         }
-        if (isset($map['label_submit'])) {
-            $model->labelSubmit = $map['label_submit'];
-        }
-        if (isset($map['label_pay'])) {
-            $model->labelPay = $map['label_pay'];
-        }
-        if (isset($map['label_up'])) {
-            $model->labelUp = $map['label_up'];
-        }
-        if (isset($map['label_m2_renewal'])) {
-            $model->labelM2Renewal = $map['label_m2_renewal'];
-        }
-        if (isset($map['label_surrender'])) {
-            $model->labelSurrender = $map['label_surrender'];
-        }
         if (isset($map['platform'])) {
             $model->platform = $map['platform'];
+        }
+        if (isset($map['event_code'])) {
+            $model->eventCode = $map['event_code'];
+        }
+        if (isset($map['event_time'])) {
+            $model->eventTime = $map['event_time'];
+        }
+        if (isset($map['oaid'])) {
+            $model->oaid = $map['oaid'];
+        }
+        if (isset($map['oaid_md5'])) {
+            $model->oaidMd5 = $map['oaid_md5'];
+        }
+        if (isset($map['caid'])) {
+            $model->caid = $map['caid'];
+        }
+        if (isset($map['caid_md5'])) {
+            $model->caidMd5 = $map['caid_md5'];
+        }
+        if (isset($map['android_id'])) {
+            $model->androidId = $map['android_id'];
+        }
+        if (isset($map['imei'])) {
+            $model->imei = $map['imei'];
+        }
+        if (isset($map['imei_md5'])) {
+            $model->imeiMd5 = $map['imei_md5'];
+        }
+        if (isset($map['idfa'])) {
+            $model->idfa = $map['idfa'];
+        }
+        if (isset($map['idfa_md5'])) {
+            $model->idfaMd5 = $map['idfa_md5'];
         }
 
         return $model;

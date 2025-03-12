@@ -17,6 +17,8 @@ use AntChain\MORSERTA\Models\ConvertAdDataRequest;
 use AntChain\MORSERTA\Models\ConvertAdDataResponse;
 use AntChain\MORSERTA\Models\FeedbackReportDataRequest;
 use AntChain\MORSERTA\Models\FeedbackReportDataResponse;
+use AntChain\MORSERTA\Models\ReportAdDataRequest;
+use AntChain\MORSERTA\Models\ReportAdDataResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -163,7 +165,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '2.0.4',
+                    'sdk_version'      => '2.0.5',
                     '_prod_code'       => 'MORSERTA',
                     '_prod_channel'    => 'default',
                 ];
@@ -245,8 +247,8 @@ class Client
     }
 
     /**
-     * Description: 摩斯RTA提供的转化回传接口
-     * Summary: 摩斯RTA提供的转化回传接口.
+     * Description: 转化数据回传接口
+     * Summary: 转化数据回传接口.
      *
      * @param ConvertAdDataRequest $request
      *
@@ -261,8 +263,8 @@ class Client
     }
 
     /**
-     * Description: 摩斯RTA提供的转化回传接口
-     * Summary: 摩斯RTA提供的转化回传接口.
+     * Description: 转化数据回传接口
+     * Summary: 转化数据回传接口.
      *
      * @param ConvertAdDataRequest $request
      * @param string[]             $headers
@@ -308,5 +310,38 @@ class Client
         Utils::validateModel($request);
 
         return ClickAdDataResponse::fromMap($this->doRequest('1.0', 'antcloud.morserta.ad.data.click', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 广告汇总数据
+     * Summary: 广告汇总数据.
+     *
+     * @param ReportAdDataRequest $request
+     *
+     * @return ReportAdDataResponse
+     */
+    public function reportAdData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->reportAdDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 广告汇总数据
+     * Summary: 广告汇总数据.
+     *
+     * @param ReportAdDataRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return ReportAdDataResponse
+     */
+    public function reportAdDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ReportAdDataResponse::fromMap($this->doRequest('1.0', 'antcloud.morserta.ad.data.report', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
