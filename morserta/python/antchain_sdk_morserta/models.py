@@ -261,17 +261,21 @@ class ConvertAdDataRequest(TeaModel):
         device_os_type: str = None,
         muid: str = None,
         click_id: str = None,
-        conv_time: int = None,
         click_time: int = None,
         impression_time: str = None,
-        dt: str = None,
         mobile_md_5: str = None,
-        label_submit: int = None,
-        label_pay: int = None,
-        label_up: int = None,
-        label_m2renewal: int = None,
-        label_surrender: int = None,
         platform: int = None,
+        event_code: str = None,
+        event_time: int = None,
+        oaid: str = None,
+        oaid_md_5: str = None,
+        caid: str = None,
+        caid_md_5: str = None,
+        android_id: str = None,
+        imei: str = None,
+        imei_md_5: str = None,
+        idfa: str = None,
+        idfa_md_5: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -283,42 +287,52 @@ class ConvertAdDataRequest(TeaModel):
         self.muid = muid
         # 点击ID
         self.click_id = click_id
-        # 转化时间
-        self.conv_time = conv_time
         # 点击时间
         self.click_time = click_time
         # 曝光时间
         self.impression_time = impression_time
-        # 投放日期年月日时分秒（准确到秒），格式为 yyyyMMddhhmmss
-        self.dt = dt
         # 手机号MD5
         self.mobile_md_5 = mobile_md_5
-        # 是否提单标签0,1
-        self.label_submit = label_submit
-        # 是否支付标签0,1
-        self.label_pay = label_pay
-        # 是否升级标签0,1
-        self.label_up = label_up
-        # m2是否续期
-        self.label_m2renewal = label_m2renewal
-        # 是否退保
-        self.label_surrender = label_surrender
         # 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
         self.platform = platform
+        # 事件类型，枚举值如下：
+        # submit-提交表单
+        # pay-付费
+        # renewal-续费
+        # m2_renewal-m2续期
+        # surrender-退保
+        self.event_code = event_code
+        # 转化事件时间
+        self.event_time = event_time
+        # 设备oaid
+        self.oaid = oaid
+        # oaid_md5
+        self.oaid_md_5 = oaid_md_5
+        # caid
+        self.caid = caid
+        # caid_md5
+        self.caid_md_5 = caid_md_5
+        # android_id
+        self.android_id = android_id
+        # imei
+        self.imei = imei
+        # imei_md5
+        self.imei_md_5 = imei_md_5
+        # idfa
+        self.idfa = idfa
+        # idfa_md5
+        self.idfa_md_5 = idfa_md_5
 
     def validate(self):
         self.validate_required(self.account_id, 'account_id')
         self.validate_required(self.device_os_type, 'device_os_type')
         self.validate_required(self.muid, 'muid')
         self.validate_required(self.click_id, 'click_id')
-        self.validate_required(self.conv_time, 'conv_time')
         self.validate_required(self.click_time, 'click_time')
         self.validate_required(self.impression_time, 'impression_time')
-        self.validate_required(self.dt, 'dt')
         self.validate_required(self.mobile_md_5, 'mobile_md_5')
-        self.validate_required(self.label_submit, 'label_submit')
-        self.validate_required(self.label_pay, 'label_pay')
-        self.validate_required(self.label_m2renewal, 'label_m2renewal')
+        self.validate_required(self.event_code, 'event_code')
+        self.validate_required(self.event_time, 'event_time')
 
     def to_map(self):
         _map = super().to_map()
@@ -336,28 +350,36 @@ class ConvertAdDataRequest(TeaModel):
             result['muid'] = self.muid
         if self.click_id is not None:
             result['click_id'] = self.click_id
-        if self.conv_time is not None:
-            result['conv_time'] = self.conv_time
         if self.click_time is not None:
             result['click_time'] = self.click_time
         if self.impression_time is not None:
             result['impression_time'] = self.impression_time
-        if self.dt is not None:
-            result['dt'] = self.dt
         if self.mobile_md_5 is not None:
             result['mobile_md5'] = self.mobile_md_5
-        if self.label_submit is not None:
-            result['label_submit'] = self.label_submit
-        if self.label_pay is not None:
-            result['label_pay'] = self.label_pay
-        if self.label_up is not None:
-            result['label_up'] = self.label_up
-        if self.label_m2renewal is not None:
-            result['label_m2_renewal'] = self.label_m2renewal
-        if self.label_surrender is not None:
-            result['label_surrender'] = self.label_surrender
         if self.platform is not None:
             result['platform'] = self.platform
+        if self.event_code is not None:
+            result['event_code'] = self.event_code
+        if self.event_time is not None:
+            result['event_time'] = self.event_time
+        if self.oaid is not None:
+            result['oaid'] = self.oaid
+        if self.oaid_md_5 is not None:
+            result['oaid_md5'] = self.oaid_md_5
+        if self.caid is not None:
+            result['caid'] = self.caid
+        if self.caid_md_5 is not None:
+            result['caid_md5'] = self.caid_md_5
+        if self.android_id is not None:
+            result['android_id'] = self.android_id
+        if self.imei is not None:
+            result['imei'] = self.imei
+        if self.imei_md_5 is not None:
+            result['imei_md5'] = self.imei_md_5
+        if self.idfa is not None:
+            result['idfa'] = self.idfa
+        if self.idfa_md_5 is not None:
+            result['idfa_md5'] = self.idfa_md_5
         return result
 
     def from_map(self, m: dict = None):
@@ -372,28 +394,36 @@ class ConvertAdDataRequest(TeaModel):
             self.muid = m.get('muid')
         if m.get('click_id') is not None:
             self.click_id = m.get('click_id')
-        if m.get('conv_time') is not None:
-            self.conv_time = m.get('conv_time')
         if m.get('click_time') is not None:
             self.click_time = m.get('click_time')
         if m.get('impression_time') is not None:
             self.impression_time = m.get('impression_time')
-        if m.get('dt') is not None:
-            self.dt = m.get('dt')
         if m.get('mobile_md5') is not None:
             self.mobile_md_5 = m.get('mobile_md5')
-        if m.get('label_submit') is not None:
-            self.label_submit = m.get('label_submit')
-        if m.get('label_pay') is not None:
-            self.label_pay = m.get('label_pay')
-        if m.get('label_up') is not None:
-            self.label_up = m.get('label_up')
-        if m.get('label_m2_renewal') is not None:
-            self.label_m2renewal = m.get('label_m2_renewal')
-        if m.get('label_surrender') is not None:
-            self.label_surrender = m.get('label_surrender')
         if m.get('platform') is not None:
             self.platform = m.get('platform')
+        if m.get('event_code') is not None:
+            self.event_code = m.get('event_code')
+        if m.get('event_time') is not None:
+            self.event_time = m.get('event_time')
+        if m.get('oaid') is not None:
+            self.oaid = m.get('oaid')
+        if m.get('oaid_md5') is not None:
+            self.oaid_md_5 = m.get('oaid_md5')
+        if m.get('caid') is not None:
+            self.caid = m.get('caid')
+        if m.get('caid_md5') is not None:
+            self.caid_md_5 = m.get('caid_md5')
+        if m.get('android_id') is not None:
+            self.android_id = m.get('android_id')
+        if m.get('imei') is not None:
+            self.imei = m.get('imei')
+        if m.get('imei_md5') is not None:
+            self.imei_md_5 = m.get('imei_md5')
+        if m.get('idfa') is not None:
+            self.idfa = m.get('idfa')
+        if m.get('idfa_md5') is not None:
+            self.idfa_md_5 = m.get('idfa_md5')
         return self
 
 
@@ -585,6 +615,106 @@ class ClickAdDataResponse(TeaModel):
             self.message = m.get('message')
         if m.get('request_id') is not None:
             self.request_id = m.get('request_id')
+        return self
+
+
+class ReportAdDataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        account_id: str = None,
+        level: str = None,
+        data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 广告主账号Id
+        self.account_id = account_id
+        # 报表级别level
+        self.level = level
+        # 回传数据，json array
+        self.data = data
+
+    def validate(self):
+        self.validate_required(self.account_id, 'account_id')
+        self.validate_required(self.level, 'level')
+        self.validate_required(self.data, 'data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        if self.level is not None:
+            result['level'] = self.level
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        if m.get('level') is not None:
+            self.level = m.get('level')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
+class ReportAdDataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
         return self
 
 

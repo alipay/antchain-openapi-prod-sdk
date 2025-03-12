@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.0.4',
+                    'sdk_version': '2.0.5',
                     '_prod_code': 'MORSERTA',
                     '_prod_channel': 'default'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.0.4',
+                    'sdk_version': '2.0.5',
                     '_prod_code': 'MORSERTA',
                     '_prod_channel': 'default'
                 }
@@ -334,8 +334,8 @@ class Client:
         request: morserta_models.ConvertAdDataRequest,
     ) -> morserta_models.ConvertAdDataResponse:
         """
-        Description: 摩斯RTA提供的转化回传接口
-        Summary: 摩斯RTA提供的转化回传接口
+        Description: 转化数据回传接口
+        Summary: 转化数据回传接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -346,8 +346,8 @@ class Client:
         request: morserta_models.ConvertAdDataRequest,
     ) -> morserta_models.ConvertAdDataResponse:
         """
-        Description: 摩斯RTA提供的转化回传接口
-        Summary: 摩斯RTA提供的转化回传接口
+        Description: 转化数据回传接口
+        Summary: 转化数据回传接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -360,8 +360,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> morserta_models.ConvertAdDataResponse:
         """
-        Description: 摩斯RTA提供的转化回传接口
-        Summary: 摩斯RTA提供的转化回传接口
+        Description: 转化数据回传接口
+        Summary: 转化数据回传接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -376,8 +376,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> morserta_models.ConvertAdDataResponse:
         """
-        Description: 摩斯RTA提供的转化回传接口
-        Summary: 摩斯RTA提供的转化回传接口
+        Description: 转化数据回传接口
+        Summary: 转化数据回传接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -439,4 +439,60 @@ class Client:
         return TeaCore.from_map(
             morserta_models.ClickAdDataResponse(),
             await self.do_request_async('1.0', 'antcloud.morserta.ad.data.click', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def report_ad_data(
+        self,
+        request: morserta_models.ReportAdDataRequest,
+    ) -> morserta_models.ReportAdDataResponse:
+        """
+        Description: 广告汇总数据
+        Summary: 广告汇总数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.report_ad_data_ex(request, headers, runtime)
+
+    async def report_ad_data_async(
+        self,
+        request: morserta_models.ReportAdDataRequest,
+    ) -> morserta_models.ReportAdDataResponse:
+        """
+        Description: 广告汇总数据
+        Summary: 广告汇总数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.report_ad_data_ex_async(request, headers, runtime)
+
+    def report_ad_data_ex(
+        self,
+        request: morserta_models.ReportAdDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> morserta_models.ReportAdDataResponse:
+        """
+        Description: 广告汇总数据
+        Summary: 广告汇总数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            morserta_models.ReportAdDataResponse(),
+            self.do_request('1.0', 'antcloud.morserta.ad.data.report', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def report_ad_data_ex_async(
+        self,
+        request: morserta_models.ReportAdDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> morserta_models.ReportAdDataResponse:
+        """
+        Description: 广告汇总数据
+        Summary: 广告汇总数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            morserta_models.ReportAdDataResponse(),
+            await self.do_request_async('1.0', 'antcloud.morserta.ad.data.report', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
