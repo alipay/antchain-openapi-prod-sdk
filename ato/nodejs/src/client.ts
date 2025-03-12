@@ -1887,6 +1887,51 @@ export class MarketingScoreInfo extends $tea.Model {
   }
 }
 
+// 订单电子合同信息对象
+export class OrderContractInfo extends $tea.Model {
+  // 电子合同签署单号
+  signNo?: string;
+  // 签署时间
+  signTime?: string;
+  // 合同签署类型
+  contractType?: string;
+  // 文件合同类型
+  agreementType?: string;
+  // 模板ID
+  templateId?: string;
+  // 模板文件名称
+  fileName?: string;
+  // 合同文件下载地址
+  downloadUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      signNo: 'sign_no',
+      signTime: 'sign_time',
+      contractType: 'contract_type',
+      agreementType: 'agreement_type',
+      templateId: 'template_id',
+      fileName: 'file_name',
+      downloadUrl: 'download_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      signNo: 'string',
+      signTime: 'string',
+      contractType: 'string',
+      agreementType: 'string',
+      templateId: 'string',
+      fileName: 'string',
+      downloadUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 待办信息
 export class PendingEventInfo extends $tea.Model {
   // 事件id
@@ -2103,6 +2148,8 @@ export class ApplicationInfoUpdate extends $tea.Model {
   merchantServiceName?: string;
   // 商户服务描述。 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
   merchantServiceDesc?: string;
+  // 站点信息
+  siteInfo?: SiteInfo[];
   static names(): { [key: string]: string } {
     return {
       applicationScene: 'application_scene',
@@ -2112,6 +2159,7 @@ export class ApplicationInfoUpdate extends $tea.Model {
       merchantName: 'merchant_name',
       merchantServiceName: 'merchant_service_name',
       merchantServiceDesc: 'merchant_service_desc',
+      siteInfo: 'site_info',
     };
   }
 
@@ -2124,6 +2172,7 @@ export class ApplicationInfoUpdate extends $tea.Model {
       merchantName: 'string',
       merchantServiceName: 'string',
       merchantServiceDesc: 'string',
+      siteInfo: { 'type': 'array', 'itemType': SiteInfo },
     };
   }
 
@@ -5020,17 +5069,12 @@ export class QueryFundCreditauthRequest extends $tea.Model {
   fundId: string;
   // 授权id
   authId: string;
-  // 授权类型
-  // CREDIT_GRANTING 授信
-  // CREDIT_UTILIZATION 用信
-  authType: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       fundId: 'fund_id',
       authId: 'auth_id',
-      authType: 'auth_type',
     };
   }
 
@@ -5040,7 +5084,6 @@ export class QueryFundCreditauthRequest extends $tea.Model {
       productInstanceId: 'string',
       fundId: 'string',
       authId: 'string',
-      authType: 'string',
     };
   }
 
@@ -9411,6 +9454,8 @@ export class DetailInnerOrderResponse extends $tea.Model {
   orderProductInfoList?: OrderProductInfo[];
   // 经营分账信息
   operateDivideInfoList?: OperateDivideInfo[];
+  // 订单合同信息
+  orderContractInfoList?: OrderContractInfo[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -9425,6 +9470,7 @@ export class DetailInnerOrderResponse extends $tea.Model {
       orderPromiseInfo: 'order_promise_info',
       orderProductInfoList: 'order_product_info_list',
       operateDivideInfoList: 'operate_divide_info_list',
+      orderContractInfoList: 'order_contract_info_list',
     };
   }
 
@@ -9442,6 +9488,7 @@ export class DetailInnerOrderResponse extends $tea.Model {
       orderPromiseInfo: OrderPromiseInfo,
       orderProductInfoList: { 'type': 'array', 'itemType': OrderProductInfo },
       operateDivideInfoList: { 'type': 'array', 'itemType': OperateDivideInfo },
+      orderContractInfoList: { 'type': 'array', 'itemType': OrderContractInfo },
     };
   }
 
@@ -15520,7 +15567,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.14.12",
+          sdk_version: "1.14.15",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
