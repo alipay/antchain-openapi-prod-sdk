@@ -30,27 +30,17 @@ class QueryFundCreditauthRequest extends Model
      * @var string
      */
     public $authId;
-
-    // 授权类型
-    // CREDIT_GRANTING 授信
-    // CREDIT_UTILIZATION 用信
-    /**
-     * @var string
-     */
-    public $authType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'fundId'            => 'fund_id',
         'authId'            => 'auth_id',
-        'authType'          => 'auth_type',
     ];
 
     public function validate()
     {
         Model::validateRequired('fundId', $this->fundId, true);
         Model::validateRequired('authId', $this->authId, true);
-        Model::validateRequired('authType', $this->authType, true);
     }
 
     public function toMap()
@@ -67,9 +57,6 @@ class QueryFundCreditauthRequest extends Model
         }
         if (null !== $this->authId) {
             $res['auth_id'] = $this->authId;
-        }
-        if (null !== $this->authType) {
-            $res['auth_type'] = $this->authType;
         }
 
         return $res;
@@ -94,9 +81,6 @@ class QueryFundCreditauthRequest extends Model
         }
         if (isset($map['auth_id'])) {
             $model->authId = $map['auth_id'];
-        }
-        if (isset($map['auth_type'])) {
-            $model->authType = $map['auth_type'];
         }
 
         return $model;

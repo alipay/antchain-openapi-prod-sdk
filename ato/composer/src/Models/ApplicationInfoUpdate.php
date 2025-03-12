@@ -63,6 +63,14 @@ class ApplicationInfoUpdate extends Model
      * @var string
      */
     public $merchantServiceDesc;
+
+    // 站点信息
+    /**
+     * @example
+     *
+     * @var SiteInfo[]
+     */
+    public $siteInfo;
     protected $_name = [
         'applicationScene'    => 'application_scene',
         'tinyAppId'           => 'tiny_app_id',
@@ -71,6 +79,7 @@ class ApplicationInfoUpdate extends Model
         'merchantName'        => 'merchant_name',
         'merchantServiceName' => 'merchant_service_name',
         'merchantServiceDesc' => 'merchant_service_desc',
+        'siteInfo'            => 'site_info',
     ];
 
     public function validate()
@@ -100,6 +109,15 @@ class ApplicationInfoUpdate extends Model
         }
         if (null !== $this->merchantServiceDesc) {
             $res['merchant_service_desc'] = $this->merchantServiceDesc;
+        }
+        if (null !== $this->siteInfo) {
+            $res['site_info'] = [];
+            if (null !== $this->siteInfo && \is_array($this->siteInfo)) {
+                $n = 0;
+                foreach ($this->siteInfo as $item) {
+                    $res['site_info'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -133,6 +151,15 @@ class ApplicationInfoUpdate extends Model
         }
         if (isset($map['merchant_service_desc'])) {
             $model->merchantServiceDesc = $map['merchant_service_desc'];
+        }
+        if (isset($map['site_info'])) {
+            if (!empty($map['site_info'])) {
+                $model->siteInfo = [];
+                $n               = 0;
+                foreach ($map['site_info'] as $item) {
+                    $model->siteInfo[$n++] = null !== $item ? SiteInfo::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

@@ -79,6 +79,12 @@ class DetailInnerOrderResponse extends Model
      * @var OperateDivideInfo[]
      */
     public $operateDivideInfoList;
+
+    // 订单合同信息
+    /**
+     * @var OrderContractInfo[]
+     */
+    public $orderContractInfoList;
     protected $_name = [
         'reqMsgId'                 => 'req_msg_id',
         'resultCode'               => 'result_code',
@@ -92,6 +98,7 @@ class DetailInnerOrderResponse extends Model
         'orderPromiseInfo'         => 'order_promise_info',
         'orderProductInfoList'     => 'order_product_info_list',
         'operateDivideInfoList'    => 'operate_divide_info_list',
+        'orderContractInfoList'    => 'order_contract_info_list',
     ];
 
     public function validate()
@@ -152,6 +159,15 @@ class DetailInnerOrderResponse extends Model
                 $n = 0;
                 foreach ($this->operateDivideInfoList as $item) {
                     $res['operate_divide_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->orderContractInfoList) {
+            $res['order_contract_info_list'] = [];
+            if (null !== $this->orderContractInfoList && \is_array($this->orderContractInfoList)) {
+                $n = 0;
+                foreach ($this->orderContractInfoList as $item) {
+                    $res['order_contract_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
         }
@@ -218,6 +234,15 @@ class DetailInnerOrderResponse extends Model
                 $n                            = 0;
                 foreach ($map['operate_divide_info_list'] as $item) {
                     $model->operateDivideInfoList[$n++] = null !== $item ? OperateDivideInfo::fromMap($item) : $item;
+                }
+            }
+        }
+        if (isset($map['order_contract_info_list'])) {
+            if (!empty($map['order_contract_info_list'])) {
+                $model->orderContractInfoList = [];
+                $n                            = 0;
+                foreach ($map['order_contract_info_list'] as $item) {
+                    $model->orderContractInfoList[$n++] = null !== $item ? OrderContractInfo::fromMap($item) : $item;
                 }
             }
         }
