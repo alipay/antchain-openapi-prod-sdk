@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "2.0.4"),
+                    new TeaPair("sdk_version", "2.0.5"),
                     new TeaPair("_prod_code", "MORSERTA"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -204,8 +204,8 @@ public class Client {
     }
 
     /**
-     * Description: 摩斯RTA提供的转化回传接口
-     * Summary: 摩斯RTA提供的转化回传接口
+     * Description: 转化数据回传接口
+     * Summary: 转化数据回传接口
      */
     public ConvertAdDataResponse convertAdData(ConvertAdDataRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -214,8 +214,8 @@ public class Client {
     }
 
     /**
-     * Description: 摩斯RTA提供的转化回传接口
-     * Summary: 摩斯RTA提供的转化回传接口
+     * Description: 转化数据回传接口
+     * Summary: 转化数据回传接口
      */
     public ConvertAdDataResponse convertAdDataEx(ConvertAdDataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -239,5 +239,24 @@ public class Client {
     public ClickAdDataResponse clickAdDataEx(ClickAdDataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.morserta.ad.data.click", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ClickAdDataResponse());
+    }
+
+    /**
+     * Description: 广告汇总数据
+     * Summary: 广告汇总数据
+     */
+    public ReportAdDataResponse reportAdData(ReportAdDataRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.reportAdDataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 广告汇总数据
+     * Summary: 广告汇总数据
+     */
+    public ReportAdDataResponse reportAdDataEx(ReportAdDataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.morserta.ad.data.report", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReportAdDataResponse());
     }
 }

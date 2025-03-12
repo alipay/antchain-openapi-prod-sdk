@@ -28,11 +28,6 @@ public class ConvertAdDataRequest extends TeaModel {
     @Validation(required = true)
     public String clickId;
 
-    // 转化时间
-    @NameInMap("conv_time")
-    @Validation(required = true)
-    public Long convTime;
-
     // 点击时间
     @NameInMap("click_time")
     @Validation(required = true)
@@ -43,42 +38,65 @@ public class ConvertAdDataRequest extends TeaModel {
     @Validation(required = true)
     public String impressionTime;
 
-    // 投放日期年月日时分秒（准确到秒），格式为 yyyyMMddhhmmss
-    @NameInMap("dt")
-    @Validation(required = true)
-    public String dt;
-
     // 手机号MD5
     @NameInMap("mobile_md5")
     @Validation(required = true)
     public String mobileMd5;
 
-    // 是否提单标签0,1
-    @NameInMap("label_submit")
-    @Validation(required = true)
-    public Long labelSubmit;
-
-    // 是否支付标签0,1
-    @NameInMap("label_pay")
-    @Validation(required = true)
-    public Long labelPay;
-
-    // 是否升级标签0,1
-    @NameInMap("label_up")
-    public Long labelUp;
-
-    // m2是否续期
-    @NameInMap("label_m2_renewal")
-    @Validation(required = true)
-    public Long labelM2Renewal;
-
-    // 是否退保
-    @NameInMap("label_surrender")
-    public Long labelSurrender;
-
     // 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
     @NameInMap("platform")
     public Long platform;
+
+    // 事件类型，枚举值如下：
+    // submit-提交表单
+    // pay-付费
+    // renewal-续费
+    // m2_renewal-m2续期
+    // surrender-退保
+    @NameInMap("event_code")
+    @Validation(required = true)
+    public String eventCode;
+
+    // 转化事件时间
+    @NameInMap("event_time")
+    @Validation(required = true)
+    public Long eventTime;
+
+    // 设备oaid
+    @NameInMap("oaid")
+    public String oaid;
+
+    // oaid_md5
+    @NameInMap("oaid_md5")
+    public String oaidMd5;
+
+    // caid
+    @NameInMap("caid")
+    public String caid;
+
+    // caid_md5
+    @NameInMap("caid_md5")
+    public String caidMd5;
+
+    // android_id
+    @NameInMap("android_id")
+    public String androidId;
+
+    // imei
+    @NameInMap("imei")
+    public String imei;
+
+    // imei_md5
+    @NameInMap("imei_md5")
+    public String imeiMd5;
+
+    // idfa
+    @NameInMap("idfa")
+    public String idfa;
+
+    // idfa_md5
+    @NameInMap("idfa_md5")
+    public String idfaMd5;
 
     public static ConvertAdDataRequest build(java.util.Map<String, ?> map) throws Exception {
         ConvertAdDataRequest self = new ConvertAdDataRequest();
@@ -125,14 +143,6 @@ public class ConvertAdDataRequest extends TeaModel {
         return this.clickId;
     }
 
-    public ConvertAdDataRequest setConvTime(Long convTime) {
-        this.convTime = convTime;
-        return this;
-    }
-    public Long getConvTime() {
-        return this.convTime;
-    }
-
     public ConvertAdDataRequest setClickTime(Long clickTime) {
         this.clickTime = clickTime;
         return this;
@@ -149,14 +159,6 @@ public class ConvertAdDataRequest extends TeaModel {
         return this.impressionTime;
     }
 
-    public ConvertAdDataRequest setDt(String dt) {
-        this.dt = dt;
-        return this;
-    }
-    public String getDt() {
-        return this.dt;
-    }
-
     public ConvertAdDataRequest setMobileMd5(String mobileMd5) {
         this.mobileMd5 = mobileMd5;
         return this;
@@ -165,52 +167,100 @@ public class ConvertAdDataRequest extends TeaModel {
         return this.mobileMd5;
     }
 
-    public ConvertAdDataRequest setLabelSubmit(Long labelSubmit) {
-        this.labelSubmit = labelSubmit;
-        return this;
-    }
-    public Long getLabelSubmit() {
-        return this.labelSubmit;
-    }
-
-    public ConvertAdDataRequest setLabelPay(Long labelPay) {
-        this.labelPay = labelPay;
-        return this;
-    }
-    public Long getLabelPay() {
-        return this.labelPay;
-    }
-
-    public ConvertAdDataRequest setLabelUp(Long labelUp) {
-        this.labelUp = labelUp;
-        return this;
-    }
-    public Long getLabelUp() {
-        return this.labelUp;
-    }
-
-    public ConvertAdDataRequest setLabelM2Renewal(Long labelM2Renewal) {
-        this.labelM2Renewal = labelM2Renewal;
-        return this;
-    }
-    public Long getLabelM2Renewal() {
-        return this.labelM2Renewal;
-    }
-
-    public ConvertAdDataRequest setLabelSurrender(Long labelSurrender) {
-        this.labelSurrender = labelSurrender;
-        return this;
-    }
-    public Long getLabelSurrender() {
-        return this.labelSurrender;
-    }
-
     public ConvertAdDataRequest setPlatform(Long platform) {
         this.platform = platform;
         return this;
     }
     public Long getPlatform() {
         return this.platform;
+    }
+
+    public ConvertAdDataRequest setEventCode(String eventCode) {
+        this.eventCode = eventCode;
+        return this;
+    }
+    public String getEventCode() {
+        return this.eventCode;
+    }
+
+    public ConvertAdDataRequest setEventTime(Long eventTime) {
+        this.eventTime = eventTime;
+        return this;
+    }
+    public Long getEventTime() {
+        return this.eventTime;
+    }
+
+    public ConvertAdDataRequest setOaid(String oaid) {
+        this.oaid = oaid;
+        return this;
+    }
+    public String getOaid() {
+        return this.oaid;
+    }
+
+    public ConvertAdDataRequest setOaidMd5(String oaidMd5) {
+        this.oaidMd5 = oaidMd5;
+        return this;
+    }
+    public String getOaidMd5() {
+        return this.oaidMd5;
+    }
+
+    public ConvertAdDataRequest setCaid(String caid) {
+        this.caid = caid;
+        return this;
+    }
+    public String getCaid() {
+        return this.caid;
+    }
+
+    public ConvertAdDataRequest setCaidMd5(String caidMd5) {
+        this.caidMd5 = caidMd5;
+        return this;
+    }
+    public String getCaidMd5() {
+        return this.caidMd5;
+    }
+
+    public ConvertAdDataRequest setAndroidId(String androidId) {
+        this.androidId = androidId;
+        return this;
+    }
+    public String getAndroidId() {
+        return this.androidId;
+    }
+
+    public ConvertAdDataRequest setImei(String imei) {
+        this.imei = imei;
+        return this;
+    }
+    public String getImei() {
+        return this.imei;
+    }
+
+    public ConvertAdDataRequest setImeiMd5(String imeiMd5) {
+        this.imeiMd5 = imeiMd5;
+        return this;
+    }
+    public String getImeiMd5() {
+        return this.imeiMd5;
+    }
+
+    public ConvertAdDataRequest setIdfa(String idfa) {
+        this.idfa = idfa;
+        return this;
+    }
+    public String getIdfa() {
+        return this.idfa;
+    }
+
+    public ConvertAdDataRequest setIdfaMd5(String idfaMd5) {
+        this.idfaMd5 = idfaMd5;
+        return this;
+    }
+    public String getIdfaMd5() {
+        return this.idfaMd5;
     }
 
 }
