@@ -69,6 +69,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public List<OperateDivideInfo> OperateDivideInfoList { get; set; }
 
+        // 订单合同信息
+        [NameInMap("order_contract_info_list")]
+        [Validation(Required=false)]
+        public List<OrderContractInfo> OrderContractInfoList { get; set; }
+
     }
 
 }

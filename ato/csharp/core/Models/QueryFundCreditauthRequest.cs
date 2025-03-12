@@ -28,13 +28,6 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string AuthId { get; set; }
 
-        // 授权类型
-        // CREDIT_GRANTING 授信
-        // CREDIT_UTILIZATION 用信
-        [NameInMap("auth_type")]
-        [Validation(Required=true)]
-        public string AuthType { get; set; }
-
     }
 
 }
