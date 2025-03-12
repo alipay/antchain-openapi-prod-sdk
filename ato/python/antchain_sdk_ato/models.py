@@ -3131,6 +3131,76 @@ class MarketingScoreInfo(TeaModel):
         return self
 
 
+class OrderContractInfo(TeaModel):
+    def __init__(
+        self,
+        sign_no: str = None,
+        sign_time: str = None,
+        contract_type: str = None,
+        agreement_type: str = None,
+        template_id: str = None,
+        file_name: str = None,
+        download_url: str = None,
+    ):
+        # 电子合同签署单号
+        self.sign_no = sign_no
+        # 签署时间
+        self.sign_time = sign_time
+        # 合同签署类型
+        self.contract_type = contract_type
+        # 文件合同类型
+        self.agreement_type = agreement_type
+        # 模板ID
+        self.template_id = template_id
+        # 模板文件名称
+        self.file_name = file_name
+        # 合同文件下载地址
+        self.download_url = download_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.sign_no is not None:
+            result['sign_no'] = self.sign_no
+        if self.sign_time is not None:
+            result['sign_time'] = self.sign_time
+        if self.contract_type is not None:
+            result['contract_type'] = self.contract_type
+        if self.agreement_type is not None:
+            result['agreement_type'] = self.agreement_type
+        if self.template_id is not None:
+            result['template_id'] = self.template_id
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
+        if self.download_url is not None:
+            result['download_url'] = self.download_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('sign_no') is not None:
+            self.sign_no = m.get('sign_no')
+        if m.get('sign_time') is not None:
+            self.sign_time = m.get('sign_time')
+        if m.get('contract_type') is not None:
+            self.contract_type = m.get('contract_type')
+        if m.get('agreement_type') is not None:
+            self.agreement_type = m.get('agreement_type')
+        if m.get('template_id') is not None:
+            self.template_id = m.get('template_id')
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
+        if m.get('download_url') is not None:
+            self.download_url = m.get('download_url')
+        return self
+
+
 class PendingEventInfo(TeaModel):
     def __init__(
         self,
@@ -3496,6 +3566,7 @@ class ApplicationInfoUpdate(TeaModel):
         merchant_name: str = None,
         merchant_service_name: str = None,
         merchant_service_desc: str = None,
+        site_info: List[SiteInfo] = None,
     ):
         # 应用场景 MINI_APP 小程序 APP 自有app ALL 两种都有
         self.application_scene = application_scene
@@ -3511,9 +3582,14 @@ class ApplicationInfoUpdate(TeaModel):
         self.merchant_service_name = merchant_service_name
         # 商户服务描述。 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
         self.merchant_service_desc = merchant_service_desc
+        # 站点信息
+        self.site_info = site_info
 
     def validate(self):
-        pass
+        if self.site_info:
+            for k in self.site_info:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -3535,6 +3611,10 @@ class ApplicationInfoUpdate(TeaModel):
             result['merchant_service_name'] = self.merchant_service_name
         if self.merchant_service_desc is not None:
             result['merchant_service_desc'] = self.merchant_service_desc
+        result['site_info'] = []
+        if self.site_info is not None:
+            for k in self.site_info:
+                result['site_info'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -3553,6 +3633,11 @@ class ApplicationInfoUpdate(TeaModel):
             self.merchant_service_name = m.get('merchant_service_name')
         if m.get('merchant_service_desc') is not None:
             self.merchant_service_desc = m.get('merchant_service_desc')
+        self.site_info = []
+        if m.get('site_info') is not None:
+            for k in m.get('site_info'):
+                temp_model = SiteInfo()
+                self.site_info.append(temp_model.from_map(k))
         return self
 
 
@@ -8357,7 +8442,6 @@ class QueryFundCreditauthRequest(TeaModel):
         product_instance_id: str = None,
         fund_id: str = None,
         auth_id: str = None,
-        auth_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -8366,15 +8450,10 @@ class QueryFundCreditauthRequest(TeaModel):
         self.fund_id = fund_id
         # 授权id
         self.auth_id = auth_id
-        # 授权类型
-        # CREDIT_GRANTING 授信
-        # CREDIT_UTILIZATION 用信
-        self.auth_type = auth_type
 
     def validate(self):
         self.validate_required(self.fund_id, 'fund_id')
         self.validate_required(self.auth_id, 'auth_id')
-        self.validate_required(self.auth_type, 'auth_type')
 
     def to_map(self):
         _map = super().to_map()
@@ -8390,8 +8469,6 @@ class QueryFundCreditauthRequest(TeaModel):
             result['fund_id'] = self.fund_id
         if self.auth_id is not None:
             result['auth_id'] = self.auth_id
-        if self.auth_type is not None:
-            result['auth_type'] = self.auth_type
         return result
 
     def from_map(self, m: dict = None):
@@ -8404,8 +8481,6 @@ class QueryFundCreditauthRequest(TeaModel):
             self.fund_id = m.get('fund_id')
         if m.get('auth_id') is not None:
             self.auth_id = m.get('auth_id')
-        if m.get('auth_type') is not None:
-            self.auth_type = m.get('auth_type')
         return self
 
 
@@ -15560,6 +15635,7 @@ class DetailInnerOrderResponse(TeaModel):
         order_promise_info: OrderPromiseInfo = None,
         order_product_info_list: List[OrderProductInfo] = None,
         operate_divide_info_list: List[OperateDivideInfo] = None,
+        order_contract_info_list: List[OrderContractInfo] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -15585,6 +15661,8 @@ class DetailInnerOrderResponse(TeaModel):
         self.order_product_info_list = order_product_info_list
         # 经营分账信息
         self.operate_divide_info_list = operate_divide_info_list
+        # 订单合同信息
+        self.order_contract_info_list = order_contract_info_list
 
     def validate(self):
         if self.order_info:
@@ -15603,6 +15681,10 @@ class DetailInnerOrderResponse(TeaModel):
                     k.validate()
         if self.operate_divide_info_list:
             for k in self.operate_divide_info_list:
+                if k:
+                    k.validate()
+        if self.order_contract_info_list:
+            for k in self.order_contract_info_list:
                 if k:
                     k.validate()
 
@@ -15642,6 +15724,10 @@ class DetailInnerOrderResponse(TeaModel):
         if self.operate_divide_info_list is not None:
             for k in self.operate_divide_info_list:
                 result['operate_divide_info_list'].append(k.to_map() if k else None)
+        result['order_contract_info_list'] = []
+        if self.order_contract_info_list is not None:
+            for k in self.order_contract_info_list:
+                result['order_contract_info_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -15682,6 +15768,11 @@ class DetailInnerOrderResponse(TeaModel):
             for k in m.get('operate_divide_info_list'):
                 temp_model = OperateDivideInfo()
                 self.operate_divide_info_list.append(temp_model.from_map(k))
+        self.order_contract_info_list = []
+        if m.get('order_contract_info_list') is not None:
+            for k in m.get('order_contract_info_list'):
+                temp_model = OrderContractInfo()
+                self.order_contract_info_list.append(temp_model.from_map(k))
         return self
 
 
