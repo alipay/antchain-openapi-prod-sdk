@@ -21,13 +21,6 @@ public class QueryFundCreditauthRequest extends TeaModel {
     @Validation(required = true)
     public String authId;
 
-    // 授权类型
-    // CREDIT_GRANTING 授信
-    // CREDIT_UTILIZATION 用信
-    @NameInMap("auth_type")
-    @Validation(required = true)
-    public String authType;
-
     public static QueryFundCreditauthRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryFundCreditauthRequest self = new QueryFundCreditauthRequest();
         return TeaModel.build(map, self);
@@ -63,14 +56,6 @@ public class QueryFundCreditauthRequest extends TeaModel {
     }
     public String getAuthId() {
         return this.authId;
-    }
-
-    public QueryFundCreditauthRequest setAuthType(String authType) {
-        this.authType = authType;
-        return this;
-    }
-    public String getAuthType() {
-        return this.authType;
     }
 
 }
