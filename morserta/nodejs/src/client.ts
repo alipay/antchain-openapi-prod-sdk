@@ -265,6 +265,82 @@ export class ConvertAdDataResponse extends $tea.Model {
   }
 }
 
+export class ClickAdDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 广告主id
+  accountId: number;
+  // 渠道，支持TENCENT
+  channel: string;
+  // 点击明细json string
+  data: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      accountId: 'account_id',
+      channel: 'channel',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      accountId: 'number',
+      channel: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ClickAdDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 调用是否成功
+  success?: boolean;
+  // 返回码
+  code?: string;
+  // 异常描述
+  message?: string;
+  // 调用id
+  requestId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      code: 'code',
+      message: 'message',
+      requestId: 'request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      code: 'string',
+      message: 'string',
+      requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -378,7 +454,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.0.2",
+          sdk_version: "2.0.4",
           _prod_code: "MORSERTA",
           _prod_channel: "default",
         };
@@ -462,6 +538,25 @@ export default class Client {
   async convertAdDataEx(request: ConvertAdDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConvertAdDataResponse> {
     Util.validateModel(request);
     return $tea.cast<ConvertAdDataResponse>(await this.doRequest("1.0", "antcloud.morserta.ad.data.convert", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConvertAdDataResponse({}));
+  }
+
+  /**
+   * Description: 广告主点击数据回传
+   * Summary: 广告主点击数据回传
+   */
+  async clickAdData(request: ClickAdDataRequest): Promise<ClickAdDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.clickAdDataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 广告主点击数据回传
+   * Summary: 广告主点击数据回传
+   */
+  async clickAdDataEx(request: ClickAdDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ClickAdDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ClickAdDataResponse>(await this.doRequest("1.0", "antcloud.morserta.ad.data.click", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ClickAdDataResponse({}));
   }
 
 }
