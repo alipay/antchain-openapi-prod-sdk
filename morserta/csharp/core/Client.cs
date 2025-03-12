@@ -137,7 +137,7 @@ namespace AntChain.SDK.MORSERTA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.0.2"},
+                        {"sdk_version", "2.0.4"},
                         {"_prod_code", "MORSERTA"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MORSERTA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.0.2"},
+                        {"sdk_version", "2.0.4"},
                         {"_prod_code", "MORSERTA"},
                         {"_prod_channel", "default"},
                     };
@@ -403,6 +403,48 @@ namespace AntChain.SDK.MORSERTA
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ConvertAdDataResponse>(await DoRequestAsync("1.0", "antcloud.morserta.ad.data.convert", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 广告主点击数据回传
+         * Summary: 广告主点击数据回传
+         */
+        public ClickAdDataResponse ClickAdData(ClickAdDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ClickAdDataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 广告主点击数据回传
+         * Summary: 广告主点击数据回传
+         */
+        public async Task<ClickAdDataResponse> ClickAdDataAsync(ClickAdDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ClickAdDataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 广告主点击数据回传
+         * Summary: 广告主点击数据回传
+         */
+        public ClickAdDataResponse ClickAdDataEx(ClickAdDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ClickAdDataResponse>(DoRequest("1.0", "antcloud.morserta.ad.data.click", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 广告主点击数据回传
+         * Summary: 广告主点击数据回传
+         */
+        public async Task<ClickAdDataResponse> ClickAdDataExAsync(ClickAdDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ClickAdDataResponse>(await DoRequestAsync("1.0", "antcloud.morserta.ad.data.click", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
