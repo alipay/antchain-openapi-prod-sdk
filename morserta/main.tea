@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '2.0.2',
+    sdk_version = '2.0.4',
     _prod_code = 'MORSERTA',
     _prod_channel = 'default'
   };
@@ -271,5 +271,52 @@ async function convertAdData(request: ConvertAdDataRequest): ConvertAdDataRespon
 async function convertAdDataEx(request: ConvertAdDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConvertAdDataResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.morserta.ad.data.convert', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ClickAdDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 广告主id
+  accountId: long(name='account_id'),
+  // 渠道，支持TENCENT
+  channel: string(name='channel'),
+  // 点击明细json string
+  data: string(name='data'),
+}
+
+model ClickAdDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 调用是否成功
+  success?: boolean(name='success'),
+  // 返回码
+  code?: string(name='code'),
+  // 异常描述
+  message?: string(name='message'),
+  // 调用id
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 广告主点击数据回传
+ * Summary: 广告主点击数据回传
+ */
+async function clickAdData(request: ClickAdDataRequest): ClickAdDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return clickAdDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 广告主点击数据回传
+ * Summary: 广告主点击数据回传
+ */
+async function clickAdDataEx(request: ClickAdDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ClickAdDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.morserta.ad.data.click', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
