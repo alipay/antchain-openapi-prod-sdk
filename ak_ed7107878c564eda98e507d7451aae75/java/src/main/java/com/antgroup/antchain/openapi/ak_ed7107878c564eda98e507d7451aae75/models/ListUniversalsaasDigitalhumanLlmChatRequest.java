@@ -21,10 +21,6 @@ public class ListUniversalsaasDigitalhumanLlmChatRequest extends TeaModel {
     public Long pageNum;
 
     // 页面大小
-    @NameInMap("page_sizr")
-    public Long pageSizr;
-
-    // 页面大小
     @NameInMap("page_size")
     public Long pageSize;
 
@@ -63,14 +59,6 @@ public class ListUniversalsaasDigitalhumanLlmChatRequest extends TeaModel {
     }
     public Long getPageNum() {
         return this.pageNum;
-    }
-
-    public ListUniversalsaasDigitalhumanLlmChatRequest setPageSizr(Long pageSizr) {
-        this.pageSizr = pageSizr;
-        return this;
-    }
-    public Long getPageSizr() {
-        return this.pageSizr;
     }
 
     public ListUniversalsaasDigitalhumanLlmChatRequest setPageSize(Long pageSize) {
