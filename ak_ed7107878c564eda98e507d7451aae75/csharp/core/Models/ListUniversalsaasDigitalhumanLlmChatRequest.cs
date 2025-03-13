@@ -29,11 +29,6 @@ namespace AntChain.SDK.Ak_ed7107878c564eda98e507d7451aae75.Models
         public long? PageNum { get; set; }
 
         // 页面大小
-        [NameInMap("page_sizr")]
-        [Validation(Required=false)]
-        public long? PageSizr { get; set; }
-
-        // 页面大小
         [NameInMap("page_size")]
         [Validation(Required=false)]
         public long? PageSize { get; set; }
