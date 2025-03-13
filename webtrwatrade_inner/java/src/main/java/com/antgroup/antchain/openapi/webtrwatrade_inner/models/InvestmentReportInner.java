@@ -8,38 +8,38 @@ public class InvestmentReportInner extends TeaModel {
     // 
     @NameInMap("estimated_annualized")
     @Validation(required = true)
-    public Long estimatedAnnualized;
+    public MultiCurrencyMoney estimatedAnnualized;
 
     // 实际收益率（Annual Yield）
     // 
     @NameInMap("actual_annualized_yield")
     @Validation(required = true)
-    public Long actualAnnualizedYield;
+    public String actualAnnualizedYield;
 
     // 预期收益率（Expect Yield）
     @NameInMap("estimated_annualized_yield")
     @Validation(required = true)
-    public Long estimatedAnnualizedYield;
+    public String estimatedAnnualizedYield;
 
     // 毛利吻合率（Gross Profit Conformity）
     @NameInMap("match_rate")
     @Validation(required = true)
-    public Long matchRate;
+    public String matchRate;
 
     // 投资金额（Investment Allocation）
     @NameInMap("investment_amount")
     @Validation(required = true)
-    public Long investmentAmount;
+    public MultiCurrencyMoney investmentAmount;
 
     // 实际收益
     @NameInMap("actual_annualized")
     @Validation(required = true)
-    public Long actualAnnualized;
+    public MultiCurrencyMoney actualAnnualized;
 
     // 资产抵押率（Collateral Ratio）
     @NameInMap("collateral_rate")
     @Validation(required = true)
-    public Long collateralRate;
+    public String collateralRate;
 
     // 数据日期
     @NameInMap("dt")
@@ -51,59 +51,59 @@ public class InvestmentReportInner extends TeaModel {
         return TeaModel.build(map, self);
     }
 
-    public InvestmentReportInner setEstimatedAnnualized(Long estimatedAnnualized) {
+    public InvestmentReportInner setEstimatedAnnualized(MultiCurrencyMoney estimatedAnnualized) {
         this.estimatedAnnualized = estimatedAnnualized;
         return this;
     }
-    public Long getEstimatedAnnualized() {
+    public MultiCurrencyMoney getEstimatedAnnualized() {
         return this.estimatedAnnualized;
     }
 
-    public InvestmentReportInner setActualAnnualizedYield(Long actualAnnualizedYield) {
+    public InvestmentReportInner setActualAnnualizedYield(String actualAnnualizedYield) {
         this.actualAnnualizedYield = actualAnnualizedYield;
         return this;
     }
-    public Long getActualAnnualizedYield() {
+    public String getActualAnnualizedYield() {
         return this.actualAnnualizedYield;
     }
 
-    public InvestmentReportInner setEstimatedAnnualizedYield(Long estimatedAnnualizedYield) {
+    public InvestmentReportInner setEstimatedAnnualizedYield(String estimatedAnnualizedYield) {
         this.estimatedAnnualizedYield = estimatedAnnualizedYield;
         return this;
     }
-    public Long getEstimatedAnnualizedYield() {
+    public String getEstimatedAnnualizedYield() {
         return this.estimatedAnnualizedYield;
     }
 
-    public InvestmentReportInner setMatchRate(Long matchRate) {
+    public InvestmentReportInner setMatchRate(String matchRate) {
         this.matchRate = matchRate;
         return this;
     }
-    public Long getMatchRate() {
+    public String getMatchRate() {
         return this.matchRate;
     }
 
-    public InvestmentReportInner setInvestmentAmount(Long investmentAmount) {
+    public InvestmentReportInner setInvestmentAmount(MultiCurrencyMoney investmentAmount) {
         this.investmentAmount = investmentAmount;
         return this;
     }
-    public Long getInvestmentAmount() {
+    public MultiCurrencyMoney getInvestmentAmount() {
         return this.investmentAmount;
     }
 
-    public InvestmentReportInner setActualAnnualized(Long actualAnnualized) {
+    public InvestmentReportInner setActualAnnualized(MultiCurrencyMoney actualAnnualized) {
         this.actualAnnualized = actualAnnualized;
         return this;
     }
-    public Long getActualAnnualized() {
+    public MultiCurrencyMoney getActualAnnualized() {
         return this.actualAnnualized;
     }
 
-    public InvestmentReportInner setCollateralRate(Long collateralRate) {
+    public InvestmentReportInner setCollateralRate(String collateralRate) {
         this.collateralRate = collateralRate;
         return this;
     }
-    public Long getCollateralRate() {
+    public String getCollateralRate() {
         return this.collateralRate;
     }
 
