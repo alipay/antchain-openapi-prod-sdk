@@ -940,8 +940,6 @@ export class ListUniversalsaasDigitalhumanLlmChatRequest extends $tea.Model {
   // 页码
   pageNum?: number;
   // 页面大小
-  pageSizr?: number;
-  // 页面大小
   pageSize?: number;
   static names(): { [key: string]: string } {
     return {
@@ -949,7 +947,6 @@ export class ListUniversalsaasDigitalhumanLlmChatRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       tenantCode: 'tenant_code',
       pageNum: 'page_num',
-      pageSizr: 'page_sizr',
       pageSize: 'page_size',
     };
   }
@@ -960,7 +957,6 @@ export class ListUniversalsaasDigitalhumanLlmChatRequest extends $tea.Model {
       productInstanceId: 'string',
       tenantCode: 'string',
       pageNum: 'number',
-      pageSizr: 'number',
       pageSize: 'number',
     };
   }
@@ -1450,7 +1446,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
           _prod_code: "ak_ed7107878c564eda98e507d7451aae75",
           _prod_channel: "saas",
         };
