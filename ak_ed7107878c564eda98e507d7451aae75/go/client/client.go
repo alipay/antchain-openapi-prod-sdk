@@ -1228,8 +1228,6 @@ type ListUniversalsaasDigitalhumanLlmChatRequest struct {
 	// 页码
 	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
 	// 页面大小
-	PageSizr *int64 `json:"page_sizr,omitempty" xml:"page_sizr,omitempty"`
-	// 页面大小
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
 }
 
@@ -1258,11 +1256,6 @@ func (s *ListUniversalsaasDigitalhumanLlmChatRequest) SetTenantCode(v string) *L
 
 func (s *ListUniversalsaasDigitalhumanLlmChatRequest) SetPageNum(v int64) *ListUniversalsaasDigitalhumanLlmChatRequest {
 	s.PageNum = &v
-	return s
-}
-
-func (s *ListUniversalsaasDigitalhumanLlmChatRequest) SetPageSizr(v int64) *ListUniversalsaasDigitalhumanLlmChatRequest {
-	s.PageSizr = &v
 	return s
 }
 
@@ -1852,7 +1845,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("ak_ed7107878c564eda98e507d7451aae75"),
 				"_prod_channel":    tea.String("saas"),
 			}
