@@ -14,38 +14,38 @@ namespace AntChain.SDK.WEBTRWATRADE_INNER.Models
         // 
         [NameInMap("estimated_annualized")]
         [Validation(Required=true)]
-        public long? EstimatedAnnualized { get; set; }
+        public MultiCurrencyMoney EstimatedAnnualized { get; set; }
 
         // 实际收益率（Annual Yield）
         // 
         [NameInMap("actual_annualized_yield")]
         [Validation(Required=true)]
-        public long? ActualAnnualizedYield { get; set; }
+        public string ActualAnnualizedYield { get; set; }
 
         // 预期收益率（Expect Yield）
         [NameInMap("estimated_annualized_yield")]
         [Validation(Required=true)]
-        public long? EstimatedAnnualizedYield { get; set; }
+        public string EstimatedAnnualizedYield { get; set; }
 
         // 毛利吻合率（Gross Profit Conformity）
         [NameInMap("match_rate")]
         [Validation(Required=true)]
-        public long? MatchRate { get; set; }
+        public string MatchRate { get; set; }
 
         // 投资金额（Investment Allocation）
         [NameInMap("investment_amount")]
         [Validation(Required=true)]
-        public long? InvestmentAmount { get; set; }
+        public MultiCurrencyMoney InvestmentAmount { get; set; }
 
         // 实际收益
         [NameInMap("actual_annualized")]
         [Validation(Required=true)]
-        public long? ActualAnnualized { get; set; }
+        public MultiCurrencyMoney ActualAnnualized { get; set; }
 
         // 资产抵押率（Collateral Ratio）
         [NameInMap("collateral_rate")]
         [Validation(Required=true)]
-        public long? CollateralRate { get; set; }
+        public string CollateralRate { get; set; }
 
         // 数据日期
         [NameInMap("dt")]

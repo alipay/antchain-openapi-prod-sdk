@@ -137,7 +137,7 @@ namespace AntChain.SDK.WEBTRWATRADE_INNER
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.2"},
+                        {"sdk_version", "1.0.4"},
                         {"_prod_code", "WEBTRWATRADE_INNER"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.WEBTRWATRADE_INNER
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.2"},
+                        {"sdk_version", "1.0.4"},
                         {"_prod_code", "WEBTRWATRADE_INNER"},
                         {"_prod_channel", "default"},
                     };
@@ -361,6 +361,48 @@ namespace AntChain.SDK.WEBTRWATRADE_INNER
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryPlatformInvestmentreportResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatradeinner.platform.investmentreport.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 投资者报表查询(资产包维度)
+         * Summary: 投资者报表查询(资产包维度)
+         */
+        public QueryPlatformInvestmentreportbypackageResponse QueryPlatformInvestmentreportbypackage(QueryPlatformInvestmentreportbypackageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryPlatformInvestmentreportbypackageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 投资者报表查询(资产包维度)
+         * Summary: 投资者报表查询(资产包维度)
+         */
+        public async Task<QueryPlatformInvestmentreportbypackageResponse> QueryPlatformInvestmentreportbypackageAsync(QueryPlatformInvestmentreportbypackageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryPlatformInvestmentreportbypackageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 投资者报表查询(资产包维度)
+         * Summary: 投资者报表查询(资产包维度)
+         */
+        public QueryPlatformInvestmentreportbypackageResponse QueryPlatformInvestmentreportbypackageEx(QueryPlatformInvestmentreportbypackageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPlatformInvestmentreportbypackageResponse>(DoRequest("1.0", "antdigital.webtrwatradeinner.platform.investmentreportbypackage.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 投资者报表查询(资产包维度)
+         * Summary: 投资者报表查询(资产包维度)
+         */
+        public async Task<QueryPlatformInvestmentreportbypackageResponse> QueryPlatformInvestmentreportbypackageExAsync(QueryPlatformInvestmentreportbypackageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPlatformInvestmentreportbypackageResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatradeinner.platform.investmentreportbypackage.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
