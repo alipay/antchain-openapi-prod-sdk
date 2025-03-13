@@ -1531,7 +1531,6 @@ class ListUniversalsaasDigitalhumanLlmChatRequest(TeaModel):
         product_instance_id: str = None,
         tenant_code: str = None,
         page_num: int = None,
-        page_sizr: int = None,
         page_size: int = None,
     ):
         # OAuth模式下的授权token
@@ -1541,8 +1540,6 @@ class ListUniversalsaasDigitalhumanLlmChatRequest(TeaModel):
         self.tenant_code = tenant_code
         # 页码
         self.page_num = page_num
-        # 页面大小
-        self.page_sizr = page_sizr
         # 页面大小
         self.page_size = page_size
 
@@ -1563,8 +1560,6 @@ class ListUniversalsaasDigitalhumanLlmChatRequest(TeaModel):
             result['tenant_code'] = self.tenant_code
         if self.page_num is not None:
             result['page_num'] = self.page_num
-        if self.page_sizr is not None:
-            result['page_sizr'] = self.page_sizr
         if self.page_size is not None:
             result['page_size'] = self.page_size
         return result
@@ -1579,8 +1574,6 @@ class ListUniversalsaasDigitalhumanLlmChatRequest(TeaModel):
             self.tenant_code = m.get('tenant_code')
         if m.get('page_num') is not None:
             self.page_num = m.get('page_num')
-        if m.get('page_sizr') is not None:
-            self.page_sizr = m.get('page_sizr')
         if m.get('page_size') is not None:
             self.page_size = m.get('page_size')
         return self
