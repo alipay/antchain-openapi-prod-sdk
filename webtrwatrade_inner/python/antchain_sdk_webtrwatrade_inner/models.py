@@ -439,14 +439,7 @@ class QueryPlatformInvestmentreportbypackageResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        collateral_rate: str = None,
-        actual_annualized_yield: str = None,
-        estimated_annualized_yield: str = None,
-        match_rate: str = None,
-        investment_amount: MultiCurrencyMoney = None,
-        actual_annualized: MultiCurrencyMoney = None,
-        estimated_annualized: MultiCurrencyMoney = None,
-        dt: str = None,
+        data: InvestmentReportInner = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -454,30 +447,12 @@ class QueryPlatformInvestmentreportbypackageResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 资产抵押率（Collateral Ratio）
-        self.collateral_rate = collateral_rate
-        # 实际收益率（Annual Yield）
-        self.actual_annualized_yield = actual_annualized_yield
-        # 预期收益率（Expect Yield）
-        self.estimated_annualized_yield = estimated_annualized_yield
-        # 毛利吻合率（Gross Profit Conformity）
-        self.match_rate = match_rate
-        # 投资金额（Investment Allocation）
-        self.investment_amount = investment_amount
-        # 实际收益
-        self.actual_annualized = actual_annualized
-        # 预期收益
-        self.estimated_annualized = estimated_annualized
-        # 数据日期
-        self.dt = dt
+        # 内部投资者报表数据(资产包维度)
+        self.data = data
 
     def validate(self):
-        if self.investment_amount:
-            self.investment_amount.validate()
-        if self.actual_annualized:
-            self.actual_annualized.validate()
-        if self.estimated_annualized:
-            self.estimated_annualized.validate()
+        if self.data:
+            self.data.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -491,22 +466,8 @@ class QueryPlatformInvestmentreportbypackageResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.collateral_rate is not None:
-            result['collateral_rate'] = self.collateral_rate
-        if self.actual_annualized_yield is not None:
-            result['actual_annualized_yield'] = self.actual_annualized_yield
-        if self.estimated_annualized_yield is not None:
-            result['estimated_annualized_yield'] = self.estimated_annualized_yield
-        if self.match_rate is not None:
-            result['match_rate'] = self.match_rate
-        if self.investment_amount is not None:
-            result['investment_amount'] = self.investment_amount.to_map()
-        if self.actual_annualized is not None:
-            result['actual_annualized'] = self.actual_annualized.to_map()
-        if self.estimated_annualized is not None:
-            result['estimated_annualized'] = self.estimated_annualized.to_map()
-        if self.dt is not None:
-            result['dt'] = self.dt
+        if self.data is not None:
+            result['data'] = self.data.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -517,25 +478,9 @@ class QueryPlatformInvestmentreportbypackageResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('collateral_rate') is not None:
-            self.collateral_rate = m.get('collateral_rate')
-        if m.get('actual_annualized_yield') is not None:
-            self.actual_annualized_yield = m.get('actual_annualized_yield')
-        if m.get('estimated_annualized_yield') is not None:
-            self.estimated_annualized_yield = m.get('estimated_annualized_yield')
-        if m.get('match_rate') is not None:
-            self.match_rate = m.get('match_rate')
-        if m.get('investment_amount') is not None:
-            temp_model = MultiCurrencyMoney()
-            self.investment_amount = temp_model.from_map(m['investment_amount'])
-        if m.get('actual_annualized') is not None:
-            temp_model = MultiCurrencyMoney()
-            self.actual_annualized = temp_model.from_map(m['actual_annualized'])
-        if m.get('estimated_annualized') is not None:
-            temp_model = MultiCurrencyMoney()
-            self.estimated_annualized = temp_model.from_map(m['estimated_annualized'])
-        if m.get('dt') is not None:
-            self.dt = m.get('dt')
+        if m.get('data') is not None:
+            temp_model = InvestmentReportInner()
+            self.data = temp_model.from_map(m['data'])
         return self
 
 
