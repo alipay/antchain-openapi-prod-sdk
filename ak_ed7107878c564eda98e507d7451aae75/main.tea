@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.1',
     _prod_code = 'ak_ed7107878c564eda98e507d7451aae75',
     _prod_channel = 'saas'
   };
@@ -641,8 +641,6 @@ model ListUniversalsaasDigitalhumanLlmChatRequest = {
   tenantCode: string(name='tenant_code'),
   // 页码
   pageNum?: long(name='page_num'),
-  // 页面大小
-  pageSizr?: long(name='page_sizr'),
   // 页面大小
   pageSize?: long(name='page_size'),
 }
