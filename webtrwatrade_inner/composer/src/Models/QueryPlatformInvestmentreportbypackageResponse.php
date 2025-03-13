@@ -6,101 +6,105 @@ namespace AntChain\WEBTRWATRADE_INNER\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class InvestmentReportInner extends Model
+class QueryPlatformInvestmentreportbypackageResponse extends Model
 {
-    // 预期收益
-    //
+    // 请求唯一ID，用于链路跟踪和问题排查
     /**
-     * @example 23.45
-     *
-     * @var MultiCurrencyMoney
+     * @var string
      */
-    public $estimatedAnnualized;
+    public $reqMsgId;
+
+    // 结果码，一般OK表示调用成功
+    /**
+     * @var string
+     */
+    public $resultCode;
+
+    // 异常信息的文本描述
+    /**
+     * @var string
+     */
+    public $resultMsg;
+
+    // 资产抵押率（Collateral Ratio）
+    /**
+     * @var string
+     */
+    public $collateralRate;
 
     // 实际收益率（Annual Yield）
-    //
     /**
-     * @example 12.34
-     *
      * @var string
      */
     public $actualAnnualizedYield;
 
     // 预期收益率（Expect Yield）
     /**
-     * @example 12.34
-     *
      * @var string
      */
     public $estimatedAnnualizedYield;
 
     // 毛利吻合率（Gross Profit Conformity）
     /**
-     * @example 12.34
-     *
      * @var string
      */
     public $matchRate;
 
     // 投资金额（Investment Allocation）
     /**
-     * @example 12.34
-     *
      * @var MultiCurrencyMoney
      */
     public $investmentAmount;
 
     // 实际收益
     /**
-     * @example 12.34
-     *
      * @var MultiCurrencyMoney
      */
     public $actualAnnualized;
 
-    // 资产抵押率（Collateral Ratio）
+    // 预期收益
     /**
-     * @example 12.34
-     *
-     * @var string
+     * @var MultiCurrencyMoney
      */
-    public $collateralRate;
+    public $estimatedAnnualized;
 
     // 数据日期
     /**
-     * @example 20250214
-     *
      * @var string
      */
     public $dt;
     protected $_name = [
-        'estimatedAnnualized'      => 'estimated_annualized',
+        'reqMsgId'                 => 'req_msg_id',
+        'resultCode'               => 'result_code',
+        'resultMsg'                => 'result_msg',
+        'collateralRate'           => 'collateral_rate',
         'actualAnnualizedYield'    => 'actual_annualized_yield',
         'estimatedAnnualizedYield' => 'estimated_annualized_yield',
         'matchRate'                => 'match_rate',
         'investmentAmount'         => 'investment_amount',
         'actualAnnualized'         => 'actual_annualized',
-        'collateralRate'           => 'collateral_rate',
+        'estimatedAnnualized'      => 'estimated_annualized',
         'dt'                       => 'dt',
     ];
 
     public function validate()
     {
-        Model::validateRequired('estimatedAnnualized', $this->estimatedAnnualized, true);
-        Model::validateRequired('actualAnnualizedYield', $this->actualAnnualizedYield, true);
-        Model::validateRequired('estimatedAnnualizedYield', $this->estimatedAnnualizedYield, true);
-        Model::validateRequired('matchRate', $this->matchRate, true);
-        Model::validateRequired('investmentAmount', $this->investmentAmount, true);
-        Model::validateRequired('actualAnnualized', $this->actualAnnualized, true);
-        Model::validateRequired('collateralRate', $this->collateralRate, true);
-        Model::validateRequired('dt', $this->dt, true);
     }
 
     public function toMap()
     {
         $res = [];
-        if (null !== $this->estimatedAnnualized) {
-            $res['estimated_annualized'] = null !== $this->estimatedAnnualized ? $this->estimatedAnnualized->toMap() : null;
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->collateralRate) {
+            $res['collateral_rate'] = $this->collateralRate;
         }
         if (null !== $this->actualAnnualizedYield) {
             $res['actual_annualized_yield'] = $this->actualAnnualizedYield;
@@ -117,8 +121,8 @@ class InvestmentReportInner extends Model
         if (null !== $this->actualAnnualized) {
             $res['actual_annualized'] = null !== $this->actualAnnualized ? $this->actualAnnualized->toMap() : null;
         }
-        if (null !== $this->collateralRate) {
-            $res['collateral_rate'] = $this->collateralRate;
+        if (null !== $this->estimatedAnnualized) {
+            $res['estimated_annualized'] = null !== $this->estimatedAnnualized ? $this->estimatedAnnualized->toMap() : null;
         }
         if (null !== $this->dt) {
             $res['dt'] = $this->dt;
@@ -130,13 +134,22 @@ class InvestmentReportInner extends Model
     /**
      * @param array $map
      *
-     * @return InvestmentReportInner
+     * @return QueryPlatformInvestmentreportbypackageResponse
      */
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['estimated_annualized'])) {
-            $model->estimatedAnnualized = MultiCurrencyMoney::fromMap($map['estimated_annualized']);
+        if (isset($map['req_msg_id'])) {
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if (isset($map['result_code'])) {
+            $model->resultCode = $map['result_code'];
+        }
+        if (isset($map['result_msg'])) {
+            $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['collateral_rate'])) {
+            $model->collateralRate = $map['collateral_rate'];
         }
         if (isset($map['actual_annualized_yield'])) {
             $model->actualAnnualizedYield = $map['actual_annualized_yield'];
@@ -153,8 +166,8 @@ class InvestmentReportInner extends Model
         if (isset($map['actual_annualized'])) {
             $model->actualAnnualized = MultiCurrencyMoney::fromMap($map['actual_annualized']);
         }
-        if (isset($map['collateral_rate'])) {
-            $model->collateralRate = $map['collateral_rate'];
+        if (isset($map['estimated_annualized'])) {
+            $model->estimatedAnnualized = MultiCurrencyMoney::fromMap($map['estimated_annualized']);
         }
         if (isset($map['dt'])) {
             $model->dt = $map['dt'];
