@@ -77,24 +77,53 @@ export class Config extends $tea.Model {
   }
 }
 
+// 多币种金额
+export class MultiCurrencyMoney extends $tea.Model {
+  // 金额，以分为单位
+  cent: string;
+  // 币种编码
+  currency: string;
+  // 金额，以元为单位，保留2位小数
+  amount: string;
+  static names(): { [key: string]: string } {
+    return {
+      cent: 'cent',
+      currency: 'currency',
+      amount: 'amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cent: 'string',
+      currency: 'string',
+      amount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 //   内部投资者报表数据
 export class InvestmentReportInner extends $tea.Model {
   // 预期收益
   // 
-  estimatedAnnualized: number;
+  estimatedAnnualized: MultiCurrencyMoney;
   // 实际收益率（Annual Yield）
   // 
-  actualAnnualizedYield: number;
+  actualAnnualizedYield: string;
   // 预期收益率（Expect Yield）
-  estimatedAnnualizedYield: number;
+  estimatedAnnualizedYield: string;
   // 毛利吻合率（Gross Profit Conformity）
-  matchRate: number;
+  matchRate: string;
   // 投资金额（Investment Allocation）
-  investmentAmount: number;
+  investmentAmount: MultiCurrencyMoney;
   // 实际收益
-  actualAnnualized: number;
+  actualAnnualized: MultiCurrencyMoney;
   // 资产抵押率（Collateral Ratio）
-  collateralRate: number;
+  collateralRate: string;
   // 数据日期
   dt: string;
   static names(): { [key: string]: string } {
@@ -112,13 +141,13 @@ export class InvestmentReportInner extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
-      estimatedAnnualized: 'number',
-      actualAnnualizedYield: 'number',
-      estimatedAnnualizedYield: 'number',
-      matchRate: 'number',
-      investmentAmount: 'number',
-      actualAnnualized: 'number',
-      collateralRate: 'number',
+      estimatedAnnualized: MultiCurrencyMoney,
+      actualAnnualizedYield: 'string',
+      estimatedAnnualizedYield: 'string',
+      matchRate: 'string',
+      investmentAmount: MultiCurrencyMoney,
+      actualAnnualized: MultiCurrencyMoney,
+      collateralRate: 'string',
       dt: 'string',
     };
   }
@@ -179,6 +208,97 @@ export class QueryPlatformInvestmentreportResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       data: InvestmentReportInner,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryPlatformInvestmentreportbypackageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 可信产业资产项目批次id
+  projectExternalId: string;
+  // 资产包id
+  assetPackageId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      projectExternalId: 'project_external_id',
+      assetPackageId: 'asset_package_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      projectExternalId: 'string',
+      assetPackageId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryPlatformInvestmentreportbypackageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 资产抵押率（Collateral Ratio）
+  collateralRate?: string;
+  // 实际收益率（Annual Yield）
+  actualAnnualizedYield?: string;
+  // 预期收益率（Expect Yield）
+  estimatedAnnualizedYield?: string;
+  // 毛利吻合率（Gross Profit Conformity）
+  matchRate?: string;
+  // 投资金额（Investment Allocation）
+  investmentAmount?: MultiCurrencyMoney;
+  // 实际收益
+  actualAnnualized?: MultiCurrencyMoney;
+  // 预期收益
+  estimatedAnnualized?: MultiCurrencyMoney;
+  // 数据日期
+  dt?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      collateralRate: 'collateral_rate',
+      actualAnnualizedYield: 'actual_annualized_yield',
+      estimatedAnnualizedYield: 'estimated_annualized_yield',
+      matchRate: 'match_rate',
+      investmentAmount: 'investment_amount',
+      actualAnnualized: 'actual_annualized',
+      estimatedAnnualized: 'estimated_annualized',
+      dt: 'dt',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      collateralRate: 'string',
+      actualAnnualizedYield: 'string',
+      estimatedAnnualizedYield: 'string',
+      matchRate: 'string',
+      investmentAmount: MultiCurrencyMoney,
+      actualAnnualized: MultiCurrencyMoney,
+      estimatedAnnualized: MultiCurrencyMoney,
+      dt: 'string',
     };
   }
 
@@ -300,7 +420,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.2",
+          sdk_version: "1.0.4",
           _prod_code: "WEBTRWATRADE_INNER",
           _prod_channel: "default",
         };
@@ -365,6 +485,25 @@ export default class Client {
   async queryPlatformInvestmentreportEx(request: QueryPlatformInvestmentreportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryPlatformInvestmentreportResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryPlatformInvestmentreportResponse>(await this.doRequest("1.0", "antdigital.webtrwatradeinner.platform.investmentreport.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryPlatformInvestmentreportResponse({}));
+  }
+
+  /**
+   * Description: 投资者报表查询(资产包维度)
+   * Summary: 投资者报表查询(资产包维度)
+   */
+  async queryPlatformInvestmentreportbypackage(request: QueryPlatformInvestmentreportbypackageRequest): Promise<QueryPlatformInvestmentreportbypackageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryPlatformInvestmentreportbypackageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 投资者报表查询(资产包维度)
+   * Summary: 投资者报表查询(资产包维度)
+   */
+  async queryPlatformInvestmentreportbypackageEx(request: QueryPlatformInvestmentreportbypackageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryPlatformInvestmentreportbypackageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryPlatformInvestmentreportbypackageResponse>(await this.doRequest("1.0", "antdigital.webtrwatradeinner.platform.investmentreportbypackage.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryPlatformInvestmentreportbypackageResponse({}));
   }
 
 }
