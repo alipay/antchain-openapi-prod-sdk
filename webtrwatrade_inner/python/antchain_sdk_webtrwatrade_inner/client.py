@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 内部投资者报表数据
+            # 多币种金额
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2',
+                    'sdk_version': '1.0.4',
                     '_prod_code': 'WEBTRWATRADE_INNER',
                     '_prod_channel': 'default'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 内部投资者报表数据
+            # 多币种金额
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2',
+                    'sdk_version': '1.0.4',
                     '_prod_code': 'WEBTRWATRADE_INNER',
                     '_prod_channel': 'default'
                 }
@@ -329,4 +329,60 @@ class Client:
         return TeaCore.from_map(
             webtrwatrade__inner_models.QueryPlatformInvestmentreportResponse(),
             await self.do_request_async('1.0', 'antdigital.webtrwatradeinner.platform.investmentreport.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_platform_investmentreportbypackage(
+        self,
+        request: webtrwatrade__inner_models.QueryPlatformInvestmentreportbypackageRequest,
+    ) -> webtrwatrade__inner_models.QueryPlatformInvestmentreportbypackageResponse:
+        """
+        Description: 投资者报表查询(资产包维度)
+        Summary: 投资者报表查询(资产包维度)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_platform_investmentreportbypackage_ex(request, headers, runtime)
+
+    async def query_platform_investmentreportbypackage_async(
+        self,
+        request: webtrwatrade__inner_models.QueryPlatformInvestmentreportbypackageRequest,
+    ) -> webtrwatrade__inner_models.QueryPlatformInvestmentreportbypackageResponse:
+        """
+        Description: 投资者报表查询(资产包维度)
+        Summary: 投资者报表查询(资产包维度)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_platform_investmentreportbypackage_ex_async(request, headers, runtime)
+
+    def query_platform_investmentreportbypackage_ex(
+        self,
+        request: webtrwatrade__inner_models.QueryPlatformInvestmentreportbypackageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> webtrwatrade__inner_models.QueryPlatformInvestmentreportbypackageResponse:
+        """
+        Description: 投资者报表查询(资产包维度)
+        Summary: 投资者报表查询(资产包维度)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            webtrwatrade__inner_models.QueryPlatformInvestmentreportbypackageResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatradeinner.platform.investmentreportbypackage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_platform_investmentreportbypackage_ex_async(
+        self,
+        request: webtrwatrade__inner_models.QueryPlatformInvestmentreportbypackageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> webtrwatrade__inner_models.QueryPlatformInvestmentreportbypackageResponse:
+        """
+        Description: 投资者报表查询(资产包维度)
+        Summary: 投资者报表查询(资产包维度)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            webtrwatrade__inner_models.QueryPlatformInvestmentreportbypackageResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatradeinner.platform.investmentreportbypackage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
