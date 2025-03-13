@@ -254,35 +254,14 @@ export class QueryPlatformInvestmentreportbypackageResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 资产抵押率（Collateral Ratio）
-  collateralRate?: string;
-  // 实际收益率（Annual Yield）
-  actualAnnualizedYield?: string;
-  // 预期收益率（Expect Yield）
-  estimatedAnnualizedYield?: string;
-  // 毛利吻合率（Gross Profit Conformity）
-  matchRate?: string;
-  // 投资金额（Investment Allocation）
-  investmentAmount?: MultiCurrencyMoney;
-  // 实际收益
-  actualAnnualized?: MultiCurrencyMoney;
-  // 预期收益
-  estimatedAnnualized?: MultiCurrencyMoney;
-  // 数据日期
-  dt?: string;
+  // 内部投资者报表数据(资产包维度)
+  data?: InvestmentReportInner;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      collateralRate: 'collateral_rate',
-      actualAnnualizedYield: 'actual_annualized_yield',
-      estimatedAnnualizedYield: 'estimated_annualized_yield',
-      matchRate: 'match_rate',
-      investmentAmount: 'investment_amount',
-      actualAnnualized: 'actual_annualized',
-      estimatedAnnualized: 'estimated_annualized',
-      dt: 'dt',
+      data: 'data',
     };
   }
 
@@ -291,14 +270,7 @@ export class QueryPlatformInvestmentreportbypackageResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      collateralRate: 'string',
-      actualAnnualizedYield: 'string',
-      estimatedAnnualizedYield: 'string',
-      matchRate: 'string',
-      investmentAmount: MultiCurrencyMoney,
-      actualAnnualized: MultiCurrencyMoney,
-      estimatedAnnualized: MultiCurrencyMoney,
-      dt: 'string',
+      data: InvestmentReportInner,
     };
   }
 
@@ -420,7 +392,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.4",
+          sdk_version: "1.0.5",
           _prod_code: "WEBTRWATRADE_INNER",
           _prod_channel: "default",
         };
