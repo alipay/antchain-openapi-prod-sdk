@@ -262,9 +262,9 @@ class ConvertAdDataRequest(TeaModel):
         muid: str = None,
         click_id: str = None,
         click_time: int = None,
-        impression_time: str = None,
+        impression_time: int = None,
         mobile_md_5: str = None,
-        platform: int = None,
+        platform: str = None,
         event_code: str = None,
         event_time: int = None,
         oaid: str = None,
@@ -325,12 +325,8 @@ class ConvertAdDataRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.account_id, 'account_id')
-        self.validate_required(self.device_os_type, 'device_os_type')
         self.validate_required(self.muid, 'muid')
         self.validate_required(self.click_id, 'click_id')
-        self.validate_required(self.click_time, 'click_time')
-        self.validate_required(self.impression_time, 'impression_time')
-        self.validate_required(self.mobile_md_5, 'mobile_md_5')
         self.validate_required(self.event_code, 'event_code')
         self.validate_required(self.event_time, 'event_time')
 
@@ -434,9 +430,6 @@ class ConvertAdDataResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         success: bool = None,
-        code: str = None,
-        message: str = None,
-        request_id: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -446,12 +439,6 @@ class ConvertAdDataResponse(TeaModel):
         self.result_msg = result_msg
         # 调用是否成功
         self.success = success
-        # 返回码
-        self.code = code
-        # 返回码描述
-        self.message = message
-        # 请求的唯一id
-        self.request_id = request_id
 
     def validate(self):
         pass
@@ -470,12 +457,6 @@ class ConvertAdDataResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
-        if self.code is not None:
-            result['code'] = self.code
-        if self.message is not None:
-            result['message'] = self.message
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
         return result
 
     def from_map(self, m: dict = None):
@@ -488,12 +469,6 @@ class ConvertAdDataResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
-        if m.get('code') is not None:
-            self.code = m.get('code')
-        if m.get('message') is not None:
-            self.message = m.get('message')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
         return self
 
 
@@ -555,9 +530,6 @@ class ClickAdDataResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         success: bool = None,
-        code: str = None,
-        message: str = None,
-        request_id: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -567,12 +539,6 @@ class ClickAdDataResponse(TeaModel):
         self.result_msg = result_msg
         # 调用是否成功
         self.success = success
-        # 返回码
-        self.code = code
-        # 异常描述
-        self.message = message
-        # 调用id
-        self.request_id = request_id
 
     def validate(self):
         pass
@@ -591,12 +557,6 @@ class ClickAdDataResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.success is not None:
             result['success'] = self.success
-        if self.code is not None:
-            result['code'] = self.code
-        if self.message is not None:
-            result['message'] = self.message
-        if self.request_id is not None:
-            result['request_id'] = self.request_id
         return result
 
     def from_map(self, m: dict = None):
@@ -609,12 +569,6 @@ class ClickAdDataResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
-        if m.get('code') is not None:
-            self.code = m.get('code')
-        if m.get('message') is not None:
-            self.message = m.get('message')
-        if m.get('request_id') is not None:
-            self.request_id = m.get('request_id')
         return self
 
 

@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.0.5',
+                    'sdk_version': '2.0.6',
                     '_prod_code': 'MORSERTA',
                     '_prod_channel': 'default'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.0.5',
+                    'sdk_version': '2.0.6',
                     '_prod_code': 'MORSERTA',
                     '_prod_channel': 'default'
                 }
@@ -390,8 +390,8 @@ class Client:
         request: morserta_models.ClickAdDataRequest,
     ) -> morserta_models.ClickAdDataResponse:
         """
-        Description: 广告主点击数据回传
-        Summary: 广告主点击数据回传
+        Description: 点击数据回传接口
+        Summary: 点击数据回传接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -402,8 +402,8 @@ class Client:
         request: morserta_models.ClickAdDataRequest,
     ) -> morserta_models.ClickAdDataResponse:
         """
-        Description: 广告主点击数据回传
-        Summary: 广告主点击数据回传
+        Description: 点击数据回传接口
+        Summary: 点击数据回传接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -416,8 +416,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> morserta_models.ClickAdDataResponse:
         """
-        Description: 广告主点击数据回传
-        Summary: 广告主点击数据回传
+        Description: 点击数据回传接口
+        Summary: 点击数据回传接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -432,8 +432,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> morserta_models.ClickAdDataResponse:
         """
-        Description: 广告主点击数据回传
-        Summary: 广告主点击数据回传
+        Description: 点击数据回传接口
+        Summary: 点击数据回传接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
