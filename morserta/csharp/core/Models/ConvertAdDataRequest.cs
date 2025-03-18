@@ -21,7 +21,7 @@ namespace AntChain.SDK.MORSERTA.Models
 
         // ios/android
         [NameInMap("device_os_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string DeviceOsType { get; set; }
 
         // 设备ID（imei或idfa的加密值）
@@ -36,23 +36,23 @@ namespace AntChain.SDK.MORSERTA.Models
 
         // 点击时间
         [NameInMap("click_time")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? ClickTime { get; set; }
 
         // 曝光时间
         [NameInMap("impression_time")]
-        [Validation(Required=true)]
-        public string ImpressionTime { get; set; }
+        [Validation(Required=false)]
+        public long? ImpressionTime { get; set; }
 
         // 手机号MD5
         [NameInMap("mobile_md5")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string MobileMd5 { get; set; }
 
         // 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
         [NameInMap("platform")]
         [Validation(Required=false)]
-        public long? Platform { get; set; }
+        public string Platform { get; set; }
 
         // 事件类型，枚举值如下：
         // submit-提交表单

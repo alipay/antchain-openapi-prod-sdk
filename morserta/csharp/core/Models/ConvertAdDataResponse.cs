@@ -29,21 +29,6 @@ namespace AntChain.SDK.MORSERTA.Models
         [Validation(Required=false)]
         public bool? Success { get; set; }
 
-        // 返回码
-        [NameInMap("code")]
-        [Validation(Required=false)]
-        public string Code { get; set; }
-
-        // 返回码描述
-        [NameInMap("message")]
-        [Validation(Required=false)]
-        public string Message { get; set; }
-
-        // 请求的唯一id
-        [NameInMap("request_id")]
-        [Validation(Required=false)]
-        public string RequestId { get; set; }
-
     }
 
 }
