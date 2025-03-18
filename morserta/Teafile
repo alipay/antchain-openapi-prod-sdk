@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "MORSERTA",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-morserta:2.0.5",
-    "go": "github.com/antchain-openapi-sdk-go/morserta/v2/client:v2.0.5",
-    "csharp": "AntChain.SDK.MORSERTA:2.0.5",
-    "ts": "@antchain/morserta:2.0.5",
-    "php": "antchain/morserta:2.0.5",
-    "python": "antchain_sdk_morserta:2.0.5"
+    "java": "com.antgroup.antchain.openapi:openapi-morserta:2.0.6",
+    "go": "github.com/antchain-openapi-sdk-go/morserta/v2/client:v2.0.6",
+    "csharp": "AntChain.SDK.MORSERTA:2.0.6",
+    "ts": "@antchain/morserta:2.0.6",
+    "php": "antchain/morserta:2.0.6",
+    "python": "antchain_sdk_morserta:2.0.6"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '2.0.5',
+    sdk_version = '2.0.6',
     _prod_code = 'MORSERTA',
     _prod_channel = 'default'
   };
@@ -208,19 +208,19 @@ model ConvertAdDataRequest = {
   // 广告主id
   accountId: long(name='account_id'),
   // ios/android
-  deviceOsType: string(name='device_os_type'),
+  deviceOsType?: string(name='device_os_type'),
   // 设备ID（imei或idfa的加密值）
   muid: string(name='muid'),
   // 点击ID
   clickId: string(name='click_id'),
   // 点击时间
-  clickTime: long(name='click_time'),
+  clickTime?: long(name='click_time'),
   // 曝光时间
-  impressionTime: string(name='impression_time'),
+  impressionTime?: long(name='impression_time'),
   // 手机号MD5
-  mobileMd5: string(name='mobile_md5'),
+  mobileMd5?: string(name='mobile_md5'),
   // 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
-  platform?: long(name='platform'),
+  platform?: string(name='platform'),
   // 事件类型，枚举值如下：
   // submit-提交表单
   // pay-付费
@@ -259,12 +259,6 @@ model ConvertAdDataResponse = {
   resultMsg?: string(name='result_msg'),
   // 调用是否成功
   success?: boolean(name='success'),
-  // 返回码
-  code?: string(name='code'),
-  // 返回码描述
-  message?: string(name='message'),
-  // 请求的唯一id
-  requestId?: string(name='request_id'),
 }
 
 /**
@@ -306,17 +300,11 @@ model ClickAdDataResponse = {
   resultMsg?: string(name='result_msg'),
   // 调用是否成功
   success?: boolean(name='success'),
-  // 返回码
-  code?: string(name='code'),
-  // 异常描述
-  message?: string(name='message'),
-  // 调用id
-  requestId?: string(name='request_id'),
 }
 
 /**
- * Description: 广告主点击数据回传
- * Summary: 广告主点击数据回传
+ * Description: 点击数据回传接口
+ * Summary: 点击数据回传接口
  */
 async function clickAdData(request: ClickAdDataRequest): ClickAdDataResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -325,8 +313,8 @@ async function clickAdData(request: ClickAdDataRequest): ClickAdDataResponse {
 }
 
 /**
- * Description: 广告主点击数据回传
- * Summary: 广告主点击数据回传
+ * Description: 点击数据回传接口
+ * Summary: 点击数据回传接口
  */
 async function clickAdDataEx(request: ClickAdDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ClickAdDataResponse {
   Util.validateModel(request);
