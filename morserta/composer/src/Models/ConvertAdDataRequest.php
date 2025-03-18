@@ -46,7 +46,7 @@ class ConvertAdDataRequest extends Model
 
     // 曝光时间
     /**
-     * @var string
+     * @var int
      */
     public $impressionTime;
 
@@ -58,7 +58,7 @@ class ConvertAdDataRequest extends Model
 
     // 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
     /**
-     * @var int
+     * @var string
      */
     public $platform;
 
@@ -158,12 +158,8 @@ class ConvertAdDataRequest extends Model
     public function validate()
     {
         Model::validateRequired('accountId', $this->accountId, true);
-        Model::validateRequired('deviceOsType', $this->deviceOsType, true);
         Model::validateRequired('muid', $this->muid, true);
         Model::validateRequired('clickId', $this->clickId, true);
-        Model::validateRequired('clickTime', $this->clickTime, true);
-        Model::validateRequired('impressionTime', $this->impressionTime, true);
-        Model::validateRequired('mobileMd5', $this->mobileMd5, true);
         Model::validateRequired('eventCode', $this->eventCode, true);
         Model::validateRequired('eventTime', $this->eventTime, true);
     }

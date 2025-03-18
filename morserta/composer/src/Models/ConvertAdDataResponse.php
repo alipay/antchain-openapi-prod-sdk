@@ -31,32 +31,11 @@ class ConvertAdDataResponse extends Model
      * @var bool
      */
     public $success;
-
-    // 返回码
-    /**
-     * @var string
-     */
-    public $code;
-
-    // 返回码描述
-    /**
-     * @var string
-     */
-    public $message;
-
-    // 请求的唯一id
-    /**
-     * @var string
-     */
-    public $requestId;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'success'    => 'success',
-        'code'       => 'code',
-        'message'    => 'message',
-        'requestId'  => 'request_id',
     ];
 
     public function validate()
@@ -77,15 +56,6 @@ class ConvertAdDataResponse extends Model
         }
         if (null !== $this->success) {
             $res['success'] = $this->success;
-        }
-        if (null !== $this->code) {
-            $res['code'] = $this->code;
-        }
-        if (null !== $this->message) {
-            $res['message'] = $this->message;
-        }
-        if (null !== $this->requestId) {
-            $res['request_id'] = $this->requestId;
         }
 
         return $res;
@@ -110,15 +80,6 @@ class ConvertAdDataResponse extends Model
         }
         if (isset($map['success'])) {
             $model->success = $map['success'];
-        }
-        if (isset($map['code'])) {
-            $model->code = $map['code'];
-        }
-        if (isset($map['message'])) {
-            $model->message = $map['message'];
-        }
-        if (isset($map['request_id'])) {
-            $model->requestId = $map['request_id'];
         }
 
         return $model;
