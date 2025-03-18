@@ -147,19 +147,19 @@ export class ConvertAdDataRequest extends $tea.Model {
   // 广告主id
   accountId: number;
   // ios/android
-  deviceOsType: string;
+  deviceOsType?: string;
   // 设备ID（imei或idfa的加密值）
   muid: string;
   // 点击ID
   clickId: string;
   // 点击时间
-  clickTime: number;
+  clickTime?: number;
   // 曝光时间
-  impressionTime: string;
+  impressionTime?: number;
   // 手机号MD5
-  mobileMd5: string;
+  mobileMd5?: string;
   // 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
-  platform?: number;
+  platform?: string;
   // 事件类型，枚举值如下：
   // submit-提交表单
   // pay-付费
@@ -220,9 +220,9 @@ export class ConvertAdDataRequest extends $tea.Model {
       muid: 'string',
       clickId: 'string',
       clickTime: 'number',
-      impressionTime: 'string',
+      impressionTime: 'number',
       mobileMd5: 'string',
-      platform: 'number',
+      platform: 'string',
       eventCode: 'string',
       eventTime: 'number',
       oaid: 'string',
@@ -251,21 +251,12 @@ export class ConvertAdDataResponse extends $tea.Model {
   resultMsg?: string;
   // 调用是否成功
   success?: boolean;
-  // 返回码
-  code?: string;
-  // 返回码描述
-  message?: string;
-  // 请求的唯一id
-  requestId?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       success: 'success',
-      code: 'code',
-      message: 'message',
-      requestId: 'request_id',
     };
   }
 
@@ -275,9 +266,6 @@ export class ConvertAdDataResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       success: 'boolean',
-      code: 'string',
-      message: 'string',
-      requestId: 'string',
     };
   }
 
@@ -327,21 +315,12 @@ export class ClickAdDataResponse extends $tea.Model {
   resultMsg?: string;
   // 调用是否成功
   success?: boolean;
-  // 返回码
-  code?: string;
-  // 异常描述
-  message?: string;
-  // 调用id
-  requestId?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       success: 'success',
-      code: 'code',
-      message: 'message',
-      requestId: 'request_id',
     };
   }
 
@@ -351,9 +330,6 @@ export class ClickAdDataResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       success: 'boolean',
-      code: 'string',
-      message: 'string',
-      requestId: 'string',
     };
   }
 
@@ -539,7 +515,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.0.5",
+          sdk_version: "2.0.6",
           _prod_code: "MORSERTA",
           _prod_channel: "default",
         };
@@ -626,8 +602,8 @@ export default class Client {
   }
 
   /**
-   * Description: 广告主点击数据回传
-   * Summary: 广告主点击数据回传
+   * Description: 点击数据回传接口
+   * Summary: 点击数据回传接口
    */
   async clickAdData(request: ClickAdDataRequest): Promise<ClickAdDataResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -636,8 +612,8 @@ export default class Client {
   }
 
   /**
-   * Description: 广告主点击数据回传
-   * Summary: 广告主点击数据回传
+   * Description: 点击数据回传接口
+   * Summary: 点击数据回传接口
    */
   async clickAdDataEx(request: ClickAdDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ClickAdDataResponse> {
     Util.validateModel(request);
