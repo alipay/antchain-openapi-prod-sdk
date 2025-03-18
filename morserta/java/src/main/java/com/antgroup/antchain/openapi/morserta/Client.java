@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "2.0.5"),
+                    new TeaPair("sdk_version", "2.0.6"),
                     new TeaPair("_prod_code", "MORSERTA"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -223,8 +223,8 @@ public class Client {
     }
 
     /**
-     * Description: 广告主点击数据回传
-     * Summary: 广告主点击数据回传
+     * Description: 点击数据回传接口
+     * Summary: 点击数据回传接口
      */
     public ClickAdDataResponse clickAdData(ClickAdDataRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -233,8 +233,8 @@ public class Client {
     }
 
     /**
-     * Description: 广告主点击数据回传
-     * Summary: 广告主点击数据回传
+     * Description: 点击数据回传接口
+     * Summary: 点击数据回传接口
      */
     public ClickAdDataResponse clickAdDataEx(ClickAdDataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

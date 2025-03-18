@@ -15,7 +15,6 @@ public class ConvertAdDataRequest extends TeaModel {
 
     // ios/android
     @NameInMap("device_os_type")
-    @Validation(required = true)
     public String deviceOsType;
 
     // 设备ID（imei或idfa的加密值）
@@ -30,22 +29,19 @@ public class ConvertAdDataRequest extends TeaModel {
 
     // 点击时间
     @NameInMap("click_time")
-    @Validation(required = true)
     public Long clickTime;
 
     // 曝光时间
     @NameInMap("impression_time")
-    @Validation(required = true)
-    public String impressionTime;
+    public Long impressionTime;
 
     // 手机号MD5
     @NameInMap("mobile_md5")
-    @Validation(required = true)
     public String mobileMd5;
 
     // 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
     @NameInMap("platform")
-    public Long platform;
+    public String platform;
 
     // 事件类型，枚举值如下：
     // submit-提交表单
@@ -151,11 +147,11 @@ public class ConvertAdDataRequest extends TeaModel {
         return this.clickTime;
     }
 
-    public ConvertAdDataRequest setImpressionTime(String impressionTime) {
+    public ConvertAdDataRequest setImpressionTime(Long impressionTime) {
         this.impressionTime = impressionTime;
         return this;
     }
-    public String getImpressionTime() {
+    public Long getImpressionTime() {
         return this.impressionTime;
     }
 
@@ -167,11 +163,11 @@ public class ConvertAdDataRequest extends TeaModel {
         return this.mobileMd5;
     }
 
-    public ConvertAdDataRequest setPlatform(Long platform) {
+    public ConvertAdDataRequest setPlatform(String platform) {
         this.platform = platform;
         return this;
     }
-    public Long getPlatform() {
+    public String getPlatform() {
         return this.platform;
     }
 

@@ -20,18 +20,6 @@ public class ClickAdDataResponse extends TeaModel {
     @NameInMap("success")
     public Boolean success;
 
-    // 返回码
-    @NameInMap("code")
-    public String code;
-
-    // 异常描述
-    @NameInMap("message")
-    public String message;
-
-    // 调用id
-    @NameInMap("request_id")
-    public String requestId;
-
     public static ClickAdDataResponse build(java.util.Map<String, ?> map) throws Exception {
         ClickAdDataResponse self = new ClickAdDataResponse();
         return TeaModel.build(map, self);
@@ -67,30 +55,6 @@ public class ClickAdDataResponse extends TeaModel {
     }
     public Boolean getSuccess() {
         return this.success;
-    }
-
-    public ClickAdDataResponse setCode(String code) {
-        this.code = code;
-        return this;
-    }
-    public String getCode() {
-        return this.code;
-    }
-
-    public ClickAdDataResponse setMessage(String message) {
-        this.message = message;
-        return this;
-    }
-    public String getMessage() {
-        return this.message;
-    }
-
-    public ClickAdDataResponse setRequestId(String requestId) {
-        this.requestId = requestId;
-        return this;
-    }
-    public String getRequestId() {
-        return this.requestId;
     }
 
 }

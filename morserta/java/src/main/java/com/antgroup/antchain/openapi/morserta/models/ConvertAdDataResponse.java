@@ -20,18 +20,6 @@ public class ConvertAdDataResponse extends TeaModel {
     @NameInMap("success")
     public Boolean success;
 
-    // 返回码
-    @NameInMap("code")
-    public String code;
-
-    // 返回码描述
-    @NameInMap("message")
-    public String message;
-
-    // 请求的唯一id
-    @NameInMap("request_id")
-    public String requestId;
-
     public static ConvertAdDataResponse build(java.util.Map<String, ?> map) throws Exception {
         ConvertAdDataResponse self = new ConvertAdDataResponse();
         return TeaModel.build(map, self);
@@ -67,30 +55,6 @@ public class ConvertAdDataResponse extends TeaModel {
     }
     public Boolean getSuccess() {
         return this.success;
-    }
-
-    public ConvertAdDataResponse setCode(String code) {
-        this.code = code;
-        return this;
-    }
-    public String getCode() {
-        return this.code;
-    }
-
-    public ConvertAdDataResponse setMessage(String message) {
-        this.message = message;
-        return this;
-    }
-    public String getMessage() {
-        return this.message;
-    }
-
-    public ConvertAdDataResponse setRequestId(String requestId) {
-        this.requestId = requestId;
-        return this;
-    }
-    public String getRequestId() {
-        return this.requestId;
     }
 
 }
