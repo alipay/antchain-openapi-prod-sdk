@@ -232,19 +232,19 @@ type ConvertAdDataRequest struct {
 	// 广告主id
 	AccountId *int64 `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
 	// ios/android
-	DeviceOsType *string `json:"device_os_type,omitempty" xml:"device_os_type,omitempty" require:"true"`
+	DeviceOsType *string `json:"device_os_type,omitempty" xml:"device_os_type,omitempty"`
 	// 设备ID（imei或idfa的加密值）
 	Muid *string `json:"muid,omitempty" xml:"muid,omitempty" require:"true"`
 	// 点击ID
 	ClickId *string `json:"click_id,omitempty" xml:"click_id,omitempty" require:"true"`
 	// 点击时间
-	ClickTime *int64 `json:"click_time,omitempty" xml:"click_time,omitempty" require:"true"`
+	ClickTime *int64 `json:"click_time,omitempty" xml:"click_time,omitempty"`
 	// 曝光时间
-	ImpressionTime *string `json:"impression_time,omitempty" xml:"impression_time,omitempty" require:"true"`
+	ImpressionTime *int64 `json:"impression_time,omitempty" xml:"impression_time,omitempty"`
 	// 手机号MD5
-	MobileMd5 *string `json:"mobile_md5,omitempty" xml:"mobile_md5,omitempty" require:"true"`
+	MobileMd5 *string `json:"mobile_md5,omitempty" xml:"mobile_md5,omitempty"`
 	// 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
-	Platform *int64 `json:"platform,omitempty" xml:"platform,omitempty"`
+	Platform *string `json:"platform,omitempty" xml:"platform,omitempty"`
 	// 事件类型，枚举值如下：
 	// submit-提交表单
 	// pay-付费
@@ -312,7 +312,7 @@ func (s *ConvertAdDataRequest) SetClickTime(v int64) *ConvertAdDataRequest {
 	return s
 }
 
-func (s *ConvertAdDataRequest) SetImpressionTime(v string) *ConvertAdDataRequest {
+func (s *ConvertAdDataRequest) SetImpressionTime(v int64) *ConvertAdDataRequest {
 	s.ImpressionTime = &v
 	return s
 }
@@ -322,7 +322,7 @@ func (s *ConvertAdDataRequest) SetMobileMd5(v string) *ConvertAdDataRequest {
 	return s
 }
 
-func (s *ConvertAdDataRequest) SetPlatform(v int64) *ConvertAdDataRequest {
+func (s *ConvertAdDataRequest) SetPlatform(v string) *ConvertAdDataRequest {
 	s.Platform = &v
 	return s
 }
@@ -391,12 +391,6 @@ type ConvertAdDataResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 调用是否成功
 	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 返回码
-	Code *string `json:"code,omitempty" xml:"code,omitempty"`
-	// 返回码描述
-	Message *string `json:"message,omitempty" xml:"message,omitempty"`
-	// 请求的唯一id
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 }
 
 func (s ConvertAdDataResponse) String() string {
@@ -424,21 +418,6 @@ func (s *ConvertAdDataResponse) SetResultMsg(v string) *ConvertAdDataResponse {
 
 func (s *ConvertAdDataResponse) SetSuccess(v bool) *ConvertAdDataResponse {
 	s.Success = &v
-	return s
-}
-
-func (s *ConvertAdDataResponse) SetCode(v string) *ConvertAdDataResponse {
-	s.Code = &v
-	return s
-}
-
-func (s *ConvertAdDataResponse) SetMessage(v string) *ConvertAdDataResponse {
-	s.Message = &v
-	return s
-}
-
-func (s *ConvertAdDataResponse) SetRequestId(v string) *ConvertAdDataResponse {
-	s.RequestId = &v
 	return s
 }
 
@@ -490,12 +469,6 @@ type ClickAdDataResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 调用是否成功
 	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 返回码
-	Code *string `json:"code,omitempty" xml:"code,omitempty"`
-	// 异常描述
-	Message *string `json:"message,omitempty" xml:"message,omitempty"`
-	// 调用id
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 }
 
 func (s ClickAdDataResponse) String() string {
@@ -523,21 +496,6 @@ func (s *ClickAdDataResponse) SetResultMsg(v string) *ClickAdDataResponse {
 
 func (s *ClickAdDataResponse) SetSuccess(v bool) *ClickAdDataResponse {
 	s.Success = &v
-	return s
-}
-
-func (s *ClickAdDataResponse) SetCode(v string) *ClickAdDataResponse {
-	s.Code = &v
-	return s
-}
-
-func (s *ClickAdDataResponse) SetMessage(v string) *ClickAdDataResponse {
-	s.Message = &v
-	return s
-}
-
-func (s *ClickAdDataResponse) SetRequestId(v string) *ClickAdDataResponse {
-	s.RequestId = &v
 	return s
 }
 
@@ -741,7 +699,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.0.5"),
+				"sdk_version":      tea.String("2.0.6"),
 				"_prod_code":       tea.String("MORSERTA"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -868,8 +826,8 @@ func (client *Client) ConvertAdDataEx(request *ConvertAdDataRequest, headers map
 }
 
 /**
- * Description: 广告主点击数据回传
- * Summary: 广告主点击数据回传
+ * Description: 点击数据回传接口
+ * Summary: 点击数据回传接口
  */
 func (client *Client) ClickAdData(request *ClickAdDataRequest) (_result *ClickAdDataResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -884,8 +842,8 @@ func (client *Client) ClickAdData(request *ClickAdDataRequest) (_result *ClickAd
 }
 
 /**
- * Description: 广告主点击数据回传
- * Summary: 广告主点击数据回传
+ * Description: 点击数据回传接口
+ * Summary: 点击数据回传接口
  */
 func (client *Client) ClickAdDataEx(request *ClickAdDataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ClickAdDataResponse, _err error) {
 	_err = util.ValidateModel(request)
