@@ -181,6 +181,95 @@ func (s *MultiCurrencyMoney) SetAmount(v string) *MultiCurrencyMoney {
 	return s
 }
 
+// 内部投资者报表数据(资产包维度)
+type InvestmentReportByPackageInner struct {
+	// 预期收益
+	EstimatedAnnualized *MultiCurrencyMoney `json:"estimated_annualized,omitempty" xml:"estimated_annualized,omitempty" require:"true"`
+	// 实际收益率(Annual Yield)
+	ActualAnnualizedYield *string `json:"actual_annualized_yield,omitempty" xml:"actual_annualized_yield,omitempty" require:"true"`
+	// 预期收益率（Expect Yield）
+	EstimatedAnnualizedYield *string `json:"estimated_annualized_yield,omitempty" xml:"estimated_annualized_yield,omitempty" require:"true"`
+	// 毛利吻合率（Gross Profit Conformity）
+	MatchRate *string `json:"match_rate,omitempty" xml:"match_rate,omitempty" require:"true"`
+	// 投资金额（Investment Allocation）
+	InvestmentAmount *MultiCurrencyMoney `json:"investment_amount,omitempty" xml:"investment_amount,omitempty" require:"true"`
+	// 实际收益
+	ActualAnnualized *MultiCurrencyMoney `json:"actual_annualized,omitempty" xml:"actual_annualized,omitempty" require:"true"`
+	// 资产抵押率（Collateral Ratio）
+	CollateralRate *string `json:"collateral_rate,omitempty" xml:"collateral_rate,omitempty" require:"true"`
+	// 数据日期
+	Dt *string `json:"dt,omitempty" xml:"dt,omitempty" require:"true"`
+	// 现金流覆盖季度还款金额比例
+	CashFlowCoverageQuarterlyRepaymentAmountRatio *string `json:"cash_flow_coverage_quarterly_repayment_amount_ratio,omitempty" xml:"cash_flow_coverage_quarterly_repayment_amount_ratio,omitempty" require:"true"`
+	// 现金流
+	CashFlow *MultiCurrencyMoney `json:"cash_flow,omitempty" xml:"cash_flow,omitempty" require:"true"`
+	// 抵押物总值
+	CollateralTotalValue *MultiCurrencyMoney `json:"collateral_total_value,omitempty" xml:"collateral_total_value,omitempty" require:"true"`
+}
+
+func (s InvestmentReportByPackageInner) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InvestmentReportByPackageInner) GoString() string {
+	return s.String()
+}
+
+func (s *InvestmentReportByPackageInner) SetEstimatedAnnualized(v *MultiCurrencyMoney) *InvestmentReportByPackageInner {
+	s.EstimatedAnnualized = v
+	return s
+}
+
+func (s *InvestmentReportByPackageInner) SetActualAnnualizedYield(v string) *InvestmentReportByPackageInner {
+	s.ActualAnnualizedYield = &v
+	return s
+}
+
+func (s *InvestmentReportByPackageInner) SetEstimatedAnnualizedYield(v string) *InvestmentReportByPackageInner {
+	s.EstimatedAnnualizedYield = &v
+	return s
+}
+
+func (s *InvestmentReportByPackageInner) SetMatchRate(v string) *InvestmentReportByPackageInner {
+	s.MatchRate = &v
+	return s
+}
+
+func (s *InvestmentReportByPackageInner) SetInvestmentAmount(v *MultiCurrencyMoney) *InvestmentReportByPackageInner {
+	s.InvestmentAmount = v
+	return s
+}
+
+func (s *InvestmentReportByPackageInner) SetActualAnnualized(v *MultiCurrencyMoney) *InvestmentReportByPackageInner {
+	s.ActualAnnualized = v
+	return s
+}
+
+func (s *InvestmentReportByPackageInner) SetCollateralRate(v string) *InvestmentReportByPackageInner {
+	s.CollateralRate = &v
+	return s
+}
+
+func (s *InvestmentReportByPackageInner) SetDt(v string) *InvestmentReportByPackageInner {
+	s.Dt = &v
+	return s
+}
+
+func (s *InvestmentReportByPackageInner) SetCashFlowCoverageQuarterlyRepaymentAmountRatio(v string) *InvestmentReportByPackageInner {
+	s.CashFlowCoverageQuarterlyRepaymentAmountRatio = &v
+	return s
+}
+
+func (s *InvestmentReportByPackageInner) SetCashFlow(v *MultiCurrencyMoney) *InvestmentReportByPackageInner {
+	s.CashFlow = v
+	return s
+}
+
+func (s *InvestmentReportByPackageInner) SetCollateralTotalValue(v *MultiCurrencyMoney) *InvestmentReportByPackageInner {
+	s.CollateralTotalValue = v
+	return s
+}
+
 //   内部投资者报表数据
 type InvestmentReportInner struct {
 	// 预期收益
@@ -201,6 +290,12 @@ type InvestmentReportInner struct {
 	CollateralRate *string `json:"collateral_rate,omitempty" xml:"collateral_rate,omitempty" require:"true"`
 	// 数据日期
 	Dt *string `json:"dt,omitempty" xml:"dt,omitempty" require:"true"`
+	// 现金流覆盖季度还款金额比例
+	CashFlowCoverageQuarterlyRepaymentAmountRatio *string `json:"cash_flow_coverage_quarterly_repayment_amount_ratio,omitempty" xml:"cash_flow_coverage_quarterly_repayment_amount_ratio,omitempty" require:"true"`
+	// 现金流
+	CashFlow *MultiCurrencyMoney `json:"cash_flow,omitempty" xml:"cash_flow,omitempty" require:"true"`
+	// 初始资产总值
+	InitialAssetTotalValue *MultiCurrencyMoney `json:"initial_asset_total_value,omitempty" xml:"initial_asset_total_value,omitempty" require:"true"`
 }
 
 func (s InvestmentReportInner) String() string {
@@ -248,6 +343,21 @@ func (s *InvestmentReportInner) SetCollateralRate(v string) *InvestmentReportInn
 
 func (s *InvestmentReportInner) SetDt(v string) *InvestmentReportInner {
 	s.Dt = &v
+	return s
+}
+
+func (s *InvestmentReportInner) SetCashFlowCoverageQuarterlyRepaymentAmountRatio(v string) *InvestmentReportInner {
+	s.CashFlowCoverageQuarterlyRepaymentAmountRatio = &v
+	return s
+}
+
+func (s *InvestmentReportInner) SetCashFlow(v *MultiCurrencyMoney) *InvestmentReportInner {
+	s.CashFlow = v
+	return s
+}
+
+func (s *InvestmentReportInner) SetInitialAssetTotalValue(v *MultiCurrencyMoney) *InvestmentReportInner {
+	s.InitialAssetTotalValue = v
 	return s
 }
 
@@ -367,7 +477,7 @@ type QueryPlatformInvestmentreportbypackageResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 内部投资者报表数据(资产包维度)
-	Data *InvestmentReportInner `json:"data,omitempty" xml:"data,omitempty"`
+	Data *InvestmentReportByPackageInner `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s QueryPlatformInvestmentreportbypackageResponse) String() string {
@@ -393,7 +503,7 @@ func (s *QueryPlatformInvestmentreportbypackageResponse) SetResultMsg(v string) 
 	return s
 }
 
-func (s *QueryPlatformInvestmentreportbypackageResponse) SetData(v *InvestmentReportInner) *QueryPlatformInvestmentreportbypackageResponse {
+func (s *QueryPlatformInvestmentreportbypackageResponse) SetData(v *InvestmentReportByPackageInner) *QueryPlatformInvestmentreportbypackageResponse {
 	s.Data = v
 	return s
 }
@@ -520,7 +630,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.5"),
+				"sdk_version":      tea.String("1.0.6"),
 				"_prod_code":       tea.String("WEBTRWATRADE_INNER"),
 				"_prod_channel":    tea.String("default"),
 			}
