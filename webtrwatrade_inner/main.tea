@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.5',
+    sdk_version = '1.0.6',
     _prod_code = 'WEBTRWATRADE_INNER',
     _prod_channel = 'default'
   };
@@ -171,6 +171,32 @@ model MultiCurrencyMoney {
   amount: string(name='amount', example='1.00'),
 }
 
+// 内部投资者报表数据(资产包维度)
+model InvestmentReportByPackageInner {
+  // 预期收益
+  estimatedAnnualized: MultiCurrencyMoney(name='estimated_annualized', example='23.45'),
+  // 实际收益率(Annual Yield)
+  actualAnnualizedYield: string(name='actual_annualized_yield', example='12.34'),
+  // 预期收益率（Expect Yield）
+  estimatedAnnualizedYield: string(name='estimated_annualized_yield', example='12.34'),
+  // 毛利吻合率（Gross Profit Conformity）
+  matchRate: string(name='match_rate', example='12.34'),
+  // 投资金额（Investment Allocation）
+  investmentAmount: MultiCurrencyMoney(name='investment_amount', example='12.34'),
+  // 实际收益
+  actualAnnualized: MultiCurrencyMoney(name='actual_annualized', example='12.34'),
+  // 资产抵押率（Collateral Ratio）
+  collateralRate: string(name='collateral_rate', example='12.34'),
+  // 数据日期
+  dt: string(name='dt', example='20250214'),
+  // 现金流覆盖季度还款金额比例
+  cashFlowCoverageQuarterlyRepaymentAmountRatio: string(name='cash_flow_coverage_quarterly_repayment_amount_ratio', example='12.34'),
+  // 现金流
+  cashFlow: MultiCurrencyMoney(name='cash_flow', example='12.34'),
+  // 抵押物总值
+  collateralTotalValue: MultiCurrencyMoney(name='collateral_total_value', example='12.34'),
+}
+
 //   内部投资者报表数据
 model InvestmentReportInner {
   // 预期收益
@@ -191,6 +217,12 @@ model InvestmentReportInner {
   collateralRate: string(name='collateral_rate', example='12.34'),
   // 数据日期
   dt: string(name='dt', example='20250214'),
+  // 现金流覆盖季度还款金额比例
+  cashFlowCoverageQuarterlyRepaymentAmountRatio: string(name='cash_flow_coverage_quarterly_repayment_amount_ratio', example='12.34'),
+  // 现金流
+  cashFlow: MultiCurrencyMoney(name='cash_flow', example='12.34'),
+  // 初始资产总值
+  initialAssetTotalValue: MultiCurrencyMoney(name='initial_asset_total_value', example='12.34'),
 }
 
 model QueryPlatformInvestmentreportRequest = {
@@ -249,7 +281,7 @@ model QueryPlatformInvestmentreportbypackageResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 内部投资者报表数据(资产包维度)
-  data?: InvestmentReportInner(name='data'),
+  data?: InvestmentReportByPackageInner(name='data'),
 }
 
 /**
