@@ -18,7 +18,7 @@ public class QueryPlatformInvestmentreportbypackageResponse extends TeaModel {
 
     // 内部投资者报表数据(资产包维度)
     @NameInMap("data")
-    public InvestmentReportInner data;
+    public InvestmentReportByPackageInner data;
 
     public static QueryPlatformInvestmentreportbypackageResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryPlatformInvestmentreportbypackageResponse self = new QueryPlatformInvestmentreportbypackageResponse();
@@ -49,11 +49,11 @@ public class QueryPlatformInvestmentreportbypackageResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryPlatformInvestmentreportbypackageResponse setData(InvestmentReportInner data) {
+    public QueryPlatformInvestmentreportbypackageResponse setData(InvestmentReportByPackageInner data) {
         this.data = data;
         return this;
     }
-    public InvestmentReportInner getData() {
+    public InvestmentReportByPackageInner getData() {
         return this.data;
     }
 

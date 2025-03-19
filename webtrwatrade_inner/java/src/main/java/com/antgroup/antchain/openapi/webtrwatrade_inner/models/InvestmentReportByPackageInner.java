@@ -3,15 +3,13 @@ package com.antgroup.antchain.openapi.webtrwatrade_inner.models;
 
 import com.aliyun.tea.*;
 
-public class InvestmentReportInner extends TeaModel {
+public class InvestmentReportByPackageInner extends TeaModel {
     // 预期收益
-    // 
     @NameInMap("estimated_annualized")
     @Validation(required = true)
     public MultiCurrencyMoney estimatedAnnualized;
 
-    // 实际收益率（Annual Yield）
-    // 
+    // 实际收益率(Annual Yield)
     @NameInMap("actual_annualized_yield")
     @Validation(required = true)
     public String actualAnnualizedYield;
@@ -56,17 +54,17 @@ public class InvestmentReportInner extends TeaModel {
     @Validation(required = true)
     public MultiCurrencyMoney cashFlow;
 
-    // 初始资产总值
-    @NameInMap("initial_asset_total_value")
+    // 抵押物总值
+    @NameInMap("collateral_total_value")
     @Validation(required = true)
-    public MultiCurrencyMoney initialAssetTotalValue;
+    public MultiCurrencyMoney collateralTotalValue;
 
-    public static InvestmentReportInner build(java.util.Map<String, ?> map) throws Exception {
-        InvestmentReportInner self = new InvestmentReportInner();
+    public static InvestmentReportByPackageInner build(java.util.Map<String, ?> map) throws Exception {
+        InvestmentReportByPackageInner self = new InvestmentReportByPackageInner();
         return TeaModel.build(map, self);
     }
 
-    public InvestmentReportInner setEstimatedAnnualized(MultiCurrencyMoney estimatedAnnualized) {
+    public InvestmentReportByPackageInner setEstimatedAnnualized(MultiCurrencyMoney estimatedAnnualized) {
         this.estimatedAnnualized = estimatedAnnualized;
         return this;
     }
@@ -74,7 +72,7 @@ public class InvestmentReportInner extends TeaModel {
         return this.estimatedAnnualized;
     }
 
-    public InvestmentReportInner setActualAnnualizedYield(String actualAnnualizedYield) {
+    public InvestmentReportByPackageInner setActualAnnualizedYield(String actualAnnualizedYield) {
         this.actualAnnualizedYield = actualAnnualizedYield;
         return this;
     }
@@ -82,7 +80,7 @@ public class InvestmentReportInner extends TeaModel {
         return this.actualAnnualizedYield;
     }
 
-    public InvestmentReportInner setEstimatedAnnualizedYield(String estimatedAnnualizedYield) {
+    public InvestmentReportByPackageInner setEstimatedAnnualizedYield(String estimatedAnnualizedYield) {
         this.estimatedAnnualizedYield = estimatedAnnualizedYield;
         return this;
     }
@@ -90,7 +88,7 @@ public class InvestmentReportInner extends TeaModel {
         return this.estimatedAnnualizedYield;
     }
 
-    public InvestmentReportInner setMatchRate(String matchRate) {
+    public InvestmentReportByPackageInner setMatchRate(String matchRate) {
         this.matchRate = matchRate;
         return this;
     }
@@ -98,7 +96,7 @@ public class InvestmentReportInner extends TeaModel {
         return this.matchRate;
     }
 
-    public InvestmentReportInner setInvestmentAmount(MultiCurrencyMoney investmentAmount) {
+    public InvestmentReportByPackageInner setInvestmentAmount(MultiCurrencyMoney investmentAmount) {
         this.investmentAmount = investmentAmount;
         return this;
     }
@@ -106,7 +104,7 @@ public class InvestmentReportInner extends TeaModel {
         return this.investmentAmount;
     }
 
-    public InvestmentReportInner setActualAnnualized(MultiCurrencyMoney actualAnnualized) {
+    public InvestmentReportByPackageInner setActualAnnualized(MultiCurrencyMoney actualAnnualized) {
         this.actualAnnualized = actualAnnualized;
         return this;
     }
@@ -114,7 +112,7 @@ public class InvestmentReportInner extends TeaModel {
         return this.actualAnnualized;
     }
 
-    public InvestmentReportInner setCollateralRate(String collateralRate) {
+    public InvestmentReportByPackageInner setCollateralRate(String collateralRate) {
         this.collateralRate = collateralRate;
         return this;
     }
@@ -122,7 +120,7 @@ public class InvestmentReportInner extends TeaModel {
         return this.collateralRate;
     }
 
-    public InvestmentReportInner setDt(String dt) {
+    public InvestmentReportByPackageInner setDt(String dt) {
         this.dt = dt;
         return this;
     }
@@ -130,7 +128,7 @@ public class InvestmentReportInner extends TeaModel {
         return this.dt;
     }
 
-    public InvestmentReportInner setCashFlowCoverageQuarterlyRepaymentAmountRatio(String cashFlowCoverageQuarterlyRepaymentAmountRatio) {
+    public InvestmentReportByPackageInner setCashFlowCoverageQuarterlyRepaymentAmountRatio(String cashFlowCoverageQuarterlyRepaymentAmountRatio) {
         this.cashFlowCoverageQuarterlyRepaymentAmountRatio = cashFlowCoverageQuarterlyRepaymentAmountRatio;
         return this;
     }
@@ -138,7 +136,7 @@ public class InvestmentReportInner extends TeaModel {
         return this.cashFlowCoverageQuarterlyRepaymentAmountRatio;
     }
 
-    public InvestmentReportInner setCashFlow(MultiCurrencyMoney cashFlow) {
+    public InvestmentReportByPackageInner setCashFlow(MultiCurrencyMoney cashFlow) {
         this.cashFlow = cashFlow;
         return this;
     }
@@ -146,12 +144,12 @@ public class InvestmentReportInner extends TeaModel {
         return this.cashFlow;
     }
 
-    public InvestmentReportInner setInitialAssetTotalValue(MultiCurrencyMoney initialAssetTotalValue) {
-        this.initialAssetTotalValue = initialAssetTotalValue;
+    public InvestmentReportByPackageInner setCollateralTotalValue(MultiCurrencyMoney collateralTotalValue) {
+        this.collateralTotalValue = collateralTotalValue;
         return this;
     }
-    public MultiCurrencyMoney getInitialAssetTotalValue() {
-        return this.initialAssetTotalValue;
+    public MultiCurrencyMoney getCollateralTotalValue() {
+        return this.collateralTotalValue;
     }
 
 }
