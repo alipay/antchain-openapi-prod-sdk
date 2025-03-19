@@ -197,7 +197,7 @@ class MultiCurrencyMoney(TeaModel):
         return self
 
 
-class InvestmentReportInner(TeaModel):
+class InvestmentReportByPackageInner(TeaModel):
     def __init__(
         self,
         estimated_annualized: MultiCurrencyMoney = None,
@@ -208,12 +208,13 @@ class InvestmentReportInner(TeaModel):
         actual_annualized: MultiCurrencyMoney = None,
         collateral_rate: str = None,
         dt: str = None,
+        cash_flow_coverage_quarterly_repayment_amount_ratio: str = None,
+        cash_flow: MultiCurrencyMoney = None,
+        collateral_total_value: MultiCurrencyMoney = None,
     ):
         # 预期收益
-        # 
         self.estimated_annualized = estimated_annualized
-        # 实际收益率（Annual Yield）
-        # 
+        # 实际收益率(Annual Yield)
         self.actual_annualized_yield = actual_annualized_yield
         # 预期收益率（Expect Yield）
         self.estimated_annualized_yield = estimated_annualized_yield
@@ -227,6 +228,12 @@ class InvestmentReportInner(TeaModel):
         self.collateral_rate = collateral_rate
         # 数据日期
         self.dt = dt
+        # 现金流覆盖季度还款金额比例
+        self.cash_flow_coverage_quarterly_repayment_amount_ratio = cash_flow_coverage_quarterly_repayment_amount_ratio
+        # 现金流
+        self.cash_flow = cash_flow
+        # 抵押物总值
+        self.collateral_total_value = collateral_total_value
 
     def validate(self):
         self.validate_required(self.estimated_annualized, 'estimated_annualized')
@@ -243,6 +250,13 @@ class InvestmentReportInner(TeaModel):
             self.actual_annualized.validate()
         self.validate_required(self.collateral_rate, 'collateral_rate')
         self.validate_required(self.dt, 'dt')
+        self.validate_required(self.cash_flow_coverage_quarterly_repayment_amount_ratio, 'cash_flow_coverage_quarterly_repayment_amount_ratio')
+        self.validate_required(self.cash_flow, 'cash_flow')
+        if self.cash_flow:
+            self.cash_flow.validate()
+        self.validate_required(self.collateral_total_value, 'collateral_total_value')
+        if self.collateral_total_value:
+            self.collateral_total_value.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -266,6 +280,12 @@ class InvestmentReportInner(TeaModel):
             result['collateral_rate'] = self.collateral_rate
         if self.dt is not None:
             result['dt'] = self.dt
+        if self.cash_flow_coverage_quarterly_repayment_amount_ratio is not None:
+            result['cash_flow_coverage_quarterly_repayment_amount_ratio'] = self.cash_flow_coverage_quarterly_repayment_amount_ratio
+        if self.cash_flow is not None:
+            result['cash_flow'] = self.cash_flow.to_map()
+        if self.collateral_total_value is not None:
+            result['collateral_total_value'] = self.collateral_total_value.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -289,6 +309,139 @@ class InvestmentReportInner(TeaModel):
             self.collateral_rate = m.get('collateral_rate')
         if m.get('dt') is not None:
             self.dt = m.get('dt')
+        if m.get('cash_flow_coverage_quarterly_repayment_amount_ratio') is not None:
+            self.cash_flow_coverage_quarterly_repayment_amount_ratio = m.get('cash_flow_coverage_quarterly_repayment_amount_ratio')
+        if m.get('cash_flow') is not None:
+            temp_model = MultiCurrencyMoney()
+            self.cash_flow = temp_model.from_map(m['cash_flow'])
+        if m.get('collateral_total_value') is not None:
+            temp_model = MultiCurrencyMoney()
+            self.collateral_total_value = temp_model.from_map(m['collateral_total_value'])
+        return self
+
+
+class InvestmentReportInner(TeaModel):
+    def __init__(
+        self,
+        estimated_annualized: MultiCurrencyMoney = None,
+        actual_annualized_yield: str = None,
+        estimated_annualized_yield: str = None,
+        match_rate: str = None,
+        investment_amount: MultiCurrencyMoney = None,
+        actual_annualized: MultiCurrencyMoney = None,
+        collateral_rate: str = None,
+        dt: str = None,
+        cash_flow_coverage_quarterly_repayment_amount_ratio: str = None,
+        cash_flow: MultiCurrencyMoney = None,
+        initial_asset_total_value: MultiCurrencyMoney = None,
+    ):
+        # 预期收益
+        # 
+        self.estimated_annualized = estimated_annualized
+        # 实际收益率（Annual Yield）
+        # 
+        self.actual_annualized_yield = actual_annualized_yield
+        # 预期收益率（Expect Yield）
+        self.estimated_annualized_yield = estimated_annualized_yield
+        # 毛利吻合率（Gross Profit Conformity）
+        self.match_rate = match_rate
+        # 投资金额（Investment Allocation）
+        self.investment_amount = investment_amount
+        # 实际收益
+        self.actual_annualized = actual_annualized
+        # 资产抵押率（Collateral Ratio）
+        self.collateral_rate = collateral_rate
+        # 数据日期
+        self.dt = dt
+        # 现金流覆盖季度还款金额比例
+        self.cash_flow_coverage_quarterly_repayment_amount_ratio = cash_flow_coverage_quarterly_repayment_amount_ratio
+        # 现金流
+        self.cash_flow = cash_flow
+        # 初始资产总值
+        self.initial_asset_total_value = initial_asset_total_value
+
+    def validate(self):
+        self.validate_required(self.estimated_annualized, 'estimated_annualized')
+        if self.estimated_annualized:
+            self.estimated_annualized.validate()
+        self.validate_required(self.actual_annualized_yield, 'actual_annualized_yield')
+        self.validate_required(self.estimated_annualized_yield, 'estimated_annualized_yield')
+        self.validate_required(self.match_rate, 'match_rate')
+        self.validate_required(self.investment_amount, 'investment_amount')
+        if self.investment_amount:
+            self.investment_amount.validate()
+        self.validate_required(self.actual_annualized, 'actual_annualized')
+        if self.actual_annualized:
+            self.actual_annualized.validate()
+        self.validate_required(self.collateral_rate, 'collateral_rate')
+        self.validate_required(self.dt, 'dt')
+        self.validate_required(self.cash_flow_coverage_quarterly_repayment_amount_ratio, 'cash_flow_coverage_quarterly_repayment_amount_ratio')
+        self.validate_required(self.cash_flow, 'cash_flow')
+        if self.cash_flow:
+            self.cash_flow.validate()
+        self.validate_required(self.initial_asset_total_value, 'initial_asset_total_value')
+        if self.initial_asset_total_value:
+            self.initial_asset_total_value.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.estimated_annualized is not None:
+            result['estimated_annualized'] = self.estimated_annualized.to_map()
+        if self.actual_annualized_yield is not None:
+            result['actual_annualized_yield'] = self.actual_annualized_yield
+        if self.estimated_annualized_yield is not None:
+            result['estimated_annualized_yield'] = self.estimated_annualized_yield
+        if self.match_rate is not None:
+            result['match_rate'] = self.match_rate
+        if self.investment_amount is not None:
+            result['investment_amount'] = self.investment_amount.to_map()
+        if self.actual_annualized is not None:
+            result['actual_annualized'] = self.actual_annualized.to_map()
+        if self.collateral_rate is not None:
+            result['collateral_rate'] = self.collateral_rate
+        if self.dt is not None:
+            result['dt'] = self.dt
+        if self.cash_flow_coverage_quarterly_repayment_amount_ratio is not None:
+            result['cash_flow_coverage_quarterly_repayment_amount_ratio'] = self.cash_flow_coverage_quarterly_repayment_amount_ratio
+        if self.cash_flow is not None:
+            result['cash_flow'] = self.cash_flow.to_map()
+        if self.initial_asset_total_value is not None:
+            result['initial_asset_total_value'] = self.initial_asset_total_value.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('estimated_annualized') is not None:
+            temp_model = MultiCurrencyMoney()
+            self.estimated_annualized = temp_model.from_map(m['estimated_annualized'])
+        if m.get('actual_annualized_yield') is not None:
+            self.actual_annualized_yield = m.get('actual_annualized_yield')
+        if m.get('estimated_annualized_yield') is not None:
+            self.estimated_annualized_yield = m.get('estimated_annualized_yield')
+        if m.get('match_rate') is not None:
+            self.match_rate = m.get('match_rate')
+        if m.get('investment_amount') is not None:
+            temp_model = MultiCurrencyMoney()
+            self.investment_amount = temp_model.from_map(m['investment_amount'])
+        if m.get('actual_annualized') is not None:
+            temp_model = MultiCurrencyMoney()
+            self.actual_annualized = temp_model.from_map(m['actual_annualized'])
+        if m.get('collateral_rate') is not None:
+            self.collateral_rate = m.get('collateral_rate')
+        if m.get('dt') is not None:
+            self.dt = m.get('dt')
+        if m.get('cash_flow_coverage_quarterly_repayment_amount_ratio') is not None:
+            self.cash_flow_coverage_quarterly_repayment_amount_ratio = m.get('cash_flow_coverage_quarterly_repayment_amount_ratio')
+        if m.get('cash_flow') is not None:
+            temp_model = MultiCurrencyMoney()
+            self.cash_flow = temp_model.from_map(m['cash_flow'])
+        if m.get('initial_asset_total_value') is not None:
+            temp_model = MultiCurrencyMoney()
+            self.initial_asset_total_value = temp_model.from_map(m['initial_asset_total_value'])
         return self
 
 
@@ -439,7 +592,7 @@ class QueryPlatformInvestmentreportbypackageResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        data: InvestmentReportInner = None,
+        data: InvestmentReportByPackageInner = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -479,7 +632,7 @@ class QueryPlatformInvestmentreportbypackageResponse(TeaModel):
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
         if m.get('data') is not None:
-            temp_model = InvestmentReportInner()
+            temp_model = InvestmentReportByPackageInner()
             self.data = temp_model.from_map(m['data'])
         return self
 
