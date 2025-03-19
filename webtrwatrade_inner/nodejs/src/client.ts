@@ -106,6 +106,67 @@ export class MultiCurrencyMoney extends $tea.Model {
   }
 }
 
+// 内部投资者报表数据(资产包维度)
+export class InvestmentReportByPackageInner extends $tea.Model {
+  // 预期收益
+  estimatedAnnualized: MultiCurrencyMoney;
+  // 实际收益率(Annual Yield)
+  actualAnnualizedYield: string;
+  // 预期收益率（Expect Yield）
+  estimatedAnnualizedYield: string;
+  // 毛利吻合率（Gross Profit Conformity）
+  matchRate: string;
+  // 投资金额（Investment Allocation）
+  investmentAmount: MultiCurrencyMoney;
+  // 实际收益
+  actualAnnualized: MultiCurrencyMoney;
+  // 资产抵押率（Collateral Ratio）
+  collateralRate: string;
+  // 数据日期
+  dt: string;
+  // 现金流覆盖季度还款金额比例
+  cashFlowCoverageQuarterlyRepaymentAmountRatio: string;
+  // 现金流
+  cashFlow: MultiCurrencyMoney;
+  // 抵押物总值
+  collateralTotalValue: MultiCurrencyMoney;
+  static names(): { [key: string]: string } {
+    return {
+      estimatedAnnualized: 'estimated_annualized',
+      actualAnnualizedYield: 'actual_annualized_yield',
+      estimatedAnnualizedYield: 'estimated_annualized_yield',
+      matchRate: 'match_rate',
+      investmentAmount: 'investment_amount',
+      actualAnnualized: 'actual_annualized',
+      collateralRate: 'collateral_rate',
+      dt: 'dt',
+      cashFlowCoverageQuarterlyRepaymentAmountRatio: 'cash_flow_coverage_quarterly_repayment_amount_ratio',
+      cashFlow: 'cash_flow',
+      collateralTotalValue: 'collateral_total_value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      estimatedAnnualized: MultiCurrencyMoney,
+      actualAnnualizedYield: 'string',
+      estimatedAnnualizedYield: 'string',
+      matchRate: 'string',
+      investmentAmount: MultiCurrencyMoney,
+      actualAnnualized: MultiCurrencyMoney,
+      collateralRate: 'string',
+      dt: 'string',
+      cashFlowCoverageQuarterlyRepaymentAmountRatio: 'string',
+      cashFlow: MultiCurrencyMoney,
+      collateralTotalValue: MultiCurrencyMoney,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 //   内部投资者报表数据
 export class InvestmentReportInner extends $tea.Model {
   // 预期收益
@@ -126,6 +187,12 @@ export class InvestmentReportInner extends $tea.Model {
   collateralRate: string;
   // 数据日期
   dt: string;
+  // 现金流覆盖季度还款金额比例
+  cashFlowCoverageQuarterlyRepaymentAmountRatio: string;
+  // 现金流
+  cashFlow: MultiCurrencyMoney;
+  // 初始资产总值
+  initialAssetTotalValue: MultiCurrencyMoney;
   static names(): { [key: string]: string } {
     return {
       estimatedAnnualized: 'estimated_annualized',
@@ -136,6 +203,9 @@ export class InvestmentReportInner extends $tea.Model {
       actualAnnualized: 'actual_annualized',
       collateralRate: 'collateral_rate',
       dt: 'dt',
+      cashFlowCoverageQuarterlyRepaymentAmountRatio: 'cash_flow_coverage_quarterly_repayment_amount_ratio',
+      cashFlow: 'cash_flow',
+      initialAssetTotalValue: 'initial_asset_total_value',
     };
   }
 
@@ -149,6 +219,9 @@ export class InvestmentReportInner extends $tea.Model {
       actualAnnualized: MultiCurrencyMoney,
       collateralRate: 'string',
       dt: 'string',
+      cashFlowCoverageQuarterlyRepaymentAmountRatio: 'string',
+      cashFlow: MultiCurrencyMoney,
+      initialAssetTotalValue: MultiCurrencyMoney,
     };
   }
 
@@ -255,7 +328,7 @@ export class QueryPlatformInvestmentreportbypackageResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 内部投资者报表数据(资产包维度)
-  data?: InvestmentReportInner;
+  data?: InvestmentReportByPackageInner;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -270,7 +343,7 @@ export class QueryPlatformInvestmentreportbypackageResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      data: InvestmentReportInner,
+      data: InvestmentReportByPackageInner,
     };
   }
 
@@ -392,7 +465,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.5",
+          sdk_version: "1.0.6",
           _prod_code: "WEBTRWATRADE_INNER",
           _prod_channel: "default",
         };
