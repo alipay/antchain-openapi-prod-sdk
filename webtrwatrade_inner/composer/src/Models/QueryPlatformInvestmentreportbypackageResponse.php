@@ -28,7 +28,7 @@ class QueryPlatformInvestmentreportbypackageResponse extends Model
 
     // 内部投资者报表数据(资产包维度)
     /**
-     * @var InvestmentReportInner
+     * @var InvestmentReportByPackageInner
      */
     public $data;
     protected $_name = [
@@ -79,7 +79,7 @@ class QueryPlatformInvestmentreportbypackageResponse extends Model
             $model->resultMsg = $map['result_msg'];
         }
         if (isset($map['data'])) {
-            $model->data = InvestmentReportInner::fromMap($map['data']);
+            $model->data = InvestmentReportByPackageInner::fromMap($map['data']);
         }
 
         return $model;

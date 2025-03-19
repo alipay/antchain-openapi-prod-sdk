@@ -6,10 +6,9 @@ namespace AntChain\WEBTRWATRADE_INNER\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class InvestmentReportInner extends Model
+class InvestmentReportByPackageInner extends Model
 {
     // 预期收益
-    //
     /**
      * @example 23.45
      *
@@ -17,8 +16,7 @@ class InvestmentReportInner extends Model
      */
     public $estimatedAnnualized;
 
-    // 实际收益率（Annual Yield）
-    //
+    // 实际收益率(Annual Yield)
     /**
      * @example 12.34
      *
@@ -90,13 +88,13 @@ class InvestmentReportInner extends Model
      */
     public $cashFlow;
 
-    // 初始资产总值
+    // 抵押物总值
     /**
      * @example 12.34
      *
      * @var MultiCurrencyMoney
      */
-    public $initialAssetTotalValue;
+    public $collateralTotalValue;
     protected $_name = [
         'estimatedAnnualized'                           => 'estimated_annualized',
         'actualAnnualizedYield'                         => 'actual_annualized_yield',
@@ -108,7 +106,7 @@ class InvestmentReportInner extends Model
         'dt'                                            => 'dt',
         'cashFlowCoverageQuarterlyRepaymentAmountRatio' => 'cash_flow_coverage_quarterly_repayment_amount_ratio',
         'cashFlow'                                      => 'cash_flow',
-        'initialAssetTotalValue'                        => 'initial_asset_total_value',
+        'collateralTotalValue'                          => 'collateral_total_value',
     ];
 
     public function validate()
@@ -123,7 +121,7 @@ class InvestmentReportInner extends Model
         Model::validateRequired('dt', $this->dt, true);
         Model::validateRequired('cashFlowCoverageQuarterlyRepaymentAmountRatio', $this->cashFlowCoverageQuarterlyRepaymentAmountRatio, true);
         Model::validateRequired('cashFlow', $this->cashFlow, true);
-        Model::validateRequired('initialAssetTotalValue', $this->initialAssetTotalValue, true);
+        Model::validateRequired('collateralTotalValue', $this->collateralTotalValue, true);
     }
 
     public function toMap()
@@ -159,8 +157,8 @@ class InvestmentReportInner extends Model
         if (null !== $this->cashFlow) {
             $res['cash_flow'] = null !== $this->cashFlow ? $this->cashFlow->toMap() : null;
         }
-        if (null !== $this->initialAssetTotalValue) {
-            $res['initial_asset_total_value'] = null !== $this->initialAssetTotalValue ? $this->initialAssetTotalValue->toMap() : null;
+        if (null !== $this->collateralTotalValue) {
+            $res['collateral_total_value'] = null !== $this->collateralTotalValue ? $this->collateralTotalValue->toMap() : null;
         }
 
         return $res;
@@ -169,7 +167,7 @@ class InvestmentReportInner extends Model
     /**
      * @param array $map
      *
-     * @return InvestmentReportInner
+     * @return InvestmentReportByPackageInner
      */
     public static function fromMap($map = [])
     {
@@ -204,8 +202,8 @@ class InvestmentReportInner extends Model
         if (isset($map['cash_flow'])) {
             $model->cashFlow = MultiCurrencyMoney::fromMap($map['cash_flow']);
         }
-        if (isset($map['initial_asset_total_value'])) {
-            $model->initialAssetTotalValue = MultiCurrencyMoney::fromMap($map['initial_asset_total_value']);
+        if (isset($map['collateral_total_value'])) {
+            $model->collateralTotalValue = MultiCurrencyMoney::fromMap($map['collateral_total_value']);
         }
 
         return $model;
