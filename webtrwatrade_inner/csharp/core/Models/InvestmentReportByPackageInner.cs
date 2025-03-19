@@ -8,16 +8,14 @@ using Tea;
 
 namespace AntChain.SDK.WEBTRWATRADE_INNER.Models
 {
-    //   内部投资者报表数据
-    public class InvestmentReportInner : TeaModel {
+    // 内部投资者报表数据(资产包维度)
+    public class InvestmentReportByPackageInner : TeaModel {
         // 预期收益
-        // 
         [NameInMap("estimated_annualized")]
         [Validation(Required=true)]
         public MultiCurrencyMoney EstimatedAnnualized { get; set; }
 
-        // 实际收益率（Annual Yield）
-        // 
+        // 实际收益率(Annual Yield)
         [NameInMap("actual_annualized_yield")]
         [Validation(Required=true)]
         public string ActualAnnualizedYield { get; set; }
@@ -62,10 +60,10 @@ namespace AntChain.SDK.WEBTRWATRADE_INNER.Models
         [Validation(Required=true)]
         public MultiCurrencyMoney CashFlow { get; set; }
 
-        // 初始资产总值
-        [NameInMap("initial_asset_total_value")]
+        // 抵押物总值
+        [NameInMap("collateral_total_value")]
         [Validation(Required=true)]
-        public MultiCurrencyMoney InitialAssetTotalValue { get; set; }
+        public MultiCurrencyMoney CollateralTotalValue { get; set; }
 
     }
 

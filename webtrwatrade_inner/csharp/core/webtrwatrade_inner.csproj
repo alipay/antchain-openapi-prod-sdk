@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>AntChain.SDK.WEBTRWATRADE_INNER</AssemblyName>
-    <Version>1.0.5</Version>
+    <Version>1.0.6</Version>
     <LangVersion>5</LangVersion>
     <Authors>Ant Chain, Inc</Authors>
     <Description>Ant Chain WEBTRWATRADE_INNER SDK Library for .NET</Description>

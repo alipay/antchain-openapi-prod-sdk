@@ -27,7 +27,7 @@ namespace AntChain.SDK.WEBTRWATRADE_INNER.Models
         // 内部投资者报表数据(资产包维度)
         [NameInMap("data")]
         [Validation(Required=false)]
-        public InvestmentReportInner Data { get; set; }
+        public InvestmentReportByPackageInner Data { get; set; }
 
     }
 
