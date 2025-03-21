@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.12',
+    sdk_version = '1.0.14',
     _prod_code = 'COLLABINV',
     _prod_channel = 'default'
   };
@@ -173,6 +173,37 @@ model FeatureSetInfo {
   desc: string(name='desc', example='公共特征类'),
 }
 
+// 指标数据
+model IndexData {
+  // 月份
+  // 
+  month: string(name='month', example='月份'),
+  // 高低线
+  cityTier: string(name='city_tier', example='高'),
+  // 省份编码
+  provinceCode: string(name='province_code', example='1001'),
+  // 总交易笔数指数
+  totalCnt: string(name='total_cnt', example='1.1'),
+  // 总交易金额指数
+  totalAmt: string(name='total_amt', example='1.2'),
+  // 总店铺数指数
+  totalShop: string(name='total_shop', example='1.2'),
+  // 去重用户数指数
+  totalCsm: string(name='total_csm', example='1.2'),
+  // 其中老店店铺总交易笔数指数
+  existingCnt: string(name='existing_cnt', example='1.1'),
+  // 其中老店店铺总交易金额
+  existingAmt: string(name='existing_amt', example='1.2'),
+  // 其中老店店铺数量指数
+  existingShop: string(name='existing_shop', example='1.2'),
+  // 当月新增店铺数指数
+  newShop: string(name='new_shop', example='1.2'),
+  // 分金额段指数
+  amtRange: string(name='amt_range', example='1.2'),
+  // 店铺标签指数
+  shopTag: string(name='shop_tag', example='线下'),
+}
+
 // 调用统计
 model GwCallDataStats {
   // 租户
@@ -197,6 +228,46 @@ model PageInfo {
   pageIndex: long(name='page_index', example='1'),
   // 页容量
   pageSize: long(name='page_size', example='10'),
+}
+
+model QueryIndexresearchBrandRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 品牌编码
+  brandCode: string(name='brand_code'),
+  // 时间月份yyyyMM
+  month: string(name='month'),
+}
+
+model QueryIndexresearchBrandResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 指标数据
+  indexData?: [ IndexData ](name='index_data'),
+}
+
+/**
+ * Description: 投行研究，品牌调用
+ * Summary: 投行研究，品牌调用
+ */
+async function queryIndexresearchBrand(request: QueryIndexresearchBrandRequest): QueryIndexresearchBrandResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIndexresearchBrandEx(request, headers, runtime);
+}
+
+/**
+ * Description: 投行研究，品牌调用
+ * Summary: 投行研究，品牌调用
+ */
+async function queryIndexresearchBrandEx(request: QueryIndexresearchBrandRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIndexresearchBrandResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.indexresearch.brand.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryLocationInternalRequest = {
@@ -742,5 +813,47 @@ async function queryModelMultiscore(request: QueryModelMultiscoreRequest): Query
 async function queryModelMultiscoreEx(request: QueryModelMultiscoreRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryModelMultiscoreResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.zkcollabinv.model.multiscore.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryModelFusionmodelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 融合模型编码
+  fusionModelCode: string(name='fusion_model_code'),
+  // 模型调用的id，一般是用户id 可能是用户手机号或者身份照号码的md5
+  identity: string(name='identity'),
+}
+
+model QueryModelFusionmodelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 融合模型调用结果
+  result?: string(name='result'),
+  // 流水号
+  transNo?: string(name='trans_no'),
+}
+
+/**
+ * Description: 融合模型的调用
+ * Summary: 融合模型调用
+ */
+async function queryModelFusionmodel(request: QueryModelFusionmodelRequest): QueryModelFusionmodelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryModelFusionmodelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 融合模型的调用
+ * Summary: 融合模型调用
+ */
+async function queryModelFusionmodelEx(request: QueryModelFusionmodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryModelFusionmodelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.model.fusionmodel.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
