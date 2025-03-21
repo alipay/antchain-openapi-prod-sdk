@@ -188,6 +188,110 @@ func (s *FeatureSetInfo) SetDesc(v string) *FeatureSetInfo {
 	return s
 }
 
+// 指标数据
+type IndexData struct {
+	// 月份
+	//
+	Month *string `json:"month,omitempty" xml:"month,omitempty" require:"true"`
+	// 高低线
+	CityTier *string `json:"city_tier,omitempty" xml:"city_tier,omitempty" require:"true"`
+	// 省份编码
+	ProvinceCode *string `json:"province_code,omitempty" xml:"province_code,omitempty" require:"true"`
+	// 总交易笔数指数
+	TotalCnt *string `json:"total_cnt,omitempty" xml:"total_cnt,omitempty" require:"true"`
+	// 总交易金额指数
+	TotalAmt *string `json:"total_amt,omitempty" xml:"total_amt,omitempty" require:"true"`
+	// 总店铺数指数
+	TotalShop *string `json:"total_shop,omitempty" xml:"total_shop,omitempty" require:"true"`
+	// 去重用户数指数
+	TotalCsm *string `json:"total_csm,omitempty" xml:"total_csm,omitempty" require:"true"`
+	// 其中老店店铺总交易笔数指数
+	ExistingCnt *string `json:"existing_cnt,omitempty" xml:"existing_cnt,omitempty" require:"true"`
+	// 其中老店店铺总交易金额
+	ExistingAmt *string `json:"existing_amt,omitempty" xml:"existing_amt,omitempty" require:"true"`
+	// 其中老店店铺数量指数
+	ExistingShop *string `json:"existing_shop,omitempty" xml:"existing_shop,omitempty" require:"true"`
+	// 当月新增店铺数指数
+	NewShop *string `json:"new_shop,omitempty" xml:"new_shop,omitempty" require:"true"`
+	// 分金额段指数
+	AmtRange *string `json:"amt_range,omitempty" xml:"amt_range,omitempty" require:"true"`
+	// 店铺标签指数
+	ShopTag *string `json:"shop_tag,omitempty" xml:"shop_tag,omitempty" require:"true"`
+}
+
+func (s IndexData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IndexData) GoString() string {
+	return s.String()
+}
+
+func (s *IndexData) SetMonth(v string) *IndexData {
+	s.Month = &v
+	return s
+}
+
+func (s *IndexData) SetCityTier(v string) *IndexData {
+	s.CityTier = &v
+	return s
+}
+
+func (s *IndexData) SetProvinceCode(v string) *IndexData {
+	s.ProvinceCode = &v
+	return s
+}
+
+func (s *IndexData) SetTotalCnt(v string) *IndexData {
+	s.TotalCnt = &v
+	return s
+}
+
+func (s *IndexData) SetTotalAmt(v string) *IndexData {
+	s.TotalAmt = &v
+	return s
+}
+
+func (s *IndexData) SetTotalShop(v string) *IndexData {
+	s.TotalShop = &v
+	return s
+}
+
+func (s *IndexData) SetTotalCsm(v string) *IndexData {
+	s.TotalCsm = &v
+	return s
+}
+
+func (s *IndexData) SetExistingCnt(v string) *IndexData {
+	s.ExistingCnt = &v
+	return s
+}
+
+func (s *IndexData) SetExistingAmt(v string) *IndexData {
+	s.ExistingAmt = &v
+	return s
+}
+
+func (s *IndexData) SetExistingShop(v string) *IndexData {
+	s.ExistingShop = &v
+	return s
+}
+
+func (s *IndexData) SetNewShop(v string) *IndexData {
+	s.NewShop = &v
+	return s
+}
+
+func (s *IndexData) SetAmtRange(v string) *IndexData {
+	s.AmtRange = &v
+	return s
+}
+
+func (s *IndexData) SetShopTag(v string) *IndexData {
+	s.ShopTag = &v
+	return s
+}
+
 // 调用统计
 type GwCallDataStats struct {
 	// 租户
@@ -272,6 +376,83 @@ func (s *PageInfo) SetPageIndex(v int64) *PageInfo {
 
 func (s *PageInfo) SetPageSize(v int64) *PageInfo {
 	s.PageSize = &v
+	return s
+}
+
+type QueryIndexresearchBrandRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 品牌编码
+	BrandCode *string `json:"brand_code,omitempty" xml:"brand_code,omitempty" require:"true"`
+	// 时间月份yyyyMM
+	Month *string `json:"month,omitempty" xml:"month,omitempty" require:"true"`
+}
+
+func (s QueryIndexresearchBrandRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIndexresearchBrandRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIndexresearchBrandRequest) SetAuthToken(v string) *QueryIndexresearchBrandRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIndexresearchBrandRequest) SetProductInstanceId(v string) *QueryIndexresearchBrandRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIndexresearchBrandRequest) SetBrandCode(v string) *QueryIndexresearchBrandRequest {
+	s.BrandCode = &v
+	return s
+}
+
+func (s *QueryIndexresearchBrandRequest) SetMonth(v string) *QueryIndexresearchBrandRequest {
+	s.Month = &v
+	return s
+}
+
+type QueryIndexresearchBrandResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 指标数据
+	IndexData []*IndexData `json:"index_data,omitempty" xml:"index_data,omitempty" type:"Repeated"`
+}
+
+func (s QueryIndexresearchBrandResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIndexresearchBrandResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIndexresearchBrandResponse) SetReqMsgId(v string) *QueryIndexresearchBrandResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIndexresearchBrandResponse) SetResultCode(v string) *QueryIndexresearchBrandResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIndexresearchBrandResponse) SetResultMsg(v string) *QueryIndexresearchBrandResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIndexresearchBrandResponse) SetIndexData(v []*IndexData) *QueryIndexresearchBrandResponse {
+	s.IndexData = v
 	return s
 }
 
@@ -1472,6 +1653,90 @@ func (s *QueryModelMultiscoreResponse) SetTransNo(v string) *QueryModelMultiscor
 	return s
 }
 
+type QueryModelFusionmodelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 融合模型编码
+	FusionModelCode *string `json:"fusion_model_code,omitempty" xml:"fusion_model_code,omitempty" require:"true"`
+	// 模型调用的id，一般是用户id 可能是用户手机号或者身份照号码的md5
+	Identity *string `json:"identity,omitempty" xml:"identity,omitempty" require:"true"`
+}
+
+func (s QueryModelFusionmodelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryModelFusionmodelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryModelFusionmodelRequest) SetAuthToken(v string) *QueryModelFusionmodelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryModelFusionmodelRequest) SetProductInstanceId(v string) *QueryModelFusionmodelRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryModelFusionmodelRequest) SetFusionModelCode(v string) *QueryModelFusionmodelRequest {
+	s.FusionModelCode = &v
+	return s
+}
+
+func (s *QueryModelFusionmodelRequest) SetIdentity(v string) *QueryModelFusionmodelRequest {
+	s.Identity = &v
+	return s
+}
+
+type QueryModelFusionmodelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 融合模型调用结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+	// 流水号
+	TransNo *string `json:"trans_no,omitempty" xml:"trans_no,omitempty"`
+}
+
+func (s QueryModelFusionmodelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryModelFusionmodelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryModelFusionmodelResponse) SetReqMsgId(v string) *QueryModelFusionmodelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryModelFusionmodelResponse) SetResultCode(v string) *QueryModelFusionmodelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryModelFusionmodelResponse) SetResultMsg(v string) *QueryModelFusionmodelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryModelFusionmodelResponse) SetResult(v string) *QueryModelFusionmodelResponse {
+	s.Result = &v
+	return s
+}
+
+func (s *QueryModelFusionmodelResponse) SetTransNo(v string) *QueryModelFusionmodelResponse {
+	s.TransNo = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1594,7 +1859,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.12"),
+				"sdk_version":      tea.String("1.0.14"),
 				"_prod_code":       tea.String("COLLABINV"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1650,6 +1915,40 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 投行研究，品牌调用
+ * Summary: 投行研究，品牌调用
+ */
+func (client *Client) QueryIndexresearchBrand(request *QueryIndexresearchBrandRequest) (_result *QueryIndexresearchBrandResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIndexresearchBrandResponse{}
+	_body, _err := client.QueryIndexresearchBrandEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 投行研究，品牌调用
+ * Summary: 投行研究，品牌调用
+ */
+func (client *Client) QueryIndexresearchBrandEx(request *QueryIndexresearchBrandRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIndexresearchBrandResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIndexresearchBrandResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.indexresearch.brand.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
@@ -2019,6 +2318,40 @@ func (client *Client) QueryModelMultiscoreEx(request *QueryModelMultiscoreReques
 	}
 	_result = &QueryModelMultiscoreResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.model.multiscore.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 融合模型的调用
+ * Summary: 融合模型调用
+ */
+func (client *Client) QueryModelFusionmodel(request *QueryModelFusionmodelRequest) (_result *QueryModelFusionmodelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryModelFusionmodelResponse{}
+	_body, _err := client.QueryModelFusionmodelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 融合模型的调用
+ * Summary: 融合模型调用
+ */
+func (client *Client) QueryModelFusionmodelEx(request *QueryModelFusionmodelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryModelFusionmodelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryModelFusionmodelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.model.fusionmodel.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
