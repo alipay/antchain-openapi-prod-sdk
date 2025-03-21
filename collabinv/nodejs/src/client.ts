@@ -110,6 +110,76 @@ export class FeatureSetInfo extends $tea.Model {
   }
 }
 
+// 指标数据
+export class IndexData extends $tea.Model {
+  // 月份
+  // 
+  month: string;
+  // 高低线
+  cityTier: string;
+  // 省份编码
+  provinceCode: string;
+  // 总交易笔数指数
+  totalCnt: string;
+  // 总交易金额指数
+  totalAmt: string;
+  // 总店铺数指数
+  totalShop: string;
+  // 去重用户数指数
+  totalCsm: string;
+  // 其中老店店铺总交易笔数指数
+  existingCnt: string;
+  // 其中老店店铺总交易金额
+  existingAmt: string;
+  // 其中老店店铺数量指数
+  existingShop: string;
+  // 当月新增店铺数指数
+  newShop: string;
+  // 分金额段指数
+  amtRange: string;
+  // 店铺标签指数
+  shopTag: string;
+  static names(): { [key: string]: string } {
+    return {
+      month: 'month',
+      cityTier: 'city_tier',
+      provinceCode: 'province_code',
+      totalCnt: 'total_cnt',
+      totalAmt: 'total_amt',
+      totalShop: 'total_shop',
+      totalCsm: 'total_csm',
+      existingCnt: 'existing_cnt',
+      existingAmt: 'existing_amt',
+      existingShop: 'existing_shop',
+      newShop: 'new_shop',
+      amtRange: 'amt_range',
+      shopTag: 'shop_tag',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      month: 'string',
+      cityTier: 'string',
+      provinceCode: 'string',
+      totalCnt: 'string',
+      totalAmt: 'string',
+      totalShop: 'string',
+      totalCsm: 'string',
+      existingCnt: 'string',
+      existingAmt: 'string',
+      existingShop: 'string',
+      newShop: 'string',
+      amtRange: 'string',
+      shopTag: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 调用统计
 export class GwCallDataStats extends $tea.Model {
   // 租户
@@ -172,6 +242,69 @@ export class PageInfo extends $tea.Model {
       total: 'number',
       pageIndex: 'number',
       pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIndexresearchBrandRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 品牌编码
+  brandCode: string;
+  // 时间月份yyyyMM
+  month: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      brandCode: 'brand_code',
+      month: 'month',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      brandCode: 'string',
+      month: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIndexresearchBrandResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 指标数据
+  indexData?: IndexData[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      indexData: 'index_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      indexData: { 'type': 'array', 'itemType': IndexData },
     };
   }
 
@@ -1076,6 +1209,73 @@ export class QueryModelMultiscoreResponse extends $tea.Model {
   }
 }
 
+export class QueryModelFusionmodelRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 融合模型编码
+  fusionModelCode: string;
+  // 模型调用的id，一般是用户id 可能是用户手机号或者身份照号码的md5
+  identity: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fusionModelCode: 'fusion_model_code',
+      identity: 'identity',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fusionModelCode: 'string',
+      identity: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryModelFusionmodelResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 融合模型调用结果
+  result?: string;
+  // 流水号
+  transNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+      transNo: 'trans_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+      transNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1189,7 +1389,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.12",
+          sdk_version: "1.0.14",
           _prod_code: "COLLABINV",
           _prod_channel: "default",
         };
@@ -1235,6 +1435,25 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: 投行研究，品牌调用
+   * Summary: 投行研究，品牌调用
+   */
+  async queryIndexresearchBrand(request: QueryIndexresearchBrandRequest): Promise<QueryIndexresearchBrandResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIndexresearchBrandEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 投行研究，品牌调用
+   * Summary: 投行研究，品牌调用
+   */
+  async queryIndexresearchBrandEx(request: QueryIndexresearchBrandRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIndexresearchBrandResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIndexresearchBrandResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.indexresearch.brand.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIndexresearchBrandResponse({}));
   }
 
   /**
@@ -1444,6 +1663,25 @@ export default class Client {
   async queryModelMultiscoreEx(request: QueryModelMultiscoreRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryModelMultiscoreResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryModelMultiscoreResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.model.multiscore.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryModelMultiscoreResponse({}));
+  }
+
+  /**
+   * Description: 融合模型的调用
+   * Summary: 融合模型调用
+   */
+  async queryModelFusionmodel(request: QueryModelFusionmodelRequest): Promise<QueryModelFusionmodelResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryModelFusionmodelEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 融合模型的调用
+   * Summary: 融合模型调用
+   */
+  async queryModelFusionmodelEx(request: QueryModelFusionmodelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryModelFusionmodelResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryModelFusionmodelResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.model.fusionmodel.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryModelFusionmodelResponse({}));
   }
 
 }
