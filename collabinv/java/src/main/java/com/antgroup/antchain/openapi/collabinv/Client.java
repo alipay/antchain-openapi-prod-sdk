@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.12"),
+                    new TeaPair("sdk_version", "1.0.14"),
                     new TeaPair("_prod_code", "COLLABINV"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -182,6 +182,25 @@ public class Client {
 
     public void addResponseInterceptor(ResponseInterceptor interceptor) {
         interceptorChain.addResponseInterceptor(interceptor);
+    }
+
+    /**
+     * Description: 投行研究，品牌调用
+     * Summary: 投行研究，品牌调用
+     */
+    public QueryIndexresearchBrandResponse queryIndexresearchBrand(QueryIndexresearchBrandRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIndexresearchBrandEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 投行研究，品牌调用
+     * Summary: 投行研究，品牌调用
+     */
+    public QueryIndexresearchBrandResponse queryIndexresearchBrandEx(QueryIndexresearchBrandRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.indexresearch.brand.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIndexresearchBrandResponse());
     }
 
     /**
@@ -391,5 +410,24 @@ public class Client {
     public QueryModelMultiscoreResponse queryModelMultiscoreEx(QueryModelMultiscoreRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.model.multiscore.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryModelMultiscoreResponse());
+    }
+
+    /**
+     * Description: 融合模型的调用
+     * Summary: 融合模型调用
+     */
+    public QueryModelFusionmodelResponse queryModelFusionmodel(QueryModelFusionmodelRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryModelFusionmodelEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 融合模型的调用
+     * Summary: 融合模型调用
+     */
+    public QueryModelFusionmodelResponse queryModelFusionmodelEx(QueryModelFusionmodelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.model.fusionmodel.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryModelFusionmodelResponse());
     }
 }
