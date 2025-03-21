@@ -17,6 +17,8 @@ use AntChain\COLLABINV\Models\ExecModelSampletaskRequest;
 use AntChain\COLLABINV\Models\ExecModelSampletaskResponse;
 use AntChain\COLLABINV\Models\PushModelSamplefileRequest;
 use AntChain\COLLABINV\Models\PushModelSamplefileResponse;
+use AntChain\COLLABINV\Models\QueryIndexresearchBrandRequest;
+use AntChain\COLLABINV\Models\QueryIndexresearchBrandResponse;
 use AntChain\COLLABINV\Models\QueryLocationInternalRequest;
 use AntChain\COLLABINV\Models\QueryLocationInternalResponse;
 use AntChain\COLLABINV\Models\QueryLocationTradeRequest;
@@ -25,6 +27,8 @@ use AntChain\COLLABINV\Models\QueryModelCommonscoreRequest;
 use AntChain\COLLABINV\Models\QueryModelCommonscoreResponse;
 use AntChain\COLLABINV\Models\QueryModelFeaturesetRequest;
 use AntChain\COLLABINV\Models\QueryModelFeaturesetResponse;
+use AntChain\COLLABINV\Models\QueryModelFusionmodelRequest;
+use AntChain\COLLABINV\Models\QueryModelFusionmodelResponse;
 use AntChain\COLLABINV\Models\QueryModelMultiscoreRequest;
 use AntChain\COLLABINV\Models\QueryModelMultiscoreResponse;
 use AntChain\COLLABINV\Models\QueryModelSampletaskRequest;
@@ -180,7 +184,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.12',
+                    'sdk_version'      => '1.0.14',
                     '_prod_code'       => 'COLLABINV',
                     '_prod_channel'    => 'default',
                 ];
@@ -226,6 +230,39 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 投行研究，品牌调用
+     * Summary: 投行研究，品牌调用.
+     *
+     * @param QueryIndexresearchBrandRequest $request
+     *
+     * @return QueryIndexresearchBrandResponse
+     */
+    public function queryIndexresearchBrand($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIndexresearchBrandEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 投行研究，品牌调用
+     * Summary: 投行研究，品牌调用.
+     *
+     * @param QueryIndexresearchBrandRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryIndexresearchBrandResponse
+     */
+    public function queryIndexresearchBrandEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIndexresearchBrandResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.indexresearch.brand.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -589,5 +626,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryModelMultiscoreResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.model.multiscore.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融合模型的调用
+     * Summary: 融合模型调用.
+     *
+     * @param QueryModelFusionmodelRequest $request
+     *
+     * @return QueryModelFusionmodelResponse
+     */
+    public function queryModelFusionmodel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryModelFusionmodelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融合模型的调用
+     * Summary: 融合模型调用.
+     *
+     * @param QueryModelFusionmodelRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryModelFusionmodelResponse
+     */
+    public function queryModelFusionmodelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryModelFusionmodelResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.model.fusionmodel.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
