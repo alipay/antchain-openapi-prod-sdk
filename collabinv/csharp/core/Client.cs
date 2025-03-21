@@ -137,7 +137,7 @@ namespace AntChain.SDK.COLLABINV
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.12"},
+                        {"sdk_version", "1.0.14"},
                         {"_prod_code", "COLLABINV"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.COLLABINV
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.12"},
+                        {"sdk_version", "1.0.14"},
                         {"_prod_code", "COLLABINV"},
                         {"_prod_channel", "default"},
                     };
@@ -319,6 +319,48 @@ namespace AntChain.SDK.COLLABINV
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: 投行研究，品牌调用
+         * Summary: 投行研究，品牌调用
+         */
+        public QueryIndexresearchBrandResponse QueryIndexresearchBrand(QueryIndexresearchBrandRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryIndexresearchBrandEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 投行研究，品牌调用
+         * Summary: 投行研究，品牌调用
+         */
+        public async Task<QueryIndexresearchBrandResponse> QueryIndexresearchBrandAsync(QueryIndexresearchBrandRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryIndexresearchBrandExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 投行研究，品牌调用
+         * Summary: 投行研究，品牌调用
+         */
+        public QueryIndexresearchBrandResponse QueryIndexresearchBrandEx(QueryIndexresearchBrandRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIndexresearchBrandResponse>(DoRequest("1.0", "antchain.zkcollabinv.indexresearch.brand.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 投行研究，品牌调用
+         * Summary: 投行研究，品牌调用
+         */
+        public async Task<QueryIndexresearchBrandResponse> QueryIndexresearchBrandExAsync(QueryIndexresearchBrandRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIndexresearchBrandResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.indexresearch.brand.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -781,6 +823,48 @@ namespace AntChain.SDK.COLLABINV
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryModelMultiscoreResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.model.multiscore.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 融合模型的调用
+         * Summary: 融合模型调用
+         */
+        public QueryModelFusionmodelResponse QueryModelFusionmodel(QueryModelFusionmodelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryModelFusionmodelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 融合模型的调用
+         * Summary: 融合模型调用
+         */
+        public async Task<QueryModelFusionmodelResponse> QueryModelFusionmodelAsync(QueryModelFusionmodelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryModelFusionmodelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 融合模型的调用
+         * Summary: 融合模型调用
+         */
+        public QueryModelFusionmodelResponse QueryModelFusionmodelEx(QueryModelFusionmodelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryModelFusionmodelResponse>(DoRequest("1.0", "antchain.zkcollabinv.model.fusionmodel.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 融合模型的调用
+         * Summary: 融合模型调用
+         */
+        public async Task<QueryModelFusionmodelResponse> QueryModelFusionmodelExAsync(QueryModelFusionmodelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryModelFusionmodelResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.model.fusionmodel.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
