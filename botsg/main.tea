@@ -1,0 +1,623 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.0',
+    _prod_code = 'BOTSG',
+    _prod_channel = 'default'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 事件数据
+model EventData {
+  // 数据内容
+  content: string(name='content', example='{ "DEVICE-ID": "ABC123", "IMEI": "868331011992179", "HEART-BEAT-TIME": 1699053387008 }'),
+  // 可信设备ID
+  trustIotDeviceId?: long(name='trust_iot_device_id', example='7213004826408435712'),
+  // 业务ID
+  bizId?: string(name='biz_id', example='20240815'),
+  // 数据签名
+  signature?: string(name='signature', example='8e084d95c5ac9198b01b9f6b8040b2daa35a3e2706a472295f52ec0966119383d7654eb2c1f67eb563194ab9d2197fcd8fcb5232308927e708257ebea8ce1cda'),
+  // 设备数据间接上报时，服务端补充数据
+  extraData?: string(name='extra_data', example='{"PRICE":2.2,"NUMBER":3}'),
+}
+
+// 事件数据领域参数
+// 
+model EventSpecs {
+  // 物模型事件ID
+  eventModelId: string(name='event_model_id', example='7084744398341955584'),
+  // 业务数据标识
+  bizType?: string(name='biz_type', example='ORDER'),
+  // 提交日期
+  submitDate?: string(name='submit_date', example='2024-08-15 '),
+  // 冗余字段，请忽略
+  returnHash?: boolean(name='return_hash', example='true, false'),
+  // 是否是补数据内容
+  isRepaired?: boolean(name='is_repaired', example='true, false'),
+}
+
+// 可信设备ID及其关联的设备ID
+model TrustiotDeviceIdMap {
+  // 可信设备ID
+  trustiotDeviceId: long(name='trustiot_device_id', example='7006413673662394390'),
+  // 设备ID
+  deviceId: string(name='device_id', example='1122'),
+  // 设备注册的上链哈希
+  chainDeviceId: string(name='chain_device_id', example='ba9de337190b017ea6255bffa226ea5ed91cbb03babb42e5a35d652ca30cdce1'),
+}
+
+// 通过设备ID注册发行时的设备参数
+// 
+model RegByDeviceIdParm {
+  // 一般是业务上唯一的设备ID/资产编码
+  deviceId: string(name='device_id', example='1122'),
+  // 物模型事件ID
+  deviceDataModelId?: string(name='device_data_model_id', example='7033986596836630528'),
+  // 固定填写RAW_DATA
+  deviceFeature?: string(name='device_feature', example='RAW_DATA'),
+  // true : 设备ID已存在时返回存在的设备关联字段; false : 设备ID已存在时直接抛出异常；
+  withExistDeviceId?: boolean(name='with_exist_device_id', example='true, false'),
+  // 设备类型编码，联系蚂蚁侧获取设备类型编码
+  deviceTypeCode: long(name='device_type_code', example=''),
+  // 设备单价 单位：分
+  initialPrice?: long(name='initial_price', example='1000'),
+  // 出厂时间
+  factoryTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='factory_time', example='2018-10-10T10:10:00Z'),
+  // 投放时间
+  releaseTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='release_time', example='2018-10-10T10:10:00Z'),
+  // 额外信息，联系蚂蚁侧获取参数格式
+  extraInfo?: string(name='extra_info', example='{...}'),
+  // 资产所有人标识（统一社会信用代码）
+  owner?: string(name='owner', example='91310101MA1FPCXA3G'),
+  // 资产所有人名称
+  ownerName?: string(name='owner_name', example='蚂蚁区块链科技（上海）有限公司'),
+  // 设备IMEI
+  deviceImei?: string(name='device_imei', example='861037055012207'),
+  // 设备名称/设备型号
+  deviceName?: string(name='device_name', example='64.0V30AH'),
+  // 生产厂商名
+  corpName?: string(name='corp_name', example='浙江一厂'),
+}
+
+// 要素关系信息
+// 
+model AssetElementRelationInfo {
+  // 来源要素ID
+  sourceElementId: string(name='source_element_id', example='112233'),
+  // 目标要素ID
+  targetElementId: string(name='target_element_id', example='112233'),
+  // 关联类型
+  relationType: long(name='relation_type', example='1'),
+  // 关联依据类型
+  // 
+  relationDependencyType?: string(name='relation_dependency_type', example='NORMAL'),
+  // 关联依据
+  relationDependency?: string(name='relation_dependency', example='{...}'),
+  // 项目ID
+  // 
+  projectId: string(name='project_id', example='112233'),
+  // 来源要素名称
+  // 
+  sourceElementName: string(name='source_element_name', example='来源要素 '),
+  // 目标要素名称
+  targetElementName: string(name='target_element_name', example='目标要素'),
+}
+
+// 通过设备注册发行时的设备参数 （与RegByDeviceIdParam的区别在于设备端有无植入蚂蚁SDK或模组）
+model RegByDeviceParm {
+  // 一般是业务上唯一的设备ID/资产编码
+  deviceId: string(name='device_id', example='1122'),
+  // 物模型事件ID
+  deviceDataModelId?: string(name='device_data_model_id', example='7033986596836630528'),
+  // 设备端经过蚂蚁SDK或模组初始化得到的注册信息
+  deviceRegContent: string(name='device_reg_content', example='73546f6b656e323031323131313332393235303230303033'),
+  // 蚂蚁侧SDK或模组对device_reg_content的签名
+  deviceRegSignature: string(name='device_reg_signature', example='a573546f6b656e323031323131313332393235303230303033'),
+  // sdk版本号，由蚂蚁侧提供
+  sdkId: string(name='sdk_id', example='ma1-t1-0.1.1-00.04.54'),
+  // 设备类型编码，联系蚂蚁侧获取设备类型编码
+  deviceTypeCode: long(name='device_type_code', example='1001'),
+  // 设备单价 单位：分
+  initialPrice?: long(name='initial_price', example='1000'),
+  // 出厂时间
+  factoryTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='factory_time', example='2018-10-10T10:10:00Z'),
+  // 投放时间
+  releaseTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='release_time', example='2018-10-10T10:10:00Z'),
+  // 额外信息，联系蚂蚁侧获取参数格式
+  extraInfo?: string(name='extra_info', example='{...}'),
+  // 资产所有人标识（统一社会信用代码）
+  owner?: string(name='owner', example='91310101MA1FPCXA3G'),
+  // 	
+  // 资产所有人名称
+  ownerName?: string(name='owner_name', example=' 蚂蚁区块链科技（上海）有限公司'),
+  // 	
+  // 设备名称/型号
+  deviceName?: string(name='device_name', example=' 64.0V30AH'),
+  // 	
+  // 设备IMEI
+  deviceImei?: string(name='device_imei', example='823456712312345'),
+}
+
+// 设备信息
+// 
+model Device {
+  // 设备ID，一般是设备的出厂编码或业务上的资产ID
+  deviceId: string(name='device_id', example='123ABC'),
+  // 	
+  // 物模型事件ID
+  deviceDataModelId: string(name='device_data_model_id', example='112233'),
+  // 场景码
+  // 
+  scene: string(name='scene', example='SCENE1'),
+  // imei号
+  deviceImei: string(name='device_imei', example='223344'),
+  // 设备名称
+  deviceName?: string(name='device_name', example='设备1号'),
+  // 设备厂商名称
+  corpName?: string(name='corp_name', example='浙江一厂'),
+  // 设备ICCID
+  deviceIccid?: string(name='device_iccid', example='a1234'),
+  // 设备扩展信息
+  extraInfo?: string(name='extra_info', example='{“”:""}'),
+  // 设备类型编码
+  deviceTypeCode: string(name='device_type_code', example='5000'),
+  // 单价
+  initialPrice: long(name='initial_price', example='1000'),
+  // 投放时间
+  releaseTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='release_time', example='2018-10-10T10:10:00Z'),
+  // 出厂时间
+  factoryTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='factory_time', example='2018-10-10T10:10:00Z'),
+  // 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
+  deviceStatus?: string(name='device_status', example='NORMAL'),
+  // 可信设备ID
+  trustiotDeviceId: long(name='trustiot_device_id', example='7006071575276187649'),
+  // 设备链上Id
+  // 
+  chainDeviceId?: string(name='chain_device_id', example='223344'),
+  // 上链哈希
+  // 
+  txHash?: string(name='tx_hash', example='3344'),
+  // 上链时间
+  // 
+  txTime?: long(name='tx_time', example='224455'),
+}
+
+// 要素信息
+// 
+model AssetElementInfo {
+  // 项目ID
+  projectId: string(name='project_id', example='112233'),
+  // 要素ID
+  elementId: string(name='element_id', example='112233'),
+  // 	
+  // 要素名称
+  elementName?: string(name='element_name', example='注册要素'),
+  // 要素类型
+  elementType: string(name='element_type', example='资产要素'),
+  // 数据来源渠道， 物理要素非必填；数据要素必填；
+  fromType?: string(name='from_type', example='MAAS'),
+  // 平台领域类型， 物理要素非必填；数据要素必填；
+  dataElementType?: string(name='data_element_type', example='COLLECT_BIZ_DATA'),
+  // 属性列表， 物理要素非必填；数据要素必填；
+  propertyList?: string(name='property_list', example='[{...},{...}]'),
+  // 数据上报频率
+  frequency?: string(name='frequency', example='{...}'),
+  // 物理要素类型码，包含iot和资管的
+  physicsElementTypeCode: string(name='physics_element_type_code', example='{"iot":[23001], "tap":[1201]}'),
+  // 业务类型
+  bizType?: string(name='biz_type', example='ORDER'),
+  // 该要素的存储位置， index代表数据流转顺序，location为库表/logstore名称，remark备注
+  persistentLocation?: string(name='persistent_location', example='{...}'),
+  // 要素实例信息，用于捞取最小闭环数据
+  elementInstanceConfig?: string(name='element_instance_config', example='{"scene": "XXX", "entityId": ["XXX"], "featureId": "XXX", "startTime": "XXX", "endTime": "XXX"}'),
+  // 要素实例
+  elementInstanceInfo?: string(name='element_instance_info', example='{...}'),
+  // 属性列表来源平台 1.IOT 2.DM
+  propertySourceType?: long(name='property_source_type', example='1'),
+  // 拉取数据字段code请求值
+  propertySourceId?: string(name='property_source_id', example='xxx'),
+  // 要素主键字段信息
+  primaryKeyInfo?: string(name='primary_key_info', example='identifier'),
+  // 备注
+  remark?: string(name='remark', example='xxx'),
+}
+
+// 收集数据返回的上链结果
+model SendCollectorResult {
+  // 原入参的数组索引
+  originalIndex: long(name='original_index', example='0'),
+  // 失败数据对应的异常码，成功时该字段为空
+  errorCode?: string(name='error_code', example='params.invalid '),
+  // 异常信息
+  errorMsg?: string(name='error_msg', example='可信设备与DEVICE-ID不匹配'),
+  // 返回的扩展信息
+  extraInfo?: string(name='extra_info', example='{"assetId":"Q02GYQGAY5","labelId":"86F000001A51A01000003836"}'),
+  // 数据的链上哈希
+  // 
+  txHash?: string(name='tx_hash', example='2c952456827828cdedad06afccef75a9f2c2840cbb6b0b659f653da1e5916cb2'),
+}
+
+model SyncAssetelementProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 若要素项目已存在，是否进行全量覆盖
+  coverExistProject: boolean(name='cover_exist_project'),
+  // 同步目标
+  destination: string(name='destination'),
+  // 项目ID
+  projectId: string(name='project_id'),
+  // 项目名称
+  // 
+  projectName: string(name='project_name'),
+  // 根元素ID列表
+  rootElements?: string(name='root_elements'),
+  // 是否只读
+  // 
+  readOnly: boolean(name='read_only'),
+  // 备注
+  remark?: string(name='remark'),
+  // 附件列表
+  attachmentList?: string(name='attachment_list'),
+  // 产品Owner
+  pdOwner?: string(name='pd_owner'),
+  // 要素列表
+  assetElementInfoList?: [ AssetElementInfo ](name='asset_element_info_list'),
+  // 要素关系列表
+  assetElementRelationInfoList?: [ AssetElementRelationInfo ](name='asset_element_relation_info_list'),
+}
+
+model SyncAssetelementProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 同步结果
+  syncStatus?: string(name='sync_status'),
+}
+
+/**
+ * Description: 要素项目同步
+ * Summary: 要素项目同步
+ */
+async function syncAssetelementProject(request: SyncAssetelementProjectRequest): SyncAssetelementProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncAssetelementProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 要素项目同步
+ * Summary: 要素项目同步
+ */
+async function syncAssetelementProjectEx(request: SyncAssetelementProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncAssetelementProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.botsg.assetelement.project.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetDeviceBydeviceidRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备id集合
+  deviceIdList: [ string ](name='device_id_list'),
+  // 场景码
+  scene: string(name='scene'),
+}
+
+model GetDeviceBydeviceidResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 	
+  // 设备详情
+  deviceList?: [ Device ](name='device_list'),
+  // 设备信息不存在的deviceId集合
+  missDeviceIdList?: [ string ](name='miss_device_id_list'),
+  // 成功获取到设备信息的deviceid集合
+  successDeviceIdList?: [ string ](name='success_device_id_list'),
+}
+
+/**
+ * Description: 通过deviceId获取设备详情
+ * Summary: 通过deviceId获取设备详情
+ */
+async function getDeviceBydeviceid(request: GetDeviceBydeviceidRequest): GetDeviceBydeviceidResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getDeviceBydeviceidEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过deviceId获取设备详情
+ * Summary: 通过deviceId获取设备详情
+ */
+async function getDeviceBydeviceidEx(request: GetDeviceBydeviceidRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetDeviceBydeviceidResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.botsg.device.bydeviceid.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDistributedeviceBydeviceidmulRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 	
+  // 场景码
+  scene: string(name='scene'),
+  // 设备注册信息集合
+  deviceParamList: [ RegByDeviceIdParm ](name='device_param_list'),
+}
+
+model CreateDistributedeviceBydeviceidmulResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 可信设备ID集合
+  trustiotDeviceIdList?: [ TrustiotDeviceIdMap ](name='trustiot_device_id_list'),
+}
+
+/**
+ * Description: 通过设备ID异步批量发行设备
+ * Summary: 通过设备ID异步批量发行设备
+ */
+async function createDistributedeviceBydeviceidmul(request: CreateDistributedeviceBydeviceidmulRequest): CreateDistributedeviceBydeviceidmulResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDistributedeviceBydeviceidmulEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过设备ID异步批量发行设备
+ * Summary: 通过设备ID异步批量发行设备
+ */
+async function createDistributedeviceBydeviceidmulEx(request: CreateDistributedeviceBydeviceidmulRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDistributedeviceBydeviceidmulResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.botsg.distributedevice.bydeviceidmul.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDistributedeviceBydevicemulRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码，由蚂蚁侧定义
+  scene: string(name='scene'),
+  // 设备注册信息集合, 数组长度不超过50
+  deviceParamList: [ RegByDeviceParm ](name='device_param_list'),
+}
+
+model CreateDistributedeviceBydevicemulResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 可信设备ID集合
+  trustiotDeviceIdList?: [ TrustiotDeviceIdMap ](name='trustiot_device_id_list'),
+}
+
+/**
+ * Description: 通过设备异步批量发行设备
+ * Summary: 通过设备异步批量发行设备
+ */
+async function createDistributedeviceBydevicemul(request: CreateDistributedeviceBydevicemulRequest): CreateDistributedeviceBydevicemulResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDistributedeviceBydevicemulEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过设备异步批量发行设备
+ * Summary: 通过设备异步批量发行设备
+ */
+async function createDistributedeviceBydevicemulEx(request: CreateDistributedeviceBydevicemulRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDistributedeviceBydevicemulResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.botsg.distributedevice.bydevicemul.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendEventDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  scene: string(name='scene'),
+  // 事件数据列表
+  eventDataList: [ EventData ](name='event_data_list'),
+  // 事件数据领域参数
+  // 
+  eventSpecs: EventSpecs(name='event_specs'),
+}
+
+model SendEventDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上报数据返回的上链结果
+  // 
+  resultList?: [ SendCollectorResult ](name='result_list'),
+}
+
+/**
+ * Description: 事件数据上报整合接口
+ * Summary: 事件数据上报整合接口
+ */
+async function sendEventData(request: SendEventDataRequest): SendEventDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendEventDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 事件数据上报整合接口
+ * Summary: 事件数据上报整合接口
+ */
+async function sendEventDataEx(request: SendEventDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendEventDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.botsg.event.data.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
