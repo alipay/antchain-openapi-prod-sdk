@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.12',
+                    'sdk_version': '1.0.14',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.12',
+                    'sdk_version': '1.0.14',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -274,6 +274,62 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def query_indexresearch_brand(
+        self,
+        request: collabinv_models.QueryIndexresearchBrandRequest,
+    ) -> collabinv_models.QueryIndexresearchBrandResponse:
+        """
+        Description: 投行研究，品牌调用
+        Summary: 投行研究，品牌调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_indexresearch_brand_ex(request, headers, runtime)
+
+    async def query_indexresearch_brand_async(
+        self,
+        request: collabinv_models.QueryIndexresearchBrandRequest,
+    ) -> collabinv_models.QueryIndexresearchBrandResponse:
+        """
+        Description: 投行研究，品牌调用
+        Summary: 投行研究，品牌调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_indexresearch_brand_ex_async(request, headers, runtime)
+
+    def query_indexresearch_brand_ex(
+        self,
+        request: collabinv_models.QueryIndexresearchBrandRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.QueryIndexresearchBrandResponse:
+        """
+        Description: 投行研究，品牌调用
+        Summary: 投行研究，品牌调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.QueryIndexresearchBrandResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.indexresearch.brand.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_indexresearch_brand_ex_async(
+        self,
+        request: collabinv_models.QueryIndexresearchBrandRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.QueryIndexresearchBrandResponse:
+        """
+        Description: 投行研究，品牌调用
+        Summary: 投行研究，品牌调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.QueryIndexresearchBrandResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.indexresearch.brand.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def query_location_internal(
         self,
@@ -889,4 +945,60 @@ class Client:
         return TeaCore.from_map(
             collabinv_models.QueryModelMultiscoreResponse(),
             await self.do_request_async('1.0', 'antchain.zkcollabinv.model.multiscore.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_model_fusionmodel(
+        self,
+        request: collabinv_models.QueryModelFusionmodelRequest,
+    ) -> collabinv_models.QueryModelFusionmodelResponse:
+        """
+        Description: 融合模型的调用
+        Summary: 融合模型调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_model_fusionmodel_ex(request, headers, runtime)
+
+    async def query_model_fusionmodel_async(
+        self,
+        request: collabinv_models.QueryModelFusionmodelRequest,
+    ) -> collabinv_models.QueryModelFusionmodelResponse:
+        """
+        Description: 融合模型的调用
+        Summary: 融合模型调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_model_fusionmodel_ex_async(request, headers, runtime)
+
+    def query_model_fusionmodel_ex(
+        self,
+        request: collabinv_models.QueryModelFusionmodelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.QueryModelFusionmodelResponse:
+        """
+        Description: 融合模型的调用
+        Summary: 融合模型调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.QueryModelFusionmodelResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.model.fusionmodel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_model_fusionmodel_ex_async(
+        self,
+        request: collabinv_models.QueryModelFusionmodelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.QueryModelFusionmodelResponse:
+        """
+        Description: 融合模型的调用
+        Summary: 融合模型调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.QueryModelFusionmodelResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.model.fusionmodel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

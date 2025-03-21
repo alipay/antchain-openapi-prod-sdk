@@ -206,6 +206,131 @@ class FeatureSetInfo(TeaModel):
         return self
 
 
+class IndexData(TeaModel):
+    def __init__(
+        self,
+        month: str = None,
+        city_tier: str = None,
+        province_code: str = None,
+        total_cnt: str = None,
+        total_amt: str = None,
+        total_shop: str = None,
+        total_csm: str = None,
+        existing_cnt: str = None,
+        existing_amt: str = None,
+        existing_shop: str = None,
+        new_shop: str = None,
+        amt_range: str = None,
+        shop_tag: str = None,
+    ):
+        # 月份
+        # 
+        self.month = month
+        # 高低线
+        self.city_tier = city_tier
+        # 省份编码
+        self.province_code = province_code
+        # 总交易笔数指数
+        self.total_cnt = total_cnt
+        # 总交易金额指数
+        self.total_amt = total_amt
+        # 总店铺数指数
+        self.total_shop = total_shop
+        # 去重用户数指数
+        self.total_csm = total_csm
+        # 其中老店店铺总交易笔数指数
+        self.existing_cnt = existing_cnt
+        # 其中老店店铺总交易金额
+        self.existing_amt = existing_amt
+        # 其中老店店铺数量指数
+        self.existing_shop = existing_shop
+        # 当月新增店铺数指数
+        self.new_shop = new_shop
+        # 分金额段指数
+        self.amt_range = amt_range
+        # 店铺标签指数
+        self.shop_tag = shop_tag
+
+    def validate(self):
+        self.validate_required(self.month, 'month')
+        self.validate_required(self.city_tier, 'city_tier')
+        self.validate_required(self.province_code, 'province_code')
+        self.validate_required(self.total_cnt, 'total_cnt')
+        self.validate_required(self.total_amt, 'total_amt')
+        self.validate_required(self.total_shop, 'total_shop')
+        self.validate_required(self.total_csm, 'total_csm')
+        self.validate_required(self.existing_cnt, 'existing_cnt')
+        self.validate_required(self.existing_amt, 'existing_amt')
+        self.validate_required(self.existing_shop, 'existing_shop')
+        self.validate_required(self.new_shop, 'new_shop')
+        self.validate_required(self.amt_range, 'amt_range')
+        self.validate_required(self.shop_tag, 'shop_tag')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.month is not None:
+            result['month'] = self.month
+        if self.city_tier is not None:
+            result['city_tier'] = self.city_tier
+        if self.province_code is not None:
+            result['province_code'] = self.province_code
+        if self.total_cnt is not None:
+            result['total_cnt'] = self.total_cnt
+        if self.total_amt is not None:
+            result['total_amt'] = self.total_amt
+        if self.total_shop is not None:
+            result['total_shop'] = self.total_shop
+        if self.total_csm is not None:
+            result['total_csm'] = self.total_csm
+        if self.existing_cnt is not None:
+            result['existing_cnt'] = self.existing_cnt
+        if self.existing_amt is not None:
+            result['existing_amt'] = self.existing_amt
+        if self.existing_shop is not None:
+            result['existing_shop'] = self.existing_shop
+        if self.new_shop is not None:
+            result['new_shop'] = self.new_shop
+        if self.amt_range is not None:
+            result['amt_range'] = self.amt_range
+        if self.shop_tag is not None:
+            result['shop_tag'] = self.shop_tag
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('month') is not None:
+            self.month = m.get('month')
+        if m.get('city_tier') is not None:
+            self.city_tier = m.get('city_tier')
+        if m.get('province_code') is not None:
+            self.province_code = m.get('province_code')
+        if m.get('total_cnt') is not None:
+            self.total_cnt = m.get('total_cnt')
+        if m.get('total_amt') is not None:
+            self.total_amt = m.get('total_amt')
+        if m.get('total_shop') is not None:
+            self.total_shop = m.get('total_shop')
+        if m.get('total_csm') is not None:
+            self.total_csm = m.get('total_csm')
+        if m.get('existing_cnt') is not None:
+            self.existing_cnt = m.get('existing_cnt')
+        if m.get('existing_amt') is not None:
+            self.existing_amt = m.get('existing_amt')
+        if m.get('existing_shop') is not None:
+            self.existing_shop = m.get('existing_shop')
+        if m.get('new_shop') is not None:
+            self.new_shop = m.get('new_shop')
+        if m.get('amt_range') is not None:
+            self.amt_range = m.get('amt_range')
+        if m.get('shop_tag') is not None:
+            self.shop_tag = m.get('shop_tag')
+        return self
+
+
 class GwCallDataStats(TeaModel):
     def __init__(
         self,
@@ -309,6 +434,112 @@ class PageInfo(TeaModel):
             self.page_index = m.get('page_index')
         if m.get('page_size') is not None:
             self.page_size = m.get('page_size')
+        return self
+
+
+class QueryIndexresearchBrandRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        brand_code: str = None,
+        month: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 品牌编码
+        self.brand_code = brand_code
+        # 时间月份yyyyMM
+        self.month = month
+
+    def validate(self):
+        self.validate_required(self.brand_code, 'brand_code')
+        self.validate_required(self.month, 'month')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.brand_code is not None:
+            result['brand_code'] = self.brand_code
+        if self.month is not None:
+            result['month'] = self.month
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('brand_code') is not None:
+            self.brand_code = m.get('brand_code')
+        if m.get('month') is not None:
+            self.month = m.get('month')
+        return self
+
+
+class QueryIndexresearchBrandResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        index_data: List[IndexData] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 指标数据
+        self.index_data = index_data
+
+    def validate(self):
+        if self.index_data:
+            for k in self.index_data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['index_data'] = []
+        if self.index_data is not None:
+            for k in self.index_data:
+                result['index_data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.index_data = []
+        if m.get('index_data') is not None:
+            for k in m.get('index_data'):
+                temp_model = IndexData()
+                self.index_data.append(temp_model.from_map(k))
         return self
 
 
@@ -1797,6 +2028,111 @@ class QueryModelMultiscoreResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('score') is not None:
             self.score = m.get('score')
+        if m.get('trans_no') is not None:
+            self.trans_no = m.get('trans_no')
+        return self
+
+
+class QueryModelFusionmodelRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        fusion_model_code: str = None,
+        identity: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 融合模型编码
+        self.fusion_model_code = fusion_model_code
+        # 模型调用的id，一般是用户id 可能是用户手机号或者身份照号码的md5
+        self.identity = identity
+
+    def validate(self):
+        self.validate_required(self.fusion_model_code, 'fusion_model_code')
+        self.validate_required(self.identity, 'identity')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.fusion_model_code is not None:
+            result['fusion_model_code'] = self.fusion_model_code
+        if self.identity is not None:
+            result['identity'] = self.identity
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('fusion_model_code') is not None:
+            self.fusion_model_code = m.get('fusion_model_code')
+        if m.get('identity') is not None:
+            self.identity = m.get('identity')
+        return self
+
+
+class QueryModelFusionmodelResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+        trans_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 融合模型调用结果
+        self.result = result
+        # 流水号
+        self.trans_no = trans_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        if self.trans_no is not None:
+            result['trans_no'] = self.trans_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
         if m.get('trans_no') is not None:
             self.trans_no = m.get('trans_no')
         return self
