@@ -169,6 +169,10 @@ export class CheckAicoguardrailsAskRequest extends $tea.Model {
   lastAnswer?: string;
   // 需要个性化处理的标签
   personalLabelCustomization?: PersonalLabelCustomization;
+  // 是否需要开启针对大模型提问prompt攻击手法的防御功能，包括越狱攻击（劫持、诱导、其他）、注入攻击、内容泛化攻击（文本变形变种）等常见攻击手法。默认值：N：不开启
+  // Y：开启
+  // N：不开启
+  attackDefense?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -181,6 +185,7 @@ export class CheckAicoguardrailsAskRequest extends $tea.Model {
       userId: 'user_id',
       lastAnswer: 'last_answer',
       personalLabelCustomization: 'personal_label_customization',
+      attackDefense: 'attack_defense',
     };
   }
 
@@ -196,6 +201,7 @@ export class CheckAicoguardrailsAskRequest extends $tea.Model {
       userId: 'string',
       lastAnswer: 'string',
       personalLabelCustomization: PersonalLabelCustomization,
+      attackDefense: 'string',
     };
   }
 
@@ -394,6 +400,78 @@ export class CheckAicoguardrailsAnswerResponse extends $tea.Model {
   }
 }
 
+export class QueryAicoguardAdbRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 查询向量库的内容
+  content: string;
+  // 向量库的表名
+  collectionName: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      content: 'content',
+      collectionName: 'collection_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      content: 'string',
+      collectionName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAicoguardAdbResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 查询向量库的提问内容
+  question?: string;
+  // 向量库匹配到的代答结果
+  answer?: string;
+  // 本次匹配分数
+  score?: string;
+  // 本次查询adb的请求id
+  requestId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      question: 'question',
+      answer: 'answer',
+      score: 'score',
+      requestId: 'request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      question: 'string',
+      answer: 'string',
+      score: 'string',
+      requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -507,7 +585,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.24",
+          sdk_version: "1.0.26",
           _prod_code: "AITECHGUARD",
           _prod_channel: "default",
         };
@@ -591,6 +669,25 @@ export default class Client {
   async checkAicoguardrailsAnswerEx(request: CheckAicoguardrailsAnswerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckAicoguardrailsAnswerResponse> {
     Util.validateModel(request);
     return $tea.cast<CheckAicoguardrailsAnswerResponse>(await this.doRequest("1.0", "antcloud.aitechguard.aicoguardrails.answer.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckAicoguardrailsAnswerResponse({}));
+  }
+
+  /**
+   * Description: 阿里云ADB调用接口
+   * Summary: 阿里云ADB调用接口
+   */
+  async queryAicoguardAdb(request: QueryAicoguardAdbRequest): Promise<QueryAicoguardAdbResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAicoguardAdbEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 阿里云ADB调用接口
+   * Summary: 阿里云ADB调用接口
+   */
+  async queryAicoguardAdbEx(request: QueryAicoguardAdbRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAicoguardAdbResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAicoguardAdbResponse>(await this.doRequest("1.0", "antcloud.aitechguard.aicoguard.adb.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAicoguardAdbResponse({}));
   }
 
 }
