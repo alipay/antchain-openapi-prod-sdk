@@ -59,6 +59,13 @@ namespace AntChain.SDK.AITECHGUARD.Models
         [Validation(Required=false)]
         public PersonalLabelCustomization PersonalLabelCustomization { get; set; }
 
+        // 是否需要开启针对大模型提问prompt攻击手法的防御功能，包括越狱攻击（劫持、诱导、其他）、注入攻击、内容泛化攻击（文本变形变种）等常见攻击手法。默认值：N：不开启
+        // Y：开启
+        // N：不开启
+        [NameInMap("attack_defense")]
+        [Validation(Required=false)]
+        public string AttackDefense { get; set; }
+
     }
 
 }

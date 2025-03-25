@@ -137,7 +137,7 @@ namespace AntChain.SDK.AITECHGUARD
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.24"},
+                        {"sdk_version", "1.0.26"},
                         {"_prod_code", "AITECHGUARD"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.AITECHGUARD
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.24"},
+                        {"sdk_version", "1.0.26"},
                         {"_prod_code", "AITECHGUARD"},
                         {"_prod_channel", "default"},
                     };
@@ -403,6 +403,48 @@ namespace AntChain.SDK.AITECHGUARD
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CheckAicoguardrailsAnswerResponse>(await DoRequestAsync("1.0", "antcloud.aitechguard.aicoguardrails.answer.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 阿里云ADB调用接口
+         * Summary: 阿里云ADB调用接口
+         */
+        public QueryAicoguardAdbResponse QueryAicoguardAdb(QueryAicoguardAdbRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAicoguardAdbEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 阿里云ADB调用接口
+         * Summary: 阿里云ADB调用接口
+         */
+        public async Task<QueryAicoguardAdbResponse> QueryAicoguardAdbAsync(QueryAicoguardAdbRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAicoguardAdbExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 阿里云ADB调用接口
+         * Summary: 阿里云ADB调用接口
+         */
+        public QueryAicoguardAdbResponse QueryAicoguardAdbEx(QueryAicoguardAdbRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAicoguardAdbResponse>(DoRequest("1.0", "antcloud.aitechguard.aicoguard.adb.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 阿里云ADB调用接口
+         * Summary: 阿里云ADB调用接口
+         */
+        public async Task<QueryAicoguardAdbResponse> QueryAicoguardAdbExAsync(QueryAicoguardAdbRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAicoguardAdbResponse>(await DoRequestAsync("1.0", "antcloud.aitechguard.aicoguard.adb.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
