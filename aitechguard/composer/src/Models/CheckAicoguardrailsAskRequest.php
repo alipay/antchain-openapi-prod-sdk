@@ -67,6 +67,14 @@ class CheckAicoguardrailsAskRequest extends Model
      * @var PersonalLabelCustomization
      */
     public $personalLabelCustomization;
+
+    // 是否需要开启针对大模型提问prompt攻击手法的防御功能，包括越狱攻击（劫持、诱导、其他）、注入攻击、内容泛化攻击（文本变形变种）等常见攻击手法。默认值：N：不开启
+    // Y：开启
+    // N：不开启
+    /**
+     * @var string
+     */
+    public $attackDefense;
     protected $_name = [
         'authToken'                  => 'auth_token',
         'requestId'                  => 'request_id',
@@ -78,6 +86,7 @@ class CheckAicoguardrailsAskRequest extends Model
         'userId'                     => 'user_id',
         'lastAnswer'                 => 'last_answer',
         'personalLabelCustomization' => 'personal_label_customization',
+        'attackDefense'              => 'attack_defense',
     ];
 
     public function validate()
@@ -123,6 +132,9 @@ class CheckAicoguardrailsAskRequest extends Model
         if (null !== $this->personalLabelCustomization) {
             $res['personal_label_customization'] = null !== $this->personalLabelCustomization ? $this->personalLabelCustomization->toMap() : null;
         }
+        if (null !== $this->attackDefense) {
+            $res['attack_defense'] = $this->attackDefense;
+        }
 
         return $res;
     }
@@ -164,6 +176,9 @@ class CheckAicoguardrailsAskRequest extends Model
         }
         if (isset($map['personal_label_customization'])) {
             $model->personalLabelCustomization = PersonalLabelCustomization::fromMap($map['personal_label_customization']);
+        }
+        if (isset($map['attack_defense'])) {
+            $model->attackDefense = $map['attack_defense'];
         }
 
         return $model;

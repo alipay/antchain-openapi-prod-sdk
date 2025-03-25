@@ -15,6 +15,8 @@ use AntChain\AITECHGUARD\Models\CheckAicoguardrailsAnswerRequest;
 use AntChain\AITECHGUARD\Models\CheckAicoguardrailsAnswerResponse;
 use AntChain\AITECHGUARD\Models\CheckAicoguardrailsAskRequest;
 use AntChain\AITECHGUARD\Models\CheckAicoguardrailsAskResponse;
+use AntChain\AITECHGUARD\Models\QueryAicoguardAdbRequest;
+use AntChain\AITECHGUARD\Models\QueryAicoguardAdbResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -162,7 +164,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.24',
+                    'sdk_version'      => '1.0.26',
                     '_prod_code'       => 'AITECHGUARD',
                     '_prod_channel'    => 'default',
                 ];
@@ -274,5 +276,38 @@ class Client
         Utils::validateModel($request);
 
         return CheckAicoguardrailsAnswerResponse::fromMap($this->doRequest('1.0', 'antcloud.aitechguard.aicoguardrails.answer.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云ADB调用接口
+     * Summary: 阿里云ADB调用接口.
+     *
+     * @param QueryAicoguardAdbRequest $request
+     *
+     * @return QueryAicoguardAdbResponse
+     */
+    public function queryAicoguardAdb($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAicoguardAdbEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云ADB调用接口
+     * Summary: 阿里云ADB调用接口.
+     *
+     * @param QueryAicoguardAdbRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryAicoguardAdbResponse
+     */
+    public function queryAicoguardAdbEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAicoguardAdbResponse::fromMap($this->doRequest('1.0', 'antcloud.aitechguard.aicoguard.adb.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
