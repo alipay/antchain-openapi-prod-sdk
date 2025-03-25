@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.24',
+    sdk_version = '1.0.26',
     _prod_code = 'AITECHGUARD',
     _prod_channel = 'default'
   };
@@ -204,6 +204,10 @@ model CheckAicoguardrailsAskRequest = {
   lastAnswer?: string(name='last_answer'),
   // 需要个性化处理的标签
   personalLabelCustomization?: PersonalLabelCustomization(name='personal_label_customization'),
+  // 是否需要开启针对大模型提问prompt攻击手法的防御功能，包括越狱攻击（劫持、诱导、其他）、注入攻击、内容泛化攻击（文本变形变种）等常见攻击手法。默认值：N：不开启
+  // Y：开启
+  // N：不开启
+  attackDefense?: string(name='attack_defense'),
 }
 
 model CheckAicoguardrailsAskResponse = {
@@ -325,5 +329,50 @@ async function checkAicoguardrailsAnswer(request: CheckAicoguardrailsAnswerReque
 async function checkAicoguardrailsAnswerEx(request: CheckAicoguardrailsAnswerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckAicoguardrailsAnswerResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.aitechguard.aicoguardrails.answer.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAicoguardAdbRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 查询向量库的内容
+  content: string(name='content'),
+  // 向量库的表名
+  collectionName: string(name='collection_name'),
+}
+
+model QueryAicoguardAdbResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询向量库的提问内容
+  question?: string(name='question'),
+  // 向量库匹配到的代答结果
+  answer?: string(name='answer'),
+  // 本次匹配分数
+  score?: string(name='score'),
+  // 本次查询adb的请求id
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 阿里云ADB调用接口
+ * Summary: 阿里云ADB调用接口
+ */
+async function queryAicoguardAdb(request: QueryAicoguardAdbRequest): QueryAicoguardAdbResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAicoguardAdbEx(request, headers, runtime);
+}
+
+/**
+ * Description: 阿里云ADB调用接口
+ * Summary: 阿里云ADB调用接口
+ */
+async function queryAicoguardAdbEx(request: QueryAicoguardAdbRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAicoguardAdbResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.aitechguard.aicoguard.adb.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
