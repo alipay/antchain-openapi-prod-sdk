@@ -50,6 +50,12 @@ public class CheckAicoguardrailsAskRequest extends TeaModel {
     @NameInMap("personal_label_customization")
     public PersonalLabelCustomization personalLabelCustomization;
 
+    // 是否需要开启针对大模型提问prompt攻击手法的防御功能，包括越狱攻击（劫持、诱导、其他）、注入攻击、内容泛化攻击（文本变形变种）等常见攻击手法。默认值：N：不开启
+    // Y：开启
+    // N：不开启
+    @NameInMap("attack_defense")
+    public String attackDefense;
+
     public static CheckAicoguardrailsAskRequest build(java.util.Map<String, ?> map) throws Exception {
         CheckAicoguardrailsAskRequest self = new CheckAicoguardrailsAskRequest();
         return TeaModel.build(map, self);
@@ -133,6 +139,14 @@ public class CheckAicoguardrailsAskRequest extends TeaModel {
     }
     public PersonalLabelCustomization getPersonalLabelCustomization() {
         return this.personalLabelCustomization;
+    }
+
+    public CheckAicoguardrailsAskRequest setAttackDefense(String attackDefense) {
+        this.attackDefense = attackDefense;
+        return this;
+    }
+    public String getAttackDefense() {
+        return this.attackDefense;
     }
 
 }
