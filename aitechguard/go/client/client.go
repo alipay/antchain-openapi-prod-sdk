@@ -240,6 +240,10 @@ type CheckAicoguardrailsAskRequest struct {
 	LastAnswer *string `json:"last_answer,omitempty" xml:"last_answer,omitempty"`
 	// 需要个性化处理的标签
 	PersonalLabelCustomization *PersonalLabelCustomization `json:"personal_label_customization,omitempty" xml:"personal_label_customization,omitempty"`
+	// 是否需要开启针对大模型提问prompt攻击手法的防御功能，包括越狱攻击（劫持、诱导、其他）、注入攻击、内容泛化攻击（文本变形变种）等常见攻击手法。默认值：N：不开启
+	// Y：开启
+	// N：不开启
+	AttackDefense *string `json:"attack_defense,omitempty" xml:"attack_defense,omitempty"`
 }
 
 func (s CheckAicoguardrailsAskRequest) String() string {
@@ -297,6 +301,11 @@ func (s *CheckAicoguardrailsAskRequest) SetLastAnswer(v string) *CheckAicoguardr
 
 func (s *CheckAicoguardrailsAskRequest) SetPersonalLabelCustomization(v *PersonalLabelCustomization) *CheckAicoguardrailsAskRequest {
 	s.PersonalLabelCustomization = v
+	return s
+}
+
+func (s *CheckAicoguardrailsAskRequest) SetAttackDefense(v string) *CheckAicoguardrailsAskRequest {
+	s.AttackDefense = &v
 	return s
 }
 
@@ -577,6 +586,98 @@ func (s *CheckAicoguardrailsAnswerResponse) SetRiskWordsIndex(v []*string) *Chec
 	return s
 }
 
+type QueryAicoguardAdbRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 查询向量库的内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 向量库的表名
+	CollectionName *string `json:"collection_name,omitempty" xml:"collection_name,omitempty" require:"true"`
+}
+
+func (s QueryAicoguardAdbRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAicoguardAdbRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAicoguardAdbRequest) SetAuthToken(v string) *QueryAicoguardAdbRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAicoguardAdbRequest) SetContent(v string) *QueryAicoguardAdbRequest {
+	s.Content = &v
+	return s
+}
+
+func (s *QueryAicoguardAdbRequest) SetCollectionName(v string) *QueryAicoguardAdbRequest {
+	s.CollectionName = &v
+	return s
+}
+
+type QueryAicoguardAdbResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询向量库的提问内容
+	Question *string `json:"question,omitempty" xml:"question,omitempty"`
+	// 向量库匹配到的代答结果
+	Answer *string `json:"answer,omitempty" xml:"answer,omitempty"`
+	// 本次匹配分数
+	Score *string `json:"score,omitempty" xml:"score,omitempty"`
+	// 本次查询adb的请求id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+}
+
+func (s QueryAicoguardAdbResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAicoguardAdbResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAicoguardAdbResponse) SetReqMsgId(v string) *QueryAicoguardAdbResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAicoguardAdbResponse) SetResultCode(v string) *QueryAicoguardAdbResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAicoguardAdbResponse) SetResultMsg(v string) *QueryAicoguardAdbResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAicoguardAdbResponse) SetQuestion(v string) *QueryAicoguardAdbResponse {
+	s.Question = &v
+	return s
+}
+
+func (s *QueryAicoguardAdbResponse) SetAnswer(v string) *QueryAicoguardAdbResponse {
+	s.Answer = &v
+	return s
+}
+
+func (s *QueryAicoguardAdbResponse) SetScore(v string) *QueryAicoguardAdbResponse {
+	s.Score = &v
+	return s
+}
+
+func (s *QueryAicoguardAdbResponse) SetRequestId(v string) *QueryAicoguardAdbResponse {
+	s.RequestId = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -699,7 +800,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.24"),
+				"sdk_version":      tea.String("1.0.26"),
 				"_prod_code":       tea.String("AITECHGUARD"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -818,6 +919,40 @@ func (client *Client) CheckAicoguardrailsAnswerEx(request *CheckAicoguardrailsAn
 	}
 	_result = &CheckAicoguardrailsAnswerResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.aitechguard.aicoguardrails.answer.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 阿里云ADB调用接口
+ * Summary: 阿里云ADB调用接口
+ */
+func (client *Client) QueryAicoguardAdb(request *QueryAicoguardAdbRequest) (_result *QueryAicoguardAdbResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAicoguardAdbResponse{}
+	_body, _err := client.QueryAicoguardAdbEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 阿里云ADB调用接口
+ * Summary: 阿里云ADB调用接口
+ */
+func (client *Client) QueryAicoguardAdbEx(request *QueryAicoguardAdbRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAicoguardAdbResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAicoguardAdbResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.aitechguard.aicoguard.adb.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
