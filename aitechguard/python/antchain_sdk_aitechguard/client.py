@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.24',
+                    'sdk_version': '1.0.26',
                     '_prod_code': 'AITECHGUARD',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.24',
+                    'sdk_version': '1.0.26',
                     '_prod_code': 'AITECHGUARD',
                     '_prod_channel': 'default'
                 }
@@ -385,4 +385,60 @@ class Client:
         return TeaCore.from_map(
             aitechguard_models.CheckAicoguardrailsAnswerResponse(),
             await self.do_request_async('1.0', 'antcloud.aitechguard.aicoguardrails.answer.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_aicoguard_adb(
+        self,
+        request: aitechguard_models.QueryAicoguardAdbRequest,
+    ) -> aitechguard_models.QueryAicoguardAdbResponse:
+        """
+        Description: 阿里云ADB调用接口
+        Summary: 阿里云ADB调用接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_aicoguard_adb_ex(request, headers, runtime)
+
+    async def query_aicoguard_adb_async(
+        self,
+        request: aitechguard_models.QueryAicoguardAdbRequest,
+    ) -> aitechguard_models.QueryAicoguardAdbResponse:
+        """
+        Description: 阿里云ADB调用接口
+        Summary: 阿里云ADB调用接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_aicoguard_adb_ex_async(request, headers, runtime)
+
+    def query_aicoguard_adb_ex(
+        self,
+        request: aitechguard_models.QueryAicoguardAdbRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitechguard_models.QueryAicoguardAdbResponse:
+        """
+        Description: 阿里云ADB调用接口
+        Summary: 阿里云ADB调用接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitechguard_models.QueryAicoguardAdbResponse(),
+            self.do_request('1.0', 'antcloud.aitechguard.aicoguard.adb.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_aicoguard_adb_ex_async(
+        self,
+        request: aitechguard_models.QueryAicoguardAdbRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitechguard_models.QueryAicoguardAdbResponse:
+        """
+        Description: 阿里云ADB调用接口
+        Summary: 阿里云ADB调用接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitechguard_models.QueryAicoguardAdbResponse(),
+            await self.do_request_async('1.0', 'antcloud.aitechguard.aicoguard.adb.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

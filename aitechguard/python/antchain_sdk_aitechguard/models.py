@@ -264,6 +264,7 @@ class CheckAicoguardrailsAskRequest(TeaModel):
         user_id: str = None,
         last_answer: str = None,
         personal_label_customization: PersonalLabelCustomization = None,
+        attack_defense: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -285,6 +286,10 @@ class CheckAicoguardrailsAskRequest(TeaModel):
         self.last_answer = last_answer
         # 需要个性化处理的标签
         self.personal_label_customization = personal_label_customization
+        # 是否需要开启针对大模型提问prompt攻击手法的防御功能，包括越狱攻击（劫持、诱导、其他）、注入攻击、内容泛化攻击（文本变形变种）等常见攻击手法。默认值：N：不开启
+        # Y：开启
+        # N：不开启
+        self.attack_defense = attack_defense
 
     def validate(self):
         self.validate_required(self.request_id, 'request_id')
@@ -322,6 +327,8 @@ class CheckAicoguardrailsAskRequest(TeaModel):
             result['last_answer'] = self.last_answer
         if self.personal_label_customization is not None:
             result['personal_label_customization'] = self.personal_label_customization.to_map()
+        if self.attack_defense is not None:
+            result['attack_defense'] = self.attack_defense
         return result
 
     def from_map(self, m: dict = None):
@@ -347,6 +354,8 @@ class CheckAicoguardrailsAskRequest(TeaModel):
         if m.get('personal_label_customization') is not None:
             temp_model = PersonalLabelCustomization()
             self.personal_label_customization = temp_model.from_map(m['personal_label_customization'])
+        if m.get('attack_defense') is not None:
+            self.attack_defense = m.get('attack_defense')
         return self
 
 
@@ -658,6 +667,119 @@ class CheckAicoguardrailsAnswerResponse(TeaModel):
             self.risk_words = m.get('risk_words')
         if m.get('risk_words_index') is not None:
             self.risk_words_index = m.get('risk_words_index')
+        return self
+
+
+class QueryAicoguardAdbRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        content: str = None,
+        collection_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 查询向量库的内容
+        self.content = content
+        # 向量库的表名
+        self.collection_name = collection_name
+
+    def validate(self):
+        self.validate_required(self.content, 'content')
+        self.validate_required(self.collection_name, 'collection_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.content is not None:
+            result['content'] = self.content
+        if self.collection_name is not None:
+            result['collection_name'] = self.collection_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('collection_name') is not None:
+            self.collection_name = m.get('collection_name')
+        return self
+
+
+class QueryAicoguardAdbResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        question: str = None,
+        answer: str = None,
+        score: str = None,
+        request_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 查询向量库的提问内容
+        self.question = question
+        # 向量库匹配到的代答结果
+        self.answer = answer
+        # 本次匹配分数
+        self.score = score
+        # 本次查询adb的请求id
+        self.request_id = request_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.question is not None:
+            result['question'] = self.question
+        if self.answer is not None:
+            result['answer'] = self.answer
+        if self.score is not None:
+            result['score'] = self.score
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('question') is not None:
+            self.question = m.get('question')
+        if m.get('answer') is not None:
+            self.answer = m.get('answer')
+        if m.get('score') is not None:
+            self.score = m.get('score')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
         return self
 
 
