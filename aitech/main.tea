@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.11',
+    sdk_version = '1.1.12',
     _prod_code = 'AITECH',
     _prod_channel = 'default'
   };
@@ -1258,5 +1258,768 @@ async function queryAicoguardAdbsink(request: QueryAicoguardAdbsinkRequest): Que
 async function queryAicoguardAdbsinkEx(request: QueryAicoguardAdbsinkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAicoguardAdbsinkResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'aitech.comm.aicoguard.adbsink.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackGuardAliyunRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 回执原文
+  payload: string(name='payload'),
+  // 回执场景，固定填写 ALIYUN"
+  bizScene: string(name='biz_scene'),
+}
+
+model CallbackGuardAliyunResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 错误码
+  errorCode?: string(name='error_code'),
+  // 错误原因
+  errorMessage?: string(name='error_message'),
+}
+
+/**
+ * Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+ * Summary: 阿里云内容安全回调
+ */
+async function callbackGuardAliyun(request: CallbackGuardAliyunRequest): CallbackGuardAliyunResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackGuardAliyunEx(request, headers, runtime);
+}
+
+/**
+ * Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+ * Summary: 阿里云内容安全回调
+ */
+async function callbackGuardAliyunEx(request: CallbackGuardAliyunRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackGuardAliyunResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.guard.aliyun.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackGuardItaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 回执原文
+  payload: string(name='payload'),
+  // 回执场景
+  bizScene: string(name='biz_scene'),
+}
+
+model CallbackGuardItaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 错误码
+  errorCode?: string(name='error_code'),
+  // 错误原因
+  errorMessage?: string(name='error_message'),
+}
+
+/**
+ * Description: 主站ITASK审核能力回调
+ * Summary: 主站ITASK审核能力回调
+ */
+async function callbackGuardItask(request: CallbackGuardItaskRequest): CallbackGuardItaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackGuardItaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 主站ITASK审核能力回调
+ * Summary: 主站ITASK审核能力回调
+ */
+async function callbackGuardItaskEx(request: CallbackGuardItaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackGuardItaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.guard.itask.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryGuardAudioRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+}
+
+model QueryGuardAudioResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 音频审核结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 音频人审查询
+ * Summary: 音频人审查询
+ */
+async function queryGuardAudio(request: QueryGuardAudioRequest): QueryGuardAudioResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGuardAudioEx(request, headers, runtime);
+}
+
+/**
+ * Description: 音频人审查询
+ * Summary: 音频人审查询
+ */
+async function queryGuardAudioEx(request: QueryGuardAudioRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGuardAudioResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.guard.audio.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitGuardAudioRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待检测对象的URL，请确保该URL能通过公网访问到，且URL地址长度不超过2048个字符 说明 ： URL地址中不能包含中文，且一次请求请确保仅传入1条URL
+  url: string(name='url'),
+  // 审核场景码，该接口固定输入BASE_AUDIO_AUDIT，其他值无效
+  sceneCode: string(name='scene_code'),
+  // 检测对象对应的数据ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  dataId: string(name='data_id'),
+  // 用于上游标识应用来源，字符串长度不能超过 128
+  appCode?: string(name='app_code'),
+  // 客户业务ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string(name='business_id'),
+  // 结果通知地址，不指定时需要调用方主动查询结果
+  callback?: string(name='callback'),
+  // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
+  seed?: string(name='seed'),
+}
+
+model SubmitGuardAudioResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务ID
+  taskId?: string(name='task_id'),
+  // 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
+  dataId?: string(name='data_id'),
+}
+
+/**
+ * Description: 音频人审入审
+ * Summary: 音频人审入审
+ */
+async function submitGuardAudio(request: SubmitGuardAudioRequest): SubmitGuardAudioResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitGuardAudioEx(request, headers, runtime);
+}
+
+/**
+ * Description: 音频人审入审
+ * Summary: 音频人审入审
+ */
+async function submitGuardAudioEx(request: SubmitGuardAudioRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitGuardAudioResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.guard.audio.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryGuardImageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+}
+
+model QueryGuardImageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 图片审核结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 图片人审查询
+ * Summary: 图片人审查询
+ */
+async function queryGuardImage(request: QueryGuardImageRequest): QueryGuardImageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGuardImageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 图片人审查询
+ * Summary: 图片人审查询
+ */
+async function queryGuardImageEx(request: QueryGuardImageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGuardImageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.guard.image.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitGuardImageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待检测对象的URL，请确保该URL能通过公网访问到，且URL地址长度不超过2048个字符 URL地址中不能包含中文，且一次请求请确保仅传入1条URL
+  url: string(name='url'),
+  // 审核场景码，该接口固定输入BASE_IMAGE_AUDIT，其他值无效
+  sceneCode: string(name='scene_code'),
+  // 检测对象对应的数据ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  dataId: string(name='data_id'),
+  // 标识上游应用来源，字符串长度不能超过 128
+  appCode?: string(name='app_code'),
+  // 客户业务ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string(name='business_id'),
+  // 结果通知地址，不指定时需要调用方主动查询结果
+  callback?: string(name='callback'),
+  // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
+  seed?: string(name='seed'),
+}
+
+model SubmitGuardImageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务ID
+  taskId?: string(name='task_id'),
+  // 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
+  dataId?: string(name='data_id'),
+}
+
+/**
+ * Description: 图片人审入审
+ * Summary: 图片人审入审
+ */
+async function submitGuardImage(request: SubmitGuardImageRequest): SubmitGuardImageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitGuardImageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 图片人审入审
+ * Summary: 图片人审入审
+ */
+async function submitGuardImageEx(request: SubmitGuardImageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitGuardImageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.guard.image.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryGuardTextRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+}
+
+model QueryGuardTextResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文本审核结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 文本人审查询
+ * Summary: 文本人审查询
+ */
+async function queryGuardText(request: QueryGuardTextRequest): QueryGuardTextResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGuardTextEx(request, headers, runtime);
+}
+
+/**
+ * Description: 文本人审查询
+ * Summary: 文本人审查询
+ */
+async function queryGuardTextEx(request: QueryGuardTextRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGuardTextResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.guard.text.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitGuardTextRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待人工审核的文本内容，最长不超过10000个字符（包含中文、英文和标点符号）
+  content: string(name='content'),
+  // 审核场景码，固定输入BASE_TEXT_AUDIT，其他值无效
+  sceneCode: string(name='scene_code'),
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  dataId: string(name='data_id'),
+  // 标识上游应用来源，字符串长度不能超过 128
+  appCode?: string(name='app_code'),
+  // 客户业务ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string(name='business_id'),
+  // 结果通知地址，不指定时需要调用方主动查询结果
+  callback?: string(name='callback'),
+  // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
+  seed?: string(name='seed'),
+}
+
+model SubmitGuardTextResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务ID
+  taskId?: string(name='task_id'),
+  // 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
+  dataId?: string(name='data_id'),
+}
+
+/**
+ * Description: 文本人审提交
+ * Summary: 文本人审提交
+ */
+async function submitGuardText(request: SubmitGuardTextRequest): SubmitGuardTextResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitGuardTextEx(request, headers, runtime);
+}
+
+/**
+ * Description: 文本人审提交
+ * Summary: 文本人审提交
+ */
+async function submitGuardTextEx(request: SubmitGuardTextRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitGuardTextResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.guard.text.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryGuardVideoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+}
+
+model QueryGuardVideoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 视频审核结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 视频人审查询
+ * Summary: 视频人审查询
+ */
+async function queryGuardVideo(request: QueryGuardVideoRequest): QueryGuardVideoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGuardVideoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 视频人审查询
+ * Summary: 视频人审查询
+ */
+async function queryGuardVideoEx(request: QueryGuardVideoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGuardVideoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.guard.video.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitGuardVideoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待检测对象的URL，请确保该URL能通过公网访问到，且URL地址长度不超过2048个字符 URL地址中不能包含中文，且一次请求请确保仅传入1条URL
+  url: string(name='url'),
+  // 审核场景码，该接口固定输入BASE_VIDEO_AUDIT，其他值无效
+  sceneCode: string(name='scene_code'),
+  // 检测对象对应的数据ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  dataId: string(name='data_id'),
+  // 标识上游应用来源，字符串长度不能超过 128
+  appCode?: string(name='app_code'),
+  // 客户业务ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string(name='business_id'),
+  // 结果通知地址，不指定时需要调用方主动查询结果
+  callback?: string(name='callback'),
+  // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
+  seed?: string(name='seed'),
+}
+
+model SubmitGuardVideoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务ID
+  taskId?: string(name='task_id'),
+  // 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
+  dataId?: string(name='data_id'),
+}
+
+/**
+ * Description: 视频人审提交
+ * Summary: 视频人审提交
+ */
+async function submitGuardVideo(request: SubmitGuardVideoRequest): SubmitGuardVideoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitGuardVideoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 视频人审提交
+ * Summary: 视频人审提交
+ */
+async function submitGuardVideoEx(request: SubmitGuardVideoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitGuardVideoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.guard.video.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryGuardAudiobaseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+}
+
+model QueryGuardAudiobaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 音频机审结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 音频机审查询-基础版
+ * Summary: 音频机审查询-基础版
+ */
+async function queryGuardAudiobase(request: QueryGuardAudiobaseRequest): QueryGuardAudiobaseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGuardAudiobaseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 音频机审查询-基础版
+ * Summary: 音频机审查询-基础版
+ */
+async function queryGuardAudiobaseEx(request: QueryGuardAudiobaseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGuardAudiobaseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.guard.audiobase.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitGuardAudiobaseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待检测对象的URL，请确保该URL能通过公网访问到，且URL地址长度不超过2048个字符 说明 ： 1. URL地址中不能包含中文，且一次请求请确保仅传入1条URL 2. 支持音频文件格式：MP3、WAV、AAC、WMA、OGG、M4A、AMR
+  url: string(name='url'),
+  // 审核场景类型 目前支持 BASE_AUDIO_SEC：音视频媒体通用检测
+  sceneCode: string(name='scene_code'),
+  // 检测对象对应的数据ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  dataId: string(name='data_id'),
+  // 标识上游应用来源，字符串长度不能超过 128
+  appCode?: string(name='app_code'),
+  // 客户业务ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string(name='business_id'),
+  // 结果通知地址，不指定时需要调用方主动查询结果
+  callback?: string(name='callback'),
+  // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
+  seed?: string(name='seed'),
+}
+
+model SubmitGuardAudiobaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务ID
+  taskId?: string(name='task_id'),
+  // 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
+  dataId?: string(name='data_id'),
+}
+
+/**
+ * Description: 音频机审入审-基础版
+ * Summary: 音频机审入审-基础版
+ */
+async function submitGuardAudiobase(request: SubmitGuardAudiobaseRequest): SubmitGuardAudiobaseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitGuardAudiobaseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 音频机审入审-基础版
+ * Summary: 音频机审入审-基础版
+ */
+async function submitGuardAudiobaseEx(request: SubmitGuardAudiobaseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitGuardAudiobaseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.guard.audiobase.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyGuardImagebaseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 审核内容链接 目前支持 jpeg、png、jpg、bmp、webp 五种格式 图片的 contentType 必须为 image/xxx 或者 application/octet-stream，其余类型都无法识别
+  url: string(name='url'),
+  // 场景，固定填写：BASE_IMAGE_SEC
+  sceneCode: string(name='scene_code'),
+  // 数据Id，调用方入审数据的唯一Id
+  dataId: string(name='data_id'),
+  // 标识上游应用来源，字符串长度不能超过 128
+  appCode?: string(name='app_code'),
+  // 客户业务ID 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string(name='business_id'),
+}
+
+model ApplyGuardImagebaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 图片机审结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 图片机审申请-基础版
+ * Summary: 图片机审申请-基础版
+ */
+async function applyGuardImagebase(request: ApplyGuardImagebaseRequest): ApplyGuardImagebaseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyGuardImagebaseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 图片机审申请-基础版
+ * Summary: 图片机审申请-基础版
+ */
+async function applyGuardImagebaseEx(request: ApplyGuardImagebaseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyGuardImagebaseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.guard.imagebase.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyGuardImageadvancedRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 审核内容链接 目前支持 jpeg、png、jpg、bmp、webp 五种格式 图片的 contentType 必须为 image/xxx 或者 application/octet-stream，其余类型都无法识别
+  url: string(name='url'),
+  // 场景，固定填写：ADVANCED_IMAGE_SEC
+  sceneCode: string(name='scene_code'),
+  // 数据Id，调用方入审数据的唯一Id
+  dataId: string(name='data_id'),
+  // 标识上游应用来源，字符串长度不能超过 128
+  appCode?: string(name='app_code'),
+  // 客户业务ID 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string(name='business_id'),
+}
+
+model ApplyGuardImageadvancedResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 图片审核增强版结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 图片机审申请-增强版
+ * Summary: 图片机审申请-增强版
+ */
+async function applyGuardImageadvanced(request: ApplyGuardImageadvancedRequest): ApplyGuardImageadvancedResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyGuardImageadvancedEx(request, headers, runtime);
+}
+
+/**
+ * Description: 图片机审申请-增强版
+ * Summary: 图片机审申请-增强版
+ */
+async function applyGuardImageadvancedEx(request: ApplyGuardImageadvancedRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyGuardImageadvancedResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.guard.imageadvanced.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyGuardTextbaseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待审核的文本内容，最长不超过10000个字符（包含中文、英文和标点符号）
+  content: string(name='content'),
+  // 审核场景码，建议BASE_TEXT_SEC代指阿里云，文本审核增强版PLUS服务的某一个Service
+  sceneCode: string(name='scene_code'),
+  // 检测对象对应的数据ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  dataId1: string(name='data_id1'),
+  // 	
+  // 标识上游应用来源，字符串长度不能超过 128
+  appCode?: string(name='app_code'),
+  // 客户业务ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string(name='business_id'),
+}
+
+model ApplyGuardTextbaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文本同步审核结果，字段含义见：TextSyncAuditResult
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 文本机审申请-基础版
+ * Summary: 文本机审申请-基础版
+ */
+async function applyGuardTextbase(request: ApplyGuardTextbaseRequest): ApplyGuardTextbaseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyGuardTextbaseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 文本机审申请-基础版
+ * Summary: 文本机审申请-基础版
+ */
+async function applyGuardTextbaseEx(request: ApplyGuardTextbaseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyGuardTextbaseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.guard.textbase.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryGuardVideobaseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+}
+
+model QueryGuardVideobaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 视频机审结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 视频机审查询-基础版
+ * Summary: 视频机审查询-基础版
+ */
+async function queryGuardVideobase(request: QueryGuardVideobaseRequest): QueryGuardVideobaseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGuardVideobaseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 视频机审查询-基础版
+ * Summary: 视频机审查询-基础版
+ */
+async function queryGuardVideobaseEx(request: QueryGuardVideobaseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGuardVideobaseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.guard.videobase.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitGuardVideobaseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待检测对象的URL，请确保该URL能通过公网访问到，且URL地址长度不超过2048个字符 说明 ： 1. URL地址中不能包含中文，且一次请求请确保仅传入1条URL 2. 视频文件链接支持以下协议：HTTP和HTTPS。 3. 视频文件支持以下格式：AVI、FLV、MP4、MPG、ASF、WMV、MOV、WMA、RMVB、RM、FLASH、TS。 4. 视频大小限制：默认单个视频大小不超过500 MB。如果您的需求超过500 MB，您可以对视频进行分片处理
+  url: string(name='url'),
+  // 审核场景类型 目前支持通用版 BASE_VIDEO_SEC
+  sceneCode: string(name='scene_code'),
+  // 划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  dataId: string(name='data_id'),
+  // 标识上游应用来源，字符串长度不能超过 128
+  appCode?: string(name='app_code'),
+  // 客户业务ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string(name='business_id'),
+  // 结果通知地址，不指定时需要调用方主动查询结果
+  callback?: string(name='callback'),
+  // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
+  seed?: string(name='seed'),
+}
+
+model SubmitGuardVideobaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务ID
+  taskId?: string(name='task_id'),
+  // 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
+  dataId?: string(name='data_id'),
+}
+
+/**
+ * Description: 视频机审提交-基础版
+ * Summary: 视频机审提交-基础版
+ */
+async function submitGuardVideobase(request: SubmitGuardVideobaseRequest): SubmitGuardVideobaseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitGuardVideobaseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 视频机审提交-基础版
+ * Summary: 视频机审提交-基础版
+ */
+async function submitGuardVideobaseEx(request: SubmitGuardVideobaseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitGuardVideobaseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.guard.videobase.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
