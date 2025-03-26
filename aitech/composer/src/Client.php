@@ -19,8 +19,18 @@ use AntChain\AITECH\Models\ApplyAuditImageRequest;
 use AntChain\AITECH\Models\ApplyAuditImageResponse;
 use AntChain\AITECH\Models\ApplyAuditTextRequest;
 use AntChain\AITECH\Models\ApplyAuditTextResponse;
+use AntChain\AITECH\Models\ApplyGuardImageadvancedRequest;
+use AntChain\AITECH\Models\ApplyGuardImageadvancedResponse;
+use AntChain\AITECH\Models\ApplyGuardImagebaseRequest;
+use AntChain\AITECH\Models\ApplyGuardImagebaseResponse;
+use AntChain\AITECH\Models\ApplyGuardTextbaseRequest;
+use AntChain\AITECH\Models\ApplyGuardTextbaseResponse;
 use AntChain\AITECH\Models\CallbackAliyunAuditRequest;
 use AntChain\AITECH\Models\CallbackAliyunAuditResponse;
+use AntChain\AITECH\Models\CallbackGuardAliyunRequest;
+use AntChain\AITECH\Models\CallbackGuardAliyunResponse;
+use AntChain\AITECH\Models\CallbackGuardItaskRequest;
+use AntChain\AITECH\Models\CallbackGuardItaskResponse;
 use AntChain\AITECH\Models\CallbackSofaAuditRequest;
 use AntChain\AITECH\Models\CallbackSofaAuditResponse;
 use AntChain\AITECH\Models\QueryAicoguardAdbsinkRequest;
@@ -39,8 +49,20 @@ use AntChain\AITECH\Models\QueryAuditVideobaseRequest;
 use AntChain\AITECH\Models\QueryAuditVideobaseResponse;
 use AntChain\AITECH\Models\QueryAuditVideoRequest;
 use AntChain\AITECH\Models\QueryAuditVideoResponse;
+use AntChain\AITECH\Models\QueryGuardAudiobaseRequest;
+use AntChain\AITECH\Models\QueryGuardAudiobaseResponse;
+use AntChain\AITECH\Models\QueryGuardAudioRequest;
+use AntChain\AITECH\Models\QueryGuardAudioResponse;
 use AntChain\AITECH\Models\QueryGuardcoreRedgptRequest;
 use AntChain\AITECH\Models\QueryGuardcoreRedgptResponse;
+use AntChain\AITECH\Models\QueryGuardImageRequest;
+use AntChain\AITECH\Models\QueryGuardImageResponse;
+use AntChain\AITECH\Models\QueryGuardTextRequest;
+use AntChain\AITECH\Models\QueryGuardTextResponse;
+use AntChain\AITECH\Models\QueryGuardVideobaseRequest;
+use AntChain\AITECH\Models\QueryGuardVideobaseResponse;
+use AntChain\AITECH\Models\QueryGuardVideoRequest;
+use AntChain\AITECH\Models\QueryGuardVideoResponse;
 use AntChain\AITECH\Models\SubmitAuditAudiobaseRequest;
 use AntChain\AITECH\Models\SubmitAuditAudiobaseResponse;
 use AntChain\AITECH\Models\SubmitAuditAudioRequest;
@@ -53,6 +75,18 @@ use AntChain\AITECH\Models\SubmitAuditVideobaseRequest;
 use AntChain\AITECH\Models\SubmitAuditVideobaseResponse;
 use AntChain\AITECH\Models\SubmitAuditVideoRequest;
 use AntChain\AITECH\Models\SubmitAuditVideoResponse;
+use AntChain\AITECH\Models\SubmitGuardAudiobaseRequest;
+use AntChain\AITECH\Models\SubmitGuardAudiobaseResponse;
+use AntChain\AITECH\Models\SubmitGuardAudioRequest;
+use AntChain\AITECH\Models\SubmitGuardAudioResponse;
+use AntChain\AITECH\Models\SubmitGuardImageRequest;
+use AntChain\AITECH\Models\SubmitGuardImageResponse;
+use AntChain\AITECH\Models\SubmitGuardTextRequest;
+use AntChain\AITECH\Models\SubmitGuardTextResponse;
+use AntChain\AITECH\Models\SubmitGuardVideobaseRequest;
+use AntChain\AITECH\Models\SubmitGuardVideobaseResponse;
+use AntChain\AITECH\Models\SubmitGuardVideoRequest;
+use AntChain\AITECH\Models\SubmitGuardVideoResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -200,7 +234,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.11',
+                    'sdk_version'      => '1.1.12',
                     '_prod_code'       => 'AITECH',
                     '_prod_channel'    => 'default',
                 ];
@@ -939,5 +973,566 @@ class Client
         Utils::validateModel($request);
 
         return QueryAicoguardAdbsinkResponse::fromMap($this->doRequest('1.0', 'aitech.comm.aicoguard.adbsink.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+     * Summary: 阿里云内容安全回调.
+     *
+     * @param CallbackGuardAliyunRequest $request
+     *
+     * @return CallbackGuardAliyunResponse
+     */
+    public function callbackGuardAliyun($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackGuardAliyunEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+     * Summary: 阿里云内容安全回调.
+     *
+     * @param CallbackGuardAliyunRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CallbackGuardAliyunResponse
+     */
+    public function callbackGuardAliyunEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackGuardAliyunResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.aliyun.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 主站ITASK审核能力回调
+     * Summary: 主站ITASK审核能力回调.
+     *
+     * @param CallbackGuardItaskRequest $request
+     *
+     * @return CallbackGuardItaskResponse
+     */
+    public function callbackGuardItask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackGuardItaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 主站ITASK审核能力回调
+     * Summary: 主站ITASK审核能力回调.
+     *
+     * @param CallbackGuardItaskRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CallbackGuardItaskResponse
+     */
+    public function callbackGuardItaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackGuardItaskResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.itask.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 音频人审查询
+     * Summary: 音频人审查询.
+     *
+     * @param QueryGuardAudioRequest $request
+     *
+     * @return QueryGuardAudioResponse
+     */
+    public function queryGuardAudio($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryGuardAudioEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 音频人审查询
+     * Summary: 音频人审查询.
+     *
+     * @param QueryGuardAudioRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryGuardAudioResponse
+     */
+    public function queryGuardAudioEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryGuardAudioResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.audio.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 音频人审入审
+     * Summary: 音频人审入审
+     *
+     * @param SubmitGuardAudioRequest $request
+     *
+     * @return SubmitGuardAudioResponse
+     */
+    public function submitGuardAudio($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitGuardAudioEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 音频人审入审
+     * Summary: 音频人审入审
+     *
+     * @param SubmitGuardAudioRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return SubmitGuardAudioResponse
+     */
+    public function submitGuardAudioEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitGuardAudioResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.audio.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 图片人审查询
+     * Summary: 图片人审查询.
+     *
+     * @param QueryGuardImageRequest $request
+     *
+     * @return QueryGuardImageResponse
+     */
+    public function queryGuardImage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryGuardImageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 图片人审查询
+     * Summary: 图片人审查询.
+     *
+     * @param QueryGuardImageRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryGuardImageResponse
+     */
+    public function queryGuardImageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryGuardImageResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.image.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 图片人审入审
+     * Summary: 图片人审入审
+     *
+     * @param SubmitGuardImageRequest $request
+     *
+     * @return SubmitGuardImageResponse
+     */
+    public function submitGuardImage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitGuardImageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 图片人审入审
+     * Summary: 图片人审入审
+     *
+     * @param SubmitGuardImageRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return SubmitGuardImageResponse
+     */
+    public function submitGuardImageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitGuardImageResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.image.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文本人审查询
+     * Summary: 文本人审查询.
+     *
+     * @param QueryGuardTextRequest $request
+     *
+     * @return QueryGuardTextResponse
+     */
+    public function queryGuardText($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryGuardTextEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文本人审查询
+     * Summary: 文本人审查询.
+     *
+     * @param QueryGuardTextRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryGuardTextResponse
+     */
+    public function queryGuardTextEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryGuardTextResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.text.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文本人审提交
+     * Summary: 文本人审提交.
+     *
+     * @param SubmitGuardTextRequest $request
+     *
+     * @return SubmitGuardTextResponse
+     */
+    public function submitGuardText($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitGuardTextEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文本人审提交
+     * Summary: 文本人审提交.
+     *
+     * @param SubmitGuardTextRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return SubmitGuardTextResponse
+     */
+    public function submitGuardTextEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitGuardTextResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.text.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 视频人审查询
+     * Summary: 视频人审查询.
+     *
+     * @param QueryGuardVideoRequest $request
+     *
+     * @return QueryGuardVideoResponse
+     */
+    public function queryGuardVideo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryGuardVideoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 视频人审查询
+     * Summary: 视频人审查询.
+     *
+     * @param QueryGuardVideoRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryGuardVideoResponse
+     */
+    public function queryGuardVideoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryGuardVideoResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.video.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 视频人审提交
+     * Summary: 视频人审提交.
+     *
+     * @param SubmitGuardVideoRequest $request
+     *
+     * @return SubmitGuardVideoResponse
+     */
+    public function submitGuardVideo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitGuardVideoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 视频人审提交
+     * Summary: 视频人审提交.
+     *
+     * @param SubmitGuardVideoRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return SubmitGuardVideoResponse
+     */
+    public function submitGuardVideoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitGuardVideoResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.video.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 音频机审查询-基础版
+     * Summary: 音频机审查询-基础版.
+     *
+     * @param QueryGuardAudiobaseRequest $request
+     *
+     * @return QueryGuardAudiobaseResponse
+     */
+    public function queryGuardAudiobase($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryGuardAudiobaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 音频机审查询-基础版
+     * Summary: 音频机审查询-基础版.
+     *
+     * @param QueryGuardAudiobaseRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryGuardAudiobaseResponse
+     */
+    public function queryGuardAudiobaseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryGuardAudiobaseResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.audiobase.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 音频机审入审-基础版
+     * Summary: 音频机审入审-基础版.
+     *
+     * @param SubmitGuardAudiobaseRequest $request
+     *
+     * @return SubmitGuardAudiobaseResponse
+     */
+    public function submitGuardAudiobase($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitGuardAudiobaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 音频机审入审-基础版
+     * Summary: 音频机审入审-基础版.
+     *
+     * @param SubmitGuardAudiobaseRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return SubmitGuardAudiobaseResponse
+     */
+    public function submitGuardAudiobaseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitGuardAudiobaseResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.audiobase.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 图片机审申请-基础版
+     * Summary: 图片机审申请-基础版.
+     *
+     * @param ApplyGuardImagebaseRequest $request
+     *
+     * @return ApplyGuardImagebaseResponse
+     */
+    public function applyGuardImagebase($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyGuardImagebaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 图片机审申请-基础版
+     * Summary: 图片机审申请-基础版.
+     *
+     * @param ApplyGuardImagebaseRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return ApplyGuardImagebaseResponse
+     */
+    public function applyGuardImagebaseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyGuardImagebaseResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.imagebase.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 图片机审申请-增强版
+     * Summary: 图片机审申请-增强版.
+     *
+     * @param ApplyGuardImageadvancedRequest $request
+     *
+     * @return ApplyGuardImageadvancedResponse
+     */
+    public function applyGuardImageadvanced($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyGuardImageadvancedEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 图片机审申请-增强版
+     * Summary: 图片机审申请-增强版.
+     *
+     * @param ApplyGuardImageadvancedRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return ApplyGuardImageadvancedResponse
+     */
+    public function applyGuardImageadvancedEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyGuardImageadvancedResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.imageadvanced.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文本机审申请-基础版
+     * Summary: 文本机审申请-基础版.
+     *
+     * @param ApplyGuardTextbaseRequest $request
+     *
+     * @return ApplyGuardTextbaseResponse
+     */
+    public function applyGuardTextbase($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyGuardTextbaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文本机审申请-基础版
+     * Summary: 文本机审申请-基础版.
+     *
+     * @param ApplyGuardTextbaseRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ApplyGuardTextbaseResponse
+     */
+    public function applyGuardTextbaseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyGuardTextbaseResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.textbase.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 视频机审查询-基础版
+     * Summary: 视频机审查询-基础版.
+     *
+     * @param QueryGuardVideobaseRequest $request
+     *
+     * @return QueryGuardVideobaseResponse
+     */
+    public function queryGuardVideobase($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryGuardVideobaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 视频机审查询-基础版
+     * Summary: 视频机审查询-基础版.
+     *
+     * @param QueryGuardVideobaseRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryGuardVideobaseResponse
+     */
+    public function queryGuardVideobaseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryGuardVideobaseResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.videobase.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 视频机审提交-基础版
+     * Summary: 视频机审提交-基础版.
+     *
+     * @param SubmitGuardVideobaseRequest $request
+     *
+     * @return SubmitGuardVideobaseResponse
+     */
+    public function submitGuardVideobase($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitGuardVideobaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 视频机审提交-基础版
+     * Summary: 视频机审提交-基础版.
+     *
+     * @param SubmitGuardVideobaseRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return SubmitGuardVideobaseResponse
+     */
+    public function submitGuardVideobaseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitGuardVideobaseResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.videobase.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
