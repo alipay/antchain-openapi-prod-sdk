@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.11"),
+                    new TeaPair("sdk_version", "1.1.12"),
                     new TeaPair("_prod_code", "AITECH"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -581,5 +581,328 @@ public class Client {
     public QueryAicoguardAdbsinkResponse queryAicoguardAdbsinkEx(QueryAicoguardAdbsinkRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.aicoguard.adbsink.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAicoguardAdbsinkResponse());
+    }
+
+    /**
+     * Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+     * Summary: 阿里云内容安全回调
+     */
+    public CallbackGuardAliyunResponse callbackGuardAliyun(CallbackGuardAliyunRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackGuardAliyunEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+     * Summary: 阿里云内容安全回调
+     */
+    public CallbackGuardAliyunResponse callbackGuardAliyunEx(CallbackGuardAliyunRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guard.aliyun.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackGuardAliyunResponse());
+    }
+
+    /**
+     * Description: 主站ITASK审核能力回调
+     * Summary: 主站ITASK审核能力回调
+     */
+    public CallbackGuardItaskResponse callbackGuardItask(CallbackGuardItaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackGuardItaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 主站ITASK审核能力回调
+     * Summary: 主站ITASK审核能力回调
+     */
+    public CallbackGuardItaskResponse callbackGuardItaskEx(CallbackGuardItaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guard.itask.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackGuardItaskResponse());
+    }
+
+    /**
+     * Description: 音频人审查询
+     * Summary: 音频人审查询
+     */
+    public QueryGuardAudioResponse queryGuardAudio(QueryGuardAudioRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryGuardAudioEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 音频人审查询
+     * Summary: 音频人审查询
+     */
+    public QueryGuardAudioResponse queryGuardAudioEx(QueryGuardAudioRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guard.audio.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGuardAudioResponse());
+    }
+
+    /**
+     * Description: 音频人审入审
+     * Summary: 音频人审入审
+     */
+    public SubmitGuardAudioResponse submitGuardAudio(SubmitGuardAudioRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitGuardAudioEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 音频人审入审
+     * Summary: 音频人审入审
+     */
+    public SubmitGuardAudioResponse submitGuardAudioEx(SubmitGuardAudioRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guard.audio.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitGuardAudioResponse());
+    }
+
+    /**
+     * Description: 图片人审查询
+     * Summary: 图片人审查询
+     */
+    public QueryGuardImageResponse queryGuardImage(QueryGuardImageRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryGuardImageEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 图片人审查询
+     * Summary: 图片人审查询
+     */
+    public QueryGuardImageResponse queryGuardImageEx(QueryGuardImageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guard.image.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGuardImageResponse());
+    }
+
+    /**
+     * Description: 图片人审入审
+     * Summary: 图片人审入审
+     */
+    public SubmitGuardImageResponse submitGuardImage(SubmitGuardImageRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitGuardImageEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 图片人审入审
+     * Summary: 图片人审入审
+     */
+    public SubmitGuardImageResponse submitGuardImageEx(SubmitGuardImageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guard.image.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitGuardImageResponse());
+    }
+
+    /**
+     * Description: 文本人审查询
+     * Summary: 文本人审查询
+     */
+    public QueryGuardTextResponse queryGuardText(QueryGuardTextRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryGuardTextEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 文本人审查询
+     * Summary: 文本人审查询
+     */
+    public QueryGuardTextResponse queryGuardTextEx(QueryGuardTextRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guard.text.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGuardTextResponse());
+    }
+
+    /**
+     * Description: 文本人审提交
+     * Summary: 文本人审提交
+     */
+    public SubmitGuardTextResponse submitGuardText(SubmitGuardTextRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitGuardTextEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 文本人审提交
+     * Summary: 文本人审提交
+     */
+    public SubmitGuardTextResponse submitGuardTextEx(SubmitGuardTextRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guard.text.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitGuardTextResponse());
+    }
+
+    /**
+     * Description: 视频人审查询
+     * Summary: 视频人审查询
+     */
+    public QueryGuardVideoResponse queryGuardVideo(QueryGuardVideoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryGuardVideoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 视频人审查询
+     * Summary: 视频人审查询
+     */
+    public QueryGuardVideoResponse queryGuardVideoEx(QueryGuardVideoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guard.video.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGuardVideoResponse());
+    }
+
+    /**
+     * Description: 视频人审提交
+     * Summary: 视频人审提交
+     */
+    public SubmitGuardVideoResponse submitGuardVideo(SubmitGuardVideoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitGuardVideoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 视频人审提交
+     * Summary: 视频人审提交
+     */
+    public SubmitGuardVideoResponse submitGuardVideoEx(SubmitGuardVideoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guard.video.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitGuardVideoResponse());
+    }
+
+    /**
+     * Description: 音频机审查询-基础版
+     * Summary: 音频机审查询-基础版
+     */
+    public QueryGuardAudiobaseResponse queryGuardAudiobase(QueryGuardAudiobaseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryGuardAudiobaseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 音频机审查询-基础版
+     * Summary: 音频机审查询-基础版
+     */
+    public QueryGuardAudiobaseResponse queryGuardAudiobaseEx(QueryGuardAudiobaseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guard.audiobase.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGuardAudiobaseResponse());
+    }
+
+    /**
+     * Description: 音频机审入审-基础版
+     * Summary: 音频机审入审-基础版
+     */
+    public SubmitGuardAudiobaseResponse submitGuardAudiobase(SubmitGuardAudiobaseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitGuardAudiobaseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 音频机审入审-基础版
+     * Summary: 音频机审入审-基础版
+     */
+    public SubmitGuardAudiobaseResponse submitGuardAudiobaseEx(SubmitGuardAudiobaseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guard.audiobase.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitGuardAudiobaseResponse());
+    }
+
+    /**
+     * Description: 图片机审申请-基础版
+     * Summary: 图片机审申请-基础版
+     */
+    public ApplyGuardImagebaseResponse applyGuardImagebase(ApplyGuardImagebaseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyGuardImagebaseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 图片机审申请-基础版
+     * Summary: 图片机审申请-基础版
+     */
+    public ApplyGuardImagebaseResponse applyGuardImagebaseEx(ApplyGuardImagebaseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guard.imagebase.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyGuardImagebaseResponse());
+    }
+
+    /**
+     * Description: 图片机审申请-增强版
+     * Summary: 图片机审申请-增强版
+     */
+    public ApplyGuardImageadvancedResponse applyGuardImageadvanced(ApplyGuardImageadvancedRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyGuardImageadvancedEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 图片机审申请-增强版
+     * Summary: 图片机审申请-增强版
+     */
+    public ApplyGuardImageadvancedResponse applyGuardImageadvancedEx(ApplyGuardImageadvancedRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guard.imageadvanced.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyGuardImageadvancedResponse());
+    }
+
+    /**
+     * Description: 文本机审申请-基础版
+     * Summary: 文本机审申请-基础版
+     */
+    public ApplyGuardTextbaseResponse applyGuardTextbase(ApplyGuardTextbaseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyGuardTextbaseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 文本机审申请-基础版
+     * Summary: 文本机审申请-基础版
+     */
+    public ApplyGuardTextbaseResponse applyGuardTextbaseEx(ApplyGuardTextbaseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guard.textbase.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyGuardTextbaseResponse());
+    }
+
+    /**
+     * Description: 视频机审查询-基础版
+     * Summary: 视频机审查询-基础版
+     */
+    public QueryGuardVideobaseResponse queryGuardVideobase(QueryGuardVideobaseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryGuardVideobaseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 视频机审查询-基础版
+     * Summary: 视频机审查询-基础版
+     */
+    public QueryGuardVideobaseResponse queryGuardVideobaseEx(QueryGuardVideobaseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guard.videobase.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGuardVideobaseResponse());
+    }
+
+    /**
+     * Description: 视频机审提交-基础版
+     * Summary: 视频机审提交-基础版
+     */
+    public SubmitGuardVideobaseResponse submitGuardVideobase(SubmitGuardVideobaseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitGuardVideobaseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 视频机审提交-基础版
+     * Summary: 视频机审提交-基础版
+     */
+    public SubmitGuardVideobaseResponse submitGuardVideobaseEx(SubmitGuardVideobaseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guard.videobase.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitGuardVideobaseResponse());
     }
 }
