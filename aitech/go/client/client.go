@@ -2574,6 +2574,1603 @@ func (s *QueryAicoguardAdbsinkResponse) SetRequestId(v string) *QueryAicoguardAd
 	return s
 }
 
+type CallbackGuardAliyunRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 回执原文
+	Payload *string `json:"payload,omitempty" xml:"payload,omitempty" require:"true"`
+	// 回执场景，固定填写 ALIYUN"
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+}
+
+func (s CallbackGuardAliyunRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackGuardAliyunRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackGuardAliyunRequest) SetAuthToken(v string) *CallbackGuardAliyunRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackGuardAliyunRequest) SetProductInstanceId(v string) *CallbackGuardAliyunRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackGuardAliyunRequest) SetPayload(v string) *CallbackGuardAliyunRequest {
+	s.Payload = &v
+	return s
+}
+
+func (s *CallbackGuardAliyunRequest) SetBizScene(v string) *CallbackGuardAliyunRequest {
+	s.BizScene = &v
+	return s
+}
+
+type CallbackGuardAliyunResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 错误码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 错误原因
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+}
+
+func (s CallbackGuardAliyunResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackGuardAliyunResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackGuardAliyunResponse) SetReqMsgId(v string) *CallbackGuardAliyunResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackGuardAliyunResponse) SetResultCode(v string) *CallbackGuardAliyunResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackGuardAliyunResponse) SetResultMsg(v string) *CallbackGuardAliyunResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CallbackGuardAliyunResponse) SetErrorCode(v string) *CallbackGuardAliyunResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *CallbackGuardAliyunResponse) SetErrorMessage(v string) *CallbackGuardAliyunResponse {
+	s.ErrorMessage = &v
+	return s
+}
+
+type CallbackGuardItaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 回执原文
+	Payload *string `json:"payload,omitempty" xml:"payload,omitempty" require:"true"`
+	// 回执场景
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+}
+
+func (s CallbackGuardItaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackGuardItaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackGuardItaskRequest) SetAuthToken(v string) *CallbackGuardItaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackGuardItaskRequest) SetProductInstanceId(v string) *CallbackGuardItaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackGuardItaskRequest) SetPayload(v string) *CallbackGuardItaskRequest {
+	s.Payload = &v
+	return s
+}
+
+func (s *CallbackGuardItaskRequest) SetBizScene(v string) *CallbackGuardItaskRequest {
+	s.BizScene = &v
+	return s
+}
+
+type CallbackGuardItaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 错误码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 错误原因
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+}
+
+func (s CallbackGuardItaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackGuardItaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackGuardItaskResponse) SetReqMsgId(v string) *CallbackGuardItaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackGuardItaskResponse) SetResultCode(v string) *CallbackGuardItaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackGuardItaskResponse) SetResultMsg(v string) *CallbackGuardItaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CallbackGuardItaskResponse) SetErrorCode(v string) *CallbackGuardItaskResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *CallbackGuardItaskResponse) SetErrorMessage(v string) *CallbackGuardItaskResponse {
+	s.ErrorMessage = &v
+	return s
+}
+
+type QueryGuardAudioRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryGuardAudioRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGuardAudioRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGuardAudioRequest) SetAuthToken(v string) *QueryGuardAudioRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryGuardAudioRequest) SetProductInstanceId(v string) *QueryGuardAudioRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryGuardAudioRequest) SetTaskId(v string) *QueryGuardAudioRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryGuardAudioResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 音频审核结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryGuardAudioResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGuardAudioResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGuardAudioResponse) SetReqMsgId(v string) *QueryGuardAudioResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryGuardAudioResponse) SetResultCode(v string) *QueryGuardAudioResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryGuardAudioResponse) SetResultMsg(v string) *QueryGuardAudioResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryGuardAudioResponse) SetResult(v string) *QueryGuardAudioResponse {
+	s.Result = &v
+	return s
+}
+
+type SubmitGuardAudioRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 待检测对象的URL，请确保该URL能通过公网访问到，且URL地址长度不超过2048个字符 说明 ： URL地址中不能包含中文，且一次请求请确保仅传入1条URL
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+	// 审核场景码，该接口固定输入BASE_AUDIO_AUDIT，其他值无效
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 检测对象对应的数据ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 用于上游标识应用来源，字符串长度不能超过 128
+	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty"`
+	// 客户业务ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
+	// 结果通知地址，不指定时需要调用方主动查询结果
+	Callback *string `json:"callback,omitempty" xml:"callback,omitempty"`
+	// 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
+	Seed *string `json:"seed,omitempty" xml:"seed,omitempty"`
+}
+
+func (s SubmitGuardAudioRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitGuardAudioRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitGuardAudioRequest) SetAuthToken(v string) *SubmitGuardAudioRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitGuardAudioRequest) SetProductInstanceId(v string) *SubmitGuardAudioRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitGuardAudioRequest) SetUrl(v string) *SubmitGuardAudioRequest {
+	s.Url = &v
+	return s
+}
+
+func (s *SubmitGuardAudioRequest) SetSceneCode(v string) *SubmitGuardAudioRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *SubmitGuardAudioRequest) SetDataId(v string) *SubmitGuardAudioRequest {
+	s.DataId = &v
+	return s
+}
+
+func (s *SubmitGuardAudioRequest) SetAppCode(v string) *SubmitGuardAudioRequest {
+	s.AppCode = &v
+	return s
+}
+
+func (s *SubmitGuardAudioRequest) SetBusinessId(v string) *SubmitGuardAudioRequest {
+	s.BusinessId = &v
+	return s
+}
+
+func (s *SubmitGuardAudioRequest) SetCallback(v string) *SubmitGuardAudioRequest {
+	s.Callback = &v
+	return s
+}
+
+func (s *SubmitGuardAudioRequest) SetSeed(v string) *SubmitGuardAudioRequest {
+	s.Seed = &v
+	return s
+}
+
+type SubmitGuardAudioResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty"`
+}
+
+func (s SubmitGuardAudioResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitGuardAudioResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitGuardAudioResponse) SetReqMsgId(v string) *SubmitGuardAudioResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitGuardAudioResponse) SetResultCode(v string) *SubmitGuardAudioResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitGuardAudioResponse) SetResultMsg(v string) *SubmitGuardAudioResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitGuardAudioResponse) SetTaskId(v string) *SubmitGuardAudioResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *SubmitGuardAudioResponse) SetDataId(v string) *SubmitGuardAudioResponse {
+	s.DataId = &v
+	return s
+}
+
+type QueryGuardImageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryGuardImageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGuardImageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGuardImageRequest) SetAuthToken(v string) *QueryGuardImageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryGuardImageRequest) SetProductInstanceId(v string) *QueryGuardImageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryGuardImageRequest) SetTaskId(v string) *QueryGuardImageRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryGuardImageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 图片审核结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryGuardImageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGuardImageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGuardImageResponse) SetReqMsgId(v string) *QueryGuardImageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryGuardImageResponse) SetResultCode(v string) *QueryGuardImageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryGuardImageResponse) SetResultMsg(v string) *QueryGuardImageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryGuardImageResponse) SetResult(v string) *QueryGuardImageResponse {
+	s.Result = &v
+	return s
+}
+
+type SubmitGuardImageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 待检测对象的URL，请确保该URL能通过公网访问到，且URL地址长度不超过2048个字符 URL地址中不能包含中文，且一次请求请确保仅传入1条URL
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+	// 审核场景码，该接口固定输入BASE_IMAGE_AUDIT，其他值无效
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 检测对象对应的数据ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 标识上游应用来源，字符串长度不能超过 128
+	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty"`
+	// 客户业务ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
+	// 结果通知地址，不指定时需要调用方主动查询结果
+	Callback *string `json:"callback,omitempty" xml:"callback,omitempty"`
+	// 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
+	Seed *string `json:"seed,omitempty" xml:"seed,omitempty"`
+}
+
+func (s SubmitGuardImageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitGuardImageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitGuardImageRequest) SetAuthToken(v string) *SubmitGuardImageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitGuardImageRequest) SetProductInstanceId(v string) *SubmitGuardImageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitGuardImageRequest) SetUrl(v string) *SubmitGuardImageRequest {
+	s.Url = &v
+	return s
+}
+
+func (s *SubmitGuardImageRequest) SetSceneCode(v string) *SubmitGuardImageRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *SubmitGuardImageRequest) SetDataId(v string) *SubmitGuardImageRequest {
+	s.DataId = &v
+	return s
+}
+
+func (s *SubmitGuardImageRequest) SetAppCode(v string) *SubmitGuardImageRequest {
+	s.AppCode = &v
+	return s
+}
+
+func (s *SubmitGuardImageRequest) SetBusinessId(v string) *SubmitGuardImageRequest {
+	s.BusinessId = &v
+	return s
+}
+
+func (s *SubmitGuardImageRequest) SetCallback(v string) *SubmitGuardImageRequest {
+	s.Callback = &v
+	return s
+}
+
+func (s *SubmitGuardImageRequest) SetSeed(v string) *SubmitGuardImageRequest {
+	s.Seed = &v
+	return s
+}
+
+type SubmitGuardImageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty"`
+}
+
+func (s SubmitGuardImageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitGuardImageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitGuardImageResponse) SetReqMsgId(v string) *SubmitGuardImageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitGuardImageResponse) SetResultCode(v string) *SubmitGuardImageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitGuardImageResponse) SetResultMsg(v string) *SubmitGuardImageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitGuardImageResponse) SetTaskId(v string) *SubmitGuardImageResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *SubmitGuardImageResponse) SetDataId(v string) *SubmitGuardImageResponse {
+	s.DataId = &v
+	return s
+}
+
+type QueryGuardTextRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryGuardTextRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGuardTextRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGuardTextRequest) SetAuthToken(v string) *QueryGuardTextRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryGuardTextRequest) SetProductInstanceId(v string) *QueryGuardTextRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryGuardTextRequest) SetTaskId(v string) *QueryGuardTextRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryGuardTextResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文本审核结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryGuardTextResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGuardTextResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGuardTextResponse) SetReqMsgId(v string) *QueryGuardTextResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryGuardTextResponse) SetResultCode(v string) *QueryGuardTextResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryGuardTextResponse) SetResultMsg(v string) *QueryGuardTextResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryGuardTextResponse) SetResult(v string) *QueryGuardTextResponse {
+	s.Result = &v
+	return s
+}
+
+type SubmitGuardTextRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 待人工审核的文本内容，最长不超过10000个字符（包含中文、英文和标点符号）
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 审核场景码，固定输入BASE_TEXT_AUDIT，其他值无效
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 标识上游应用来源，字符串长度不能超过 128
+	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty"`
+	// 客户业务ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
+	// 结果通知地址，不指定时需要调用方主动查询结果
+	Callback *string `json:"callback,omitempty" xml:"callback,omitempty"`
+	// 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
+	Seed *string `json:"seed,omitempty" xml:"seed,omitempty"`
+}
+
+func (s SubmitGuardTextRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitGuardTextRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitGuardTextRequest) SetAuthToken(v string) *SubmitGuardTextRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitGuardTextRequest) SetProductInstanceId(v string) *SubmitGuardTextRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitGuardTextRequest) SetContent(v string) *SubmitGuardTextRequest {
+	s.Content = &v
+	return s
+}
+
+func (s *SubmitGuardTextRequest) SetSceneCode(v string) *SubmitGuardTextRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *SubmitGuardTextRequest) SetDataId(v string) *SubmitGuardTextRequest {
+	s.DataId = &v
+	return s
+}
+
+func (s *SubmitGuardTextRequest) SetAppCode(v string) *SubmitGuardTextRequest {
+	s.AppCode = &v
+	return s
+}
+
+func (s *SubmitGuardTextRequest) SetBusinessId(v string) *SubmitGuardTextRequest {
+	s.BusinessId = &v
+	return s
+}
+
+func (s *SubmitGuardTextRequest) SetCallback(v string) *SubmitGuardTextRequest {
+	s.Callback = &v
+	return s
+}
+
+func (s *SubmitGuardTextRequest) SetSeed(v string) *SubmitGuardTextRequest {
+	s.Seed = &v
+	return s
+}
+
+type SubmitGuardTextResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty"`
+}
+
+func (s SubmitGuardTextResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitGuardTextResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitGuardTextResponse) SetReqMsgId(v string) *SubmitGuardTextResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitGuardTextResponse) SetResultCode(v string) *SubmitGuardTextResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitGuardTextResponse) SetResultMsg(v string) *SubmitGuardTextResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitGuardTextResponse) SetTaskId(v string) *SubmitGuardTextResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *SubmitGuardTextResponse) SetDataId(v string) *SubmitGuardTextResponse {
+	s.DataId = &v
+	return s
+}
+
+type QueryGuardVideoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryGuardVideoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGuardVideoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGuardVideoRequest) SetAuthToken(v string) *QueryGuardVideoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryGuardVideoRequest) SetProductInstanceId(v string) *QueryGuardVideoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryGuardVideoRequest) SetTaskId(v string) *QueryGuardVideoRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryGuardVideoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 视频审核结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryGuardVideoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGuardVideoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGuardVideoResponse) SetReqMsgId(v string) *QueryGuardVideoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryGuardVideoResponse) SetResultCode(v string) *QueryGuardVideoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryGuardVideoResponse) SetResultMsg(v string) *QueryGuardVideoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryGuardVideoResponse) SetResult(v string) *QueryGuardVideoResponse {
+	s.Result = &v
+	return s
+}
+
+type SubmitGuardVideoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 待检测对象的URL，请确保该URL能通过公网访问到，且URL地址长度不超过2048个字符 URL地址中不能包含中文，且一次请求请确保仅传入1条URL
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+	// 审核场景码，该接口固定输入BASE_VIDEO_AUDIT，其他值无效
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 检测对象对应的数据ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 标识上游应用来源，字符串长度不能超过 128
+	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty"`
+	// 客户业务ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
+	// 结果通知地址，不指定时需要调用方主动查询结果
+	Callback *string `json:"callback,omitempty" xml:"callback,omitempty"`
+	// 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
+	Seed *string `json:"seed,omitempty" xml:"seed,omitempty"`
+}
+
+func (s SubmitGuardVideoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitGuardVideoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitGuardVideoRequest) SetAuthToken(v string) *SubmitGuardVideoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitGuardVideoRequest) SetProductInstanceId(v string) *SubmitGuardVideoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitGuardVideoRequest) SetUrl(v string) *SubmitGuardVideoRequest {
+	s.Url = &v
+	return s
+}
+
+func (s *SubmitGuardVideoRequest) SetSceneCode(v string) *SubmitGuardVideoRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *SubmitGuardVideoRequest) SetDataId(v string) *SubmitGuardVideoRequest {
+	s.DataId = &v
+	return s
+}
+
+func (s *SubmitGuardVideoRequest) SetAppCode(v string) *SubmitGuardVideoRequest {
+	s.AppCode = &v
+	return s
+}
+
+func (s *SubmitGuardVideoRequest) SetBusinessId(v string) *SubmitGuardVideoRequest {
+	s.BusinessId = &v
+	return s
+}
+
+func (s *SubmitGuardVideoRequest) SetCallback(v string) *SubmitGuardVideoRequest {
+	s.Callback = &v
+	return s
+}
+
+func (s *SubmitGuardVideoRequest) SetSeed(v string) *SubmitGuardVideoRequest {
+	s.Seed = &v
+	return s
+}
+
+type SubmitGuardVideoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty"`
+}
+
+func (s SubmitGuardVideoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitGuardVideoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitGuardVideoResponse) SetReqMsgId(v string) *SubmitGuardVideoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitGuardVideoResponse) SetResultCode(v string) *SubmitGuardVideoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitGuardVideoResponse) SetResultMsg(v string) *SubmitGuardVideoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitGuardVideoResponse) SetTaskId(v string) *SubmitGuardVideoResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *SubmitGuardVideoResponse) SetDataId(v string) *SubmitGuardVideoResponse {
+	s.DataId = &v
+	return s
+}
+
+type QueryGuardAudiobaseRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryGuardAudiobaseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGuardAudiobaseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGuardAudiobaseRequest) SetAuthToken(v string) *QueryGuardAudiobaseRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryGuardAudiobaseRequest) SetProductInstanceId(v string) *QueryGuardAudiobaseRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryGuardAudiobaseRequest) SetTaskId(v string) *QueryGuardAudiobaseRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryGuardAudiobaseResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 音频机审结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryGuardAudiobaseResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGuardAudiobaseResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGuardAudiobaseResponse) SetReqMsgId(v string) *QueryGuardAudiobaseResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryGuardAudiobaseResponse) SetResultCode(v string) *QueryGuardAudiobaseResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryGuardAudiobaseResponse) SetResultMsg(v string) *QueryGuardAudiobaseResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryGuardAudiobaseResponse) SetResult(v string) *QueryGuardAudiobaseResponse {
+	s.Result = &v
+	return s
+}
+
+type SubmitGuardAudiobaseRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 待检测对象的URL，请确保该URL能通过公网访问到，且URL地址长度不超过2048个字符 说明 ： 1. URL地址中不能包含中文，且一次请求请确保仅传入1条URL 2. 支持音频文件格式：MP3、WAV、AAC、WMA、OGG、M4A、AMR
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+	// 审核场景类型 目前支持 BASE_AUDIO_SEC：音视频媒体通用检测
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 检测对象对应的数据ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 标识上游应用来源，字符串长度不能超过 128
+	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty"`
+	// 客户业务ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
+	// 结果通知地址，不指定时需要调用方主动查询结果
+	Callback *string `json:"callback,omitempty" xml:"callback,omitempty"`
+	// 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
+	Seed *string `json:"seed,omitempty" xml:"seed,omitempty"`
+}
+
+func (s SubmitGuardAudiobaseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitGuardAudiobaseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitGuardAudiobaseRequest) SetAuthToken(v string) *SubmitGuardAudiobaseRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitGuardAudiobaseRequest) SetProductInstanceId(v string) *SubmitGuardAudiobaseRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitGuardAudiobaseRequest) SetUrl(v string) *SubmitGuardAudiobaseRequest {
+	s.Url = &v
+	return s
+}
+
+func (s *SubmitGuardAudiobaseRequest) SetSceneCode(v string) *SubmitGuardAudiobaseRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *SubmitGuardAudiobaseRequest) SetDataId(v string) *SubmitGuardAudiobaseRequest {
+	s.DataId = &v
+	return s
+}
+
+func (s *SubmitGuardAudiobaseRequest) SetAppCode(v string) *SubmitGuardAudiobaseRequest {
+	s.AppCode = &v
+	return s
+}
+
+func (s *SubmitGuardAudiobaseRequest) SetBusinessId(v string) *SubmitGuardAudiobaseRequest {
+	s.BusinessId = &v
+	return s
+}
+
+func (s *SubmitGuardAudiobaseRequest) SetCallback(v string) *SubmitGuardAudiobaseRequest {
+	s.Callback = &v
+	return s
+}
+
+func (s *SubmitGuardAudiobaseRequest) SetSeed(v string) *SubmitGuardAudiobaseRequest {
+	s.Seed = &v
+	return s
+}
+
+type SubmitGuardAudiobaseResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty"`
+}
+
+func (s SubmitGuardAudiobaseResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitGuardAudiobaseResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitGuardAudiobaseResponse) SetReqMsgId(v string) *SubmitGuardAudiobaseResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitGuardAudiobaseResponse) SetResultCode(v string) *SubmitGuardAudiobaseResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitGuardAudiobaseResponse) SetResultMsg(v string) *SubmitGuardAudiobaseResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitGuardAudiobaseResponse) SetTaskId(v string) *SubmitGuardAudiobaseResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *SubmitGuardAudiobaseResponse) SetDataId(v string) *SubmitGuardAudiobaseResponse {
+	s.DataId = &v
+	return s
+}
+
+type ApplyGuardImagebaseRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 审核内容链接 目前支持 jpeg、png、jpg、bmp、webp 五种格式 图片的 contentType 必须为 image/xxx 或者 application/octet-stream，其余类型都无法识别
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+	// 场景，固定填写：BASE_IMAGE_SEC
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 数据Id，调用方入审数据的唯一Id
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 标识上游应用来源，字符串长度不能超过 128
+	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty"`
+	// 客户业务ID 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
+}
+
+func (s ApplyGuardImagebaseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyGuardImagebaseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyGuardImagebaseRequest) SetAuthToken(v string) *ApplyGuardImagebaseRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyGuardImagebaseRequest) SetProductInstanceId(v string) *ApplyGuardImagebaseRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyGuardImagebaseRequest) SetUrl(v string) *ApplyGuardImagebaseRequest {
+	s.Url = &v
+	return s
+}
+
+func (s *ApplyGuardImagebaseRequest) SetSceneCode(v string) *ApplyGuardImagebaseRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *ApplyGuardImagebaseRequest) SetDataId(v string) *ApplyGuardImagebaseRequest {
+	s.DataId = &v
+	return s
+}
+
+func (s *ApplyGuardImagebaseRequest) SetAppCode(v string) *ApplyGuardImagebaseRequest {
+	s.AppCode = &v
+	return s
+}
+
+func (s *ApplyGuardImagebaseRequest) SetBusinessId(v string) *ApplyGuardImagebaseRequest {
+	s.BusinessId = &v
+	return s
+}
+
+type ApplyGuardImagebaseResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 图片机审结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s ApplyGuardImagebaseResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyGuardImagebaseResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyGuardImagebaseResponse) SetReqMsgId(v string) *ApplyGuardImagebaseResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyGuardImagebaseResponse) SetResultCode(v string) *ApplyGuardImagebaseResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyGuardImagebaseResponse) SetResultMsg(v string) *ApplyGuardImagebaseResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyGuardImagebaseResponse) SetResult(v string) *ApplyGuardImagebaseResponse {
+	s.Result = &v
+	return s
+}
+
+type ApplyGuardImageadvancedRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 审核内容链接 目前支持 jpeg、png、jpg、bmp、webp 五种格式 图片的 contentType 必须为 image/xxx 或者 application/octet-stream，其余类型都无法识别
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+	// 场景，固定填写：ADVANCED_IMAGE_SEC
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 数据Id，调用方入审数据的唯一Id
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 标识上游应用来源，字符串长度不能超过 128
+	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty"`
+	// 客户业务ID 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
+}
+
+func (s ApplyGuardImageadvancedRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyGuardImageadvancedRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyGuardImageadvancedRequest) SetAuthToken(v string) *ApplyGuardImageadvancedRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyGuardImageadvancedRequest) SetProductInstanceId(v string) *ApplyGuardImageadvancedRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyGuardImageadvancedRequest) SetUrl(v string) *ApplyGuardImageadvancedRequest {
+	s.Url = &v
+	return s
+}
+
+func (s *ApplyGuardImageadvancedRequest) SetSceneCode(v string) *ApplyGuardImageadvancedRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *ApplyGuardImageadvancedRequest) SetDataId(v string) *ApplyGuardImageadvancedRequest {
+	s.DataId = &v
+	return s
+}
+
+func (s *ApplyGuardImageadvancedRequest) SetAppCode(v string) *ApplyGuardImageadvancedRequest {
+	s.AppCode = &v
+	return s
+}
+
+func (s *ApplyGuardImageadvancedRequest) SetBusinessId(v string) *ApplyGuardImageadvancedRequest {
+	s.BusinessId = &v
+	return s
+}
+
+type ApplyGuardImageadvancedResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 图片审核增强版结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s ApplyGuardImageadvancedResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyGuardImageadvancedResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyGuardImageadvancedResponse) SetReqMsgId(v string) *ApplyGuardImageadvancedResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyGuardImageadvancedResponse) SetResultCode(v string) *ApplyGuardImageadvancedResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyGuardImageadvancedResponse) SetResultMsg(v string) *ApplyGuardImageadvancedResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyGuardImageadvancedResponse) SetResult(v string) *ApplyGuardImageadvancedResponse {
+	s.Result = &v
+	return s
+}
+
+type ApplyGuardTextbaseRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 待审核的文本内容，最长不超过10000个字符（包含中文、英文和标点符号）
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 审核场景码，建议BASE_TEXT_SEC代指阿里云，文本审核增强版PLUS服务的某一个Service
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 检测对象对应的数据ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	DataId1 *string `json:"data_id1,omitempty" xml:"data_id1,omitempty" require:"true"`
+	//
+	// 标识上游应用来源，字符串长度不能超过 128
+	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty"`
+	// 客户业务ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
+}
+
+func (s ApplyGuardTextbaseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyGuardTextbaseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyGuardTextbaseRequest) SetAuthToken(v string) *ApplyGuardTextbaseRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyGuardTextbaseRequest) SetProductInstanceId(v string) *ApplyGuardTextbaseRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyGuardTextbaseRequest) SetContent(v string) *ApplyGuardTextbaseRequest {
+	s.Content = &v
+	return s
+}
+
+func (s *ApplyGuardTextbaseRequest) SetSceneCode(v string) *ApplyGuardTextbaseRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *ApplyGuardTextbaseRequest) SetDataId1(v string) *ApplyGuardTextbaseRequest {
+	s.DataId1 = &v
+	return s
+}
+
+func (s *ApplyGuardTextbaseRequest) SetAppCode(v string) *ApplyGuardTextbaseRequest {
+	s.AppCode = &v
+	return s
+}
+
+func (s *ApplyGuardTextbaseRequest) SetBusinessId(v string) *ApplyGuardTextbaseRequest {
+	s.BusinessId = &v
+	return s
+}
+
+type ApplyGuardTextbaseResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文本同步审核结果，字段含义见：TextSyncAuditResult
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s ApplyGuardTextbaseResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyGuardTextbaseResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyGuardTextbaseResponse) SetReqMsgId(v string) *ApplyGuardTextbaseResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyGuardTextbaseResponse) SetResultCode(v string) *ApplyGuardTextbaseResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyGuardTextbaseResponse) SetResultMsg(v string) *ApplyGuardTextbaseResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyGuardTextbaseResponse) SetResult(v string) *ApplyGuardTextbaseResponse {
+	s.Result = &v
+	return s
+}
+
+type QueryGuardVideobaseRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryGuardVideobaseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGuardVideobaseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGuardVideobaseRequest) SetAuthToken(v string) *QueryGuardVideobaseRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryGuardVideobaseRequest) SetProductInstanceId(v string) *QueryGuardVideobaseRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryGuardVideobaseRequest) SetTaskId(v string) *QueryGuardVideobaseRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryGuardVideobaseResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 视频机审结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryGuardVideobaseResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGuardVideobaseResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGuardVideobaseResponse) SetReqMsgId(v string) *QueryGuardVideobaseResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryGuardVideobaseResponse) SetResultCode(v string) *QueryGuardVideobaseResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryGuardVideobaseResponse) SetResultMsg(v string) *QueryGuardVideobaseResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryGuardVideobaseResponse) SetResult(v string) *QueryGuardVideobaseResponse {
+	s.Result = &v
+	return s
+}
+
+type SubmitGuardVideobaseRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 待检测对象的URL，请确保该URL能通过公网访问到，且URL地址长度不超过2048个字符 说明 ： 1. URL地址中不能包含中文，且一次请求请确保仅传入1条URL 2. 视频文件链接支持以下协议：HTTP和HTTPS。 3. 视频文件支持以下格式：AVI、FLV、MP4、MPG、ASF、WMV、MOV、WMA、RMVB、RM、FLASH、TS。 4. 视频大小限制：默认单个视频大小不超过500 MB。如果您的需求超过500 MB，您可以对视频进行分片处理
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+	// 审核场景类型 目前支持通用版 BASE_VIDEO_SEC
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 标识上游应用来源，字符串长度不能超过 128
+	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty"`
+	// 客户业务ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
+	// 结果通知地址，不指定时需要调用方主动查询结果
+	Callback *string `json:"callback,omitempty" xml:"callback,omitempty"`
+	// 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
+	Seed *string `json:"seed,omitempty" xml:"seed,omitempty"`
+}
+
+func (s SubmitGuardVideobaseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitGuardVideobaseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitGuardVideobaseRequest) SetAuthToken(v string) *SubmitGuardVideobaseRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitGuardVideobaseRequest) SetProductInstanceId(v string) *SubmitGuardVideobaseRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitGuardVideobaseRequest) SetUrl(v string) *SubmitGuardVideobaseRequest {
+	s.Url = &v
+	return s
+}
+
+func (s *SubmitGuardVideobaseRequest) SetSceneCode(v string) *SubmitGuardVideobaseRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *SubmitGuardVideobaseRequest) SetDataId(v string) *SubmitGuardVideobaseRequest {
+	s.DataId = &v
+	return s
+}
+
+func (s *SubmitGuardVideobaseRequest) SetAppCode(v string) *SubmitGuardVideobaseRequest {
+	s.AppCode = &v
+	return s
+}
+
+func (s *SubmitGuardVideobaseRequest) SetBusinessId(v string) *SubmitGuardVideobaseRequest {
+	s.BusinessId = &v
+	return s
+}
+
+func (s *SubmitGuardVideobaseRequest) SetCallback(v string) *SubmitGuardVideobaseRequest {
+	s.Callback = &v
+	return s
+}
+
+func (s *SubmitGuardVideobaseRequest) SetSeed(v string) *SubmitGuardVideobaseRequest {
+	s.Seed = &v
+	return s
+}
+
+type SubmitGuardVideobaseResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty"`
+}
+
+func (s SubmitGuardVideobaseResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitGuardVideobaseResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitGuardVideobaseResponse) SetReqMsgId(v string) *SubmitGuardVideobaseResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitGuardVideobaseResponse) SetResultCode(v string) *SubmitGuardVideobaseResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitGuardVideobaseResponse) SetResultMsg(v string) *SubmitGuardVideobaseResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitGuardVideobaseResponse) SetTaskId(v string) *SubmitGuardVideobaseResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *SubmitGuardVideobaseResponse) SetDataId(v string) *SubmitGuardVideobaseResponse {
+	s.DataId = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2696,7 +4293,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.11"),
+				"sdk_version":      tea.String("1.1.12"),
 				"_prod_code":       tea.String("AITECH"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -3461,6 +5058,584 @@ func (client *Client) QueryAicoguardAdbsinkEx(request *QueryAicoguardAdbsinkRequ
 	}
 	_result = &QueryAicoguardAdbsinkResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.aicoguard.adbsink.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+ * Summary: 阿里云内容安全回调
+ */
+func (client *Client) CallbackGuardAliyun(request *CallbackGuardAliyunRequest) (_result *CallbackGuardAliyunResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackGuardAliyunResponse{}
+	_body, _err := client.CallbackGuardAliyunEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+ * Summary: 阿里云内容安全回调
+ */
+func (client *Client) CallbackGuardAliyunEx(request *CallbackGuardAliyunRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackGuardAliyunResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackGuardAliyunResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.aliyun.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 主站ITASK审核能力回调
+ * Summary: 主站ITASK审核能力回调
+ */
+func (client *Client) CallbackGuardItask(request *CallbackGuardItaskRequest) (_result *CallbackGuardItaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackGuardItaskResponse{}
+	_body, _err := client.CallbackGuardItaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 主站ITASK审核能力回调
+ * Summary: 主站ITASK审核能力回调
+ */
+func (client *Client) CallbackGuardItaskEx(request *CallbackGuardItaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackGuardItaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackGuardItaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.itask.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 音频人审查询
+ * Summary: 音频人审查询
+ */
+func (client *Client) QueryGuardAudio(request *QueryGuardAudioRequest) (_result *QueryGuardAudioResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryGuardAudioResponse{}
+	_body, _err := client.QueryGuardAudioEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 音频人审查询
+ * Summary: 音频人审查询
+ */
+func (client *Client) QueryGuardAudioEx(request *QueryGuardAudioRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryGuardAudioResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryGuardAudioResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.audio.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 音频人审入审
+ * Summary: 音频人审入审
+ */
+func (client *Client) SubmitGuardAudio(request *SubmitGuardAudioRequest) (_result *SubmitGuardAudioResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitGuardAudioResponse{}
+	_body, _err := client.SubmitGuardAudioEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 音频人审入审
+ * Summary: 音频人审入审
+ */
+func (client *Client) SubmitGuardAudioEx(request *SubmitGuardAudioRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitGuardAudioResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitGuardAudioResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.audio.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 图片人审查询
+ * Summary: 图片人审查询
+ */
+func (client *Client) QueryGuardImage(request *QueryGuardImageRequest) (_result *QueryGuardImageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryGuardImageResponse{}
+	_body, _err := client.QueryGuardImageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 图片人审查询
+ * Summary: 图片人审查询
+ */
+func (client *Client) QueryGuardImageEx(request *QueryGuardImageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryGuardImageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryGuardImageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.image.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 图片人审入审
+ * Summary: 图片人审入审
+ */
+func (client *Client) SubmitGuardImage(request *SubmitGuardImageRequest) (_result *SubmitGuardImageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitGuardImageResponse{}
+	_body, _err := client.SubmitGuardImageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 图片人审入审
+ * Summary: 图片人审入审
+ */
+func (client *Client) SubmitGuardImageEx(request *SubmitGuardImageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitGuardImageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitGuardImageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.image.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 文本人审查询
+ * Summary: 文本人审查询
+ */
+func (client *Client) QueryGuardText(request *QueryGuardTextRequest) (_result *QueryGuardTextResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryGuardTextResponse{}
+	_body, _err := client.QueryGuardTextEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 文本人审查询
+ * Summary: 文本人审查询
+ */
+func (client *Client) QueryGuardTextEx(request *QueryGuardTextRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryGuardTextResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryGuardTextResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.text.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 文本人审提交
+ * Summary: 文本人审提交
+ */
+func (client *Client) SubmitGuardText(request *SubmitGuardTextRequest) (_result *SubmitGuardTextResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitGuardTextResponse{}
+	_body, _err := client.SubmitGuardTextEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 文本人审提交
+ * Summary: 文本人审提交
+ */
+func (client *Client) SubmitGuardTextEx(request *SubmitGuardTextRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitGuardTextResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitGuardTextResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.text.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 视频人审查询
+ * Summary: 视频人审查询
+ */
+func (client *Client) QueryGuardVideo(request *QueryGuardVideoRequest) (_result *QueryGuardVideoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryGuardVideoResponse{}
+	_body, _err := client.QueryGuardVideoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 视频人审查询
+ * Summary: 视频人审查询
+ */
+func (client *Client) QueryGuardVideoEx(request *QueryGuardVideoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryGuardVideoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryGuardVideoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.video.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 视频人审提交
+ * Summary: 视频人审提交
+ */
+func (client *Client) SubmitGuardVideo(request *SubmitGuardVideoRequest) (_result *SubmitGuardVideoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitGuardVideoResponse{}
+	_body, _err := client.SubmitGuardVideoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 视频人审提交
+ * Summary: 视频人审提交
+ */
+func (client *Client) SubmitGuardVideoEx(request *SubmitGuardVideoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitGuardVideoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitGuardVideoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.video.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 音频机审查询-基础版
+ * Summary: 音频机审查询-基础版
+ */
+func (client *Client) QueryGuardAudiobase(request *QueryGuardAudiobaseRequest) (_result *QueryGuardAudiobaseResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryGuardAudiobaseResponse{}
+	_body, _err := client.QueryGuardAudiobaseEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 音频机审查询-基础版
+ * Summary: 音频机审查询-基础版
+ */
+func (client *Client) QueryGuardAudiobaseEx(request *QueryGuardAudiobaseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryGuardAudiobaseResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryGuardAudiobaseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.audiobase.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 音频机审入审-基础版
+ * Summary: 音频机审入审-基础版
+ */
+func (client *Client) SubmitGuardAudiobase(request *SubmitGuardAudiobaseRequest) (_result *SubmitGuardAudiobaseResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitGuardAudiobaseResponse{}
+	_body, _err := client.SubmitGuardAudiobaseEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 音频机审入审-基础版
+ * Summary: 音频机审入审-基础版
+ */
+func (client *Client) SubmitGuardAudiobaseEx(request *SubmitGuardAudiobaseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitGuardAudiobaseResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitGuardAudiobaseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.audiobase.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 图片机审申请-基础版
+ * Summary: 图片机审申请-基础版
+ */
+func (client *Client) ApplyGuardImagebase(request *ApplyGuardImagebaseRequest) (_result *ApplyGuardImagebaseResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyGuardImagebaseResponse{}
+	_body, _err := client.ApplyGuardImagebaseEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 图片机审申请-基础版
+ * Summary: 图片机审申请-基础版
+ */
+func (client *Client) ApplyGuardImagebaseEx(request *ApplyGuardImagebaseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyGuardImagebaseResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyGuardImagebaseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.imagebase.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 图片机审申请-增强版
+ * Summary: 图片机审申请-增强版
+ */
+func (client *Client) ApplyGuardImageadvanced(request *ApplyGuardImageadvancedRequest) (_result *ApplyGuardImageadvancedResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyGuardImageadvancedResponse{}
+	_body, _err := client.ApplyGuardImageadvancedEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 图片机审申请-增强版
+ * Summary: 图片机审申请-增强版
+ */
+func (client *Client) ApplyGuardImageadvancedEx(request *ApplyGuardImageadvancedRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyGuardImageadvancedResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyGuardImageadvancedResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.imageadvanced.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 文本机审申请-基础版
+ * Summary: 文本机审申请-基础版
+ */
+func (client *Client) ApplyGuardTextbase(request *ApplyGuardTextbaseRequest) (_result *ApplyGuardTextbaseResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyGuardTextbaseResponse{}
+	_body, _err := client.ApplyGuardTextbaseEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 文本机审申请-基础版
+ * Summary: 文本机审申请-基础版
+ */
+func (client *Client) ApplyGuardTextbaseEx(request *ApplyGuardTextbaseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyGuardTextbaseResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyGuardTextbaseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.textbase.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 视频机审查询-基础版
+ * Summary: 视频机审查询-基础版
+ */
+func (client *Client) QueryGuardVideobase(request *QueryGuardVideobaseRequest) (_result *QueryGuardVideobaseResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryGuardVideobaseResponse{}
+	_body, _err := client.QueryGuardVideobaseEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 视频机审查询-基础版
+ * Summary: 视频机审查询-基础版
+ */
+func (client *Client) QueryGuardVideobaseEx(request *QueryGuardVideobaseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryGuardVideobaseResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryGuardVideobaseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.videobase.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 视频机审提交-基础版
+ * Summary: 视频机审提交-基础版
+ */
+func (client *Client) SubmitGuardVideobase(request *SubmitGuardVideobaseRequest) (_result *SubmitGuardVideobaseResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitGuardVideobaseResponse{}
+	_body, _err := client.SubmitGuardVideobaseEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 视频机审提交-基础版
+ * Summary: 视频机审提交-基础版
+ */
+func (client *Client) SubmitGuardVideobaseEx(request *SubmitGuardVideobaseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitGuardVideobaseResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitGuardVideobaseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.videobase.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
