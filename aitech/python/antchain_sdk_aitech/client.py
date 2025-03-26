@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.11',
+                    'sdk_version': '1.1.12',
                     '_prod_code': 'AITECH',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.11',
+                    'sdk_version': '1.1.12',
                     '_prod_code': 'AITECH',
                     '_prod_channel': 'default'
                 }
@@ -1449,4 +1449,956 @@ class Client:
         return TeaCore.from_map(
             aitech_models.QueryAicoguardAdbsinkResponse(),
             await self.do_request_async('1.0', 'aitech.comm.aicoguard.adbsink.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_guard_aliyun(
+        self,
+        request: aitech_models.CallbackGuardAliyunRequest,
+    ) -> aitech_models.CallbackGuardAliyunResponse:
+        """
+        Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+        Summary: 阿里云内容安全回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_guard_aliyun_ex(request, headers, runtime)
+
+    async def callback_guard_aliyun_async(
+        self,
+        request: aitech_models.CallbackGuardAliyunRequest,
+    ) -> aitech_models.CallbackGuardAliyunResponse:
+        """
+        Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+        Summary: 阿里云内容安全回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_guard_aliyun_ex_async(request, headers, runtime)
+
+    def callback_guard_aliyun_ex(
+        self,
+        request: aitech_models.CallbackGuardAliyunRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.CallbackGuardAliyunResponse:
+        """
+        Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+        Summary: 阿里云内容安全回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.CallbackGuardAliyunResponse(),
+            self.do_request('1.0', 'aitech.comm.guard.aliyun.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_guard_aliyun_ex_async(
+        self,
+        request: aitech_models.CallbackGuardAliyunRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.CallbackGuardAliyunResponse:
+        """
+        Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+        Summary: 阿里云内容安全回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.CallbackGuardAliyunResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.guard.aliyun.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_guard_itask(
+        self,
+        request: aitech_models.CallbackGuardItaskRequest,
+    ) -> aitech_models.CallbackGuardItaskResponse:
+        """
+        Description: 主站ITASK审核能力回调
+        Summary: 主站ITASK审核能力回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_guard_itask_ex(request, headers, runtime)
+
+    async def callback_guard_itask_async(
+        self,
+        request: aitech_models.CallbackGuardItaskRequest,
+    ) -> aitech_models.CallbackGuardItaskResponse:
+        """
+        Description: 主站ITASK审核能力回调
+        Summary: 主站ITASK审核能力回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_guard_itask_ex_async(request, headers, runtime)
+
+    def callback_guard_itask_ex(
+        self,
+        request: aitech_models.CallbackGuardItaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.CallbackGuardItaskResponse:
+        """
+        Description: 主站ITASK审核能力回调
+        Summary: 主站ITASK审核能力回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.CallbackGuardItaskResponse(),
+            self.do_request('1.0', 'aitech.comm.guard.itask.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_guard_itask_ex_async(
+        self,
+        request: aitech_models.CallbackGuardItaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.CallbackGuardItaskResponse:
+        """
+        Description: 主站ITASK审核能力回调
+        Summary: 主站ITASK审核能力回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.CallbackGuardItaskResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.guard.itask.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_guard_audio(
+        self,
+        request: aitech_models.QueryGuardAudioRequest,
+    ) -> aitech_models.QueryGuardAudioResponse:
+        """
+        Description: 音频人审查询
+        Summary: 音频人审查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_guard_audio_ex(request, headers, runtime)
+
+    async def query_guard_audio_async(
+        self,
+        request: aitech_models.QueryGuardAudioRequest,
+    ) -> aitech_models.QueryGuardAudioResponse:
+        """
+        Description: 音频人审查询
+        Summary: 音频人审查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_guard_audio_ex_async(request, headers, runtime)
+
+    def query_guard_audio_ex(
+        self,
+        request: aitech_models.QueryGuardAudioRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryGuardAudioResponse:
+        """
+        Description: 音频人审查询
+        Summary: 音频人审查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryGuardAudioResponse(),
+            self.do_request('1.0', 'aitech.comm.guard.audio.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_guard_audio_ex_async(
+        self,
+        request: aitech_models.QueryGuardAudioRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryGuardAudioResponse:
+        """
+        Description: 音频人审查询
+        Summary: 音频人审查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryGuardAudioResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.guard.audio.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_guard_audio(
+        self,
+        request: aitech_models.SubmitGuardAudioRequest,
+    ) -> aitech_models.SubmitGuardAudioResponse:
+        """
+        Description: 音频人审入审
+        Summary: 音频人审入审
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_guard_audio_ex(request, headers, runtime)
+
+    async def submit_guard_audio_async(
+        self,
+        request: aitech_models.SubmitGuardAudioRequest,
+    ) -> aitech_models.SubmitGuardAudioResponse:
+        """
+        Description: 音频人审入审
+        Summary: 音频人审入审
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_guard_audio_ex_async(request, headers, runtime)
+
+    def submit_guard_audio_ex(
+        self,
+        request: aitech_models.SubmitGuardAudioRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.SubmitGuardAudioResponse:
+        """
+        Description: 音频人审入审
+        Summary: 音频人审入审
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.SubmitGuardAudioResponse(),
+            self.do_request('1.0', 'aitech.comm.guard.audio.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_guard_audio_ex_async(
+        self,
+        request: aitech_models.SubmitGuardAudioRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.SubmitGuardAudioResponse:
+        """
+        Description: 音频人审入审
+        Summary: 音频人审入审
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.SubmitGuardAudioResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.guard.audio.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_guard_image(
+        self,
+        request: aitech_models.QueryGuardImageRequest,
+    ) -> aitech_models.QueryGuardImageResponse:
+        """
+        Description: 图片人审查询
+        Summary: 图片人审查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_guard_image_ex(request, headers, runtime)
+
+    async def query_guard_image_async(
+        self,
+        request: aitech_models.QueryGuardImageRequest,
+    ) -> aitech_models.QueryGuardImageResponse:
+        """
+        Description: 图片人审查询
+        Summary: 图片人审查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_guard_image_ex_async(request, headers, runtime)
+
+    def query_guard_image_ex(
+        self,
+        request: aitech_models.QueryGuardImageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryGuardImageResponse:
+        """
+        Description: 图片人审查询
+        Summary: 图片人审查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryGuardImageResponse(),
+            self.do_request('1.0', 'aitech.comm.guard.image.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_guard_image_ex_async(
+        self,
+        request: aitech_models.QueryGuardImageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryGuardImageResponse:
+        """
+        Description: 图片人审查询
+        Summary: 图片人审查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryGuardImageResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.guard.image.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_guard_image(
+        self,
+        request: aitech_models.SubmitGuardImageRequest,
+    ) -> aitech_models.SubmitGuardImageResponse:
+        """
+        Description: 图片人审入审
+        Summary: 图片人审入审
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_guard_image_ex(request, headers, runtime)
+
+    async def submit_guard_image_async(
+        self,
+        request: aitech_models.SubmitGuardImageRequest,
+    ) -> aitech_models.SubmitGuardImageResponse:
+        """
+        Description: 图片人审入审
+        Summary: 图片人审入审
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_guard_image_ex_async(request, headers, runtime)
+
+    def submit_guard_image_ex(
+        self,
+        request: aitech_models.SubmitGuardImageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.SubmitGuardImageResponse:
+        """
+        Description: 图片人审入审
+        Summary: 图片人审入审
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.SubmitGuardImageResponse(),
+            self.do_request('1.0', 'aitech.comm.guard.image.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_guard_image_ex_async(
+        self,
+        request: aitech_models.SubmitGuardImageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.SubmitGuardImageResponse:
+        """
+        Description: 图片人审入审
+        Summary: 图片人审入审
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.SubmitGuardImageResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.guard.image.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_guard_text(
+        self,
+        request: aitech_models.QueryGuardTextRequest,
+    ) -> aitech_models.QueryGuardTextResponse:
+        """
+        Description: 文本人审查询
+        Summary: 文本人审查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_guard_text_ex(request, headers, runtime)
+
+    async def query_guard_text_async(
+        self,
+        request: aitech_models.QueryGuardTextRequest,
+    ) -> aitech_models.QueryGuardTextResponse:
+        """
+        Description: 文本人审查询
+        Summary: 文本人审查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_guard_text_ex_async(request, headers, runtime)
+
+    def query_guard_text_ex(
+        self,
+        request: aitech_models.QueryGuardTextRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryGuardTextResponse:
+        """
+        Description: 文本人审查询
+        Summary: 文本人审查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryGuardTextResponse(),
+            self.do_request('1.0', 'aitech.comm.guard.text.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_guard_text_ex_async(
+        self,
+        request: aitech_models.QueryGuardTextRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryGuardTextResponse:
+        """
+        Description: 文本人审查询
+        Summary: 文本人审查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryGuardTextResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.guard.text.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_guard_text(
+        self,
+        request: aitech_models.SubmitGuardTextRequest,
+    ) -> aitech_models.SubmitGuardTextResponse:
+        """
+        Description: 文本人审提交
+        Summary: 文本人审提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_guard_text_ex(request, headers, runtime)
+
+    async def submit_guard_text_async(
+        self,
+        request: aitech_models.SubmitGuardTextRequest,
+    ) -> aitech_models.SubmitGuardTextResponse:
+        """
+        Description: 文本人审提交
+        Summary: 文本人审提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_guard_text_ex_async(request, headers, runtime)
+
+    def submit_guard_text_ex(
+        self,
+        request: aitech_models.SubmitGuardTextRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.SubmitGuardTextResponse:
+        """
+        Description: 文本人审提交
+        Summary: 文本人审提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.SubmitGuardTextResponse(),
+            self.do_request('1.0', 'aitech.comm.guard.text.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_guard_text_ex_async(
+        self,
+        request: aitech_models.SubmitGuardTextRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.SubmitGuardTextResponse:
+        """
+        Description: 文本人审提交
+        Summary: 文本人审提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.SubmitGuardTextResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.guard.text.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_guard_video(
+        self,
+        request: aitech_models.QueryGuardVideoRequest,
+    ) -> aitech_models.QueryGuardVideoResponse:
+        """
+        Description: 视频人审查询
+        Summary: 视频人审查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_guard_video_ex(request, headers, runtime)
+
+    async def query_guard_video_async(
+        self,
+        request: aitech_models.QueryGuardVideoRequest,
+    ) -> aitech_models.QueryGuardVideoResponse:
+        """
+        Description: 视频人审查询
+        Summary: 视频人审查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_guard_video_ex_async(request, headers, runtime)
+
+    def query_guard_video_ex(
+        self,
+        request: aitech_models.QueryGuardVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryGuardVideoResponse:
+        """
+        Description: 视频人审查询
+        Summary: 视频人审查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryGuardVideoResponse(),
+            self.do_request('1.0', 'aitech.comm.guard.video.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_guard_video_ex_async(
+        self,
+        request: aitech_models.QueryGuardVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryGuardVideoResponse:
+        """
+        Description: 视频人审查询
+        Summary: 视频人审查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryGuardVideoResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.guard.video.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_guard_video(
+        self,
+        request: aitech_models.SubmitGuardVideoRequest,
+    ) -> aitech_models.SubmitGuardVideoResponse:
+        """
+        Description: 视频人审提交
+        Summary: 视频人审提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_guard_video_ex(request, headers, runtime)
+
+    async def submit_guard_video_async(
+        self,
+        request: aitech_models.SubmitGuardVideoRequest,
+    ) -> aitech_models.SubmitGuardVideoResponse:
+        """
+        Description: 视频人审提交
+        Summary: 视频人审提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_guard_video_ex_async(request, headers, runtime)
+
+    def submit_guard_video_ex(
+        self,
+        request: aitech_models.SubmitGuardVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.SubmitGuardVideoResponse:
+        """
+        Description: 视频人审提交
+        Summary: 视频人审提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.SubmitGuardVideoResponse(),
+            self.do_request('1.0', 'aitech.comm.guard.video.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_guard_video_ex_async(
+        self,
+        request: aitech_models.SubmitGuardVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.SubmitGuardVideoResponse:
+        """
+        Description: 视频人审提交
+        Summary: 视频人审提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.SubmitGuardVideoResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.guard.video.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_guard_audiobase(
+        self,
+        request: aitech_models.QueryGuardAudiobaseRequest,
+    ) -> aitech_models.QueryGuardAudiobaseResponse:
+        """
+        Description: 音频机审查询-基础版
+        Summary: 音频机审查询-基础版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_guard_audiobase_ex(request, headers, runtime)
+
+    async def query_guard_audiobase_async(
+        self,
+        request: aitech_models.QueryGuardAudiobaseRequest,
+    ) -> aitech_models.QueryGuardAudiobaseResponse:
+        """
+        Description: 音频机审查询-基础版
+        Summary: 音频机审查询-基础版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_guard_audiobase_ex_async(request, headers, runtime)
+
+    def query_guard_audiobase_ex(
+        self,
+        request: aitech_models.QueryGuardAudiobaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryGuardAudiobaseResponse:
+        """
+        Description: 音频机审查询-基础版
+        Summary: 音频机审查询-基础版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryGuardAudiobaseResponse(),
+            self.do_request('1.0', 'aitech.comm.guard.audiobase.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_guard_audiobase_ex_async(
+        self,
+        request: aitech_models.QueryGuardAudiobaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryGuardAudiobaseResponse:
+        """
+        Description: 音频机审查询-基础版
+        Summary: 音频机审查询-基础版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryGuardAudiobaseResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.guard.audiobase.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_guard_audiobase(
+        self,
+        request: aitech_models.SubmitGuardAudiobaseRequest,
+    ) -> aitech_models.SubmitGuardAudiobaseResponse:
+        """
+        Description: 音频机审入审-基础版
+        Summary: 音频机审入审-基础版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_guard_audiobase_ex(request, headers, runtime)
+
+    async def submit_guard_audiobase_async(
+        self,
+        request: aitech_models.SubmitGuardAudiobaseRequest,
+    ) -> aitech_models.SubmitGuardAudiobaseResponse:
+        """
+        Description: 音频机审入审-基础版
+        Summary: 音频机审入审-基础版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_guard_audiobase_ex_async(request, headers, runtime)
+
+    def submit_guard_audiobase_ex(
+        self,
+        request: aitech_models.SubmitGuardAudiobaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.SubmitGuardAudiobaseResponse:
+        """
+        Description: 音频机审入审-基础版
+        Summary: 音频机审入审-基础版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.SubmitGuardAudiobaseResponse(),
+            self.do_request('1.0', 'aitech.comm.guard.audiobase.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_guard_audiobase_ex_async(
+        self,
+        request: aitech_models.SubmitGuardAudiobaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.SubmitGuardAudiobaseResponse:
+        """
+        Description: 音频机审入审-基础版
+        Summary: 音频机审入审-基础版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.SubmitGuardAudiobaseResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.guard.audiobase.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_guard_imagebase(
+        self,
+        request: aitech_models.ApplyGuardImagebaseRequest,
+    ) -> aitech_models.ApplyGuardImagebaseResponse:
+        """
+        Description: 图片机审申请-基础版
+        Summary: 图片机审申请-基础版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_guard_imagebase_ex(request, headers, runtime)
+
+    async def apply_guard_imagebase_async(
+        self,
+        request: aitech_models.ApplyGuardImagebaseRequest,
+    ) -> aitech_models.ApplyGuardImagebaseResponse:
+        """
+        Description: 图片机审申请-基础版
+        Summary: 图片机审申请-基础版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_guard_imagebase_ex_async(request, headers, runtime)
+
+    def apply_guard_imagebase_ex(
+        self,
+        request: aitech_models.ApplyGuardImagebaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.ApplyGuardImagebaseResponse:
+        """
+        Description: 图片机审申请-基础版
+        Summary: 图片机审申请-基础版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.ApplyGuardImagebaseResponse(),
+            self.do_request('1.0', 'aitech.comm.guard.imagebase.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_guard_imagebase_ex_async(
+        self,
+        request: aitech_models.ApplyGuardImagebaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.ApplyGuardImagebaseResponse:
+        """
+        Description: 图片机审申请-基础版
+        Summary: 图片机审申请-基础版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.ApplyGuardImagebaseResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.guard.imagebase.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_guard_imageadvanced(
+        self,
+        request: aitech_models.ApplyGuardImageadvancedRequest,
+    ) -> aitech_models.ApplyGuardImageadvancedResponse:
+        """
+        Description: 图片机审申请-增强版
+        Summary: 图片机审申请-增强版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_guard_imageadvanced_ex(request, headers, runtime)
+
+    async def apply_guard_imageadvanced_async(
+        self,
+        request: aitech_models.ApplyGuardImageadvancedRequest,
+    ) -> aitech_models.ApplyGuardImageadvancedResponse:
+        """
+        Description: 图片机审申请-增强版
+        Summary: 图片机审申请-增强版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_guard_imageadvanced_ex_async(request, headers, runtime)
+
+    def apply_guard_imageadvanced_ex(
+        self,
+        request: aitech_models.ApplyGuardImageadvancedRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.ApplyGuardImageadvancedResponse:
+        """
+        Description: 图片机审申请-增强版
+        Summary: 图片机审申请-增强版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.ApplyGuardImageadvancedResponse(),
+            self.do_request('1.0', 'aitech.comm.guard.imageadvanced.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_guard_imageadvanced_ex_async(
+        self,
+        request: aitech_models.ApplyGuardImageadvancedRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.ApplyGuardImageadvancedResponse:
+        """
+        Description: 图片机审申请-增强版
+        Summary: 图片机审申请-增强版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.ApplyGuardImageadvancedResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.guard.imageadvanced.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_guard_textbase(
+        self,
+        request: aitech_models.ApplyGuardTextbaseRequest,
+    ) -> aitech_models.ApplyGuardTextbaseResponse:
+        """
+        Description: 文本机审申请-基础版
+        Summary: 文本机审申请-基础版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_guard_textbase_ex(request, headers, runtime)
+
+    async def apply_guard_textbase_async(
+        self,
+        request: aitech_models.ApplyGuardTextbaseRequest,
+    ) -> aitech_models.ApplyGuardTextbaseResponse:
+        """
+        Description: 文本机审申请-基础版
+        Summary: 文本机审申请-基础版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_guard_textbase_ex_async(request, headers, runtime)
+
+    def apply_guard_textbase_ex(
+        self,
+        request: aitech_models.ApplyGuardTextbaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.ApplyGuardTextbaseResponse:
+        """
+        Description: 文本机审申请-基础版
+        Summary: 文本机审申请-基础版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.ApplyGuardTextbaseResponse(),
+            self.do_request('1.0', 'aitech.comm.guard.textbase.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_guard_textbase_ex_async(
+        self,
+        request: aitech_models.ApplyGuardTextbaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.ApplyGuardTextbaseResponse:
+        """
+        Description: 文本机审申请-基础版
+        Summary: 文本机审申请-基础版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.ApplyGuardTextbaseResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.guard.textbase.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_guard_videobase(
+        self,
+        request: aitech_models.QueryGuardVideobaseRequest,
+    ) -> aitech_models.QueryGuardVideobaseResponse:
+        """
+        Description: 视频机审查询-基础版
+        Summary: 视频机审查询-基础版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_guard_videobase_ex(request, headers, runtime)
+
+    async def query_guard_videobase_async(
+        self,
+        request: aitech_models.QueryGuardVideobaseRequest,
+    ) -> aitech_models.QueryGuardVideobaseResponse:
+        """
+        Description: 视频机审查询-基础版
+        Summary: 视频机审查询-基础版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_guard_videobase_ex_async(request, headers, runtime)
+
+    def query_guard_videobase_ex(
+        self,
+        request: aitech_models.QueryGuardVideobaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryGuardVideobaseResponse:
+        """
+        Description: 视频机审查询-基础版
+        Summary: 视频机审查询-基础版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryGuardVideobaseResponse(),
+            self.do_request('1.0', 'aitech.comm.guard.videobase.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_guard_videobase_ex_async(
+        self,
+        request: aitech_models.QueryGuardVideobaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryGuardVideobaseResponse:
+        """
+        Description: 视频机审查询-基础版
+        Summary: 视频机审查询-基础版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryGuardVideobaseResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.guard.videobase.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_guard_videobase(
+        self,
+        request: aitech_models.SubmitGuardVideobaseRequest,
+    ) -> aitech_models.SubmitGuardVideobaseResponse:
+        """
+        Description: 视频机审提交-基础版
+        Summary: 视频机审提交-基础版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_guard_videobase_ex(request, headers, runtime)
+
+    async def submit_guard_videobase_async(
+        self,
+        request: aitech_models.SubmitGuardVideobaseRequest,
+    ) -> aitech_models.SubmitGuardVideobaseResponse:
+        """
+        Description: 视频机审提交-基础版
+        Summary: 视频机审提交-基础版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_guard_videobase_ex_async(request, headers, runtime)
+
+    def submit_guard_videobase_ex(
+        self,
+        request: aitech_models.SubmitGuardVideobaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.SubmitGuardVideobaseResponse:
+        """
+        Description: 视频机审提交-基础版
+        Summary: 视频机审提交-基础版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.SubmitGuardVideobaseResponse(),
+            self.do_request('1.0', 'aitech.comm.guard.videobase.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_guard_videobase_ex_async(
+        self,
+        request: aitech_models.SubmitGuardVideobaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.SubmitGuardVideobaseResponse:
+        """
+        Description: 视频机审提交-基础版
+        Summary: 视频机审提交-基础版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.SubmitGuardVideobaseResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.guard.videobase.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
