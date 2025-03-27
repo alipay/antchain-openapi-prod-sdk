@@ -2458,6 +2458,55 @@ export class XrTicketPoolSuccessList extends $tea.Model {
   }
 }
 
+// 要素关系信息
+export class AssetElementRelationInfo extends $tea.Model {
+  // 来源要素ID
+  sourceElementId: string;
+  // 目标要素ID
+  targetElementId: string;
+  // 关联类型
+  relationType: number;
+  // 关联依据类型
+  relationDependencyType?: string;
+  // 关联依据
+  relationDependency?: string;
+  // 项目ID
+  projectId: string;
+  // 来源要素名称
+  sourceElementName: string;
+  // 目标要素名称
+  targetElementName: string;
+  static names(): { [key: string]: string } {
+    return {
+      sourceElementId: 'source_element_id',
+      targetElementId: 'target_element_id',
+      relationType: 'relation_type',
+      relationDependencyType: 'relation_dependency_type',
+      relationDependency: 'relation_dependency',
+      projectId: 'project_id',
+      sourceElementName: 'source_element_name',
+      targetElementName: 'target_element_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      sourceElementId: 'string',
+      targetElementId: 'string',
+      relationType: 'number',
+      relationDependencyType: 'string',
+      relationDependency: 'string',
+      projectId: 'string',
+      sourceElementName: 'string',
+      targetElementName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 更新设备和空间关联请求结构体
 export class UpdateDeviceSpaceReq extends $tea.Model {
   // API要更新的设备DID
@@ -3550,12 +3599,15 @@ export class EventSpecs extends $tea.Model {
   bizType?: string;
   // 提交日期
   submitDate?: string;
+  // 是否是补数据内容
+  isRepaired?: boolean;
   static names(): { [key: string]: string } {
     return {
       eventModelId: 'event_model_id',
       returnHash: 'return_hash',
       bizType: 'biz_type',
       submitDate: 'submit_date',
+      isRepaired: 'is_repaired',
     };
   }
 
@@ -3565,6 +3617,7 @@ export class EventSpecs extends $tea.Model {
       returnHash: 'boolean',
       bizType: 'string',
       submitDate: 'string',
+      isRepaired: 'boolean',
     };
   }
 
@@ -5730,6 +5783,91 @@ export class DidBaseQueryResp extends $tea.Model {
       thingVersion: 'string',
       userDidList: { 'type': 'array', 'itemType': 'string' },
       did: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 要素信息
+export class AssetElementInfo extends $tea.Model {
+  // 项目ID
+  projectId: string;
+  // 要素ID
+  elementId: string;
+  // 要素名称
+  elementName?: string;
+  // 要素类型
+  elementType: string;
+  // 数据来源渠道， 物理要素非必填；数据要素必填；
+  fromType?: string;
+  // 平台领域类型， 物理要素非必填；数据要素必填；
+  dataElementType?: string;
+  // 属性列表， 物理要素非必填；数据要素必填；
+  propertyList?: string;
+  // 数据上报频率
+  frequency?: string;
+  // 物理要素类型码，包含iot和资管的
+  physicsElementTypeCode: string;
+  // 业务类型
+  bizType?: string;
+  // 该要素的存储位置， index代表数据流转顺序，location为库表/logstore名称，remark备注
+  persistentLocation?: string;
+  // 要素实例信息，用于捞取最小闭环数据
+  elementInstanceConfig?: string;
+  // 要素实例
+  elementInstanceInfo?: string;
+  // 属性列表来源平台 1.IOT 2.DM
+  propertySourceType?: number;
+  // 拉取数据字段code请求值
+  propertySourceId?: string;
+  // 要素主键字段信息
+  primaryKeyInfo?: string;
+  // 备注
+  remark?: string;
+  static names(): { [key: string]: string } {
+    return {
+      projectId: 'project_id',
+      elementId: 'element_id',
+      elementName: 'element_name',
+      elementType: 'element_type',
+      fromType: 'from_type',
+      dataElementType: 'data_element_type',
+      propertyList: 'property_list',
+      frequency: 'frequency',
+      physicsElementTypeCode: 'physics_element_type_code',
+      bizType: 'biz_type',
+      persistentLocation: 'persistent_location',
+      elementInstanceConfig: 'element_instance_config',
+      elementInstanceInfo: 'element_instance_info',
+      propertySourceType: 'property_source_type',
+      propertySourceId: 'property_source_id',
+      primaryKeyInfo: 'primary_key_info',
+      remark: 'remark',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      projectId: 'string',
+      elementId: 'string',
+      elementName: 'string',
+      elementType: 'string',
+      fromType: 'string',
+      dataElementType: 'string',
+      propertyList: 'string',
+      frequency: 'string',
+      physicsElementTypeCode: 'string',
+      bizType: 'string',
+      persistentLocation: 'string',
+      elementInstanceConfig: 'string',
+      elementInstanceInfo: 'string',
+      propertySourceType: 'number',
+      propertySourceId: 'string',
+      primaryKeyInfo: 'string',
+      remark: 'string',
     };
   }
 
@@ -25933,6 +26071,105 @@ export class QueryOssDownloadjoburlResponse extends $tea.Model {
   }
 }
 
+export class SyncAssetelementProjectRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 若要素项目已存在，是否进行全量覆盖
+  coverExistProject: boolean;
+  // 同步目标
+  destination: string;
+  // 项目ID
+  projectId: string;
+  // 项目名称
+  projectName: string;
+  // 根元素ID列表
+  rootElements?: string;
+  // 是否只读
+  readOnly: boolean;
+  // 备注
+  remark?: string;
+  // 附件列表
+  attachmentList?: string;
+  // 产品Owner
+  pdOwner?: string;
+  // 要素列表
+  assetElementInfoList?: AssetElementInfo[];
+  // 要素关系列表
+  assetElementRelationInfoList?: AssetElementRelationInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      coverExistProject: 'cover_exist_project',
+      destination: 'destination',
+      projectId: 'project_id',
+      projectName: 'project_name',
+      rootElements: 'root_elements',
+      readOnly: 'read_only',
+      remark: 'remark',
+      attachmentList: 'attachment_list',
+      pdOwner: 'pd_owner',
+      assetElementInfoList: 'asset_element_info_list',
+      assetElementRelationInfoList: 'asset_element_relation_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      coverExistProject: 'boolean',
+      destination: 'string',
+      projectId: 'string',
+      projectName: 'string',
+      rootElements: 'string',
+      readOnly: 'boolean',
+      remark: 'string',
+      attachmentList: 'string',
+      pdOwner: 'string',
+      assetElementInfoList: { 'type': 'array', 'itemType': AssetElementInfo },
+      assetElementRelationInfoList: { 'type': 'array', 'itemType': AssetElementRelationInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncAssetelementProjectResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 同步结果
+  syncStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      syncStatus: 'sync_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      syncStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecThingsdidOneapiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -27315,7 +27552,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.7",
+          sdk_version: "1.12.10",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -32193,6 +32430,25 @@ export default class Client {
   async queryOssDownloadjoburlEx(request: QueryOssDownloadjoburlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryOssDownloadjoburlResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryOssDownloadjoburlResponse>(await this.doRequest("1.0", "blockchain.bot.oss.downloadjoburl.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryOssDownloadjoburlResponse({}));
+  }
+
+  /**
+   * Description: 要素项目同步
+   * Summary: 要素项目同步
+   */
+  async syncAssetelementProject(request: SyncAssetelementProjectRequest): Promise<SyncAssetelementProjectResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncAssetelementProjectEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 要素项目同步
+   * Summary: 要素项目同步
+   */
+  async syncAssetelementProjectEx(request: SyncAssetelementProjectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncAssetelementProjectResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncAssetelementProjectResponse>(await this.doRequest("1.0", "blockchain.bot.assetelement.project.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncAssetelementProjectResponse({}));
   }
 
   /**
