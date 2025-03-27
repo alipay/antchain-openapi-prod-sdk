@@ -30,6 +30,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string SubmitDate { get; set; }
 
+        // 是否是补数据内容
+        [NameInMap("is_repaired")]
+        [Validation(Required=false)]
+        public bool? IsRepaired { get; set; }
+
     }
 
 }
