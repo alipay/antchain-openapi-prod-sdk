@@ -5827,6 +5827,7 @@ class EventSpecs(TeaModel):
         return_hash: bool = None,
         biz_type: str = None,
         submit_date: str = None,
+        is_repaired: bool = None,
     ):
         # 物模型事件ID
         self.event_model_id = event_model_id
@@ -5836,6 +5837,8 @@ class EventSpecs(TeaModel):
         self.biz_type = biz_type
         # 提交日期
         self.submit_date = submit_date
+        # 是否是补数据内容
+        self.is_repaired = is_repaired
 
     def validate(self):
         self.validate_required(self.event_model_id, 'event_model_id')
@@ -5854,6 +5857,8 @@ class EventSpecs(TeaModel):
             result['biz_type'] = self.biz_type
         if self.submit_date is not None:
             result['submit_date'] = self.submit_date
+        if self.is_repaired is not None:
+            result['is_repaired'] = self.is_repaired
         return result
 
     def from_map(self, m: dict = None):
@@ -5866,6 +5871,8 @@ class EventSpecs(TeaModel):
             self.biz_type = m.get('biz_type')
         if m.get('submit_date') is not None:
             self.submit_date = m.get('submit_date')
+        if m.get('is_repaired') is not None:
+            self.is_repaired = m.get('is_repaired')
         return self
 
 
