@@ -21,6 +21,10 @@ public class EventSpecs extends TeaModel {
     @NameInMap("submit_date")
     public String submitDate;
 
+    // 是否是补数据内容
+    @NameInMap("is_repaired")
+    public Boolean isRepaired;
+
     public static EventSpecs build(java.util.Map<String, ?> map) throws Exception {
         EventSpecs self = new EventSpecs();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class EventSpecs extends TeaModel {
     }
     public String getSubmitDate() {
         return this.submitDate;
+    }
+
+    public EventSpecs setIsRepaired(Boolean isRepaired) {
+        this.isRepaired = isRepaired;
+        return this;
+    }
+    public Boolean getIsRepaired() {
+        return this.isRepaired;
     }
 
 }
