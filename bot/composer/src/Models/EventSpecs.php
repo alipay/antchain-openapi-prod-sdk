@@ -39,11 +39,20 @@ class EventSpecs extends Model
      * @var string
      */
     public $submitDate;
+
+    // 是否是补数据内容
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $isRepaired;
     protected $_name = [
         'eventModelId' => 'event_model_id',
         'returnHash'   => 'return_hash',
         'bizType'      => 'biz_type',
         'submitDate'   => 'submit_date',
+        'isRepaired'   => 'is_repaired',
     ];
 
     public function validate()
@@ -65,6 +74,9 @@ class EventSpecs extends Model
         }
         if (null !== $this->submitDate) {
             $res['submit_date'] = $this->submitDate;
+        }
+        if (null !== $this->isRepaired) {
+            $res['is_repaired'] = $this->isRepaired;
         }
 
         return $res;
@@ -89,6 +101,9 @@ class EventSpecs extends Model
         }
         if (isset($map['submit_date'])) {
             $model->submitDate = $map['submit_date'];
+        }
+        if (isset($map['is_repaired'])) {
+            $model->isRepaired = $map['is_repaired'];
         }
 
         return $model;
