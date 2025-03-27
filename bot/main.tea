@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.8',
+    sdk_version = '1.12.10',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -1616,6 +1616,8 @@ model EventSpecs {
   bizType?: string(name='biz_type', example='ORDER'),
   // 提交日期
   submitDate?: string(name='submit_date', example='2024-08-15'),
+  // 是否是补数据内容
+  isRepaired?: boolean(name='is_repaired', example='true, false'),
 }
 
 // 数据校验失败分页查询结果
