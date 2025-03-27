@@ -4711,6 +4711,8 @@ type EventSpecs struct {
 	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
 	// 提交日期
 	SubmitDate *string `json:"submit_date,omitempty" xml:"submit_date,omitempty"`
+	// 是否是补数据内容
+	IsRepaired *bool `json:"is_repaired,omitempty" xml:"is_repaired,omitempty"`
 }
 
 func (s EventSpecs) String() string {
@@ -4738,6 +4740,11 @@ func (s *EventSpecs) SetBizType(v string) *EventSpecs {
 
 func (s *EventSpecs) SetSubmitDate(v string) *EventSpecs {
 	s.SubmitDate = &v
+	return s
+}
+
+func (s *EventSpecs) SetIsRepaired(v bool) *EventSpecs {
+	s.IsRepaired = &v
 	return s
 }
 
@@ -35906,7 +35913,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.8"),
+				"sdk_version":      tea.String("1.12.10"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
