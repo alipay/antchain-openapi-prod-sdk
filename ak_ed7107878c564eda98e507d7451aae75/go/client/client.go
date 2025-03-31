@@ -404,6 +404,39 @@ func (s *AvatarBubbleInfo) SetLink(v string) *AvatarBubbleInfo {
 	return s
 }
 
+// 知识点批量导入任务结果
+type ImportTaskResult struct {
+	// 任务状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 进度值
+	Progress *int64 `json:"progress,omitempty" xml:"progress,omitempty"`
+	// 错误日志
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+}
+
+func (s ImportTaskResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportTaskResult) GoString() string {
+	return s.String()
+}
+
+func (s *ImportTaskResult) SetStatus(v string) *ImportTaskResult {
+	s.Status = &v
+	return s
+}
+
+func (s *ImportTaskResult) SetProgress(v int64) *ImportTaskResult {
+	s.Progress = &v
+	return s
+}
+
+func (s *ImportTaskResult) SetErrorMessage(v string) *ImportTaskResult {
+	s.ErrorMessage = &v
+	return s
+}
+
 // 数字人平台--交互配置信息
 type AvatarConfigInfo struct {
 	// 交互配置id
@@ -1723,6 +1756,83 @@ func (s *OfflineUniversalsaasDigitalhumanChatSettingResponse) SetResultMsg(v str
 	return s
 }
 
+type QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户编码
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+	// 导入任务id
+	TaskId *int64 `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest) SetAuthToken(v string) *QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest) SetProductInstanceId(v string) *QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest) SetTenantCode(v string) *QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest {
+	s.TenantCode = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest) SetTaskId(v int64) *QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 批量导入任务结果
+	Data *ImportTaskResult `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse) SetReqMsgId(v string) *QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse) SetResultCode(v string) *QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse) SetResultMsg(v string) *QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse) SetData(v *ImportTaskResult) *QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse {
+	s.Data = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1845,7 +1955,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("1.0.2"),
 				"_prod_code":       tea.String("ak_ed7107878c564eda98e507d7451aae75"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -2406,6 +2516,40 @@ func (client *Client) OfflineUniversalsaasDigitalhumanChatSettingEx(request *Off
 	}
 	_result = &OfflineUniversalsaasDigitalhumanChatSettingResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.chat.setting.offline"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询批量导入任务
+ * Summary: 查询批量导入任务
+ */
+func (client *Client) QueryUniversalsaasDigitalhumanKnowledgeImporttask(request *QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest) (_result *QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse{}
+	_body, _err := client.QueryUniversalsaasDigitalhumanKnowledgeImporttaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询批量导入任务
+ * Summary: 查询批量导入任务
+ */
+func (client *Client) QueryUniversalsaasDigitalhumanKnowledgeImporttaskEx(request *QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.knowledge.importtask.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
