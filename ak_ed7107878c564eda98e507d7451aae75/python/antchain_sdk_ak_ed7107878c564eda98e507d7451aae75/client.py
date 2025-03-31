@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.0.2',
                     '_prod_code': 'ak_ed7107878c564eda98e507d7451aae75',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.0.2',
                     '_prod_code': 'ak_ed7107878c564eda98e507d7451aae75',
                     '_prod_channel': 'saas'
                 }
@@ -1113,4 +1113,60 @@ class Client:
         return TeaCore.from_map(
             ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.OfflineUniversalsaasDigitalhumanChatSettingResponse(),
             await self.do_request_async('1.0', 'universalsaas.digitalhuman.chat.setting.offline', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_universalsaas_digitalhuman_knowledge_importtask(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse:
+        """
+        Description: 查询批量导入任务
+        Summary: 查询批量导入任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_universalsaas_digitalhuman_knowledge_importtask_ex(request, headers, runtime)
+
+    async def query_universalsaas_digitalhuman_knowledge_importtask_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse:
+        """
+        Description: 查询批量导入任务
+        Summary: 查询批量导入任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_universalsaas_digitalhuman_knowledge_importtask_ex_async(request, headers, runtime)
+
+    def query_universalsaas_digitalhuman_knowledge_importtask_ex(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse:
+        """
+        Description: 查询批量导入任务
+        Summary: 查询批量导入任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.knowledge.importtask.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_universalsaas_digitalhuman_knowledge_importtask_ex_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse:
+        """
+        Description: 查询批量导入任务
+        Summary: 查询批量导入任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.knowledge.importtask.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
