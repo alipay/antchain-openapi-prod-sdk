@@ -274,6 +274,35 @@ export class AvatarBubbleInfo extends $tea.Model {
   }
 }
 
+// 知识点批量导入任务结果
+export class ImportTaskResult extends $tea.Model {
+  // 任务状态
+  status: string;
+  // 进度值
+  progress?: number;
+  // 错误日志
+  errorMessage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      status: 'status',
+      progress: 'progress',
+      errorMessage: 'error_message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      status: 'string',
+      progress: 'number',
+      errorMessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 数字人平台--交互配置信息
 export class AvatarConfigInfo extends $tea.Model {
   // 交互配置id
@@ -1333,6 +1362,69 @@ export class OfflineUniversalsaasDigitalhumanChatSettingResponse extends $tea.Mo
   }
 }
 
+export class QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户编码
+  tenantCode: string;
+  // 导入任务id
+  taskId: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantCode: 'tenant_code',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantCode: 'string',
+      taskId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 批量导入任务结果
+  data?: ImportTaskResult;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: ImportTaskResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1446,7 +1538,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.1",
+          sdk_version: "1.0.2",
           _prod_code: "ak_ed7107878c564eda98e507d7451aae75",
           _prod_channel: "saas",
         };
@@ -1777,6 +1869,25 @@ export default class Client {
   async offlineUniversalsaasDigitalhumanChatSettingEx(request: OfflineUniversalsaasDigitalhumanChatSettingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OfflineUniversalsaasDigitalhumanChatSettingResponse> {
     Util.validateModel(request);
     return $tea.cast<OfflineUniversalsaasDigitalhumanChatSettingResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.chat.setting.offline", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OfflineUniversalsaasDigitalhumanChatSettingResponse({}));
+  }
+
+  /**
+   * Description: 查询批量导入任务
+   * Summary: 查询批量导入任务
+   */
+  async queryUniversalsaasDigitalhumanKnowledgeImporttask(request: QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest): Promise<QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUniversalsaasDigitalhumanKnowledgeImporttaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询批量导入任务
+   * Summary: 查询批量导入任务
+   */
+  async queryUniversalsaasDigitalhumanKnowledgeImporttaskEx(request: QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.knowledge.importtask.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse({}));
   }
 
 }
