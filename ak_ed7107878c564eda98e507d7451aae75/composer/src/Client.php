@@ -35,6 +35,8 @@ use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\OnlineUniversalsaasDigit
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\OnlineUniversalsaasDigitalhumanChatSettingResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\OnlineUniversalsaasDigitalhumanKnowledgeRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\OnlineUniversalsaasDigitalhumanKnowledgeResponse;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\SetUniversalsaasDigitalhumanChatSettingRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\SetUniversalsaasDigitalhumanChatSettingResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\UpdateUniversalsaasDigitalhumanKnowledgeRequest;
@@ -188,7 +190,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.1',
+                    'sdk_version'      => '1.0.2',
                     '_prod_code'       => 'ak_ed7107878c564eda98e507d7451aae75',
                     '_prod_channel'    => 'saas',
                 ];
@@ -729,5 +731,38 @@ class Client
         Utils::validateModel($request);
 
         return OfflineUniversalsaasDigitalhumanChatSettingResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.chat.setting.offline', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询批量导入任务
+     * Summary: 查询批量导入任务
+     *
+     * @param QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest $request
+     *
+     * @return QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse
+     */
+    public function queryUniversalsaasDigitalhumanKnowledgeImporttask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUniversalsaasDigitalhumanKnowledgeImporttaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询批量导入任务
+     * Summary: 查询批量导入任务
+     *
+     * @param QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest $request
+     * @param string[]                                                 $headers
+     * @param RuntimeOptions                                           $runtime
+     *
+     * @return QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse
+     */
+    public function queryUniversalsaasDigitalhumanKnowledgeImporttaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.knowledge.importtask.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
