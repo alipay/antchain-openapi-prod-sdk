@@ -40,29 +40,29 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string ProcessType { get; set; }
 
-        // 服务商名称
+        // 服务商名称（已废弃）
         [NameInMap("service_provider_name")]
         [Validation(Required=false)]
         public string ServiceProviderName { get; set; }
-
-        // 客诉处理员支付宝绑定手机号
-        [NameInMap("alipay_bind_mobile")]
-        [Validation(Required=true)]
-        public string AlipayBindMobile { get; set; }
-
-        // 客诉处理员支付宝账号
-        [NameInMap("alipay_logon_id")]
-        [Validation(Required=true)]
-        public string AlipayLogonId { get; set; }
 
         // 客服电话
         [NameInMap("customer_service_phone")]
         [Validation(Required=true)]
         public string CustomerServicePhone { get; set; }
 
-        // 客服人员名称
+        // 客诉处理员支付宝绑定手机号（已废弃）
+        [NameInMap("alipay_bind_mobile")]
+        [Validation(Required=false)]
+        public string AlipayBindMobile { get; set; }
+
+        // 客诉处理员支付宝账号（已废弃）
+        [NameInMap("alipay_logon_id")]
+        [Validation(Required=false)]
+        public string AlipayLogonId { get; set; }
+
+        // 客服人员名称（已废弃）
         [NameInMap("customer_service_name")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CustomerServiceName { get; set; }
 
         // 在线客服网址
@@ -72,8 +72,13 @@ namespace AntChain.SDK.ATO.Models
 
         // 投诉问题
         [NameInMap("customer_complaint_issues")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CustomerComplaintIssues { get; set; }
+
+        // 客诉人员信息，直连必填
+        [NameInMap("customer_person_info_list")]
+        [Validation(Required=false)]
+        public List<CustomerPersonInfo> CustomerPersonInfoList { get; set; }
 
         // 进件类型
         // DIRECT("DIRECT", "直连进件模式"),

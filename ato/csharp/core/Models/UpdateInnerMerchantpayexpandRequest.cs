@@ -43,6 +43,16 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string MerchantId { get; set; }
 
+        // 租户id
+        [NameInMap("tenant_id")]
+        [Validation(Required=true)]
+        public string TenantId { get; set; }
+
+        // 操作人名称
+        [NameInMap("user_name")]
+        [Validation(Required=true)]
+        public string UserName { get; set; }
+
     }
 
 }

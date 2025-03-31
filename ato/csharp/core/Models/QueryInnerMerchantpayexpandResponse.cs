@@ -69,6 +69,12 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public bool? ShowCustomerServiceBanner { get; set; }
 
+        // 是否直付通进件已成功
+        // 用于前端判断进件成功之后用户修改操作
+        [NameInMap("zft_expand_successful")]
+        [Validation(Required=false)]
+        public bool? ZftExpandSuccessful { get; set; }
+
     }
 
 }
