@@ -2067,6 +2067,35 @@ export class OrderMsgInfo extends $tea.Model {
   }
 }
 
+// 客诉处理人员信息
+export class CustomerPersonInfo extends $tea.Model {
+  // 客诉处理员支付宝账号
+  alipayLogonId: string;
+  // 客诉处理员支付宝绑定手机号
+  alipayBindMobile: string;
+  // 客服人员名称
+  customerServiceName: string;
+  static names(): { [key: string]: string } {
+    return {
+      alipayLogonId: 'alipay_logon_id',
+      alipayBindMobile: 'alipay_bind_mobile',
+      customerServiceName: 'customer_service_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      alipayLogonId: 'string',
+      alipayBindMobile: 'string',
+      customerServiceName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 营销发奖风险识别入参模型
 export class AwardingQueryModel extends $tea.Model {
   // 对方支付宝账户 uid，用于表示两个账户在业务交互中的对方账户，如人传人活动用户A会拉用户B来注册领奖，其中用户B为对方账户
@@ -2574,6 +2603,73 @@ export class XNameValuePair extends $tea.Model {
     return {
       name: 'string',
       value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class TransferBrokerUserdataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 数据的唯一id，支持数字、大小写字母或下划线
+  dataId: string;
+  // 枚举，数据类型
+  dataType: string;
+  // 数据内容,使用JSONArray结构
+  dataContent: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      dataId: 'data_id',
+      dataType: 'data_type',
+      dataContent: 'data_content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      dataId: 'string',
+      dataType: 'string',
+      dataContent: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class TransferBrokerUserdataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 数据id
+  dataId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      dataId: 'data_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      dataId: 'string',
     };
   }
 
@@ -5244,6 +5340,144 @@ export class QueryFundAssetpackageResponse extends $tea.Model {
   }
 }
 
+export class ConfirmFundUsercancelRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id 长度不可超过50
+  orderId: string;
+  // 订单所属商户的社会信用代码
+  merchantId: string;
+  // 融资单的资方社会信用代码
+  fundId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      merchantId: 'merchant_id',
+      fundId: 'fund_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      merchantId: 'string',
+      fundId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmFundUsercancelResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RepayFundPlanRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id 长度不可超过50
+  orderId: string;
+  // 订单所属商户的社会信用代码
+  merchantId: string;
+  // 融资单的资方社会信用代码
+  fundId: string;
+  // 商户履约的期数
+  termIndex: number;
+  // 还款金额
+  amount: number;
+  // 支付描述
+  paymentDescription: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      merchantId: 'merchant_id',
+      fundId: 'fund_id',
+      termIndex: 'term_index',
+      amount: 'amount',
+      paymentDescription: 'payment_description',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      merchantId: 'string',
+      fundId: 'string',
+      termIndex: 'number',
+      amount: 'number',
+      paymentDescription: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RepayFundPlanResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class GetInnerProductRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -7444,6 +7678,9 @@ export class QueryInnerMerchantpayexpandResponse extends $tea.Model {
   expandFailReason?: string;
   // 是否展示客服信息登记入口
   showCustomerServiceBanner?: boolean;
+  // 是否直付通进件已成功
+  // 用于前端判断进件成功之后用户修改操作
+  zftExpandSuccessful?: boolean;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -7458,6 +7695,7 @@ export class QueryInnerMerchantpayexpandResponse extends $tea.Model {
       expandStatus: 'expand_status',
       expandFailReason: 'expand_fail_reason',
       showCustomerServiceBanner: 'show_customer_service_banner',
+      zftExpandSuccessful: 'zft_expand_successful',
     };
   }
 
@@ -7475,6 +7713,7 @@ export class QueryInnerMerchantpayexpandResponse extends $tea.Model {
       expandStatus: 'string',
       expandFailReason: 'string',
       showCustomerServiceBanner: 'boolean',
+      zftExpandSuccessful: 'boolean',
     };
   }
 
@@ -9645,20 +9884,22 @@ export class CreateInnerCustomerserviceRequest extends $tea.Model {
   // MERCHANT_PROCESS("MERCHANT_PROCESS", "商家处理"),
   // PROXY_PROCESS("PROXY_PROCESS", "服务商代处理"),
   processType: string;
-  // 服务商名称
+  // 服务商名称（已废弃）
   serviceProviderName?: string;
-  // 客诉处理员支付宝绑定手机号
-  alipayBindMobile: string;
-  // 客诉处理员支付宝账号
-  alipayLogonId: string;
   // 客服电话
   customerServicePhone: string;
-  // 客服人员名称
-  customerServiceName: string;
+  // 客诉处理员支付宝绑定手机号（已废弃）
+  alipayBindMobile?: string;
+  // 客诉处理员支付宝账号（已废弃）
+  alipayLogonId?: string;
+  // 客服人员名称（已废弃）
+  customerServiceName?: string;
   // 在线客服网址
   onlineSupportSiteUrl?: string;
   // 投诉问题
-  customerComplaintIssues: string;
+  customerComplaintIssues?: string;
+  // 客诉人员信息，直连必填
+  customerPersonInfoList?: CustomerPersonInfo[];
   // 进件类型
   // DIRECT("DIRECT", "直连进件模式"),
   // AGENT("AGENT", "代理商进件模式"),
@@ -9672,12 +9913,13 @@ export class CreateInnerCustomerserviceRequest extends $tea.Model {
       merchantName: 'merchant_name',
       processType: 'process_type',
       serviceProviderName: 'service_provider_name',
+      customerServicePhone: 'customer_service_phone',
       alipayBindMobile: 'alipay_bind_mobile',
       alipayLogonId: 'alipay_logon_id',
-      customerServicePhone: 'customer_service_phone',
       customerServiceName: 'customer_service_name',
       onlineSupportSiteUrl: 'online_support_site_url',
       customerComplaintIssues: 'customer_complaint_issues',
+      customerPersonInfoList: 'customer_person_info_list',
       expandMode: 'expand_mode',
     };
   }
@@ -9691,12 +9933,13 @@ export class CreateInnerCustomerserviceRequest extends $tea.Model {
       merchantName: 'string',
       processType: 'string',
       serviceProviderName: 'string',
+      customerServicePhone: 'string',
       alipayBindMobile: 'string',
       alipayLogonId: 'string',
-      customerServicePhone: 'string',
       customerServiceName: 'string',
       onlineSupportSiteUrl: 'string',
       customerComplaintIssues: 'string',
+      customerPersonInfoList: { 'type': 'array', 'itemType': CustomerPersonInfo },
       expandMode: 'string',
     };
   }
@@ -9743,25 +9986,27 @@ export class UpdateInnerCustomerserviceRequest extends $tea.Model {
   // 商家社会统一信用代码，间联模式必传
   merchantId?: string;
   // 公司名称
-  merchantName: string;
+  merchantName?: string;
   // 处理类型:
   // MERCHANT_PROCESS("MERCHANT_PROCESS", "商家处理"),
   // PROXY_PROCESS("PROXY_PROCESS", "服务商代处理"),
   processType: string;
-  // 服务商名称
+  // 服务商名称（已废弃）
   serviceProviderName?: string;
-  // 客诉处理员支付宝绑定手机号
-  alipayBindMobile: string;
-  // 客诉处理员支付宝账号
-  alipayLogonId: string;
+  // 客诉处理员支付宝绑定手机号（已废弃）
+  alipayBindMobile?: string;
+  // 客诉处理员支付宝账号（已废弃）
+  alipayLogonId?: string;
   // 客服电话
   customerServicePhone: string;
-  // 客服人员名称
-  customerServiceName: string;
+  // 客服人员名称（已废弃）
+  customerServiceName?: string;
   // 在线客服网址
   onlineSupportSiteUrl?: string;
   // 投诉问题
-  customerComplaintIssues: string;
+  customerComplaintIssues?: string;
+  // 客诉处理人员信息
+  customerPersonInfoList?: CustomerPersonInfo[];
   // 进件类型 
   // DIRECT("DIRECT", "直连进件模式"), AGENT("AGENT", "代理商进件模式"),
   expandMode: string;
@@ -9780,6 +10025,7 @@ export class UpdateInnerCustomerserviceRequest extends $tea.Model {
       customerServiceName: 'customer_service_name',
       onlineSupportSiteUrl: 'online_support_site_url',
       customerComplaintIssues: 'customer_complaint_issues',
+      customerPersonInfoList: 'customer_person_info_list',
       expandMode: 'expand_mode',
     };
   }
@@ -9799,6 +10045,7 @@ export class UpdateInnerCustomerserviceRequest extends $tea.Model {
       customerServiceName: 'string',
       onlineSupportSiteUrl: 'string',
       customerComplaintIssues: 'string',
+      customerPersonInfoList: { 'type': 'array', 'itemType': CustomerPersonInfo },
       expandMode: 'string',
     };
   }
@@ -9969,20 +10216,22 @@ export class DetailInnerCustomerserviceResponse extends $tea.Model {
   // MERCHANT_PROCESS("MERCHANT_PROCESS", "商家处理"),
   // PROXY_PROCESS("PROXY_PROCESS", "服务商代处理"),
   processType?: string;
-  // 服务商名称
+  // 服务商名称（已废弃）
   serviceProviderName?: string;
-  // 客诉处理员支付宝绑定手机号
+  // 客诉处理员支付宝绑定手机号（已废弃）
   alipayBindMobile?: string;
-  // 客诉处理员支付宝账号
+  // 客诉处理员支付宝账号（已废弃）
   alipayLogonId?: string;
   // 客服电话
   customerServicePhone?: string;
-  // 客服人员名称
+  // 客服人员名称（已废弃）
   customerServiceName?: string;
   // 在线客服网址
   onlineSupportSiteUrl?: string;
   // 投诉问题
   customerComplaintIssues?: string;
+  // 客诉处理人员信息
+  customerPersonInfoList?: CustomerPersonInfo[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -9998,6 +10247,7 @@ export class DetailInnerCustomerserviceResponse extends $tea.Model {
       customerServiceName: 'customer_service_name',
       onlineSupportSiteUrl: 'online_support_site_url',
       customerComplaintIssues: 'customer_complaint_issues',
+      customerPersonInfoList: 'customer_person_info_list',
     };
   }
 
@@ -10016,6 +10266,7 @@ export class DetailInnerCustomerserviceResponse extends $tea.Model {
       customerServiceName: 'string',
       onlineSupportSiteUrl: 'string',
       customerComplaintIssues: 'string',
+      customerPersonInfoList: { 'type': 'array', 'itemType': CustomerPersonInfo },
     };
   }
 
@@ -10718,6 +10969,10 @@ export class UpdateInnerMerchantpayexpandRequest extends $tea.Model {
   payExpandId: string;
   // 社会统一信用代码
   merchantId: string;
+  // 租户id
+  tenantId: string;
+  // 操作人名称
+  userName: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10727,6 +10982,8 @@ export class UpdateInnerMerchantpayexpandRequest extends $tea.Model {
       applicationInfo: 'application_info',
       payExpandId: 'pay_expand_id',
       merchantId: 'merchant_id',
+      tenantId: 'tenant_id',
+      userName: 'user_name',
     };
   }
 
@@ -10739,6 +10996,8 @@ export class UpdateInnerMerchantpayexpandRequest extends $tea.Model {
       applicationInfo: ApplicationInfoUpdate,
       payExpandId: 'string',
       merchantId: 'string',
+      tenantId: 'string',
+      userName: 'string',
     };
   }
 
@@ -10771,6 +11030,270 @@ export class UpdateInnerMerchantpayexpandResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       payExpandId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInnerTenantaccountinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInnerTenantaccountinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 租户id
+  tenantId?: string;
+  // 绑定手机号
+  bindMobile?: string;
+  // 登录账号
+  loginName?: string;
+  // 注册时间
+  createTime?: string;
+  // 是否已实名认证
+  isCertified?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tenantId: 'tenant_id',
+      bindMobile: 'bind_mobile',
+      loginName: 'login_name',
+      createTime: 'create_time',
+      isCertified: 'is_certified',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tenantId: 'string',
+      bindMobile: 'string',
+      loginName: 'string',
+      createTime: 'string',
+      isCertified: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateInnerTenantaccountinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 支付宝账号id
+  alipayUserId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      alipayUserId: 'alipay_user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      alipayUserId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateInnerTenantaccountinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 租户id
+  tenantId?: string;
+  // 登录账号
+  loginName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tenantId: 'tenant_id',
+      loginName: 'login_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tenantId: 'string',
+      loginName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetInnerAgentcustomerserviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetInnerAgentcustomerserviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 客诉问题
+  customerComplaintIssues?: string;
+  // 客诉处理人员信息
+  customerPersonInfoList?: CustomerPersonInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      customerComplaintIssues: 'customer_complaint_issues',
+      customerPersonInfoList: 'customer_person_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      customerComplaintIssues: 'string',
+      customerPersonInfoList: { 'type': 'array', 'itemType': CustomerPersonInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveInnerAgentcustomerserviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 客诉问题
+  customerComplaintIssues: string;
+  // 客诉处理人员信息
+  customerPersonInfoList: CustomerPersonInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      customerComplaintIssues: 'customer_complaint_issues',
+      customerPersonInfoList: 'customer_person_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      customerComplaintIssues: 'string',
+      customerPersonInfoList: { 'type': 'array', 'itemType': CustomerPersonInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveInnerAgentcustomerserviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -15567,7 +16090,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.14.15",
+          sdk_version: "1.14.25",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
@@ -15613,6 +16136,25 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: 数据提供方可以通过此接口传输数据，触达给消费方
+   * Summary: 用户信息传输代理
+   */
+  async transferBrokerUserdata(request: TransferBrokerUserdataRequest): Promise<TransferBrokerUserdataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.transferBrokerUserdataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数据提供方可以通过此接口传输数据，触达给消费方
+   * Summary: 用户信息传输代理
+   */
+  async transferBrokerUserdataEx(request: TransferBrokerUserdataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<TransferBrokerUserdataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<TransferBrokerUserdataResponse>(await this.doRequest("1.0", "antchain.ato.broker.userdata.transfer", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new TransferBrokerUserdataResponse({}));
   }
 
   /**
@@ -16285,6 +16827,48 @@ export default class Client {
   async queryFundAssetpackageEx(request: QueryFundAssetpackageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFundAssetpackageResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryFundAssetpackageResponse>(await this.doRequest("1.0", "antchain.ato.fund.assetpackage.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFundAssetpackageResponse({}));
+  }
+
+  /**
+   * Description: 调用说明：
+  1. 资方配置用户取消拦截能力后，用户发起取消会通知资方，自发除了发起取消商户履约外，还可以通过次接口确认用户批量取消操作，用户可以进行取消
+   * Summary: 允许用户取消(确认用户取消)
+   */
+  async confirmFundUsercancel(request: ConfirmFundUsercancelRequest): Promise<ConfirmFundUsercancelResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.confirmFundUsercancelEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 调用说明：
+  1. 资方配置用户取消拦截能力后，用户发起取消会通知资方，自发除了发起取消商户履约外，还可以通过次接口确认用户批量取消操作，用户可以进行取消
+   * Summary: 允许用户取消(确认用户取消)
+   */
+  async confirmFundUsercancelEx(request: ConfirmFundUsercancelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmFundUsercancelResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConfirmFundUsercancelResponse>(await this.doRequest("1.0", "antchain.ato.fund.usercancel.confirm", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConfirmFundUsercancelResponse({}));
+  }
+
+  /**
+   * Description: 调用说明：
+  1. 当商户通过其他方式还款后，通过次接口同步信息，同步完成后会将扣款进行取消
+   * Summary: 商户履约其他方式还款（单期取消）
+   */
+  async repayFundPlan(request: RepayFundPlanRequest): Promise<RepayFundPlanResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.repayFundPlanEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 调用说明：
+  1. 当商户通过其他方式还款后，通过次接口同步信息，同步完成后会将扣款进行取消
+   * Summary: 商户履约其他方式还款（单期取消）
+   */
+  async repayFundPlanEx(request: RepayFundPlanRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RepayFundPlanResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RepayFundPlanResponse>(await this.doRequest("1.0", "antchain.ato.fund.plan.repay", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RepayFundPlanResponse({}));
   }
 
   /**
@@ -17693,6 +18277,82 @@ export default class Client {
   async updateInnerMerchantpayexpandEx(request: UpdateInnerMerchantpayexpandRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateInnerMerchantpayexpandResponse> {
     Util.validateModel(request);
     return $tea.cast<UpdateInnerMerchantpayexpandResponse>(await this.doRequest("1.0", "antchain.ato.inner.merchantpayexpand.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateInnerMerchantpayexpandResponse({}));
+  }
+
+  /**
+   * Description: 查询租户账号信息
+   * Summary: 查询租户账号信息
+   */
+  async queryInnerTenantaccountinfo(request: QueryInnerTenantaccountinfoRequest): Promise<QueryInnerTenantaccountinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryInnerTenantaccountinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询租户账号信息
+   * Summary: 查询租户账号信息
+   */
+  async queryInnerTenantaccountinfoEx(request: QueryInnerTenantaccountinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInnerTenantaccountinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryInnerTenantaccountinfoResponse>(await this.doRequest("1.0", "antchain.ato.inner.tenantaccountinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryInnerTenantaccountinfoResponse({}));
+  }
+
+  /**
+   * Description: 创建租户账号信息
+   * Summary: 创建租户账号信息
+   */
+  async createInnerTenantaccountinfo(request: CreateInnerTenantaccountinfoRequest): Promise<CreateInnerTenantaccountinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createInnerTenantaccountinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建租户账号信息
+   * Summary: 创建租户账号信息
+   */
+  async createInnerTenantaccountinfoEx(request: CreateInnerTenantaccountinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateInnerTenantaccountinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateInnerTenantaccountinfoResponse>(await this.doRequest("1.0", "antchain.ato.inner.tenantaccountinfo.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateInnerTenantaccountinfoResponse({}));
+  }
+
+  /**
+   * Description: 查询代理商客服人员信息
+   * Summary: 查询代理商客服人员信息
+   */
+  async getInnerAgentcustomerservice(request: GetInnerAgentcustomerserviceRequest): Promise<GetInnerAgentcustomerserviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getInnerAgentcustomerserviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询代理商客服人员信息
+   * Summary: 查询代理商客服人员信息
+   */
+  async getInnerAgentcustomerserviceEx(request: GetInnerAgentcustomerserviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetInnerAgentcustomerserviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetInnerAgentcustomerserviceResponse>(await this.doRequest("1.0", "antchain.ato.inner.agentcustomerservice.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetInnerAgentcustomerserviceResponse({}));
+  }
+
+  /**
+   * Description: 保存代理商客服人员信息
+   * Summary: 保存代理商客服人员信息
+   */
+  async saveInnerAgentcustomerservice(request: SaveInnerAgentcustomerserviceRequest): Promise<SaveInnerAgentcustomerserviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.saveInnerAgentcustomerserviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 保存代理商客服人员信息
+   * Summary: 保存代理商客服人员信息
+   */
+  async saveInnerAgentcustomerserviceEx(request: SaveInnerAgentcustomerserviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SaveInnerAgentcustomerserviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SaveInnerAgentcustomerserviceResponse>(await this.doRequest("1.0", "antchain.ato.inner.agentcustomerservice.save", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SaveInnerAgentcustomerserviceResponse({}));
   }
 
   /**
