@@ -30,15 +30,15 @@ public class DetailInnerCustomerserviceResponse extends TeaModel {
     @NameInMap("process_type")
     public String processType;
 
-    // 服务商名称
+    // 服务商名称（已废弃）
     @NameInMap("service_provider_name")
     public String serviceProviderName;
 
-    // 客诉处理员支付宝绑定手机号
+    // 客诉处理员支付宝绑定手机号（已废弃）
     @NameInMap("alipay_bind_mobile")
     public String alipayBindMobile;
 
-    // 客诉处理员支付宝账号
+    // 客诉处理员支付宝账号（已废弃）
     @NameInMap("alipay_logon_id")
     public String alipayLogonId;
 
@@ -46,7 +46,7 @@ public class DetailInnerCustomerserviceResponse extends TeaModel {
     @NameInMap("customer_service_phone")
     public String customerServicePhone;
 
-    // 客服人员名称
+    // 客服人员名称（已废弃）
     @NameInMap("customer_service_name")
     public String customerServiceName;
 
@@ -57,6 +57,10 @@ public class DetailInnerCustomerserviceResponse extends TeaModel {
     // 投诉问题
     @NameInMap("customer_complaint_issues")
     public String customerComplaintIssues;
+
+    // 客诉处理人员信息
+    @NameInMap("customer_person_info_list")
+    public java.util.List<CustomerPersonInfo> customerPersonInfoList;
 
     public static DetailInnerCustomerserviceResponse build(java.util.Map<String, ?> map) throws Exception {
         DetailInnerCustomerserviceResponse self = new DetailInnerCustomerserviceResponse();
@@ -165,6 +169,14 @@ public class DetailInnerCustomerserviceResponse extends TeaModel {
     }
     public String getCustomerComplaintIssues() {
         return this.customerComplaintIssues;
+    }
+
+    public DetailInnerCustomerserviceResponse setCustomerPersonInfoList(java.util.List<CustomerPersonInfo> customerPersonInfoList) {
+        this.customerPersonInfoList = customerPersonInfoList;
+        return this;
+    }
+    public java.util.List<CustomerPersonInfo> getCustomerPersonInfoList() {
+        return this.customerPersonInfoList;
     }
 
 }

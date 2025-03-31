@@ -52,6 +52,11 @@ public class QueryInnerMerchantpayexpandResponse extends TeaModel {
     @NameInMap("show_customer_service_banner")
     public Boolean showCustomerServiceBanner;
 
+    // 是否直付通进件已成功
+    // 用于前端判断进件成功之后用户修改操作
+    @NameInMap("zft_expand_successful")
+    public Boolean zftExpandSuccessful;
+
     public static QueryInnerMerchantpayexpandResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryInnerMerchantpayexpandResponse self = new QueryInnerMerchantpayexpandResponse();
         return TeaModel.build(map, self);
@@ -151,6 +156,14 @@ public class QueryInnerMerchantpayexpandResponse extends TeaModel {
     }
     public Boolean getShowCustomerServiceBanner() {
         return this.showCustomerServiceBanner;
+    }
+
+    public QueryInnerMerchantpayexpandResponse setZftExpandSuccessful(Boolean zftExpandSuccessful) {
+        this.zftExpandSuccessful = zftExpandSuccessful;
+        return this;
+    }
+    public Boolean getZftExpandSuccessful() {
+        return this.zftExpandSuccessful;
     }
 
 }

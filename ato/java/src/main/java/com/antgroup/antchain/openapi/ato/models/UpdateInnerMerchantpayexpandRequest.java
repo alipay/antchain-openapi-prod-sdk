@@ -36,6 +36,16 @@ public class UpdateInnerMerchantpayexpandRequest extends TeaModel {
     @Validation(required = true)
     public String merchantId;
 
+    // 租户id
+    @NameInMap("tenant_id")
+    @Validation(required = true)
+    public String tenantId;
+
+    // 操作人名称
+    @NameInMap("user_name")
+    @Validation(required = true)
+    public String userName;
+
     public static UpdateInnerMerchantpayexpandRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateInnerMerchantpayexpandRequest self = new UpdateInnerMerchantpayexpandRequest();
         return TeaModel.build(map, self);
@@ -95,6 +105,22 @@ public class UpdateInnerMerchantpayexpandRequest extends TeaModel {
     }
     public String getMerchantId() {
         return this.merchantId;
+    }
+
+    public UpdateInnerMerchantpayexpandRequest setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+    public String getTenantId() {
+        return this.tenantId;
+    }
+
+    public UpdateInnerMerchantpayexpandRequest setUserName(String userName) {
+        this.userName = userName;
+        return this;
+    }
+    public String getUserName() {
+        return this.userName;
     }
 
 }

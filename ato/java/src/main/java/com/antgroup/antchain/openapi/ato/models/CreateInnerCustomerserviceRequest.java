@@ -31,28 +31,25 @@ public class CreateInnerCustomerserviceRequest extends TeaModel {
     @Validation(required = true)
     public String processType;
 
-    // 服务商名称
+    // 服务商名称（已废弃）
     @NameInMap("service_provider_name")
     public String serviceProviderName;
-
-    // 客诉处理员支付宝绑定手机号
-    @NameInMap("alipay_bind_mobile")
-    @Validation(required = true)
-    public String alipayBindMobile;
-
-    // 客诉处理员支付宝账号
-    @NameInMap("alipay_logon_id")
-    @Validation(required = true)
-    public String alipayLogonId;
 
     // 客服电话
     @NameInMap("customer_service_phone")
     @Validation(required = true)
     public String customerServicePhone;
 
-    // 客服人员名称
+    // 客诉处理员支付宝绑定手机号（已废弃）
+    @NameInMap("alipay_bind_mobile")
+    public String alipayBindMobile;
+
+    // 客诉处理员支付宝账号（已废弃）
+    @NameInMap("alipay_logon_id")
+    public String alipayLogonId;
+
+    // 客服人员名称（已废弃）
     @NameInMap("customer_service_name")
-    @Validation(required = true)
     public String customerServiceName;
 
     // 在线客服网址
@@ -61,8 +58,11 @@ public class CreateInnerCustomerserviceRequest extends TeaModel {
 
     // 投诉问题
     @NameInMap("customer_complaint_issues")
-    @Validation(required = true)
     public String customerComplaintIssues;
+
+    // 客诉人员信息，直连必填
+    @NameInMap("customer_person_info_list")
+    public java.util.List<CustomerPersonInfo> customerPersonInfoList;
 
     // 进件类型
     // DIRECT("DIRECT", "直连进件模式"),
@@ -132,6 +132,14 @@ public class CreateInnerCustomerserviceRequest extends TeaModel {
         return this.serviceProviderName;
     }
 
+    public CreateInnerCustomerserviceRequest setCustomerServicePhone(String customerServicePhone) {
+        this.customerServicePhone = customerServicePhone;
+        return this;
+    }
+    public String getCustomerServicePhone() {
+        return this.customerServicePhone;
+    }
+
     public CreateInnerCustomerserviceRequest setAlipayBindMobile(String alipayBindMobile) {
         this.alipayBindMobile = alipayBindMobile;
         return this;
@@ -146,14 +154,6 @@ public class CreateInnerCustomerserviceRequest extends TeaModel {
     }
     public String getAlipayLogonId() {
         return this.alipayLogonId;
-    }
-
-    public CreateInnerCustomerserviceRequest setCustomerServicePhone(String customerServicePhone) {
-        this.customerServicePhone = customerServicePhone;
-        return this;
-    }
-    public String getCustomerServicePhone() {
-        return this.customerServicePhone;
     }
 
     public CreateInnerCustomerserviceRequest setCustomerServiceName(String customerServiceName) {
@@ -178,6 +178,14 @@ public class CreateInnerCustomerserviceRequest extends TeaModel {
     }
     public String getCustomerComplaintIssues() {
         return this.customerComplaintIssues;
+    }
+
+    public CreateInnerCustomerserviceRequest setCustomerPersonInfoList(java.util.List<CustomerPersonInfo> customerPersonInfoList) {
+        this.customerPersonInfoList = customerPersonInfoList;
+        return this;
+    }
+    public java.util.List<CustomerPersonInfo> getCustomerPersonInfoList() {
+        return this.customerPersonInfoList;
     }
 
     public CreateInnerCustomerserviceRequest setExpandMode(String expandMode) {
