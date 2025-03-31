@@ -2710,6 +2710,39 @@ func (s *OrderMsgInfo) SetNewMsgCallbackUrl(v string) *OrderMsgInfo {
 	return s
 }
 
+// 客诉处理人员信息
+type CustomerPersonInfo struct {
+	// 客诉处理员支付宝账号
+	AlipayLogonId *string `json:"alipay_logon_id,omitempty" xml:"alipay_logon_id,omitempty" require:"true"`
+	// 客诉处理员支付宝绑定手机号
+	AlipayBindMobile *string `json:"alipay_bind_mobile,omitempty" xml:"alipay_bind_mobile,omitempty" require:"true"`
+	// 客服人员名称
+	CustomerServiceName *string `json:"customer_service_name,omitempty" xml:"customer_service_name,omitempty" require:"true"`
+}
+
+func (s CustomerPersonInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CustomerPersonInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CustomerPersonInfo) SetAlipayLogonId(v string) *CustomerPersonInfo {
+	s.AlipayLogonId = &v
+	return s
+}
+
+func (s *CustomerPersonInfo) SetAlipayBindMobile(v string) *CustomerPersonInfo {
+	s.AlipayBindMobile = &v
+	return s
+}
+
+func (s *CustomerPersonInfo) SetCustomerServiceName(v string) *CustomerPersonInfo {
+	s.CustomerServiceName = &v
+	return s
+}
+
 // 营销发奖风险识别入参模型
 type AwardingQueryModel struct {
 	// 对方支付宝账户 uid，用于表示两个账户在业务交互中的对方账户，如人传人活动用户A会拉用户B来注册领奖，其中用户B为对方账户
@@ -3353,6 +3386,90 @@ func (s *XNameValuePair) SetName(v string) *XNameValuePair {
 
 func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
 	s.Value = &v
+	return s
+}
+
+type TransferBrokerUserdataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数据的唯一id，支持数字、大小写字母或下划线
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true" maxLength:"20" minLength:"10"`
+	// 枚举，数据类型
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
+	// 数据内容,使用JSONArray结构
+	DataContent *string `json:"data_content,omitempty" xml:"data_content,omitempty" require:"true"`
+}
+
+func (s TransferBrokerUserdataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransferBrokerUserdataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *TransferBrokerUserdataRequest) SetAuthToken(v string) *TransferBrokerUserdataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *TransferBrokerUserdataRequest) SetProductInstanceId(v string) *TransferBrokerUserdataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *TransferBrokerUserdataRequest) SetDataId(v string) *TransferBrokerUserdataRequest {
+	s.DataId = &v
+	return s
+}
+
+func (s *TransferBrokerUserdataRequest) SetDataType(v string) *TransferBrokerUserdataRequest {
+	s.DataType = &v
+	return s
+}
+
+func (s *TransferBrokerUserdataRequest) SetDataContent(v string) *TransferBrokerUserdataRequest {
+	s.DataContent = &v
+	return s
+}
+
+type TransferBrokerUserdataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 数据id
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty"`
+}
+
+func (s TransferBrokerUserdataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransferBrokerUserdataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *TransferBrokerUserdataResponse) SetReqMsgId(v string) *TransferBrokerUserdataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *TransferBrokerUserdataResponse) SetResultCode(v string) *TransferBrokerUserdataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *TransferBrokerUserdataResponse) SetResultMsg(v string) *TransferBrokerUserdataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *TransferBrokerUserdataResponse) SetDataId(v string) *TransferBrokerUserdataResponse {
+	s.DataId = &v
 	return s
 }
 
@@ -6865,6 +6982,181 @@ func (s *QueryFundAssetpackageResponse) SetOrderList(v []*AssetPackageOrderInfo)
 	return s
 }
 
+type ConfirmFundUsercancelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id 长度不可超过50
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50" minLength:"1"`
+	// 订单所属商户的社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
+	// 融资单的资方社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
+}
+
+func (s ConfirmFundUsercancelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmFundUsercancelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmFundUsercancelRequest) SetAuthToken(v string) *ConfirmFundUsercancelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmFundUsercancelRequest) SetProductInstanceId(v string) *ConfirmFundUsercancelRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ConfirmFundUsercancelRequest) SetOrderId(v string) *ConfirmFundUsercancelRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *ConfirmFundUsercancelRequest) SetMerchantId(v string) *ConfirmFundUsercancelRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *ConfirmFundUsercancelRequest) SetFundId(v string) *ConfirmFundUsercancelRequest {
+	s.FundId = &v
+	return s
+}
+
+type ConfirmFundUsercancelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ConfirmFundUsercancelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmFundUsercancelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmFundUsercancelResponse) SetReqMsgId(v string) *ConfirmFundUsercancelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ConfirmFundUsercancelResponse) SetResultCode(v string) *ConfirmFundUsercancelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ConfirmFundUsercancelResponse) SetResultMsg(v string) *ConfirmFundUsercancelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type RepayFundPlanRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id 长度不可超过50
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50" minLength:"1"`
+	// 订单所属商户的社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
+	// 融资单的资方社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
+	// 商户履约的期数
+	TermIndex *int64 `json:"term_index,omitempty" xml:"term_index,omitempty" require:"true" minimum:"1"`
+	// 还款金额
+	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty" require:"true" minimum:"0"`
+	// 支付描述
+	PaymentDescription *string `json:"payment_description,omitempty" xml:"payment_description,omitempty" require:"true" maxLength:"64" minLength:"0"`
+}
+
+func (s RepayFundPlanRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RepayFundPlanRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RepayFundPlanRequest) SetAuthToken(v string) *RepayFundPlanRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RepayFundPlanRequest) SetProductInstanceId(v string) *RepayFundPlanRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RepayFundPlanRequest) SetOrderId(v string) *RepayFundPlanRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *RepayFundPlanRequest) SetMerchantId(v string) *RepayFundPlanRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *RepayFundPlanRequest) SetFundId(v string) *RepayFundPlanRequest {
+	s.FundId = &v
+	return s
+}
+
+func (s *RepayFundPlanRequest) SetTermIndex(v int64) *RepayFundPlanRequest {
+	s.TermIndex = &v
+	return s
+}
+
+func (s *RepayFundPlanRequest) SetAmount(v int64) *RepayFundPlanRequest {
+	s.Amount = &v
+	return s
+}
+
+func (s *RepayFundPlanRequest) SetPaymentDescription(v string) *RepayFundPlanRequest {
+	s.PaymentDescription = &v
+	return s
+}
+
+type RepayFundPlanResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s RepayFundPlanResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RepayFundPlanResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RepayFundPlanResponse) SetReqMsgId(v string) *RepayFundPlanResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RepayFundPlanResponse) SetResultCode(v string) *RepayFundPlanResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RepayFundPlanResponse) SetResultMsg(v string) *RepayFundPlanResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type GetInnerProductRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -9700,6 +9992,9 @@ type QueryInnerMerchantpayexpandResponse struct {
 	ExpandFailReason *string `json:"expand_fail_reason,omitempty" xml:"expand_fail_reason,omitempty"`
 	// 是否展示客服信息登记入口
 	ShowCustomerServiceBanner *bool `json:"show_customer_service_banner,omitempty" xml:"show_customer_service_banner,omitempty"`
+	// 是否直付通进件已成功
+	// 用于前端判断进件成功之后用户修改操作
+	ZftExpandSuccessful *bool `json:"zft_expand_successful,omitempty" xml:"zft_expand_successful,omitempty"`
 }
 
 func (s QueryInnerMerchantpayexpandResponse) String() string {
@@ -9767,6 +10062,11 @@ func (s *QueryInnerMerchantpayexpandResponse) SetExpandFailReason(v string) *Que
 
 func (s *QueryInnerMerchantpayexpandResponse) SetShowCustomerServiceBanner(v bool) *QueryInnerMerchantpayexpandResponse {
 	s.ShowCustomerServiceBanner = &v
+	return s
+}
+
+func (s *QueryInnerMerchantpayexpandResponse) SetZftExpandSuccessful(v bool) *QueryInnerMerchantpayexpandResponse {
+	s.ZftExpandSuccessful = &v
 	return s
 }
 
@@ -12532,20 +12832,22 @@ type CreateInnerCustomerserviceRequest struct {
 	// MERCHANT_PROCESS("MERCHANT_PROCESS", "商家处理"),
 	// PROXY_PROCESS("PROXY_PROCESS", "服务商代处理"),
 	ProcessType *string `json:"process_type,omitempty" xml:"process_type,omitempty" require:"true"`
-	// 服务商名称
+	// 服务商名称（已废弃）
 	ServiceProviderName *string `json:"service_provider_name,omitempty" xml:"service_provider_name,omitempty"`
-	// 客诉处理员支付宝绑定手机号
-	AlipayBindMobile *string `json:"alipay_bind_mobile,omitempty" xml:"alipay_bind_mobile,omitempty" require:"true"`
-	// 客诉处理员支付宝账号
-	AlipayLogonId *string `json:"alipay_logon_id,omitempty" xml:"alipay_logon_id,omitempty" require:"true"`
 	// 客服电话
 	CustomerServicePhone *string `json:"customer_service_phone,omitempty" xml:"customer_service_phone,omitempty" require:"true"`
-	// 客服人员名称
-	CustomerServiceName *string `json:"customer_service_name,omitempty" xml:"customer_service_name,omitempty" require:"true"`
+	// 客诉处理员支付宝绑定手机号（已废弃）
+	AlipayBindMobile *string `json:"alipay_bind_mobile,omitempty" xml:"alipay_bind_mobile,omitempty"`
+	// 客诉处理员支付宝账号（已废弃）
+	AlipayLogonId *string `json:"alipay_logon_id,omitempty" xml:"alipay_logon_id,omitempty"`
+	// 客服人员名称（已废弃）
+	CustomerServiceName *string `json:"customer_service_name,omitempty" xml:"customer_service_name,omitempty"`
 	// 在线客服网址
 	OnlineSupportSiteUrl *string `json:"online_support_site_url,omitempty" xml:"online_support_site_url,omitempty"`
 	// 投诉问题
-	CustomerComplaintIssues *string `json:"customer_complaint_issues,omitempty" xml:"customer_complaint_issues,omitempty" require:"true"`
+	CustomerComplaintIssues *string `json:"customer_complaint_issues,omitempty" xml:"customer_complaint_issues,omitempty"`
+	// 客诉人员信息，直连必填
+	CustomerPersonInfoList []*CustomerPersonInfo `json:"customer_person_info_list,omitempty" xml:"customer_person_info_list,omitempty" type:"Repeated"`
 	// 进件类型
 	// DIRECT("DIRECT", "直连进件模式"),
 	// AGENT("AGENT", "代理商进件模式"),
@@ -12595,6 +12897,11 @@ func (s *CreateInnerCustomerserviceRequest) SetServiceProviderName(v string) *Cr
 	return s
 }
 
+func (s *CreateInnerCustomerserviceRequest) SetCustomerServicePhone(v string) *CreateInnerCustomerserviceRequest {
+	s.CustomerServicePhone = &v
+	return s
+}
+
 func (s *CreateInnerCustomerserviceRequest) SetAlipayBindMobile(v string) *CreateInnerCustomerserviceRequest {
 	s.AlipayBindMobile = &v
 	return s
@@ -12602,11 +12909,6 @@ func (s *CreateInnerCustomerserviceRequest) SetAlipayBindMobile(v string) *Creat
 
 func (s *CreateInnerCustomerserviceRequest) SetAlipayLogonId(v string) *CreateInnerCustomerserviceRequest {
 	s.AlipayLogonId = &v
-	return s
-}
-
-func (s *CreateInnerCustomerserviceRequest) SetCustomerServicePhone(v string) *CreateInnerCustomerserviceRequest {
-	s.CustomerServicePhone = &v
 	return s
 }
 
@@ -12622,6 +12924,11 @@ func (s *CreateInnerCustomerserviceRequest) SetOnlineSupportSiteUrl(v string) *C
 
 func (s *CreateInnerCustomerserviceRequest) SetCustomerComplaintIssues(v string) *CreateInnerCustomerserviceRequest {
 	s.CustomerComplaintIssues = &v
+	return s
+}
+
+func (s *CreateInnerCustomerserviceRequest) SetCustomerPersonInfoList(v []*CustomerPersonInfo) *CreateInnerCustomerserviceRequest {
+	s.CustomerPersonInfoList = v
 	return s
 }
 
@@ -12671,25 +12978,27 @@ type UpdateInnerCustomerserviceRequest struct {
 	// 商家社会统一信用代码，间联模式必传
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
 	// 公司名称
-	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty" require:"true"`
+	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty"`
 	// 处理类型:
 	// MERCHANT_PROCESS("MERCHANT_PROCESS", "商家处理"),
 	// PROXY_PROCESS("PROXY_PROCESS", "服务商代处理"),
 	ProcessType *string `json:"process_type,omitempty" xml:"process_type,omitempty" require:"true"`
-	// 服务商名称
+	// 服务商名称（已废弃）
 	ServiceProviderName *string `json:"service_provider_name,omitempty" xml:"service_provider_name,omitempty"`
-	// 客诉处理员支付宝绑定手机号
-	AlipayBindMobile *string `json:"alipay_bind_mobile,omitempty" xml:"alipay_bind_mobile,omitempty" require:"true"`
-	// 客诉处理员支付宝账号
-	AlipayLogonId *string `json:"alipay_logon_id,omitempty" xml:"alipay_logon_id,omitempty" require:"true"`
+	// 客诉处理员支付宝绑定手机号（已废弃）
+	AlipayBindMobile *string `json:"alipay_bind_mobile,omitempty" xml:"alipay_bind_mobile,omitempty"`
+	// 客诉处理员支付宝账号（已废弃）
+	AlipayLogonId *string `json:"alipay_logon_id,omitempty" xml:"alipay_logon_id,omitempty"`
 	// 客服电话
 	CustomerServicePhone *string `json:"customer_service_phone,omitempty" xml:"customer_service_phone,omitempty" require:"true"`
-	// 客服人员名称
-	CustomerServiceName *string `json:"customer_service_name,omitempty" xml:"customer_service_name,omitempty" require:"true"`
+	// 客服人员名称（已废弃）
+	CustomerServiceName *string `json:"customer_service_name,omitempty" xml:"customer_service_name,omitempty"`
 	// 在线客服网址
 	OnlineSupportSiteUrl *string `json:"online_support_site_url,omitempty" xml:"online_support_site_url,omitempty"`
 	// 投诉问题
-	CustomerComplaintIssues *string `json:"customer_complaint_issues,omitempty" xml:"customer_complaint_issues,omitempty" require:"true"`
+	CustomerComplaintIssues *string `json:"customer_complaint_issues,omitempty" xml:"customer_complaint_issues,omitempty"`
+	// 客诉处理人员信息
+	CustomerPersonInfoList []*CustomerPersonInfo `json:"customer_person_info_list,omitempty" xml:"customer_person_info_list,omitempty" type:"Repeated"`
 	// 进件类型
 	// DIRECT("DIRECT", "直连进件模式"), AGENT("AGENT", "代理商进件模式"),
 	ExpandMode *string `json:"expand_mode,omitempty" xml:"expand_mode,omitempty" require:"true"`
@@ -12765,6 +13074,11 @@ func (s *UpdateInnerCustomerserviceRequest) SetOnlineSupportSiteUrl(v string) *U
 
 func (s *UpdateInnerCustomerserviceRequest) SetCustomerComplaintIssues(v string) *UpdateInnerCustomerserviceRequest {
 	s.CustomerComplaintIssues = &v
+	return s
+}
+
+func (s *UpdateInnerCustomerserviceRequest) SetCustomerPersonInfoList(v []*CustomerPersonInfo) *UpdateInnerCustomerserviceRequest {
+	s.CustomerPersonInfoList = v
 	return s
 }
 
@@ -12974,20 +13288,22 @@ type DetailInnerCustomerserviceResponse struct {
 	// MERCHANT_PROCESS("MERCHANT_PROCESS", "商家处理"),
 	// PROXY_PROCESS("PROXY_PROCESS", "服务商代处理"),
 	ProcessType *string `json:"process_type,omitempty" xml:"process_type,omitempty"`
-	// 服务商名称
+	// 服务商名称（已废弃）
 	ServiceProviderName *string `json:"service_provider_name,omitempty" xml:"service_provider_name,omitempty"`
-	// 客诉处理员支付宝绑定手机号
+	// 客诉处理员支付宝绑定手机号（已废弃）
 	AlipayBindMobile *string `json:"alipay_bind_mobile,omitempty" xml:"alipay_bind_mobile,omitempty"`
-	// 客诉处理员支付宝账号
+	// 客诉处理员支付宝账号（已废弃）
 	AlipayLogonId *string `json:"alipay_logon_id,omitempty" xml:"alipay_logon_id,omitempty"`
 	// 客服电话
 	CustomerServicePhone *string `json:"customer_service_phone,omitempty" xml:"customer_service_phone,omitempty"`
-	// 客服人员名称
+	// 客服人员名称（已废弃）
 	CustomerServiceName *string `json:"customer_service_name,omitempty" xml:"customer_service_name,omitempty"`
 	// 在线客服网址
 	OnlineSupportSiteUrl *string `json:"online_support_site_url,omitempty" xml:"online_support_site_url,omitempty"`
 	// 投诉问题
 	CustomerComplaintIssues *string `json:"customer_complaint_issues,omitempty" xml:"customer_complaint_issues,omitempty"`
+	// 客诉处理人员信息
+	CustomerPersonInfoList []*CustomerPersonInfo `json:"customer_person_info_list,omitempty" xml:"customer_person_info_list,omitempty" type:"Repeated"`
 }
 
 func (s DetailInnerCustomerserviceResponse) String() string {
@@ -13060,6 +13376,11 @@ func (s *DetailInnerCustomerserviceResponse) SetOnlineSupportSiteUrl(v string) *
 
 func (s *DetailInnerCustomerserviceResponse) SetCustomerComplaintIssues(v string) *DetailInnerCustomerserviceResponse {
 	s.CustomerComplaintIssues = &v
+	return s
+}
+
+func (s *DetailInnerCustomerserviceResponse) SetCustomerPersonInfoList(v []*CustomerPersonInfo) *DetailInnerCustomerserviceResponse {
+	s.CustomerPersonInfoList = v
 	return s
 }
 
@@ -13955,6 +14276,10 @@ type UpdateInnerMerchantpayexpandRequest struct {
 	PayExpandId *string `json:"pay_expand_id,omitempty" xml:"pay_expand_id,omitempty" require:"true"`
 	// 社会统一信用代码
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 操作人名称
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
 }
 
 func (s UpdateInnerMerchantpayexpandRequest) String() string {
@@ -14000,6 +14325,16 @@ func (s *UpdateInnerMerchantpayexpandRequest) SetMerchantId(v string) *UpdateInn
 	return s
 }
 
+func (s *UpdateInnerMerchantpayexpandRequest) SetTenantId(v string) *UpdateInnerMerchantpayexpandRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *UpdateInnerMerchantpayexpandRequest) SetUserName(v string) *UpdateInnerMerchantpayexpandRequest {
+	s.UserName = &v
+	return s
+}
+
 type UpdateInnerMerchantpayexpandResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -14036,6 +14371,335 @@ func (s *UpdateInnerMerchantpayexpandResponse) SetResultMsg(v string) *UpdateInn
 
 func (s *UpdateInnerMerchantpayexpandResponse) SetPayExpandId(v string) *UpdateInnerMerchantpayexpandResponse {
 	s.PayExpandId = &v
+	return s
+}
+
+type QueryInnerTenantaccountinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s QueryInnerTenantaccountinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryInnerTenantaccountinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryInnerTenantaccountinfoRequest) SetAuthToken(v string) *QueryInnerTenantaccountinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryInnerTenantaccountinfoRequest) SetProductInstanceId(v string) *QueryInnerTenantaccountinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryInnerTenantaccountinfoRequest) SetTenantId(v string) *QueryInnerTenantaccountinfoRequest {
+	s.TenantId = &v
+	return s
+}
+
+type QueryInnerTenantaccountinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 绑定手机号
+	BindMobile *string `json:"bind_mobile,omitempty" xml:"bind_mobile,omitempty"`
+	// 登录账号
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+	// 注册时间
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// 是否已实名认证
+	IsCertified *bool `json:"is_certified,omitempty" xml:"is_certified,omitempty"`
+}
+
+func (s QueryInnerTenantaccountinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryInnerTenantaccountinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryInnerTenantaccountinfoResponse) SetReqMsgId(v string) *QueryInnerTenantaccountinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryInnerTenantaccountinfoResponse) SetResultCode(v string) *QueryInnerTenantaccountinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryInnerTenantaccountinfoResponse) SetResultMsg(v string) *QueryInnerTenantaccountinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryInnerTenantaccountinfoResponse) SetTenantId(v string) *QueryInnerTenantaccountinfoResponse {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryInnerTenantaccountinfoResponse) SetBindMobile(v string) *QueryInnerTenantaccountinfoResponse {
+	s.BindMobile = &v
+	return s
+}
+
+func (s *QueryInnerTenantaccountinfoResponse) SetLoginName(v string) *QueryInnerTenantaccountinfoResponse {
+	s.LoginName = &v
+	return s
+}
+
+func (s *QueryInnerTenantaccountinfoResponse) SetCreateTime(v string) *QueryInnerTenantaccountinfoResponse {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *QueryInnerTenantaccountinfoResponse) SetIsCertified(v bool) *QueryInnerTenantaccountinfoResponse {
+	s.IsCertified = &v
+	return s
+}
+
+type CreateInnerTenantaccountinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 支付宝账号id
+	AlipayUserId *string `json:"alipay_user_id,omitempty" xml:"alipay_user_id,omitempty" require:"true"`
+}
+
+func (s CreateInnerTenantaccountinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateInnerTenantaccountinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateInnerTenantaccountinfoRequest) SetAuthToken(v string) *CreateInnerTenantaccountinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateInnerTenantaccountinfoRequest) SetProductInstanceId(v string) *CreateInnerTenantaccountinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateInnerTenantaccountinfoRequest) SetAlipayUserId(v string) *CreateInnerTenantaccountinfoRequest {
+	s.AlipayUserId = &v
+	return s
+}
+
+type CreateInnerTenantaccountinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 登录账号
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+}
+
+func (s CreateInnerTenantaccountinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateInnerTenantaccountinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateInnerTenantaccountinfoResponse) SetReqMsgId(v string) *CreateInnerTenantaccountinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateInnerTenantaccountinfoResponse) SetResultCode(v string) *CreateInnerTenantaccountinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateInnerTenantaccountinfoResponse) SetResultMsg(v string) *CreateInnerTenantaccountinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateInnerTenantaccountinfoResponse) SetTenantId(v string) *CreateInnerTenantaccountinfoResponse {
+	s.TenantId = &v
+	return s
+}
+
+func (s *CreateInnerTenantaccountinfoResponse) SetLoginName(v string) *CreateInnerTenantaccountinfoResponse {
+	s.LoginName = &v
+	return s
+}
+
+type GetInnerAgentcustomerserviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s GetInnerAgentcustomerserviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetInnerAgentcustomerserviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetInnerAgentcustomerserviceRequest) SetAuthToken(v string) *GetInnerAgentcustomerserviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetInnerAgentcustomerserviceRequest) SetProductInstanceId(v string) *GetInnerAgentcustomerserviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetInnerAgentcustomerserviceRequest) SetTenantId(v string) *GetInnerAgentcustomerserviceRequest {
+	s.TenantId = &v
+	return s
+}
+
+type GetInnerAgentcustomerserviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 客诉问题
+	CustomerComplaintIssues *string `json:"customer_complaint_issues,omitempty" xml:"customer_complaint_issues,omitempty"`
+	// 客诉处理人员信息
+	CustomerPersonInfoList []*CustomerPersonInfo `json:"customer_person_info_list,omitempty" xml:"customer_person_info_list,omitempty" type:"Repeated"`
+}
+
+func (s GetInnerAgentcustomerserviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetInnerAgentcustomerserviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetInnerAgentcustomerserviceResponse) SetReqMsgId(v string) *GetInnerAgentcustomerserviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetInnerAgentcustomerserviceResponse) SetResultCode(v string) *GetInnerAgentcustomerserviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetInnerAgentcustomerserviceResponse) SetResultMsg(v string) *GetInnerAgentcustomerserviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetInnerAgentcustomerserviceResponse) SetCustomerComplaintIssues(v string) *GetInnerAgentcustomerserviceResponse {
+	s.CustomerComplaintIssues = &v
+	return s
+}
+
+func (s *GetInnerAgentcustomerserviceResponse) SetCustomerPersonInfoList(v []*CustomerPersonInfo) *GetInnerAgentcustomerserviceResponse {
+	s.CustomerPersonInfoList = v
+	return s
+}
+
+type SaveInnerAgentcustomerserviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 客诉问题
+	CustomerComplaintIssues *string `json:"customer_complaint_issues,omitempty" xml:"customer_complaint_issues,omitempty" require:"true"`
+	// 客诉处理人员信息
+	CustomerPersonInfoList []*CustomerPersonInfo `json:"customer_person_info_list,omitempty" xml:"customer_person_info_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SaveInnerAgentcustomerserviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveInnerAgentcustomerserviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SaveInnerAgentcustomerserviceRequest) SetAuthToken(v string) *SaveInnerAgentcustomerserviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SaveInnerAgentcustomerserviceRequest) SetProductInstanceId(v string) *SaveInnerAgentcustomerserviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SaveInnerAgentcustomerserviceRequest) SetTenantId(v string) *SaveInnerAgentcustomerserviceRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *SaveInnerAgentcustomerserviceRequest) SetCustomerComplaintIssues(v string) *SaveInnerAgentcustomerserviceRequest {
+	s.CustomerComplaintIssues = &v
+	return s
+}
+
+func (s *SaveInnerAgentcustomerserviceRequest) SetCustomerPersonInfoList(v []*CustomerPersonInfo) *SaveInnerAgentcustomerserviceRequest {
+	s.CustomerPersonInfoList = v
+	return s
+}
+
+type SaveInnerAgentcustomerserviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SaveInnerAgentcustomerserviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SaveInnerAgentcustomerserviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SaveInnerAgentcustomerserviceResponse) SetReqMsgId(v string) *SaveInnerAgentcustomerserviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SaveInnerAgentcustomerserviceResponse) SetResultCode(v string) *SaveInnerAgentcustomerserviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SaveInnerAgentcustomerserviceResponse) SetResultMsg(v string) *SaveInnerAgentcustomerserviceResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -20345,7 +21009,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.14.15"),
+				"sdk_version":      tea.String("1.14.25"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -20401,6 +21065,40 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 数据提供方可以通过此接口传输数据，触达给消费方
+ * Summary: 用户信息传输代理
+ */
+func (client *Client) TransferBrokerUserdata(request *TransferBrokerUserdataRequest) (_result *TransferBrokerUserdataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &TransferBrokerUserdataResponse{}
+	_body, _err := client.TransferBrokerUserdataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数据提供方可以通过此接口传输数据，触达给消费方
+ * Summary: 用户信息传输代理
+ */
+func (client *Client) TransferBrokerUserdataEx(request *TransferBrokerUserdataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *TransferBrokerUserdataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &TransferBrokerUserdataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.broker.userdata.transfer"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
@@ -21586,6 +22284,78 @@ func (client *Client) QueryFundAssetpackageEx(request *QueryFundAssetpackageRequ
 	}
 	_result = &QueryFundAssetpackageResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.assetpackage.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 调用说明：
+1. 资方配置用户取消拦截能力后，用户发起取消会通知资方，自发除了发起取消商户履约外，还可以通过次接口确认用户批量取消操作，用户可以进行取消
+ * Summary: 允许用户取消(确认用户取消)
+*/
+func (client *Client) ConfirmFundUsercancel(request *ConfirmFundUsercancelRequest) (_result *ConfirmFundUsercancelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ConfirmFundUsercancelResponse{}
+	_body, _err := client.ConfirmFundUsercancelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 调用说明：
+1. 资方配置用户取消拦截能力后，用户发起取消会通知资方，自发除了发起取消商户履约外，还可以通过次接口确认用户批量取消操作，用户可以进行取消
+ * Summary: 允许用户取消(确认用户取消)
+*/
+func (client *Client) ConfirmFundUsercancelEx(request *ConfirmFundUsercancelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConfirmFundUsercancelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ConfirmFundUsercancelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.usercancel.confirm"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 调用说明：
+1. 当商户通过其他方式还款后，通过次接口同步信息，同步完成后会将扣款进行取消
+ * Summary: 商户履约其他方式还款（单期取消）
+*/
+func (client *Client) RepayFundPlan(request *RepayFundPlanRequest) (_result *RepayFundPlanResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RepayFundPlanResponse{}
+	_body, _err := client.RepayFundPlanEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 调用说明：
+1. 当商户通过其他方式还款后，通过次接口同步信息，同步完成后会将扣款进行取消
+ * Summary: 商户履约其他方式还款（单期取消）
+*/
+func (client *Client) RepayFundPlanEx(request *RepayFundPlanRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RepayFundPlanResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RepayFundPlanResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.plan.repay"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -24104,6 +24874,142 @@ func (client *Client) UpdateInnerMerchantpayexpandEx(request *UpdateInnerMerchan
 	}
 	_result = &UpdateInnerMerchantpayexpandResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.merchantpayexpand.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询租户账号信息
+ * Summary: 查询租户账号信息
+ */
+func (client *Client) QueryInnerTenantaccountinfo(request *QueryInnerTenantaccountinfoRequest) (_result *QueryInnerTenantaccountinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryInnerTenantaccountinfoResponse{}
+	_body, _err := client.QueryInnerTenantaccountinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询租户账号信息
+ * Summary: 查询租户账号信息
+ */
+func (client *Client) QueryInnerTenantaccountinfoEx(request *QueryInnerTenantaccountinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryInnerTenantaccountinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryInnerTenantaccountinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.tenantaccountinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建租户账号信息
+ * Summary: 创建租户账号信息
+ */
+func (client *Client) CreateInnerTenantaccountinfo(request *CreateInnerTenantaccountinfoRequest) (_result *CreateInnerTenantaccountinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateInnerTenantaccountinfoResponse{}
+	_body, _err := client.CreateInnerTenantaccountinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建租户账号信息
+ * Summary: 创建租户账号信息
+ */
+func (client *Client) CreateInnerTenantaccountinfoEx(request *CreateInnerTenantaccountinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateInnerTenantaccountinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateInnerTenantaccountinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.tenantaccountinfo.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询代理商客服人员信息
+ * Summary: 查询代理商客服人员信息
+ */
+func (client *Client) GetInnerAgentcustomerservice(request *GetInnerAgentcustomerserviceRequest) (_result *GetInnerAgentcustomerserviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetInnerAgentcustomerserviceResponse{}
+	_body, _err := client.GetInnerAgentcustomerserviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询代理商客服人员信息
+ * Summary: 查询代理商客服人员信息
+ */
+func (client *Client) GetInnerAgentcustomerserviceEx(request *GetInnerAgentcustomerserviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetInnerAgentcustomerserviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetInnerAgentcustomerserviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.agentcustomerservice.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 保存代理商客服人员信息
+ * Summary: 保存代理商客服人员信息
+ */
+func (client *Client) SaveInnerAgentcustomerservice(request *SaveInnerAgentcustomerserviceRequest) (_result *SaveInnerAgentcustomerserviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SaveInnerAgentcustomerserviceResponse{}
+	_body, _err := client.SaveInnerAgentcustomerserviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 保存代理商客服人员信息
+ * Summary: 保存代理商客服人员信息
+ */
+func (client *Client) SaveInnerAgentcustomerserviceEx(request *SaveInnerAgentcustomerserviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SaveInnerAgentcustomerserviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SaveInnerAgentcustomerserviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.agentcustomerservice.save"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
