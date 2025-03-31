@@ -48,6 +48,18 @@ class UpdateInnerMerchantpayexpandRequest extends Model
      * @var string
      */
     public $merchantId;
+
+    // 租户id
+    /**
+     * @var string
+     */
+    public $tenantId;
+
+    // 操作人名称
+    /**
+     * @var string
+     */
+    public $userName;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +68,8 @@ class UpdateInnerMerchantpayexpandRequest extends Model
         'applicationInfo'   => 'application_info',
         'payExpandId'       => 'pay_expand_id',
         'merchantId'        => 'merchant_id',
+        'tenantId'          => 'tenant_id',
+        'userName'          => 'user_name',
     ];
 
     public function validate()
@@ -65,6 +79,8 @@ class UpdateInnerMerchantpayexpandRequest extends Model
         Model::validateRequired('applicationInfo', $this->applicationInfo, true);
         Model::validateRequired('payExpandId', $this->payExpandId, true);
         Model::validateRequired('merchantId', $this->merchantId, true);
+        Model::validateRequired('tenantId', $this->tenantId, true);
+        Model::validateRequired('userName', $this->userName, true);
     }
 
     public function toMap()
@@ -90,6 +106,12 @@ class UpdateInnerMerchantpayexpandRequest extends Model
         }
         if (null !== $this->merchantId) {
             $res['merchant_id'] = $this->merchantId;
+        }
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
+        }
+        if (null !== $this->userName) {
+            $res['user_name'] = $this->userName;
         }
 
         return $res;
@@ -123,6 +145,12 @@ class UpdateInnerMerchantpayexpandRequest extends Model
         }
         if (isset($map['merchant_id'])) {
             $model->merchantId = $map['merchant_id'];
+        }
+        if (isset($map['tenant_id'])) {
+            $model->tenantId = $map['tenant_id'];
+        }
+        if (isset($map['user_name'])) {
+            $model->userName = $map['user_name'];
         }
 
         return $model;

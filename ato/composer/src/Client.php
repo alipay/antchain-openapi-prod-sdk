@@ -51,6 +51,8 @@ use AntChain\ATO\Models\CloneInnerTemplatefileaddressRequest;
 use AntChain\ATO\Models\CloneInnerTemplatefileaddressResponse;
 use AntChain\ATO\Models\CloneInnerTemplateRequest;
 use AntChain\ATO\Models\CloneInnerTemplateResponse;
+use AntChain\ATO\Models\ConfirmFundUsercancelRequest;
+use AntChain\ATO\Models\ConfirmFundUsercancelResponse;
 use AntChain\ATO\Models\ConfirmWithholdSignasyncunsignRequest;
 use AntChain\ATO\Models\ConfirmWithholdSignasyncunsignResponse;
 use AntChain\ATO\Models\CreateAntcloudGatewayxFileUploadRequest;
@@ -69,6 +71,8 @@ use AntChain\ATO\Models\CreateInnerTemplateRequest;
 use AntChain\ATO\Models\CreateInnerTemplateResponse;
 use AntChain\ATO\Models\CreateInnerTemplatetextareaRequest;
 use AntChain\ATO\Models\CreateInnerTemplatetextareaResponse;
+use AntChain\ATO\Models\CreateInnerTenantaccountinfoRequest;
+use AntChain\ATO\Models\CreateInnerTenantaccountinfoResponse;
 use AntChain\ATO\Models\CreateInnerWithholdsignRequest;
 use AntChain\ATO\Models\CreateInnerWithholdsignResponse;
 use AntChain\ATO\Models\CreateInsureRequest;
@@ -109,6 +113,8 @@ use AntChain\ATO\Models\GetFundUserperformanceRequest;
 use AntChain\ATO\Models\GetFundUserperformanceResponse;
 use AntChain\ATO\Models\GetFundUserpromiseRequest;
 use AntChain\ATO\Models\GetFundUserpromiseResponse;
+use AntChain\ATO\Models\GetInnerAgentcustomerserviceRequest;
+use AntChain\ATO\Models\GetInnerAgentcustomerserviceResponse;
 use AntChain\ATO\Models\GetInnerCustomerservicetemplateRequest;
 use AntChain\ATO\Models\GetInnerCustomerservicetemplateResponse;
 use AntChain\ATO\Models\GetInnerFunddividemerchantRequest;
@@ -207,6 +213,8 @@ use AntChain\ATO\Models\QueryInnerTemplateRequest;
 use AntChain\ATO\Models\QueryInnerTemplateResponse;
 use AntChain\ATO\Models\QueryInnerTemplateversionRequest;
 use AntChain\ATO\Models\QueryInnerTemplateversionResponse;
+use AntChain\ATO\Models\QueryInnerTenantaccountinfoRequest;
+use AntChain\ATO\Models\QueryInnerTenantaccountinfoResponse;
 use AntChain\ATO\Models\QueryInnerTenantindirectmainclassRequest;
 use AntChain\ATO\Models\QueryInnerTenantindirectmainclassResponse;
 use AntChain\ATO\Models\QueryInnerWithholdplanRequest;
@@ -243,6 +251,8 @@ use AntChain\ATO\Models\RegisterMerchantexpandMerchantRequest;
 use AntChain\ATO\Models\RegisterMerchantexpandMerchantResponse;
 use AntChain\ATO\Models\RenderInnerTemplateinstanceRequest;
 use AntChain\ATO\Models\RenderInnerTemplateinstanceResponse;
+use AntChain\ATO\Models\RepayFundPlanRequest;
+use AntChain\ATO\Models\RepayFundPlanResponse;
 use AntChain\ATO\Models\RepayWithholdPlanRequest;
 use AntChain\ATO\Models\RepayWithholdPlanResponse;
 use AntChain\ATO\Models\ReplaceTradeUserpromiseRequest;
@@ -255,6 +265,8 @@ use AntChain\ATO\Models\RetryInsurePayRequest;
 use AntChain\ATO\Models\RetryInsurePayResponse;
 use AntChain\ATO\Models\RetryWithholdPlanRequest;
 use AntChain\ATO\Models\RetryWithholdPlanResponse;
+use AntChain\ATO\Models\SaveInnerAgentcustomerserviceRequest;
+use AntChain\ATO\Models\SaveInnerAgentcustomerserviceResponse;
 use AntChain\ATO\Models\SaveInnerSignfieldsRequest;
 use AntChain\ATO\Models\SaveInnerSignfieldsResponse;
 use AntChain\ATO\Models\SaveInnerTemplateRequest;
@@ -309,6 +321,8 @@ use AntChain\ATO\Models\SyncTradeRequest;
 use AntChain\ATO\Models\SyncTradeResponse;
 use AntChain\ATO\Models\SyncTradeUserpromisedelayRequest;
 use AntChain\ATO\Models\SyncTradeUserpromisedelayResponse;
+use AntChain\ATO\Models\TransferBrokerUserdataRequest;
+use AntChain\ATO\Models\TransferBrokerUserdataResponse;
 use AntChain\ATO\Models\TransferTradeFinanceRequest;
 use AntChain\ATO\Models\TransferTradeFinanceResponse;
 use AntChain\ATO\Models\UnbindWithholdSignRequest;
@@ -490,7 +504,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.14.15',
+                    'sdk_version'      => '1.14.25',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -536,6 +550,39 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 数据提供方可以通过此接口传输数据，触达给消费方
+     * Summary: 用户信息传输代理.
+     *
+     * @param TransferBrokerUserdataRequest $request
+     *
+     * @return TransferBrokerUserdataResponse
+     */
+    public function transferBrokerUserdata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->transferBrokerUserdataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据提供方可以通过此接口传输数据，触达给消费方
+     * Summary: 用户信息传输代理.
+     *
+     * @param TransferBrokerUserdataRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return TransferBrokerUserdataResponse
+     */
+    public function transferBrokerUserdataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return TransferBrokerUserdataResponse::fromMap($this->doRequest('1.0', 'antchain.ato.broker.userdata.transfer', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1681,6 +1728,76 @@ class Client
         Utils::validateModel($request);
 
         return QueryFundAssetpackageResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.assetpackage.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 调用说明：
+     * 1. 资方配置用户取消拦截能力后，用户发起取消会通知资方，自发除了发起取消商户履约外，还可以通过次接口确认用户批量取消操作，用户可以进行取消
+     * Summary: 允许用户取消(确认用户取消).
+     *
+     * @param ConfirmFundUsercancelRequest $request
+     *
+     * @return ConfirmFundUsercancelResponse
+     */
+    public function confirmFundUsercancel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->confirmFundUsercancelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调用说明：
+     * 1. 资方配置用户取消拦截能力后，用户发起取消会通知资方，自发除了发起取消商户履约外，还可以通过次接口确认用户批量取消操作，用户可以进行取消
+     * Summary: 允许用户取消(确认用户取消).
+     *
+     * @param ConfirmFundUsercancelRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return ConfirmFundUsercancelResponse
+     */
+    public function confirmFundUsercancelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConfirmFundUsercancelResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.usercancel.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 调用说明：
+     * 1. 当商户通过其他方式还款后，通过次接口同步信息，同步完成后会将扣款进行取消
+     * Summary: 商户履约其他方式还款（单期取消）.
+     *
+     * @param RepayFundPlanRequest $request
+     *
+     * @return RepayFundPlanResponse
+     */
+    public function repayFundPlan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->repayFundPlanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调用说明：
+     * 1. 当商户通过其他方式还款后，通过次接口同步信息，同步完成后会将扣款进行取消
+     * Summary: 商户履约其他方式还款（单期取消）.
+     *
+     * @param RepayFundPlanRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return RepayFundPlanResponse
+     */
+    public function repayFundPlanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RepayFundPlanResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.plan.repay', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -4125,6 +4242,138 @@ class Client
         Utils::validateModel($request);
 
         return UpdateInnerMerchantpayexpandResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.merchantpayexpand.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询租户账号信息
+     * Summary: 查询租户账号信息.
+     *
+     * @param QueryInnerTenantaccountinfoRequest $request
+     *
+     * @return QueryInnerTenantaccountinfoResponse
+     */
+    public function queryInnerTenantaccountinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerTenantaccountinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询租户账号信息
+     * Summary: 查询租户账号信息.
+     *
+     * @param QueryInnerTenantaccountinfoRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryInnerTenantaccountinfoResponse
+     */
+    public function queryInnerTenantaccountinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerTenantaccountinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.tenantaccountinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建租户账号信息
+     * Summary: 创建租户账号信息.
+     *
+     * @param CreateInnerTenantaccountinfoRequest $request
+     *
+     * @return CreateInnerTenantaccountinfoResponse
+     */
+    public function createInnerTenantaccountinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createInnerTenantaccountinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建租户账号信息
+     * Summary: 创建租户账号信息.
+     *
+     * @param CreateInnerTenantaccountinfoRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return CreateInnerTenantaccountinfoResponse
+     */
+    public function createInnerTenantaccountinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateInnerTenantaccountinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.tenantaccountinfo.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询代理商客服人员信息
+     * Summary: 查询代理商客服人员信息.
+     *
+     * @param GetInnerAgentcustomerserviceRequest $request
+     *
+     * @return GetInnerAgentcustomerserviceResponse
+     */
+    public function getInnerAgentcustomerservice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getInnerAgentcustomerserviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询代理商客服人员信息
+     * Summary: 查询代理商客服人员信息.
+     *
+     * @param GetInnerAgentcustomerserviceRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return GetInnerAgentcustomerserviceResponse
+     */
+    public function getInnerAgentcustomerserviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetInnerAgentcustomerserviceResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.agentcustomerservice.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 保存代理商客服人员信息
+     * Summary: 保存代理商客服人员信息.
+     *
+     * @param SaveInnerAgentcustomerserviceRequest $request
+     *
+     * @return SaveInnerAgentcustomerserviceResponse
+     */
+    public function saveInnerAgentcustomerservice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveInnerAgentcustomerserviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 保存代理商客服人员信息
+     * Summary: 保存代理商客服人员信息.
+     *
+     * @param SaveInnerAgentcustomerserviceRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return SaveInnerAgentcustomerserviceResponse
+     */
+    public function saveInnerAgentcustomerserviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveInnerAgentcustomerserviceResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.agentcustomerservice.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -79,6 +79,13 @@ class QueryInnerMerchantpayexpandResponse extends Model
      * @var bool
      */
     public $showCustomerServiceBanner;
+
+    // 是否直付通进件已成功
+    // 用于前端判断进件成功之后用户修改操作
+    /**
+     * @var bool
+     */
+    public $zftExpandSuccessful;
     protected $_name = [
         'reqMsgId'                  => 'req_msg_id',
         'resultCode'                => 'result_code',
@@ -92,6 +99,7 @@ class QueryInnerMerchantpayexpandResponse extends Model
         'expandStatus'              => 'expand_status',
         'expandFailReason'          => 'expand_fail_reason',
         'showCustomerServiceBanner' => 'show_customer_service_banner',
+        'zftExpandSuccessful'       => 'zft_expand_successful',
     ];
 
     public function validate()
@@ -142,6 +150,9 @@ class QueryInnerMerchantpayexpandResponse extends Model
         }
         if (null !== $this->showCustomerServiceBanner) {
             $res['show_customer_service_banner'] = $this->showCustomerServiceBanner;
+        }
+        if (null !== $this->zftExpandSuccessful) {
+            $res['zft_expand_successful'] = $this->zftExpandSuccessful;
         }
 
         return $res;
@@ -196,6 +207,9 @@ class QueryInnerMerchantpayexpandResponse extends Model
         }
         if (isset($map['show_customer_service_banner'])) {
             $model->showCustomerServiceBanner = $map['show_customer_service_banner'];
+        }
+        if (isset($map['zft_expand_successful'])) {
+            $model->zftExpandSuccessful = $map['zft_expand_successful'];
         }
 
         return $model;

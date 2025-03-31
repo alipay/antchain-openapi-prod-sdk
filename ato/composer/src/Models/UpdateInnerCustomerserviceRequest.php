@@ -45,19 +45,19 @@ class UpdateInnerCustomerserviceRequest extends Model
      */
     public $processType;
 
-    // 服务商名称
+    // 服务商名称（已废弃）
     /**
      * @var string
      */
     public $serviceProviderName;
 
-    // 客诉处理员支付宝绑定手机号
+    // 客诉处理员支付宝绑定手机号（已废弃）
     /**
      * @var string
      */
     public $alipayBindMobile;
 
-    // 客诉处理员支付宝账号
+    // 客诉处理员支付宝账号（已废弃）
     /**
      * @var string
      */
@@ -69,7 +69,7 @@ class UpdateInnerCustomerserviceRequest extends Model
      */
     public $customerServicePhone;
 
-    // 客服人员名称
+    // 客服人员名称（已废弃）
     /**
      * @var string
      */
@@ -86,6 +86,12 @@ class UpdateInnerCustomerserviceRequest extends Model
      * @var string
      */
     public $customerComplaintIssues;
+
+    // 客诉处理人员信息
+    /**
+     * @var CustomerPersonInfo[]
+     */
+    public $customerPersonInfoList;
 
     // 进件类型
     // DIRECT("DIRECT", "直连进件模式"), AGENT("AGENT", "代理商进件模式"),
@@ -107,19 +113,15 @@ class UpdateInnerCustomerserviceRequest extends Model
         'customerServiceName'     => 'customer_service_name',
         'onlineSupportSiteUrl'    => 'online_support_site_url',
         'customerComplaintIssues' => 'customer_complaint_issues',
+        'customerPersonInfoList'  => 'customer_person_info_list',
         'expandMode'              => 'expand_mode',
     ];
 
     public function validate()
     {
         Model::validateRequired('tenantId', $this->tenantId, true);
-        Model::validateRequired('merchantName', $this->merchantName, true);
         Model::validateRequired('processType', $this->processType, true);
-        Model::validateRequired('alipayBindMobile', $this->alipayBindMobile, true);
-        Model::validateRequired('alipayLogonId', $this->alipayLogonId, true);
         Model::validateRequired('customerServicePhone', $this->customerServicePhone, true);
-        Model::validateRequired('customerServiceName', $this->customerServiceName, true);
-        Model::validateRequired('customerComplaintIssues', $this->customerComplaintIssues, true);
         Model::validateRequired('expandMode', $this->expandMode, true);
     }
 
@@ -164,6 +166,15 @@ class UpdateInnerCustomerserviceRequest extends Model
         }
         if (null !== $this->customerComplaintIssues) {
             $res['customer_complaint_issues'] = $this->customerComplaintIssues;
+        }
+        if (null !== $this->customerPersonInfoList) {
+            $res['customer_person_info_list'] = [];
+            if (null !== $this->customerPersonInfoList && \is_array($this->customerPersonInfoList)) {
+                $n = 0;
+                foreach ($this->customerPersonInfoList as $item) {
+                    $res['customer_person_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->expandMode) {
             $res['expand_mode'] = $this->expandMode;
@@ -218,6 +229,15 @@ class UpdateInnerCustomerserviceRequest extends Model
         }
         if (isset($map['customer_complaint_issues'])) {
             $model->customerComplaintIssues = $map['customer_complaint_issues'];
+        }
+        if (isset($map['customer_person_info_list'])) {
+            if (!empty($map['customer_person_info_list'])) {
+                $model->customerPersonInfoList = [];
+                $n                             = 0;
+                foreach ($map['customer_person_info_list'] as $item) {
+                    $model->customerPersonInfoList[$n++] = null !== $item ? CustomerPersonInfo::fromMap($item) : $item;
+                }
+            }
         }
         if (isset($map['expand_mode'])) {
             $model->expandMode = $map['expand_mode'];

@@ -45,23 +45,11 @@ class CreateInnerCustomerserviceRequest extends Model
      */
     public $processType;
 
-    // 服务商名称
+    // 服务商名称（已废弃）
     /**
      * @var string
      */
     public $serviceProviderName;
-
-    // 客诉处理员支付宝绑定手机号
-    /**
-     * @var string
-     */
-    public $alipayBindMobile;
-
-    // 客诉处理员支付宝账号
-    /**
-     * @var string
-     */
-    public $alipayLogonId;
 
     // 客服电话
     /**
@@ -69,7 +57,19 @@ class CreateInnerCustomerserviceRequest extends Model
      */
     public $customerServicePhone;
 
-    // 客服人员名称
+    // 客诉处理员支付宝绑定手机号（已废弃）
+    /**
+     * @var string
+     */
+    public $alipayBindMobile;
+
+    // 客诉处理员支付宝账号（已废弃）
+    /**
+     * @var string
+     */
+    public $alipayLogonId;
+
+    // 客服人员名称（已废弃）
     /**
      * @var string
      */
@@ -87,6 +87,12 @@ class CreateInnerCustomerserviceRequest extends Model
      */
     public $customerComplaintIssues;
 
+    // 客诉人员信息，直连必填
+    /**
+     * @var CustomerPersonInfo[]
+     */
+    public $customerPersonInfoList;
+
     // 进件类型
     // DIRECT("DIRECT", "直连进件模式"),
     // AGENT("AGENT", "代理商进件模式"),
@@ -102,12 +108,13 @@ class CreateInnerCustomerserviceRequest extends Model
         'merchantName'            => 'merchant_name',
         'processType'             => 'process_type',
         'serviceProviderName'     => 'service_provider_name',
+        'customerServicePhone'    => 'customer_service_phone',
         'alipayBindMobile'        => 'alipay_bind_mobile',
         'alipayLogonId'           => 'alipay_logon_id',
-        'customerServicePhone'    => 'customer_service_phone',
         'customerServiceName'     => 'customer_service_name',
         'onlineSupportSiteUrl'    => 'online_support_site_url',
         'customerComplaintIssues' => 'customer_complaint_issues',
+        'customerPersonInfoList'  => 'customer_person_info_list',
         'expandMode'              => 'expand_mode',
     ];
 
@@ -115,11 +122,7 @@ class CreateInnerCustomerserviceRequest extends Model
     {
         Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validateRequired('processType', $this->processType, true);
-        Model::validateRequired('alipayBindMobile', $this->alipayBindMobile, true);
-        Model::validateRequired('alipayLogonId', $this->alipayLogonId, true);
         Model::validateRequired('customerServicePhone', $this->customerServicePhone, true);
-        Model::validateRequired('customerServiceName', $this->customerServiceName, true);
-        Model::validateRequired('customerComplaintIssues', $this->customerComplaintIssues, true);
         Model::validateRequired('expandMode', $this->expandMode, true);
     }
 
@@ -147,14 +150,14 @@ class CreateInnerCustomerserviceRequest extends Model
         if (null !== $this->serviceProviderName) {
             $res['service_provider_name'] = $this->serviceProviderName;
         }
+        if (null !== $this->customerServicePhone) {
+            $res['customer_service_phone'] = $this->customerServicePhone;
+        }
         if (null !== $this->alipayBindMobile) {
             $res['alipay_bind_mobile'] = $this->alipayBindMobile;
         }
         if (null !== $this->alipayLogonId) {
             $res['alipay_logon_id'] = $this->alipayLogonId;
-        }
-        if (null !== $this->customerServicePhone) {
-            $res['customer_service_phone'] = $this->customerServicePhone;
         }
         if (null !== $this->customerServiceName) {
             $res['customer_service_name'] = $this->customerServiceName;
@@ -164,6 +167,15 @@ class CreateInnerCustomerserviceRequest extends Model
         }
         if (null !== $this->customerComplaintIssues) {
             $res['customer_complaint_issues'] = $this->customerComplaintIssues;
+        }
+        if (null !== $this->customerPersonInfoList) {
+            $res['customer_person_info_list'] = [];
+            if (null !== $this->customerPersonInfoList && \is_array($this->customerPersonInfoList)) {
+                $n = 0;
+                foreach ($this->customerPersonInfoList as $item) {
+                    $res['customer_person_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         if (null !== $this->expandMode) {
             $res['expand_mode'] = $this->expandMode;
@@ -201,14 +213,14 @@ class CreateInnerCustomerserviceRequest extends Model
         if (isset($map['service_provider_name'])) {
             $model->serviceProviderName = $map['service_provider_name'];
         }
+        if (isset($map['customer_service_phone'])) {
+            $model->customerServicePhone = $map['customer_service_phone'];
+        }
         if (isset($map['alipay_bind_mobile'])) {
             $model->alipayBindMobile = $map['alipay_bind_mobile'];
         }
         if (isset($map['alipay_logon_id'])) {
             $model->alipayLogonId = $map['alipay_logon_id'];
-        }
-        if (isset($map['customer_service_phone'])) {
-            $model->customerServicePhone = $map['customer_service_phone'];
         }
         if (isset($map['customer_service_name'])) {
             $model->customerServiceName = $map['customer_service_name'];
@@ -218,6 +230,15 @@ class CreateInnerCustomerserviceRequest extends Model
         }
         if (isset($map['customer_complaint_issues'])) {
             $model->customerComplaintIssues = $map['customer_complaint_issues'];
+        }
+        if (isset($map['customer_person_info_list'])) {
+            if (!empty($map['customer_person_info_list'])) {
+                $model->customerPersonInfoList = [];
+                $n                             = 0;
+                foreach ($map['customer_person_info_list'] as $item) {
+                    $model->customerPersonInfoList[$n++] = null !== $item ? CustomerPersonInfo::fromMap($item) : $item;
+                }
+            }
         }
         if (isset($map['expand_mode'])) {
             $model->expandMode = $map['expand_mode'];
