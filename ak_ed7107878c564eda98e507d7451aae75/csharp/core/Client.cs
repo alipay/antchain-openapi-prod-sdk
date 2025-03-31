@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_ed7107878c564eda98e507d7451aae75
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.0.2"},
                         {"_prod_code", "ak_ed7107878c564eda98e507d7451aae75"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_ed7107878c564eda98e507d7451aae75
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.0.2"},
                         {"_prod_code", "ak_ed7107878c564eda98e507d7451aae75"},
                         {"_prod_channel", "saas"},
                     };
@@ -949,6 +949,48 @@ namespace AntChain.SDK.Ak_ed7107878c564eda98e507d7451aae75
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<OfflineUniversalsaasDigitalhumanChatSettingResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.chat.setting.offline", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询批量导入任务
+         * Summary: 查询批量导入任务
+         */
+        public QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse QueryUniversalsaasDigitalhumanKnowledgeImporttask(QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryUniversalsaasDigitalhumanKnowledgeImporttaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询批量导入任务
+         * Summary: 查询批量导入任务
+         */
+        public async Task<QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse> QueryUniversalsaasDigitalhumanKnowledgeImporttaskAsync(QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryUniversalsaasDigitalhumanKnowledgeImporttaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询批量导入任务
+         * Summary: 查询批量导入任务
+         */
+        public QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse QueryUniversalsaasDigitalhumanKnowledgeImporttaskEx(QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse>(DoRequest("1.0", "universalsaas.digitalhuman.knowledge.importtask.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询批量导入任务
+         * Summary: 查询批量导入任务
+         */
+        public async Task<QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse> QueryUniversalsaasDigitalhumanKnowledgeImporttaskExAsync(QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.knowledge.importtask.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
