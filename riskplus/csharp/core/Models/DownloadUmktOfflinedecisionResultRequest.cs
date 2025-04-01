@@ -35,6 +35,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultDate { get; set; }
 
+        // 离线圈客任务id
+        [NameInMap("task_id")]
+        [Validation(Required=false)]
+        public long? TaskId { get; set; }
+
     }
 
 }

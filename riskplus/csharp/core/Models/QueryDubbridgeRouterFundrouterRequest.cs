@@ -18,19 +18,25 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
+        // 1：现金贷（默认）
+        // 2：分期付
+        [NameInMap("prod_type")]
+        [Validation(Required=false)]
+        public string ProdType { get; set; }
+
         // 身份证号
         [NameInMap("card_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CardNo { get; set; }
 
         // 手机号
         [NameInMap("mobile")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Mobile { get; set; }
 
         // 姓名
         [NameInMap("custom_name")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CustomName { get; set; }
 
         // 合作方产品编号
@@ -108,6 +114,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [NameInMap("custom_name_type")]
         [Validation(Required=false)]
         public string CustomNameType { get; set; }
+
+        // 资产方用户唯一标识
+        [NameInMap("open_id")]
+        [Validation(Required=false)]
+        public string OpenId { get; set; }
 
     }
 

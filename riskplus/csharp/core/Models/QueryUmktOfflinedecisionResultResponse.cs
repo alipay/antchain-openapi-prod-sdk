@@ -29,6 +29,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public List<long?> DecisionPlanIdList { get; set; }
 
+        // 批次维度圈客任务结果
+        [NameInMap("task_exec_batch_info")]
+        [Validation(Required=false)]
+        public List<UmktOfflineDecisionTaskDetailInfo> TaskExecBatchInfo { get; set; }
+
     }
 
 }

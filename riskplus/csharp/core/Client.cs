@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.22.4"},
+                        {"sdk_version", "1.23.4"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.22.4"},
+                        {"sdk_version", "1.23.4"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3436,6 +3436,90 @@ namespace AntChain.SDK.RISKPLUS
         }
 
         /**
+         * Description: 天枢系统授信额度查询接口-分期付
+         * Summary: 天枢系统授信额度查询接口-分期付
+         */
+        public QueryDubbridgeInstallmentCreditamtResponse QueryDubbridgeInstallmentCreditamt(QueryDubbridgeInstallmentCreditamtRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeInstallmentCreditamtEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统授信额度查询接口-分期付
+         * Summary: 天枢系统授信额度查询接口-分期付
+         */
+        public async Task<QueryDubbridgeInstallmentCreditamtResponse> QueryDubbridgeInstallmentCreditamtAsync(QueryDubbridgeInstallmentCreditamtRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeInstallmentCreditamtExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统授信额度查询接口-分期付
+         * Summary: 天枢系统授信额度查询接口-分期付
+         */
+        public QueryDubbridgeInstallmentCreditamtResponse QueryDubbridgeInstallmentCreditamtEx(QueryDubbridgeInstallmentCreditamtRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeInstallmentCreditamtResponse>(DoRequest("1.0", "riskplus.dubbridge.installment.creditamt.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统授信额度查询接口-分期付
+         * Summary: 天枢系统授信额度查询接口-分期付
+         */
+        public async Task<QueryDubbridgeInstallmentCreditamtResponse> QueryDubbridgeInstallmentCreditamtExAsync(QueryDubbridgeInstallmentCreditamtRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeInstallmentCreditamtResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.installment.creditamt.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统取消分期付订单-分期付
+         * Summary: 天枢系统取消分期付订单-分期付
+         */
+        public CancelDubbridgeInstallmentOrderResponse CancelDubbridgeInstallmentOrder(CancelDubbridgeInstallmentOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CancelDubbridgeInstallmentOrderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统取消分期付订单-分期付
+         * Summary: 天枢系统取消分期付订单-分期付
+         */
+        public async Task<CancelDubbridgeInstallmentOrderResponse> CancelDubbridgeInstallmentOrderAsync(CancelDubbridgeInstallmentOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CancelDubbridgeInstallmentOrderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统取消分期付订单-分期付
+         * Summary: 天枢系统取消分期付订单-分期付
+         */
+        public CancelDubbridgeInstallmentOrderResponse CancelDubbridgeInstallmentOrderEx(CancelDubbridgeInstallmentOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelDubbridgeInstallmentOrderResponse>(DoRequest("1.0", "riskplus.dubbridge.installment.order.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统取消分期付订单-分期付
+         * Summary: 天枢系统取消分期付订单-分期付
+         */
+        public async Task<CancelDubbridgeInstallmentOrderResponse> CancelDubbridgeInstallmentOrderExAsync(CancelDubbridgeInstallmentOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelDubbridgeInstallmentOrderResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.installment.order.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 四要素认证首先调用此接口
          * Summary: 芝麻四要素接口
          */
@@ -5044,6 +5128,96 @@ namespace AntChain.SDK.RISKPLUS
         }
 
         /**
+         * Description: rfc外部文件上传
+         * Summary: rfc外部文件上传
+         */
+        public ReceiveRfcParamsFileResponse ReceiveRfcParamsFile(ReceiveRfcParamsFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ReceiveRfcParamsFileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: rfc外部文件上传
+         * Summary: rfc外部文件上传
+         */
+        public async Task<ReceiveRfcParamsFileResponse> ReceiveRfcParamsFileAsync(ReceiveRfcParamsFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ReceiveRfcParamsFileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: rfc外部文件上传
+         * Summary: rfc外部文件上传
+         */
+        public ReceiveRfcParamsFileResponse ReceiveRfcParamsFileEx(ReceiveRfcParamsFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "riskplus.rfc.params.file.receive",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ReceiveRfcParamsFileResponse receiveRfcParamsFileResponse = new ReceiveRfcParamsFileResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return receiveRfcParamsFileResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReceiveRfcParamsFileResponse>(DoRequest("1.0", "riskplus.rfc.params.file.receive", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: rfc外部文件上传
+         * Summary: rfc外部文件上传
+         */
+        public async Task<ReceiveRfcParamsFileResponse> ReceiveRfcParamsFileExAsync(ReceiveRfcParamsFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "riskplus.rfc.params.file.receive",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ReceiveRfcParamsFileResponse receiveRfcParamsFileResponse = new ReceiveRfcParamsFileResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return receiveRfcParamsFileResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReceiveRfcParamsFileResponse>(await DoRequestAsync("1.0", "riskplus.rfc.params.file.receive", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 风险大脑企业版通用查询接口
          * Summary: 【已废弃】
          */
@@ -6055,6 +6229,96 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PushRbbInvoiceChargeResponse>(await DoRequestAsync("1.0", "riskplus.rbb.invoice.charge.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过接口进行报告上传
+         * Summary: 征信报告上传接口
+         */
+        public ReceiveRbbParamsFileResponse ReceiveRbbParamsFile(ReceiveRbbParamsFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ReceiveRbbParamsFileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过接口进行报告上传
+         * Summary: 征信报告上传接口
+         */
+        public async Task<ReceiveRbbParamsFileResponse> ReceiveRbbParamsFileAsync(ReceiveRbbParamsFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ReceiveRbbParamsFileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过接口进行报告上传
+         * Summary: 征信报告上传接口
+         */
+        public ReceiveRbbParamsFileResponse ReceiveRbbParamsFileEx(ReceiveRbbParamsFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "riskplus.rbb.params.file.receive",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ReceiveRbbParamsFileResponse receiveRbbParamsFileResponse = new ReceiveRbbParamsFileResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return receiveRbbParamsFileResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReceiveRbbParamsFileResponse>(DoRequest("1.0", "riskplus.rbb.params.file.receive", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过接口进行报告上传
+         * Summary: 征信报告上传接口
+         */
+        public async Task<ReceiveRbbParamsFileResponse> ReceiveRbbParamsFileExAsync(ReceiveRbbParamsFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "riskplus.rbb.params.file.receive",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ReceiveRbbParamsFileResponse receiveRbbParamsFileResponse = new ReceiveRbbParamsFileResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return receiveRbbParamsFileResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReceiveRbbParamsFileResponse>(await DoRequestAsync("1.0", "riskplus.rbb.params.file.receive", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -9271,7 +9535,7 @@ namespace AntChain.SDK.RISKPLUS
 
         /**
          * Description: 包含离线圈客关联计划和任务状态详情
-         * Summary: 营销盾离线圈客计划执行详情
+         * Summary: 营销盾离线圈客计划执行详情 
          */
         public QueryUmktOfflinedecisionPlandetailsResponse QueryUmktOfflinedecisionPlandetails(QueryUmktOfflinedecisionPlandetailsRequest request)
         {
@@ -9282,7 +9546,7 @@ namespace AntChain.SDK.RISKPLUS
 
         /**
          * Description: 包含离线圈客关联计划和任务状态详情
-         * Summary: 营销盾离线圈客计划执行详情
+         * Summary: 营销盾离线圈客计划执行详情 
          */
         public async Task<QueryUmktOfflinedecisionPlandetailsResponse> QueryUmktOfflinedecisionPlandetailsAsync(QueryUmktOfflinedecisionPlandetailsRequest request)
         {
@@ -9293,7 +9557,7 @@ namespace AntChain.SDK.RISKPLUS
 
         /**
          * Description: 包含离线圈客关联计划和任务状态详情
-         * Summary: 营销盾离线圈客计划执行详情
+         * Summary: 营销盾离线圈客计划执行详情 
          */
         public QueryUmktOfflinedecisionPlandetailsResponse QueryUmktOfflinedecisionPlandetailsEx(QueryUmktOfflinedecisionPlandetailsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -9303,7 +9567,7 @@ namespace AntChain.SDK.RISKPLUS
 
         /**
          * Description: 包含离线圈客关联计划和任务状态详情
-         * Summary: 营销盾离线圈客计划执行详情
+         * Summary: 营销盾离线圈客计划执行详情 
          */
         public async Task<QueryUmktOfflinedecisionPlandetailsResponse> QueryUmktOfflinedecisionPlandetailsExAsync(QueryUmktOfflinedecisionPlandetailsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
