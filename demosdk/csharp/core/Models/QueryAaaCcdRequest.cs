@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DEMOSDK.Models
 {
-    public class QueryCcXxRequest : TeaModel {
+    public class QueryAaaCcdRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -17,11 +17,6 @@ namespace AntChain.SDK.DEMOSDK.Models
         [NameInMap("product_instance_id")]
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
-
-        // aa
-        [NameInMap("name")]
-        [Validation(Required=true)]
-        public string Name { get; set; }
 
     }
 

@@ -2,15 +2,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
-    <RootNamespace>AntChain.SDK.Antdigital_DEMOSDK</RootNamespace>
+    <RootNamespace>AntChain.SDK.DEMOSDK</RootNamespace>
     <OutputType>Library</OutputType>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <AssemblyName>AntChain.SDK.Antdigital_DEMOSDK</AssemblyName>
-    <Version>1.2.0</Version>
+    <AssemblyName>AntChain.SDK.DEMOSDK</AssemblyName>
+    <Version>1.3.6</Version>
     <LangVersion>5</LangVersion>
     <Authors>Ant Chain, Inc</Authors>
-    <Description>Ant Chain antdigital_DEMOSDK SDK Library for .NET</Description>
+    <Description>Ant Chain DEMOSDK SDK Library for .NET</Description>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
     <DefineConstants>NETSTANDARD2_0</DefineConstants>

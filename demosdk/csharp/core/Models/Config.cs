@@ -6,7 +6,7 @@ using System.IO;
 
 using Tea;
 
-namespace AntChain.SDK.Antdigital_DEMOSDK.Models
+namespace AntChain.SDK.DEMOSDK.Models
 {
     /**
      * Model for initing client

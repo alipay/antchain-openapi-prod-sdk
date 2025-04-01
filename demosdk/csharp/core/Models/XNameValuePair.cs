@@ -8,12 +8,17 @@ using Tea;
 
 namespace AntChain.SDK.DEMOSDK.Models
 {
-    // 返回结果测试类
-    public class ResultTest : TeaModel {
-        // 姓名
+    // 键值对
+    public class XNameValuePair : TeaModel {
+        // 键名
         [NameInMap("name")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string Name { get; set; }
+
+        // 键值
+        [NameInMap("value")]
+        [Validation(Required=true)]
+        public string Value { get; set; }
 
     }
 

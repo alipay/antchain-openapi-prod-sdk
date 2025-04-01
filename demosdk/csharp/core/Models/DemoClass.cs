@@ -6,7 +6,7 @@ using System.IO;
 
 using Tea;
 
-namespace AntChain.SDK.Antdigital_DEMOSDK.Models
+namespace AntChain.SDK.DEMOSDK.Models
 {
     // Demo类1
     public class DemoClass : TeaModel {
