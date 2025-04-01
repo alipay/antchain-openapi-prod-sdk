@@ -490,6 +490,10 @@ type CheckAntcloudAitechguardAicoguardrailsAskRequest struct {
 	LastAnswer *string `json:"last_answer,omitempty" xml:"last_answer,omitempty"`
 	// 需要个性化处理的标签
 	PersonalLabelCustomization *PersonalLabelCustomization `json:"personal_label_customization,omitempty" xml:"personal_label_customization,omitempty"`
+	// 是否需要开启针对大模型提问prompt攻击手法的防御功能，包括越狱攻击（劫持、诱导、其他）、注入攻击、内容泛化攻击（文本变形变种）等常见攻击手法。默认值：N：不开启
+	// Y：开启
+	// N：不开启
+	AttackDefense *string `json:"attack_defense,omitempty" xml:"attack_defense,omitempty"`
 }
 
 func (s CheckAntcloudAitechguardAicoguardrailsAskRequest) String() string {
@@ -547,6 +551,11 @@ func (s *CheckAntcloudAitechguardAicoguardrailsAskRequest) SetLastAnswer(v strin
 
 func (s *CheckAntcloudAitechguardAicoguardrailsAskRequest) SetPersonalLabelCustomization(v *PersonalLabelCustomization) *CheckAntcloudAitechguardAicoguardrailsAskRequest {
 	s.PersonalLabelCustomization = v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAskRequest) SetAttackDefense(v string) *CheckAntcloudAitechguardAicoguardrailsAskRequest {
+	s.AttackDefense = &v
 	return s
 }
 
