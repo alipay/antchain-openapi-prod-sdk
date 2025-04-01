@@ -565,6 +565,7 @@ class CheckAntcloudAitechguardAicoguardrailsAskRequest(TeaModel):
         user_id: str = None,
         last_answer: str = None,
         personal_label_customization: PersonalLabelCustomization = None,
+        attack_defense: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -586,6 +587,10 @@ class CheckAntcloudAitechguardAicoguardrailsAskRequest(TeaModel):
         self.last_answer = last_answer
         # 需要个性化处理的标签
         self.personal_label_customization = personal_label_customization
+        # 是否需要开启针对大模型提问prompt攻击手法的防御功能，包括越狱攻击（劫持、诱导、其他）、注入攻击、内容泛化攻击（文本变形变种）等常见攻击手法。默认值：N：不开启
+        # Y：开启
+        # N：不开启
+        self.attack_defense = attack_defense
 
     def validate(self):
         self.validate_required(self.request_id, 'request_id')
@@ -623,6 +628,8 @@ class CheckAntcloudAitechguardAicoguardrailsAskRequest(TeaModel):
             result['last_answer'] = self.last_answer
         if self.personal_label_customization is not None:
             result['personal_label_customization'] = self.personal_label_customization.to_map()
+        if self.attack_defense is not None:
+            result['attack_defense'] = self.attack_defense
         return result
 
     def from_map(self, m: dict = None):
@@ -648,6 +655,8 @@ class CheckAntcloudAitechguardAicoguardrailsAskRequest(TeaModel):
         if m.get('personal_label_customization') is not None:
             temp_model = PersonalLabelCustomization()
             self.personal_label_customization = temp_model.from_map(m['personal_label_customization'])
+        if m.get('attack_defense') is not None:
+            self.attack_defense = m.get('attack_defense')
         return self
 
 
