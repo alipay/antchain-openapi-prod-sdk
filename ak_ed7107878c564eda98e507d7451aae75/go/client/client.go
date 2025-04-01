@@ -6,6 +6,7 @@ import (
 	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
+	"io"
 )
 
 /**
@@ -357,6 +358,107 @@ func (s *AvatarComponentInfo) SetValue(v string) *AvatarComponentInfo {
 	return s
 }
 
+// 数字人平台--形象信息
+type AvatarModelInfo struct {
+	// 数字人形象id
+	ModelId *int64 `json:"model_id,omitempty" xml:"model_id,omitempty" require:"true"`
+	// 数字人形象名
+	ModelName *string `json:"model_name,omitempty" xml:"model_name,omitempty" require:"true"`
+	// 数字人形象默认音色列表
+	VoiceList []*string `json:"voice_list,omitempty" xml:"voice_list,omitempty" require:"true" type:"Repeated"`
+	// 数字人形象预览图
+	Image *string `json:"image,omitempty" xml:"image,omitempty" require:"true"`
+}
+
+func (s AvatarModelInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AvatarModelInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AvatarModelInfo) SetModelId(v int64) *AvatarModelInfo {
+	s.ModelId = &v
+	return s
+}
+
+func (s *AvatarModelInfo) SetModelName(v string) *AvatarModelInfo {
+	s.ModelName = &v
+	return s
+}
+
+func (s *AvatarModelInfo) SetVoiceList(v []*string) *AvatarModelInfo {
+	s.VoiceList = v
+	return s
+}
+
+func (s *AvatarModelInfo) SetImage(v string) *AvatarModelInfo {
+	s.Image = &v
+	return s
+}
+
+// 数字人平台--音色信息
+type AvatarVoiceInfo struct {
+	// 音色id
+	VoiceId *string `json:"voice_id,omitempty" xml:"voice_id,omitempty" require:"true"`
+	// 音色编码
+	VoiceCode *string `json:"voice_code,omitempty" xml:"voice_code,omitempty" require:"true"`
+	// 音色名
+	VoiceName *string `json:"voice_name,omitempty" xml:"voice_name,omitempty" require:"true"`
+	// 预览图
+	Image *string `json:"image,omitempty" xml:"image,omitempty"`
+	// 音色性别
+	Gender *string `json:"gender,omitempty" xml:"gender,omitempty"`
+	// 音色类型
+	VoiceType *string `json:"voice_type,omitempty" xml:"voice_type,omitempty"`
+	// 音色试听链接列表
+	AuditionList []*string `json:"audition_list,omitempty" xml:"audition_list,omitempty" type:"Repeated"`
+}
+
+func (s AvatarVoiceInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AvatarVoiceInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AvatarVoiceInfo) SetVoiceId(v string) *AvatarVoiceInfo {
+	s.VoiceId = &v
+	return s
+}
+
+func (s *AvatarVoiceInfo) SetVoiceCode(v string) *AvatarVoiceInfo {
+	s.VoiceCode = &v
+	return s
+}
+
+func (s *AvatarVoiceInfo) SetVoiceName(v string) *AvatarVoiceInfo {
+	s.VoiceName = &v
+	return s
+}
+
+func (s *AvatarVoiceInfo) SetImage(v string) *AvatarVoiceInfo {
+	s.Image = &v
+	return s
+}
+
+func (s *AvatarVoiceInfo) SetGender(v string) *AvatarVoiceInfo {
+	s.Gender = &v
+	return s
+}
+
+func (s *AvatarVoiceInfo) SetVoiceType(v string) *AvatarVoiceInfo {
+	s.VoiceType = &v
+	return s
+}
+
+func (s *AvatarVoiceInfo) SetAuditionList(v []*string) *AvatarVoiceInfo {
+	s.AuditionList = v
+	return s
+}
+
 // 数字人平台--气泡按钮信息
 type AvatarBubbleInfo struct {
 	// 气泡标题
@@ -507,6 +609,32 @@ func (s *AvatarScriptConfigInfo) SetWelcomePhrases(v []*string) *AvatarScriptCon
 
 func (s *AvatarScriptConfigInfo) SetFallbackPhrases(v []*string) *AvatarScriptConfigInfo {
 	s.FallbackPhrases = v
+	return s
+}
+
+// 键值对
+type XNameValuePair struct {
+	// 键名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 键值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s XNameValuePair) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XNameValuePair) GoString() string {
+	return s.String()
+}
+
+func (s *XNameValuePair) SetName(v string) *XNameValuePair {
+	s.Name = &v
+	return s
+}
+
+func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
+	s.Value = &v
 	return s
 }
 
@@ -1756,6 +1884,669 @@ func (s *OfflineUniversalsaasDigitalhumanChatSettingResponse) SetResultMsg(v str
 	return s
 }
 
+type ListUniversalsaasDigitalhumanModelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户编码
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+	// common---内置形象
+	// custom--我的形象
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 2d---2d形象
+	// 3d---3d形象
+	Classification *string `json:"classification,omitempty" xml:"classification,omitempty" require:"true"`
+}
+
+func (s ListUniversalsaasDigitalhumanModelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListUniversalsaasDigitalhumanModelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListUniversalsaasDigitalhumanModelRequest) SetAuthToken(v string) *ListUniversalsaasDigitalhumanModelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanModelRequest) SetProductInstanceId(v string) *ListUniversalsaasDigitalhumanModelRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanModelRequest) SetTenantCode(v string) *ListUniversalsaasDigitalhumanModelRequest {
+	s.TenantCode = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanModelRequest) SetType(v string) *ListUniversalsaasDigitalhumanModelRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanModelRequest) SetClassification(v string) *ListUniversalsaasDigitalhumanModelRequest {
+	s.Classification = &v
+	return s
+}
+
+type ListUniversalsaasDigitalhumanModelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 数字人形象信息列表
+	ItemList []*AvatarModelInfo `json:"item_list,omitempty" xml:"item_list,omitempty" type:"Repeated"`
+}
+
+func (s ListUniversalsaasDigitalhumanModelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListUniversalsaasDigitalhumanModelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListUniversalsaasDigitalhumanModelResponse) SetReqMsgId(v string) *ListUniversalsaasDigitalhumanModelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanModelResponse) SetResultCode(v string) *ListUniversalsaasDigitalhumanModelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanModelResponse) SetResultMsg(v string) *ListUniversalsaasDigitalhumanModelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanModelResponse) SetItemList(v []*AvatarModelInfo) *ListUniversalsaasDigitalhumanModelResponse {
+	s.ItemList = v
+	return s
+}
+
+type ListUniversalsaasDigitalhumanVoiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户编码
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+	// common---内置音色
+	// custom--我的音色
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 2d---2d音色
+	// 3d---3d音色
+	Classification *string `json:"classification,omitempty" xml:"classification,omitempty" require:"true"`
+}
+
+func (s ListUniversalsaasDigitalhumanVoiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListUniversalsaasDigitalhumanVoiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListUniversalsaasDigitalhumanVoiceRequest) SetAuthToken(v string) *ListUniversalsaasDigitalhumanVoiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanVoiceRequest) SetProductInstanceId(v string) *ListUniversalsaasDigitalhumanVoiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanVoiceRequest) SetTenantCode(v string) *ListUniversalsaasDigitalhumanVoiceRequest {
+	s.TenantCode = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanVoiceRequest) SetType(v string) *ListUniversalsaasDigitalhumanVoiceRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanVoiceRequest) SetClassification(v string) *ListUniversalsaasDigitalhumanVoiceRequest {
+	s.Classification = &v
+	return s
+}
+
+type ListUniversalsaasDigitalhumanVoiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 数字人平台音色信息列表
+	ItemList []*AvatarVoiceInfo `json:"item_list,omitempty" xml:"item_list,omitempty" type:"Repeated"`
+}
+
+func (s ListUniversalsaasDigitalhumanVoiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListUniversalsaasDigitalhumanVoiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListUniversalsaasDigitalhumanVoiceResponse) SetReqMsgId(v string) *ListUniversalsaasDigitalhumanVoiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanVoiceResponse) SetResultCode(v string) *ListUniversalsaasDigitalhumanVoiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanVoiceResponse) SetResultMsg(v string) *ListUniversalsaasDigitalhumanVoiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanVoiceResponse) SetItemList(v []*AvatarVoiceInfo) *ListUniversalsaasDigitalhumanVoiceResponse {
+	s.ItemList = v
+	return s
+}
+
+type PreviewUniversalsaasDigitalhumanVoiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户编码
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+	// 2d---2d音色
+	// 3d---3d音色
+	Classification *string `json:"classification,omitempty" xml:"classification,omitempty" require:"true"`
+	// 音色编码
+	VoiceCode *string `json:"voice_code,omitempty" xml:"voice_code,omitempty" require:"true"`
+	// 试听文案
+	Text *string `json:"text,omitempty" xml:"text,omitempty" require:"true"`
+	// 语速
+	Speed *int64 `json:"speed,omitempty" xml:"speed,omitempty"`
+	// 音调
+	Pitch *int64 `json:"pitch,omitempty" xml:"pitch,omitempty"`
+	// 音量
+	Volume *int64 `json:"volume,omitempty" xml:"volume,omitempty"`
+	// 数字人角色id
+	HumanId *int64 `json:"human_id,omitempty" xml:"human_id,omitempty"`
+	// 数字人形象id
+	ModelId *int64 `json:"model_id,omitempty" xml:"model_id,omitempty"`
+}
+
+func (s PreviewUniversalsaasDigitalhumanVoiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PreviewUniversalsaasDigitalhumanVoiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PreviewUniversalsaasDigitalhumanVoiceRequest) SetAuthToken(v string) *PreviewUniversalsaasDigitalhumanVoiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PreviewUniversalsaasDigitalhumanVoiceRequest) SetProductInstanceId(v string) *PreviewUniversalsaasDigitalhumanVoiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PreviewUniversalsaasDigitalhumanVoiceRequest) SetTenantCode(v string) *PreviewUniversalsaasDigitalhumanVoiceRequest {
+	s.TenantCode = &v
+	return s
+}
+
+func (s *PreviewUniversalsaasDigitalhumanVoiceRequest) SetClassification(v string) *PreviewUniversalsaasDigitalhumanVoiceRequest {
+	s.Classification = &v
+	return s
+}
+
+func (s *PreviewUniversalsaasDigitalhumanVoiceRequest) SetVoiceCode(v string) *PreviewUniversalsaasDigitalhumanVoiceRequest {
+	s.VoiceCode = &v
+	return s
+}
+
+func (s *PreviewUniversalsaasDigitalhumanVoiceRequest) SetText(v string) *PreviewUniversalsaasDigitalhumanVoiceRequest {
+	s.Text = &v
+	return s
+}
+
+func (s *PreviewUniversalsaasDigitalhumanVoiceRequest) SetSpeed(v int64) *PreviewUniversalsaasDigitalhumanVoiceRequest {
+	s.Speed = &v
+	return s
+}
+
+func (s *PreviewUniversalsaasDigitalhumanVoiceRequest) SetPitch(v int64) *PreviewUniversalsaasDigitalhumanVoiceRequest {
+	s.Pitch = &v
+	return s
+}
+
+func (s *PreviewUniversalsaasDigitalhumanVoiceRequest) SetVolume(v int64) *PreviewUniversalsaasDigitalhumanVoiceRequest {
+	s.Volume = &v
+	return s
+}
+
+func (s *PreviewUniversalsaasDigitalhumanVoiceRequest) SetHumanId(v int64) *PreviewUniversalsaasDigitalhumanVoiceRequest {
+	s.HumanId = &v
+	return s
+}
+
+func (s *PreviewUniversalsaasDigitalhumanVoiceRequest) SetModelId(v int64) *PreviewUniversalsaasDigitalhumanVoiceRequest {
+	s.ModelId = &v
+	return s
+}
+
+type PreviewUniversalsaasDigitalhumanVoiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 试听音频链接
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s PreviewUniversalsaasDigitalhumanVoiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PreviewUniversalsaasDigitalhumanVoiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PreviewUniversalsaasDigitalhumanVoiceResponse) SetReqMsgId(v string) *PreviewUniversalsaasDigitalhumanVoiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PreviewUniversalsaasDigitalhumanVoiceResponse) SetResultCode(v string) *PreviewUniversalsaasDigitalhumanVoiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PreviewUniversalsaasDigitalhumanVoiceResponse) SetResultMsg(v string) *PreviewUniversalsaasDigitalhumanVoiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PreviewUniversalsaasDigitalhumanVoiceResponse) SetData(v string) *PreviewUniversalsaasDigitalhumanVoiceResponse {
+	s.Data = &v
+	return s
+}
+
+type UpdateUniversalsaasDigitalhumanHumanRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户编码
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+	// 数字人形象id
+	ModelId *int64 `json:"model_id,omitempty" xml:"model_id,omitempty" require:"true"`
+	// 音色编码
+	VoiceCode *string `json:"voice_code,omitempty" xml:"voice_code,omitempty" require:"true"`
+	// 数字人角色名
+	HumanName *string `json:"human_name,omitempty" xml:"human_name,omitempty"`
+	// 语速
+	Speed *int64 `json:"speed,omitempty" xml:"speed,omitempty"`
+	// 音调
+	Pitch *int64 `json:"pitch,omitempty" xml:"pitch,omitempty"`
+	// 音量
+	Volume *int64 `json:"volume,omitempty" xml:"volume,omitempty"`
+	// 数字人角色id
+	HumanId *int64 `json:"human_id,omitempty" xml:"human_id,omitempty"`
+}
+
+func (s UpdateUniversalsaasDigitalhumanHumanRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateUniversalsaasDigitalhumanHumanRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateUniversalsaasDigitalhumanHumanRequest) SetAuthToken(v string) *UpdateUniversalsaasDigitalhumanHumanRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanHumanRequest) SetProductInstanceId(v string) *UpdateUniversalsaasDigitalhumanHumanRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanHumanRequest) SetTenantCode(v string) *UpdateUniversalsaasDigitalhumanHumanRequest {
+	s.TenantCode = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanHumanRequest) SetModelId(v int64) *UpdateUniversalsaasDigitalhumanHumanRequest {
+	s.ModelId = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanHumanRequest) SetVoiceCode(v string) *UpdateUniversalsaasDigitalhumanHumanRequest {
+	s.VoiceCode = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanHumanRequest) SetHumanName(v string) *UpdateUniversalsaasDigitalhumanHumanRequest {
+	s.HumanName = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanHumanRequest) SetSpeed(v int64) *UpdateUniversalsaasDigitalhumanHumanRequest {
+	s.Speed = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanHumanRequest) SetPitch(v int64) *UpdateUniversalsaasDigitalhumanHumanRequest {
+	s.Pitch = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanHumanRequest) SetVolume(v int64) *UpdateUniversalsaasDigitalhumanHumanRequest {
+	s.Volume = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanHumanRequest) SetHumanId(v int64) *UpdateUniversalsaasDigitalhumanHumanRequest {
+	s.HumanId = &v
+	return s
+}
+
+type UpdateUniversalsaasDigitalhumanHumanResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 数字人角色信息
+	Data *AvatarHumanInfo `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s UpdateUniversalsaasDigitalhumanHumanResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateUniversalsaasDigitalhumanHumanResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateUniversalsaasDigitalhumanHumanResponse) SetReqMsgId(v string) *UpdateUniversalsaasDigitalhumanHumanResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanHumanResponse) SetResultCode(v string) *UpdateUniversalsaasDigitalhumanHumanResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanHumanResponse) SetResultMsg(v string) *UpdateUniversalsaasDigitalhumanHumanResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanHumanResponse) SetData(v *AvatarHumanInfo) *UpdateUniversalsaasDigitalhumanHumanResponse {
+	s.Data = v
+	return s
+}
+
+type DeleteUniversalsaasDigitalhumanHumanRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户编码
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+	// 数字人角色id
+	HumanId *int64 `json:"human_id,omitempty" xml:"human_id,omitempty" require:"true"`
+}
+
+func (s DeleteUniversalsaasDigitalhumanHumanRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteUniversalsaasDigitalhumanHumanRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteUniversalsaasDigitalhumanHumanRequest) SetAuthToken(v string) *DeleteUniversalsaasDigitalhumanHumanRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteUniversalsaasDigitalhumanHumanRequest) SetProductInstanceId(v string) *DeleteUniversalsaasDigitalhumanHumanRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeleteUniversalsaasDigitalhumanHumanRequest) SetTenantCode(v string) *DeleteUniversalsaasDigitalhumanHumanRequest {
+	s.TenantCode = &v
+	return s
+}
+
+func (s *DeleteUniversalsaasDigitalhumanHumanRequest) SetHumanId(v int64) *DeleteUniversalsaasDigitalhumanHumanRequest {
+	s.HumanId = &v
+	return s
+}
+
+type DeleteUniversalsaasDigitalhumanHumanResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s DeleteUniversalsaasDigitalhumanHumanResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteUniversalsaasDigitalhumanHumanResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteUniversalsaasDigitalhumanHumanResponse) SetReqMsgId(v string) *DeleteUniversalsaasDigitalhumanHumanResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteUniversalsaasDigitalhumanHumanResponse) SetResultCode(v string) *DeleteUniversalsaasDigitalhumanHumanResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteUniversalsaasDigitalhumanHumanResponse) SetResultMsg(v string) *DeleteUniversalsaasDigitalhumanHumanResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type DeleteUniversalsaasDigitalhumanKnowledgeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户编码
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+	// 知识点id列表
+	Ids []*int64 `json:"ids,omitempty" xml:"ids,omitempty" require:"true" type:"Repeated"`
+	// 知识库id
+	LibraryId *int64 `json:"library_id,omitempty" xml:"library_id,omitempty" require:"true"`
+}
+
+func (s DeleteUniversalsaasDigitalhumanKnowledgeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteUniversalsaasDigitalhumanKnowledgeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteUniversalsaasDigitalhumanKnowledgeRequest) SetAuthToken(v string) *DeleteUniversalsaasDigitalhumanKnowledgeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteUniversalsaasDigitalhumanKnowledgeRequest) SetProductInstanceId(v string) *DeleteUniversalsaasDigitalhumanKnowledgeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeleteUniversalsaasDigitalhumanKnowledgeRequest) SetTenantCode(v string) *DeleteUniversalsaasDigitalhumanKnowledgeRequest {
+	s.TenantCode = &v
+	return s
+}
+
+func (s *DeleteUniversalsaasDigitalhumanKnowledgeRequest) SetIds(v []*int64) *DeleteUniversalsaasDigitalhumanKnowledgeRequest {
+	s.Ids = v
+	return s
+}
+
+func (s *DeleteUniversalsaasDigitalhumanKnowledgeRequest) SetLibraryId(v int64) *DeleteUniversalsaasDigitalhumanKnowledgeRequest {
+	s.LibraryId = &v
+	return s
+}
+
+type DeleteUniversalsaasDigitalhumanKnowledgeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s DeleteUniversalsaasDigitalhumanKnowledgeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteUniversalsaasDigitalhumanKnowledgeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteUniversalsaasDigitalhumanKnowledgeResponse) SetReqMsgId(v string) *DeleteUniversalsaasDigitalhumanKnowledgeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteUniversalsaasDigitalhumanKnowledgeResponse) SetResultCode(v string) *DeleteUniversalsaasDigitalhumanKnowledgeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteUniversalsaasDigitalhumanKnowledgeResponse) SetResultMsg(v string) *DeleteUniversalsaasDigitalhumanKnowledgeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 知识点excel文件
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 租户编码
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+	// 知识库id
+	LibraryId *int64 `json:"library_id,omitempty" xml:"library_id,omitempty" require:"true"`
+}
+
+func (s CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest) SetAuthToken(v string) *CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest) SetProductInstanceId(v string) *CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest) SetFileObject(v io.Reader) *CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest) SetFileObjectName(v string) *CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest) SetFileId(v string) *CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest) SetTenantCode(v string) *CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest {
+	s.TenantCode = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest) SetLibraryId(v int64) *CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest {
+	s.LibraryId = &v
+	return s
+}
+
+type CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务id
+	TaskId *int64 `json:"task_id,omitempty" xml:"task_id,omitempty"`
+}
+
+func (s CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse) SetReqMsgId(v string) *CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse) SetResultCode(v string) *CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse) SetResultMsg(v string) *CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse) SetTaskId(v int64) *CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse {
+	s.TaskId = &v
+	return s
+}
+
 type QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1830,6 +2621,203 @@ func (s *QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse) SetResultMsg
 
 func (s *QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse) SetData(v *ImportTaskResult) *QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse {
 	s.Data = v
+	return s
+}
+
+type ExportUniversalsaasDigitalhumanKnowledgeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户编码
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+	// 知识库id
+	LibraryId *int64 `json:"library_id,omitempty" xml:"library_id,omitempty" require:"true"`
+}
+
+func (s ExportUniversalsaasDigitalhumanKnowledgeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExportUniversalsaasDigitalhumanKnowledgeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExportUniversalsaasDigitalhumanKnowledgeRequest) SetAuthToken(v string) *ExportUniversalsaasDigitalhumanKnowledgeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExportUniversalsaasDigitalhumanKnowledgeRequest) SetProductInstanceId(v string) *ExportUniversalsaasDigitalhumanKnowledgeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExportUniversalsaasDigitalhumanKnowledgeRequest) SetTenantCode(v string) *ExportUniversalsaasDigitalhumanKnowledgeRequest {
+	s.TenantCode = &v
+	return s
+}
+
+func (s *ExportUniversalsaasDigitalhumanKnowledgeRequest) SetLibraryId(v int64) *ExportUniversalsaasDigitalhumanKnowledgeRequest {
+	s.LibraryId = &v
+	return s
+}
+
+type ExportUniversalsaasDigitalhumanKnowledgeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// excel文件url
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s ExportUniversalsaasDigitalhumanKnowledgeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExportUniversalsaasDigitalhumanKnowledgeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExportUniversalsaasDigitalhumanKnowledgeResponse) SetReqMsgId(v string) *ExportUniversalsaasDigitalhumanKnowledgeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExportUniversalsaasDigitalhumanKnowledgeResponse) SetResultCode(v string) *ExportUniversalsaasDigitalhumanKnowledgeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExportUniversalsaasDigitalhumanKnowledgeResponse) SetResultMsg(v string) *ExportUniversalsaasDigitalhumanKnowledgeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExportUniversalsaasDigitalhumanKnowledgeResponse) SetData(v string) *ExportUniversalsaasDigitalhumanKnowledgeResponse {
+	s.Data = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 上传文件作用的openapi method
+	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty" require:"true"`
+	// 文件标签，多个标签;分割
+	FileLabel *string `json:"file_label,omitempty" xml:"file_label,omitempty" maxLength:"100"`
+	// 自定义的文件元数据
+	FileMetadata *string `json:"file_metadata,omitempty" xml:"file_metadata,omitempty" maxLength:"1000"`
+	// 文件名，不传则随机生成文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" maxLength:"100"`
+	// 文件的多媒体类型
+	MimeType *string `json:"mime_type,omitempty" xml:"mime_type,omitempty"`
+	// 产品方的api归属集群，即productInstanceId
+	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetAuthToken(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCode(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileLabel(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileLabel = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileMetadata(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileMetadata = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileName(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetMimeType(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.MimeType = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCluster = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传有效期
+	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 32位文件唯一id
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 放入http请求头里
+	UploadHeaders []*XNameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
+	// 文件上传地址
+	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetReqMsgId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultCode(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultMsg(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetExpiredTime(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ExpiredTime = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetFileId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.FileId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*XNameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadHeaders = v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadUrl(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadUrl = &v
 	return s
 }
 
@@ -1955,7 +2943,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.4"),
+				"sdk_version":      tea.String("1.1.5"),
 				"_prod_code":       tea.String("ak_ed7107878c564eda98e507d7451aae75"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -2524,6 +3512,274 @@ func (client *Client) OfflineUniversalsaasDigitalhumanChatSettingEx(request *Off
 }
 
 /**
+ * Description: 数字人形象列表接口
+ * Summary: 数字人形象列表接口
+ */
+func (client *Client) ListUniversalsaasDigitalhumanModel(request *ListUniversalsaasDigitalhumanModelRequest) (_result *ListUniversalsaasDigitalhumanModelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListUniversalsaasDigitalhumanModelResponse{}
+	_body, _err := client.ListUniversalsaasDigitalhumanModelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字人形象列表接口
+ * Summary: 数字人形象列表接口
+ */
+func (client *Client) ListUniversalsaasDigitalhumanModelEx(request *ListUniversalsaasDigitalhumanModelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListUniversalsaasDigitalhumanModelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListUniversalsaasDigitalhumanModelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.model.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字人平台音色列表
+ * Summary: 数字人平台音色列表
+ */
+func (client *Client) ListUniversalsaasDigitalhumanVoice(request *ListUniversalsaasDigitalhumanVoiceRequest) (_result *ListUniversalsaasDigitalhumanVoiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListUniversalsaasDigitalhumanVoiceResponse{}
+	_body, _err := client.ListUniversalsaasDigitalhumanVoiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字人平台音色列表
+ * Summary: 数字人平台音色列表
+ */
+func (client *Client) ListUniversalsaasDigitalhumanVoiceEx(request *ListUniversalsaasDigitalhumanVoiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListUniversalsaasDigitalhumanVoiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListUniversalsaasDigitalhumanVoiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.voice.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字人平台音色试听接口
+ * Summary: 数字人平台音色试听接口
+ */
+func (client *Client) PreviewUniversalsaasDigitalhumanVoice(request *PreviewUniversalsaasDigitalhumanVoiceRequest) (_result *PreviewUniversalsaasDigitalhumanVoiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PreviewUniversalsaasDigitalhumanVoiceResponse{}
+	_body, _err := client.PreviewUniversalsaasDigitalhumanVoiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字人平台音色试听接口
+ * Summary: 数字人平台音色试听接口
+ */
+func (client *Client) PreviewUniversalsaasDigitalhumanVoiceEx(request *PreviewUniversalsaasDigitalhumanVoiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PreviewUniversalsaasDigitalhumanVoiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PreviewUniversalsaasDigitalhumanVoiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.voice.preview"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字人平台角色创建与更新接口
+ * Summary: 数字人平台角色创建与更新接口
+ */
+func (client *Client) UpdateUniversalsaasDigitalhumanHuman(request *UpdateUniversalsaasDigitalhumanHumanRequest) (_result *UpdateUniversalsaasDigitalhumanHumanResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateUniversalsaasDigitalhumanHumanResponse{}
+	_body, _err := client.UpdateUniversalsaasDigitalhumanHumanEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字人平台角色创建与更新接口
+ * Summary: 数字人平台角色创建与更新接口
+ */
+func (client *Client) UpdateUniversalsaasDigitalhumanHumanEx(request *UpdateUniversalsaasDigitalhumanHumanRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateUniversalsaasDigitalhumanHumanResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateUniversalsaasDigitalhumanHumanResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.human.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 删除数字人角色接口
+ * Summary: 删除数字人角色接口
+ */
+func (client *Client) DeleteUniversalsaasDigitalhumanHuman(request *DeleteUniversalsaasDigitalhumanHumanRequest) (_result *DeleteUniversalsaasDigitalhumanHumanResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteUniversalsaasDigitalhumanHumanResponse{}
+	_body, _err := client.DeleteUniversalsaasDigitalhumanHumanEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 删除数字人角色接口
+ * Summary: 删除数字人角色接口
+ */
+func (client *Client) DeleteUniversalsaasDigitalhumanHumanEx(request *DeleteUniversalsaasDigitalhumanHumanRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteUniversalsaasDigitalhumanHumanResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteUniversalsaasDigitalhumanHumanResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.human.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 删除知识点接口
+ * Summary: 删除知识点接口
+ */
+func (client *Client) DeleteUniversalsaasDigitalhumanKnowledge(request *DeleteUniversalsaasDigitalhumanKnowledgeRequest) (_result *DeleteUniversalsaasDigitalhumanKnowledgeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteUniversalsaasDigitalhumanKnowledgeResponse{}
+	_body, _err := client.DeleteUniversalsaasDigitalhumanKnowledgeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 删除知识点接口
+ * Summary: 删除知识点接口
+ */
+func (client *Client) DeleteUniversalsaasDigitalhumanKnowledgeEx(request *DeleteUniversalsaasDigitalhumanKnowledgeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteUniversalsaasDigitalhumanKnowledgeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteUniversalsaasDigitalhumanKnowledgeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.knowledge.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建批量导入任务
+ * Summary: 创建批量导入任务
+ */
+func (client *Client) CreateUniversalsaasDigitalhumanKnowledgeImporttask(request *CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest) (_result *CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse{}
+	_body, _err := client.CreateUniversalsaasDigitalhumanKnowledgeImporttaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建批量导入任务
+ * Summary: 创建批量导入任务
+ */
+func (client *Client) CreateUniversalsaasDigitalhumanKnowledgeImporttaskEx(request *CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("universalsaas.digitalhuman.knowledge.importtask.create"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			createUniversalsaasDigitalhumanKnowledgeImporttaskResponse := &CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = createUniversalsaasDigitalhumanKnowledgeImporttaskResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.knowledge.importtask.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 查询批量导入任务
  * Summary: 查询批量导入任务
  */
@@ -2550,6 +3806,74 @@ func (client *Client) QueryUniversalsaasDigitalhumanKnowledgeImporttaskEx(reques
 	}
 	_result = &QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.knowledge.importtask.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 知识点批量导出
+ * Summary: 知识点批量导出
+ */
+func (client *Client) ExportUniversalsaasDigitalhumanKnowledge(request *ExportUniversalsaasDigitalhumanKnowledgeRequest) (_result *ExportUniversalsaasDigitalhumanKnowledgeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExportUniversalsaasDigitalhumanKnowledgeResponse{}
+	_body, _err := client.ExportUniversalsaasDigitalhumanKnowledgeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 知识点批量导出
+ * Summary: 知识点批量导出
+ */
+func (client *Client) ExportUniversalsaasDigitalhumanKnowledgeEx(request *ExportUniversalsaasDigitalhumanKnowledgeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExportUniversalsaasDigitalhumanKnowledgeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExportUniversalsaasDigitalhumanKnowledgeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.knowledge.export"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUpload(request *CreateAntcloudGatewayxFileUploadRequest) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.CreateAntcloudGatewayxFileUploadEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUploadEx(request *CreateAntcloudGatewayxFileUploadRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.gatewayx.file.upload.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
