@@ -21,6 +21,11 @@ public class QueryDubbridgeUsecreditStatusRequest extends TeaModel {
     @Validation(required = true)
     public String orderNo;
 
+    // 1：现金贷（默认）
+    // 2：分期付
+    @NameInMap("prod_type")
+    public String prodType;
+
     public static QueryDubbridgeUsecreditStatusRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeUsecreditStatusRequest self = new QueryDubbridgeUsecreditStatusRequest();
         return TeaModel.build(map, self);
@@ -56,6 +61,14 @@ public class QueryDubbridgeUsecreditStatusRequest extends TeaModel {
     }
     public String getOrderNo() {
         return this.orderNo;
+    }
+
+    public QueryDubbridgeUsecreditStatusRequest setProdType(String prodType) {
+        this.prodType = prodType;
+        return this;
+    }
+    public String getProdType() {
+        return this.prodType;
     }
 
 }

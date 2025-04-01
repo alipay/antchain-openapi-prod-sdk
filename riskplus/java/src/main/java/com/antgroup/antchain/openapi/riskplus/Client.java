@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.22.4"),
+                    new TeaPair("sdk_version", "1.23.4"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1594,6 +1594,44 @@ public class Client {
     }
 
     /**
+     * Description: 天枢系统授信额度查询接口-分期付
+     * Summary: 天枢系统授信额度查询接口-分期付
+     */
+    public QueryDubbridgeInstallmentCreditamtResponse queryDubbridgeInstallmentCreditamt(QueryDubbridgeInstallmentCreditamtRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeInstallmentCreditamtEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 天枢系统授信额度查询接口-分期付
+     * Summary: 天枢系统授信额度查询接口-分期付
+     */
+    public QueryDubbridgeInstallmentCreditamtResponse queryDubbridgeInstallmentCreditamtEx(QueryDubbridgeInstallmentCreditamtRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.installment.creditamt.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeInstallmentCreditamtResponse());
+    }
+
+    /**
+     * Description: 天枢系统取消分期付订单-分期付
+     * Summary: 天枢系统取消分期付订单-分期付
+     */
+    public CancelDubbridgeInstallmentOrderResponse cancelDubbridgeInstallmentOrder(CancelDubbridgeInstallmentOrderRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.cancelDubbridgeInstallmentOrderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 天枢系统取消分期付订单-分期付
+     * Summary: 天枢系统取消分期付订单-分期付
+     */
+    public CancelDubbridgeInstallmentOrderResponse cancelDubbridgeInstallmentOrderEx(CancelDubbridgeInstallmentOrderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.installment.order.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelDubbridgeInstallmentOrderResponse());
+    }
+
+    /**
      * Description: 四要素认证首先调用此接口
      * Summary: 芝麻四要素接口
      */
@@ -2322,6 +2360,47 @@ public class Client {
     }
 
     /**
+     * Description: rfc外部文件上传
+     * Summary: rfc外部文件上传
+     */
+    public ReceiveRfcParamsFileResponse receiveRfcParamsFile(ReceiveRfcParamsFileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.receiveRfcParamsFileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: rfc外部文件上传
+     * Summary: rfc外部文件上传
+     */
+    public ReceiveRfcParamsFileResponse receiveRfcParamsFileEx(ReceiveRfcParamsFileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "riskplus.rfc.params.file.receive"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                ReceiveRfcParamsFileResponse receiveRfcParamsFileResponse = ReceiveRfcParamsFileResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return receiveRfcParamsFileResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rfc.params.file.receive", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReceiveRfcParamsFileResponse());
+    }
+
+    /**
      * Description: 风险大脑企业版通用查询接口
      * Summary: 【已废弃】
      */
@@ -2778,6 +2857,47 @@ public class Client {
     public PushRbbInvoiceChargeResponse pushRbbInvoiceChargeEx(PushRbbInvoiceChargeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.rbb.invoice.charge.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushRbbInvoiceChargeResponse());
+    }
+
+    /**
+     * Description: 通过接口进行报告上传
+     * Summary: 征信报告上传接口
+     */
+    public ReceiveRbbParamsFileResponse receiveRbbParamsFile(ReceiveRbbParamsFileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.receiveRbbParamsFileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通过接口进行报告上传
+     * Summary: 征信报告上传接口
+     */
+    public ReceiveRbbParamsFileResponse receiveRbbParamsFileEx(ReceiveRbbParamsFileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "riskplus.rbb.params.file.receive"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                ReceiveRbbParamsFileResponse receiveRbbParamsFileResponse = ReceiveRbbParamsFileResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return receiveRbbParamsFileResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rbb.params.file.receive", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReceiveRbbParamsFileResponse());
     }
 
     /**
@@ -4236,7 +4356,7 @@ public class Client {
 
     /**
      * Description: 包含离线圈客关联计划和任务状态详情
-     * Summary: 营销盾离线圈客计划执行详情
+     * Summary: 营销盾离线圈客计划执行详情 
      */
     public QueryUmktOfflinedecisionPlandetailsResponse queryUmktOfflinedecisionPlandetails(QueryUmktOfflinedecisionPlandetailsRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -4246,7 +4366,7 @@ public class Client {
 
     /**
      * Description: 包含离线圈客关联计划和任务状态详情
-     * Summary: 营销盾离线圈客计划执行详情
+     * Summary: 营销盾离线圈客计划执行详情 
      */
     public QueryUmktOfflinedecisionPlandetailsResponse queryUmktOfflinedecisionPlandetailsEx(QueryUmktOfflinedecisionPlandetailsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

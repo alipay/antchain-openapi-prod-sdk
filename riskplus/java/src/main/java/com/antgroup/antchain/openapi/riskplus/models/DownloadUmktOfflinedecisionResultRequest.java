@@ -27,6 +27,10 @@ public class DownloadUmktOfflinedecisionResultRequest extends TeaModel {
     @NameInMap("result_date")
     public String resultDate;
 
+    // 离线圈客任务id
+    @NameInMap("task_id")
+    public Long taskId;
+
     public static DownloadUmktOfflinedecisionResultRequest build(java.util.Map<String, ?> map) throws Exception {
         DownloadUmktOfflinedecisionResultRequest self = new DownloadUmktOfflinedecisionResultRequest();
         return TeaModel.build(map, self);
@@ -70,6 +74,14 @@ public class DownloadUmktOfflinedecisionResultRequest extends TeaModel {
     }
     public String getResultDate() {
         return this.resultDate;
+    }
+
+    public DownloadUmktOfflinedecisionResultRequest setTaskId(Long taskId) {
+        this.taskId = taskId;
+        return this;
+    }
+    public Long getTaskId() {
+        return this.taskId;
     }
 
 }

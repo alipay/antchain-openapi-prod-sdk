@@ -11,19 +11,21 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 1：现金贷（默认）
+    // 2：分期付
+    @NameInMap("prod_type")
+    public String prodType;
+
     // 身份证号
     @NameInMap("card_no")
-    @Validation(required = true)
     public String cardNo;
 
     // 手机号
     @NameInMap("mobile")
-    @Validation(required = true)
     public String mobile;
 
     // 姓名
     @NameInMap("custom_name")
-    @Validation(required = true)
     public String customName;
 
     // 合作方产品编号
@@ -88,6 +90,10 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
     @NameInMap("custom_name_type")
     public String customNameType;
 
+    // 资产方用户唯一标识
+    @NameInMap("open_id")
+    public String openId;
+
     public static QueryDubbridgeRouterFundrouterRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeRouterFundrouterRequest self = new QueryDubbridgeRouterFundrouterRequest();
         return TeaModel.build(map, self);
@@ -107,6 +113,14 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public QueryDubbridgeRouterFundrouterRequest setProdType(String prodType) {
+        this.prodType = prodType;
+        return this;
+    }
+    public String getProdType() {
+        return this.prodType;
     }
 
     public QueryDubbridgeRouterFundrouterRequest setCardNo(String cardNo) {
@@ -243,6 +257,14 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
     }
     public String getCustomNameType() {
         return this.customNameType;
+    }
+
+    public QueryDubbridgeRouterFundrouterRequest setOpenId(String openId) {
+        this.openId = openId;
+        return this;
+    }
+    public String getOpenId() {
+        return this.openId;
     }
 
 }

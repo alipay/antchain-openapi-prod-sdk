@@ -24,6 +24,10 @@ public class QueryUmktOfflinedecisionPlandetailsResponse extends TeaModel {
     @NameInMap("plan_detail_list")
     public java.util.List<OfflineDecisionPlanDetail> planDetailList;
 
+    // 执行批次维度任务详情信息
+    @NameInMap("task_exec_batch_info")
+    public java.util.List<UmktOfflineDecisionTaskDetailInfo> taskExecBatchInfo;
+
     public static QueryUmktOfflinedecisionPlandetailsResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryUmktOfflinedecisionPlandetailsResponse self = new QueryUmktOfflinedecisionPlandetailsResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class QueryUmktOfflinedecisionPlandetailsResponse extends TeaModel {
     }
     public java.util.List<OfflineDecisionPlanDetail> getPlanDetailList() {
         return this.planDetailList;
+    }
+
+    public QueryUmktOfflinedecisionPlandetailsResponse setTaskExecBatchInfo(java.util.List<UmktOfflineDecisionTaskDetailInfo> taskExecBatchInfo) {
+        this.taskExecBatchInfo = taskExecBatchInfo;
+        return this;
+    }
+    public java.util.List<UmktOfflineDecisionTaskDetailInfo> getTaskExecBatchInfo() {
+        return this.taskExecBatchInfo;
     }
 
 }
