@@ -18,12 +18,10 @@ public class UploadSignTemplateRequest extends TeaModel {
 
     // 合同类型
     @NameInMap("contract_type")
-    @Validation(required = true)
     public String contractType;
 
     // 模板类型
     @NameInMap("agreement_type")
-    @Validation(required = true)
     public String agreementType;
 
     // 签署区坐标配置
@@ -51,6 +49,18 @@ public class UploadSignTemplateRequest extends TeaModel {
     @NameInMap("file_id")
     @Validation(required = true)
     public String fileId;
+
+    // 资方统一社会信用代码，默认为空
+    @NameInMap("fund_id")
+    public String fundId;
+
+    // 是否需要资方签署，默认为否
+    @NameInMap("fund_sign")
+    public Boolean fundSign;
+
+    // 资方签署区坐标，默认为空
+    @NameInMap("fund_pos_conf")
+    public String fundPosConf;
 
     public static UploadSignTemplateRequest build(java.util.Map<String, ?> map) throws Exception {
         UploadSignTemplateRequest self = new UploadSignTemplateRequest();
@@ -135,6 +145,30 @@ public class UploadSignTemplateRequest extends TeaModel {
     }
     public String getFileId() {
         return this.fileId;
+    }
+
+    public UploadSignTemplateRequest setFundId(String fundId) {
+        this.fundId = fundId;
+        return this;
+    }
+    public String getFundId() {
+        return this.fundId;
+    }
+
+    public UploadSignTemplateRequest setFundSign(Boolean fundSign) {
+        this.fundSign = fundSign;
+        return this;
+    }
+    public Boolean getFundSign() {
+        return this.fundSign;
+    }
+
+    public UploadSignTemplateRequest setFundPosConf(String fundPosConf) {
+        this.fundPosConf = fundPosConf;
+        return this;
+    }
+    public String getFundPosConf() {
+        return this.fundPosConf;
     }
 
 }
