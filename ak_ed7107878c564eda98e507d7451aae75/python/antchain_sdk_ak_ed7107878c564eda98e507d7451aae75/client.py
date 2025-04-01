@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.4',
+                    'sdk_version': '1.1.5',
                     '_prod_code': 'ak_ed7107878c564eda98e507d7451aae75',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.4',
+                    'sdk_version': '1.1.5',
                     '_prod_code': 'ak_ed7107878c564eda98e507d7451aae75',
                     '_prod_channel': 'saas'
                 }
@@ -1115,6 +1115,434 @@ class Client:
             await self.do_request_async('1.0', 'universalsaas.digitalhuman.chat.setting.offline', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def list_universalsaas_digitalhuman_model(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanModelRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanModelResponse:
+        """
+        Description: 数字人形象列表接口
+        Summary: 数字人形象列表接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_universalsaas_digitalhuman_model_ex(request, headers, runtime)
+
+    async def list_universalsaas_digitalhuman_model_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanModelRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanModelResponse:
+        """
+        Description: 数字人形象列表接口
+        Summary: 数字人形象列表接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_universalsaas_digitalhuman_model_ex_async(request, headers, runtime)
+
+    def list_universalsaas_digitalhuman_model_ex(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanModelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanModelResponse:
+        """
+        Description: 数字人形象列表接口
+        Summary: 数字人形象列表接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanModelResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.model.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_universalsaas_digitalhuman_model_ex_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanModelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanModelResponse:
+        """
+        Description: 数字人形象列表接口
+        Summary: 数字人形象列表接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanModelResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.model.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_universalsaas_digitalhuman_voice(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanVoiceRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanVoiceResponse:
+        """
+        Description: 数字人平台音色列表
+        Summary: 数字人平台音色列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_universalsaas_digitalhuman_voice_ex(request, headers, runtime)
+
+    async def list_universalsaas_digitalhuman_voice_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanVoiceRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanVoiceResponse:
+        """
+        Description: 数字人平台音色列表
+        Summary: 数字人平台音色列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_universalsaas_digitalhuman_voice_ex_async(request, headers, runtime)
+
+    def list_universalsaas_digitalhuman_voice_ex(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanVoiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanVoiceResponse:
+        """
+        Description: 数字人平台音色列表
+        Summary: 数字人平台音色列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanVoiceResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.voice.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_universalsaas_digitalhuman_voice_ex_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanVoiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanVoiceResponse:
+        """
+        Description: 数字人平台音色列表
+        Summary: 数字人平台音色列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanVoiceResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.voice.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def preview_universalsaas_digitalhuman_voice(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.PreviewUniversalsaasDigitalhumanVoiceRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.PreviewUniversalsaasDigitalhumanVoiceResponse:
+        """
+        Description: 数字人平台音色试听接口
+        Summary: 数字人平台音色试听接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.preview_universalsaas_digitalhuman_voice_ex(request, headers, runtime)
+
+    async def preview_universalsaas_digitalhuman_voice_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.PreviewUniversalsaasDigitalhumanVoiceRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.PreviewUniversalsaasDigitalhumanVoiceResponse:
+        """
+        Description: 数字人平台音色试听接口
+        Summary: 数字人平台音色试听接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.preview_universalsaas_digitalhuman_voice_ex_async(request, headers, runtime)
+
+    def preview_universalsaas_digitalhuman_voice_ex(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.PreviewUniversalsaasDigitalhumanVoiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.PreviewUniversalsaasDigitalhumanVoiceResponse:
+        """
+        Description: 数字人平台音色试听接口
+        Summary: 数字人平台音色试听接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.PreviewUniversalsaasDigitalhumanVoiceResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.voice.preview', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def preview_universalsaas_digitalhuman_voice_ex_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.PreviewUniversalsaasDigitalhumanVoiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.PreviewUniversalsaasDigitalhumanVoiceResponse:
+        """
+        Description: 数字人平台音色试听接口
+        Summary: 数字人平台音色试听接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.PreviewUniversalsaasDigitalhumanVoiceResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.voice.preview', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_universalsaas_digitalhuman_human(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanHumanRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanHumanResponse:
+        """
+        Description: 数字人平台角色创建与更新接口
+        Summary: 数字人平台角色创建与更新接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_universalsaas_digitalhuman_human_ex(request, headers, runtime)
+
+    async def update_universalsaas_digitalhuman_human_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanHumanRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanHumanResponse:
+        """
+        Description: 数字人平台角色创建与更新接口
+        Summary: 数字人平台角色创建与更新接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_universalsaas_digitalhuman_human_ex_async(request, headers, runtime)
+
+    def update_universalsaas_digitalhuman_human_ex(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanHumanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanHumanResponse:
+        """
+        Description: 数字人平台角色创建与更新接口
+        Summary: 数字人平台角色创建与更新接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanHumanResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.human.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_universalsaas_digitalhuman_human_ex_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanHumanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanHumanResponse:
+        """
+        Description: 数字人平台角色创建与更新接口
+        Summary: 数字人平台角色创建与更新接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanHumanResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.human.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_universalsaas_digitalhuman_human(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanHumanRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanHumanResponse:
+        """
+        Description: 删除数字人角色接口
+        Summary: 删除数字人角色接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_universalsaas_digitalhuman_human_ex(request, headers, runtime)
+
+    async def delete_universalsaas_digitalhuman_human_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanHumanRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanHumanResponse:
+        """
+        Description: 删除数字人角色接口
+        Summary: 删除数字人角色接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_universalsaas_digitalhuman_human_ex_async(request, headers, runtime)
+
+    def delete_universalsaas_digitalhuman_human_ex(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanHumanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanHumanResponse:
+        """
+        Description: 删除数字人角色接口
+        Summary: 删除数字人角色接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanHumanResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.human.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_universalsaas_digitalhuman_human_ex_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanHumanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanHumanResponse:
+        """
+        Description: 删除数字人角色接口
+        Summary: 删除数字人角色接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanHumanResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.human.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_universalsaas_digitalhuman_knowledge(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanKnowledgeRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanKnowledgeResponse:
+        """
+        Description: 删除知识点接口
+        Summary: 删除知识点接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_universalsaas_digitalhuman_knowledge_ex(request, headers, runtime)
+
+    async def delete_universalsaas_digitalhuman_knowledge_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanKnowledgeRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanKnowledgeResponse:
+        """
+        Description: 删除知识点接口
+        Summary: 删除知识点接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_universalsaas_digitalhuman_knowledge_ex_async(request, headers, runtime)
+
+    def delete_universalsaas_digitalhuman_knowledge_ex(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanKnowledgeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanKnowledgeResponse:
+        """
+        Description: 删除知识点接口
+        Summary: 删除知识点接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanKnowledgeResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.knowledge.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_universalsaas_digitalhuman_knowledge_ex_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanKnowledgeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanKnowledgeResponse:
+        """
+        Description: 删除知识点接口
+        Summary: 删除知识点接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanKnowledgeResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.knowledge.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_universalsaas_digitalhuman_knowledge_importtask(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse:
+        """
+        Description: 创建批量导入任务
+        Summary: 创建批量导入任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_universalsaas_digitalhuman_knowledge_importtask_ex(request, headers, runtime)
+
+    async def create_universalsaas_digitalhuman_knowledge_importtask_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse:
+        """
+        Description: 创建批量导入任务
+        Summary: 创建批量导入任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_universalsaas_digitalhuman_knowledge_importtask_ex_async(request, headers, runtime)
+
+    def create_universalsaas_digitalhuman_knowledge_importtask_ex(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse:
+        """
+        Description: 创建批量导入任务
+        Summary: 创建批量导入任务
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='universalsaas.digitalhuman.knowledge.importtask.create',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                create_universalsaas_digitalhuman_knowledge_importtask_response = ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return create_universalsaas_digitalhuman_knowledge_importtask_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.knowledge.importtask.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_universalsaas_digitalhuman_knowledge_importtask_ex_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse:
+        """
+        Description: 创建批量导入任务
+        Summary: 创建批量导入任务
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='universalsaas.digitalhuman.knowledge.importtask.create',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                create_universalsaas_digitalhuman_knowledge_importtask_response = ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return create_universalsaas_digitalhuman_knowledge_importtask_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.knowledge.importtask.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_universalsaas_digitalhuman_knowledge_importtask(
         self,
         request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest,
@@ -1169,4 +1597,116 @@ class Client:
         return TeaCore.from_map(
             ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse(),
             await self.do_request_async('1.0', 'universalsaas.digitalhuman.knowledge.importtask.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def export_universalsaas_digitalhuman_knowledge(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ExportUniversalsaasDigitalhumanKnowledgeRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ExportUniversalsaasDigitalhumanKnowledgeResponse:
+        """
+        Description: 知识点批量导出
+        Summary: 知识点批量导出
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.export_universalsaas_digitalhuman_knowledge_ex(request, headers, runtime)
+
+    async def export_universalsaas_digitalhuman_knowledge_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ExportUniversalsaasDigitalhumanKnowledgeRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ExportUniversalsaasDigitalhumanKnowledgeResponse:
+        """
+        Description: 知识点批量导出
+        Summary: 知识点批量导出
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.export_universalsaas_digitalhuman_knowledge_ex_async(request, headers, runtime)
+
+    def export_universalsaas_digitalhuman_knowledge_ex(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ExportUniversalsaasDigitalhumanKnowledgeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ExportUniversalsaasDigitalhumanKnowledgeResponse:
+        """
+        Description: 知识点批量导出
+        Summary: 知识点批量导出
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ExportUniversalsaasDigitalhumanKnowledgeResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.knowledge.export', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def export_universalsaas_digitalhuman_knowledge_ex_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ExportUniversalsaasDigitalhumanKnowledgeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ExportUniversalsaasDigitalhumanKnowledgeResponse:
+        """
+        Description: 知识点批量导出
+        Summary: 知识点批量导出
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ExportUniversalsaasDigitalhumanKnowledgeResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.knowledge.export', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_antcloud_gatewayx_file_upload(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_antcloud_gatewayx_file_upload_ex(request, headers, runtime)
+
+    async def create_antcloud_gatewayx_file_upload_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_antcloud_gatewayx_file_upload_ex_async(request, headers, runtime)
+
+    def create_antcloud_gatewayx_file_upload_ex(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateAntcloudGatewayxFileUploadResponse(),
+            self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_antcloud_gatewayx_file_upload_ex_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.CreateAntcloudGatewayxFileUploadResponse(),
+            await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
