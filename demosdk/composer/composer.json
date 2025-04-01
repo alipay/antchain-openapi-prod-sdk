@@ -1,5 +1,5 @@
 {
-  "name": "antchain/antdigital_demosdk",
+  "name": "antchain/demosdk",
   "description": "Ant Chain SDK Library for PHP",
   "type": "library",
   "license": "Apache-2.0",
@@ -17,7 +17,7 @@
   },
   "autoload": {
     "psr-4": {
-      "AntChain\\Antdigital_DEMOSDK\\": "src"
+      "AntChain\\DEMOSDK\\": "src"
     }
   },
   "scripts": {

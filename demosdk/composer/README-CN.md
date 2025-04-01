@@ -9,7 +9,7 @@
 ### Composer
 
 ```bash
-composer require antchain/antdigital_demosdk
+composer require antchain/demosdk
 ```
 
 ## 问题

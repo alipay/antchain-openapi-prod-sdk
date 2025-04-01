@@ -5,8 +5,9 @@
 namespace AntChain\DEMOSDK\Models;
 
 use AlibabaCloud\Tea\Model;
+use GuzzleHttp\Psr7\Stream;
 
-class QueryCcXxRequest extends Model
+class ImportBbbCciRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,20 +20,33 @@ class QueryCcXxRequest extends Model
      */
     public $productInstanceId;
 
-    // aa
+    // test
+    /**
+     * @description 待上传文件
+     *
+     * @var Stream
+     */
+    public $fileObject;
+
+    /**
+     * @description 待上传文件名
+     *
+     * @var string
+     */
+    public $fileObjectName;
+
     /**
      * @var string
      */
-    public $name;
+    public $fileId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'name'              => 'name',
+        'fileId'            => 'file_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('name', $this->name, true);
     }
 
     public function toMap()
@@ -44,8 +58,14 @@ class QueryCcXxRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->name) {
-            $res['name'] = $this->name;
+        if (null !== $this->fileObject) {
+            $res['fileObject'] = $this->fileObject;
+        }
+        if (null !== $this->fileObjectName) {
+            $res['fileObjectName'] = $this->fileObjectName;
+        }
+        if (null !== $this->fileId) {
+            $res['file_id'] = $this->fileId;
         }
 
         return $res;
@@ -54,7 +74,7 @@ class QueryCcXxRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryCcXxRequest
+     * @return ImportBbbCciRequest
      */
     public static function fromMap($map = [])
     {
@@ -65,8 +85,14 @@ class QueryCcXxRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['name'])) {
-            $model->name = $map['name'];
+        if (isset($map['fileObject'])) {
+            $model->fileObject = $map['fileObject'];
+        }
+        if (isset($map['fileObjectName'])) {
+            $model->fileObjectName = $map['fileObjectName'];
+        }
+        if (isset($map['file_id'])) {
+            $model->fileId = $map['file_id'];
         }
 
         return $model;

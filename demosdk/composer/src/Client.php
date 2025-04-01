@@ -2,7 +2,7 @@
 
 // This file is auto-generated, don't edit it. Thanks.
 
-namespace AntChain\Antdigital_DEMOSDK;
+namespace AntChain\DEMOSDK;
 
 use AlibabaCloud\Tea\Exception\TeaError;
 use AlibabaCloud\Tea\Exception\TeaUnableRetryError;
@@ -11,8 +11,24 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\Antdigital_DEMOSDK\Models\QueryCcXxRequest;
-use AntChain\Antdigital_DEMOSDK\Models\QueryCcXxResponse;
+use AntChain\DEMOSDK\Models\BindAaaBbbCccRequest;
+use AntChain\DEMOSDK\Models\BindAaaBbbCccResponse;
+use AntChain\DEMOSDK\Models\BindXxxRequest;
+use AntChain\DEMOSDK\Models\BindXxxResponse;
+use AntChain\DEMOSDK\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\DEMOSDK\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\DEMOSDK\Models\ImportBbbCciRequest;
+use AntChain\DEMOSDK\Models\ImportBbbCciResponse;
+use AntChain\DEMOSDK\Models\QueryAaaCcdRequest;
+use AntChain\DEMOSDK\Models\QueryAaaCcdResponse;
+use AntChain\DEMOSDK\Models\QueryBbbCccRequest;
+use AntChain\DEMOSDK\Models\QueryBbbCccResponse;
+use AntChain\DEMOSDK\Models\QueryCcXxRequest;
+use AntChain\DEMOSDK\Models\QueryCcXxResponse;
+use AntChain\DEMOSDK\Models\ResetBbbCccRequest;
+use AntChain\DEMOSDK\Models\ResetBbbCccResponse;
+use AntChain\DEMOSDK\Models\UpdateAaaAcdRequest;
+use AntChain\DEMOSDK\Models\UpdateAaaAcdResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -160,8 +176,8 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.0',
-                    '_prod_code'       => 'antdigital_DEMOSDK',
+                    'sdk_version'      => '1.3.6',
+                    '_prod_code'       => 'DEMOSDK',
                     '_prod_channel'    => 'default',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
@@ -209,6 +225,256 @@ class Client
     }
 
     /**
+     * Description: 测试sdk打包用
+     * Summary: shiyi.cj.
+     *
+     * @param QueryBbbCccRequest $request
+     *
+     * @return QueryBbbCccResponse
+     */
+    public function queryBbbCcc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBbbCccEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试sdk打包用
+     * Summary: shiyi.cj.
+     *
+     * @param QueryBbbCccRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return QueryBbbCccResponse
+     */
+    public function queryBbbCccEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBbbCccResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.bbb.ccc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试用
+     * Summary: 测试用.
+     *
+     * @param ImportBbbCciRequest $request
+     *
+     * @return ImportBbbCciResponse
+     */
+    public function importBbbCci($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importBbbCciEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试用
+     * Summary: 测试用.
+     *
+     * @param ImportBbbCciRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return ImportBbbCciResponse
+     */
+    public function importBbbCciEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antchain.demosdk.bbb.cci.import',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new ImportBbbCciResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return ImportBbbCciResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.bbb.cci.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试接口
+     * Summary: 测试接口.
+     *
+     * @param ResetBbbCccRequest $request
+     *
+     * @return ResetBbbCccResponse
+     */
+    public function resetBbbCcc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->resetBbbCccEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试接口
+     * Summary: 测试接口.
+     *
+     * @param ResetBbbCccRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return ResetBbbCccResponse
+     */
+    public function resetBbbCccEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ResetBbbCccResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.bbb.ccc.reset', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test1.
+     *
+     * @param BindAaaBbbCccRequest $request
+     *
+     * @return BindAaaBbbCccResponse
+     */
+    public function bindAaaBbbCcc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindAaaBbbCccEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test1.
+     *
+     * @param BindAaaBbbCccRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return BindAaaBbbCccResponse
+     */
+    public function bindAaaBbbCccEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindAaaBbbCccResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.aaa.bbb.ccc.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test1.
+     *
+     * @param QueryAaaCcdRequest $request
+     *
+     * @return QueryAaaCcdResponse
+     */
+    public function queryAaaCcd($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAaaCcdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test1.
+     *
+     * @param QueryAaaCcdRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return QueryAaaCcdResponse
+     */
+    public function queryAaaCcdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAaaCcdResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.aaa.ccd.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test1.
+     *
+     * @param BindXxxRequest $request
+     *
+     * @return BindXxxResponse
+     */
+    public function bindXxx($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindXxxEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test1.
+     *
+     * @param BindXxxRequest $request
+     * @param string[]       $headers
+     * @param RuntimeOptions $runtime
+     *
+     * @return BindXxxResponse
+     */
+    public function bindXxxEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindXxxResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.xxx.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test1.
+     *
+     * @param UpdateAaaAcdRequest $request
+     *
+     * @return UpdateAaaAcdResponse
+     */
+    public function updateAaaAcd($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateAaaAcdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test1.
+     *
+     * @param UpdateAaaAcdRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return UpdateAaaAcdResponse
+     */
+    public function updateAaaAcdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateAaaAcdResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.aaa.acd.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 测试
      * Summary: 测试.
      *
@@ -239,5 +505,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryCcXxResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.cc.xx.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
