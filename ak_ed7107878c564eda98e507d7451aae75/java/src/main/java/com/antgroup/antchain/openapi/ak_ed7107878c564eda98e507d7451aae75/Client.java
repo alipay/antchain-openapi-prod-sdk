@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.4"),
+                    new TeaPair("sdk_version", "1.1.5"),
                     new TeaPair("_prod_code", "ak_ed7107878c564eda98e507d7451aae75"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -470,6 +470,161 @@ public class Client {
     }
 
     /**
+     * Description: 数字人形象列表接口
+     * Summary: 数字人形象列表接口
+     */
+    public ListUniversalsaasDigitalhumanModelResponse listUniversalsaasDigitalhumanModel(ListUniversalsaasDigitalhumanModelRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listUniversalsaasDigitalhumanModelEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字人形象列表接口
+     * Summary: 数字人形象列表接口
+     */
+    public ListUniversalsaasDigitalhumanModelResponse listUniversalsaasDigitalhumanModelEx(ListUniversalsaasDigitalhumanModelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.model.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListUniversalsaasDigitalhumanModelResponse());
+    }
+
+    /**
+     * Description: 数字人平台音色列表
+     * Summary: 数字人平台音色列表
+     */
+    public ListUniversalsaasDigitalhumanVoiceResponse listUniversalsaasDigitalhumanVoice(ListUniversalsaasDigitalhumanVoiceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listUniversalsaasDigitalhumanVoiceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字人平台音色列表
+     * Summary: 数字人平台音色列表
+     */
+    public ListUniversalsaasDigitalhumanVoiceResponse listUniversalsaasDigitalhumanVoiceEx(ListUniversalsaasDigitalhumanVoiceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.voice.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListUniversalsaasDigitalhumanVoiceResponse());
+    }
+
+    /**
+     * Description: 数字人平台音色试听接口
+     * Summary: 数字人平台音色试听接口
+     */
+    public PreviewUniversalsaasDigitalhumanVoiceResponse previewUniversalsaasDigitalhumanVoice(PreviewUniversalsaasDigitalhumanVoiceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.previewUniversalsaasDigitalhumanVoiceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字人平台音色试听接口
+     * Summary: 数字人平台音色试听接口
+     */
+    public PreviewUniversalsaasDigitalhumanVoiceResponse previewUniversalsaasDigitalhumanVoiceEx(PreviewUniversalsaasDigitalhumanVoiceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.voice.preview", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PreviewUniversalsaasDigitalhumanVoiceResponse());
+    }
+
+    /**
+     * Description: 数字人平台角色创建与更新接口
+     * Summary: 数字人平台角色创建与更新接口
+     */
+    public UpdateUniversalsaasDigitalhumanHumanResponse updateUniversalsaasDigitalhumanHuman(UpdateUniversalsaasDigitalhumanHumanRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateUniversalsaasDigitalhumanHumanEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字人平台角色创建与更新接口
+     * Summary: 数字人平台角色创建与更新接口
+     */
+    public UpdateUniversalsaasDigitalhumanHumanResponse updateUniversalsaasDigitalhumanHumanEx(UpdateUniversalsaasDigitalhumanHumanRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.human.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateUniversalsaasDigitalhumanHumanResponse());
+    }
+
+    /**
+     * Description: 删除数字人角色接口
+     * Summary: 删除数字人角色接口
+     */
+    public DeleteUniversalsaasDigitalhumanHumanResponse deleteUniversalsaasDigitalhumanHuman(DeleteUniversalsaasDigitalhumanHumanRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteUniversalsaasDigitalhumanHumanEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 删除数字人角色接口
+     * Summary: 删除数字人角色接口
+     */
+    public DeleteUniversalsaasDigitalhumanHumanResponse deleteUniversalsaasDigitalhumanHumanEx(DeleteUniversalsaasDigitalhumanHumanRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.human.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteUniversalsaasDigitalhumanHumanResponse());
+    }
+
+    /**
+     * Description: 删除知识点接口
+     * Summary: 删除知识点接口
+     */
+    public DeleteUniversalsaasDigitalhumanKnowledgeResponse deleteUniversalsaasDigitalhumanKnowledge(DeleteUniversalsaasDigitalhumanKnowledgeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteUniversalsaasDigitalhumanKnowledgeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 删除知识点接口
+     * Summary: 删除知识点接口
+     */
+    public DeleteUniversalsaasDigitalhumanKnowledgeResponse deleteUniversalsaasDigitalhumanKnowledgeEx(DeleteUniversalsaasDigitalhumanKnowledgeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.knowledge.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteUniversalsaasDigitalhumanKnowledgeResponse());
+    }
+
+    /**
+     * Description: 创建批量导入任务
+     * Summary: 创建批量导入任务
+     */
+    public CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse createUniversalsaasDigitalhumanKnowledgeImporttask(CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createUniversalsaasDigitalhumanKnowledgeImporttaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建批量导入任务
+     * Summary: 创建批量导入任务
+     */
+    public CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse createUniversalsaasDigitalhumanKnowledgeImporttaskEx(CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "universalsaas.digitalhuman.knowledge.importtask.create"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse createUniversalsaasDigitalhumanKnowledgeImporttaskResponse = CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return createUniversalsaasDigitalhumanKnowledgeImporttaskResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.knowledge.importtask.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse());
+    }
+
+    /**
      * Description: 查询批量导入任务
      * Summary: 查询批量导入任务
      */
@@ -486,5 +641,43 @@ public class Client {
     public QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse queryUniversalsaasDigitalhumanKnowledgeImporttaskEx(QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.knowledge.importtask.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse());
+    }
+
+    /**
+     * Description: 知识点批量导出
+     * Summary: 知识点批量导出
+     */
+    public ExportUniversalsaasDigitalhumanKnowledgeResponse exportUniversalsaasDigitalhumanKnowledge(ExportUniversalsaasDigitalhumanKnowledgeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.exportUniversalsaasDigitalhumanKnowledgeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 知识点批量导出
+     * Summary: 知识点批量导出
+     */
+    public ExportUniversalsaasDigitalhumanKnowledgeResponse exportUniversalsaasDigitalhumanKnowledgeEx(ExportUniversalsaasDigitalhumanKnowledgeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.knowledge.export", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExportUniversalsaasDigitalhumanKnowledgeResponse());
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse());
     }
 }
