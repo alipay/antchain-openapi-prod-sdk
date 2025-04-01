@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.22.4',
+    sdk_version = '1.23.4',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -1093,6 +1093,18 @@ model CompanyInfo {
   updateDate: string(name='update_date', example='20190923'),
   // 平台json  
   platform: string(name='platform', example=' [{"platform_name":"ptp","platform_states":"平台状态"}]'),
+}
+
+// 营销盾离线圈客任务详细信息
+model UmktOfflineDecisionTaskDetailInfo {
+  // 任务id
+  taskId: long(name='task_id', example='1'),
+  // 圈客计划id
+  decisionPlanId: long(name='decision_plan_id', example=''),
+  // 圈客结果状态
+  decisionResultStatus: string(name='decision_result_status', example='D'),
+  // 圈客结果状态描述
+  statusRemark: string(name='status_remark', example='已完成'),
 }
 
 // 营销盾事件信息同步详情
@@ -3607,12 +3619,15 @@ model QueryDubbridgeRouterFundrouterRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 1：现金贷（默认）
+  // 2：分期付
+  prodType?: string(name='prod_type'),
   // 身份证号
-  cardNo: string(name='card_no'),
+  cardNo?: string(name='card_no'),
   // 手机号
-  mobile: string(name='mobile'),
+  mobile?: string(name='mobile'),
   // 姓名
-  customName: string(name='custom_name'),
+  customName?: string(name='custom_name'),
   // 合作方产品编号
   prodNo?: string(name='prod_no'),
   // 渠道类型
@@ -3647,6 +3662,8 @@ model QueryDubbridgeRouterFundrouterRequest = {
   // 0：明文
   // 1：md5
   customNameType?: string(name='custom_name_type'),
+  // 资产方用户唯一标识
+  openId?: string(name='open_id'),
 }
 
 model QueryDubbridgeRouterFundrouterResponse = {
@@ -5007,6 +5024,9 @@ model QueryDubbridgeUsecreditStatusRequest = {
   originalOrderNo: string(name='original_order_no'),
   // 请求网络流水号
   orderNo: string(name='order_no'),
+  // 1：现金贷（默认）
+  // 2：分期付
+  prodType?: string(name='prod_type'),
 }
 
 model QueryDubbridgeUsecreditStatusResponse = {
@@ -5816,6 +5836,129 @@ async function queryDubbridgeRepaytypeInfo(request: QueryDubbridgeRepaytypeInfoR
 async function queryDubbridgeRepaytypeInfoEx(request: QueryDubbridgeRepaytypeInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeRepaytypeInfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.dubbridge.repaytype.info.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeInstallmentCreditamtRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号：request请求单号，每次请求唯一，如uuid
+  orderNo: string(name='order_no'),
+  // 1：现金贷、2：分期付
+  prodType: string(name='prod_type'),
+  // 资产方用户唯一标识
+  openId: string(name='open_id'),
+  // 手机号
+  mobile: string(name='mobile'),
+  // 项目编号
+  projectCode: string(name='project_code'),
+  // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
+  tradeAmount: string(name='trade_amount'),
+  // 身份证号
+  cardNo?: string(name='card_no'),
+  // 客户姓名
+  customerName?: string(name='customer_name'),
+}
+
+model QueryDubbridgeInstallmentCreditamtResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授信申请状态：
+  // 0- 通过 
+  // 1- 拒绝 
+  // 2- 审批中
+  // 3- 失败
+  // 
+  applyStatus?: string(name='apply_status'),
+  // 额度状态：
+  // 0- 正常 
+  // 1- 冻结 
+  // 2- 过期
+  creditStatus?: string(name='credit_status'),
+  // 授信总额度，单位：元
+  creditAmount?: long(name='credit_amount'),
+  // 可用余额
+  restAmount?: long(name='rest_amount'),
+  // 发放日期，yyyy-MM-dd
+  payDate?: string(name='pay_date'),
+  // 到期日期，yyyy-MM-dd
+  expireDate?: string(name='expire_date'),
+  // 授信年利率。精确到小数点后四位0.1250，表示年利率为12.5%
+  rateValue?: long(name='rate_value'),
+  // 资金方编号
+  fundCode?: string(name='fund_code'),
+  // 资金方简称
+  abbreFundName?: string(name='abbre_fund_name'),
+  // 1：现金贷、2：分期付
+  prodType?: string(name='prod_type'),
+}
+
+/**
+ * Description: 天枢系统授信额度查询接口-分期付
+ * Summary: 天枢系统授信额度查询接口-分期付
+ */
+async function queryDubbridgeInstallmentCreditamt(request: QueryDubbridgeInstallmentCreditamtRequest): QueryDubbridgeInstallmentCreditamtResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeInstallmentCreditamtEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统授信额度查询接口-分期付
+ * Summary: 天枢系统授信额度查询接口-分期付
+ */
+async function queryDubbridgeInstallmentCreditamtEx(request: QueryDubbridgeInstallmentCreditamtRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeInstallmentCreditamtResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.installment.creditamt.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelDubbridgeInstallmentOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号：request请求单号，每次请求唯一，如uuid
+  orderNo: string(name='order_no'),
+  // 待支付的购物订单编号
+  bizOrderNo: string(name='biz_order_no'),
+  // 渠道方唯一标识
+  openId?: string(name='open_id'),
+  // 天枢客户号
+  customerNo?: string(name='customer_no'),
+}
+
+model CancelDubbridgeInstallmentOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单取消请求接受结果：
+  // Y: 成功; N: 失败
+  cancelResult?: string(name='cancel_result'),
+}
+
+/**
+ * Description: 天枢系统取消分期付订单-分期付
+ * Summary: 天枢系统取消分期付订单-分期付
+ */
+async function cancelDubbridgeInstallmentOrder(request: CancelDubbridgeInstallmentOrderRequest): CancelDubbridgeInstallmentOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelDubbridgeInstallmentOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统取消分期付订单-分期付
+ * Summary: 天枢系统取消分期付订单-分期付
+ */
+async function cancelDubbridgeInstallmentOrderEx(request: CancelDubbridgeInstallmentOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelDubbridgeInstallmentOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.installment.order.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model VerifyFinserviceZhimaIdentifyRequest = {
@@ -7607,6 +7750,71 @@ async function queryRdaasTaxSimpleauthdecisionEx(request: QueryRdaasTaxSimpleaut
   return doRequest('1.0' ,'riskplus.rdaas.tax.simpleauthdecision.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model ReceiveRfcParamsFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件ID	
+  // 
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 参数，jsonString
+  params: string(name='params'),
+  // 请求类型：示例 OCR_IDENTIFY-->OCR识别业务
+  type: string(name='type'),
+}
+
+model ReceiveRfcParamsFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文件上传响应参数
+  content?: string(name='content'),
+}
+
+/**
+ * Description: rfc外部文件上传
+ * Summary: rfc外部文件上传
+ */
+async function receiveRfcParamsFile(request: ReceiveRfcParamsFileRequest): ReceiveRfcParamsFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return receiveRfcParamsFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: rfc外部文件上传
+ * Summary: rfc外部文件上传
+ */
+async function receiveRfcParamsFileEx(request: ReceiveRfcParamsFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReceiveRfcParamsFileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'riskplus.rfc.params.file.receive',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var receiveRfcParamsFileResponse = new ReceiveRfcParamsFileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return receiveRfcParamsFileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rfc.params.file.receive', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryRbbGenericInvokeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -8603,6 +8811,70 @@ async function pushRbbInvoiceCharge(request: PushRbbInvoiceChargeRequest): PushR
 async function pushRbbInvoiceChargeEx(request: PushRbbInvoiceChargeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushRbbInvoiceChargeResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.rbb.invoice.charge.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ReceiveRbbParamsFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件ID
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 参数，jsonString
+  params: string(name='params'),
+  // 请求类型：示例 CREDIT_REPORTS-->征信报告上传
+  type: string(name='type'),
+}
+
+model ReceiveRbbParamsFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文件上传结果
+  content?: string(name='content'),
+}
+
+/**
+ * Description: 通过接口进行报告上传
+ * Summary: 征信报告上传接口
+ */
+async function receiveRbbParamsFile(request: ReceiveRbbParamsFileRequest): ReceiveRbbParamsFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return receiveRbbParamsFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过接口进行报告上传
+ * Summary: 征信报告上传接口
+ */
+async function receiveRbbParamsFileEx(request: ReceiveRbbParamsFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReceiveRbbParamsFileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'riskplus.rbb.params.file.receive',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var receiveRbbParamsFileResponse = new ReceiveRbbParamsFileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return receiveRbbParamsFileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rbb.params.file.receive', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PushRpaasReportAnswerRequest = {
@@ -12235,6 +12507,8 @@ model QueryUmktOfflinedecisionResultResponse = {
   resultMsg?: string(name='result_msg'),
   // 已完成的计划策略集合
   decisionPlanIdList?: [ long ](name='decision_plan_id_list'),
+  // 批次维度圈客任务结果
+  taskExecBatchInfo?: [ UmktOfflineDecisionTaskDetailInfo ](name='task_exec_batch_info'),
 }
 
 /**
@@ -12268,6 +12542,8 @@ model DownloadUmktOfflinedecisionResultRequest = {
   // 格式：yyyy-MM-dd
   // 默认当前时间的前一天
   resultDate?: string(name='result_date'),
+  // 离线圈客任务id
+  taskId?: long(name='task_id'),
 }
 
 model DownloadUmktOfflinedecisionResultResponse = {
@@ -12321,11 +12597,13 @@ model QueryUmktOfflinedecisionPlandetailsResponse = {
   offlineDecisionPlanCount?: long(name='offline_decision_plan_count'),
   // 离线圈客计划详细
   planDetailList?: [ OfflineDecisionPlanDetail ](name='plan_detail_list'),
+  // 执行批次维度任务详情信息
+  taskExecBatchInfo?: [ UmktOfflineDecisionTaskDetailInfo ](name='task_exec_batch_info'),
 }
 
 /**
  * Description: 包含离线圈客关联计划和任务状态详情
- * Summary: 营销盾离线圈客计划执行详情
+ * Summary: 营销盾离线圈客计划执行详情 
  */
 async function queryUmktOfflinedecisionPlandetails(request: QueryUmktOfflinedecisionPlandetailsRequest): QueryUmktOfflinedecisionPlandetailsResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -12335,7 +12613,7 @@ async function queryUmktOfflinedecisionPlandetails(request: QueryUmktOfflinedeci
 
 /**
  * Description: 包含离线圈客关联计划和任务状态详情
- * Summary: 营销盾离线圈客计划执行详情
+ * Summary: 营销盾离线圈客计划执行详情 
  */
 async function queryUmktOfflinedecisionPlandetailsEx(request: QueryUmktOfflinedecisionPlandetailsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUmktOfflinedecisionPlandetailsResponse {
   Util.validateModel(request);
