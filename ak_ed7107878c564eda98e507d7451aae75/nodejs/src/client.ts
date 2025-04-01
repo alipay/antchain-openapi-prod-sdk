@@ -2,6 +2,7 @@
 import AntchainUtil from '@antchain/alipay-util';
 import Util, * as $Util from '@alicloud/tea-util';
 import RPCUtil from '@alicloud/rpc-util';
+import { Readable } from 'stream';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
@@ -237,6 +238,84 @@ export class AvatarComponentInfo extends $tea.Model {
   }
 }
 
+// 数字人平台--形象信息
+export class AvatarModelInfo extends $tea.Model {
+  // 数字人形象id
+  modelId: number;
+  // 数字人形象名
+  modelName: string;
+  // 数字人形象默认音色列表
+  voiceList: string[];
+  // 数字人形象预览图
+  image: string;
+  static names(): { [key: string]: string } {
+    return {
+      modelId: 'model_id',
+      modelName: 'model_name',
+      voiceList: 'voice_list',
+      image: 'image',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      modelId: 'number',
+      modelName: 'string',
+      voiceList: { 'type': 'array', 'itemType': 'string' },
+      image: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数字人平台--音色信息
+export class AvatarVoiceInfo extends $tea.Model {
+  // 音色id
+  voiceId: string;
+  // 音色编码
+  voiceCode: string;
+  // 音色名
+  voiceName: string;
+  // 预览图
+  image?: string;
+  // 音色性别
+  gender?: string;
+  // 音色类型
+  voiceType?: string;
+  // 音色试听链接列表
+  auditionList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      voiceId: 'voice_id',
+      voiceCode: 'voice_code',
+      voiceName: 'voice_name',
+      image: 'image',
+      gender: 'gender',
+      voiceType: 'voice_type',
+      auditionList: 'audition_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      voiceId: 'string',
+      voiceCode: 'string',
+      voiceName: 'string',
+      image: 'string',
+      gender: 'string',
+      voiceType: 'string',
+      auditionList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 数字人平台--气泡按钮信息
 export class AvatarBubbleInfo extends $tea.Model {
   // 气泡标题
@@ -357,6 +436,31 @@ export class AvatarScriptConfigInfo extends $tea.Model {
       wakeWords: { 'type': 'array', 'itemType': 'string' },
       welcomePhrases: { 'type': 'array', 'itemType': 'string' },
       fallbackPhrases: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 键值对
+export class XNameValuePair extends $tea.Model {
+  // 键名
+  name: string;
+  // 键值
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      value: 'string',
     };
   }
 
@@ -1362,6 +1466,518 @@ export class OfflineUniversalsaasDigitalhumanChatSettingResponse extends $tea.Mo
   }
 }
 
+export class ListUniversalsaasDigitalhumanModelRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户编码
+  tenantCode: string;
+  // common---内置形象
+  // custom--我的形象
+  type: string;
+  // 2d---2d形象
+  // 3d---3d形象
+  classification: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantCode: 'tenant_code',
+      type: 'type',
+      classification: 'classification',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantCode: 'string',
+      type: 'string',
+      classification: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListUniversalsaasDigitalhumanModelResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 数字人形象信息列表
+  itemList?: AvatarModelInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      itemList: 'item_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      itemList: { 'type': 'array', 'itemType': AvatarModelInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListUniversalsaasDigitalhumanVoiceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户编码
+  tenantCode: string;
+  // common---内置音色
+  // custom--我的音色
+  type: string;
+  // 2d---2d音色
+  // 3d---3d音色
+  classification: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantCode: 'tenant_code',
+      type: 'type',
+      classification: 'classification',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantCode: 'string',
+      type: 'string',
+      classification: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListUniversalsaasDigitalhumanVoiceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 数字人平台音色信息列表
+  itemList?: AvatarVoiceInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      itemList: 'item_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      itemList: { 'type': 'array', 'itemType': AvatarVoiceInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PreviewUniversalsaasDigitalhumanVoiceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户编码
+  tenantCode: string;
+  // 2d---2d音色
+  // 3d---3d音色
+  classification: string;
+  // 音色编码
+  voiceCode: string;
+  // 试听文案
+  text: string;
+  // 语速
+  speed?: number;
+  // 音调
+  pitch?: number;
+  // 音量
+  volume?: number;
+  // 数字人角色id
+  humanId?: number;
+  // 数字人形象id
+  modelId?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantCode: 'tenant_code',
+      classification: 'classification',
+      voiceCode: 'voice_code',
+      text: 'text',
+      speed: 'speed',
+      pitch: 'pitch',
+      volume: 'volume',
+      humanId: 'human_id',
+      modelId: 'model_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantCode: 'string',
+      classification: 'string',
+      voiceCode: 'string',
+      text: 'string',
+      speed: 'number',
+      pitch: 'number',
+      volume: 'number',
+      humanId: 'number',
+      modelId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PreviewUniversalsaasDigitalhumanVoiceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 试听音频链接
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateUniversalsaasDigitalhumanHumanRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户编码
+  tenantCode: string;
+  // 数字人形象id
+  modelId: number;
+  // 音色编码
+  voiceCode: string;
+  // 数字人角色名
+  humanName?: string;
+  // 语速
+  speed?: number;
+  // 音调
+  pitch?: number;
+  // 音量
+  volume?: number;
+  // 数字人角色id
+  humanId?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantCode: 'tenant_code',
+      modelId: 'model_id',
+      voiceCode: 'voice_code',
+      humanName: 'human_name',
+      speed: 'speed',
+      pitch: 'pitch',
+      volume: 'volume',
+      humanId: 'human_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantCode: 'string',
+      modelId: 'number',
+      voiceCode: 'string',
+      humanName: 'string',
+      speed: 'number',
+      pitch: 'number',
+      volume: 'number',
+      humanId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateUniversalsaasDigitalhumanHumanResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 数字人角色信息
+  data?: AvatarHumanInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: AvatarHumanInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteUniversalsaasDigitalhumanHumanRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户编码
+  tenantCode: string;
+  // 数字人角色id
+  humanId: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantCode: 'tenant_code',
+      humanId: 'human_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantCode: 'string',
+      humanId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteUniversalsaasDigitalhumanHumanResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteUniversalsaasDigitalhumanKnowledgeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户编码
+  tenantCode: string;
+  // 知识点id列表
+  ids: number[];
+  // 知识库id
+  libraryId: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantCode: 'tenant_code',
+      ids: 'ids',
+      libraryId: 'library_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantCode: 'string',
+      ids: { 'type': 'array', 'itemType': 'number' },
+      libraryId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteUniversalsaasDigitalhumanKnowledgeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 知识点excel文件
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  // 租户编码
+  tenantCode: string;
+  // 知识库id
+  libraryId: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      tenantCode: 'tenant_code',
+      libraryId: 'library_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      tenantCode: 'string',
+      libraryId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 任务id
+  taskId?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1417,6 +2033,157 @@ export class QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse extends $
       resultCode: 'string',
       resultMsg: 'string',
       data: ImportTaskResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExportUniversalsaasDigitalhumanKnowledgeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户编码
+  tenantCode: string;
+  // 知识库id
+  libraryId: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantCode: 'tenant_code',
+      libraryId: 'library_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantCode: 'string',
+      libraryId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExportUniversalsaasDigitalhumanKnowledgeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // excel文件url
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 上传文件作用的openapi method
+  apiCode: string;
+  // 文件标签，多个标签;分割
+  fileLabel?: string;
+  // 自定义的文件元数据
+  fileMetadata?: string;
+  // 文件名，不传则随机生成文件名
+  fileName?: string;
+  // 文件的多媒体类型
+  mimeType?: string;
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      apiCode: 'api_code',
+      fileLabel: 'file_label',
+      fileMetadata: 'file_metadata',
+      fileName: 'file_name',
+      mimeType: 'mime_type',
+      apiCluster: 'api_cluster',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      apiCode: 'string',
+      fileLabel: 'string',
+      fileMetadata: 'string',
+      fileName: 'string',
+      mimeType: 'string',
+      apiCluster: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudGatewayxFileUploadResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上传有效期
+  expiredTime?: string;
+  // 32位文件唯一id
+  fileId?: string;
+  // 放入http请求头里
+  uploadHeaders?: XNameValuePair[];
+  // 文件上传地址
+  uploadUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      expiredTime: 'expired_time',
+      fileId: 'file_id',
+      uploadHeaders: 'upload_headers',
+      uploadUrl: 'upload_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      expiredTime: 'string',
+      fileId: 'string',
+      uploadHeaders: { 'type': 'array', 'itemType': XNameValuePair },
+      uploadUrl: 'string',
     };
   }
 
@@ -1538,7 +2305,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.4",
+          sdk_version: "1.1.5",
           _prod_code: "ak_ed7107878c564eda98e507d7451aae75",
           _prod_channel: "saas",
         };
@@ -1872,6 +2639,161 @@ export default class Client {
   }
 
   /**
+   * Description: 数字人形象列表接口
+   * Summary: 数字人形象列表接口
+   */
+  async listUniversalsaasDigitalhumanModel(request: ListUniversalsaasDigitalhumanModelRequest): Promise<ListUniversalsaasDigitalhumanModelResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listUniversalsaasDigitalhumanModelEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字人形象列表接口
+   * Summary: 数字人形象列表接口
+   */
+  async listUniversalsaasDigitalhumanModelEx(request: ListUniversalsaasDigitalhumanModelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListUniversalsaasDigitalhumanModelResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListUniversalsaasDigitalhumanModelResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.model.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListUniversalsaasDigitalhumanModelResponse({}));
+  }
+
+  /**
+   * Description: 数字人平台音色列表
+   * Summary: 数字人平台音色列表
+   */
+  async listUniversalsaasDigitalhumanVoice(request: ListUniversalsaasDigitalhumanVoiceRequest): Promise<ListUniversalsaasDigitalhumanVoiceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listUniversalsaasDigitalhumanVoiceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字人平台音色列表
+   * Summary: 数字人平台音色列表
+   */
+  async listUniversalsaasDigitalhumanVoiceEx(request: ListUniversalsaasDigitalhumanVoiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListUniversalsaasDigitalhumanVoiceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListUniversalsaasDigitalhumanVoiceResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.voice.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListUniversalsaasDigitalhumanVoiceResponse({}));
+  }
+
+  /**
+   * Description: 数字人平台音色试听接口
+   * Summary: 数字人平台音色试听接口
+   */
+  async previewUniversalsaasDigitalhumanVoice(request: PreviewUniversalsaasDigitalhumanVoiceRequest): Promise<PreviewUniversalsaasDigitalhumanVoiceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.previewUniversalsaasDigitalhumanVoiceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字人平台音色试听接口
+   * Summary: 数字人平台音色试听接口
+   */
+  async previewUniversalsaasDigitalhumanVoiceEx(request: PreviewUniversalsaasDigitalhumanVoiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PreviewUniversalsaasDigitalhumanVoiceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PreviewUniversalsaasDigitalhumanVoiceResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.voice.preview", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PreviewUniversalsaasDigitalhumanVoiceResponse({}));
+  }
+
+  /**
+   * Description: 数字人平台角色创建与更新接口
+   * Summary: 数字人平台角色创建与更新接口
+   */
+  async updateUniversalsaasDigitalhumanHuman(request: UpdateUniversalsaasDigitalhumanHumanRequest): Promise<UpdateUniversalsaasDigitalhumanHumanResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateUniversalsaasDigitalhumanHumanEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字人平台角色创建与更新接口
+   * Summary: 数字人平台角色创建与更新接口
+   */
+  async updateUniversalsaasDigitalhumanHumanEx(request: UpdateUniversalsaasDigitalhumanHumanRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateUniversalsaasDigitalhumanHumanResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateUniversalsaasDigitalhumanHumanResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.human.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateUniversalsaasDigitalhumanHumanResponse({}));
+  }
+
+  /**
+   * Description: 删除数字人角色接口
+   * Summary: 删除数字人角色接口
+   */
+  async deleteUniversalsaasDigitalhumanHuman(request: DeleteUniversalsaasDigitalhumanHumanRequest): Promise<DeleteUniversalsaasDigitalhumanHumanResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deleteUniversalsaasDigitalhumanHumanEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 删除数字人角色接口
+   * Summary: 删除数字人角色接口
+   */
+  async deleteUniversalsaasDigitalhumanHumanEx(request: DeleteUniversalsaasDigitalhumanHumanRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteUniversalsaasDigitalhumanHumanResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeleteUniversalsaasDigitalhumanHumanResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.human.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteUniversalsaasDigitalhumanHumanResponse({}));
+  }
+
+  /**
+   * Description: 删除知识点接口
+   * Summary: 删除知识点接口
+   */
+  async deleteUniversalsaasDigitalhumanKnowledge(request: DeleteUniversalsaasDigitalhumanKnowledgeRequest): Promise<DeleteUniversalsaasDigitalhumanKnowledgeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deleteUniversalsaasDigitalhumanKnowledgeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 删除知识点接口
+   * Summary: 删除知识点接口
+   */
+  async deleteUniversalsaasDigitalhumanKnowledgeEx(request: DeleteUniversalsaasDigitalhumanKnowledgeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteUniversalsaasDigitalhumanKnowledgeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeleteUniversalsaasDigitalhumanKnowledgeResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.knowledge.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteUniversalsaasDigitalhumanKnowledgeResponse({}));
+  }
+
+  /**
+   * Description: 创建批量导入任务
+   * Summary: 创建批量导入任务
+   */
+  async createUniversalsaasDigitalhumanKnowledgeImporttask(request: CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest): Promise<CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createUniversalsaasDigitalhumanKnowledgeImporttaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建批量导入任务
+   * Summary: 创建批量导入任务
+   */
+  async createUniversalsaasDigitalhumanKnowledgeImporttaskEx(request: CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "universalsaas.digitalhuman.knowledge.importtask.create",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let createUniversalsaasDigitalhumanKnowledgeImporttaskResponse = new CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return createUniversalsaasDigitalhumanKnowledgeImporttaskResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.knowledge.importtask.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse({}));
+  }
+
+  /**
    * Description: 查询批量导入任务
    * Summary: 查询批量导入任务
    */
@@ -1888,6 +2810,44 @@ export default class Client {
   async queryUniversalsaasDigitalhumanKnowledgeImporttaskEx(request: QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.knowledge.importtask.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse({}));
+  }
+
+  /**
+   * Description: 知识点批量导出
+   * Summary: 知识点批量导出
+   */
+  async exportUniversalsaasDigitalhumanKnowledge(request: ExportUniversalsaasDigitalhumanKnowledgeRequest): Promise<ExportUniversalsaasDigitalhumanKnowledgeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.exportUniversalsaasDigitalhumanKnowledgeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 知识点批量导出
+   * Summary: 知识点批量导出
+   */
+  async exportUniversalsaasDigitalhumanKnowledgeEx(request: ExportUniversalsaasDigitalhumanKnowledgeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExportUniversalsaasDigitalhumanKnowledgeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExportUniversalsaasDigitalhumanKnowledgeResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.knowledge.export", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExportUniversalsaasDigitalhumanKnowledgeResponse({}));
+  }
+
+  /**
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateAntcloudGatewayxFileUploadResponse>(await this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse({}));
   }
 
 }
