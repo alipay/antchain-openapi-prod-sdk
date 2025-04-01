@@ -1,12 +1,12 @@
 // This file is auto-generated, don't edit it. Thanks.
-package com.antgroup.antchain.openapi.antdigital_demosdk;
+package com.antgroup.antchain.openapi.demosdk;
 
 import com.aliyun.tea.*;
 import com.aliyun.tea.interceptor.InterceptorChain;
 import com.aliyun.tea.interceptor.RuntimeOptionsInterceptor;
 import com.aliyun.tea.interceptor.RequestInterceptor;
 import com.aliyun.tea.interceptor.ResponseInterceptor;
-import com.antgroup.antchain.openapi.antdigital_demosdk.models.*;
+import com.antgroup.antchain.openapi.demosdk.models.*;
 
 public class Client {
 
@@ -122,8 +122,8 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.0"),
-                    new TeaPair("_prod_code", "antdigital_DEMOSDK"),
+                    new TeaPair("sdk_version", "1.3.6"),
+                    new TeaPair("_prod_code", "DEMOSDK"),
                     new TeaPair("_prod_channel", "default")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
@@ -185,6 +185,161 @@ public class Client {
     }
 
     /**
+     * Description: 测试sdk打包用
+     * Summary: shiyi.cj
+     */
+    public QueryBbbCccResponse queryBbbCcc(QueryBbbCccRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBbbCccEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 测试sdk打包用
+     * Summary: shiyi.cj
+     */
+    public QueryBbbCccResponse queryBbbCccEx(QueryBbbCccRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.bbb.ccc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBbbCccResponse());
+    }
+
+    /**
+     * Description: 测试用
+     * Summary: 测试用
+     */
+    public ImportBbbCciResponse importBbbCci(ImportBbbCciRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importBbbCciEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 测试用
+     * Summary: 测试用
+     */
+    public ImportBbbCciResponse importBbbCciEx(ImportBbbCciRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antchain.demosdk.bbb.cci.import"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                ImportBbbCciResponse importBbbCciResponse = ImportBbbCciResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return importBbbCciResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.bbb.cci.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportBbbCciResponse());
+    }
+
+    /**
+     * Description: 测试接口
+     * Summary: 测试接口
+     */
+    public ResetBbbCccResponse resetBbbCcc(ResetBbbCccRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.resetBbbCccEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 测试接口
+     * Summary: 测试接口
+     */
+    public ResetBbbCccResponse resetBbbCccEx(ResetBbbCccRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.bbb.ccc.reset", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ResetBbbCccResponse());
+    }
+
+    /**
+     * Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test1
+     */
+    public BindAaaBbbCccResponse bindAaaBbbCcc(BindAaaBbbCccRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindAaaBbbCccEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test1
+     */
+    public BindAaaBbbCccResponse bindAaaBbbCccEx(BindAaaBbbCccRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.aaa.bbb.ccc.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindAaaBbbCccResponse());
+    }
+
+    /**
+     * Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test1
+     */
+    public QueryAaaCcdResponse queryAaaCcd(QueryAaaCcdRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAaaCcdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test1
+     */
+    public QueryAaaCcdResponse queryAaaCcdEx(QueryAaaCcdRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.aaa.ccd.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAaaCcdResponse());
+    }
+
+    /**
+     * Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test1
+     */
+    public BindXxxResponse bindXxx(BindXxxRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindXxxEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test1
+     */
+    public BindXxxResponse bindXxxEx(BindXxxRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.xxx.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindXxxResponse());
+    }
+
+    /**
+     * Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test1
+     */
+    public UpdateAaaAcdResponse updateAaaAcd(UpdateAaaAcdRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateAaaAcdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test1
+     */
+    public UpdateAaaAcdResponse updateAaaAcdEx(UpdateAaaAcdRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.aaa.acd.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateAaaAcdResponse());
+    }
+
+    /**
      * Description: 测试
      * Summary: 测试
      */
@@ -201,5 +356,24 @@ public class Client {
     public QueryCcXxResponse queryCcXxEx(QueryCcXxRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.cc.xx.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCcXxResponse());
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse());
     }
 }

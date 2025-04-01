@@ -1,5 +1,5 @@
 // This file is auto-generated, don't edit it. Thanks.
-package com.antgroup.antchain.openapi.antdigital_demosdk.models;
+package com.antgroup.antchain.openapi.demosdk.models;
 
 import com.aliyun.tea.*;
 

@@ -1,9 +1,9 @@
 // This file is auto-generated, don't edit it. Thanks.
-package com.antgroup.antchain.openapi.antdigital_demosdk.models;
+package com.antgroup.antchain.openapi.demosdk.models;
 
 import com.aliyun.tea.*;
 
-public class QueryCcXxResponse extends TeaModel {
+public class ResetBbbCccResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,12 @@ public class QueryCcXxResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 1213
-    @NameInMap("test")
-    public String test;
-
-    public static QueryCcXxResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryCcXxResponse self = new QueryCcXxResponse();
+    public static ResetBbbCccResponse build(java.util.Map<String, ?> map) throws Exception {
+        ResetBbbCccResponse self = new ResetBbbCccResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryCcXxResponse setReqMsgId(String reqMsgId) {
+    public ResetBbbCccResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +29,7 @@ public class QueryCcXxResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryCcXxResponse setResultCode(String resultCode) {
+    public ResetBbbCccResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,20 +37,12 @@ public class QueryCcXxResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryCcXxResponse setResultMsg(String resultMsg) {
+    public ResetBbbCccResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public QueryCcXxResponse setTest(String test) {
-        this.test = test;
-        return this;
-    }
-    public String getTest() {
-        return this.test;
     }
 
 }
