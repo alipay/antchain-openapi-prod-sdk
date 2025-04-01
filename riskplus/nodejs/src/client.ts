@@ -2331,6 +2331,39 @@ export class CompanyInfo extends $tea.Model {
   }
 }
 
+// 营销盾离线圈客任务详细信息
+export class UmktOfflineDecisionTaskDetailInfo extends $tea.Model {
+  // 任务id
+  taskId: number;
+  // 圈客计划id
+  decisionPlanId: number;
+  // 圈客结果状态
+  decisionResultStatus: string;
+  // 圈客结果状态描述
+  statusRemark: string;
+  static names(): { [key: string]: string } {
+    return {
+      taskId: 'task_id',
+      decisionPlanId: 'decision_plan_id',
+      decisionResultStatus: 'decision_result_status',
+      statusRemark: 'status_remark',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      taskId: 'number',
+      decisionPlanId: 'number',
+      decisionResultStatus: 'string',
+      statusRemark: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 营销盾事件信息同步详情
 export class EventResultSyncDetail extends $tea.Model {
   // 事件唯一id（单个租户全局唯一）
@@ -7382,12 +7415,15 @@ export class QueryDubbridgeRouterFundrouterRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 1：现金贷（默认）
+  // 2：分期付
+  prodType?: string;
   // 身份证号
-  cardNo: string;
+  cardNo?: string;
   // 手机号
-  mobile: string;
+  mobile?: string;
   // 姓名
-  customName: string;
+  customName?: string;
   // 合作方产品编号
   prodNo?: string;
   // 渠道类型
@@ -7422,10 +7458,13 @@ export class QueryDubbridgeRouterFundrouterRequest extends $tea.Model {
   // 0：明文
   // 1：md5
   customNameType?: string;
+  // 资产方用户唯一标识
+  openId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      prodType: 'prod_type',
       cardNo: 'card_no',
       mobile: 'mobile',
       customName: 'custom_name',
@@ -7443,6 +7482,7 @@ export class QueryDubbridgeRouterFundrouterRequest extends $tea.Model {
       mobileType: 'mobile_type',
       cardNoType: 'card_no_type',
       customNameType: 'custom_name_type',
+      openId: 'open_id',
     };
   }
 
@@ -7450,6 +7490,7 @@ export class QueryDubbridgeRouterFundrouterRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      prodType: 'string',
       cardNo: 'string',
       mobile: 'string',
       customName: 'string',
@@ -7467,6 +7508,7 @@ export class QueryDubbridgeRouterFundrouterRequest extends $tea.Model {
       mobileType: 'string',
       cardNoType: 'string',
       customNameType: 'string',
+      openId: 'string',
     };
   }
 
@@ -9692,12 +9734,16 @@ export class QueryDubbridgeUsecreditStatusRequest extends $tea.Model {
   originalOrderNo: string;
   // 请求网络流水号
   orderNo: string;
+  // 1：现金贷（默认）
+  // 2：分期付
+  prodType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       originalOrderNo: 'original_order_no',
       orderNo: 'order_no',
+      prodType: 'prod_type',
     };
   }
 
@@ -9707,6 +9753,7 @@ export class QueryDubbridgeUsecreditStatusRequest extends $tea.Model {
       productInstanceId: 'string',
       originalOrderNo: 'string',
       orderNo: 'string',
+      prodType: 'string',
     };
   }
 
@@ -11010,6 +11057,209 @@ export class QueryDubbridgeRepaytypeInfoResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       repayTypeInfoList: { 'type': 'array', 'itemType': PlatformRepayTypeInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeInstallmentCreditamtRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单号：request请求单号，每次请求唯一，如uuid
+  orderNo: string;
+  // 1：现金贷、2：分期付
+  prodType: string;
+  // 资产方用户唯一标识
+  openId: string;
+  // 手机号
+  mobile: string;
+  // 项目编号
+  projectCode: string;
+  // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
+  tradeAmount: string;
+  // 身份证号
+  cardNo?: string;
+  // 客户姓名
+  customerName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      prodType: 'prod_type',
+      openId: 'open_id',
+      mobile: 'mobile',
+      projectCode: 'project_code',
+      tradeAmount: 'trade_amount',
+      cardNo: 'card_no',
+      customerName: 'customer_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+      prodType: 'string',
+      openId: 'string',
+      mobile: 'string',
+      projectCode: 'string',
+      tradeAmount: 'string',
+      cardNo: 'string',
+      customerName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeInstallmentCreditamtResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 授信申请状态：
+  // 0- 通过 
+  // 1- 拒绝 
+  // 2- 审批中
+  // 3- 失败
+  // 
+  applyStatus?: string;
+  // 额度状态：
+  // 0- 正常 
+  // 1- 冻结 
+  // 2- 过期
+  creditStatus?: string;
+  // 授信总额度，单位：元
+  creditAmount?: number;
+  // 可用余额
+  restAmount?: number;
+  // 发放日期，yyyy-MM-dd
+  payDate?: string;
+  // 到期日期，yyyy-MM-dd
+  expireDate?: string;
+  // 授信年利率。精确到小数点后四位0.1250，表示年利率为12.5%
+  rateValue?: number;
+  // 资金方编号
+  fundCode?: string;
+  // 资金方简称
+  abbreFundName?: string;
+  // 1：现金贷、2：分期付
+  prodType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      applyStatus: 'apply_status',
+      creditStatus: 'credit_status',
+      creditAmount: 'credit_amount',
+      restAmount: 'rest_amount',
+      payDate: 'pay_date',
+      expireDate: 'expire_date',
+      rateValue: 'rate_value',
+      fundCode: 'fund_code',
+      abbreFundName: 'abbre_fund_name',
+      prodType: 'prod_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      applyStatus: 'string',
+      creditStatus: 'string',
+      creditAmount: 'number',
+      restAmount: 'number',
+      payDate: 'string',
+      expireDate: 'string',
+      rateValue: 'number',
+      fundCode: 'string',
+      abbreFundName: 'string',
+      prodType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelDubbridgeInstallmentOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单号：request请求单号，每次请求唯一，如uuid
+  orderNo: string;
+  // 待支付的购物订单编号
+  bizOrderNo: string;
+  // 渠道方唯一标识
+  openId?: string;
+  // 天枢客户号
+  customerNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      bizOrderNo: 'biz_order_no',
+      openId: 'open_id',
+      customerNo: 'customer_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+      bizOrderNo: 'string',
+      openId: 'string',
+      customerNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelDubbridgeInstallmentOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单取消请求接受结果：
+  // Y: 成功; N: 失败
+  cancelResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      cancelResult: 'cancel_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      cancelResult: 'string',
     };
   }
 
@@ -13905,6 +14155,80 @@ export class QueryRdaasTaxSimpleauthdecisionResponse extends $tea.Model {
   }
 }
 
+export class ReceiveRfcParamsFileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 文件ID	
+  // 
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  // 参数，jsonString
+  params: string;
+  // 请求类型：示例 OCR_IDENTIFY-->OCR识别业务
+  type: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      params: 'params',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      params: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReceiveRfcParamsFileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 文件上传响应参数
+  content?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      content: 'content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      content: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryRbbGenericInvokeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -15462,6 +15786,79 @@ export class PushRbbInvoiceChargeResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReceiveRbbParamsFileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 文件ID
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  // 参数，jsonString
+  params: string;
+  // 请求类型：示例 CREDIT_REPORTS-->征信报告上传
+  type: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      params: 'params',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      params: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReceiveRbbParamsFileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 文件上传结果
+  content?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      content: 'content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      content: 'string',
     };
   }
 
@@ -21405,12 +21802,15 @@ export class QueryUmktOfflinedecisionResultResponse extends $tea.Model {
   resultMsg?: string;
   // 已完成的计划策略集合
   decisionPlanIdList?: number[];
+  // 批次维度圈客任务结果
+  taskExecBatchInfo?: UmktOfflineDecisionTaskDetailInfo[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       decisionPlanIdList: 'decision_plan_id_list',
+      taskExecBatchInfo: 'task_exec_batch_info',
     };
   }
 
@@ -21420,6 +21820,7 @@ export class QueryUmktOfflinedecisionResultResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       decisionPlanIdList: { 'type': 'array', 'itemType': 'number' },
+      taskExecBatchInfo: { 'type': 'array', 'itemType': UmktOfflineDecisionTaskDetailInfo },
     };
   }
 
@@ -21440,6 +21841,8 @@ export class DownloadUmktOfflinedecisionResultRequest extends $tea.Model {
   // 格式：yyyy-MM-dd
   // 默认当前时间的前一天
   resultDate?: string;
+  // 离线圈客任务id
+  taskId?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -21447,6 +21850,7 @@ export class DownloadUmktOfflinedecisionResultRequest extends $tea.Model {
       offlineDecisionPlanId: 'offline_decision_plan_id',
       decisionPlanId: 'decision_plan_id',
       resultDate: 'result_date',
+      taskId: 'task_id',
     };
   }
 
@@ -21457,6 +21861,7 @@ export class DownloadUmktOfflinedecisionResultRequest extends $tea.Model {
       offlineDecisionPlanId: 'number',
       decisionPlanId: 'number',
       resultDate: 'string',
+      taskId: 'number',
     };
   }
 
@@ -21539,6 +21944,8 @@ export class QueryUmktOfflinedecisionPlandetailsResponse extends $tea.Model {
   offlineDecisionPlanCount?: number;
   // 离线圈客计划详细
   planDetailList?: OfflineDecisionPlanDetail[];
+  // 执行批次维度任务详情信息
+  taskExecBatchInfo?: UmktOfflineDecisionTaskDetailInfo[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -21546,6 +21953,7 @@ export class QueryUmktOfflinedecisionPlandetailsResponse extends $tea.Model {
       resultMsg: 'result_msg',
       offlineDecisionPlanCount: 'offline_decision_plan_count',
       planDetailList: 'plan_detail_list',
+      taskExecBatchInfo: 'task_exec_batch_info',
     };
   }
 
@@ -21556,6 +21964,7 @@ export class QueryUmktOfflinedecisionPlandetailsResponse extends $tea.Model {
       resultMsg: 'string',
       offlineDecisionPlanCount: 'number',
       planDetailList: { 'type': 'array', 'itemType': OfflineDecisionPlanDetail },
+      taskExecBatchInfo: { 'type': 'array', 'itemType': UmktOfflineDecisionTaskDetailInfo },
     };
   }
 
@@ -21830,7 +22239,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.22.4",
+          sdk_version: "1.23.4",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -23288,6 +23697,44 @@ export default class Client {
   }
 
   /**
+   * Description: 天枢系统授信额度查询接口-分期付
+   * Summary: 天枢系统授信额度查询接口-分期付
+   */
+  async queryDubbridgeInstallmentCreditamt(request: QueryDubbridgeInstallmentCreditamtRequest): Promise<QueryDubbridgeInstallmentCreditamtResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeInstallmentCreditamtEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统授信额度查询接口-分期付
+   * Summary: 天枢系统授信额度查询接口-分期付
+   */
+  async queryDubbridgeInstallmentCreditamtEx(request: QueryDubbridgeInstallmentCreditamtRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeInstallmentCreditamtResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeInstallmentCreditamtResponse>(await this.doRequest("1.0", "riskplus.dubbridge.installment.creditamt.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeInstallmentCreditamtResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统取消分期付订单-分期付
+   * Summary: 天枢系统取消分期付订单-分期付
+   */
+  async cancelDubbridgeInstallmentOrder(request: CancelDubbridgeInstallmentOrderRequest): Promise<CancelDubbridgeInstallmentOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.cancelDubbridgeInstallmentOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统取消分期付订单-分期付
+   * Summary: 天枢系统取消分期付订单-分期付
+   */
+  async cancelDubbridgeInstallmentOrderEx(request: CancelDubbridgeInstallmentOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelDubbridgeInstallmentOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CancelDubbridgeInstallmentOrderResponse>(await this.doRequest("1.0", "riskplus.dubbridge.installment.order.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelDubbridgeInstallmentOrderResponse({}));
+  }
+
+  /**
    * Description: 四要素认证首先调用此接口
    * Summary: 芝麻四要素接口
    */
@@ -24016,6 +24463,47 @@ export default class Client {
   }
 
   /**
+   * Description: rfc外部文件上传
+   * Summary: rfc外部文件上传
+   */
+  async receiveRfcParamsFile(request: ReceiveRfcParamsFileRequest): Promise<ReceiveRfcParamsFileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.receiveRfcParamsFileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: rfc外部文件上传
+   * Summary: rfc外部文件上传
+   */
+  async receiveRfcParamsFileEx(request: ReceiveRfcParamsFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReceiveRfcParamsFileResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "riskplus.rfc.params.file.receive",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let receiveRfcParamsFileResponse = new ReceiveRfcParamsFileResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return receiveRfcParamsFileResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<ReceiveRfcParamsFileResponse>(await this.doRequest("1.0", "riskplus.rfc.params.file.receive", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReceiveRfcParamsFileResponse({}));
+  }
+
+  /**
    * Description: 风险大脑企业版通用查询接口
    * Summary: 【已废弃】
    */
@@ -24472,6 +24960,47 @@ export default class Client {
   async pushRbbInvoiceChargeEx(request: PushRbbInvoiceChargeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushRbbInvoiceChargeResponse> {
     Util.validateModel(request);
     return $tea.cast<PushRbbInvoiceChargeResponse>(await this.doRequest("1.0", "riskplus.rbb.invoice.charge.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushRbbInvoiceChargeResponse({}));
+  }
+
+  /**
+   * Description: 通过接口进行报告上传
+   * Summary: 征信报告上传接口
+   */
+  async receiveRbbParamsFile(request: ReceiveRbbParamsFileRequest): Promise<ReceiveRbbParamsFileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.receiveRbbParamsFileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 通过接口进行报告上传
+   * Summary: 征信报告上传接口
+   */
+  async receiveRbbParamsFileEx(request: ReceiveRbbParamsFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReceiveRbbParamsFileResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "riskplus.rbb.params.file.receive",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let receiveRbbParamsFileResponse = new ReceiveRbbParamsFileResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return receiveRbbParamsFileResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<ReceiveRbbParamsFileResponse>(await this.doRequest("1.0", "riskplus.rbb.params.file.receive", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReceiveRbbParamsFileResponse({}));
   }
 
   /**
@@ -25930,7 +26459,7 @@ export default class Client {
 
   /**
    * Description: 包含离线圈客关联计划和任务状态详情
-   * Summary: 营销盾离线圈客计划执行详情
+   * Summary: 营销盾离线圈客计划执行详情 
    */
   async queryUmktOfflinedecisionPlandetails(request: QueryUmktOfflinedecisionPlandetailsRequest): Promise<QueryUmktOfflinedecisionPlandetailsResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -25940,7 +26469,7 @@ export default class Client {
 
   /**
    * Description: 包含离线圈客关联计划和任务状态详情
-   * Summary: 营销盾离线圈客计划执行详情
+   * Summary: 营销盾离线圈客计划执行详情 
    */
   async queryUmktOfflinedecisionPlandetailsEx(request: QueryUmktOfflinedecisionPlandetailsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUmktOfflinedecisionPlandetailsResponse> {
     Util.validateModel(request);
