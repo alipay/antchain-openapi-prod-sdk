@@ -341,6 +341,10 @@ export class CheckAntcloudAitechguardAicoguardrailsAskRequest extends $tea.Model
   lastAnswer?: string;
   // 需要个性化处理的标签
   personalLabelCustomization?: PersonalLabelCustomization;
+  // 是否需要开启针对大模型提问prompt攻击手法的防御功能，包括越狱攻击（劫持、诱导、其他）、注入攻击、内容泛化攻击（文本变形变种）等常见攻击手法。默认值：N：不开启
+  // Y：开启
+  // N：不开启
+  attackDefense?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -353,6 +357,7 @@ export class CheckAntcloudAitechguardAicoguardrailsAskRequest extends $tea.Model
       userId: 'user_id',
       lastAnswer: 'last_answer',
       personalLabelCustomization: 'personal_label_customization',
+      attackDefense: 'attack_defense',
     };
   }
 
@@ -368,6 +373,7 @@ export class CheckAntcloudAitechguardAicoguardrailsAskRequest extends $tea.Model
       userId: 'string',
       lastAnswer: 'string',
       personalLabelCustomization: PersonalLabelCustomization,
+      attackDefense: 'string',
     };
   }
 
