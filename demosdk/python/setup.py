@@ -22,16 +22,16 @@ import os
 from setuptools import setup, find_packages
 
 """
-setup module for antchain_antdigital_demosdk.
+setup module for antchain_demosdk.
 
-Created on 12/11/2024
+Created on 01/04/2025
 
 @author: Ant Chain SDK
 """
 
-PACKAGE = "antchain_sdk_antdigital_demosdk"
-NAME = "antchain_antdigital_demosdk" or "alibabacloud-package"
-DESCRIPTION = "Ant Chain Antdigital_DEMOSDK SDK Library for Python"
+PACKAGE = "antchain_sdk_demosdk"
+NAME = "antchain_demosdk" or "alibabacloud-package"
+DESCRIPTION = "Ant Chain DEMOSDK SDK Library for Python"
 AUTHOR = "Ant Chain SDK"
 AUTHOR_EMAIL = "sdk-team@alibabacloud.com"
 URL = "https://github.com/alipay/antchain-openapi-prod-sdk"
@@ -57,7 +57,7 @@ setup(
     author_email=AUTHOR_EMAIL,
     license="Apache License 2.0",
     url=URL,
-    keywords=["antchain","antdigital","demosdk"],
+    keywords=["antchain","demosdk"],
     packages=find_packages(exclude=["tests*"]),
     include_package_data=True,
     platforms="any",
