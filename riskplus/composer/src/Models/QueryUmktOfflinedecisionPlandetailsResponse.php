@@ -37,12 +37,19 @@ class QueryUmktOfflinedecisionPlandetailsResponse extends Model
      * @var OfflineDecisionPlanDetail[]
      */
     public $planDetailList;
+
+    // 执行批次维度任务详情信息
+    /**
+     * @var UmktOfflineDecisionTaskDetailInfo[]
+     */
+    public $taskExecBatchInfo;
     protected $_name = [
         'reqMsgId'                 => 'req_msg_id',
         'resultCode'               => 'result_code',
         'resultMsg'                => 'result_msg',
         'offlineDecisionPlanCount' => 'offline_decision_plan_count',
         'planDetailList'           => 'plan_detail_list',
+        'taskExecBatchInfo'        => 'task_exec_batch_info',
     ];
 
     public function validate()
@@ -70,6 +77,15 @@ class QueryUmktOfflinedecisionPlandetailsResponse extends Model
                 $n = 0;
                 foreach ($this->planDetailList as $item) {
                     $res['plan_detail_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->taskExecBatchInfo) {
+            $res['task_exec_batch_info'] = [];
+            if (null !== $this->taskExecBatchInfo && \is_array($this->taskExecBatchInfo)) {
+                $n = 0;
+                foreach ($this->taskExecBatchInfo as $item) {
+                    $res['task_exec_batch_info'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
         }
@@ -103,6 +119,15 @@ class QueryUmktOfflinedecisionPlandetailsResponse extends Model
                 $n                     = 0;
                 foreach ($map['plan_detail_list'] as $item) {
                     $model->planDetailList[$n++] = null !== $item ? OfflineDecisionPlanDetail::fromMap($item) : $item;
+                }
+            }
+        }
+        if (isset($map['task_exec_batch_info'])) {
+            if (!empty($map['task_exec_batch_info'])) {
+                $model->taskExecBatchInfo = [];
+                $n                        = 0;
+                foreach ($map['task_exec_batch_info'] as $item) {
+                    $model->taskExecBatchInfo[$n++] = null !== $item ? UmktOfflineDecisionTaskDetailInfo::fromMap($item) : $item;
                 }
             }
         }

@@ -83,6 +83,8 @@ use AntChain\RISKPLUS\Models\CallbackUmktSmsReportRequest;
 use AntChain\RISKPLUS\Models\CallbackUmktSmsReportResponse;
 use AntChain\RISKPLUS\Models\CallbackUmktSmsUpRequest;
 use AntChain\RISKPLUS\Models\CallbackUmktSmsUpResponse;
+use AntChain\RISKPLUS\Models\CancelDubbridgeInstallmentOrderRequest;
+use AntChain\RISKPLUS\Models\CancelDubbridgeInstallmentOrderResponse;
 use AntChain\RISKPLUS\Models\CancelUmktDataaccessOfflinetaskRequest;
 use AntChain\RISKPLUS\Models\CancelUmktDataaccessOfflinetaskResponse;
 use AntChain\RISKPLUS\Models\CheckSecurityDataRequest;
@@ -199,6 +201,8 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerBankcardlistRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerBankcardlistResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerCommonagreementsignRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerCommonagreementsignResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeInstallmentCreditamtRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeInstallmentCreditamtResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeLoanUpgradestatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeLoanUpgradestatusResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeMarketingCouponlistRequest;
@@ -365,6 +369,10 @@ use AntChain\RISKPLUS\Models\ReceiveMdipParamsFileRequest;
 use AntChain\RISKPLUS\Models\ReceiveMdipParamsFileResponse;
 use AntChain\RISKPLUS\Models\ReceiveMdipParamsRbbfileRequest;
 use AntChain\RISKPLUS\Models\ReceiveMdipParamsRbbfileResponse;
+use AntChain\RISKPLUS\Models\ReceiveRbbParamsFileRequest;
+use AntChain\RISKPLUS\Models\ReceiveRbbParamsFileResponse;
+use AntChain\RISKPLUS\Models\ReceiveRfcParamsFileRequest;
+use AntChain\RISKPLUS\Models\ReceiveRfcParamsFileResponse;
 use AntChain\RISKPLUS\Models\RegisterRpgwUserEinvoiceRequest;
 use AntChain\RISKPLUS\Models\RegisterRpgwUserEinvoiceResponse;
 use AntChain\RISKPLUS\Models\RepayDubbridgeRepayCheckstandRequest;
@@ -576,7 +584,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.22.4',
+                    'sdk_version'      => '1.23.4',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3053,6 +3061,72 @@ class Client
     }
 
     /**
+     * Description: 天枢系统授信额度查询接口-分期付
+     * Summary: 天枢系统授信额度查询接口-分期付.
+     *
+     * @param QueryDubbridgeInstallmentCreditamtRequest $request
+     *
+     * @return QueryDubbridgeInstallmentCreditamtResponse
+     */
+    public function queryDubbridgeInstallmentCreditamt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeInstallmentCreditamtEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统授信额度查询接口-分期付
+     * Summary: 天枢系统授信额度查询接口-分期付.
+     *
+     * @param QueryDubbridgeInstallmentCreditamtRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return QueryDubbridgeInstallmentCreditamtResponse
+     */
+    public function queryDubbridgeInstallmentCreditamtEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeInstallmentCreditamtResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.installment.creditamt.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统取消分期付订单-分期付
+     * Summary: 天枢系统取消分期付订单-分期付.
+     *
+     * @param CancelDubbridgeInstallmentOrderRequest $request
+     *
+     * @return CancelDubbridgeInstallmentOrderResponse
+     */
+    public function cancelDubbridgeInstallmentOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelDubbridgeInstallmentOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统取消分期付订单-分期付
+     * Summary: 天枢系统取消分期付订单-分期付.
+     *
+     * @param CancelDubbridgeInstallmentOrderRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return CancelDubbridgeInstallmentOrderResponse
+     */
+    public function cancelDubbridgeInstallmentOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelDubbridgeInstallmentOrderResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.installment.order.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 四要素认证首先调用此接口
      * Summary: 芝麻四要素接口.
      *
@@ -4279,6 +4353,58 @@ class Client
     }
 
     /**
+     * Description: rfc外部文件上传
+     * Summary: rfc外部文件上传.
+     *
+     * @param ReceiveRfcParamsFileRequest $request
+     *
+     * @return ReceiveRfcParamsFileResponse
+     */
+    public function receiveRfcParamsFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->receiveRfcParamsFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: rfc外部文件上传
+     * Summary: rfc外部文件上传.
+     *
+     * @param ReceiveRfcParamsFileRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return ReceiveRfcParamsFileResponse
+     */
+    public function receiveRfcParamsFileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'riskplus.rfc.params.file.receive',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new ReceiveRfcParamsFileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return ReceiveRfcParamsFileResponse::fromMap($this->doRequest('1.0', 'riskplus.rfc.params.file.receive', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 风险大脑企业版通用查询接口
      * Summary: 【已废弃】.
      *
@@ -5054,6 +5180,58 @@ class Client
         Utils::validateModel($request);
 
         return PushRbbInvoiceChargeResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.invoice.charge.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过接口进行报告上传
+     * Summary: 征信报告上传接口.
+     *
+     * @param ReceiveRbbParamsFileRequest $request
+     *
+     * @return ReceiveRbbParamsFileResponse
+     */
+    public function receiveRbbParamsFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->receiveRbbParamsFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过接口进行报告上传
+     * Summary: 征信报告上传接口.
+     *
+     * @param ReceiveRbbParamsFileRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return ReceiveRbbParamsFileResponse
+     */
+    public function receiveRbbParamsFileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'riskplus.rbb.params.file.receive',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new ReceiveRbbParamsFileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return ReceiveRbbParamsFileResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.params.file.receive', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

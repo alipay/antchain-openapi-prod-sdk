@@ -19,6 +19,13 @@ class QueryDubbridgeRouterFundrouterRequest extends Model
      */
     public $productInstanceId;
 
+    // 1：现金贷（默认）
+    // 2：分期付
+    /**
+     * @var string
+     */
+    public $prodType;
+
     // 身份证号
     /**
      * @var string
@@ -126,9 +133,16 @@ class QueryDubbridgeRouterFundrouterRequest extends Model
      * @var string
      */
     public $customNameType;
+
+    // 资产方用户唯一标识
+    /**
+     * @var string
+     */
+    public $openId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'prodType'          => 'prod_type',
         'cardNo'            => 'card_no',
         'mobile'            => 'mobile',
         'customName'        => 'custom_name',
@@ -146,13 +160,11 @@ class QueryDubbridgeRouterFundrouterRequest extends Model
         'mobileType'        => 'mobile_type',
         'cardNoType'        => 'card_no_type',
         'customNameType'    => 'custom_name_type',
+        'openId'            => 'open_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('cardNo', $this->cardNo, true);
-        Model::validateRequired('mobile', $this->mobile, true);
-        Model::validateRequired('customName', $this->customName, true);
     }
 
     public function toMap()
@@ -163,6 +175,9 @@ class QueryDubbridgeRouterFundrouterRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->prodType) {
+            $res['prod_type'] = $this->prodType;
         }
         if (null !== $this->cardNo) {
             $res['card_no'] = $this->cardNo;
@@ -215,6 +230,9 @@ class QueryDubbridgeRouterFundrouterRequest extends Model
         if (null !== $this->customNameType) {
             $res['custom_name_type'] = $this->customNameType;
         }
+        if (null !== $this->openId) {
+            $res['open_id'] = $this->openId;
+        }
 
         return $res;
     }
@@ -232,6 +250,9 @@ class QueryDubbridgeRouterFundrouterRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['prod_type'])) {
+            $model->prodType = $map['prod_type'];
         }
         if (isset($map['card_no'])) {
             $model->cardNo = $map['card_no'];
@@ -283,6 +304,9 @@ class QueryDubbridgeRouterFundrouterRequest extends Model
         }
         if (isset($map['custom_name_type'])) {
             $model->customNameType = $map['custom_name_type'];
+        }
+        if (isset($map['open_id'])) {
+            $model->openId = $map['open_id'];
         }
 
         return $model;

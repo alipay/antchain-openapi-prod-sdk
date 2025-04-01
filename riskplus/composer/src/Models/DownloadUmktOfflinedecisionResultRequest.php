@@ -38,12 +38,19 @@ class DownloadUmktOfflinedecisionResultRequest extends Model
      * @var string
      */
     public $resultDate;
+
+    // 离线圈客任务id
+    /**
+     * @var int
+     */
+    public $taskId;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
         'offlineDecisionPlanId' => 'offline_decision_plan_id',
         'decisionPlanId'        => 'decision_plan_id',
         'resultDate'            => 'result_date',
+        'taskId'                => 'task_id',
     ];
 
     public function validate()
@@ -69,6 +76,9 @@ class DownloadUmktOfflinedecisionResultRequest extends Model
         }
         if (null !== $this->resultDate) {
             $res['result_date'] = $this->resultDate;
+        }
+        if (null !== $this->taskId) {
+            $res['task_id'] = $this->taskId;
         }
 
         return $res;
@@ -96,6 +106,9 @@ class DownloadUmktOfflinedecisionResultRequest extends Model
         }
         if (isset($map['result_date'])) {
             $model->resultDate = $map['result_date'];
+        }
+        if (isset($map['task_id'])) {
+            $model->taskId = $map['task_id'];
         }
 
         return $model;
