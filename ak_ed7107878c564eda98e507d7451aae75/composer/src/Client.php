@@ -17,16 +17,30 @@ use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\AddUniversalsaasDigitalh
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\AddUniversalsaasDigitalhumanKnowledgeResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\AddUniversalsaasDigitalhumanLibraryRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\AddUniversalsaasDigitalhumanLibraryResponse;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\DeleteUniversalsaasDigitalhumanChatSettingRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\DeleteUniversalsaasDigitalhumanChatSettingResponse;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\DeleteUniversalsaasDigitalhumanHumanRequest;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\DeleteUniversalsaasDigitalhumanHumanResponse;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\DeleteUniversalsaasDigitalhumanKnowledgeRequest;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\DeleteUniversalsaasDigitalhumanKnowledgeResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\DeleteUniversalsaasDigitalhumanLibraryRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\DeleteUniversalsaasDigitalhumanLibraryResponse;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ExportUniversalsaasDigitalhumanKnowledgeRequest;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ExportUniversalsaasDigitalhumanKnowledgeResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanHumanRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanHumanResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanLibraryRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanLibraryResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanLlmChatRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanLlmChatResponse;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanModelRequest;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanModelResponse;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanVoiceRequest;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanVoiceResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\OfflineUniversalsaasDigitalhumanChatSettingRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\OfflineUniversalsaasDigitalhumanChatSettingResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\OfflineUniversalsaasDigitalhumanKnowledgeRequest;
@@ -35,10 +49,14 @@ use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\OnlineUniversalsaasDigit
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\OnlineUniversalsaasDigitalhumanChatSettingResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\OnlineUniversalsaasDigitalhumanKnowledgeRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\OnlineUniversalsaasDigitalhumanKnowledgeResponse;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\PreviewUniversalsaasDigitalhumanVoiceRequest;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\PreviewUniversalsaasDigitalhumanVoiceResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\SetUniversalsaasDigitalhumanChatSettingRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\SetUniversalsaasDigitalhumanChatSettingResponse;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\UpdateUniversalsaasDigitalhumanHumanRequest;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\UpdateUniversalsaasDigitalhumanHumanResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\UpdateUniversalsaasDigitalhumanKnowledgeRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\UpdateUniversalsaasDigitalhumanKnowledgeResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\UpdateUniversalsaasDigitalhumanLibraryRequest;
@@ -190,7 +208,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.4',
+                    'sdk_version'      => '1.1.5',
                     '_prod_code'       => 'ak_ed7107878c564eda98e507d7451aae75',
                     '_prod_channel'    => 'saas',
                 ];
@@ -734,6 +752,256 @@ class Client
     }
 
     /**
+     * Description: 数字人形象列表接口
+     * Summary: 数字人形象列表接口.
+     *
+     * @param ListUniversalsaasDigitalhumanModelRequest $request
+     *
+     * @return ListUniversalsaasDigitalhumanModelResponse
+     */
+    public function listUniversalsaasDigitalhumanModel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listUniversalsaasDigitalhumanModelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字人形象列表接口
+     * Summary: 数字人形象列表接口.
+     *
+     * @param ListUniversalsaasDigitalhumanModelRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return ListUniversalsaasDigitalhumanModelResponse
+     */
+    public function listUniversalsaasDigitalhumanModelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListUniversalsaasDigitalhumanModelResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.model.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字人平台音色列表
+     * Summary: 数字人平台音色列表.
+     *
+     * @param ListUniversalsaasDigitalhumanVoiceRequest $request
+     *
+     * @return ListUniversalsaasDigitalhumanVoiceResponse
+     */
+    public function listUniversalsaasDigitalhumanVoice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listUniversalsaasDigitalhumanVoiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字人平台音色列表
+     * Summary: 数字人平台音色列表.
+     *
+     * @param ListUniversalsaasDigitalhumanVoiceRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return ListUniversalsaasDigitalhumanVoiceResponse
+     */
+    public function listUniversalsaasDigitalhumanVoiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListUniversalsaasDigitalhumanVoiceResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.voice.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字人平台音色试听接口
+     * Summary: 数字人平台音色试听接口.
+     *
+     * @param PreviewUniversalsaasDigitalhumanVoiceRequest $request
+     *
+     * @return PreviewUniversalsaasDigitalhumanVoiceResponse
+     */
+    public function previewUniversalsaasDigitalhumanVoice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->previewUniversalsaasDigitalhumanVoiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字人平台音色试听接口
+     * Summary: 数字人平台音色试听接口.
+     *
+     * @param PreviewUniversalsaasDigitalhumanVoiceRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return PreviewUniversalsaasDigitalhumanVoiceResponse
+     */
+    public function previewUniversalsaasDigitalhumanVoiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PreviewUniversalsaasDigitalhumanVoiceResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.voice.preview', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字人平台角色创建与更新接口
+     * Summary: 数字人平台角色创建与更新接口.
+     *
+     * @param UpdateUniversalsaasDigitalhumanHumanRequest $request
+     *
+     * @return UpdateUniversalsaasDigitalhumanHumanResponse
+     */
+    public function updateUniversalsaasDigitalhumanHuman($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateUniversalsaasDigitalhumanHumanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字人平台角色创建与更新接口
+     * Summary: 数字人平台角色创建与更新接口.
+     *
+     * @param UpdateUniversalsaasDigitalhumanHumanRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return UpdateUniversalsaasDigitalhumanHumanResponse
+     */
+    public function updateUniversalsaasDigitalhumanHumanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateUniversalsaasDigitalhumanHumanResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.human.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除数字人角色接口
+     * Summary: 删除数字人角色接口.
+     *
+     * @param DeleteUniversalsaasDigitalhumanHumanRequest $request
+     *
+     * @return DeleteUniversalsaasDigitalhumanHumanResponse
+     */
+    public function deleteUniversalsaasDigitalhumanHuman($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteUniversalsaasDigitalhumanHumanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除数字人角色接口
+     * Summary: 删除数字人角色接口.
+     *
+     * @param DeleteUniversalsaasDigitalhumanHumanRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return DeleteUniversalsaasDigitalhumanHumanResponse
+     */
+    public function deleteUniversalsaasDigitalhumanHumanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteUniversalsaasDigitalhumanHumanResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.human.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除知识点接口
+     * Summary: 删除知识点接口.
+     *
+     * @param DeleteUniversalsaasDigitalhumanKnowledgeRequest $request
+     *
+     * @return DeleteUniversalsaasDigitalhumanKnowledgeResponse
+     */
+    public function deleteUniversalsaasDigitalhumanKnowledge($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteUniversalsaasDigitalhumanKnowledgeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除知识点接口
+     * Summary: 删除知识点接口.
+     *
+     * @param DeleteUniversalsaasDigitalhumanKnowledgeRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return DeleteUniversalsaasDigitalhumanKnowledgeResponse
+     */
+    public function deleteUniversalsaasDigitalhumanKnowledgeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteUniversalsaasDigitalhumanKnowledgeResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.knowledge.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建批量导入任务
+     * Summary: 创建批量导入任务
+     *
+     * @param CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest $request
+     *
+     * @return CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse
+     */
+    public function createUniversalsaasDigitalhumanKnowledgeImporttask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createUniversalsaasDigitalhumanKnowledgeImporttaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建批量导入任务
+     * Summary: 创建批量导入任务
+     *
+     * @param CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest $request
+     * @param string[]                                                  $headers
+     * @param RuntimeOptions                                            $runtime
+     *
+     * @return CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse
+     */
+    public function createUniversalsaasDigitalhumanKnowledgeImporttaskEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'universalsaas.digitalhuman.knowledge.importtask.create',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.knowledge.importtask.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 查询批量导入任务
      * Summary: 查询批量导入任务
      *
@@ -764,5 +1032,71 @@ class Client
         Utils::validateModel($request);
 
         return QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.knowledge.importtask.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 知识点批量导出
+     * Summary: 知识点批量导出.
+     *
+     * @param ExportUniversalsaasDigitalhumanKnowledgeRequest $request
+     *
+     * @return ExportUniversalsaasDigitalhumanKnowledgeResponse
+     */
+    public function exportUniversalsaasDigitalhumanKnowledge($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->exportUniversalsaasDigitalhumanKnowledgeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 知识点批量导出
+     * Summary: 知识点批量导出.
+     *
+     * @param ExportUniversalsaasDigitalhumanKnowledgeRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return ExportUniversalsaasDigitalhumanKnowledgeResponse
+     */
+    public function exportUniversalsaasDigitalhumanKnowledgeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExportUniversalsaasDigitalhumanKnowledgeResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.knowledge.export', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
