@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.14.26',
+                    'sdk_version': '1.14.27',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.14.26',
+                    'sdk_version': '1.14.27',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -6769,6 +6769,62 @@ class Client:
         return TeaCore.from_map(
             ato_models.SaveInnerAgentcustomerserviceResponse(),
             await self.do_request_async('1.0', 'antchain.ato.inner.agentcustomerservice.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_logger(
+        self,
+        request: ato_models.QueryInnerLoggerRequest,
+    ) -> ato_models.QueryInnerLoggerResponse:
+        """
+        Description: 查询sls日志
+        Summary: 查询sls日志
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_logger_ex(request, headers, runtime)
+
+    async def query_inner_logger_async(
+        self,
+        request: ato_models.QueryInnerLoggerRequest,
+    ) -> ato_models.QueryInnerLoggerResponse:
+        """
+        Description: 查询sls日志
+        Summary: 查询sls日志
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_logger_ex_async(request, headers, runtime)
+
+    def query_inner_logger_ex(
+        self,
+        request: ato_models.QueryInnerLoggerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerLoggerResponse:
+        """
+        Description: 查询sls日志
+        Summary: 查询sls日志
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerLoggerResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.logger.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_logger_ex_async(
+        self,
+        request: ato_models.QueryInnerLoggerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerLoggerResponse:
+        """
+        Description: 查询sls日志
+        Summary: 查询sls日志
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerLoggerResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.logger.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_insure(

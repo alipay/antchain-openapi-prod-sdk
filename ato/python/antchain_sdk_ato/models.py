@@ -18764,6 +18764,151 @@ class SaveInnerAgentcustomerserviceResponse(TeaModel):
         return self
 
 
+class QueryInnerLoggerRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        channel: str = None,
+        channel_id: str = None,
+        trace_id: str = None,
+        start_time: str = None,
+        end_time: str = None,
+        page_info: PageQuery = None,
+        ext_query_param: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 业务渠道：DINGDING
+        self.channel = channel
+        # 钉钉群id
+        # 租户id
+        # 支付宝uuid
+        self.channel_id = channel_id
+        # traceid
+        self.trace_id = trace_id
+        # 开始时间
+        self.start_time = start_time
+        # 结束时间
+        self.end_time = end_time
+        # 分页
+        self.page_info = page_info
+        # 额外查询参数
+        self.ext_query_param = ext_query_param
+
+    def validate(self):
+        self.validate_required(self.channel, 'channel')
+        self.validate_required(self.channel_id, 'channel_id')
+        if self.page_info:
+            self.page_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.channel is not None:
+            result['channel'] = self.channel
+        if self.channel_id is not None:
+            result['channel_id'] = self.channel_id
+        if self.trace_id is not None:
+            result['trace_id'] = self.trace_id
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        if self.page_info is not None:
+            result['page_info'] = self.page_info.to_map()
+        if self.ext_query_param is not None:
+            result['ext_query_param'] = self.ext_query_param
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('channel') is not None:
+            self.channel = m.get('channel')
+        if m.get('channel_id') is not None:
+            self.channel_id = m.get('channel_id')
+        if m.get('trace_id') is not None:
+            self.trace_id = m.get('trace_id')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        if m.get('page_info') is not None:
+            temp_model = PageQuery()
+            self.page_info = temp_model.from_map(m['page_info'])
+        if m.get('ext_query_param') is not None:
+            self.ext_query_param = m.get('ext_query_param')
+        return self
+
+
+class QueryInnerLoggerResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        content: str = None,
+        total: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 日志内容
+        self.content = content
+        # 总条数
+        self.total = total
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.content is not None:
+            result['content'] = self.content
+        if self.total is not None:
+            result['total'] = self.total
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        return self
+
+
 class CreateInsureRequest(TeaModel):
     def __init__(
         self,
@@ -21986,6 +22131,9 @@ class UploadSignTemplateRequest(TeaModel):
         file_object: BinaryIO = None,
         file_object_name: str = None,
         file_id: str = None,
+        fund_id: str = None,
+        fund_sign: bool = None,
+        fund_pos_conf: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -22006,11 +22154,15 @@ class UploadSignTemplateRequest(TeaModel):
         # 待上传文件名
         self.file_object_name = file_object_name
         self.file_id = file_id
+        # 资方统一社会信用代码，默认为空
+        self.fund_id = fund_id
+        # 是否需要资方签署，默认为否
+        self.fund_sign = fund_sign
+        # 资方签署区坐标，默认为空
+        self.fund_pos_conf = fund_pos_conf
 
     def validate(self):
         self.validate_required(self.merchant_id, 'merchant_id')
-        self.validate_required(self.contract_type, 'contract_type')
-        self.validate_required(self.agreement_type, 'agreement_type')
         self.validate_required(self.pos_conf, 'pos_conf')
         self.validate_required(self.file_id, 'file_id')
 
@@ -22040,6 +22192,12 @@ class UploadSignTemplateRequest(TeaModel):
             result['fileObjectName'] = self.file_object_name
         if self.file_id is not None:
             result['file_id'] = self.file_id
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
+        if self.fund_sign is not None:
+            result['fund_sign'] = self.fund_sign
+        if self.fund_pos_conf is not None:
+            result['fund_pos_conf'] = self.fund_pos_conf
         return result
 
     def from_map(self, m: dict = None):
@@ -22064,6 +22222,12 @@ class UploadSignTemplateRequest(TeaModel):
             self.file_object_name = m.get('fileObjectName')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
+        if m.get('fund_sign') is not None:
+            self.fund_sign = m.get('fund_sign')
+        if m.get('fund_pos_conf') is not None:
+            self.fund_pos_conf = m.get('fund_pos_conf')
         return self
 
 
