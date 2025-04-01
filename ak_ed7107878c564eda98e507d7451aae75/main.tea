@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.4',
+    sdk_version = '1.1.5',
     _prod_code = 'ak_ed7107878c564eda98e507d7451aae75',
     _prod_channel = 'saas'
   };
@@ -223,6 +223,36 @@ model AvatarComponentInfo {
   value: string(name='value', example='-'),
 }
 
+// 数字人平台--形象信息
+model AvatarModelInfo {
+  // 数字人形象id
+  modelId: long(name='model_id', example='1886'),
+  // 数字人形象名
+  modelName: string(name='model_name', example='小忆'),
+  // 数字人形象默认音色列表
+  voiceList: [ string ](name='voice_list', example='["269"]'),
+  // 数字人形象预览图
+  image: string(name='image', example='www.123.com'),
+}
+
+// 数字人平台--音色信息
+model AvatarVoiceInfo {
+  // 音色id
+  voiceId: string(name='voice_id', example='1'),
+  // 音色编码
+  voiceCode: string(name='voice_code', example='269'),
+  // 音色名
+  voiceName: string(name='voice_name', example='小忆'),
+  // 预览图
+  image?: string(name='image', example='www.123.com'),
+  // 音色性别
+  gender?: string(name='gender', example='male'),
+  // 音色类型
+  voiceType?: string(name='voice_type', example='克隆音色'),
+  // 音色试听链接列表
+  auditionList?: [ string ](name='audition_list', example=''),
+}
+
 // 数字人平台--气泡按钮信息
 model AvatarBubbleInfo {
   // 气泡标题
@@ -267,6 +297,14 @@ model AvatarScriptConfigInfo {
   welcomePhrases?: [ string ](name='welcome_phrases', example='["你好我是数字人"]'),
   // 兜底语列表
   fallbackPhrases?: [ string ](name='fallback_phrases', example='["对不起"]'),
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
 }
 
 model ListUniversalsaasDigitalhumanHumanRequest = {
@@ -895,6 +933,343 @@ async function offlineUniversalsaasDigitalhumanChatSettingEx(request: OfflineUni
   return doRequest('1.0' ,'universalsaas.digitalhuman.chat.setting.offline', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model ListUniversalsaasDigitalhumanModelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // common---内置形象
+  // custom--我的形象
+  type: string(name='type'),
+  // 2d---2d形象
+  // 3d---3d形象
+  classification: string(name='classification'),
+}
+
+model ListUniversalsaasDigitalhumanModelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数字人形象信息列表
+  itemList?: [ AvatarModelInfo ](name='item_list'),
+}
+
+/**
+ * Description: 数字人形象列表接口
+ * Summary: 数字人形象列表接口
+ */
+async function listUniversalsaasDigitalhumanModel(request: ListUniversalsaasDigitalhumanModelRequest): ListUniversalsaasDigitalhumanModelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listUniversalsaasDigitalhumanModelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字人形象列表接口
+ * Summary: 数字人形象列表接口
+ */
+async function listUniversalsaasDigitalhumanModelEx(request: ListUniversalsaasDigitalhumanModelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListUniversalsaasDigitalhumanModelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.model.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListUniversalsaasDigitalhumanVoiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // common---内置音色
+  // custom--我的音色
+  type: string(name='type'),
+  // 2d---2d音色
+  // 3d---3d音色
+  classification: string(name='classification'),
+}
+
+model ListUniversalsaasDigitalhumanVoiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数字人平台音色信息列表
+  itemList?: [ AvatarVoiceInfo ](name='item_list'),
+}
+
+/**
+ * Description: 数字人平台音色列表
+ * Summary: 数字人平台音色列表
+ */
+async function listUniversalsaasDigitalhumanVoice(request: ListUniversalsaasDigitalhumanVoiceRequest): ListUniversalsaasDigitalhumanVoiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listUniversalsaasDigitalhumanVoiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字人平台音色列表
+ * Summary: 数字人平台音色列表
+ */
+async function listUniversalsaasDigitalhumanVoiceEx(request: ListUniversalsaasDigitalhumanVoiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListUniversalsaasDigitalhumanVoiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.voice.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PreviewUniversalsaasDigitalhumanVoiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 2d---2d音色
+  // 3d---3d音色
+  classification: string(name='classification'),
+  // 音色编码
+  voiceCode: string(name='voice_code'),
+  // 试听文案
+  text: string(name='text'),
+  // 语速
+  speed?: long(name='speed'),
+  // 音调
+  pitch?: long(name='pitch'),
+  // 音量
+  volume?: long(name='volume'),
+  // 数字人角色id
+  humanId?: long(name='human_id'),
+  // 数字人形象id
+  modelId?: long(name='model_id'),
+}
+
+model PreviewUniversalsaasDigitalhumanVoiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 试听音频链接
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 数字人平台音色试听接口
+ * Summary: 数字人平台音色试听接口
+ */
+async function previewUniversalsaasDigitalhumanVoice(request: PreviewUniversalsaasDigitalhumanVoiceRequest): PreviewUniversalsaasDigitalhumanVoiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return previewUniversalsaasDigitalhumanVoiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字人平台音色试听接口
+ * Summary: 数字人平台音色试听接口
+ */
+async function previewUniversalsaasDigitalhumanVoiceEx(request: PreviewUniversalsaasDigitalhumanVoiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PreviewUniversalsaasDigitalhumanVoiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.voice.preview', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateUniversalsaasDigitalhumanHumanRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 数字人形象id
+  modelId: long(name='model_id'),
+  // 音色编码
+  voiceCode: string(name='voice_code'),
+  // 数字人角色名
+  humanName?: string(name='human_name'),
+  // 语速
+  speed?: long(name='speed'),
+  // 音调
+  pitch?: long(name='pitch'),
+  // 音量
+  volume?: long(name='volume'),
+  // 数字人角色id
+  humanId?: long(name='human_id'),
+}
+
+model UpdateUniversalsaasDigitalhumanHumanResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数字人角色信息
+  data?: AvatarHumanInfo(name='data'),
+}
+
+/**
+ * Description: 数字人平台角色创建与更新接口
+ * Summary: 数字人平台角色创建与更新接口
+ */
+async function updateUniversalsaasDigitalhumanHuman(request: UpdateUniversalsaasDigitalhumanHumanRequest): UpdateUniversalsaasDigitalhumanHumanResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateUniversalsaasDigitalhumanHumanEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字人平台角色创建与更新接口
+ * Summary: 数字人平台角色创建与更新接口
+ */
+async function updateUniversalsaasDigitalhumanHumanEx(request: UpdateUniversalsaasDigitalhumanHumanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateUniversalsaasDigitalhumanHumanResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.human.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteUniversalsaasDigitalhumanHumanRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 数字人角色id
+  humanId: long(name='human_id'),
+}
+
+model DeleteUniversalsaasDigitalhumanHumanResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除数字人角色接口
+ * Summary: 删除数字人角色接口
+ */
+async function deleteUniversalsaasDigitalhumanHuman(request: DeleteUniversalsaasDigitalhumanHumanRequest): DeleteUniversalsaasDigitalhumanHumanResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteUniversalsaasDigitalhumanHumanEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除数字人角色接口
+ * Summary: 删除数字人角色接口
+ */
+async function deleteUniversalsaasDigitalhumanHumanEx(request: DeleteUniversalsaasDigitalhumanHumanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteUniversalsaasDigitalhumanHumanResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.human.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteUniversalsaasDigitalhumanKnowledgeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 知识点id列表
+  ids: [ long ](name='ids'),
+  // 知识库id
+  libraryId: long(name='library_id'),
+}
+
+model DeleteUniversalsaasDigitalhumanKnowledgeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除知识点接口
+ * Summary: 删除知识点接口
+ */
+async function deleteUniversalsaasDigitalhumanKnowledge(request: DeleteUniversalsaasDigitalhumanKnowledgeRequest): DeleteUniversalsaasDigitalhumanKnowledgeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteUniversalsaasDigitalhumanKnowledgeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除知识点接口
+ * Summary: 删除知识点接口
+ */
+async function deleteUniversalsaasDigitalhumanKnowledgeEx(request: DeleteUniversalsaasDigitalhumanKnowledgeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteUniversalsaasDigitalhumanKnowledgeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.knowledge.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 知识点excel文件
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 知识库id
+  libraryId: long(name='library_id'),
+}
+
+model CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务id
+  taskId?: long(name='task_id'),
+}
+
+/**
+ * Description: 创建批量导入任务
+ * Summary: 创建批量导入任务
+ */
+async function createUniversalsaasDigitalhumanKnowledgeImporttask(request: CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest): CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createUniversalsaasDigitalhumanKnowledgeImporttaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建批量导入任务
+ * Summary: 创建批量导入任务
+ */
+async function createUniversalsaasDigitalhumanKnowledgeImporttaskEx(request: CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'universalsaas.digitalhuman.knowledge.importtask.create',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var createUniversalsaasDigitalhumanKnowledgeImporttaskResponse = new CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return createUniversalsaasDigitalhumanKnowledgeImporttaskResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.knowledge.importtask.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -933,5 +1308,98 @@ async function queryUniversalsaasDigitalhumanKnowledgeImporttask(request: QueryU
 async function queryUniversalsaasDigitalhumanKnowledgeImporttaskEx(request: QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'universalsaas.digitalhuman.knowledge.importtask.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExportUniversalsaasDigitalhumanKnowledgeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 知识库id
+  libraryId: long(name='library_id'),
+}
+
+model ExportUniversalsaasDigitalhumanKnowledgeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // excel文件url
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 知识点批量导出
+ * Summary: 知识点批量导出
+ */
+async function exportUniversalsaasDigitalhumanKnowledge(request: ExportUniversalsaasDigitalhumanKnowledgeRequest): ExportUniversalsaasDigitalhumanKnowledgeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return exportUniversalsaasDigitalhumanKnowledgeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 知识点批量导出
+ * Summary: 知识点批量导出
+ */
+async function exportUniversalsaasDigitalhumanKnowledgeEx(request: ExportUniversalsaasDigitalhumanKnowledgeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExportUniversalsaasDigitalhumanKnowledgeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.knowledge.export', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
