@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_ed7107878c564eda98e507d7451aae75
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.4"},
+                        {"sdk_version", "1.1.5"},
                         {"_prod_code", "ak_ed7107878c564eda98e507d7451aae75"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_ed7107878c564eda98e507d7451aae75
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.4"},
+                        {"sdk_version", "1.1.5"},
                         {"_prod_code", "ak_ed7107878c564eda98e507d7451aae75"},
                         {"_prod_channel", "saas"},
                     };
@@ -952,6 +952,348 @@ namespace AntChain.SDK.Ak_ed7107878c564eda98e507d7451aae75
         }
 
         /**
+         * Description: 数字人形象列表接口
+         * Summary: 数字人形象列表接口
+         */
+        public ListUniversalsaasDigitalhumanModelResponse ListUniversalsaasDigitalhumanModel(ListUniversalsaasDigitalhumanModelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListUniversalsaasDigitalhumanModelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字人形象列表接口
+         * Summary: 数字人形象列表接口
+         */
+        public async Task<ListUniversalsaasDigitalhumanModelResponse> ListUniversalsaasDigitalhumanModelAsync(ListUniversalsaasDigitalhumanModelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListUniversalsaasDigitalhumanModelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字人形象列表接口
+         * Summary: 数字人形象列表接口
+         */
+        public ListUniversalsaasDigitalhumanModelResponse ListUniversalsaasDigitalhumanModelEx(ListUniversalsaasDigitalhumanModelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListUniversalsaasDigitalhumanModelResponse>(DoRequest("1.0", "universalsaas.digitalhuman.model.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字人形象列表接口
+         * Summary: 数字人形象列表接口
+         */
+        public async Task<ListUniversalsaasDigitalhumanModelResponse> ListUniversalsaasDigitalhumanModelExAsync(ListUniversalsaasDigitalhumanModelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListUniversalsaasDigitalhumanModelResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.model.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字人平台音色列表
+         * Summary: 数字人平台音色列表
+         */
+        public ListUniversalsaasDigitalhumanVoiceResponse ListUniversalsaasDigitalhumanVoice(ListUniversalsaasDigitalhumanVoiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListUniversalsaasDigitalhumanVoiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字人平台音色列表
+         * Summary: 数字人平台音色列表
+         */
+        public async Task<ListUniversalsaasDigitalhumanVoiceResponse> ListUniversalsaasDigitalhumanVoiceAsync(ListUniversalsaasDigitalhumanVoiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListUniversalsaasDigitalhumanVoiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字人平台音色列表
+         * Summary: 数字人平台音色列表
+         */
+        public ListUniversalsaasDigitalhumanVoiceResponse ListUniversalsaasDigitalhumanVoiceEx(ListUniversalsaasDigitalhumanVoiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListUniversalsaasDigitalhumanVoiceResponse>(DoRequest("1.0", "universalsaas.digitalhuman.voice.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字人平台音色列表
+         * Summary: 数字人平台音色列表
+         */
+        public async Task<ListUniversalsaasDigitalhumanVoiceResponse> ListUniversalsaasDigitalhumanVoiceExAsync(ListUniversalsaasDigitalhumanVoiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListUniversalsaasDigitalhumanVoiceResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.voice.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字人平台音色试听接口
+         * Summary: 数字人平台音色试听接口
+         */
+        public PreviewUniversalsaasDigitalhumanVoiceResponse PreviewUniversalsaasDigitalhumanVoice(PreviewUniversalsaasDigitalhumanVoiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PreviewUniversalsaasDigitalhumanVoiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字人平台音色试听接口
+         * Summary: 数字人平台音色试听接口
+         */
+        public async Task<PreviewUniversalsaasDigitalhumanVoiceResponse> PreviewUniversalsaasDigitalhumanVoiceAsync(PreviewUniversalsaasDigitalhumanVoiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PreviewUniversalsaasDigitalhumanVoiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字人平台音色试听接口
+         * Summary: 数字人平台音色试听接口
+         */
+        public PreviewUniversalsaasDigitalhumanVoiceResponse PreviewUniversalsaasDigitalhumanVoiceEx(PreviewUniversalsaasDigitalhumanVoiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PreviewUniversalsaasDigitalhumanVoiceResponse>(DoRequest("1.0", "universalsaas.digitalhuman.voice.preview", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字人平台音色试听接口
+         * Summary: 数字人平台音色试听接口
+         */
+        public async Task<PreviewUniversalsaasDigitalhumanVoiceResponse> PreviewUniversalsaasDigitalhumanVoiceExAsync(PreviewUniversalsaasDigitalhumanVoiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PreviewUniversalsaasDigitalhumanVoiceResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.voice.preview", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字人平台角色创建与更新接口
+         * Summary: 数字人平台角色创建与更新接口
+         */
+        public UpdateUniversalsaasDigitalhumanHumanResponse UpdateUniversalsaasDigitalhumanHuman(UpdateUniversalsaasDigitalhumanHumanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateUniversalsaasDigitalhumanHumanEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字人平台角色创建与更新接口
+         * Summary: 数字人平台角色创建与更新接口
+         */
+        public async Task<UpdateUniversalsaasDigitalhumanHumanResponse> UpdateUniversalsaasDigitalhumanHumanAsync(UpdateUniversalsaasDigitalhumanHumanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateUniversalsaasDigitalhumanHumanExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字人平台角色创建与更新接口
+         * Summary: 数字人平台角色创建与更新接口
+         */
+        public UpdateUniversalsaasDigitalhumanHumanResponse UpdateUniversalsaasDigitalhumanHumanEx(UpdateUniversalsaasDigitalhumanHumanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateUniversalsaasDigitalhumanHumanResponse>(DoRequest("1.0", "universalsaas.digitalhuman.human.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字人平台角色创建与更新接口
+         * Summary: 数字人平台角色创建与更新接口
+         */
+        public async Task<UpdateUniversalsaasDigitalhumanHumanResponse> UpdateUniversalsaasDigitalhumanHumanExAsync(UpdateUniversalsaasDigitalhumanHumanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateUniversalsaasDigitalhumanHumanResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.human.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除数字人角色接口
+         * Summary: 删除数字人角色接口
+         */
+        public DeleteUniversalsaasDigitalhumanHumanResponse DeleteUniversalsaasDigitalhumanHuman(DeleteUniversalsaasDigitalhumanHumanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteUniversalsaasDigitalhumanHumanEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除数字人角色接口
+         * Summary: 删除数字人角色接口
+         */
+        public async Task<DeleteUniversalsaasDigitalhumanHumanResponse> DeleteUniversalsaasDigitalhumanHumanAsync(DeleteUniversalsaasDigitalhumanHumanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteUniversalsaasDigitalhumanHumanExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除数字人角色接口
+         * Summary: 删除数字人角色接口
+         */
+        public DeleteUniversalsaasDigitalhumanHumanResponse DeleteUniversalsaasDigitalhumanHumanEx(DeleteUniversalsaasDigitalhumanHumanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteUniversalsaasDigitalhumanHumanResponse>(DoRequest("1.0", "universalsaas.digitalhuman.human.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除数字人角色接口
+         * Summary: 删除数字人角色接口
+         */
+        public async Task<DeleteUniversalsaasDigitalhumanHumanResponse> DeleteUniversalsaasDigitalhumanHumanExAsync(DeleteUniversalsaasDigitalhumanHumanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteUniversalsaasDigitalhumanHumanResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.human.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除知识点接口
+         * Summary: 删除知识点接口
+         */
+        public DeleteUniversalsaasDigitalhumanKnowledgeResponse DeleteUniversalsaasDigitalhumanKnowledge(DeleteUniversalsaasDigitalhumanKnowledgeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteUniversalsaasDigitalhumanKnowledgeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除知识点接口
+         * Summary: 删除知识点接口
+         */
+        public async Task<DeleteUniversalsaasDigitalhumanKnowledgeResponse> DeleteUniversalsaasDigitalhumanKnowledgeAsync(DeleteUniversalsaasDigitalhumanKnowledgeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteUniversalsaasDigitalhumanKnowledgeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除知识点接口
+         * Summary: 删除知识点接口
+         */
+        public DeleteUniversalsaasDigitalhumanKnowledgeResponse DeleteUniversalsaasDigitalhumanKnowledgeEx(DeleteUniversalsaasDigitalhumanKnowledgeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteUniversalsaasDigitalhumanKnowledgeResponse>(DoRequest("1.0", "universalsaas.digitalhuman.knowledge.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除知识点接口
+         * Summary: 删除知识点接口
+         */
+        public async Task<DeleteUniversalsaasDigitalhumanKnowledgeResponse> DeleteUniversalsaasDigitalhumanKnowledgeExAsync(DeleteUniversalsaasDigitalhumanKnowledgeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteUniversalsaasDigitalhumanKnowledgeResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.knowledge.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建批量导入任务
+         * Summary: 创建批量导入任务
+         */
+        public CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse CreateUniversalsaasDigitalhumanKnowledgeImporttask(CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateUniversalsaasDigitalhumanKnowledgeImporttaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建批量导入任务
+         * Summary: 创建批量导入任务
+         */
+        public async Task<CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse> CreateUniversalsaasDigitalhumanKnowledgeImporttaskAsync(CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateUniversalsaasDigitalhumanKnowledgeImporttaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建批量导入任务
+         * Summary: 创建批量导入任务
+         */
+        public CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse CreateUniversalsaasDigitalhumanKnowledgeImporttaskEx(CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "universalsaas.digitalhuman.knowledge.importtask.create",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse createUniversalsaasDigitalhumanKnowledgeImporttaskResponse = new CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return createUniversalsaasDigitalhumanKnowledgeImporttaskResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse>(DoRequest("1.0", "universalsaas.digitalhuman.knowledge.importtask.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建批量导入任务
+         * Summary: 创建批量导入任务
+         */
+        public async Task<CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse> CreateUniversalsaasDigitalhumanKnowledgeImporttaskExAsync(CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "universalsaas.digitalhuman.knowledge.importtask.create",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse createUniversalsaasDigitalhumanKnowledgeImporttaskResponse = new CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return createUniversalsaasDigitalhumanKnowledgeImporttaskResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.knowledge.importtask.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 查询批量导入任务
          * Summary: 查询批量导入任务
          */
@@ -991,6 +1333,90 @@ namespace AntChain.SDK.Ak_ed7107878c564eda98e507d7451aae75
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.knowledge.importtask.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 知识点批量导出
+         * Summary: 知识点批量导出
+         */
+        public ExportUniversalsaasDigitalhumanKnowledgeResponse ExportUniversalsaasDigitalhumanKnowledge(ExportUniversalsaasDigitalhumanKnowledgeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExportUniversalsaasDigitalhumanKnowledgeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 知识点批量导出
+         * Summary: 知识点批量导出
+         */
+        public async Task<ExportUniversalsaasDigitalhumanKnowledgeResponse> ExportUniversalsaasDigitalhumanKnowledgeAsync(ExportUniversalsaasDigitalhumanKnowledgeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExportUniversalsaasDigitalhumanKnowledgeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 知识点批量导出
+         * Summary: 知识点批量导出
+         */
+        public ExportUniversalsaasDigitalhumanKnowledgeResponse ExportUniversalsaasDigitalhumanKnowledgeEx(ExportUniversalsaasDigitalhumanKnowledgeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExportUniversalsaasDigitalhumanKnowledgeResponse>(DoRequest("1.0", "universalsaas.digitalhuman.knowledge.export", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 知识点批量导出
+         * Summary: 知识点批量导出
+         */
+        public async Task<ExportUniversalsaasDigitalhumanKnowledgeResponse> ExportUniversalsaasDigitalhumanKnowledgeExAsync(ExportUniversalsaasDigitalhumanKnowledgeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExportUniversalsaasDigitalhumanKnowledgeResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.knowledge.export", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public CreateAntcloudGatewayxFileUploadResponse CreateAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateAntcloudGatewayxFileUploadEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public async Task<CreateAntcloudGatewayxFileUploadResponse> CreateAntcloudGatewayxFileUploadAsync(CreateAntcloudGatewayxFileUploadRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateAntcloudGatewayxFileUploadExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public CreateAntcloudGatewayxFileUploadResponse CreateAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAntcloudGatewayxFileUploadResponse>(DoRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public async Task<CreateAntcloudGatewayxFileUploadResponse> CreateAntcloudGatewayxFileUploadExAsync(CreateAntcloudGatewayxFileUploadRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAntcloudGatewayxFileUploadResponse>(await DoRequestAsync("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
