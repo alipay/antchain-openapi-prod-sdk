@@ -14703,6 +14703,127 @@ func (s *SaveInnerAgentcustomerserviceResponse) SetResultMsg(v string) *SaveInne
 	return s
 }
 
+type QueryInnerLoggerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务渠道：DINGDING
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
+	// 钉钉群id
+	// 租户id
+	// 支付宝uuid
+	ChannelId *string `json:"channel_id,omitempty" xml:"channel_id,omitempty" require:"true"`
+	// traceid
+	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty"`
+	// 开始时间
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty"`
+	// 结束时间
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty"`
+	// 分页
+	PageInfo *PageQuery `json:"page_info,omitempty" xml:"page_info,omitempty"`
+	// 额外查询参数
+	ExtQueryParam *string `json:"ext_query_param,omitempty" xml:"ext_query_param,omitempty"`
+}
+
+func (s QueryInnerLoggerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryInnerLoggerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryInnerLoggerRequest) SetAuthToken(v string) *QueryInnerLoggerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryInnerLoggerRequest) SetProductInstanceId(v string) *QueryInnerLoggerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryInnerLoggerRequest) SetChannel(v string) *QueryInnerLoggerRequest {
+	s.Channel = &v
+	return s
+}
+
+func (s *QueryInnerLoggerRequest) SetChannelId(v string) *QueryInnerLoggerRequest {
+	s.ChannelId = &v
+	return s
+}
+
+func (s *QueryInnerLoggerRequest) SetTraceId(v string) *QueryInnerLoggerRequest {
+	s.TraceId = &v
+	return s
+}
+
+func (s *QueryInnerLoggerRequest) SetStartTime(v string) *QueryInnerLoggerRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *QueryInnerLoggerRequest) SetEndTime(v string) *QueryInnerLoggerRequest {
+	s.EndTime = &v
+	return s
+}
+
+func (s *QueryInnerLoggerRequest) SetPageInfo(v *PageQuery) *QueryInnerLoggerRequest {
+	s.PageInfo = v
+	return s
+}
+
+func (s *QueryInnerLoggerRequest) SetExtQueryParam(v string) *QueryInnerLoggerRequest {
+	s.ExtQueryParam = &v
+	return s
+}
+
+type QueryInnerLoggerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 日志内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+	// 总条数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+}
+
+func (s QueryInnerLoggerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryInnerLoggerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryInnerLoggerResponse) SetReqMsgId(v string) *QueryInnerLoggerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryInnerLoggerResponse) SetResultCode(v string) *QueryInnerLoggerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryInnerLoggerResponse) SetResultMsg(v string) *QueryInnerLoggerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryInnerLoggerResponse) SetContent(v string) *QueryInnerLoggerResponse {
+	s.Content = &v
+	return s
+}
+
+func (s *QueryInnerLoggerResponse) SetTotal(v int64) *QueryInnerLoggerResponse {
+	s.Total = &v
+	return s
+}
+
 type CreateInsureRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -17287,9 +17408,9 @@ type UploadSignTemplateRequest struct {
 	// 订单所属商户的统一社会信用代码
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
 	// 合同类型
-	ContractType *string `json:"contract_type,omitempty" xml:"contract_type,omitempty" require:"true"`
+	ContractType *string `json:"contract_type,omitempty" xml:"contract_type,omitempty"`
 	// 模板类型
-	AgreementType *string `json:"agreement_type,omitempty" xml:"agreement_type,omitempty" require:"true"`
+	AgreementType *string `json:"agreement_type,omitempty" xml:"agreement_type,omitempty"`
 	// 签署区坐标配置
 	PosConf *string `json:"pos_conf,omitempty" xml:"pos_conf,omitempty" require:"true"`
 	// 模板参数
@@ -17300,6 +17421,12 @@ type UploadSignTemplateRequest struct {
 	// 待上传文件名
 	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
 	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 资方统一社会信用代码，默认为空
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty"`
+	// 是否需要资方签署，默认为否
+	FundSign *bool `json:"fund_sign,omitempty" xml:"fund_sign,omitempty"`
+	// 资方签署区坐标，默认为空
+	FundPosConf *string `json:"fund_pos_conf,omitempty" xml:"fund_pos_conf,omitempty"`
 }
 
 func (s UploadSignTemplateRequest) String() string {
@@ -17357,6 +17484,21 @@ func (s *UploadSignTemplateRequest) SetFileObjectName(v string) *UploadSignTempl
 
 func (s *UploadSignTemplateRequest) SetFileId(v string) *UploadSignTemplateRequest {
 	s.FileId = &v
+	return s
+}
+
+func (s *UploadSignTemplateRequest) SetFundId(v string) *UploadSignTemplateRequest {
+	s.FundId = &v
+	return s
+}
+
+func (s *UploadSignTemplateRequest) SetFundSign(v bool) *UploadSignTemplateRequest {
+	s.FundSign = &v
+	return s
+}
+
+func (s *UploadSignTemplateRequest) SetFundPosConf(v string) *UploadSignTemplateRequest {
+	s.FundPosConf = &v
 	return s
 }
 
@@ -21009,7 +21151,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.14.26"),
+				"sdk_version":      tea.String("1.14.27"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -25010,6 +25152,40 @@ func (client *Client) SaveInnerAgentcustomerserviceEx(request *SaveInnerAgentcus
 	}
 	_result = &SaveInnerAgentcustomerserviceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.agentcustomerservice.save"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询sls日志
+ * Summary: 查询sls日志
+ */
+func (client *Client) QueryInnerLogger(request *QueryInnerLoggerRequest) (_result *QueryInnerLoggerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryInnerLoggerResponse{}
+	_body, _err := client.QueryInnerLoggerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询sls日志
+ * Summary: 查询sls日志
+ */
+func (client *Client) QueryInnerLoggerEx(request *QueryInnerLoggerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryInnerLoggerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryInnerLoggerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.logger.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
