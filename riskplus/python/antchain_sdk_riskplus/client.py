@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.22.4',
+                    'sdk_version': '1.23.4',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.22.4',
+                    'sdk_version': '1.23.4',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -4399,6 +4399,118 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.dubbridge.repaytype.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_dubbridge_installment_creditamt(
+        self,
+        request: riskplus_models.QueryDubbridgeInstallmentCreditamtRequest,
+    ) -> riskplus_models.QueryDubbridgeInstallmentCreditamtResponse:
+        """
+        Description: 天枢系统授信额度查询接口-分期付
+        Summary: 天枢系统授信额度查询接口-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_installment_creditamt_ex(request, headers, runtime)
+
+    async def query_dubbridge_installment_creditamt_async(
+        self,
+        request: riskplus_models.QueryDubbridgeInstallmentCreditamtRequest,
+    ) -> riskplus_models.QueryDubbridgeInstallmentCreditamtResponse:
+        """
+        Description: 天枢系统授信额度查询接口-分期付
+        Summary: 天枢系统授信额度查询接口-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_installment_creditamt_ex_async(request, headers, runtime)
+
+    def query_dubbridge_installment_creditamt_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeInstallmentCreditamtRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeInstallmentCreditamtResponse:
+        """
+        Description: 天枢系统授信额度查询接口-分期付
+        Summary: 天枢系统授信额度查询接口-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeInstallmentCreditamtResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.installment.creditamt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_installment_creditamt_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeInstallmentCreditamtRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeInstallmentCreditamtResponse:
+        """
+        Description: 天枢系统授信额度查询接口-分期付
+        Summary: 天枢系统授信额度查询接口-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeInstallmentCreditamtResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.installment.creditamt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_dubbridge_installment_order(
+        self,
+        request: riskplus_models.CancelDubbridgeInstallmentOrderRequest,
+    ) -> riskplus_models.CancelDubbridgeInstallmentOrderResponse:
+        """
+        Description: 天枢系统取消分期付订单-分期付
+        Summary: 天枢系统取消分期付订单-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_dubbridge_installment_order_ex(request, headers, runtime)
+
+    async def cancel_dubbridge_installment_order_async(
+        self,
+        request: riskplus_models.CancelDubbridgeInstallmentOrderRequest,
+    ) -> riskplus_models.CancelDubbridgeInstallmentOrderResponse:
+        """
+        Description: 天枢系统取消分期付订单-分期付
+        Summary: 天枢系统取消分期付订单-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_dubbridge_installment_order_ex_async(request, headers, runtime)
+
+    def cancel_dubbridge_installment_order_ex(
+        self,
+        request: riskplus_models.CancelDubbridgeInstallmentOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CancelDubbridgeInstallmentOrderResponse:
+        """
+        Description: 天枢系统取消分期付订单-分期付
+        Summary: 天枢系统取消分期付订单-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CancelDubbridgeInstallmentOrderResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.installment.order.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_dubbridge_installment_order_ex_async(
+        self,
+        request: riskplus_models.CancelDubbridgeInstallmentOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CancelDubbridgeInstallmentOrderResponse:
+        """
+        Description: 天枢系统取消分期付订单-分期付
+        Summary: 天枢系统取消分期付订单-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CancelDubbridgeInstallmentOrderResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.installment.order.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def verify_finservice_zhima_identify(
         self,
         request: riskplus_models.VerifyFinserviceZhimaIdentifyRequest,
@@ -6487,6 +6599,98 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.rdaas.tax.simpleauthdecision.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def receive_rfc_params_file(
+        self,
+        request: riskplus_models.ReceiveRfcParamsFileRequest,
+    ) -> riskplus_models.ReceiveRfcParamsFileResponse:
+        """
+        Description: rfc外部文件上传
+        Summary: rfc外部文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.receive_rfc_params_file_ex(request, headers, runtime)
+
+    async def receive_rfc_params_file_async(
+        self,
+        request: riskplus_models.ReceiveRfcParamsFileRequest,
+    ) -> riskplus_models.ReceiveRfcParamsFileResponse:
+        """
+        Description: rfc外部文件上传
+        Summary: rfc外部文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.receive_rfc_params_file_ex_async(request, headers, runtime)
+
+    def receive_rfc_params_file_ex(
+        self,
+        request: riskplus_models.ReceiveRfcParamsFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ReceiveRfcParamsFileResponse:
+        """
+        Description: rfc外部文件上传
+        Summary: rfc外部文件上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.rfc.params.file.receive',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                receive_rfc_params_file_response = riskplus_models.ReceiveRfcParamsFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return receive_rfc_params_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ReceiveRfcParamsFileResponse(),
+            self.do_request('1.0', 'riskplus.rfc.params.file.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def receive_rfc_params_file_ex_async(
+        self,
+        request: riskplus_models.ReceiveRfcParamsFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ReceiveRfcParamsFileResponse:
+        """
+        Description: rfc外部文件上传
+        Summary: rfc外部文件上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.rfc.params.file.receive',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                receive_rfc_params_file_response = riskplus_models.ReceiveRfcParamsFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return receive_rfc_params_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ReceiveRfcParamsFileResponse(),
+            await self.do_request_async('1.0', 'riskplus.rfc.params.file.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_rbb_generic_invoke(
         self,
         request: riskplus_models.QueryRbbGenericInvokeRequest,
@@ -7809,6 +8013,98 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.PushRbbInvoiceChargeResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.invoice.charge.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def receive_rbb_params_file(
+        self,
+        request: riskplus_models.ReceiveRbbParamsFileRequest,
+    ) -> riskplus_models.ReceiveRbbParamsFileResponse:
+        """
+        Description: 通过接口进行报告上传
+        Summary: 征信报告上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.receive_rbb_params_file_ex(request, headers, runtime)
+
+    async def receive_rbb_params_file_async(
+        self,
+        request: riskplus_models.ReceiveRbbParamsFileRequest,
+    ) -> riskplus_models.ReceiveRbbParamsFileResponse:
+        """
+        Description: 通过接口进行报告上传
+        Summary: 征信报告上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.receive_rbb_params_file_ex_async(request, headers, runtime)
+
+    def receive_rbb_params_file_ex(
+        self,
+        request: riskplus_models.ReceiveRbbParamsFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ReceiveRbbParamsFileResponse:
+        """
+        Description: 通过接口进行报告上传
+        Summary: 征信报告上传接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.rbb.params.file.receive',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                receive_rbb_params_file_response = riskplus_models.ReceiveRbbParamsFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return receive_rbb_params_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ReceiveRbbParamsFileResponse(),
+            self.do_request('1.0', 'riskplus.rbb.params.file.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def receive_rbb_params_file_ex_async(
+        self,
+        request: riskplus_models.ReceiveRbbParamsFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ReceiveRbbParamsFileResponse:
+        """
+        Description: 通过接口进行报告上传
+        Summary: 征信报告上传接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.rbb.params.file.receive',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                receive_rbb_params_file_response = riskplus_models.ReceiveRbbParamsFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return receive_rbb_params_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ReceiveRbbParamsFileResponse(),
+            await self.do_request_async('1.0', 'riskplus.rbb.params.file.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def push_rpaas_report_answer(
