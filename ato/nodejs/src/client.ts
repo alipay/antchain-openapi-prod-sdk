@@ -11302,6 +11302,95 @@ export class SaveInnerAgentcustomerserviceResponse extends $tea.Model {
   }
 }
 
+export class QueryInnerLoggerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务渠道：DINGDING
+  channel: string;
+  // 钉钉群id
+  // 租户id
+  // 支付宝uuid
+  channelId: string;
+  // traceid
+  traceId?: string;
+  // 开始时间
+  startTime?: string;
+  // 结束时间
+  endTime?: string;
+  // 分页
+  pageInfo?: PageQuery;
+  // 额外查询参数
+  extQueryParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      channel: 'channel',
+      channelId: 'channel_id',
+      traceId: 'trace_id',
+      startTime: 'start_time',
+      endTime: 'end_time',
+      pageInfo: 'page_info',
+      extQueryParam: 'ext_query_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      channel: 'string',
+      channelId: 'string',
+      traceId: 'string',
+      startTime: 'string',
+      endTime: 'string',
+      pageInfo: PageQuery,
+      extQueryParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInnerLoggerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 日志内容
+  content?: string;
+  // 总条数
+  total?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      content: 'content',
+      total: 'total',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      content: 'string',
+      total: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateInsureRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -13181,9 +13270,9 @@ export class UploadSignTemplateRequest extends $tea.Model {
   // 订单所属商户的统一社会信用代码
   merchantId: string;
   // 合同类型
-  contractType: string;
+  contractType?: string;
   // 模板类型
-  agreementType: string;
+  agreementType?: string;
   // 签署区坐标配置
   posConf: string;
   // 模板参数
@@ -13192,6 +13281,12 @@ export class UploadSignTemplateRequest extends $tea.Model {
   fileObject?: Readable;
   fileObjectName?: string;
   fileId: string;
+  // 资方统一社会信用代码，默认为空
+  fundId?: string;
+  // 是否需要资方签署，默认为否
+  fundSign?: boolean;
+  // 资方签署区坐标，默认为空
+  fundPosConf?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -13204,6 +13299,9 @@ export class UploadSignTemplateRequest extends $tea.Model {
       fileObject: 'fileObject',
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
+      fundId: 'fund_id',
+      fundSign: 'fund_sign',
+      fundPosConf: 'fund_pos_conf',
     };
   }
 
@@ -13219,6 +13317,9 @@ export class UploadSignTemplateRequest extends $tea.Model {
       fileObject: 'Readable',
       fileObjectName: 'string',
       fileId: 'string',
+      fundId: 'string',
+      fundSign: 'boolean',
+      fundPosConf: 'string',
     };
   }
 
@@ -16090,7 +16191,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.14.26",
+          sdk_version: "1.14.27",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
@@ -18353,6 +18454,25 @@ export default class Client {
   async saveInnerAgentcustomerserviceEx(request: SaveInnerAgentcustomerserviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SaveInnerAgentcustomerserviceResponse> {
     Util.validateModel(request);
     return $tea.cast<SaveInnerAgentcustomerserviceResponse>(await this.doRequest("1.0", "antchain.ato.inner.agentcustomerservice.save", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SaveInnerAgentcustomerserviceResponse({}));
+  }
+
+  /**
+   * Description: 查询sls日志
+   * Summary: 查询sls日志
+   */
+  async queryInnerLogger(request: QueryInnerLoggerRequest): Promise<QueryInnerLoggerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryInnerLoggerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询sls日志
+   * Summary: 查询sls日志
+   */
+  async queryInnerLoggerEx(request: QueryInnerLoggerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInnerLoggerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryInnerLoggerResponse>(await this.doRequest("1.0", "antchain.ato.inner.logger.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryInnerLoggerResponse({}));
   }
 
   /**

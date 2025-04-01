@@ -1,6 +1,6 @@
 {
   "name": "@antchain/ato",
-  "version": "1.14.26",
+  "version": "1.14.27",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
