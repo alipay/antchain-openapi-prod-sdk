@@ -69,6 +69,24 @@ class UploadSignTemplateRequest extends Model
      * @var string
      */
     public $fileId;
+
+    // 资方统一社会信用代码，默认为空
+    /**
+     * @var string
+     */
+    public $fundId;
+
+    // 是否需要资方签署，默认为否
+    /**
+     * @var bool
+     */
+    public $fundSign;
+
+    // 资方签署区坐标，默认为空
+    /**
+     * @var string
+     */
+    public $fundPosConf;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -78,13 +96,14 @@ class UploadSignTemplateRequest extends Model
         'posConf'           => 'pos_conf',
         'templateArgs'      => 'template_args',
         'fileId'            => 'file_id',
+        'fundId'            => 'fund_id',
+        'fundSign'          => 'fund_sign',
+        'fundPosConf'       => 'fund_pos_conf',
     ];
 
     public function validate()
     {
         Model::validateRequired('merchantId', $this->merchantId, true);
-        Model::validateRequired('contractType', $this->contractType, true);
-        Model::validateRequired('agreementType', $this->agreementType, true);
         Model::validateRequired('posConf', $this->posConf, true);
         Model::validateRequired('fileId', $this->fileId, true);
     }
@@ -121,6 +140,15 @@ class UploadSignTemplateRequest extends Model
         }
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
+        }
+        if (null !== $this->fundId) {
+            $res['fund_id'] = $this->fundId;
+        }
+        if (null !== $this->fundSign) {
+            $res['fund_sign'] = $this->fundSign;
+        }
+        if (null !== $this->fundPosConf) {
+            $res['fund_pos_conf'] = $this->fundPosConf;
         }
 
         return $res;
@@ -163,6 +191,15 @@ class UploadSignTemplateRequest extends Model
         }
         if (isset($map['file_id'])) {
             $model->fileId = $map['file_id'];
+        }
+        if (isset($map['fund_id'])) {
+            $model->fundId = $map['fund_id'];
+        }
+        if (isset($map['fund_sign'])) {
+            $model->fundSign = $map['fund_sign'];
+        }
+        if (isset($map['fund_pos_conf'])) {
+            $model->fundPosConf = $map['fund_pos_conf'];
         }
 
         return $model;

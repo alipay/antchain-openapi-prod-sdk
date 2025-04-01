@@ -195,6 +195,8 @@ use AntChain\ATO\Models\QueryInnerFunddividerelationRequest;
 use AntChain\ATO\Models\QueryInnerFunddividerelationResponse;
 use AntChain\ATO\Models\QueryInnerInsuresignRequest;
 use AntChain\ATO\Models\QueryInnerInsuresignResponse;
+use AntChain\ATO\Models\QueryInnerLoggerRequest;
+use AntChain\ATO\Models\QueryInnerLoggerResponse;
 use AntChain\ATO\Models\QueryInnerMerchantagreementRequest;
 use AntChain\ATO\Models\QueryInnerMerchantagreementResponse;
 use AntChain\ATO\Models\QueryInnerMerchantpayexpandRequest;
@@ -504,7 +506,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.14.26',
+                    'sdk_version'      => '1.14.27',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4374,6 +4376,39 @@ class Client
         Utils::validateModel($request);
 
         return SaveInnerAgentcustomerserviceResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.agentcustomerservice.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询sls日志
+     * Summary: 查询sls日志.
+     *
+     * @param QueryInnerLoggerRequest $request
+     *
+     * @return QueryInnerLoggerResponse
+     */
+    public function queryInnerLogger($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerLoggerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询sls日志
+     * Summary: 查询sls日志.
+     *
+     * @param QueryInnerLoggerRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryInnerLoggerResponse
+     */
+    public function queryInnerLoggerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerLoggerResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.logger.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
