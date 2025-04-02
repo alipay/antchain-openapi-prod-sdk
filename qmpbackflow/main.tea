@@ -1,0 +1,2219 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.0',
+    _prod_code = 'RISKPLUS',
+    _prod_channel = 'undefined'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 企业风险等级分布统计
+model RtopLevelDistribution {
+  // 统计值
+  count: integer(name='count', example='10'),
+  // 等级
+  level: string(name='level', example='EX_HIGH_RISK'),
+}
+
+// infocode
+model InfoCodes {
+  // infocode
+  name: string(name='name', example='infocode'),
+}
+
+// 删除参数
+model OutParams {
+  // 输出参数
+  name: string(name='name', example='rate'),
+  // 参数描述
+  desc: string(name='desc', example='率利'),
+  // 参数值
+  value: string(name='value', example='accept'),
+}
+
+// 天枢系统Contact结构体
+model Contact {
+  // 联系人类型
+  // 1配偶
+  // 2父母
+  // 3子女
+  // 4兄弟
+  // 5姐妹
+  // 6朋友
+  // 7其他
+  kind: string(name='kind', example='1'),
+  // 联系人姓名
+  name: string(name='name', example='张三'),
+  // 联系人手机号
+  mobile: string(name='mobile', example='12345'),
+}
+
+// 批量查询输出模型分
+model BatchQueryOutputModelInfo {
+  // 变量名称
+  name: string(name='name', example='aft_v3'),
+  // 变量值
+  value: string(name='value', example='4.0'),
+  // 变量值类型
+  valueType: string(name='value_type', example='Double'),
+}
+
+// 反欺诈风险数据服务风险规则详情
+model RiskDetail {
+  // 反欺诈风险数据服务命中规则风险权重
+  ruleWeight: string(name='rule_weight', example='1'),
+  // 反欺诈风险数据服务命中规则名称
+  ruleName: string(name='rule_name', example='贷款车辆厂商指导价与实际不符'),
+}
+
+// 回流事件记录属性项
+model BackflowEventRecordProperty {
+  // 属性code
+  key: string(name='key', example='mobile'),
+  // 属性value，统一为字符串
+  value: string(name='value', example='18941147005'),
+}
+
+// 营销盾批量查询单条结果
+model BaseCustomerUmktInfoModel {
+  // 用户凭证
+  customerKey?: string(name='customer_key', example='15011111605'),
+  // 输入模板
+  queryTemplate?: string(name='query_template', example='MOBILE'),
+  // 实时营销结果
+  umktResult?: long(name='umkt_result', example='1'),
+}
+
+// 企业类型分布统计
+model RtopTypeDistribution {
+  // 统计值
+  count: integer(name='count', example='10'),
+  // 当前类型下的等级分布
+  levelDistribution: [ RtopLevelDistribution ](name='levelDistribution', example='undefined'),
+  // 类型
+  type: string(name='type', example='MLM'),
+}
+
+// 营销盾触达媒介参数信息
+model ActionParamInfo {
+  // 触达媒介类型
+  contentType: string(name='content_type', example='ROBOT_CALL'),
+  // 触达媒介参数列表
+  actionParam: [ string ](name='action_param', example='["a","b"]'),
+}
+
+// 涉众风险企业特征
+model RtopCrowdRiskFeatureTag {
+  // 标签描述
+  tagExplanation: string(name='tag_explanation', example='XXX公司法人发生变更'),
+  // 标签名称
+  tagName: string(name='tag_name', example='法人变更'),
+}
+
+// 决策流
+model DecisionFlow {
+  // 输出参数
+  decisionFlow?: OutParams(name='decision_flow', example=''),
+  // 决策结果
+  decision: string(name='decision', example='reject'),
+  // infocodes
+  infoCodes?: InfoCodes(name='info_codes', example='infocodes'),
+}
+
+// 优惠券信息
+model CouponInfo {
+  // 优惠券Id
+  couponId: string(name='coupon_id', example='123'),
+  // 优惠券名称
+  couponName: string(name='coupon_name', example='折扣券'),
+  // 优惠券状态
+  // unUsed-未使用
+  // Used-已使用
+  // Expired-过期
+  status: string(name='status', example='0'),
+  // 使用场景
+  // 01-提款使用
+  // 02-还款使用
+  useCondition: string(name='use_condition', example='01'),
+  // 优惠码
+  couponCode?: string(name='coupon_code', example='123'),
+  // 优惠券类型
+  // 01-金额优惠
+  // 02-天数优惠
+  // 03-折扣优惠
+  // 04-期数优惠
+  // 05-固定利率
+  couponType?: string(name='coupon_type', example='03'),
+  // 优惠券面额
+  // coupon_type=01 时为优惠金额
+  // coupon_type=02 时为减免天数
+  // coupon_type=03 时为折扣值（如6 折）
+  // coupon_type=04 时为减免期数
+  // coupon_type=05 时为折扣值（如 8.88 为利率8.88%）
+  couponValue?: string(name='coupon_value', example='01'),
+  // 当 coupon_type=01 时，才会有优惠金额
+  couponAmount?: string(name='coupon_amount', example='1'),
+  // 过期时间yyyy-MM-dd HH:mm:ss
+  expiredTime?: string(name='expired_time', example='yyyy-MM-dd HH:mm:ss'),
+  // 生效时间yyyy-MM-dd HH:mm:ss
+  effectiveTime?: string(name='effective_time', example='yyyy-MM-dd HH:mm:ss'),
+  // 使用规则
+  useDetail?: string(name='use_detail', example='使用规则'),
+  // 贷款最低金额
+  minAmount?: string(name='min_amount', example='10'),
+  // 贷款最高金额
+  maxAmount?: string(name='max_amount', example='100'),
+  // 最低贷款期数
+  minPeriod?: string(name='min_period', example='1'),
+  // 最高贷款期数
+  maxPeriod?: string(name='max_period', example='12'),
+  // 贷款最低期限天数
+  minDay?: string(name='min_day', example='30'),
+  // 还款方式
+  // 1-等额本息
+  // 2-等额本金
+  // 3-等本等费
+  // 4-按期付息到期还本
+  // 5-到期一次性还本付息
+  // 6-等本等费-总费率
+  // 7-等额本息(长期)
+  repaymentMethod?: string(name='repayment_method', example='1'),
+  // 是否有贷款期数要求
+  // 0：否
+  // 1：是
+  isPeriodLimit?: string(name='is_period_limit', example='0'),
+  // 贷款期限要求还款条件
+  // 01：可提前还款
+  // 02：不可提前还款
+  // isPeriodLimit=1 && repayCondition=01 代表：有可提前还款锁期
+  // isPeriodLimit=1 && repayCondition=02 代表：有不可提前还款锁期
+  repayCondition?: string(name='repay_condition', example='01'),
+  // 还款场景
+  // 01-到期还款
+  // 02-即期还款
+  repayWays?: string(name='repay_ways', example='01'),
+  // 优惠模板Id
+  couponModelNo?: string(name='coupon_model_no', example='123'),
+  // 至到期:X年X月X日
+  // 0：不是至到期券 
+  // 1：是至到期券
+  toMaturity?: string(name='to_maturity', example='X年X月X日'),
+}
+
+// 用户的混合策略圈客结果
+model UmktInfoModel {
+  // 场景策略id
+  sceneStrategyId: long(name='scene_strategy_id', example='1'),
+  // 实时营销结果
+  umktResult: long(name='umkt_result', example='1'),
+  // json 结构的营销额外输出信息
+  umktOutPutInfo: string(name='umkt_out_put_info', example='{"f_01":"95.0"}'),
+}
+
+// 监管风险标签
+model RtopRiskTag {
+  // 标签ID
+  tagId: string(name='tag_id', example='CMN00010'),
+  // 标签名称
+  tagName: string(name='tag_name', example='网站失联'),
+  // 标签类型
+  tagType?: string(name='tag_type', example='CMN'),
+  // 标签文本
+  tagText?: string(name='tag_text', example='网站失联'),
+  // 线索概览
+  tagClue?: string(name='tag_clue', example='企业已列入经营异常名录'),
+  // 线索明细类型
+  clueDetailType?: string(name='clue_detail_type', example='01'),
+  // 线索明细
+  tagClueDetail?: string(name='tag_clue_detail', example='通过登记的住所或者经营场所无法联系'),
+}
+
+// 回执统计数据详情
+model StatisticInfoDetail {
+  // actionDriverCode类型
+  actionDriverCode?: long(name='action_driver_code', example='1'),
+  // 成功数
+  successCount?: long(name='success_count', example='123'),
+  // 失败数
+  failCount?: long(name='fail_count', example='123'),
+  // 待触达的手机号数
+  waitingSubTaskCount?: long(name='waiting_sub_task_count', example='0'),
+  // 已收到的回执数
+  totalCount?: long(name='total_count', example='10'),
+}
+
+// 反欺诈风险数据服务规则细节信息
+model RuleDetail {
+  // 规则细节名称
+  name: string(name='name', example='出现次数'),
+  // 规则细节值
+  value: string(name='value', example='19'),
+}
+
+// 安全场景参数
+model SecurityScene {
+  // 接入渠道
+  accessChannel?: string(name='access_channel', example='web'),
+  // 事件信息
+  ctuParams?: string(name='ctu_params', example=''),
+  // 产品名称
+  productName?: string(name='product_name', example='mobile_cashier'),
+  // 产品节点
+  productNode?: string(name='product_node', example='code'),
+  // 扩展参数
+  securitySceneParams?: string(name='security_scene_params', example='1234'),
+  // 系统名称
+  systemName?: string(name='system_name', example='mobilecashier'),
+  // 总金额
+  totalFee?: string(name='total_fee', example='10.0'),
+}
+
+// 天枢系统专用RepayResult结构体
+model RepayResult {
+  // 客户编码
+  customNo: string(name='custom_no', example='xxx'),
+  // 当前期数
+  period: string(name='period', example='1'),
+  // 应还总额
+  needAmount: long(name='need_amount', example=''),
+  // 应还本金
+  needCorpus: long(name='need_corpus', example=''),
+  // 应还利息
+  needAccrual: long(name='need_accrual', example=''),
+  // 应还手续费
+  needFee: long(name='need_fee', example=''),
+  // 已还总额
+  alreadyAmount: long(name='already_amount', example=''),
+  // 已还本金
+  alreadyCorpus: long(name='already_corpus', example=''),
+  // 已还逾期本金
+  alreadyOvercorpus: long(name='already_overcorpus', example=''),
+  // 已还利息
+  alreadyAccrual: long(name='already_accrual', example=''),
+  // 已还逾期息
+  alreadyPunish: long(name='already_punish', example=''),
+  // 已还手续费
+  alreadyFee: long(name='already_fee', example=''),
+  // 利率
+  rate: long(name='rate', example=''),
+  // 罚息率
+  penaltyValue: long(name='penalty_value', example=''),
+  // 当期剩余总额
+  restAmount: long(name='rest_amount', example=''),
+  // 当期剩余本金
+  restCorpus: long(name='rest_corpus', example=''),
+  // 当期剩余利息
+  restAccrual: long(name='rest_accrual', example=''),
+  // 当期剩余罚息
+  restPunish: long(name='rest_punish', example=''),
+  // 期末本金
+  remainCorpus: long(name='remain_corpus', example=''),
+  // 借据编号
+  receiptNo: string(name='receipt_no', example='sss'),
+  // 还款状态1：已还清 2 未还 3 部分还款
+  status: string(name='status', example='1'),
+  // 应还日期
+  settleDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='settle_date', example='2018-10-10T10:10:00Z'),
+  // 还款日期
+  tradeDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='trade_date', example='2018-10-10T10:10:00Z'),
+  // 已还担保费
+  alreadyGuaranteeFee: long(name='already_guarantee_fee', example=''),
+  // 已还违约金
+  alreadyLiquidatedDamages: long(name='already_liquidated_damages', example=''),
+  // 当期剩余担保费
+  restGuaranteeFee: long(name='rest_guarantee_fee', example=''),
+  // 当期剩余违约金
+  restLiquidatedDamages: long(name='rest_liquidated_damages', example=''),
+  // 应还担保费
+  needGuaranteeFee: long(name='need_guarantee_fee', example=''),
+  // 应还违约金
+  needLiquidatedDamages: long(name='need_liquidated_damages', example=''),
+  // 逾期天数
+  overdueDays: long(name='overdue_days', example=''),
+}
+
+// 反欺诈风险数据服务风险信息
+model RiskInfo {
+  // 反欺诈风险数据服务风险组描述
+  riskGroupDesc: string(name='risk_group_desc', example='贷款车辆存在异常关联记录'),
+  // 反欺诈风险数据服务风险组名
+  riskGroup: string(name='risk_group', example='存在异常关联'),
+  // 反欺诈风险数据服务风险组类别
+  riskGroupCategory: string(name='risk_group_category', example='车辆风险'),
+  // 反欺诈风险数据服务风险组信息
+  riskDetails: [ RiskDetail ](name='risk_details', example=''),
+}
+
+// 天枢更新渠道返回
+model UpdateCustomerRelationResponseData {
+  // id
+  id?: long(name='id', example='123'),
+  // 渠道编码
+  channelCode?: string(name='channel_code', example='123'),
+  // 渠道id
+  channelNo?: string(name='channel_no', example='123AA'),
+  // 客户号
+  customerNo?: string(name='customer_no', example='PCM123'),
+  // 创建时间
+  createTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='create_time', example='2018-10-10T10:10:00Z'),
+  // 更新时间
+  updateTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='update_time', example='2018-10-10T10:10:00Z'),
+}
+
+// 短信模板
+model SmsTemplate {
+  // 场景策略ID
+  sceneStrategyId: string(name='scene_strategy_id', example='5617'),
+  // 计划名称
+  sceneStrategyName: string(name='scene_strategy_name', example='测试计划名称'),
+  // 模板内容
+  templateContent: string(name='template_content', example='测试模版内容'),
+}
+
+// 回流事件记录
+model BackflowEventRecord {
+  // 回流事件部分分组后的记录list
+  properties: [ BackflowEventRecordProperty ](name='properties', example=''),
+}
+
+// 风险维度
+model RtopCompanyRiskFactor {
+  // 维度名称
+  name?: string(name='name', example='1'),
+  // 维度分数
+  score?: long(name='score', example=''),
+}
+
+// 天枢系统专用Material结构体
+model Material {
+  // 资料类型0-风控报告1-合同2-图片3-附件
+  mType: string(name='m_type', example='0'),
+  // 大类编码00-风控报告10-合同20身份证图片26人脸图片30-附件
+  bigCode: string(name='big_code', example='00'),
+  // 小类编码
+  // 201-身份证人脸面202身份证国徽面212-活体人脸图片
+  smallCode: string(name='small_code', example='201'),
+  // 资料名称
+  meterialName: string(name='meterial_name', example='资料名称'),
+  // 文件地址
+  filePath: string(name='file_path', example='文件地址'),
+}
+
+// 用户借款是否结清
+model CustomReceiptStatus {
+  // 是否结清
+  receiptFlag?: boolean(name='receipt_flag', example='true, false'),
+}
+
+// 天枢系统RiskData结构体
+model RiskData {
+  // 联系人信息列表
+  contacts: [ Contact ](name='contacts', example='[{}]'),
+  // 人脸对比分
+  facePoint?: string(name='face_point', example='x'),
+  // 活体供应商
+  faceSource?: string(name='face_source', example='活体供应商'),
+}
+
+// 还款信息列表
+model RepayInfos {
+  // 期次
+  period: long(name='period', example='1'),
+  // 实还总额
+  amount: long(name='amount', example='1'),
+  // 实还本金
+  principal: long(name='principal', example='1'),
+  // 实还利息
+  interest: long(name='interest', example='1'),
+  // 实还通道手续费
+  channelAmt: long(name='channel_amt', example='1'),
+  // 实还手续费
+  fee: long(name='fee', example='1'),
+  // 实收罚息
+  punish: long(name='punish', example='1'),
+  // 担保费
+  guaranteeFee: long(name='guarantee_fee', example='1'),
+  // 违约金
+  liquidatedDamages: long(name='liquidated_damages', example='1'),
+}
+
+// 安全数据服务请求参数
+model SecurityDataQueryStruct {
+  // 请求数据参数
+  params: string(name='params', example='{}'),
+  // 请求数据类型
+  type: string(name='type', example='IP'),
+  // 请求数据版本
+  version: string(name='version', example='1.0'),
+}
+
+// 天枢用户聚合状态信息
+model UserAggregationInfo {
+  // 状态
+  // 0: 未授信
+  // 1: 授信中
+  // 2: 已授信未支用
+  // 3: 支用中
+  // 4: 已支用
+  // 5: 借据逾期
+  // 6: 授信过期
+  // 7: 授信冻结
+  // 8: 可重新授信
+  // 9: 授信拒绝
+  status: string(name='status', example='0'),
+  // 总额度
+  creditAmount?: long(name='credit_amount', example='100'),
+  // 可用额度
+  availableAmount?: long(name='available_amount', example='100'),
+  // 待还总金额
+  shouldPayAmount?: long(name='should_pay_amount', example='100'),
+  // 逾期总金额
+  overdueAmount?: long(name='overdue_amount', example=''),
+  // 下一期应还金额
+  nextPeriodAmount?: long(name='next_period_amount', example=''),
+  // 下一期还款时间yyyy-MM-dd
+  nextPeriodRepayTime?: string(name='next_period_repay_time', example='yyyy-MM-dd'),
+  // 下次可授信时间yyyy-MM-dd
+  nextApplyTime?: string(name='next_apply_time', example='yyyy-MM-dd'),
+  // 优惠券列表
+  couponList?: [ CouponInfo ](name='coupon_list', example=''),
+}
+
+// 场景决策列表
+model SceneInfos {
+  // 决策结果
+  decision: string(name='decision', example='accept'),
+  // 场景code
+  sceneCode: string(name='scene_code', example='ANFAPP'),
+}
+
+// 触达策略信息
+model ActionPlanDetailInfo {
+  // 场景策略id
+  sceneStrategyId: long(name='scene_strategy_id', example='1'),
+  // 场景策略名称
+  sceneStrategyName: string(name='scene_strategy_name', example='蚂蚁营销'),
+  // 场景策略状态
+  sceneStrategyStatus: string(name='scene_strategy_status', example='ONLINE'),
+  // 创建时间
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 修改时间
+  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // 触达媒介参数信息
+  actionParamInfo: [ ActionParamInfo ](name='action_param_info', example=''),
+}
+
+// 标签信息
+model RiskLabelInfo {
+  // 线索明细类型(字段停用)
+  clueDetailType: string(name='clue_detail_type', example='s d d f d f'),
+  // odps数据产出时间，冗余字段，业务上不需要，以备错误排查
+  dt?: string(name='dt', example='20190823'),
+  // 数据产生时间
+  gmtCreate: string(name='gmt_create', example='yyyy-MM-dd hh:mm:ss'),
+  // 记录唯一ID
+  id: long(name='id', example='1'),
+  // 0-正常 1-删除
+  isDeleted: long(name='is_deleted', example='is_deleted'),
+  // 企业ID
+  mctOneId: string(name='mct_one_id', example='A123445'),
+  // 操作人ID
+  operatorId: string(name='operator_id', example='123'),
+  // 操作类型
+  // add、delete、update
+  opType: string(name='op_type', example='add'),
+  // 企业名称
+  orgName: string(name='org_name', example='东方财富公司'),
+  // 线索类型
+  riskDetailType: string(name='risk_detail_type', example='列表'),
+  // 风险维度
+  // 
+  riskDimensionType: string(name='risk_dimension_type', example='风险维度'),
+  // 线索概览
+  tagClue: string(name='tag_clue', example='s d f g'),
+  // 线索明细
+  tagClueDetail: string(name='tag_clue_detail', example='11'),
+  // 标签ID
+  tagId: string(name='tag_id', example='NM23'),
+  // 线索列表表头，英文逗号分隔
+  // 
+  tagListHeaders: string(name='tag_list_headers', example='日期'),
+  // 标签列表，排序字段
+  tagListOrderColumn: string(name='tag_list_order_column', example='日期'),
+  // 标签列表排序方式
+  tagListOrderType: string(name='tag_list_order_type', example='顺序'),
+  // 标签文本
+  tagText: string(name='tag_text', example='1233'),
+  // 趋势图表名
+  tagTrendChartName: string(name='tag_trend_chart_name', example='XX趋势图 '),
+  // 数据同步到公有云时间(业务上赋值当天)
+  updateDate: string(name='update_date', example='20190823'),
+}
+
+// 企业反馈
+model RtopCompanyFeedback {
+  // 主键
+  id: long(name='id', example=''),
+  // 企业ID
+  companyId: string(name='company_id', example='1'),
+  // 反馈原因
+  feedbackReason: string(name='feedback_reason', example='1'),
+  // 反馈原因详情
+  feedbackReasonDetail: string(name='feedback_reason_detail', example='1'),
+  // 评论
+  comment: string(name='comment', example='1'),
+}
+
+// 上传文件运行结果
+model RuntimeResult {
+  // 上传成功
+  code: long(name='code', example='0'),
+  // true代表上传成功，false代表上传失败
+  success: boolean(name='success', example='true, false'),
+  // 上文件传成功
+  resultmsg: string(name='resultmsg', example='OK'),
+  // 文件上传结果
+  data: string(name='data', example='[fileInfoReceive api success!]'),
+}
+
+// 监测企业的特征信息
+model RtopMonitorCompanyFeature {
+  // 特征的描述
+  description?: string(name='description', example='有企业地址变更历史，变更过经营范围'),
+  // 特征的名称
+  name: string(name='name', example='关联风险'),
+  // 特征里的风险标签列表
+  riskTags?: [ string ](name='risk_tags', example=''),
+  // 特征的评分
+  score: integer(name='score', example='80'),
+}
+
+// 风报接口返回结构体
+model RtopCompanyRiskInfo {
+  // 区域类型
+  placeType?: string(name='place_type', example='place_type'),
+  // 区域
+  placeName?: string(name='place_name', example='天津市'),
+  // 企业唯一id
+  mctOneId?: string(name='mct_one_id', example='mct_one_id'),
+  // 企业统一社会信用代码
+  ucCode?: string(name='uc_code', example='uc_code'),
+  // 工商注册号
+  regNo?: string(name='reg_no', example='reg_no'),
+  // 组织机构代码
+  orgCode?: string(name='org_code', example='org_code'),
+  // 企业名
+  orgName?: string(name='org_name', example='org_name'),
+  // 风险评分
+  riskScore?: string(name='risk_score', example='risk_score'),
+  // 风险变化程度排序，根据分值波动大小，标签变更次数排序
+  riskShiftRank?: string(name='risk_shift_rank', example='risk_shift_rank'),
+  // 风险定性
+  riskType?: string(name='risk_type', example='risk_type'),
+  // 风险标签id列表
+  riskTagsId?: [ string ](name='risk_tags_id', example=''),
+  // 线索
+  tagsClue?: string(name='tags_clue', example='tags_clue'),
+  // 风险线索明细
+  tagsClueDetail?: string(name='tags_clue_detail', example='tags_clue_detail'),
+}
+
+// 企业年报信息
+model RtopRiskStormCompanyAnnualReport {
+  // 年报个数
+  annualReportCount?: long(name='annual_report_count', example='2'),
+  // 年报是否发生股权转让
+  annualReportHasEquityTransfer?: boolean(name='annual_report_has_equity_transfer', example='true'),
+  // 年报是否对外提供担保
+  annualReportHasExternalGuarantee?: boolean(name='annual_report_has_external_guarantee', example='true'),
+  // 年报是否对外投资
+  annualReportHasExternalInvest?: boolean(name='annual_report_has_external_invest', example='true'),
+  // 营业总收入中主营业务收入
+  annualReportMainBusinessIncome?: string(name='annual_report_main_business_income', example='1000'),
+  // 年报净利润
+  annualReportNetProfit?: string(name='annual_report_net_profit', example='1000'),
+  // 年报发布日期
+  annualReportReleaseDate?: string(name='annual_report_release_date', example='2018-09-09'),
+  // 年报股东实缴出资额（万元（实缴出资额用两个冒号::分割）
+  annualReportShActualPaid?: string(name='annual_report_sh_actual_paid', example='100::200:2'),
+  // 年报公司人数
+  annualReportStaffCount?: long(name='annual_report_staff_count', example='200'),
+  // 资产总额
+  annualReportTotalAssets?: string(name='annual_report_total_assets', example='1000'),
+  // 负债总额
+  annualReportTotalLiabilities?: string(name='annual_report_total_liabilities', example='1000'),
+  // 营业总收入
+  annualReportTotalOperatingIncome?: string(name='annual_report_total_operating_income', example='1000'),
+  // 年报所有者权益合计
+  annualReportTotalOwnerEquity?: string(name='annual_report_total_owner_equity', example='1000'),
+  // 年报利润总额
+  annualReportTotalProfit?: string(name='annual_report_total_profit', example='1000'),
+  // 纳税总额
+  annualReportTotalTax?: string(name='annual_report_total_tax', example='1000'),
+  // 年报报送年度
+  annualReportYear?: string(name='annual_report_year', example='2018'),
+}
+
+// 信护盾产品查询信息
+model QueryInfo {
+  // key
+  key?: string(name='key', example='key'),
+  // value
+  value?: string(name='value', example='value'),
+}
+
+// 营销盾场景策略上传结果
+model StrategyUploadResult {
+  // 元数据id
+  ruleMetaId?: long(name='rule_meta_id', example=''),
+  // 场景id
+  sceneId?: long(name='scene_id', example=''),
+  // 租户场景id
+  tenantSceneId?: long(name='tenant_scene_id', example=''),
+  // 圈客规则id
+  decisionRuleId?: long(name='decision_rule_id', example=''),
+  // 场景策略id
+  sceneStrategyId?: long(name='scene_strategy_id', example=''),
+}
+
+// 全局动态中的企业
+model RtopRiskyCompany {
+  // 企业ID
+  companyId: string(name='company_id', example='1'),
+  // 异动分数
+  changeScore: string(name='change_score', example='1'),
+  // 异动程度
+  changeLevel: string(name='change_level', example='1'),
+  // 新增企业的时间
+  newAddedTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='new_added_time', example='2018-10-10T10:10:00Z'),
+  // 总公司注册地
+  headRegisterPlace: string(name='head_register_place', example='1'),
+  // 数据的时间
+  dataTime: string(name='data_time', example='1'),
+}
+
+// zhima.customer.ep.identification.query
+// 在认证完成后,商户可以查询认证的状态和结果
+// 
+model ZhimaQueryResp {
+  // 认证的企业证件号
+  epCertNo?: string(name='ep_cert_no', example='91330000327827106L'),
+  // 认证的企业名
+  epName?: string(name='ep_name', example='芝麻信用管理有限公司'),
+  // 认证不通过的错误码
+  failedCode?: string(name='failed_code', example='BIZ_LICENSE_LEGAL_INFO_NO_MATCH'),
+  // 认证是否通过，通过为true，不通过为false
+  passed?: string(name='passed', example='“true“,”false”'),
+  //  10000是成功，其余是失败
+  resultCode: string(name='result_code', example='OK/40002'),
+  //  
+  resultMsg: string(name='result_msg', example='Success/Invalid Arguments'),
+  //  
+  subCode?: string(name='sub_code', example='isv.invalid-app-id'),
+  //  
+  subMsg?: string(name='sub_msg', example='无效的AppID参数'),
+}
+
+// 企业涉众风险详细信息
+model RtopCrowdRiskSummaryResp {
+  // 活跃市
+  activeCity?: string(name='active_city', example='杭州市'),
+  // 活跃县
+  activeCounty?: string(name='active_county', example='西湖区'),
+  // 活跃省
+  activeProvince?: string(name='active_province', example='浙江省'),
+  // 风险标签
+  clueTags?: [ string ](name='clue_tags', example=''),
+  // 企业ID
+  companyId: string(name='company_id', example='123456789'),
+  // 企业名称
+  companyName: string(name='company_name', example='XXXXX有限公司'),
+  // 风险等级
+  crowdRiskLevel?: string(name='crowd_risk_level', example='EX_HIGH_RISK'),
+  // 涉众风险分数
+  crowdRiskScore?: long(name='crowd_risk_score', example='80'),
+  // 涉众风险类型
+  crowdRiskType?: string(name='crowd_risk_type', example='MLM'),
+  // 发现时间
+  detectedTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='detected_time', example='2018-07-15'),
+  // 影响金额
+  moneyInvolved?: long(name='money_involved', example='100'),
+  // 影响人数
+  peopleInvolved?: long(name='people_involved', example='100'),
+  // 注册市
+  registeredCity?: string(name='registered_city', example='杭州市'),
+  // 注册县
+  registeredCounty?: string(name='registered_county', example='西湖区'),
+  // 注册省
+  registeredProvince?: string(name='registered_province', example='浙江省'),
+}
+
+// 回执统计结果
+model StatisticResult {
+  // 有效任务总数量
+  validCount: long(name='valid_count', example='123'),
+  // 各类actionDriverCode的统计结果集合
+  statisticInfoDetailList: [ StatisticInfoDetail ](name='statistic_info_detail_list', example='List<StatisticInfoDetail> '),
+}
+
+// 标签配置全量信息
+model RiskLabelConfigInfo {
+  // id
+  id: long(name='id', example='1'),
+  // 线索ID
+  tagId: string(name='tag_id', example='124'),
+  // 标签文本
+  tagText: string(name='tag_text', example='233444'),
+  // 风险维度
+  riskDimensionType: string(name='risk_dimension_type', example='风险维度'),
+  // 线索类型
+  riskDetailType: string(name='risk_detail_type', example='列表'),
+  // 趋势图表名
+  tagTrendChartName: string(name='tag_trend_chart_name', example='XX趋势图'),
+  // 线索列表表头，英文逗号分隔
+  tagListHeaders: string(name='tag_list_headers', example='日期'),
+  // 标签列表，排序字段
+  tagListOrderColumn: string(name='tag_list_order_column', example='日期'),
+  // 标签列表排序方式
+  tagListOrderType: string(name='tag_list_order_type', example='顺序'),
+  // 标记删除
+  isDelete: long(name='is_delete', example='0'),
+  // 创建时间
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 修改时间
+  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // 操作人ID
+  operatorId: string(name='operator_id', example='1233'),
+}
+
+// 策略详情
+model StrategyDetails {
+  // 策略id
+  id: string(name='id', example='1'),
+  // 策略名称
+  name: string(name='name', example='策略名称'),
+  // 决策结果
+  decision: string(name='decision', example='accept'),
+  // 场景码
+  sceneCode: string(name='scene_code', example='scene_code'),
+}
+
+// 反欺诈风险数据服务决策结果
+model SecurityResultInfos {
+  // 反欺诈风险数据服务风险建议决策
+  decision: string(name='decision', example='reject'),
+  // 反欺诈风险数据服务风险分
+  riskScore: long(name='risk_score', example='100.0'),
+  // 反欺诈风险数据服务场景码
+  sceneCode: string(name='scene_code', example='EC_TEST'),
+}
+
+// 企业影响人数年龄分布统计
+model RtopAgeDistribution {
+  // 年龄
+  age: string(name='age', example='above20'),
+  // 统计值
+  count: integer(name='count', example='10'),
+}
+
+// 企业信息
+model CompanyInfo {
+  // 活跃地json
+  activeAddrJson: string(name='active_addr_json', example='活跃地json'),
+  // 活跃市(字段停用)
+  activeCity: string(name='active_city', example='活跃市(字段停用)'),
+  // 活跃县(字段停用)
+  activeCounty: string(name='active_county', example='活跃县(字段停用)'),
+  // 活跃省(字段停用)
+  activeProvince: string(name='active_province', example='活跃省(字段停用)'),
+  // 类经融行业分类
+  categories: string(name='categories', example='类金融'),
+  // 核准日期
+  checkDate: string(name='check_date', example='20191023'),
+  // 删除标志
+  delFlag: string(name='del_flag', example='0'),
+  // odps数据产生时间，业务上不关心
+  dt: string(name='dt', example='20190922'),
+  // 企业曾用名
+  formerOrgNames: string(name='former_org_names', example='[123,45tee]'),
+  // {"mct_one_id":"ID1","org_name":"总公司名称1"}
+  headOffice: string(name='head_office', example='总公司,json格式'),
+  // 记录ID
+  id: long(name='id', example='1'),
+  // 影响金额
+  involvedAmount: long(name='involved_amount', example='300'),
+  // 影响人数
+  involvedPeople: long(name='involved_people', example='100'),
+  // 重要关联企业,json格式
+  keyRelaOrgs: string(name='key_rela_orgs', example='[{"mct_one_id":"ID1","org_name":"企业名称1","relation_desc":"关联描述1"},{"mct_one_id":"ID2","org_name":"企业名称2","relation_desc":"关联描述2"}]'),
+  // 法人
+  legalRepresentative: string(name='legal_representative', example='张三'),
+  // 企业ID
+  mctOneId: string(name='mct_one_id', example='12'),
+  // 经营地json
+  operatingAddrJson: string(name='operating_addr_json', example='经营地json'),
+  // 经营市(字段停用)
+  operatingCity: string(name='operating_city', example='经营市(字段停用)'),
+  // 经营县(字段停用)
+  operatingCounty: string(name='operating_county', example='经营县(字段停用)'),
+  // 经营地址(字段停用)
+  operatingPlace: string(name='operating_place', example='经营地址(字段停用)'),
+  // 经营省(字段停用)
+  operatingProvince: string(name='operating_province', example='operating_province'),
+  // 营运状态(1:营运0:不营运)
+  oprtActvState: string(name='oprt_actv_state', example='1'),
+  // 经营期限至
+  oprtEndDate: string(name='oprt_end_date', example='20210201'),
+  // 经营范围
+  oprtScope: string(name='oprt_scope', example='工商'),
+  // 经营期限自
+  oprtStartDate: string(name='oprt_start_date', example='20190201'),
+  // 操作类型
+  // 
+  opType: string(name='op_type', example='add、delete、update'),
+  // 组织机构代码
+  orgCode: string(name='org_code', example='246667'),
+  // 电子邮箱
+  orgEmail: string(name='org_email', example='werr@163.com'),
+  // 企业名
+  orgName: string(name='org_name', example='恒生电子'),
+  // 注册资本折人民币(万元)
+  orgRegCptlRmb: string(name='org_reg_cptl_rmb', example='3000000000'),
+  // 企业状态
+  orgState: string(name='org_state', example='正常'),
+  // 联系电话
+  orgTel: string(name='org_tel', example='1234567'),
+  // 企业类型
+  orgType: string(name='org_type', example='工商'),
+  // 平台名
+  platformName: string(name='platform_name', example='p2p平台'),
+  // 平台状态
+  platformStates: string(name='platform_states', example='平台状态'),
+  // 注册资本币种
+  registerCapitalCurrency: string(name='register_capital_currency', example='人名币'),
+  // 注册资本值
+  registerCapitalValue: string(name='register_capital_value', example='2300000'),
+  // 注册市
+  registerCity: string(name='register_city', example='宣城市'),
+  // 注册区县
+  registerCounty: string(name='register_county', example='南海区'),
+  // 注册时间
+  registerDate: string(name='register_date', example='20110203'),
+  // 注册地址
+  registerPlace: string(name='register_place', example='江苏省'),
+  // 注册省
+  registerProvince: string(name='register_province', example='安徽省'),
+  // 登记机关
+  registrationAuthority: string(name='registration_authority', example='XX金融办'),
+  // 工商注册号
+  regNo: string(name='reg_no', example='23456667'),
+  // 风报企业ID
+  riskstormCompanyId: string(name='riskstorm_company_id', example='1234'),
+  // 风险维度
+  riskFactors: string(name='risk_factors', example='风险维度'),
+  // 风险图谱可视化数据
+  riskGraphJson: string(name='risk_graph_json', example='风险图谱可视化数据'),
+  // 风险报文
+  riskMessage: string(name='risk_message', example='风险报文'),
+  // 风险指数
+  riskScore: long(name='risk_score', example='80'),
+  // 风险指数，按日的趋势图
+  riskScoreTrend: string(name='risk_score_trend', example='风险指数'),
+  // 风险指数周波动
+  riskScoreWeeklyFloat: long(name='risk_score_weekly_float', example='2.3'),
+  // 风险标签(字段停用)
+  riskTags: string(name='risk_tags', example='经营异常'),
+  // 风险标签ID
+  riskTagsId: string(name='risk_tags_id', example='NM12,NM34'),
+  // 风险定性
+  riskType: string(name='risk_type', example='风险定性'),
+  // 搜索内容
+  searchContent: string(name='search_content', example='隐隐科技'),
+  // 传播人次
+  spreadNumber: long(name='spread_number', example='传播人次'),
+  // 影响地区人次分布,json格式如下
+  spreadNumDistribution: string(name='spread_num_distribution', example='[{"place_type":"prov","active_info":[{"place_name":"省1","num":3690},{"place_name":"省2","num":3680}]},{"place_type":"city","active_info":[{"place_name":"市1","num":3690},{"place_name":"市2","num":3680}]}]'),
+  // 社会统一信用代码
+  ucCode: string(name='uc_code', example='2456787878'),
+  // 公有云数据库产生时间
+  updateDate: string(name='update_date', example='20190923'),
+  // 平台json  
+  platform: string(name='platform', example=' [{"platform_name":"ptp","platform_states":"平台状态"}]'),
+}
+
+// 营销盾离线圈客任务详细信息
+model UmktOfflineDecisionTaskDetailInfo {
+  // 任务id
+  taskId: long(name='task_id', example='1'),
+  // 圈客计划id
+  decisionPlanId: long(name='decision_plan_id', example=''),
+  // 圈客结果状态
+  decisionResultStatus: string(name='decision_result_status', example='D'),
+  // 圈客结果状态描述
+  statusRemark: string(name='status_remark', example='已完成'),
+}
+
+// 营销盾事件信息同步详情
+model EventResultSyncDetail {
+  // 事件唯一id（单个租户全局唯一）
+  eventId: string(name='event_id', example='12345'),
+  // 营销计划id
+  planId: string(name='plan_id', example='12345'),
+  // 消息id
+  msgId: string(name='msg_id', example='1122'),
+  // 事件时间
+  eventTime: string(name='event_time', example='yyyy-MM-dd HH:mm:ss.SSS '),
+  // 事件类型：1为富信贴尾
+  eventType: long(name='event_type', example='1'),
+  // 1为成功 2为失败
+  state: long(name='state', example='1'),
+  // 用户key类型
+  keyType: string(name='key_type', example='MOBILE'),
+  // 手机号
+  customerKey: string(name='customer_key', example='15012340000'),
+  // 扩展字段
+  extData: string(name='ext_data', example='{"operator":"CMCC"}'),
+}
+
+// 通用响应结构体
+model RpcommonResp {
+  // 调用是否成功
+  success: boolean(name='success', example='true, false'),
+  // 结果描述
+  resultMsg: string(name='result_msg', example='success'),
+  // 结果码
+  responseCode: string(name='response_code', example='0'),
+  // 具体返回值.jsonString形式
+  data: string(name='data', example='{"a":1}'),
+}
+
+// 客户信息结果
+model CustomInfoResult {
+  // 社会信用代码
+  creditCode: string(name='credit_code', example='923231293311125216'),
+  // 公司名称
+  companyName: string(name='company_name', example='测试查询科技有限公司'),
+  // 法人姓名
+  legalName: string(name='legal_name', example='王华'),
+  // 身份证号
+  idCard: string(name='id_card', example='320101111111111111'),
+  // 手机号
+  phoneNumber: string(name='phone_number', example='15899998888'),
+  // 账号
+  account: string(name='account', example='111111111'),
+  // 密码
+  password: string(name='password', example='1111111'),
+}
+
+// 标签图片
+model RtopTagImage {
+  // 标签图片表主键
+  id: long(name='id', example=''),
+  // 图片
+  image?: string(name='image', example='1'),
+}
+
+// 授信信息
+model ApplyInfo {
+  // 授信编号
+  applyNo?: string(name='apply_no', example='xxxxx'),
+  // 资金方编号
+  fundCode?: string(name='fund_code', example='xxxxx'),
+  // 资金方名称
+  fundName?: string(name='fund_name', example='xxxxx'),
+  // 贷款利率
+  rateValue?: long(name='rate_value', example='xxxxx'),
+  // 贷款日利率
+  rateValueDay?: long(name='rate_value_day', example='xxxxx'),
+  // 年天数
+  daysNumYear?: long(name='days_num_year', example='xxxxx'),
+  // 总授信额度
+  totalAmount?: long(name='total_amount', example='xxxxx'),
+  // 可用额度
+  balanceAmount?: long(name='balance_amount', example='xxxxx'),
+}
+
+// 风险基因-点
+model RtopRiskGeneNode {
+  // 主企业唯一ID
+  mainCompanyId?: string(name='main_company_id', example='1'),
+  // 主企业名称
+  mainCompanyName?: string(name='main_company_name', example='1'),
+  // 节点唯一ID
+  nodeId?: string(name='node_id', example='1'),
+  // 节点名称
+  nodeName?: string(name='node_name', example='1'),
+  // 节点证件号码
+  nodeCertNo?: string(name='node_cert_no', example='1'),
+  // 节点类型，枚举值
+  nodeType?: string(name='node_type', example='company'),
+  // 节点扩展信息
+  nodeExtJson?: string(name='node_ext_json', example='节点扩展信息'),
+  // 基因模式
+  riskLabel?: string(name='risk_label', example='risk_label'),
+  // 基因模式
+  riskMode?: string(name='risk_mode', example='基因模式'),
+}
+
+// 企业影响人数分布统计
+model RtopPopulationDistribution {
+  // 市
+  city: string(name='city', example='杭州市'),
+  // 统计值
+  count: integer(name='count', example='10'),
+}
+
+// 天枢文件信息统一结构体
+model DubheFileInfo {
+  // 文件访问路径
+  filePath: string(name='file_path', example='https://aa.bb.png?expiredtime=xx'),
+}
+
+// 混合批量营销圈客结果
+model CustomerUmktInfosModel {
+  // 归属用户的混合营销决策结果
+  umktResults: [ UmktInfoModel ](name='umkt_results', example=''),
+  // 用户凭证
+  customerKey: string(name='customer_key', example='8002c3d97e7d4d20a0647c75dfab1efe'),
+}
+
+// 模型结果详情
+// 
+model ModelDetails {
+  // 风险场景编码
+  sceneCode: string(name='scene_code', example='scene_code'),
+  // 该风险场景的风险分值
+  // 
+  score: string(name='score', example='90'),
+}
+
+// 资金方信息
+model GwFundRouterResult {
+  // 资金方代码
+  fundCode: string(name='fund_code', example='D2024082100001'),
+  // 资金方简称
+  abbreFundName: string(name='abbre_fund_name', example='杭银消金'),
+}
+
+// 标签过滤配置
+model RiskLabelFilterConfigInfo {
+  // 创建时间
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 修改时间
+  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example='2018-10-10T10:10:00Z'),
+  // id
+  id: long(name='id', example='1'),
+  // 是否为基本筛选标签
+  isBase: long(name='is_base', example='1'),
+  // 标记删除
+  isDelete: long(name='is_delete', example='0'),
+  // 操作人员ID
+  operatorId: string(name='operator_id', example='1'),
+  // 地区名
+  placeName: string(name='place_name', example='place_name'),
+  // 地区类型
+  placeType: string(name='place_type', example='place_type'),
+  // 标签ID
+  tagId: string(name='tag_id', example='1'),
+}
+
+// AI外呼每个用户维度的参数信息
+model RobotCallCustomerParam {
+  // 手机号/手机号md5
+  customerKey: string(name='customer_key', example='12345'),
+  // 用户维度透传字段
+  customerOutInfo?: string(name='customer_out_info', example='12345'),
+  // 外呼话术变量字段
+  properties?: string(name='properties', example='{"key1":"v1"}'),
+}
+
+// 天枢系统职业信息
+model JobInfo {
+  // 职业
+  jobType?: string(name='job_type', example='xxx'),
+  // 职务
+  workPosition?: string(name='work_position', example='xxx'),
+  // 工作年限
+  jobLife?: string(name='job_life', example='2'),
+  // 本单位工作年限
+  currentJobLife?: long(name='current_job_life', example='1'),
+  // 公司名称
+  companyName?: string(name='company_name', example='xxx'),
+  // 公司行业类型
+  companyIndustryType?: string(name='company_industry_type', example='xx'),
+  // 公司电话
+  companyTel?: string(name='company_tel', example='111'),
+  // 公司省份
+  companyProvince?: string(name='company_province', example='浙江'),
+  // 公司城市
+  companyCity?: string(name='company_city', example='公司城市'),
+  // 公司区域
+  companyArea?: string(name='company_area', example='公司区域'),
+  // 公司街道
+  companyStreet?: string(name='company_street', example='公司街道'),
+  // 公司详细地址
+  companyAddress?: string(name='company_address', example='公司详细地址'),
+  // 年收入
+  yearSalary?: long(name='year_salary', example='年收入'),
+}
+
+// 天枢系统居住信息结构体
+model LiveInfo {
+  // 居住省份
+  liveProvince?: string(name='live_province', example='居住省份'),
+  // 居住城市
+  liveCity?: string(name='live_city', example='居住城市'),
+  // 居住区域
+  liveArea?: string(name='live_area', example='居住区域'),
+  // 居住街道
+  liveStreet?: string(name='live_street', example='居住街道'),
+  // 居住详细地址
+  liveAddress?: string(name='live_address', example='居住详细地址'),
+  // 居住年限
+  liveYears?: long(name='live_years', example='居住年限'),
+}
+
+// 风报风险标签统计
+model RiskStormLabelResp {
+  // 标签次数
+  labelCount: integer(name='label_count', example='10'),
+  // 标签id
+  labelId: string(name='label_id', example='cancelled'),
+  // 标签名称
+  labelName: string(name='label_name', example='注销'),
+}
+
+// 芝麻四要素认证接口
+model ZhimaIdentifyResp {
+  // 唯一ID，接口正常的话有此字段
+  bizNo?: string(name='biz_no', example='ZM201505190ad422641448624704506270407'),
+  // 带参数的回调地址，接口正常的话有此字段
+  certifyUrl?: string(name='certify_url', example='http://zmmcportal.stable.zhimaxy.net/index.htm?biz_content=%7B%22biz_no%22%3A%225f491814480fafe7dc0779a1c452c9f7%22%7D&sign=dsgdsfhgdsfh'),
+  // 蚂蚁调用芝麻的错误码
+  resultCode: string(name='result_code', example='OK'),
+  // 蚂蚁调用芝麻的结果描述
+  resultMsg: string(name='result_msg', example='Success/Invalid Arguments'),
+  // 蚂蚁调用芝麻的错误码
+  subCode?: string(name='sub_code', example='isv.invalid-app-id'),
+  // 蚂蚁调用芝麻信息
+  subMsg?: string(name='sub_msg', example='无效的AppID参数'),
+}
+
+// 短信模板内容
+model CpaasSmsTemplate {
+  // 模板类型
+  templateType?: string(name='template_type', example='SMS_NOTIFICATION'),
+  // 模板名称
+  templateName?: string(name='template_name', example='扩展码测试'),
+  // 模板内容
+  templateContent?: string(name='template_content', example='扩展码测试'),
+  // 审批状态
+  status?: string(name='status', example='APPROVED'),
+  // 模版code
+  templateCode?: string(name='template_code', example='SMS_2306XXXX'),
+  // 审核未通过原因
+  failReason?: string(name='fail_reason', example='失败原因'),
+  // 短信创建时间
+  createTime?: string(name='create_time', example='短信创建时间'),
+}
+
+// 输出变量列表
+model VariableDetails {
+  // 输出变量名称
+  variableName: string(name='variable_name', example='yidun_aft_v3'),
+  // 输出变量值
+  variableValue: string(name='variable_value', example='66.6'),
+  // 输出变量值类型
+  variableType: string(name='variable_type', example='Double'),
+}
+
+// 舆情的详情
+model RtopCompanyOpinionDetail {
+  // 具体的舆情内容
+  docContent: string(name='doc_content', example='行业整体趋势仍向好,白酒2Q18营收增速略回落,大众品龙头竞争力强化'),
+  // 舆情的id
+  docId: string(name='doc_id', example='1843266597720304871'),
+  // 舆情的标题
+  docTitle: string(name='doc_title', example='扫IC网获金证引擎战略投资;产业+互联网+金融;推进电子产业资源整合_搜狐科技_搜狐网'),
+  // 舆情的url
+  docUrl: string(name='doc_url', example='http://istock.jrj.com.cn/article,yanbao,30483668.html'),
+  // 情感得分
+  emotionScore?: string(name='emotion_score', example='2.80'),
+  // 实体相关度得分
+  entityRelevancyScore?: string(name='entity_relevancy_score', example='0.71'),
+  // 命中的关键词
+  hitKeywords?: string(name='hit_keywords', example=''),
+  // 媒体影响力得分
+  mediaInfluenceScore?: string(name='media_influence_score', example='6.90'),
+  // 来源媒体
+  mediaName: string(name='media_name', example='东方媒体'),
+  // 媒体传播得分
+  mediaPropagationScore?: string(name='media_propagation_score', example='0.60'),
+  // 舆情的发布时间
+  publishTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='publish_time', example='2018-07-15'),
+  // 相似文章数
+  similarDocs?: integer(name='similar_docs', example='2'),
+}
+
+// 云通信短信发送结果
+model SmsReponse {
+  // 发送回执ID
+  bizId: string(name='biz_id', example='696108134003934432^0'),
+  // 请求状态码; OK表示成功, 其他表示失败
+  code: string(name='code', example='OK'),
+  // 是否调用接口成功的描述
+  message: string(name='message', example='OK'),
+  // 请求ID
+  requestId: string(name='request_id', example='EF2DE797-B632-5DCF-8502-600959436E77'),
+}
+
+// 天枢系统专用ReceiptInfo结构体
+model ReceiptInfo {
+  // 客户名
+  customName: string(name='custom_name', example='XXX'),
+  // 证件号码
+  cardNo: string(name='card_no', example='xxx'),
+  // 手机号
+  mobile: string(name='mobile', example='166****1234'),
+  // 贷款金额
+  applyAmount: long(name='apply_amount', example='1234'),
+  // 发放金额
+  loanAmount: long(name='loan_amount', example='1234'),
+  // 期数
+  period: long(name='period', example='12'),
+  // 当前期数
+  curPeriod: long(name='cur_period', example='12'),
+  // 还款方式1：等额本息，2：等额本金，3：按月付息到期还本，4：利随本清，5：自由还款
+  repayType: string(name='repay_type', example='1'),
+  // 还款日
+  repayDate: string(name='repay_date', example='XXXX.XX.XX'),
+  // 放款时间
+  loanTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='loan_time', example='2018-10-10T10:10:00Z'),
+  // 借据状态0：未还清，1：已还清，2：已提前还清
+  status: string(name='status', example='0'),
+  // 已还本金
+  alreadyCorpus: long(name='already_corpus', example='1234'),
+  // 已还利息
+  alreadyAccrual: long(name='already_accrual', example='50'),
+  // 结清日期
+  alreadyDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='already_date', example='2018-10-10T10:10:00Z'),
+  // 审批状态0：通过 1：拒绝 2：审批中 3：失败
+  workflowStatus: string(name='workflow_status', example='0'),
+  // 借据编号
+  receiptNo: string(name='receipt_no', example='145785'),
+}
+
+// 天枢系统专用RepayRef结构体
+model RepayRef {
+  // 客户编码
+  customNo: string(name='custom_no', example='xxx'),
+  // 当前期数
+  period: string(name='period', example='xx'),
+  // 应还总额
+  needAmount: long(name='need_amount', example='1'),
+  // 应还本金
+  needCorpus: long(name='need_corpus', example=''),
+  // 应还利息
+  needAccrual: long(name='need_accrual', example=''),
+  // 应还手续费
+  needFee: long(name='need_fee', example=''),
+  // 已还总额
+  alreadyAmount: long(name='already_amount', example=''),
+  // 已还本金
+  alreadyCorpus: long(name='already_corpus', example=''),
+  // 已还逾期本金
+  alreadyOvercorpus: long(name='already_overcorpus', example=''),
+  // 已还利息
+  alreadyAccrual: long(name='already_accrual', example=''),
+  // 已还逾期息
+  alreadyPunish: long(name='already_punish', example=''),
+  // 已还手续费
+  alreadyFee: long(name='already_fee', example=''),
+  // 利率
+  rate: long(name='rate', example=''),
+  // 罚息率
+  penaltyValue: long(name='penalty_value', example=''),
+  // 当期剩余总额
+  restAmount: long(name='rest_amount', example=''),
+  // 当期剩余本金
+  restCorpus: long(name='rest_corpus', example=''),
+  // 当期剩余利息
+  restAccrual: long(name='rest_accrual', example=''),
+  // 当期剩余罚息
+  restPunish: long(name='rest_punish', example=''),
+  // 期末本金
+  remainCorpus: long(name='remain_corpus', example=''),
+  // 借据编号
+  receiptNo: string(name='receipt_no', example='xx'),
+  // 还款状态1：已还清 2 未还 3 部分还款
+  status: string(name='status', example='1'),
+  // 应还日期
+  settleDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='settle_date', example='2018-10-10T10:10:00Z'),
+  // 还款日期
+  tradeDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='trade_date', example='2018-10-10T10:10:00Z'),
+}
+
+// 回调通用返回体
+model CommonNotyfyResult {
+  // 请求id
+  requestId: string(name='request_id', example='123AA'),
+  // 业务响应Json
+  bizResponse: string(name='biz_response', example='{\"a\":\"b\"} '),
+}
+
+// 收藏的企业信息
+model RtopStarCompanyInfo {
+  // 行业
+  categories?: [ string ](name='categories', example=''),
+  // 经营地址
+  operatingPlace?: string(name='operating_place', example='广东省珠海市前山金鸡西路'),
+  // 经营省份
+  operatingProvince?: string(name='operating_province', example='湖北省'),
+  // 企业名称
+  orgName?: string(name='org_name', example='珠海格力电器股份有限公司'),
+  // 风险分数
+  riskScore?: long(name='risk_score', example='80'),
+  // 风险标签
+  riskTags?: [ string ](name='risk_tags', example='["内部被投诉","法定代表人名下企业超过6家"]'),
+  // 风险线索
+  riskTagDetails?: [ RtopRiskTag ](name='risk_tag_details', example=''),
+  // 风险标签Id集合
+  riskTagIds?: [ string ](name='risk_tag_ids', example='["CMN00025", "CMN00011"]'),
+  // 统一社会信用代码
+  ucCode?: string(name='uc_code', example='91440400192548256N'),
+}
+
+// 还款方式/借款期数信息
+model PlatformRepayTypeInfo {
+  // 1：等额本息
+  // 2：等额本金
+  // 3：按期付息到期还本（先息后本）
+  repayType: string(name='repay_type', example='1'),
+  // {”1“，”2“}
+  periods: [ string ](name='periods', example=''),
+}
+
+// 企业日期趋势统计
+model RtopDateDistribution {
+  // 统计值
+  count: integer(name='count', example='10'),
+  // 年龄
+  date: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='date', example='2018-09-09'),
+}
+
+// 天枢系统个人信息结构体
+model PersonalInfo {
+  // 客户姓名
+  customName: string(name='custom_name', example='张三'),
+  // 身份证号码(18位)
+  cardNo: string(name='card_no', example='1234555'),
+  // 1-身份证
+  idType: string(name='id_type', example='1'),
+  // 证件开始日期(格式：YYYY-MM-DD)
+  // 
+  certSignDate: string(name='cert_sign_date', example='YYYY-MM-DD'),
+  // 格式：YYYY-MM-DD，身份证有效期为长期的送: 9999-12-31
+  certValidate: string(name='cert_validate', example='YYYY-MM-DD'),
+  // 证件地址
+  certAdr: string(name='cert_adr', example='浙江'),
+  // 手机号
+  mobile: string(name='mobile', example='12344'),
+  // 学历
+  education?: string(name='education', example='本科'),
+  // 所在省份 汉字
+  province?: string(name='province', example='浙江'),
+  // 所在城市 汉字
+  city?: string(name='city', example='杭州'),
+  // 地区名称 汉字
+  area?: string(name='area', example='xxx'),
+  // 详细地址
+  address?: string(name='address', example='xxx'),
+  // 性别M-男
+  // F-女
+  sex?: string(name='sex', example='M'),
+  // 民族
+  nation?: string(name='nation', example='汉'),
+  // 婚姻状态：00-未婚，01-已婚，02-离婚，03-丧偶，99-未知
+  maritalStatus?: string(name='marital_status', example='00'),
+}
+
+// 策略流信息
+model DfSceneInfos {
+  // scene_code
+  sceneCode: string(name='scene_code', example='场景code'),
+  // 拒绝
+  sceneDecision: string(name='scene_decision', example='reject'),
+  // decision_flow
+  decisionFlow: DecisionFlow(name='decision_flow', example='decision_flow'),
+}
+
+// 用户凭证信息
+model CustomerDetail {
+  // 用户标识
+  customerKey: string(name='customer_key', example='"186123456789"'),
+  // 渠道参数
+  channelParams: string(name='channel_params', example='"{\"name\":\"苹果\",\"code\":\"5643\",\"num\":\"5\"}"'),
+  // 用户透传字段
+  extInfo: string(name='ext_info', example='"[{\"name\":\"zhangshan\"}]"'),
+}
+
+// 用户绑定银行卡列表
+model CustomerBankCardInfo {
+  // 银行名称
+  bankName: string(name='bank_name', example='工商银行'),
+  // 银行编码
+  bankCode: string(name='bank_code', example='ICBC'),
+  // 银行卡号
+  bankCardNo: string(name='bank_card_no', example='6226211215645646'),
+  // 是否已签约
+  signed?: string(name='signed', example='Y/N'),
+  // 是否为账户代扣银行卡
+  acctBankCard?: string(name='acct_bank_card', example='Y/N'),
+}
+
+// 供应商
+model Supplier {
+  // 供应商id
+  supplierId: string(name='supplier_id', example='111'),
+  // 供应商名字
+  supplierName: string(name='supplier_name', example='ANTCLOUD'),
+}
+
+// 查询结果
+model QueryResult {
+  // key
+  key?: string(name='key', example='key'),
+  // value
+  value?: string(name='value', example='value'),
+}
+
+// 逾期信息查询响应
+model OverdueInfoResponse {
+  // 逾期标识
+  // true：逾期
+  // false：未逾期
+  overDueFlag: boolean(name='over_due_flag', example='true'),
+  // 逾期天数
+  overDays: long(name='over_days', example=''),
+  // 逾期金额在50元以上的客户的逾期天数
+  valuableOverDays: long(name='valuable_over_days', example=''),
+  // 逾期期数
+  overPeriodCount: long(name='over_period_count', example=''),
+  // 逾期本金
+  overPrincipal: long(name='over_principal', example=''),
+  // 逾期利息
+  overInterest: long(name='over_interest', example=''),
+  // 应还罚息
+  overPunish: long(name='over_punish', example=''),
+  // 应还逾期总额
+  needOverdueAmount: long(name='need_overdue_amount', example=''),
+  // 当前应还总额
+  currentNeedAmount: long(name='current_need_amount', example=''),
+  // 总剩余应还
+  totalAmount: long(name='total_amount', example=''),
+  // 数据日期
+  settleDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='settle_date', example=''),
+  // 借款唯一编号
+  receiptNo: string(name='receipt_no', example='R2022xxxxxx'),
+  // 已还期数
+  alreadyRepayPeriodCount: long(name='already_repay_period_count', example=''),
+  // 贷款期数
+  loanPeriodCount: long(name='loan_period_count', example=''),
+  // 未还本金
+  outstandingPrincipal: long(name='outstanding_principal', example=''),
+  // 放款日期
+  loanTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='loan_time', example=''),
+  // 结清标志
+  settleFlag: boolean(name='settle_flag', example='true, false'),
+  // 最近一次还款日期
+  nearestRepayTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='nearest_repay_time', example=''),
+}
+
+// 企管盾票税交接决策服务指标
+model RdaasTaxDecsionServiceIndicator {
+  // 决策指标id
+  id: string(name='id', example='决策指标id'),
+  // 决策服务id
+  serviceId: string(name='service_id', example='700002'),
+  // 属性名
+  propertyName: string(name='property_name', example='weight'),
+  // 属性值或指标值
+  propertyValue?: string(name='property_value', example='100'),
+  // 决策租户
+  decisionTenant?: string(name='decision_tenant', example='DEFAULT'),
+  // 创建时间，格式:yyyy-MM-dd HH:mm:ss
+  createTime?: string(name='create_time', example='创建时间，格式:yyyy-MM-dd HH:mm:ss'),
+}
+
+// 天枢预览协议信息
+model GetAgreementUrlResponseData {
+  // 协议标题
+  title: string(name='title', example='授信协议'),
+  // 协议地址
+  agreementUrl?: string(name='agreement_url', example='http:xxxxxxxx'),
+  // 协议文件Base64
+  fileBase64?: string(name='file_base64', example='111'),
+  // 协议图片文件base64集合
+  picFileBase64List?: [ string ](name='pic_file_base64_list', example='111111'),
+  // 图片文件oss集合
+  picOssPathList?: [ string ](name='pic_oss_path_list', example=''),
+  // 机构名称
+  organizationName: string(name='organization_name', example='杭银'),
+  // 协议类型-code
+  fileType: string(name='file_type', example='APPLY'),
+  // 协议类型-名称
+  fileTypeName: string(name='file_type_name', example='授信协议'),
+}
+
+// 机构平台通知响应结果
+model DefinInnerChannelNotifyResult {
+  // 请求编号
+  requestId: string(name='request_id', example='aaaa'),
+  // 业务响应Json
+  bizResponse: string(name='biz_response', example='{\"a\":\"b\"}'),
+}
+
+// 批量决策单主体查询结果
+model BatchQueryResult {
+  // 查询主体
+  queryKey: string(name='query_key', example='test'),
+  // 单用户决策结果
+  decision: string(name='decision', example='accept'),
+  // 输出变量信息
+  outputInfo: BatchQueryOutputModelInfo(name='output_info', example=''),
+}
+
+// 营销盾外呼记录
+model CommonRobotCallDetail {
+  // 客户请求时的透传字段
+  extInfo: string(name='ext_info', example='请求透传字段'),
+  // 成功触达：OK；未触达：AI_ROBOT_CALL_REQUEST_NOT_EXIST
+  resultCode: string(name='result_code', example='OK'),
+  // 外呼号码
+  customerKey: string(name='customer_key', example='130XXXXXX'),
+  // 呼叫次数
+  currentCallTimes: long(name='current_call_times', example='1'),
+  // 号码模版
+  keyTemplate: string(name='key_template', example='MOBILE/MOBILE/CUSTOMER_ENCRY'),
+  // 导入号码时返回的批次号
+  batchId: string(name='batch_id', example='1'),
+  // 2001:批量-预测外呼，2002:批量-AI外呼-不转人工，2003:批量-AI外呼-接通转人工，2004: 批量-AI外呼-智能转人工,2005:批量-语音通知
+  callType: long(name='call_type', example='2001'),
+  // 用户自定义标签
+  tag?: string(name='tag', example='tag'),
+  // 外呼id
+  callId: string(name='call_id', example='9b2eb6b8'),
+  // 外呼任务编号
+  taskId: long(name='task_id', example='1'),
+  // AI话术ID
+  templateId?: long(name='template_id', example='1'),
+  // 外呼状态编码
+  statusCode: long(name='status_code', example='1'),
+  // 外呼状态描述
+  statusDescription: string(name='status_description', example='1'),
+  // 转人工状态编码
+  transferStatusCode: long(name='transfer_status_code', example='1'),
+  // 转人工状态
+  transferStatus: string(name='transfer_status', example='0'),
+  // 分配坐席ID
+  agentId?: long(name='agent_id', example=''),
+  // 坐席在贵司业务系统唯一标识，用于查询对应agentId；可以为空。
+  agentTag?: string(name='agent_tag', example='a'),
+  // 坐席分机号
+  agentExtension?: string(name='agent_extension', example='a'),
+  // 导入时间
+  importTime: string(name='import_time', example='2019-01-09 14:14:19'),
+  // 开始通话时间
+  callBeginTime: string(name='call_begin_time', example='2019-01-09 14:14:19'),
+  // 振铃时长，单位ms
+  ringTime: long(name='ring_time', example='10'),
+  // 接通时间
+  answerTime?: string(name='answer_time', example='2019-01-09 14:14:19'),
+  // 通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+  speakingTime: string(name='speaking_time', example='1'),
+  // 通话时长，单位：秒
+  speakingDuration: long(name='speaking_duration', example='1'),
+  // 挂断时间
+  hangupTime: string(name='hangup_time', example='2019-01-09 14:14:19'),
+  // 对话轮次
+  speakingTurns: long(name='speaking_turns', example='1'),
+  // 人工通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+  agentSpeakingTime: string(name='agent_speaking_time', example='1'),
+  // 人工通话时长，单位：秒
+  agentSpeakingDuration: long(name='agent_speaking_duration', example='1'),
+  // 意向标签
+  intentTag: string(name='intent_tag', example='C'),
+  // 意向说明
+  intentDescription: string(name='intent_description', example='确认本人,未承诺还款'),
+  // 个性标签
+  individualTag?: string(name='individual_tag', example='投诉,非本人'),
+  // 回复关键词
+  keywords?: string(name='keywords', example='链接,利息'),
+  // 挂机方式，AI挂机1，坐席挂机2，客户挂机3
+  hungupType: long(name='hungup_type', example='1'),
+  // 挂机短信，可选值：1、2
+  // 1:发送，2:不发送
+  sms: string(name='sms', example='1'),
+  // 对话录音，URL，可以为空
+  chatRecord?: string(name='chat_record', example='1'),
+  // 聊天记录，可以为空
+  chats?: string(name='chats', example='{}'),
+  // 可选值：0、1
+  // 0:不添加，1:添加
+  addWx?: long(name='add_wx', example='1'),
+  // 加微进度，可选值：已申请、加微成功
+  addWxStatus?: string(name='add_wx_status', example='已申请'),
+  // 是否接通重呼，可选值：0、1
+  // 0正常外呼，1接通重呼
+  answerRecall: long(name='answer_recall', example='1'),
+  // 导入号码时的参数值
+  properties?: string(name='properties', example='{"电话号码":"13100000000"}'),
+  // 导入号码时的业务参数值，原样返回
+  bizProperties?: string(name='biz_properties', example='a'),
+  // 拦截原因：当状态为已拦截时，可选值：黑名单拦截，灰名单拦截，异常号码拦截
+  interceptReason?: string(name='intercept_reason', example='黑名单拦截'),
+}
+
+// 支付方式锁定结果
+model PayMethodLockResult {
+  // 签约结果
+  signStatus: string(name='sign_status', example='0、1'),
+  // 账号
+  accountId: string(name='account_id', example='userId'),
+  // 登录号
+  loginId: string(name='login_id', example='userIdA'),
+  // 支付公司
+  payChannel: string(name='pay_channel', example='AliPay'),
+  // 绑定账号名称
+  accountName: string(name='account_name', example='someName'),
+}
+
+// 天枢合同
+model Contract {
+  // 关联编号
+  relationNo: string(name='relation_no', example='123123'),
+  // 合同编号
+  contractNo: string(name='contract_no', example='123123'),
+  // 合同名称
+  contractName: string(name='contract_name', example='用信合同'),
+  // 合同类型
+  contractType: string(name='contract_type', example='0'),
+  // 客户编号
+  customNo: string(name='custom_no', example='PCM123xxxx'),
+  // 合同存放目录
+  savePath: string(name='save_path', example='https://11111'),
+  // 合同金额
+  contractAmount: long(name='contract_amount', example=''),
+  // 用信合同编号
+  disburseContractNo: string(name='disburse_contract_no', example='123123'),
+  // 授信合同编号
+  creditContractNo: string(name='credit_contract_no', example='123123'),
+}
+
+// ai外呼回调详情
+model AICallbackMessage {
+  // 批次号
+  batchId?: string(name='batch_id', example='5de2ccbf87914544afb57a77e39ec023'),
+  // 用户标签
+  tag: string(name='tag', example='阿松大'),
+  // 外呼id
+  callId: string(name='call_id', example='CALLID'),
+  // 外呼的话术模板Id
+  templateId?: long(name='template_id', example='7'),
+  // 外呼状态编码
+  statusCode: long(name='status_code', example='1'),
+  // 外呼状态描述
+  statusDescription: string(name='status_description', example='已接听'),
+  // 导入时间
+  importTime: string(name='import_time', example='2019-11-23 14:47:06'),
+  // 开始通话时间
+  callBeginTime: string(name='call_begin_time', example='2019-11-23 14:47:06'),
+  // 振铃时长, 单位毫秒
+  ringTime: long(name='ring_time', example='2000'),
+  // 接通时间
+  answerTime: string(name='answer_time', example='2019-01-09 14:14:19'),
+  // AI通话时长,单位s
+  speakingDuration: long(name='speaking_duration', example='20'),
+  // 挂断时间
+  hangupTime: string(name='hangup_time', example='2019-01-09 14:14:19'),
+  // 对话轮次
+  speakingTurns: long(name='speaking_turns', example='5'),
+  // 意向标签
+  intentTag: string(name='intent_tag', example='C'),
+  // 意向说明
+  intentDescription: string(name='intent_description', example='确认本人,未承诺还款'),
+  // 个性标签
+  individualTag: string(name='individual_tag', example='a'),
+  // 回复关键词
+  keywords: string(name='keywords', example='利息'),
+  // 对话录音
+  chatRecord?: string(name='chat_record', example='录音url'),
+  // 参数值
+  properties: string(name='properties', example='{"电话号码":"13100000000"}'),
+}
+
+// 预警企业
+model RtopCompanyAlarm {
+  // 企业ID
+  companyId: string(name='company_id', example='1'),
+  // 预警类型
+  alarmType: string(name='alarm_type', example='1'),
+  // 预警序号
+  alarmIdx: string(name='alarm_idx', example='1'),
+  // 预警日期
+  alarmDate: string(name='alarm_date', example='1'),
+  // 预警标识，是否需要预警
+  alarmFlag: string(name='alarm_flag', example='1'),
+}
+
+// 企业影响人数性别分布统计
+model RtopGenderDistribution {
+  // 统计值
+  count: integer(name='count', example='10'),
+  // 性别
+  gender: string(name='gender', example='MALE'),
+}
+
+// 卡短解析服务返回参数
+model ShortUrlInfo {
+  // 支持卡片短信的手机号
+  mobile: string(name='mobile', example='15012345678'),
+  // 解析生成的短链
+  shortUrl: string(name='short_url', example='https://www.alipay.com/F49v0ifM'),
+}
+
+// 是否联登结构体
+model CustomRelationStatus {
+  // 是否联登
+  regFlag?: boolean(name='reg_flag', example='true, false'),
+}
+
+// 企管盾票税决策服务
+model RdaasTaxDecsionService {
+  // 决策服务id
+  id: string(name='id', example='1'),
+  // 产品编码
+  serviceName: string(name='service_name', example='13'),
+  // 区域编码
+  serviceZone?: string(name='service_zone', example='SJ_ALL'),
+  // 渠道
+  channel?: string(name='channel', example='HZSZKJ'),
+  // 决策租户
+  decisionTenant?: string(name='decision_tenant', example='DEFAULT'),
+  // 是否启用
+  status?: string(name='status', example='enabled'),
+  // 创建时间，格式:yyyy-MM-dd HH:mm:ss
+  createTime?: string(name='create_time', example='创建时间，格式:yyyy-MM-dd HH:mm:ss'),
+}
+
+// 服务上下文包括环境信息和用户信息
+model ServiceContext {
+  // 客户端IP
+  clientIp?: string(name='client_ip', example='10.214.138.14'),
+  // 客户端UMID
+  clientPcidguid?: string(name='client_pcidguid', example='WV1bz5927da956db072d3001792dcc67e'),
+  // 服务器名
+  serverName?: string(name='server_name', example='server'),
+  // 会话ID
+  sessionId?: string(name='session_id', example='RZ1 2cz9oSg1GTGtGp9CwYtBbZMcD8DmobilecashierRZ12'),
+  // 用户ID
+  userId?: string(name='user_id', example='2088522384403582'),
+}
+
+// 营销盾实时圈客结果返回model
+model CustomerUmktInfoModel {
+  // 基本圈客结果信息
+  baseInfo: BaseCustomerUmktInfoModel(name='base_info', example=''),
+  // 额外的营销分结果
+  umktOutPutInfo?: string(name='umkt_out_put_info', example='{"f_01":"95.0"}'),
+}
+
+// 企业舆情数量
+model RtopCompanyOpinionCount {
+  // 企业名称
+  companyName: string(name='company_name', example='福州北辰智创投资中心'),
+  // 企业对应的舆情数量
+  count: integer(name='count', example='10'),
+}
+
+// 商户资金链锁定结果
+model FundChainLockResult {
+  // 店铺名称
+  name: string(name='name', example='某店铺'),
+  // 店铺id
+  id: string(name='id', example='2022091300001'),
+  // 0:成功
+  // 1:失败
+  // 2:处理中
+  status: string(name='status', example='0'),
+}
+
+// 企业地区分布统计
+model RtopRegionalDistribution {
+  // 统计值
+  count: long(name='count', example='10'),
+  // 地区
+  place: string(name='place', example='​西湖区'),
+  // 当前地区的涉众风险类型分布，即非法集资有多少企业，传销有多少企业
+  typeDistribution?: [ RtopTypeDistribution ](name='type_distribution', example=''),
+}
+
+// 结清证明响应实体
+model CertificateInfo {
+  // 结清证明开具结果，0：有结清证明、1：无结清证明、2：开具中、3：暂不支持开具
+  status: string(name='status', example='0'),
+  // 用信申请订单号
+  relationNo?: string(name='relation_no', example='123123'),
+  // 结清证明url
+  certificateUrl?: string(name='certificate_url', example='https://www.example.com/ffff.pdf?expire=111111'),
+  // 结清证明文件Base64
+  certificateBase64?: string(name='certificate_base64', example='BEAKENMCT...'),
+  // 说明
+  message?: string(name='message', example='已开具'),
+}
+
+// 涉众风险企业特征
+model RtopCrowdRiskFeatureResp {
+  // 特征标签列表
+  clueTags?: [ RtopCrowdRiskFeatureTag ](name='clue_tags', example=''),
+  // 特征名称
+  featureName: string(name='feature_name', example='工商风险维度'),
+  // 特征​分数
+  score: integer(name='score', example='10'),
+}
+
+// 离线圈客计划详细
+model OfflineDecisionPlanDetail {
+  // 圈客计划ID
+  decisionPlanId: string(name='decision_plan_id', example='1032'),
+  // 离线圈客执行任务状态
+  decisionResultStatus: string(name='decision_result_status', example='ECN'),
+}
+
+// 用户分层信息
+model UserClassifyInfo {
+  // 版本号
+  version: string(name='version', example='V1'),
+  // 流量分层
+  rateClassify: string(name='rate_classify', example='A: <6% B: 6%~12% C:12%~18% D:18%~24% E:24%~36% F:>36% R:不分发（黑名单类）'),
+  // 流量扩展分层1
+  classifyExt1?: string(name='classify_ext1', example='123123'),
+  // 流量扩展分层2
+  classifyExt2?: string(name='classify_ext2', example='123'),
+}
+
+// 待还款信息
+model RepayInfo {
+  // true：逾期
+  // false：未逾期
+  overdueFlag: boolean(name='overdue_flag', example='true, false'),
+  // 逾期天数
+  overDays: long(name='over_days', example=''),
+  // 逾期金额在50元以上的客户的逾期天数
+  valuableOverDays: long(name='valuable_over_days', example=''),
+  // 逾期期数
+  overPeriodCount: long(name='over_period_count', example=''),
+  // 逾期本金
+  overPrincipal: long(name='over_principal', example=''),
+  // 逾期利息
+  overInterest: long(name='over_interest', example=''),
+  // 应还罚息
+  overPunish: long(name='over_punish', example=''),
+  // 应还逾期总额
+  needOverdueAmount: long(name='need_overdue_amount', example=''),
+  // 当前应还总额（包含逾期和当前期）
+  currentNeedAmount: long(name='current_need_amount', example=''),
+  // 总剩余应还
+  totalAmount: long(name='total_amount', example=''),
+}
+
+// 天枢系统专用CreditAmount结构体
+model CreditAmount {
+  // 授信额度
+  creditAmount: long(name='credit_amount', example='1'),
+  // 授信余额
+  restAmount: long(name='rest_amount', example='1'),
+  // 发放日期
+  payDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='pay_date', example=''),
+  // 到期日期
+  expireDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expire_date', example=''),
+  // 利率单位(1:年，2：月，3：日)
+  rateUnit: string(name='rate_unit', example='1'),
+  // 执行利率,利率值，单位%
+  // 年化5%，rateValue=5
+  // 
+  rateValue: long(name='rate_value', example=''),
+  // 还款方式1等额本息2等额本金3先息后本4一次性利随本清5只还本金6等本等息
+  repayWay: string(name='repay_way', example='1'),
+  // 状态0-正常 1-冻结 2-终止
+  status: string(name='status', example='0'),
+  // 发放日期（兼容字段）
+  payDateSup?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='pay_date_sup', example='yyyy-MM-dd'),
+  // 到期日期（兼容字段）
+  expireDateSup?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expire_date_sup', example='yyyy-MM-dd'),
+}
+
+// 风控事件咨询查询入参
+model EventInfo {
+  // 事件编码
+  eventCode: string(name='event_code', example='face_attack_strategy'),
+  // 事件产生时间
+  gmtOccur: string(name='gmt_occur', example='1686215967914'),
+}
+
+// 天枢专用RepayTrail结构体
+model RepayTrail {
+  // 期数
+  period: string(name='period', example='1'),
+  // 每期应还金额
+  needAmt: long(name='need_amt', example=''),
+  // 每期已还金额
+  alreadyAmt: long(name='already_amt', example=''),
+  // 每期应还本金
+  transPrincipal: long(name='trans_principal', example=''),
+  // 每期应还利息
+  transInterest: long(name='trans_interest', example=''),
+  // 每期还款费用
+  transFee: long(name='trans_fee', example=''),
+  // 剩余本金
+  remainPrincipal: long(name='remain_principal', example=''),
+  // 还款时间
+  repayTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='repay_time', example='2018-10-10T10:10:00Z'),
+  // 计息开始时间
+  startTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time', example='2018-10-10T10:10:00Z'),
+  // 计息结束时间
+  endTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time', example='2018-10-10T10:10:00Z'),
+  // 试算编号
+  trialNo: string(name='trial_no', example='ss'),
+  // 优惠后应还金额
+  discountAfterNeedAmt?: long(name='discount_after_need_amt', example=''),
+  // 优惠后应还利息
+  discountAfterInterest?: long(name='discount_after_interest', example=''),
+  // 优惠利息
+  discountInterest?: long(name='discount_interest', example=''),
+}
+
+// 授信状态
+model CustomStatus {
+  // 是否进行过授信申请
+  applyFlag?: boolean(name='apply_flag', example='true, false'),
+  // 0:通过； 1:拒绝； 2:处理中；
+  status?: string(name='status', example='0'),
+  // 拒绝原因
+  msg?: string(name='msg', example='xxxxxxxx'),
+}
+
+// 营销盾租户触达策略计划信息
+model TenantActionPlanInfo {
+  // 场景策略id
+  sceneStrategyId: long(name='scene_strategy_id', example='1'),
+  // 营销名称
+  sceneStrategyName: string(name='scene_strategy_name', example='蚂蚁营销'),
+  // 营销状态
+  sceneStrategyStatus: string(name='scene_strategy_status', example='PASS'),
+  // 渠道id
+  actionDriverCode: long(name='action_driver_code', example='3'),
+  // 渠道类型
+  channelCode: string(name='channel_code', example='ROBOT_CALL'),
+  // 创建时间
+  gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
+  // 修改时间
+  gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example=''),
+  // 场景策略入参名
+  actionParamInfo?: [ string ](name='action_param_info', example=''),
+  // 参数查询是否完成
+  isParamQueryDone?: boolean(name='is_param_query_done', example='true, false'),
+}
+
+model PushQmpBackflowEventRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 回流事件id，对应租户回流事件id
+  eventId: long(name='event_id'),
+  // 回流事件记录列表
+  eventRecords: [ BackflowEventRecord ](name='event_records'),
+}
+
+model PushQmpBackflowEventResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 蚁盾业务回流事件推送
+ * Summary: 蚁盾业务回流事件推送
+ */
+async function pushQmpBackflowEvent(request: PushQmpBackflowEventRequest): PushQmpBackflowEventResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushQmpBackflowEventEx(request, headers, runtime);
+}
+
+/**
+ * Description: 蚁盾业务回流事件推送
+ * Summary: 蚁盾业务回流事件推送
+ */
+async function pushQmpBackflowEventEx(request: PushQmpBackflowEventRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushQmpBackflowEventResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.qmp.backflow.event.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
