@@ -11085,6 +11085,16 @@ export class QueryDubbridgeInstallmentCreditamtRequest extends $tea.Model {
   cardNo?: string;
   // 客户姓名
   customerName?: string;
+  // 导流平台
+  trafficPlatform?: string;
+  // 流量来源名称，导流平台背后具体的流量名称
+  trafficSourceName?: string;
+  // 广告位id，流量来源内各广告位标志
+  trafficAdId?: string;
+  // 营销活动编号
+  trafficMktId?: string;
+  // 点击id
+  clickId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -11097,6 +11107,11 @@ export class QueryDubbridgeInstallmentCreditamtRequest extends $tea.Model {
       tradeAmount: 'trade_amount',
       cardNo: 'card_no',
       customerName: 'customer_name',
+      trafficPlatform: 'traffic_platform',
+      trafficSourceName: 'traffic_source_name',
+      trafficAdId: 'traffic_ad_id',
+      trafficMktId: 'traffic_mkt_id',
+      clickId: 'click_id',
     };
   }
 
@@ -11112,6 +11127,11 @@ export class QueryDubbridgeInstallmentCreditamtRequest extends $tea.Model {
       tradeAmount: 'string',
       cardNo: 'string',
       customerName: 'string',
+      trafficPlatform: 'string',
+      trafficSourceName: 'string',
+      trafficAdId: 'string',
+      trafficMktId: 'string',
+      clickId: 'string',
     };
   }
 
@@ -22239,7 +22259,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.23.4",
+          sdk_version: "1.23.5",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -24312,7 +24332,7 @@ export default class Client {
 
   /**
    * Description: 蚁盾业务回流事件推送
-   * Summary: 蚁盾回流事件推送
+   * Summary: 蚁盾业务回流事件推送
    */
   async pushQmpBackflowEvent(request: PushQmpBackflowEventRequest): Promise<PushQmpBackflowEventResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -24322,7 +24342,7 @@ export default class Client {
 
   /**
    * Description: 蚁盾业务回流事件推送
-   * Summary: 蚁盾回流事件推送
+   * Summary: 蚁盾业务回流事件推送
    */
   async pushQmpBackflowEventEx(request: PushQmpBackflowEventRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushQmpBackflowEventResponse> {
     Util.validateModel(request);
