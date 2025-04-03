@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.23.5',
+    sdk_version = '1.23.6',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -4066,6 +4066,8 @@ model QueryDubbridgeRiskinfoEnterprisescoreRequest = {
   customerNo: string(name='customer_no'),
   // 渠道号
   channelCode: string(name='channel_code'),
+  //  手机号md5
+  mobileMd5?: string(name='mobile_md5'),
 }
 
 model QueryDubbridgeRiskinfoEnterprisescoreResponse = {
