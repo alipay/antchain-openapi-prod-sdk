@@ -8137,6 +8137,8 @@ export class QueryDubbridgeRiskinfoEnterprisescoreRequest extends $tea.Model {
   customerNo: string;
   // 渠道号
   channelCode: string;
+  //  手机号md5
+  mobileMd5?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -8145,6 +8147,7 @@ export class QueryDubbridgeRiskinfoEnterprisescoreRequest extends $tea.Model {
       mobile: 'mobile',
       customerNo: 'customer_no',
       channelCode: 'channel_code',
+      mobileMd5: 'mobile_md5',
     };
   }
 
@@ -8156,6 +8159,7 @@ export class QueryDubbridgeRiskinfoEnterprisescoreRequest extends $tea.Model {
       mobile: 'string',
       customerNo: 'string',
       channelCode: 'string',
+      mobileMd5: 'string',
     };
   }
 
@@ -22259,7 +22263,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.23.5",
+          sdk_version: "1.23.6",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
