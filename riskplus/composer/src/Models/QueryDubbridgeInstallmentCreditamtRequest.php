@@ -66,6 +66,36 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
      * @var string
      */
     public $customerName;
+
+    // 导流平台
+    /**
+     * @var string
+     */
+    public $trafficPlatform;
+
+    // 流量来源名称，导流平台背后具体的流量名称
+    /**
+     * @var string
+     */
+    public $trafficSourceName;
+
+    // 广告位id，流量来源内各广告位标志
+    /**
+     * @var string
+     */
+    public $trafficAdId;
+
+    // 营销活动编号
+    /**
+     * @var string
+     */
+    public $trafficMktId;
+
+    // 点击id
+    /**
+     * @var string
+     */
+    public $clickId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -77,6 +107,11 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
         'tradeAmount'       => 'trade_amount',
         'cardNo'            => 'card_no',
         'customerName'      => 'customer_name',
+        'trafficPlatform'   => 'traffic_platform',
+        'trafficSourceName' => 'traffic_source_name',
+        'trafficAdId'       => 'traffic_ad_id',
+        'trafficMktId'      => 'traffic_mkt_id',
+        'clickId'           => 'click_id',
     ];
 
     public function validate()
@@ -122,6 +157,21 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
         if (null !== $this->customerName) {
             $res['customer_name'] = $this->customerName;
         }
+        if (null !== $this->trafficPlatform) {
+            $res['traffic_platform'] = $this->trafficPlatform;
+        }
+        if (null !== $this->trafficSourceName) {
+            $res['traffic_source_name'] = $this->trafficSourceName;
+        }
+        if (null !== $this->trafficAdId) {
+            $res['traffic_ad_id'] = $this->trafficAdId;
+        }
+        if (null !== $this->trafficMktId) {
+            $res['traffic_mkt_id'] = $this->trafficMktId;
+        }
+        if (null !== $this->clickId) {
+            $res['click_id'] = $this->clickId;
+        }
 
         return $res;
     }
@@ -163,6 +213,21 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
         }
         if (isset($map['customer_name'])) {
             $model->customerName = $map['customer_name'];
+        }
+        if (isset($map['traffic_platform'])) {
+            $model->trafficPlatform = $map['traffic_platform'];
+        }
+        if (isset($map['traffic_source_name'])) {
+            $model->trafficSourceName = $map['traffic_source_name'];
+        }
+        if (isset($map['traffic_ad_id'])) {
+            $model->trafficAdId = $map['traffic_ad_id'];
+        }
+        if (isset($map['traffic_mkt_id'])) {
+            $model->trafficMktId = $map['traffic_mkt_id'];
+        }
+        if (isset($map['click_id'])) {
+            $model->clickId = $map['click_id'];
         }
 
         return $model;
