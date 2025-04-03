@@ -49,6 +49,26 @@ public class QueryDubbridgeInstallmentCreditamtRequest extends TeaModel {
     @NameInMap("customer_name")
     public String customerName;
 
+    // 导流平台
+    @NameInMap("traffic_platform")
+    public String trafficPlatform;
+
+    // 流量来源名称，导流平台背后具体的流量名称
+    @NameInMap("traffic_source_name")
+    public String trafficSourceName;
+
+    // 广告位id，流量来源内各广告位标志
+    @NameInMap("traffic_ad_id")
+    public String trafficAdId;
+
+    // 营销活动编号
+    @NameInMap("traffic_mkt_id")
+    public String trafficMktId;
+
+    // 点击id
+    @NameInMap("click_id")
+    public String clickId;
+
     public static QueryDubbridgeInstallmentCreditamtRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeInstallmentCreditamtRequest self = new QueryDubbridgeInstallmentCreditamtRequest();
         return TeaModel.build(map, self);
@@ -132,6 +152,46 @@ public class QueryDubbridgeInstallmentCreditamtRequest extends TeaModel {
     }
     public String getCustomerName() {
         return this.customerName;
+    }
+
+    public QueryDubbridgeInstallmentCreditamtRequest setTrafficPlatform(String trafficPlatform) {
+        this.trafficPlatform = trafficPlatform;
+        return this;
+    }
+    public String getTrafficPlatform() {
+        return this.trafficPlatform;
+    }
+
+    public QueryDubbridgeInstallmentCreditamtRequest setTrafficSourceName(String trafficSourceName) {
+        this.trafficSourceName = trafficSourceName;
+        return this;
+    }
+    public String getTrafficSourceName() {
+        return this.trafficSourceName;
+    }
+
+    public QueryDubbridgeInstallmentCreditamtRequest setTrafficAdId(String trafficAdId) {
+        this.trafficAdId = trafficAdId;
+        return this;
+    }
+    public String getTrafficAdId() {
+        return this.trafficAdId;
+    }
+
+    public QueryDubbridgeInstallmentCreditamtRequest setTrafficMktId(String trafficMktId) {
+        this.trafficMktId = trafficMktId;
+        return this;
+    }
+    public String getTrafficMktId() {
+        return this.trafficMktId;
+    }
+
+    public QueryDubbridgeInstallmentCreditamtRequest setClickId(String clickId) {
+        this.clickId = clickId;
+        return this;
+    }
+    public String getClickId() {
+        return this.clickId;
     }
 
 }
