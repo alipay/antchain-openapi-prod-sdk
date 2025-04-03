@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.23.4',
+    sdk_version = '1.23.5',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -5858,6 +5858,16 @@ model QueryDubbridgeInstallmentCreditamtRequest = {
   cardNo?: string(name='card_no'),
   // 客户姓名
   customerName?: string(name='customer_name'),
+  // 导流平台
+  trafficPlatform?: string(name='traffic_platform'),
+  // 流量来源名称，导流平台背后具体的流量名称
+  trafficSourceName?: string(name='traffic_source_name'),
+  // 广告位id，流量来源内各广告位标志
+  trafficAdId?: string(name='traffic_ad_id'),
+  // 营销活动编号
+  trafficMktId?: string(name='traffic_mkt_id'),
+  // 点击id
+  clickId?: string(name='click_id'),
 }
 
 model QueryDubbridgeInstallmentCreditamtResponse = {
@@ -7399,7 +7409,7 @@ model PushQmpBackflowEventResponse = {
 
 /**
  * Description: 蚁盾业务回流事件推送
- * Summary: 蚁盾回流事件推送
+ * Summary: 蚁盾业务回流事件推送
  */
 async function pushQmpBackflowEvent(request: PushQmpBackflowEventRequest): PushQmpBackflowEventResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -7409,7 +7419,7 @@ async function pushQmpBackflowEvent(request: PushQmpBackflowEventRequest): PushQ
 
 /**
  * Description: 蚁盾业务回流事件推送
- * Summary: 蚁盾回流事件推送
+ * Summary: 蚁盾业务回流事件推送
  */
 async function pushQmpBackflowEventEx(request: PushQmpBackflowEventRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushQmpBackflowEventResponse {
   Util.validateModel(request);
