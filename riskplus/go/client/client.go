@@ -10944,6 +10944,8 @@ type QueryDubbridgeRiskinfoEnterprisescoreRequest struct {
 	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty" require:"true"`
 	// 渠道号
 	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
+	//  手机号md5
+	MobileMd5 *string `json:"mobile_md5,omitempty" xml:"mobile_md5,omitempty"`
 }
 
 func (s QueryDubbridgeRiskinfoEnterprisescoreRequest) String() string {
@@ -10981,6 +10983,11 @@ func (s *QueryDubbridgeRiskinfoEnterprisescoreRequest) SetCustomerNo(v string) *
 
 func (s *QueryDubbridgeRiskinfoEnterprisescoreRequest) SetChannelCode(v string) *QueryDubbridgeRiskinfoEnterprisescoreRequest {
 	s.ChannelCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeRiskinfoEnterprisescoreRequest) SetMobileMd5(v string) *QueryDubbridgeRiskinfoEnterprisescoreRequest {
+	s.MobileMd5 = &v
 	return s
 }
 
@@ -29727,7 +29734,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.23.5"),
+				"sdk_version":      tea.String("1.23.6"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
