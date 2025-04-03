@@ -18417,6 +18417,11 @@ class QueryDubbridgeInstallmentCreditamtRequest(TeaModel):
         trade_amount: str = None,
         card_no: str = None,
         customer_name: str = None,
+        traffic_platform: str = None,
+        traffic_source_name: str = None,
+        traffic_ad_id: str = None,
+        traffic_mkt_id: str = None,
+        click_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -18437,6 +18442,16 @@ class QueryDubbridgeInstallmentCreditamtRequest(TeaModel):
         self.card_no = card_no
         # 客户姓名
         self.customer_name = customer_name
+        # 导流平台
+        self.traffic_platform = traffic_platform
+        # 流量来源名称，导流平台背后具体的流量名称
+        self.traffic_source_name = traffic_source_name
+        # 广告位id，流量来源内各广告位标志
+        self.traffic_ad_id = traffic_ad_id
+        # 营销活动编号
+        self.traffic_mkt_id = traffic_mkt_id
+        # 点击id
+        self.click_id = click_id
 
     def validate(self):
         self.validate_required(self.order_no, 'order_no')
@@ -18472,6 +18487,16 @@ class QueryDubbridgeInstallmentCreditamtRequest(TeaModel):
             result['card_no'] = self.card_no
         if self.customer_name is not None:
             result['customer_name'] = self.customer_name
+        if self.traffic_platform is not None:
+            result['traffic_platform'] = self.traffic_platform
+        if self.traffic_source_name is not None:
+            result['traffic_source_name'] = self.traffic_source_name
+        if self.traffic_ad_id is not None:
+            result['traffic_ad_id'] = self.traffic_ad_id
+        if self.traffic_mkt_id is not None:
+            result['traffic_mkt_id'] = self.traffic_mkt_id
+        if self.click_id is not None:
+            result['click_id'] = self.click_id
         return result
 
     def from_map(self, m: dict = None):
@@ -18496,6 +18521,16 @@ class QueryDubbridgeInstallmentCreditamtRequest(TeaModel):
             self.card_no = m.get('card_no')
         if m.get('customer_name') is not None:
             self.customer_name = m.get('customer_name')
+        if m.get('traffic_platform') is not None:
+            self.traffic_platform = m.get('traffic_platform')
+        if m.get('traffic_source_name') is not None:
+            self.traffic_source_name = m.get('traffic_source_name')
+        if m.get('traffic_ad_id') is not None:
+            self.traffic_ad_id = m.get('traffic_ad_id')
+        if m.get('traffic_mkt_id') is not None:
+            self.traffic_mkt_id = m.get('traffic_mkt_id')
+        if m.get('click_id') is not None:
+            self.click_id = m.get('click_id')
         return self
 
 

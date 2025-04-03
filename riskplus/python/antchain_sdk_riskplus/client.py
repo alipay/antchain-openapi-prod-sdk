@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.23.4',
+                    'sdk_version': '1.23.5',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.23.4',
+                    'sdk_version': '1.23.5',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -6157,7 +6157,7 @@ class Client:
     ) -> riskplus_models.PushQmpBackflowEventResponse:
         """
         Description: 蚁盾业务回流事件推送
-        Summary: 蚁盾回流事件推送
+        Summary: 蚁盾业务回流事件推送
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -6169,7 +6169,7 @@ class Client:
     ) -> riskplus_models.PushQmpBackflowEventResponse:
         """
         Description: 蚁盾业务回流事件推送
-        Summary: 蚁盾回流事件推送
+        Summary: 蚁盾业务回流事件推送
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -6183,7 +6183,7 @@ class Client:
     ) -> riskplus_models.PushQmpBackflowEventResponse:
         """
         Description: 蚁盾业务回流事件推送
-        Summary: 蚁盾回流事件推送
+        Summary: 蚁盾业务回流事件推送
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -6199,7 +6199,7 @@ class Client:
     ) -> riskplus_models.PushQmpBackflowEventResponse:
         """
         Description: 蚁盾业务回流事件推送
-        Summary: 蚁盾回流事件推送
+        Summary: 蚁盾业务回流事件推送
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
