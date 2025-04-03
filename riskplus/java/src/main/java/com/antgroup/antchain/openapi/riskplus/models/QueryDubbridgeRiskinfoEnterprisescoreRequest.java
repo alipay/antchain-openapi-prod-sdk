@@ -30,6 +30,10 @@ public class QueryDubbridgeRiskinfoEnterprisescoreRequest extends TeaModel {
     @Validation(required = true)
     public String channelCode;
 
+    //  手机号md5
+    @NameInMap("mobile_md5")
+    public String mobileMd5;
+
     public static QueryDubbridgeRiskinfoEnterprisescoreRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeRiskinfoEnterprisescoreRequest self = new QueryDubbridgeRiskinfoEnterprisescoreRequest();
         return TeaModel.build(map, self);
@@ -81,6 +85,14 @@ public class QueryDubbridgeRiskinfoEnterprisescoreRequest extends TeaModel {
     }
     public String getChannelCode() {
         return this.channelCode;
+    }
+
+    public QueryDubbridgeRiskinfoEnterprisescoreRequest setMobileMd5(String mobileMd5) {
+        this.mobileMd5 = mobileMd5;
+        return this;
+    }
+    public String getMobileMd5() {
+        return this.mobileMd5;
     }
 
 }
