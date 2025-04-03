@@ -42,6 +42,12 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest extends Model
      * @var string
      */
     public $channelCode;
+
+    // 手机号md5
+    /**
+     * @var string
+     */
+    public $mobileMd5;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +55,7 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest extends Model
         'mobile'            => 'mobile',
         'customerNo'        => 'customer_no',
         'channelCode'       => 'channel_code',
+        'mobileMd5'         => 'mobile_md5',
     ];
 
     public function validate()
@@ -79,6 +86,9 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest extends Model
         if (null !== $this->channelCode) {
             $res['channel_code'] = $this->channelCode;
         }
+        if (null !== $this->mobileMd5) {
+            $res['mobile_md5'] = $this->mobileMd5;
+        }
 
         return $res;
     }
@@ -108,6 +118,9 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest extends Model
         }
         if (isset($map['channel_code'])) {
             $model->channelCode = $map['channel_code'];
+        }
+        if (isset($map['mobile_md5'])) {
+            $model->mobileMd5 = $map['mobile_md5'];
         }
 
         return $model;
