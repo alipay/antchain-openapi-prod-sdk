@@ -13555,6 +13555,7 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest(TeaModel):
         mobile: str = None,
         customer_no: str = None,
         channel_code: str = None,
+        mobile_md_5: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -13567,6 +13568,8 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest(TeaModel):
         self.customer_no = customer_no
         # 渠道号
         self.channel_code = channel_code
+        # 手机号md5
+        self.mobile_md_5 = mobile_md_5
 
     def validate(self):
         self.validate_required(self.social_credit_code, 'social_credit_code')
@@ -13591,6 +13594,8 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest(TeaModel):
             result['customer_no'] = self.customer_no
         if self.channel_code is not None:
             result['channel_code'] = self.channel_code
+        if self.mobile_md_5 is not None:
+            result['mobile_md5'] = self.mobile_md_5
         return result
 
     def from_map(self, m: dict = None):
@@ -13607,6 +13612,8 @@ class QueryDubbridgeRiskinfoEnterprisescoreRequest(TeaModel):
             self.customer_no = m.get('customer_no')
         if m.get('channel_code') is not None:
             self.channel_code = m.get('channel_code')
+        if m.get('mobile_md5') is not None:
+            self.mobile_md_5 = m.get('mobile_md5')
         return self
 
 
