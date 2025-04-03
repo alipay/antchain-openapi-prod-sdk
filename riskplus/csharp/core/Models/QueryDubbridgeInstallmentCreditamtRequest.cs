@@ -58,6 +58,31 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string CustomerName { get; set; }
 
+        // 导流平台
+        [NameInMap("traffic_platform")]
+        [Validation(Required=false)]
+        public string TrafficPlatform { get; set; }
+
+        // 流量来源名称，导流平台背后具体的流量名称
+        [NameInMap("traffic_source_name")]
+        [Validation(Required=false)]
+        public string TrafficSourceName { get; set; }
+
+        // 广告位id，流量来源内各广告位标志
+        [NameInMap("traffic_ad_id")]
+        [Validation(Required=false)]
+        public string TrafficAdId { get; set; }
+
+        // 营销活动编号
+        [NameInMap("traffic_mkt_id")]
+        [Validation(Required=false)]
+        public string TrafficMktId { get; set; }
+
+        // 点击id
+        [NameInMap("click_id")]
+        [Validation(Required=false)]
+        public string ClickId { get; set; }
+
     }
 
 }

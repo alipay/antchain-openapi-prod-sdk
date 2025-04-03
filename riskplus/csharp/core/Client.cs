@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.23.4"},
+                        {"sdk_version", "1.23.5"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.23.4"},
+                        {"sdk_version", "1.23.5"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4793,7 +4793,7 @@ namespace AntChain.SDK.RISKPLUS
 
         /**
          * Description: 蚁盾业务回流事件推送
-         * Summary: 蚁盾回流事件推送
+         * Summary: 蚁盾业务回流事件推送
          */
         public PushQmpBackflowEventResponse PushQmpBackflowEvent(PushQmpBackflowEventRequest request)
         {
@@ -4804,7 +4804,7 @@ namespace AntChain.SDK.RISKPLUS
 
         /**
          * Description: 蚁盾业务回流事件推送
-         * Summary: 蚁盾回流事件推送
+         * Summary: 蚁盾业务回流事件推送
          */
         public async Task<PushQmpBackflowEventResponse> PushQmpBackflowEventAsync(PushQmpBackflowEventRequest request)
         {
@@ -4815,7 +4815,7 @@ namespace AntChain.SDK.RISKPLUS
 
         /**
          * Description: 蚁盾业务回流事件推送
-         * Summary: 蚁盾回流事件推送
+         * Summary: 蚁盾业务回流事件推送
          */
         public PushQmpBackflowEventResponse PushQmpBackflowEventEx(PushQmpBackflowEventRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -4825,7 +4825,7 @@ namespace AntChain.SDK.RISKPLUS
 
         /**
          * Description: 蚁盾业务回流事件推送
-         * Summary: 蚁盾回流事件推送
+         * Summary: 蚁盾业务回流事件推送
          */
         public async Task<PushQmpBackflowEventResponse> PushQmpBackflowEventExAsync(PushQmpBackflowEventRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
