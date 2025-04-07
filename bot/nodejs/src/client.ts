@@ -3568,6 +3568,39 @@ export class JtMedia extends $tea.Model {
   }
 }
 
+// 行程统计 详细列表
+export class TripStatistics extends $tea.Model {
+  // 行驶天数
+  tripDay: string;
+  // 总里程
+  totalDistance: number;
+  // 总用时
+  totalDuration: number;
+  // 行驶次数
+  tripCount: number;
+  static names(): { [key: string]: string } {
+    return {
+      tripDay: 'trip_day',
+      totalDistance: 'total_distance',
+      totalDuration: 'total_duration',
+      tripCount: 'trip_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tripDay: 'string',
+      totalDistance: 'number',
+      totalDuration: 'number',
+      tripCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 商品鉴定点检测接口响应数据
 export class BaiGoodsPointCheckRespData extends $tea.Model {
   // 图片是否有效，无效则需要提示重拍
@@ -3965,6 +3998,80 @@ export class EvidenceBaseModel extends $tea.Model {
       bizData: 'string',
       hash: 'string',
       metaJson: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 行程列表
+export class TripView extends $tea.Model {
+  // 开始时间
+  tripBeginTime: string;
+  // 结束时间
+  tripEndTime: string;
+  // 行驶公里数
+  tripTotalDistance: number;
+  // 用时
+  tripTime: number;
+  static names(): { [key: string]: string } {
+    return {
+      tripBeginTime: 'trip_begin_time',
+      tripEndTime: 'trip_end_time',
+      tripTotalDistance: 'trip_total_distance',
+      tripTime: 'trip_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tripBeginTime: 'string',
+      tripEndTime: 'string',
+      tripTotalDistance: 'number',
+      tripTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 行程统计详情
+export class TripTraceView extends $tea.Model {
+  // 开始时间
+  beginTime: string;
+  // 结束时间
+  endTime: string;
+  // 平均速度
+  avgSpeed: number;
+  // 最大速度
+  maxSpeed: number;
+  // 最后定位时间
+  lastLocationTime: string;
+  // 最后定位地址
+  lastLocation: string;
+  static names(): { [key: string]: string } {
+    return {
+      beginTime: 'begin_time',
+      endTime: 'end_time',
+      avgSpeed: 'avg_speed',
+      maxSpeed: 'max_speed',
+      lastLocationTime: 'last_location_time',
+      lastLocation: 'last_location',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      beginTime: 'string',
+      endTime: 'string',
+      avgSpeed: 'number',
+      maxSpeed: 'number',
+      lastLocationTime: 'string',
+      lastLocation: 'string',
     };
   }
 
@@ -4616,6 +4723,51 @@ export class IotBasicDeviceHardWareModule extends $tea.Model {
       hardwareModuleName: 'string',
       hardwareModuleValue: 'string',
       hardwareModuleParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 行程统计概览
+export class TripStatisticsView extends $tea.Model {
+  // 过去七天内所有行驶记录的总里程	，单位km
+  totalDistance: string;
+  // 行驶总用时
+  totalDuration: string;
+  // 骑行次数
+  tripCount: string;
+  // 最近一次行驶的里程
+  lastTripDistance: string;
+  // 最近一次行驶的平均速度	，单位  km/h
+  lastTripAvgSpeed: string;
+  // 最近一次行驶的最大速度	
+  lastTripMaxSpeed: string;
+  // 最后一次行驶用时
+  lastTripSpendTime: string;
+  static names(): { [key: string]: string } {
+    return {
+      totalDistance: 'total_distance',
+      totalDuration: 'total_duration',
+      tripCount: 'trip_count',
+      lastTripDistance: 'last_trip_distance',
+      lastTripAvgSpeed: 'last_trip_avg_speed',
+      lastTripMaxSpeed: 'last_trip_max_speed',
+      lastTripSpendTime: 'last_trip_spend_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      totalDistance: 'string',
+      totalDuration: 'string',
+      tripCount: 'string',
+      lastTripDistance: 'string',
+      lastTripAvgSpeed: 'string',
+      lastTripMaxSpeed: 'string',
+      lastTripSpendTime: 'string',
     };
   }
 
@@ -5965,6 +6117,27 @@ export class BizContentGroup extends $tea.Model {
       bizId: 'string',
       bizType: 'string',
       content: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 行程详情
+export class TripTrace extends $tea.Model {
+  // 定位数据
+  deviceLocation: string;
+  static names(): { [key: string]: string } {
+    return {
+      deviceLocation: 'device_location',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      deviceLocation: 'string',
     };
   }
 
@@ -17119,6 +17292,162 @@ export class SyncFourwheelerCareventResponse extends $tea.Model {
   }
 }
 
+export class QueryElectrocarRealtimedataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // iffaa 硬件唯一ID
+  tuid: string;
+  // 车辆信息集合，
+  // 支持的属性 参见物模型定义
+  properties: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tuid: 'tuid',
+      properties: 'properties',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tuid: 'string',
+      properties: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarRealtimedataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 接口调用结果
+  success?: boolean;
+  // 响应结果
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarTravelRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // iffaa 硬件唯一ID
+  tuid: string;
+  // 行程数据查询模式
+  tripDataModel: number;
+  // 注：trip_data_model = 3 必传
+  tripId?: string;
+  // 时间范围
+  // 注：trip_data_model = 3 不需要传
+  timeRange?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tuid: 'tuid',
+      tripDataModel: 'trip_data_model',
+      tripId: 'trip_id',
+      timeRange: 'time_range',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tuid: 'string',
+      tripDataModel: 'number',
+      tripId: 'string',
+      timeRange: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryElectrocarTravelResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 接口调用结果
+  success?: boolean;
+  // 概览信息,
+  // bean 定义：
+  // 行程统计：TripStatisticsView
+  // 行程列表：-
+  // 行程详情：TripTraceView
+  overView?: string;
+  // 详情列表
+  // bean 定义：
+  // 行程统计：TripStatistics
+  // 行程列表：TripView
+  // 行程详情：TripTrace
+  detailList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      overView: 'over_view',
+      detailList: 'detail_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      overView: 'string',
+      detailList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryIotplatformPurchaseorderRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -27552,7 +27881,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.10",
+          sdk_version: "1.12.15",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -30188,6 +30517,44 @@ export default class Client {
   async syncFourwheelerCareventEx(request: SyncFourwheelerCareventRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncFourwheelerCareventResponse> {
     Util.validateModel(request);
     return $tea.cast<SyncFourwheelerCareventResponse>(await this.doRequest("1.0", "blockchain.bot.fourwheeler.carevent.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncFourwheelerCareventResponse({}));
+  }
+
+  /**
+   * Description: 通过指定字段查询车辆最新的信息
+   * Summary: 二轮车车辆状态实时查询
+   */
+  async queryElectrocarRealtimedata(request: QueryElectrocarRealtimedataRequest): Promise<QueryElectrocarRealtimedataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryElectrocarRealtimedataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 通过指定字段查询车辆最新的信息
+   * Summary: 二轮车车辆状态实时查询
+   */
+  async queryElectrocarRealtimedataEx(request: QueryElectrocarRealtimedataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryElectrocarRealtimedataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryElectrocarRealtimedataResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.realtimedata.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryElectrocarRealtimedataResponse({}));
+  }
+
+  /**
+   * Description: 查询一段时间范围的所有行程记录及明细 
+   * Summary: 二轮车行程记录查询
+   */
+  async queryElectrocarTravel(request: QueryElectrocarTravelRequest): Promise<QueryElectrocarTravelResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryElectrocarTravelEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询一段时间范围的所有行程记录及明细 
+   * Summary: 二轮车行程记录查询
+   */
+  async queryElectrocarTravelEx(request: QueryElectrocarTravelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryElectrocarTravelResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryElectrocarTravelResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.travel.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryElectrocarTravelResponse({}));
   }
 
   /**
