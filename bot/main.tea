@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.10',
+    sdk_version = '1.12.15',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -1600,6 +1600,18 @@ model JtMedia {
   mediaType: string(name='media_type', example='IMAGE'),
 }
 
+// 行程统计 详细列表
+model TripStatistics {
+  // 行驶天数
+  tripDay: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='trip_day', example='2018-10-10T10:10:00Z'),
+  // 总里程
+  totalDistance: long(name='total_distance', example='12'),
+  // 总用时
+  totalDuration: long(name='total_duration', example='2'),
+  // 行驶次数
+  tripCount: long(name='trip_count', example='12'),
+}
+
 // 商品鉴定点检测接口响应数据
 model BaiGoodsPointCheckRespData {
   // 图片是否有效，无效则需要提示重拍
@@ -1766,6 +1778,34 @@ model EvidenceBaseModel {
   hash?: string(name='hash', example='"证据哈希值"'),
   // 证据附属信息字段
   metaJson?: string(name='meta_json', example='"证据附属信息"'),
+}
+
+// 行程列表
+model TripView {
+  // 开始时间
+  tripBeginTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='trip_begin_time', example='2018-10-10T10:10:00Z'),
+  // 结束时间
+  tripEndTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='trip_end_time', example='2018-10-10T10:10:00Z'),
+  // 行驶公里数
+  tripTotalDistance: long(name='trip_total_distance', example='22'),
+  // 用时
+  tripTime: long(name='trip_time', example=''),
+}
+
+// 行程统计详情
+model TripTraceView {
+  // 开始时间
+  beginTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='begin_time', example='2018-10-10T10:10:00Z'),
+  // 结束时间
+  endTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time', example='2018-10-10T10:10:00Z'),
+  // 平均速度
+  avgSpeed: long(name='avg_speed', example=''),
+  // 最大速度
+  maxSpeed: long(name='max_speed', example=''),
+  // 最后定位时间
+  lastLocationTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='last_location_time', example='2018-10-10T10:10:00Z'),
+  // 最后定位地址
+  lastLocation: string(name='last_location', example='河南省郑州市'),
 }
 
 // tlsnotary文件认证成功后上传到oss的文件链接列表
@@ -2019,6 +2059,24 @@ model IotBasicDeviceHardWareModule {
   hardwareModuleValue: string(name='hardware_module_value', example='REVERSE_SCANNING_HEAD'),
   // 模块参数
   hardwareModuleParam: string(name='hardware_module_param', example='{"size":102}'),
+}
+
+// 行程统计概览
+model TripStatisticsView {
+  // 过去七天内所有行驶记录的总里程	，单位km
+  totalDistance: string(name='total_distance', example='20km'),
+  // 行驶总用时
+  totalDuration: string(name='total_duration', example='3'),
+  // 骑行次数
+  tripCount: string(name='trip_count', example='2'),
+  // 最近一次行驶的里程
+  lastTripDistance: string(name='last_trip_distance', example='2'),
+  // 最近一次行驶的平均速度	，单位  km/h
+  lastTripAvgSpeed: string(name='last_trip_avg_speed', example='45'),
+  // 最近一次行驶的最大速度	
+  lastTripMaxSpeed: string(name='last_trip_max_speed', example='50'),
+  // 最后一次行驶用时
+  lastTripSpendTime: string(name='last_trip_spend_time', example='8'),
 }
 
 // 订单同步失败结果
@@ -2600,6 +2658,12 @@ model BizContentGroup {
   // 
   // 
   content: string(name='content', example='{"":"",""}'),
+}
+
+// 行程详情
+model TripTrace {
+  // 定位数据
+  deviceLocation: string(name='device_location', example='113.784416,22.747500'),
 }
 
 // 查询设备交易结果对象数据
@@ -9334,6 +9398,106 @@ async function syncFourwheelerCarevent(request: SyncFourwheelerCareventRequest):
 async function syncFourwheelerCareventEx(request: SyncFourwheelerCareventRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncFourwheelerCareventResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.fourwheeler.carevent.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryElectrocarRealtimedataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // iffaa 硬件唯一ID
+  tuid: string(name='tuid'),
+  // 车辆信息集合，
+  // 支持的属性 参见物模型定义
+  properties: [ string ](name='properties'),
+}
+
+model QueryElectrocarRealtimedataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口调用结果
+  success?: boolean(name='success'),
+  // 响应结果
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 通过指定字段查询车辆最新的信息
+ * Summary: 二轮车车辆状态实时查询
+ */
+async function queryElectrocarRealtimedata(request: QueryElectrocarRealtimedataRequest): QueryElectrocarRealtimedataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryElectrocarRealtimedataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过指定字段查询车辆最新的信息
+ * Summary: 二轮车车辆状态实时查询
+ */
+async function queryElectrocarRealtimedataEx(request: QueryElectrocarRealtimedataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryElectrocarRealtimedataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.electrocar.realtimedata.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryElectrocarTravelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // iffaa 硬件唯一ID
+  tuid: string(name='tuid'),
+  // 行程数据查询模式
+  tripDataModel: long(name='trip_data_model'),
+  // 注：trip_data_model = 3 必传
+  tripId?: string(name='trip_id'),
+  // 时间范围
+  // 注：trip_data_model = 3 不需要传
+  timeRange?: string(name='time_range'),
+}
+
+model QueryElectrocarTravelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口调用结果
+  success?: boolean(name='success'),
+  // 概览信息,
+  // bean 定义：
+  // 行程统计：TripStatisticsView
+  // 行程列表：-
+  // 行程详情：TripTraceView
+  overView?: string(name='over_view'),
+  // 详情列表
+  // bean 定义：
+  // 行程统计：TripStatistics
+  // 行程列表：TripView
+  // 行程详情：TripTrace
+  detailList?: [ string ](name='detail_list'),
+}
+
+/**
+ * Description: 查询一段时间范围的所有行程记录及明细 
+ * Summary: 二轮车行程记录查询
+ */
+async function queryElectrocarTravel(request: QueryElectrocarTravelRequest): QueryElectrocarTravelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryElectrocarTravelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询一段时间范围的所有行程记录及明细 
+ * Summary: 二轮车行程记录查询
+ */
+async function queryElectrocarTravelEx(request: QueryElectrocarTravelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryElectrocarTravelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.electrocar.travel.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
