@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.10',
+                    'sdk_version': '1.12.15',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.10',
+                    'sdk_version': '1.12.15',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -7849,6 +7849,118 @@ class Client:
         return TeaCore.from_map(
             bot_models.SyncFourwheelerCareventResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.fourwheeler.carevent.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_electrocar_realtimedata(
+        self,
+        request: bot_models.QueryElectrocarRealtimedataRequest,
+    ) -> bot_models.QueryElectrocarRealtimedataResponse:
+        """
+        Description: 通过指定字段查询车辆最新的信息
+        Summary: 二轮车车辆状态实时查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_realtimedata_ex(request, headers, runtime)
+
+    async def query_electrocar_realtimedata_async(
+        self,
+        request: bot_models.QueryElectrocarRealtimedataRequest,
+    ) -> bot_models.QueryElectrocarRealtimedataResponse:
+        """
+        Description: 通过指定字段查询车辆最新的信息
+        Summary: 二轮车车辆状态实时查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_realtimedata_ex_async(request, headers, runtime)
+
+    def query_electrocar_realtimedata_ex(
+        self,
+        request: bot_models.QueryElectrocarRealtimedataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarRealtimedataResponse:
+        """
+        Description: 通过指定字段查询车辆最新的信息
+        Summary: 二轮车车辆状态实时查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarRealtimedataResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.realtimedata.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_realtimedata_ex_async(
+        self,
+        request: bot_models.QueryElectrocarRealtimedataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarRealtimedataResponse:
+        """
+        Description: 通过指定字段查询车辆最新的信息
+        Summary: 二轮车车辆状态实时查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarRealtimedataResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.realtimedata.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_electrocar_travel(
+        self,
+        request: bot_models.QueryElectrocarTravelRequest,
+    ) -> bot_models.QueryElectrocarTravelResponse:
+        """
+        Description: 查询一段时间范围的所有行程记录及明细
+        Summary: 二轮车行程记录查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_electrocar_travel_ex(request, headers, runtime)
+
+    async def query_electrocar_travel_async(
+        self,
+        request: bot_models.QueryElectrocarTravelRequest,
+    ) -> bot_models.QueryElectrocarTravelResponse:
+        """
+        Description: 查询一段时间范围的所有行程记录及明细
+        Summary: 二轮车行程记录查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_electrocar_travel_ex_async(request, headers, runtime)
+
+    def query_electrocar_travel_ex(
+        self,
+        request: bot_models.QueryElectrocarTravelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarTravelResponse:
+        """
+        Description: 查询一段时间范围的所有行程记录及明细
+        Summary: 二轮车行程记录查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarTravelResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.travel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_electrocar_travel_ex_async(
+        self,
+        request: bot_models.QueryElectrocarTravelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryElectrocarTravelResponse:
+        """
+        Description: 查询一段时间范围的所有行程记录及明细
+        Summary: 二轮车行程记录查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryElectrocarTravelResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.travel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
