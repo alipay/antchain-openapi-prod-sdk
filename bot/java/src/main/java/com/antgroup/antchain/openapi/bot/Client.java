@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.10"),
+                    new TeaPair("sdk_version", "1.12.15"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2772,6 +2772,44 @@ public class Client {
     public SyncFourwheelerCareventResponse syncFourwheelerCareventEx(SyncFourwheelerCareventRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.fourwheeler.carevent.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncFourwheelerCareventResponse());
+    }
+
+    /**
+     * Description: 通过指定字段查询车辆最新的信息
+     * Summary: 二轮车车辆状态实时查询
+     */
+    public QueryElectrocarRealtimedataResponse queryElectrocarRealtimedata(QueryElectrocarRealtimedataRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryElectrocarRealtimedataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通过指定字段查询车辆最新的信息
+     * Summary: 二轮车车辆状态实时查询
+     */
+    public QueryElectrocarRealtimedataResponse queryElectrocarRealtimedataEx(QueryElectrocarRealtimedataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.realtimedata.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryElectrocarRealtimedataResponse());
+    }
+
+    /**
+     * Description: 查询一段时间范围的所有行程记录及明细 
+     * Summary: 二轮车行程记录查询
+     */
+    public QueryElectrocarTravelResponse queryElectrocarTravel(QueryElectrocarTravelRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryElectrocarTravelEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询一段时间范围的所有行程记录及明细 
+     * Summary: 二轮车行程记录查询
+     */
+    public QueryElectrocarTravelResponse queryElectrocarTravelEx(QueryElectrocarTravelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.travel.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryElectrocarTravelResponse());
     }
 
     /**
