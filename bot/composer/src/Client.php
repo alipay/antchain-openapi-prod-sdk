@@ -377,6 +377,10 @@ use AntChain\BOT\Models\QueryDigitalkeyWithholdsignRequest;
 use AntChain\BOT\Models\QueryDigitalkeyWithholdsignResponse;
 use AntChain\BOT\Models\QueryDockedDataRequest;
 use AntChain\BOT\Models\QueryDockedDataResponse;
+use AntChain\BOT\Models\QueryElectrocarRealtimedataRequest;
+use AntChain\BOT\Models\QueryElectrocarRealtimedataResponse;
+use AntChain\BOT\Models\QueryElectrocarTravelRequest;
+use AntChain\BOT\Models\QueryElectrocarTravelResponse;
 use AntChain\BOT\Models\QueryEntityrelationJtdevicebycarRequest;
 use AntChain\BOT\Models\QueryEntityrelationJtdevicebycarResponse;
 use AntChain\BOT\Models\QueryIotbasicCategorylistRequest;
@@ -698,7 +702,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.10',
+                    'sdk_version'      => '1.12.15',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5204,6 +5208,72 @@ class Client
         Utils::validateModel($request);
 
         return SyncFourwheelerCareventResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.fourwheeler.carevent.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过指定字段查询车辆最新的信息
+     * Summary: 二轮车车辆状态实时查询.
+     *
+     * @param QueryElectrocarRealtimedataRequest $request
+     *
+     * @return QueryElectrocarRealtimedataResponse
+     */
+    public function queryElectrocarRealtimedata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryElectrocarRealtimedataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过指定字段查询车辆最新的信息
+     * Summary: 二轮车车辆状态实时查询.
+     *
+     * @param QueryElectrocarRealtimedataRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryElectrocarRealtimedataResponse
+     */
+    public function queryElectrocarRealtimedataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryElectrocarRealtimedataResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.electrocar.realtimedata.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询一段时间范围的所有行程记录及明细
+     * Summary: 二轮车行程记录查询.
+     *
+     * @param QueryElectrocarTravelRequest $request
+     *
+     * @return QueryElectrocarTravelResponse
+     */
+    public function queryElectrocarTravel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryElectrocarTravelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询一段时间范围的所有行程记录及明细
+     * Summary: 二轮车行程记录查询.
+     *
+     * @param QueryElectrocarTravelRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryElectrocarTravelResponse
+     */
+    public function queryElectrocarTravelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryElectrocarTravelResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.electrocar.travel.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
