@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.10"},
+                        {"sdk_version", "1.12.15"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.10"},
+                        {"sdk_version", "1.12.15"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6043,6 +6043,90 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SyncFourwheelerCareventResponse>(await DoRequestAsync("1.0", "blockchain.bot.fourwheeler.carevent.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过指定字段查询车辆最新的信息
+         * Summary: 二轮车车辆状态实时查询
+         */
+        public QueryElectrocarRealtimedataResponse QueryElectrocarRealtimedata(QueryElectrocarRealtimedataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryElectrocarRealtimedataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过指定字段查询车辆最新的信息
+         * Summary: 二轮车车辆状态实时查询
+         */
+        public async Task<QueryElectrocarRealtimedataResponse> QueryElectrocarRealtimedataAsync(QueryElectrocarRealtimedataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryElectrocarRealtimedataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过指定字段查询车辆最新的信息
+         * Summary: 二轮车车辆状态实时查询
+         */
+        public QueryElectrocarRealtimedataResponse QueryElectrocarRealtimedataEx(QueryElectrocarRealtimedataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarRealtimedataResponse>(DoRequest("1.0", "blockchain.bot.electrocar.realtimedata.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过指定字段查询车辆最新的信息
+         * Summary: 二轮车车辆状态实时查询
+         */
+        public async Task<QueryElectrocarRealtimedataResponse> QueryElectrocarRealtimedataExAsync(QueryElectrocarRealtimedataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarRealtimedataResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.realtimedata.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询一段时间范围的所有行程记录及明细 
+         * Summary: 二轮车行程记录查询
+         */
+        public QueryElectrocarTravelResponse QueryElectrocarTravel(QueryElectrocarTravelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryElectrocarTravelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询一段时间范围的所有行程记录及明细 
+         * Summary: 二轮车行程记录查询
+         */
+        public async Task<QueryElectrocarTravelResponse> QueryElectrocarTravelAsync(QueryElectrocarTravelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryElectrocarTravelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询一段时间范围的所有行程记录及明细 
+         * Summary: 二轮车行程记录查询
+         */
+        public QueryElectrocarTravelResponse QueryElectrocarTravelEx(QueryElectrocarTravelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarTravelResponse>(DoRequest("1.0", "blockchain.bot.electrocar.travel.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询一段时间范围的所有行程记录及明细 
+         * Summary: 二轮车行程记录查询
+         */
+        public async Task<QueryElectrocarTravelResponse> QueryElectrocarTravelExAsync(QueryElectrocarTravelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryElectrocarTravelResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.travel.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
