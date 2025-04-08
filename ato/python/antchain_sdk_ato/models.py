@@ -21062,6 +21062,7 @@ class SubmitSignFlowRequest(TeaModel):
         user_org_id_type: str = None,
         user_org_id_number: str = None,
         need_face: bool = None,
+        seal_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -21126,6 +21127,10 @@ class SubmitSignFlowRequest(TeaModel):
         self.user_org_id_number = user_org_id_number
         # 合并签署是否开启人脸识别（默认true-开启）,非合并签署无需设值
         self.need_face = need_face
+        # 0-手绘签名
+        # 1-模板印章签名
+        # 多种类型时逗号分割，为空不限制
+        self.seal_type = seal_type
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -21221,6 +21226,8 @@ class SubmitSignFlowRequest(TeaModel):
             result['user_org_id_number'] = self.user_org_id_number
         if self.need_face is not None:
             result['need_face'] = self.need_face
+        if self.seal_type is not None:
+            result['seal_type'] = self.seal_type
         return result
 
     def from_map(self, m: dict = None):
@@ -21285,6 +21292,8 @@ class SubmitSignFlowRequest(TeaModel):
             self.user_org_id_number = m.get('user_org_id_number')
         if m.get('need_face') is not None:
             self.need_face = m.get('need_face')
+        if m.get('seal_type') is not None:
+            self.seal_type = m.get('seal_type')
         return self
 
 
@@ -21665,6 +21674,7 @@ class SubmitFrontSignRequest(TeaModel):
         user_org_id_type: str = None,
         user_org_name: str = None,
         need_face: bool = None,
+        seal_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -21738,6 +21748,10 @@ class SubmitFrontSignRequest(TeaModel):
         self.user_org_name = user_org_name
         # 合并签署是否开启人脸识别（默认true-开启）,非合并签署无需设值
         self.need_face = need_face
+        # 0-手绘签名
+        # 1-模板印章签名
+        # 多种类型时逗号分割，为空不限制
+        self.seal_type = seal_type
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -21832,6 +21846,8 @@ class SubmitFrontSignRequest(TeaModel):
             result['user_org_name'] = self.user_org_name
         if self.need_face is not None:
             result['need_face'] = self.need_face
+        if self.seal_type is not None:
+            result['seal_type'] = self.seal_type
         return result
 
     def from_map(self, m: dict = None):
@@ -21896,6 +21912,8 @@ class SubmitFrontSignRequest(TeaModel):
             self.user_org_name = m.get('user_org_name')
         if m.get('need_face') is not None:
             self.need_face = m.get('need_face')
+        if m.get('seal_type') is not None:
+            self.seal_type = m.get('seal_type')
         return self
 
 
