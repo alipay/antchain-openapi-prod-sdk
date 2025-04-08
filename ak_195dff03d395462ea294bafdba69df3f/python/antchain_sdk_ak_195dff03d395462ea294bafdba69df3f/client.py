@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.0',
+                    'sdk_version': '1.4.1',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.0',
+                    'sdk_version': '1.4.1',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -4253,6 +4253,122 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoMerchantexpandDividerelationResponse(),
             await self.do_request_async('1.0', 'antchain.ato.merchantexpand.dividerelation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_antchain_ato_fund_creditutilization(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoFundCreditutilizationRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoFundCreditutilizationResponse:
+        """
+        Description: ● 本接口获取用信授权
+        ● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+        Summary: 用信申请接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_antchain_ato_fund_creditutilization_ex(request, headers, runtime)
+
+    async def apply_antchain_ato_fund_creditutilization_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoFundCreditutilizationRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoFundCreditutilizationResponse:
+        """
+        Description: ● 本接口获取用信授权
+        ● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+        Summary: 用信申请接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_antchain_ato_fund_creditutilization_ex_async(request, headers, runtime)
+
+    def apply_antchain_ato_fund_creditutilization_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoFundCreditutilizationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoFundCreditutilizationResponse:
+        """
+        Description: ● 本接口获取用信授权
+        ● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+        Summary: 用信申请接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoFundCreditutilizationResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.creditutilization.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_antchain_ato_fund_creditutilization_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoFundCreditutilizationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoFundCreditutilizationResponse:
+        """
+        Description: ● 本接口获取用信授权
+        ● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+        Summary: 用信申请接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoFundCreditutilizationResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.creditutilization.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_ato_fund_assetpackage(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAssetpackageRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAssetpackageResponse:
+        """
+        Description: 资产包详情查询
+        Summary: 资产包详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_ato_fund_assetpackage_ex(request, headers, runtime)
+
+    async def query_antchain_ato_fund_assetpackage_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAssetpackageRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAssetpackageResponse:
+        """
+        Description: 资产包详情查询
+        Summary: 资产包详情查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_ato_fund_assetpackage_ex_async(request, headers, runtime)
+
+    def query_antchain_ato_fund_assetpackage_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAssetpackageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAssetpackageResponse:
+        """
+        Description: 资产包详情查询
+        Summary: 资产包详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAssetpackageResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.assetpackage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_ato_fund_assetpackage_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAssetpackageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAssetpackageResponse:
+        """
+        Description: 资产包详情查询
+        Summary: 资产包详情查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAssetpackageResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.assetpackage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
