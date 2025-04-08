@@ -12694,6 +12694,10 @@ export class SubmitSignFlowRequest extends $tea.Model {
   userOrgIdNumber?: string;
   // 合并签署是否开启人脸识别（默认true-开启）,非合并签署无需设值
   needFace?: boolean;
+  // 0-手绘签名 
+  // 1-模板印章签名
+  // 多种类型时逗号分割，为空不限制
+  sealType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -12726,6 +12730,7 @@ export class SubmitSignFlowRequest extends $tea.Model {
       userOrgIdType: 'user_org_id_type',
       userOrgIdNumber: 'user_org_id_number',
       needFace: 'need_face',
+      sealType: 'seal_type',
     };
   }
 
@@ -12761,6 +12766,7 @@ export class SubmitSignFlowRequest extends $tea.Model {
       userOrgIdType: 'string',
       userOrgIdNumber: 'string',
       needFace: 'boolean',
+      sealType: 'string',
     };
   }
 
@@ -13054,6 +13060,10 @@ export class SubmitFrontSignRequest extends $tea.Model {
   userOrgName?: string;
   // 合并签署是否开启人脸识别（默认true-开启）,非合并签署无需设值
   needFace?: boolean;
+  // 0-手绘签名 
+  // 1-模板印章签名
+  // 多种类型时逗号分割，为空不限制
+  sealType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -13086,6 +13096,7 @@ export class SubmitFrontSignRequest extends $tea.Model {
       userOrgIdType: 'user_org_id_type',
       userOrgName: 'user_org_name',
       needFace: 'need_face',
+      sealType: 'seal_type',
     };
   }
 
@@ -13121,6 +13132,7 @@ export class SubmitFrontSignRequest extends $tea.Model {
       userOrgIdType: 'string',
       userOrgName: 'string',
       needFace: 'boolean',
+      sealType: 'string',
     };
   }
 
@@ -16191,7 +16203,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.14.27",
+          sdk_version: "1.14.28",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
