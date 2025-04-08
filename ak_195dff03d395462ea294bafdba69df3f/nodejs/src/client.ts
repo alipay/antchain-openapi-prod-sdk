@@ -252,6 +252,158 @@ export class OperationDivideTransInModel extends $tea.Model {
   }
 }
 
+// 资产订单信息
+export class AssetPackageOrderInfo extends $tea.Model {
+  // 订单id
+  orderId: string;
+  // 订单状态
+  status: string;
+  // 出包原因
+  outReason?: string;
+  // 订单用信额度
+  orderCreditLine?: number;
+  // 商户应还款金额
+  orderMerchantRepaymentMoney?: number;
+  // 订单分账起始账期
+  divideStartTermIndex?: number;
+  static names(): { [key: string]: string } {
+    return {
+      orderId: 'order_id',
+      status: 'status',
+      outReason: 'out_reason',
+      orderCreditLine: 'order_credit_line',
+      orderMerchantRepaymentMoney: 'order_merchant_repayment_money',
+      divideStartTermIndex: 'divide_start_term_index',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderId: 'string',
+      status: 'string',
+      outReason: 'string',
+      orderCreditLine: 'number',
+      orderMerchantRepaymentMoney: 'number',
+      divideStartTermIndex: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 分账关系绑定收入方信息
+export class DivideBindingTransInInfo extends $tea.Model {
+  // 分账方支付宝pid
+  alipayPid: string;
+  static names(): { [key: string]: string } {
+    return {
+      alipayPid: 'alipay_pid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      alipayPid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+//  公司信息修改
+export class CompanyInfoUpdate extends $tea.Model {
+  // 营业执照文件信息
+  businessLicenseFile?: FileInfo;
+  // 业务类型 枚举
+  productMainClass?: string;
+  // 公司名称
+  companyName?: string;
+  // 公司别名
+  companyAliasName?: string;
+  // 公司数科租户id
+  tenantId?: string;
+  // 公司联系电话
+  companyMobile?: string;
+  // 公司联系地址
+  companyAddress?: string;
+  // 联系人姓名
+  contactName?: string;
+  // 联系人手机号码
+  contactMobile?: string;
+  // 商户类型： 01：企业；07：个体工商户 默认不填为01
+  merchantType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      businessLicenseFile: 'business_license_file',
+      productMainClass: 'product_main_class',
+      companyName: 'company_name',
+      companyAliasName: 'company_alias_name',
+      tenantId: 'tenant_id',
+      companyMobile: 'company_mobile',
+      companyAddress: 'company_address',
+      contactName: 'contact_name',
+      contactMobile: 'contact_mobile',
+      merchantType: 'merchant_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      businessLicenseFile: FileInfo,
+      productMainClass: 'string',
+      companyName: 'string',
+      companyAliasName: 'string',
+      tenantId: 'string',
+      companyMobile: 'string',
+      companyAddress: 'string',
+      contactName: 'string',
+      contactMobile: 'string',
+      merchantType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用信订单信息
+export class CreditUtilizationOrder extends $tea.Model {
+  // 123
+  orderId: string;
+  // 订单用信额度，单位为分
+  orderCreditLine: number;
+  // 订单商户应还金额，单位为分
+  orderMerchantRepaymentMoney: number;
+  // 分账起始日期
+  divideStartTermIndex: number;
+  static names(): { [key: string]: string } {
+    return {
+      orderId: 'order_id',
+      orderCreditLine: 'order_credit_line',
+      orderMerchantRepaymentMoney: 'order_merchant_repayment_money',
+      divideStartTermIndex: 'divide_start_term_index',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderId: 'string',
+      orderCreditLine: 'number',
+      orderMerchantRepaymentMoney: 'number',
+      divideStartTermIndex: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 主动支付单据
 export class ActivePayOrder extends $tea.Model {
   // 支付宝支付订单号，用于拉起主动支付页面
@@ -363,27 +515,6 @@ export class ApplicationInfo extends $tea.Model {
   }
 }
 
-// 分账关系绑定收入方信息
-export class DivideBindingTransInInfo extends $tea.Model {
-  // 分账方支付宝pid
-  alipayPid: string;
-  static names(): { [key: string]: string } {
-    return {
-      alipayPid: 'alipay_pid',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      alipayPid: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 应用信息修改
 export class ApplicationInfoUpdate extends $tea.Model {
   // 应用场景 MINI_APP 小程序 APP 自有app ALL 两种都有
@@ -400,6 +531,8 @@ export class ApplicationInfoUpdate extends $tea.Model {
   merchantServiceName?: string;
   // 商户服务描述。 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
   merchantServiceDesc?: string;
+  // 站点信息
+  siteInfo?: SiteInfo[];
   static names(): { [key: string]: string } {
     return {
       applicationScene: 'application_scene',
@@ -409,6 +542,7 @@ export class ApplicationInfoUpdate extends $tea.Model {
       merchantName: 'merchant_name',
       merchantServiceName: 'merchant_service_name',
       merchantServiceDesc: 'merchant_service_desc',
+      siteInfo: 'site_info',
     };
   }
 
@@ -421,6 +555,7 @@ export class ApplicationInfoUpdate extends $tea.Model {
       merchantName: 'string',
       merchantServiceName: 'string',
       merchantServiceDesc: 'string',
+      siteInfo: { 'type': 'array', 'itemType': SiteInfo },
     };
   }
 
@@ -497,63 +632,6 @@ export class SingleCancelModel extends $tea.Model {
       payOffType: 'string',
       payOffNo: 'string',
       payOffBankName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-//  公司信息修改
-export class CompanyInfoUpdate extends $tea.Model {
-  // 营业执照文件信息
-  businessLicenseFile?: FileInfo;
-  // 业务类型 枚举
-  productMainClass?: string;
-  // 公司名称
-  companyName?: string;
-  // 公司别名
-  companyAliasName?: string;
-  // 公司数科租户id
-  tenantId?: string;
-  // 公司联系电话
-  companyMobile?: string;
-  // 公司联系地址
-  companyAddress?: string;
-  // 联系人姓名
-  contactName?: string;
-  // 联系人手机号码
-  contactMobile?: string;
-  // 商户类型： 01：企业；07：个体工商户 默认不填为01
-  merchantType?: string;
-  static names(): { [key: string]: string } {
-    return {
-      businessLicenseFile: 'business_license_file',
-      productMainClass: 'product_main_class',
-      companyName: 'company_name',
-      companyAliasName: 'company_alias_name',
-      tenantId: 'tenant_id',
-      companyMobile: 'company_mobile',
-      companyAddress: 'company_address',
-      contactName: 'contact_name',
-      contactMobile: 'contact_mobile',
-      merchantType: 'merchant_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      businessLicenseFile: FileInfo,
-      productMainClass: 'string',
-      companyName: 'string',
-      companyAliasName: 'string',
-      tenantId: 'string',
-      companyMobile: 'string',
-      companyAddress: 'string',
-      contactName: 'string',
-      contactMobile: 'string',
-      merchantType: 'string',
     };
   }
 
@@ -1052,6 +1130,10 @@ export class SubmitAntchainAtoSignFlowRequest extends $tea.Model {
   userOrgIdNumber?: string;
   // 合并签署是否开启人脸识别（默认true-开启）,非合并签署无需设值
   needFace?: boolean;
+  // 0-手绘签名 
+  // 1-模板印章签名
+  // 多种类型时逗号分割，为空不限制
+  sealType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1084,6 +1166,7 @@ export class SubmitAntchainAtoSignFlowRequest extends $tea.Model {
       userOrgIdType: 'user_org_id_type',
       userOrgIdNumber: 'user_org_id_number',
       needFace: 'need_face',
+      sealType: 'seal_type',
     };
   }
 
@@ -1119,6 +1202,7 @@ export class SubmitAntchainAtoSignFlowRequest extends $tea.Model {
       userOrgIdType: 'string',
       userOrgIdNumber: 'string',
       needFace: 'boolean',
+      sealType: 'string',
     };
   }
 
@@ -1795,6 +1879,10 @@ export class SubmitAntchainAtoFrontSignRequest extends $tea.Model {
   userOrgName?: string;
   // 合并签署是否开启人脸识别（默认true-开启）,非合并签署无需设值
   needFace?: boolean;
+  // 0-手绘签名 
+  // 1-模板印章签名
+  // 多种类型时逗号分割，为空不限制
+  sealType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1827,6 +1915,7 @@ export class SubmitAntchainAtoFrontSignRequest extends $tea.Model {
       userOrgIdType: 'user_org_id_type',
       userOrgName: 'user_org_name',
       needFace: 'need_face',
+      sealType: 'seal_type',
     };
   }
 
@@ -1862,6 +1951,7 @@ export class SubmitAntchainAtoFrontSignRequest extends $tea.Model {
       userOrgIdType: 'string',
       userOrgName: 'string',
       needFace: 'boolean',
+      sealType: 'string',
     };
   }
 
@@ -4237,6 +4327,8 @@ export class QueryAntchainAtoMerchantexpandMerchantResponse extends $tea.Model {
   enrollmentStatus?: string;
   // 入驻失败原因
   failReason?: string;
+  // 商户进件流程待办事件跳转链接
+  pendingEventLink?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -4244,6 +4336,7 @@ export class QueryAntchainAtoMerchantexpandMerchantResponse extends $tea.Model {
       resultMsg: 'result_msg',
       enrollmentStatus: 'enrollment_status',
       failReason: 'fail_reason',
+      pendingEventLink: 'pending_event_link',
     };
   }
 
@@ -4254,6 +4347,7 @@ export class QueryAntchainAtoMerchantexpandMerchantResponse extends $tea.Model {
       resultMsg: 'string',
       enrollmentStatus: 'string',
       failReason: 'string',
+      pendingEventLink: 'string',
     };
   }
 
@@ -4269,9 +4363,9 @@ export class UploadAntchainAtoSignTemplateRequest extends $tea.Model {
   // 订单所属商户的统一社会信用代码
   merchantId: string;
   // 合同类型
-  contractType: string;
+  contractType?: string;
   // 模板类型
-  agreementType: string;
+  agreementType?: string;
   // 签署区坐标配置
   posConf: string;
   // 模板参数
@@ -4280,6 +4374,12 @@ export class UploadAntchainAtoSignTemplateRequest extends $tea.Model {
   fileObject?: Readable;
   fileObjectName?: string;
   fileId: string;
+  // 资方统一社会信用代码，默认为空
+  fundId?: string;
+  // 是否需要资方签署，默认为否
+  fundSign?: boolean;
+  // 资方签署区坐标，默认为空
+  fundPosConf?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4292,6 +4392,9 @@ export class UploadAntchainAtoSignTemplateRequest extends $tea.Model {
       fileObject: 'fileObject',
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
+      fundId: 'fund_id',
+      fundSign: 'fund_sign',
+      fundPosConf: 'fund_pos_conf',
     };
   }
 
@@ -4307,6 +4410,9 @@ export class UploadAntchainAtoSignTemplateRequest extends $tea.Model {
       fileObject: 'Readable',
       fileObjectName: 'string',
       fileId: 'string',
+      fundId: 'string',
+      fundSign: 'boolean',
+      fundPosConf: 'string',
     };
   }
 
@@ -5917,6 +6023,192 @@ export class QueryAntchainAtoMerchantexpandDividerelationResponse extends $tea.M
   }
 }
 
+export class ApplyAntchainAtoFundCreditutilizationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单列表
+  orderList: CreditUtilizationOrder[];
+  // 商户租户id
+  tenantId: string;
+  // 商户统一社会信用代码
+  merchantId: string;
+  // 资方统一社会信用代码
+  fundId: string;
+  // 授信Id
+  grantingId: string;
+  // 用信授权id
+  utilizationAuthId: string;
+  // 用信id, 需保证唯一性
+  utilizationId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderList: 'order_list',
+      tenantId: 'tenant_id',
+      merchantId: 'merchant_id',
+      fundId: 'fund_id',
+      grantingId: 'granting_id',
+      utilizationAuthId: 'utilization_auth_id',
+      utilizationId: 'utilization_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderList: { 'type': 'array', 'itemType': CreditUtilizationOrder },
+      tenantId: 'string',
+      merchantId: 'string',
+      fundId: 'string',
+      grantingId: 'string',
+      utilizationAuthId: 'string',
+      utilizationId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyAntchainAtoFundCreditutilizationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用信Id
+  utilizationId?: string;
+  // 用信授权id
+  utilizationAuthId?: string;
+  // 资产包id
+  assetPackageId?: string;
+  // 商户授权链接
+  merchantAuthUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      utilizationId: 'utilization_id',
+      utilizationAuthId: 'utilization_auth_id',
+      assetPackageId: 'asset_package_id',
+      merchantAuthUrl: 'merchant_auth_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      utilizationId: 'string',
+      utilizationAuthId: 'string',
+      assetPackageId: 'string',
+      merchantAuthUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntchainAtoFundAssetpackageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 资方社会信用代码
+  fundId: string;
+  // 商家统一社会信用代码
+  merchantId: string;
+  // 商户的租户id
+  tenantId: string;
+  // 用信id
+  utilizationId?: string;
+  // 资产包id
+  assetPackageId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fundId: 'fund_id',
+      merchantId: 'merchant_id',
+      tenantId: 'tenant_id',
+      utilizationId: 'utilization_id',
+      assetPackageId: 'asset_package_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fundId: 'string',
+      merchantId: 'string',
+      tenantId: 'string',
+      utilizationId: 'string',
+      assetPackageId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntchainAtoFundAssetpackageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 资产包id
+  assetPackageId?: string;
+  // 用信id
+  utilizationId?: string;
+  // 资产包状态
+  status?: string;
+  // 组包完成时间， yyyy-MM-dd HH:mm:ss
+  gmtGroupingEnd?: string;
+  // 订单列表
+  orderList?: AssetPackageOrderInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      assetPackageId: 'asset_package_id',
+      utilizationId: 'utilization_id',
+      status: 'status',
+      gmtGroupingEnd: 'gmt_grouping_end',
+      orderList: 'order_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      assetPackageId: 'string',
+      utilizationId: 'string',
+      status: 'string',
+      gmtGroupingEnd: 'string',
+      orderList: { 'type': 'array', 'itemType': AssetPackageOrderInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -6118,7 +6410,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.0",
+          sdk_version: "1.4.1",
           _prod_code: "ak_195dff03d395462ea294bafdba69df3f",
           _prod_channel: "saas",
         };
@@ -7545,6 +7837,46 @@ export default class Client {
   async queryAntchainAtoMerchantexpandDividerelationEx(request: QueryAntchainAtoMerchantexpandDividerelationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainAtoMerchantexpandDividerelationResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAntchainAtoMerchantexpandDividerelationResponse>(await this.doRequest("1.0", "antchain.ato.merchantexpand.dividerelation.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainAtoMerchantexpandDividerelationResponse({}));
+  }
+
+  /**
+   * Description: ● 本接口获取用信授权
+  ● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+   * Summary: 用信申请接口
+   */
+  async applyAntchainAtoFundCreditutilization(request: ApplyAntchainAtoFundCreditutilizationRequest): Promise<ApplyAntchainAtoFundCreditutilizationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyAntchainAtoFundCreditutilizationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: ● 本接口获取用信授权
+  ● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+   * Summary: 用信申请接口
+   */
+  async applyAntchainAtoFundCreditutilizationEx(request: ApplyAntchainAtoFundCreditutilizationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyAntchainAtoFundCreditutilizationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyAntchainAtoFundCreditutilizationResponse>(await this.doRequest("1.0", "antchain.ato.fund.creditutilization.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyAntchainAtoFundCreditutilizationResponse({}));
+  }
+
+  /**
+   * Description: 资产包详情查询
+   * Summary: 资产包详情查询
+   */
+  async queryAntchainAtoFundAssetpackage(request: QueryAntchainAtoFundAssetpackageRequest): Promise<QueryAntchainAtoFundAssetpackageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntchainAtoFundAssetpackageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 资产包详情查询
+   * Summary: 资产包详情查询
+   */
+  async queryAntchainAtoFundAssetpackageEx(request: QueryAntchainAtoFundAssetpackageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainAtoFundAssetpackageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntchainAtoFundAssetpackageResponse>(await this.doRequest("1.0", "antchain.ato.fund.assetpackage.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainAtoFundAssetpackageResponse({}));
   }
 
   /**
