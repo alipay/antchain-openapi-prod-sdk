@@ -137,7 +137,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.9"},
+                        {"sdk_version", "1.4.10"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.9"},
+                        {"sdk_version", "1.4.10"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1037,6 +1037,48 @@ namespace AntChain.SDK.SECURITYTECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PullSimSkuResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.sim.sku.pull", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 一体机购车订单支付确认请求
+         * Summary: 一体机购车订单支付确认请求
+         */
+        public ConfirmSimOrderResponse ConfirmSimOrder(ConfirmSimOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ConfirmSimOrderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 一体机购车订单支付确认请求
+         * Summary: 一体机购车订单支付确认请求
+         */
+        public async Task<ConfirmSimOrderResponse> ConfirmSimOrderAsync(ConfirmSimOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ConfirmSimOrderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 一体机购车订单支付确认请求
+         * Summary: 一体机购车订单支付确认请求
+         */
+        public ConfirmSimOrderResponse ConfirmSimOrderEx(ConfirmSimOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmSimOrderResponse>(DoRequest("1.0", "antsecuritytech.gateway.sim.order.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 一体机购车订单支付确认请求
+         * Summary: 一体机购车订单支付确认请求
+         */
+        public async Task<ConfirmSimOrderResponse> ConfirmSimOrderExAsync(ConfirmSimOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmSimOrderResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.sim.order.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

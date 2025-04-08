@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>AntChain.SDK.SECURITYTECH</AssemblyName>
-    <Version>1.4.9</Version>
+    <Version>1.4.10</Version>
     <LangVersion>5</LangVersion>
     <Authors>Ant Chain, Inc</Authors>
     <Description>Ant Chain SECURITYTECH SDK Library for .NET</Description>
