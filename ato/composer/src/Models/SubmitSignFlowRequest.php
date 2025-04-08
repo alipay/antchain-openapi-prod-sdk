@@ -190,6 +190,14 @@ class SubmitSignFlowRequest extends Model
      * @var bool
      */
     public $needFace;
+
+    // 0-手绘签名
+    // 1-模板印章签名
+    // 多种类型时逗号分割，为空不限制
+    /**
+     * @var string
+     */
+    public $sealType;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -221,6 +229,7 @@ class SubmitSignFlowRequest extends Model
         'userOrgIdType'         => 'user_org_id_type',
         'userOrgIdNumber'       => 'user_org_id_number',
         'needFace'              => 'need_face',
+        'sealType'              => 'seal_type',
     ];
 
     public function validate()
@@ -345,6 +354,9 @@ class SubmitSignFlowRequest extends Model
         if (null !== $this->needFace) {
             $res['need_face'] = $this->needFace;
         }
+        if (null !== $this->sealType) {
+            $res['seal_type'] = $this->sealType;
+        }
 
         return $res;
     }
@@ -446,6 +458,9 @@ class SubmitSignFlowRequest extends Model
         }
         if (isset($map['need_face'])) {
             $model->needFace = $map['need_face'];
+        }
+        if (isset($map['seal_type'])) {
+            $model->sealType = $map['seal_type'];
         }
 
         return $model;

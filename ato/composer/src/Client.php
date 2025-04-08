@@ -506,7 +506,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.14.27',
+                    'sdk_version'      => '1.14.28',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
