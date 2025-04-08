@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.9',
+    sdk_version = '1.4.10',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -1484,6 +1484,46 @@ async function pullSimSku(request: PullSimSkuRequest): PullSimSkuResponse {
 async function pullSimSkuEx(request: PullSimSkuRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PullSimSkuResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.sim.sku.pull', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConfirmSimOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备id
+  deviceId: string(name='device_id'),
+  // 订单号
+  orderId: string(name='order_id'),
+  // 登录态token
+  token: string(name='token'),
+}
+
+model ConfirmSimOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 一体机购车订单支付确认请求
+ * Summary: 一体机购车订单支付确认请求
+ */
+async function confirmSimOrder(request: ConfirmSimOrderRequest): ConfirmSimOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return confirmSimOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 一体机购车订单支付确认请求
+ * Summary: 一体机购车订单支付确认请求
+ */
+async function confirmSimOrderEx(request: ConfirmSimOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmSimOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.sim.order.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateBssecpicRequest = {
