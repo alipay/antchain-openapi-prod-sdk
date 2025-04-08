@@ -141,6 +141,12 @@ public class SubmitSignFlowRequest extends TeaModel {
     @NameInMap("need_face")
     public Boolean needFace;
 
+    // 0-手绘签名 
+    // 1-模板印章签名
+    // 多种类型时逗号分割，为空不限制
+    @NameInMap("seal_type")
+    public String sealType;
+
     public static SubmitSignFlowRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitSignFlowRequest self = new SubmitSignFlowRequest();
         return TeaModel.build(map, self);
@@ -384,6 +390,14 @@ public class SubmitSignFlowRequest extends TeaModel {
     }
     public Boolean getNeedFace() {
         return this.needFace;
+    }
+
+    public SubmitSignFlowRequest setSealType(String sealType) {
+        this.sealType = sealType;
+        return this;
+    }
+    public String getSealType() {
+        return this.sealType;
     }
 
 }
