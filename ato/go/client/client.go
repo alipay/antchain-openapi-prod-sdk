@@ -16538,6 +16538,10 @@ type SubmitSignFlowRequest struct {
 	UserOrgIdNumber *string `json:"user_org_id_number,omitempty" xml:"user_org_id_number,omitempty"`
 	// 合并签署是否开启人脸识别（默认true-开启）,非合并签署无需设值
 	NeedFace *bool `json:"need_face,omitempty" xml:"need_face,omitempty"`
+	// 0-手绘签名
+	// 1-模板印章签名
+	// 多种类型时逗号分割，为空不限制
+	SealType *string `json:"seal_type,omitempty" xml:"seal_type,omitempty"`
 }
 
 func (s SubmitSignFlowRequest) String() string {
@@ -16695,6 +16699,11 @@ func (s *SubmitSignFlowRequest) SetUserOrgIdNumber(v string) *SubmitSignFlowRequ
 
 func (s *SubmitSignFlowRequest) SetNeedFace(v bool) *SubmitSignFlowRequest {
 	s.NeedFace = &v
+	return s
+}
+
+func (s *SubmitSignFlowRequest) SetSealType(v string) *SubmitSignFlowRequest {
+	s.SealType = &v
 	return s
 }
 
@@ -17057,6 +17066,10 @@ type SubmitFrontSignRequest struct {
 	UserOrgName *string `json:"user_org_name,omitempty" xml:"user_org_name,omitempty"`
 	// 合并签署是否开启人脸识别（默认true-开启）,非合并签署无需设值
 	NeedFace *bool `json:"need_face,omitempty" xml:"need_face,omitempty"`
+	// 0-手绘签名
+	// 1-模板印章签名
+	// 多种类型时逗号分割，为空不限制
+	SealType *string `json:"seal_type,omitempty" xml:"seal_type,omitempty"`
 }
 
 func (s SubmitFrontSignRequest) String() string {
@@ -17214,6 +17227,11 @@ func (s *SubmitFrontSignRequest) SetUserOrgName(v string) *SubmitFrontSignReques
 
 func (s *SubmitFrontSignRequest) SetNeedFace(v bool) *SubmitFrontSignRequest {
 	s.NeedFace = &v
+	return s
+}
+
+func (s *SubmitFrontSignRequest) SetSealType(v string) *SubmitFrontSignRequest {
+	s.SealType = &v
 	return s
 }
 
@@ -21151,7 +21169,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.14.27"),
+				"sdk_version":      tea.String("1.14.28"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
