@@ -25,12 +25,12 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
 
         // 合同类型
         [NameInMap("contract_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ContractType { get; set; }
 
         // 模板类型
         [NameInMap("agreement_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string AgreementType { get; set; }
 
         // 签署区坐标配置
@@ -61,6 +61,21 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [NameInMap("file_id")]
         [Validation(Required=true)]
         public string FileId { get; set; }
+
+        // 资方统一社会信用代码，默认为空
+        [NameInMap("fund_id")]
+        [Validation(Required=false)]
+        public string FundId { get; set; }
+
+        // 是否需要资方签署，默认为否
+        [NameInMap("fund_sign")]
+        [Validation(Required=false)]
+        public bool? FundSign { get; set; }
+
+        // 资方签署区坐标，默认为空
+        [NameInMap("fund_pos_conf")]
+        [Validation(Required=false)]
+        public string FundPosConf { get; set; }
 
     }
 

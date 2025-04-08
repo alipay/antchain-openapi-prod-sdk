@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
 {
-    public class QueryAntchainAtoMerchantexpandMerchantResponse : TeaModel {
+    public class ApplyAntchainAtoFundCreditutilizationResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,25 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 商户入驻状态
-        // INIT 入驻中
-        // SUCCESS 入驻成功
-        // FAIL 入驻失败
-        // MERCHANT_CONFIRM 待商户B站确认
-        // SUB_MERCHANT_CREDIT 二级户商户签约中
-        [NameInMap("enrollment_status")]
+        // 用信Id
+        [NameInMap("utilization_id")]
         [Validation(Required=false)]
-        public string EnrollmentStatus { get; set; }
+        public string UtilizationId { get; set; }
 
-        // 入驻失败原因
-        [NameInMap("fail_reason")]
+        // 用信授权id
+        [NameInMap("utilization_auth_id")]
         [Validation(Required=false)]
-        public string FailReason { get; set; }
+        public string UtilizationAuthId { get; set; }
 
-        // 商户进件流程待办事件跳转链接
-        [NameInMap("pending_event_link")]
+        // 资产包id
+        [NameInMap("asset_package_id")]
         [Validation(Required=false)]
-        public string PendingEventLink { get; set; }
+        public string AssetPackageId { get; set; }
+
+        // 商户授权链接
+        [NameInMap("merchant_auth_url")]
+        [Validation(Required=false)]
+        public string MerchantAuthUrl { get; set; }
 
     }
 

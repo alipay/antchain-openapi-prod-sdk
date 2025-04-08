@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
 {
-    public class QueryAntchainAtoMerchantexpandMerchantResponse : TeaModel {
+    public class QueryAntchainAtoFundAssetpackageResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,30 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 商户入驻状态
-        // INIT 入驻中
-        // SUCCESS 入驻成功
-        // FAIL 入驻失败
-        // MERCHANT_CONFIRM 待商户B站确认
-        // SUB_MERCHANT_CREDIT 二级户商户签约中
-        [NameInMap("enrollment_status")]
+        // 资产包id
+        [NameInMap("asset_package_id")]
         [Validation(Required=false)]
-        public string EnrollmentStatus { get; set; }
+        public string AssetPackageId { get; set; }
 
-        // 入驻失败原因
-        [NameInMap("fail_reason")]
+        // 用信id
+        [NameInMap("utilization_id")]
         [Validation(Required=false)]
-        public string FailReason { get; set; }
+        public string UtilizationId { get; set; }
 
-        // 商户进件流程待办事件跳转链接
-        [NameInMap("pending_event_link")]
+        // 资产包状态
+        [NameInMap("status")]
         [Validation(Required=false)]
-        public string PendingEventLink { get; set; }
+        public string Status { get; set; }
+
+        // 组包完成时间， yyyy-MM-dd HH:mm:ss
+        [NameInMap("gmt_grouping_end")]
+        [Validation(Required=false)]
+        public string GmtGroupingEnd { get; set; }
+
+        // 订单列表
+        [NameInMap("order_list")]
+        [Validation(Required=false)]
+        public List<AssetPackageOrderInfo> OrderList { get; set; }
 
     }
 
