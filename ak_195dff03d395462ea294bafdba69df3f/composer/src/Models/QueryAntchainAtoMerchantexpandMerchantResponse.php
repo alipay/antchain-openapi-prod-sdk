@@ -42,12 +42,19 @@ class QueryAntchainAtoMerchantexpandMerchantResponse extends Model
      * @var string
      */
     public $failReason;
+
+    // 商户进件流程待办事件跳转链接
+    /**
+     * @var string
+     */
+    public $pendingEventLink;
     protected $_name = [
         'reqMsgId'         => 'req_msg_id',
         'resultCode'       => 'result_code',
         'resultMsg'        => 'result_msg',
         'enrollmentStatus' => 'enrollment_status',
         'failReason'       => 'fail_reason',
+        'pendingEventLink' => 'pending_event_link',
     ];
 
     public function validate()
@@ -71,6 +78,9 @@ class QueryAntchainAtoMerchantexpandMerchantResponse extends Model
         }
         if (null !== $this->failReason) {
             $res['fail_reason'] = $this->failReason;
+        }
+        if (null !== $this->pendingEventLink) {
+            $res['pending_event_link'] = $this->pendingEventLink;
         }
 
         return $res;
@@ -98,6 +108,9 @@ class QueryAntchainAtoMerchantexpandMerchantResponse extends Model
         }
         if (isset($map['fail_reason'])) {
             $model->failReason = $map['fail_reason'];
+        }
+        if (isset($map['pending_event_link'])) {
+            $model->pendingEventLink = $map['pending_event_link'];
         }
 
         return $model;

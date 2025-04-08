@@ -17,6 +17,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AddAntchainAtoTradeFinan
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AddAntchainAtoTradeFinanceprecheckResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AllAntchainAtoSignTemplateRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AllAntchainAtoSignTemplateResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ApplyAntchainAtoFundCreditutilizationRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ApplyAntchainAtoFundCreditutilizationResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ApplyAntchainAtoTradeFinanceprecheckRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ApplyAntchainAtoTradeFinanceprecheckResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoFundFlowRequest;
@@ -75,6 +77,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\NotifyAntchainAtoFundFlo
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\NotifyAntchainAtoFundFlowResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\PauseAntchainAtoTradeUserpromiseRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\PauseAntchainAtoTradeUserpromiseResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundAssetpackageRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundAssetpackageResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCompensateaccountRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCompensateaccountResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCreditRequest;
@@ -298,7 +302,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.4.0',
+                    'sdk_version'      => '1.4.1',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -2682,6 +2686,74 @@ class Client
         Utils::validateModel($request);
 
         return QueryAntchainAtoMerchantexpandDividerelationResponse::fromMap($this->doRequest('1.0', 'antchain.ato.merchantexpand.dividerelation.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: ● 本接口获取用信授权
+     * ● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+     * Summary: 用信申请接口.
+     *
+     * @param ApplyAntchainAtoFundCreditutilizationRequest $request
+     *
+     * @return ApplyAntchainAtoFundCreditutilizationResponse
+     */
+    public function applyAntchainAtoFundCreditutilization($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyAntchainAtoFundCreditutilizationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: ● 本接口获取用信授权
+     * ● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+     * Summary: 用信申请接口.
+     *
+     * @param ApplyAntchainAtoFundCreditutilizationRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return ApplyAntchainAtoFundCreditutilizationResponse
+     */
+    public function applyAntchainAtoFundCreditutilizationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyAntchainAtoFundCreditutilizationResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.creditutilization.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资产包详情查询
+     * Summary: 资产包详情查询.
+     *
+     * @param QueryAntchainAtoFundAssetpackageRequest $request
+     *
+     * @return QueryAntchainAtoFundAssetpackageResponse
+     */
+    public function queryAntchainAtoFundAssetpackage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAtoFundAssetpackageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资产包详情查询
+     * Summary: 资产包详情查询.
+     *
+     * @param QueryAntchainAtoFundAssetpackageRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return QueryAntchainAtoFundAssetpackageResponse
+     */
+    public function queryAntchainAtoFundAssetpackageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAtoFundAssetpackageResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.assetpackage.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
