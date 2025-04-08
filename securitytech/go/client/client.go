@@ -3527,6 +3527,83 @@ func (s *PullSimSkuResponse) SetSkuInfoList(v []*SimSkuInfo) *PullSimSkuResponse
 	return s
 }
 
+type ConfirmSimOrderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备id
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 订单号
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 登录态token
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+}
+
+func (s ConfirmSimOrderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmSimOrderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmSimOrderRequest) SetAuthToken(v string) *ConfirmSimOrderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmSimOrderRequest) SetProductInstanceId(v string) *ConfirmSimOrderRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ConfirmSimOrderRequest) SetDeviceId(v string) *ConfirmSimOrderRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *ConfirmSimOrderRequest) SetOrderId(v string) *ConfirmSimOrderRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *ConfirmSimOrderRequest) SetToken(v string) *ConfirmSimOrderRequest {
+	s.Token = &v
+	return s
+}
+
+type ConfirmSimOrderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ConfirmSimOrderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmSimOrderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmSimOrderResponse) SetReqMsgId(v string) *ConfirmSimOrderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ConfirmSimOrderResponse) SetResultCode(v string) *ConfirmSimOrderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ConfirmSimOrderResponse) SetResultMsg(v string) *ConfirmSimOrderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type CreateBssecpicRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -7956,7 +8033,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.9"),
+				"sdk_version":      tea.String("1.4.10"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -8587,6 +8664,40 @@ func (client *Client) PullSimSkuEx(request *PullSimSkuRequest, headers map[strin
 	}
 	_result = &PullSimSkuResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.sim.sku.pull"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 一体机购车订单支付确认请求
+ * Summary: 一体机购车订单支付确认请求
+ */
+func (client *Client) ConfirmSimOrder(request *ConfirmSimOrderRequest) (_result *ConfirmSimOrderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ConfirmSimOrderResponse{}
+	_body, _err := client.ConfirmSimOrderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 一体机购车订单支付确认请求
+ * Summary: 一体机购车订单支付确认请求
+ */
+func (client *Client) ConfirmSimOrderEx(request *ConfirmSimOrderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConfirmSimOrderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ConfirmSimOrderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.sim.order.confirm"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
