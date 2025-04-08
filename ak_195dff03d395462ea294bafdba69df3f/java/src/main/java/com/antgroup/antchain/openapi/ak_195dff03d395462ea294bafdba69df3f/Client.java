@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.4.0"),
+                    new TeaPair("sdk_version", "1.4.1"),
                     new TeaPair("_prod_code", "ak_195dff03d395462ea294bafdba69df3f"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -1563,6 +1563,46 @@ public class Client {
     public QueryAntchainAtoMerchantexpandDividerelationResponse queryAntchainAtoMerchantexpandDividerelationEx(QueryAntchainAtoMerchantexpandDividerelationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.merchantexpand.dividerelation.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainAtoMerchantexpandDividerelationResponse());
+    }
+
+    /**
+     * Description: ● 本接口获取用信授权
+    ● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+     * Summary: 用信申请接口
+     */
+    public ApplyAntchainAtoFundCreditutilizationResponse applyAntchainAtoFundCreditutilization(ApplyAntchainAtoFundCreditutilizationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyAntchainAtoFundCreditutilizationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: ● 本接口获取用信授权
+    ● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
+     * Summary: 用信申请接口
+     */
+    public ApplyAntchainAtoFundCreditutilizationResponse applyAntchainAtoFundCreditutilizationEx(ApplyAntchainAtoFundCreditutilizationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.creditutilization.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyAntchainAtoFundCreditutilizationResponse());
+    }
+
+    /**
+     * Description: 资产包详情查询
+     * Summary: 资产包详情查询
+     */
+    public QueryAntchainAtoFundAssetpackageResponse queryAntchainAtoFundAssetpackage(QueryAntchainAtoFundAssetpackageRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainAtoFundAssetpackageEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 资产包详情查询
+     * Summary: 资产包详情查询
+     */
+    public QueryAntchainAtoFundAssetpackageResponse queryAntchainAtoFundAssetpackageEx(QueryAntchainAtoFundAssetpackageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.assetpackage.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainAtoFundAssetpackageResponse());
     }
 
     /**

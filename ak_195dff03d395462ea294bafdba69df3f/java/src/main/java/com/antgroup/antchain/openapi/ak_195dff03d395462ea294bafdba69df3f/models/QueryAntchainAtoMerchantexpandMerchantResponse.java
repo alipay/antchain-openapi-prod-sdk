@@ -29,6 +29,10 @@ public class QueryAntchainAtoMerchantexpandMerchantResponse extends TeaModel {
     @NameInMap("fail_reason")
     public String failReason;
 
+    // 商户进件流程待办事件跳转链接
+    @NameInMap("pending_event_link")
+    public String pendingEventLink;
+
     public static QueryAntchainAtoMerchantexpandMerchantResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAntchainAtoMerchantexpandMerchantResponse self = new QueryAntchainAtoMerchantexpandMerchantResponse();
         return TeaModel.build(map, self);
@@ -72,6 +76,14 @@ public class QueryAntchainAtoMerchantexpandMerchantResponse extends TeaModel {
     }
     public String getFailReason() {
         return this.failReason;
+    }
+
+    public QueryAntchainAtoMerchantexpandMerchantResponse setPendingEventLink(String pendingEventLink) {
+        this.pendingEventLink = pendingEventLink;
+        return this;
+    }
+    public String getPendingEventLink() {
+        return this.pendingEventLink;
     }
 
 }

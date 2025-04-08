@@ -32,6 +32,10 @@ public class ApplicationInfoUpdate extends TeaModel {
     @NameInMap("merchant_service_desc")
     public String merchantServiceDesc;
 
+    // 站点信息
+    @NameInMap("site_info")
+    public java.util.List<SiteInfo> siteInfo;
+
     public static ApplicationInfoUpdate build(java.util.Map<String, ?> map) throws Exception {
         ApplicationInfoUpdate self = new ApplicationInfoUpdate();
         return TeaModel.build(map, self);
@@ -91,6 +95,14 @@ public class ApplicationInfoUpdate extends TeaModel {
     }
     public String getMerchantServiceDesc() {
         return this.merchantServiceDesc;
+    }
+
+    public ApplicationInfoUpdate setSiteInfo(java.util.List<SiteInfo> siteInfo) {
+        this.siteInfo = siteInfo;
+        return this;
+    }
+    public java.util.List<SiteInfo> getSiteInfo() {
+        return this.siteInfo;
     }
 
 }
