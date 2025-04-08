@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.9',
+                    'sdk_version': '1.4.10',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.9',
+                    'sdk_version': '1.4.10',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -1229,6 +1229,62 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.PullSimSkuResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.sim.sku.pull', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def confirm_sim_order(
+        self,
+        request: securitytech_models.ConfirmSimOrderRequest,
+    ) -> securitytech_models.ConfirmSimOrderResponse:
+        """
+        Description: 一体机购车订单支付确认请求
+        Summary: 一体机购车订单支付确认请求
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.confirm_sim_order_ex(request, headers, runtime)
+
+    async def confirm_sim_order_async(
+        self,
+        request: securitytech_models.ConfirmSimOrderRequest,
+    ) -> securitytech_models.ConfirmSimOrderResponse:
+        """
+        Description: 一体机购车订单支付确认请求
+        Summary: 一体机购车订单支付确认请求
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.confirm_sim_order_ex_async(request, headers, runtime)
+
+    def confirm_sim_order_ex(
+        self,
+        request: securitytech_models.ConfirmSimOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ConfirmSimOrderResponse:
+        """
+        Description: 一体机购车订单支付确认请求
+        Summary: 一体机购车订单支付确认请求
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ConfirmSimOrderResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.sim.order.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def confirm_sim_order_ex_async(
+        self,
+        request: securitytech_models.ConfirmSimOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ConfirmSimOrderResponse:
+        """
+        Description: 一体机购车订单支付确认请求
+        Summary: 一体机购车订单支付确认请求
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ConfirmSimOrderResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.sim.order.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_bssecpic(
