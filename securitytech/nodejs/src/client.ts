@@ -2744,6 +2744,69 @@ export class PullSimSkuResponse extends $tea.Model {
   }
 }
 
+export class ConfirmSimOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备id
+  deviceId: string;
+  // 订单号
+  orderId: string;
+  // 登录态token
+  token: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceId: 'device_id',
+      orderId: 'order_id',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceId: 'string',
+      orderId: 'string',
+      token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmSimOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateBssecpicRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -6050,7 +6113,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.9",
+          sdk_version: "1.4.10",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -6421,6 +6484,25 @@ export default class Client {
   async pullSimSkuEx(request: PullSimSkuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PullSimSkuResponse> {
     Util.validateModel(request);
     return $tea.cast<PullSimSkuResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.sim.sku.pull", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PullSimSkuResponse({}));
+  }
+
+  /**
+   * Description: 一体机购车订单支付确认请求
+   * Summary: 一体机购车订单支付确认请求
+   */
+  async confirmSimOrder(request: ConfirmSimOrderRequest): Promise<ConfirmSimOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.confirmSimOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 一体机购车订单支付确认请求
+   * Summary: 一体机购车订单支付确认请求
+   */
+  async confirmSimOrderEx(request: ConfirmSimOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmSimOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConfirmSimOrderResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.sim.order.confirm", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConfirmSimOrderResponse({}));
   }
 
   /**
