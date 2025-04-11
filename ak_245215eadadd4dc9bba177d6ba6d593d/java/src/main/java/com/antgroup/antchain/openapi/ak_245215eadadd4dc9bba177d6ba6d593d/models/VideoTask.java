@@ -25,6 +25,10 @@ public class VideoTask extends TeaModel {
     @NameInMap("fail_reason")
     public String failReason;
 
+    // 错误码
+    @NameInMap("error_code")
+    public String errorCode;
+
     public static VideoTask build(java.util.Map<String, ?> map) throws Exception {
         VideoTask self = new VideoTask();
         return TeaModel.build(map, self);
@@ -68,6 +72,14 @@ public class VideoTask extends TeaModel {
     }
     public String getFailReason() {
         return this.failReason;
+    }
+
+    public VideoTask setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+        return this;
+    }
+    public String getErrorCode() {
+        return this.errorCode;
     }
 
 }
