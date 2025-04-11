@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.2',
+    sdk_version = '1.0.3',
     _prod_code = 'UNICONTACT',
     _prod_channel = 'default'
   };
@@ -484,5 +484,47 @@ async function importInitUpload(request: ImportInitUploadRequest): ImportInitUpl
 async function importInitUploadEx(request: ImportInitUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportInitUploadResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.unicontact.init.upload.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ReplaceRobotcallPhoneRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求ID
+  reqId: string(name='req_id'),
+  // 当前时间戳毫秒值
+  timestamp: long(name='timestamp'),
+  // 待解密号码
+  aesphone: string(name='aesphone'),
+}
+
+model ReplaceRobotcallPhoneResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 解密后的手机号
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 外呼手机号解密
+ * Summary: 外呼手机号解密
+ */
+async function replaceRobotcallPhone(request: ReplaceRobotcallPhoneRequest): ReplaceRobotcallPhoneResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return replaceRobotcallPhoneEx(request, headers, runtime);
+}
+
+/**
+ * Description: 外呼手机号解密
+ * Summary: 外呼手机号解密
+ */
+async function replaceRobotcallPhoneEx(request: ReplaceRobotcallPhoneRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReplaceRobotcallPhoneResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.unicontact.robotcall.phone.replace', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
