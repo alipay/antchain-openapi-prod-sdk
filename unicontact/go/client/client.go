@@ -929,6 +929,90 @@ func (s *ImportInitUploadResponse) SetUploadResult(v *StrategyUploadResult) *Imp
 	return s
 }
 
+type ReplaceRobotcallPhoneRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID
+	ReqId *string `json:"req_id,omitempty" xml:"req_id,omitempty" require:"true"`
+	// 当前时间戳毫秒值
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+	// 待解密号码
+	Aesphone *string `json:"aesphone,omitempty" xml:"aesphone,omitempty" require:"true"`
+}
+
+func (s ReplaceRobotcallPhoneRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReplaceRobotcallPhoneRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ReplaceRobotcallPhoneRequest) SetAuthToken(v string) *ReplaceRobotcallPhoneRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ReplaceRobotcallPhoneRequest) SetProductInstanceId(v string) *ReplaceRobotcallPhoneRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ReplaceRobotcallPhoneRequest) SetReqId(v string) *ReplaceRobotcallPhoneRequest {
+	s.ReqId = &v
+	return s
+}
+
+func (s *ReplaceRobotcallPhoneRequest) SetTimestamp(v int64) *ReplaceRobotcallPhoneRequest {
+	s.Timestamp = &v
+	return s
+}
+
+func (s *ReplaceRobotcallPhoneRequest) SetAesphone(v string) *ReplaceRobotcallPhoneRequest {
+	s.Aesphone = &v
+	return s
+}
+
+type ReplaceRobotcallPhoneResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 解密后的手机号
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s ReplaceRobotcallPhoneResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReplaceRobotcallPhoneResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ReplaceRobotcallPhoneResponse) SetReqMsgId(v string) *ReplaceRobotcallPhoneResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ReplaceRobotcallPhoneResponse) SetResultCode(v string) *ReplaceRobotcallPhoneResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ReplaceRobotcallPhoneResponse) SetResultMsg(v string) *ReplaceRobotcallPhoneResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ReplaceRobotcallPhoneResponse) SetData(v string) *ReplaceRobotcallPhoneResponse {
+	s.Data = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1051,7 +1135,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.2"),
+				"sdk_version":      tea.String("1.0.3"),
 				"_prod_code":       tea.String("UNICONTACT"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1238,6 +1322,40 @@ func (client *Client) ImportInitUploadEx(request *ImportInitUploadRequest, heade
 	}
 	_result = &ImportInitUploadResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.unicontact.init.upload.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 外呼手机号解密
+ * Summary: 外呼手机号解密
+ */
+func (client *Client) ReplaceRobotcallPhone(request *ReplaceRobotcallPhoneRequest) (_result *ReplaceRobotcallPhoneResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ReplaceRobotcallPhoneResponse{}
+	_body, _err := client.ReplaceRobotcallPhoneEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 外呼手机号解密
+ * Summary: 外呼手机号解密
+ */
+func (client *Client) ReplaceRobotcallPhoneEx(request *ReplaceRobotcallPhoneRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ReplaceRobotcallPhoneResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ReplaceRobotcallPhoneResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.unicontact.robotcall.phone.replace"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
