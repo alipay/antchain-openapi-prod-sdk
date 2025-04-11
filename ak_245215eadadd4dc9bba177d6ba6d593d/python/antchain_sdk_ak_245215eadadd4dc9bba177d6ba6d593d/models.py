@@ -940,6 +940,7 @@ class CloneTask(TeaModel):
         voice_id: str = None,
         avatar_status: str = None,
         fail_reason: str = None,
+        error_code: str = None,
     ):
         # 数字人id
         self.model_id = model_id
@@ -949,6 +950,8 @@ class CloneTask(TeaModel):
         self.avatar_status = avatar_status
         # 数字人训练失败会返回原因
         self.fail_reason = fail_reason
+        # 错误码
+        self.error_code = error_code
 
     def validate(self):
         pass
@@ -967,6 +970,8 @@ class CloneTask(TeaModel):
             result['avatar_status'] = self.avatar_status
         if self.fail_reason is not None:
             result['fail_reason'] = self.fail_reason
+        if self.error_code is not None:
+            result['error_code'] = self.error_code
         return result
 
     def from_map(self, m: dict = None):
@@ -979,6 +984,8 @@ class CloneTask(TeaModel):
             self.avatar_status = m.get('avatar_status')
         if m.get('fail_reason') is not None:
             self.fail_reason = m.get('fail_reason')
+        if m.get('error_code') is not None:
+            self.error_code = m.get('error_code')
         return self
 
 
@@ -990,6 +997,7 @@ class VideoTask(TeaModel):
         video_duration: int = None,
         captions_info: CaptionsInfo = None,
         fail_reason: str = None,
+        error_code: str = None,
     ):
         # RUNNING, COMPLETE,FAIL
         self.state = state
@@ -1001,6 +1009,8 @@ class VideoTask(TeaModel):
         self.captions_info = captions_info
         # 短视频生成失败原因
         self.fail_reason = fail_reason
+        # 错误码
+        self.error_code = error_code
 
     def validate(self):
         self.validate_required(self.state, 'state')
@@ -1023,6 +1033,8 @@ class VideoTask(TeaModel):
             result['captions_info'] = self.captions_info.to_map()
         if self.fail_reason is not None:
             result['fail_reason'] = self.fail_reason
+        if self.error_code is not None:
+            result['error_code'] = self.error_code
         return result
 
     def from_map(self, m: dict = None):
@@ -1038,6 +1050,8 @@ class VideoTask(TeaModel):
             self.captions_info = temp_model.from_map(m['captions_info'])
         if m.get('fail_reason') is not None:
             self.fail_reason = m.get('fail_reason')
+        if m.get('error_code') is not None:
+            self.error_code = m.get('error_code')
         return self
 
 
