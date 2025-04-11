@@ -137,7 +137,7 @@ namespace AntChain.SDK.COLLABINV
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.14"},
+                        {"sdk_version", "1.0.20"},
                         {"_prod_code", "COLLABINV"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.COLLABINV
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.14"},
+                        {"sdk_version", "1.0.20"},
                         {"_prod_code", "COLLABINV"},
                         {"_prod_channel", "default"},
                     };
@@ -361,6 +361,48 @@ namespace AntChain.SDK.COLLABINV
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryIndexresearchBrandResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.indexresearch.brand.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 投行研究，查询品牌指标结果
+         * Summary: 查询品牌指标
+         */
+        public QueryIndexresearchBrandindexResponse QueryIndexresearchBrandindex(QueryIndexresearchBrandindexRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryIndexresearchBrandindexEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 投行研究，查询品牌指标结果
+         * Summary: 查询品牌指标
+         */
+        public async Task<QueryIndexresearchBrandindexResponse> QueryIndexresearchBrandindexAsync(QueryIndexresearchBrandindexRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryIndexresearchBrandindexExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 投行研究，查询品牌指标结果
+         * Summary: 查询品牌指标
+         */
+        public QueryIndexresearchBrandindexResponse QueryIndexresearchBrandindexEx(QueryIndexresearchBrandindexRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIndexresearchBrandindexResponse>(DoRequest("1.0", "antchain.zkcollabinv.indexresearch.brandindex.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 投行研究，查询品牌指标结果
+         * Summary: 查询品牌指标
+         */
+        public async Task<QueryIndexresearchBrandindexResponse> QueryIndexresearchBrandindexExAsync(QueryIndexresearchBrandindexRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIndexresearchBrandindexResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.indexresearch.brandindex.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -865,6 +907,48 @@ namespace AntChain.SDK.COLLABINV
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryModelFusionmodelResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.model.fusionmodel.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用工分
+         * Summary: 用工分调用
+         */
+        public QueryModelWorkscoreResponse QueryModelWorkscore(QueryModelWorkscoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryModelWorkscoreEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用工分
+         * Summary: 用工分调用
+         */
+        public async Task<QueryModelWorkscoreResponse> QueryModelWorkscoreAsync(QueryModelWorkscoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryModelWorkscoreExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用工分
+         * Summary: 用工分调用
+         */
+        public QueryModelWorkscoreResponse QueryModelWorkscoreEx(QueryModelWorkscoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryModelWorkscoreResponse>(DoRequest("1.0", "antchain.zkcollabinv.model.workscore.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用工分
+         * Summary: 用工分调用
+         */
+        public async Task<QueryModelWorkscoreResponse> QueryModelWorkscoreExAsync(QueryModelWorkscoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryModelWorkscoreResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.model.workscore.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

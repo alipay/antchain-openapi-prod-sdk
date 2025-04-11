@@ -76,6 +76,16 @@ namespace AntChain.SDK.COLLABINV.Models
         [Validation(Required=true)]
         public string ShopTag { get; set; }
 
+        // 品牌码
+        [NameInMap("brand_code")]
+        [Validation(Required=true)]
+        public string BrandCode { get; set; }
+
+        // 同店上年同期评分
+        [NameInMap("existing_amt_last_year")]
+        [Validation(Required=true)]
+        public string ExistingAmtLastYear { get; set; }
+
     }
 
 }
