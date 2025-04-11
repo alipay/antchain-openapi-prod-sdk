@@ -139,6 +139,10 @@ export class IndexData extends $tea.Model {
   amtRange: string;
   // 店铺标签指数
   shopTag: string;
+  // 品牌码
+  brandCode: string;
+  // 同店上年同期评分
+  existingAmtLastYear: string;
   static names(): { [key: string]: string } {
     return {
       month: 'month',
@@ -154,6 +158,8 @@ export class IndexData extends $tea.Model {
       newShop: 'new_shop',
       amtRange: 'amt_range',
       shopTag: 'shop_tag',
+      brandCode: 'brand_code',
+      existingAmtLastYear: 'existing_amt_last_year',
     };
   }
 
@@ -172,6 +178,8 @@ export class IndexData extends $tea.Model {
       newShop: 'string',
       amtRange: 'string',
       shopTag: 'string',
+      brandCode: 'string',
+      existingAmtLastYear: 'string',
     };
   }
 
@@ -304,6 +312,85 @@ export class QueryIndexresearchBrandResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      indexData: { 'type': 'array', 'itemType': IndexData },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIndexresearchBrandindexRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 品牌码
+  brandCode?: string;
+  // 店铺标签
+  shopTag?: string;
+  // 月份
+  month?: string[];
+  // 字段排序方式
+  sort?: string[];
+  // page_info
+  pageInfo: PageInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      brandCode: 'brand_code',
+      shopTag: 'shop_tag',
+      month: 'month',
+      sort: 'sort',
+      pageInfo: 'page_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      brandCode: 'string',
+      shopTag: 'string',
+      month: { 'type': 'array', 'itemType': 'string' },
+      sort: { 'type': 'array', 'itemType': 'string' },
+      pageInfo: PageInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIndexresearchBrandindexResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // page_info
+  pageInfo?: PageInfo;
+  // index_data
+  indexData?: IndexData[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pageInfo: 'page_info',
+      indexData: 'index_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pageInfo: PageInfo,
       indexData: { 'type': 'array', 'itemType': IndexData },
     };
   }
@@ -1276,6 +1363,86 @@ export class QueryModelFusionmodelResponse extends $tea.Model {
   }
 }
 
+export class QueryModelWorkscoreRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户名
+  name: string;
+  // 身份证号码
+  cardNo: string;
+  // 手机号
+  phone: string;
+  // 单位名称，以个体工商户、人才市场等方式缴纳的属于灵活就业人员，单位名称请填：GR
+  enterpriseName: string;
+  // 单位统一社会信用代码，
+  // 单位名称为GR传空。
+  organizationCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      name: 'name',
+      cardNo: 'card_no',
+      phone: 'phone',
+      enterpriseName: 'enterprise_name',
+      organizationCode: 'organization_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      name: 'string',
+      cardNo: 'string',
+      phone: 'string',
+      enterpriseName: 'string',
+      organizationCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryModelWorkscoreResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 交易流水号
+  transNo?: string;
+  // 用工评分
+  score?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      transNo: 'trans_no',
+      score: 'score',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      transNo: 'string',
+      score: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1389,7 +1556,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.14",
+          sdk_version: "1.0.20",
           _prod_code: "COLLABINV",
           _prod_channel: "default",
         };
@@ -1454,6 +1621,25 @@ export default class Client {
   async queryIndexresearchBrandEx(request: QueryIndexresearchBrandRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIndexresearchBrandResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryIndexresearchBrandResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.indexresearch.brand.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIndexresearchBrandResponse({}));
+  }
+
+  /**
+   * Description: 投行研究，查询品牌指标结果
+   * Summary: 查询品牌指标
+   */
+  async queryIndexresearchBrandindex(request: QueryIndexresearchBrandindexRequest): Promise<QueryIndexresearchBrandindexResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIndexresearchBrandindexEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 投行研究，查询品牌指标结果
+   * Summary: 查询品牌指标
+   */
+  async queryIndexresearchBrandindexEx(request: QueryIndexresearchBrandindexRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIndexresearchBrandindexResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIndexresearchBrandindexResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.indexresearch.brandindex.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIndexresearchBrandindexResponse({}));
   }
 
   /**
@@ -1682,6 +1868,25 @@ export default class Client {
   async queryModelFusionmodelEx(request: QueryModelFusionmodelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryModelFusionmodelResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryModelFusionmodelResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.model.fusionmodel.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryModelFusionmodelResponse({}));
+  }
+
+  /**
+   * Description: 用工分
+   * Summary: 用工分调用
+   */
+  async queryModelWorkscore(request: QueryModelWorkscoreRequest): Promise<QueryModelWorkscoreResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryModelWorkscoreEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用工分
+   * Summary: 用工分调用
+   */
+  async queryModelWorkscoreEx(request: QueryModelWorkscoreRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryModelWorkscoreResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryModelWorkscoreResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.model.workscore.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryModelWorkscoreResponse({}));
   }
 
 }
