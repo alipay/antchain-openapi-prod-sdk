@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.2"),
+                    new TeaPair("sdk_version", "1.0.3"),
                     new TeaPair("_prod_code", "UNICONTACT"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -258,5 +258,24 @@ public class Client {
     public ImportInitUploadResponse importInitUploadEx(ImportInitUploadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.unicontact.init.upload.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportInitUploadResponse());
+    }
+
+    /**
+     * Description: 外呼手机号解密
+     * Summary: 外呼手机号解密
+     */
+    public ReplaceRobotcallPhoneResponse replaceRobotcallPhone(ReplaceRobotcallPhoneRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.replaceRobotcallPhoneEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 外呼手机号解密
+     * Summary: 外呼手机号解密
+     */
+    public ReplaceRobotcallPhoneResponse replaceRobotcallPhoneEx(ReplaceRobotcallPhoneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.unicontact.robotcall.phone.replace", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReplaceRobotcallPhoneResponse());
     }
 }
