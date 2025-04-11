@@ -17,6 +17,8 @@ use AntChain\COLLABINV\Models\ExecModelSampletaskRequest;
 use AntChain\COLLABINV\Models\ExecModelSampletaskResponse;
 use AntChain\COLLABINV\Models\PushModelSamplefileRequest;
 use AntChain\COLLABINV\Models\PushModelSamplefileResponse;
+use AntChain\COLLABINV\Models\QueryIndexresearchBrandindexRequest;
+use AntChain\COLLABINV\Models\QueryIndexresearchBrandindexResponse;
 use AntChain\COLLABINV\Models\QueryIndexresearchBrandRequest;
 use AntChain\COLLABINV\Models\QueryIndexresearchBrandResponse;
 use AntChain\COLLABINV\Models\QueryLocationInternalRequest;
@@ -35,6 +37,8 @@ use AntChain\COLLABINV\Models\QueryModelSampletaskRequest;
 use AntChain\COLLABINV\Models\QueryModelSampletaskResponse;
 use AntChain\COLLABINV\Models\QueryModelStatsRequest;
 use AntChain\COLLABINV\Models\QueryModelStatsResponse;
+use AntChain\COLLABINV\Models\QueryModelWorkscoreRequest;
+use AntChain\COLLABINV\Models\QueryModelWorkscoreResponse;
 use AntChain\COLLABINV\Models\SubmitModelInstanceRequest;
 use AntChain\COLLABINV\Models\SubmitModelInstanceResponse;
 use AntChain\Util\UtilClient;
@@ -184,7 +188,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.14',
+                    'sdk_version'      => '1.0.20',
                     '_prod_code'       => 'COLLABINV',
                     '_prod_channel'    => 'default',
                 ];
@@ -263,6 +267,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryIndexresearchBrandResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.indexresearch.brand.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 投行研究，查询品牌指标结果
+     * Summary: 查询品牌指标.
+     *
+     * @param QueryIndexresearchBrandindexRequest $request
+     *
+     * @return QueryIndexresearchBrandindexResponse
+     */
+    public function queryIndexresearchBrandindex($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIndexresearchBrandindexEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 投行研究，查询品牌指标结果
+     * Summary: 查询品牌指标.
+     *
+     * @param QueryIndexresearchBrandindexRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryIndexresearchBrandindexResponse
+     */
+    public function queryIndexresearchBrandindexEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIndexresearchBrandindexResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.indexresearch.brandindex.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -659,5 +696,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryModelFusionmodelResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.model.fusionmodel.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用工分
+     * Summary: 用工分调用.
+     *
+     * @param QueryModelWorkscoreRequest $request
+     *
+     * @return QueryModelWorkscoreResponse
+     */
+    public function queryModelWorkscore($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryModelWorkscoreEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用工分
+     * Summary: 用工分调用.
+     *
+     * @param QueryModelWorkscoreRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryModelWorkscoreResponse
+     */
+    public function queryModelWorkscoreEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryModelWorkscoreResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.model.workscore.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

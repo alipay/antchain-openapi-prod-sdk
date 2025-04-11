@@ -112,20 +112,38 @@ class IndexData extends Model
      * @var string
      */
     public $shopTag;
+
+    // 品牌码
+    /**
+     * @example P100100
+     *
+     * @var string
+     */
+    public $brandCode;
+
+    // 同店上年同期评分
+    /**
+     * @example 23.45
+     *
+     * @var string
+     */
+    public $existingAmtLastYear;
     protected $_name = [
-        'month'        => 'month',
-        'cityTier'     => 'city_tier',
-        'provinceCode' => 'province_code',
-        'totalCnt'     => 'total_cnt',
-        'totalAmt'     => 'total_amt',
-        'totalShop'    => 'total_shop',
-        'totalCsm'     => 'total_csm',
-        'existingCnt'  => 'existing_cnt',
-        'existingAmt'  => 'existing_amt',
-        'existingShop' => 'existing_shop',
-        'newShop'      => 'new_shop',
-        'amtRange'     => 'amt_range',
-        'shopTag'      => 'shop_tag',
+        'month'               => 'month',
+        'cityTier'            => 'city_tier',
+        'provinceCode'        => 'province_code',
+        'totalCnt'            => 'total_cnt',
+        'totalAmt'            => 'total_amt',
+        'totalShop'           => 'total_shop',
+        'totalCsm'            => 'total_csm',
+        'existingCnt'         => 'existing_cnt',
+        'existingAmt'         => 'existing_amt',
+        'existingShop'        => 'existing_shop',
+        'newShop'             => 'new_shop',
+        'amtRange'            => 'amt_range',
+        'shopTag'             => 'shop_tag',
+        'brandCode'           => 'brand_code',
+        'existingAmtLastYear' => 'existing_amt_last_year',
     ];
 
     public function validate()
@@ -143,6 +161,8 @@ class IndexData extends Model
         Model::validateRequired('newShop', $this->newShop, true);
         Model::validateRequired('amtRange', $this->amtRange, true);
         Model::validateRequired('shopTag', $this->shopTag, true);
+        Model::validateRequired('brandCode', $this->brandCode, true);
+        Model::validateRequired('existingAmtLastYear', $this->existingAmtLastYear, true);
     }
 
     public function toMap()
@@ -186,6 +206,12 @@ class IndexData extends Model
         }
         if (null !== $this->shopTag) {
             $res['shop_tag'] = $this->shopTag;
+        }
+        if (null !== $this->brandCode) {
+            $res['brand_code'] = $this->brandCode;
+        }
+        if (null !== $this->existingAmtLastYear) {
+            $res['existing_amt_last_year'] = $this->existingAmtLastYear;
         }
 
         return $res;
@@ -237,6 +263,12 @@ class IndexData extends Model
         }
         if (isset($map['shop_tag'])) {
             $model->shopTag = $map['shop_tag'];
+        }
+        if (isset($map['brand_code'])) {
+            $model->brandCode = $map['brand_code'];
+        }
+        if (isset($map['existing_amt_last_year'])) {
+            $model->existingAmtLastYear = $map['existing_amt_last_year'];
         }
 
         return $model;
