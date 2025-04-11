@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2',
+                    'sdk_version': '1.0.3',
                     '_prod_code': 'UNICONTACT',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2',
+                    'sdk_version': '1.0.3',
                     '_prod_code': 'UNICONTACT',
                     '_prod_channel': 'default'
                 }
@@ -497,4 +497,60 @@ class Client:
         return TeaCore.from_map(
             unicontact_models.ImportInitUploadResponse(),
             await self.do_request_async('1.0', 'antdigital.unicontact.init.upload.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def replace_robotcall_phone(
+        self,
+        request: unicontact_models.ReplaceRobotcallPhoneRequest,
+    ) -> unicontact_models.ReplaceRobotcallPhoneResponse:
+        """
+        Description: 外呼手机号解密
+        Summary: 外呼手机号解密
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.replace_robotcall_phone_ex(request, headers, runtime)
+
+    async def replace_robotcall_phone_async(
+        self,
+        request: unicontact_models.ReplaceRobotcallPhoneRequest,
+    ) -> unicontact_models.ReplaceRobotcallPhoneResponse:
+        """
+        Description: 外呼手机号解密
+        Summary: 外呼手机号解密
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.replace_robotcall_phone_ex_async(request, headers, runtime)
+
+    def replace_robotcall_phone_ex(
+        self,
+        request: unicontact_models.ReplaceRobotcallPhoneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> unicontact_models.ReplaceRobotcallPhoneResponse:
+        """
+        Description: 外呼手机号解密
+        Summary: 外呼手机号解密
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            unicontact_models.ReplaceRobotcallPhoneResponse(),
+            self.do_request('1.0', 'antdigital.unicontact.robotcall.phone.replace', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def replace_robotcall_phone_ex_async(
+        self,
+        request: unicontact_models.ReplaceRobotcallPhoneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> unicontact_models.ReplaceRobotcallPhoneResponse:
+        """
+        Description: 外呼手机号解密
+        Summary: 外呼手机号解密
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            unicontact_models.ReplaceRobotcallPhoneResponse(),
+            await self.do_request_async('1.0', 'antdigital.unicontact.robotcall.phone.replace', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
