@@ -30,6 +30,11 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
         [Validation(Required=false)]
         public string FailReason { get; set; }
 
+        // 错误码
+        [NameInMap("error_code")]
+        [Validation(Required=false)]
+        public string ErrorCode { get; set; }
+
     }
 
 }
