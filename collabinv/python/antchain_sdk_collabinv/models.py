@@ -222,6 +222,8 @@ class IndexData(TeaModel):
         new_shop: str = None,
         amt_range: str = None,
         shop_tag: str = None,
+        brand_code: str = None,
+        existing_amt_last_year: str = None,
     ):
         # 月份
         # 
@@ -250,6 +252,10 @@ class IndexData(TeaModel):
         self.amt_range = amt_range
         # 店铺标签指数
         self.shop_tag = shop_tag
+        # 品牌码
+        self.brand_code = brand_code
+        # 同店上年同期评分
+        self.existing_amt_last_year = existing_amt_last_year
 
     def validate(self):
         self.validate_required(self.month, 'month')
@@ -265,6 +271,8 @@ class IndexData(TeaModel):
         self.validate_required(self.new_shop, 'new_shop')
         self.validate_required(self.amt_range, 'amt_range')
         self.validate_required(self.shop_tag, 'shop_tag')
+        self.validate_required(self.brand_code, 'brand_code')
+        self.validate_required(self.existing_amt_last_year, 'existing_amt_last_year')
 
     def to_map(self):
         _map = super().to_map()
@@ -298,6 +306,10 @@ class IndexData(TeaModel):
             result['amt_range'] = self.amt_range
         if self.shop_tag is not None:
             result['shop_tag'] = self.shop_tag
+        if self.brand_code is not None:
+            result['brand_code'] = self.brand_code
+        if self.existing_amt_last_year is not None:
+            result['existing_amt_last_year'] = self.existing_amt_last_year
         return result
 
     def from_map(self, m: dict = None):
@@ -328,6 +340,10 @@ class IndexData(TeaModel):
             self.amt_range = m.get('amt_range')
         if m.get('shop_tag') is not None:
             self.shop_tag = m.get('shop_tag')
+        if m.get('brand_code') is not None:
+            self.brand_code = m.get('brand_code')
+        if m.get('existing_amt_last_year') is not None:
+            self.existing_amt_last_year = m.get('existing_amt_last_year')
         return self
 
 
@@ -535,6 +551,145 @@ class QueryIndexresearchBrandResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        self.index_data = []
+        if m.get('index_data') is not None:
+            for k in m.get('index_data'):
+                temp_model = IndexData()
+                self.index_data.append(temp_model.from_map(k))
+        return self
+
+
+class QueryIndexresearchBrandindexRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        brand_code: str = None,
+        shop_tag: str = None,
+        month: List[str] = None,
+        sort: List[str] = None,
+        page_info: PageInfo = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 品牌码
+        self.brand_code = brand_code
+        # 店铺标签
+        self.shop_tag = shop_tag
+        # 月份
+        self.month = month
+        # 字段排序方式
+        self.sort = sort
+        # page_info
+        self.page_info = page_info
+
+    def validate(self):
+        self.validate_required(self.page_info, 'page_info')
+        if self.page_info:
+            self.page_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.brand_code is not None:
+            result['brand_code'] = self.brand_code
+        if self.shop_tag is not None:
+            result['shop_tag'] = self.shop_tag
+        if self.month is not None:
+            result['month'] = self.month
+        if self.sort is not None:
+            result['sort'] = self.sort
+        if self.page_info is not None:
+            result['page_info'] = self.page_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('brand_code') is not None:
+            self.brand_code = m.get('brand_code')
+        if m.get('shop_tag') is not None:
+            self.shop_tag = m.get('shop_tag')
+        if m.get('month') is not None:
+            self.month = m.get('month')
+        if m.get('sort') is not None:
+            self.sort = m.get('sort')
+        if m.get('page_info') is not None:
+            temp_model = PageInfo()
+            self.page_info = temp_model.from_map(m['page_info'])
+        return self
+
+
+class QueryIndexresearchBrandindexResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        page_info: PageInfo = None,
+        index_data: List[IndexData] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # page_info
+        self.page_info = page_info
+        # index_data
+        self.index_data = index_data
+
+    def validate(self):
+        if self.page_info:
+            self.page_info.validate()
+        if self.index_data:
+            for k in self.index_data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.page_info is not None:
+            result['page_info'] = self.page_info.to_map()
+        result['index_data'] = []
+        if self.index_data is not None:
+            for k in self.index_data:
+                result['index_data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('page_info') is not None:
+            temp_model = PageInfo()
+            self.page_info = temp_model.from_map(m['page_info'])
         self.index_data = []
         if m.get('index_data') is not None:
             for k in m.get('index_data'):
@@ -2135,6 +2290,135 @@ class QueryModelFusionmodelResponse(TeaModel):
             self.result = m.get('result')
         if m.get('trans_no') is not None:
             self.trans_no = m.get('trans_no')
+        return self
+
+
+class QueryModelWorkscoreRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        name: str = None,
+        card_no: str = None,
+        phone: str = None,
+        enterprise_name: str = None,
+        organization_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 用户名
+        self.name = name
+        # 身份证号码
+        self.card_no = card_no
+        # 手机号
+        self.phone = phone
+        # 单位名称，以个体工商户、人才市场等方式缴纳的属于灵活就业人员，单位名称请填：GR
+        self.enterprise_name = enterprise_name
+        # 单位统一社会信用代码，
+        # 单位名称为GR传空。
+        self.organization_code = organization_code
+
+    def validate(self):
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.card_no, 'card_no')
+        self.validate_required(self.phone, 'phone')
+        self.validate_required(self.enterprise_name, 'enterprise_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.card_no is not None:
+            result['card_no'] = self.card_no
+        if self.phone is not None:
+            result['phone'] = self.phone
+        if self.enterprise_name is not None:
+            result['enterprise_name'] = self.enterprise_name
+        if self.organization_code is not None:
+            result['organization_code'] = self.organization_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('card_no') is not None:
+            self.card_no = m.get('card_no')
+        if m.get('phone') is not None:
+            self.phone = m.get('phone')
+        if m.get('enterprise_name') is not None:
+            self.enterprise_name = m.get('enterprise_name')
+        if m.get('organization_code') is not None:
+            self.organization_code = m.get('organization_code')
+        return self
+
+
+class QueryModelWorkscoreResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trans_no: str = None,
+        score: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 交易流水号
+        self.trans_no = trans_no
+        # 用工评分
+        self.score = score
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trans_no is not None:
+            result['trans_no'] = self.trans_no
+        if self.score is not None:
+            result['score'] = self.score
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trans_no') is not None:
+            self.trans_no = m.get('trans_no')
+        if m.get('score') is not None:
+            self.score = m.get('score')
         return self
 
 

@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_collabinv.
 
-Created on 21/03/2025
+Created on 11/04/2025
 
 @author: Ant Chain SDK
 """
