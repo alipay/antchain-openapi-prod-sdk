@@ -570,12 +570,15 @@ export class CloneTask extends $tea.Model {
   avatarStatus?: string;
   //  数字人训练失败会返回原因
   failReason?: string;
+  // 错误码
+  errorCode?: string;
   static names(): { [key: string]: string } {
     return {
       modelId: 'model_id',
       voiceId: 'voice_id',
       avatarStatus: 'avatar_status',
       failReason: 'fail_reason',
+      errorCode: 'error_code',
     };
   }
 
@@ -585,6 +588,7 @@ export class CloneTask extends $tea.Model {
       voiceId: 'string',
       avatarStatus: 'string',
       failReason: 'string',
+      errorCode: 'string',
     };
   }
 
@@ -605,6 +609,8 @@ export class VideoTask extends $tea.Model {
   captionsInfo?: CaptionsInfo;
   // 短视频生成失败原因
   failReason?: string;
+  // 错误码
+  errorCode?: string;
   static names(): { [key: string]: string } {
     return {
       state: 'state',
@@ -612,6 +618,7 @@ export class VideoTask extends $tea.Model {
       videoDuration: 'video_duration',
       captionsInfo: 'captions_info',
       failReason: 'fail_reason',
+      errorCode: 'error_code',
     };
   }
 
@@ -622,6 +629,7 @@ export class VideoTask extends $tea.Model {
       videoDuration: 'number',
       captionsInfo: CaptionsInfo,
       failReason: 'string',
+      errorCode: 'string',
     };
   }
 
@@ -1944,7 +1952,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.1",
+          sdk_version: "1.3.2",
           _prod_code: "ak_245215eadadd4dc9bba177d6ba6d593d",
           _prod_channel: "saas",
         };
