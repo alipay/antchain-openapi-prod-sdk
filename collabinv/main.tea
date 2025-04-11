@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.14',
+    sdk_version = '1.0.20',
     _prod_code = 'COLLABINV',
     _prod_channel = 'default'
   };
@@ -202,6 +202,10 @@ model IndexData {
   amtRange: string(name='amt_range', example='1.2'),
   // 店铺标签指数
   shopTag: string(name='shop_tag', example='线下'),
+  // 品牌码
+  brandCode: string(name='brand_code', example='P100100'),
+  // 同店上年同期评分
+  existingAmtLastYear: string(name='existing_amt_last_year', example='23.45'),
 }
 
 // 调用统计
@@ -268,6 +272,54 @@ async function queryIndexresearchBrand(request: QueryIndexresearchBrandRequest):
 async function queryIndexresearchBrandEx(request: QueryIndexresearchBrandRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIndexresearchBrandResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.zkcollabinv.indexresearch.brand.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIndexresearchBrandindexRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 品牌码
+  brandCode?: string(name='brand_code'),
+  // 店铺标签
+  shopTag?: string(name='shop_tag'),
+  // 月份
+  month?: [ string ](name='month'),
+  // 字段排序方式
+  sort?: [ string ](name='sort'),
+  // page_info
+  pageInfo: PageInfo(name='page_info'),
+}
+
+model QueryIndexresearchBrandindexResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // page_info
+  pageInfo?: PageInfo(name='page_info'),
+  // index_data
+  indexData?: [ IndexData ](name='index_data'),
+}
+
+/**
+ * Description: 投行研究，查询品牌指标结果
+ * Summary: 查询品牌指标
+ */
+async function queryIndexresearchBrandindex(request: QueryIndexresearchBrandindexRequest): QueryIndexresearchBrandindexResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIndexresearchBrandindexEx(request, headers, runtime);
+}
+
+/**
+ * Description: 投行研究，查询品牌指标结果
+ * Summary: 查询品牌指标
+ */
+async function queryIndexresearchBrandindexEx(request: QueryIndexresearchBrandindexRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIndexresearchBrandindexResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.indexresearch.brandindex.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryLocationInternalRequest = {
@@ -855,5 +907,54 @@ async function queryModelFusionmodel(request: QueryModelFusionmodelRequest): Que
 async function queryModelFusionmodelEx(request: QueryModelFusionmodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryModelFusionmodelResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.zkcollabinv.model.fusionmodel.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryModelWorkscoreRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户名
+  name: string(name='name'),
+  // 身份证号码
+  cardNo: string(name='card_no'),
+  // 手机号
+  phone: string(name='phone'),
+  // 单位名称，以个体工商户、人才市场等方式缴纳的属于灵活就业人员，单位名称请填：GR
+  enterpriseName: string(name='enterprise_name'),
+  // 单位统一社会信用代码，
+  // 单位名称为GR传空。
+  organizationCode?: string(name='organization_code'),
+}
+
+model QueryModelWorkscoreResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易流水号
+  transNo?: string(name='trans_no'),
+  // 用工评分
+  score?: string(name='score'),
+}
+
+/**
+ * Description: 用工分
+ * Summary: 用工分调用
+ */
+async function queryModelWorkscore(request: QueryModelWorkscoreRequest): QueryModelWorkscoreResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryModelWorkscoreEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用工分
+ * Summary: 用工分调用
+ */
+async function queryModelWorkscoreEx(request: QueryModelWorkscoreRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryModelWorkscoreResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.model.workscore.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
