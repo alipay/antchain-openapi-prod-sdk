@@ -19,6 +19,8 @@ use AntChain\UNICONTACT\Models\CallbackSmsUpRequest;
 use AntChain\UNICONTACT\Models\CallbackSmsUpResponse;
 use AntChain\UNICONTACT\Models\ImportInitUploadRequest;
 use AntChain\UNICONTACT\Models\ImportInitUploadResponse;
+use AntChain\UNICONTACT\Models\ReplaceRobotcallPhoneRequest;
+use AntChain\UNICONTACT\Models\ReplaceRobotcallPhoneResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -166,7 +168,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.2',
+                    'sdk_version'      => '1.0.3',
                     '_prod_code'       => 'UNICONTACT',
                     '_prod_channel'    => 'default',
                 ];
@@ -344,5 +346,38 @@ class Client
         Utils::validateModel($request);
 
         return ImportInitUploadResponse::fromMap($this->doRequest('1.0', 'antdigital.unicontact.init.upload.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 外呼手机号解密
+     * Summary: 外呼手机号解密.
+     *
+     * @param ReplaceRobotcallPhoneRequest $request
+     *
+     * @return ReplaceRobotcallPhoneResponse
+     */
+    public function replaceRobotcallPhone($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->replaceRobotcallPhoneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 外呼手机号解密
+     * Summary: 外呼手机号解密.
+     *
+     * @param ReplaceRobotcallPhoneRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return ReplaceRobotcallPhoneResponse
+     */
+    public function replaceRobotcallPhoneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ReplaceRobotcallPhoneResponse::fromMap($this->doRequest('1.0', 'antdigital.unicontact.robotcall.phone.replace', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
