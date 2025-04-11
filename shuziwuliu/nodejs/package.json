@@ -1,6 +1,6 @@
 {
   "name": "@antchain/shuziwuliu",
-  "version": "1.7.13",
+  "version": "1.7.14",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
