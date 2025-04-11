@@ -70,6 +70,16 @@ public class IndexData extends TeaModel {
     @Validation(required = true)
     public String shopTag;
 
+    // 品牌码
+    @NameInMap("brand_code")
+    @Validation(required = true)
+    public String brandCode;
+
+    // 同店上年同期评分
+    @NameInMap("existing_amt_last_year")
+    @Validation(required = true)
+    public String existingAmtLastYear;
+
     public static IndexData build(java.util.Map<String, ?> map) throws Exception {
         IndexData self = new IndexData();
         return TeaModel.build(map, self);
@@ -177,6 +187,22 @@ public class IndexData extends TeaModel {
     }
     public String getShopTag() {
         return this.shopTag;
+    }
+
+    public IndexData setBrandCode(String brandCode) {
+        this.brandCode = brandCode;
+        return this;
+    }
+    public String getBrandCode() {
+        return this.brandCode;
+    }
+
+    public IndexData setExistingAmtLastYear(String existingAmtLastYear) {
+        this.existingAmtLastYear = existingAmtLastYear;
+        return this;
+    }
+    public String getExistingAmtLastYear() {
+        return this.existingAmtLastYear;
     }
 
 }

@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.14"),
+                    new TeaPair("sdk_version", "1.0.20"),
                     new TeaPair("_prod_code", "COLLABINV"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -201,6 +201,25 @@ public class Client {
     public QueryIndexresearchBrandResponse queryIndexresearchBrandEx(QueryIndexresearchBrandRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.indexresearch.brand.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIndexresearchBrandResponse());
+    }
+
+    /**
+     * Description: 投行研究，查询品牌指标结果
+     * Summary: 查询品牌指标
+     */
+    public QueryIndexresearchBrandindexResponse queryIndexresearchBrandindex(QueryIndexresearchBrandindexRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryIndexresearchBrandindexEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 投行研究，查询品牌指标结果
+     * Summary: 查询品牌指标
+     */
+    public QueryIndexresearchBrandindexResponse queryIndexresearchBrandindexEx(QueryIndexresearchBrandindexRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.indexresearch.brandindex.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryIndexresearchBrandindexResponse());
     }
 
     /**
@@ -429,5 +448,24 @@ public class Client {
     public QueryModelFusionmodelResponse queryModelFusionmodelEx(QueryModelFusionmodelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.model.fusionmodel.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryModelFusionmodelResponse());
+    }
+
+    /**
+     * Description: 用工分
+     * Summary: 用工分调用
+     */
+    public QueryModelWorkscoreResponse queryModelWorkscore(QueryModelWorkscoreRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryModelWorkscoreEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 用工分
+     * Summary: 用工分调用
+     */
+    public QueryModelWorkscoreResponse queryModelWorkscoreEx(QueryModelWorkscoreRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.model.workscore.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryModelWorkscoreResponse());
     }
 }
