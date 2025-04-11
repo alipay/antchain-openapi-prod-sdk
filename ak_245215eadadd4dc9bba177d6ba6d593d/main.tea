@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.1',
+    sdk_version = '1.3.2',
     _prod_code = 'ak_245215eadadd4dc9bba177d6ba6d593d',
     _prod_channel = 'saas'
   };
@@ -352,6 +352,8 @@ model CloneTask {
   avatarStatus?: string(name='avatar_status', example='init/wait_training/tone_training/audio_clone_completed/avatar_cloning/avatar_clone_completed'),
   //  数字人训练失败会返回原因
   failReason?: string(name='fail_reason', example='失败原因'),
+  // 错误码
+  errorCode?: string(name='error_code', example='ILLEGAL_ARGS'),
 }
 
 // 合成任务
@@ -366,6 +368,8 @@ model VideoTask {
   captionsInfo?: CaptionsInfo(name='captions_info', example=''),
   // 短视频生成失败原因
   failReason?: string(name='fail_reason', example='失败原因'),
+  // 错误码
+  errorCode?: string(name='error_code', example='ILLEGAL_ARGS'),
 }
 
 // 背景设置
