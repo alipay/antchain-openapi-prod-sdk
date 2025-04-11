@@ -137,7 +137,7 @@ namespace AntChain.SDK.UNICONTACT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.2"},
+                        {"sdk_version", "1.0.3"},
                         {"_prod_code", "UNICONTACT"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.UNICONTACT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.2"},
+                        {"sdk_version", "1.0.3"},
                         {"_prod_code", "UNICONTACT"},
                         {"_prod_channel", "default"},
                     };
@@ -487,6 +487,48 @@ namespace AntChain.SDK.UNICONTACT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ImportInitUploadResponse>(await DoRequestAsync("1.0", "antdigital.unicontact.init.upload.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外呼手机号解密
+         * Summary: 外呼手机号解密
+         */
+        public ReplaceRobotcallPhoneResponse ReplaceRobotcallPhone(ReplaceRobotcallPhoneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ReplaceRobotcallPhoneEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外呼手机号解密
+         * Summary: 外呼手机号解密
+         */
+        public async Task<ReplaceRobotcallPhoneResponse> ReplaceRobotcallPhoneAsync(ReplaceRobotcallPhoneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ReplaceRobotcallPhoneExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外呼手机号解密
+         * Summary: 外呼手机号解密
+         */
+        public ReplaceRobotcallPhoneResponse ReplaceRobotcallPhoneEx(ReplaceRobotcallPhoneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReplaceRobotcallPhoneResponse>(DoRequest("1.0", "antdigital.unicontact.robotcall.phone.replace", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外呼手机号解密
+         * Summary: 外呼手机号解密
+         */
+        public async Task<ReplaceRobotcallPhoneResponse> ReplaceRobotcallPhoneExAsync(ReplaceRobotcallPhoneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReplaceRobotcallPhoneResponse>(await DoRequestAsync("1.0", "antdigital.unicontact.robotcall.phone.replace", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
