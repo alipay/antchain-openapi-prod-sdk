@@ -751,6 +751,8 @@ type CloneTask struct {
 	AvatarStatus *string `json:"avatar_status,omitempty" xml:"avatar_status,omitempty"`
 	//  数字人训练失败会返回原因
 	FailReason *string `json:"fail_reason,omitempty" xml:"fail_reason,omitempty"`
+	// 错误码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
 }
 
 func (s CloneTask) String() string {
@@ -781,6 +783,11 @@ func (s *CloneTask) SetFailReason(v string) *CloneTask {
 	return s
 }
 
+func (s *CloneTask) SetErrorCode(v string) *CloneTask {
+	s.ErrorCode = &v
+	return s
+}
+
 // 合成任务
 type VideoTask struct {
 	// RUNNING, COMPLETE,FAIL
@@ -793,6 +800,8 @@ type VideoTask struct {
 	CaptionsInfo *CaptionsInfo `json:"captions_info,omitempty" xml:"captions_info,omitempty"`
 	// 短视频生成失败原因
 	FailReason *string `json:"fail_reason,omitempty" xml:"fail_reason,omitempty"`
+	// 错误码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
 }
 
 func (s VideoTask) String() string {
@@ -825,6 +834,11 @@ func (s *VideoTask) SetCaptionsInfo(v *CaptionsInfo) *VideoTask {
 
 func (s *VideoTask) SetFailReason(v string) *VideoTask {
 	s.FailReason = &v
+	return s
+}
+
+func (s *VideoTask) SetErrorCode(v string) *VideoTask {
+	s.ErrorCode = &v
 	return s
 }
 
@@ -2479,7 +2493,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.1"),
+				"sdk_version":      tea.String("1.3.2"),
 				"_prod_code":       tea.String("ak_245215eadadd4dc9bba177d6ba6d593d"),
 				"_prod_channel":    tea.String("saas"),
 			}
