@@ -1,6 +1,6 @@
 {
   "name": "@antchain/bxpt_new",
-  "version": "1.2.16",
+  "version": "1.2.21",
   "description": "",
   "main": "dist/client.js",
   "scripts": {

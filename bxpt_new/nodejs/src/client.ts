@@ -474,6 +474,114 @@ export class ReceiveDrrdataTrackResponse extends $tea.Model {
   }
 }
 
+export class QueryDrrdataRiafdRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 业务流水号 需唯一， 格式：日期_客户标识_序列号
+  tradeNo: string;
+  // 请求来源  国泰-GT
+  bizSource: string;
+  // 逆向物流单号
+  reverseMailNo: string;
+  // 逆向物流快递公司代码
+  reverseCpCode?: string;
+  // 逆向物流关联的电商平台
+  reverseRelatePlatform?: string;
+  // 逆向收件人电话后四位
+  reverseReceiverPhone?: string;
+  // 逆向寄件人电话后四位
+  reverseSenderPhone?: string;
+  // 申请退货时间 格式：yyyy-MM-dd HH:mm:ss
+  applyReturnTime?: string;
+  // 申请理赔时间 格式：yyyy-MM-dd HH:mm:ss
+  claimProcessingTime?: string;
+  // 正向物流单号
+  forwardMailNo?: string;
+  // 正向物流快递公司代码
+  forwardCpCode?: string;
+  // 正向物流关联的电商平台
+  forwardRelatePlatform?: string;
+  // 正向收件人电话后四位
+  forwardReceiverPhone?: string;
+  // 正向寄件人电话后四位
+  forwardSenderPhone?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      tradeNo: 'trade_no',
+      bizSource: 'biz_source',
+      reverseMailNo: 'reverse_mail_no',
+      reverseCpCode: 'reverse_cp_code',
+      reverseRelatePlatform: 'reverse_relate_platform',
+      reverseReceiverPhone: 'reverse_receiver_phone',
+      reverseSenderPhone: 'reverse_sender_phone',
+      applyReturnTime: 'apply_return_time',
+      claimProcessingTime: 'claim_processing_time',
+      forwardMailNo: 'forward_mail_no',
+      forwardCpCode: 'forward_cp_code',
+      forwardRelatePlatform: 'forward_relate_platform',
+      forwardReceiverPhone: 'forward_receiver_phone',
+      forwardSenderPhone: 'forward_sender_phone',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      tradeNo: 'string',
+      bizSource: 'string',
+      reverseMailNo: 'string',
+      reverseCpCode: 'string',
+      reverseRelatePlatform: 'string',
+      reverseReceiverPhone: 'string',
+      reverseSenderPhone: 'string',
+      applyReturnTime: 'string',
+      claimProcessingTime: 'string',
+      forwardMailNo: 'string',
+      forwardCpCode: 'string',
+      forwardRelatePlatform: 'string',
+      forwardReceiverPhone: 'string',
+      forwardSenderPhone: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDrrdataRiafdResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 反欺诈业务查询结果，json格式
+  bizResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizResult: 'biz_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryDatapromotionDecisionRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -720,7 +828,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.16",
+          sdk_version: "1.2.21",
           _prod_code: "BXPT_NEW",
           _prod_channel: "default",
         };
@@ -861,6 +969,25 @@ export default class Client {
   async receiveDrrdataTrackEx(request: ReceiveDrrdataTrackRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReceiveDrrdataTrackResponse> {
     Util.validateModel(request);
     return $tea.cast<ReceiveDrrdataTrackResponse>(await this.doRequest("1.0", "antcloud.bxptnew.drrdata.track.receive", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReceiveDrrdataTrackResponse({}));
+  }
+
+  /**
+   * Description: 退运险反欺诈服务api
+   * Summary: 退运险反欺诈服务api
+   */
+  async queryDrrdataRiafd(request: QueryDrrdataRiafdRequest): Promise<QueryDrrdataRiafdResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDrrdataRiafdEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 退运险反欺诈服务api
+   * Summary: 退运险反欺诈服务api
+   */
+  async queryDrrdataRiafdEx(request: QueryDrrdataRiafdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDrrdataRiafdResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDrrdataRiafdResponse>(await this.doRequest("1.0", "antcloud.bxptnew.drrdata.riafd.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDrrdataRiafdResponse({}));
   }
 
   /**
