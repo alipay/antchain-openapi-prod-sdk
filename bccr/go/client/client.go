@@ -1972,6 +1972,180 @@ func (s *SecurityData) SetRiskData(v []*string) *SecurityData {
 	return s
 }
 
+// 线下取证存证结果
+type OfflineRegisterResult struct {
+	// 取证文件
+	EvidenceFile *EvidenceFile `json:"evidence_file,omitempty" xml:"evidence_file,omitempty"`
+	// 线下取证ID
+	OfflineEvidenceId *string `json:"offline_evidence_id,omitempty" xml:"offline_evidence_id,omitempty" require:"true"`
+	// 错误码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 错误信息
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+	// 取证状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 取证时间
+	EvidenceTime *int64 `json:"evidence_time,omitempty" xml:"evidence_time,omitempty"`
+	// 委托取证ID
+	EvidenceAssignmentId *string `json:"evidence_assignment_id,omitempty" xml:"evidence_assignment_id,omitempty"`
+	// 取证用户ID
+	EvidenceUserId *string `json:"evidence_user_id,omitempty" xml:"evidence_user_id,omitempty"`
+	// 取证名称
+	EvidenceName *string `json:"evidence_name,omitempty" xml:"evidence_name,omitempty"`
+	// 公证处code
+	NotaryOfficeCode *string `json:"notary_office_code,omitempty" xml:"notary_office_code,omitempty"`
+	// 公证处名称
+	NotaryOfficeName *string `json:"notary_office_name,omitempty" xml:"notary_office_name,omitempty"`
+	// 经度
+	Longitude *string `json:"longitude,omitempty" xml:"longitude,omitempty"`
+	// 纬度
+	Latitude *string `json:"latitude,omitempty" xml:"latitude,omitempty"`
+	// 位置
+	Location *string `json:"location,omitempty" xml:"location,omitempty"`
+	// 取证开始时间
+	EvidenceStartTime *int64 `json:"evidence_start_time,omitempty" xml:"evidence_start_time,omitempty"`
+	// 取证结束时间
+	EvidenceEndTime *int64 `json:"evidence_end_time,omitempty" xml:"evidence_end_time,omitempty"`
+	// 取证类型
+	EvidenceType *string `json:"evidence_type,omitempty" xml:"evidence_type,omitempty" require:"true"`
+	// 存证编号
+	CertificateNo *string `json:"certificate_no,omitempty" xml:"certificate_no,omitempty"`
+	//
+	// 上链时间
+	CertificateTime *int64 `json:"certificate_time,omitempty" xml:"certificate_time,omitempty"`
+	// 证据hash
+	EvidenceHash *string `json:"evidence_hash,omitempty" xml:"evidence_hash,omitempty"`
+	// 链上交易hash
+	EvidenceTxHash *string `json:"evidence_tx_hash,omitempty" xml:"evidence_tx_hash,omitempty"`
+	// 证书文件下载地址
+	CertificateFileUrl *string `json:"certificate_file_url,omitempty" xml:"certificate_file_url,omitempty"`
+	// 备注
+	Memo *string `json:"memo,omitempty" xml:"memo,omitempty"`
+}
+
+func (s OfflineRegisterResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OfflineRegisterResult) GoString() string {
+	return s.String()
+}
+
+func (s *OfflineRegisterResult) SetEvidenceFile(v *EvidenceFile) *OfflineRegisterResult {
+	s.EvidenceFile = v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetOfflineEvidenceId(v string) *OfflineRegisterResult {
+	s.OfflineEvidenceId = &v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetErrorCode(v string) *OfflineRegisterResult {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetErrorMessage(v string) *OfflineRegisterResult {
+	s.ErrorMessage = &v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetStatus(v string) *OfflineRegisterResult {
+	s.Status = &v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetEvidenceTime(v int64) *OfflineRegisterResult {
+	s.EvidenceTime = &v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetEvidenceAssignmentId(v string) *OfflineRegisterResult {
+	s.EvidenceAssignmentId = &v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetEvidenceUserId(v string) *OfflineRegisterResult {
+	s.EvidenceUserId = &v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetEvidenceName(v string) *OfflineRegisterResult {
+	s.EvidenceName = &v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetNotaryOfficeCode(v string) *OfflineRegisterResult {
+	s.NotaryOfficeCode = &v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetNotaryOfficeName(v string) *OfflineRegisterResult {
+	s.NotaryOfficeName = &v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetLongitude(v string) *OfflineRegisterResult {
+	s.Longitude = &v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetLatitude(v string) *OfflineRegisterResult {
+	s.Latitude = &v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetLocation(v string) *OfflineRegisterResult {
+	s.Location = &v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetEvidenceStartTime(v int64) *OfflineRegisterResult {
+	s.EvidenceStartTime = &v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetEvidenceEndTime(v int64) *OfflineRegisterResult {
+	s.EvidenceEndTime = &v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetEvidenceType(v string) *OfflineRegisterResult {
+	s.EvidenceType = &v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetCertificateNo(v string) *OfflineRegisterResult {
+	s.CertificateNo = &v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetCertificateTime(v int64) *OfflineRegisterResult {
+	s.CertificateTime = &v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetEvidenceHash(v string) *OfflineRegisterResult {
+	s.EvidenceHash = &v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetEvidenceTxHash(v string) *OfflineRegisterResult {
+	s.EvidenceTxHash = &v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetCertificateFileUrl(v string) *OfflineRegisterResult {
+	s.CertificateFileUrl = &v
+	return s
+}
+
+func (s *OfflineRegisterResult) SetMemo(v string) *OfflineRegisterResult {
+	s.Memo = &v
+	return s
+}
+
 // 发票信息
 type InvoiceInfo struct {
 	// 发票类型 InvoiceTypeEnum目前只支持普票
@@ -4194,6 +4368,46 @@ func (s *MonitorType) SetFileType(v string) *MonitorType {
 
 func (s *MonitorType) SetSubmitType(v string) *MonitorType {
 	s.SubmitType = &v
+	return s
+}
+
+// 线下取证水印结果
+type OfflineEvidenceWatermarkResult struct {
+	// 取证编号
+	EvidenceNo *string `json:"evidence_no,omitempty" xml:"evidence_no,omitempty" require:"true"`
+	// 水印链接
+	WatermarkUrl *string `json:"watermark_url,omitempty" xml:"watermark_url,omitempty"`
+	// 封面链接
+	CoverUrl *string `json:"cover_url,omitempty" xml:"cover_url,omitempty"`
+	// 失败原因
+	FailReason *string `json:"fail_reason,omitempty" xml:"fail_reason,omitempty"`
+}
+
+func (s OfflineEvidenceWatermarkResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OfflineEvidenceWatermarkResult) GoString() string {
+	return s.String()
+}
+
+func (s *OfflineEvidenceWatermarkResult) SetEvidenceNo(v string) *OfflineEvidenceWatermarkResult {
+	s.EvidenceNo = &v
+	return s
+}
+
+func (s *OfflineEvidenceWatermarkResult) SetWatermarkUrl(v string) *OfflineEvidenceWatermarkResult {
+	s.WatermarkUrl = &v
+	return s
+}
+
+func (s *OfflineEvidenceWatermarkResult) SetCoverUrl(v string) *OfflineEvidenceWatermarkResult {
+	s.CoverUrl = &v
+	return s
+}
+
+func (s *OfflineEvidenceWatermarkResult) SetFailReason(v string) *OfflineEvidenceWatermarkResult {
+	s.FailReason = &v
 	return s
 }
 
@@ -11435,6 +11649,8 @@ type CreateEvidenceUserResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 取证用户id
 	EvidenceUserId *string `json:"evidence_user_id,omitempty" xml:"evidence_user_id,omitempty"`
+	// 外部用户ID
+	OutUserId *string `json:"out_user_id,omitempty" xml:"out_user_id,omitempty"`
 }
 
 func (s CreateEvidenceUserResponse) String() string {
@@ -11462,6 +11678,11 @@ func (s *CreateEvidenceUserResponse) SetResultMsg(v string) *CreateEvidenceUserR
 
 func (s *CreateEvidenceUserResponse) SetEvidenceUserId(v string) *CreateEvidenceUserResponse {
 	s.EvidenceUserId = &v
+	return s
+}
+
+func (s *CreateEvidenceUserResponse) SetOutUserId(v string) *CreateEvidenceUserResponse {
+	s.OutUserId = &v
 	return s
 }
 
@@ -11909,6 +12130,8 @@ type CreateEvidenceLiveRequest struct {
 	ObtainType *string `json:"obtain_type,omitempty" xml:"obtain_type,omitempty"`
 	// 主播名称（过期，后续版本逐步删除）
 	AnchorName *string `json:"anchor_name,omitempty" xml:"anchor_name,omitempty"`
+	// 直播取证预计开始时间
+	ExpectedStartTime *int64 `json:"expected_start_time,omitempty" xml:"expected_start_time,omitempty"`
 }
 
 func (s CreateEvidenceLiveRequest) String() string {
@@ -11991,6 +12214,11 @@ func (s *CreateEvidenceLiveRequest) SetObtainType(v string) *CreateEvidenceLiveR
 
 func (s *CreateEvidenceLiveRequest) SetAnchorName(v string) *CreateEvidenceLiveRequest {
 	s.AnchorName = &v
+	return s
+}
+
+func (s *CreateEvidenceLiveRequest) SetExpectedStartTime(v int64) *CreateEvidenceLiveRequest {
+	s.ExpectedStartTime = &v
 	return s
 }
 
@@ -14045,7 +14273,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.41"),
+				"sdk_version":      tea.String("1.19.51"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
