@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.16',
+    sdk_version = '1.2.21',
     _prod_code = 'BXPT_NEW',
     _prod_channel = 'default'
   };
@@ -313,23 +313,23 @@ model SubmitDrrdataSubscriptionRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 业务类型
-  bizType: string(name='biz_type'),
+  bizType: string(maxLength=32, name='biz_type'),
   // 请求id
-  requestId: string(name='request_id'),
+  requestId: string(maxLength=64, name='request_id'),
   // 运单号
-  mailNo: string(name='mail_no'),
+  mailNo: string(maxLength=64, name='mail_no'),
   // 快递公司编码
-  cpCode?: string(name='cp_code'),
+  cpCode?: string(maxLength=64, name='cp_code'),
   // 自定义标签，可为备注
-  tag?: string(name='tag'),
+  tag?: string(maxLength=128, name='tag'),
   // 收、寄件人电话号码
-  phone?: string(name='phone'),
+  phone?: string(maxLength=32, name='phone'),
   // 出发地城市
-  fromCity?: string(name='from_city'),
+  fromCity?: string(maxLength=128, name='from_city'),
   // 目的地城市
-  toCity?: string(name='to_city'),
+  toCity?: string(maxLength=128, name='to_city'),
   // {}
-  bizContent?: string(name='biz_content'),
+  bizContent?: string(maxLength=1000, name='biz_content'),
 }
 
 model SubmitDrrdataSubscriptionResponse = {
@@ -411,6 +411,69 @@ async function receiveDrrdataTrack(request: ReceiveDrrdataTrackRequest): Receive
 async function receiveDrrdataTrackEx(request: ReceiveDrrdataTrackRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReceiveDrrdataTrackResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.bxptnew.drrdata.track.receive', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDrrdataRiafdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 业务流水号 需唯一， 格式：日期_客户标识_序列号
+  tradeNo: string(name='trade_no'),
+  // 请求来源  国泰-GT
+  bizSource: string(name='biz_source'),
+  // 逆向物流单号
+  reverseMailNo: string(name='reverse_mail_no'),
+  // 逆向物流快递公司代码
+  reverseCpCode?: string(name='reverse_cp_code'),
+  // 逆向物流关联的电商平台
+  reverseRelatePlatform?: string(name='reverse_relate_platform'),
+  // 逆向收件人电话后四位
+  reverseReceiverPhone?: string(name='reverse_receiver_phone'),
+  // 逆向寄件人电话后四位
+  reverseSenderPhone?: string(name='reverse_sender_phone'),
+  // 申请退货时间 格式：yyyy-MM-dd HH:mm:ss
+  applyReturnTime?: string(name='apply_return_time'),
+  // 申请理赔时间 格式：yyyy-MM-dd HH:mm:ss
+  claimProcessingTime?: string(name='claim_processing_time'),
+  // 正向物流单号
+  forwardMailNo?: string(name='forward_mail_no'),
+  // 正向物流快递公司代码
+  forwardCpCode?: string(name='forward_cp_code'),
+  // 正向物流关联的电商平台
+  forwardRelatePlatform?: string(name='forward_relate_platform'),
+  // 正向收件人电话后四位
+  forwardReceiverPhone?: string(name='forward_receiver_phone'),
+  // 正向寄件人电话后四位
+  forwardSenderPhone?: string(name='forward_sender_phone'),
+}
+
+model QueryDrrdataRiafdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 反欺诈业务查询结果，json格式
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 退运险反欺诈服务api
+ * Summary: 退运险反欺诈服务api
+ */
+async function queryDrrdataRiafd(request: QueryDrrdataRiafdRequest): QueryDrrdataRiafdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDrrdataRiafdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 退运险反欺诈服务api
+ * Summary: 退运险反欺诈服务api
+ */
+async function queryDrrdataRiafdEx(request: QueryDrrdataRiafdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDrrdataRiafdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.bxptnew.drrdata.riafd.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryDatapromotionDecisionRequest = {

@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "BXPT_NEW",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-bxpt_new:1.2.16",
-    "go": "github.com/antchain-openapi-sdk-go/bxpt_new/client:v1.2.16",
-    "csharp": "AntChain.SDK.BXPT_NEW:1.2.16",
-    "ts": "@antchain/bxpt_new:1.2.16",
-    "php": "antchain/bxpt_new:1.2.16",
-    "python": "antchain_sdk_bxpt_new:1.2.16"
+    "java": "com.antgroup.antchain.openapi:openapi-bxpt_new:1.2.21",
+    "go": "github.com/antchain-openapi-sdk-go/bxpt_new/client:v1.2.21",
+    "csharp": "AntChain.SDK.BXPT_NEW:1.2.21",
+    "ts": "@antchain/bxpt_new:1.2.21",
+    "php": "antchain/bxpt_new:1.2.21",
+    "python": "antchain_sdk_bxpt_new:1.2.21"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
