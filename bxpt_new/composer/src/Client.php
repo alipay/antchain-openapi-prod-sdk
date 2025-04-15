@@ -21,6 +21,8 @@ use AntChain\BXPT_NEW\Models\QueryDataproductAsyncRequest;
 use AntChain\BXPT_NEW\Models\QueryDataproductAsyncResponse;
 use AntChain\BXPT_NEW\Models\QueryDatapromotionDecisionRequest;
 use AntChain\BXPT_NEW\Models\QueryDatapromotionDecisionResponse;
+use AntChain\BXPT_NEW\Models\QueryDrrdataRiafdRequest;
+use AntChain\BXPT_NEW\Models\QueryDrrdataRiafdResponse;
 use AntChain\BXPT_NEW\Models\ReceiveDrrdataTrackRequest;
 use AntChain\BXPT_NEW\Models\ReceiveDrrdataTrackResponse;
 use AntChain\BXPT_NEW\Models\SubmitDrrdataSubscriptionRequest;
@@ -171,7 +173,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.16',
+                    'sdk_version'      => '1.2.21',
                     '_prod_code'       => 'BXPT_NEW',
                     '_prod_channel'    => 'default',
                 ];
@@ -382,6 +384,39 @@ class Client
         Utils::validateModel($request);
 
         return ReceiveDrrdataTrackResponse::fromMap($this->doRequest('1.0', 'antcloud.bxptnew.drrdata.track.receive', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 退运险反欺诈服务api
+     * Summary: 退运险反欺诈服务api.
+     *
+     * @param QueryDrrdataRiafdRequest $request
+     *
+     * @return QueryDrrdataRiafdResponse
+     */
+    public function queryDrrdataRiafd($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDrrdataRiafdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 退运险反欺诈服务api
+     * Summary: 退运险反欺诈服务api.
+     *
+     * @param QueryDrrdataRiafdRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryDrrdataRiafdResponse
+     */
+    public function queryDrrdataRiafdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDrrdataRiafdResponse::fromMap($this->doRequest('1.0', 'antcloud.bxptnew.drrdata.riafd.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

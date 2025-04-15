@@ -85,6 +85,15 @@ class SubmitDrrdataSubscriptionRequest extends Model
         Model::validateRequired('bizType', $this->bizType, true);
         Model::validateRequired('requestId', $this->requestId, true);
         Model::validateRequired('mailNo', $this->mailNo, true);
+        Model::validateMaxLength('bizType', $this->bizType, 32);
+        Model::validateMaxLength('requestId', $this->requestId, 64);
+        Model::validateMaxLength('mailNo', $this->mailNo, 64);
+        Model::validateMaxLength('cpCode', $this->cpCode, 64);
+        Model::validateMaxLength('tag', $this->tag, 128);
+        Model::validateMaxLength('phone', $this->phone, 32);
+        Model::validateMaxLength('fromCity', $this->fromCity, 128);
+        Model::validateMaxLength('toCity', $this->toCity, 128);
+        Model::validateMaxLength('bizContent', $this->bizContent, 1000);
     }
 
     public function toMap()
