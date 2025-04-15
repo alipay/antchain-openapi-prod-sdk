@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>AntChain.SDK.BXPT_NEW</AssemblyName>
-    <Version>1.2.16</Version>
+    <Version>1.2.21</Version>
     <LangVersion>5</LangVersion>
     <Authors>Ant Chain, Inc</Authors>
     <Description>Ant Chain BXPT_NEW SDK Library for .NET</Description>

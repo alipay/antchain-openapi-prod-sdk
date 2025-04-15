@@ -137,7 +137,7 @@ namespace AntChain.SDK.BXPT_NEW
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.16"},
+                        {"sdk_version", "1.2.21"},
                         {"_prod_code", "BXPT_NEW"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BXPT_NEW
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.16"},
+                        {"sdk_version", "1.2.21"},
                         {"_prod_code", "BXPT_NEW"},
                         {"_prod_channel", "default"},
                     };
@@ -529,6 +529,48 @@ namespace AntChain.SDK.BXPT_NEW
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ReceiveDrrdataTrackResponse>(await DoRequestAsync("1.0", "antcloud.bxptnew.drrdata.track.receive", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 退运险反欺诈服务api
+         * Summary: 退运险反欺诈服务api
+         */
+        public QueryDrrdataRiafdResponse QueryDrrdataRiafd(QueryDrrdataRiafdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDrrdataRiafdEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 退运险反欺诈服务api
+         * Summary: 退运险反欺诈服务api
+         */
+        public async Task<QueryDrrdataRiafdResponse> QueryDrrdataRiafdAsync(QueryDrrdataRiafdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDrrdataRiafdExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 退运险反欺诈服务api
+         * Summary: 退运险反欺诈服务api
+         */
+        public QueryDrrdataRiafdResponse QueryDrrdataRiafdEx(QueryDrrdataRiafdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDrrdataRiafdResponse>(DoRequest("1.0", "antcloud.bxptnew.drrdata.riafd.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 退运险反欺诈服务api
+         * Summary: 退运险反欺诈服务api
+         */
+        public async Task<QueryDrrdataRiafdResponse> QueryDrrdataRiafdExAsync(QueryDrrdataRiafdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDrrdataRiafdResponse>(await DoRequestAsync("1.0", "antcloud.bxptnew.drrdata.riafd.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
