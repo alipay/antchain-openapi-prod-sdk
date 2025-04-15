@@ -67,6 +67,10 @@ public class CreateEvidenceLiveRequest extends TeaModel {
     @NameInMap("anchor_name")
     public String anchorName;
 
+    // 直播取证预计开始时间
+    @NameInMap("expected_start_time")
+    public Long expectedStartTime;
+
     public static CreateEvidenceLiveRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateEvidenceLiveRequest self = new CreateEvidenceLiveRequest();
         return TeaModel.build(map, self);
@@ -190,6 +194,14 @@ public class CreateEvidenceLiveRequest extends TeaModel {
     }
     public String getAnchorName() {
         return this.anchorName;
+    }
+
+    public CreateEvidenceLiveRequest setExpectedStartTime(Long expectedStartTime) {
+        this.expectedStartTime = expectedStartTime;
+        return this;
+    }
+    public Long getExpectedStartTime() {
+        return this.expectedStartTime;
     }
 
 }

@@ -20,6 +20,10 @@ public class CreateEvidenceUserResponse extends TeaModel {
     @NameInMap("evidence_user_id")
     public String evidenceUserId;
 
+    // 外部用户ID
+    @NameInMap("out_user_id")
+    public String outUserId;
+
     public static CreateEvidenceUserResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateEvidenceUserResponse self = new CreateEvidenceUserResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class CreateEvidenceUserResponse extends TeaModel {
     }
     public String getEvidenceUserId() {
         return this.evidenceUserId;
+    }
+
+    public CreateEvidenceUserResponse setOutUserId(String outUserId) {
+        this.outUserId = outUserId;
+        return this;
+    }
+    public String getOutUserId() {
+        return this.outUserId;
     }
 
 }
