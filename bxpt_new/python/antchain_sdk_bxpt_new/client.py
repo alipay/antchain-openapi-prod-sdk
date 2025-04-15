@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.16',
+                    'sdk_version': '1.2.21',
                     '_prod_code': 'BXPT_NEW',
                     '_prod_channel': 'default'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.16',
+                    'sdk_version': '1.2.21',
                     '_prod_code': 'BXPT_NEW',
                     '_prod_channel': 'default'
                 }
@@ -551,6 +551,62 @@ class Client:
         return TeaCore.from_map(
             bxpt__new_models.ReceiveDrrdataTrackResponse(),
             await self.do_request_async('1.0', 'antcloud.bxptnew.drrdata.track.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_drrdata_riafd(
+        self,
+        request: bxpt__new_models.QueryDrrdataRiafdRequest,
+    ) -> bxpt__new_models.QueryDrrdataRiafdResponse:
+        """
+        Description: 退运险反欺诈服务api
+        Summary: 退运险反欺诈服务api
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_drrdata_riafd_ex(request, headers, runtime)
+
+    async def query_drrdata_riafd_async(
+        self,
+        request: bxpt__new_models.QueryDrrdataRiafdRequest,
+    ) -> bxpt__new_models.QueryDrrdataRiafdResponse:
+        """
+        Description: 退运险反欺诈服务api
+        Summary: 退运险反欺诈服务api
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_drrdata_riafd_ex_async(request, headers, runtime)
+
+    def query_drrdata_riafd_ex(
+        self,
+        request: bxpt__new_models.QueryDrrdataRiafdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bxpt__new_models.QueryDrrdataRiafdResponse:
+        """
+        Description: 退运险反欺诈服务api
+        Summary: 退运险反欺诈服务api
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bxpt__new_models.QueryDrrdataRiafdResponse(),
+            self.do_request('1.0', 'antcloud.bxptnew.drrdata.riafd.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_drrdata_riafd_ex_async(
+        self,
+        request: bxpt__new_models.QueryDrrdataRiafdRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bxpt__new_models.QueryDrrdataRiafdResponse:
+        """
+        Description: 退运险反欺诈服务api
+        Summary: 退运险反欺诈服务api
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bxpt__new_models.QueryDrrdataRiafdResponse(),
+            await self.do_request_async('1.0', 'antcloud.bxptnew.drrdata.riafd.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_datapromotion_decision(

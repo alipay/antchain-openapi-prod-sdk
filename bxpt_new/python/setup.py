@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_bxpt_new.
 
-Created on 20/02/2025
+Created on 15/04/2025
 
 @author: Ant Chain SDK
 """

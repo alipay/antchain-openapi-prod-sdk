@@ -536,8 +536,26 @@ class SubmitDrrdataSubscriptionRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.biz_type, 'biz_type')
+        if self.biz_type is not None:
+            self.validate_max_length(self.biz_type, 'biz_type', 32)
         self.validate_required(self.request_id, 'request_id')
+        if self.request_id is not None:
+            self.validate_max_length(self.request_id, 'request_id', 64)
         self.validate_required(self.mail_no, 'mail_no')
+        if self.mail_no is not None:
+            self.validate_max_length(self.mail_no, 'mail_no', 64)
+        if self.cp_code is not None:
+            self.validate_max_length(self.cp_code, 'cp_code', 64)
+        if self.tag is not None:
+            self.validate_max_length(self.tag, 'tag', 128)
+        if self.phone is not None:
+            self.validate_max_length(self.phone, 'phone', 32)
+        if self.from_city is not None:
+            self.validate_max_length(self.from_city, 'from_city', 128)
+        if self.to_city is not None:
+            self.validate_max_length(self.to_city, 'to_city', 128)
+        if self.biz_content is not None:
+            self.validate_max_length(self.biz_content, 'biz_content', 1000)
 
     def to_map(self):
         _map = super().to_map()
@@ -774,6 +792,183 @@ class ReceiveDrrdataTrackResponse(TeaModel):
             self.biz_result = m.get('biz_result')
         if m.get('status') is not None:
             self.status = m.get('status')
+        return self
+
+
+class QueryDrrdataRiafdRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        trade_no: str = None,
+        biz_source: str = None,
+        reverse_mail_no: str = None,
+        reverse_cp_code: str = None,
+        reverse_relate_platform: str = None,
+        reverse_receiver_phone: str = None,
+        reverse_sender_phone: str = None,
+        apply_return_time: str = None,
+        claim_processing_time: str = None,
+        forward_mail_no: str = None,
+        forward_cp_code: str = None,
+        forward_relate_platform: str = None,
+        forward_receiver_phone: str = None,
+        forward_sender_phone: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 业务流水号 需唯一， 格式：日期_客户标识_序列号
+        self.trade_no = trade_no
+        # 请求来源  国泰-GT
+        self.biz_source = biz_source
+        # 逆向物流单号
+        self.reverse_mail_no = reverse_mail_no
+        # 逆向物流快递公司代码
+        self.reverse_cp_code = reverse_cp_code
+        # 逆向物流关联的电商平台
+        self.reverse_relate_platform = reverse_relate_platform
+        # 逆向收件人电话后四位
+        self.reverse_receiver_phone = reverse_receiver_phone
+        # 逆向寄件人电话后四位
+        self.reverse_sender_phone = reverse_sender_phone
+        # 申请退货时间 格式：yyyy-MM-dd HH:mm:ss
+        self.apply_return_time = apply_return_time
+        # 申请理赔时间 格式：yyyy-MM-dd HH:mm:ss
+        self.claim_processing_time = claim_processing_time
+        # 正向物流单号
+        self.forward_mail_no = forward_mail_no
+        # 正向物流快递公司代码
+        self.forward_cp_code = forward_cp_code
+        # 正向物流关联的电商平台
+        self.forward_relate_platform = forward_relate_platform
+        # 正向收件人电话后四位
+        self.forward_receiver_phone = forward_receiver_phone
+        # 正向寄件人电话后四位
+        self.forward_sender_phone = forward_sender_phone
+
+    def validate(self):
+        self.validate_required(self.trade_no, 'trade_no')
+        self.validate_required(self.biz_source, 'biz_source')
+        self.validate_required(self.reverse_mail_no, 'reverse_mail_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.biz_source is not None:
+            result['biz_source'] = self.biz_source
+        if self.reverse_mail_no is not None:
+            result['reverse_mail_no'] = self.reverse_mail_no
+        if self.reverse_cp_code is not None:
+            result['reverse_cp_code'] = self.reverse_cp_code
+        if self.reverse_relate_platform is not None:
+            result['reverse_relate_platform'] = self.reverse_relate_platform
+        if self.reverse_receiver_phone is not None:
+            result['reverse_receiver_phone'] = self.reverse_receiver_phone
+        if self.reverse_sender_phone is not None:
+            result['reverse_sender_phone'] = self.reverse_sender_phone
+        if self.apply_return_time is not None:
+            result['apply_return_time'] = self.apply_return_time
+        if self.claim_processing_time is not None:
+            result['claim_processing_time'] = self.claim_processing_time
+        if self.forward_mail_no is not None:
+            result['forward_mail_no'] = self.forward_mail_no
+        if self.forward_cp_code is not None:
+            result['forward_cp_code'] = self.forward_cp_code
+        if self.forward_relate_platform is not None:
+            result['forward_relate_platform'] = self.forward_relate_platform
+        if self.forward_receiver_phone is not None:
+            result['forward_receiver_phone'] = self.forward_receiver_phone
+        if self.forward_sender_phone is not None:
+            result['forward_sender_phone'] = self.forward_sender_phone
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('biz_source') is not None:
+            self.biz_source = m.get('biz_source')
+        if m.get('reverse_mail_no') is not None:
+            self.reverse_mail_no = m.get('reverse_mail_no')
+        if m.get('reverse_cp_code') is not None:
+            self.reverse_cp_code = m.get('reverse_cp_code')
+        if m.get('reverse_relate_platform') is not None:
+            self.reverse_relate_platform = m.get('reverse_relate_platform')
+        if m.get('reverse_receiver_phone') is not None:
+            self.reverse_receiver_phone = m.get('reverse_receiver_phone')
+        if m.get('reverse_sender_phone') is not None:
+            self.reverse_sender_phone = m.get('reverse_sender_phone')
+        if m.get('apply_return_time') is not None:
+            self.apply_return_time = m.get('apply_return_time')
+        if m.get('claim_processing_time') is not None:
+            self.claim_processing_time = m.get('claim_processing_time')
+        if m.get('forward_mail_no') is not None:
+            self.forward_mail_no = m.get('forward_mail_no')
+        if m.get('forward_cp_code') is not None:
+            self.forward_cp_code = m.get('forward_cp_code')
+        if m.get('forward_relate_platform') is not None:
+            self.forward_relate_platform = m.get('forward_relate_platform')
+        if m.get('forward_receiver_phone') is not None:
+            self.forward_receiver_phone = m.get('forward_receiver_phone')
+        if m.get('forward_sender_phone') is not None:
+            self.forward_sender_phone = m.get('forward_sender_phone')
+        return self
+
+
+class QueryDrrdataRiafdResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 反欺诈业务查询结果，json格式
+        self.biz_result = biz_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_result is not None:
+            result['biz_result'] = self.biz_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_result') is not None:
+            self.biz_result = m.get('biz_result')
         return self
 
 
