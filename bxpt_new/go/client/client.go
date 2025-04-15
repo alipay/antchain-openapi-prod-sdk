@@ -431,23 +431,23 @@ type SubmitDrrdataSubscriptionRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 业务类型
-	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true" maxLength:"32"`
 	// 请求id
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true" maxLength:"64"`
 	// 运单号
-	MailNo *string `json:"mail_no,omitempty" xml:"mail_no,omitempty" require:"true"`
+	MailNo *string `json:"mail_no,omitempty" xml:"mail_no,omitempty" require:"true" maxLength:"64"`
 	// 快递公司编码
-	CpCode *string `json:"cp_code,omitempty" xml:"cp_code,omitempty"`
+	CpCode *string `json:"cp_code,omitempty" xml:"cp_code,omitempty" maxLength:"64"`
 	// 自定义标签，可为备注
-	Tag *string `json:"tag,omitempty" xml:"tag,omitempty"`
+	Tag *string `json:"tag,omitempty" xml:"tag,omitempty" maxLength:"128"`
 	// 收、寄件人电话号码
-	Phone *string `json:"phone,omitempty" xml:"phone,omitempty"`
+	Phone *string `json:"phone,omitempty" xml:"phone,omitempty" maxLength:"32"`
 	// 出发地城市
-	FromCity *string `json:"from_city,omitempty" xml:"from_city,omitempty"`
+	FromCity *string `json:"from_city,omitempty" xml:"from_city,omitempty" maxLength:"128"`
 	// 目的地城市
-	ToCity *string `json:"to_city,omitempty" xml:"to_city,omitempty"`
+	ToCity *string `json:"to_city,omitempty" xml:"to_city,omitempty" maxLength:"128"`
 	// {}
-	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty"`
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty" maxLength:"1000"`
 }
 
 func (s SubmitDrrdataSubscriptionRequest) String() string {
@@ -657,6 +657,161 @@ func (s *ReceiveDrrdataTrackResponse) SetBizResult(v string) *ReceiveDrrdataTrac
 
 func (s *ReceiveDrrdataTrackResponse) SetStatus(v string) *ReceiveDrrdataTrackResponse {
 	s.Status = &v
+	return s
+}
+
+type QueryDrrdataRiafdRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 业务流水号 需唯一， 格式：日期_客户标识_序列号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true"`
+	// 请求来源  国泰-GT
+	BizSource *string `json:"biz_source,omitempty" xml:"biz_source,omitempty" require:"true"`
+	// 逆向物流单号
+	ReverseMailNo *string `json:"reverse_mail_no,omitempty" xml:"reverse_mail_no,omitempty" require:"true"`
+	// 逆向物流快递公司代码
+	ReverseCpCode *string `json:"reverse_cp_code,omitempty" xml:"reverse_cp_code,omitempty"`
+	// 逆向物流关联的电商平台
+	ReverseRelatePlatform *string `json:"reverse_relate_platform,omitempty" xml:"reverse_relate_platform,omitempty"`
+	// 逆向收件人电话后四位
+	ReverseReceiverPhone *string `json:"reverse_receiver_phone,omitempty" xml:"reverse_receiver_phone,omitempty"`
+	// 逆向寄件人电话后四位
+	ReverseSenderPhone *string `json:"reverse_sender_phone,omitempty" xml:"reverse_sender_phone,omitempty"`
+	// 申请退货时间 格式：yyyy-MM-dd HH:mm:ss
+	ApplyReturnTime *string `json:"apply_return_time,omitempty" xml:"apply_return_time,omitempty"`
+	// 申请理赔时间 格式：yyyy-MM-dd HH:mm:ss
+	ClaimProcessingTime *string `json:"claim_processing_time,omitempty" xml:"claim_processing_time,omitempty"`
+	// 正向物流单号
+	ForwardMailNo *string `json:"forward_mail_no,omitempty" xml:"forward_mail_no,omitempty"`
+	// 正向物流快递公司代码
+	ForwardCpCode *string `json:"forward_cp_code,omitempty" xml:"forward_cp_code,omitempty"`
+	// 正向物流关联的电商平台
+	ForwardRelatePlatform *string `json:"forward_relate_platform,omitempty" xml:"forward_relate_platform,omitempty"`
+	// 正向收件人电话后四位
+	ForwardReceiverPhone *string `json:"forward_receiver_phone,omitempty" xml:"forward_receiver_phone,omitempty"`
+	// 正向寄件人电话后四位
+	ForwardSenderPhone *string `json:"forward_sender_phone,omitempty" xml:"forward_sender_phone,omitempty"`
+}
+
+func (s QueryDrrdataRiafdRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDrrdataRiafdRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDrrdataRiafdRequest) SetAuthToken(v string) *QueryDrrdataRiafdRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDrrdataRiafdRequest) SetTradeNo(v string) *QueryDrrdataRiafdRequest {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *QueryDrrdataRiafdRequest) SetBizSource(v string) *QueryDrrdataRiafdRequest {
+	s.BizSource = &v
+	return s
+}
+
+func (s *QueryDrrdataRiafdRequest) SetReverseMailNo(v string) *QueryDrrdataRiafdRequest {
+	s.ReverseMailNo = &v
+	return s
+}
+
+func (s *QueryDrrdataRiafdRequest) SetReverseCpCode(v string) *QueryDrrdataRiafdRequest {
+	s.ReverseCpCode = &v
+	return s
+}
+
+func (s *QueryDrrdataRiafdRequest) SetReverseRelatePlatform(v string) *QueryDrrdataRiafdRequest {
+	s.ReverseRelatePlatform = &v
+	return s
+}
+
+func (s *QueryDrrdataRiafdRequest) SetReverseReceiverPhone(v string) *QueryDrrdataRiafdRequest {
+	s.ReverseReceiverPhone = &v
+	return s
+}
+
+func (s *QueryDrrdataRiafdRequest) SetReverseSenderPhone(v string) *QueryDrrdataRiafdRequest {
+	s.ReverseSenderPhone = &v
+	return s
+}
+
+func (s *QueryDrrdataRiafdRequest) SetApplyReturnTime(v string) *QueryDrrdataRiafdRequest {
+	s.ApplyReturnTime = &v
+	return s
+}
+
+func (s *QueryDrrdataRiafdRequest) SetClaimProcessingTime(v string) *QueryDrrdataRiafdRequest {
+	s.ClaimProcessingTime = &v
+	return s
+}
+
+func (s *QueryDrrdataRiafdRequest) SetForwardMailNo(v string) *QueryDrrdataRiafdRequest {
+	s.ForwardMailNo = &v
+	return s
+}
+
+func (s *QueryDrrdataRiafdRequest) SetForwardCpCode(v string) *QueryDrrdataRiafdRequest {
+	s.ForwardCpCode = &v
+	return s
+}
+
+func (s *QueryDrrdataRiafdRequest) SetForwardRelatePlatform(v string) *QueryDrrdataRiafdRequest {
+	s.ForwardRelatePlatform = &v
+	return s
+}
+
+func (s *QueryDrrdataRiafdRequest) SetForwardReceiverPhone(v string) *QueryDrrdataRiafdRequest {
+	s.ForwardReceiverPhone = &v
+	return s
+}
+
+func (s *QueryDrrdataRiafdRequest) SetForwardSenderPhone(v string) *QueryDrrdataRiafdRequest {
+	s.ForwardSenderPhone = &v
+	return s
+}
+
+type QueryDrrdataRiafdResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 反欺诈业务查询结果，json格式
+	BizResult *string `json:"biz_result,omitempty" xml:"biz_result,omitempty"`
+}
+
+func (s QueryDrrdataRiafdResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDrrdataRiafdResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDrrdataRiafdResponse) SetReqMsgId(v string) *QueryDrrdataRiafdResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDrrdataRiafdResponse) SetResultCode(v string) *QueryDrrdataRiafdResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDrrdataRiafdResponse) SetResultMsg(v string) *QueryDrrdataRiafdResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDrrdataRiafdResponse) SetBizResult(v string) *QueryDrrdataRiafdResponse {
+	s.BizResult = &v
 	return s
 }
 
@@ -946,7 +1101,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.16"),
+				"sdk_version":      tea.String("1.2.21"),
 				"_prod_code":       tea.String("BXPT_NEW"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1167,6 +1322,40 @@ func (client *Client) ReceiveDrrdataTrackEx(request *ReceiveDrrdataTrackRequest,
 	}
 	_result = &ReceiveDrrdataTrackResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.bxptnew.drrdata.track.receive"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 退运险反欺诈服务api
+ * Summary: 退运险反欺诈服务api
+ */
+func (client *Client) QueryDrrdataRiafd(request *QueryDrrdataRiafdRequest) (_result *QueryDrrdataRiafdResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDrrdataRiafdResponse{}
+	_body, _err := client.QueryDrrdataRiafdEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 退运险反欺诈服务api
+ * Summary: 退运险反欺诈服务api
+ */
+func (client *Client) QueryDrrdataRiafdEx(request *QueryDrrdataRiafdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDrrdataRiafdResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDrrdataRiafdResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.bxptnew.drrdata.riafd.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
