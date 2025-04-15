@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.16"),
+                    new TeaPair("sdk_version", "1.2.21"),
                     new TeaPair("_prod_code", "BXPT_NEW"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -277,6 +277,25 @@ public class Client {
     public ReceiveDrrdataTrackResponse receiveDrrdataTrackEx(ReceiveDrrdataTrackRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.bxptnew.drrdata.track.receive", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReceiveDrrdataTrackResponse());
+    }
+
+    /**
+     * Description: 退运险反欺诈服务api
+     * Summary: 退运险反欺诈服务api
+     */
+    public QueryDrrdataRiafdResponse queryDrrdataRiafd(QueryDrrdataRiafdRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDrrdataRiafdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 退运险反欺诈服务api
+     * Summary: 退运险反欺诈服务api
+     */
+    public QueryDrrdataRiafdResponse queryDrrdataRiafdEx(QueryDrrdataRiafdRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.bxptnew.drrdata.riafd.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDrrdataRiafdResponse());
     }
 
     /**

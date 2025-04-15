@@ -10,41 +10,47 @@ public class SubmitDrrdataSubscriptionRequest extends TeaModel {
 
     // 业务类型
     @NameInMap("biz_type")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 32)
     public String bizType;
 
     // 请求id
     @NameInMap("request_id")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 64)
     public String requestId;
 
     // 运单号
     @NameInMap("mail_no")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 64)
     public String mailNo;
 
     // 快递公司编码
     @NameInMap("cp_code")
+    @Validation(maxLength = 64)
     public String cpCode;
 
     // 自定义标签，可为备注
     @NameInMap("tag")
+    @Validation(maxLength = 128)
     public String tag;
 
     // 收、寄件人电话号码
     @NameInMap("phone")
+    @Validation(maxLength = 32)
     public String phone;
 
     // 出发地城市
     @NameInMap("from_city")
+    @Validation(maxLength = 128)
     public String fromCity;
 
     // 目的地城市
     @NameInMap("to_city")
+    @Validation(maxLength = 128)
     public String toCity;
 
     // {}
     @NameInMap("biz_content")
+    @Validation(maxLength = 1000)
     public String bizContent;
 
     public static SubmitDrrdataSubscriptionRequest build(java.util.Map<String, ?> map) throws Exception {
