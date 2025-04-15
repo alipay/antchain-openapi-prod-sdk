@@ -1525,6 +1525,116 @@ export class SecurityData extends $tea.Model {
   }
 }
 
+// 线下取证存证结果
+export class OfflineRegisterResult extends $tea.Model {
+  // 取证文件
+  evidenceFile?: EvidenceFile;
+  // 线下取证ID
+  offlineEvidenceId: string;
+  // 错误码
+  errorCode?: string;
+  // 错误信息
+  errorMessage?: string;
+  // 取证状态
+  status: string;
+  // 取证时间
+  evidenceTime?: number;
+  // 委托取证ID
+  evidenceAssignmentId?: string;
+  // 取证用户ID
+  evidenceUserId?: string;
+  // 取证名称
+  evidenceName?: string;
+  // 公证处code
+  notaryOfficeCode?: string;
+  // 公证处名称
+  notaryOfficeName?: string;
+  // 经度
+  longitude?: string;
+  // 纬度
+  latitude?: string;
+  // 位置
+  location?: string;
+  // 取证开始时间
+  evidenceStartTime?: number;
+  // 取证结束时间
+  evidenceEndTime?: number;
+  // 取证类型
+  evidenceType: string;
+  // 存证编号
+  certificateNo?: string;
+  // 	
+  // 上链时间
+  certificateTime?: number;
+  // 证据hash
+  evidenceHash?: string;
+  // 链上交易hash
+  evidenceTxHash?: string;
+  // 证书文件下载地址
+  certificateFileUrl?: string;
+  // 备注
+  memo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      evidenceFile: 'evidence_file',
+      offlineEvidenceId: 'offline_evidence_id',
+      errorCode: 'error_code',
+      errorMessage: 'error_message',
+      status: 'status',
+      evidenceTime: 'evidence_time',
+      evidenceAssignmentId: 'evidence_assignment_id',
+      evidenceUserId: 'evidence_user_id',
+      evidenceName: 'evidence_name',
+      notaryOfficeCode: 'notary_office_code',
+      notaryOfficeName: 'notary_office_name',
+      longitude: 'longitude',
+      latitude: 'latitude',
+      location: 'location',
+      evidenceStartTime: 'evidence_start_time',
+      evidenceEndTime: 'evidence_end_time',
+      evidenceType: 'evidence_type',
+      certificateNo: 'certificate_no',
+      certificateTime: 'certificate_time',
+      evidenceHash: 'evidence_hash',
+      evidenceTxHash: 'evidence_tx_hash',
+      certificateFileUrl: 'certificate_file_url',
+      memo: 'memo',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      evidenceFile: EvidenceFile,
+      offlineEvidenceId: 'string',
+      errorCode: 'string',
+      errorMessage: 'string',
+      status: 'string',
+      evidenceTime: 'number',
+      evidenceAssignmentId: 'string',
+      evidenceUserId: 'string',
+      evidenceName: 'string',
+      notaryOfficeCode: 'string',
+      notaryOfficeName: 'string',
+      longitude: 'string',
+      latitude: 'string',
+      location: 'string',
+      evidenceStartTime: 'number',
+      evidenceEndTime: 'number',
+      evidenceType: 'string',
+      certificateNo: 'string',
+      certificateTime: 'number',
+      evidenceHash: 'string',
+      evidenceTxHash: 'string',
+      certificateFileUrl: 'string',
+      memo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 发票信息
 export class InvoiceInfo extends $tea.Model {
   // 发票类型 InvoiceTypeEnum目前只支持普票
@@ -3178,6 +3288,39 @@ export class MonitorType extends $tea.Model {
     return {
       fileType: 'string',
       submitType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 线下取证水印结果
+export class OfflineEvidenceWatermarkResult extends $tea.Model {
+  // 取证编号
+  evidenceNo: string;
+  // 水印链接
+  watermarkUrl?: string;
+  // 封面链接
+  coverUrl?: string;
+  // 失败原因
+  failReason?: string;
+  static names(): { [key: string]: string } {
+    return {
+      evidenceNo: 'evidence_no',
+      watermarkUrl: 'watermark_url',
+      coverUrl: 'cover_url',
+      failReason: 'fail_reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      evidenceNo: 'string',
+      watermarkUrl: 'string',
+      coverUrl: 'string',
+      failReason: 'string',
     };
   }
 
@@ -8453,12 +8596,15 @@ export class CreateEvidenceUserResponse extends $tea.Model {
   resultMsg?: string;
   // 取证用户id
   evidenceUserId?: string;
+  // 外部用户ID
+  outUserId?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       evidenceUserId: 'evidence_user_id',
+      outUserId: 'out_user_id',
     };
   }
 
@@ -8468,6 +8614,7 @@ export class CreateEvidenceUserResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       evidenceUserId: 'string',
+      outUserId: 'string',
     };
   }
 
@@ -8819,6 +8966,8 @@ export class CreateEvidenceLiveRequest extends $tea.Model {
   obtainType?: string;
   // 主播名称（过期，后续版本逐步删除）
   anchorName?: string;
+  // 直播取证预计开始时间
+  expectedStartTime?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -8836,6 +8985,7 @@ export class CreateEvidenceLiveRequest extends $tea.Model {
       profileId: 'profile_id',
       obtainType: 'obtain_type',
       anchorName: 'anchor_name',
+      expectedStartTime: 'expected_start_time',
     };
   }
 
@@ -8856,6 +9006,7 @@ export class CreateEvidenceLiveRequest extends $tea.Model {
       profileId: 'string',
       obtainType: 'string',
       anchorName: 'string',
+      expectedStartTime: 'number',
     };
   }
 
@@ -10431,7 +10582,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.41",
+          sdk_version: "1.19.51",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
