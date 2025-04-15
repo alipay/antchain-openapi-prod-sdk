@@ -84,6 +84,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string AnchorName { get; set; }
 
+        // 直播取证预计开始时间
+        [NameInMap("expected_start_time")]
+        [Validation(Required=false)]
+        public long? ExpectedStartTime { get; set; }
+
     }
 
 }

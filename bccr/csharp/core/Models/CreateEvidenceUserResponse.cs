@@ -29,6 +29,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string EvidenceUserId { get; set; }
 
+        // 外部用户ID
+        [NameInMap("out_user_id")]
+        [Validation(Required=false)]
+        public string OutUserId { get; set; }
+
     }
 
 }
