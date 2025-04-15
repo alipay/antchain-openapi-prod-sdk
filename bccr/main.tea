@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.41',
+    sdk_version = '1.19.51',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -703,6 +703,57 @@ model SecurityData {
   result: string(name='result', example='safe,risky'),
   // 有风险的内容
   riskData?: [ string ](name='risk_data', example=''),
+}
+
+// 线下取证存证结果
+model OfflineRegisterResult {
+  // 取证文件
+  evidenceFile?: EvidenceFile(name='evidence_file', example=''),
+  // 线下取证ID
+  offlineEvidenceId: string(name='offline_evidence_id', example='123456'),
+  // 错误码
+  errorCode?: string(name='error_code', example='NOTARY_OFFLINE_REGISTER_ERROR'),
+  // 错误信息
+  errorMessage?: string(name='error_message', example='公证处线下取证存证失败'),
+  // 取证状态
+  status: string(name='status', example='SUCCESS'),
+  // 取证时间
+  evidenceTime?: long(name='evidence_time', example='1713770769000'),
+  // 委托取证ID
+  evidenceAssignmentId?: string(name='evidence_assignment_id', example='123456'),
+  // 取证用户ID
+  evidenceUserId?: string(name='evidence_user_id', example='123456'),
+  // 取证名称
+  evidenceName?: string(name='evidence_name', example='取证名称'),
+  // 公证处code
+  notaryOfficeCode?: string(name='notary_office_code', example='LU_JIANG'),
+  // 公证处名称
+  notaryOfficeName?: string(name='notary_office_name', example='鹭江公证处'),
+  // 经度
+  longitude?: string(name='longitude', example='23.35'),
+  // 纬度
+  latitude?: string(name='latitude', example='23.35'),
+  // 位置
+  location?: string(name='location', example='xxxx'),
+  // 取证开始时间
+  evidenceStartTime?: long(name='evidence_start_time', example='1713770769000'),
+  // 取证结束时间
+  evidenceEndTime?: long(name='evidence_end_time', example='1713770769000'),
+  // 取证类型
+  evidenceType: string(name='evidence_type', example='OFFLINE_PICTURE'),
+  // 存证编号
+  certificateNo?: string(name='certificate_no', example='8240401000000013980'),
+  // 	
+  // 上链时间
+  certificateTime?: long(name='certificate_time', example='1713771170000'),
+  // 证据hash
+  evidenceHash?: string(name='evidence_hash', example='2ed3532c4438f82eef7cdf6a54e7ac11'),
+  // 链上交易hash
+  evidenceTxHash?: string(name='evidence_tx_hash', example='b251a2d54ea254165c9baf13e8366635b1c90d4a449a35fcdce7b332054c8aac'),
+  // 证书文件下载地址
+  certificateFileUrl?: string(name='certificate_file_url', example='https://www.baidu.com'),
+  // 备注
+  memo?: string(name='memo', example='备注'),
 }
 
 // 发票信息
@@ -1400,6 +1451,18 @@ model MonitorType {
   fileType: string(name='file_type', example='jpg'),
   // 提交类型
   submitType: string(name='submit_type', example='FILE'),
+}
+
+// 线下取证水印结果
+model OfflineEvidenceWatermarkResult {
+  // 取证编号
+  evidenceNo: string(name='evidence_no', example='123456'),
+  // 水印链接
+  watermarkUrl?: string(name='watermark_url', example='https://www.baidu.com'),
+  // 封面链接
+  coverUrl?: string(name='cover_url', example='https://www.baidu.com'),
+  // 失败原因
+  failReason?: string(name='fail_reason', example='失败原因'),
 }
 
 model GetUploadurlRequest = {
@@ -4546,6 +4609,8 @@ model CreateEvidenceUserResponse = {
   resultMsg?: string(name='result_msg'),
   // 取证用户id
   evidenceUserId?: string(name='evidence_user_id'),
+  // 外部用户ID
+  outUserId?: string(name='out_user_id'),
 }
 
 /**
@@ -4788,6 +4853,8 @@ model CreateEvidenceLiveRequest = {
   obtainType?: string(name='obtain_type'),
   // 主播名称（过期，后续版本逐步删除）
   anchorName?: string(name='anchor_name'),
+  // 直播取证预计开始时间
+  expectedStartTime?: long(name='expected_start_time'),
 }
 
 model CreateEvidenceLiveResponse = {
