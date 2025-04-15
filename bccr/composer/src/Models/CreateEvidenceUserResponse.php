@@ -31,11 +31,18 @@ class CreateEvidenceUserResponse extends Model
      * @var string
      */
     public $evidenceUserId;
+
+    // 外部用户ID
+    /**
+     * @var string
+     */
+    public $outUserId;
     protected $_name = [
         'reqMsgId'       => 'req_msg_id',
         'resultCode'     => 'result_code',
         'resultMsg'      => 'result_msg',
         'evidenceUserId' => 'evidence_user_id',
+        'outUserId'      => 'out_user_id',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class CreateEvidenceUserResponse extends Model
         }
         if (null !== $this->evidenceUserId) {
             $res['evidence_user_id'] = $this->evidenceUserId;
+        }
+        if (null !== $this->outUserId) {
+            $res['out_user_id'] = $this->outUserId;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class CreateEvidenceUserResponse extends Model
         }
         if (isset($map['evidence_user_id'])) {
             $model->evidenceUserId = $map['evidence_user_id'];
+        }
+        if (isset($map['out_user_id'])) {
+            $model->outUserId = $map['out_user_id'];
         }
 
         return $model;

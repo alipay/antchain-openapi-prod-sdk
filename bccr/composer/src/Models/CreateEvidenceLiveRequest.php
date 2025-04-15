@@ -97,6 +97,12 @@ class CreateEvidenceLiveRequest extends Model
      * @var string
      */
     public $anchorName;
+
+    // 直播取证预计开始时间
+    /**
+     * @var int
+     */
+    public $expectedStartTime;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -113,6 +119,7 @@ class CreateEvidenceLiveRequest extends Model
         'profileId'             => 'profile_id',
         'obtainType'            => 'obtain_type',
         'anchorName'            => 'anchor_name',
+        'expectedStartTime'     => 'expected_start_time',
     ];
 
     public function validate()
@@ -170,6 +177,9 @@ class CreateEvidenceLiveRequest extends Model
         if (null !== $this->anchorName) {
             $res['anchor_name'] = $this->anchorName;
         }
+        if (null !== $this->expectedStartTime) {
+            $res['expected_start_time'] = $this->expectedStartTime;
+        }
 
         return $res;
     }
@@ -226,6 +236,9 @@ class CreateEvidenceLiveRequest extends Model
         }
         if (isset($map['anchor_name'])) {
             $model->anchorName = $map['anchor_name'];
+        }
+        if (isset($map['expected_start_time'])) {
+            $model->expectedStartTime = $map['expected_start_time'];
         }
 
         return $model;
