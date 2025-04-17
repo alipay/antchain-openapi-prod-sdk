@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.23.6',
+    sdk_version = '1.23.7',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -272,6 +272,19 @@ model DecisionFlow {
   decision: string(name='decision', example='reject'),
   // infocodes
   infoCodes?: InfoCodes(name='info_codes', example='infocodes'),
+}
+
+// 用户混合营销决策结果
+model RpspInfoModel {
+  // 流量分层计划code
+  planCode: string(name='plan_code', example='planCode1'),
+  // 场景策略Id
+  sceneStrategyId: long(name='scene_strategy_id', example='15000'),
+  // 客群分层结果
+  rpspResult: string(name='rpsp_result', example='1'),
+  // 	
+  // json 结构的营销额外输出信息
+  rpspOutPutInfo: string(name='rpsp_out_put_info', example='{"f_01":"95.0"}'),
 }
 
 // 优惠券信息
@@ -808,6 +821,14 @@ model RtopRiskStormCompanyAnnualReport {
   annualReportYear?: string(name='annual_report_year', example='2018'),
 }
 
+// 查询结果
+model CustomerRpspInfosModel {
+  // 归属用户的混合分层决策结果
+  rpspResults: [ RpspInfoModel ](name='rpsp_results', example=''),
+  // 用户凭证
+  customerKey: string(name='customer_key', example='8002c3d97e7d4d20a0647c75dfab1efe'),
+}
+
 // 信护盾产品查询信息
 model QueryInfo {
   // key
@@ -968,6 +989,14 @@ model RtopAgeDistribution {
   age: string(name='age', example='above20'),
   // 统计值
   count: integer(name='count', example='10'),
+}
+
+// 客群详细信息
+model CustomerInfo {
+  // 查询的用户凭证列表
+  customerKey: string(name='customer_key', example='15022321363'),
+  // 客户属性的额外信息
+  properties?: string(name='properties', example='{"test_score": 22.0}'),
 }
 
 // 企业信息
@@ -7464,6 +7493,54 @@ async function pushQmpBackflowJsondata(request: PushQmpBackflowJsondataRequest):
 async function pushQmpBackflowJsondataEx(request: PushQmpBackflowJsondataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushQmpBackflowJsondataResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.qmp.backflow.jsondata.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryQmpRtMixedmarketingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 圈客计划code列表
+  planCodes: [ string ](name='plan_codes'),
+  // 计划集合code，对标圈客计划code列表，一般不可变
+  planSetCode?: string(name='plan_set_code'),
+  // 查询协议模版
+  queryTemplate: string(name='query_template'),
+  // 客群凭证和其他信息
+  customerDetails: [ CustomerInfo ](name='customer_details'),
+  // 客群共用参数
+  publicProperties?: string(name='public_properties'),
+  // 外部业务流水号
+  bizSerialNo: string(name='biz_serial_no'),
+}
+
+model BatchqueryQmpRtMixedmarketingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询结果
+  queryResults?: [ CustomerRpspInfosModel ](name='query_results'),
+}
+
+/**
+ * Description: 智选平台混合策略批量分层服务
+ * Summary: 智选平台-混合策略批量分层服务
+ */
+async function batchqueryQmpRtMixedmarketing(request: BatchqueryQmpRtMixedmarketingRequest): BatchqueryQmpRtMixedmarketingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryQmpRtMixedmarketingEx(request, headers, runtime);
+}
+
+/**
+ * Description: 智选平台混合策略批量分层服务
+ * Summary: 智选平台-混合策略批量分层服务
+ */
+async function batchqueryQmpRtMixedmarketingEx(request: BatchqueryQmpRtMixedmarketingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryQmpRtMixedmarketingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.qmp.rt.mixedmarketing.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model SyncRdaasTaxAuthinfoRequest = {
