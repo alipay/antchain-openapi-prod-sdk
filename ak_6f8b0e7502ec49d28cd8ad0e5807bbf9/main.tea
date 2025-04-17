@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.4',
+    sdk_version = '1.0.5',
     _prod_code = 'ak_6f8b0e7502ec49d28cd8ad0e5807bbf9',
     _prod_channel = 'saas'
   };
@@ -229,5 +229,73 @@ async function bindDemoAaaBbbCcd(request: BindDemoAaaBbbCcdRequest): BindDemoAaa
 async function bindDemoAaaBbbCcdEx(request: BindDemoAaaBbbCcdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindDemoAaaBbbCcdResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.aaa.bbb.ccd.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDemoABCRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryDemoABCResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: a
+ * Summary: abcde
+ */
+async function queryDemoABC(request: QueryDemoABCRequest): QueryDemoABCResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDemoABCEx(request, headers, runtime);
+}
+
+/**
+ * Description: a
+ * Summary: abcde
+ */
+async function queryDemoABCEx(request: QueryDemoABCRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoABCResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.a.b.c.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDemoAasSaSaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryDemoAasSaSaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: sss
+ * Summary: sss
+ */
+async function queryDemoAasSaSa(request: QueryDemoAasSaSaRequest): QueryDemoAasSaSaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDemoAasSaSaEx(request, headers, runtime);
+}
+
+/**
+ * Description: sss
+ * Summary: sss
+ */
+async function queryDemoAasSaSaEx(request: QueryDemoAasSaSaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoAasSaSaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.aas.sa.sa.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
