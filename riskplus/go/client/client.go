@@ -503,6 +503,47 @@ func (s *DecisionFlow) SetInfoCodes(v *InfoCodes) *DecisionFlow {
 	return s
 }
 
+// 用户混合营销决策结果
+type RpspInfoModel struct {
+	// 流量分层计划code
+	PlanCode *string `json:"plan_code,omitempty" xml:"plan_code,omitempty" require:"true"`
+	// 场景策略Id
+	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
+	// 客群分层结果
+	RpspResult *string `json:"rpsp_result,omitempty" xml:"rpsp_result,omitempty" require:"true"`
+	//
+	// json 结构的营销额外输出信息
+	RpspOutPutInfo *string `json:"rpsp_out_put_info,omitempty" xml:"rpsp_out_put_info,omitempty" require:"true"`
+}
+
+func (s RpspInfoModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RpspInfoModel) GoString() string {
+	return s.String()
+}
+
+func (s *RpspInfoModel) SetPlanCode(v string) *RpspInfoModel {
+	s.PlanCode = &v
+	return s
+}
+
+func (s *RpspInfoModel) SetSceneStrategyId(v int64) *RpspInfoModel {
+	s.SceneStrategyId = &v
+	return s
+}
+
+func (s *RpspInfoModel) SetRpspResult(v string) *RpspInfoModel {
+	s.RpspResult = &v
+	return s
+}
+
+func (s *RpspInfoModel) SetRpspOutPutInfo(v string) *RpspInfoModel {
+	s.RpspOutPutInfo = &v
+	return s
+}
+
 // 优惠券信息
 type CouponInfo struct {
 	// 优惠券Id
@@ -2205,6 +2246,32 @@ func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportYear(v string) *RtopRi
 	return s
 }
 
+// 查询结果
+type CustomerRpspInfosModel struct {
+	// 归属用户的混合分层决策结果
+	RpspResults []*RpspInfoModel `json:"rpsp_results,omitempty" xml:"rpsp_results,omitempty" require:"true" type:"Repeated"`
+	// 用户凭证
+	CustomerKey *string `json:"customer_key,omitempty" xml:"customer_key,omitempty" require:"true"`
+}
+
+func (s CustomerRpspInfosModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CustomerRpspInfosModel) GoString() string {
+	return s.String()
+}
+
+func (s *CustomerRpspInfosModel) SetRpspResults(v []*RpspInfoModel) *CustomerRpspInfosModel {
+	s.RpspResults = v
+	return s
+}
+
+func (s *CustomerRpspInfosModel) SetCustomerKey(v string) *CustomerRpspInfosModel {
+	s.CustomerKey = &v
+	return s
+}
+
 // 信护盾产品查询信息
 type QueryInfo struct {
 	// key
@@ -2744,6 +2811,32 @@ func (s *RtopAgeDistribution) SetAge(v string) *RtopAgeDistribution {
 
 func (s *RtopAgeDistribution) SetCount(v int) *RtopAgeDistribution {
 	s.Count = &v
+	return s
+}
+
+// 客群详细信息
+type CustomerInfo struct {
+	// 查询的用户凭证列表
+	CustomerKey *string `json:"customer_key,omitempty" xml:"customer_key,omitempty" require:"true"`
+	// 客户属性的额外信息
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+}
+
+func (s CustomerInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CustomerInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CustomerInfo) SetCustomerKey(v string) *CustomerInfo {
+	s.CustomerKey = &v
+	return s
+}
+
+func (s *CustomerInfo) SetProperties(v string) *CustomerInfo {
+	s.Properties = &v
 	return s
 }
 
@@ -18394,6 +18487,111 @@ func (s *PushQmpBackflowJsondataResponse) SetResultMsg(v string) *PushQmpBackflo
 	return s
 }
 
+type BatchqueryQmpRtMixedmarketingRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 圈客计划code列表
+	PlanCodes []*string `json:"plan_codes,omitempty" xml:"plan_codes,omitempty" require:"true" type:"Repeated"`
+	// 计划集合code，对标圈客计划code列表，一般不可变
+	PlanSetCode *string `json:"plan_set_code,omitempty" xml:"plan_set_code,omitempty"`
+	// 查询协议模版
+	QueryTemplate *string `json:"query_template,omitempty" xml:"query_template,omitempty" require:"true"`
+	// 客群凭证和其他信息
+	CustomerDetails []*CustomerInfo `json:"customer_details,omitempty" xml:"customer_details,omitempty" require:"true" type:"Repeated"`
+	// 客群共用参数
+	PublicProperties *string `json:"public_properties,omitempty" xml:"public_properties,omitempty"`
+	// 外部业务流水号
+	BizSerialNo *string `json:"biz_serial_no,omitempty" xml:"biz_serial_no,omitempty" require:"true"`
+}
+
+func (s BatchqueryQmpRtMixedmarketingRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryQmpRtMixedmarketingRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryQmpRtMixedmarketingRequest) SetAuthToken(v string) *BatchqueryQmpRtMixedmarketingRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchqueryQmpRtMixedmarketingRequest) SetProductInstanceId(v string) *BatchqueryQmpRtMixedmarketingRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchqueryQmpRtMixedmarketingRequest) SetPlanCodes(v []*string) *BatchqueryQmpRtMixedmarketingRequest {
+	s.PlanCodes = v
+	return s
+}
+
+func (s *BatchqueryQmpRtMixedmarketingRequest) SetPlanSetCode(v string) *BatchqueryQmpRtMixedmarketingRequest {
+	s.PlanSetCode = &v
+	return s
+}
+
+func (s *BatchqueryQmpRtMixedmarketingRequest) SetQueryTemplate(v string) *BatchqueryQmpRtMixedmarketingRequest {
+	s.QueryTemplate = &v
+	return s
+}
+
+func (s *BatchqueryQmpRtMixedmarketingRequest) SetCustomerDetails(v []*CustomerInfo) *BatchqueryQmpRtMixedmarketingRequest {
+	s.CustomerDetails = v
+	return s
+}
+
+func (s *BatchqueryQmpRtMixedmarketingRequest) SetPublicProperties(v string) *BatchqueryQmpRtMixedmarketingRequest {
+	s.PublicProperties = &v
+	return s
+}
+
+func (s *BatchqueryQmpRtMixedmarketingRequest) SetBizSerialNo(v string) *BatchqueryQmpRtMixedmarketingRequest {
+	s.BizSerialNo = &v
+	return s
+}
+
+type BatchqueryQmpRtMixedmarketingResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询结果
+	QueryResults []*CustomerRpspInfosModel `json:"query_results,omitempty" xml:"query_results,omitempty" type:"Repeated"`
+}
+
+func (s BatchqueryQmpRtMixedmarketingResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryQmpRtMixedmarketingResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryQmpRtMixedmarketingResponse) SetReqMsgId(v string) *BatchqueryQmpRtMixedmarketingResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchqueryQmpRtMixedmarketingResponse) SetResultCode(v string) *BatchqueryQmpRtMixedmarketingResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchqueryQmpRtMixedmarketingResponse) SetResultMsg(v string) *BatchqueryQmpRtMixedmarketingResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BatchqueryQmpRtMixedmarketingResponse) SetQueryResults(v []*CustomerRpspInfosModel) *BatchqueryQmpRtMixedmarketingResponse {
+	s.QueryResults = v
+	return s
+}
+
 type SyncRdaasTaxAuthinfoRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -29734,7 +29932,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.23.6"),
+				"sdk_version":      tea.String("1.23.7"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -33445,6 +33643,40 @@ func (client *Client) PushQmpBackflowJsondataEx(request *PushQmpBackflowJsondata
 	}
 	_result = &PushQmpBackflowJsondataResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.qmp.backflow.jsondata.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 智选平台混合策略批量分层服务
+ * Summary: 智选平台-混合策略批量分层服务
+ */
+func (client *Client) BatchqueryQmpRtMixedmarketing(request *BatchqueryQmpRtMixedmarketingRequest) (_result *BatchqueryQmpRtMixedmarketingResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchqueryQmpRtMixedmarketingResponse{}
+	_body, _err := client.BatchqueryQmpRtMixedmarketingEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 智选平台混合策略批量分层服务
+ * Summary: 智选平台-混合策略批量分层服务
+ */
+func (client *Client) BatchqueryQmpRtMixedmarketingEx(request *BatchqueryQmpRtMixedmarketingRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryQmpRtMixedmarketingResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchqueryQmpRtMixedmarketingResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.qmp.rt.mixedmarketing.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
