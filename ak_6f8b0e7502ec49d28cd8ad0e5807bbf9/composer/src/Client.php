@@ -15,6 +15,10 @@ use AntChain\Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9\Models\BindDemoAaaBbbCcdRequest
 use AntChain\Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9\Models\BindDemoAaaBbbCcdResponse;
 use AntChain\Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9\Models\QueryDemoAaaBbbCccRequest;
 use AntChain\Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9\Models\QueryDemoAaaBbbCccResponse;
+use AntChain\Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9\Models\QueryDemoAasSaSaRequest;
+use AntChain\Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9\Models\QueryDemoAasSaSaResponse;
+use AntChain\Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9\Models\QueryDemoABCRequest;
+use AntChain\Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9\Models\QueryDemoABCResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -161,7 +165,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.4',
+                    'sdk_version'      => '1.0.5',
                     '_prod_code'       => 'ak_6f8b0e7502ec49d28cd8ad0e5807bbf9',
                     '_prod_channel'    => 'saas',
                 ];
@@ -273,5 +277,71 @@ class Client
         Utils::validateModel($request);
 
         return BindDemoAaaBbbCcdResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccd.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: a
+     * Summary: abcde.
+     *
+     * @param QueryDemoABCRequest $request
+     *
+     * @return QueryDemoABCResponse
+     */
+    public function queryDemoABC($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoABCEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: a
+     * Summary: abcde.
+     *
+     * @param QueryDemoABCRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return QueryDemoABCResponse
+     */
+    public function queryDemoABCEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoABCResponse::fromMap($this->doRequest('1.0', 'demo.a.b.c.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: sss
+     * Summary: sss.
+     *
+     * @param QueryDemoAasSaSaRequest $request
+     *
+     * @return QueryDemoAasSaSaResponse
+     */
+    public function queryDemoAasSaSa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoAasSaSaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: sss
+     * Summary: sss.
+     *
+     * @param QueryDemoAasSaSaRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryDemoAasSaSaResponse
+     */
+    public function queryDemoAasSaSaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoAasSaSaResponse::fromMap($this->doRequest('1.0', 'demo.aas.sa.sa.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
