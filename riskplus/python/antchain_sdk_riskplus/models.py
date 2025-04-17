@@ -644,6 +644,59 @@ class DecisionFlow(TeaModel):
         return self
 
 
+class RpspInfoModel(TeaModel):
+    def __init__(
+        self,
+        plan_code: str = None,
+        scene_strategy_id: int = None,
+        rpsp_result: str = None,
+        rpsp_out_put_info: str = None,
+    ):
+        # 流量分层计划code
+        self.plan_code = plan_code
+        # 场景策略Id
+        self.scene_strategy_id = scene_strategy_id
+        # 客群分层结果
+        self.rpsp_result = rpsp_result
+        # 
+        # json 结构的营销额外输出信息
+        self.rpsp_out_put_info = rpsp_out_put_info
+
+    def validate(self):
+        self.validate_required(self.plan_code, 'plan_code')
+        self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
+        self.validate_required(self.rpsp_result, 'rpsp_result')
+        self.validate_required(self.rpsp_out_put_info, 'rpsp_out_put_info')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.plan_code is not None:
+            result['plan_code'] = self.plan_code
+        if self.scene_strategy_id is not None:
+            result['scene_strategy_id'] = self.scene_strategy_id
+        if self.rpsp_result is not None:
+            result['rpsp_result'] = self.rpsp_result
+        if self.rpsp_out_put_info is not None:
+            result['rpsp_out_put_info'] = self.rpsp_out_put_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('plan_code') is not None:
+            self.plan_code = m.get('plan_code')
+        if m.get('scene_strategy_id') is not None:
+            self.scene_strategy_id = m.get('scene_strategy_id')
+        if m.get('rpsp_result') is not None:
+            self.rpsp_result = m.get('rpsp_result')
+        if m.get('rpsp_out_put_info') is not None:
+            self.rpsp_out_put_info = m.get('rpsp_out_put_info')
+        return self
+
+
 class CouponInfo(TeaModel):
     def __init__(
         self,
@@ -2723,6 +2776,51 @@ class RtopRiskStormCompanyAnnualReport(TeaModel):
         return self
 
 
+class CustomerRpspInfosModel(TeaModel):
+    def __init__(
+        self,
+        rpsp_results: List[RpspInfoModel] = None,
+        customer_key: str = None,
+    ):
+        # 归属用户的混合分层决策结果
+        self.rpsp_results = rpsp_results
+        # 用户凭证
+        self.customer_key = customer_key
+
+    def validate(self):
+        self.validate_required(self.rpsp_results, 'rpsp_results')
+        if self.rpsp_results:
+            for k in self.rpsp_results:
+                if k:
+                    k.validate()
+        self.validate_required(self.customer_key, 'customer_key')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['rpsp_results'] = []
+        if self.rpsp_results is not None:
+            for k in self.rpsp_results:
+                result['rpsp_results'].append(k.to_map() if k else None)
+        if self.customer_key is not None:
+            result['customer_key'] = self.customer_key
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        self.rpsp_results = []
+        if m.get('rpsp_results') is not None:
+            for k in m.get('rpsp_results'):
+                temp_model = RpspInfoModel()
+                self.rpsp_results.append(temp_model.from_map(k))
+        if m.get('customer_key') is not None:
+            self.customer_key = m.get('customer_key')
+        return self
+
+
 class QueryInfo(TeaModel):
     def __init__(
         self,
@@ -3393,6 +3491,41 @@ class RtopAgeDistribution(TeaModel):
             self.age = m.get('age')
         if m.get('count') is not None:
             self.count = m.get('count')
+        return self
+
+
+class CustomerInfo(TeaModel):
+    def __init__(
+        self,
+        customer_key: str = None,
+        properties: str = None,
+    ):
+        # 查询的用户凭证列表
+        self.customer_key = customer_key
+        # 客户属性的额外信息
+        self.properties = properties
+
+    def validate(self):
+        self.validate_required(self.customer_key, 'customer_key')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.customer_key is not None:
+            result['customer_key'] = self.customer_key
+        if self.properties is not None:
+            result['properties'] = self.properties
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('customer_key') is not None:
+            self.customer_key = m.get('customer_key')
+        if m.get('properties') is not None:
+            self.properties = m.get('properties')
         return self
 
 
@@ -22755,6 +22888,151 @@ class PushQmpBackflowJsondataResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        return self
+
+
+class BatchqueryQmpRtMixedmarketingRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        plan_codes: List[str] = None,
+        plan_set_code: str = None,
+        query_template: str = None,
+        customer_details: List[CustomerInfo] = None,
+        public_properties: str = None,
+        biz_serial_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 圈客计划code列表
+        self.plan_codes = plan_codes
+        # 计划集合code，对标圈客计划code列表，一般不可变
+        self.plan_set_code = plan_set_code
+        # 查询协议模版
+        self.query_template = query_template
+        # 客群凭证和其他信息
+        self.customer_details = customer_details
+        # 客群共用参数
+        self.public_properties = public_properties
+        # 外部业务流水号
+        self.biz_serial_no = biz_serial_no
+
+    def validate(self):
+        self.validate_required(self.plan_codes, 'plan_codes')
+        self.validate_required(self.query_template, 'query_template')
+        self.validate_required(self.customer_details, 'customer_details')
+        if self.customer_details:
+            for k in self.customer_details:
+                if k:
+                    k.validate()
+        self.validate_required(self.biz_serial_no, 'biz_serial_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.plan_codes is not None:
+            result['plan_codes'] = self.plan_codes
+        if self.plan_set_code is not None:
+            result['plan_set_code'] = self.plan_set_code
+        if self.query_template is not None:
+            result['query_template'] = self.query_template
+        result['customer_details'] = []
+        if self.customer_details is not None:
+            for k in self.customer_details:
+                result['customer_details'].append(k.to_map() if k else None)
+        if self.public_properties is not None:
+            result['public_properties'] = self.public_properties
+        if self.biz_serial_no is not None:
+            result['biz_serial_no'] = self.biz_serial_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('plan_codes') is not None:
+            self.plan_codes = m.get('plan_codes')
+        if m.get('plan_set_code') is not None:
+            self.plan_set_code = m.get('plan_set_code')
+        if m.get('query_template') is not None:
+            self.query_template = m.get('query_template')
+        self.customer_details = []
+        if m.get('customer_details') is not None:
+            for k in m.get('customer_details'):
+                temp_model = CustomerInfo()
+                self.customer_details.append(temp_model.from_map(k))
+        if m.get('public_properties') is not None:
+            self.public_properties = m.get('public_properties')
+        if m.get('biz_serial_no') is not None:
+            self.biz_serial_no = m.get('biz_serial_no')
+        return self
+
+
+class BatchqueryQmpRtMixedmarketingResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        query_results: List[CustomerRpspInfosModel] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 查询结果
+        self.query_results = query_results
+
+    def validate(self):
+        if self.query_results:
+            for k in self.query_results:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['query_results'] = []
+        if self.query_results is not None:
+            for k in self.query_results:
+                result['query_results'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.query_results = []
+        if m.get('query_results') is not None:
+            for k in m.get('query_results'):
+                temp_model = CustomerRpspInfosModel()
+                self.query_results.append(temp_model.from_map(k))
         return self
 
 

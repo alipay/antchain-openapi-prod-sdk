@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.23.6',
+                    'sdk_version': '1.23.7',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.23.6',
+                    'sdk_version': '1.23.7',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -6261,6 +6261,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.PushQmpBackflowJsondataResponse(),
             await self.do_request_async('1.0', 'riskplus.qmp.backflow.jsondata.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_qmp_rt_mixedmarketing(
+        self,
+        request: riskplus_models.BatchqueryQmpRtMixedmarketingRequest,
+    ) -> riskplus_models.BatchqueryQmpRtMixedmarketingResponse:
+        """
+        Description: 智选平台混合策略批量分层服务
+        Summary: 智选平台-混合策略批量分层服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_qmp_rt_mixedmarketing_ex(request, headers, runtime)
+
+    async def batchquery_qmp_rt_mixedmarketing_async(
+        self,
+        request: riskplus_models.BatchqueryQmpRtMixedmarketingRequest,
+    ) -> riskplus_models.BatchqueryQmpRtMixedmarketingResponse:
+        """
+        Description: 智选平台混合策略批量分层服务
+        Summary: 智选平台-混合策略批量分层服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_qmp_rt_mixedmarketing_ex_async(request, headers, runtime)
+
+    def batchquery_qmp_rt_mixedmarketing_ex(
+        self,
+        request: riskplus_models.BatchqueryQmpRtMixedmarketingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryQmpRtMixedmarketingResponse:
+        """
+        Description: 智选平台混合策略批量分层服务
+        Summary: 智选平台-混合策略批量分层服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryQmpRtMixedmarketingResponse(),
+            self.do_request('1.0', 'riskplus.qmp.rt.mixedmarketing.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_qmp_rt_mixedmarketing_ex_async(
+        self,
+        request: riskplus_models.BatchqueryQmpRtMixedmarketingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryQmpRtMixedmarketingResponse:
+        """
+        Description: 智选平台混合策略批量分层服务
+        Summary: 智选平台-混合策略批量分层服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryQmpRtMixedmarketingResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.rt.mixedmarketing.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def sync_rdaas_tax_authinfo(
