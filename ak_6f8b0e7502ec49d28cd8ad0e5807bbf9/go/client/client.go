@@ -267,6 +267,118 @@ func (s *BindDemoAaaBbbCcdResponse) SetResultMsg(v string) *BindDemoAaaBbbCcdRes
 	return s
 }
 
+type QueryDemoABCRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryDemoABCRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoABCRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoABCRequest) SetAuthToken(v string) *QueryDemoABCRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDemoABCRequest) SetProductInstanceId(v string) *QueryDemoABCRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryDemoABCResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryDemoABCResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoABCResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoABCResponse) SetReqMsgId(v string) *QueryDemoABCResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDemoABCResponse) SetResultCode(v string) *QueryDemoABCResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDemoABCResponse) SetResultMsg(v string) *QueryDemoABCResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryDemoAasSaSaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryDemoAasSaSaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoAasSaSaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoAasSaSaRequest) SetAuthToken(v string) *QueryDemoAasSaSaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDemoAasSaSaRequest) SetProductInstanceId(v string) *QueryDemoAasSaSaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryDemoAasSaSaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryDemoAasSaSaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoAasSaSaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoAasSaSaResponse) SetReqMsgId(v string) *QueryDemoAasSaSaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDemoAasSaSaResponse) SetResultCode(v string) *QueryDemoAasSaSaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDemoAasSaSaResponse) SetResultMsg(v string) *QueryDemoAasSaSaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -389,7 +501,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.4"),
+				"sdk_version":      tea.String("1.0.5"),
 				"_prod_code":       tea.String("ak_6f8b0e7502ec49d28cd8ad0e5807bbf9"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -508,6 +620,74 @@ func (client *Client) BindDemoAaaBbbCcdEx(request *BindDemoAaaBbbCcdRequest, hea
 	}
 	_result = &BindDemoAaaBbbCcdResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.aaa.bbb.ccd.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: a
+ * Summary: abcde
+ */
+func (client *Client) QueryDemoABC(request *QueryDemoABCRequest) (_result *QueryDemoABCResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDemoABCResponse{}
+	_body, _err := client.QueryDemoABCEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: a
+ * Summary: abcde
+ */
+func (client *Client) QueryDemoABCEx(request *QueryDemoABCRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoABCResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDemoABCResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.a.b.c.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: sss
+ * Summary: sss
+ */
+func (client *Client) QueryDemoAasSaSa(request *QueryDemoAasSaSaRequest) (_result *QueryDemoAasSaSaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDemoAasSaSaResponse{}
+	_body, _err := client.QueryDemoAasSaSaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: sss
+ * Summary: sss
+ */
+func (client *Client) QueryDemoAasSaSaEx(request *QueryDemoAasSaSaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoAasSaSaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDemoAasSaSaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.aas.sa.sa.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
