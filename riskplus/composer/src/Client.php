@@ -45,6 +45,8 @@ use AntChain\RISKPLUS\Models\BatchqueryCreditshieldProductInfoRequest;
 use AntChain\RISKPLUS\Models\BatchqueryCreditshieldProductInfoResponse;
 use AntChain\RISKPLUS\Models\BatchqueryQmpActionplanDetailRequest;
 use AntChain\RISKPLUS\Models\BatchqueryQmpActionplanDetailResponse;
+use AntChain\RISKPLUS\Models\BatchqueryQmpRtMixedmarketingRequest;
+use AntChain\RISKPLUS\Models\BatchqueryQmpRtMixedmarketingResponse;
 use AntChain\RISKPLUS\Models\BatchqueryQmpTaskDetailRequest;
 use AntChain\RISKPLUS\Models\BatchqueryQmpTaskDetailResponse;
 use AntChain\RISKPLUS\Models\BatchqueryQmpTenantActionplaninfoRequest;
@@ -584,7 +586,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.23.6',
+                    'sdk_version'      => '1.23.7',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4152,6 +4154,39 @@ class Client
         Utils::validateModel($request);
 
         return PushQmpBackflowJsondataResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.backflow.jsondata.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 智选平台混合策略批量分层服务
+     * Summary: 智选平台-混合策略批量分层服务
+     *
+     * @param BatchqueryQmpRtMixedmarketingRequest $request
+     *
+     * @return BatchqueryQmpRtMixedmarketingResponse
+     */
+    public function batchqueryQmpRtMixedmarketing($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryQmpRtMixedmarketingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 智选平台混合策略批量分层服务
+     * Summary: 智选平台-混合策略批量分层服务
+     *
+     * @param BatchqueryQmpRtMixedmarketingRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return BatchqueryQmpRtMixedmarketingResponse
+     */
+    public function batchqueryQmpRtMixedmarketingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryQmpRtMixedmarketingResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.rt.mixedmarketing.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
