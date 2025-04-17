@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.4',
+                    'sdk_version': '1.0.5',
                     '_prod_code': 'ak_6f8b0e7502ec49d28cd8ad0e5807bbf9',
                     '_prod_channel': 'saas'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.4',
+                    'sdk_version': '1.0.5',
                     '_prod_code': 'ak_6f8b0e7502ec49d28cd8ad0e5807bbf9',
                     '_prod_channel': 'saas'
                 }
@@ -383,4 +383,116 @@ class Client:
         return TeaCore.from_map(
             ak__6f_8b_0e_7502ec_49d_28cd_8ad_0e_5807bbf_9_models.BindDemoAaaBbbCcdResponse(),
             await self.do_request_async('1.0', 'demo.aaa.bbb.ccd.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_demo_abc(
+        self,
+        request: ak__6f_8b_0e_7502ec_49d_28cd_8ad_0e_5807bbf_9_models.QueryDemoABCRequest,
+    ) -> ak__6f_8b_0e_7502ec_49d_28cd_8ad_0e_5807bbf_9_models.QueryDemoABCResponse:
+        """
+        Description: a
+        Summary: abcde
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_demo_abcex(request, headers, runtime)
+
+    async def query_demo_abc_async(
+        self,
+        request: ak__6f_8b_0e_7502ec_49d_28cd_8ad_0e_5807bbf_9_models.QueryDemoABCRequest,
+    ) -> ak__6f_8b_0e_7502ec_49d_28cd_8ad_0e_5807bbf_9_models.QueryDemoABCResponse:
+        """
+        Description: a
+        Summary: abcde
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_demo_abcex_async(request, headers, runtime)
+
+    def query_demo_abcex(
+        self,
+        request: ak__6f_8b_0e_7502ec_49d_28cd_8ad_0e_5807bbf_9_models.QueryDemoABCRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__6f_8b_0e_7502ec_49d_28cd_8ad_0e_5807bbf_9_models.QueryDemoABCResponse:
+        """
+        Description: a
+        Summary: abcde
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__6f_8b_0e_7502ec_49d_28cd_8ad_0e_5807bbf_9_models.QueryDemoABCResponse(),
+            self.do_request('1.0', 'demo.a.b.c.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_demo_abcex_async(
+        self,
+        request: ak__6f_8b_0e_7502ec_49d_28cd_8ad_0e_5807bbf_9_models.QueryDemoABCRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__6f_8b_0e_7502ec_49d_28cd_8ad_0e_5807bbf_9_models.QueryDemoABCResponse:
+        """
+        Description: a
+        Summary: abcde
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__6f_8b_0e_7502ec_49d_28cd_8ad_0e_5807bbf_9_models.QueryDemoABCResponse(),
+            await self.do_request_async('1.0', 'demo.a.b.c.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_demo_aas_sa_sa(
+        self,
+        request: ak__6f_8b_0e_7502ec_49d_28cd_8ad_0e_5807bbf_9_models.QueryDemoAasSaSaRequest,
+    ) -> ak__6f_8b_0e_7502ec_49d_28cd_8ad_0e_5807bbf_9_models.QueryDemoAasSaSaResponse:
+        """
+        Description: sss
+        Summary: sss
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_demo_aas_sa_sa_ex(request, headers, runtime)
+
+    async def query_demo_aas_sa_sa_async(
+        self,
+        request: ak__6f_8b_0e_7502ec_49d_28cd_8ad_0e_5807bbf_9_models.QueryDemoAasSaSaRequest,
+    ) -> ak__6f_8b_0e_7502ec_49d_28cd_8ad_0e_5807bbf_9_models.QueryDemoAasSaSaResponse:
+        """
+        Description: sss
+        Summary: sss
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_demo_aas_sa_sa_ex_async(request, headers, runtime)
+
+    def query_demo_aas_sa_sa_ex(
+        self,
+        request: ak__6f_8b_0e_7502ec_49d_28cd_8ad_0e_5807bbf_9_models.QueryDemoAasSaSaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__6f_8b_0e_7502ec_49d_28cd_8ad_0e_5807bbf_9_models.QueryDemoAasSaSaResponse:
+        """
+        Description: sss
+        Summary: sss
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__6f_8b_0e_7502ec_49d_28cd_8ad_0e_5807bbf_9_models.QueryDemoAasSaSaResponse(),
+            self.do_request('1.0', 'demo.aas.sa.sa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_demo_aas_sa_sa_ex_async(
+        self,
+        request: ak__6f_8b_0e_7502ec_49d_28cd_8ad_0e_5807bbf_9_models.QueryDemoAasSaSaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__6f_8b_0e_7502ec_49d_28cd_8ad_0e_5807bbf_9_models.QueryDemoAasSaSaResponse:
+        """
+        Description: sss
+        Summary: sss
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__6f_8b_0e_7502ec_49d_28cd_8ad_0e_5807bbf_9_models.QueryDemoAasSaSaResponse(),
+            await self.do_request_async('1.0', 'demo.aas.sa.sa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
