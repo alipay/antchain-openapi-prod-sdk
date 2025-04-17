@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.23.6"},
+                        {"sdk_version", "1.23.7"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.23.6"},
+                        {"sdk_version", "1.23.7"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4873,6 +4873,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PushQmpBackflowJsondataResponse>(await DoRequestAsync("1.0", "riskplus.qmp.backflow.jsondata.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 智选平台混合策略批量分层服务
+         * Summary: 智选平台-混合策略批量分层服务
+         */
+        public BatchqueryQmpRtMixedmarketingResponse BatchqueryQmpRtMixedmarketing(BatchqueryQmpRtMixedmarketingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchqueryQmpRtMixedmarketingEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 智选平台混合策略批量分层服务
+         * Summary: 智选平台-混合策略批量分层服务
+         */
+        public async Task<BatchqueryQmpRtMixedmarketingResponse> BatchqueryQmpRtMixedmarketingAsync(BatchqueryQmpRtMixedmarketingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchqueryQmpRtMixedmarketingExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 智选平台混合策略批量分层服务
+         * Summary: 智选平台-混合策略批量分层服务
+         */
+        public BatchqueryQmpRtMixedmarketingResponse BatchqueryQmpRtMixedmarketingEx(BatchqueryQmpRtMixedmarketingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryQmpRtMixedmarketingResponse>(DoRequest("1.0", "riskplus.qmp.rt.mixedmarketing.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 智选平台混合策略批量分层服务
+         * Summary: 智选平台-混合策略批量分层服务
+         */
+        public async Task<BatchqueryQmpRtMixedmarketingResponse> BatchqueryQmpRtMixedmarketingExAsync(BatchqueryQmpRtMixedmarketingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryQmpRtMixedmarketingResponse>(await DoRequestAsync("1.0", "riskplus.qmp.rt.mixedmarketing.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
