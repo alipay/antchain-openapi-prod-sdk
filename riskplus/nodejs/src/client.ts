@@ -405,6 +405,40 @@ export class DecisionFlow extends $tea.Model {
   }
 }
 
+// 用户混合营销决策结果
+export class RpspInfoModel extends $tea.Model {
+  // 流量分层计划code
+  planCode: string;
+  // 场景策略Id
+  sceneStrategyId: number;
+  // 客群分层结果
+  rpspResult: string;
+  // 	
+  // json 结构的营销额外输出信息
+  rpspOutPutInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      planCode: 'plan_code',
+      sceneStrategyId: 'scene_strategy_id',
+      rpspResult: 'rpsp_result',
+      rpspOutPutInfo: 'rpsp_out_put_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      planCode: 'string',
+      sceneStrategyId: 'number',
+      rpspResult: 'string',
+      rpspOutPutInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 优惠券信息
 export class CouponInfo extends $tea.Model {
   // 优惠券Id
@@ -1661,6 +1695,31 @@ export class RtopRiskStormCompanyAnnualReport extends $tea.Model {
   }
 }
 
+// 查询结果
+export class CustomerRpspInfosModel extends $tea.Model {
+  // 归属用户的混合分层决策结果
+  rpspResults: RpspInfoModel[];
+  // 用户凭证
+  customerKey: string;
+  static names(): { [key: string]: string } {
+    return {
+      rpspResults: 'rpsp_results',
+      customerKey: 'customer_key',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      rpspResults: { 'type': 'array', 'itemType': RpspInfoModel },
+      customerKey: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 信护盾产品查询信息
 export class QueryInfo extends $tea.Model {
   // key
@@ -2065,6 +2124,31 @@ export class RtopAgeDistribution extends $tea.Model {
     return {
       age: 'string',
       count: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 客群详细信息
+export class CustomerInfo extends $tea.Model {
+  // 查询的用户凭证列表
+  customerKey: string;
+  // 客户属性的额外信息
+  properties?: string;
+  static names(): { [key: string]: string } {
+    return {
+      customerKey: 'customer_key',
+      properties: 'properties',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      customerKey: 'string',
+      properties: 'string',
     };
   }
 
@@ -13689,6 +13773,85 @@ export class PushQmpBackflowJsondataResponse extends $tea.Model {
   }
 }
 
+export class BatchqueryQmpRtMixedmarketingRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 圈客计划code列表
+  planCodes: string[];
+  // 计划集合code，对标圈客计划code列表，一般不可变
+  planSetCode?: string;
+  // 查询协议模版
+  queryTemplate: string;
+  // 客群凭证和其他信息
+  customerDetails: CustomerInfo[];
+  // 客群共用参数
+  publicProperties?: string;
+  // 外部业务流水号
+  bizSerialNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      planCodes: 'plan_codes',
+      planSetCode: 'plan_set_code',
+      queryTemplate: 'query_template',
+      customerDetails: 'customer_details',
+      publicProperties: 'public_properties',
+      bizSerialNo: 'biz_serial_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      planCodes: { 'type': 'array', 'itemType': 'string' },
+      planSetCode: 'string',
+      queryTemplate: 'string',
+      customerDetails: { 'type': 'array', 'itemType': CustomerInfo },
+      publicProperties: 'string',
+      bizSerialNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryQmpRtMixedmarketingResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 查询结果
+  queryResults?: CustomerRpspInfosModel[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      queryResults: 'query_results',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      queryResults: { 'type': 'array', 'itemType': CustomerRpspInfosModel },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class SyncRdaasTaxAuthinfoRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -22263,7 +22426,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.23.6",
+          sdk_version: "1.23.7",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -24370,6 +24533,25 @@ export default class Client {
   async pushQmpBackflowJsondataEx(request: PushQmpBackflowJsondataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushQmpBackflowJsondataResponse> {
     Util.validateModel(request);
     return $tea.cast<PushQmpBackflowJsondataResponse>(await this.doRequest("1.0", "riskplus.qmp.backflow.jsondata.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushQmpBackflowJsondataResponse({}));
+  }
+
+  /**
+   * Description: 智选平台混合策略批量分层服务
+   * Summary: 智选平台-混合策略批量分层服务
+   */
+  async batchqueryQmpRtMixedmarketing(request: BatchqueryQmpRtMixedmarketingRequest): Promise<BatchqueryQmpRtMixedmarketingResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchqueryQmpRtMixedmarketingEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 智选平台混合策略批量分层服务
+   * Summary: 智选平台-混合策略批量分层服务
+   */
+  async batchqueryQmpRtMixedmarketingEx(request: BatchqueryQmpRtMixedmarketingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryQmpRtMixedmarketingResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchqueryQmpRtMixedmarketingResponse>(await this.doRequest("1.0", "riskplus.qmp.rt.mixedmarketing.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryQmpRtMixedmarketingResponse({}));
   }
 
   /**
