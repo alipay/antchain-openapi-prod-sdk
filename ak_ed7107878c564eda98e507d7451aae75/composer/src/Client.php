@@ -39,6 +39,8 @@ use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigital
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanLlmChatResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanModelRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanModelResponse;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanStreamRequest;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanStreamResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanVoiceRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanVoiceResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\OfflineUniversalsaasDigitalhumanChatSettingRequest;
@@ -55,6 +57,8 @@ use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\QueryUniversalsaasDigita
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\SetUniversalsaasDigitalhumanChatSettingRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\SetUniversalsaasDigitalhumanChatSettingResponse;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\StopUniversalsaasDigitalhumanStreamRequest;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\StopUniversalsaasDigitalhumanStreamResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\UpdateUniversalsaasDigitalhumanHumanRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\UpdateUniversalsaasDigitalhumanHumanResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\UpdateUniversalsaasDigitalhumanKnowledgeRequest;
@@ -208,7 +212,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.5',
+                    'sdk_version'      => '1.1.6',
                     '_prod_code'       => 'ak_ed7107878c564eda98e507d7451aae75',
                     '_prod_channel'    => 'saas',
                 ];
@@ -1065,6 +1069,72 @@ class Client
         Utils::validateModel($request);
 
         return ExportUniversalsaasDigitalhumanKnowledgeResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.knowledge.export', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取实时流列表接口
+     * Summary: 获取实时流列表接口.
+     *
+     * @param ListUniversalsaasDigitalhumanStreamRequest $request
+     *
+     * @return ListUniversalsaasDigitalhumanStreamResponse
+     */
+    public function listUniversalsaasDigitalhumanStream($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listUniversalsaasDigitalhumanStreamEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取实时流列表接口
+     * Summary: 获取实时流列表接口.
+     *
+     * @param ListUniversalsaasDigitalhumanStreamRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return ListUniversalsaasDigitalhumanStreamResponse
+     */
+    public function listUniversalsaasDigitalhumanStreamEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListUniversalsaasDigitalhumanStreamResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.stream.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 关闭实时流接口
+     * Summary: 关闭实时流接口.
+     *
+     * @param StopUniversalsaasDigitalhumanStreamRequest $request
+     *
+     * @return StopUniversalsaasDigitalhumanStreamResponse
+     */
+    public function stopUniversalsaasDigitalhumanStream($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->stopUniversalsaasDigitalhumanStreamEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 关闭实时流接口
+     * Summary: 关闭实时流接口.
+     *
+     * @param StopUniversalsaasDigitalhumanStreamRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return StopUniversalsaasDigitalhumanStreamResponse
+     */
+    public function stopUniversalsaasDigitalhumanStreamEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StopUniversalsaasDigitalhumanStreamResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.stream.stop', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

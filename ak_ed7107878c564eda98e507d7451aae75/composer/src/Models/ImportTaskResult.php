@@ -31,10 +31,19 @@ class ImportTaskResult extends Model
      * @var string
      */
     public $errorMessage;
+
+    // 导入日志文件url
+    /**
+     * @example www.123.com
+     *
+     * @var string
+     */
+    public $fileUrl;
     protected $_name = [
         'status'       => 'status',
         'progress'     => 'progress',
         'errorMessage' => 'error_message',
+        'fileUrl'      => 'file_url',
     ];
 
     public function validate()
@@ -53,6 +62,9 @@ class ImportTaskResult extends Model
         }
         if (null !== $this->errorMessage) {
             $res['error_message'] = $this->errorMessage;
+        }
+        if (null !== $this->fileUrl) {
+            $res['file_url'] = $this->fileUrl;
         }
 
         return $res;
@@ -74,6 +86,9 @@ class ImportTaskResult extends Model
         }
         if (isset($map['error_message'])) {
             $model->errorMessage = $map['error_message'];
+        }
+        if (isset($map['file_url'])) {
+            $model->fileUrl = $map['file_url'];
         }
 
         return $model;
