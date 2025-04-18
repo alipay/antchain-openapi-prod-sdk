@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.6',
+                    'sdk_version': '1.3.7',
                     '_prod_code': 'DEMOSDK',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.6',
+                    'sdk_version': '1.3.7',
                     '_prod_code': 'DEMOSDK',
                     '_prod_channel': 'default'
                 }
@@ -645,62 +645,6 @@ class Client:
         return TeaCore.from_map(
             demosdk_models.BindXxxResponse(),
             await self.do_request_async('1.0', 'antchain.demosdk.xxx.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def update_aaa_acd(
-        self,
-        request: demosdk_models.UpdateAaaAcdRequest,
-    ) -> demosdk_models.UpdateAaaAcdResponse:
-        """
-        Description: 自动化测试创建test，请勿修改、删除
-        Summary: 自动化测试创建test1
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.update_aaa_acd_ex(request, headers, runtime)
-
-    async def update_aaa_acd_async(
-        self,
-        request: demosdk_models.UpdateAaaAcdRequest,
-    ) -> demosdk_models.UpdateAaaAcdResponse:
-        """
-        Description: 自动化测试创建test，请勿修改、删除
-        Summary: 自动化测试创建test1
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.update_aaa_acd_ex_async(request, headers, runtime)
-
-    def update_aaa_acd_ex(
-        self,
-        request: demosdk_models.UpdateAaaAcdRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.UpdateAaaAcdResponse:
-        """
-        Description: 自动化测试创建test，请勿修改、删除
-        Summary: 自动化测试创建test1
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demosdk_models.UpdateAaaAcdResponse(),
-            self.do_request('1.0', 'antchain.demosdk.aaa.acd.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def update_aaa_acd_ex_async(
-        self,
-        request: demosdk_models.UpdateAaaAcdRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demosdk_models.UpdateAaaAcdResponse:
-        """
-        Description: 自动化测试创建test，请勿修改、删除
-        Summary: 自动化测试创建test1
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demosdk_models.UpdateAaaAcdResponse(),
-            await self.do_request_async('1.0', 'antchain.demosdk.aaa.acd.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_cc_xx(
