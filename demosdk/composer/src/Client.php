@@ -27,8 +27,6 @@ use AntChain\DEMOSDK\Models\QueryCcXxRequest;
 use AntChain\DEMOSDK\Models\QueryCcXxResponse;
 use AntChain\DEMOSDK\Models\ResetBbbCccRequest;
 use AntChain\DEMOSDK\Models\ResetBbbCccResponse;
-use AntChain\DEMOSDK\Models\UpdateAaaAcdRequest;
-use AntChain\DEMOSDK\Models\UpdateAaaAcdResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -176,7 +174,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.6',
+                    'sdk_version'      => '1.3.7',
                     '_prod_code'       => 'DEMOSDK',
                     '_prod_channel'    => 'default',
                 ];
@@ -439,39 +437,6 @@ class Client
         Utils::validateModel($request);
 
         return BindXxxResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.xxx.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 自动化测试创建test，请勿修改、删除
-     * Summary: 自动化测试创建test1.
-     *
-     * @param UpdateAaaAcdRequest $request
-     *
-     * @return UpdateAaaAcdResponse
-     */
-    public function updateAaaAcd($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->updateAaaAcdEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 自动化测试创建test，请勿修改、删除
-     * Summary: 自动化测试创建test1.
-     *
-     * @param UpdateAaaAcdRequest $request
-     * @param string[]            $headers
-     * @param RuntimeOptions      $runtime
-     *
-     * @return UpdateAaaAcdResponse
-     */
-    public function updateAaaAcdEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return UpdateAaaAcdResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.aaa.acd.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
