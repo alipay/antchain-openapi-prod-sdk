@@ -25,6 +25,11 @@ namespace AntChain.SDK.Ak_ed7107878c564eda98e507d7451aae75.Models
         [Validation(Required=false)]
         public string ErrorMessage { get; set; }
 
+        // 导入日志文件url
+        [NameInMap("file_url")]
+        [Validation(Required=false)]
+        public string FileUrl { get; set; }
+
     }
 
 }

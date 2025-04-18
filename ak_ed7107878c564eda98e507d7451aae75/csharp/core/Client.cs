@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_ed7107878c564eda98e507d7451aae75
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.5"},
+                        {"sdk_version", "1.1.6"},
                         {"_prod_code", "ak_ed7107878c564eda98e507d7451aae75"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_ed7107878c564eda98e507d7451aae75
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.5"},
+                        {"sdk_version", "1.1.6"},
                         {"_prod_code", "ak_ed7107878c564eda98e507d7451aae75"},
                         {"_prod_channel", "saas"},
                     };
@@ -1375,6 +1375,90 @@ namespace AntChain.SDK.Ak_ed7107878c564eda98e507d7451aae75
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ExportUniversalsaasDigitalhumanKnowledgeResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.knowledge.export", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取实时流列表接口
+         * Summary: 获取实时流列表接口
+         */
+        public ListUniversalsaasDigitalhumanStreamResponse ListUniversalsaasDigitalhumanStream(ListUniversalsaasDigitalhumanStreamRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListUniversalsaasDigitalhumanStreamEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取实时流列表接口
+         * Summary: 获取实时流列表接口
+         */
+        public async Task<ListUniversalsaasDigitalhumanStreamResponse> ListUniversalsaasDigitalhumanStreamAsync(ListUniversalsaasDigitalhumanStreamRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListUniversalsaasDigitalhumanStreamExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取实时流列表接口
+         * Summary: 获取实时流列表接口
+         */
+        public ListUniversalsaasDigitalhumanStreamResponse ListUniversalsaasDigitalhumanStreamEx(ListUniversalsaasDigitalhumanStreamRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListUniversalsaasDigitalhumanStreamResponse>(DoRequest("1.0", "universalsaas.digitalhuman.stream.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取实时流列表接口
+         * Summary: 获取实时流列表接口
+         */
+        public async Task<ListUniversalsaasDigitalhumanStreamResponse> ListUniversalsaasDigitalhumanStreamExAsync(ListUniversalsaasDigitalhumanStreamRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListUniversalsaasDigitalhumanStreamResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.stream.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 关闭实时流接口
+         * Summary: 关闭实时流接口
+         */
+        public StopUniversalsaasDigitalhumanStreamResponse StopUniversalsaasDigitalhumanStream(StopUniversalsaasDigitalhumanStreamRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StopUniversalsaasDigitalhumanStreamEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 关闭实时流接口
+         * Summary: 关闭实时流接口
+         */
+        public async Task<StopUniversalsaasDigitalhumanStreamResponse> StopUniversalsaasDigitalhumanStreamAsync(StopUniversalsaasDigitalhumanStreamRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StopUniversalsaasDigitalhumanStreamExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 关闭实时流接口
+         * Summary: 关闭实时流接口
+         */
+        public StopUniversalsaasDigitalhumanStreamResponse StopUniversalsaasDigitalhumanStreamEx(StopUniversalsaasDigitalhumanStreamRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StopUniversalsaasDigitalhumanStreamResponse>(DoRequest("1.0", "universalsaas.digitalhuman.stream.stop", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 关闭实时流接口
+         * Summary: 关闭实时流接口
+         */
+        public async Task<StopUniversalsaasDigitalhumanStreamResponse> StopUniversalsaasDigitalhumanStreamExAsync(StopUniversalsaasDigitalhumanStreamRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StopUniversalsaasDigitalhumanStreamResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.stream.stop", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
