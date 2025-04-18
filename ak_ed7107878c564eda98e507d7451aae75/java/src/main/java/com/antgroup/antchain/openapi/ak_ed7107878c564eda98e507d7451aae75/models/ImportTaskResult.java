@@ -17,6 +17,10 @@ public class ImportTaskResult extends TeaModel {
     @NameInMap("error_message")
     public String errorMessage;
 
+    // 导入日志文件url
+    @NameInMap("file_url")
+    public String fileUrl;
+
     public static ImportTaskResult build(java.util.Map<String, ?> map) throws Exception {
         ImportTaskResult self = new ImportTaskResult();
         return TeaModel.build(map, self);
@@ -44,6 +48,14 @@ public class ImportTaskResult extends TeaModel {
     }
     public String getErrorMessage() {
         return this.errorMessage;
+    }
+
+    public ImportTaskResult setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
+        return this;
+    }
+    public String getFileUrl() {
+        return this.fileUrl;
     }
 
 }

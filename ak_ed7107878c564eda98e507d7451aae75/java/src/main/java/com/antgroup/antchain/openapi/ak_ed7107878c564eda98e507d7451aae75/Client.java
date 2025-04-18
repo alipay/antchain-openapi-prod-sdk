@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.5"),
+                    new TeaPair("sdk_version", "1.1.6"),
                     new TeaPair("_prod_code", "ak_ed7107878c564eda98e507d7451aae75"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -660,6 +660,44 @@ public class Client {
     public ExportUniversalsaasDigitalhumanKnowledgeResponse exportUniversalsaasDigitalhumanKnowledgeEx(ExportUniversalsaasDigitalhumanKnowledgeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.knowledge.export", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExportUniversalsaasDigitalhumanKnowledgeResponse());
+    }
+
+    /**
+     * Description: 获取实时流列表接口
+     * Summary: 获取实时流列表接口
+     */
+    public ListUniversalsaasDigitalhumanStreamResponse listUniversalsaasDigitalhumanStream(ListUniversalsaasDigitalhumanStreamRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listUniversalsaasDigitalhumanStreamEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取实时流列表接口
+     * Summary: 获取实时流列表接口
+     */
+    public ListUniversalsaasDigitalhumanStreamResponse listUniversalsaasDigitalhumanStreamEx(ListUniversalsaasDigitalhumanStreamRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.stream.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListUniversalsaasDigitalhumanStreamResponse());
+    }
+
+    /**
+     * Description: 关闭实时流接口
+     * Summary: 关闭实时流接口
+     */
+    public StopUniversalsaasDigitalhumanStreamResponse stopUniversalsaasDigitalhumanStream(StopUniversalsaasDigitalhumanStreamRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.stopUniversalsaasDigitalhumanStreamEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 关闭实时流接口
+     * Summary: 关闭实时流接口
+     */
+    public StopUniversalsaasDigitalhumanStreamResponse stopUniversalsaasDigitalhumanStreamEx(StopUniversalsaasDigitalhumanStreamRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.stream.stop", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StopUniversalsaasDigitalhumanStreamResponse());
     }
 
     /**
