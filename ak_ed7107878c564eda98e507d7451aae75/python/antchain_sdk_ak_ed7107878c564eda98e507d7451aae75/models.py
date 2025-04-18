@@ -595,12 +595,62 @@ class AvatarBubbleInfo(TeaModel):
         return self
 
 
+class AvatarStreamInfo(TeaModel):
+    def __init__(
+        self,
+        model_id: str = None,
+        voice_code: str = None,
+        background: str = None,
+        stream_id: str = None,
+    ):
+        # 形象id
+        self.model_id = model_id
+        # 音色编码
+        self.voice_code = voice_code
+        # 背景信息
+        self.background = background
+        # 流id
+        self.stream_id = stream_id
+
+    def validate(self):
+        self.validate_required(self.stream_id, 'stream_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.model_id is not None:
+            result['model_id'] = self.model_id
+        if self.voice_code is not None:
+            result['voice_code'] = self.voice_code
+        if self.background is not None:
+            result['background'] = self.background
+        if self.stream_id is not None:
+            result['stream_id'] = self.stream_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('model_id') is not None:
+            self.model_id = m.get('model_id')
+        if m.get('voice_code') is not None:
+            self.voice_code = m.get('voice_code')
+        if m.get('background') is not None:
+            self.background = m.get('background')
+        if m.get('stream_id') is not None:
+            self.stream_id = m.get('stream_id')
+        return self
+
+
 class ImportTaskResult(TeaModel):
     def __init__(
         self,
         status: str = None,
         progress: int = None,
         error_message: str = None,
+        file_url: str = None,
     ):
         # 任务状态
         self.status = status
@@ -608,6 +658,8 @@ class ImportTaskResult(TeaModel):
         self.progress = progress
         # 错误日志
         self.error_message = error_message
+        # 导入日志文件url
+        self.file_url = file_url
 
     def validate(self):
         self.validate_required(self.status, 'status')
@@ -624,6 +676,8 @@ class ImportTaskResult(TeaModel):
             result['progress'] = self.progress
         if self.error_message is not None:
             result['error_message'] = self.error_message
+        if self.file_url is not None:
+            result['file_url'] = self.file_url
         return result
 
     def from_map(self, m: dict = None):
@@ -634,6 +688,8 @@ class ImportTaskResult(TeaModel):
             self.progress = m.get('progress')
         if m.get('error_message') is not None:
             self.error_message = m.get('error_message')
+        if m.get('file_url') is not None:
+            self.file_url = m.get('file_url')
         return self
 
 
@@ -3417,6 +3473,211 @@ class ExportUniversalsaasDigitalhumanKnowledgeResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('data') is not None:
             self.data = m.get('data')
+        return self
+
+
+class ListUniversalsaasDigitalhumanStreamRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_code: str = None,
+        app_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户编码
+        self.tenant_code = tenant_code
+        # appId
+        self.app_id = app_id
+
+    def validate(self):
+        self.validate_required(self.tenant_code, 'tenant_code')
+        self.validate_required(self.app_id, 'app_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_code is not None:
+            result['tenant_code'] = self.tenant_code
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_code') is not None:
+            self.tenant_code = m.get('tenant_code')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        return self
+
+
+class ListUniversalsaasDigitalhumanStreamResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[AvatarStreamInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 实时流信息列表
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = AvatarStreamInfo()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class StopUniversalsaasDigitalhumanStreamRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_code: str = None,
+        app_id: str = None,
+        stream_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户编码
+        self.tenant_code = tenant_code
+        # app_id
+        self.app_id = app_id
+        # 流Id
+        self.stream_id = stream_id
+
+    def validate(self):
+        self.validate_required(self.tenant_code, 'tenant_code')
+        self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.stream_id, 'stream_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_code is not None:
+            result['tenant_code'] = self.tenant_code
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.stream_id is not None:
+            result['stream_id'] = self.stream_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_code') is not None:
+            self.tenant_code = m.get('tenant_code')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('stream_id') is not None:
+            self.stream_id = m.get('stream_id')
+        return self
+
+
+class StopUniversalsaasDigitalhumanStreamResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 

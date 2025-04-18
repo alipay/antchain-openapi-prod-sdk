@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.5',
+                    'sdk_version': '1.1.6',
                     '_prod_code': 'ak_ed7107878c564eda98e507d7451aae75',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.5',
+                    'sdk_version': '1.1.6',
                     '_prod_code': 'ak_ed7107878c564eda98e507d7451aae75',
                     '_prod_channel': 'saas'
                 }
@@ -1653,6 +1653,118 @@ class Client:
         return TeaCore.from_map(
             ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ExportUniversalsaasDigitalhumanKnowledgeResponse(),
             await self.do_request_async('1.0', 'universalsaas.digitalhuman.knowledge.export', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_universalsaas_digitalhuman_stream(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanStreamRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanStreamResponse:
+        """
+        Description: 获取实时流列表接口
+        Summary: 获取实时流列表接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_universalsaas_digitalhuman_stream_ex(request, headers, runtime)
+
+    async def list_universalsaas_digitalhuman_stream_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanStreamRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanStreamResponse:
+        """
+        Description: 获取实时流列表接口
+        Summary: 获取实时流列表接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_universalsaas_digitalhuman_stream_ex_async(request, headers, runtime)
+
+    def list_universalsaas_digitalhuman_stream_ex(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanStreamRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanStreamResponse:
+        """
+        Description: 获取实时流列表接口
+        Summary: 获取实时流列表接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanStreamResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.stream.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_universalsaas_digitalhuman_stream_ex_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanStreamRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanStreamResponse:
+        """
+        Description: 获取实时流列表接口
+        Summary: 获取实时流列表接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanStreamResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.stream.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def stop_universalsaas_digitalhuman_stream(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.StopUniversalsaasDigitalhumanStreamRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.StopUniversalsaasDigitalhumanStreamResponse:
+        """
+        Description: 关闭实时流接口
+        Summary: 关闭实时流接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.stop_universalsaas_digitalhuman_stream_ex(request, headers, runtime)
+
+    async def stop_universalsaas_digitalhuman_stream_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.StopUniversalsaasDigitalhumanStreamRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.StopUniversalsaasDigitalhumanStreamResponse:
+        """
+        Description: 关闭实时流接口
+        Summary: 关闭实时流接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.stop_universalsaas_digitalhuman_stream_ex_async(request, headers, runtime)
+
+    def stop_universalsaas_digitalhuman_stream_ex(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.StopUniversalsaasDigitalhumanStreamRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.StopUniversalsaasDigitalhumanStreamResponse:
+        """
+        Description: 关闭实时流接口
+        Summary: 关闭实时流接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.StopUniversalsaasDigitalhumanStreamResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.stream.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def stop_universalsaas_digitalhuman_stream_ex_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.StopUniversalsaasDigitalhumanStreamRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.StopUniversalsaasDigitalhumanStreamResponse:
+        """
+        Description: 关闭实时流接口
+        Summary: 关闭实时流接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.StopUniversalsaasDigitalhumanStreamResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.stream.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
