@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.5',
+    sdk_version = '1.1.6',
     _prod_code = 'ak_ed7107878c564eda98e507d7451aae75',
     _prod_channel = 'saas'
   };
@@ -267,6 +267,18 @@ model AvatarBubbleInfo {
   link?: string(name='link', example='www.123.com'),
 }
 
+// 流信息
+model AvatarStreamInfo {
+  // 形象id
+  modelId?: string(name='model_id', example='1861'),
+  // 音色编码
+  voiceCode?: string(name='voice_code', example='269'),
+  // 背景信息
+  background?: string(name='background', example='www.123.com'),
+  // 流id
+  streamId: string(name='stream_id', example='live-avatar-6741_20250410104550'),
+}
+
 // 知识点批量导入任务结果
 model ImportTaskResult {
   // 任务状态
@@ -275,6 +287,8 @@ model ImportTaskResult {
   progress?: long(name='progress', example='99'),
   // 错误日志
   errorMessage?: string(name='error_message', example='错误日志'),
+  // 导入日志文件url
+  fileUrl?: string(name='file_url', example='www.123.com'),
 }
 
 // 数字人平台--交互配置信息
@@ -1348,6 +1362,86 @@ async function exportUniversalsaasDigitalhumanKnowledge(request: ExportUniversal
 async function exportUniversalsaasDigitalhumanKnowledgeEx(request: ExportUniversalsaasDigitalhumanKnowledgeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExportUniversalsaasDigitalhumanKnowledgeResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'universalsaas.digitalhuman.knowledge.export', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListUniversalsaasDigitalhumanStreamRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // appId
+  appId: string(name='app_id'),
+}
+
+model ListUniversalsaasDigitalhumanStreamResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 实时流信息列表
+  data?: [ AvatarStreamInfo ](name='data'),
+}
+
+/**
+ * Description: 获取实时流列表接口
+ * Summary: 获取实时流列表接口
+ */
+async function listUniversalsaasDigitalhumanStream(request: ListUniversalsaasDigitalhumanStreamRequest): ListUniversalsaasDigitalhumanStreamResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listUniversalsaasDigitalhumanStreamEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取实时流列表接口
+ * Summary: 获取实时流列表接口
+ */
+async function listUniversalsaasDigitalhumanStreamEx(request: ListUniversalsaasDigitalhumanStreamRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListUniversalsaasDigitalhumanStreamResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.stream.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StopUniversalsaasDigitalhumanStreamRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // app_id
+  appId: string(name='app_id'),
+  // 流Id
+  streamId: string(name='stream_id'),
+}
+
+model StopUniversalsaasDigitalhumanStreamResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 关闭实时流接口
+ * Summary: 关闭实时流接口
+ */
+async function stopUniversalsaasDigitalhumanStream(request: StopUniversalsaasDigitalhumanStreamRequest): StopUniversalsaasDigitalhumanStreamResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return stopUniversalsaasDigitalhumanStreamEx(request, headers, runtime);
+}
+
+/**
+ * Description: 关闭实时流接口
+ * Summary: 关闭实时流接口
+ */
+async function stopUniversalsaasDigitalhumanStreamEx(request: StopUniversalsaasDigitalhumanStreamRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StopUniversalsaasDigitalhumanStreamResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.stream.stop', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
