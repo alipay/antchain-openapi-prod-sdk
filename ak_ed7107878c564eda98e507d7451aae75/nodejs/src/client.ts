@@ -353,6 +353,39 @@ export class AvatarBubbleInfo extends $tea.Model {
   }
 }
 
+// 流信息
+export class AvatarStreamInfo extends $tea.Model {
+  // 形象id
+  modelId?: string;
+  // 音色编码
+  voiceCode?: string;
+  // 背景信息
+  background?: string;
+  // 流id
+  streamId: string;
+  static names(): { [key: string]: string } {
+    return {
+      modelId: 'model_id',
+      voiceCode: 'voice_code',
+      background: 'background',
+      streamId: 'stream_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      modelId: 'string',
+      voiceCode: 'string',
+      background: 'string',
+      streamId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 知识点批量导入任务结果
 export class ImportTaskResult extends $tea.Model {
   // 任务状态
@@ -361,11 +394,14 @@ export class ImportTaskResult extends $tea.Model {
   progress?: number;
   // 错误日志
   errorMessage?: string;
+  // 导入日志文件url
+  fileUrl?: string;
   static names(): { [key: string]: string } {
     return {
       status: 'status',
       progress: 'progress',
       errorMessage: 'error_message',
+      fileUrl: 'file_url',
     };
   }
 
@@ -374,6 +410,7 @@ export class ImportTaskResult extends $tea.Model {
       status: 'string',
       progress: 'number',
       errorMessage: 'string',
+      fileUrl: 'string',
     };
   }
 
@@ -2104,6 +2141,132 @@ export class ExportUniversalsaasDigitalhumanKnowledgeResponse extends $tea.Model
   }
 }
 
+export class ListUniversalsaasDigitalhumanStreamRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户编码
+  tenantCode: string;
+  // appId
+  appId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantCode: 'tenant_code',
+      appId: 'app_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantCode: 'string',
+      appId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListUniversalsaasDigitalhumanStreamResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 实时流信息列表
+  data?: AvatarStreamInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': AvatarStreamInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StopUniversalsaasDigitalhumanStreamRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户编码
+  tenantCode: string;
+  // app_id
+  appId: string;
+  // 流Id
+  streamId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantCode: 'tenant_code',
+      appId: 'app_id',
+      streamId: 'stream_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantCode: 'string',
+      appId: 'string',
+      streamId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StopUniversalsaasDigitalhumanStreamResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2305,7 +2468,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.5",
+          sdk_version: "1.1.6",
           _prod_code: "ak_ed7107878c564eda98e507d7451aae75",
           _prod_channel: "saas",
         };
@@ -2829,6 +2992,44 @@ export default class Client {
   async exportUniversalsaasDigitalhumanKnowledgeEx(request: ExportUniversalsaasDigitalhumanKnowledgeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExportUniversalsaasDigitalhumanKnowledgeResponse> {
     Util.validateModel(request);
     return $tea.cast<ExportUniversalsaasDigitalhumanKnowledgeResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.knowledge.export", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExportUniversalsaasDigitalhumanKnowledgeResponse({}));
+  }
+
+  /**
+   * Description: 获取实时流列表接口
+   * Summary: 获取实时流列表接口
+   */
+  async listUniversalsaasDigitalhumanStream(request: ListUniversalsaasDigitalhumanStreamRequest): Promise<ListUniversalsaasDigitalhumanStreamResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listUniversalsaasDigitalhumanStreamEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取实时流列表接口
+   * Summary: 获取实时流列表接口
+   */
+  async listUniversalsaasDigitalhumanStreamEx(request: ListUniversalsaasDigitalhumanStreamRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListUniversalsaasDigitalhumanStreamResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListUniversalsaasDigitalhumanStreamResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.stream.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListUniversalsaasDigitalhumanStreamResponse({}));
+  }
+
+  /**
+   * Description: 关闭实时流接口
+   * Summary: 关闭实时流接口
+   */
+  async stopUniversalsaasDigitalhumanStream(request: StopUniversalsaasDigitalhumanStreamRequest): Promise<StopUniversalsaasDigitalhumanStreamResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.stopUniversalsaasDigitalhumanStreamEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 关闭实时流接口
+   * Summary: 关闭实时流接口
+   */
+  async stopUniversalsaasDigitalhumanStreamEx(request: StopUniversalsaasDigitalhumanStreamRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StopUniversalsaasDigitalhumanStreamResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StopUniversalsaasDigitalhumanStreamResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.stream.stop", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StopUniversalsaasDigitalhumanStreamResponse({}));
   }
 
   /**
