@@ -506,6 +506,46 @@ func (s *AvatarBubbleInfo) SetLink(v string) *AvatarBubbleInfo {
 	return s
 }
 
+// 流信息
+type AvatarStreamInfo struct {
+	// 形象id
+	ModelId *string `json:"model_id,omitempty" xml:"model_id,omitempty"`
+	// 音色编码
+	VoiceCode *string `json:"voice_code,omitempty" xml:"voice_code,omitempty"`
+	// 背景信息
+	Background *string `json:"background,omitempty" xml:"background,omitempty"`
+	// 流id
+	StreamId *string `json:"stream_id,omitempty" xml:"stream_id,omitempty" require:"true"`
+}
+
+func (s AvatarStreamInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AvatarStreamInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AvatarStreamInfo) SetModelId(v string) *AvatarStreamInfo {
+	s.ModelId = &v
+	return s
+}
+
+func (s *AvatarStreamInfo) SetVoiceCode(v string) *AvatarStreamInfo {
+	s.VoiceCode = &v
+	return s
+}
+
+func (s *AvatarStreamInfo) SetBackground(v string) *AvatarStreamInfo {
+	s.Background = &v
+	return s
+}
+
+func (s *AvatarStreamInfo) SetStreamId(v string) *AvatarStreamInfo {
+	s.StreamId = &v
+	return s
+}
+
 // 知识点批量导入任务结果
 type ImportTaskResult struct {
 	// 任务状态
@@ -514,6 +554,8 @@ type ImportTaskResult struct {
 	Progress *int64 `json:"progress,omitempty" xml:"progress,omitempty"`
 	// 错误日志
 	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+	// 导入日志文件url
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
 }
 
 func (s ImportTaskResult) String() string {
@@ -536,6 +578,11 @@ func (s *ImportTaskResult) SetProgress(v int64) *ImportTaskResult {
 
 func (s *ImportTaskResult) SetErrorMessage(v string) *ImportTaskResult {
 	s.ErrorMessage = &v
+	return s
+}
+
+func (s *ImportTaskResult) SetFileUrl(v string) *ImportTaskResult {
+	s.FileUrl = &v
 	return s
 }
 
@@ -2701,6 +2748,160 @@ func (s *ExportUniversalsaasDigitalhumanKnowledgeResponse) SetData(v string) *Ex
 	return s
 }
 
+type ListUniversalsaasDigitalhumanStreamRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户编码
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+	// appId
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+}
+
+func (s ListUniversalsaasDigitalhumanStreamRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListUniversalsaasDigitalhumanStreamRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListUniversalsaasDigitalhumanStreamRequest) SetAuthToken(v string) *ListUniversalsaasDigitalhumanStreamRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanStreamRequest) SetProductInstanceId(v string) *ListUniversalsaasDigitalhumanStreamRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanStreamRequest) SetTenantCode(v string) *ListUniversalsaasDigitalhumanStreamRequest {
+	s.TenantCode = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanStreamRequest) SetAppId(v string) *ListUniversalsaasDigitalhumanStreamRequest {
+	s.AppId = &v
+	return s
+}
+
+type ListUniversalsaasDigitalhumanStreamResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 实时流信息列表
+	Data []*AvatarStreamInfo `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s ListUniversalsaasDigitalhumanStreamResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListUniversalsaasDigitalhumanStreamResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListUniversalsaasDigitalhumanStreamResponse) SetReqMsgId(v string) *ListUniversalsaasDigitalhumanStreamResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanStreamResponse) SetResultCode(v string) *ListUniversalsaasDigitalhumanStreamResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanStreamResponse) SetResultMsg(v string) *ListUniversalsaasDigitalhumanStreamResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanStreamResponse) SetData(v []*AvatarStreamInfo) *ListUniversalsaasDigitalhumanStreamResponse {
+	s.Data = v
+	return s
+}
+
+type StopUniversalsaasDigitalhumanStreamRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户编码
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+	// app_id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 流Id
+	StreamId *string `json:"stream_id,omitempty" xml:"stream_id,omitempty" require:"true"`
+}
+
+func (s StopUniversalsaasDigitalhumanStreamRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StopUniversalsaasDigitalhumanStreamRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StopUniversalsaasDigitalhumanStreamRequest) SetAuthToken(v string) *StopUniversalsaasDigitalhumanStreamRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StopUniversalsaasDigitalhumanStreamRequest) SetProductInstanceId(v string) *StopUniversalsaasDigitalhumanStreamRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StopUniversalsaasDigitalhumanStreamRequest) SetTenantCode(v string) *StopUniversalsaasDigitalhumanStreamRequest {
+	s.TenantCode = &v
+	return s
+}
+
+func (s *StopUniversalsaasDigitalhumanStreamRequest) SetAppId(v string) *StopUniversalsaasDigitalhumanStreamRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *StopUniversalsaasDigitalhumanStreamRequest) SetStreamId(v string) *StopUniversalsaasDigitalhumanStreamRequest {
+	s.StreamId = &v
+	return s
+}
+
+type StopUniversalsaasDigitalhumanStreamResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s StopUniversalsaasDigitalhumanStreamResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StopUniversalsaasDigitalhumanStreamResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StopUniversalsaasDigitalhumanStreamResponse) SetReqMsgId(v string) *StopUniversalsaasDigitalhumanStreamResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StopUniversalsaasDigitalhumanStreamResponse) SetResultCode(v string) *StopUniversalsaasDigitalhumanStreamResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StopUniversalsaasDigitalhumanStreamResponse) SetResultMsg(v string) *StopUniversalsaasDigitalhumanStreamResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2943,7 +3144,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.5"),
+				"sdk_version":      tea.String("1.1.6"),
 				"_prod_code":       tea.String("ak_ed7107878c564eda98e507d7451aae75"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -3840,6 +4041,74 @@ func (client *Client) ExportUniversalsaasDigitalhumanKnowledgeEx(request *Export
 	}
 	_result = &ExportUniversalsaasDigitalhumanKnowledgeResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.knowledge.export"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取实时流列表接口
+ * Summary: 获取实时流列表接口
+ */
+func (client *Client) ListUniversalsaasDigitalhumanStream(request *ListUniversalsaasDigitalhumanStreamRequest) (_result *ListUniversalsaasDigitalhumanStreamResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListUniversalsaasDigitalhumanStreamResponse{}
+	_body, _err := client.ListUniversalsaasDigitalhumanStreamEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取实时流列表接口
+ * Summary: 获取实时流列表接口
+ */
+func (client *Client) ListUniversalsaasDigitalhumanStreamEx(request *ListUniversalsaasDigitalhumanStreamRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListUniversalsaasDigitalhumanStreamResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListUniversalsaasDigitalhumanStreamResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.stream.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 关闭实时流接口
+ * Summary: 关闭实时流接口
+ */
+func (client *Client) StopUniversalsaasDigitalhumanStream(request *StopUniversalsaasDigitalhumanStreamRequest) (_result *StopUniversalsaasDigitalhumanStreamResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StopUniversalsaasDigitalhumanStreamResponse{}
+	_body, _err := client.StopUniversalsaasDigitalhumanStreamEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 关闭实时流接口
+ * Summary: 关闭实时流接口
+ */
+func (client *Client) StopUniversalsaasDigitalhumanStreamEx(request *StopUniversalsaasDigitalhumanStreamRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StopUniversalsaasDigitalhumanStreamResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StopUniversalsaasDigitalhumanStreamResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.stream.stop"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
