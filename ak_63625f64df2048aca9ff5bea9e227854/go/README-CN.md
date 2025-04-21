@@ -8,7 +8,7 @@
 ## 安装
 你可以使用 `go mod` 来管理你的依赖，
 ```sh
-  go get github.com/antchain-openapi-sdk-go/ak_63625f64df2048aca9ff5bea9e227854
+  go get github.com/antchain-openapi-sdk-go/ak_63625f64df2048aca9ff5bea9e227854/v2
 ```
 
 ## 问题
