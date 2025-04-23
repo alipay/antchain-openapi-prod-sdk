@@ -276,9 +276,9 @@ class ConvertAdDataRequest(TeaModel):
         imei_md_5: str = None,
         idfa: str = None,
         idfa_md_5: str = None,
-        first_pay_amount: int = None,
-        upgrade_pay_amount: int = None,
-        upgrade_renewval_amount: int = None,
+        first_pay_amount: str = None,
+        upgrade_pay_amount: str = None,
+        upgrade_renewval_amount: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
