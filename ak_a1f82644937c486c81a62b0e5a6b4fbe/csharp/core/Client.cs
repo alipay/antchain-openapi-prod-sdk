@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.8"},
+                        {"sdk_version", "1.0.9"},
                         {"_prod_code", "ak_a1f82644937c486c81a62b0e5a6b4fbe"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.8"},
+                        {"sdk_version", "1.0.9"},
                         {"_prod_code", "ak_a1f82644937c486c81a62b0e5a6b4fbe"},
                         {"_prod_channel", "saas"},
                     };
@@ -613,48 +613,6 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAntchainSaasAbilityBusinesscodeResponse>(await DoRequestAsync("1.0", "antchain.saas.ability.businesscode.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 用于上海非金生产环境的同步测试
-         * Summary: 上海非金生产环境测试
-         */
-        public OperateDemoShanghaiPreTestResponse OperateDemoShanghaiPreTest(OperateDemoShanghaiPreTestRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return OperateDemoShanghaiPreTestEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 用于上海非金生产环境的同步测试
-         * Summary: 上海非金生产环境测试
-         */
-        public async Task<OperateDemoShanghaiPreTestResponse> OperateDemoShanghaiPreTestAsync(OperateDemoShanghaiPreTestRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await OperateDemoShanghaiPreTestExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 用于上海非金生产环境的同步测试
-         * Summary: 上海非金生产环境测试
-         */
-        public OperateDemoShanghaiPreTestResponse OperateDemoShanghaiPreTestEx(OperateDemoShanghaiPreTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<OperateDemoShanghaiPreTestResponse>(DoRequest("1.0", "demo.shanghai.pre.test.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 用于上海非金生产环境的同步测试
-         * Summary: 上海非金生产环境测试
-         */
-        public async Task<OperateDemoShanghaiPreTestResponse> OperateDemoShanghaiPreTestExAsync(OperateDemoShanghaiPreTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<OperateDemoShanghaiPreTestResponse>(await DoRequestAsync("1.0", "demo.shanghai.pre.test.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
