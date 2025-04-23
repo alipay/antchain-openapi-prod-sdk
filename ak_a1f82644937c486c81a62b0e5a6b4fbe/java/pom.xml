@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-ak_a1f82644937c486c81a62b0e5a6b4fbe</artifactId>
-  <version>1.0.8</version>
+  <version>1.0.9</version>
   <packaging>jar</packaging>
   <name>openapi-ak_a1f82644937c486c81a62b0e5a6b4fbe</name>
   <description>Ant Chain ak_a1f82644937c486c81a62b0e5a6b4fbe SDK for Java
@@ -46,7 +46,7 @@
     <dependency>
       <groupId>com.aliyun</groupId>
       <artifactId>tea-util</artifactId>
-      <version>0.2.22</version>
+      <version>0.2.23</version>
     </dependency>
     <dependency>
       <groupId>com.aliyun</groupId>
