@@ -96,15 +96,15 @@ public class ConvertAdDataRequest extends TeaModel {
 
     // 首次支付保费(蚂蚁数科定义)，用户首次支付保险的费用。单位元
     @NameInMap("first_pay_amount")
-    public Long firstPayAmount;
+    public String firstPayAmount;
 
     // 升级支付保费(蚂蚁数科定义)，用户支付后进行保险升级的支付费用。单位元
     @NameInMap("upgrade_pay_amount")
-    public Long upgradePayAmount;
+    public String upgradePayAmount;
 
     // 续费保费(蚂蚁数科定义)，用户M2进行保险续费的费用。
     @NameInMap("upgrade_renewval_amount")
-    public Long upgradeRenewvalAmount;
+    public String upgradeRenewvalAmount;
 
     public static ConvertAdDataRequest build(java.util.Map<String, ?> map) throws Exception {
         ConvertAdDataRequest self = new ConvertAdDataRequest();
@@ -271,27 +271,27 @@ public class ConvertAdDataRequest extends TeaModel {
         return this.idfaMd5;
     }
 
-    public ConvertAdDataRequest setFirstPayAmount(Long firstPayAmount) {
+    public ConvertAdDataRequest setFirstPayAmount(String firstPayAmount) {
         this.firstPayAmount = firstPayAmount;
         return this;
     }
-    public Long getFirstPayAmount() {
+    public String getFirstPayAmount() {
         return this.firstPayAmount;
     }
 
-    public ConvertAdDataRequest setUpgradePayAmount(Long upgradePayAmount) {
+    public ConvertAdDataRequest setUpgradePayAmount(String upgradePayAmount) {
         this.upgradePayAmount = upgradePayAmount;
         return this;
     }
-    public Long getUpgradePayAmount() {
+    public String getUpgradePayAmount() {
         return this.upgradePayAmount;
     }
 
-    public ConvertAdDataRequest setUpgradeRenewvalAmount(Long upgradeRenewvalAmount) {
+    public ConvertAdDataRequest setUpgradeRenewvalAmount(String upgradeRenewvalAmount) {
         this.upgradeRenewvalAmount = upgradeRenewvalAmount;
         return this;
     }
-    public Long getUpgradeRenewvalAmount() {
+    public String getUpgradeRenewvalAmount() {
         return this.upgradeRenewvalAmount;
     }
 
