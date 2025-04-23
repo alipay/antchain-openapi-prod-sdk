@@ -1230,7 +1230,7 @@ class SimSkuInfo(TeaModel):
         price: str = None,
         store_price: str = None,
         vehicle_model: str = None,
-        range_km: int = None,
+        range_km: str = None,
         keywords: str = None,
         colors: str = None,
         accessories: str = None,
@@ -1247,7 +1247,7 @@ class SimSkuInfo(TeaModel):
         self.store_price = store_price
         # 车型
         self.vehicle_model = vehicle_model
-        # 续航里程，单位KM
+        # 续航里程
         self.range_km = range_km
         # 关键词，逗号分隔
         self.keywords = keywords
@@ -3469,6 +3469,7 @@ class QuerySimLoginResponse(TeaModel):
         login_result: str = None,
         login_msg: str = None,
         activated: bool = None,
+        activate_time: str = None,
         login_time: str = None,
         store_info: SimStoreInfo = None,
         sales_info: SimSalesInfo = None,
@@ -3491,6 +3492,8 @@ class QuerySimLoginResponse(TeaModel):
         self.login_msg = login_msg
         # 是否已经激活
         self.activated = activated
+        # 激活时间，格式yyyy-MM-dd HH:mm:ss
+        self.activate_time = activate_time
         # 登录/激活时间，格式yyyy-MM-dd HH:mm:ss
         self.login_time = login_time
         # 当前登录的门店信息
@@ -3522,6 +3525,8 @@ class QuerySimLoginResponse(TeaModel):
             result['login_msg'] = self.login_msg
         if self.activated is not None:
             result['activated'] = self.activated
+        if self.activate_time is not None:
+            result['activate_time'] = self.activate_time
         if self.login_time is not None:
             result['login_time'] = self.login_time
         if self.store_info is not None:
@@ -3544,6 +3549,8 @@ class QuerySimLoginResponse(TeaModel):
             self.login_msg = m.get('login_msg')
         if m.get('activated') is not None:
             self.activated = m.get('activated')
+        if m.get('activate_time') is not None:
+            self.activate_time = m.get('activate_time')
         if m.get('login_time') is not None:
             self.login_time = m.get('login_time')
         if m.get('store_info') is not None:
