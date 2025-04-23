@@ -19,8 +19,6 @@ use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\BindDemoAaaBbbCccRequest
 use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\BindDemoAaaBbbCccResponse;
 use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\CallbackAntchainSaasAbilityRequest;
 use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\CallbackAntchainSaasAbilityResponse;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\OperateDemoShanghaiPreTestRequest;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\OperateDemoShanghaiPreTestResponse;
 use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryAntchainAbcAbcdaAbcddaaRequest;
 use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryAntchainAbcAbcdaAbcddaaResponse;
 use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryAntchainSaasAbilityBusinesscodeRequest;
@@ -174,7 +172,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.8',
+                    'sdk_version'      => '1.0.9',
                     '_prod_code'       => 'ak_a1f82644937c486c81a62b0e5a6b4fbe',
                     '_prod_channel'    => 'saas',
                 ];
@@ -451,38 +449,5 @@ class Client
         Utils::validateModel($request);
 
         return QueryAntchainSaasAbilityBusinesscodeResponse::fromMap($this->doRequest('1.0', 'antchain.saas.ability.businesscode.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 用于上海非金生产环境的同步测试
-     * Summary: 上海非金生产环境测试.
-     *
-     * @param OperateDemoShanghaiPreTestRequest $request
-     *
-     * @return OperateDemoShanghaiPreTestResponse
-     */
-    public function operateDemoShanghaiPreTest($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->operateDemoShanghaiPreTestEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 用于上海非金生产环境的同步测试
-     * Summary: 上海非金生产环境测试.
-     *
-     * @param OperateDemoShanghaiPreTestRequest $request
-     * @param string[]                          $headers
-     * @param RuntimeOptions                    $runtime
-     *
-     * @return OperateDemoShanghaiPreTestResponse
-     */
-    public function operateDemoShanghaiPreTestEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return OperateDemoShanghaiPreTestResponse::fromMap($this->doRequest('1.0', 'demo.shanghai.pre.test.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
