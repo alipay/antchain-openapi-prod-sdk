@@ -34,6 +34,10 @@ public class QuerySimLoginResponse extends TeaModel {
     @NameInMap("activated")
     public Boolean activated;
 
+    // 激活时间，格式yyyy-MM-dd HH:mm:ss
+    @NameInMap("activate_time")
+    public String activateTime;
+
     // 登录/激活时间，格式yyyy-MM-dd HH:mm:ss
     @NameInMap("login_time")
     public String loginTime;
@@ -97,6 +101,14 @@ public class QuerySimLoginResponse extends TeaModel {
     }
     public Boolean getActivated() {
         return this.activated;
+    }
+
+    public QuerySimLoginResponse setActivateTime(String activateTime) {
+        this.activateTime = activateTime;
+        return this;
+    }
+    public String getActivateTime() {
+        return this.activateTime;
     }
 
     public QuerySimLoginResponse setLoginTime(String loginTime) {

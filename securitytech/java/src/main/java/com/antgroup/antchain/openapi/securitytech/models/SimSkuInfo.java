@@ -29,10 +29,10 @@ public class SimSkuInfo extends TeaModel {
     @Validation(required = true)
     public String vehicleModel;
 
-    // 续航里程，单位KM
+    // 续航里程
     @NameInMap("range_km")
     @Validation(required = true)
-    public Long rangeKm;
+    public String rangeKm;
 
     // 关键词，逗号分隔
     @NameInMap("keywords")
@@ -104,11 +104,11 @@ public class SimSkuInfo extends TeaModel {
         return this.vehicleModel;
     }
 
-    public SimSkuInfo setRangeKm(Long rangeKm) {
+    public SimSkuInfo setRangeKm(String rangeKm) {
         this.rangeKm = rangeKm;
         return this;
     }
-    public Long getRangeKm() {
+    public String getRangeKm() {
         return this.rangeKm;
     }
 
