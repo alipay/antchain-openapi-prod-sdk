@@ -117,17 +117,17 @@ namespace AntChain.SDK.MORSERTA.Models
         // 首次支付保费(蚂蚁数科定义)，用户首次支付保险的费用。单位元
         [NameInMap("first_pay_amount")]
         [Validation(Required=false)]
-        public long? FirstPayAmount { get; set; }
+        public string FirstPayAmount { get; set; }
 
         // 升级支付保费(蚂蚁数科定义)，用户支付后进行保险升级的支付费用。单位元
         [NameInMap("upgrade_pay_amount")]
         [Validation(Required=false)]
-        public long? UpgradePayAmount { get; set; }
+        public string UpgradePayAmount { get; set; }
 
         // 续费保费(蚂蚁数科定义)，用户M2进行保险续费的费用。
         [NameInMap("upgrade_renewval_amount")]
         [Validation(Required=false)]
-        public long? UpgradeRenewvalAmount { get; set; }
+        public string UpgradeRenewvalAmount { get; set; }
 
     }
 
