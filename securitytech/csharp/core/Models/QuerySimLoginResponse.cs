@@ -45,6 +45,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public bool? Activated { get; set; }
 
+        // 激活时间，格式yyyy-MM-dd HH:mm:ss
+        [NameInMap("activate_time")]
+        [Validation(Required=false)]
+        public string ActivateTime { get; set; }
+
         // 登录/激活时间，格式yyyy-MM-dd HH:mm:ss
         [NameInMap("login_time")]
         [Validation(Required=false)]

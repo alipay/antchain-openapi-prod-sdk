@@ -35,10 +35,10 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=true)]
         public string VehicleModel { get; set; }
 
-        // 续航里程，单位KM
+        // 续航里程
         [NameInMap("range_km")]
         [Validation(Required=true)]
-        public long? RangeKm { get; set; }
+        public string RangeKm { get; set; }
 
         // 关键词，逗号分隔
         [NameInMap("keywords")]
