@@ -77,6 +77,100 @@ export class Config extends $tea.Model {
   }
 }
 
+// 消息发送结果
+export class XMessageResult extends $tea.Model {
+  // 消息key
+  msgKey: string;
+  // 发送方租户
+  providerId: string;
+  // 接收方租户
+  consumerId: string;
+  // 发送结果
+  status: string;
+  // 发送次数（重试次数）
+  pushTimes: number;
+  // 发送内容
+  bizContent: string;
+  // 错误码
+  errorCode: string;
+  // 错误消息
+  errorMsg?: string;
+  // 发送地址
+  targetUrl: string;
+  // 消息唯一id
+  uniqueId: string;
+  static names(): { [key: string]: string } {
+    return {
+      msgKey: 'msg_key',
+      providerId: 'provider_id',
+      consumerId: 'consumer_id',
+      status: 'status',
+      pushTimes: 'push_times',
+      bizContent: 'biz_content',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+      targetUrl: 'target_url',
+      uniqueId: 'unique_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      msgKey: 'string',
+      providerId: 'string',
+      consumerId: 'string',
+      status: 'string',
+      pushTimes: 'number',
+      bizContent: 'string',
+      errorCode: 'string',
+      errorMsg: 'string',
+      targetUrl: 'string',
+      uniqueId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 消息详情
+export class XMessageInfo extends $tea.Model {
+  // 消息事件编码
+  msgKey: string;
+  // 消费方id，例如appId，tenantId
+  consumerId: string;
+  // 消费者类型，例如TENANT, APP
+  consumerType: string;
+  // 业务消息内容，json格式
+  bizContent: string;
+  // 消息发送过程中的唯一ID
+  msgId: string;
+  static names(): { [key: string]: string } {
+    return {
+      msgKey: 'msg_key',
+      consumerId: 'consumer_id',
+      consumerType: 'consumer_type',
+      bizContent: 'biz_content',
+      msgId: 'msg_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      msgKey: 'string',
+      consumerId: 'string',
+      consumerType: 'string',
+      bizContent: 'string',
+      msgId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 键值对
 export class XNameValuePair extends $tea.Model {
   // 键名
@@ -404,10 +498,10 @@ export class QueryMessageFailedRequest extends $tea.Model {
   consumerId?: string;
   // 消费者类型，例如TENANT, APP
   consumerType?: string;
-  // 每页条数，最大支持100条
-  pageSize: string;
-  // 第几页
-  pageNum: string;
+  // 每页条数，最大1000条，不传则默认1000条
+  pageSize?: number;
+  // 第几页，从1开始，不传则默认为1
+  pageNum?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -425,8 +519,8 @@ export class QueryMessageFailedRequest extends $tea.Model {
       msgKey: 'string',
       consumerId: 'string',
       consumerType: 'string',
-      pageSize: 'string',
-      pageNum: 'string',
+      pageSize: 'number',
+      pageNum: 'number',
     };
   }
 
@@ -442,35 +536,23 @@ export class QueryMessageFailedResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 消息事件编码
-  msgKey?: string;
-  // 消费方id，例如appId，tenantId
-  consumerId?: string;
-  // 消费者类型，例如TENANT, APP
-  consumerType?: string;
-  // 业务消息内容，json格式
-  bizContent?: string;
-  // 消息发送过程中的唯一ID
-  msgId?: string;
   // 每页条数
   pageSize?: string;
   // 第几页
   pageNum?: string;
   // 总条数
   totalNum?: string;
+  // 最终失败的消息列表
+  msgList?: XMessageInfo[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      msgKey: 'msg_key',
-      consumerId: 'consumer_id',
-      consumerType: 'consumer_type',
-      bizContent: 'biz_content',
-      msgId: 'msg_id',
       pageSize: 'page_size',
       pageNum: 'page_num',
       totalNum: 'total_num',
+      msgList: 'msg_list',
     };
   }
 
@@ -479,14 +561,66 @@ export class QueryMessageFailedResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      msgKey: 'string',
-      consumerId: 'string',
-      consumerType: 'string',
-      bizContent: 'string',
-      msgId: 'string',
       pageSize: 'string',
       pageNum: 'string',
       totalNum: 'string',
+      msgList: { 'type': 'array', 'itemType': XMessageInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMessageResultRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 消息id
+  msgId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      msgId: 'msg_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      msgId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMessageResultResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 消息列表
+  messages?: XMessageResult[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      messages: 'messages',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      messages: { 'type': 'array', 'itemType': XMessageResult },
     };
   }
 
@@ -608,7 +742,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.10",
+          sdk_version: "1.0.13",
           _prod_code: "GATEWAYX",
           _prod_channel: "undefined",
         };
@@ -730,6 +864,25 @@ export default class Client {
   async queryMessageFailedEx(request: QueryMessageFailedRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMessageFailedResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryMessageFailedResponse>(await this.doRequest("1.0", "antcloud.gatewayx.message.failed.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMessageFailedResponse({}));
+  }
+
+  /**
+   * Description: 消息发送结果查询
+   * Summary: 消息发送结果查询
+   */
+  async queryMessageResult(request: QueryMessageResultRequest): Promise<QueryMessageResultResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryMessageResultEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 消息发送结果查询
+   * Summary: 消息发送结果查询
+   */
+  async queryMessageResultEx(request: QueryMessageResultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMessageResultResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryMessageResultResponse>(await this.doRequest("1.0", "antcloud.gatewayx.message.result.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMessageResultResponse({}));
   }
 
 }

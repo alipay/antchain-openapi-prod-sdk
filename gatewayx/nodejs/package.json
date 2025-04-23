@@ -1,6 +1,6 @@
 {
   "name": "@antchain/gatewayx",
-  "version": "1.0.10",
+  "version": "1.0.13",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
