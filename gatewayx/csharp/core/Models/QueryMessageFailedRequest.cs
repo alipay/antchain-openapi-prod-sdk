@@ -29,15 +29,15 @@ namespace AntChain.SDK.GATEWAYX.Models
         [Validation(Required=false)]
         public string ConsumerType { get; set; }
 
-        // 每页条数，最大支持100条
+        // 每页条数，最大1000条，不传则默认1000条
         [NameInMap("page_size")]
-        [Validation(Required=true)]
-        public string PageSize { get; set; }
+        [Validation(Required=false)]
+        public long? PageSize { get; set; }
 
-        // 第几页
+        // 第几页，从1开始，不传则默认为1
         [NameInMap("page_num")]
-        [Validation(Required=true)]
-        public string PageNum { get; set; }
+        [Validation(Required=false)]
+        public long? PageNum { get; set; }
 
     }
 
