@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.10',
+    sdk_version = '1.0.13',
     _prod_code = 'GATEWAYX',
     _prod_channel = 'undefined'
   };
@@ -159,6 +159,44 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// 消息发送结果
+model XMessageResult {
+  // 消息key
+  msgKey: string(name='msg_key', example='demo.test.ccc'),
+  // 发送方租户
+  providerId: string(name='provider_id', example='ORGJC1CN'),
+  // 接收方租户
+  consumerId: string(name='consumer_id', example='ORGJC1CN'),
+  // 发送结果
+  status: string(name='status', example='success'),
+  // 发送次数（重试次数）
+  pushTimes: long(name='push_times', example='1'),
+  // 发送内容
+  bizContent: string(name='biz_content', example='["{}"]'),
+  // 错误码
+  errorCode: string(name='error_code', example='OK'),
+  // 错误消息
+  errorMsg?: string(name='error_msg', example='非法请求'),
+  // 发送地址
+  targetUrl: string(name='target_url', example='http://example.com/callback.do'),
+  // 消息唯一id
+  uniqueId: string(name='unique_id', example='ORGJC1CN-ORGJC1CN-20250206ApiTest_76ae5ae3-4230-490d-80c1-b503fe35f126_117b2cb0_1738804339825'),
+}
+
+// 消息详情
+model XMessageInfo {
+  // 消息事件编码
+  msgKey: string(name='msg_key', example='antcloud.gatewayx.bizevent.message'),
+  // 消费方id，例如appId，tenantId
+  consumerId: string(name='consumer_id', example='AXAEGSSA'),
+  // 消费者类型，例如TENANT, APP
+  consumerType: string(name='consumer_type', example='TENANT'),
+  // 业务消息内容，json格式
+  bizContent: string(name='biz_content', example='{"biz_type":"order","order_id":"197002BB1bcb984cc0ab4c5ebed9c592df6acX80",""user_id":"2088102285927804"}'),
+  // 消息发送过程中的唯一ID
+  msgId: string(name='msg_id', example='2798c9cf5f88f24bb7ab6a94733cab1m3l'),
 }
 
 // 键值对
@@ -347,10 +385,10 @@ model QueryMessageFailedRequest = {
   consumerId?: string(name='consumer_id'),
   // 消费者类型，例如TENANT, APP
   consumerType?: string(name='consumer_type'),
-  // 每页条数，最大支持100条
-  pageSize: string(name='page_size'),
-  // 第几页
-  pageNum: string(name='page_num'),
+  // 每页条数，最大1000条，不传则默认1000条
+  pageSize?: long(name='page_size'),
+  // 第几页，从1开始，不传则默认为1
+  pageNum?: long(name='page_num'),
 }
 
 model QueryMessageFailedResponse = {
@@ -360,22 +398,14 @@ model QueryMessageFailedResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 消息事件编码
-  msgKey?: string(name='msg_key'),
-  // 消费方id，例如appId，tenantId
-  consumerId?: string(name='consumer_id'),
-  // 消费者类型，例如TENANT, APP
-  consumerType?: string(name='consumer_type'),
-  // 业务消息内容，json格式
-  bizContent?: string(name='biz_content'),
-  // 消息发送过程中的唯一ID
-  msgId?: string(name='msg_id'),
   // 每页条数
   pageSize?: string(name='page_size'),
   // 第几页
   pageNum?: string(name='page_num'),
   // 总条数
   totalNum?: string(name='total_num'),
+  // 最终失败的消息列表
+  msgList?: [ XMessageInfo ](name='msg_list'),
 }
 
 /**
@@ -395,5 +425,42 @@ async function queryMessageFailed(request: QueryMessageFailedRequest): QueryMess
 async function queryMessageFailedEx(request: QueryMessageFailedRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMessageFailedResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.gatewayx.message.failed.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMessageResultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 消息id
+  msgId: string(name='msg_id'),
+}
+
+model QueryMessageResultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 消息列表
+  messages?: [ XMessageResult ](name='messages'),
+}
+
+/**
+ * Description: 消息发送结果查询
+ * Summary: 消息发送结果查询
+ */
+async function queryMessageResult(request: QueryMessageResultRequest): QueryMessageResultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMessageResultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 消息发送结果查询
+ * Summary: 消息发送结果查询
+ */
+async function queryMessageResultEx(request: QueryMessageResultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMessageResultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.message.result.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
