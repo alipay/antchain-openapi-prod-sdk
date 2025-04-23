@@ -188,11 +188,11 @@ export class ConvertAdDataRequest extends $tea.Model {
   // idfa_md5
   idfaMd5?: string;
   // 首次支付保费(蚂蚁数科定义)，用户首次支付保险的费用。单位元
-  firstPayAmount?: number;
+  firstPayAmount?: string;
   // 升级支付保费(蚂蚁数科定义)，用户支付后进行保险升级的支付费用。单位元
-  upgradePayAmount?: number;
+  upgradePayAmount?: string;
   // 续费保费(蚂蚁数科定义)，用户M2进行保险续费的费用。
-  upgradeRenewvalAmount?: number;
+  upgradeRenewvalAmount?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -243,9 +243,9 @@ export class ConvertAdDataRequest extends $tea.Model {
       imeiMd5: 'string',
       idfa: 'string',
       idfaMd5: 'string',
-      firstPayAmount: 'number',
-      upgradePayAmount: 'number',
-      upgradeRenewvalAmount: 'number',
+      firstPayAmount: 'string',
+      upgradePayAmount: 'string',
+      upgradeRenewvalAmount: 'string',
     };
   }
 
@@ -527,7 +527,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.0.7",
+          sdk_version: "2.0.8",
           _prod_code: "MORSERTA",
           _prod_channel: "default",
         };
