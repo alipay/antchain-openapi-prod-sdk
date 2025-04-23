@@ -276,6 +276,9 @@ class ConvertAdDataRequest(TeaModel):
         imei_md_5: str = None,
         idfa: str = None,
         idfa_md_5: str = None,
+        first_pay_amount: int = None,
+        upgrade_pay_amount: int = None,
+        upgrade_renewval_amount: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -322,6 +325,12 @@ class ConvertAdDataRequest(TeaModel):
         self.idfa = idfa
         # idfa_md5
         self.idfa_md_5 = idfa_md_5
+        # 首次支付保费(蚂蚁数科定义)，用户首次支付保险的费用。单位元
+        self.first_pay_amount = first_pay_amount
+        # 升级支付保费(蚂蚁数科定义)，用户支付后进行保险升级的支付费用。单位元
+        self.upgrade_pay_amount = upgrade_pay_amount
+        # 续费保费(蚂蚁数科定义)，用户M2进行保险续费的费用。
+        self.upgrade_renewval_amount = upgrade_renewval_amount
 
     def validate(self):
         self.validate_required(self.account_id, 'account_id')
@@ -376,6 +385,12 @@ class ConvertAdDataRequest(TeaModel):
             result['idfa'] = self.idfa
         if self.idfa_md_5 is not None:
             result['idfa_md5'] = self.idfa_md_5
+        if self.first_pay_amount is not None:
+            result['first_pay_amount'] = self.first_pay_amount
+        if self.upgrade_pay_amount is not None:
+            result['upgrade_pay_amount'] = self.upgrade_pay_amount
+        if self.upgrade_renewval_amount is not None:
+            result['upgrade_renewval_amount'] = self.upgrade_renewval_amount
         return result
 
     def from_map(self, m: dict = None):
@@ -420,6 +435,12 @@ class ConvertAdDataRequest(TeaModel):
             self.idfa = m.get('idfa')
         if m.get('idfa_md5') is not None:
             self.idfa_md_5 = m.get('idfa_md5')
+        if m.get('first_pay_amount') is not None:
+            self.first_pay_amount = m.get('first_pay_amount')
+        if m.get('upgrade_pay_amount') is not None:
+            self.upgrade_pay_amount = m.get('upgrade_pay_amount')
+        if m.get('upgrade_renewval_amount') is not None:
+            self.upgrade_renewval_amount = m.get('upgrade_renewval_amount')
         return self
 
 
