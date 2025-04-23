@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 键值对
+            # 消息发送结果
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.10',
+                    'sdk_version': '1.0.13',
                     '_prod_code': 'GATEWAYX',
                     '_prod_channel': 'undefined'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 键值对
+            # 消息发送结果
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.10',
+                    'sdk_version': '1.0.13',
                     '_prod_code': 'GATEWAYX',
                     '_prod_channel': 'undefined'
                 }
@@ -497,4 +497,60 @@ class Client:
         return TeaCore.from_map(
             gatewayx_models.QueryMessageFailedResponse(),
             await self.do_request_async('1.0', 'antcloud.gatewayx.message.failed.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_message_result(
+        self,
+        request: gatewayx_models.QueryMessageResultRequest,
+    ) -> gatewayx_models.QueryMessageResultResponse:
+        """
+        Description: 消息发送结果查询
+        Summary: 消息发送结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_message_result_ex(request, headers, runtime)
+
+    async def query_message_result_async(
+        self,
+        request: gatewayx_models.QueryMessageResultRequest,
+    ) -> gatewayx_models.QueryMessageResultResponse:
+        """
+        Description: 消息发送结果查询
+        Summary: 消息发送结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_message_result_ex_async(request, headers, runtime)
+
+    def query_message_result_ex(
+        self,
+        request: gatewayx_models.QueryMessageResultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gatewayx_models.QueryMessageResultResponse:
+        """
+        Description: 消息发送结果查询
+        Summary: 消息发送结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gatewayx_models.QueryMessageResultResponse(),
+            self.do_request('1.0', 'antcloud.gatewayx.message.result.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_message_result_ex_async(
+        self,
+        request: gatewayx_models.QueryMessageResultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gatewayx_models.QueryMessageResultResponse:
+        """
+        Description: 消息发送结果查询
+        Summary: 消息发送结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gatewayx_models.QueryMessageResultResponse(),
+            await self.do_request_async('1.0', 'antcloud.gatewayx.message.result.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

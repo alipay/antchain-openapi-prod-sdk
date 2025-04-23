@@ -154,6 +154,165 @@ class Config(TeaModel):
         return self
 
 
+class XMessageResult(TeaModel):
+    def __init__(
+        self,
+        msg_key: str = None,
+        provider_id: str = None,
+        consumer_id: str = None,
+        status: str = None,
+        push_times: int = None,
+        biz_content: str = None,
+        error_code: str = None,
+        error_msg: str = None,
+        target_url: str = None,
+        unique_id: str = None,
+    ):
+        # 消息key
+        self.msg_key = msg_key
+        # 发送方租户
+        self.provider_id = provider_id
+        # 接收方租户
+        self.consumer_id = consumer_id
+        # 发送结果
+        self.status = status
+        # 发送次数（重试次数）
+        self.push_times = push_times
+        # 发送内容
+        self.biz_content = biz_content
+        # 错误码
+        self.error_code = error_code
+        # 错误消息
+        self.error_msg = error_msg
+        # 发送地址
+        self.target_url = target_url
+        # 消息唯一id
+        self.unique_id = unique_id
+
+    def validate(self):
+        self.validate_required(self.msg_key, 'msg_key')
+        self.validate_required(self.provider_id, 'provider_id')
+        self.validate_required(self.consumer_id, 'consumer_id')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.push_times, 'push_times')
+        self.validate_required(self.biz_content, 'biz_content')
+        self.validate_required(self.error_code, 'error_code')
+        self.validate_required(self.target_url, 'target_url')
+        self.validate_required(self.unique_id, 'unique_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.msg_key is not None:
+            result['msg_key'] = self.msg_key
+        if self.provider_id is not None:
+            result['provider_id'] = self.provider_id
+        if self.consumer_id is not None:
+            result['consumer_id'] = self.consumer_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.push_times is not None:
+            result['push_times'] = self.push_times
+        if self.biz_content is not None:
+            result['biz_content'] = self.biz_content
+        if self.error_code is not None:
+            result['error_code'] = self.error_code
+        if self.error_msg is not None:
+            result['error_msg'] = self.error_msg
+        if self.target_url is not None:
+            result['target_url'] = self.target_url
+        if self.unique_id is not None:
+            result['unique_id'] = self.unique_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('msg_key') is not None:
+            self.msg_key = m.get('msg_key')
+        if m.get('provider_id') is not None:
+            self.provider_id = m.get('provider_id')
+        if m.get('consumer_id') is not None:
+            self.consumer_id = m.get('consumer_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('push_times') is not None:
+            self.push_times = m.get('push_times')
+        if m.get('biz_content') is not None:
+            self.biz_content = m.get('biz_content')
+        if m.get('error_code') is not None:
+            self.error_code = m.get('error_code')
+        if m.get('error_msg') is not None:
+            self.error_msg = m.get('error_msg')
+        if m.get('target_url') is not None:
+            self.target_url = m.get('target_url')
+        if m.get('unique_id') is not None:
+            self.unique_id = m.get('unique_id')
+        return self
+
+
+class XMessageInfo(TeaModel):
+    def __init__(
+        self,
+        msg_key: str = None,
+        consumer_id: str = None,
+        consumer_type: str = None,
+        biz_content: str = None,
+        msg_id: str = None,
+    ):
+        # 消息事件编码
+        self.msg_key = msg_key
+        # 消费方id，例如appId，tenantId
+        self.consumer_id = consumer_id
+        # 消费者类型，例如TENANT, APP
+        self.consumer_type = consumer_type
+        # 业务消息内容，json格式
+        self.biz_content = biz_content
+        # 消息发送过程中的唯一ID
+        self.msg_id = msg_id
+
+    def validate(self):
+        self.validate_required(self.msg_key, 'msg_key')
+        self.validate_required(self.consumer_id, 'consumer_id')
+        self.validate_required(self.consumer_type, 'consumer_type')
+        self.validate_required(self.biz_content, 'biz_content')
+        self.validate_required(self.msg_id, 'msg_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.msg_key is not None:
+            result['msg_key'] = self.msg_key
+        if self.consumer_id is not None:
+            result['consumer_id'] = self.consumer_id
+        if self.consumer_type is not None:
+            result['consumer_type'] = self.consumer_type
+        if self.biz_content is not None:
+            result['biz_content'] = self.biz_content
+        if self.msg_id is not None:
+            result['msg_id'] = self.msg_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('msg_key') is not None:
+            self.msg_key = m.get('msg_key')
+        if m.get('consumer_id') is not None:
+            self.consumer_id = m.get('consumer_id')
+        if m.get('consumer_type') is not None:
+            self.consumer_type = m.get('consumer_type')
+        if m.get('biz_content') is not None:
+            self.biz_content = m.get('biz_content')
+        if m.get('msg_id') is not None:
+            self.msg_id = m.get('msg_id')
+        return self
+
+
 class XNameValuePair(TeaModel):
     def __init__(
         self,
@@ -688,8 +847,8 @@ class QueryMessageFailedRequest(TeaModel):
         msg_key: str = None,
         consumer_id: str = None,
         consumer_type: str = None,
-        page_size: str = None,
-        page_num: str = None,
+        page_size: int = None,
+        page_num: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -699,15 +858,13 @@ class QueryMessageFailedRequest(TeaModel):
         self.consumer_id = consumer_id
         # 消费者类型，例如TENANT, APP
         self.consumer_type = consumer_type
-        # 每页条数，最大支持100条
+        # 每页条数，最大1000条，不传则默认1000条
         self.page_size = page_size
-        # 第几页
+        # 第几页，从1开始，不传则默认为1
         self.page_num = page_num
 
     def validate(self):
         self.validate_required(self.msg_key, 'msg_key')
-        self.validate_required(self.page_size, 'page_size')
-        self.validate_required(self.page_num, 'page_num')
 
     def to_map(self):
         _map = super().to_map()
@@ -752,14 +909,10 @@ class QueryMessageFailedResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        msg_key: str = None,
-        consumer_id: str = None,
-        consumer_type: str = None,
-        biz_content: str = None,
-        msg_id: str = None,
         page_size: str = None,
         page_num: str = None,
         total_num: str = None,
+        msg_list: List[XMessageInfo] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -767,25 +920,20 @@ class QueryMessageFailedResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 消息事件编码
-        self.msg_key = msg_key
-        # 消费方id，例如appId，tenantId
-        self.consumer_id = consumer_id
-        # 消费者类型，例如TENANT, APP
-        self.consumer_type = consumer_type
-        # 业务消息内容，json格式
-        self.biz_content = biz_content
-        # 消息发送过程中的唯一ID
-        self.msg_id = msg_id
         # 每页条数
         self.page_size = page_size
         # 第几页
         self.page_num = page_num
         # 总条数
         self.total_num = total_num
+        # 最终失败的消息列表
+        self.msg_list = msg_list
 
     def validate(self):
-        pass
+        if self.msg_list:
+            for k in self.msg_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -799,22 +947,16 @@ class QueryMessageFailedResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.msg_key is not None:
-            result['msg_key'] = self.msg_key
-        if self.consumer_id is not None:
-            result['consumer_id'] = self.consumer_id
-        if self.consumer_type is not None:
-            result['consumer_type'] = self.consumer_type
-        if self.biz_content is not None:
-            result['biz_content'] = self.biz_content
-        if self.msg_id is not None:
-            result['msg_id'] = self.msg_id
         if self.page_size is not None:
             result['page_size'] = self.page_size
         if self.page_num is not None:
             result['page_num'] = self.page_num
         if self.total_num is not None:
             result['total_num'] = self.total_num
+        result['msg_list'] = []
+        if self.msg_list is not None:
+            for k in self.msg_list:
+                result['msg_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -825,22 +967,109 @@ class QueryMessageFailedResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('msg_key') is not None:
-            self.msg_key = m.get('msg_key')
-        if m.get('consumer_id') is not None:
-            self.consumer_id = m.get('consumer_id')
-        if m.get('consumer_type') is not None:
-            self.consumer_type = m.get('consumer_type')
-        if m.get('biz_content') is not None:
-            self.biz_content = m.get('biz_content')
-        if m.get('msg_id') is not None:
-            self.msg_id = m.get('msg_id')
         if m.get('page_size') is not None:
             self.page_size = m.get('page_size')
         if m.get('page_num') is not None:
             self.page_num = m.get('page_num')
         if m.get('total_num') is not None:
             self.total_num = m.get('total_num')
+        self.msg_list = []
+        if m.get('msg_list') is not None:
+            for k in m.get('msg_list'):
+                temp_model = XMessageInfo()
+                self.msg_list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryMessageResultRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        msg_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 消息id
+        self.msg_id = msg_id
+
+    def validate(self):
+        self.validate_required(self.msg_id, 'msg_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.msg_id is not None:
+            result['msg_id'] = self.msg_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('msg_id') is not None:
+            self.msg_id = m.get('msg_id')
+        return self
+
+
+class QueryMessageResultResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        messages: List[XMessageResult] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 消息列表
+        self.messages = messages
+
+    def validate(self):
+        if self.messages:
+            for k in self.messages:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['messages'] = []
+        if self.messages is not None:
+            for k in self.messages:
+                result['messages'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.messages = []
+        if m.get('messages') is not None:
+            for k in m.get('messages'):
+                temp_model = XMessageResult()
+                self.messages.append(temp_model.from_map(k))
         return self
 
 

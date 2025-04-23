@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_gatewayx.
 
-Created on 09/09/2024
+Created on 23/04/2025
 
 @author: Ant Chain SDK
 """
