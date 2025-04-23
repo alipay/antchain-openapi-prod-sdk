@@ -762,8 +762,8 @@ export class SimSkuInfo extends $tea.Model {
   storePrice: string;
   // 车型
   vehicleModel: string;
-  // 续航里程，单位KM
-  rangeKm: number;
+  // 续航里程
+  rangeKm: string;
   // 关键词，逗号分隔
   keywords: string;
   // 颜色，逗号分隔
@@ -797,7 +797,7 @@ export class SimSkuInfo extends $tea.Model {
       price: 'string',
       storePrice: 'string',
       vehicleModel: 'string',
-      rangeKm: 'number',
+      rangeKm: 'string',
       keywords: 'string',
       colors: 'string',
       accessories: 'string',
@@ -2137,6 +2137,8 @@ export class QuerySimLoginResponse extends $tea.Model {
   loginMsg?: string;
   // 是否已经激活
   activated?: boolean;
+  // 激活时间，格式yyyy-MM-dd HH:mm:ss
+  activateTime?: string;
   // 登录/激活时间，格式yyyy-MM-dd HH:mm:ss
   loginTime?: string;
   // 当前登录的门店信息
@@ -2151,6 +2153,7 @@ export class QuerySimLoginResponse extends $tea.Model {
       loginResult: 'login_result',
       loginMsg: 'login_msg',
       activated: 'activated',
+      activateTime: 'activate_time',
       loginTime: 'login_time',
       storeInfo: 'store_info',
       salesInfo: 'sales_info',
@@ -2165,6 +2168,7 @@ export class QuerySimLoginResponse extends $tea.Model {
       loginResult: 'string',
       loginMsg: 'string',
       activated: 'boolean',
+      activateTime: 'string',
       loginTime: 'string',
       storeInfo: SimStoreInfo,
       salesInfo: SimSalesInfo,
@@ -6113,7 +6117,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.10",
+          sdk_version: "1.4.12",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
