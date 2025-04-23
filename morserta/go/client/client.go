@@ -273,11 +273,11 @@ type ConvertAdDataRequest struct {
 	// idfa_md5
 	IdfaMd5 *string `json:"idfa_md5,omitempty" xml:"idfa_md5,omitempty"`
 	// 首次支付保费(蚂蚁数科定义)，用户首次支付保险的费用。单位元
-	FirstPayAmount *int64 `json:"first_pay_amount,omitempty" xml:"first_pay_amount,omitempty"`
+	FirstPayAmount *string `json:"first_pay_amount,omitempty" xml:"first_pay_amount,omitempty"`
 	// 升级支付保费(蚂蚁数科定义)，用户支付后进行保险升级的支付费用。单位元
-	UpgradePayAmount *int64 `json:"upgrade_pay_amount,omitempty" xml:"upgrade_pay_amount,omitempty"`
+	UpgradePayAmount *string `json:"upgrade_pay_amount,omitempty" xml:"upgrade_pay_amount,omitempty"`
 	// 续费保费(蚂蚁数科定义)，用户M2进行保险续费的费用。
-	UpgradeRenewvalAmount *int64 `json:"upgrade_renewval_amount,omitempty" xml:"upgrade_renewval_amount,omitempty"`
+	UpgradeRenewvalAmount *string `json:"upgrade_renewval_amount,omitempty" xml:"upgrade_renewval_amount,omitempty"`
 }
 
 func (s ConvertAdDataRequest) String() string {
@@ -388,17 +388,17 @@ func (s *ConvertAdDataRequest) SetIdfaMd5(v string) *ConvertAdDataRequest {
 	return s
 }
 
-func (s *ConvertAdDataRequest) SetFirstPayAmount(v int64) *ConvertAdDataRequest {
+func (s *ConvertAdDataRequest) SetFirstPayAmount(v string) *ConvertAdDataRequest {
 	s.FirstPayAmount = &v
 	return s
 }
 
-func (s *ConvertAdDataRequest) SetUpgradePayAmount(v int64) *ConvertAdDataRequest {
+func (s *ConvertAdDataRequest) SetUpgradePayAmount(v string) *ConvertAdDataRequest {
 	s.UpgradePayAmount = &v
 	return s
 }
 
-func (s *ConvertAdDataRequest) SetUpgradeRenewvalAmount(v int64) *ConvertAdDataRequest {
+func (s *ConvertAdDataRequest) SetUpgradeRenewvalAmount(v string) *ConvertAdDataRequest {
 	s.UpgradeRenewvalAmount = &v
 	return s
 }
@@ -720,7 +720,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.0.7"),
+				"sdk_version":      tea.String("2.0.8"),
 				"_prod_code":       tea.String("MORSERTA"),
 				"_prod_channel":    tea.String("default"),
 			}
