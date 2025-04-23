@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.10',
+    sdk_version = '1.4.12',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -424,8 +424,8 @@ model SimSkuInfo {
   storePrice: string(name='store_price', example='1000.00'),
   // 车型
   vehicleModel: string(name='vehicle_model', example=' '),
-  // 续航里程，单位KM
-  rangeKm: long(name='range_km', example=''),
+  // 续航里程
+  rangeKm: string(name='range_km', example='-'),
   // 关键词，逗号分隔
   keywords: string(name='keywords', example='A,B,C'),
   // 颜色，逗号分隔
@@ -1107,6 +1107,8 @@ model QuerySimLoginResponse = {
   loginMsg?: string(name='login_msg'),
   // 是否已经激活
   activated?: boolean(name='activated'),
+  // 激活时间，格式yyyy-MM-dd HH:mm:ss
+  activateTime?: string(name='activate_time'),
   // 登录/激活时间，格式yyyy-MM-dd HH:mm:ss
   loginTime?: string(name='login_time'),
   // 当前登录的门店信息
