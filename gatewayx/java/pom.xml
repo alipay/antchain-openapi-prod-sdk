@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-gatewayx</artifactId>
-  <version>1.0.10</version>
+  <version>1.0.13</version>
   <packaging>jar</packaging>
   <name>openapi-gatewayx</name>
   <description>Ant Chain GATEWAYX SDK for Java

@@ -16,26 +16,6 @@ public class QueryMessageFailedResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 消息事件编码
-    @NameInMap("msg_key")
-    public String msgKey;
-
-    // 消费方id，例如appId，tenantId
-    @NameInMap("consumer_id")
-    public String consumerId;
-
-    // 消费者类型，例如TENANT, APP
-    @NameInMap("consumer_type")
-    public String consumerType;
-
-    // 业务消息内容，json格式
-    @NameInMap("biz_content")
-    public String bizContent;
-
-    // 消息发送过程中的唯一ID
-    @NameInMap("msg_id")
-    public String msgId;
-
     // 每页条数
     @NameInMap("page_size")
     public String pageSize;
@@ -47,6 +27,10 @@ public class QueryMessageFailedResponse extends TeaModel {
     // 总条数
     @NameInMap("total_num")
     public String totalNum;
+
+    // 最终失败的消息列表
+    @NameInMap("msg_list")
+    public java.util.List<XMessageInfo> msgList;
 
     public static QueryMessageFailedResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryMessageFailedResponse self = new QueryMessageFailedResponse();
@@ -77,46 +61,6 @@ public class QueryMessageFailedResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryMessageFailedResponse setMsgKey(String msgKey) {
-        this.msgKey = msgKey;
-        return this;
-    }
-    public String getMsgKey() {
-        return this.msgKey;
-    }
-
-    public QueryMessageFailedResponse setConsumerId(String consumerId) {
-        this.consumerId = consumerId;
-        return this;
-    }
-    public String getConsumerId() {
-        return this.consumerId;
-    }
-
-    public QueryMessageFailedResponse setConsumerType(String consumerType) {
-        this.consumerType = consumerType;
-        return this;
-    }
-    public String getConsumerType() {
-        return this.consumerType;
-    }
-
-    public QueryMessageFailedResponse setBizContent(String bizContent) {
-        this.bizContent = bizContent;
-        return this;
-    }
-    public String getBizContent() {
-        return this.bizContent;
-    }
-
-    public QueryMessageFailedResponse setMsgId(String msgId) {
-        this.msgId = msgId;
-        return this;
-    }
-    public String getMsgId() {
-        return this.msgId;
-    }
-
     public QueryMessageFailedResponse setPageSize(String pageSize) {
         this.pageSize = pageSize;
         return this;
@@ -139,6 +83,14 @@ public class QueryMessageFailedResponse extends TeaModel {
     }
     public String getTotalNum() {
         return this.totalNum;
+    }
+
+    public QueryMessageFailedResponse setMsgList(java.util.List<XMessageInfo> msgList) {
+        this.msgList = msgList;
+        return this;
+    }
+    public java.util.List<XMessageInfo> getMsgList() {
+        return this.msgList;
     }
 
 }

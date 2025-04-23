@@ -21,15 +21,13 @@ public class QueryMessageFailedRequest extends TeaModel {
     @NameInMap("consumer_type")
     public String consumerType;
 
-    // 每页条数，最大支持100条
+    // 每页条数，最大1000条，不传则默认1000条
     @NameInMap("page_size")
-    @Validation(required = true)
-    public String pageSize;
+    public Long pageSize;
 
-    // 第几页
+    // 第几页，从1开始，不传则默认为1
     @NameInMap("page_num")
-    @Validation(required = true)
-    public String pageNum;
+    public Long pageNum;
 
     public static QueryMessageFailedRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryMessageFailedRequest self = new QueryMessageFailedRequest();
@@ -68,19 +66,19 @@ public class QueryMessageFailedRequest extends TeaModel {
         return this.consumerType;
     }
 
-    public QueryMessageFailedRequest setPageSize(String pageSize) {
+    public QueryMessageFailedRequest setPageSize(Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
-    public String getPageSize() {
+    public Long getPageSize() {
         return this.pageSize;
     }
 
-    public QueryMessageFailedRequest setPageNum(String pageNum) {
+    public QueryMessageFailedRequest setPageNum(Long pageNum) {
         this.pageNum = pageNum;
         return this;
     }
-    public String getPageNum() {
+    public Long getPageNum() {
         return this.pageNum;
     }
 
