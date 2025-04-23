@@ -19,6 +19,8 @@ use AntChain\GATEWAYX\Models\GetFileDownloadRequest;
 use AntChain\GATEWAYX\Models\GetFileDownloadResponse;
 use AntChain\GATEWAYX\Models\QueryMessageFailedRequest;
 use AntChain\GATEWAYX\Models\QueryMessageFailedResponse;
+use AntChain\GATEWAYX\Models\QueryMessageResultRequest;
+use AntChain\GATEWAYX\Models\QueryMessageResultResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -138,7 +140,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 键值对
+            // 消息发送结果
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -166,7 +168,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.10',
+                    'sdk_version'      => '1.0.13',
                     '_prod_code'       => 'GATEWAYX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -344,5 +346,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryMessageFailedResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.message.failed.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 消息发送结果查询
+     * Summary: 消息发送结果查询.
+     *
+     * @param QueryMessageResultRequest $request
+     *
+     * @return QueryMessageResultResponse
+     */
+    public function queryMessageResult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMessageResultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 消息发送结果查询
+     * Summary: 消息发送结果查询.
+     *
+     * @param QueryMessageResultRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryMessageResultResponse
+     */
+    public function queryMessageResultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMessageResultResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.message.result.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

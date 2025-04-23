@@ -6,63 +6,67 @@ namespace AntChain\GATEWAYX\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryMessageFailedRequest extends Model
+class XMessageInfo extends Model
 {
-    // OAuth模式下的授权token
-    /**
-     * @var string
-     */
-    public $authToken;
-
     // 消息事件编码
     /**
+     * @example antcloud.gatewayx.bizevent.message
+     *
      * @var string
      */
     public $msgKey;
 
-    // 消费方id，例如appId，tenantId 只支持单个传入
+    // 消费方id，例如appId，tenantId
     /**
+     * @example AXAEGSSA
+     *
      * @var string
      */
     public $consumerId;
 
     // 消费者类型，例如TENANT, APP
     /**
+     * @example TENANT
+     *
      * @var string
      */
     public $consumerType;
 
-    // 每页条数，最大1000条，不传则默认1000条
+    // 业务消息内容，json格式
     /**
-     * @var int
+     * @example {"biz_type":"order","order_id":"197002BB1bcb984cc0ab4c5ebed9c592df6acX80",""user_id":"2088102285927804"}
+     *
+     * @var string
      */
-    public $pageSize;
+    public $bizContent;
 
-    // 第几页，从1开始，不传则默认为1
+    // 消息发送过程中的唯一ID
     /**
-     * @var int
+     * @example 2798c9cf5f88f24bb7ab6a94733cab1m3l
+     *
+     * @var string
      */
-    public $pageNum;
+    public $msgId;
     protected $_name = [
-        'authToken'    => 'auth_token',
         'msgKey'       => 'msg_key',
         'consumerId'   => 'consumer_id',
         'consumerType' => 'consumer_type',
-        'pageSize'     => 'page_size',
-        'pageNum'      => 'page_num',
+        'bizContent'   => 'biz_content',
+        'msgId'        => 'msg_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('msgKey', $this->msgKey, true);
+        Model::validateRequired('consumerId', $this->consumerId, true);
+        Model::validateRequired('consumerType', $this->consumerType, true);
+        Model::validateRequired('bizContent', $this->bizContent, true);
+        Model::validateRequired('msgId', $this->msgId, true);
     }
 
     public function toMap()
     {
         $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
         if (null !== $this->msgKey) {
             $res['msg_key'] = $this->msgKey;
         }
@@ -72,11 +76,11 @@ class QueryMessageFailedRequest extends Model
         if (null !== $this->consumerType) {
             $res['consumer_type'] = $this->consumerType;
         }
-        if (null !== $this->pageSize) {
-            $res['page_size'] = $this->pageSize;
+        if (null !== $this->bizContent) {
+            $res['biz_content'] = $this->bizContent;
         }
-        if (null !== $this->pageNum) {
-            $res['page_num'] = $this->pageNum;
+        if (null !== $this->msgId) {
+            $res['msg_id'] = $this->msgId;
         }
 
         return $res;
@@ -85,14 +89,11 @@ class QueryMessageFailedRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryMessageFailedRequest
+     * @return XMessageInfo
      */
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
         if (isset($map['msg_key'])) {
             $model->msgKey = $map['msg_key'];
         }
@@ -102,11 +103,11 @@ class QueryMessageFailedRequest extends Model
         if (isset($map['consumer_type'])) {
             $model->consumerType = $map['consumer_type'];
         }
-        if (isset($map['page_size'])) {
-            $model->pageSize = $map['page_size'];
+        if (isset($map['biz_content'])) {
+            $model->bizContent = $map['biz_content'];
         }
-        if (isset($map['page_num'])) {
-            $model->pageNum = $map['page_num'];
+        if (isset($map['msg_id'])) {
+            $model->msgId = $map['msg_id'];
         }
 
         return $model;

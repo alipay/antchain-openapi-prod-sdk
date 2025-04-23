@@ -26,36 +26,6 @@ class QueryMessageFailedResponse extends Model
      */
     public $resultMsg;
 
-    // 消息事件编码
-    /**
-     * @var string
-     */
-    public $msgKey;
-
-    // 消费方id，例如appId，tenantId
-    /**
-     * @var string
-     */
-    public $consumerId;
-
-    // 消费者类型，例如TENANT, APP
-    /**
-     * @var string
-     */
-    public $consumerType;
-
-    // 业务消息内容，json格式
-    /**
-     * @var string
-     */
-    public $bizContent;
-
-    // 消息发送过程中的唯一ID
-    /**
-     * @var string
-     */
-    public $msgId;
-
     // 每页条数
     /**
      * @var string
@@ -73,18 +43,20 @@ class QueryMessageFailedResponse extends Model
      * @var string
      */
     public $totalNum;
+
+    // 最终失败的消息列表
+    /**
+     * @var XMessageInfo[]
+     */
+    public $msgList;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'msgKey'       => 'msg_key',
-        'consumerId'   => 'consumer_id',
-        'consumerType' => 'consumer_type',
-        'bizContent'   => 'biz_content',
-        'msgId'        => 'msg_id',
-        'pageSize'     => 'page_size',
-        'pageNum'      => 'page_num',
-        'totalNum'     => 'total_num',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'pageSize'   => 'page_size',
+        'pageNum'    => 'page_num',
+        'totalNum'   => 'total_num',
+        'msgList'    => 'msg_list',
     ];
 
     public function validate()
@@ -103,21 +75,6 @@ class QueryMessageFailedResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->msgKey) {
-            $res['msg_key'] = $this->msgKey;
-        }
-        if (null !== $this->consumerId) {
-            $res['consumer_id'] = $this->consumerId;
-        }
-        if (null !== $this->consumerType) {
-            $res['consumer_type'] = $this->consumerType;
-        }
-        if (null !== $this->bizContent) {
-            $res['biz_content'] = $this->bizContent;
-        }
-        if (null !== $this->msgId) {
-            $res['msg_id'] = $this->msgId;
-        }
         if (null !== $this->pageSize) {
             $res['page_size'] = $this->pageSize;
         }
@@ -126,6 +83,15 @@ class QueryMessageFailedResponse extends Model
         }
         if (null !== $this->totalNum) {
             $res['total_num'] = $this->totalNum;
+        }
+        if (null !== $this->msgList) {
+            $res['msg_list'] = [];
+            if (null !== $this->msgList && \is_array($this->msgList)) {
+                $n = 0;
+                foreach ($this->msgList as $item) {
+                    $res['msg_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -148,21 +114,6 @@ class QueryMessageFailedResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['msg_key'])) {
-            $model->msgKey = $map['msg_key'];
-        }
-        if (isset($map['consumer_id'])) {
-            $model->consumerId = $map['consumer_id'];
-        }
-        if (isset($map['consumer_type'])) {
-            $model->consumerType = $map['consumer_type'];
-        }
-        if (isset($map['biz_content'])) {
-            $model->bizContent = $map['biz_content'];
-        }
-        if (isset($map['msg_id'])) {
-            $model->msgId = $map['msg_id'];
-        }
         if (isset($map['page_size'])) {
             $model->pageSize = $map['page_size'];
         }
@@ -171,6 +122,15 @@ class QueryMessageFailedResponse extends Model
         }
         if (isset($map['total_num'])) {
             $model->totalNum = $map['total_num'];
+        }
+        if (isset($map['msg_list'])) {
+            if (!empty($map['msg_list'])) {
+                $model->msgList = [];
+                $n              = 0;
+                foreach ($map['msg_list'] as $item) {
+                    $model->msgList[$n++] = null !== $item ? XMessageInfo::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
