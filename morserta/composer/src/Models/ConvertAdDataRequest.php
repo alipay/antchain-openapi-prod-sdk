@@ -132,27 +132,48 @@ class ConvertAdDataRequest extends Model
      * @var string
      */
     public $idfaMd5;
+
+    // 首次支付保费(蚂蚁数科定义)，用户首次支付保险的费用。单位元
+    /**
+     * @var int
+     */
+    public $firstPayAmount;
+
+    // 升级支付保费(蚂蚁数科定义)，用户支付后进行保险升级的支付费用。单位元
+    /**
+     * @var int
+     */
+    public $upgradePayAmount;
+
+    // 续费保费(蚂蚁数科定义)，用户M2进行保险续费的费用。
+    /**
+     * @var int
+     */
+    public $upgradeRenewvalAmount;
     protected $_name = [
-        'authToken'      => 'auth_token',
-        'accountId'      => 'account_id',
-        'deviceOsType'   => 'device_os_type',
-        'muid'           => 'muid',
-        'clickId'        => 'click_id',
-        'clickTime'      => 'click_time',
-        'impressionTime' => 'impression_time',
-        'mobileMd5'      => 'mobile_md5',
-        'platform'       => 'platform',
-        'eventCode'      => 'event_code',
-        'eventTime'      => 'event_time',
-        'oaid'           => 'oaid',
-        'oaidMd5'        => 'oaid_md5',
-        'caid'           => 'caid',
-        'caidMd5'        => 'caid_md5',
-        'androidId'      => 'android_id',
-        'imei'           => 'imei',
-        'imeiMd5'        => 'imei_md5',
-        'idfa'           => 'idfa',
-        'idfaMd5'        => 'idfa_md5',
+        'authToken'             => 'auth_token',
+        'accountId'             => 'account_id',
+        'deviceOsType'          => 'device_os_type',
+        'muid'                  => 'muid',
+        'clickId'               => 'click_id',
+        'clickTime'             => 'click_time',
+        'impressionTime'        => 'impression_time',
+        'mobileMd5'             => 'mobile_md5',
+        'platform'              => 'platform',
+        'eventCode'             => 'event_code',
+        'eventTime'             => 'event_time',
+        'oaid'                  => 'oaid',
+        'oaidMd5'               => 'oaid_md5',
+        'caid'                  => 'caid',
+        'caidMd5'               => 'caid_md5',
+        'androidId'             => 'android_id',
+        'imei'                  => 'imei',
+        'imeiMd5'               => 'imei_md5',
+        'idfa'                  => 'idfa',
+        'idfaMd5'               => 'idfa_md5',
+        'firstPayAmount'        => 'first_pay_amount',
+        'upgradePayAmount'      => 'upgrade_pay_amount',
+        'upgradeRenewvalAmount' => 'upgrade_renewval_amount',
     ];
 
     public function validate()
@@ -227,6 +248,15 @@ class ConvertAdDataRequest extends Model
         if (null !== $this->idfaMd5) {
             $res['idfa_md5'] = $this->idfaMd5;
         }
+        if (null !== $this->firstPayAmount) {
+            $res['first_pay_amount'] = $this->firstPayAmount;
+        }
+        if (null !== $this->upgradePayAmount) {
+            $res['upgrade_pay_amount'] = $this->upgradePayAmount;
+        }
+        if (null !== $this->upgradeRenewvalAmount) {
+            $res['upgrade_renewval_amount'] = $this->upgradeRenewvalAmount;
+        }
 
         return $res;
     }
@@ -298,6 +328,15 @@ class ConvertAdDataRequest extends Model
         }
         if (isset($map['idfa_md5'])) {
             $model->idfaMd5 = $map['idfa_md5'];
+        }
+        if (isset($map['first_pay_amount'])) {
+            $model->firstPayAmount = $map['first_pay_amount'];
+        }
+        if (isset($map['upgrade_pay_amount'])) {
+            $model->upgradePayAmount = $map['upgrade_pay_amount'];
+        }
+        if (isset($map['upgrade_renewval_amount'])) {
+            $model->upgradeRenewvalAmount = $map['upgrade_renewval_amount'];
         }
 
         return $model;
