@@ -976,8 +976,8 @@ type SimSkuInfo struct {
 	StorePrice *string `json:"store_price,omitempty" xml:"store_price,omitempty" require:"true"`
 	// 车型
 	VehicleModel *string `json:"vehicle_model,omitempty" xml:"vehicle_model,omitempty" require:"true"`
-	// 续航里程，单位KM
-	RangeKm *int64 `json:"range_km,omitempty" xml:"range_km,omitempty" require:"true"`
+	// 续航里程
+	RangeKm *string `json:"range_km,omitempty" xml:"range_km,omitempty" require:"true"`
 	// 关键词，逗号分隔
 	Keywords *string `json:"keywords,omitempty" xml:"keywords,omitempty" require:"true"`
 	// 颜色，逗号分隔
@@ -1023,7 +1023,7 @@ func (s *SimSkuInfo) SetVehicleModel(v string) *SimSkuInfo {
 	return s
 }
 
-func (s *SimSkuInfo) SetRangeKm(v int64) *SimSkuInfo {
+func (s *SimSkuInfo) SetRangeKm(v string) *SimSkuInfo {
 	s.RangeKm = &v
 	return s
 }
@@ -2738,6 +2738,8 @@ type QuerySimLoginResponse struct {
 	LoginMsg *string `json:"login_msg,omitempty" xml:"login_msg,omitempty"`
 	// 是否已经激活
 	Activated *bool `json:"activated,omitempty" xml:"activated,omitempty"`
+	// 激活时间，格式yyyy-MM-dd HH:mm:ss
+	ActivateTime *string `json:"activate_time,omitempty" xml:"activate_time,omitempty"`
 	// 登录/激活时间，格式yyyy-MM-dd HH:mm:ss
 	LoginTime *string `json:"login_time,omitempty" xml:"login_time,omitempty"`
 	// 当前登录的门店信息
@@ -2781,6 +2783,11 @@ func (s *QuerySimLoginResponse) SetLoginMsg(v string) *QuerySimLoginResponse {
 
 func (s *QuerySimLoginResponse) SetActivated(v bool) *QuerySimLoginResponse {
 	s.Activated = &v
+	return s
+}
+
+func (s *QuerySimLoginResponse) SetActivateTime(v string) *QuerySimLoginResponse {
+	s.ActivateTime = &v
 	return s
 }
 
@@ -8033,7 +8040,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.10"),
+				"sdk_version":      tea.String("1.4.12"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
