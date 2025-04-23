@@ -50,6 +50,12 @@ class QuerySimLoginResponse extends Model
      */
     public $activated;
 
+    // 激活时间，格式yyyy-MM-dd HH:mm:ss
+    /**
+     * @var string
+     */
+    public $activateTime;
+
     // 登录/激活时间，格式yyyy-MM-dd HH:mm:ss
     /**
      * @var string
@@ -68,15 +74,16 @@ class QuerySimLoginResponse extends Model
      */
     public $salesInfo;
     protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'loginResult' => 'login_result',
-        'loginMsg'    => 'login_msg',
-        'activated'   => 'activated',
-        'loginTime'   => 'login_time',
-        'storeInfo'   => 'store_info',
-        'salesInfo'   => 'sales_info',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'loginResult'  => 'login_result',
+        'loginMsg'     => 'login_msg',
+        'activated'    => 'activated',
+        'activateTime' => 'activate_time',
+        'loginTime'    => 'login_time',
+        'storeInfo'    => 'store_info',
+        'salesInfo'    => 'sales_info',
     ];
 
     public function validate()
@@ -103,6 +110,9 @@ class QuerySimLoginResponse extends Model
         }
         if (null !== $this->activated) {
             $res['activated'] = $this->activated;
+        }
+        if (null !== $this->activateTime) {
+            $res['activate_time'] = $this->activateTime;
         }
         if (null !== $this->loginTime) {
             $res['login_time'] = $this->loginTime;
@@ -142,6 +152,9 @@ class QuerySimLoginResponse extends Model
         }
         if (isset($map['activated'])) {
             $model->activated = $map['activated'];
+        }
+        if (isset($map['activate_time'])) {
+            $model->activateTime = $map['activate_time'];
         }
         if (isset($map['login_time'])) {
             $model->loginTime = $map['login_time'];

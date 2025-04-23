@@ -48,11 +48,11 @@ class SimSkuInfo extends Model
      */
     public $vehicleModel;
 
-    // 续航里程，单位KM
+    // 续航里程
     /**
-     * @example
+     * @example -
      *
-     * @var int
+     * @var string
      */
     public $rangeKm;
 
