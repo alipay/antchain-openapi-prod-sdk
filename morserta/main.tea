@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '2.0.6',
+    sdk_version = '2.0.7',
     _prod_code = 'MORSERTA',
     _prod_channel = 'default'
   };
@@ -248,6 +248,12 @@ model ConvertAdDataRequest = {
   idfa?: string(name='idfa'),
   // idfa_md5
   idfaMd5?: string(name='idfa_md5'),
+  // 首次支付保费(蚂蚁数科定义)，用户首次支付保险的费用。单位元
+  firstPayAmount?: long(name='first_pay_amount'),
+  // 升级支付保费(蚂蚁数科定义)，用户支付后进行保险升级的支付费用。单位元
+  upgradePayAmount?: long(name='upgrade_pay_amount'),
+  // 续费保费(蚂蚁数科定义)，用户M2进行保险续费的费用。
+  upgradeRenewvalAmount?: long(name='upgrade_renewval_amount'),
 }
 
 model ConvertAdDataResponse = {
