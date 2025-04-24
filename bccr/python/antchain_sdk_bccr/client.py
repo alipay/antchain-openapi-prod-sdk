@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.51',
+                    'sdk_version': '1.19.52',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.51',
+                    'sdk_version': '1.19.52',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -4417,6 +4417,62 @@ class Client:
         return TeaCore.from_map(
             bccr_models.FinishDciRegistrationcertResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.dci.registrationcert.finish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_dci_registration(
+        self,
+        request: bccr_models.CancelDciRegistrationRequest,
+    ) -> bccr_models.CancelDciRegistrationResponse:
+        """
+        Description: 数登取消接口，目前在待支付状态下适用
+        Summary: 数登取消
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_dci_registration_ex(request, headers, runtime)
+
+    async def cancel_dci_registration_async(
+        self,
+        request: bccr_models.CancelDciRegistrationRequest,
+    ) -> bccr_models.CancelDciRegistrationResponse:
+        """
+        Description: 数登取消接口，目前在待支付状态下适用
+        Summary: 数登取消
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_dci_registration_ex_async(request, headers, runtime)
+
+    def cancel_dci_registration_ex(
+        self,
+        request: bccr_models.CancelDciRegistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CancelDciRegistrationResponse:
+        """
+        Description: 数登取消接口，目前在待支付状态下适用
+        Summary: 数登取消
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CancelDciRegistrationResponse(),
+            self.do_request('1.0', 'blockchain.bccr.dci.registration.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_dci_registration_ex_async(
+        self,
+        request: bccr_models.CancelDciRegistrationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CancelDciRegistrationResponse:
+        """
+        Description: 数登取消接口，目前在待支付状态下适用
+        Summary: 数登取消
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CancelDciRegistrationResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.dci.registration.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def add_content(
