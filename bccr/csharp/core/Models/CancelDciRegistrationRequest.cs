@@ -23,6 +23,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string DigitalRegisterId { get; set; }
 
+        // 幂等id
+        [NameInMap("client_token")]
+        [Validation(Required=true)]
+        public string ClientToken { get; set; }
+
     }
 
 }
