@@ -13311,6 +13311,69 @@ func (s *FinishDciRegistrationcertResponse) SetResultMsg(v string) *FinishDciReg
 	return s
 }
 
+type CancelDciRegistrationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数登申请id
+	DigitalRegisterId *string `json:"digital_register_id,omitempty" xml:"digital_register_id,omitempty" require:"true"`
+}
+
+func (s CancelDciRegistrationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelDciRegistrationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CancelDciRegistrationRequest) SetAuthToken(v string) *CancelDciRegistrationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelDciRegistrationRequest) SetProductInstanceId(v string) *CancelDciRegistrationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CancelDciRegistrationRequest) SetDigitalRegisterId(v string) *CancelDciRegistrationRequest {
+	s.DigitalRegisterId = &v
+	return s
+}
+
+type CancelDciRegistrationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CancelDciRegistrationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelDciRegistrationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CancelDciRegistrationResponse) SetReqMsgId(v string) *CancelDciRegistrationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CancelDciRegistrationResponse) SetResultCode(v string) *CancelDciRegistrationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CancelDciRegistrationResponse) SetResultMsg(v string) *CancelDciRegistrationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type AddContentRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -14273,7 +14336,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.51"),
+				"sdk_version":      tea.String("1.19.52"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -16840,6 +16903,40 @@ func (client *Client) FinishDciRegistrationcertEx(request *FinishDciRegistration
 	}
 	_result = &FinishDciRegistrationcertResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.dci.registrationcert.finish"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数登取消接口，目前在待支付状态下适用
+ * Summary: 数登取消
+ */
+func (client *Client) CancelDciRegistration(request *CancelDciRegistrationRequest) (_result *CancelDciRegistrationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CancelDciRegistrationResponse{}
+	_body, _err := client.CancelDciRegistrationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数登取消接口，目前在待支付状态下适用
+ * Summary: 数登取消
+ */
+func (client *Client) CancelDciRegistrationEx(request *CancelDciRegistrationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CancelDciRegistrationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CancelDciRegistrationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.dci.registration.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
