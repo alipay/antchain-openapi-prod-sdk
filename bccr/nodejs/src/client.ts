@@ -9843,11 +9843,14 @@ export class CancelDciRegistrationRequest extends $tea.Model {
   productInstanceId?: string;
   // 数登申请id
   digitalRegisterId: string;
+  // 幂等id
+  clientToken: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       digitalRegisterId: 'digital_register_id',
+      clientToken: 'client_token',
     };
   }
 
@@ -9856,6 +9859,7 @@ export class CancelDciRegistrationRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       digitalRegisterId: 'string',
+      clientToken: 'string',
     };
   }
 
@@ -10637,7 +10641,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.52",
+          sdk_version: "1.19.53",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
