@@ -2796,6 +2796,7 @@ class RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest(TeaModel):
         product_instance_id: str = None,
         text: str = None,
         audio_url: str = None,
+        split_words: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2804,6 +2805,8 @@ class RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest(TeaModel):
         self.text = text
         # 音频url
         self.audio_url = audio_url
+        # 字幕拆分字数，默认为单句不拆分。
+        self.split_words = split_words
 
     def validate(self):
         self.validate_required(self.text, 'text')
@@ -2823,6 +2826,8 @@ class RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest(TeaModel):
             result['text'] = self.text
         if self.audio_url is not None:
             result['audio_url'] = self.audio_url
+        if self.split_words is not None:
+            result['split_words'] = self.split_words
         return result
 
     def from_map(self, m: dict = None):
@@ -2835,6 +2840,8 @@ class RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest(TeaModel):
             self.text = m.get('text')
         if m.get('audio_url') is not None:
             self.audio_url = m.get('audio_url')
+        if m.get('split_words') is not None:
+            self.split_words = m.get('split_words')
         return self
 
 
