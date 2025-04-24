@@ -1143,6 +1143,8 @@ use AntChain\BLOCKCHAIN\Models\StopOcpProductRequest;
 use AntChain\BLOCKCHAIN\Models\StopOcpProductResponse;
 use AntChain\BLOCKCHAIN\Models\SubmitAuthBusinessDataRequest;
 use AntChain\BLOCKCHAIN\Models\SubmitAuthBusinessDataResponse;
+use AntChain\BLOCKCHAIN\Models\SubmitAuthCarinfoRequest;
+use AntChain\BLOCKCHAIN\Models\SubmitAuthCarinfoResponse;
 use AntChain\BLOCKCHAIN\Models\SubmitAuthCrowdUploadRequest;
 use AntChain\BLOCKCHAIN\Models\SubmitAuthCrowdUploadResponse;
 use AntChain\BLOCKCHAIN\Models\SubmitAuthTaskRequest;
@@ -1388,7 +1390,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.28.41',
+                    'sdk_version'      => '1.28.43',
                     '_prod_code'       => 'BLOCKCHAIN',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -15286,6 +15288,39 @@ class Client
         Utils::validateModel($request);
 
         return UploadAuthCertPhotoResponse::fromMap($this->doRequest('1.0', 'baas.auth.cert.photo.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 车五项信息提交
+     * Summary: 车五项信息提交.
+     *
+     * @param SubmitAuthCarinfoRequest $request
+     *
+     * @return SubmitAuthCarinfoResponse
+     */
+    public function submitAuthCarinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAuthCarinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 车五项信息提交
+     * Summary: 车五项信息提交.
+     *
+     * @param SubmitAuthCarinfoRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return SubmitAuthCarinfoResponse
+     */
+    public function submitAuthCarinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAuthCarinfoResponse::fromMap($this->doRequest('1.0', 'baas.auth.carinfo.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
