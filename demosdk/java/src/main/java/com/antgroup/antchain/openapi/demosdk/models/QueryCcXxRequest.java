@@ -16,6 +16,11 @@ public class QueryCcXxRequest extends TeaModel {
     @Validation(required = true)
     public String name;
 
+    // 测试
+    @NameInMap("msg")
+    @Validation(required = true)
+    public ResultTest msg;
+
     public static QueryCcXxRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryCcXxRequest self = new QueryCcXxRequest();
         return TeaModel.build(map, self);
@@ -43,6 +48,14 @@ public class QueryCcXxRequest extends TeaModel {
     }
     public String getName() {
         return this.name;
+    }
+
+    public QueryCcXxRequest setMsg(ResultTest msg) {
+        this.msg = msg;
+        return this;
+    }
+    public ResultTest getMsg() {
+        return this.msg;
     }
 
 }
