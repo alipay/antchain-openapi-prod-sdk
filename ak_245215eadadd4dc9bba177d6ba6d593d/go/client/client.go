@@ -2218,6 +2218,8 @@ type RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest struct {
 	Text *string `json:"text,omitempty" xml:"text,omitempty" require:"true"`
 	// 音频url
 	AudioUrl *string `json:"audio_url,omitempty" xml:"audio_url,omitempty" require:"true"`
+	// 字幕拆分字数，默认为单句不拆分。
+	SplitWords *int64 `json:"split_words,omitempty" xml:"split_words,omitempty"`
 }
 
 func (s RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest) String() string {
@@ -2245,6 +2247,11 @@ func (s *RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest) SetText(v strin
 
 func (s *RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest) SetAudioUrl(v string) *RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest {
 	s.AudioUrl = &v
+	return s
+}
+
+func (s *RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest) SetSplitWords(v int64) *RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest {
+	s.SplitWords = &v
 	return s
 }
 
@@ -2493,7 +2500,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.2"),
+				"sdk_version":      tea.String("1.3.3"),
 				"_prod_code":       tea.String("ak_245215eadadd4dc9bba177d6ba6d593d"),
 				"_prod_channel":    tea.String("saas"),
 			}
