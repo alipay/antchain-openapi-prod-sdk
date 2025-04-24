@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.2',
+    sdk_version = '1.3.3',
     _prod_code = 'ak_245215eadadd4dc9bba177d6ba6d593d',
     _prod_channel = 'saas'
   };
@@ -1029,6 +1029,8 @@ model RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest = {
   text: string(name='text'),
   // 音频url
   audioUrl: string(name='audio_url'),
+  // 字幕拆分字数，默认为单句不拆分。
+  splitWords?: long(name='split_words'),
 }
 
 model RecognizeUniversalsaasDigitalhumanAudioCaptionsResponse = {
