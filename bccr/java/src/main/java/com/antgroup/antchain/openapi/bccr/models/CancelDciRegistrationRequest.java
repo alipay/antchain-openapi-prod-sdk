@@ -16,6 +16,11 @@ public class CancelDciRegistrationRequest extends TeaModel {
     @Validation(required = true)
     public String digitalRegisterId;
 
+    // 幂等id
+    @NameInMap("client_token")
+    @Validation(required = true)
+    public String clientToken;
+
     public static CancelDciRegistrationRequest build(java.util.Map<String, ?> map) throws Exception {
         CancelDciRegistrationRequest self = new CancelDciRegistrationRequest();
         return TeaModel.build(map, self);
@@ -43,6 +48,14 @@ public class CancelDciRegistrationRequest extends TeaModel {
     }
     public String getDigitalRegisterId() {
         return this.digitalRegisterId;
+    }
+
+    public CancelDciRegistrationRequest setClientToken(String clientToken) {
+        this.clientToken = clientToken;
+        return this;
+    }
+    public String getClientToken() {
+        return this.clientToken;
     }
 
 }
