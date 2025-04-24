@@ -23,10 +23,16 @@ use AntChain\DEMOSDK\Models\QueryAaaCcdRequest;
 use AntChain\DEMOSDK\Models\QueryAaaCcdResponse;
 use AntChain\DEMOSDK\Models\QueryBbbCccRequest;
 use AntChain\DEMOSDK\Models\QueryBbbCccResponse;
+use AntChain\DEMOSDK\Models\QueryCacheLimitRequest;
+use AntChain\DEMOSDK\Models\QueryCacheLimitResponse;
 use AntChain\DEMOSDK\Models\QueryCcXxRequest;
 use AntChain\DEMOSDK\Models\QueryCcXxResponse;
+use AntChain\DEMOSDK\Models\QueryTimeLimitRequest;
+use AntChain\DEMOSDK\Models\QueryTimeLimitResponse;
 use AntChain\DEMOSDK\Models\ResetBbbCccRequest;
 use AntChain\DEMOSDK\Models\ResetBbbCccResponse;
+use AntChain\DEMOSDK\Models\VerifyApiListRequest;
+use AntChain\DEMOSDK\Models\VerifyApiListResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -174,7 +180,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.8',
+                    'sdk_version'      => '1.3.9',
                     '_prod_code'       => 'DEMOSDK',
                     '_prod_channel'    => 'default',
                 ];
@@ -305,6 +311,91 @@ class Client
         Utils::validateModel($request);
 
         return ImportBbbCciResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.bbb.cci.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人工作台二期全链路测试接口1
+     * Summary: 个人工作台二期全链路测试接口1.
+     *
+     * @param QueryTimeLimitRequest $request
+     *
+     * @return QueryTimeLimitResponse
+     */
+    public function queryTimeLimit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTimeLimitEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期全链路测试接口1
+     * Summary: 个人工作台二期全链路测试接口1.
+     *
+     * @param QueryTimeLimitRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryTimeLimitResponse
+     */
+    public function queryTimeLimitEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antchain.demosdk.time.limit.query',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new QueryTimeLimitResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return QueryTimeLimitResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.time.limit.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人工作台二期测试接口2
+     * Summary: 个人工作台二期测试接口2.
+     *
+     * @param QueryCacheLimitRequest $request
+     *
+     * @return QueryCacheLimitResponse
+     */
+    public function queryCacheLimit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCacheLimitEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期测试接口2
+     * Summary: 个人工作台二期测试接口2.
+     *
+     * @param QueryCacheLimitRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryCacheLimitResponse
+     */
+    public function queryCacheLimitEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCacheLimitResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.cache.limit.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -470,6 +561,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryCcXxResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.cc.xx.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用.
+     *
+     * @param VerifyApiListRequest $request
+     *
+     * @return VerifyApiListResponse
+     */
+    public function verifyApiList($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyApiListEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用.
+     *
+     * @param VerifyApiListRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return VerifyApiListResponse
+     */
+    public function verifyApiListEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyApiListResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.api.list.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
