@@ -16394,15 +16394,19 @@ class CancelDciRegistrationRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         digital_register_id: str = None,
+        client_token: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 数登申请id
         self.digital_register_id = digital_register_id
+        # 幂等id
+        self.client_token = client_token
 
     def validate(self):
         self.validate_required(self.digital_register_id, 'digital_register_id')
+        self.validate_required(self.client_token, 'client_token')
 
     def to_map(self):
         _map = super().to_map()
@@ -16416,6 +16420,8 @@ class CancelDciRegistrationRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.digital_register_id is not None:
             result['digital_register_id'] = self.digital_register_id
+        if self.client_token is not None:
+            result['client_token'] = self.client_token
         return result
 
     def from_map(self, m: dict = None):
@@ -16426,6 +16432,8 @@ class CancelDciRegistrationRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('digital_register_id') is not None:
             self.digital_register_id = m.get('digital_register_id')
+        if m.get('client_token') is not None:
+            self.client_token = m.get('client_token')
         return self
 
 
