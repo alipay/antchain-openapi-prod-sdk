@@ -30,11 +30,18 @@ class RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest extends Model
      * @var string
      */
     public $audioUrl;
+
+    // 字幕拆分字数，默认为单句不拆分。
+    /**
+     * @var int
+     */
+    public $splitWords;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'text'              => 'text',
         'audioUrl'          => 'audio_url',
+        'splitWords'        => 'split_words',
     ];
 
     public function validate()
@@ -57,6 +64,9 @@ class RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest extends Model
         }
         if (null !== $this->audioUrl) {
             $res['audio_url'] = $this->audioUrl;
+        }
+        if (null !== $this->splitWords) {
+            $res['split_words'] = $this->splitWords;
         }
 
         return $res;
@@ -81,6 +91,9 @@ class RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest extends Model
         }
         if (isset($map['audio_url'])) {
             $model->audioUrl = $map['audio_url'];
+        }
+        if (isset($map['split_words'])) {
+            $model->splitWords = $map['split_words'];
         }
 
         return $model;
