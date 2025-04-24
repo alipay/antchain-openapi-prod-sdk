@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.52',
+    sdk_version = '1.19.53',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -5373,6 +5373,8 @@ model CancelDciRegistrationRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 数登申请id
   digitalRegisterId: string(name='digital_register_id'),
+  // 幂等id
+  clientToken: string(name='client_token'),
 }
 
 model CancelDciRegistrationResponse = {
