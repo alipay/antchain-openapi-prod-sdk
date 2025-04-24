@@ -137,7 +137,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.51"},
+                        {"sdk_version", "1.19.52"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.51"},
+                        {"sdk_version", "1.19.52"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3427,6 +3427,48 @@ namespace AntChain.SDK.BCCR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<FinishDciRegistrationcertResponse>(await DoRequestAsync("1.0", "blockchain.bccr.dci.registrationcert.finish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数登取消接口，目前在待支付状态下适用
+         * Summary: 数登取消
+         */
+        public CancelDciRegistrationResponse CancelDciRegistration(CancelDciRegistrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CancelDciRegistrationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数登取消接口，目前在待支付状态下适用
+         * Summary: 数登取消
+         */
+        public async Task<CancelDciRegistrationResponse> CancelDciRegistrationAsync(CancelDciRegistrationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CancelDciRegistrationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数登取消接口，目前在待支付状态下适用
+         * Summary: 数登取消
+         */
+        public CancelDciRegistrationResponse CancelDciRegistrationEx(CancelDciRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelDciRegistrationResponse>(DoRequest("1.0", "blockchain.bccr.dci.registration.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数登取消接口，目前在待支付状态下适用
+         * Summary: 数登取消
+         */
+        public async Task<CancelDciRegistrationResponse> CancelDciRegistrationExAsync(CancelDciRegistrationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelDciRegistrationResponse>(await DoRequestAsync("1.0", "blockchain.bccr.dci.registration.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
