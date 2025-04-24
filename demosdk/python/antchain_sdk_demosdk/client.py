@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.8',
+                    'sdk_version': '1.3.9',
                     '_prod_code': 'DEMOSDK',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.8',
+                    'sdk_version': '1.3.9',
                     '_prod_code': 'DEMOSDK',
                     '_prod_channel': 'default'
                 }
@@ -421,6 +421,154 @@ class Client:
         return TeaCore.from_map(
             demosdk_models.ImportBbbCciResponse(),
             await self.do_request_async('1.0', 'antchain.demosdk.bbb.cci.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_time_limit(
+        self,
+        request: demosdk_models.QueryTimeLimitRequest,
+    ) -> demosdk_models.QueryTimeLimitResponse:
+        """
+        Description: 个人工作台二期全链路测试接口1
+        Summary: 个人工作台二期全链路测试接口1
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_time_limit_ex(request, headers, runtime)
+
+    async def query_time_limit_async(
+        self,
+        request: demosdk_models.QueryTimeLimitRequest,
+    ) -> demosdk_models.QueryTimeLimitResponse:
+        """
+        Description: 个人工作台二期全链路测试接口1
+        Summary: 个人工作台二期全链路测试接口1
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_time_limit_ex_async(request, headers, runtime)
+
+    def query_time_limit_ex(
+        self,
+        request: demosdk_models.QueryTimeLimitRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryTimeLimitResponse:
+        """
+        Description: 个人工作台二期全链路测试接口1
+        Summary: 个人工作台二期全链路测试接口1
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demosdk_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.demosdk.time.limit.query',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                query_time_limit_response = demosdk_models.QueryTimeLimitResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return query_time_limit_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryTimeLimitResponse(),
+            self.do_request('1.0', 'antchain.demosdk.time.limit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_time_limit_ex_async(
+        self,
+        request: demosdk_models.QueryTimeLimitRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryTimeLimitResponse:
+        """
+        Description: 个人工作台二期全链路测试接口1
+        Summary: 个人工作台二期全链路测试接口1
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demosdk_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.demosdk.time.limit.query',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                query_time_limit_response = demosdk_models.QueryTimeLimitResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return query_time_limit_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryTimeLimitResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.time.limit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_cache_limit(
+        self,
+        request: demosdk_models.QueryCacheLimitRequest,
+    ) -> demosdk_models.QueryCacheLimitResponse:
+        """
+        Description: 个人工作台二期测试接口2
+        Summary: 个人工作台二期测试接口2
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_cache_limit_ex(request, headers, runtime)
+
+    async def query_cache_limit_async(
+        self,
+        request: demosdk_models.QueryCacheLimitRequest,
+    ) -> demosdk_models.QueryCacheLimitResponse:
+        """
+        Description: 个人工作台二期测试接口2
+        Summary: 个人工作台二期测试接口2
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_cache_limit_ex_async(request, headers, runtime)
+
+    def query_cache_limit_ex(
+        self,
+        request: demosdk_models.QueryCacheLimitRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryCacheLimitResponse:
+        """
+        Description: 个人工作台二期测试接口2
+        Summary: 个人工作台二期测试接口2
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryCacheLimitResponse(),
+            self.do_request('1.0', 'antchain.demosdk.cache.limit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_cache_limit_ex_async(
+        self,
+        request: demosdk_models.QueryCacheLimitRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryCacheLimitResponse:
+        """
+        Description: 个人工作台二期测试接口2
+        Summary: 个人工作台二期测试接口2
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryCacheLimitResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.cache.limit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def reset_bbb_ccc(
@@ -701,6 +849,62 @@ class Client:
         return TeaCore.from_map(
             demosdk_models.QueryCcXxResponse(),
             await self.do_request_async('1.0', 'antchain.demosdk.cc.xx.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_api_list(
+        self,
+        request: demosdk_models.VerifyApiListRequest,
+    ) -> demosdk_models.VerifyApiListResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_api_list_ex(request, headers, runtime)
+
+    async def verify_api_list_async(
+        self,
+        request: demosdk_models.VerifyApiListRequest,
+    ) -> demosdk_models.VerifyApiListResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_api_list_ex_async(request, headers, runtime)
+
+    def verify_api_list_ex(
+        self,
+        request: demosdk_models.VerifyApiListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.VerifyApiListResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.VerifyApiListResponse(),
+            self.do_request('1.0', 'antchain.demosdk.api.list.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_api_list_ex_async(
+        self,
+        request: demosdk_models.VerifyApiListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.VerifyApiListResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.VerifyApiListResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.api.list.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
