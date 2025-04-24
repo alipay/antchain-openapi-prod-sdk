@@ -24,15 +24,23 @@ class CancelDciRegistrationRequest extends Model
      * @var string
      */
     public $digitalRegisterId;
+
+    // 幂等id
+    /**
+     * @var string
+     */
+    public $clientToken;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'digitalRegisterId' => 'digital_register_id',
+        'clientToken'       => 'client_token',
     ];
 
     public function validate()
     {
         Model::validateRequired('digitalRegisterId', $this->digitalRegisterId, true);
+        Model::validateRequired('clientToken', $this->clientToken, true);
     }
 
     public function toMap()
@@ -46,6 +54,9 @@ class CancelDciRegistrationRequest extends Model
         }
         if (null !== $this->digitalRegisterId) {
             $res['digital_register_id'] = $this->digitalRegisterId;
+        }
+        if (null !== $this->clientToken) {
+            $res['client_token'] = $this->clientToken;
         }
 
         return $res;
@@ -67,6 +78,9 @@ class CancelDciRegistrationRequest extends Model
         }
         if (isset($map['digital_register_id'])) {
             $model->digitalRegisterId = $map['digital_register_id'];
+        }
+        if (isset($map['client_token'])) {
+            $model->clientToken = $map['client_token'];
         }
 
         return $model;
