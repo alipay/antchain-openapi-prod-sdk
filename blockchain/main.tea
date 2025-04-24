@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.28.41',
+    sdk_version = '1.28.43',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -1507,6 +1507,22 @@ model AccountInfoWithBiz {
   userType?: string(name='user_type', example='direct'),
 }
 
+// 基础车辆信息
+model BasicCarInfo {
+  // 车牌号码
+  licenseNo: string(name='license_no', example='京Axxxxx'),
+  // 车架号
+  vin: string(name='vin', example='xxxxx'),
+  // 发动机号
+  engineNo: string(name='engine_no', example='xxxxx'),
+  // 初登日期
+  registerDate: string(name='register_date', example='2021-12-21'),
+  // 车辆型号
+  modelCode: string(name='model_code', example='xxxxx'),
+  // 营运性质
+  useNatureCode: string(name='use_nature_code', example='xxxxx'),
+}
+
 // 物流金融信用凭证信息
 model IssueInfo {
   // 信用流转批次号
@@ -2230,6 +2246,20 @@ model UpdateDidServiceList {
   previousVersion: long(name='previous_version', example=''),
   // 服务信息列表
   serviceList: [ DisServicesInfo ](name='service_list', example=''),
+}
+
+// 车辆用户信息
+model CarUserInfo {
+  // 唯一标识用户的id
+  userId: string(name='user_id', example='xxxxx'),
+  // 手机号
+  phoneNum: string(name='phone_num', example='138xxxxxxx'),
+  // 城市编码
+  cityCode: string(name='city_code', example='110000'),
+  // 姓名
+  userCertName?: string(name='user_cert_name', example='张三'),
+  // 证件号码
+  userCertNo?: string(name='user_cert_no', example='xxxxx'),
 }
 
 // 营销分销商品信息
@@ -22564,6 +22594,50 @@ async function uploadAuthCertPhoto(request: UploadAuthCertPhotoRequest): UploadA
 async function uploadAuthCertPhotoEx(request: UploadAuthCertPhotoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAuthCertPhotoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.auth.cert.photo.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitAuthCarinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 唯一场景码
+  sceneCode: string(name='scene_code'),
+  // 用户信息
+  userInfo: CarUserInfo(name='user_info'),
+  // 车辆信息
+  carInfo: BasicCarInfo(name='car_info'),
+}
+
+model SubmitAuthCarinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 推送是否成功
+  pushSuccess?: boolean(name='push_success'),
+  // 传递给活动页面的token
+  token?: string(name='token'),
+}
+
+/**
+ * Description: 车五项信息提交
+ * Summary: 车五项信息提交
+ */
+async function submitAuthCarinfo(request: SubmitAuthCarinfoRequest): SubmitAuthCarinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitAuthCarinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 车五项信息提交
+ * Summary: 车五项信息提交
+ */
+async function submitAuthCarinfoEx(request: SubmitAuthCarinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAuthCarinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.carinfo.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StartDidCorporateAgentcreateRequest = {
