@@ -1717,12 +1717,15 @@ export class RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest extends $tea
   text: string;
   // 音频url
   audioUrl: string;
+  // 字幕拆分字数，默认为单句不拆分。
+  splitWords?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       text: 'text',
       audioUrl: 'audio_url',
+      splitWords: 'split_words',
     };
   }
 
@@ -1732,6 +1735,7 @@ export class RecognizeUniversalsaasDigitalhumanAudioCaptionsRequest extends $tea
       productInstanceId: 'string',
       text: 'string',
       audioUrl: 'string',
+      splitWords: 'number',
     };
   }
 
@@ -1952,7 +1956,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.2",
+          sdk_version: "1.3.3",
           _prod_code: "ak_245215eadadd4dc9bba177d6ba6d593d",
           _prod_channel: "saas",
         };
