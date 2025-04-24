@@ -3509,6 +3509,47 @@ export class AccountInfoWithBiz extends $tea.Model {
   }
 }
 
+// 基础车辆信息
+export class BasicCarInfo extends $tea.Model {
+  // 车牌号码
+  licenseNo: string;
+  // 车架号
+  vin: string;
+  // 发动机号
+  engineNo: string;
+  // 初登日期
+  registerDate: string;
+  // 车辆型号
+  modelCode: string;
+  // 营运性质
+  useNatureCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      licenseNo: 'license_no',
+      vin: 'vin',
+      engineNo: 'engine_no',
+      registerDate: 'register_date',
+      modelCode: 'model_code',
+      useNatureCode: 'use_nature_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      licenseNo: 'string',
+      vin: 'string',
+      engineNo: 'string',
+      registerDate: 'string',
+      modelCode: 'string',
+      useNatureCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 物流金融信用凭证信息
 export class IssueInfo extends $tea.Model {
   // 信用流转批次号
@@ -5436,6 +5477,43 @@ export class UpdateDidServiceList extends $tea.Model {
     return {
       previousVersion: 'number',
       serviceList: { 'type': 'array', 'itemType': DisServicesInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 车辆用户信息
+export class CarUserInfo extends $tea.Model {
+  // 唯一标识用户的id
+  userId: string;
+  // 手机号
+  phoneNum: string;
+  // 城市编码
+  cityCode: string;
+  // 姓名
+  userCertName?: string;
+  // 证件号码
+  userCertNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      phoneNum: 'phone_num',
+      cityCode: 'city_code',
+      userCertName: 'user_cert_name',
+      userCertNo: 'user_cert_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      phoneNum: 'string',
+      cityCode: 'string',
+      userCertName: 'string',
+      userCertNo: 'string',
     };
   }
 
@@ -39409,6 +39487,77 @@ export class UploadAuthCertPhotoResponse extends $tea.Model {
   }
 }
 
+export class SubmitAuthCarinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 唯一场景码
+  sceneCode: string;
+  // 用户信息
+  userInfo: CarUserInfo;
+  // 车辆信息
+  carInfo: BasicCarInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneCode: 'scene_code',
+      userInfo: 'user_info',
+      carInfo: 'car_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneCode: 'string',
+      userInfo: CarUserInfo,
+      carInfo: BasicCarInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAuthCarinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 推送是否成功
+  pushSuccess?: boolean;
+  // 传递给活动页面的token
+  token?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pushSuccess: 'push_success',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pushSuccess: 'boolean',
+      token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class StartDidCorporateAgentcreateRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -54287,7 +54436,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.41",
+          sdk_version: "1.28.43",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
@@ -62339,6 +62488,25 @@ export default class Client {
   async uploadAuthCertPhotoEx(request: UploadAuthCertPhotoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadAuthCertPhotoResponse> {
     Util.validateModel(request);
     return $tea.cast<UploadAuthCertPhotoResponse>(await this.doRequest("1.0", "baas.auth.cert.photo.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadAuthCertPhotoResponse({}));
+  }
+
+  /**
+   * Description: 车五项信息提交
+   * Summary: 车五项信息提交
+   */
+  async submitAuthCarinfo(request: SubmitAuthCarinfoRequest): Promise<SubmitAuthCarinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitAuthCarinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 车五项信息提交
+   * Summary: 车五项信息提交
+   */
+  async submitAuthCarinfoEx(request: SubmitAuthCarinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAuthCarinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitAuthCarinfoResponse>(await this.doRequest("1.0", "baas.auth.carinfo.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitAuthCarinfoResponse({}));
   }
 
   /**
