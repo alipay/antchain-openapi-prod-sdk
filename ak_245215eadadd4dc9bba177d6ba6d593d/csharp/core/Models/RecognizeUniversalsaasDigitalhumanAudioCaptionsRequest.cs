@@ -28,6 +28,11 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
         [Validation(Required=true)]
         public string AudioUrl { get; set; }
 
+        // 字幕拆分字数，默认为单句不拆分。
+        [NameInMap("split_words")]
+        [Validation(Required=false)]
+        public long? SplitWords { get; set; }
+
     }
 
 }
