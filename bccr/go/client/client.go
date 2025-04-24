@@ -13317,6 +13317,8 @@ type CancelDciRegistrationRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 数登申请id
 	DigitalRegisterId *string `json:"digital_register_id,omitempty" xml:"digital_register_id,omitempty" require:"true"`
+	// 幂等id
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
 }
 
 func (s CancelDciRegistrationRequest) String() string {
@@ -13339,6 +13341,11 @@ func (s *CancelDciRegistrationRequest) SetProductInstanceId(v string) *CancelDci
 
 func (s *CancelDciRegistrationRequest) SetDigitalRegisterId(v string) *CancelDciRegistrationRequest {
 	s.DigitalRegisterId = &v
+	return s
+}
+
+func (s *CancelDciRegistrationRequest) SetClientToken(v string) *CancelDciRegistrationRequest {
+	s.ClientToken = &v
 	return s
 }
 
@@ -14336,7 +14343,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.52"),
+				"sdk_version":      tea.String("1.19.53"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
