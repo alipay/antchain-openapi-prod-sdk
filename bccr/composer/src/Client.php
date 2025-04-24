@@ -27,6 +27,8 @@ use AntChain\BCCR\Models\ApplyNotaryOrderRequest;
 use AntChain\BCCR\Models\ApplyNotaryOrderResponse;
 use AntChain\BCCR\Models\CallbackDciPayresultRequest;
 use AntChain\BCCR\Models\CallbackDciPayresultResponse;
+use AntChain\BCCR\Models\CancelDciRegistrationRequest;
+use AntChain\BCCR\Models\CancelDciRegistrationResponse;
 use AntChain\BCCR\Models\CancelTradeUsageRequest;
 use AntChain\BCCR\Models\CancelTradeUsageResponse;
 use AntChain\BCCR\Models\CloseDciRegistrationRequest;
@@ -322,7 +324,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.19.51',
+                    'sdk_version'      => '1.19.52',
                     '_prod_code'       => 'BCCR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2810,6 +2812,39 @@ class Client
         Utils::validateModel($request);
 
         return FinishDciRegistrationcertResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.registrationcert.finish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数登取消接口，目前在待支付状态下适用
+     * Summary: 数登取消.
+     *
+     * @param CancelDciRegistrationRequest $request
+     *
+     * @return CancelDciRegistrationResponse
+     */
+    public function cancelDciRegistration($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelDciRegistrationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数登取消接口，目前在待支付状态下适用
+     * Summary: 数登取消.
+     *
+     * @param CancelDciRegistrationRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return CancelDciRegistrationResponse
+     */
+    public function cancelDciRegistrationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelDciRegistrationResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.registration.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
