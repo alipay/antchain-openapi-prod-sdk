@@ -149,7 +149,7 @@ export class ConvertAdDataRequest extends $tea.Model {
   // ios/android
   deviceOsType?: string;
   // 设备ID（imei或idfa的加密值）
-  muid: string;
+  muid?: string;
   // 点击ID
   clickId: string;
   // 点击时间
@@ -527,7 +527,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.0.8",
+          sdk_version: "3.0.1",
           _prod_code: "MORSERTA",
           _prod_channel: "default",
         };

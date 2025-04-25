@@ -1,6 +1,6 @@
 {
   "name": "@antchain/morserta",
-  "version": "2.0.8",
+  "version": "3.0.1",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
