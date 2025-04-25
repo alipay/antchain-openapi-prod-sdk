@@ -26,7 +26,7 @@ namespace AntChain.SDK.MORSERTA.Models
 
         // 设备ID（imei或idfa的加密值）
         [NameInMap("muid")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Muid { get; set; }
 
         // 点击ID
