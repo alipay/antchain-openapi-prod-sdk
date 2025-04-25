@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryInnerLoggerRequest extends Model
+class SubmitInnerDatadownloadRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,25 +19,23 @@ class QueryInnerLoggerRequest extends Model
      */
     public $productInstanceId;
 
-    // 业务渠道：DINGDING
-    /**
-     * @var string
-     */
-    public $channel;
-
-    // 钉钉群id
     // 租户id
-    // 支付宝uuid
     /**
      * @var string
      */
-    public $channelAccountId;
+    public $tenantId;
 
-    // traceid
+    // 商户社会统一信用代码
     /**
      * @var string
      */
-    public $traceId;
+    public $merchantId;
+
+    // 公司名称
+    /**
+     * @var string
+     */
+    public $merchantName;
 
     // 开始时间
     /**
@@ -51,33 +49,29 @@ class QueryInnerLoggerRequest extends Model
      */
     public $endTime;
 
-    // 分页
-    /**
-     * @var PageQuery
-     */
-    public $pageInfo;
-
-    // 额外查询参数
+    // 下载数据类型
+    // 交易履约账单:TRADE_PROMISE_BILL
     /**
      * @var string
      */
-    public $extQueryParam;
+    public $type;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'channel'           => 'channel',
-        'channelAccountId'  => 'channel_account_id',
-        'traceId'           => 'trace_id',
+        'tenantId'          => 'tenant_id',
+        'merchantId'        => 'merchant_id',
+        'merchantName'      => 'merchant_name',
         'startTime'         => 'start_time',
         'endTime'           => 'end_time',
-        'pageInfo'          => 'page_info',
-        'extQueryParam'     => 'ext_query_param',
+        'type'              => 'type',
     ];
 
     public function validate()
     {
-        Model::validateRequired('channel', $this->channel, true);
-        Model::validateRequired('channelAccountId', $this->channelAccountId, true);
+        Model::validateRequired('tenantId', $this->tenantId, true);
+        Model::validateRequired('startTime', $this->startTime, true);
+        Model::validateRequired('endTime', $this->endTime, true);
+        Model::validateRequired('type', $this->type, true);
     }
 
     public function toMap()
@@ -89,14 +83,14 @@ class QueryInnerLoggerRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->channel) {
-            $res['channel'] = $this->channel;
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
         }
-        if (null !== $this->channelAccountId) {
-            $res['channel_account_id'] = $this->channelAccountId;
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
         }
-        if (null !== $this->traceId) {
-            $res['trace_id'] = $this->traceId;
+        if (null !== $this->merchantName) {
+            $res['merchant_name'] = $this->merchantName;
         }
         if (null !== $this->startTime) {
             $res['start_time'] = $this->startTime;
@@ -104,11 +98,8 @@ class QueryInnerLoggerRequest extends Model
         if (null !== $this->endTime) {
             $res['end_time'] = $this->endTime;
         }
-        if (null !== $this->pageInfo) {
-            $res['page_info'] = null !== $this->pageInfo ? $this->pageInfo->toMap() : null;
-        }
-        if (null !== $this->extQueryParam) {
-            $res['ext_query_param'] = $this->extQueryParam;
+        if (null !== $this->type) {
+            $res['type'] = $this->type;
         }
 
         return $res;
@@ -117,7 +108,7 @@ class QueryInnerLoggerRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryInnerLoggerRequest
+     * @return SubmitInnerDatadownloadRequest
      */
     public static function fromMap($map = [])
     {
@@ -128,14 +119,14 @@ class QueryInnerLoggerRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['channel'])) {
-            $model->channel = $map['channel'];
+        if (isset($map['tenant_id'])) {
+            $model->tenantId = $map['tenant_id'];
         }
-        if (isset($map['channel_account_id'])) {
-            $model->channelAccountId = $map['channel_account_id'];
+        if (isset($map['merchant_id'])) {
+            $model->merchantId = $map['merchant_id'];
         }
-        if (isset($map['trace_id'])) {
-            $model->traceId = $map['trace_id'];
+        if (isset($map['merchant_name'])) {
+            $model->merchantName = $map['merchant_name'];
         }
         if (isset($map['start_time'])) {
             $model->startTime = $map['start_time'];
@@ -143,11 +134,8 @@ class QueryInnerLoggerRequest extends Model
         if (isset($map['end_time'])) {
             $model->endTime = $map['end_time'];
         }
-        if (isset($map['page_info'])) {
-            $model->pageInfo = PageQuery::fromMap($map['page_info']);
-        }
-        if (isset($map['ext_query_param'])) {
-            $model->extQueryParam = $map['ext_query_param'];
+        if (isset($map['type'])) {
+            $model->type = $map['type'];
         }
 
         return $model;

@@ -85,6 +85,8 @@ use AntChain\ATO\Models\CreateWithholdRefundRequest;
 use AntChain\ATO\Models\CreateWithholdRefundResponse;
 use AntChain\ATO\Models\CreateWithholdSignRequest;
 use AntChain\ATO\Models\CreateWithholdSignResponse;
+use AntChain\ATO\Models\DeleteInnerDatadownloadRequest;
+use AntChain\ATO\Models\DeleteInnerDatadownloadResponse;
 use AntChain\ATO\Models\DeleteInnerTemplateRequest;
 use AntChain\ATO\Models\DeleteInnerTemplateResponse;
 use AntChain\ATO\Models\DetailInnerCustomerserviceRequest;
@@ -147,8 +149,12 @@ use AntChain\ATO\Models\ListInnerTemplateRequest;
 use AntChain\ATO\Models\ListInnerTemplateResponse;
 use AntChain\ATO\Models\NotifyFundFlowRequest;
 use AntChain\ATO\Models\NotifyFundFlowResponse;
+use AntChain\ATO\Models\PagequeryInnerCompanyinfoRequest;
+use AntChain\ATO\Models\PagequeryInnerCompanyinfoResponse;
 use AntChain\ATO\Models\PagequeryInnerCustomerserviceRequest;
 use AntChain\ATO\Models\PagequeryInnerCustomerserviceResponse;
+use AntChain\ATO\Models\PagequeryInnerDatadownloadRequest;
+use AntChain\ATO\Models\PagequeryInnerDatadownloadResponse;
 use AntChain\ATO\Models\PagequeryInnerFunddividerelationRequest;
 use AntChain\ATO\Models\PagequeryInnerFunddividerelationResponse;
 use AntChain\ATO\Models\PagequeryInnerInsureorderRequest;
@@ -191,6 +197,8 @@ use AntChain\ATO\Models\QueryFundDividerelationRequest;
 use AntChain\ATO\Models\QueryFundDividerelationResponse;
 use AntChain\ATO\Models\QueryInnerAuthorizationRequest;
 use AntChain\ATO\Models\QueryInnerAuthorizationResponse;
+use AntChain\ATO\Models\QueryInnerExpandprocessRequest;
+use AntChain\ATO\Models\QueryInnerExpandprocessResponse;
 use AntChain\ATO\Models\QueryInnerFunddividerelationRequest;
 use AntChain\ATO\Models\QueryInnerFunddividerelationResponse;
 use AntChain\ATO\Models\QueryInnerInsuresignRequest;
@@ -279,6 +287,8 @@ use AntChain\ATO\Models\SignInnerSupplementalRequest;
 use AntChain\ATO\Models\SignInnerSupplementalResponse;
 use AntChain\ATO\Models\SubmitFrontSignRequest;
 use AntChain\ATO\Models\SubmitFrontSignResponse;
+use AntChain\ATO\Models\SubmitInnerDatadownloadRequest;
+use AntChain\ATO\Models\SubmitInnerDatadownloadResponse;
 use AntChain\ATO\Models\SubmitInnerFunddividerelationRequest;
 use AntChain\ATO\Models\SubmitInnerFunddividerelationResponse;
 use AntChain\ATO\Models\SubmitInnerMerchantpayexpandRequest;
@@ -506,7 +516,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.14.28',
+                    'sdk_version'      => '1.14.38',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4409,6 +4419,171 @@ class Client
         Utils::validateModel($request);
 
         return QueryInnerLoggerResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.logger.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 离线数据下载
+     * Summary: 离线数据下载.
+     *
+     * @param SubmitInnerDatadownloadRequest $request
+     *
+     * @return SubmitInnerDatadownloadResponse
+     */
+    public function submitInnerDatadownload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitInnerDatadownloadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 离线数据下载
+     * Summary: 离线数据下载.
+     *
+     * @param SubmitInnerDatadownloadRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return SubmitInnerDatadownloadResponse
+     */
+    public function submitInnerDatadownloadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitInnerDatadownloadResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.datadownload.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询数据下载列表
+     * Summary: 查询数据下载列表.
+     *
+     * @param PagequeryInnerDatadownloadRequest $request
+     *
+     * @return PagequeryInnerDatadownloadResponse
+     */
+    public function pagequeryInnerDatadownload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryInnerDatadownloadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询数据下载列表
+     * Summary: 查询数据下载列表.
+     *
+     * @param PagequeryInnerDatadownloadRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return PagequeryInnerDatadownloadResponse
+     */
+    public function pagequeryInnerDatadownloadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryInnerDatadownloadResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.datadownload.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除下载任务
+     * Summary: 删除下载任务
+     *
+     * @param DeleteInnerDatadownloadRequest $request
+     *
+     * @return DeleteInnerDatadownloadResponse
+     */
+    public function deleteInnerDatadownload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteInnerDatadownloadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除下载任务
+     * Summary: 删除下载任务
+     *
+     * @param DeleteInnerDatadownloadRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return DeleteInnerDatadownloadResponse
+     */
+    public function deleteInnerDatadownloadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteInnerDatadownloadResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.datadownload.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询公司信息
+     * Summary: 分页查询公司信息.
+     *
+     * @param PagequeryInnerCompanyinfoRequest $request
+     *
+     * @return PagequeryInnerCompanyinfoResponse
+     */
+    public function pagequeryInnerCompanyinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryInnerCompanyinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询公司信息
+     * Summary: 分页查询公司信息.
+     *
+     * @param PagequeryInnerCompanyinfoRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return PagequeryInnerCompanyinfoResponse
+     */
+    public function pagequeryInnerCompanyinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryInnerCompanyinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.companyinfo.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询商户进件流程节点
+     * Summary: 查询商户进件流程节点.
+     *
+     * @param QueryInnerExpandprocessRequest $request
+     *
+     * @return QueryInnerExpandprocessResponse
+     */
+    public function queryInnerExpandprocess($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerExpandprocessEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询商户进件流程节点
+     * Summary: 查询商户进件流程节点.
+     *
+     * @param QueryInnerExpandprocessRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryInnerExpandprocessResponse
+     */
+    public function queryInnerExpandprocessEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerExpandprocessResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.expandprocess.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

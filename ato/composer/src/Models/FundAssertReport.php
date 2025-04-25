@@ -40,22 +40,6 @@ class FundAssertReport extends Model
      */
     public $cancelledBillAmount;
 
-    // 状态为逾期1天及以上的账单金额
-    /**
-     * @example 1000（单位分）
-     *
-     * @var int
-     */
-    public $billAmountOverdueBy1dayOrMore;
-
-    // 状态为逾期30天及以上的账单金额
-    /**
-     * @example 1000（单位分）
-     *
-     * @var int
-     */
-    public $billAmountOverdueBy30DaysOrMore;
-
     // Y期的订单的账单金额
     /**
      * @example 1000（单位分）
@@ -80,19 +64,35 @@ class FundAssertReport extends Model
      */
     public $cancelledBillAmountYPeriod;
 
+    // 状态为逾期1天及以上的账单金额
+    /**
+     * @example 1000(单位分)
+     *
+     * @var string
+     */
+    public $billAmountOverdueBy1dayOrMore;
+
     // Y期的订单中状态为逾期1天及以上的账单金额
     /**
-     * @example 1000（单位分）
+     * @example 1000(单位分)
      *
-     * @var int
+     * @var string
      */
     public $billAmountOverdueBy1dayOrMoreYPeriod;
 
+    // 状态为逾期30天及以上的账单金额
+    /**
+     * @example 1000(单位分)
+     *
+     * @var string
+     */
+    public $billAmountOverdueBy30DaysOrMore;
+
     // Y期的订单中状态为逾期30天及以上的账单金额
     /**
-     * @example 1000（单位分）
+     * @example 1000(单位分)
      *
-     * @var int
+     * @var string
      */
     public $billAmountOverdueBy30DaysOrMoreYPeriod;
     protected $_name = [
@@ -100,13 +100,13 @@ class FundAssertReport extends Model
         'totalBillAmount'                        => 'total_bill_amount',
         'averageTerm'                            => 'average_term',
         'cancelledBillAmount'                    => 'cancelled_bill_amount',
-        'billAmountOverdueBy1dayOrMore'          => 'bill_amount_overdue_by_1day_or_more',
-        'billAmountOverdueBy30DaysOrMore'        => 'bill_amount_overdue_by_30_days_or_more',
         'totalBillAmountYPeriod'                 => 'total_bill_amount_y_period',
         'averageTermYPeriod'                     => 'average_term_y_period',
         'cancelledBillAmountYPeriod'             => 'cancelled_bill_amount_y_period',
-        'billAmountOverdueBy1dayOrMoreYPeriod'   => 'bill_amount_overdue_by_1day_or_more_y_period',
-        'billAmountOverdueBy30DaysOrMoreYPeriod' => 'bill_amount_overdue_by_30_days_or_more_y_period',
+        'billAmountOverdueBy1dayOrMore'          => 'bill_amount_overdue_by1day_or_more',
+        'billAmountOverdueBy1dayOrMoreYPeriod'   => 'bill_amount_overdue_by1day_or_more_y_period',
+        'billAmountOverdueBy30DaysOrMore'        => 'bill_amount_overdue_by30_days_or_more',
+        'billAmountOverdueBy30DaysOrMoreYPeriod' => 'bill_amount_overdue_by30_days_or_more_y_period',
     ];
 
     public function validate()
@@ -115,12 +115,12 @@ class FundAssertReport extends Model
         Model::validateRequired('totalBillAmount', $this->totalBillAmount, true);
         Model::validateRequired('averageTerm', $this->averageTerm, true);
         Model::validateRequired('cancelledBillAmount', $this->cancelledBillAmount, true);
-        Model::validateRequired('billAmountOverdueBy1dayOrMore', $this->billAmountOverdueBy1dayOrMore, true);
-        Model::validateRequired('billAmountOverdueBy30DaysOrMore', $this->billAmountOverdueBy30DaysOrMore, true);
         Model::validateRequired('totalBillAmountYPeriod', $this->totalBillAmountYPeriod, true);
         Model::validateRequired('averageTermYPeriod', $this->averageTermYPeriod, true);
         Model::validateRequired('cancelledBillAmountYPeriod', $this->cancelledBillAmountYPeriod, true);
+        Model::validateRequired('billAmountOverdueBy1dayOrMore', $this->billAmountOverdueBy1dayOrMore, true);
         Model::validateRequired('billAmountOverdueBy1dayOrMoreYPeriod', $this->billAmountOverdueBy1dayOrMoreYPeriod, true);
+        Model::validateRequired('billAmountOverdueBy30DaysOrMore', $this->billAmountOverdueBy30DaysOrMore, true);
         Model::validateRequired('billAmountOverdueBy30DaysOrMoreYPeriod', $this->billAmountOverdueBy30DaysOrMoreYPeriod, true);
     }
 
@@ -139,12 +139,6 @@ class FundAssertReport extends Model
         if (null !== $this->cancelledBillAmount) {
             $res['cancelled_bill_amount'] = $this->cancelledBillAmount;
         }
-        if (null !== $this->billAmountOverdueBy1dayOrMore) {
-            $res['bill_amount_overdue_by_1day_or_more'] = $this->billAmountOverdueBy1dayOrMore;
-        }
-        if (null !== $this->billAmountOverdueBy30DaysOrMore) {
-            $res['bill_amount_overdue_by_30_days_or_more'] = $this->billAmountOverdueBy30DaysOrMore;
-        }
         if (null !== $this->totalBillAmountYPeriod) {
             $res['total_bill_amount_y_period'] = $this->totalBillAmountYPeriod;
         }
@@ -154,11 +148,17 @@ class FundAssertReport extends Model
         if (null !== $this->cancelledBillAmountYPeriod) {
             $res['cancelled_bill_amount_y_period'] = $this->cancelledBillAmountYPeriod;
         }
+        if (null !== $this->billAmountOverdueBy1dayOrMore) {
+            $res['bill_amount_overdue_by1day_or_more'] = $this->billAmountOverdueBy1dayOrMore;
+        }
         if (null !== $this->billAmountOverdueBy1dayOrMoreYPeriod) {
-            $res['bill_amount_overdue_by_1day_or_more_y_period'] = $this->billAmountOverdueBy1dayOrMoreYPeriod;
+            $res['bill_amount_overdue_by1day_or_more_y_period'] = $this->billAmountOverdueBy1dayOrMoreYPeriod;
+        }
+        if (null !== $this->billAmountOverdueBy30DaysOrMore) {
+            $res['bill_amount_overdue_by30_days_or_more'] = $this->billAmountOverdueBy30DaysOrMore;
         }
         if (null !== $this->billAmountOverdueBy30DaysOrMoreYPeriod) {
-            $res['bill_amount_overdue_by_30_days_or_more_y_period'] = $this->billAmountOverdueBy30DaysOrMoreYPeriod;
+            $res['bill_amount_overdue_by30_days_or_more_y_period'] = $this->billAmountOverdueBy30DaysOrMoreYPeriod;
         }
 
         return $res;
@@ -184,12 +184,6 @@ class FundAssertReport extends Model
         if (isset($map['cancelled_bill_amount'])) {
             $model->cancelledBillAmount = $map['cancelled_bill_amount'];
         }
-        if (isset($map['bill_amount_overdue_by_1day_or_more'])) {
-            $model->billAmountOverdueBy1dayOrMore = $map['bill_amount_overdue_by_1day_or_more'];
-        }
-        if (isset($map['bill_amount_overdue_by_30_days_or_more'])) {
-            $model->billAmountOverdueBy30DaysOrMore = $map['bill_amount_overdue_by_30_days_or_more'];
-        }
         if (isset($map['total_bill_amount_y_period'])) {
             $model->totalBillAmountYPeriod = $map['total_bill_amount_y_period'];
         }
@@ -199,11 +193,17 @@ class FundAssertReport extends Model
         if (isset($map['cancelled_bill_amount_y_period'])) {
             $model->cancelledBillAmountYPeriod = $map['cancelled_bill_amount_y_period'];
         }
-        if (isset($map['bill_amount_overdue_by_1day_or_more_y_period'])) {
-            $model->billAmountOverdueBy1dayOrMoreYPeriod = $map['bill_amount_overdue_by_1day_or_more_y_period'];
+        if (isset($map['bill_amount_overdue_by1day_or_more'])) {
+            $model->billAmountOverdueBy1dayOrMore = $map['bill_amount_overdue_by1day_or_more'];
         }
-        if (isset($map['bill_amount_overdue_by_30_days_or_more_y_period'])) {
-            $model->billAmountOverdueBy30DaysOrMoreYPeriod = $map['bill_amount_overdue_by_30_days_or_more_y_period'];
+        if (isset($map['bill_amount_overdue_by1day_or_more_y_period'])) {
+            $model->billAmountOverdueBy1dayOrMoreYPeriod = $map['bill_amount_overdue_by1day_or_more_y_period'];
+        }
+        if (isset($map['bill_amount_overdue_by30_days_or_more'])) {
+            $model->billAmountOverdueBy30DaysOrMore = $map['bill_amount_overdue_by30_days_or_more'];
+        }
+        if (isset($map['bill_amount_overdue_by30_days_or_more_y_period'])) {
+            $model->billAmountOverdueBy30DaysOrMoreYPeriod = $map['bill_amount_overdue_by30_days_or_more_y_period'];
         }
 
         return $model;
