@@ -234,7 +234,7 @@ type ConvertAdDataRequest struct {
 	// ios/android
 	DeviceOsType *string `json:"device_os_type,omitempty" xml:"device_os_type,omitempty"`
 	// 设备ID（imei或idfa的加密值）
-	Muid *string `json:"muid,omitempty" xml:"muid,omitempty" require:"true"`
+	Muid *string `json:"muid,omitempty" xml:"muid,omitempty"`
 	// 点击ID
 	ClickId *string `json:"click_id,omitempty" xml:"click_id,omitempty" require:"true"`
 	// 点击时间
@@ -720,7 +720,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.0.8"),
+				"sdk_version":      tea.String("3.0.1"),
 				"_prod_code":       tea.String("MORSERTA"),
 				"_prod_channel":    tea.String("default"),
 			}
