@@ -24,16 +24,6 @@ public class FundAssertReport extends TeaModel {
     @Validation(required = true)
     public Long cancelledBillAmount;
 
-    // 状态为逾期1天及以上的账单金额
-    @NameInMap("bill_amount_overdue_by_1day_or_more")
-    @Validation(required = true)
-    public Long billAmountOverdueBy1dayOrMore;
-
-    // 状态为逾期30天及以上的账单金额
-    @NameInMap("bill_amount_overdue_by_30_days_or_more")
-    @Validation(required = true)
-    public Long billAmountOverdueBy30DaysOrMore;
-
     // Y期的订单的账单金额
     @NameInMap("total_bill_amount_y_period")
     @Validation(required = true)
@@ -49,15 +39,25 @@ public class FundAssertReport extends TeaModel {
     @Validation(required = true)
     public Long cancelledBillAmountYPeriod;
 
-    // Y期的订单中状态为逾期1天及以上的账单金额
-    @NameInMap("bill_amount_overdue_by_1day_or_more_y_period")
+    // 状态为逾期1天及以上的账单金额
+    @NameInMap("bill_amount_overdue_by1day_or_more")
     @Validation(required = true)
-    public Long billAmountOverdueBy1dayOrMoreYPeriod;
+    public String billAmountOverdueBy1dayOrMore;
+
+    // Y期的订单中状态为逾期1天及以上的账单金额
+    @NameInMap("bill_amount_overdue_by1day_or_more_y_period")
+    @Validation(required = true)
+    public String billAmountOverdueBy1dayOrMoreYPeriod;
+
+    // 状态为逾期30天及以上的账单金额
+    @NameInMap("bill_amount_overdue_by30_days_or_more")
+    @Validation(required = true)
+    public String billAmountOverdueBy30DaysOrMore;
 
     // Y期的订单中状态为逾期30天及以上的账单金额
-    @NameInMap("bill_amount_overdue_by_30_days_or_more_y_period")
+    @NameInMap("bill_amount_overdue_by30_days_or_more_y_period")
     @Validation(required = true)
-    public Long billAmountOverdueBy30DaysOrMoreYPeriod;
+    public String billAmountOverdueBy30DaysOrMoreYPeriod;
 
     public static FundAssertReport build(java.util.Map<String, ?> map) throws Exception {
         FundAssertReport self = new FundAssertReport();
@@ -96,22 +96,6 @@ public class FundAssertReport extends TeaModel {
         return this.cancelledBillAmount;
     }
 
-    public FundAssertReport setBillAmountOverdueBy1dayOrMore(Long billAmountOverdueBy1dayOrMore) {
-        this.billAmountOverdueBy1dayOrMore = billAmountOverdueBy1dayOrMore;
-        return this;
-    }
-    public Long getBillAmountOverdueBy1dayOrMore() {
-        return this.billAmountOverdueBy1dayOrMore;
-    }
-
-    public FundAssertReport setBillAmountOverdueBy30DaysOrMore(Long billAmountOverdueBy30DaysOrMore) {
-        this.billAmountOverdueBy30DaysOrMore = billAmountOverdueBy30DaysOrMore;
-        return this;
-    }
-    public Long getBillAmountOverdueBy30DaysOrMore() {
-        return this.billAmountOverdueBy30DaysOrMore;
-    }
-
     public FundAssertReport setTotalBillAmountYPeriod(Long totalBillAmountYPeriod) {
         this.totalBillAmountYPeriod = totalBillAmountYPeriod;
         return this;
@@ -136,19 +120,35 @@ public class FundAssertReport extends TeaModel {
         return this.cancelledBillAmountYPeriod;
     }
 
-    public FundAssertReport setBillAmountOverdueBy1dayOrMoreYPeriod(Long billAmountOverdueBy1dayOrMoreYPeriod) {
+    public FundAssertReport setBillAmountOverdueBy1dayOrMore(String billAmountOverdueBy1dayOrMore) {
+        this.billAmountOverdueBy1dayOrMore = billAmountOverdueBy1dayOrMore;
+        return this;
+    }
+    public String getBillAmountOverdueBy1dayOrMore() {
+        return this.billAmountOverdueBy1dayOrMore;
+    }
+
+    public FundAssertReport setBillAmountOverdueBy1dayOrMoreYPeriod(String billAmountOverdueBy1dayOrMoreYPeriod) {
         this.billAmountOverdueBy1dayOrMoreYPeriod = billAmountOverdueBy1dayOrMoreYPeriod;
         return this;
     }
-    public Long getBillAmountOverdueBy1dayOrMoreYPeriod() {
+    public String getBillAmountOverdueBy1dayOrMoreYPeriod() {
         return this.billAmountOverdueBy1dayOrMoreYPeriod;
     }
 
-    public FundAssertReport setBillAmountOverdueBy30DaysOrMoreYPeriod(Long billAmountOverdueBy30DaysOrMoreYPeriod) {
+    public FundAssertReport setBillAmountOverdueBy30DaysOrMore(String billAmountOverdueBy30DaysOrMore) {
+        this.billAmountOverdueBy30DaysOrMore = billAmountOverdueBy30DaysOrMore;
+        return this;
+    }
+    public String getBillAmountOverdueBy30DaysOrMore() {
+        return this.billAmountOverdueBy30DaysOrMore;
+    }
+
+    public FundAssertReport setBillAmountOverdueBy30DaysOrMoreYPeriod(String billAmountOverdueBy30DaysOrMoreYPeriod) {
         this.billAmountOverdueBy30DaysOrMoreYPeriod = billAmountOverdueBy30DaysOrMoreYPeriod;
         return this;
     }
-    public Long getBillAmountOverdueBy30DaysOrMoreYPeriod() {
+    public String getBillAmountOverdueBy30DaysOrMoreYPeriod() {
         return this.billAmountOverdueBy30DaysOrMoreYPeriod;
     }
 

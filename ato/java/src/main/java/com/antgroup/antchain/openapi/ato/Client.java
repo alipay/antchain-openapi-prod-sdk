@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.14.28"),
+                    new TeaPair("sdk_version", "1.14.38"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2418,6 +2418,101 @@ public class Client {
     public QueryInnerLoggerResponse queryInnerLoggerEx(QueryInnerLoggerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.logger.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInnerLoggerResponse());
+    }
+
+    /**
+     * Description: 离线数据下载
+     * Summary: 离线数据下载
+     */
+    public SubmitInnerDatadownloadResponse submitInnerDatadownload(SubmitInnerDatadownloadRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitInnerDatadownloadEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 离线数据下载
+     * Summary: 离线数据下载
+     */
+    public SubmitInnerDatadownloadResponse submitInnerDatadownloadEx(SubmitInnerDatadownloadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.datadownload.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitInnerDatadownloadResponse());
+    }
+
+    /**
+     * Description: 查询数据下载列表
+     * Summary: 查询数据下载列表
+     */
+    public PagequeryInnerDatadownloadResponse pagequeryInnerDatadownload(PagequeryInnerDatadownloadRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryInnerDatadownloadEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询数据下载列表
+     * Summary: 查询数据下载列表
+     */
+    public PagequeryInnerDatadownloadResponse pagequeryInnerDatadownloadEx(PagequeryInnerDatadownloadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.datadownload.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryInnerDatadownloadResponse());
+    }
+
+    /**
+     * Description: 删除下载任务
+     * Summary: 删除下载任务
+     */
+    public DeleteInnerDatadownloadResponse deleteInnerDatadownload(DeleteInnerDatadownloadRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteInnerDatadownloadEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 删除下载任务
+     * Summary: 删除下载任务
+     */
+    public DeleteInnerDatadownloadResponse deleteInnerDatadownloadEx(DeleteInnerDatadownloadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.datadownload.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteInnerDatadownloadResponse());
+    }
+
+    /**
+     * Description: 分页查询公司信息
+     * Summary: 分页查询公司信息
+     */
+    public PagequeryInnerCompanyinfoResponse pagequeryInnerCompanyinfo(PagequeryInnerCompanyinfoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryInnerCompanyinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询公司信息
+     * Summary: 分页查询公司信息
+     */
+    public PagequeryInnerCompanyinfoResponse pagequeryInnerCompanyinfoEx(PagequeryInnerCompanyinfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.companyinfo.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryInnerCompanyinfoResponse());
+    }
+
+    /**
+     * Description: 查询商户进件流程节点
+     * Summary: 查询商户进件流程节点
+     */
+    public QueryInnerExpandprocessResponse queryInnerExpandprocess(QueryInnerExpandprocessRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInnerExpandprocessEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询商户进件流程节点
+     * Summary: 查询商户进件流程节点
+     */
+    public QueryInnerExpandprocessResponse queryInnerExpandprocessEx(QueryInnerExpandprocessRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.expandprocess.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInnerExpandprocessResponse());
     }
 
     /**

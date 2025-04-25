@@ -19,9 +19,9 @@ public class QueryInnerLoggerRequest extends TeaModel {
     // 钉钉群id
     // 租户id
     // 支付宝uuid
-    @NameInMap("channel_id")
+    @NameInMap("channel_account_id")
     @Validation(required = true)
-    public String channelId;
+    public String channelAccountId;
 
     // traceid
     @NameInMap("trace_id")
@@ -72,12 +72,12 @@ public class QueryInnerLoggerRequest extends TeaModel {
         return this.channel;
     }
 
-    public QueryInnerLoggerRequest setChannelId(String channelId) {
-        this.channelId = channelId;
+    public QueryInnerLoggerRequest setChannelAccountId(String channelAccountId) {
+        this.channelAccountId = channelAccountId;
         return this;
     }
-    public String getChannelId() {
-        return this.channelId;
+    public String getChannelAccountId() {
+        return this.channelAccountId;
     }
 
     public QueryInnerLoggerRequest setTraceId(String traceId) {
