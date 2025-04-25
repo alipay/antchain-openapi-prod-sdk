@@ -30,16 +30,6 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public long? CancelledBillAmount { get; set; }
 
-        // 状态为逾期1天及以上的账单金额
-        [NameInMap("bill_amount_overdue_by_1day_or_more")]
-        [Validation(Required=true)]
-        public long? BillAmountOverdueBy1dayOrMore { get; set; }
-
-        // 状态为逾期30天及以上的账单金额
-        [NameInMap("bill_amount_overdue_by_30_days_or_more")]
-        [Validation(Required=true)]
-        public long? BillAmountOverdueBy30DaysOrMore { get; set; }
-
         // Y期的订单的账单金额
         [NameInMap("total_bill_amount_y_period")]
         [Validation(Required=true)]
@@ -55,15 +45,25 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public long? CancelledBillAmountYPeriod { get; set; }
 
-        // Y期的订单中状态为逾期1天及以上的账单金额
-        [NameInMap("bill_amount_overdue_by_1day_or_more_y_period")]
+        // 状态为逾期1天及以上的账单金额
+        [NameInMap("bill_amount_overdue_by1day_or_more")]
         [Validation(Required=true)]
-        public long? BillAmountOverdueBy1dayOrMoreYPeriod { get; set; }
+        public string BillAmountOverdueBy1dayOrMore { get; set; }
+
+        // Y期的订单中状态为逾期1天及以上的账单金额
+        [NameInMap("bill_amount_overdue_by1day_or_more_y_period")]
+        [Validation(Required=true)]
+        public string BillAmountOverdueBy1dayOrMoreYPeriod { get; set; }
+
+        // 状态为逾期30天及以上的账单金额
+        [NameInMap("bill_amount_overdue_by30_days_or_more")]
+        [Validation(Required=true)]
+        public string BillAmountOverdueBy30DaysOrMore { get; set; }
 
         // Y期的订单中状态为逾期30天及以上的账单金额
-        [NameInMap("bill_amount_overdue_by_30_days_or_more_y_period")]
+        [NameInMap("bill_amount_overdue_by30_days_or_more_y_period")]
         [Validation(Required=true)]
-        public long? BillAmountOverdueBy30DaysOrMoreYPeriod { get; set; }
+        public string BillAmountOverdueBy30DaysOrMoreYPeriod { get; set; }
 
     }
 

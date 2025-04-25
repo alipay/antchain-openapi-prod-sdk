@@ -26,9 +26,9 @@ namespace AntChain.SDK.ATO.Models
         // 钉钉群id
         // 租户id
         // 支付宝uuid
-        [NameInMap("channel_id")]
+        [NameInMap("channel_account_id")]
         [Validation(Required=true)]
-        public string ChannelId { get; set; }
+        public string ChannelAccountId { get; set; }
 
         // traceid
         [NameInMap("trace_id")]
