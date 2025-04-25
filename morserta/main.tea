@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '2.0.8',
+    sdk_version = '3.0.1',
     _prod_code = 'MORSERTA',
     _prod_channel = 'default'
   };
@@ -210,7 +210,7 @@ model ConvertAdDataRequest = {
   // ios/android
   deviceOsType?: string(name='device_os_type'),
   // 设备ID（imei或idfa的加密值）
-  muid: string(name='muid'),
+  muid?: string(name='muid'),
   // 点击ID
   clickId: string(name='click_id'),
   // 点击时间
