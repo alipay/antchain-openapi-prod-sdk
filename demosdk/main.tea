@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.14',
+    sdk_version = '1.3.15',
     _prod_code = 'DEMOSDK',
     _prod_channel = 'default'
   };
@@ -689,6 +689,82 @@ async function importCreateTest(request: ImportCreateTestRequest): ImportCreateT
 async function importCreateTestEx(request: ImportCreateTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportCreateTestResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.demosdk.create.test.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAbcdOneRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryAbcdOneResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态
+  stauts?: string(name='stauts'),
+  // 描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 个人工作台二期测试接口
+ * Summary: 个人工作台二期测试接口
+ */
+async function queryAbcdOne(request: QueryAbcdOneRequest): QueryAbcdOneResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAbcdOneEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人工作台二期测试接口
+ * Summary: 个人工作台二期测试接口
+ */
+async function queryAbcdOneEx(request: QueryAbcdOneRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAbcdOneResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.abcd.one.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportAbcdOneRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model ImportAbcdOneResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 描述
+  stauts?: string(name='stauts'),
+  // 描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 个人工作台二期测试接口
+ * Summary: 个人工作台二期测试接口
+ */
+async function importAbcdOne(request: ImportAbcdOneRequest): ImportAbcdOneResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importAbcdOneEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人工作台二期测试接口
+ * Summary: 个人工作台二期测试接口
+ */
+async function importAbcdOneEx(request: ImportAbcdOneRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportAbcdOneResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.abcd.one.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
