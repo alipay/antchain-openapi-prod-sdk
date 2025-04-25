@@ -137,7 +137,7 @@ namespace AntChain.SDK.DEMOSDK
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.9"},
+                        {"sdk_version", "1.3.14"},
                         {"_prod_code", "DEMOSDK"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DEMOSDK
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.9"},
+                        {"sdk_version", "1.3.14"},
                         {"_prod_code", "DEMOSDK"},
                         {"_prod_channel", "default"},
                     };
@@ -835,6 +835,90 @@ namespace AntChain.SDK.DEMOSDK
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<VerifyApiListResponse>(await DoRequestAsync("1.0", "antchain.demosdk.api.list.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于个人工作台二期测试使用
+         * Summary: 用于个人工作台二期测试使用
+         */
+        public QueryWorkbenchTestResponse QueryWorkbenchTest(QueryWorkbenchTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryWorkbenchTestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于个人工作台二期测试使用
+         * Summary: 用于个人工作台二期测试使用
+         */
+        public async Task<QueryWorkbenchTestResponse> QueryWorkbenchTestAsync(QueryWorkbenchTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryWorkbenchTestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于个人工作台二期测试使用
+         * Summary: 用于个人工作台二期测试使用
+         */
+        public QueryWorkbenchTestResponse QueryWorkbenchTestEx(QueryWorkbenchTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryWorkbenchTestResponse>(DoRequest("1.0", "antchain.demosdk.workbench.test.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于个人工作台二期测试使用
+         * Summary: 用于个人工作台二期测试使用
+         */
+        public async Task<QueryWorkbenchTestResponse> QueryWorkbenchTestExAsync(QueryWorkbenchTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryWorkbenchTestResponse>(await DoRequestAsync("1.0", "antchain.demosdk.workbench.test.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于个人工作台二期测试使用
+         * Summary: 用于个人工作台二期测试使用
+         */
+        public ImportCreateTestResponse ImportCreateTest(ImportCreateTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportCreateTestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于个人工作台二期测试使用
+         * Summary: 用于个人工作台二期测试使用
+         */
+        public async Task<ImportCreateTestResponse> ImportCreateTestAsync(ImportCreateTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportCreateTestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于个人工作台二期测试使用
+         * Summary: 用于个人工作台二期测试使用
+         */
+        public ImportCreateTestResponse ImportCreateTestEx(ImportCreateTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportCreateTestResponse>(DoRequest("1.0", "antchain.demosdk.create.test.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于个人工作台二期测试使用
+         * Summary: 用于个人工作台二期测试使用
+         */
+        public async Task<ImportCreateTestResponse> ImportCreateTestExAsync(ImportCreateTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportCreateTestResponse>(await DoRequestAsync("1.0", "antchain.demosdk.create.test.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
