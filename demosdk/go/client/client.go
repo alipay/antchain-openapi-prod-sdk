@@ -1116,6 +1116,146 @@ func (s *ImportCreateTestResponse) SetResultMsg(v string) *ImportCreateTestRespo
 	return s
 }
 
+type QueryAbcdOneRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryAbcdOneRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAbcdOneRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAbcdOneRequest) SetAuthToken(v string) *QueryAbcdOneRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAbcdOneRequest) SetProductInstanceId(v string) *QueryAbcdOneRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryAbcdOneResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态
+	Stauts *string `json:"stauts,omitempty" xml:"stauts,omitempty"`
+	// 描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s QueryAbcdOneResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAbcdOneResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAbcdOneResponse) SetReqMsgId(v string) *QueryAbcdOneResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAbcdOneResponse) SetResultCode(v string) *QueryAbcdOneResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAbcdOneResponse) SetResultMsg(v string) *QueryAbcdOneResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAbcdOneResponse) SetStauts(v string) *QueryAbcdOneResponse {
+	s.Stauts = &v
+	return s
+}
+
+func (s *QueryAbcdOneResponse) SetMsg(v string) *QueryAbcdOneResponse {
+	s.Msg = &v
+	return s
+}
+
+type ImportAbcdOneRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s ImportAbcdOneRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportAbcdOneRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ImportAbcdOneRequest) SetAuthToken(v string) *ImportAbcdOneRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ImportAbcdOneRequest) SetProductInstanceId(v string) *ImportAbcdOneRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type ImportAbcdOneResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 描述
+	Stauts *string `json:"stauts,omitempty" xml:"stauts,omitempty"`
+	// 描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s ImportAbcdOneResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportAbcdOneResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ImportAbcdOneResponse) SetReqMsgId(v string) *ImportAbcdOneResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ImportAbcdOneResponse) SetResultCode(v string) *ImportAbcdOneResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ImportAbcdOneResponse) SetResultMsg(v string) *ImportAbcdOneResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ImportAbcdOneResponse) SetStauts(v string) *ImportAbcdOneResponse {
+	s.Stauts = &v
+	return s
+}
+
+func (s *ImportAbcdOneResponse) SetMsg(v string) *ImportAbcdOneResponse {
+	s.Msg = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1358,7 +1498,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.14"),
+				"sdk_version":      tea.String("1.3.15"),
 				"_prod_code":       tea.String("DEMOSDK"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1877,6 +2017,74 @@ func (client *Client) ImportCreateTestEx(request *ImportCreateTestRequest, heade
 	}
 	_result = &ImportCreateTestResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.create.test.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期测试接口
+ * Summary: 个人工作台二期测试接口
+ */
+func (client *Client) QueryAbcdOne(request *QueryAbcdOneRequest) (_result *QueryAbcdOneResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAbcdOneResponse{}
+	_body, _err := client.QueryAbcdOneEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期测试接口
+ * Summary: 个人工作台二期测试接口
+ */
+func (client *Client) QueryAbcdOneEx(request *QueryAbcdOneRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAbcdOneResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAbcdOneResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.abcd.one.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期测试接口
+ * Summary: 个人工作台二期测试接口
+ */
+func (client *Client) ImportAbcdOne(request *ImportAbcdOneRequest) (_result *ImportAbcdOneResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ImportAbcdOneResponse{}
+	_body, _err := client.ImportAbcdOneEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期测试接口
+ * Summary: 个人工作台二期测试接口
+ */
+func (client *Client) ImportAbcdOneEx(request *ImportAbcdOneRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportAbcdOneResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ImportAbcdOneResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.abcd.one.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
