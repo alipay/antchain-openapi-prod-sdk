@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.14"),
+                    new TeaPair("sdk_version", "1.3.15"),
                     new TeaPair("_prod_code", "DEMOSDK"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -454,6 +454,44 @@ public class Client {
     public ImportCreateTestResponse importCreateTestEx(ImportCreateTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.create.test.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportCreateTestResponse());
+    }
+
+    /**
+     * Description: 个人工作台二期测试接口
+     * Summary: 个人工作台二期测试接口
+     */
+    public QueryAbcdOneResponse queryAbcdOne(QueryAbcdOneRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAbcdOneEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期测试接口
+     * Summary: 个人工作台二期测试接口
+     */
+    public QueryAbcdOneResponse queryAbcdOneEx(QueryAbcdOneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.abcd.one.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAbcdOneResponse());
+    }
+
+    /**
+     * Description: 个人工作台二期测试接口
+     * Summary: 个人工作台二期测试接口
+     */
+    public ImportAbcdOneResponse importAbcdOne(ImportAbcdOneRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importAbcdOneEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期测试接口
+     * Summary: 个人工作台二期测试接口
+     */
+    public ImportAbcdOneResponse importAbcdOneEx(ImportAbcdOneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.abcd.one.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportAbcdOneResponse());
     }
 
     /**
