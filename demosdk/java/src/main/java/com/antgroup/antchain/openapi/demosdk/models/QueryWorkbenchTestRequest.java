@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demosdk.models;
 
 import com.aliyun.tea.*;
 
-public class VerifyApiListRequest extends TeaModel {
+public class QueryWorkbenchTestRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -31,12 +31,12 @@ public class VerifyApiListRequest extends TeaModel {
     @NameInMap("operator")
     public String operator;
 
-    public static VerifyApiListRequest build(java.util.Map<String, ?> map) throws Exception {
-        VerifyApiListRequest self = new VerifyApiListRequest();
+    public static QueryWorkbenchTestRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryWorkbenchTestRequest self = new QueryWorkbenchTestRequest();
         return TeaModel.build(map, self);
     }
 
-    public VerifyApiListRequest setAuthToken(String authToken) {
+    public QueryWorkbenchTestRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -44,7 +44,7 @@ public class VerifyApiListRequest extends TeaModel {
         return this.authToken;
     }
 
-    public VerifyApiListRequest setProductInstanceId(String productInstanceId) {
+    public QueryWorkbenchTestRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -52,7 +52,7 @@ public class VerifyApiListRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public VerifyApiListRequest setTimeout(String timeout) {
+    public QueryWorkbenchTestRequest setTimeout(String timeout) {
         this.timeout = timeout;
         return this;
     }
@@ -60,7 +60,7 @@ public class VerifyApiListRequest extends TeaModel {
         return this.timeout;
     }
 
-    public VerifyApiListRequest setCount(Long count) {
+    public QueryWorkbenchTestRequest setCount(Long count) {
         this.count = count;
         return this;
     }
@@ -68,7 +68,7 @@ public class VerifyApiListRequest extends TeaModel {
         return this.count;
     }
 
-    public VerifyApiListRequest setTime(String time) {
+    public QueryWorkbenchTestRequest setTime(String time) {
         this.time = time;
         return this;
     }
@@ -76,7 +76,7 @@ public class VerifyApiListRequest extends TeaModel {
         return this.time;
     }
 
-    public VerifyApiListRequest setDesc(String desc) {
+    public QueryWorkbenchTestRequest setDesc(String desc) {
         this.desc = desc;
         return this;
     }
@@ -84,7 +84,7 @@ public class VerifyApiListRequest extends TeaModel {
         return this.desc;
     }
 
-    public VerifyApiListRequest setOperator(String operator) {
+    public QueryWorkbenchTestRequest setOperator(String operator) {
         this.operator = operator;
         return this;
     }

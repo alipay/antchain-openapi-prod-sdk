@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.9"),
+                    new TeaPair("sdk_version", "1.3.14"),
                     new TeaPair("_prod_code", "DEMOSDK"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -416,6 +416,44 @@ public class Client {
     public VerifyApiListResponse verifyApiListEx(VerifyApiListRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.api.list.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyApiListResponse());
+    }
+
+    /**
+     * Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用
+     */
+    public QueryWorkbenchTestResponse queryWorkbenchTest(QueryWorkbenchTestRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryWorkbenchTestEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用
+     */
+    public QueryWorkbenchTestResponse queryWorkbenchTestEx(QueryWorkbenchTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.workbench.test.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryWorkbenchTestResponse());
+    }
+
+    /**
+     * Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用
+     */
+    public ImportCreateTestResponse importCreateTest(ImportCreateTestRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importCreateTestEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用
+     */
+    public ImportCreateTestResponse importCreateTestEx(ImportCreateTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.create.test.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportCreateTestResponse());
     }
 
     /**
