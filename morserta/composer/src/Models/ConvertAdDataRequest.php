@@ -179,7 +179,6 @@ class ConvertAdDataRequest extends Model
     public function validate()
     {
         Model::validateRequired('accountId', $this->accountId, true);
-        Model::validateRequired('muid', $this->muid, true);
         Model::validateRequired('clickId', $this->clickId, true);
         Model::validateRequired('eventCode', $this->eventCode, true);
         Model::validateRequired('eventTime', $this->eventTime, true);

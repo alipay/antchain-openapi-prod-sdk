@@ -165,7 +165,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '2.0.8',
+                    'sdk_version'      => '3.0.1',
                     '_prod_code'       => 'MORSERTA',
                     '_prod_channel'    => 'default',
                 ];
