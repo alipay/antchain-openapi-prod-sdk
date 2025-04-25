@@ -855,7 +855,7 @@ type VerifyApiListRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 3000
-	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty"`
 	// 请求编号
 	Count *int64 `json:"count,omitempty" xml:"count,omitempty"`
 	// 请求时间
@@ -952,6 +952,167 @@ func (s *VerifyApiListResponse) SetStauts(v string) *VerifyApiListResponse {
 
 func (s *VerifyApiListResponse) SetMsg(v string) *VerifyApiListResponse {
 	s.Msg = &v
+	return s
+}
+
+type QueryWorkbenchTestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 3000
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty"`
+	// 请求编号
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty"`
+	// 请求时间
+	Time *string `json:"time,omitempty" xml:"time,omitempty"`
+	// 请求描述
+	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
+	// 操作人
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+}
+
+func (s QueryWorkbenchTestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryWorkbenchTestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryWorkbenchTestRequest) SetAuthToken(v string) *QueryWorkbenchTestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryWorkbenchTestRequest) SetProductInstanceId(v string) *QueryWorkbenchTestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryWorkbenchTestRequest) SetTimeout(v string) *QueryWorkbenchTestRequest {
+	s.Timeout = &v
+	return s
+}
+
+func (s *QueryWorkbenchTestRequest) SetCount(v int64) *QueryWorkbenchTestRequest {
+	s.Count = &v
+	return s
+}
+
+func (s *QueryWorkbenchTestRequest) SetTime(v string) *QueryWorkbenchTestRequest {
+	s.Time = &v
+	return s
+}
+
+func (s *QueryWorkbenchTestRequest) SetDesc(v string) *QueryWorkbenchTestRequest {
+	s.Desc = &v
+	return s
+}
+
+func (s *QueryWorkbenchTestRequest) SetOperator(v string) *QueryWorkbenchTestRequest {
+	s.Operator = &v
+	return s
+}
+
+type QueryWorkbenchTestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态
+	Stauts *string `json:"stauts,omitempty" xml:"stauts,omitempty"`
+	// 描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s QueryWorkbenchTestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryWorkbenchTestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryWorkbenchTestResponse) SetReqMsgId(v string) *QueryWorkbenchTestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryWorkbenchTestResponse) SetResultCode(v string) *QueryWorkbenchTestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryWorkbenchTestResponse) SetResultMsg(v string) *QueryWorkbenchTestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryWorkbenchTestResponse) SetStauts(v string) *QueryWorkbenchTestResponse {
+	s.Stauts = &v
+	return s
+}
+
+func (s *QueryWorkbenchTestResponse) SetMsg(v string) *QueryWorkbenchTestResponse {
+	s.Msg = &v
+	return s
+}
+
+type ImportCreateTestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s ImportCreateTestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportCreateTestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ImportCreateTestRequest) SetAuthToken(v string) *ImportCreateTestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ImportCreateTestRequest) SetProductInstanceId(v string) *ImportCreateTestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type ImportCreateTestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ImportCreateTestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportCreateTestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ImportCreateTestResponse) SetReqMsgId(v string) *ImportCreateTestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ImportCreateTestResponse) SetResultCode(v string) *ImportCreateTestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ImportCreateTestResponse) SetResultMsg(v string) *ImportCreateTestResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -1197,7 +1358,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.9"),
+				"sdk_version":      tea.String("1.3.14"),
 				"_prod_code":       tea.String("DEMOSDK"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1648,6 +1809,74 @@ func (client *Client) VerifyApiListEx(request *VerifyApiListRequest, headers map
 	}
 	_result = &VerifyApiListResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.api.list.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用于个人工作台二期测试使用
+ * Summary: 用于个人工作台二期测试使用
+ */
+func (client *Client) QueryWorkbenchTest(request *QueryWorkbenchTestRequest) (_result *QueryWorkbenchTestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryWorkbenchTestResponse{}
+	_body, _err := client.QueryWorkbenchTestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用于个人工作台二期测试使用
+ * Summary: 用于个人工作台二期测试使用
+ */
+func (client *Client) QueryWorkbenchTestEx(request *QueryWorkbenchTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryWorkbenchTestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryWorkbenchTestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.workbench.test.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用于个人工作台二期测试使用
+ * Summary: 用于个人工作台二期测试使用
+ */
+func (client *Client) ImportCreateTest(request *ImportCreateTestRequest) (_result *ImportCreateTestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ImportCreateTestResponse{}
+	_body, _err := client.ImportCreateTestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用于个人工作台二期测试使用
+ * Summary: 用于个人工作台二期测试使用
+ */
+func (client *Client) ImportCreateTestEx(request *ImportCreateTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportCreateTestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ImportCreateTestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.create.test.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
