@@ -681,7 +681,7 @@ export class VerifyApiListRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 3000
-  timeout: string;
+  timeout?: string;
   // 请求编号
   count?: number;
   // 请求时间
@@ -747,6 +747,136 @@ export class VerifyApiListResponse extends $tea.Model {
       resultMsg: 'string',
       stauts: 'string',
       msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryWorkbenchTestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 3000
+  timeout?: string;
+  // 请求编号
+  count?: number;
+  // 请求时间
+  time?: string;
+  // 请求描述
+  desc?: string;
+  // 操作人
+  operator?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      timeout: 'timeout',
+      count: 'count',
+      time: 'time',
+      desc: 'desc',
+      operator: 'operator',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      timeout: 'string',
+      count: 'number',
+      time: 'string',
+      desc: 'string',
+      operator: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryWorkbenchTestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 状态
+  stauts?: string;
+  // 描述
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      stauts: 'stauts',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      stauts: 'string',
+      msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportCreateTestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportCreateTestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -956,7 +1086,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.9",
+          sdk_version: "1.3.14",
           _prod_code: "DEMOSDK",
           _prod_channel: "default",
         };
@@ -1236,6 +1366,44 @@ export default class Client {
   async verifyApiListEx(request: VerifyApiListRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<VerifyApiListResponse> {
     Util.validateModel(request);
     return $tea.cast<VerifyApiListResponse>(await this.doRequest("1.0", "antchain.demosdk.api.list.verify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new VerifyApiListResponse({}));
+  }
+
+  /**
+   * Description: 用于个人工作台二期测试使用
+   * Summary: 用于个人工作台二期测试使用
+   */
+  async queryWorkbenchTest(request: QueryWorkbenchTestRequest): Promise<QueryWorkbenchTestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryWorkbenchTestEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用于个人工作台二期测试使用
+   * Summary: 用于个人工作台二期测试使用
+   */
+  async queryWorkbenchTestEx(request: QueryWorkbenchTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryWorkbenchTestResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryWorkbenchTestResponse>(await this.doRequest("1.0", "antchain.demosdk.workbench.test.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryWorkbenchTestResponse({}));
+  }
+
+  /**
+   * Description: 用于个人工作台二期测试使用
+   * Summary: 用于个人工作台二期测试使用
+   */
+  async importCreateTest(request: ImportCreateTestRequest): Promise<ImportCreateTestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importCreateTestEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用于个人工作台二期测试使用
+   * Summary: 用于个人工作台二期测试使用
+   */
+  async importCreateTestEx(request: ImportCreateTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportCreateTestResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportCreateTestResponse>(await this.doRequest("1.0", "antchain.demosdk.create.test.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportCreateTestResponse({}));
   }
 
   /**
