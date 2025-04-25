@@ -501,6 +501,43 @@ func (s *AppletRiskModel) SetErrorMsg(v string) *AppletRiskModel {
 	return s
 }
 
+// 进件流程信息
+type ExpandProcessInfo struct {
+	// TENANT_INDIRECT_MAINCLASS(间联类目)
+	// TENANT_ENDPOINT（回调地址）
+	// CUSTOM_SERVICE_INFO（客服信息）
+	// AGENTCUSTOMERPESONINFO（间联客诉人员）
+	// MERCHANT_EXPAND（商户进件）
+	ProcessNode *string `json:"process_node,omitempty" xml:"process_node,omitempty"`
+	// 是否已提交
+	IsSubmitted *bool `json:"is_submitted,omitempty" xml:"is_submitted,omitempty"`
+	// 审核通过
+	AuditStatus *string `json:"audit_status,omitempty" xml:"audit_status,omitempty"`
+}
+
+func (s ExpandProcessInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExpandProcessInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ExpandProcessInfo) SetProcessNode(v string) *ExpandProcessInfo {
+	s.ProcessNode = &v
+	return s
+}
+
+func (s *ExpandProcessInfo) SetIsSubmitted(v bool) *ExpandProcessInfo {
+	s.IsSubmitted = &v
+	return s
+}
+
+func (s *ExpandProcessInfo) SetAuditStatus(v string) *ExpandProcessInfo {
+	s.AuditStatus = &v
+	return s
+}
+
 // 分账关系绑定收入方信息
 type DivideBindingTransInInfo struct {
 	// 分账方支付宝pid
@@ -1052,20 +1089,20 @@ type FundAssertReport struct {
 	AverageTerm *string `json:"average_term,omitempty" xml:"average_term,omitempty" require:"true"`
 	// 状态为取消的账单金额
 	CancelledBillAmount *int64 `json:"cancelled_bill_amount,omitempty" xml:"cancelled_bill_amount,omitempty" require:"true"`
-	// 状态为逾期1天及以上的账单金额
-	BillAmountOverdueBy1dayOrMore *int64 `json:"bill_amount_overdue_by_1day_or_more,omitempty" xml:"bill_amount_overdue_by_1day_or_more,omitempty" require:"true"`
-	// 状态为逾期30天及以上的账单金额
-	BillAmountOverdueBy30DaysOrMore *int64 `json:"bill_amount_overdue_by_30_days_or_more,omitempty" xml:"bill_amount_overdue_by_30_days_or_more,omitempty" require:"true"`
 	// Y期的订单的账单金额
 	TotalBillAmountYPeriod *int64 `json:"total_bill_amount_y_period,omitempty" xml:"total_bill_amount_y_period,omitempty" require:"true"`
 	// 已到Y期订单中Y期平均期限(y期订单的平均期限)
 	AverageTermYPeriod *string `json:"average_term_y_period,omitempty" xml:"average_term_y_period,omitempty" require:"true"`
 	// Y期的订单中状态为取消的账单金额
 	CancelledBillAmountYPeriod *int64 `json:"cancelled_bill_amount_y_period,omitempty" xml:"cancelled_bill_amount_y_period,omitempty" require:"true"`
+	// 状态为逾期1天及以上的账单金额
+	BillAmountOverdueBy1dayOrMore *string `json:"bill_amount_overdue_by1day_or_more,omitempty" xml:"bill_amount_overdue_by1day_or_more,omitempty" require:"true"`
 	// Y期的订单中状态为逾期1天及以上的账单金额
-	BillAmountOverdueBy1dayOrMoreYPeriod *int64 `json:"bill_amount_overdue_by_1day_or_more_y_period,omitempty" xml:"bill_amount_overdue_by_1day_or_more_y_period,omitempty" require:"true"`
+	BillAmountOverdueBy1dayOrMoreYPeriod *string `json:"bill_amount_overdue_by1day_or_more_y_period,omitempty" xml:"bill_amount_overdue_by1day_or_more_y_period,omitempty" require:"true"`
+	// 状态为逾期30天及以上的账单金额
+	BillAmountOverdueBy30DaysOrMore *string `json:"bill_amount_overdue_by30_days_or_more,omitempty" xml:"bill_amount_overdue_by30_days_or_more,omitempty" require:"true"`
 	// Y期的订单中状态为逾期30天及以上的账单金额
-	BillAmountOverdueBy30DaysOrMoreYPeriod *int64 `json:"bill_amount_overdue_by_30_days_or_more_y_period,omitempty" xml:"bill_amount_overdue_by_30_days_or_more_y_period,omitempty" require:"true"`
+	BillAmountOverdueBy30DaysOrMoreYPeriod *string `json:"bill_amount_overdue_by30_days_or_more_y_period,omitempty" xml:"bill_amount_overdue_by30_days_or_more_y_period,omitempty" require:"true"`
 }
 
 func (s FundAssertReport) String() string {
@@ -1096,16 +1133,6 @@ func (s *FundAssertReport) SetCancelledBillAmount(v int64) *FundAssertReport {
 	return s
 }
 
-func (s *FundAssertReport) SetBillAmountOverdueBy1dayOrMore(v int64) *FundAssertReport {
-	s.BillAmountOverdueBy1dayOrMore = &v
-	return s
-}
-
-func (s *FundAssertReport) SetBillAmountOverdueBy30DaysOrMore(v int64) *FundAssertReport {
-	s.BillAmountOverdueBy30DaysOrMore = &v
-	return s
-}
-
 func (s *FundAssertReport) SetTotalBillAmountYPeriod(v int64) *FundAssertReport {
 	s.TotalBillAmountYPeriod = &v
 	return s
@@ -1121,12 +1148,22 @@ func (s *FundAssertReport) SetCancelledBillAmountYPeriod(v int64) *FundAssertRep
 	return s
 }
 
-func (s *FundAssertReport) SetBillAmountOverdueBy1dayOrMoreYPeriod(v int64) *FundAssertReport {
+func (s *FundAssertReport) SetBillAmountOverdueBy1dayOrMore(v string) *FundAssertReport {
+	s.BillAmountOverdueBy1dayOrMore = &v
+	return s
+}
+
+func (s *FundAssertReport) SetBillAmountOverdueBy1dayOrMoreYPeriod(v string) *FundAssertReport {
 	s.BillAmountOverdueBy1dayOrMoreYPeriod = &v
 	return s
 }
 
-func (s *FundAssertReport) SetBillAmountOverdueBy30DaysOrMoreYPeriod(v int64) *FundAssertReport {
+func (s *FundAssertReport) SetBillAmountOverdueBy30DaysOrMore(v string) *FundAssertReport {
+	s.BillAmountOverdueBy30DaysOrMore = &v
+	return s
+}
+
+func (s *FundAssertReport) SetBillAmountOverdueBy30DaysOrMoreYPeriod(v string) *FundAssertReport {
 	s.BillAmountOverdueBy30DaysOrMoreYPeriod = &v
 	return s
 }
@@ -1587,6 +1624,32 @@ func (s *CompanyInfoUpdate) SetContactMobile(v string) *CompanyInfoUpdate {
 
 func (s *CompanyInfoUpdate) SetMerchantType(v string) *CompanyInfoUpdate {
 	s.MerchantType = &v
+	return s
+}
+
+// 公司概要信息
+type CompanySummaryInfo struct {
+	// 社会统一信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+	// 公司名称
+	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty"`
+}
+
+func (s CompanySummaryInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CompanySummaryInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CompanySummaryInfo) SetMerchantId(v string) *CompanySummaryInfo {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *CompanySummaryInfo) SetMerchantName(v string) *CompanySummaryInfo {
+	s.MerchantName = &v
 	return s
 }
 
@@ -2707,6 +2770,74 @@ func (s *OrderMsgInfo) SetMsgCallbackUrl(v string) *OrderMsgInfo {
 
 func (s *OrderMsgInfo) SetNewMsgCallbackUrl(v string) *OrderMsgInfo {
 	s.NewMsgCallbackUrl = &v
+	return s
+}
+
+// 数据下载信息
+type DataDownloadInfo struct {
+	// 商户社会统一信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+	// 流水号
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty"`
+	//  状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// TRADE_PROMISE_BILL: 交易履约账单
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 筛选开始时间
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty"`
+	// 筛选结束时间
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty"`
+	// 任务创建时间
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// 下载结果
+	ResultInfo *string `json:"result_info,omitempty" xml:"result_info,omitempty"`
+}
+
+func (s DataDownloadInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataDownloadInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DataDownloadInfo) SetMerchantId(v string) *DataDownloadInfo {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *DataDownloadInfo) SetBizNo(v string) *DataDownloadInfo {
+	s.BizNo = &v
+	return s
+}
+
+func (s *DataDownloadInfo) SetStatus(v string) *DataDownloadInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *DataDownloadInfo) SetType(v string) *DataDownloadInfo {
+	s.Type = &v
+	return s
+}
+
+func (s *DataDownloadInfo) SetStartTime(v string) *DataDownloadInfo {
+	s.StartTime = &v
+	return s
+}
+
+func (s *DataDownloadInfo) SetEndTime(v string) *DataDownloadInfo {
+	s.EndTime = &v
+	return s
+}
+
+func (s *DataDownloadInfo) SetCreateTime(v string) *DataDownloadInfo {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *DataDownloadInfo) SetResultInfo(v string) *DataDownloadInfo {
+	s.ResultInfo = &v
 	return s
 }
 
@@ -14712,7 +14843,7 @@ type QueryInnerLoggerRequest struct {
 	// 钉钉群id
 	// 租户id
 	// 支付宝uuid
-	ChannelId *string `json:"channel_id,omitempty" xml:"channel_id,omitempty" require:"true"`
+	ChannelAccountId *string `json:"channel_account_id,omitempty" xml:"channel_account_id,omitempty" require:"true"`
 	// traceid
 	TraceId *string `json:"trace_id,omitempty" xml:"trace_id,omitempty"`
 	// 开始时间
@@ -14748,8 +14879,8 @@ func (s *QueryInnerLoggerRequest) SetChannel(v string) *QueryInnerLoggerRequest 
 	return s
 }
 
-func (s *QueryInnerLoggerRequest) SetChannelId(v string) *QueryInnerLoggerRequest {
-	s.ChannelId = &v
+func (s *QueryInnerLoggerRequest) SetChannelAccountId(v string) *QueryInnerLoggerRequest {
+	s.ChannelAccountId = &v
 	return s
 }
 
@@ -14821,6 +14952,430 @@ func (s *QueryInnerLoggerResponse) SetContent(v string) *QueryInnerLoggerRespons
 
 func (s *QueryInnerLoggerResponse) SetTotal(v int64) *QueryInnerLoggerResponse {
 	s.Total = &v
+	return s
+}
+
+type SubmitInnerDatadownloadRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 商户社会统一信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+	// 公司名称
+	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty"`
+	// 开始时间
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
+	// 结束时间
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+	// 下载数据类型
+	// 交易履约账单:TRADE_PROMISE_BILL
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+}
+
+func (s SubmitInnerDatadownloadRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitInnerDatadownloadRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitInnerDatadownloadRequest) SetAuthToken(v string) *SubmitInnerDatadownloadRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitInnerDatadownloadRequest) SetProductInstanceId(v string) *SubmitInnerDatadownloadRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitInnerDatadownloadRequest) SetTenantId(v string) *SubmitInnerDatadownloadRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *SubmitInnerDatadownloadRequest) SetMerchantId(v string) *SubmitInnerDatadownloadRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *SubmitInnerDatadownloadRequest) SetMerchantName(v string) *SubmitInnerDatadownloadRequest {
+	s.MerchantName = &v
+	return s
+}
+
+func (s *SubmitInnerDatadownloadRequest) SetStartTime(v string) *SubmitInnerDatadownloadRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *SubmitInnerDatadownloadRequest) SetEndTime(v string) *SubmitInnerDatadownloadRequest {
+	s.EndTime = &v
+	return s
+}
+
+func (s *SubmitInnerDatadownloadRequest) SetType(v string) *SubmitInnerDatadownloadRequest {
+	s.Type = &v
+	return s
+}
+
+type SubmitInnerDatadownloadResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SubmitInnerDatadownloadResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitInnerDatadownloadResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitInnerDatadownloadResponse) SetReqMsgId(v string) *SubmitInnerDatadownloadResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitInnerDatadownloadResponse) SetResultCode(v string) *SubmitInnerDatadownloadResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitInnerDatadownloadResponse) SetResultMsg(v string) *SubmitInnerDatadownloadResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PagequeryInnerDatadownloadRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 分页参数
+	PageInfo *PageQuery `json:"page_info,omitempty" xml:"page_info,omitempty" require:"true"`
+}
+
+func (s PagequeryInnerDatadownloadRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryInnerDatadownloadRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryInnerDatadownloadRequest) SetAuthToken(v string) *PagequeryInnerDatadownloadRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryInnerDatadownloadRequest) SetProductInstanceId(v string) *PagequeryInnerDatadownloadRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryInnerDatadownloadRequest) SetTenantId(v string) *PagequeryInnerDatadownloadRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *PagequeryInnerDatadownloadRequest) SetStatus(v string) *PagequeryInnerDatadownloadRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *PagequeryInnerDatadownloadRequest) SetPageInfo(v *PageQuery) *PagequeryInnerDatadownloadRequest {
+	s.PageInfo = v
+	return s
+}
+
+type PagequeryInnerDatadownloadResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 下载数据列表
+	DataDownloadInfo []*DataDownloadInfo `json:"data_download_info,omitempty" xml:"data_download_info,omitempty" type:"Repeated"`
+}
+
+func (s PagequeryInnerDatadownloadResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryInnerDatadownloadResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryInnerDatadownloadResponse) SetReqMsgId(v string) *PagequeryInnerDatadownloadResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryInnerDatadownloadResponse) SetResultCode(v string) *PagequeryInnerDatadownloadResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryInnerDatadownloadResponse) SetResultMsg(v string) *PagequeryInnerDatadownloadResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryInnerDatadownloadResponse) SetTotal(v int64) *PagequeryInnerDatadownloadResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *PagequeryInnerDatadownloadResponse) SetDataDownloadInfo(v []*DataDownloadInfo) *PagequeryInnerDatadownloadResponse {
+	s.DataDownloadInfo = v
+	return s
+}
+
+type DeleteInnerDatadownloadRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 流水号
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty" require:"true"`
+}
+
+func (s DeleteInnerDatadownloadRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteInnerDatadownloadRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteInnerDatadownloadRequest) SetAuthToken(v string) *DeleteInnerDatadownloadRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteInnerDatadownloadRequest) SetProductInstanceId(v string) *DeleteInnerDatadownloadRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeleteInnerDatadownloadRequest) SetTenantId(v string) *DeleteInnerDatadownloadRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *DeleteInnerDatadownloadRequest) SetBizNo(v string) *DeleteInnerDatadownloadRequest {
+	s.BizNo = &v
+	return s
+}
+
+type DeleteInnerDatadownloadResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s DeleteInnerDatadownloadResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteInnerDatadownloadResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteInnerDatadownloadResponse) SetReqMsgId(v string) *DeleteInnerDatadownloadResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteInnerDatadownloadResponse) SetResultCode(v string) *DeleteInnerDatadownloadResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteInnerDatadownloadResponse) SetResultMsg(v string) *DeleteInnerDatadownloadResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PagequeryInnerCompanyinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 分页参数
+	PageInfo *PageQuery `json:"page_info,omitempty" xml:"page_info,omitempty" require:"true"`
+}
+
+func (s PagequeryInnerCompanyinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryInnerCompanyinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryInnerCompanyinfoRequest) SetAuthToken(v string) *PagequeryInnerCompanyinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryInnerCompanyinfoRequest) SetProductInstanceId(v string) *PagequeryInnerCompanyinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryInnerCompanyinfoRequest) SetTenantId(v string) *PagequeryInnerCompanyinfoRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *PagequeryInnerCompanyinfoRequest) SetPageInfo(v *PageQuery) *PagequeryInnerCompanyinfoRequest {
+	s.PageInfo = v
+	return s
+}
+
+type PagequeryInnerCompanyinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 公司信息
+	CompanyInfo []*CompanySummaryInfo `json:"company_info,omitempty" xml:"company_info,omitempty" type:"Repeated"`
+}
+
+func (s PagequeryInnerCompanyinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryInnerCompanyinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryInnerCompanyinfoResponse) SetReqMsgId(v string) *PagequeryInnerCompanyinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryInnerCompanyinfoResponse) SetResultCode(v string) *PagequeryInnerCompanyinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryInnerCompanyinfoResponse) SetResultMsg(v string) *PagequeryInnerCompanyinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryInnerCompanyinfoResponse) SetTotal(v int64) *PagequeryInnerCompanyinfoResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *PagequeryInnerCompanyinfoResponse) SetCompanyInfo(v []*CompanySummaryInfo) *PagequeryInnerCompanyinfoResponse {
+	s.CompanyInfo = v
+	return s
+}
+
+type QueryInnerExpandprocessRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 进件类型
+	// DIRECT("DIRECT", "直连进件模式"),
+	// AGENT("AGENT", "代理商进件模式"),
+	//
+	ExpandMode *string `json:"expand_mode,omitempty" xml:"expand_mode,omitempty" require:"true"`
+}
+
+func (s QueryInnerExpandprocessRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryInnerExpandprocessRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryInnerExpandprocessRequest) SetAuthToken(v string) *QueryInnerExpandprocessRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryInnerExpandprocessRequest) SetProductInstanceId(v string) *QueryInnerExpandprocessRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryInnerExpandprocessRequest) SetTenantId(v string) *QueryInnerExpandprocessRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryInnerExpandprocessRequest) SetExpandMode(v string) *QueryInnerExpandprocessRequest {
+	s.ExpandMode = &v
+	return s
+}
+
+type QueryInnerExpandprocessResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 进件流程信息
+	ProcessInfoList []*ExpandProcessInfo `json:"process_info_list,omitempty" xml:"process_info_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryInnerExpandprocessResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryInnerExpandprocessResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryInnerExpandprocessResponse) SetReqMsgId(v string) *QueryInnerExpandprocessResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryInnerExpandprocessResponse) SetResultCode(v string) *QueryInnerExpandprocessResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryInnerExpandprocessResponse) SetResultMsg(v string) *QueryInnerExpandprocessResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryInnerExpandprocessResponse) SetProcessInfoList(v []*ExpandProcessInfo) *QueryInnerExpandprocessResponse {
+	s.ProcessInfoList = v
 	return s
 }
 
@@ -21169,7 +21724,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.14.28"),
+				"sdk_version":      tea.String("1.14.38"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -25204,6 +25759,176 @@ func (client *Client) QueryInnerLoggerEx(request *QueryInnerLoggerRequest, heade
 	}
 	_result = &QueryInnerLoggerResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.logger.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 离线数据下载
+ * Summary: 离线数据下载
+ */
+func (client *Client) SubmitInnerDatadownload(request *SubmitInnerDatadownloadRequest) (_result *SubmitInnerDatadownloadResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitInnerDatadownloadResponse{}
+	_body, _err := client.SubmitInnerDatadownloadEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 离线数据下载
+ * Summary: 离线数据下载
+ */
+func (client *Client) SubmitInnerDatadownloadEx(request *SubmitInnerDatadownloadRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitInnerDatadownloadResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitInnerDatadownloadResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.datadownload.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询数据下载列表
+ * Summary: 查询数据下载列表
+ */
+func (client *Client) PagequeryInnerDatadownload(request *PagequeryInnerDatadownloadRequest) (_result *PagequeryInnerDatadownloadResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryInnerDatadownloadResponse{}
+	_body, _err := client.PagequeryInnerDatadownloadEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询数据下载列表
+ * Summary: 查询数据下载列表
+ */
+func (client *Client) PagequeryInnerDatadownloadEx(request *PagequeryInnerDatadownloadRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryInnerDatadownloadResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryInnerDatadownloadResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.datadownload.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 删除下载任务
+ * Summary: 删除下载任务
+ */
+func (client *Client) DeleteInnerDatadownload(request *DeleteInnerDatadownloadRequest) (_result *DeleteInnerDatadownloadResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteInnerDatadownloadResponse{}
+	_body, _err := client.DeleteInnerDatadownloadEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 删除下载任务
+ * Summary: 删除下载任务
+ */
+func (client *Client) DeleteInnerDatadownloadEx(request *DeleteInnerDatadownloadRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteInnerDatadownloadResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteInnerDatadownloadResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.datadownload.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询公司信息
+ * Summary: 分页查询公司信息
+ */
+func (client *Client) PagequeryInnerCompanyinfo(request *PagequeryInnerCompanyinfoRequest) (_result *PagequeryInnerCompanyinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryInnerCompanyinfoResponse{}
+	_body, _err := client.PagequeryInnerCompanyinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询公司信息
+ * Summary: 分页查询公司信息
+ */
+func (client *Client) PagequeryInnerCompanyinfoEx(request *PagequeryInnerCompanyinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryInnerCompanyinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryInnerCompanyinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.companyinfo.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询商户进件流程节点
+ * Summary: 查询商户进件流程节点
+ */
+func (client *Client) QueryInnerExpandprocess(request *QueryInnerExpandprocessRequest) (_result *QueryInnerExpandprocessResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryInnerExpandprocessResponse{}
+	_body, _err := client.QueryInnerExpandprocessEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询商户进件流程节点
+ * Summary: 查询商户进件流程节点
+ */
+func (client *Client) QueryInnerExpandprocessEx(request *QueryInnerExpandprocessRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryInnerExpandprocessResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryInnerExpandprocessResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.expandprocess.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
