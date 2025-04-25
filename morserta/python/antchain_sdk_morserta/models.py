@@ -334,7 +334,6 @@ class ConvertAdDataRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.account_id, 'account_id')
-        self.validate_required(self.muid, 'muid')
         self.validate_required(self.click_id, 'click_id')
         self.validate_required(self.event_code, 'event_code')
         self.validate_required(self.event_time, 'event_time')
