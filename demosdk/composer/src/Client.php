@@ -17,12 +17,16 @@ use AntChain\DEMOSDK\Models\BindXxxRequest;
 use AntChain\DEMOSDK\Models\BindXxxResponse;
 use AntChain\DEMOSDK\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\DEMOSDK\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\DEMOSDK\Models\ImportAbcdOneRequest;
+use AntChain\DEMOSDK\Models\ImportAbcdOneResponse;
 use AntChain\DEMOSDK\Models\ImportBbbCciRequest;
 use AntChain\DEMOSDK\Models\ImportBbbCciResponse;
 use AntChain\DEMOSDK\Models\ImportCreateTestRequest;
 use AntChain\DEMOSDK\Models\ImportCreateTestResponse;
 use AntChain\DEMOSDK\Models\QueryAaaCcdRequest;
 use AntChain\DEMOSDK\Models\QueryAaaCcdResponse;
+use AntChain\DEMOSDK\Models\QueryAbcdOneRequest;
+use AntChain\DEMOSDK\Models\QueryAbcdOneResponse;
 use AntChain\DEMOSDK\Models\QueryBbbCccRequest;
 use AntChain\DEMOSDK\Models\QueryBbbCccResponse;
 use AntChain\DEMOSDK\Models\QueryCacheLimitRequest;
@@ -184,7 +188,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.14',
+                    'sdk_version'      => '1.3.15',
                     '_prod_code'       => 'DEMOSDK',
                     '_prod_channel'    => 'default',
                 ];
@@ -664,6 +668,72 @@ class Client
         Utils::validateModel($request);
 
         return ImportCreateTestResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.create.test.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人工作台二期测试接口
+     * Summary: 个人工作台二期测试接口.
+     *
+     * @param QueryAbcdOneRequest $request
+     *
+     * @return QueryAbcdOneResponse
+     */
+    public function queryAbcdOne($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAbcdOneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期测试接口
+     * Summary: 个人工作台二期测试接口.
+     *
+     * @param QueryAbcdOneRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return QueryAbcdOneResponse
+     */
+    public function queryAbcdOneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAbcdOneResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.abcd.one.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人工作台二期测试接口
+     * Summary: 个人工作台二期测试接口.
+     *
+     * @param ImportAbcdOneRequest $request
+     *
+     * @return ImportAbcdOneResponse
+     */
+    public function importAbcdOne($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importAbcdOneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期测试接口
+     * Summary: 个人工作台二期测试接口.
+     *
+     * @param ImportAbcdOneRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return ImportAbcdOneResponse
+     */
+    public function importAbcdOneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportAbcdOneResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.abcd.one.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
