@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.14.28',
+                    'sdk_version': '1.14.38',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.14.28',
+                    'sdk_version': '1.14.38',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -6825,6 +6825,286 @@ class Client:
         return TeaCore.from_map(
             ato_models.QueryInnerLoggerResponse(),
             await self.do_request_async('1.0', 'antchain.ato.inner.logger.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_inner_datadownload(
+        self,
+        request: ato_models.SubmitInnerDatadownloadRequest,
+    ) -> ato_models.SubmitInnerDatadownloadResponse:
+        """
+        Description: 离线数据下载
+        Summary: 离线数据下载
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_inner_datadownload_ex(request, headers, runtime)
+
+    async def submit_inner_datadownload_async(
+        self,
+        request: ato_models.SubmitInnerDatadownloadRequest,
+    ) -> ato_models.SubmitInnerDatadownloadResponse:
+        """
+        Description: 离线数据下载
+        Summary: 离线数据下载
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_inner_datadownload_ex_async(request, headers, runtime)
+
+    def submit_inner_datadownload_ex(
+        self,
+        request: ato_models.SubmitInnerDatadownloadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SubmitInnerDatadownloadResponse:
+        """
+        Description: 离线数据下载
+        Summary: 离线数据下载
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SubmitInnerDatadownloadResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.datadownload.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_inner_datadownload_ex_async(
+        self,
+        request: ato_models.SubmitInnerDatadownloadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SubmitInnerDatadownloadResponse:
+        """
+        Description: 离线数据下载
+        Summary: 离线数据下载
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SubmitInnerDatadownloadResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.datadownload.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_inner_datadownload(
+        self,
+        request: ato_models.PagequeryInnerDatadownloadRequest,
+    ) -> ato_models.PagequeryInnerDatadownloadResponse:
+        """
+        Description: 查询数据下载列表
+        Summary: 查询数据下载列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_inner_datadownload_ex(request, headers, runtime)
+
+    async def pagequery_inner_datadownload_async(
+        self,
+        request: ato_models.PagequeryInnerDatadownloadRequest,
+    ) -> ato_models.PagequeryInnerDatadownloadResponse:
+        """
+        Description: 查询数据下载列表
+        Summary: 查询数据下载列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_inner_datadownload_ex_async(request, headers, runtime)
+
+    def pagequery_inner_datadownload_ex(
+        self,
+        request: ato_models.PagequeryInnerDatadownloadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerDatadownloadResponse:
+        """
+        Description: 查询数据下载列表
+        Summary: 查询数据下载列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerDatadownloadResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.datadownload.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_inner_datadownload_ex_async(
+        self,
+        request: ato_models.PagequeryInnerDatadownloadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerDatadownloadResponse:
+        """
+        Description: 查询数据下载列表
+        Summary: 查询数据下载列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerDatadownloadResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.datadownload.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_inner_datadownload(
+        self,
+        request: ato_models.DeleteInnerDatadownloadRequest,
+    ) -> ato_models.DeleteInnerDatadownloadResponse:
+        """
+        Description: 删除下载任务
+        Summary: 删除下载任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_inner_datadownload_ex(request, headers, runtime)
+
+    async def delete_inner_datadownload_async(
+        self,
+        request: ato_models.DeleteInnerDatadownloadRequest,
+    ) -> ato_models.DeleteInnerDatadownloadResponse:
+        """
+        Description: 删除下载任务
+        Summary: 删除下载任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_inner_datadownload_ex_async(request, headers, runtime)
+
+    def delete_inner_datadownload_ex(
+        self,
+        request: ato_models.DeleteInnerDatadownloadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DeleteInnerDatadownloadResponse:
+        """
+        Description: 删除下载任务
+        Summary: 删除下载任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DeleteInnerDatadownloadResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.datadownload.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_inner_datadownload_ex_async(
+        self,
+        request: ato_models.DeleteInnerDatadownloadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DeleteInnerDatadownloadResponse:
+        """
+        Description: 删除下载任务
+        Summary: 删除下载任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DeleteInnerDatadownloadResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.datadownload.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_inner_companyinfo(
+        self,
+        request: ato_models.PagequeryInnerCompanyinfoRequest,
+    ) -> ato_models.PagequeryInnerCompanyinfoResponse:
+        """
+        Description: 分页查询公司信息
+        Summary: 分页查询公司信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_inner_companyinfo_ex(request, headers, runtime)
+
+    async def pagequery_inner_companyinfo_async(
+        self,
+        request: ato_models.PagequeryInnerCompanyinfoRequest,
+    ) -> ato_models.PagequeryInnerCompanyinfoResponse:
+        """
+        Description: 分页查询公司信息
+        Summary: 分页查询公司信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_inner_companyinfo_ex_async(request, headers, runtime)
+
+    def pagequery_inner_companyinfo_ex(
+        self,
+        request: ato_models.PagequeryInnerCompanyinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerCompanyinfoResponse:
+        """
+        Description: 分页查询公司信息
+        Summary: 分页查询公司信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerCompanyinfoResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.companyinfo.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_inner_companyinfo_ex_async(
+        self,
+        request: ato_models.PagequeryInnerCompanyinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerCompanyinfoResponse:
+        """
+        Description: 分页查询公司信息
+        Summary: 分页查询公司信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerCompanyinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.companyinfo.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_expandprocess(
+        self,
+        request: ato_models.QueryInnerExpandprocessRequest,
+    ) -> ato_models.QueryInnerExpandprocessResponse:
+        """
+        Description: 查询商户进件流程节点
+        Summary: 查询商户进件流程节点
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_expandprocess_ex(request, headers, runtime)
+
+    async def query_inner_expandprocess_async(
+        self,
+        request: ato_models.QueryInnerExpandprocessRequest,
+    ) -> ato_models.QueryInnerExpandprocessResponse:
+        """
+        Description: 查询商户进件流程节点
+        Summary: 查询商户进件流程节点
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_expandprocess_ex_async(request, headers, runtime)
+
+    def query_inner_expandprocess_ex(
+        self,
+        request: ato_models.QueryInnerExpandprocessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerExpandprocessResponse:
+        """
+        Description: 查询商户进件流程节点
+        Summary: 查询商户进件流程节点
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerExpandprocessResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.expandprocess.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_expandprocess_ex_async(
+        self,
+        request: ato_models.QueryInnerExpandprocessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerExpandprocessResponse:
+        """
+        Description: 查询商户进件流程节点
+        Summary: 查询商户进件流程节点
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerExpandprocessResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.expandprocess.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_insure(
