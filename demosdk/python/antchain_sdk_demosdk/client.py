@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.9',
+                    'sdk_version': '1.3.14',
                     '_prod_code': 'DEMOSDK',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.9',
+                    'sdk_version': '1.3.14',
                     '_prod_code': 'DEMOSDK',
                     '_prod_channel': 'default'
                 }
@@ -905,6 +905,118 @@ class Client:
         return TeaCore.from_map(
             demosdk_models.VerifyApiListResponse(),
             await self.do_request_async('1.0', 'antchain.demosdk.api.list.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_workbench_test(
+        self,
+        request: demosdk_models.QueryWorkbenchTestRequest,
+    ) -> demosdk_models.QueryWorkbenchTestResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_workbench_test_ex(request, headers, runtime)
+
+    async def query_workbench_test_async(
+        self,
+        request: demosdk_models.QueryWorkbenchTestRequest,
+    ) -> demosdk_models.QueryWorkbenchTestResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_workbench_test_ex_async(request, headers, runtime)
+
+    def query_workbench_test_ex(
+        self,
+        request: demosdk_models.QueryWorkbenchTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryWorkbenchTestResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryWorkbenchTestResponse(),
+            self.do_request('1.0', 'antchain.demosdk.workbench.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_workbench_test_ex_async(
+        self,
+        request: demosdk_models.QueryWorkbenchTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryWorkbenchTestResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryWorkbenchTestResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.workbench.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_create_test(
+        self,
+        request: demosdk_models.ImportCreateTestRequest,
+    ) -> demosdk_models.ImportCreateTestResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_create_test_ex(request, headers, runtime)
+
+    async def import_create_test_async(
+        self,
+        request: demosdk_models.ImportCreateTestRequest,
+    ) -> demosdk_models.ImportCreateTestResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_create_test_ex_async(request, headers, runtime)
+
+    def import_create_test_ex(
+        self,
+        request: demosdk_models.ImportCreateTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ImportCreateTestResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ImportCreateTestResponse(),
+            self.do_request('1.0', 'antchain.demosdk.create.test.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_create_test_ex_async(
+        self,
+        request: demosdk_models.ImportCreateTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ImportCreateTestResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ImportCreateTestResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.create.test.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
