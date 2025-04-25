@@ -19,7 +19,6 @@ public class ConvertAdDataRequest extends TeaModel {
 
     // 设备ID（imei或idfa的加密值）
     @NameInMap("muid")
-    @Validation(required = true)
     public String muid;
 
     // 点击ID
