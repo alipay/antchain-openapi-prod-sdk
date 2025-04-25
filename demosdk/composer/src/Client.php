@@ -19,6 +19,8 @@ use AntChain\DEMOSDK\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\DEMOSDK\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\DEMOSDK\Models\ImportBbbCciRequest;
 use AntChain\DEMOSDK\Models\ImportBbbCciResponse;
+use AntChain\DEMOSDK\Models\ImportCreateTestRequest;
+use AntChain\DEMOSDK\Models\ImportCreateTestResponse;
 use AntChain\DEMOSDK\Models\QueryAaaCcdRequest;
 use AntChain\DEMOSDK\Models\QueryAaaCcdResponse;
 use AntChain\DEMOSDK\Models\QueryBbbCccRequest;
@@ -29,6 +31,8 @@ use AntChain\DEMOSDK\Models\QueryCcXxRequest;
 use AntChain\DEMOSDK\Models\QueryCcXxResponse;
 use AntChain\DEMOSDK\Models\QueryTimeLimitRequest;
 use AntChain\DEMOSDK\Models\QueryTimeLimitResponse;
+use AntChain\DEMOSDK\Models\QueryWorkbenchTestRequest;
+use AntChain\DEMOSDK\Models\QueryWorkbenchTestResponse;
 use AntChain\DEMOSDK\Models\ResetBbbCccRequest;
 use AntChain\DEMOSDK\Models\ResetBbbCccResponse;
 use AntChain\DEMOSDK\Models\VerifyApiListRequest;
@@ -180,7 +184,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.9',
+                    'sdk_version'      => '1.3.14',
                     '_prod_code'       => 'DEMOSDK',
                     '_prod_channel'    => 'default',
                 ];
@@ -594,6 +598,72 @@ class Client
         Utils::validateModel($request);
 
         return VerifyApiListResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.api.list.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用.
+     *
+     * @param QueryWorkbenchTestRequest $request
+     *
+     * @return QueryWorkbenchTestResponse
+     */
+    public function queryWorkbenchTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryWorkbenchTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用.
+     *
+     * @param QueryWorkbenchTestRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryWorkbenchTestResponse
+     */
+    public function queryWorkbenchTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryWorkbenchTestResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.workbench.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用.
+     *
+     * @param ImportCreateTestRequest $request
+     *
+     * @return ImportCreateTestResponse
+     */
+    public function importCreateTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importCreateTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用.
+     *
+     * @param ImportCreateTestRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return ImportCreateTestResponse
+     */
+    public function importCreateTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportCreateTestResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.create.test.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
