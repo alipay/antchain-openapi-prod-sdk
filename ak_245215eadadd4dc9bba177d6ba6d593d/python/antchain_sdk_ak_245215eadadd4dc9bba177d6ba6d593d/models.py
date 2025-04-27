@@ -677,6 +677,8 @@ class ScriptVoiceConfig(TeaModel):
         audio_url: str = None,
         volume: str = None,
         pitch: str = None,
+        driver_type: str = None,
+        emotion: str = None,
     ):
         # 音色id，合成驱动选择text时必填
         self.voice_id = voice_id
@@ -690,6 +692,10 @@ class ScriptVoiceConfig(TeaModel):
         self.volume = volume
         # 音调，[0.1, 3]，默认为1，通常保留一位小数即可
         self.pitch = pitch
+        # 驱动类型
+        self.driver_type = driver_type
+        # 情绪
+        self.emotion = emotion
 
     def validate(self):
         pass
@@ -712,6 +718,10 @@ class ScriptVoiceConfig(TeaModel):
             result['volume'] = self.volume
         if self.pitch is not None:
             result['pitch'] = self.pitch
+        if self.driver_type is not None:
+            result['driver_type'] = self.driver_type
+        if self.emotion is not None:
+            result['emotion'] = self.emotion
         return result
 
     def from_map(self, m: dict = None):
@@ -728,6 +738,10 @@ class ScriptVoiceConfig(TeaModel):
             self.volume = m.get('volume')
         if m.get('pitch') is not None:
             self.pitch = m.get('pitch')
+        if m.get('driver_type') is not None:
+            self.driver_type = m.get('driver_type')
+        if m.get('emotion') is not None:
+            self.emotion = m.get('emotion')
         return self
 
 
@@ -1395,6 +1409,7 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
         video_format: str = None,
         width: int = None,
         return_captions: bool = None,
+        script_voice_config_list: List[ScriptVoiceConfig] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1425,13 +1440,13 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
         self.width = width
         # 是否返回字幕时间戳，但不合成到视频画面里面
         self.return_captions = return_captions
+        # 多场景--话术语音配置列表
+        self.script_voice_config_list = script_voice_config_list
 
     def validate(self):
         self.validate_required(self.avatar_id, 'avatar_id')
-        self.validate_required(self.driver_type, 'driver_type')
         if self.profile_info:
             self.profile_info.validate()
-        self.validate_required(self.script_voice_config, 'script_voice_config')
         if self.script_voice_config:
             self.script_voice_config.validate()
         self.validate_required(self.open_captions, 'open_captions')
@@ -1441,6 +1456,10 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
             self.background.validate()
         if self.pasters:
             for k in self.pasters:
+                if k:
+                    k.validate()
+        if self.script_voice_config_list:
+            for k in self.script_voice_config_list:
                 if k:
                     k.validate()
 
@@ -1482,6 +1501,10 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
             result['width'] = self.width
         if self.return_captions is not None:
             result['return_captions'] = self.return_captions
+        result['script_voice_config_list'] = []
+        if self.script_voice_config_list is not None:
+            for k in self.script_voice_config_list:
+                result['script_voice_config_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -1523,6 +1546,11 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
             self.width = m.get('width')
         if m.get('return_captions') is not None:
             self.return_captions = m.get('return_captions')
+        self.script_voice_config_list = []
+        if m.get('script_voice_config_list') is not None:
+            for k in m.get('script_voice_config_list'):
+                temp_model = ScriptVoiceConfig()
+                self.script_voice_config_list.append(temp_model.from_map(k))
         return self
 
 
