@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.30',
+                    'sdk_version': '1.1.31',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.30',
+                    'sdk_version': '1.1.31',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -1823,6 +1823,62 @@ class Client:
             await self.do_request_async('1.0', 'demo.ip.retry.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_test_time_testa(
+        self,
+        request: demo_models.QueryTestTimeTestaRequest,
+    ) -> demo_models.QueryTestTimeTestaResponse:
+        """
+        Description: 个人工作台二期测试
+        Summary: 个人工作台二期测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_test_time_testa_ex(request, headers, runtime)
+
+    async def query_test_time_testa_async(
+        self,
+        request: demo_models.QueryTestTimeTestaRequest,
+    ) -> demo_models.QueryTestTimeTestaResponse:
+        """
+        Description: 个人工作台二期测试
+        Summary: 个人工作台二期测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_test_time_testa_ex_async(request, headers, runtime)
+
+    def query_test_time_testa_ex(
+        self,
+        request: demo_models.QueryTestTimeTestaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryTestTimeTestaResponse:
+        """
+        Description: 个人工作台二期测试
+        Summary: 个人工作台二期测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryTestTimeTestaResponse(),
+            self.do_request('1.0', 'demo.test.time.testa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_test_time_testa_ex_async(
+        self,
+        request: demo_models.QueryTestTimeTestaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryTestTimeTestaResponse:
+        """
+        Description: 个人工作台二期测试
+        Summary: 个人工作台二期测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryTestTimeTestaResponse(),
+            await self.do_request_async('1.0', 'demo.test.time.testa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_stream_testmethod(
         self,
         request: demo_models.QueryStreamTestmethodRequest,
@@ -2381,6 +2437,62 @@ class Client:
         return TeaCore.from_map(
             demo_models.CheckAicoguardcoreAicoguardrailsQuestionResponse(),
             await self.do_request_async('1.0', 'demo.aicoguardcore.aicoguardrails.question.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_test_time_menhu(
+        self,
+        request: demo_models.QueryTestTimeMenhuRequest,
+    ) -> demo_models.QueryTestTimeMenhuResponse:
+        """
+        Description: 个人工作台二期测试
+        Summary: 个人工作台二期测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_test_time_menhu_ex(request, headers, runtime)
+
+    async def query_test_time_menhu_async(
+        self,
+        request: demo_models.QueryTestTimeMenhuRequest,
+    ) -> demo_models.QueryTestTimeMenhuResponse:
+        """
+        Description: 个人工作台二期测试
+        Summary: 个人工作台二期测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_test_time_menhu_ex_async(request, headers, runtime)
+
+    def query_test_time_menhu_ex(
+        self,
+        request: demo_models.QueryTestTimeMenhuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryTestTimeMenhuResponse:
+        """
+        Description: 个人工作台二期测试
+        Summary: 个人工作台二期测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryTestTimeMenhuResponse(),
+            self.do_request('1.0', 'demo.test.time.menhu.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_test_time_menhu_ex_async(
+        self,
+        request: demo_models.QueryTestTimeMenhuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryTestTimeMenhuResponse:
+        """
+        Description: 个人工作台二期测试
+        Summary: 个人工作台二期测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryTestTimeMenhuResponse(),
+            await self.do_request_async('1.0', 'demo.test.time.menhu.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def bind_aaa_bbb_ccc(
