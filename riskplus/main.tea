@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.23.7',
+    sdk_version = '1.23.9',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -246,6 +246,18 @@ model RtopTypeDistribution {
   levelDistribution: [ RtopLevelDistribution ](name='levelDistribution', example='undefined'),
   // 类型
   type: string(name='type', example='MLM'),
+}
+
+// 营销盾离线圈客任务详细信息
+model UmktOfflineDecisionTaskDetailInfo {
+  // 任务id
+  taskId: long(name='task_id', example='1'),
+  // 圈客计划id
+  decisionPlanId: long(name='decision_plan_id', example=''),
+  // 圈客结果状态
+  decisionResultStatus: string(name='decision_result_status', example='D'),
+  // 圈客结果状态描述
+  statusRemark: string(name='status_remark', example='已完成'),
 }
 
 // 营销盾触达媒介参数信息
@@ -1124,18 +1136,6 @@ model CompanyInfo {
   platform: string(name='platform', example=' [{"platform_name":"ptp","platform_states":"平台状态"}]'),
 }
 
-// 营销盾离线圈客任务详细信息
-model UmktOfflineDecisionTaskDetailInfo {
-  // 任务id
-  taskId: long(name='task_id', example='1'),
-  // 圈客计划id
-  decisionPlanId: long(name='decision_plan_id', example=''),
-  // 圈客结果状态
-  decisionResultStatus: string(name='decision_result_status', example='D'),
-  // 圈客结果状态描述
-  statusRemark: string(name='status_remark', example='已完成'),
-}
-
 // 营销盾事件信息同步详情
 model EventResultSyncDetail {
   // 事件唯一id（单个租户全局唯一）
@@ -1652,6 +1652,14 @@ model CustomerBankCardInfo {
   signed?: string(name='signed', example='Y/N'),
   // 是否为账户代扣银行卡
   acctBankCard?: string(name='acct_bank_card', example='Y/N'),
+}
+
+// 营销盾离线圈客执行批次信息
+model UmktOfflineDecisionTaskExecBatchInfo {
+  // 执行批次
+  execBatch: string(name='exec_batch', example='202501011930'),
+  // 批次下任务列表
+  offlineDecisionTaskDetailInfoList: [ UmktOfflineDecisionTaskDetailInfo ](name='offline_decision_task_detail_info_list', example=''),
 }
 
 // 供应商
@@ -9004,6 +9012,46 @@ async function pushRpaasReportAnswerEx(request: PushRpaasReportAnswerRequest, he
   return doRequest('1.0' ,'riskplus.rpaas.report.answer.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryRpaasOpenServiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 开放服务ID
+  serviceId: string(name='service_id'),
+  // { "companyId": "2088" }
+  params?: string(name='params'),
+}
+
+model QueryRpaasOpenServiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 调用结果
+  body?: string(name='body'),
+}
+
+/**
+ * Description: 企管盾云开放平台服务调用
+ * Summary: 企管盾云开放平台服务调用
+ */
+async function queryRpaasOpenService(request: QueryRpaasOpenServiceRequest): QueryRpaasOpenServiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRpaasOpenServiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企管盾云开放平台服务调用
+ * Summary: 企管盾云开放平台服务调用
+ */
+async function queryRpaasOpenServiceEx(request: QueryRpaasOpenServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRpaasOpenServiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rpaas.open.service.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryRpgwSignUrlRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -12597,7 +12645,7 @@ model QueryUmktOfflinedecisionResultResponse = {
   // 已完成的计划策略集合
   decisionPlanIdList?: [ long ](name='decision_plan_id_list'),
   // 批次维度圈客任务结果
-  taskExecBatchInfo?: [ UmktOfflineDecisionTaskDetailInfo ](name='task_exec_batch_info'),
+  taskExecBatchInfo?: [ UmktOfflineDecisionTaskExecBatchInfo ](name='task_exec_batch_info'),
 }
 
 /**
@@ -12687,7 +12735,7 @@ model QueryUmktOfflinedecisionPlandetailsResponse = {
   // 离线圈客计划详细
   planDetailList?: [ OfflineDecisionPlanDetail ](name='plan_detail_list'),
   // 执行批次维度任务详情信息
-  taskExecBatchInfo?: [ UmktOfflineDecisionTaskDetailInfo ](name='task_exec_batch_info'),
+  taskExecBatchInfo?: [ UmktOfflineDecisionTaskExecBatchInfo ](name='task_exec_batch_info'),
 }
 
 /**
