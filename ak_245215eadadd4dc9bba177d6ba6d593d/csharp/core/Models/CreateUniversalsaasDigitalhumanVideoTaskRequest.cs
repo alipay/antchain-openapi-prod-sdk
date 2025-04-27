@@ -30,7 +30,7 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
 
         // text/audio, 合成驱动--文本/音频
         [NameInMap("driver_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string DriverType { get; set; }
 
         // 形象设置
@@ -40,7 +40,7 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
 
         // 话术脚本语音配置
         [NameInMap("script_voice_config")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public ScriptVoiceConfig ScriptVoiceConfig { get; set; }
 
         // 是否开启字幕
@@ -82,6 +82,11 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
         [NameInMap("return_captions")]
         [Validation(Required=false)]
         public bool? ReturnCaptions { get; set; }
+
+        // 多场景--话术语音配置列表
+        [NameInMap("script_voice_config_list")]
+        [Validation(Required=false)]
+        public List<ScriptVoiceConfig> ScriptVoiceConfigList { get; set; }
 
     }
 

@@ -40,6 +40,16 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
         [Validation(Required=false)]
         public string Pitch { get; set; }
 
+        // 驱动类型
+        [NameInMap("driver_type")]
+        [Validation(Required=false)]
+        public string DriverType { get; set; }
+
+        // 情绪
+        [NameInMap("emotion")]
+        [Validation(Required=false)]
+        public string Emotion { get; set; }
+
     }
 
 }
