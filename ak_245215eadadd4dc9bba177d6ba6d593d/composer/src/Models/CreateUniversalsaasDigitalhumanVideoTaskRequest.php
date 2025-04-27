@@ -96,29 +96,34 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
      * @var bool
      */
     public $returnCaptions;
+
+    // 多场景--话术语音配置列表
+    /**
+     * @var ScriptVoiceConfig[]
+     */
+    public $scriptVoiceConfigList;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'height'            => 'height',
-        'avatarId'          => 'avatar_id',
-        'driverType'        => 'driver_type',
-        'profileInfo'       => 'profile_info',
-        'scriptVoiceConfig' => 'script_voice_config',
-        'openCaptions'      => 'open_captions',
-        'captionsInfo'      => 'captions_info',
-        'replaceSensitive'  => 'replace_sensitive',
-        'background'        => 'background',
-        'pasters'           => 'pasters',
-        'videoFormat'       => 'video_format',
-        'width'             => 'width',
-        'returnCaptions'    => 'return_captions',
+        'authToken'             => 'auth_token',
+        'productInstanceId'     => 'product_instance_id',
+        'height'                => 'height',
+        'avatarId'              => 'avatar_id',
+        'driverType'            => 'driver_type',
+        'profileInfo'           => 'profile_info',
+        'scriptVoiceConfig'     => 'script_voice_config',
+        'openCaptions'          => 'open_captions',
+        'captionsInfo'          => 'captions_info',
+        'replaceSensitive'      => 'replace_sensitive',
+        'background'            => 'background',
+        'pasters'               => 'pasters',
+        'videoFormat'           => 'video_format',
+        'width'                 => 'width',
+        'returnCaptions'        => 'return_captions',
+        'scriptVoiceConfigList' => 'script_voice_config_list',
     ];
 
     public function validate()
     {
         Model::validateRequired('avatarId', $this->avatarId, true);
-        Model::validateRequired('driverType', $this->driverType, true);
-        Model::validateRequired('scriptVoiceConfig', $this->scriptVoiceConfig, true);
         Model::validateRequired('openCaptions', $this->openCaptions, true);
     }
 
@@ -175,6 +180,15 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
         }
         if (null !== $this->returnCaptions) {
             $res['return_captions'] = $this->returnCaptions;
+        }
+        if (null !== $this->scriptVoiceConfigList) {
+            $res['script_voice_config_list'] = [];
+            if (null !== $this->scriptVoiceConfigList && \is_array($this->scriptVoiceConfigList)) {
+                $n = 0;
+                foreach ($this->scriptVoiceConfigList as $item) {
+                    $res['script_voice_config_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -238,6 +252,15 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
         }
         if (isset($map['return_captions'])) {
             $model->returnCaptions = $map['return_captions'];
+        }
+        if (isset($map['script_voice_config_list'])) {
+            if (!empty($map['script_voice_config_list'])) {
+                $model->scriptVoiceConfigList = [];
+                $n                            = 0;
+                foreach ($map['script_voice_config_list'] as $item) {
+                    $model->scriptVoiceConfigList[$n++] = null !== $item ? ScriptVoiceConfig::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

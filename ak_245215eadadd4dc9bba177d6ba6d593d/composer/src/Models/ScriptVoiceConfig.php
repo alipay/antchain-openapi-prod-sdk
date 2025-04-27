@@ -55,13 +55,31 @@ class ScriptVoiceConfig extends Model
      * @var string
      */
     public $pitch;
+
+    // 驱动类型
+    /**
+     * @example text/audio
+     *
+     * @var string
+     */
+    public $driverType;
+
+    // 情绪
+    /**
+     * @example ["happy", "sad", "angry", "fearful", "disgusted", "surprised", "neutral"]
+     *
+     * @var string
+     */
+    public $emotion;
     protected $_name = [
-        'voiceId'  => 'voice_id',
-        'text'     => 'text',
-        'speed'    => 'speed',
-        'audioUrl' => 'audio_url',
-        'volume'   => 'volume',
-        'pitch'    => 'pitch',
+        'voiceId'    => 'voice_id',
+        'text'       => 'text',
+        'speed'      => 'speed',
+        'audioUrl'   => 'audio_url',
+        'volume'     => 'volume',
+        'pitch'      => 'pitch',
+        'driverType' => 'driver_type',
+        'emotion'    => 'emotion',
     ];
 
     public function validate()
@@ -88,6 +106,12 @@ class ScriptVoiceConfig extends Model
         }
         if (null !== $this->pitch) {
             $res['pitch'] = $this->pitch;
+        }
+        if (null !== $this->driverType) {
+            $res['driver_type'] = $this->driverType;
+        }
+        if (null !== $this->emotion) {
+            $res['emotion'] = $this->emotion;
         }
 
         return $res;
@@ -118,6 +142,12 @@ class ScriptVoiceConfig extends Model
         }
         if (isset($map['pitch'])) {
             $model->pitch = $map['pitch'];
+        }
+        if (isset($map['driver_type'])) {
+            $model->driverType = $map['driver_type'];
+        }
+        if (isset($map['emotion'])) {
+            $model->emotion = $map['emotion'];
         }
 
         return $model;
