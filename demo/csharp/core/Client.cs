@@ -137,7 +137,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.30"},
+                        {"sdk_version", "1.1.31"},
                         {"_prod_code", "DEMO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.30"},
+                        {"sdk_version", "1.1.31"},
                         {"_prod_code", "DEMO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1504,6 +1504,48 @@ namespace AntChain.SDK.DEMO
         }
 
         /**
+         * Description: 个人工作台二期测试
+         * Summary: 个人工作台二期测试
+         */
+        public QueryTestTimeTestaResponse QueryTestTimeTesta(QueryTestTimeTestaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTestTimeTestaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人工作台二期测试
+         * Summary: 个人工作台二期测试
+         */
+        public async Task<QueryTestTimeTestaResponse> QueryTestTimeTestaAsync(QueryTestTimeTestaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTestTimeTestaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人工作台二期测试
+         * Summary: 个人工作台二期测试
+         */
+        public QueryTestTimeTestaResponse QueryTestTimeTestaEx(QueryTestTimeTestaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTestTimeTestaResponse>(DoRequest("1.0", "demo.test.time.testa.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人工作台二期测试
+         * Summary: 个人工作台二期测试
+         */
+        public async Task<QueryTestTimeTestaResponse> QueryTestTimeTestaExAsync(QueryTestTimeTestaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTestTimeTestaResponse>(await DoRequestAsync("1.0", "demo.test.time.testa.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 流式处理
          * Summary: 流式处理
          */
@@ -1921,6 +1963,48 @@ namespace AntChain.SDK.DEMO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CheckAicoguardcoreAicoguardrailsQuestionResponse>(await DoRequestAsync("1.0", "demo.aicoguardcore.aicoguardrails.question.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人工作台二期测试
+         * Summary: 个人工作台二期测试
+         */
+        public QueryTestTimeMenhuResponse QueryTestTimeMenhu(QueryTestTimeMenhuRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTestTimeMenhuEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人工作台二期测试
+         * Summary: 个人工作台二期测试
+         */
+        public async Task<QueryTestTimeMenhuResponse> QueryTestTimeMenhuAsync(QueryTestTimeMenhuRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTestTimeMenhuExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人工作台二期测试
+         * Summary: 个人工作台二期测试
+         */
+        public QueryTestTimeMenhuResponse QueryTestTimeMenhuEx(QueryTestTimeMenhuRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTestTimeMenhuResponse>(DoRequest("1.0", "demo.test.time.menhu.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人工作台二期测试
+         * Summary: 个人工作台二期测试
+         */
+        public async Task<QueryTestTimeMenhuResponse> QueryTestTimeMenhuExAsync(QueryTestTimeMenhuRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTestTimeMenhuResponse>(await DoRequestAsync("1.0", "demo.test.time.menhu.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
