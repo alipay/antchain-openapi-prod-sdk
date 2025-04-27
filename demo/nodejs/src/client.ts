@@ -2712,6 +2712,57 @@ export class QueryIpRetryResponse extends $tea.Model {
   }
 }
 
+export class QueryTestTimeTestaRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTestTimeTestaResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryStreamTestmethodRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3350,6 +3401,57 @@ export class CheckAicoguardcoreAicoguardrailsQuestionResponse extends $tea.Model
   }
 }
 
+export class QueryTestTimeMenhuRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTestTimeMenhuResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class BindAaaBbbCccRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3767,7 +3869,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.30",
+          sdk_version: "1.1.31",
           _prod_code: "DEMO",
           _prod_channel: "undefined",
         };
@@ -4351,6 +4453,25 @@ export default class Client {
   }
 
   /**
+   * Description: 个人工作台二期测试
+   * Summary: 个人工作台二期测试
+   */
+  async queryTestTimeTesta(request: QueryTestTimeTestaRequest): Promise<QueryTestTimeTestaResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryTestTimeTestaEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人工作台二期测试
+   * Summary: 个人工作台二期测试
+   */
+  async queryTestTimeTestaEx(request: QueryTestTimeTestaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTestTimeTestaResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryTestTimeTestaResponse>(await this.doRequest("1.0", "demo.test.time.testa.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTestTimeTestaResponse({}));
+  }
+
+  /**
    * Description: 流式处理
    * Summary: 流式处理
    */
@@ -4538,6 +4659,25 @@ export default class Client {
   async checkAicoguardcoreAicoguardrailsQuestionEx(request: CheckAicoguardcoreAicoguardrailsQuestionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckAicoguardcoreAicoguardrailsQuestionResponse> {
     Util.validateModel(request);
     return $tea.cast<CheckAicoguardcoreAicoguardrailsQuestionResponse>(await this.doRequest("1.0", "demo.aicoguardcore.aicoguardrails.question.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckAicoguardcoreAicoguardrailsQuestionResponse({}));
+  }
+
+  /**
+   * Description: 个人工作台二期测试
+   * Summary: 个人工作台二期测试
+   */
+  async queryTestTimeMenhu(request: QueryTestTimeMenhuRequest): Promise<QueryTestTimeMenhuResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryTestTimeMenhuEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人工作台二期测试
+   * Summary: 个人工作台二期测试
+   */
+  async queryTestTimeMenhuEx(request: QueryTestTimeMenhuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTestTimeMenhuResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryTestTimeMenhuResponse>(await this.doRequest("1.0", "demo.test.time.menhu.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTestTimeMenhuResponse({}));
   }
 
   /**
