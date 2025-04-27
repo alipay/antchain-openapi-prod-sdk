@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.0',
+                    'sdk_version': '1.19.4',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.16.0',
+                    'sdk_version': '1.19.4',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -2641,6 +2641,434 @@ class Client:
         return TeaCore.from_map(
             realperson_models.BindCarrierRepairmobileResponse(),
             await self.do_request_async('1.0', 'di.realperson.carrier.repairmobile.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_ext_orgdata(
+        self,
+        request: realperson_models.ApplyExtOrgdataRequest,
+    ) -> realperson_models.ApplyExtOrgdataResponse:
+        """
+        Description: 外部机构数据上报
+        Summary: 外部机构数据上报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_ext_orgdata_ex(request, headers, runtime)
+
+    async def apply_ext_orgdata_async(
+        self,
+        request: realperson_models.ApplyExtOrgdataRequest,
+    ) -> realperson_models.ApplyExtOrgdataResponse:
+        """
+        Description: 外部机构数据上报
+        Summary: 外部机构数据上报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_ext_orgdata_ex_async(request, headers, runtime)
+
+    def apply_ext_orgdata_ex(
+        self,
+        request: realperson_models.ApplyExtOrgdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.ApplyExtOrgdataResponse:
+        """
+        Description: 外部机构数据上报
+        Summary: 外部机构数据上报
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.ApplyExtOrgdataResponse(),
+            self.do_request('1.0', 'di.realperson.ext.orgdata.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_ext_orgdata_ex_async(
+        self,
+        request: realperson_models.ApplyExtOrgdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.ApplyExtOrgdataResponse:
+        """
+        Description: 外部机构数据上报
+        Summary: 外部机构数据上报
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.ApplyExtOrgdataResponse(),
+            await self.do_request_async('1.0', 'di.realperson.ext.orgdata.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_faceverify_server(
+        self,
+        request: realperson_models.CreateFaceverifyServerRequest,
+    ) -> realperson_models.CreateFaceverifyServerResponse:
+        """
+        Description: 数科刷脸服务端初始化接口
+        Summary: 数科刷脸服务端初始化接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_faceverify_server_ex(request, headers, runtime)
+
+    async def create_faceverify_server_async(
+        self,
+        request: realperson_models.CreateFaceverifyServerRequest,
+    ) -> realperson_models.CreateFaceverifyServerResponse:
+        """
+        Description: 数科刷脸服务端初始化接口
+        Summary: 数科刷脸服务端初始化接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_faceverify_server_ex_async(request, headers, runtime)
+
+    def create_faceverify_server_ex(
+        self,
+        request: realperson_models.CreateFaceverifyServerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CreateFaceverifyServerResponse:
+        """
+        Description: 数科刷脸服务端初始化接口
+        Summary: 数科刷脸服务端初始化接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.CreateFaceverifyServerResponse(),
+            self.do_request('1.0', 'di.realperson.faceverify.server.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_faceverify_server_ex_async(
+        self,
+        request: realperson_models.CreateFaceverifyServerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CreateFaceverifyServerResponse:
+        """
+        Description: 数科刷脸服务端初始化接口
+        Summary: 数科刷脸服务端初始化接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.CreateFaceverifyServerResponse(),
+            await self.do_request_async('1.0', 'di.realperson.faceverify.server.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_faceverify_server(
+        self,
+        request: realperson_models.QueryFaceverifyServerRequest,
+    ) -> realperson_models.QueryFaceverifyServerResponse:
+        """
+        Description: 查询认证的结果和相关信息
+        Summary: 认证查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_faceverify_server_ex(request, headers, runtime)
+
+    async def query_faceverify_server_async(
+        self,
+        request: realperson_models.QueryFaceverifyServerRequest,
+    ) -> realperson_models.QueryFaceverifyServerResponse:
+        """
+        Description: 查询认证的结果和相关信息
+        Summary: 认证查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_faceverify_server_ex_async(request, headers, runtime)
+
+    def query_faceverify_server_ex(
+        self,
+        request: realperson_models.QueryFaceverifyServerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryFaceverifyServerResponse:
+        """
+        Description: 查询认证的结果和相关信息
+        Summary: 认证查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryFaceverifyServerResponse(),
+            self.do_request('1.0', 'di.realperson.faceverify.server.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_faceverify_server_ex_async(
+        self,
+        request: realperson_models.QueryFaceverifyServerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryFaceverifyServerResponse:
+        """
+        Description: 查询认证的结果和相关信息
+        Summary: 认证查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryFaceverifyServerResponse(),
+            await self.do_request_async('1.0', 'di.realperson.faceverify.server.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_bank_livenessplus(
+        self,
+        request: realperson_models.QueryBankLivenessplusRequest,
+    ) -> realperson_models.QueryBankLivenessplusResponse:
+        """
+        Description: 个人银行卡状态增强版
+        Summary: 个人银行卡状态增强版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_bank_livenessplus_ex(request, headers, runtime)
+
+    async def query_bank_livenessplus_async(
+        self,
+        request: realperson_models.QueryBankLivenessplusRequest,
+    ) -> realperson_models.QueryBankLivenessplusResponse:
+        """
+        Description: 个人银行卡状态增强版
+        Summary: 个人银行卡状态增强版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_bank_livenessplus_ex_async(request, headers, runtime)
+
+    def query_bank_livenessplus_ex(
+        self,
+        request: realperson_models.QueryBankLivenessplusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryBankLivenessplusResponse:
+        """
+        Description: 个人银行卡状态增强版
+        Summary: 个人银行卡状态增强版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryBankLivenessplusResponse(),
+            self.do_request('1.0', 'di.realperson.bank.livenessplus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_bank_livenessplus_ex_async(
+        self,
+        request: realperson_models.QueryBankLivenessplusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryBankLivenessplusResponse:
+        """
+        Description: 个人银行卡状态增强版
+        Summary: 个人银行卡状态增强版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryBankLivenessplusResponse(),
+            await self.do_request_async('1.0', 'di.realperson.bank.livenessplus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_faceverify_servermode(
+        self,
+        request: realperson_models.ExecFaceverifyServermodeRequest,
+    ) -> realperson_models.ExecFaceverifyServermodeResponse:
+        """
+        Description: 纯服务端比对基础版本，直接输入待比对的图片，返回比对结果
+        Summary: 纯服务端比对基础版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_faceverify_servermode_ex(request, headers, runtime)
+
+    async def exec_faceverify_servermode_async(
+        self,
+        request: realperson_models.ExecFaceverifyServermodeRequest,
+    ) -> realperson_models.ExecFaceverifyServermodeResponse:
+        """
+        Description: 纯服务端比对基础版本，直接输入待比对的图片，返回比对结果
+        Summary: 纯服务端比对基础版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_faceverify_servermode_ex_async(request, headers, runtime)
+
+    def exec_faceverify_servermode_ex(
+        self,
+        request: realperson_models.ExecFaceverifyServermodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.ExecFaceverifyServermodeResponse:
+        """
+        Description: 纯服务端比对基础版本，直接输入待比对的图片，返回比对结果
+        Summary: 纯服务端比对基础版
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = realperson_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='di.realperson.faceverify.servermode.exec',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                exec_faceverify_servermode_response = realperson_models.ExecFaceverifyServermodeResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return exec_faceverify_servermode_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.ExecFaceverifyServermodeResponse(),
+            self.do_request('1.0', 'di.realperson.faceverify.servermode.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_faceverify_servermode_ex_async(
+        self,
+        request: realperson_models.ExecFaceverifyServermodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.ExecFaceverifyServermodeResponse:
+        """
+        Description: 纯服务端比对基础版本，直接输入待比对的图片，返回比对结果
+        Summary: 纯服务端比对基础版
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = realperson_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='di.realperson.faceverify.servermode.exec',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                exec_faceverify_servermode_response = realperson_models.ExecFaceverifyServermodeResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return exec_faceverify_servermode_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.ExecFaceverifyServermodeResponse(),
+            await self.do_request_async('1.0', 'di.realperson.faceverify.servermode.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_alipayverify_server(
+        self,
+        request: realperson_models.CreateAlipayverifyServerRequest,
+    ) -> realperson_models.CreateAlipayverifyServerResponse:
+        """
+        Description: 支付宝实人认证初始化接口
+        Summary: 支付宝实人认证初始化接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_alipayverify_server_ex(request, headers, runtime)
+
+    async def create_alipayverify_server_async(
+        self,
+        request: realperson_models.CreateAlipayverifyServerRequest,
+    ) -> realperson_models.CreateAlipayverifyServerResponse:
+        """
+        Description: 支付宝实人认证初始化接口
+        Summary: 支付宝实人认证初始化接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_alipayverify_server_ex_async(request, headers, runtime)
+
+    def create_alipayverify_server_ex(
+        self,
+        request: realperson_models.CreateAlipayverifyServerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CreateAlipayverifyServerResponse:
+        """
+        Description: 支付宝实人认证初始化接口
+        Summary: 支付宝实人认证初始化接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.CreateAlipayverifyServerResponse(),
+            self.do_request('1.0', 'di.realperson.alipayverify.server.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_alipayverify_server_ex_async(
+        self,
+        request: realperson_models.CreateAlipayverifyServerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CreateAlipayverifyServerResponse:
+        """
+        Description: 支付宝实人认证初始化接口
+        Summary: 支付宝实人认证初始化接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.CreateAlipayverifyServerResponse(),
+            await self.do_request_async('1.0', 'di.realperson.alipayverify.server.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_alipayverify_server(
+        self,
+        request: realperson_models.QueryAlipayverifyServerRequest,
+    ) -> realperson_models.QueryAlipayverifyServerResponse:
+        """
+        Description: 支付宝实人认证查询接口
+        Summary: 支付宝实人认证查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_alipayverify_server_ex(request, headers, runtime)
+
+    async def query_alipayverify_server_async(
+        self,
+        request: realperson_models.QueryAlipayverifyServerRequest,
+    ) -> realperson_models.QueryAlipayverifyServerResponse:
+        """
+        Description: 支付宝实人认证查询接口
+        Summary: 支付宝实人认证查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_alipayverify_server_ex_async(request, headers, runtime)
+
+    def query_alipayverify_server_ex(
+        self,
+        request: realperson_models.QueryAlipayverifyServerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryAlipayverifyServerResponse:
+        """
+        Description: 支付宝实人认证查询接口
+        Summary: 支付宝实人认证查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryAlipayverifyServerResponse(),
+            self.do_request('1.0', 'di.realperson.alipayverify.server.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_alipayverify_server_ex_async(
+        self,
+        request: realperson_models.QueryAlipayverifyServerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryAlipayverifyServerResponse:
+        """
+        Description: 支付宝实人认证查询接口
+        Summary: 支付宝实人认证查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryAlipayverifyServerResponse(),
+            await self.do_request_async('1.0', 'di.realperson.alipayverify.server.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
