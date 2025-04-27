@@ -889,10 +889,25 @@ export class QueryAbcdOneRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 超时时间
+  timeout?: string;
+  // 请求编号
+  count?: number;
+  // 请求时间
+  time?: string;
+  // 请求描述
+  desc?: string;
+  // 操作人
+  operator?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      timeout: 'timeout',
+      count: 'count',
+      time: 'time',
+      desc: 'desc',
+      operator: 'operator',
     };
   }
 
@@ -900,6 +915,11 @@ export class QueryAbcdOneRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      timeout: 'string',
+      count: 'number',
+      time: 'string',
+      desc: 'string',
+      operator: 'string',
     };
   }
 
@@ -948,10 +968,25 @@ export class ImportAbcdOneRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 超时时间
+  timeout?: string;
+  // 请求编号
+  count?: number;
+  // 请求时间
+  time?: string;
+  // 请求描述
+  desc?: string;
+  // 操作者
+  operator?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      timeout: 'timeout',
+      count: 'count',
+      time: 'time',
+      desc: 'desc',
+      operator: 'operator',
     };
   }
 
@@ -959,6 +994,11 @@ export class ImportAbcdOneRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      timeout: 'string',
+      count: 'number',
+      time: 'string',
+      desc: 'string',
+      operator: 'string',
     };
   }
 
@@ -1204,7 +1244,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.16",
+          sdk_version: "1.3.17",
           _prod_code: "DEMOSDK",
           _prod_channel: "default",
         };
