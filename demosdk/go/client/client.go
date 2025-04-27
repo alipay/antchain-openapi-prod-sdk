@@ -1120,6 +1120,16 @@ type QueryAbcdOneRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty"`
+	// 请求编号
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty"`
+	// 请求时间
+	Time *string `json:"time,omitempty" xml:"time,omitempty"`
+	// 请求描述
+	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
+	// 操作人
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
 }
 
 func (s QueryAbcdOneRequest) String() string {
@@ -1137,6 +1147,31 @@ func (s *QueryAbcdOneRequest) SetAuthToken(v string) *QueryAbcdOneRequest {
 
 func (s *QueryAbcdOneRequest) SetProductInstanceId(v string) *QueryAbcdOneRequest {
 	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAbcdOneRequest) SetTimeout(v string) *QueryAbcdOneRequest {
+	s.Timeout = &v
+	return s
+}
+
+func (s *QueryAbcdOneRequest) SetCount(v int64) *QueryAbcdOneRequest {
+	s.Count = &v
+	return s
+}
+
+func (s *QueryAbcdOneRequest) SetTime(v string) *QueryAbcdOneRequest {
+	s.Time = &v
+	return s
+}
+
+func (s *QueryAbcdOneRequest) SetDesc(v string) *QueryAbcdOneRequest {
+	s.Desc = &v
+	return s
+}
+
+func (s *QueryAbcdOneRequest) SetOperator(v string) *QueryAbcdOneRequest {
+	s.Operator = &v
 	return s
 }
 
@@ -1190,6 +1225,16 @@ type ImportAbcdOneRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty"`
+	// 请求编号
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty"`
+	// 请求时间
+	Time *string `json:"time,omitempty" xml:"time,omitempty"`
+	// 请求描述
+	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
+	// 操作者
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
 }
 
 func (s ImportAbcdOneRequest) String() string {
@@ -1207,6 +1252,31 @@ func (s *ImportAbcdOneRequest) SetAuthToken(v string) *ImportAbcdOneRequest {
 
 func (s *ImportAbcdOneRequest) SetProductInstanceId(v string) *ImportAbcdOneRequest {
 	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ImportAbcdOneRequest) SetTimeout(v string) *ImportAbcdOneRequest {
+	s.Timeout = &v
+	return s
+}
+
+func (s *ImportAbcdOneRequest) SetCount(v int64) *ImportAbcdOneRequest {
+	s.Count = &v
+	return s
+}
+
+func (s *ImportAbcdOneRequest) SetTime(v string) *ImportAbcdOneRequest {
+	s.Time = &v
+	return s
+}
+
+func (s *ImportAbcdOneRequest) SetDesc(v string) *ImportAbcdOneRequest {
+	s.Desc = &v
+	return s
+}
+
+func (s *ImportAbcdOneRequest) SetOperator(v string) *ImportAbcdOneRequest {
+	s.Operator = &v
 	return s
 }
 
@@ -1498,7 +1568,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.16"),
+				"sdk_version":      tea.String("1.3.17"),
 				"_prod_code":       tea.String("DEMOSDK"),
 				"_prod_channel":    tea.String("default"),
 			}
