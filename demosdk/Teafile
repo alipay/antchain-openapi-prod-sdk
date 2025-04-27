@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-antdigital_demosdk:1.3.16",
-    "go": "github.com/antchain-openapi-sdk-go/demosdk/client:v1.3.16",
-    "csharp": "AntChain.SDK.Antdigital_DEMOSDK:1.3.16",
-    "ts": "@antchain/antdigital_demosdk:1.3.16",
-    "php": "antchain/antdigital_demosdk:1.3.16",
-    "python": "antchain_sdk_antdigital_demosdk:1.3.16"
+    "java": "com.antgroup.antchain.openapi:openapi-antdigital_demosdk:1.3.17",
+    "go": "github.com/antchain-openapi-sdk-go/demosdk/client:v1.3.17",
+    "csharp": "AntChain.SDK.Antdigital_DEMOSDK:1.3.17",
+    "ts": "@antchain/antdigital_demosdk:1.3.17",
+    "php": "antchain/antdigital_demosdk:1.3.17",
+    "python": "antchain_sdk_antdigital_demosdk:1.3.17"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

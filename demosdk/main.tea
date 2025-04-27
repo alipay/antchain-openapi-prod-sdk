@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.16',
+    sdk_version = '1.3.17',
     _prod_code = 'DEMOSDK',
     _prod_channel = 'default'
   };
@@ -695,6 +695,16 @@ model QueryAbcdOneRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 超时时间
+  timeout?: string(name='timeout'),
+  // 请求编号
+  count?: long(name='count'),
+  // 请求时间
+  time?: string(name='time'),
+  // 请求描述
+  desc?: string(name='desc'),
+  // 操作人
+  operator?: string(name='operator'),
 }
 
 model QueryAbcdOneResponse = {
@@ -733,6 +743,16 @@ model ImportAbcdOneRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 超时时间
+  timeout?: string(name='timeout'),
+  // 请求编号
+  count?: long(name='count'),
+  // 请求时间
+  time?: string(name='time'),
+  // 请求描述
+  desc?: string(name='desc'),
+  // 操作者
+  operator?: string(name='operator'),
 }
 
 model ImportAbcdOneResponse = {
