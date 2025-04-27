@@ -1824,6 +1824,16 @@ export class RecognizeDocIndividualcardRequest extends $tea.Model {
   encToken?: string;
   // 是否启用防伪检测，如果启用，出参会输出riskInfo字段。不填默认不启用防伪。取值约束：0（不启用）；1（启用）
   riskInfoType?: string;
+  // 是否返回身份证头像照片
+  // 0：否
+  // 1：是
+  // 不填默认不返回。
+  returnPhoto?: string;
+  // 是否返回身份证图片
+  // 0：否
+  // 1：是
+  // 不填默认不返回。
+  returnImage?: string;
   // 扩展信息JSON串。
   externParam?: string;
   static names(): { [key: string]: string } {
@@ -1838,6 +1848,8 @@ export class RecognizeDocIndividualcardRequest extends $tea.Model {
       respEncType: 'resp_enc_type',
       encToken: 'enc_token',
       riskInfoType: 'risk_info_type',
+      returnPhoto: 'return_photo',
+      returnImage: 'return_image',
       externParam: 'extern_param',
     };
   }
@@ -1854,6 +1866,8 @@ export class RecognizeDocIndividualcardRequest extends $tea.Model {
       respEncType: 'string',
       encToken: 'string',
       riskInfoType: 'string',
+      returnPhoto: 'string',
+      returnImage: 'string',
       externParam: 'string',
     };
   }
@@ -3569,6 +3583,8 @@ export class InitCarrierRepairmobileRequest extends $tea.Model {
   encryptType?: string;
   // 失联修复身份证号，使用入参加密模式加密
   certNo: string;
+  // 用户姓名，明文
+  name: string;
   // 曾用手机号码，使用入参加密模式加密
   mobile?: string;
   static names(): { [key: string]: string } {
@@ -3580,6 +3596,7 @@ export class InitCarrierRepairmobileRequest extends $tea.Model {
       carrier: 'carrier',
       encryptType: 'encrypt_type',
       certNo: 'cert_no',
+      name: 'name',
       mobile: 'mobile',
     };
   }
@@ -3593,6 +3610,7 @@ export class InitCarrierRepairmobileRequest extends $tea.Model {
       carrier: 'string',
       encryptType: 'string',
       certNo: 'string',
+      name: 'string',
       mobile: 'string',
     };
   }
@@ -3769,6 +3787,747 @@ export class BindCarrierRepairmobileResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       mobileX: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyExtOrgdataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+  outerOrderNo: string;
+  // 是	入参加密模式：
+  // "0"（默认值）：不加密；
+  // "4"：RSA加密
+  encryptType: string;
+  // 星火保
+  orgName: string;
+  // 外部机构数据类型，取值如下： AXINSUR_BANK_LIVENESS：星火保蚂蚁推荐卡
+  dataType: string;
+  // 机构上报数据，json数组
+  dataContent: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      encryptType: 'encrypt_type',
+      orgName: 'org_name',
+      dataType: 'data_type',
+      dataContent: 'data_content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      encryptType: 'string',
+      orgName: 'string',
+      dataType: 'string',
+      dataContent: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyExtOrgdataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上报结果
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateFaceverifyServerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+  outerOrderNo: string;
+  // 认证模式码
+  bizCode: string;
+  // 场景ID
+  sceneId: string;
+  // 身份信息来源类型，如证件
+  identityType: string;
+  // 证件类型，如身份证
+  certType: string;
+  // 真实姓名
+  certName: string;
+  // 证件号码
+  certNo: string;
+  // h5认证完成后，服务端回调此地址通知商户认证结果
+  callbackUrl?: string;
+  // cert_name、cert_no两个字段的传入模式。0：明文1：密文
+  encType?: string;
+  // 预留扩展参数
+  externParam?: string;
+  // 自定义比对源人脸图像，base64编码格式
+  facialPictureRef?: string;
+  // metainfo 环境参数，需要通过客户端 SDK 获取
+  metaInfo?: string;
+  // 回跳地址
+  returnUrl?: string;
+  // 商户自定义的用户ID
+  userId?: string;
+  // 用户的IP
+  userIp?: string;
+  // 用户的手机号
+  userMobile?: string;
+  // callbackUrl回调时是否需要重试，默认false(不需要重试)
+  callbackNeedRetry?: string;
+  // 活体检测的类型
+  model?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      bizCode: 'biz_code',
+      sceneId: 'scene_id',
+      identityType: 'identity_type',
+      certType: 'cert_type',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      callbackUrl: 'callback_url',
+      encType: 'enc_type',
+      externParam: 'extern_param',
+      facialPictureRef: 'facial_picture_ref',
+      metaInfo: 'meta_info',
+      returnUrl: 'return_url',
+      userId: 'user_id',
+      userIp: 'user_ip',
+      userMobile: 'user_mobile',
+      callbackNeedRetry: 'callback_need_retry',
+      model: 'model',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      bizCode: 'string',
+      sceneId: 'string',
+      identityType: 'string',
+      certType: 'string',
+      certName: 'string',
+      certNo: 'string',
+      callbackUrl: 'string',
+      encType: 'string',
+      externParam: 'string',
+      facialPictureRef: 'string',
+      metaInfo: 'string',
+      returnUrl: 'string',
+      userId: 'string',
+      userIp: 'string',
+      userMobile: 'string',
+      callbackNeedRetry: 'string',
+      model: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateFaceverifyServerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 实人认证唯一标识
+  certifyId?: string;
+  // 认证地址。只在特定场景返回。
+  certifyUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      certifyId: 'certify_id',
+      certifyUrl: 'certify_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      certifyId: 'string',
+      certifyUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFaceverifyServerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 实人认证唯一标识
+  certifyId: string;
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+  outerOrderNo: string;
+  // 场景ID
+  sceneId: string;
+  // 预留扩展业务参数
+  externParam?: string;
+  // 认证材料（如人脸图像）的哈希
+  materialHash?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      certifyId: 'certify_id',
+      outerOrderNo: 'outer_order_no',
+      sceneId: 'scene_id',
+      externParam: 'extern_param',
+      materialHash: 'material_hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      certifyId: 'string',
+      outerOrderNo: 'string',
+      sceneId: 'string',
+      externParam: 'string',
+      materialHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFaceverifyServerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 认证的主体信息，一般的认证场景返回为空
+  identityInfo?: string;
+  // 认证主体附件信息，一般的认证场景都是返回空
+  materialInfo?: string;
+  // 认证材料哈希是否匹配
+  materialMatched?: string;
+  // 是否通过，通过为T，不通过为F
+  passed?: string;
+  // 业务失败原因
+  reason?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      identityInfo: 'identity_info',
+      materialInfo: 'material_info',
+      materialMatched: 'material_matched',
+      passed: 'passed',
+      reason: 'reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      identityInfo: 'string',
+      materialInfo: 'string',
+      materialMatched: 'string',
+      passed: 'string',
+      reason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBankLivenessplusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID
+  outerOrderNo: string;
+  // 加密方式
+  encryptType: string;
+  // 身份证号
+  certNo: string;
+  // 银行编码
+  bankCode: string;
+  // 1=借记卡+贷记卡（默认）；2=借记卡
+  bankCardType?: string;
+  // 姓名
+  certName?: string;
+  // 手机号码
+  mobile?: string;
+  // 扩展信息，预留字段
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      encryptType: 'encrypt_type',
+      certNo: 'cert_no',
+      bankCode: 'bank_code',
+      bankCardType: 'bank_card_type',
+      certName: 'cert_name',
+      mobile: 'mobile',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      encryptType: 'string',
+      certNo: 'string',
+      bankCode: 'string',
+      bankCardType: 'string',
+      certName: 'string',
+      mobile: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBankLivenessplusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 银行活跃度详情，可解析为JSONArray。
+  livenessInfo?: string;
+  // 扩展信息，预留字段
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      livenessInfo: 'liveness_info',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      livenessInfo: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecFaceverifyServermodeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 真实姓名
+  certName?: string;
+  // 证件号码
+  certNo?: string;
+  // cert_name、cert_no两个字段的传入模式0：明文 1：密文
+  encType?: string;
+  // 证件类型，如身份证
+  certType?: string;
+  // 预留扩展参数
+  externParam?: string;
+  // 自定义比对源人脸图像，base64编码格式
+  facialPictureRef?: string;
+  // 身份信息来源类型，如证件
+  identityType: string;
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+  outerOrderNo: string;
+  // 场景ID
+  sceneId: string;
+  // 商户自定义的用户ID
+  userId?: string;
+  // 用户的IP
+  userIp?: string;
+  // 用户的手机号（或其哈希值）
+  userMobile?: string;
+  // 待认证的人脸图像，base64编码格式
+  facialPictureAuth?: string;
+  // 视频文件
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      encType: 'enc_type',
+      certType: 'cert_type',
+      externParam: 'extern_param',
+      facialPictureRef: 'facial_picture_ref',
+      identityType: 'identity_type',
+      outerOrderNo: 'outer_order_no',
+      sceneId: 'scene_id',
+      userId: 'user_id',
+      userIp: 'user_ip',
+      userMobile: 'user_mobile',
+      facialPictureAuth: 'facial_picture_auth',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      certName: 'string',
+      certNo: 'string',
+      encType: 'string',
+      certType: 'string',
+      externParam: 'string',
+      facialPictureRef: 'string',
+      identityType: 'string',
+      outerOrderNo: 'string',
+      sceneId: 'string',
+      userId: 'string',
+      userIp: 'string',
+      userMobile: 'string',
+      facialPictureAuth: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecFaceverifyServermodeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 认证ID
+  certifyId?: string;
+  // 是否通过，通过为T，不通过为F
+  passed?: string;
+  // 业务失败原因
+  reason?: string;
+  // 认证主体附件信息，包含共计类型等
+  materialInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      certifyId: 'certify_id',
+      passed: 'passed',
+      reason: 'reason',
+      materialInfo: 'material_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      certifyId: 'string',
+      passed: 'string',
+      reason: 'string',
+      materialInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAlipayverifyServerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+  outerOrderNo: string;
+  // 认证模式码
+  bizCode: string;
+  // 场景ID
+  sceneId: string;
+  // 身份信息来源类型，如证件
+  identityType: string;
+  // 证件类型，如身份证
+  certType: string;
+  // 真实姓名
+  certName: string;
+  // 证件号码
+  certNo: string;
+  // h5认证完成后，服务端回调此地址通知商户认证结果
+  callbackUrl?: string;
+  // cert_name、cert_no两个字段的传入模式。0：明文1：密文
+  encType?: string;
+  // 预留扩展参数
+  externParam?: string;
+  // 自定义比对源人脸图像，base64编码格式
+  facialPictureRef?: string;
+  // metainfo 环境参数，需要通过客户端 SDK 获取
+  metaInfo?: string;
+  // 回跳地址
+  returnUrl?: string;
+  // 商户自定义的用户ID
+  userId?: string;
+  // 用户的IP
+  userIp?: string;
+  // 用户的手机号
+  userMobile?: string;
+  // callbackUrl回调时是否需要重试，默认false(不需要重试)
+  callbackNeedRetry?: string;
+  // 活体检测的类型
+  model?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      bizCode: 'biz_code',
+      sceneId: 'scene_id',
+      identityType: 'identity_type',
+      certType: 'cert_type',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      callbackUrl: 'callback_url',
+      encType: 'enc_type',
+      externParam: 'extern_param',
+      facialPictureRef: 'facial_picture_ref',
+      metaInfo: 'meta_info',
+      returnUrl: 'return_url',
+      userId: 'user_id',
+      userIp: 'user_ip',
+      userMobile: 'user_mobile',
+      callbackNeedRetry: 'callback_need_retry',
+      model: 'model',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      bizCode: 'string',
+      sceneId: 'string',
+      identityType: 'string',
+      certType: 'string',
+      certName: 'string',
+      certNo: 'string',
+      callbackUrl: 'string',
+      encType: 'string',
+      externParam: 'string',
+      facialPictureRef: 'string',
+      metaInfo: 'string',
+      returnUrl: 'string',
+      userId: 'string',
+      userIp: 'string',
+      userMobile: 'string',
+      callbackNeedRetry: 'string',
+      model: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAlipayverifyServerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 实人认证唯一标识
+  certifyId?: string;
+  // 认证地址。只在特定场景返回。
+  certifyUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      certifyId: 'certify_id',
+      certifyUrl: 'certify_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      certifyId: 'string',
+      certifyUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAlipayverifyServerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 实人认证唯一标识
+  certifyId: string;
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+  outerOrderNo: string;
+  // 场景ID
+  sceneId: string;
+  // 预留扩展业务参数
+  externParam?: string;
+  // 认证材料（如人脸图像）的哈希
+  materialHash?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      certifyId: 'certify_id',
+      outerOrderNo: 'outer_order_no',
+      sceneId: 'scene_id',
+      externParam: 'extern_param',
+      materialHash: 'material_hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      certifyId: 'string',
+      outerOrderNo: 'string',
+      sceneId: 'string',
+      externParam: 'string',
+      materialHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAlipayverifyServerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 认证的主体信息，一般的认证场景返回为空
+  identityInfo?: string;
+  // 认证主体附件信息，一般的认证场景都是返回空
+  materialInfo?: string;
+  // 是否通过，通过为T，不通过为F
+  materialMatched?: string;
+  // 是否通过，通过为T，不通过为F
+  passed?: string;
+  // 业务失败原因
+  reason?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      identityInfo: 'identity_info',
+      materialInfo: 'material_info',
+      materialMatched: 'material_matched',
+      passed: 'passed',
+      reason: 'reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      identityInfo: 'string',
+      materialInfo: 'string',
+      materialMatched: 'string',
+      passed: 'string',
+      reason: 'string',
     };
   }
 
@@ -3978,7 +4737,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.16.0",
+          sdk_version: "1.19.4",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
@@ -4847,6 +5606,161 @@ export default class Client {
   async bindCarrierRepairmobileEx(request: BindCarrierRepairmobileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BindCarrierRepairmobileResponse> {
     Util.validateModel(request);
     return $tea.cast<BindCarrierRepairmobileResponse>(await this.doRequest("1.0", "di.realperson.carrier.repairmobile.bind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BindCarrierRepairmobileResponse({}));
+  }
+
+  /**
+   * Description: 外部机构数据上报
+   * Summary: 外部机构数据上报
+   */
+  async applyExtOrgdata(request: ApplyExtOrgdataRequest): Promise<ApplyExtOrgdataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyExtOrgdataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 外部机构数据上报
+   * Summary: 外部机构数据上报
+   */
+  async applyExtOrgdataEx(request: ApplyExtOrgdataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyExtOrgdataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyExtOrgdataResponse>(await this.doRequest("1.0", "di.realperson.ext.orgdata.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyExtOrgdataResponse({}));
+  }
+
+  /**
+   * Description: 数科刷脸服务端初始化接口
+   * Summary: 数科刷脸服务端初始化接口
+   */
+  async createFaceverifyServer(request: CreateFaceverifyServerRequest): Promise<CreateFaceverifyServerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createFaceverifyServerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数科刷脸服务端初始化接口
+   * Summary: 数科刷脸服务端初始化接口
+   */
+  async createFaceverifyServerEx(request: CreateFaceverifyServerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateFaceverifyServerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateFaceverifyServerResponse>(await this.doRequest("1.0", "di.realperson.faceverify.server.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateFaceverifyServerResponse({}));
+  }
+
+  /**
+   * Description: 查询认证的结果和相关信息
+   * Summary: 认证查询
+   */
+  async queryFaceverifyServer(request: QueryFaceverifyServerRequest): Promise<QueryFaceverifyServerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryFaceverifyServerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询认证的结果和相关信息
+   * Summary: 认证查询
+   */
+  async queryFaceverifyServerEx(request: QueryFaceverifyServerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFaceverifyServerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryFaceverifyServerResponse>(await this.doRequest("1.0", "di.realperson.faceverify.server.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFaceverifyServerResponse({}));
+  }
+
+  /**
+   * Description: 个人银行卡状态增强版
+   * Summary: 个人银行卡状态增强版
+   */
+  async queryBankLivenessplus(request: QueryBankLivenessplusRequest): Promise<QueryBankLivenessplusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryBankLivenessplusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人银行卡状态增强版
+   * Summary: 个人银行卡状态增强版
+   */
+  async queryBankLivenessplusEx(request: QueryBankLivenessplusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBankLivenessplusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryBankLivenessplusResponse>(await this.doRequest("1.0", "di.realperson.bank.livenessplus.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBankLivenessplusResponse({}));
+  }
+
+  /**
+   * Description: 纯服务端比对基础版本，直接输入待比对的图片，返回比对结果
+   * Summary: 纯服务端比对基础版
+   */
+  async execFaceverifyServermode(request: ExecFaceverifyServermodeRequest): Promise<ExecFaceverifyServermodeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execFaceverifyServermodeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 纯服务端比对基础版本，直接输入待比对的图片，返回比对结果
+   * Summary: 纯服务端比对基础版
+   */
+  async execFaceverifyServermodeEx(request: ExecFaceverifyServermodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecFaceverifyServermodeResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "di.realperson.faceverify.servermode.exec",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let execFaceverifyServermodeResponse = new ExecFaceverifyServermodeResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return execFaceverifyServermodeResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<ExecFaceverifyServermodeResponse>(await this.doRequest("1.0", "di.realperson.faceverify.servermode.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecFaceverifyServermodeResponse({}));
+  }
+
+  /**
+   * Description: 支付宝实人认证初始化接口
+   * Summary: 支付宝实人认证初始化接口
+   */
+  async createAlipayverifyServer(request: CreateAlipayverifyServerRequest): Promise<CreateAlipayverifyServerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createAlipayverifyServerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 支付宝实人认证初始化接口
+   * Summary: 支付宝实人认证初始化接口
+   */
+  async createAlipayverifyServerEx(request: CreateAlipayverifyServerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAlipayverifyServerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateAlipayverifyServerResponse>(await this.doRequest("1.0", "di.realperson.alipayverify.server.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAlipayverifyServerResponse({}));
+  }
+
+  /**
+   * Description: 支付宝实人认证查询接口
+   * Summary: 支付宝实人认证查询接口
+   */
+  async queryAlipayverifyServer(request: QueryAlipayverifyServerRequest): Promise<QueryAlipayverifyServerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAlipayverifyServerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 支付宝实人认证查询接口
+   * Summary: 支付宝实人认证查询接口
+   */
+  async queryAlipayverifyServerEx(request: QueryAlipayverifyServerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAlipayverifyServerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAlipayverifyServerResponse>(await this.doRequest("1.0", "di.realperson.alipayverify.server.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAlipayverifyServerResponse({}));
   }
 
   /**
