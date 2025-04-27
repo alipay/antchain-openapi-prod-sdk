@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.23.7"),
+                    new TeaPair("sdk_version", "1.23.9"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2936,6 +2936,25 @@ public class Client {
     public PushRpaasReportAnswerResponse pushRpaasReportAnswerEx(PushRpaasReportAnswerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.rpaas.report.answer.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushRpaasReportAnswerResponse());
+    }
+
+    /**
+     * Description: 企管盾云开放平台服务调用
+     * Summary: 企管盾云开放平台服务调用
+     */
+    public QueryRpaasOpenServiceResponse queryRpaasOpenService(QueryRpaasOpenServiceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryRpaasOpenServiceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 企管盾云开放平台服务调用
+     * Summary: 企管盾云开放平台服务调用
+     */
+    public QueryRpaasOpenServiceResponse queryRpaasOpenServiceEx(QueryRpaasOpenServiceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rpaas.open.service.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRpaasOpenServiceResponse());
     }
 
     /**
