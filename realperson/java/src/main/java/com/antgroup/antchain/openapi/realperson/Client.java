@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.16.0"),
+                    new TeaPair("sdk_version", "1.19.4"),
                     new TeaPair("_prod_code", "REALPERSON"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1005,6 +1005,161 @@ public class Client {
     public BindCarrierRepairmobileResponse bindCarrierRepairmobileEx(BindCarrierRepairmobileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.carrier.repairmobile.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindCarrierRepairmobileResponse());
+    }
+
+    /**
+     * Description: 外部机构数据上报
+     * Summary: 外部机构数据上报
+     */
+    public ApplyExtOrgdataResponse applyExtOrgdata(ApplyExtOrgdataRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyExtOrgdataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 外部机构数据上报
+     * Summary: 外部机构数据上报
+     */
+    public ApplyExtOrgdataResponse applyExtOrgdataEx(ApplyExtOrgdataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.ext.orgdata.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyExtOrgdataResponse());
+    }
+
+    /**
+     * Description: 数科刷脸服务端初始化接口
+     * Summary: 数科刷脸服务端初始化接口
+     */
+    public CreateFaceverifyServerResponse createFaceverifyServer(CreateFaceverifyServerRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createFaceverifyServerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数科刷脸服务端初始化接口
+     * Summary: 数科刷脸服务端初始化接口
+     */
+    public CreateFaceverifyServerResponse createFaceverifyServerEx(CreateFaceverifyServerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.faceverify.server.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateFaceverifyServerResponse());
+    }
+
+    /**
+     * Description: 查询认证的结果和相关信息
+     * Summary: 认证查询
+     */
+    public QueryFaceverifyServerResponse queryFaceverifyServer(QueryFaceverifyServerRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryFaceverifyServerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询认证的结果和相关信息
+     * Summary: 认证查询
+     */
+    public QueryFaceverifyServerResponse queryFaceverifyServerEx(QueryFaceverifyServerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.faceverify.server.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFaceverifyServerResponse());
+    }
+
+    /**
+     * Description: 个人银行卡状态增强版
+     * Summary: 个人银行卡状态增强版
+     */
+    public QueryBankLivenessplusResponse queryBankLivenessplus(QueryBankLivenessplusRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBankLivenessplusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 个人银行卡状态增强版
+     * Summary: 个人银行卡状态增强版
+     */
+    public QueryBankLivenessplusResponse queryBankLivenessplusEx(QueryBankLivenessplusRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.bank.livenessplus.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBankLivenessplusResponse());
+    }
+
+    /**
+     * Description: 纯服务端比对基础版本，直接输入待比对的图片，返回比对结果
+     * Summary: 纯服务端比对基础版
+     */
+    public ExecFaceverifyServermodeResponse execFaceverifyServermode(ExecFaceverifyServermodeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execFaceverifyServermodeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 纯服务端比对基础版本，直接输入待比对的图片，返回比对结果
+     * Summary: 纯服务端比对基础版
+     */
+    public ExecFaceverifyServermodeResponse execFaceverifyServermodeEx(ExecFaceverifyServermodeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "di.realperson.faceverify.servermode.exec"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                ExecFaceverifyServermodeResponse execFaceverifyServermodeResponse = ExecFaceverifyServermodeResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return execFaceverifyServermodeResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.faceverify.servermode.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecFaceverifyServermodeResponse());
+    }
+
+    /**
+     * Description: 支付宝实人认证初始化接口
+     * Summary: 支付宝实人认证初始化接口
+     */
+    public CreateAlipayverifyServerResponse createAlipayverifyServer(CreateAlipayverifyServerRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAlipayverifyServerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 支付宝实人认证初始化接口
+     * Summary: 支付宝实人认证初始化接口
+     */
+    public CreateAlipayverifyServerResponse createAlipayverifyServerEx(CreateAlipayverifyServerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.alipayverify.server.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAlipayverifyServerResponse());
+    }
+
+    /**
+     * Description: 支付宝实人认证查询接口
+     * Summary: 支付宝实人认证查询接口
+     */
+    public QueryAlipayverifyServerResponse queryAlipayverifyServer(QueryAlipayverifyServerRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAlipayverifyServerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 支付宝实人认证查询接口
+     * Summary: 支付宝实人认证查询接口
+     */
+    public QueryAlipayverifyServerResponse queryAlipayverifyServerEx(QueryAlipayverifyServerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.alipayverify.server.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAlipayverifyServerResponse());
     }
 
     /**

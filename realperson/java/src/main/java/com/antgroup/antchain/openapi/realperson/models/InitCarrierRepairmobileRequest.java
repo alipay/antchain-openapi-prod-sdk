@@ -41,6 +41,11 @@ public class InitCarrierRepairmobileRequest extends TeaModel {
     @Validation(required = true)
     public String certNo;
 
+    // 用户姓名，明文
+    @NameInMap("name")
+    @Validation(required = true)
+    public String name;
+
     // 曾用手机号码，使用入参加密模式加密
     @NameInMap("mobile")
     public String mobile;
@@ -104,6 +109,14 @@ public class InitCarrierRepairmobileRequest extends TeaModel {
     }
     public String getCertNo() {
         return this.certNo;
+    }
+
+    public InitCarrierRepairmobileRequest setName(String name) {
+        this.name = name;
+        return this;
+    }
+    public String getName() {
+        return this.name;
     }
 
     public InitCarrierRepairmobileRequest setMobile(String mobile) {

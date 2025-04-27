@@ -48,6 +48,20 @@ public class RecognizeDocIndividualcardRequest extends TeaModel {
     @NameInMap("risk_info_type")
     public String riskInfoType;
 
+    // 是否返回身份证头像照片
+    // 0：否
+    // 1：是
+    // 不填默认不返回。
+    @NameInMap("return_photo")
+    public String returnPhoto;
+
+    // 是否返回身份证图片
+    // 0：否
+    // 1：是
+    // 不填默认不返回。
+    @NameInMap("return_image")
+    public String returnImage;
+
     // 扩展信息JSON串。
     @NameInMap("extern_param")
     public String externParam;
@@ -135,6 +149,22 @@ public class RecognizeDocIndividualcardRequest extends TeaModel {
     }
     public String getRiskInfoType() {
         return this.riskInfoType;
+    }
+
+    public RecognizeDocIndividualcardRequest setReturnPhoto(String returnPhoto) {
+        this.returnPhoto = returnPhoto;
+        return this;
+    }
+    public String getReturnPhoto() {
+        return this.returnPhoto;
+    }
+
+    public RecognizeDocIndividualcardRequest setReturnImage(String returnImage) {
+        this.returnImage = returnImage;
+        return this;
+    }
+    public String getReturnImage() {
+        return this.returnImage;
     }
 
     public RecognizeDocIndividualcardRequest setExternParam(String externParam) {
