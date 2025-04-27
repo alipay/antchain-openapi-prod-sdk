@@ -3243,6 +3243,62 @@ func (s *QueryIpRetryResponse) SetMsg(v string) *QueryIpRetryResponse {
 	return s
 }
 
+type QueryTestTimeTestaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryTestTimeTestaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestTimeTestaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestTimeTestaRequest) SetAuthToken(v string) *QueryTestTimeTestaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTestTimeTestaRequest) SetProductInstanceId(v string) *QueryTestTimeTestaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryTestTimeTestaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryTestTimeTestaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestTimeTestaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestTimeTestaResponse) SetReqMsgId(v string) *QueryTestTimeTestaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTestTimeTestaResponse) SetResultCode(v string) *QueryTestTimeTestaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTestTimeTestaResponse) SetResultMsg(v string) *QueryTestTimeTestaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type QueryStreamTestmethodRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4027,6 +4083,62 @@ func (s *CheckAicoguardcoreAicoguardrailsQuestionResponse) SetSessionAction(v st
 	return s
 }
 
+type QueryTestTimeMenhuRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+}
+
+func (s QueryTestTimeMenhuRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestTimeMenhuRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestTimeMenhuRequest) SetAuthToken(v string) *QueryTestTimeMenhuRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTestTimeMenhuRequest) SetProductInstanceId(v string) *QueryTestTimeMenhuRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+type QueryTestTimeMenhuResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryTestTimeMenhuResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestTimeMenhuResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestTimeMenhuResponse) SetReqMsgId(v string) *QueryTestTimeMenhuResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTestTimeMenhuResponse) SetResultCode(v string) *QueryTestTimeMenhuResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTestTimeMenhuResponse) SetResultMsg(v string) *QueryTestTimeMenhuResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type BindAaaBbbCccRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4514,7 +4626,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.21"),
+				"sdk_version":      tea.String("1.1.31"),
 				"_prod_code":       tea.String("DEMO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5521,6 +5633,40 @@ func (client *Client) QueryIpRetryEx(request *QueryIpRetryRequest, headers map[s
 }
 
 /**
+ * Description: 个人工作台二期测试
+ * Summary: 个人工作台二期测试
+ */
+func (client *Client) QueryTestTimeTesta(request *QueryTestTimeTestaRequest) (_result *QueryTestTimeTestaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTestTimeTestaResponse{}
+	_body, _err := client.QueryTestTimeTestaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期测试
+ * Summary: 个人工作台二期测试
+ */
+func (client *Client) QueryTestTimeTestaEx(request *QueryTestTimeTestaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTestTimeTestaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTestTimeTestaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.test.time.testa.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 流式处理
  * Summary: 流式处理
  */
@@ -5853,6 +5999,40 @@ func (client *Client) CheckAicoguardcoreAicoguardrailsQuestionEx(request *CheckA
 	}
 	_result = &CheckAicoguardcoreAicoguardrailsQuestionResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.aicoguardcore.aicoguardrails.question.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期测试
+ * Summary: 个人工作台二期测试
+ */
+func (client *Client) QueryTestTimeMenhu(request *QueryTestTimeMenhuRequest) (_result *QueryTestTimeMenhuResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTestTimeMenhuResponse{}
+	_body, _err := client.QueryTestTimeMenhuEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期测试
+ * Summary: 个人工作台二期测试
+ */
+func (client *Client) QueryTestTimeMenhuEx(request *QueryTestTimeMenhuRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTestTimeMenhuResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTestTimeMenhuResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.test.time.menhu.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
