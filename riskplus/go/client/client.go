@@ -418,6 +418,46 @@ func (s *RtopTypeDistribution) SetType(v string) *RtopTypeDistribution {
 	return s
 }
 
+// 营销盾离线圈客任务详细信息
+type UmktOfflineDecisionTaskDetailInfo struct {
+	// 任务id
+	TaskId *int64 `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 圈客计划id
+	DecisionPlanId *int64 `json:"decision_plan_id,omitempty" xml:"decision_plan_id,omitempty" require:"true"`
+	// 圈客结果状态
+	DecisionResultStatus *string `json:"decision_result_status,omitempty" xml:"decision_result_status,omitempty" require:"true"`
+	// 圈客结果状态描述
+	StatusRemark *string `json:"status_remark,omitempty" xml:"status_remark,omitempty" require:"true"`
+}
+
+func (s UmktOfflineDecisionTaskDetailInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UmktOfflineDecisionTaskDetailInfo) GoString() string {
+	return s.String()
+}
+
+func (s *UmktOfflineDecisionTaskDetailInfo) SetTaskId(v int64) *UmktOfflineDecisionTaskDetailInfo {
+	s.TaskId = &v
+	return s
+}
+
+func (s *UmktOfflineDecisionTaskDetailInfo) SetDecisionPlanId(v int64) *UmktOfflineDecisionTaskDetailInfo {
+	s.DecisionPlanId = &v
+	return s
+}
+
+func (s *UmktOfflineDecisionTaskDetailInfo) SetDecisionResultStatus(v string) *UmktOfflineDecisionTaskDetailInfo {
+	s.DecisionResultStatus = &v
+	return s
+}
+
+func (s *UmktOfflineDecisionTaskDetailInfo) SetStatusRemark(v string) *UmktOfflineDecisionTaskDetailInfo {
+	s.StatusRemark = &v
+	return s
+}
+
 // 营销盾触达媒介参数信息
 type ActionParamInfo struct {
 	// 触达媒介类型
@@ -3273,46 +3313,6 @@ func (s *CompanyInfo) SetPlatform(v string) *CompanyInfo {
 	return s
 }
 
-// 营销盾离线圈客任务详细信息
-type UmktOfflineDecisionTaskDetailInfo struct {
-	// 任务id
-	TaskId *int64 `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
-	// 圈客计划id
-	DecisionPlanId *int64 `json:"decision_plan_id,omitempty" xml:"decision_plan_id,omitempty" require:"true"`
-	// 圈客结果状态
-	DecisionResultStatus *string `json:"decision_result_status,omitempty" xml:"decision_result_status,omitempty" require:"true"`
-	// 圈客结果状态描述
-	StatusRemark *string `json:"status_remark,omitempty" xml:"status_remark,omitempty" require:"true"`
-}
-
-func (s UmktOfflineDecisionTaskDetailInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UmktOfflineDecisionTaskDetailInfo) GoString() string {
-	return s.String()
-}
-
-func (s *UmktOfflineDecisionTaskDetailInfo) SetTaskId(v int64) *UmktOfflineDecisionTaskDetailInfo {
-	s.TaskId = &v
-	return s
-}
-
-func (s *UmktOfflineDecisionTaskDetailInfo) SetDecisionPlanId(v int64) *UmktOfflineDecisionTaskDetailInfo {
-	s.DecisionPlanId = &v
-	return s
-}
-
-func (s *UmktOfflineDecisionTaskDetailInfo) SetDecisionResultStatus(v string) *UmktOfflineDecisionTaskDetailInfo {
-	s.DecisionResultStatus = &v
-	return s
-}
-
-func (s *UmktOfflineDecisionTaskDetailInfo) SetStatusRemark(v string) *UmktOfflineDecisionTaskDetailInfo {
-	s.StatusRemark = &v
-	return s
-}
-
 // 营销盾事件信息同步详情
 type EventResultSyncDetail struct {
 	// 事件唯一id（单个租户全局唯一）
@@ -5046,6 +5046,32 @@ func (s *CustomerBankCardInfo) SetSigned(v string) *CustomerBankCardInfo {
 
 func (s *CustomerBankCardInfo) SetAcctBankCard(v string) *CustomerBankCardInfo {
 	s.AcctBankCard = &v
+	return s
+}
+
+// 营销盾离线圈客执行批次信息
+type UmktOfflineDecisionTaskExecBatchInfo struct {
+	// 执行批次
+	ExecBatch *string `json:"exec_batch,omitempty" xml:"exec_batch,omitempty" require:"true"`
+	// 批次下任务列表
+	OfflineDecisionTaskDetailInfoList []*UmktOfflineDecisionTaskDetailInfo `json:"offline_decision_task_detail_info_list,omitempty" xml:"offline_decision_task_detail_info_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s UmktOfflineDecisionTaskExecBatchInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UmktOfflineDecisionTaskExecBatchInfo) GoString() string {
+	return s.String()
+}
+
+func (s *UmktOfflineDecisionTaskExecBatchInfo) SetExecBatch(v string) *UmktOfflineDecisionTaskExecBatchInfo {
+	s.ExecBatch = &v
+	return s
+}
+
+func (s *UmktOfflineDecisionTaskExecBatchInfo) SetOfflineDecisionTaskDetailInfoList(v []*UmktOfflineDecisionTaskDetailInfo) *UmktOfflineDecisionTaskExecBatchInfo {
+	s.OfflineDecisionTaskDetailInfoList = v
 	return s
 }
 
@@ -21493,6 +21519,83 @@ func (s *PushRpaasReportAnswerResponse) SetResultMsg(v string) *PushRpaasReportA
 	return s
 }
 
+type QueryRpaasOpenServiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 开放服务ID
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
+	// { "companyId": "2088" }
+	Params *string `json:"params,omitempty" xml:"params,omitempty"`
+}
+
+func (s QueryRpaasOpenServiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRpaasOpenServiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRpaasOpenServiceRequest) SetAuthToken(v string) *QueryRpaasOpenServiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryRpaasOpenServiceRequest) SetProductInstanceId(v string) *QueryRpaasOpenServiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryRpaasOpenServiceRequest) SetServiceId(v string) *QueryRpaasOpenServiceRequest {
+	s.ServiceId = &v
+	return s
+}
+
+func (s *QueryRpaasOpenServiceRequest) SetParams(v string) *QueryRpaasOpenServiceRequest {
+	s.Params = &v
+	return s
+}
+
+type QueryRpaasOpenServiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 调用结果
+	Body *string `json:"body,omitempty" xml:"body,omitempty"`
+}
+
+func (s QueryRpaasOpenServiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRpaasOpenServiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRpaasOpenServiceResponse) SetReqMsgId(v string) *QueryRpaasOpenServiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryRpaasOpenServiceResponse) SetResultCode(v string) *QueryRpaasOpenServiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryRpaasOpenServiceResponse) SetResultMsg(v string) *QueryRpaasOpenServiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryRpaasOpenServiceResponse) SetBody(v string) *QueryRpaasOpenServiceResponse {
+	s.Body = &v
+	return s
+}
+
 type QueryRpgwSignUrlRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -29386,7 +29489,7 @@ type QueryUmktOfflinedecisionResultResponse struct {
 	// 已完成的计划策略集合
 	DecisionPlanIdList []*int64 `json:"decision_plan_id_list,omitempty" xml:"decision_plan_id_list,omitempty" type:"Repeated"`
 	// 批次维度圈客任务结果
-	TaskExecBatchInfo []*UmktOfflineDecisionTaskDetailInfo `json:"task_exec_batch_info,omitempty" xml:"task_exec_batch_info,omitempty" type:"Repeated"`
+	TaskExecBatchInfo []*UmktOfflineDecisionTaskExecBatchInfo `json:"task_exec_batch_info,omitempty" xml:"task_exec_batch_info,omitempty" type:"Repeated"`
 }
 
 func (s QueryUmktOfflinedecisionResultResponse) String() string {
@@ -29417,7 +29520,7 @@ func (s *QueryUmktOfflinedecisionResultResponse) SetDecisionPlanIdList(v []*int6
 	return s
 }
 
-func (s *QueryUmktOfflinedecisionResultResponse) SetTaskExecBatchInfo(v []*UmktOfflineDecisionTaskDetailInfo) *QueryUmktOfflinedecisionResultResponse {
+func (s *QueryUmktOfflinedecisionResultResponse) SetTaskExecBatchInfo(v []*UmktOfflineDecisionTaskExecBatchInfo) *QueryUmktOfflinedecisionResultResponse {
 	s.TaskExecBatchInfo = v
 	return s
 }
@@ -29565,7 +29668,7 @@ type QueryUmktOfflinedecisionPlandetailsResponse struct {
 	// 离线圈客计划详细
 	PlanDetailList []*OfflineDecisionPlanDetail `json:"plan_detail_list,omitempty" xml:"plan_detail_list,omitempty" type:"Repeated"`
 	// 执行批次维度任务详情信息
-	TaskExecBatchInfo []*UmktOfflineDecisionTaskDetailInfo `json:"task_exec_batch_info,omitempty" xml:"task_exec_batch_info,omitempty" type:"Repeated"`
+	TaskExecBatchInfo []*UmktOfflineDecisionTaskExecBatchInfo `json:"task_exec_batch_info,omitempty" xml:"task_exec_batch_info,omitempty" type:"Repeated"`
 }
 
 func (s QueryUmktOfflinedecisionPlandetailsResponse) String() string {
@@ -29601,7 +29704,7 @@ func (s *QueryUmktOfflinedecisionPlandetailsResponse) SetPlanDetailList(v []*Off
 	return s
 }
 
-func (s *QueryUmktOfflinedecisionPlandetailsResponse) SetTaskExecBatchInfo(v []*UmktOfflineDecisionTaskDetailInfo) *QueryUmktOfflinedecisionPlandetailsResponse {
+func (s *QueryUmktOfflinedecisionPlandetailsResponse) SetTaskExecBatchInfo(v []*UmktOfflineDecisionTaskExecBatchInfo) *QueryUmktOfflinedecisionPlandetailsResponse {
 	s.TaskExecBatchInfo = v
 	return s
 }
@@ -29932,7 +30035,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.23.7"),
+				"sdk_version":      tea.String("1.23.9"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -34855,6 +34958,40 @@ func (client *Client) PushRpaasReportAnswerEx(request *PushRpaasReportAnswerRequ
 	}
 	_result = &PushRpaasReportAnswerResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rpaas.report.answer.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企管盾云开放平台服务调用
+ * Summary: 企管盾云开放平台服务调用
+ */
+func (client *Client) QueryRpaasOpenService(request *QueryRpaasOpenServiceRequest) (_result *QueryRpaasOpenServiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryRpaasOpenServiceResponse{}
+	_body, _err := client.QueryRpaasOpenServiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企管盾云开放平台服务调用
+ * Summary: 企管盾云开放平台服务调用
+ */
+func (client *Client) QueryRpaasOpenServiceEx(request *QueryRpaasOpenServiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryRpaasOpenServiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryRpaasOpenServiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rpaas.open.service.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
