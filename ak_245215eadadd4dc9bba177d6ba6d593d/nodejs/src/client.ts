@@ -401,6 +401,10 @@ export class ScriptVoiceConfig extends $tea.Model {
   volume?: string;
   // 音调，[0.1, 3]，默认为1，通常保留一位小数即可
   pitch?: string;
+  // 驱动类型
+  driverType?: string;
+  // 情绪
+  emotion?: string;
   static names(): { [key: string]: string } {
     return {
       voiceId: 'voice_id',
@@ -409,6 +413,8 @@ export class ScriptVoiceConfig extends $tea.Model {
       audioUrl: 'audio_url',
       volume: 'volume',
       pitch: 'pitch',
+      driverType: 'driver_type',
+      emotion: 'emotion',
     };
   }
 
@@ -420,6 +426,8 @@ export class ScriptVoiceConfig extends $tea.Model {
       audioUrl: 'string',
       volume: 'string',
       pitch: 'string',
+      driverType: 'string',
+      emotion: 'string',
     };
   }
 
@@ -849,11 +857,11 @@ export class CreateUniversalsaasDigitalhumanVideoTaskRequest extends $tea.Model 
   // 数字人id
   avatarId: string;
   // text/audio, 合成驱动--文本/音频
-  driverType: string;
+  driverType?: string;
   // 形象设置
   profileInfo?: ProfileInfo;
   // 话术脚本语音配置
-  scriptVoiceConfig: ScriptVoiceConfig;
+  scriptVoiceConfig?: ScriptVoiceConfig;
   // 是否开启字幕
   openCaptions: boolean;
   // 字幕配置
@@ -870,6 +878,8 @@ export class CreateUniversalsaasDigitalhumanVideoTaskRequest extends $tea.Model 
   width?: number;
   // 是否返回字幕时间戳，但不合成到视频画面里面
   returnCaptions?: boolean;
+  // 多场景--话术语音配置列表
+  scriptVoiceConfigList?: ScriptVoiceConfig[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -887,6 +897,7 @@ export class CreateUniversalsaasDigitalhumanVideoTaskRequest extends $tea.Model 
       videoFormat: 'video_format',
       width: 'width',
       returnCaptions: 'return_captions',
+      scriptVoiceConfigList: 'script_voice_config_list',
     };
   }
 
@@ -907,6 +918,7 @@ export class CreateUniversalsaasDigitalhumanVideoTaskRequest extends $tea.Model 
       videoFormat: 'string',
       width: 'number',
       returnCaptions: 'boolean',
+      scriptVoiceConfigList: { 'type': 'array', 'itemType': ScriptVoiceConfig },
     };
   }
 
@@ -1956,7 +1968,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.3",
+          sdk_version: "1.3.4",
           _prod_code: "ak_245215eadadd4dc9bba177d6ba6d593d",
           _prod_channel: "saas",
         };
