@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\REALPERSON\Models\ApplyExtOrgdataRequest;
+use AntChain\REALPERSON\Models\ApplyExtOrgdataResponse;
 use AntChain\REALPERSON\Models\BindCarrierRepairmobileRequest;
 use AntChain\REALPERSON\Models\BindCarrierRepairmobileResponse;
 use AntChain\REALPERSON\Models\CheckAnticheatPersonalRequest;
@@ -33,10 +35,14 @@ use AntChain\REALPERSON\Models\CheckThreemetaBankcardRequest;
 use AntChain\REALPERSON\Models\CheckThreemetaBankcardResponse;
 use AntChain\REALPERSON\Models\CheckTwometaHashRequest;
 use AntChain\REALPERSON\Models\CheckTwometaHashResponse;
+use AntChain\REALPERSON\Models\CreateAlipayverifyServerRequest;
+use AntChain\REALPERSON\Models\CreateAlipayverifyServerResponse;
 use AntChain\REALPERSON\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\REALPERSON\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\REALPERSON\Models\CreateConsoleDomainRequest;
 use AntChain\REALPERSON\Models\CreateConsoleDomainResponse;
+use AntChain\REALPERSON\Models\CreateFaceverifyServerRequest;
+use AntChain\REALPERSON\Models\CreateFaceverifyServerResponse;
 use AntChain\REALPERSON\Models\CreateFacevrfServerRequest;
 use AntChain\REALPERSON\Models\CreateFacevrfServerResponse;
 use AntChain\REALPERSON\Models\CreateNfcServerRequest;
@@ -47,6 +53,8 @@ use AntChain\REALPERSON\Models\DeleteConsoleDomainRequest;
 use AntChain\REALPERSON\Models\DeleteConsoleDomainResponse;
 use AntChain\REALPERSON\Models\DetailFacevrfServerRequest;
 use AntChain\REALPERSON\Models\DetailFacevrfServerResponse;
+use AntChain\REALPERSON\Models\ExecFaceverifyServermodeRequest;
+use AntChain\REALPERSON\Models\ExecFaceverifyServermodeResponse;
 use AntChain\REALPERSON\Models\ExecFacevrfServermodeRequest;
 use AntChain\REALPERSON\Models\ExecFacevrfServermodeResponse;
 use AntChain\REALPERSON\Models\ExecFacevrfServerRequest;
@@ -57,6 +65,10 @@ use AntChain\REALPERSON\Models\InitCarrierRepairmobileRequest;
 use AntChain\REALPERSON\Models\InitCarrierRepairmobileResponse;
 use AntChain\REALPERSON\Models\InitFacevrfZimRequest;
 use AntChain\REALPERSON\Models\InitFacevrfZimResponse;
+use AntChain\REALPERSON\Models\QueryAlipayverifyServerRequest;
+use AntChain\REALPERSON\Models\QueryAlipayverifyServerResponse;
+use AntChain\REALPERSON\Models\QueryBankLivenessplusRequest;
+use AntChain\REALPERSON\Models\QueryBankLivenessplusResponse;
 use AntChain\REALPERSON\Models\QueryBankLivenessRequest;
 use AntChain\REALPERSON\Models\QueryBankLivenessResponse;
 use AntChain\REALPERSON\Models\QueryCarrierNetstatusRequest;
@@ -71,6 +83,8 @@ use AntChain\REALPERSON\Models\QueryDemoInfoRequest;
 use AntChain\REALPERSON\Models\QueryDemoInfoResponse;
 use AntChain\REALPERSON\Models\QueryEducationInfoRequest;
 use AntChain\REALPERSON\Models\QueryEducationInfoResponse;
+use AntChain\REALPERSON\Models\QueryFaceverifyServerRequest;
+use AntChain\REALPERSON\Models\QueryFaceverifyServerResponse;
 use AntChain\REALPERSON\Models\QueryFacevrfServerRequest;
 use AntChain\REALPERSON\Models\QueryFacevrfServerResponse;
 use AntChain\REALPERSON\Models\QueryMobileRiskRequest;
@@ -242,7 +256,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.16.0',
+                    'sdk_version'      => '1.19.4',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1679,6 +1693,256 @@ class Client
         Utils::validateModel($request);
 
         return BindCarrierRepairmobileResponse::fromMap($this->doRequest('1.0', 'di.realperson.carrier.repairmobile.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 外部机构数据上报
+     * Summary: 外部机构数据上报.
+     *
+     * @param ApplyExtOrgdataRequest $request
+     *
+     * @return ApplyExtOrgdataResponse
+     */
+    public function applyExtOrgdata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyExtOrgdataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 外部机构数据上报
+     * Summary: 外部机构数据上报.
+     *
+     * @param ApplyExtOrgdataRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return ApplyExtOrgdataResponse
+     */
+    public function applyExtOrgdataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyExtOrgdataResponse::fromMap($this->doRequest('1.0', 'di.realperson.ext.orgdata.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数科刷脸服务端初始化接口
+     * Summary: 数科刷脸服务端初始化接口.
+     *
+     * @param CreateFaceverifyServerRequest $request
+     *
+     * @return CreateFaceverifyServerResponse
+     */
+    public function createFaceverifyServer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createFaceverifyServerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数科刷脸服务端初始化接口
+     * Summary: 数科刷脸服务端初始化接口.
+     *
+     * @param CreateFaceverifyServerRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return CreateFaceverifyServerResponse
+     */
+    public function createFaceverifyServerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateFaceverifyServerResponse::fromMap($this->doRequest('1.0', 'di.realperson.faceverify.server.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询认证的结果和相关信息
+     * Summary: 认证查询.
+     *
+     * @param QueryFaceverifyServerRequest $request
+     *
+     * @return QueryFaceverifyServerResponse
+     */
+    public function queryFaceverifyServer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryFaceverifyServerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询认证的结果和相关信息
+     * Summary: 认证查询.
+     *
+     * @param QueryFaceverifyServerRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryFaceverifyServerResponse
+     */
+    public function queryFaceverifyServerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryFaceverifyServerResponse::fromMap($this->doRequest('1.0', 'di.realperson.faceverify.server.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人银行卡状态增强版
+     * Summary: 个人银行卡状态增强版.
+     *
+     * @param QueryBankLivenessplusRequest $request
+     *
+     * @return QueryBankLivenessplusResponse
+     */
+    public function queryBankLivenessplus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBankLivenessplusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人银行卡状态增强版
+     * Summary: 个人银行卡状态增强版.
+     *
+     * @param QueryBankLivenessplusRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryBankLivenessplusResponse
+     */
+    public function queryBankLivenessplusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBankLivenessplusResponse::fromMap($this->doRequest('1.0', 'di.realperson.bank.livenessplus.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 纯服务端比对基础版本，直接输入待比对的图片，返回比对结果
+     * Summary: 纯服务端比对基础版.
+     *
+     * @param ExecFaceverifyServermodeRequest $request
+     *
+     * @return ExecFaceverifyServermodeResponse
+     */
+    public function execFaceverifyServermode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execFaceverifyServermodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 纯服务端比对基础版本，直接输入待比对的图片，返回比对结果
+     * Summary: 纯服务端比对基础版.
+     *
+     * @param ExecFaceverifyServermodeRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return ExecFaceverifyServermodeResponse
+     */
+    public function execFaceverifyServermodeEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'di.realperson.faceverify.servermode.exec',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new ExecFaceverifyServermodeResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return ExecFaceverifyServermodeResponse::fromMap($this->doRequest('1.0', 'di.realperson.faceverify.servermode.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支付宝实人认证初始化接口
+     * Summary: 支付宝实人认证初始化接口.
+     *
+     * @param CreateAlipayverifyServerRequest $request
+     *
+     * @return CreateAlipayverifyServerResponse
+     */
+    public function createAlipayverifyServer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAlipayverifyServerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支付宝实人认证初始化接口
+     * Summary: 支付宝实人认证初始化接口.
+     *
+     * @param CreateAlipayverifyServerRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return CreateAlipayverifyServerResponse
+     */
+    public function createAlipayverifyServerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAlipayverifyServerResponse::fromMap($this->doRequest('1.0', 'di.realperson.alipayverify.server.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支付宝实人认证查询接口
+     * Summary: 支付宝实人认证查询接口.
+     *
+     * @param QueryAlipayverifyServerRequest $request
+     *
+     * @return QueryAlipayverifyServerResponse
+     */
+    public function queryAlipayverifyServer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAlipayverifyServerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支付宝实人认证查询接口
+     * Summary: 支付宝实人认证查询接口.
+     *
+     * @param QueryAlipayverifyServerRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryAlipayverifyServerResponse
+     */
+    public function queryAlipayverifyServerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAlipayverifyServerResponse::fromMap($this->doRequest('1.0', 'di.realperson.alipayverify.server.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

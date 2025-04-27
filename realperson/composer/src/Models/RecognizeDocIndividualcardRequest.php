@@ -68,6 +68,24 @@ class RecognizeDocIndividualcardRequest extends Model
      */
     public $riskInfoType;
 
+    // 是否返回身份证头像照片
+    // 0：否
+    // 1：是
+    // 不填默认不返回。
+    /**
+     * @var string
+     */
+    public $returnPhoto;
+
+    // 是否返回身份证图片
+    // 0：否
+    // 1：是
+    // 不填默认不返回。
+    /**
+     * @var string
+     */
+    public $returnImage;
+
     // 扩展信息JSON串。
     /**
      * @var string
@@ -84,6 +102,8 @@ class RecognizeDocIndividualcardRequest extends Model
         'respEncType'       => 'resp_enc_type',
         'encToken'          => 'enc_token',
         'riskInfoType'      => 'risk_info_type',
+        'returnPhoto'       => 'return_photo',
+        'returnImage'       => 'return_image',
         'externParam'       => 'extern_param',
     ];
 
@@ -127,6 +147,12 @@ class RecognizeDocIndividualcardRequest extends Model
         }
         if (null !== $this->riskInfoType) {
             $res['risk_info_type'] = $this->riskInfoType;
+        }
+        if (null !== $this->returnPhoto) {
+            $res['return_photo'] = $this->returnPhoto;
+        }
+        if (null !== $this->returnImage) {
+            $res['return_image'] = $this->returnImage;
         }
         if (null !== $this->externParam) {
             $res['extern_param'] = $this->externParam;
@@ -172,6 +198,12 @@ class RecognizeDocIndividualcardRequest extends Model
         }
         if (isset($map['risk_info_type'])) {
             $model->riskInfoType = $map['risk_info_type'];
+        }
+        if (isset($map['return_photo'])) {
+            $model->returnPhoto = $map['return_photo'];
+        }
+        if (isset($map['return_image'])) {
+            $model->returnImage = $map['return_image'];
         }
         if (isset($map['extern_param'])) {
             $model->externParam = $map['extern_param'];

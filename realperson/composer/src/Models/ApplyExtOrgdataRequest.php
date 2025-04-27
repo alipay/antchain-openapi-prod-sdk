@@ -6,7 +6,7 @@ namespace AntChain\REALPERSON\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class InitCarrierRepairmobileRequest extends Model
+class ApplyExtOrgdataRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,66 +25,48 @@ class InitCarrierRepairmobileRequest extends Model
      */
     public $outerOrderNo;
 
-    // 流程ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，用于流程串联。
-    /**
-     * @var string
-     */
-    public $processId;
-
-    // 运营商类型，取值如下：
-    // CHINA_TELECOM：中国电信
-    // CHINA_MOBILE：中国移动
-    // CHINA_UNICOM：中国联通
-    /**
-     * @var string
-     */
-    public $carrier;
-
-    // 入参加密模式：
+    // 是	入参加密模式：
     // "0"（默认值）：不加密；
-    // "2"：身份证号、曾用手机号字段都需填写SHA256加密后的字符串。
-    // 默认未"0"
+    // "4"：RSA加密
     /**
      * @var string
      */
     public $encryptType;
 
-    // 失联修复身份证号，使用入参加密模式加密
+    // 星火保
     /**
      * @var string
      */
-    public $certNo;
+    public $orgName;
 
-    // 用户姓名，明文
+    // 外部机构数据类型，取值如下： AXINSUR_BANK_LIVENESS：星火保蚂蚁推荐卡
     /**
      * @var string
      */
-    public $name;
+    public $dataType;
 
-    // 曾用手机号码，使用入参加密模式加密
+    // 机构上报数据，json数组
     /**
      * @var string
      */
-    public $mobile;
+    public $dataContent;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'outerOrderNo'      => 'outer_order_no',
-        'processId'         => 'process_id',
-        'carrier'           => 'carrier',
         'encryptType'       => 'encrypt_type',
-        'certNo'            => 'cert_no',
-        'name'              => 'name',
-        'mobile'            => 'mobile',
+        'orgName'           => 'org_name',
+        'dataType'          => 'data_type',
+        'dataContent'       => 'data_content',
     ];
 
     public function validate()
     {
         Model::validateRequired('outerOrderNo', $this->outerOrderNo, true);
-        Model::validateRequired('processId', $this->processId, true);
-        Model::validateRequired('carrier', $this->carrier, true);
-        Model::validateRequired('certNo', $this->certNo, true);
-        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('encryptType', $this->encryptType, true);
+        Model::validateRequired('orgName', $this->orgName, true);
+        Model::validateRequired('dataType', $this->dataType, true);
+        Model::validateRequired('dataContent', $this->dataContent, true);
     }
 
     public function toMap()
@@ -99,23 +81,17 @@ class InitCarrierRepairmobileRequest extends Model
         if (null !== $this->outerOrderNo) {
             $res['outer_order_no'] = $this->outerOrderNo;
         }
-        if (null !== $this->processId) {
-            $res['process_id'] = $this->processId;
-        }
-        if (null !== $this->carrier) {
-            $res['carrier'] = $this->carrier;
-        }
         if (null !== $this->encryptType) {
             $res['encrypt_type'] = $this->encryptType;
         }
-        if (null !== $this->certNo) {
-            $res['cert_no'] = $this->certNo;
+        if (null !== $this->orgName) {
+            $res['org_name'] = $this->orgName;
         }
-        if (null !== $this->name) {
-            $res['name'] = $this->name;
+        if (null !== $this->dataType) {
+            $res['data_type'] = $this->dataType;
         }
-        if (null !== $this->mobile) {
-            $res['mobile'] = $this->mobile;
+        if (null !== $this->dataContent) {
+            $res['data_content'] = $this->dataContent;
         }
 
         return $res;
@@ -124,7 +100,7 @@ class InitCarrierRepairmobileRequest extends Model
     /**
      * @param array $map
      *
-     * @return InitCarrierRepairmobileRequest
+     * @return ApplyExtOrgdataRequest
      */
     public static function fromMap($map = [])
     {
@@ -138,23 +114,17 @@ class InitCarrierRepairmobileRequest extends Model
         if (isset($map['outer_order_no'])) {
             $model->outerOrderNo = $map['outer_order_no'];
         }
-        if (isset($map['process_id'])) {
-            $model->processId = $map['process_id'];
-        }
-        if (isset($map['carrier'])) {
-            $model->carrier = $map['carrier'];
-        }
         if (isset($map['encrypt_type'])) {
             $model->encryptType = $map['encrypt_type'];
         }
-        if (isset($map['cert_no'])) {
-            $model->certNo = $map['cert_no'];
+        if (isset($map['org_name'])) {
+            $model->orgName = $map['org_name'];
         }
-        if (isset($map['name'])) {
-            $model->name = $map['name'];
+        if (isset($map['data_type'])) {
+            $model->dataType = $map['data_type'];
         }
-        if (isset($map['mobile'])) {
-            $model->mobile = $map['mobile'];
+        if (isset($map['data_content'])) {
+            $model->dataContent = $map['data_content'];
         }
 
         return $model;

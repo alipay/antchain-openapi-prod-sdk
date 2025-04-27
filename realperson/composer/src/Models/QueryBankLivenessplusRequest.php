@@ -6,7 +6,7 @@ namespace AntChain\REALPERSON\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class InitCarrierRepairmobileRequest extends Model
+class QueryBankLivenessplusRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,72 +19,72 @@ class InitCarrierRepairmobileRequest extends Model
      */
     public $productInstanceId;
 
-    // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+    // 请求ID
     /**
      * @var string
      */
     public $outerOrderNo;
 
-    // 流程ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，用于流程串联。
-    /**
-     * @var string
-     */
-    public $processId;
-
-    // 运营商类型，取值如下：
-    // CHINA_TELECOM：中国电信
-    // CHINA_MOBILE：中国移动
-    // CHINA_UNICOM：中国联通
-    /**
-     * @var string
-     */
-    public $carrier;
-
-    // 入参加密模式：
-    // "0"（默认值）：不加密；
-    // "2"：身份证号、曾用手机号字段都需填写SHA256加密后的字符串。
-    // 默认未"0"
+    // 加密方式
     /**
      * @var string
      */
     public $encryptType;
 
-    // 失联修复身份证号，使用入参加密模式加密
+    // 身份证号
     /**
      * @var string
      */
     public $certNo;
 
-    // 用户姓名，明文
+    // 银行编码
     /**
      * @var string
      */
-    public $name;
+    public $bankCode;
 
-    // 曾用手机号码，使用入参加密模式加密
+    // 1=借记卡+贷记卡（默认）；2=借记卡
+    /**
+     * @var string
+     */
+    public $bankCardType;
+
+    // 姓名
+    /**
+     * @var string
+     */
+    public $certName;
+
+    // 手机号码
     /**
      * @var string
      */
     public $mobile;
+
+    // 扩展信息，预留字段
+    /**
+     * @var string
+     */
+    public $externParam;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'outerOrderNo'      => 'outer_order_no',
-        'processId'         => 'process_id',
-        'carrier'           => 'carrier',
         'encryptType'       => 'encrypt_type',
         'certNo'            => 'cert_no',
-        'name'              => 'name',
+        'bankCode'          => 'bank_code',
+        'bankCardType'      => 'bank_card_type',
+        'certName'          => 'cert_name',
         'mobile'            => 'mobile',
+        'externParam'       => 'extern_param',
     ];
 
     public function validate()
     {
         Model::validateRequired('outerOrderNo', $this->outerOrderNo, true);
-        Model::validateRequired('processId', $this->processId, true);
-        Model::validateRequired('carrier', $this->carrier, true);
+        Model::validateRequired('encryptType', $this->encryptType, true);
         Model::validateRequired('certNo', $this->certNo, true);
-        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('bankCode', $this->bankCode, true);
     }
 
     public function toMap()
@@ -99,23 +99,26 @@ class InitCarrierRepairmobileRequest extends Model
         if (null !== $this->outerOrderNo) {
             $res['outer_order_no'] = $this->outerOrderNo;
         }
-        if (null !== $this->processId) {
-            $res['process_id'] = $this->processId;
-        }
-        if (null !== $this->carrier) {
-            $res['carrier'] = $this->carrier;
-        }
         if (null !== $this->encryptType) {
             $res['encrypt_type'] = $this->encryptType;
         }
         if (null !== $this->certNo) {
             $res['cert_no'] = $this->certNo;
         }
-        if (null !== $this->name) {
-            $res['name'] = $this->name;
+        if (null !== $this->bankCode) {
+            $res['bank_code'] = $this->bankCode;
+        }
+        if (null !== $this->bankCardType) {
+            $res['bank_card_type'] = $this->bankCardType;
+        }
+        if (null !== $this->certName) {
+            $res['cert_name'] = $this->certName;
         }
         if (null !== $this->mobile) {
             $res['mobile'] = $this->mobile;
+        }
+        if (null !== $this->externParam) {
+            $res['extern_param'] = $this->externParam;
         }
 
         return $res;
@@ -124,7 +127,7 @@ class InitCarrierRepairmobileRequest extends Model
     /**
      * @param array $map
      *
-     * @return InitCarrierRepairmobileRequest
+     * @return QueryBankLivenessplusRequest
      */
     public static function fromMap($map = [])
     {
@@ -138,23 +141,26 @@ class InitCarrierRepairmobileRequest extends Model
         if (isset($map['outer_order_no'])) {
             $model->outerOrderNo = $map['outer_order_no'];
         }
-        if (isset($map['process_id'])) {
-            $model->processId = $map['process_id'];
-        }
-        if (isset($map['carrier'])) {
-            $model->carrier = $map['carrier'];
-        }
         if (isset($map['encrypt_type'])) {
             $model->encryptType = $map['encrypt_type'];
         }
         if (isset($map['cert_no'])) {
             $model->certNo = $map['cert_no'];
         }
-        if (isset($map['name'])) {
-            $model->name = $map['name'];
+        if (isset($map['bank_code'])) {
+            $model->bankCode = $map['bank_code'];
+        }
+        if (isset($map['bank_card_type'])) {
+            $model->bankCardType = $map['bank_card_type'];
+        }
+        if (isset($map['cert_name'])) {
+            $model->certName = $map['cert_name'];
         }
         if (isset($map['mobile'])) {
             $model->mobile = $map['mobile'];
+        }
+        if (isset($map['extern_param'])) {
+            $model->externParam = $map['extern_param'];
         }
 
         return $model;
