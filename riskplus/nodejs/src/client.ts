@@ -326,6 +326,39 @@ export class RtopTypeDistribution extends $tea.Model {
   }
 }
 
+// 营销盾离线圈客任务详细信息
+export class UmktOfflineDecisionTaskDetailInfo extends $tea.Model {
+  // 任务id
+  taskId: number;
+  // 圈客计划id
+  decisionPlanId: number;
+  // 圈客结果状态
+  decisionResultStatus: string;
+  // 圈客结果状态描述
+  statusRemark: string;
+  static names(): { [key: string]: string } {
+    return {
+      taskId: 'task_id',
+      decisionPlanId: 'decision_plan_id',
+      decisionResultStatus: 'decision_result_status',
+      statusRemark: 'status_remark',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      taskId: 'number',
+      decisionPlanId: 'number',
+      decisionResultStatus: 'string',
+      statusRemark: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 营销盾触达媒介参数信息
 export class ActionParamInfo extends $tea.Model {
   // 触达媒介类型
@@ -2415,39 +2448,6 @@ export class CompanyInfo extends $tea.Model {
   }
 }
 
-// 营销盾离线圈客任务详细信息
-export class UmktOfflineDecisionTaskDetailInfo extends $tea.Model {
-  // 任务id
-  taskId: number;
-  // 圈客计划id
-  decisionPlanId: number;
-  // 圈客结果状态
-  decisionResultStatus: string;
-  // 圈客结果状态描述
-  statusRemark: string;
-  static names(): { [key: string]: string } {
-    return {
-      taskId: 'task_id',
-      decisionPlanId: 'decision_plan_id',
-      decisionResultStatus: 'decision_result_status',
-      statusRemark: 'status_remark',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      taskId: 'number',
-      decisionPlanId: 'number',
-      decisionResultStatus: 'string',
-      statusRemark: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 营销盾事件信息同步详情
 export class EventResultSyncDetail extends $tea.Model {
   // 事件唯一id（单个租户全局唯一）
@@ -3749,6 +3749,31 @@ export class CustomerBankCardInfo extends $tea.Model {
       bankCardNo: 'string',
       signed: 'string',
       acctBankCard: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 营销盾离线圈客执行批次信息
+export class UmktOfflineDecisionTaskExecBatchInfo extends $tea.Model {
+  // 执行批次
+  execBatch: string;
+  // 批次下任务列表
+  offlineDecisionTaskDetailInfoList: UmktOfflineDecisionTaskDetailInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      execBatch: 'exec_batch',
+      offlineDecisionTaskDetailInfoList: 'offline_decision_task_detail_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      execBatch: 'string',
+      offlineDecisionTaskDetailInfoList: { 'type': 'array', 'itemType': UmktOfflineDecisionTaskDetailInfo },
     };
   }
 
@@ -16113,6 +16138,69 @@ export class PushRpaasReportAnswerResponse extends $tea.Model {
   }
 }
 
+export class QueryRpaasOpenServiceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 开放服务ID
+  serviceId: string;
+  // { "companyId": "2088" }
+  params?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      serviceId: 'service_id',
+      params: 'params',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      serviceId: 'string',
+      params: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRpaasOpenServiceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 调用结果
+  body?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      body: 'body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      body: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryRpgwSignUrlRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -21990,7 +22078,7 @@ export class QueryUmktOfflinedecisionResultResponse extends $tea.Model {
   // 已完成的计划策略集合
   decisionPlanIdList?: number[];
   // 批次维度圈客任务结果
-  taskExecBatchInfo?: UmktOfflineDecisionTaskDetailInfo[];
+  taskExecBatchInfo?: UmktOfflineDecisionTaskExecBatchInfo[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -22007,7 +22095,7 @@ export class QueryUmktOfflinedecisionResultResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       decisionPlanIdList: { 'type': 'array', 'itemType': 'number' },
-      taskExecBatchInfo: { 'type': 'array', 'itemType': UmktOfflineDecisionTaskDetailInfo },
+      taskExecBatchInfo: { 'type': 'array', 'itemType': UmktOfflineDecisionTaskExecBatchInfo },
     };
   }
 
@@ -22132,7 +22220,7 @@ export class QueryUmktOfflinedecisionPlandetailsResponse extends $tea.Model {
   // 离线圈客计划详细
   planDetailList?: OfflineDecisionPlanDetail[];
   // 执行批次维度任务详情信息
-  taskExecBatchInfo?: UmktOfflineDecisionTaskDetailInfo[];
+  taskExecBatchInfo?: UmktOfflineDecisionTaskExecBatchInfo[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -22151,7 +22239,7 @@ export class QueryUmktOfflinedecisionPlandetailsResponse extends $tea.Model {
       resultMsg: 'string',
       offlineDecisionPlanCount: 'number',
       planDetailList: { 'type': 'array', 'itemType': OfflineDecisionPlanDetail },
-      taskExecBatchInfo: { 'type': 'array', 'itemType': UmktOfflineDecisionTaskDetailInfo },
+      taskExecBatchInfo: { 'type': 'array', 'itemType': UmktOfflineDecisionTaskExecBatchInfo },
     };
   }
 
@@ -22426,7 +22514,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.23.7",
+          sdk_version: "1.23.9",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -25226,6 +25314,25 @@ export default class Client {
   async pushRpaasReportAnswerEx(request: PushRpaasReportAnswerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushRpaasReportAnswerResponse> {
     Util.validateModel(request);
     return $tea.cast<PushRpaasReportAnswerResponse>(await this.doRequest("1.0", "riskplus.rpaas.report.answer.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushRpaasReportAnswerResponse({}));
+  }
+
+  /**
+   * Description: 企管盾云开放平台服务调用
+   * Summary: 企管盾云开放平台服务调用
+   */
+  async queryRpaasOpenService(request: QueryRpaasOpenServiceRequest): Promise<QueryRpaasOpenServiceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryRpaasOpenServiceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 企管盾云开放平台服务调用
+   * Summary: 企管盾云开放平台服务调用
+   */
+  async queryRpaasOpenServiceEx(request: QueryRpaasOpenServiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRpaasOpenServiceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryRpaasOpenServiceResponse>(await this.doRequest("1.0", "riskplus.rpaas.open.service.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRpaasOpenServiceResponse({}));
   }
 
   /**
