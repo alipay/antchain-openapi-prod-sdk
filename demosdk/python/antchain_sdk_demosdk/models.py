@@ -1419,10 +1419,25 @@ class QueryAbcdOneRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
+        timeout: str = None,
+        count: int = None,
+        time: str = None,
+        desc: str = None,
+        operator: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
+        # 超时时间
+        self.timeout = timeout
+        # 请求编号
+        self.count = count
+        # 请求时间
+        self.time = time
+        # 请求描述
+        self.desc = desc
+        # 操作人
+        self.operator = operator
 
     def validate(self):
         pass
@@ -1437,6 +1452,16 @@ class QueryAbcdOneRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
+        if self.timeout is not None:
+            result['timeout'] = self.timeout
+        if self.count is not None:
+            result['count'] = self.count
+        if self.time is not None:
+            result['time'] = self.time
+        if self.desc is not None:
+            result['desc'] = self.desc
+        if self.operator is not None:
+            result['operator'] = self.operator
         return result
 
     def from_map(self, m: dict = None):
@@ -1445,6 +1470,16 @@ class QueryAbcdOneRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
+        if m.get('timeout') is not None:
+            self.timeout = m.get('timeout')
+        if m.get('count') is not None:
+            self.count = m.get('count')
+        if m.get('time') is not None:
+            self.time = m.get('time')
+        if m.get('desc') is not None:
+            self.desc = m.get('desc')
+        if m.get('operator') is not None:
+            self.operator = m.get('operator')
         return self
 
 
@@ -1509,10 +1544,25 @@ class ImportAbcdOneRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
+        timeout: str = None,
+        count: int = None,
+        time: str = None,
+        desc: str = None,
+        operator: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
+        # 超时时间
+        self.timeout = timeout
+        # 请求编号
+        self.count = count
+        # 请求时间
+        self.time = time
+        # 请求描述
+        self.desc = desc
+        # 操作者
+        self.operator = operator
 
     def validate(self):
         pass
@@ -1527,6 +1577,16 @@ class ImportAbcdOneRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
+        if self.timeout is not None:
+            result['timeout'] = self.timeout
+        if self.count is not None:
+            result['count'] = self.count
+        if self.time is not None:
+            result['time'] = self.time
+        if self.desc is not None:
+            result['desc'] = self.desc
+        if self.operator is not None:
+            result['operator'] = self.operator
         return result
 
     def from_map(self, m: dict = None):
@@ -1535,6 +1595,16 @@ class ImportAbcdOneRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
+        if m.get('timeout') is not None:
+            self.timeout = m.get('timeout')
+        if m.get('count') is not None:
+            self.count = m.get('count')
+        if m.get('time') is not None:
+            self.time = m.get('time')
+        if m.get('desc') is not None:
+            self.desc = m.get('desc')
+        if m.get('operator') is not None:
+            self.operator = m.get('operator')
         return self
 
 
