@@ -32,7 +32,7 @@ namespace AntChain.SDK.RISKPLUS.Models
         // 批次维度圈客任务结果
         [NameInMap("task_exec_batch_info")]
         [Validation(Required=false)]
-        public List<UmktOfflineDecisionTaskDetailInfo> TaskExecBatchInfo { get; set; }
+        public List<UmktOfflineDecisionTaskExecBatchInfo> TaskExecBatchInfo { get; set; }
 
     }
 

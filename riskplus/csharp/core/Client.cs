@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.23.7"},
+                        {"sdk_version", "1.23.9"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.23.7"},
+                        {"sdk_version", "1.23.9"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6403,6 +6403,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PushRpaasReportAnswerResponse>(await DoRequestAsync("1.0", "riskplus.rpaas.report.answer.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企管盾云开放平台服务调用
+         * Summary: 企管盾云开放平台服务调用
+         */
+        public QueryRpaasOpenServiceResponse QueryRpaasOpenService(QueryRpaasOpenServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryRpaasOpenServiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企管盾云开放平台服务调用
+         * Summary: 企管盾云开放平台服务调用
+         */
+        public async Task<QueryRpaasOpenServiceResponse> QueryRpaasOpenServiceAsync(QueryRpaasOpenServiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryRpaasOpenServiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企管盾云开放平台服务调用
+         * Summary: 企管盾云开放平台服务调用
+         */
+        public QueryRpaasOpenServiceResponse QueryRpaasOpenServiceEx(QueryRpaasOpenServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRpaasOpenServiceResponse>(DoRequest("1.0", "riskplus.rpaas.open.service.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企管盾云开放平台服务调用
+         * Summary: 企管盾云开放平台服务调用
+         */
+        public async Task<QueryRpaasOpenServiceResponse> QueryRpaasOpenServiceExAsync(QueryRpaasOpenServiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRpaasOpenServiceResponse>(await DoRequestAsync("1.0", "riskplus.rpaas.open.service.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
