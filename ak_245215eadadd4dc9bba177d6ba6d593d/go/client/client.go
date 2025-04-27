@@ -544,6 +544,10 @@ type ScriptVoiceConfig struct {
 	Volume *string `json:"volume,omitempty" xml:"volume,omitempty"`
 	// 音调，[0.1, 3]，默认为1，通常保留一位小数即可
 	Pitch *string `json:"pitch,omitempty" xml:"pitch,omitempty"`
+	// 驱动类型
+	DriverType *string `json:"driver_type,omitempty" xml:"driver_type,omitempty"`
+	// 情绪
+	Emotion *string `json:"emotion,omitempty" xml:"emotion,omitempty"`
 }
 
 func (s ScriptVoiceConfig) String() string {
@@ -581,6 +585,16 @@ func (s *ScriptVoiceConfig) SetVolume(v string) *ScriptVoiceConfig {
 
 func (s *ScriptVoiceConfig) SetPitch(v string) *ScriptVoiceConfig {
 	s.Pitch = &v
+	return s
+}
+
+func (s *ScriptVoiceConfig) SetDriverType(v string) *ScriptVoiceConfig {
+	s.DriverType = &v
+	return s
+}
+
+func (s *ScriptVoiceConfig) SetEmotion(v string) *ScriptVoiceConfig {
+	s.Emotion = &v
 	return s
 }
 
@@ -1098,11 +1112,11 @@ type CreateUniversalsaasDigitalhumanVideoTaskRequest struct {
 	// 数字人id
 	AvatarId *string `json:"avatar_id,omitempty" xml:"avatar_id,omitempty" require:"true"`
 	// text/audio, 合成驱动--文本/音频
-	DriverType *string `json:"driver_type,omitempty" xml:"driver_type,omitempty" require:"true"`
+	DriverType *string `json:"driver_type,omitempty" xml:"driver_type,omitempty"`
 	// 形象设置
 	ProfileInfo *ProfileInfo `json:"profile_info,omitempty" xml:"profile_info,omitempty"`
 	// 话术脚本语音配置
-	ScriptVoiceConfig *ScriptVoiceConfig `json:"script_voice_config,omitempty" xml:"script_voice_config,omitempty" require:"true"`
+	ScriptVoiceConfig *ScriptVoiceConfig `json:"script_voice_config,omitempty" xml:"script_voice_config,omitempty"`
 	// 是否开启字幕
 	OpenCaptions *bool `json:"open_captions,omitempty" xml:"open_captions,omitempty" require:"true"`
 	// 字幕配置
@@ -1119,6 +1133,8 @@ type CreateUniversalsaasDigitalhumanVideoTaskRequest struct {
 	Width *int64 `json:"width,omitempty" xml:"width,omitempty"`
 	// 是否返回字幕时间戳，但不合成到视频画面里面
 	ReturnCaptions *bool `json:"return_captions,omitempty" xml:"return_captions,omitempty"`
+	// 多场景--话术语音配置列表
+	ScriptVoiceConfigList []*ScriptVoiceConfig `json:"script_voice_config_list,omitempty" xml:"script_voice_config_list,omitempty" type:"Repeated"`
 }
 
 func (s CreateUniversalsaasDigitalhumanVideoTaskRequest) String() string {
@@ -1201,6 +1217,11 @@ func (s *CreateUniversalsaasDigitalhumanVideoTaskRequest) SetWidth(v int64) *Cre
 
 func (s *CreateUniversalsaasDigitalhumanVideoTaskRequest) SetReturnCaptions(v bool) *CreateUniversalsaasDigitalhumanVideoTaskRequest {
 	s.ReturnCaptions = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanVideoTaskRequest) SetScriptVoiceConfigList(v []*ScriptVoiceConfig) *CreateUniversalsaasDigitalhumanVideoTaskRequest {
+	s.ScriptVoiceConfigList = v
 	return s
 }
 
@@ -2500,7 +2521,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.3"),
+				"sdk_version":      tea.String("1.3.4"),
 				"_prod_code":       tea.String("ak_245215eadadd4dc9bba177d6ba6d593d"),
 				"_prod_channel":    tea.String("saas"),
 			}
