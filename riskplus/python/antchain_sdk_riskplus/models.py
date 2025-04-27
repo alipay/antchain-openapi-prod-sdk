@@ -524,6 +524,58 @@ class RtopTypeDistribution(TeaModel):
         return self
 
 
+class UmktOfflineDecisionTaskDetailInfo(TeaModel):
+    def __init__(
+        self,
+        task_id: int = None,
+        decision_plan_id: int = None,
+        decision_result_status: str = None,
+        status_remark: str = None,
+    ):
+        # 任务id
+        self.task_id = task_id
+        # 圈客计划id
+        self.decision_plan_id = decision_plan_id
+        # 圈客结果状态
+        self.decision_result_status = decision_result_status
+        # 圈客结果状态描述
+        self.status_remark = status_remark
+
+    def validate(self):
+        self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.decision_plan_id, 'decision_plan_id')
+        self.validate_required(self.decision_result_status, 'decision_result_status')
+        self.validate_required(self.status_remark, 'status_remark')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.decision_plan_id is not None:
+            result['decision_plan_id'] = self.decision_plan_id
+        if self.decision_result_status is not None:
+            result['decision_result_status'] = self.decision_result_status
+        if self.status_remark is not None:
+            result['status_remark'] = self.status_remark
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('decision_plan_id') is not None:
+            self.decision_plan_id = m.get('decision_plan_id')
+        if m.get('decision_result_status') is not None:
+            self.decision_result_status = m.get('decision_result_status')
+        if m.get('status_remark') is not None:
+            self.status_remark = m.get('status_remark')
+        return self
+
+
 class ActionParamInfo(TeaModel):
     def __init__(
         self,
@@ -4030,58 +4082,6 @@ class CompanyInfo(TeaModel):
         return self
 
 
-class UmktOfflineDecisionTaskDetailInfo(TeaModel):
-    def __init__(
-        self,
-        task_id: int = None,
-        decision_plan_id: int = None,
-        decision_result_status: str = None,
-        status_remark: str = None,
-    ):
-        # 任务id
-        self.task_id = task_id
-        # 圈客计划id
-        self.decision_plan_id = decision_plan_id
-        # 圈客结果状态
-        self.decision_result_status = decision_result_status
-        # 圈客结果状态描述
-        self.status_remark = status_remark
-
-    def validate(self):
-        self.validate_required(self.task_id, 'task_id')
-        self.validate_required(self.decision_plan_id, 'decision_plan_id')
-        self.validate_required(self.decision_result_status, 'decision_result_status')
-        self.validate_required(self.status_remark, 'status_remark')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.task_id is not None:
-            result['task_id'] = self.task_id
-        if self.decision_plan_id is not None:
-            result['decision_plan_id'] = self.decision_plan_id
-        if self.decision_result_status is not None:
-            result['decision_result_status'] = self.decision_result_status
-        if self.status_remark is not None:
-            result['status_remark'] = self.status_remark
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('task_id') is not None:
-            self.task_id = m.get('task_id')
-        if m.get('decision_plan_id') is not None:
-            self.decision_plan_id = m.get('decision_plan_id')
-        if m.get('decision_result_status') is not None:
-            self.decision_result_status = m.get('decision_result_status')
-        if m.get('status_remark') is not None:
-            self.status_remark = m.get('status_remark')
-        return self
-
-
 class EventResultSyncDetail(TeaModel):
     def __init__(
         self,
@@ -6223,6 +6223,51 @@ class CustomerBankCardInfo(TeaModel):
             self.signed = m.get('signed')
         if m.get('acct_bank_card') is not None:
             self.acct_bank_card = m.get('acct_bank_card')
+        return self
+
+
+class UmktOfflineDecisionTaskExecBatchInfo(TeaModel):
+    def __init__(
+        self,
+        exec_batch: str = None,
+        offline_decision_task_detail_info_list: List[UmktOfflineDecisionTaskDetailInfo] = None,
+    ):
+        # 执行批次
+        self.exec_batch = exec_batch
+        # 批次下任务列表
+        self.offline_decision_task_detail_info_list = offline_decision_task_detail_info_list
+
+    def validate(self):
+        self.validate_required(self.exec_batch, 'exec_batch')
+        self.validate_required(self.offline_decision_task_detail_info_list, 'offline_decision_task_detail_info_list')
+        if self.offline_decision_task_detail_info_list:
+            for k in self.offline_decision_task_detail_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.exec_batch is not None:
+            result['exec_batch'] = self.exec_batch
+        result['offline_decision_task_detail_info_list'] = []
+        if self.offline_decision_task_detail_info_list is not None:
+            for k in self.offline_decision_task_detail_info_list:
+                result['offline_decision_task_detail_info_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('exec_batch') is not None:
+            self.exec_batch = m.get('exec_batch')
+        self.offline_decision_task_detail_info_list = []
+        if m.get('offline_decision_task_detail_info_list') is not None:
+            for k in m.get('offline_decision_task_detail_info_list'):
+                temp_model = UmktOfflineDecisionTaskDetailInfo()
+                self.offline_decision_task_detail_info_list.append(temp_model.from_map(k))
         return self
 
 
@@ -26661,6 +26706,103 @@ class PushRpaasReportAnswerResponse(TeaModel):
         return self
 
 
+class QueryRpaasOpenServiceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        service_id: str = None,
+        params: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 开放服务ID
+        self.service_id = service_id
+        # { "companyId": "2088" }
+        self.params = params
+
+    def validate(self):
+        self.validate_required(self.service_id, 'service_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.service_id is not None:
+            result['service_id'] = self.service_id
+        if self.params is not None:
+            result['params'] = self.params
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('service_id') is not None:
+            self.service_id = m.get('service_id')
+        if m.get('params') is not None:
+            self.params = m.get('params')
+        return self
+
+
+class QueryRpaasOpenServiceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        body: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 调用结果
+        self.body = body
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.body is not None:
+            result['body'] = self.body
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('body') is not None:
+            self.body = m.get('body')
+        return self
+
+
 class QueryRpgwSignUrlRequest(TeaModel):
     def __init__(
         self,
@@ -36634,7 +36776,7 @@ class QueryUmktOfflinedecisionResultResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         decision_plan_id_list: List[int] = None,
-        task_exec_batch_info: List[UmktOfflineDecisionTaskDetailInfo] = None,
+        task_exec_batch_info: List[UmktOfflineDecisionTaskExecBatchInfo] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -36686,7 +36828,7 @@ class QueryUmktOfflinedecisionResultResponse(TeaModel):
         self.task_exec_batch_info = []
         if m.get('task_exec_batch_info') is not None:
             for k in m.get('task_exec_batch_info'):
-                temp_model = UmktOfflineDecisionTaskDetailInfo()
+                temp_model = UmktOfflineDecisionTaskExecBatchInfo()
                 self.task_exec_batch_info.append(temp_model.from_map(k))
         return self
 
@@ -36861,7 +37003,7 @@ class QueryUmktOfflinedecisionPlandetailsResponse(TeaModel):
         result_msg: str = None,
         offline_decision_plan_count: int = None,
         plan_detail_list: List[OfflineDecisionPlanDetail] = None,
-        task_exec_batch_info: List[UmktOfflineDecisionTaskDetailInfo] = None,
+        task_exec_batch_info: List[UmktOfflineDecisionTaskExecBatchInfo] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -36928,7 +37070,7 @@ class QueryUmktOfflinedecisionPlandetailsResponse(TeaModel):
         self.task_exec_batch_info = []
         if m.get('task_exec_batch_info') is not None:
             for k in m.get('task_exec_batch_info'):
-                temp_model = UmktOfflineDecisionTaskDetailInfo()
+                temp_model = UmktOfflineDecisionTaskExecBatchInfo()
                 self.task_exec_batch_info.append(temp_model.from_map(k))
         return self
 

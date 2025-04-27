@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.23.7',
+                    'sdk_version': '1.23.9',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.23.7',
+                    'sdk_version': '1.23.9',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -8217,6 +8217,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.PushRpaasReportAnswerResponse(),
             await self.do_request_async('1.0', 'riskplus.rpaas.report.answer.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_rpaas_open_service(
+        self,
+        request: riskplus_models.QueryRpaasOpenServiceRequest,
+    ) -> riskplus_models.QueryRpaasOpenServiceResponse:
+        """
+        Description: 企管盾云开放平台服务调用
+        Summary: 企管盾云开放平台服务调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_rpaas_open_service_ex(request, headers, runtime)
+
+    async def query_rpaas_open_service_async(
+        self,
+        request: riskplus_models.QueryRpaasOpenServiceRequest,
+    ) -> riskplus_models.QueryRpaasOpenServiceResponse:
+        """
+        Description: 企管盾云开放平台服务调用
+        Summary: 企管盾云开放平台服务调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_rpaas_open_service_ex_async(request, headers, runtime)
+
+    def query_rpaas_open_service_ex(
+        self,
+        request: riskplus_models.QueryRpaasOpenServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRpaasOpenServiceResponse:
+        """
+        Description: 企管盾云开放平台服务调用
+        Summary: 企管盾云开放平台服务调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRpaasOpenServiceResponse(),
+            self.do_request('1.0', 'riskplus.rpaas.open.service.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_rpaas_open_service_ex_async(
+        self,
+        request: riskplus_models.QueryRpaasOpenServiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRpaasOpenServiceResponse:
+        """
+        Description: 企管盾云开放平台服务调用
+        Summary: 企管盾云开放平台服务调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRpaasOpenServiceResponse(),
+            await self.do_request_async('1.0', 'riskplus.rpaas.open.service.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_rpgw_sign_url(
