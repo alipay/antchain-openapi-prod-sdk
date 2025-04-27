@@ -28,6 +28,14 @@ public class ScriptVoiceConfig extends TeaModel {
     @NameInMap("pitch")
     public String pitch;
 
+    // 驱动类型
+    @NameInMap("driver_type")
+    public String driverType;
+
+    // 情绪
+    @NameInMap("emotion")
+    public String emotion;
+
     public static ScriptVoiceConfig build(java.util.Map<String, ?> map) throws Exception {
         ScriptVoiceConfig self = new ScriptVoiceConfig();
         return TeaModel.build(map, self);
@@ -79,6 +87,22 @@ public class ScriptVoiceConfig extends TeaModel {
     }
     public String getPitch() {
         return this.pitch;
+    }
+
+    public ScriptVoiceConfig setDriverType(String driverType) {
+        this.driverType = driverType;
+        return this;
+    }
+    public String getDriverType() {
+        return this.driverType;
+    }
+
+    public ScriptVoiceConfig setEmotion(String emotion) {
+        this.emotion = emotion;
+        return this;
+    }
+    public String getEmotion() {
+        return this.emotion;
     }
 
 }

@@ -22,7 +22,6 @@ public class CreateUniversalsaasDigitalhumanVideoTaskRequest extends TeaModel {
 
     // text/audio, 合成驱动--文本/音频
     @NameInMap("driver_type")
-    @Validation(required = true)
     public String driverType;
 
     // 形象设置
@@ -31,7 +30,6 @@ public class CreateUniversalsaasDigitalhumanVideoTaskRequest extends TeaModel {
 
     // 话术脚本语音配置
     @NameInMap("script_voice_config")
-    @Validation(required = true)
     public ScriptVoiceConfig scriptVoiceConfig;
 
     // 是否开启字幕
@@ -66,6 +64,10 @@ public class CreateUniversalsaasDigitalhumanVideoTaskRequest extends TeaModel {
     // 是否返回字幕时间戳，但不合成到视频画面里面
     @NameInMap("return_captions")
     public Boolean returnCaptions;
+
+    // 多场景--话术语音配置列表
+    @NameInMap("script_voice_config_list")
+    public java.util.List<ScriptVoiceConfig> scriptVoiceConfigList;
 
     public static CreateUniversalsaasDigitalhumanVideoTaskRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateUniversalsaasDigitalhumanVideoTaskRequest self = new CreateUniversalsaasDigitalhumanVideoTaskRequest();
@@ -190,6 +192,14 @@ public class CreateUniversalsaasDigitalhumanVideoTaskRequest extends TeaModel {
     }
     public Boolean getReturnCaptions() {
         return this.returnCaptions;
+    }
+
+    public CreateUniversalsaasDigitalhumanVideoTaskRequest setScriptVoiceConfigList(java.util.List<ScriptVoiceConfig> scriptVoiceConfigList) {
+        this.scriptVoiceConfigList = scriptVoiceConfigList;
+        return this;
+    }
+    public java.util.List<ScriptVoiceConfig> getScriptVoiceConfigList() {
+        return this.scriptVoiceConfigList;
     }
 
 }
