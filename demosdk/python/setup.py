@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_demosdk.
 
-Created on 25/04/2025
+Created on 27/04/2025
 
 @author: Ant Chain SDK
 """
