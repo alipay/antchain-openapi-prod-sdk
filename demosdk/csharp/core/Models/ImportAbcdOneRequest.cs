@@ -18,6 +18,31 @@ namespace AntChain.SDK.DEMOSDK.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
+        // 超时时间
+        [NameInMap("timeout")]
+        [Validation(Required=false)]
+        public string Timeout { get; set; }
+
+        // 请求编号
+        [NameInMap("count")]
+        [Validation(Required=false)]
+        public long? Count { get; set; }
+
+        // 请求时间
+        [NameInMap("time")]
+        [Validation(Required=false)]
+        public string Time { get; set; }
+
+        // 请求描述
+        [NameInMap("desc")]
+        [Validation(Required=false)]
+        public string Desc { get; set; }
+
+        // 操作者
+        [NameInMap("operator")]
+        [Validation(Required=false)]
+        public string Operator { get; set; }
+
     }
 
 }
