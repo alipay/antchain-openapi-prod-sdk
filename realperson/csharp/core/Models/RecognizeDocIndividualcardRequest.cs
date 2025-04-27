@@ -59,6 +59,22 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string RiskInfoType { get; set; }
 
+        // 是否返回身份证头像照片
+        // 0：否
+        // 1：是
+        // 不填默认不返回。
+        [NameInMap("return_photo")]
+        [Validation(Required=false)]
+        public string ReturnPhoto { get; set; }
+
+        // 是否返回身份证图片
+        // 0：否
+        // 1：是
+        // 不填默认不返回。
+        [NameInMap("return_image")]
+        [Validation(Required=false)]
+        public string ReturnImage { get; set; }
+
         // 扩展信息JSON串。
         [NameInMap("extern_param")]
         [Validation(Required=false)]

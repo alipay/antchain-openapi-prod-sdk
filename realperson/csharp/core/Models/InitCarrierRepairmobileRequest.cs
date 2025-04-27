@@ -49,6 +49,11 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=true)]
         public string CertNo { get; set; }
 
+        // 用户姓名，明文
+        [NameInMap("name")]
+        [Validation(Required=true)]
+        public string Name { get; set; }
+
         // 曾用手机号码，使用入参加密模式加密
         [NameInMap("mobile")]
         [Validation(Required=false)]

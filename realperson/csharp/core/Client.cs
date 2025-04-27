@@ -137,7 +137,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.0"},
+                        {"sdk_version", "1.19.4"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.16.0"},
+                        {"sdk_version", "1.19.4"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2137,6 +2137,348 @@ namespace AntChain.SDK.REALPERSON
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BindCarrierRepairmobileResponse>(await DoRequestAsync("1.0", "di.realperson.carrier.repairmobile.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外部机构数据上报
+         * Summary: 外部机构数据上报
+         */
+        public ApplyExtOrgdataResponse ApplyExtOrgdata(ApplyExtOrgdataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyExtOrgdataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外部机构数据上报
+         * Summary: 外部机构数据上报
+         */
+        public async Task<ApplyExtOrgdataResponse> ApplyExtOrgdataAsync(ApplyExtOrgdataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyExtOrgdataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外部机构数据上报
+         * Summary: 外部机构数据上报
+         */
+        public ApplyExtOrgdataResponse ApplyExtOrgdataEx(ApplyExtOrgdataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyExtOrgdataResponse>(DoRequest("1.0", "di.realperson.ext.orgdata.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外部机构数据上报
+         * Summary: 外部机构数据上报
+         */
+        public async Task<ApplyExtOrgdataResponse> ApplyExtOrgdataExAsync(ApplyExtOrgdataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyExtOrgdataResponse>(await DoRequestAsync("1.0", "di.realperson.ext.orgdata.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数科刷脸服务端初始化接口
+         * Summary: 数科刷脸服务端初始化接口
+         */
+        public CreateFaceverifyServerResponse CreateFaceverifyServer(CreateFaceverifyServerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateFaceverifyServerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数科刷脸服务端初始化接口
+         * Summary: 数科刷脸服务端初始化接口
+         */
+        public async Task<CreateFaceverifyServerResponse> CreateFaceverifyServerAsync(CreateFaceverifyServerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateFaceverifyServerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数科刷脸服务端初始化接口
+         * Summary: 数科刷脸服务端初始化接口
+         */
+        public CreateFaceverifyServerResponse CreateFaceverifyServerEx(CreateFaceverifyServerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateFaceverifyServerResponse>(DoRequest("1.0", "di.realperson.faceverify.server.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数科刷脸服务端初始化接口
+         * Summary: 数科刷脸服务端初始化接口
+         */
+        public async Task<CreateFaceverifyServerResponse> CreateFaceverifyServerExAsync(CreateFaceverifyServerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateFaceverifyServerResponse>(await DoRequestAsync("1.0", "di.realperson.faceverify.server.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询认证的结果和相关信息
+         * Summary: 认证查询
+         */
+        public QueryFaceverifyServerResponse QueryFaceverifyServer(QueryFaceverifyServerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryFaceverifyServerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询认证的结果和相关信息
+         * Summary: 认证查询
+         */
+        public async Task<QueryFaceverifyServerResponse> QueryFaceverifyServerAsync(QueryFaceverifyServerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryFaceverifyServerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询认证的结果和相关信息
+         * Summary: 认证查询
+         */
+        public QueryFaceverifyServerResponse QueryFaceverifyServerEx(QueryFaceverifyServerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFaceverifyServerResponse>(DoRequest("1.0", "di.realperson.faceverify.server.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询认证的结果和相关信息
+         * Summary: 认证查询
+         */
+        public async Task<QueryFaceverifyServerResponse> QueryFaceverifyServerExAsync(QueryFaceverifyServerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFaceverifyServerResponse>(await DoRequestAsync("1.0", "di.realperson.faceverify.server.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人银行卡状态增强版
+         * Summary: 个人银行卡状态增强版
+         */
+        public QueryBankLivenessplusResponse QueryBankLivenessplus(QueryBankLivenessplusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryBankLivenessplusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人银行卡状态增强版
+         * Summary: 个人银行卡状态增强版
+         */
+        public async Task<QueryBankLivenessplusResponse> QueryBankLivenessplusAsync(QueryBankLivenessplusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryBankLivenessplusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人银行卡状态增强版
+         * Summary: 个人银行卡状态增强版
+         */
+        public QueryBankLivenessplusResponse QueryBankLivenessplusEx(QueryBankLivenessplusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBankLivenessplusResponse>(DoRequest("1.0", "di.realperson.bank.livenessplus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人银行卡状态增强版
+         * Summary: 个人银行卡状态增强版
+         */
+        public async Task<QueryBankLivenessplusResponse> QueryBankLivenessplusExAsync(QueryBankLivenessplusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBankLivenessplusResponse>(await DoRequestAsync("1.0", "di.realperson.bank.livenessplus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 纯服务端比对基础版本，直接输入待比对的图片，返回比对结果
+         * Summary: 纯服务端比对基础版
+         */
+        public ExecFaceverifyServermodeResponse ExecFaceverifyServermode(ExecFaceverifyServermodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecFaceverifyServermodeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 纯服务端比对基础版本，直接输入待比对的图片，返回比对结果
+         * Summary: 纯服务端比对基础版
+         */
+        public async Task<ExecFaceverifyServermodeResponse> ExecFaceverifyServermodeAsync(ExecFaceverifyServermodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecFaceverifyServermodeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 纯服务端比对基础版本，直接输入待比对的图片，返回比对结果
+         * Summary: 纯服务端比对基础版
+         */
+        public ExecFaceverifyServermodeResponse ExecFaceverifyServermodeEx(ExecFaceverifyServermodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "di.realperson.faceverify.servermode.exec",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ExecFaceverifyServermodeResponse execFaceverifyServermodeResponse = new ExecFaceverifyServermodeResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return execFaceverifyServermodeResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecFaceverifyServermodeResponse>(DoRequest("1.0", "di.realperson.faceverify.servermode.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 纯服务端比对基础版本，直接输入待比对的图片，返回比对结果
+         * Summary: 纯服务端比对基础版
+         */
+        public async Task<ExecFaceverifyServermodeResponse> ExecFaceverifyServermodeExAsync(ExecFaceverifyServermodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "di.realperson.faceverify.servermode.exec",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ExecFaceverifyServermodeResponse execFaceverifyServermodeResponse = new ExecFaceverifyServermodeResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return execFaceverifyServermodeResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecFaceverifyServermodeResponse>(await DoRequestAsync("1.0", "di.realperson.faceverify.servermode.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支付宝实人认证初始化接口
+         * Summary: 支付宝实人认证初始化接口
+         */
+        public CreateAlipayverifyServerResponse CreateAlipayverifyServer(CreateAlipayverifyServerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateAlipayverifyServerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支付宝实人认证初始化接口
+         * Summary: 支付宝实人认证初始化接口
+         */
+        public async Task<CreateAlipayverifyServerResponse> CreateAlipayverifyServerAsync(CreateAlipayverifyServerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateAlipayverifyServerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支付宝实人认证初始化接口
+         * Summary: 支付宝实人认证初始化接口
+         */
+        public CreateAlipayverifyServerResponse CreateAlipayverifyServerEx(CreateAlipayverifyServerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAlipayverifyServerResponse>(DoRequest("1.0", "di.realperson.alipayverify.server.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支付宝实人认证初始化接口
+         * Summary: 支付宝实人认证初始化接口
+         */
+        public async Task<CreateAlipayverifyServerResponse> CreateAlipayverifyServerExAsync(CreateAlipayverifyServerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAlipayverifyServerResponse>(await DoRequestAsync("1.0", "di.realperson.alipayverify.server.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支付宝实人认证查询接口
+         * Summary: 支付宝实人认证查询接口
+         */
+        public QueryAlipayverifyServerResponse QueryAlipayverifyServer(QueryAlipayverifyServerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAlipayverifyServerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支付宝实人认证查询接口
+         * Summary: 支付宝实人认证查询接口
+         */
+        public async Task<QueryAlipayverifyServerResponse> QueryAlipayverifyServerAsync(QueryAlipayverifyServerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAlipayverifyServerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支付宝实人认证查询接口
+         * Summary: 支付宝实人认证查询接口
+         */
+        public QueryAlipayverifyServerResponse QueryAlipayverifyServerEx(QueryAlipayverifyServerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAlipayverifyServerResponse>(DoRequest("1.0", "di.realperson.alipayverify.server.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支付宝实人认证查询接口
+         * Summary: 支付宝实人认证查询接口
+         */
+        public async Task<QueryAlipayverifyServerResponse> QueryAlipayverifyServerExAsync(QueryAlipayverifyServerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAlipayverifyServerResponse>(await DoRequestAsync("1.0", "di.realperson.alipayverify.server.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
