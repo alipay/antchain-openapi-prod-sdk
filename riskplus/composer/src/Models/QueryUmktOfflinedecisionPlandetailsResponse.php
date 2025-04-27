@@ -40,7 +40,7 @@ class QueryUmktOfflinedecisionPlandetailsResponse extends Model
 
     // 执行批次维度任务详情信息
     /**
-     * @var UmktOfflineDecisionTaskDetailInfo[]
+     * @var UmktOfflineDecisionTaskExecBatchInfo[]
      */
     public $taskExecBatchInfo;
     protected $_name = [
@@ -127,7 +127,7 @@ class QueryUmktOfflinedecisionPlandetailsResponse extends Model
                 $model->taskExecBatchInfo = [];
                 $n                        = 0;
                 foreach ($map['task_exec_batch_info'] as $item) {
-                    $model->taskExecBatchInfo[$n++] = null !== $item ? UmktOfflineDecisionTaskDetailInfo::fromMap($item) : $item;
+                    $model->taskExecBatchInfo[$n++] = null !== $item ? UmktOfflineDecisionTaskExecBatchInfo::fromMap($item) : $item;
                 }
             }
         }

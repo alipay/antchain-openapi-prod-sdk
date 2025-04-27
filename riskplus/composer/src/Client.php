@@ -297,6 +297,8 @@ use AntChain\RISKPLUS\Models\QueryRdaasTaxRpadecisionserviceRequest;
 use AntChain\RISKPLUS\Models\QueryRdaasTaxRpadecisionserviceResponse;
 use AntChain\RISKPLUS\Models\QueryRdaasTaxSimpleauthdecisionRequest;
 use AntChain\RISKPLUS\Models\QueryRdaasTaxSimpleauthdecisionResponse;
+use AntChain\RISKPLUS\Models\QueryRpaasOpenServiceRequest;
+use AntChain\RISKPLUS\Models\QueryRpaasOpenServiceResponse;
 use AntChain\RISKPLUS\Models\QueryRpgwSignUrlRequest;
 use AntChain\RISKPLUS\Models\QueryRpgwSignUrlResponse;
 use AntChain\RISKPLUS\Models\QueryRpgwUserSignurlRequest;
@@ -586,7 +588,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.23.7',
+                    'sdk_version'      => '1.23.9',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5300,6 +5302,39 @@ class Client
         Utils::validateModel($request);
 
         return PushRpaasReportAnswerResponse::fromMap($this->doRequest('1.0', 'riskplus.rpaas.report.answer.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企管盾云开放平台服务调用
+     * Summary: 企管盾云开放平台服务调用.
+     *
+     * @param QueryRpaasOpenServiceRequest $request
+     *
+     * @return QueryRpaasOpenServiceResponse
+     */
+    public function queryRpaasOpenService($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRpaasOpenServiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企管盾云开放平台服务调用
+     * Summary: 企管盾云开放平台服务调用.
+     *
+     * @param QueryRpaasOpenServiceRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryRpaasOpenServiceResponse
+     */
+    public function queryRpaasOpenServiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRpaasOpenServiceResponse::fromMap($this->doRequest('1.0', 'riskplus.rpaas.open.service.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
