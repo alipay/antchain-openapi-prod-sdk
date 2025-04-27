@@ -91,6 +91,10 @@ use AntChain\DEMO\Models\QueryTestForLimitRequest;
 use AntChain\DEMO\Models\QueryTestForLimitResponse;
 use AntChain\DEMO\Models\QueryTestTestTestRequest;
 use AntChain\DEMO\Models\QueryTestTestTestResponse;
+use AntChain\DEMO\Models\QueryTestTimeMenhuRequest;
+use AntChain\DEMO\Models\QueryTestTimeMenhuResponse;
+use AntChain\DEMO\Models\QueryTestTimeTestaRequest;
+use AntChain\DEMO\Models\QueryTestTimeTestaResponse;
 use AntChain\DEMO\Models\StatusGatewayCheckRequest;
 use AntChain\DEMO\Models\StatusGatewayCheckResponse;
 use AntChain\DEMO\Models\UpdateGatewayRoadRequest;
@@ -242,7 +246,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.30',
+                    'sdk_version'      => '1.1.31',
                     '_prod_code'       => 'DEMO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1201,6 +1205,39 @@ class Client
     }
 
     /**
+     * Description: 个人工作台二期测试
+     * Summary: 个人工作台二期测试.
+     *
+     * @param QueryTestTimeTestaRequest $request
+     *
+     * @return QueryTestTimeTestaResponse
+     */
+    public function queryTestTimeTesta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTestTimeTestaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期测试
+     * Summary: 个人工作台二期测试.
+     *
+     * @param QueryTestTimeTestaRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryTestTimeTestaResponse
+     */
+    public function queryTestTimeTestaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTestTimeTestaResponse::fromMap($this->doRequest('1.0', 'demo.test.time.testa.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 流式处理
      * Summary: 流式处理.
      *
@@ -1528,6 +1565,39 @@ class Client
         Utils::validateModel($request);
 
         return CheckAicoguardcoreAicoguardrailsQuestionResponse::fromMap($this->doRequest('1.0', 'demo.aicoguardcore.aicoguardrails.question.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人工作台二期测试
+     * Summary: 个人工作台二期测试.
+     *
+     * @param QueryTestTimeMenhuRequest $request
+     *
+     * @return QueryTestTimeMenhuResponse
+     */
+    public function queryTestTimeMenhu($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTestTimeMenhuEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期测试
+     * Summary: 个人工作台二期测试.
+     *
+     * @param QueryTestTimeMenhuRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryTestTimeMenhuResponse
+     */
+    public function queryTestTimeMenhuEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTestTimeMenhuResponse::fromMap($this->doRequest('1.0', 'demo.test.time.menhu.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
