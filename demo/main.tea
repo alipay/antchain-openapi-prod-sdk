@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.30',
+    sdk_version = '1.1.31',
     _prod_code = 'DEMO',
     _prod_channel = 'undefined'
   };
@@ -1569,6 +1569,40 @@ async function queryIpRetryEx(request: QueryIpRetryRequest, headers: map[string]
   return doRequest('1.0' ,'demo.ip.retry.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryTestTimeTestaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryTestTimeTestaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 个人工作台二期测试
+ * Summary: 个人工作台二期测试
+ */
+async function queryTestTimeTesta(request: QueryTestTimeTestaRequest): QueryTestTimeTestaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTestTimeTestaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人工作台二期测试
+ * Summary: 个人工作台二期测试
+ */
+async function queryTestTimeTestaEx(request: QueryTestTimeTestaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTestTimeTestaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.test.time.testa.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryStreamTestmethodRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1971,6 +2005,40 @@ async function checkAicoguardcoreAicoguardrailsQuestion(request: CheckAicoguardc
 async function checkAicoguardcoreAicoguardrailsQuestionEx(request: CheckAicoguardcoreAicoguardrailsQuestionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckAicoguardcoreAicoguardrailsQuestionResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.aicoguardcore.aicoguardrails.question.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTestTimeMenhuRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryTestTimeMenhuResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 个人工作台二期测试
+ * Summary: 个人工作台二期测试
+ */
+async function queryTestTimeMenhu(request: QueryTestTimeMenhuRequest): QueryTestTimeMenhuResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTestTimeMenhuEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人工作台二期测试
+ * Summary: 个人工作台二期测试
+ */
+async function queryTestTimeMenhuEx(request: QueryTestTimeMenhuRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTestTimeMenhuResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.test.time.menhu.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model BindAaaBbbCccRequest = {
