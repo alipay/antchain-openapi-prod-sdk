@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.15',
+    sdk_version = '1.12.23',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -589,6 +589,20 @@ model CodeListView {
   dataCode: string(name='data_code', example='ahog'),
   // 数据名称
   dataName: string(name='data_name', example='name'),
+}
+
+// 凭证申请接口返回参数
+model CarKeyInitData {
+  // IIFFAA 根密钥
+  rootPubKey: string(name='root_pub_key', example='fs'),
+  // IIFAA 设备唯一ID
+  tuid: string(name='tuid', example='e2eer'),
+  // 业务密钥
+  bizPrivKey: string(name='biz_priv_key', example='erw'),
+  // 设备唯一密钥
+  devicePrivKey: string(name='device_priv_key', example='fdsw'),
+  // 无感空车凭证
+  keyLessAuthy: string(name='key_less_authy', example='rew'),
 }
 
 // iotbasic-应用列表信息
@@ -9500,6 +9514,126 @@ async function queryElectrocarTravelEx(request: QueryElectrocarTravelRequest, he
   return doRequest('1.0' ,'blockchain.bot.electrocar.travel.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model RegisterCarkeyscorpCustomerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 对应客户企业名称缩写
+  corpValue: string(name='corp_value'),
+  // 企业全称
+  customerName: string(name='customer_name'),
+  // 接入场景码 内部分配给客户
+  accessScene: string(name='access_scene'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+}
+
+model RegisterCarkeyscorpCustomerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口调用结果
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 厂商注册接口
+ * Summary: 车钥匙厂商注册
+ */
+async function registerCarkeyscorpCustomer(request: RegisterCarkeyscorpCustomerRequest): RegisterCarkeyscorpCustomerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerCarkeyscorpCustomerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 厂商注册接口
+ * Summary: 车钥匙厂商注册
+ */
+async function registerCarkeyscorpCustomerEx(request: RegisterCarkeyscorpCustomerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterCarkeyscorpCustomerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.carkeyscorp.customer.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateElectrocarApplycarkeycertificateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求唯一标识Id 调用方生成，需要保证唯一性
+  requestId: string(name='request_id'),
+  // 模式 默认为false，产线申请未true
+  onlineFlag?: string(name='online_flag'),
+  // 设备类型 默认为4-芯片SE，联系技术配置具体的设备类型
+  deviceType?: string(name='device_type'),
+  // 凭证类型，默认se_dk_cred，如果是MCU，则mcu_dk_cred
+  credType?: string(name='cred_type'),
+  // 品牌Id
+  brandId: string(name='brand_id'),
+  // 凭证内容
+  // 集合结构[0,1,2,3]
+  // 0:IIFAA根密钥
+  // 1:企业业务密钥
+  // 2:设备密钥
+  // 3:无感控车
+  // 如果此字段为空，则默认生成0，1，2
+  generateCode?: string(name='generate_code'),
+  // 协议类型
+  // 蓝牙：ble
+  // 4G: 4G
+  // 蓝牙+4G：ble|4G
+  // 如果此字段为空，默认为ble
+  protocolType: string(name='protocol_type'),
+  // 无感控车设备端数据，当generateCode包含3的时候，此字段不能为空
+  keyLess?: string(name='key_less'),
+  // mac
+  mac: string(name='mac'),
+  // ble_mac
+  bleMac: string(name='ble_mac'),
+  // 设备sn 
+  deviceSn: string(name='device_sn'),
+  // 接入场景码
+  accessScene: string(name='access_scene'),
+}
+
+model CreateElectrocarApplycarkeycertificateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 凭证接口返回参数
+  carKeyInitData?: string(name='car_key_init_data'),
+  // 三元组+连接实例id
+  mqttContent?: string(name='mqtt_content'),
+  // deviceDid
+  deviceDid?: string(name='device_did'),
+  // 成功/失败
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 申请凭证
+ * Summary: 申请凭证
+ */
+async function createElectrocarApplycarkeycertificate(request: CreateElectrocarApplycarkeycertificateRequest): CreateElectrocarApplycarkeycertificateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createElectrocarApplycarkeycertificateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 申请凭证
+ * Summary: 申请凭证
+ */
+async function createElectrocarApplycarkeycertificateEx(request: CreateElectrocarApplycarkeycertificateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateElectrocarApplycarkeycertificateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.electrocar.applycarkeycertificate.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryIotplatformPurchaseorderRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -15150,6 +15284,8 @@ model SyncAssetelementProjectRequest = {
   attachmentList?: string(name='attachment_list'),
   // 产品Owner
   pdOwner?: string(name='pd_owner'),
+  // 要素项目tag，多个使用逗号分隔
+  tag?: string(name='tag'),
   // 要素列表
   assetElementInfoList?: [ AssetElementInfo ](name='asset_element_info_list'),
   // 要素关系列表
