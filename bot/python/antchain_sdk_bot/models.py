@@ -1867,6 +1867,66 @@ class CodeListView(TeaModel):
         return self
 
 
+class CarKeyInitData(TeaModel):
+    def __init__(
+        self,
+        root_pub_key: str = None,
+        tuid: str = None,
+        biz_priv_key: str = None,
+        device_priv_key: str = None,
+        key_less_authy: str = None,
+    ):
+        # IIFFAA 根密钥
+        self.root_pub_key = root_pub_key
+        # IIFAA 设备唯一ID
+        self.tuid = tuid
+        # 业务密钥
+        self.biz_priv_key = biz_priv_key
+        # 设备唯一密钥
+        self.device_priv_key = device_priv_key
+        # 无感空车凭证
+        self.key_less_authy = key_less_authy
+
+    def validate(self):
+        self.validate_required(self.root_pub_key, 'root_pub_key')
+        self.validate_required(self.tuid, 'tuid')
+        self.validate_required(self.biz_priv_key, 'biz_priv_key')
+        self.validate_required(self.device_priv_key, 'device_priv_key')
+        self.validate_required(self.key_less_authy, 'key_less_authy')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.root_pub_key is not None:
+            result['root_pub_key'] = self.root_pub_key
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
+        if self.biz_priv_key is not None:
+            result['biz_priv_key'] = self.biz_priv_key
+        if self.device_priv_key is not None:
+            result['device_priv_key'] = self.device_priv_key
+        if self.key_less_authy is not None:
+            result['key_less_authy'] = self.key_less_authy
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('root_pub_key') is not None:
+            self.root_pub_key = m.get('root_pub_key')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
+        if m.get('biz_priv_key') is not None:
+            self.biz_priv_key = m.get('biz_priv_key')
+        if m.get('device_priv_key') is not None:
+            self.device_priv_key = m.get('device_priv_key')
+        if m.get('key_less_authy') is not None:
+            self.key_less_authy = m.get('key_less_authy')
+        return self
+
+
 class IotbasicAppManagerPageInfo(TeaModel):
     def __init__(
         self,
@@ -28618,6 +28678,324 @@ class QueryElectrocarTravelResponse(TeaModel):
         return self
 
 
+class RegisterCarkeyscorpCustomerRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        corp_value: str = None,
+        customer_name: str = None,
+        access_scene: str = None,
+        tenant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 对应客户企业名称缩写
+        self.corp_value = corp_value
+        # 企业全称
+        self.customer_name = customer_name
+        # 接入场景码 内部分配给客户
+        self.access_scene = access_scene
+        # 租户id
+        self.tenant_id = tenant_id
+
+    def validate(self):
+        self.validate_required(self.corp_value, 'corp_value')
+        self.validate_required(self.customer_name, 'customer_name')
+        self.validate_required(self.access_scene, 'access_scene')
+        self.validate_required(self.tenant_id, 'tenant_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.corp_value is not None:
+            result['corp_value'] = self.corp_value
+        if self.customer_name is not None:
+            result['customer_name'] = self.customer_name
+        if self.access_scene is not None:
+            result['access_scene'] = self.access_scene
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('corp_value') is not None:
+            self.corp_value = m.get('corp_value')
+        if m.get('customer_name') is not None:
+            self.customer_name = m.get('customer_name')
+        if m.get('access_scene') is not None:
+            self.access_scene = m.get('access_scene')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class RegisterCarkeyscorpCustomerResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 接口调用结果
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class CreateElectrocarApplycarkeycertificateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        request_id: str = None,
+        online_flag: str = None,
+        device_type: str = None,
+        cred_type: str = None,
+        brand_id: str = None,
+        generate_code: str = None,
+        protocol_type: str = None,
+        key_less: str = None,
+        mac: str = None,
+        ble_mac: str = None,
+        device_sn: str = None,
+        access_scene: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求唯一标识Id 调用方生成，需要保证唯一性
+        self.request_id = request_id
+        # 模式 默认为false，产线申请未true
+        self.online_flag = online_flag
+        # 设备类型 默认为4-芯片SE，联系技术配置具体的设备类型
+        self.device_type = device_type
+        # 凭证类型，默认se_dk_cred，如果是MCU，则mcu_dk_cred
+        self.cred_type = cred_type
+        # 品牌Id
+        self.brand_id = brand_id
+        # 凭证内容
+        # 集合结构[0,1,2,3]
+        # 0:IIFAA根密钥
+        # 1:企业业务密钥
+        # 2:设备密钥
+        # 3:无感控车
+        # 如果此字段为空，则默认生成0，1，2
+        self.generate_code = generate_code
+        # 协议类型
+        # 蓝牙：ble
+        # 4G: 4G
+        # 蓝牙+4G：ble|4G
+        # 如果此字段为空，默认为ble
+        self.protocol_type = protocol_type
+        # 无感控车设备端数据，当generateCode包含3的时候，此字段不能为空
+        self.key_less = key_less
+        # mac
+        self.mac = mac
+        # ble_mac
+        self.ble_mac = ble_mac
+        # 设备sn
+        self.device_sn = device_sn
+        # 接入场景码
+        self.access_scene = access_scene
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.brand_id, 'brand_id')
+        self.validate_required(self.protocol_type, 'protocol_type')
+        self.validate_required(self.mac, 'mac')
+        self.validate_required(self.ble_mac, 'ble_mac')
+        self.validate_required(self.device_sn, 'device_sn')
+        self.validate_required(self.access_scene, 'access_scene')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.online_flag is not None:
+            result['online_flag'] = self.online_flag
+        if self.device_type is not None:
+            result['device_type'] = self.device_type
+        if self.cred_type is not None:
+            result['cred_type'] = self.cred_type
+        if self.brand_id is not None:
+            result['brand_id'] = self.brand_id
+        if self.generate_code is not None:
+            result['generate_code'] = self.generate_code
+        if self.protocol_type is not None:
+            result['protocol_type'] = self.protocol_type
+        if self.key_less is not None:
+            result['key_less'] = self.key_less
+        if self.mac is not None:
+            result['mac'] = self.mac
+        if self.ble_mac is not None:
+            result['ble_mac'] = self.ble_mac
+        if self.device_sn is not None:
+            result['device_sn'] = self.device_sn
+        if self.access_scene is not None:
+            result['access_scene'] = self.access_scene
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('online_flag') is not None:
+            self.online_flag = m.get('online_flag')
+        if m.get('device_type') is not None:
+            self.device_type = m.get('device_type')
+        if m.get('cred_type') is not None:
+            self.cred_type = m.get('cred_type')
+        if m.get('brand_id') is not None:
+            self.brand_id = m.get('brand_id')
+        if m.get('generate_code') is not None:
+            self.generate_code = m.get('generate_code')
+        if m.get('protocol_type') is not None:
+            self.protocol_type = m.get('protocol_type')
+        if m.get('key_less') is not None:
+            self.key_less = m.get('key_less')
+        if m.get('mac') is not None:
+            self.mac = m.get('mac')
+        if m.get('ble_mac') is not None:
+            self.ble_mac = m.get('ble_mac')
+        if m.get('device_sn') is not None:
+            self.device_sn = m.get('device_sn')
+        if m.get('access_scene') is not None:
+            self.access_scene = m.get('access_scene')
+        return self
+
+
+class CreateElectrocarApplycarkeycertificateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        car_key_init_data: str = None,
+        mqtt_content: str = None,
+        device_did: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 凭证接口返回参数
+        self.car_key_init_data = car_key_init_data
+        # 三元组+连接实例id
+        self.mqtt_content = mqtt_content
+        # deviceDid
+        self.device_did = device_did
+        # 成功/失败
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.car_key_init_data is not None:
+            result['car_key_init_data'] = self.car_key_init_data
+        if self.mqtt_content is not None:
+            result['mqtt_content'] = self.mqtt_content
+        if self.device_did is not None:
+            result['device_did'] = self.device_did
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('car_key_init_data') is not None:
+            self.car_key_init_data = m.get('car_key_init_data')
+        if m.get('mqtt_content') is not None:
+            self.mqtt_content = m.get('mqtt_content')
+        if m.get('device_did') is not None:
+            self.device_did = m.get('device_did')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
 class QueryIotplatformPurchaseorderRequest(TeaModel):
     def __init__(
         self,
@@ -43145,6 +43523,7 @@ class SyncAssetelementProjectRequest(TeaModel):
         remark: str = None,
         attachment_list: str = None,
         pd_owner: str = None,
+        tag: str = None,
         asset_element_info_list: List[AssetElementInfo] = None,
         asset_element_relation_info_list: List[AssetElementRelationInfo] = None,
     ):
@@ -43169,6 +43548,8 @@ class SyncAssetelementProjectRequest(TeaModel):
         self.attachment_list = attachment_list
         # 产品Owner
         self.pd_owner = pd_owner
+        # 要素项目tag，多个使用逗号分隔
+        self.tag = tag
         # 要素列表
         self.asset_element_info_list = asset_element_info_list
         # 要素关系列表
@@ -43217,6 +43598,8 @@ class SyncAssetelementProjectRequest(TeaModel):
             result['attachment_list'] = self.attachment_list
         if self.pd_owner is not None:
             result['pd_owner'] = self.pd_owner
+        if self.tag is not None:
+            result['tag'] = self.tag
         result['asset_element_info_list'] = []
         if self.asset_element_info_list is not None:
             for k in self.asset_element_info_list:
@@ -43251,6 +43634,8 @@ class SyncAssetelementProjectRequest(TeaModel):
             self.attachment_list = m.get('attachment_list')
         if m.get('pd_owner') is not None:
             self.pd_owner = m.get('pd_owner')
+        if m.get('tag') is not None:
+            self.tag = m.get('tag')
         self.asset_element_info_list = []
         if m.get('asset_element_info_list') is not None:
             for k in m.get('asset_element_info_list'):

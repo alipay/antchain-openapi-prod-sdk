@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.15',
+                    'sdk_version': '1.12.23',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.15',
+                    'sdk_version': '1.12.23',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -7961,6 +7961,118 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryElectrocarTravelResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.electrocar.travel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_carkeyscorp_customer(
+        self,
+        request: bot_models.RegisterCarkeyscorpCustomerRequest,
+    ) -> bot_models.RegisterCarkeyscorpCustomerResponse:
+        """
+        Description: 厂商注册接口
+        Summary: 车钥匙厂商注册
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_carkeyscorp_customer_ex(request, headers, runtime)
+
+    async def register_carkeyscorp_customer_async(
+        self,
+        request: bot_models.RegisterCarkeyscorpCustomerRequest,
+    ) -> bot_models.RegisterCarkeyscorpCustomerResponse:
+        """
+        Description: 厂商注册接口
+        Summary: 车钥匙厂商注册
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_carkeyscorp_customer_ex_async(request, headers, runtime)
+
+    def register_carkeyscorp_customer_ex(
+        self,
+        request: bot_models.RegisterCarkeyscorpCustomerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.RegisterCarkeyscorpCustomerResponse:
+        """
+        Description: 厂商注册接口
+        Summary: 车钥匙厂商注册
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.RegisterCarkeyscorpCustomerResponse(),
+            self.do_request('1.0', 'blockchain.bot.carkeyscorp.customer.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_carkeyscorp_customer_ex_async(
+        self,
+        request: bot_models.RegisterCarkeyscorpCustomerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.RegisterCarkeyscorpCustomerResponse:
+        """
+        Description: 厂商注册接口
+        Summary: 车钥匙厂商注册
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.RegisterCarkeyscorpCustomerResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.carkeyscorp.customer.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_electrocar_applycarkeycertificate(
+        self,
+        request: bot_models.CreateElectrocarApplycarkeycertificateRequest,
+    ) -> bot_models.CreateElectrocarApplycarkeycertificateResponse:
+        """
+        Description: 申请凭证
+        Summary: 申请凭证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_electrocar_applycarkeycertificate_ex(request, headers, runtime)
+
+    async def create_electrocar_applycarkeycertificate_async(
+        self,
+        request: bot_models.CreateElectrocarApplycarkeycertificateRequest,
+    ) -> bot_models.CreateElectrocarApplycarkeycertificateResponse:
+        """
+        Description: 申请凭证
+        Summary: 申请凭证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_electrocar_applycarkeycertificate_ex_async(request, headers, runtime)
+
+    def create_electrocar_applycarkeycertificate_ex(
+        self,
+        request: bot_models.CreateElectrocarApplycarkeycertificateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateElectrocarApplycarkeycertificateResponse:
+        """
+        Description: 申请凭证
+        Summary: 申请凭证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateElectrocarApplycarkeycertificateResponse(),
+            self.do_request('1.0', 'blockchain.bot.electrocar.applycarkeycertificate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_electrocar_applycarkeycertificate_ex_async(
+        self,
+        request: bot_models.CreateElectrocarApplycarkeycertificateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateElectrocarApplycarkeycertificateResponse:
+        """
+        Description: 申请凭证
+        Summary: 申请凭证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateElectrocarApplycarkeycertificateResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.electrocar.applycarkeycertificate.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
