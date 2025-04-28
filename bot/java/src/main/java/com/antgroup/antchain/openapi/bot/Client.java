@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.15"),
+                    new TeaPair("sdk_version", "1.12.23"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2810,6 +2810,44 @@ public class Client {
     public QueryElectrocarTravelResponse queryElectrocarTravelEx(QueryElectrocarTravelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.travel.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryElectrocarTravelResponse());
+    }
+
+    /**
+     * Description: 厂商注册接口
+     * Summary: 车钥匙厂商注册
+     */
+    public RegisterCarkeyscorpCustomerResponse registerCarkeyscorpCustomer(RegisterCarkeyscorpCustomerRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.registerCarkeyscorpCustomerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 厂商注册接口
+     * Summary: 车钥匙厂商注册
+     */
+    public RegisterCarkeyscorpCustomerResponse registerCarkeyscorpCustomerEx(RegisterCarkeyscorpCustomerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.carkeyscorp.customer.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterCarkeyscorpCustomerResponse());
+    }
+
+    /**
+     * Description: 申请凭证
+     * Summary: 申请凭证
+     */
+    public CreateElectrocarApplycarkeycertificateResponse createElectrocarApplycarkeycertificate(CreateElectrocarApplycarkeycertificateRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createElectrocarApplycarkeycertificateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 申请凭证
+     * Summary: 申请凭证
+     */
+    public CreateElectrocarApplycarkeycertificateResponse createElectrocarApplycarkeycertificateEx(CreateElectrocarApplycarkeycertificateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.electrocar.applycarkeycertificate.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateElectrocarApplycarkeycertificateResponse());
     }
 
     /**
