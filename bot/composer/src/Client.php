@@ -109,6 +109,8 @@ use AntChain\BOT\Models\CreateDistributedeviceBydeviceRequest;
 use AntChain\BOT\Models\CreateDistributedeviceBydeviceResponse;
 use AntChain\BOT\Models\CreateDistributedeviceByperipheralidRequest;
 use AntChain\BOT\Models\CreateDistributedeviceByperipheralidResponse;
+use AntChain\BOT\Models\CreateElectrocarApplycarkeycertificateRequest;
+use AntChain\BOT\Models\CreateElectrocarApplycarkeycertificateResponse;
 use AntChain\BOT\Models\CreateIotbasicDeviceRequest;
 use AntChain\BOT\Models\CreateIotbasicDeviceResponse;
 use AntChain\BOT\Models\CreateIotbasicProductRequest;
@@ -437,6 +439,8 @@ use AntChain\BOT\Models\RefuseDigitalkeyWithholdpayRequest;
 use AntChain\BOT\Models\RefuseDigitalkeyWithholdpayResponse;
 use AntChain\BOT\Models\RegisterAiidentificationGoodsdigitalfingerprintRequest;
 use AntChain\BOT\Models\RegisterAiidentificationGoodsdigitalfingerprintResponse;
+use AntChain\BOT\Models\RegisterCarkeyscorpCustomerRequest;
+use AntChain\BOT\Models\RegisterCarkeyscorpCustomerResponse;
 use AntChain\BOT\Models\RegisterDevicecorpCustomerRequest;
 use AntChain\BOT\Models\RegisterDevicecorpCustomerResponse;
 use AntChain\BOT\Models\RegisterIotbasicCorpjoinRequest;
@@ -702,7 +706,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.15',
+                    'sdk_version'      => '1.12.23',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5274,6 +5278,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryElectrocarTravelResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.electrocar.travel.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 厂商注册接口
+     * Summary: 车钥匙厂商注册.
+     *
+     * @param RegisterCarkeyscorpCustomerRequest $request
+     *
+     * @return RegisterCarkeyscorpCustomerResponse
+     */
+    public function registerCarkeyscorpCustomer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerCarkeyscorpCustomerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 厂商注册接口
+     * Summary: 车钥匙厂商注册.
+     *
+     * @param RegisterCarkeyscorpCustomerRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return RegisterCarkeyscorpCustomerResponse
+     */
+    public function registerCarkeyscorpCustomerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterCarkeyscorpCustomerResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.carkeyscorp.customer.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 申请凭证
+     * Summary: 申请凭证
+     *
+     * @param CreateElectrocarApplycarkeycertificateRequest $request
+     *
+     * @return CreateElectrocarApplycarkeycertificateResponse
+     */
+    public function createElectrocarApplycarkeycertificate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createElectrocarApplycarkeycertificateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 申请凭证
+     * Summary: 申请凭证
+     *
+     * @param CreateElectrocarApplycarkeycertificateRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return CreateElectrocarApplycarkeycertificateResponse
+     */
+    public function createElectrocarApplycarkeycertificateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateElectrocarApplycarkeycertificateResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.electrocar.applycarkeycertificate.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
