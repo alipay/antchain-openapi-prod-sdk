@@ -63,6 +63,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string PdOwner { get; set; }
 
+        // 要素项目tag，多个使用逗号分隔
+        [NameInMap("tag")]
+        [Validation(Required=false)]
+        public string Tag { get; set; }
+
         // 要素列表
         [NameInMap("asset_element_info_list")]
         [Validation(Required=false)]

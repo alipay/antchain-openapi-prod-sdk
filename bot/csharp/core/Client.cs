@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.15"},
+                        {"sdk_version", "1.12.23"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.15"},
+                        {"sdk_version", "1.12.23"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6127,6 +6127,90 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryElectrocarTravelResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.travel.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 厂商注册接口
+         * Summary: 车钥匙厂商注册
+         */
+        public RegisterCarkeyscorpCustomerResponse RegisterCarkeyscorpCustomer(RegisterCarkeyscorpCustomerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RegisterCarkeyscorpCustomerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 厂商注册接口
+         * Summary: 车钥匙厂商注册
+         */
+        public async Task<RegisterCarkeyscorpCustomerResponse> RegisterCarkeyscorpCustomerAsync(RegisterCarkeyscorpCustomerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RegisterCarkeyscorpCustomerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 厂商注册接口
+         * Summary: 车钥匙厂商注册
+         */
+        public RegisterCarkeyscorpCustomerResponse RegisterCarkeyscorpCustomerEx(RegisterCarkeyscorpCustomerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterCarkeyscorpCustomerResponse>(DoRequest("1.0", "blockchain.bot.carkeyscorp.customer.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 厂商注册接口
+         * Summary: 车钥匙厂商注册
+         */
+        public async Task<RegisterCarkeyscorpCustomerResponse> RegisterCarkeyscorpCustomerExAsync(RegisterCarkeyscorpCustomerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterCarkeyscorpCustomerResponse>(await DoRequestAsync("1.0", "blockchain.bot.carkeyscorp.customer.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 申请凭证
+         * Summary: 申请凭证
+         */
+        public CreateElectrocarApplycarkeycertificateResponse CreateElectrocarApplycarkeycertificate(CreateElectrocarApplycarkeycertificateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateElectrocarApplycarkeycertificateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 申请凭证
+         * Summary: 申请凭证
+         */
+        public async Task<CreateElectrocarApplycarkeycertificateResponse> CreateElectrocarApplycarkeycertificateAsync(CreateElectrocarApplycarkeycertificateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateElectrocarApplycarkeycertificateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 申请凭证
+         * Summary: 申请凭证
+         */
+        public CreateElectrocarApplycarkeycertificateResponse CreateElectrocarApplycarkeycertificateEx(CreateElectrocarApplycarkeycertificateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateElectrocarApplycarkeycertificateResponse>(DoRequest("1.0", "blockchain.bot.electrocar.applycarkeycertificate.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 申请凭证
+         * Summary: 申请凭证
+         */
+        public async Task<CreateElectrocarApplycarkeycertificateResponse> CreateElectrocarApplycarkeycertificateExAsync(CreateElectrocarApplycarkeycertificateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateElectrocarApplycarkeycertificateResponse>(await DoRequestAsync("1.0", "blockchain.bot.electrocar.applycarkeycertificate.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
