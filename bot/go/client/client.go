@@ -1521,6 +1521,53 @@ func (s *CodeListView) SetDataName(v string) *CodeListView {
 	return s
 }
 
+// 凭证申请接口返回参数
+type CarKeyInitData struct {
+	// IIFFAA 根密钥
+	RootPubKey *string `json:"root_pub_key,omitempty" xml:"root_pub_key,omitempty" require:"true"`
+	// IIFAA 设备唯一ID
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// 业务密钥
+	BizPrivKey *string `json:"biz_priv_key,omitempty" xml:"biz_priv_key,omitempty" require:"true"`
+	// 设备唯一密钥
+	DevicePrivKey *string `json:"device_priv_key,omitempty" xml:"device_priv_key,omitempty" require:"true"`
+	// 无感空车凭证
+	KeyLessAuthy *string `json:"key_less_authy,omitempty" xml:"key_less_authy,omitempty" require:"true"`
+}
+
+func (s CarKeyInitData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarKeyInitData) GoString() string {
+	return s.String()
+}
+
+func (s *CarKeyInitData) SetRootPubKey(v string) *CarKeyInitData {
+	s.RootPubKey = &v
+	return s
+}
+
+func (s *CarKeyInitData) SetTuid(v string) *CarKeyInitData {
+	s.Tuid = &v
+	return s
+}
+
+func (s *CarKeyInitData) SetBizPrivKey(v string) *CarKeyInitData {
+	s.BizPrivKey = &v
+	return s
+}
+
+func (s *CarKeyInitData) SetDevicePrivKey(v string) *CarKeyInitData {
+	s.DevicePrivKey = &v
+	return s
+}
+
+func (s *CarKeyInitData) SetKeyLessAuthy(v string) *CarKeyInitData {
+	s.KeyLessAuthy = &v
+	return s
+}
+
 // iotbasic-应用列表信息
 type IotbasicAppManagerPageInfo struct {
 	// 应用类型
@@ -22897,6 +22944,275 @@ func (s *QueryElectrocarTravelResponse) SetDetailList(v []*string) *QueryElectro
 	return s
 }
 
+type RegisterCarkeyscorpCustomerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 对应客户企业名称缩写
+	CorpValue *string `json:"corp_value,omitempty" xml:"corp_value,omitempty" require:"true"`
+	// 企业全称
+	CustomerName *string `json:"customer_name,omitempty" xml:"customer_name,omitempty" require:"true"`
+	// 接入场景码 内部分配给客户
+	AccessScene *string `json:"access_scene,omitempty" xml:"access_scene,omitempty" require:"true"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s RegisterCarkeyscorpCustomerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterCarkeyscorpCustomerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterCarkeyscorpCustomerRequest) SetAuthToken(v string) *RegisterCarkeyscorpCustomerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RegisterCarkeyscorpCustomerRequest) SetProductInstanceId(v string) *RegisterCarkeyscorpCustomerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RegisterCarkeyscorpCustomerRequest) SetCorpValue(v string) *RegisterCarkeyscorpCustomerRequest {
+	s.CorpValue = &v
+	return s
+}
+
+func (s *RegisterCarkeyscorpCustomerRequest) SetCustomerName(v string) *RegisterCarkeyscorpCustomerRequest {
+	s.CustomerName = &v
+	return s
+}
+
+func (s *RegisterCarkeyscorpCustomerRequest) SetAccessScene(v string) *RegisterCarkeyscorpCustomerRequest {
+	s.AccessScene = &v
+	return s
+}
+
+func (s *RegisterCarkeyscorpCustomerRequest) SetTenantId(v string) *RegisterCarkeyscorpCustomerRequest {
+	s.TenantId = &v
+	return s
+}
+
+type RegisterCarkeyscorpCustomerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 接口调用结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s RegisterCarkeyscorpCustomerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterCarkeyscorpCustomerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterCarkeyscorpCustomerResponse) SetReqMsgId(v string) *RegisterCarkeyscorpCustomerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RegisterCarkeyscorpCustomerResponse) SetResultCode(v string) *RegisterCarkeyscorpCustomerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RegisterCarkeyscorpCustomerResponse) SetResultMsg(v string) *RegisterCarkeyscorpCustomerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RegisterCarkeyscorpCustomerResponse) SetSuccess(v bool) *RegisterCarkeyscorpCustomerResponse {
+	s.Success = &v
+	return s
+}
+
+type CreateElectrocarApplycarkeycertificateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求唯一标识Id 调用方生成，需要保证唯一性
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 模式 默认为false，产线申请未true
+	OnlineFlag *string `json:"online_flag,omitempty" xml:"online_flag,omitempty"`
+	// 设备类型 默认为4-芯片SE，联系技术配置具体的设备类型
+	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty"`
+	// 凭证类型，默认se_dk_cred，如果是MCU，则mcu_dk_cred
+	CredType *string `json:"cred_type,omitempty" xml:"cred_type,omitempty"`
+	// 品牌Id
+	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty" require:"true"`
+	// 凭证内容
+	// 集合结构[0,1,2,3]
+	// 0:IIFAA根密钥
+	// 1:企业业务密钥
+	// 2:设备密钥
+	// 3:无感控车
+	// 如果此字段为空，则默认生成0，1，2
+	GenerateCode *string `json:"generate_code,omitempty" xml:"generate_code,omitempty"`
+	// 协议类型
+	// 蓝牙：ble
+	// 4G: 4G
+	// 蓝牙+4G：ble|4G
+	// 如果此字段为空，默认为ble
+	ProtocolType *string `json:"protocol_type,omitempty" xml:"protocol_type,omitempty" require:"true"`
+	// 无感控车设备端数据，当generateCode包含3的时候，此字段不能为空
+	KeyLess *string `json:"key_less,omitempty" xml:"key_less,omitempty"`
+	// mac
+	Mac *string `json:"mac,omitempty" xml:"mac,omitempty" require:"true"`
+	// ble_mac
+	BleMac *string `json:"ble_mac,omitempty" xml:"ble_mac,omitempty" require:"true"`
+	// 设备sn
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
+	// 接入场景码
+	AccessScene *string `json:"access_scene,omitempty" xml:"access_scene,omitempty" require:"true"`
+}
+
+func (s CreateElectrocarApplycarkeycertificateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateElectrocarApplycarkeycertificateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateElectrocarApplycarkeycertificateRequest) SetAuthToken(v string) *CreateElectrocarApplycarkeycertificateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateElectrocarApplycarkeycertificateRequest) SetProductInstanceId(v string) *CreateElectrocarApplycarkeycertificateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateElectrocarApplycarkeycertificateRequest) SetRequestId(v string) *CreateElectrocarApplycarkeycertificateRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *CreateElectrocarApplycarkeycertificateRequest) SetOnlineFlag(v string) *CreateElectrocarApplycarkeycertificateRequest {
+	s.OnlineFlag = &v
+	return s
+}
+
+func (s *CreateElectrocarApplycarkeycertificateRequest) SetDeviceType(v string) *CreateElectrocarApplycarkeycertificateRequest {
+	s.DeviceType = &v
+	return s
+}
+
+func (s *CreateElectrocarApplycarkeycertificateRequest) SetCredType(v string) *CreateElectrocarApplycarkeycertificateRequest {
+	s.CredType = &v
+	return s
+}
+
+func (s *CreateElectrocarApplycarkeycertificateRequest) SetBrandId(v string) *CreateElectrocarApplycarkeycertificateRequest {
+	s.BrandId = &v
+	return s
+}
+
+func (s *CreateElectrocarApplycarkeycertificateRequest) SetGenerateCode(v string) *CreateElectrocarApplycarkeycertificateRequest {
+	s.GenerateCode = &v
+	return s
+}
+
+func (s *CreateElectrocarApplycarkeycertificateRequest) SetProtocolType(v string) *CreateElectrocarApplycarkeycertificateRequest {
+	s.ProtocolType = &v
+	return s
+}
+
+func (s *CreateElectrocarApplycarkeycertificateRequest) SetKeyLess(v string) *CreateElectrocarApplycarkeycertificateRequest {
+	s.KeyLess = &v
+	return s
+}
+
+func (s *CreateElectrocarApplycarkeycertificateRequest) SetMac(v string) *CreateElectrocarApplycarkeycertificateRequest {
+	s.Mac = &v
+	return s
+}
+
+func (s *CreateElectrocarApplycarkeycertificateRequest) SetBleMac(v string) *CreateElectrocarApplycarkeycertificateRequest {
+	s.BleMac = &v
+	return s
+}
+
+func (s *CreateElectrocarApplycarkeycertificateRequest) SetDeviceSn(v string) *CreateElectrocarApplycarkeycertificateRequest {
+	s.DeviceSn = &v
+	return s
+}
+
+func (s *CreateElectrocarApplycarkeycertificateRequest) SetAccessScene(v string) *CreateElectrocarApplycarkeycertificateRequest {
+	s.AccessScene = &v
+	return s
+}
+
+type CreateElectrocarApplycarkeycertificateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 凭证接口返回参数
+	CarKeyInitData *string `json:"car_key_init_data,omitempty" xml:"car_key_init_data,omitempty"`
+	// 三元组+连接实例id
+	MqttContent *string `json:"mqtt_content,omitempty" xml:"mqtt_content,omitempty"`
+	// deviceDid
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty"`
+	// 成功/失败
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s CreateElectrocarApplycarkeycertificateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateElectrocarApplycarkeycertificateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateElectrocarApplycarkeycertificateResponse) SetReqMsgId(v string) *CreateElectrocarApplycarkeycertificateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateElectrocarApplycarkeycertificateResponse) SetResultCode(v string) *CreateElectrocarApplycarkeycertificateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateElectrocarApplycarkeycertificateResponse) SetResultMsg(v string) *CreateElectrocarApplycarkeycertificateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateElectrocarApplycarkeycertificateResponse) SetCarKeyInitData(v string) *CreateElectrocarApplycarkeycertificateResponse {
+	s.CarKeyInitData = &v
+	return s
+}
+
+func (s *CreateElectrocarApplycarkeycertificateResponse) SetMqttContent(v string) *CreateElectrocarApplycarkeycertificateResponse {
+	s.MqttContent = &v
+	return s
+}
+
+func (s *CreateElectrocarApplycarkeycertificateResponse) SetDeviceDid(v string) *CreateElectrocarApplycarkeycertificateResponse {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *CreateElectrocarApplycarkeycertificateResponse) SetSuccess(v bool) *CreateElectrocarApplycarkeycertificateResponse {
+	s.Success = &v
+	return s
+}
+
 type QueryIotplatformPurchaseorderRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -34438,6 +34754,8 @@ type SyncAssetelementProjectRequest struct {
 	AttachmentList *string `json:"attachment_list,omitempty" xml:"attachment_list,omitempty"`
 	// 产品Owner
 	PdOwner *string `json:"pd_owner,omitempty" xml:"pd_owner,omitempty"`
+	// 要素项目tag，多个使用逗号分隔
+	Tag *string `json:"tag,omitempty" xml:"tag,omitempty"`
 	// 要素列表
 	AssetElementInfoList []*AssetElementInfo `json:"asset_element_info_list,omitempty" xml:"asset_element_info_list,omitempty" type:"Repeated"`
 	// 要素关系列表
@@ -34504,6 +34822,11 @@ func (s *SyncAssetelementProjectRequest) SetAttachmentList(v string) *SyncAssete
 
 func (s *SyncAssetelementProjectRequest) SetPdOwner(v string) *SyncAssetelementProjectRequest {
 	s.PdOwner = &v
+	return s
+}
+
+func (s *SyncAssetelementProjectRequest) SetTag(v string) *SyncAssetelementProjectRequest {
+	s.Tag = &v
 	return s
 }
 
@@ -36326,7 +36649,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.15"),
+				"sdk_version":      tea.String("1.12.23"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -41061,6 +41384,74 @@ func (client *Client) QueryElectrocarTravelEx(request *QueryElectrocarTravelRequ
 	}
 	_result = &QueryElectrocarTravelResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.travel.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 厂商注册接口
+ * Summary: 车钥匙厂商注册
+ */
+func (client *Client) RegisterCarkeyscorpCustomer(request *RegisterCarkeyscorpCustomerRequest) (_result *RegisterCarkeyscorpCustomerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RegisterCarkeyscorpCustomerResponse{}
+	_body, _err := client.RegisterCarkeyscorpCustomerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 厂商注册接口
+ * Summary: 车钥匙厂商注册
+ */
+func (client *Client) RegisterCarkeyscorpCustomerEx(request *RegisterCarkeyscorpCustomerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RegisterCarkeyscorpCustomerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RegisterCarkeyscorpCustomerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.carkeyscorp.customer.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 申请凭证
+ * Summary: 申请凭证
+ */
+func (client *Client) CreateElectrocarApplycarkeycertificate(request *CreateElectrocarApplycarkeycertificateRequest) (_result *CreateElectrocarApplycarkeycertificateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateElectrocarApplycarkeycertificateResponse{}
+	_body, _err := client.CreateElectrocarApplycarkeycertificateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 申请凭证
+ * Summary: 申请凭证
+ */
+func (client *Client) CreateElectrocarApplycarkeycertificateEx(request *CreateElectrocarApplycarkeycertificateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateElectrocarApplycarkeycertificateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateElectrocarApplycarkeycertificateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.electrocar.applycarkeycertificate.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
