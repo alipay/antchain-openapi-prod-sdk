@@ -1120,6 +1120,43 @@ export class CodeListView extends $tea.Model {
   }
 }
 
+// 凭证申请接口返回参数
+export class CarKeyInitData extends $tea.Model {
+  // IIFFAA 根密钥
+  rootPubKey: string;
+  // IIFAA 设备唯一ID
+  tuid: string;
+  // 业务密钥
+  bizPrivKey: string;
+  // 设备唯一密钥
+  devicePrivKey: string;
+  // 无感空车凭证
+  keyLessAuthy: string;
+  static names(): { [key: string]: string } {
+    return {
+      rootPubKey: 'root_pub_key',
+      tuid: 'tuid',
+      bizPrivKey: 'biz_priv_key',
+      devicePrivKey: 'device_priv_key',
+      keyLessAuthy: 'key_less_authy',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      rootPubKey: 'string',
+      tuid: 'string',
+      bizPrivKey: 'string',
+      devicePrivKey: 'string',
+      keyLessAuthy: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // iotbasic-应用列表信息
 export class IotbasicAppManagerPageInfo extends $tea.Model {
   // 应用类型
@@ -17448,6 +17485,202 @@ export class QueryElectrocarTravelResponse extends $tea.Model {
   }
 }
 
+export class RegisterCarkeyscorpCustomerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 对应客户企业名称缩写
+  corpValue: string;
+  // 企业全称
+  customerName: string;
+  // 接入场景码 内部分配给客户
+  accessScene: string;
+  // 租户id
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      corpValue: 'corp_value',
+      customerName: 'customer_name',
+      accessScene: 'access_scene',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      corpValue: 'string',
+      customerName: 'string',
+      accessScene: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterCarkeyscorpCustomerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 接口调用结果
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateElectrocarApplycarkeycertificateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求唯一标识Id 调用方生成，需要保证唯一性
+  requestId: string;
+  // 模式 默认为false，产线申请未true
+  onlineFlag?: string;
+  // 设备类型 默认为4-芯片SE，联系技术配置具体的设备类型
+  deviceType?: string;
+  // 凭证类型，默认se_dk_cred，如果是MCU，则mcu_dk_cred
+  credType?: string;
+  // 品牌Id
+  brandId: string;
+  // 凭证内容
+  // 集合结构[0,1,2,3]
+  // 0:IIFAA根密钥
+  // 1:企业业务密钥
+  // 2:设备密钥
+  // 3:无感控车
+  // 如果此字段为空，则默认生成0，1，2
+  generateCode?: string;
+  // 协议类型
+  // 蓝牙：ble
+  // 4G: 4G
+  // 蓝牙+4G：ble|4G
+  // 如果此字段为空，默认为ble
+  protocolType: string;
+  // 无感控车设备端数据，当generateCode包含3的时候，此字段不能为空
+  keyLess?: string;
+  // mac
+  mac: string;
+  // ble_mac
+  bleMac: string;
+  // 设备sn 
+  deviceSn: string;
+  // 接入场景码
+  accessScene: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestId: 'request_id',
+      onlineFlag: 'online_flag',
+      deviceType: 'device_type',
+      credType: 'cred_type',
+      brandId: 'brand_id',
+      generateCode: 'generate_code',
+      protocolType: 'protocol_type',
+      keyLess: 'key_less',
+      mac: 'mac',
+      bleMac: 'ble_mac',
+      deviceSn: 'device_sn',
+      accessScene: 'access_scene',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestId: 'string',
+      onlineFlag: 'string',
+      deviceType: 'string',
+      credType: 'string',
+      brandId: 'string',
+      generateCode: 'string',
+      protocolType: 'string',
+      keyLess: 'string',
+      mac: 'string',
+      bleMac: 'string',
+      deviceSn: 'string',
+      accessScene: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateElectrocarApplycarkeycertificateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 凭证接口返回参数
+  carKeyInitData?: string;
+  // 三元组+连接实例id
+  mqttContent?: string;
+  // deviceDid
+  deviceDid?: string;
+  // 成功/失败
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      carKeyInitData: 'car_key_init_data',
+      mqttContent: 'mqtt_content',
+      deviceDid: 'device_did',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      carKeyInitData: 'string',
+      mqttContent: 'string',
+      deviceDid: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryIotplatformPurchaseorderRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -26422,6 +26655,8 @@ export class SyncAssetelementProjectRequest extends $tea.Model {
   attachmentList?: string;
   // 产品Owner
   pdOwner?: string;
+  // 要素项目tag，多个使用逗号分隔
+  tag?: string;
   // 要素列表
   assetElementInfoList?: AssetElementInfo[];
   // 要素关系列表
@@ -26439,6 +26674,7 @@ export class SyncAssetelementProjectRequest extends $tea.Model {
       remark: 'remark',
       attachmentList: 'attachment_list',
       pdOwner: 'pd_owner',
+      tag: 'tag',
       assetElementInfoList: 'asset_element_info_list',
       assetElementRelationInfoList: 'asset_element_relation_info_list',
     };
@@ -26457,6 +26693,7 @@ export class SyncAssetelementProjectRequest extends $tea.Model {
       remark: 'string',
       attachmentList: 'string',
       pdOwner: 'string',
+      tag: 'string',
       assetElementInfoList: { 'type': 'array', 'itemType': AssetElementInfo },
       assetElementRelationInfoList: { 'type': 'array', 'itemType': AssetElementRelationInfo },
     };
@@ -27881,7 +28118,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.15",
+          sdk_version: "1.12.23",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -30555,6 +30792,44 @@ export default class Client {
   async queryElectrocarTravelEx(request: QueryElectrocarTravelRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryElectrocarTravelResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryElectrocarTravelResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.travel.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryElectrocarTravelResponse({}));
+  }
+
+  /**
+   * Description: 厂商注册接口
+   * Summary: 车钥匙厂商注册
+   */
+  async registerCarkeyscorpCustomer(request: RegisterCarkeyscorpCustomerRequest): Promise<RegisterCarkeyscorpCustomerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.registerCarkeyscorpCustomerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 厂商注册接口
+   * Summary: 车钥匙厂商注册
+   */
+  async registerCarkeyscorpCustomerEx(request: RegisterCarkeyscorpCustomerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterCarkeyscorpCustomerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RegisterCarkeyscorpCustomerResponse>(await this.doRequest("1.0", "blockchain.bot.carkeyscorp.customer.register", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RegisterCarkeyscorpCustomerResponse({}));
+  }
+
+  /**
+   * Description: 申请凭证
+   * Summary: 申请凭证
+   */
+  async createElectrocarApplycarkeycertificate(request: CreateElectrocarApplycarkeycertificateRequest): Promise<CreateElectrocarApplycarkeycertificateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createElectrocarApplycarkeycertificateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 申请凭证
+   * Summary: 申请凭证
+   */
+  async createElectrocarApplycarkeycertificateEx(request: CreateElectrocarApplycarkeycertificateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateElectrocarApplycarkeycertificateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateElectrocarApplycarkeycertificateResponse>(await this.doRequest("1.0", "blockchain.bot.electrocar.applycarkeycertificate.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateElectrocarApplycarkeycertificateResponse({}));
   }
 
   /**
