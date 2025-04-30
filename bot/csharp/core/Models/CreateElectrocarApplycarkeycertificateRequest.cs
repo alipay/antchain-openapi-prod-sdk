@@ -23,7 +23,7 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string RequestId { get; set; }
 
-        // 模式 默认为false，产线申请未true
+        // 模式 默认为false，产线申请为true
         [NameInMap("online_flag")]
         [Validation(Required=false)]
         public string OnlineFlag { get; set; }
@@ -73,10 +73,10 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string Mac { get; set; }
 
-        // ble_mac
-        [NameInMap("ble_mac")]
+        // ble_name
+        [NameInMap("ble_name")]
         [Validation(Required=true)]
-        public string BleMac { get; set; }
+        public string BleName { get; set; }
 
         // 设备sn 
         [NameInMap("device_sn")]
