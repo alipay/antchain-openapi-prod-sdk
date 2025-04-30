@@ -17562,7 +17562,7 @@ export class CreateElectrocarApplycarkeycertificateRequest extends $tea.Model {
   productInstanceId?: string;
   // 请求唯一标识Id 调用方生成，需要保证唯一性
   requestId: string;
-  // 模式 默认为false，产线申请未true
+  // 模式 默认为false，产线申请为true
   onlineFlag?: string;
   // 设备类型 默认为4-芯片SE，联系技术配置具体的设备类型
   deviceType?: string;
@@ -17588,8 +17588,8 @@ export class CreateElectrocarApplycarkeycertificateRequest extends $tea.Model {
   keyLess?: string;
   // mac
   mac: string;
-  // ble_mac
-  bleMac: string;
+  // ble_name
+  bleName: string;
   // 设备sn 
   deviceSn: string;
   // 接入场景码
@@ -17607,7 +17607,7 @@ export class CreateElectrocarApplycarkeycertificateRequest extends $tea.Model {
       protocolType: 'protocol_type',
       keyLess: 'key_less',
       mac: 'mac',
-      bleMac: 'ble_mac',
+      bleName: 'ble_name',
       deviceSn: 'device_sn',
       accessScene: 'access_scene',
     };
@@ -17626,7 +17626,7 @@ export class CreateElectrocarApplycarkeycertificateRequest extends $tea.Model {
       protocolType: 'string',
       keyLess: 'string',
       mac: 'string',
-      bleMac: 'string',
+      bleName: 'string',
       deviceSn: 'string',
       accessScene: 'string',
     };
@@ -28118,7 +28118,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.23",
+          sdk_version: "1.12.24",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
