@@ -28806,7 +28806,7 @@ class CreateElectrocarApplycarkeycertificateRequest(TeaModel):
         protocol_type: str = None,
         key_less: str = None,
         mac: str = None,
-        ble_mac: str = None,
+        ble_name: str = None,
         device_sn: str = None,
         access_scene: str = None,
     ):
@@ -28815,7 +28815,7 @@ class CreateElectrocarApplycarkeycertificateRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 请求唯一标识Id 调用方生成，需要保证唯一性
         self.request_id = request_id
-        # 模式 默认为false，产线申请未true
+        # 模式 默认为false，产线申请为true
         self.online_flag = online_flag
         # 设备类型 默认为4-芯片SE，联系技术配置具体的设备类型
         self.device_type = device_type
@@ -28841,8 +28841,8 @@ class CreateElectrocarApplycarkeycertificateRequest(TeaModel):
         self.key_less = key_less
         # mac
         self.mac = mac
-        # ble_mac
-        self.ble_mac = ble_mac
+        # ble_name
+        self.ble_name = ble_name
         # 设备sn
         self.device_sn = device_sn
         # 接入场景码
@@ -28853,7 +28853,7 @@ class CreateElectrocarApplycarkeycertificateRequest(TeaModel):
         self.validate_required(self.brand_id, 'brand_id')
         self.validate_required(self.protocol_type, 'protocol_type')
         self.validate_required(self.mac, 'mac')
-        self.validate_required(self.ble_mac, 'ble_mac')
+        self.validate_required(self.ble_name, 'ble_name')
         self.validate_required(self.device_sn, 'device_sn')
         self.validate_required(self.access_scene, 'access_scene')
 
@@ -28885,8 +28885,8 @@ class CreateElectrocarApplycarkeycertificateRequest(TeaModel):
             result['key_less'] = self.key_less
         if self.mac is not None:
             result['mac'] = self.mac
-        if self.ble_mac is not None:
-            result['ble_mac'] = self.ble_mac
+        if self.ble_name is not None:
+            result['ble_name'] = self.ble_name
         if self.device_sn is not None:
             result['device_sn'] = self.device_sn
         if self.access_scene is not None:
@@ -28917,8 +28917,8 @@ class CreateElectrocarApplycarkeycertificateRequest(TeaModel):
             self.key_less = m.get('key_less')
         if m.get('mac') is not None:
             self.mac = m.get('mac')
-        if m.get('ble_mac') is not None:
-            self.ble_mac = m.get('ble_mac')
+        if m.get('ble_name') is not None:
+            self.ble_name = m.get('ble_name')
         if m.get('device_sn') is not None:
             self.device_sn = m.get('device_sn')
         if m.get('access_scene') is not None:
