@@ -23041,7 +23041,7 @@ type CreateElectrocarApplycarkeycertificateRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 请求唯一标识Id 调用方生成，需要保证唯一性
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
-	// 模式 默认为false，产线申请未true
+	// 模式 默认为false，产线申请为true
 	OnlineFlag *string `json:"online_flag,omitempty" xml:"online_flag,omitempty"`
 	// 设备类型 默认为4-芯片SE，联系技术配置具体的设备类型
 	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty"`
@@ -23067,8 +23067,8 @@ type CreateElectrocarApplycarkeycertificateRequest struct {
 	KeyLess *string `json:"key_less,omitempty" xml:"key_less,omitempty"`
 	// mac
 	Mac *string `json:"mac,omitempty" xml:"mac,omitempty" require:"true"`
-	// ble_mac
-	BleMac *string `json:"ble_mac,omitempty" xml:"ble_mac,omitempty" require:"true"`
+	// ble_name
+	BleName *string `json:"ble_name,omitempty" xml:"ble_name,omitempty" require:"true"`
 	// 设备sn
 	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
 	// 接入场景码
@@ -23138,8 +23138,8 @@ func (s *CreateElectrocarApplycarkeycertificateRequest) SetMac(v string) *Create
 	return s
 }
 
-func (s *CreateElectrocarApplycarkeycertificateRequest) SetBleMac(v string) *CreateElectrocarApplycarkeycertificateRequest {
-	s.BleMac = &v
+func (s *CreateElectrocarApplycarkeycertificateRequest) SetBleName(v string) *CreateElectrocarApplycarkeycertificateRequest {
+	s.BleName = &v
 	return s
 }
 
@@ -36649,7 +36649,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.23"),
+				"sdk_version":      tea.String("1.12.24"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
