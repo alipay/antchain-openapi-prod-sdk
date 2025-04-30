@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.23',
+    sdk_version = '1.12.24',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -9564,7 +9564,7 @@ model CreateElectrocarApplycarkeycertificateRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 请求唯一标识Id 调用方生成，需要保证唯一性
   requestId: string(name='request_id'),
-  // 模式 默认为false，产线申请未true
+  // 模式 默认为false，产线申请为true
   onlineFlag?: string(name='online_flag'),
   // 设备类型 默认为4-芯片SE，联系技术配置具体的设备类型
   deviceType?: string(name='device_type'),
@@ -9590,8 +9590,8 @@ model CreateElectrocarApplycarkeycertificateRequest = {
   keyLess?: string(name='key_less'),
   // mac
   mac: string(name='mac'),
-  // ble_mac
-  bleMac: string(name='ble_mac'),
+  // ble_name
+  bleName: string(name='ble_name'),
   // 设备sn 
   deviceSn: string(name='device_sn'),
   // 接入场景码
