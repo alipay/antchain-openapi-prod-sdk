@@ -16,7 +16,7 @@ public class CreateElectrocarApplycarkeycertificateRequest extends TeaModel {
     @Validation(required = true)
     public String requestId;
 
-    // 模式 默认为false，产线申请未true
+    // 模式 默认为false，产线申请为true
     @NameInMap("online_flag")
     public String onlineFlag;
 
@@ -61,10 +61,10 @@ public class CreateElectrocarApplycarkeycertificateRequest extends TeaModel {
     @Validation(required = true)
     public String mac;
 
-    // ble_mac
-    @NameInMap("ble_mac")
+    // ble_name
+    @NameInMap("ble_name")
     @Validation(required = true)
-    public String bleMac;
+    public String bleName;
 
     // 设备sn 
     @NameInMap("device_sn")
@@ -169,12 +169,12 @@ public class CreateElectrocarApplycarkeycertificateRequest extends TeaModel {
         return this.mac;
     }
 
-    public CreateElectrocarApplycarkeycertificateRequest setBleMac(String bleMac) {
-        this.bleMac = bleMac;
+    public CreateElectrocarApplycarkeycertificateRequest setBleName(String bleName) {
+        this.bleName = bleName;
         return this;
     }
-    public String getBleMac() {
-        return this.bleMac;
+    public String getBleName() {
+        return this.bleName;
     }
 
     public CreateElectrocarApplycarkeycertificateRequest setDeviceSn(String deviceSn) {
