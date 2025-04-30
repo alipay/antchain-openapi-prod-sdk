@@ -25,7 +25,7 @@ class CreateElectrocarApplycarkeycertificateRequest extends Model
      */
     public $requestId;
 
-    // 模式 默认为false，产线申请未true
+    // 模式 默认为false，产线申请为true
     /**
      * @var string
      */
@@ -83,11 +83,11 @@ class CreateElectrocarApplycarkeycertificateRequest extends Model
      */
     public $mac;
 
-    // ble_mac
+    // ble_name
     /**
      * @var string
      */
-    public $bleMac;
+    public $bleName;
 
     // 设备sn
     /**
@@ -112,7 +112,7 @@ class CreateElectrocarApplycarkeycertificateRequest extends Model
         'protocolType'      => 'protocol_type',
         'keyLess'           => 'key_less',
         'mac'               => 'mac',
-        'bleMac'            => 'ble_mac',
+        'bleName'           => 'ble_name',
         'deviceSn'          => 'device_sn',
         'accessScene'       => 'access_scene',
     ];
@@ -123,7 +123,7 @@ class CreateElectrocarApplycarkeycertificateRequest extends Model
         Model::validateRequired('brandId', $this->brandId, true);
         Model::validateRequired('protocolType', $this->protocolType, true);
         Model::validateRequired('mac', $this->mac, true);
-        Model::validateRequired('bleMac', $this->bleMac, true);
+        Model::validateRequired('bleName', $this->bleName, true);
         Model::validateRequired('deviceSn', $this->deviceSn, true);
         Model::validateRequired('accessScene', $this->accessScene, true);
     }
@@ -164,8 +164,8 @@ class CreateElectrocarApplycarkeycertificateRequest extends Model
         if (null !== $this->mac) {
             $res['mac'] = $this->mac;
         }
-        if (null !== $this->bleMac) {
-            $res['ble_mac'] = $this->bleMac;
+        if (null !== $this->bleName) {
+            $res['ble_name'] = $this->bleName;
         }
         if (null !== $this->deviceSn) {
             $res['device_sn'] = $this->deviceSn;
@@ -218,8 +218,8 @@ class CreateElectrocarApplycarkeycertificateRequest extends Model
         if (isset($map['mac'])) {
             $model->mac = $map['mac'];
         }
-        if (isset($map['ble_mac'])) {
-            $model->bleMac = $map['ble_mac'];
+        if (isset($map['ble_name'])) {
+            $model->bleName = $map['ble_name'];
         }
         if (isset($map['device_sn'])) {
             $model->deviceSn = $map['device_sn'];
