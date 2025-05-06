@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.10',
+    sdk_version = '1.8.13',
     _prod_code = 'INSURANCE_SAAS',
     _prod_channel = 'undefined'
   };
@@ -159,6 +159,56 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// 文件结构
+model FileNode {
+  // 可访问的文件链接
+  url: string(name='url', example='http://xxxx'),
+  // 文件名
+  name: string(name='name', example='xxxxx.pdf'),
+}
+
+// 被保人
+model Insured {
+  // 被保人名称
+  insuredName: string(maxLength=32, name='insured_name', example='李四'),
+  // 被保人证件类型
+  insuredCardType: string(maxLength=32, name='insured_card_type', example='01--居民身份证、03--营业执照'),
+  // 被保人证件号码
+  insuredCardCode: string(maxLength=32, name='insured_card_code', example='123456789'),
+  // 被保人联系方式
+  insuredContactInfo?: string(maxLength=128, name='insured_contact_info', example='123456789'),
+}
+
+// 投保人
+model Applicant {
+  // 投保人名称
+  applicantName: string(maxLength=32, name='applicant_name', example='李三'),
+  // 投保人证件类型
+  applicantCardType: string(maxLength=32, name='applicant_card_type', example='01--居民身份证、03--营业执照'),
+  // 投保人证件号码
+  applicantCardCode: string(maxLength=32, name='applicant_card_code', example='xxxxxx'),
+  // 投保人联系方式
+  applicantContactInfo?: string(maxLength=128, name='applicant_contact_info', example='123456789'),
+}
+
+// 委托险种信息
+model EntrustGuaranteeProduct {
+  // 保障失效时间
+  guaranteeExpiryDate: long(name='guarantee_expiry_date', example='1733711492119'),
+  // 保障生效时间
+  guaranteeEffectiveDate: long(name='guarantee_effective_date', example='1733711492119'),
+  // 保险等待期结束时间
+  waitingPeriodDeadLine?: long(name='waiting_period_dead_line', example='1733711492119'),
+  // 保单号
+  policyNo?: string(name='policy_no', example='xxxxx'),
+  // 平台定义产品码值
+  guaranteeProductCode?: string(name='guarantee_product_code', example='平台定义产品码值'),
+  // 保险公司的产品code
+  insuranceProductCode?: string(name='insurance_product_code', example='保险公司的产品code'),
+  // 保险公司的产品描述
+  insuranceProductName?: string(name='insurance_product_name', example='保险公司的产品描述'),
 }
 
 model QueryInquiryRequest = {
@@ -1067,5 +1117,386 @@ async function queryInsureResult(request: QueryInsureResultRequest): QueryInsure
 async function queryInsureResultEx(request: QueryInsureResultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInsureResultResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.insurance.insure.result.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyInsureTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // insurance_application_no
+  insuranceApplicationNo: string(name='insurance_application_no'),
+  // insurance_company_no
+  insuranceCompanyNo: string(name='insurance_company_no'),
+  // trustworthy_value_insurance_type_code
+  trustworthyValueInsuranceTypeCode: string(name='trustworthy_value_insurance_type_code'),
+  // insurance_project_code
+  insuranceProjectCode: string(name='insurance_project_code'),
+  // insurance_options_code
+  insuranceOptionsCode: string(name='insurance_options_code'),
+  // applicant
+  applicant: string(name='applicant'),
+  // insured_list
+  insuredList?: string(name='insured_list'),
+  // beneficiary_list
+  beneficiaryList?: string(name='beneficiary_list'),
+  // insurance_period_start
+  insurancePeriodStart: string(name='insurance_period_start'),
+  // insurance_period_end
+  insurancePeriodEnd?: string(name='insurance_period_end'),
+  // applied_insurance_amount
+  appliedInsuranceAmount: string(name='applied_insurance_amount'),
+  // insurance_period
+  insurancePeriod?: string(name='insurance_period'),
+  // insured_object_list
+  insuredObjectList?: string(name='insured_object_list'),
+}
+
+model ApplyInsureTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // biz_result
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 投保测试接口
+ * Summary: 投保测试接口
+ */
+async function applyInsureTest(request: ApplyInsureTestRequest): ApplyInsureTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyInsureTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 投保测试接口
+ * Summary: 投保测试接口
+ */
+async function applyInsureTestEx(request: ApplyInsureTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyInsureTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.insure.test.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitInvestigateCaseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 报案号 - 外部唯一ID
+  reportNo: string(name='report_no'),
+  // 外部单据号
+  outCaseNo: string(name='out_case_no'),
+  // 案件号
+  policyNo?: string(name='policy_no'),
+  // 委托的保司ID
+  entrustInsuranceCompanyId: string(name='entrust_insurance_company_id'),
+  // 要求完成时间，时间戳
+  investEndTime: long(name='invest_end_time'),
+  // 委托联系人
+  entrustName: string(name='entrust_name'),
+  // 委托联系人电话
+  entrustTel: string(name='entrust_tel'),
+  // 委托时间，时间戳
+  entrustTime: long(name='entrust_time'),
+  // 出险人电话号码
+  accidentTel: string(name='accident_tel'),
+  // 出险人姓名
+  accidentName: string(name='accident_name'),
+  // 出险人证件号
+  accidentCardNo: string(name='accident_card_no'),
+  // 出险人证件类型，10-身份证/11-户口本/13-军官证/17-港澳通行证/18-台湾通行证/51-护照/99-其他
+  accidentCardType: string(name='accident_card_type'),
+  // 出险经过
+  accidentDesc: string(name='accident_desc'),
+  // 出险人地址中文名
+  accidentAddressInfo: string(name='accident_address_info'),
+  // 出险人详细住址
+  accidentAddressDetail: string(name='accident_address_detail'),
+  // 出险日期，时间戳
+  accidentTime: long(name='accident_time'),
+  // 报案人电话号码
+  reporterTel: string(name='reporter_tel'),
+  // 报案人姓名
+  reporterName: string(name='reporter_name'),
+  // 报案人证件号
+  reporterCardNo: string(name='reporter_card_no'),
+  // 报案人证件类型，10-身份证/11-户口本/13-军官证/17-港澳通行证/18-台湾通行证/51-护照/99-其他
+  reporterCardType: string(name='reporter_card_type'),
+  // 报案人与出险人的关系
+  // 1本人，2配偶，3父母，4子女，5其他
+  reporterRelationToAccident: string(name='reporter_relation_to_accident'),
+  // 报案时间，时间戳
+  reportTime?: long(name='report_time'),
+  // 事故发生地址中文名，格式：省-市-区，如浙江省-杭州市-西湖区
+  eventAddressInfo: string(name='event_address_info'),
+  // 事故发生详细地点
+  eventAddressDetail: string(name='event_address_detail'),
+  // 确诊医院
+  confirmHospital: string(name='confirm_hospital'),
+  // 确诊医院地址信息，格式：省-市-区，如浙江省-杭州市-西湖区
+  confirmHospitalAddressInfo: string(name='confirm_hospital_address_info'),
+  // 确诊疾病名称
+  confirmIllnessName: string(name='confirm_illness_name'),
+  // 产品大类 重疾或者医疗险
+  productType: string(name='product_type'),
+  // 文件列表
+  fileList: [ FileNode ](name='file_list'),
+  // 委托险种集合信息
+  entrustGuaranteeProductList: [ EntrustGuaranteeProduct ](name='entrust_guarantee_product_list'),
+}
+
+model SubmitInvestigateCaseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 本接口用于调查报案数据的提交
+ * Summary: 调查报案提交接口
+ */
+async function submitInvestigateCase(request: SubmitInvestigateCaseRequest): SubmitInvestigateCaseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitInvestigateCaseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 本接口用于调查报案数据的提交
+ * Summary: 调查报案提交接口
+ */
+async function submitInvestigateCaseEx(request: SubmitInvestigateCaseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitInvestigateCaseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.investigate.case.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryReverseCommissionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 案件号-外部唯一
+  outCaseNo: string(name='out_case_no'),
+  // 委托的保司ID
+  entrustInsuranceCompanyId: string(name='entrust_insurance_company_id'),
+}
+
+model QueryReverseCommissionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 回销结果
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 回销结果查询接口
+ * Summary: 回销结果查询接口
+ */
+async function queryReverseCommission(request: QueryReverseCommissionRequest): QueryReverseCommissionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryReverseCommissionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 回销结果查询接口
+ * Summary: 回销结果查询接口
+ */
+async function queryReverseCommissionEx(request: QueryReverseCommissionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryReverseCommissionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.reverse.commission.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetEmbedcardUrlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 险种编码
+  insuranceTypeCode: string(maxLength=32, name='insurance_type_code'),
+  // 保司编码
+  insuranceCompanyNo: string(maxLength=32, name='insurance_company_no'),
+  // 嵌入式产品编码
+  embedProductCode: string(maxLength=32, name='embed_product_code'),
+  // 是否需要询价
+  isNeedInquiry: boolean(name='is_need_inquiry'),
+  // 交易流水号，调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。 yyyyMMdd请传递当前时间。 身份标识可自定义。 其他编码建议为随机值。 当极端场景中，系统会返回错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+  tradeNo: string(maxLength=128, name='trade_no'),
+  // 方案名称
+  schemeName: string(maxLength=32, name='scheme_name'),
+  // 投保人
+  applicant: Applicant(name='applicant'),
+  // 被保人
+  insured: Insured(name='insured'),
+  // 投保标的
+  subjectInfo: string(maxLength=1000, name='subject_info'),
+}
+
+model GetEmbedcardUrlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易流水号
+  tradeNo?: string(name='trade_no'),
+  // 险种编码
+  insuranceTypeCode?: string(name='insurance_type_code'),
+  // 保司编码
+  insuranceCompanyNo?: string(name='insurance_company_no'),
+  // 嵌入式产品编码
+  embedProductCode?: string(name='embed_product_code'),
+  // 嵌入式产品URL地址
+  embedProductUrl?: string(name='embed_product_url'),
+  // 方案名称
+  schemeName?: string(name='scheme_name'),
+  // 保费
+  premium?: string(name='premium'),
+  // 询价编码
+  inquiryNo?: string(name='inquiry_no'),
+}
+
+/**
+ * Description: 嵌入式保险服务卡片url链接获取
+ * Summary: 嵌入式保险服务卡片url链接获取
+ */
+async function getEmbedcardUrl(request: GetEmbedcardUrlRequest): GetEmbedcardUrlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getEmbedcardUrlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 嵌入式保险服务卡片url链接获取
+ * Summary: 嵌入式保险服务卡片url链接获取
+ */
+async function getEmbedcardUrlEx(request: GetEmbedcardUrlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetEmbedcardUrlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.embedcard.url.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model IssueEmbedcardPaysucRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 险种编码
+  insuranceTypeCode: string(maxLength=32, name='insurance_type_code'),
+  // 保司编码
+  insuranceCompanyNo: string(maxLength=32, name='insurance_company_no'),
+  // 嵌入式产品编码
+  embedProductCode: string(maxLength=32, name='embed_product_code'),
+  // 交易流水号
+  tradeNo: string(maxLength=128, name='trade_no'),
+  // 方案名称
+  schemeName: string(maxLength=32, name='scheme_name'),
+  // 保费，保留2位小数
+  premium: string(name='premium'),
+  // 保费支付渠道，01-支付宝、02-微信支付、03-银行卡支付、04-平台账户余额支付
+  premiumPaymentChannel: string(maxLength=32, name='premium_payment_channel'),
+  // 保费支付流水号
+  premiumPaymentNo: string(maxLength=128, name='premium_payment_no'),
+  // 保费支付金额，保留2位小数
+  premiumPaymentAmount: string(name='premium_payment_amount'),
+  // 保费支付时间
+  premiumPaymentTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='premium_payment_time'),
+  // 询价编码
+  inquiryNo: string(maxLength=32, name='inquiry_no'),
+}
+
+model IssueEmbedcardPaysucResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易流水号
+  tradeNo?: string(name='trade_no'),
+  // 险种编码
+  insuranceTypeCode?: string(name='insurance_type_code'),
+  // 保司编码
+  insuranceCompanyNo?: string(name='insurance_company_no'),
+  // 嵌入式产品编码
+  embedProductCode?: string(name='embed_product_code'),
+  // 方案名称
+  schemeName?: string(name='scheme_name'),
+  // 保险起期
+  insureStart?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='insure_start'),
+  // 保险止期
+  insureEnd?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='insure_end'),
+  // 保费，保留2位小数
+  premium?: string(name='premium'),
+  // 保额，保留2位小数
+  amount?: string(name='amount'),
+  // 询价编码
+  inquiryNo?: string(name='inquiry_no'),
+  // 保险凭证号
+  voucherNo?: string(name='voucher_no'),
+}
+
+/**
+ * Description: 嵌入式保险服务打款成功出单接口
+ * Summary: 嵌入式保险服务打款成功出单接口
+ */
+async function issueEmbedcardPaysuc(request: IssueEmbedcardPaysucRequest): IssueEmbedcardPaysucResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return issueEmbedcardPaysucEx(request, headers, runtime);
+}
+
+/**
+ * Description: 嵌入式保险服务打款成功出单接口
+ * Summary: 嵌入式保险服务打款成功出单接口
+ */
+async function issueEmbedcardPaysucEx(request: IssueEmbedcardPaysucRequest, headers: map[string]string, runtime: Util.RuntimeOptions): IssueEmbedcardPaysucResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.embedcard.paysuc.issue', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetEmbedomeautoinsuranceUrlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 调用方生成的唯一编码，参考格式： yyyyMMdd_xxxxx，已接口请求的当前日期开头；
+  requestNo: string(maxLength=128, name='request_no'),
+  // 产品编码
+  productCode: string(maxLength=32, name='product_code'),
+  // 业务参数，json格式
+  bizInfo: string(maxLength=1000, name='biz_info'),
+}
+
+model GetEmbedomeautoinsuranceUrlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // url链接
+  url?: string(name='url'),
+  // 请求流水号
+  requestNo?: string(name='request_no'),
+}
+
+/**
+ * Description: 嵌入式主机厂车险url链接获取
+ * Summary: 嵌入式主机厂车险url链接获取
+ */
+async function getEmbedomeautoinsuranceUrl(request: GetEmbedomeautoinsuranceUrlRequest): GetEmbedomeautoinsuranceUrlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getEmbedomeautoinsuranceUrlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 嵌入式主机厂车险url链接获取
+ * Summary: 嵌入式主机厂车险url链接获取
+ */
+async function getEmbedomeautoinsuranceUrlEx(request: GetEmbedomeautoinsuranceUrlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetEmbedomeautoinsuranceUrlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.embedomeautoinsurance.url.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
