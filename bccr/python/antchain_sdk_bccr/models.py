@@ -10428,6 +10428,7 @@ class CreateDciRegistrationRequest(TeaModel):
         applyer_contact_info: ContactInfo = None,
         platform_contact_info: ContactInfo = None,
         right_scope_desc: str = None,
+        switch_pay_method: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -10452,6 +10453,8 @@ class CreateDciRegistrationRequest(TeaModel):
         self.platform_contact_info = platform_contact_info
         # 权利描述
         self.right_scope_desc = right_scope_desc
+        # 是否切换支付方式
+        self.switch_pay_method = switch_pay_method
 
     def validate(self):
         self.validate_required(self.dci_content_id, 'dci_content_id')
@@ -10498,6 +10501,8 @@ class CreateDciRegistrationRequest(TeaModel):
             result['platform_contact_info'] = self.platform_contact_info.to_map()
         if self.right_scope_desc is not None:
             result['right_scope_desc'] = self.right_scope_desc
+        if self.switch_pay_method is not None:
+            result['switch_pay_method'] = self.switch_pay_method
         return result
 
     def from_map(self, m: dict = None):
@@ -10531,6 +10536,8 @@ class CreateDciRegistrationRequest(TeaModel):
             self.platform_contact_info = temp_model.from_map(m['platform_contact_info'])
         if m.get('right_scope_desc') is not None:
             self.right_scope_desc = m.get('right_scope_desc')
+        if m.get('switch_pay_method') is not None:
+            self.switch_pay_method = m.get('switch_pay_method')
         return self
 
 
@@ -16395,6 +16402,7 @@ class CancelDciRegistrationRequest(TeaModel):
         product_instance_id: str = None,
         digital_register_id: str = None,
         client_token: str = None,
+        order_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -16403,9 +16411,10 @@ class CancelDciRegistrationRequest(TeaModel):
         self.digital_register_id = digital_register_id
         # 幂等id
         self.client_token = client_token
+        # 1111111
+        self.order_id = order_id
 
     def validate(self):
-        self.validate_required(self.digital_register_id, 'digital_register_id')
         self.validate_required(self.client_token, 'client_token')
 
     def to_map(self):
@@ -16422,6 +16431,8 @@ class CancelDciRegistrationRequest(TeaModel):
             result['digital_register_id'] = self.digital_register_id
         if self.client_token is not None:
             result['client_token'] = self.client_token
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
         return result
 
     def from_map(self, m: dict = None):
@@ -16434,6 +16445,8 @@ class CancelDciRegistrationRequest(TeaModel):
             self.digital_register_id = m.get('digital_register_id')
         if m.get('client_token') is not None:
             self.client_token = m.get('client_token')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
         return self
 
 
