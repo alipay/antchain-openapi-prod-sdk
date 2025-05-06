@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.10"),
+                    new TeaPair("sdk_version", "1.8.13"),
                     new TeaPair("_prod_code", "INSURANCE_SAAS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -524,5 +524,119 @@ public class Client {
     public QueryInsureResultResponse queryInsureResultEx(QueryInsureResultRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.insure.result.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInsureResultResponse());
+    }
+
+    /**
+     * Description: 投保测试接口
+     * Summary: 投保测试接口
+     */
+    public ApplyInsureTestResponse applyInsureTest(ApplyInsureTestRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyInsureTestEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 投保测试接口
+     * Summary: 投保测试接口
+     */
+    public ApplyInsureTestResponse applyInsureTestEx(ApplyInsureTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.insure.test.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyInsureTestResponse());
+    }
+
+    /**
+     * Description: 本接口用于调查报案数据的提交
+     * Summary: 调查报案提交接口
+     */
+    public SubmitInvestigateCaseResponse submitInvestigateCase(SubmitInvestigateCaseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitInvestigateCaseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 本接口用于调查报案数据的提交
+     * Summary: 调查报案提交接口
+     */
+    public SubmitInvestigateCaseResponse submitInvestigateCaseEx(SubmitInvestigateCaseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.investigate.case.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitInvestigateCaseResponse());
+    }
+
+    /**
+     * Description: 回销结果查询接口
+     * Summary: 回销结果查询接口
+     */
+    public QueryReverseCommissionResponse queryReverseCommission(QueryReverseCommissionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryReverseCommissionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 回销结果查询接口
+     * Summary: 回销结果查询接口
+     */
+    public QueryReverseCommissionResponse queryReverseCommissionEx(QueryReverseCommissionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.reverse.commission.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryReverseCommissionResponse());
+    }
+
+    /**
+     * Description: 嵌入式保险服务卡片url链接获取
+     * Summary: 嵌入式保险服务卡片url链接获取
+     */
+    public GetEmbedcardUrlResponse getEmbedcardUrl(GetEmbedcardUrlRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getEmbedcardUrlEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 嵌入式保险服务卡片url链接获取
+     * Summary: 嵌入式保险服务卡片url链接获取
+     */
+    public GetEmbedcardUrlResponse getEmbedcardUrlEx(GetEmbedcardUrlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.embedcard.url.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetEmbedcardUrlResponse());
+    }
+
+    /**
+     * Description: 嵌入式保险服务打款成功出单接口
+     * Summary: 嵌入式保险服务打款成功出单接口
+     */
+    public IssueEmbedcardPaysucResponse issueEmbedcardPaysuc(IssueEmbedcardPaysucRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.issueEmbedcardPaysucEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 嵌入式保险服务打款成功出单接口
+     * Summary: 嵌入式保险服务打款成功出单接口
+     */
+    public IssueEmbedcardPaysucResponse issueEmbedcardPaysucEx(IssueEmbedcardPaysucRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.embedcard.paysuc.issue", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new IssueEmbedcardPaysucResponse());
+    }
+
+    /**
+     * Description: 嵌入式主机厂车险url链接获取
+     * Summary: 嵌入式主机厂车险url链接获取
+     */
+    public GetEmbedomeautoinsuranceUrlResponse getEmbedomeautoinsuranceUrl(GetEmbedomeautoinsuranceUrlRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getEmbedomeautoinsuranceUrlEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 嵌入式主机厂车险url链接获取
+     * Summary: 嵌入式主机厂车险url链接获取
+     */
+    public GetEmbedomeautoinsuranceUrlResponse getEmbedomeautoinsuranceUrlEx(GetEmbedomeautoinsuranceUrlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.insurance.embedomeautoinsurance.url.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetEmbedomeautoinsuranceUrlResponse());
     }
 }
