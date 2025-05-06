@@ -54,6 +54,10 @@ public class CreateDciRegistrationRequest extends TeaModel {
     @NameInMap("right_scope_desc")
     public String rightScopeDesc;
 
+    // 是否切换支付方式
+    @NameInMap("switch_pay_method")
+    public Boolean switchPayMethod;
+
     public static CreateDciRegistrationRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDciRegistrationRequest self = new CreateDciRegistrationRequest();
         return TeaModel.build(map, self);
@@ -153,6 +157,14 @@ public class CreateDciRegistrationRequest extends TeaModel {
     }
     public String getRightScopeDesc() {
         return this.rightScopeDesc;
+    }
+
+    public CreateDciRegistrationRequest setSwitchPayMethod(Boolean switchPayMethod) {
+        this.switchPayMethod = switchPayMethod;
+        return this;
+    }
+    public Boolean getSwitchPayMethod() {
+        return this.switchPayMethod;
     }
 
 }
