@@ -20,13 +20,18 @@ namespace AntChain.SDK.BCCR.Models
 
         // 数登申请id
         [NameInMap("digital_register_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string DigitalRegisterId { get; set; }
 
         // 幂等id
         [NameInMap("client_token")]
         [Validation(Required=true)]
         public string ClientToken { get; set; }
+
+        // 1111111
+        [NameInMap("order_id")]
+        [Validation(Required=false)]
+        public string OrderId { get; set; }
 
     }
 

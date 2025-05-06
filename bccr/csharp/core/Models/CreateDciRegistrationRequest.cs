@@ -68,6 +68,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string RightScopeDesc { get; set; }
 
+        // 是否切换支付方式
+        [NameInMap("switch_pay_method")]
+        [Validation(Required=false)]
+        public bool? SwitchPayMethod { get; set; }
+
     }
 
 }
