@@ -137,7 +137,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.10"},
+                        {"sdk_version", "1.8.13"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.10"},
+                        {"sdk_version", "1.8.13"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1075,6 +1075,258 @@ namespace AntChain.SDK.INSURANCE_SAAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryInsureResultResponse>(await DoRequestAsync("1.0", "antcloud.insurance.insure.result.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 投保测试接口
+         * Summary: 投保测试接口
+         */
+        public ApplyInsureTestResponse ApplyInsureTest(ApplyInsureTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyInsureTestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 投保测试接口
+         * Summary: 投保测试接口
+         */
+        public async Task<ApplyInsureTestResponse> ApplyInsureTestAsync(ApplyInsureTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyInsureTestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 投保测试接口
+         * Summary: 投保测试接口
+         */
+        public ApplyInsureTestResponse ApplyInsureTestEx(ApplyInsureTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyInsureTestResponse>(DoRequest("1.0", "antcloud.insurance.insure.test.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 投保测试接口
+         * Summary: 投保测试接口
+         */
+        public async Task<ApplyInsureTestResponse> ApplyInsureTestExAsync(ApplyInsureTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyInsureTestResponse>(await DoRequestAsync("1.0", "antcloud.insurance.insure.test.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口用于调查报案数据的提交
+         * Summary: 调查报案提交接口
+         */
+        public SubmitInvestigateCaseResponse SubmitInvestigateCase(SubmitInvestigateCaseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitInvestigateCaseEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口用于调查报案数据的提交
+         * Summary: 调查报案提交接口
+         */
+        public async Task<SubmitInvestigateCaseResponse> SubmitInvestigateCaseAsync(SubmitInvestigateCaseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitInvestigateCaseExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 本接口用于调查报案数据的提交
+         * Summary: 调查报案提交接口
+         */
+        public SubmitInvestigateCaseResponse SubmitInvestigateCaseEx(SubmitInvestigateCaseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitInvestigateCaseResponse>(DoRequest("1.0", "antcloud.insurance.investigate.case.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 本接口用于调查报案数据的提交
+         * Summary: 调查报案提交接口
+         */
+        public async Task<SubmitInvestigateCaseResponse> SubmitInvestigateCaseExAsync(SubmitInvestigateCaseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitInvestigateCaseResponse>(await DoRequestAsync("1.0", "antcloud.insurance.investigate.case.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 回销结果查询接口
+         * Summary: 回销结果查询接口
+         */
+        public QueryReverseCommissionResponse QueryReverseCommission(QueryReverseCommissionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryReverseCommissionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 回销结果查询接口
+         * Summary: 回销结果查询接口
+         */
+        public async Task<QueryReverseCommissionResponse> QueryReverseCommissionAsync(QueryReverseCommissionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryReverseCommissionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 回销结果查询接口
+         * Summary: 回销结果查询接口
+         */
+        public QueryReverseCommissionResponse QueryReverseCommissionEx(QueryReverseCommissionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryReverseCommissionResponse>(DoRequest("1.0", "antcloud.insurance.reverse.commission.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 回销结果查询接口
+         * Summary: 回销结果查询接口
+         */
+        public async Task<QueryReverseCommissionResponse> QueryReverseCommissionExAsync(QueryReverseCommissionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryReverseCommissionResponse>(await DoRequestAsync("1.0", "antcloud.insurance.reverse.commission.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 嵌入式保险服务卡片url链接获取
+         * Summary: 嵌入式保险服务卡片url链接获取
+         */
+        public GetEmbedcardUrlResponse GetEmbedcardUrl(GetEmbedcardUrlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetEmbedcardUrlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 嵌入式保险服务卡片url链接获取
+         * Summary: 嵌入式保险服务卡片url链接获取
+         */
+        public async Task<GetEmbedcardUrlResponse> GetEmbedcardUrlAsync(GetEmbedcardUrlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetEmbedcardUrlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 嵌入式保险服务卡片url链接获取
+         * Summary: 嵌入式保险服务卡片url链接获取
+         */
+        public GetEmbedcardUrlResponse GetEmbedcardUrlEx(GetEmbedcardUrlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetEmbedcardUrlResponse>(DoRequest("1.0", "antcloud.insurance.embedcard.url.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 嵌入式保险服务卡片url链接获取
+         * Summary: 嵌入式保险服务卡片url链接获取
+         */
+        public async Task<GetEmbedcardUrlResponse> GetEmbedcardUrlExAsync(GetEmbedcardUrlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetEmbedcardUrlResponse>(await DoRequestAsync("1.0", "antcloud.insurance.embedcard.url.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 嵌入式保险服务打款成功出单接口
+         * Summary: 嵌入式保险服务打款成功出单接口
+         */
+        public IssueEmbedcardPaysucResponse IssueEmbedcardPaysuc(IssueEmbedcardPaysucRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return IssueEmbedcardPaysucEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 嵌入式保险服务打款成功出单接口
+         * Summary: 嵌入式保险服务打款成功出单接口
+         */
+        public async Task<IssueEmbedcardPaysucResponse> IssueEmbedcardPaysucAsync(IssueEmbedcardPaysucRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await IssueEmbedcardPaysucExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 嵌入式保险服务打款成功出单接口
+         * Summary: 嵌入式保险服务打款成功出单接口
+         */
+        public IssueEmbedcardPaysucResponse IssueEmbedcardPaysucEx(IssueEmbedcardPaysucRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<IssueEmbedcardPaysucResponse>(DoRequest("1.0", "antcloud.insurance.embedcard.paysuc.issue", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 嵌入式保险服务打款成功出单接口
+         * Summary: 嵌入式保险服务打款成功出单接口
+         */
+        public async Task<IssueEmbedcardPaysucResponse> IssueEmbedcardPaysucExAsync(IssueEmbedcardPaysucRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<IssueEmbedcardPaysucResponse>(await DoRequestAsync("1.0", "antcloud.insurance.embedcard.paysuc.issue", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 嵌入式主机厂车险url链接获取
+         * Summary: 嵌入式主机厂车险url链接获取
+         */
+        public GetEmbedomeautoinsuranceUrlResponse GetEmbedomeautoinsuranceUrl(GetEmbedomeautoinsuranceUrlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetEmbedomeautoinsuranceUrlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 嵌入式主机厂车险url链接获取
+         * Summary: 嵌入式主机厂车险url链接获取
+         */
+        public async Task<GetEmbedomeautoinsuranceUrlResponse> GetEmbedomeautoinsuranceUrlAsync(GetEmbedomeautoinsuranceUrlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetEmbedomeautoinsuranceUrlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 嵌入式主机厂车险url链接获取
+         * Summary: 嵌入式主机厂车险url链接获取
+         */
+        public GetEmbedomeautoinsuranceUrlResponse GetEmbedomeautoinsuranceUrlEx(GetEmbedomeautoinsuranceUrlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetEmbedomeautoinsuranceUrlResponse>(DoRequest("1.0", "antcloud.insurance.embedomeautoinsurance.url.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 嵌入式主机厂车险url链接获取
+         * Summary: 嵌入式主机厂车险url链接获取
+         */
+        public async Task<GetEmbedomeautoinsuranceUrlResponse> GetEmbedomeautoinsuranceUrlExAsync(GetEmbedomeautoinsuranceUrlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetEmbedomeautoinsuranceUrlResponse>(await DoRequestAsync("1.0", "antcloud.insurance.embedomeautoinsurance.url.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
