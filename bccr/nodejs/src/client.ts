@@ -6268,6 +6268,8 @@ export class CreateDciRegistrationRequest extends $tea.Model {
   platformContactInfo?: ContactInfo;
   // 权利描述
   rightScopeDesc?: string;
+  // 是否切换支付方式
+  switchPayMethod?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6282,6 +6284,7 @@ export class CreateDciRegistrationRequest extends $tea.Model {
       applyerContactInfo: 'applyer_contact_info',
       platformContactInfo: 'platform_contact_info',
       rightScopeDesc: 'right_scope_desc',
+      switchPayMethod: 'switch_pay_method',
     };
   }
 
@@ -6299,6 +6302,7 @@ export class CreateDciRegistrationRequest extends $tea.Model {
       applyerContactInfo: ContactInfo,
       platformContactInfo: ContactInfo,
       rightScopeDesc: 'string',
+      switchPayMethod: 'boolean',
     };
   }
 
@@ -9842,15 +9846,18 @@ export class CancelDciRegistrationRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 数登申请id
-  digitalRegisterId: string;
+  digitalRegisterId?: string;
   // 幂等id
   clientToken: string;
+  // 1111111
+  orderId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       digitalRegisterId: 'digital_register_id',
       clientToken: 'client_token',
+      orderId: 'order_id',
     };
   }
 
@@ -9860,6 +9867,7 @@ export class CancelDciRegistrationRequest extends $tea.Model {
       productInstanceId: 'string',
       digitalRegisterId: 'string',
       clientToken: 'string',
+      orderId: 'string',
     };
   }
 
@@ -10641,7 +10649,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.53",
+          sdk_version: "1.19.55",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
