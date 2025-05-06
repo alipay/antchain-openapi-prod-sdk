@@ -8517,6 +8517,8 @@ type CreateDciRegistrationRequest struct {
 	PlatformContactInfo *ContactInfo `json:"platform_contact_info,omitempty" xml:"platform_contact_info,omitempty"`
 	// 权利描述
 	RightScopeDesc *string `json:"right_scope_desc,omitempty" xml:"right_scope_desc,omitempty"`
+	// 是否切换支付方式
+	SwitchPayMethod *bool `json:"switch_pay_method,omitempty" xml:"switch_pay_method,omitempty"`
 }
 
 func (s CreateDciRegistrationRequest) String() string {
@@ -8584,6 +8586,11 @@ func (s *CreateDciRegistrationRequest) SetPlatformContactInfo(v *ContactInfo) *C
 
 func (s *CreateDciRegistrationRequest) SetRightScopeDesc(v string) *CreateDciRegistrationRequest {
 	s.RightScopeDesc = &v
+	return s
+}
+
+func (s *CreateDciRegistrationRequest) SetSwitchPayMethod(v bool) *CreateDciRegistrationRequest {
+	s.SwitchPayMethod = &v
 	return s
 }
 
@@ -13316,9 +13323,11 @@ type CancelDciRegistrationRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 数登申请id
-	DigitalRegisterId *string `json:"digital_register_id,omitempty" xml:"digital_register_id,omitempty" require:"true"`
+	DigitalRegisterId *string `json:"digital_register_id,omitempty" xml:"digital_register_id,omitempty"`
 	// 幂等id
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+	// 1111111
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
 }
 
 func (s CancelDciRegistrationRequest) String() string {
@@ -13346,6 +13355,11 @@ func (s *CancelDciRegistrationRequest) SetDigitalRegisterId(v string) *CancelDci
 
 func (s *CancelDciRegistrationRequest) SetClientToken(v string) *CancelDciRegistrationRequest {
 	s.ClientToken = &v
+	return s
+}
+
+func (s *CancelDciRegistrationRequest) SetOrderId(v string) *CancelDciRegistrationRequest {
+	s.OrderId = &v
 	return s
 }
 
@@ -14343,7 +14357,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.53"),
+				"sdk_version":      tea.String("1.19.55"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
