@@ -17,6 +17,8 @@ use AntChain\INSURANCE_SAAS\Models\ApplyEndorsementStrategyRequest;
 use AntChain\INSURANCE_SAAS\Models\ApplyEndorsementStrategyResponse;
 use AntChain\INSURANCE_SAAS\Models\ApplyInsureRequest;
 use AntChain\INSURANCE_SAAS\Models\ApplyInsureResponse;
+use AntChain\INSURANCE_SAAS\Models\ApplyInsureTestRequest;
+use AntChain\INSURANCE_SAAS\Models\ApplyInsureTestResponse;
 use AntChain\INSURANCE_SAAS\Models\ApplyUnderwritingRequest;
 use AntChain\INSURANCE_SAAS\Models\ApplyUnderwritingResponse;
 use AntChain\INSURANCE_SAAS\Models\CancelClaimRequest;
@@ -25,6 +27,12 @@ use AntChain\INSURANCE_SAAS\Models\ConfirmClaimSettleRequest;
 use AntChain\INSURANCE_SAAS\Models\ConfirmClaimSettleResponse;
 use AntChain\INSURANCE_SAAS\Models\FinishClaimSettleRequest;
 use AntChain\INSURANCE_SAAS\Models\FinishClaimSettleResponse;
+use AntChain\INSURANCE_SAAS\Models\GetEmbedcardUrlRequest;
+use AntChain\INSURANCE_SAAS\Models\GetEmbedcardUrlResponse;
+use AntChain\INSURANCE_SAAS\Models\GetEmbedomeautoinsuranceUrlRequest;
+use AntChain\INSURANCE_SAAS\Models\GetEmbedomeautoinsuranceUrlResponse;
+use AntChain\INSURANCE_SAAS\Models\IssueEmbedcardPaysucRequest;
+use AntChain\INSURANCE_SAAS\Models\IssueEmbedcardPaysucResponse;
 use AntChain\INSURANCE_SAAS\Models\NotifyPolicyResultRequest;
 use AntChain\INSURANCE_SAAS\Models\NotifyPolicyResultResponse;
 use AntChain\INSURANCE_SAAS\Models\QueryDataDisasterRequest;
@@ -37,10 +45,14 @@ use AntChain\INSURANCE_SAAS\Models\QueryInsureResultRequest;
 use AntChain\INSURANCE_SAAS\Models\QueryInsureResultResponse;
 use AntChain\INSURANCE_SAAS\Models\QueryPolicyFileRequest;
 use AntChain\INSURANCE_SAAS\Models\QueryPolicyFileResponse;
+use AntChain\INSURANCE_SAAS\Models\QueryReverseCommissionRequest;
+use AntChain\INSURANCE_SAAS\Models\QueryReverseCommissionResponse;
 use AntChain\INSURANCE_SAAS\Models\QueryUnderwritingRequest;
 use AntChain\INSURANCE_SAAS\Models\QueryUnderwritingResponse;
 use AntChain\INSURANCE_SAAS\Models\SubmitInquiryRequest;
 use AntChain\INSURANCE_SAAS\Models\SubmitInquiryResponse;
+use AntChain\INSURANCE_SAAS\Models\SubmitInvestigateCaseRequest;
+use AntChain\INSURANCE_SAAS\Models\SubmitInvestigateCaseResponse;
 use AntChain\INSURANCE_SAAS\Models\SyncPolicyResultRequest;
 use AntChain\INSURANCE_SAAS\Models\SyncPolicyResultResponse;
 use AntChain\INSURANCE_SAAS\Models\SyncQuoteRequest;
@@ -166,6 +178,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 文件结构
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -193,7 +206,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.10',
+                    'sdk_version'      => '1.8.13',
                     '_prod_code'       => 'INSURANCE_SAAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -833,5 +846,203 @@ class Client
         Utils::validateModel($request);
 
         return QueryInsureResultResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.insure.result.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 投保测试接口
+     * Summary: 投保测试接口.
+     *
+     * @param ApplyInsureTestRequest $request
+     *
+     * @return ApplyInsureTestResponse
+     */
+    public function applyInsureTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyInsureTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 投保测试接口
+     * Summary: 投保测试接口.
+     *
+     * @param ApplyInsureTestRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return ApplyInsureTestResponse
+     */
+    public function applyInsureTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyInsureTestResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.insure.test.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 本接口用于调查报案数据的提交
+     * Summary: 调查报案提交接口.
+     *
+     * @param SubmitInvestigateCaseRequest $request
+     *
+     * @return SubmitInvestigateCaseResponse
+     */
+    public function submitInvestigateCase($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitInvestigateCaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 本接口用于调查报案数据的提交
+     * Summary: 调查报案提交接口.
+     *
+     * @param SubmitInvestigateCaseRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return SubmitInvestigateCaseResponse
+     */
+    public function submitInvestigateCaseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitInvestigateCaseResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.investigate.case.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 回销结果查询接口
+     * Summary: 回销结果查询接口.
+     *
+     * @param QueryReverseCommissionRequest $request
+     *
+     * @return QueryReverseCommissionResponse
+     */
+    public function queryReverseCommission($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryReverseCommissionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 回销结果查询接口
+     * Summary: 回销结果查询接口.
+     *
+     * @param QueryReverseCommissionRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryReverseCommissionResponse
+     */
+    public function queryReverseCommissionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryReverseCommissionResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.reverse.commission.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 嵌入式保险服务卡片url链接获取
+     * Summary: 嵌入式保险服务卡片url链接获取.
+     *
+     * @param GetEmbedcardUrlRequest $request
+     *
+     * @return GetEmbedcardUrlResponse
+     */
+    public function getEmbedcardUrl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getEmbedcardUrlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 嵌入式保险服务卡片url链接获取
+     * Summary: 嵌入式保险服务卡片url链接获取.
+     *
+     * @param GetEmbedcardUrlRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return GetEmbedcardUrlResponse
+     */
+    public function getEmbedcardUrlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetEmbedcardUrlResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.embedcard.url.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 嵌入式保险服务打款成功出单接口
+     * Summary: 嵌入式保险服务打款成功出单接口.
+     *
+     * @param IssueEmbedcardPaysucRequest $request
+     *
+     * @return IssueEmbedcardPaysucResponse
+     */
+    public function issueEmbedcardPaysuc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->issueEmbedcardPaysucEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 嵌入式保险服务打款成功出单接口
+     * Summary: 嵌入式保险服务打款成功出单接口.
+     *
+     * @param IssueEmbedcardPaysucRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return IssueEmbedcardPaysucResponse
+     */
+    public function issueEmbedcardPaysucEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return IssueEmbedcardPaysucResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.embedcard.paysuc.issue', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 嵌入式主机厂车险url链接获取
+     * Summary: 嵌入式主机厂车险url链接获取.
+     *
+     * @param GetEmbedomeautoinsuranceUrlRequest $request
+     *
+     * @return GetEmbedomeautoinsuranceUrlResponse
+     */
+    public function getEmbedomeautoinsuranceUrl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getEmbedomeautoinsuranceUrlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 嵌入式主机厂车险url链接获取
+     * Summary: 嵌入式主机厂车险url链接获取.
+     *
+     * @param GetEmbedomeautoinsuranceUrlRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return GetEmbedomeautoinsuranceUrlResponse
+     */
+    public function getEmbedomeautoinsuranceUrlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetEmbedomeautoinsuranceUrlResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.embedomeautoinsurance.url.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
