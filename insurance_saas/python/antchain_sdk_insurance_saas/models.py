@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
+from typing import List
 
 
 class Config(TeaModel):
@@ -150,6 +151,231 @@ class Config(TeaModel):
             self.max_requests = m.get('maxRequests')
         if m.get('maxRequestsPerHost') is not None:
             self.max_requests_per_host = m.get('maxRequestsPerHost')
+        return self
+
+
+class FileNode(TeaModel):
+    def __init__(
+        self,
+        url: str = None,
+        name: str = None,
+    ):
+        # 可访问的文件链接
+        self.url = url
+        # 文件名
+        self.name = name
+
+    def validate(self):
+        self.validate_required(self.url, 'url')
+        self.validate_required(self.name, 'name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.url is not None:
+            result['url'] = self.url
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
+class Insured(TeaModel):
+    def __init__(
+        self,
+        insured_name: str = None,
+        insured_card_type: str = None,
+        insured_card_code: str = None,
+        insured_contact_info: str = None,
+    ):
+        # 被保人名称
+        self.insured_name = insured_name
+        # 被保人证件类型
+        self.insured_card_type = insured_card_type
+        # 被保人证件号码
+        self.insured_card_code = insured_card_code
+        # 被保人联系方式
+        self.insured_contact_info = insured_contact_info
+
+    def validate(self):
+        self.validate_required(self.insured_name, 'insured_name')
+        if self.insured_name is not None:
+            self.validate_max_length(self.insured_name, 'insured_name', 32)
+        self.validate_required(self.insured_card_type, 'insured_card_type')
+        if self.insured_card_type is not None:
+            self.validate_max_length(self.insured_card_type, 'insured_card_type', 32)
+        self.validate_required(self.insured_card_code, 'insured_card_code')
+        if self.insured_card_code is not None:
+            self.validate_max_length(self.insured_card_code, 'insured_card_code', 32)
+        if self.insured_contact_info is not None:
+            self.validate_max_length(self.insured_contact_info, 'insured_contact_info', 128)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.insured_name is not None:
+            result['insured_name'] = self.insured_name
+        if self.insured_card_type is not None:
+            result['insured_card_type'] = self.insured_card_type
+        if self.insured_card_code is not None:
+            result['insured_card_code'] = self.insured_card_code
+        if self.insured_contact_info is not None:
+            result['insured_contact_info'] = self.insured_contact_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('insured_name') is not None:
+            self.insured_name = m.get('insured_name')
+        if m.get('insured_card_type') is not None:
+            self.insured_card_type = m.get('insured_card_type')
+        if m.get('insured_card_code') is not None:
+            self.insured_card_code = m.get('insured_card_code')
+        if m.get('insured_contact_info') is not None:
+            self.insured_contact_info = m.get('insured_contact_info')
+        return self
+
+
+class Applicant(TeaModel):
+    def __init__(
+        self,
+        applicant_name: str = None,
+        applicant_card_type: str = None,
+        applicant_card_code: str = None,
+        applicant_contact_info: str = None,
+    ):
+        # 投保人名称
+        self.applicant_name = applicant_name
+        # 投保人证件类型
+        self.applicant_card_type = applicant_card_type
+        # 投保人证件号码
+        self.applicant_card_code = applicant_card_code
+        # 投保人联系方式
+        self.applicant_contact_info = applicant_contact_info
+
+    def validate(self):
+        self.validate_required(self.applicant_name, 'applicant_name')
+        if self.applicant_name is not None:
+            self.validate_max_length(self.applicant_name, 'applicant_name', 32)
+        self.validate_required(self.applicant_card_type, 'applicant_card_type')
+        if self.applicant_card_type is not None:
+            self.validate_max_length(self.applicant_card_type, 'applicant_card_type', 32)
+        self.validate_required(self.applicant_card_code, 'applicant_card_code')
+        if self.applicant_card_code is not None:
+            self.validate_max_length(self.applicant_card_code, 'applicant_card_code', 32)
+        if self.applicant_contact_info is not None:
+            self.validate_max_length(self.applicant_contact_info, 'applicant_contact_info', 128)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.applicant_name is not None:
+            result['applicant_name'] = self.applicant_name
+        if self.applicant_card_type is not None:
+            result['applicant_card_type'] = self.applicant_card_type
+        if self.applicant_card_code is not None:
+            result['applicant_card_code'] = self.applicant_card_code
+        if self.applicant_contact_info is not None:
+            result['applicant_contact_info'] = self.applicant_contact_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('applicant_name') is not None:
+            self.applicant_name = m.get('applicant_name')
+        if m.get('applicant_card_type') is not None:
+            self.applicant_card_type = m.get('applicant_card_type')
+        if m.get('applicant_card_code') is not None:
+            self.applicant_card_code = m.get('applicant_card_code')
+        if m.get('applicant_contact_info') is not None:
+            self.applicant_contact_info = m.get('applicant_contact_info')
+        return self
+
+
+class EntrustGuaranteeProduct(TeaModel):
+    def __init__(
+        self,
+        guarantee_expiry_date: int = None,
+        guarantee_effective_date: int = None,
+        waiting_period_dead_line: int = None,
+        policy_no: str = None,
+        guarantee_product_code: str = None,
+        insurance_product_code: str = None,
+        insurance_product_name: str = None,
+    ):
+        # 保障失效时间
+        self.guarantee_expiry_date = guarantee_expiry_date
+        # 保障生效时间
+        self.guarantee_effective_date = guarantee_effective_date
+        # 保险等待期结束时间
+        self.waiting_period_dead_line = waiting_period_dead_line
+        # 保单号
+        self.policy_no = policy_no
+        # 平台定义产品码值
+        self.guarantee_product_code = guarantee_product_code
+        # 保险公司的产品code
+        self.insurance_product_code = insurance_product_code
+        # 保险公司的产品描述
+        self.insurance_product_name = insurance_product_name
+
+    def validate(self):
+        self.validate_required(self.guarantee_expiry_date, 'guarantee_expiry_date')
+        self.validate_required(self.guarantee_effective_date, 'guarantee_effective_date')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.guarantee_expiry_date is not None:
+            result['guarantee_expiry_date'] = self.guarantee_expiry_date
+        if self.guarantee_effective_date is not None:
+            result['guarantee_effective_date'] = self.guarantee_effective_date
+        if self.waiting_period_dead_line is not None:
+            result['waiting_period_dead_line'] = self.waiting_period_dead_line
+        if self.policy_no is not None:
+            result['policy_no'] = self.policy_no
+        if self.guarantee_product_code is not None:
+            result['guarantee_product_code'] = self.guarantee_product_code
+        if self.insurance_product_code is not None:
+            result['insurance_product_code'] = self.insurance_product_code
+        if self.insurance_product_name is not None:
+            result['insurance_product_name'] = self.insurance_product_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('guarantee_expiry_date') is not None:
+            self.guarantee_expiry_date = m.get('guarantee_expiry_date')
+        if m.get('guarantee_effective_date') is not None:
+            self.guarantee_effective_date = m.get('guarantee_effective_date')
+        if m.get('waiting_period_dead_line') is not None:
+            self.waiting_period_dead_line = m.get('waiting_period_dead_line')
+        if m.get('policy_no') is not None:
+            self.policy_no = m.get('policy_no')
+        if m.get('guarantee_product_code') is not None:
+            self.guarantee_product_code = m.get('guarantee_product_code')
+        if m.get('insurance_product_code') is not None:
+            self.insurance_product_code = m.get('insurance_product_code')
+        if m.get('insurance_product_name') is not None:
+            self.insurance_product_name = m.get('insurance_product_name')
         return self
 
 
@@ -2555,6 +2781,1182 @@ class QueryInsureResultResponse(TeaModel):
             self.insurance_application_no = m.get('insurance_application_no')
         if m.get('insurance_application_no_inner') is not None:
             self.insurance_application_no_inner = m.get('insurance_application_no_inner')
+        return self
+
+
+class ApplyInsureTestRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        insurance_application_no: str = None,
+        insurance_company_no: str = None,
+        trustworthy_value_insurance_type_code: str = None,
+        insurance_project_code: str = None,
+        insurance_options_code: str = None,
+        applicant: str = None,
+        insured_list: str = None,
+        beneficiary_list: str = None,
+        insurance_period_start: str = None,
+        insurance_period_end: str = None,
+        applied_insurance_amount: str = None,
+        insurance_period: str = None,
+        insured_object_list: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # insurance_application_no
+        self.insurance_application_no = insurance_application_no
+        # insurance_company_no
+        self.insurance_company_no = insurance_company_no
+        # trustworthy_value_insurance_type_code
+        self.trustworthy_value_insurance_type_code = trustworthy_value_insurance_type_code
+        # insurance_project_code
+        self.insurance_project_code = insurance_project_code
+        # insurance_options_code
+        self.insurance_options_code = insurance_options_code
+        # applicant
+        self.applicant = applicant
+        # insured_list
+        self.insured_list = insured_list
+        # beneficiary_list
+        self.beneficiary_list = beneficiary_list
+        # insurance_period_start
+        self.insurance_period_start = insurance_period_start
+        # insurance_period_end
+        self.insurance_period_end = insurance_period_end
+        # applied_insurance_amount
+        self.applied_insurance_amount = applied_insurance_amount
+        # insurance_period
+        self.insurance_period = insurance_period
+        # insured_object_list
+        self.insured_object_list = insured_object_list
+
+    def validate(self):
+        self.validate_required(self.insurance_application_no, 'insurance_application_no')
+        self.validate_required(self.insurance_company_no, 'insurance_company_no')
+        self.validate_required(self.trustworthy_value_insurance_type_code, 'trustworthy_value_insurance_type_code')
+        self.validate_required(self.insurance_project_code, 'insurance_project_code')
+        self.validate_required(self.insurance_options_code, 'insurance_options_code')
+        self.validate_required(self.applicant, 'applicant')
+        self.validate_required(self.insurance_period_start, 'insurance_period_start')
+        self.validate_required(self.applied_insurance_amount, 'applied_insurance_amount')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.insurance_application_no is not None:
+            result['insurance_application_no'] = self.insurance_application_no
+        if self.insurance_company_no is not None:
+            result['insurance_company_no'] = self.insurance_company_no
+        if self.trustworthy_value_insurance_type_code is not None:
+            result['trustworthy_value_insurance_type_code'] = self.trustworthy_value_insurance_type_code
+        if self.insurance_project_code is not None:
+            result['insurance_project_code'] = self.insurance_project_code
+        if self.insurance_options_code is not None:
+            result['insurance_options_code'] = self.insurance_options_code
+        if self.applicant is not None:
+            result['applicant'] = self.applicant
+        if self.insured_list is not None:
+            result['insured_list'] = self.insured_list
+        if self.beneficiary_list is not None:
+            result['beneficiary_list'] = self.beneficiary_list
+        if self.insurance_period_start is not None:
+            result['insurance_period_start'] = self.insurance_period_start
+        if self.insurance_period_end is not None:
+            result['insurance_period_end'] = self.insurance_period_end
+        if self.applied_insurance_amount is not None:
+            result['applied_insurance_amount'] = self.applied_insurance_amount
+        if self.insurance_period is not None:
+            result['insurance_period'] = self.insurance_period
+        if self.insured_object_list is not None:
+            result['insured_object_list'] = self.insured_object_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('insurance_application_no') is not None:
+            self.insurance_application_no = m.get('insurance_application_no')
+        if m.get('insurance_company_no') is not None:
+            self.insurance_company_no = m.get('insurance_company_no')
+        if m.get('trustworthy_value_insurance_type_code') is not None:
+            self.trustworthy_value_insurance_type_code = m.get('trustworthy_value_insurance_type_code')
+        if m.get('insurance_project_code') is not None:
+            self.insurance_project_code = m.get('insurance_project_code')
+        if m.get('insurance_options_code') is not None:
+            self.insurance_options_code = m.get('insurance_options_code')
+        if m.get('applicant') is not None:
+            self.applicant = m.get('applicant')
+        if m.get('insured_list') is not None:
+            self.insured_list = m.get('insured_list')
+        if m.get('beneficiary_list') is not None:
+            self.beneficiary_list = m.get('beneficiary_list')
+        if m.get('insurance_period_start') is not None:
+            self.insurance_period_start = m.get('insurance_period_start')
+        if m.get('insurance_period_end') is not None:
+            self.insurance_period_end = m.get('insurance_period_end')
+        if m.get('applied_insurance_amount') is not None:
+            self.applied_insurance_amount = m.get('applied_insurance_amount')
+        if m.get('insurance_period') is not None:
+            self.insurance_period = m.get('insurance_period')
+        if m.get('insured_object_list') is not None:
+            self.insured_object_list = m.get('insured_object_list')
+        return self
+
+
+class ApplyInsureTestResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # biz_result
+        self.biz_result = biz_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_result is not None:
+            result['biz_result'] = self.biz_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_result') is not None:
+            self.biz_result = m.get('biz_result')
+        return self
+
+
+class SubmitInvestigateCaseRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        report_no: str = None,
+        out_case_no: str = None,
+        policy_no: str = None,
+        entrust_insurance_company_id: str = None,
+        invest_end_time: int = None,
+        entrust_name: str = None,
+        entrust_tel: str = None,
+        entrust_time: int = None,
+        accident_tel: str = None,
+        accident_name: str = None,
+        accident_card_no: str = None,
+        accident_card_type: str = None,
+        accident_desc: str = None,
+        accident_address_info: str = None,
+        accident_address_detail: str = None,
+        accident_time: int = None,
+        reporter_tel: str = None,
+        reporter_name: str = None,
+        reporter_card_no: str = None,
+        reporter_card_type: str = None,
+        reporter_relation_to_accident: str = None,
+        report_time: int = None,
+        event_address_info: str = None,
+        event_address_detail: str = None,
+        confirm_hospital: str = None,
+        confirm_hospital_address_info: str = None,
+        confirm_illness_name: str = None,
+        product_type: str = None,
+        file_list: List[FileNode] = None,
+        entrust_guarantee_product_list: List[EntrustGuaranteeProduct] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 报案号 - 外部唯一ID
+        self.report_no = report_no
+        # 外部单据号
+        self.out_case_no = out_case_no
+        # 案件号
+        self.policy_no = policy_no
+        # 委托的保司ID
+        self.entrust_insurance_company_id = entrust_insurance_company_id
+        # 要求完成时间，时间戳
+        self.invest_end_time = invest_end_time
+        # 委托联系人
+        self.entrust_name = entrust_name
+        # 委托联系人电话
+        self.entrust_tel = entrust_tel
+        # 委托时间，时间戳
+        self.entrust_time = entrust_time
+        # 出险人电话号码
+        self.accident_tel = accident_tel
+        # 出险人姓名
+        self.accident_name = accident_name
+        # 出险人证件号
+        self.accident_card_no = accident_card_no
+        # 出险人证件类型，10-身份证/11-户口本/13-军官证/17-港澳通行证/18-台湾通行证/51-护照/99-其他
+        self.accident_card_type = accident_card_type
+        # 出险经过
+        self.accident_desc = accident_desc
+        # 出险人地址中文名
+        self.accident_address_info = accident_address_info
+        # 出险人详细住址
+        self.accident_address_detail = accident_address_detail
+        # 出险日期，时间戳
+        self.accident_time = accident_time
+        # 报案人电话号码
+        self.reporter_tel = reporter_tel
+        # 报案人姓名
+        self.reporter_name = reporter_name
+        # 报案人证件号
+        self.reporter_card_no = reporter_card_no
+        # 报案人证件类型，10-身份证/11-户口本/13-军官证/17-港澳通行证/18-台湾通行证/51-护照/99-其他
+        self.reporter_card_type = reporter_card_type
+        # 报案人与出险人的关系
+        # 1本人，2配偶，3父母，4子女，5其他
+        self.reporter_relation_to_accident = reporter_relation_to_accident
+        # 报案时间，时间戳
+        self.report_time = report_time
+        # 事故发生地址中文名，格式：省-市-区，如浙江省-杭州市-西湖区
+        self.event_address_info = event_address_info
+        # 事故发生详细地点
+        self.event_address_detail = event_address_detail
+        # 确诊医院
+        self.confirm_hospital = confirm_hospital
+        # 确诊医院地址信息，格式：省-市-区，如浙江省-杭州市-西湖区
+        self.confirm_hospital_address_info = confirm_hospital_address_info
+        # 确诊疾病名称
+        self.confirm_illness_name = confirm_illness_name
+        # 产品大类 重疾或者医疗险
+        self.product_type = product_type
+        # 文件列表
+        self.file_list = file_list
+        # 委托险种集合信息
+        self.entrust_guarantee_product_list = entrust_guarantee_product_list
+
+    def validate(self):
+        self.validate_required(self.report_no, 'report_no')
+        self.validate_required(self.out_case_no, 'out_case_no')
+        self.validate_required(self.entrust_insurance_company_id, 'entrust_insurance_company_id')
+        self.validate_required(self.invest_end_time, 'invest_end_time')
+        self.validate_required(self.entrust_name, 'entrust_name')
+        self.validate_required(self.entrust_tel, 'entrust_tel')
+        self.validate_required(self.entrust_time, 'entrust_time')
+        self.validate_required(self.accident_tel, 'accident_tel')
+        self.validate_required(self.accident_name, 'accident_name')
+        self.validate_required(self.accident_card_no, 'accident_card_no')
+        self.validate_required(self.accident_card_type, 'accident_card_type')
+        self.validate_required(self.accident_desc, 'accident_desc')
+        self.validate_required(self.accident_address_info, 'accident_address_info')
+        self.validate_required(self.accident_address_detail, 'accident_address_detail')
+        self.validate_required(self.accident_time, 'accident_time')
+        self.validate_required(self.reporter_tel, 'reporter_tel')
+        self.validate_required(self.reporter_name, 'reporter_name')
+        self.validate_required(self.reporter_card_no, 'reporter_card_no')
+        self.validate_required(self.reporter_card_type, 'reporter_card_type')
+        self.validate_required(self.reporter_relation_to_accident, 'reporter_relation_to_accident')
+        self.validate_required(self.event_address_info, 'event_address_info')
+        self.validate_required(self.event_address_detail, 'event_address_detail')
+        self.validate_required(self.confirm_hospital, 'confirm_hospital')
+        self.validate_required(self.confirm_hospital_address_info, 'confirm_hospital_address_info')
+        self.validate_required(self.confirm_illness_name, 'confirm_illness_name')
+        self.validate_required(self.product_type, 'product_type')
+        self.validate_required(self.file_list, 'file_list')
+        if self.file_list:
+            for k in self.file_list:
+                if k:
+                    k.validate()
+        self.validate_required(self.entrust_guarantee_product_list, 'entrust_guarantee_product_list')
+        if self.entrust_guarantee_product_list:
+            for k in self.entrust_guarantee_product_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.report_no is not None:
+            result['report_no'] = self.report_no
+        if self.out_case_no is not None:
+            result['out_case_no'] = self.out_case_no
+        if self.policy_no is not None:
+            result['policy_no'] = self.policy_no
+        if self.entrust_insurance_company_id is not None:
+            result['entrust_insurance_company_id'] = self.entrust_insurance_company_id
+        if self.invest_end_time is not None:
+            result['invest_end_time'] = self.invest_end_time
+        if self.entrust_name is not None:
+            result['entrust_name'] = self.entrust_name
+        if self.entrust_tel is not None:
+            result['entrust_tel'] = self.entrust_tel
+        if self.entrust_time is not None:
+            result['entrust_time'] = self.entrust_time
+        if self.accident_tel is not None:
+            result['accident_tel'] = self.accident_tel
+        if self.accident_name is not None:
+            result['accident_name'] = self.accident_name
+        if self.accident_card_no is not None:
+            result['accident_card_no'] = self.accident_card_no
+        if self.accident_card_type is not None:
+            result['accident_card_type'] = self.accident_card_type
+        if self.accident_desc is not None:
+            result['accident_desc'] = self.accident_desc
+        if self.accident_address_info is not None:
+            result['accident_address_info'] = self.accident_address_info
+        if self.accident_address_detail is not None:
+            result['accident_address_detail'] = self.accident_address_detail
+        if self.accident_time is not None:
+            result['accident_time'] = self.accident_time
+        if self.reporter_tel is not None:
+            result['reporter_tel'] = self.reporter_tel
+        if self.reporter_name is not None:
+            result['reporter_name'] = self.reporter_name
+        if self.reporter_card_no is not None:
+            result['reporter_card_no'] = self.reporter_card_no
+        if self.reporter_card_type is not None:
+            result['reporter_card_type'] = self.reporter_card_type
+        if self.reporter_relation_to_accident is not None:
+            result['reporter_relation_to_accident'] = self.reporter_relation_to_accident
+        if self.report_time is not None:
+            result['report_time'] = self.report_time
+        if self.event_address_info is not None:
+            result['event_address_info'] = self.event_address_info
+        if self.event_address_detail is not None:
+            result['event_address_detail'] = self.event_address_detail
+        if self.confirm_hospital is not None:
+            result['confirm_hospital'] = self.confirm_hospital
+        if self.confirm_hospital_address_info is not None:
+            result['confirm_hospital_address_info'] = self.confirm_hospital_address_info
+        if self.confirm_illness_name is not None:
+            result['confirm_illness_name'] = self.confirm_illness_name
+        if self.product_type is not None:
+            result['product_type'] = self.product_type
+        result['file_list'] = []
+        if self.file_list is not None:
+            for k in self.file_list:
+                result['file_list'].append(k.to_map() if k else None)
+        result['entrust_guarantee_product_list'] = []
+        if self.entrust_guarantee_product_list is not None:
+            for k in self.entrust_guarantee_product_list:
+                result['entrust_guarantee_product_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('report_no') is not None:
+            self.report_no = m.get('report_no')
+        if m.get('out_case_no') is not None:
+            self.out_case_no = m.get('out_case_no')
+        if m.get('policy_no') is not None:
+            self.policy_no = m.get('policy_no')
+        if m.get('entrust_insurance_company_id') is not None:
+            self.entrust_insurance_company_id = m.get('entrust_insurance_company_id')
+        if m.get('invest_end_time') is not None:
+            self.invest_end_time = m.get('invest_end_time')
+        if m.get('entrust_name') is not None:
+            self.entrust_name = m.get('entrust_name')
+        if m.get('entrust_tel') is not None:
+            self.entrust_tel = m.get('entrust_tel')
+        if m.get('entrust_time') is not None:
+            self.entrust_time = m.get('entrust_time')
+        if m.get('accident_tel') is not None:
+            self.accident_tel = m.get('accident_tel')
+        if m.get('accident_name') is not None:
+            self.accident_name = m.get('accident_name')
+        if m.get('accident_card_no') is not None:
+            self.accident_card_no = m.get('accident_card_no')
+        if m.get('accident_card_type') is not None:
+            self.accident_card_type = m.get('accident_card_type')
+        if m.get('accident_desc') is not None:
+            self.accident_desc = m.get('accident_desc')
+        if m.get('accident_address_info') is not None:
+            self.accident_address_info = m.get('accident_address_info')
+        if m.get('accident_address_detail') is not None:
+            self.accident_address_detail = m.get('accident_address_detail')
+        if m.get('accident_time') is not None:
+            self.accident_time = m.get('accident_time')
+        if m.get('reporter_tel') is not None:
+            self.reporter_tel = m.get('reporter_tel')
+        if m.get('reporter_name') is not None:
+            self.reporter_name = m.get('reporter_name')
+        if m.get('reporter_card_no') is not None:
+            self.reporter_card_no = m.get('reporter_card_no')
+        if m.get('reporter_card_type') is not None:
+            self.reporter_card_type = m.get('reporter_card_type')
+        if m.get('reporter_relation_to_accident') is not None:
+            self.reporter_relation_to_accident = m.get('reporter_relation_to_accident')
+        if m.get('report_time') is not None:
+            self.report_time = m.get('report_time')
+        if m.get('event_address_info') is not None:
+            self.event_address_info = m.get('event_address_info')
+        if m.get('event_address_detail') is not None:
+            self.event_address_detail = m.get('event_address_detail')
+        if m.get('confirm_hospital') is not None:
+            self.confirm_hospital = m.get('confirm_hospital')
+        if m.get('confirm_hospital_address_info') is not None:
+            self.confirm_hospital_address_info = m.get('confirm_hospital_address_info')
+        if m.get('confirm_illness_name') is not None:
+            self.confirm_illness_name = m.get('confirm_illness_name')
+        if m.get('product_type') is not None:
+            self.product_type = m.get('product_type')
+        self.file_list = []
+        if m.get('file_list') is not None:
+            for k in m.get('file_list'):
+                temp_model = FileNode()
+                self.file_list.append(temp_model.from_map(k))
+        self.entrust_guarantee_product_list = []
+        if m.get('entrust_guarantee_product_list') is not None:
+            for k in m.get('entrust_guarantee_product_list'):
+                temp_model = EntrustGuaranteeProduct()
+                self.entrust_guarantee_product_list.append(temp_model.from_map(k))
+        return self
+
+
+class SubmitInvestigateCaseResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryReverseCommissionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        out_case_no: str = None,
+        entrust_insurance_company_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 案件号-外部唯一
+        self.out_case_no = out_case_no
+        # 委托的保司ID
+        self.entrust_insurance_company_id = entrust_insurance_company_id
+
+    def validate(self):
+        self.validate_required(self.out_case_no, 'out_case_no')
+        self.validate_required(self.entrust_insurance_company_id, 'entrust_insurance_company_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.out_case_no is not None:
+            result['out_case_no'] = self.out_case_no
+        if self.entrust_insurance_company_id is not None:
+            result['entrust_insurance_company_id'] = self.entrust_insurance_company_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('out_case_no') is not None:
+            self.out_case_no = m.get('out_case_no')
+        if m.get('entrust_insurance_company_id') is not None:
+            self.entrust_insurance_company_id = m.get('entrust_insurance_company_id')
+        return self
+
+
+class QueryReverseCommissionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 回销结果
+        self.biz_result = biz_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_result is not None:
+            result['biz_result'] = self.biz_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_result') is not None:
+            self.biz_result = m.get('biz_result')
+        return self
+
+
+class GetEmbedcardUrlRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        insurance_type_code: str = None,
+        insurance_company_no: str = None,
+        embed_product_code: str = None,
+        is_need_inquiry: bool = None,
+        trade_no: str = None,
+        scheme_name: str = None,
+        applicant: Applicant = None,
+        insured: Insured = None,
+        subject_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 险种编码
+        self.insurance_type_code = insurance_type_code
+        # 保司编码
+        self.insurance_company_no = insurance_company_no
+        # 嵌入式产品编码
+        self.embed_product_code = embed_product_code
+        # 是否需要询价
+        self.is_need_inquiry = is_need_inquiry
+        # 交易流水号，调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。 yyyyMMdd请传递当前时间。 身份标识可自定义。 其他编码建议为随机值。 当极端场景中，系统会返回错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
+        self.trade_no = trade_no
+        # 方案名称
+        self.scheme_name = scheme_name
+        # 投保人
+        self.applicant = applicant
+        # 被保人
+        self.insured = insured
+        # 投保标的
+        self.subject_info = subject_info
+
+    def validate(self):
+        self.validate_required(self.insurance_type_code, 'insurance_type_code')
+        if self.insurance_type_code is not None:
+            self.validate_max_length(self.insurance_type_code, 'insurance_type_code', 32)
+        self.validate_required(self.insurance_company_no, 'insurance_company_no')
+        if self.insurance_company_no is not None:
+            self.validate_max_length(self.insurance_company_no, 'insurance_company_no', 32)
+        self.validate_required(self.embed_product_code, 'embed_product_code')
+        if self.embed_product_code is not None:
+            self.validate_max_length(self.embed_product_code, 'embed_product_code', 32)
+        self.validate_required(self.is_need_inquiry, 'is_need_inquiry')
+        self.validate_required(self.trade_no, 'trade_no')
+        if self.trade_no is not None:
+            self.validate_max_length(self.trade_no, 'trade_no', 128)
+        self.validate_required(self.scheme_name, 'scheme_name')
+        if self.scheme_name is not None:
+            self.validate_max_length(self.scheme_name, 'scheme_name', 32)
+        self.validate_required(self.applicant, 'applicant')
+        if self.applicant:
+            self.applicant.validate()
+        self.validate_required(self.insured, 'insured')
+        if self.insured:
+            self.insured.validate()
+        self.validate_required(self.subject_info, 'subject_info')
+        if self.subject_info is not None:
+            self.validate_max_length(self.subject_info, 'subject_info', 1000)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.insurance_type_code is not None:
+            result['insurance_type_code'] = self.insurance_type_code
+        if self.insurance_company_no is not None:
+            result['insurance_company_no'] = self.insurance_company_no
+        if self.embed_product_code is not None:
+            result['embed_product_code'] = self.embed_product_code
+        if self.is_need_inquiry is not None:
+            result['is_need_inquiry'] = self.is_need_inquiry
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.scheme_name is not None:
+            result['scheme_name'] = self.scheme_name
+        if self.applicant is not None:
+            result['applicant'] = self.applicant.to_map()
+        if self.insured is not None:
+            result['insured'] = self.insured.to_map()
+        if self.subject_info is not None:
+            result['subject_info'] = self.subject_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('insurance_type_code') is not None:
+            self.insurance_type_code = m.get('insurance_type_code')
+        if m.get('insurance_company_no') is not None:
+            self.insurance_company_no = m.get('insurance_company_no')
+        if m.get('embed_product_code') is not None:
+            self.embed_product_code = m.get('embed_product_code')
+        if m.get('is_need_inquiry') is not None:
+            self.is_need_inquiry = m.get('is_need_inquiry')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('scheme_name') is not None:
+            self.scheme_name = m.get('scheme_name')
+        if m.get('applicant') is not None:
+            temp_model = Applicant()
+            self.applicant = temp_model.from_map(m['applicant'])
+        if m.get('insured') is not None:
+            temp_model = Insured()
+            self.insured = temp_model.from_map(m['insured'])
+        if m.get('subject_info') is not None:
+            self.subject_info = m.get('subject_info')
+        return self
+
+
+class GetEmbedcardUrlResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trade_no: str = None,
+        insurance_type_code: str = None,
+        insurance_company_no: str = None,
+        embed_product_code: str = None,
+        embed_product_url: str = None,
+        scheme_name: str = None,
+        premium: str = None,
+        inquiry_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 交易流水号
+        self.trade_no = trade_no
+        # 险种编码
+        self.insurance_type_code = insurance_type_code
+        # 保司编码
+        self.insurance_company_no = insurance_company_no
+        # 嵌入式产品编码
+        self.embed_product_code = embed_product_code
+        # 嵌入式产品URL地址
+        self.embed_product_url = embed_product_url
+        # 方案名称
+        self.scheme_name = scheme_name
+        # 保费
+        self.premium = premium
+        # 询价编码
+        self.inquiry_no = inquiry_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.insurance_type_code is not None:
+            result['insurance_type_code'] = self.insurance_type_code
+        if self.insurance_company_no is not None:
+            result['insurance_company_no'] = self.insurance_company_no
+        if self.embed_product_code is not None:
+            result['embed_product_code'] = self.embed_product_code
+        if self.embed_product_url is not None:
+            result['embed_product_url'] = self.embed_product_url
+        if self.scheme_name is not None:
+            result['scheme_name'] = self.scheme_name
+        if self.premium is not None:
+            result['premium'] = self.premium
+        if self.inquiry_no is not None:
+            result['inquiry_no'] = self.inquiry_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('insurance_type_code') is not None:
+            self.insurance_type_code = m.get('insurance_type_code')
+        if m.get('insurance_company_no') is not None:
+            self.insurance_company_no = m.get('insurance_company_no')
+        if m.get('embed_product_code') is not None:
+            self.embed_product_code = m.get('embed_product_code')
+        if m.get('embed_product_url') is not None:
+            self.embed_product_url = m.get('embed_product_url')
+        if m.get('scheme_name') is not None:
+            self.scheme_name = m.get('scheme_name')
+        if m.get('premium') is not None:
+            self.premium = m.get('premium')
+        if m.get('inquiry_no') is not None:
+            self.inquiry_no = m.get('inquiry_no')
+        return self
+
+
+class IssueEmbedcardPaysucRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        insurance_type_code: str = None,
+        insurance_company_no: str = None,
+        embed_product_code: str = None,
+        trade_no: str = None,
+        scheme_name: str = None,
+        premium: str = None,
+        premium_payment_channel: str = None,
+        premium_payment_no: str = None,
+        premium_payment_amount: str = None,
+        premium_payment_time: str = None,
+        inquiry_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 险种编码
+        self.insurance_type_code = insurance_type_code
+        # 保司编码
+        self.insurance_company_no = insurance_company_no
+        # 嵌入式产品编码
+        self.embed_product_code = embed_product_code
+        # 交易流水号
+        self.trade_no = trade_no
+        # 方案名称
+        self.scheme_name = scheme_name
+        # 保费，保留2位小数
+        self.premium = premium
+        # 保费支付渠道，01-支付宝、02-微信支付、03-银行卡支付、04-平台账户余额支付
+        self.premium_payment_channel = premium_payment_channel
+        # 保费支付流水号
+        self.premium_payment_no = premium_payment_no
+        # 保费支付金额，保留2位小数
+        self.premium_payment_amount = premium_payment_amount
+        # 保费支付时间
+        self.premium_payment_time = premium_payment_time
+        # 询价编码
+        self.inquiry_no = inquiry_no
+
+    def validate(self):
+        self.validate_required(self.insurance_type_code, 'insurance_type_code')
+        if self.insurance_type_code is not None:
+            self.validate_max_length(self.insurance_type_code, 'insurance_type_code', 32)
+        self.validate_required(self.insurance_company_no, 'insurance_company_no')
+        if self.insurance_company_no is not None:
+            self.validate_max_length(self.insurance_company_no, 'insurance_company_no', 32)
+        self.validate_required(self.embed_product_code, 'embed_product_code')
+        if self.embed_product_code is not None:
+            self.validate_max_length(self.embed_product_code, 'embed_product_code', 32)
+        self.validate_required(self.trade_no, 'trade_no')
+        if self.trade_no is not None:
+            self.validate_max_length(self.trade_no, 'trade_no', 128)
+        self.validate_required(self.scheme_name, 'scheme_name')
+        if self.scheme_name is not None:
+            self.validate_max_length(self.scheme_name, 'scheme_name', 32)
+        self.validate_required(self.premium, 'premium')
+        self.validate_required(self.premium_payment_channel, 'premium_payment_channel')
+        if self.premium_payment_channel is not None:
+            self.validate_max_length(self.premium_payment_channel, 'premium_payment_channel', 32)
+        self.validate_required(self.premium_payment_no, 'premium_payment_no')
+        if self.premium_payment_no is not None:
+            self.validate_max_length(self.premium_payment_no, 'premium_payment_no', 128)
+        self.validate_required(self.premium_payment_amount, 'premium_payment_amount')
+        self.validate_required(self.premium_payment_time, 'premium_payment_time')
+        if self.premium_payment_time is not None:
+            self.validate_pattern(self.premium_payment_time, 'premium_payment_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.inquiry_no, 'inquiry_no')
+        if self.inquiry_no is not None:
+            self.validate_max_length(self.inquiry_no, 'inquiry_no', 32)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.insurance_type_code is not None:
+            result['insurance_type_code'] = self.insurance_type_code
+        if self.insurance_company_no is not None:
+            result['insurance_company_no'] = self.insurance_company_no
+        if self.embed_product_code is not None:
+            result['embed_product_code'] = self.embed_product_code
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.scheme_name is not None:
+            result['scheme_name'] = self.scheme_name
+        if self.premium is not None:
+            result['premium'] = self.premium
+        if self.premium_payment_channel is not None:
+            result['premium_payment_channel'] = self.premium_payment_channel
+        if self.premium_payment_no is not None:
+            result['premium_payment_no'] = self.premium_payment_no
+        if self.premium_payment_amount is not None:
+            result['premium_payment_amount'] = self.premium_payment_amount
+        if self.premium_payment_time is not None:
+            result['premium_payment_time'] = self.premium_payment_time
+        if self.inquiry_no is not None:
+            result['inquiry_no'] = self.inquiry_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('insurance_type_code') is not None:
+            self.insurance_type_code = m.get('insurance_type_code')
+        if m.get('insurance_company_no') is not None:
+            self.insurance_company_no = m.get('insurance_company_no')
+        if m.get('embed_product_code') is not None:
+            self.embed_product_code = m.get('embed_product_code')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('scheme_name') is not None:
+            self.scheme_name = m.get('scheme_name')
+        if m.get('premium') is not None:
+            self.premium = m.get('premium')
+        if m.get('premium_payment_channel') is not None:
+            self.premium_payment_channel = m.get('premium_payment_channel')
+        if m.get('premium_payment_no') is not None:
+            self.premium_payment_no = m.get('premium_payment_no')
+        if m.get('premium_payment_amount') is not None:
+            self.premium_payment_amount = m.get('premium_payment_amount')
+        if m.get('premium_payment_time') is not None:
+            self.premium_payment_time = m.get('premium_payment_time')
+        if m.get('inquiry_no') is not None:
+            self.inquiry_no = m.get('inquiry_no')
+        return self
+
+
+class IssueEmbedcardPaysucResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trade_no: str = None,
+        insurance_type_code: str = None,
+        insurance_company_no: str = None,
+        embed_product_code: str = None,
+        scheme_name: str = None,
+        insure_start: str = None,
+        insure_end: str = None,
+        premium: str = None,
+        amount: str = None,
+        inquiry_no: str = None,
+        voucher_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 交易流水号
+        self.trade_no = trade_no
+        # 险种编码
+        self.insurance_type_code = insurance_type_code
+        # 保司编码
+        self.insurance_company_no = insurance_company_no
+        # 嵌入式产品编码
+        self.embed_product_code = embed_product_code
+        # 方案名称
+        self.scheme_name = scheme_name
+        # 保险起期
+        self.insure_start = insure_start
+        # 保险止期
+        self.insure_end = insure_end
+        # 保费，保留2位小数
+        self.premium = premium
+        # 保额，保留2位小数
+        self.amount = amount
+        # 询价编码
+        self.inquiry_no = inquiry_no
+        # 保险凭证号
+        self.voucher_no = voucher_no
+
+    def validate(self):
+        if self.insure_start is not None:
+            self.validate_pattern(self.insure_start, 'insure_start', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.insure_end is not None:
+            self.validate_pattern(self.insure_end, 'insure_end', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.insurance_type_code is not None:
+            result['insurance_type_code'] = self.insurance_type_code
+        if self.insurance_company_no is not None:
+            result['insurance_company_no'] = self.insurance_company_no
+        if self.embed_product_code is not None:
+            result['embed_product_code'] = self.embed_product_code
+        if self.scheme_name is not None:
+            result['scheme_name'] = self.scheme_name
+        if self.insure_start is not None:
+            result['insure_start'] = self.insure_start
+        if self.insure_end is not None:
+            result['insure_end'] = self.insure_end
+        if self.premium is not None:
+            result['premium'] = self.premium
+        if self.amount is not None:
+            result['amount'] = self.amount
+        if self.inquiry_no is not None:
+            result['inquiry_no'] = self.inquiry_no
+        if self.voucher_no is not None:
+            result['voucher_no'] = self.voucher_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('insurance_type_code') is not None:
+            self.insurance_type_code = m.get('insurance_type_code')
+        if m.get('insurance_company_no') is not None:
+            self.insurance_company_no = m.get('insurance_company_no')
+        if m.get('embed_product_code') is not None:
+            self.embed_product_code = m.get('embed_product_code')
+        if m.get('scheme_name') is not None:
+            self.scheme_name = m.get('scheme_name')
+        if m.get('insure_start') is not None:
+            self.insure_start = m.get('insure_start')
+        if m.get('insure_end') is not None:
+            self.insure_end = m.get('insure_end')
+        if m.get('premium') is not None:
+            self.premium = m.get('premium')
+        if m.get('amount') is not None:
+            self.amount = m.get('amount')
+        if m.get('inquiry_no') is not None:
+            self.inquiry_no = m.get('inquiry_no')
+        if m.get('voucher_no') is not None:
+            self.voucher_no = m.get('voucher_no')
+        return self
+
+
+class GetEmbedomeautoinsuranceUrlRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        request_no: str = None,
+        product_code: str = None,
+        biz_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 调用方生成的唯一编码，参考格式： yyyyMMdd_xxxxx，已接口请求的当前日期开头；
+        self.request_no = request_no
+        # 产品编码
+        self.product_code = product_code
+        # 业务参数，json格式
+        self.biz_info = biz_info
+
+    def validate(self):
+        self.validate_required(self.request_no, 'request_no')
+        if self.request_no is not None:
+            self.validate_max_length(self.request_no, 'request_no', 128)
+        self.validate_required(self.product_code, 'product_code')
+        if self.product_code is not None:
+            self.validate_max_length(self.product_code, 'product_code', 32)
+        self.validate_required(self.biz_info, 'biz_info')
+        if self.biz_info is not None:
+            self.validate_max_length(self.biz_info, 'biz_info', 1000)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.request_no is not None:
+            result['request_no'] = self.request_no
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.biz_info is not None:
+            result['biz_info'] = self.biz_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('request_no') is not None:
+            self.request_no = m.get('request_no')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('biz_info') is not None:
+            self.biz_info = m.get('biz_info')
+        return self
+
+
+class GetEmbedomeautoinsuranceUrlResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        url: str = None,
+        request_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # url链接
+        self.url = url
+        # 请求流水号
+        self.request_no = request_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.url is not None:
+            result['url'] = self.url
+        if self.request_no is not None:
+            result['request_no'] = self.request_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('request_no') is not None:
+            self.request_no = m.get('request_no')
         return self
 
 
