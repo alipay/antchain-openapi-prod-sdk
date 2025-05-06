@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.53',
+    sdk_version = '1.19.55',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -3216,6 +3216,8 @@ model CreateDciRegistrationRequest = {
   platformContactInfo?: ContactInfo(name='platform_contact_info'),
   // 权利描述
   rightScopeDesc?: string(name='right_scope_desc'),
+  // 是否切换支付方式
+  switchPayMethod?: boolean(name='switch_pay_method'),
 }
 
 model CreateDciRegistrationResponse = {
@@ -5372,9 +5374,11 @@ model CancelDciRegistrationRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 数登申请id
-  digitalRegisterId: string(name='digital_register_id'),
+  digitalRegisterId?: string(name='digital_register_id'),
   // 幂等id
   clientToken: string(name='client_token'),
+  // 1111111
+  orderId?: string(name='order_id'),
 }
 
 model CancelDciRegistrationResponse = {
