@@ -78,6 +78,12 @@ class CreateDciRegistrationRequest extends Model
      * @var string
      */
     public $rightScopeDesc;
+
+    // 是否切换支付方式
+    /**
+     * @var bool
+     */
+    public $switchPayMethod;
     protected $_name = [
         'authToken'                 => 'auth_token',
         'productInstanceId'         => 'product_instance_id',
@@ -91,6 +97,7 @@ class CreateDciRegistrationRequest extends Model
         'applyerContactInfo'        => 'applyer_contact_info',
         'platformContactInfo'       => 'platform_contact_info',
         'rightScopeDesc'            => 'right_scope_desc',
+        'switchPayMethod'           => 'switch_pay_method',
     ];
 
     public function validate()
@@ -138,6 +145,9 @@ class CreateDciRegistrationRequest extends Model
         }
         if (null !== $this->rightScopeDesc) {
             $res['right_scope_desc'] = $this->rightScopeDesc;
+        }
+        if (null !== $this->switchPayMethod) {
+            $res['switch_pay_method'] = $this->switchPayMethod;
         }
 
         return $res;
@@ -188,6 +198,9 @@ class CreateDciRegistrationRequest extends Model
         }
         if (isset($map['right_scope_desc'])) {
             $model->rightScopeDesc = $map['right_scope_desc'];
+        }
+        if (isset($map['switch_pay_method'])) {
+            $model->switchPayMethod = $map['switch_pay_method'];
         }
 
         return $model;

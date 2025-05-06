@@ -30,16 +30,22 @@ class CancelDciRegistrationRequest extends Model
      * @var string
      */
     public $clientToken;
+
+    // 1111111
+    /**
+     * @var string
+     */
+    public $orderId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'digitalRegisterId' => 'digital_register_id',
         'clientToken'       => 'client_token',
+        'orderId'           => 'order_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('digitalRegisterId', $this->digitalRegisterId, true);
         Model::validateRequired('clientToken', $this->clientToken, true);
     }
 
@@ -57,6 +63,9 @@ class CancelDciRegistrationRequest extends Model
         }
         if (null !== $this->clientToken) {
             $res['client_token'] = $this->clientToken;
+        }
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
         }
 
         return $res;
@@ -81,6 +90,9 @@ class CancelDciRegistrationRequest extends Model
         }
         if (isset($map['client_token'])) {
             $model->clientToken = $map['client_token'];
+        }
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
         }
 
         return $model;
