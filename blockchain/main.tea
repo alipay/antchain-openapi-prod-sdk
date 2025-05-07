@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.28.44',
+    sdk_version = '1.28.45',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -1521,6 +1521,8 @@ model BasicCarInfo {
   modelCode: string(name='model_code', example='xxxxx'),
   // 营运性质
   useNatureCode: string(name='use_nature_code', example='xxxxx'),
+  // 是否抵押
+  mortgage?: boolean(name='mortgage', example='true, false'),
 }
 
 // 物流金融信用凭证信息
@@ -2260,6 +2262,8 @@ model CarUserInfo {
   userCertName?: string(name='user_cert_name', example='张三'),
   // 证件号码
   userCertNo?: string(name='user_cert_no', example='xxxxx'),
+  // 性别
+  userGender?: string(name='user_gender', example='girl'),
 }
 
 // 营销分销商品信息
@@ -22638,6 +22642,44 @@ async function submitAuthCarinfo(request: SubmitAuthCarinfoRequest): SubmitAuthC
 async function submitAuthCarinfoEx(request: SubmitAuthCarinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAuthCarinfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.auth.carinfo.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RecognizeAuthCarinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 车架号
+  vin: string(name='vin'),
+}
+
+model RecognizeAuthCarinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 校验结果
+  checkSuccess?: string(name='check_success'),
+}
+
+/**
+ * Description: 车信息识别
+ * Summary: 车信息识别
+ */
+async function recognizeAuthCarinfo(request: RecognizeAuthCarinfoRequest): RecognizeAuthCarinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return recognizeAuthCarinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 车信息识别
+ * Summary: 车信息识别
+ */
+async function recognizeAuthCarinfoEx(request: RecognizeAuthCarinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RecognizeAuthCarinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.carinfo.recognize', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StartDidCorporateAgentcreateRequest = {
