@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "INTLCOMMONCENTER",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-intlcommoncenter:1.1.5",
-    "go": "github.com/antchain-openapi-sdk-go/intlcommoncenter/client:v1.1.5",
-    "csharp": "AntChain.SDK.INTLCOMMONCENTER:1.1.5",
-    "ts": "@antchain/intlcommoncenter:1.1.5",
-    "php": "antchain/intlcommoncenter:1.1.5",
-    "python": "antchain_sdk_intlcommoncenter:1.1.5"
+    "java": "com.antgroup.antchain.openapi:openapi-intlcommoncenter:1.2.0",
+    "go": "github.com/antchain-openapi-sdk-go/intlcommoncenter/client:v1.2.0",
+    "csharp": "AntChain.SDK.INTLCOMMONCENTER:1.2.0",
+    "ts": "@antchain/intlcommoncenter:1.2.0",
+    "php": "antchain/intlcommoncenter:1.2.0",
+    "python": "antchain_sdk_intlcommoncenter:1.2.0"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
