@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.5"),
+                    new TeaPair("sdk_version", "1.2.0"),
                     new TeaPair("_prod_code", "INTLCOMMONCENTER"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -239,5 +239,24 @@ public class Client {
     public UpdateProductResponse updateProductEx(UpdateProductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.intlcommoncenter.product.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateProductResponse());
+    }
+
+    /**
+     * Description: 计量对接完成时，用来更新国际商品的计量对接状态
+     * Summary: 国际商品计量对接状态更新
+     */
+    public UpdateOfferMeterResponse updateOfferMeter(UpdateOfferMeterRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateOfferMeterEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 计量对接完成时，用来更新国际商品的计量对接状态
+     * Summary: 国际商品计量对接状态更新
+     */
+    public UpdateOfferMeterResponse updateOfferMeterEx(UpdateOfferMeterRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.intlcommoncenter.offer.meter.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateOfferMeterResponse());
     }
 }
