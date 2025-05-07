@@ -137,7 +137,7 @@ namespace AntChain.SDK.INTLCOMMONCENTER
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.5"},
+                        {"sdk_version", "1.2.0"},
                         {"_prod_code", "INTLCOMMONCENTER"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INTLCOMMONCENTER
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.5"},
+                        {"sdk_version", "1.2.0"},
                         {"_prod_code", "INTLCOMMONCENTER"},
                         {"_prod_channel", "default"},
                     };
@@ -445,6 +445,48 @@ namespace AntChain.SDK.INTLCOMMONCENTER
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UpdateProductResponse>(await DoRequestAsync("1.0", "antchain.intlcommoncenter.product.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 计量对接完成时，用来更新国际商品的计量对接状态
+         * Summary: 国际商品计量对接状态更新
+         */
+        public UpdateOfferMeterResponse UpdateOfferMeter(UpdateOfferMeterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateOfferMeterEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 计量对接完成时，用来更新国际商品的计量对接状态
+         * Summary: 国际商品计量对接状态更新
+         */
+        public async Task<UpdateOfferMeterResponse> UpdateOfferMeterAsync(UpdateOfferMeterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateOfferMeterExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 计量对接完成时，用来更新国际商品的计量对接状态
+         * Summary: 国际商品计量对接状态更新
+         */
+        public UpdateOfferMeterResponse UpdateOfferMeterEx(UpdateOfferMeterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateOfferMeterResponse>(DoRequest("1.0", "antchain.intlcommoncenter.offer.meter.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 计量对接完成时，用来更新国际商品的计量对接状态
+         * Summary: 国际商品计量对接状态更新
+         */
+        public async Task<UpdateOfferMeterResponse> UpdateOfferMeterExAsync(UpdateOfferMeterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateOfferMeterResponse>(await DoRequestAsync("1.0", "antchain.intlcommoncenter.offer.meter.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
