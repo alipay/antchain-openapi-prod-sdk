@@ -34,6 +34,10 @@ public class BasicCarInfo extends TeaModel {
     @Validation(required = true)
     public String useNatureCode;
 
+    // 是否抵押
+    @NameInMap("mortgage")
+    public Boolean mortgage;
+
     public static BasicCarInfo build(java.util.Map<String, ?> map) throws Exception {
         BasicCarInfo self = new BasicCarInfo();
         return TeaModel.build(map, self);
@@ -85,6 +89,14 @@ public class BasicCarInfo extends TeaModel {
     }
     public String getUseNatureCode() {
         return this.useNatureCode;
+    }
+
+    public BasicCarInfo setMortgage(Boolean mortgage) {
+        this.mortgage = mortgage;
+        return this;
+    }
+    public Boolean getMortgage() {
+        return this.mortgage;
     }
 
 }

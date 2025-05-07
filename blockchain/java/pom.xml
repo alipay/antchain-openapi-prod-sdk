@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-blockchain</artifactId>
-  <version>1.28.44</version>
+  <version>1.28.45</version>
   <packaging>jar</packaging>
   <name>openapi-blockchain</name>
   <description>Ant Chain BLOCKCHAIN SDK for Java
