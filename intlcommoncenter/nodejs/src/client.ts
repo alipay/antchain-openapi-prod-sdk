@@ -334,6 +334,65 @@ export class UpdateProductResponse extends $tea.Model {
   }
 }
 
+export class UpdateOfferMeterRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 国际商品内部编码
+  offerCode: string;
+  // 计量对接状态，FINISH标识以完成计量对接
+  meterAccessStatus: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      offerCode: 'offer_code',
+      meterAccessStatus: 'meter_access_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      offerCode: 'string',
+      meterAccessStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateOfferMeterResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -447,7 +506,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.5",
+          sdk_version: "1.2.0",
           _prod_code: "INTLCOMMONCENTER",
           _prod_channel: "default",
         };
@@ -550,6 +609,25 @@ export default class Client {
   async updateProductEx(request: UpdateProductRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateProductResponse> {
     Util.validateModel(request);
     return $tea.cast<UpdateProductResponse>(await this.doRequest("1.0", "antchain.intlcommoncenter.product.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateProductResponse({}));
+  }
+
+  /**
+   * Description: 计量对接完成时，用来更新国际商品的计量对接状态
+   * Summary: 国际商品计量对接状态更新
+   */
+  async updateOfferMeter(request: UpdateOfferMeterRequest): Promise<UpdateOfferMeterResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateOfferMeterEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 计量对接完成时，用来更新国际商品的计量对接状态
+   * Summary: 国际商品计量对接状态更新
+   */
+  async updateOfferMeterEx(request: UpdateOfferMeterRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateOfferMeterResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateOfferMeterResponse>(await this.doRequest("1.0", "antchain.intlcommoncenter.offer.meter.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateOfferMeterResponse({}));
   }
 
 }
