@@ -35,6 +35,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string UserCertNo { get; set; }
 
+        // 性别
+        [NameInMap("user_gender")]
+        [Validation(Required=false)]
+        public string UserGender { get; set; }
+
     }
 
 }

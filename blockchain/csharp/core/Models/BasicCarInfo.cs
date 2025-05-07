@@ -40,6 +40,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=true)]
         public string UseNatureCode { get; set; }
 
+        // 是否抵押
+        [NameInMap("mortgage")]
+        [Validation(Required=false)]
+        public bool? Mortgage { get; set; }
+
     }
 
 }

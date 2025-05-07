@@ -137,7 +137,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.28.44"},
+                        {"sdk_version", "1.28.45"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.28.44"},
+                        {"sdk_version", "1.28.45"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -18053,6 +18053,48 @@ namespace AntChain.SDK.BLOCKCHAIN
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SubmitAuthCarinfoResponse>(await DoRequestAsync("1.0", "baas.auth.carinfo.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 车信息识别
+         * Summary: 车信息识别
+         */
+        public RecognizeAuthCarinfoResponse RecognizeAuthCarinfo(RecognizeAuthCarinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RecognizeAuthCarinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 车信息识别
+         * Summary: 车信息识别
+         */
+        public async Task<RecognizeAuthCarinfoResponse> RecognizeAuthCarinfoAsync(RecognizeAuthCarinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RecognizeAuthCarinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 车信息识别
+         * Summary: 车信息识别
+         */
+        public RecognizeAuthCarinfoResponse RecognizeAuthCarinfoEx(RecognizeAuthCarinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RecognizeAuthCarinfoResponse>(DoRequest("1.0", "baas.auth.carinfo.recognize", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 车信息识别
+         * Summary: 车信息识别
+         */
+        public async Task<RecognizeAuthCarinfoResponse> RecognizeAuthCarinfoExAsync(RecognizeAuthCarinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RecognizeAuthCarinfoResponse>(await DoRequestAsync("1.0", "baas.auth.carinfo.recognize", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
