@@ -55,6 +55,14 @@ class BasicCarInfo extends Model
      * @var string
      */
     public $useNatureCode;
+
+    // 是否抵押
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $mortgage;
     protected $_name = [
         'licenseNo'     => 'license_no',
         'vin'           => 'vin',
@@ -62,6 +70,7 @@ class BasicCarInfo extends Model
         'registerDate'  => 'register_date',
         'modelCode'     => 'model_code',
         'useNatureCode' => 'use_nature_code',
+        'mortgage'      => 'mortgage',
     ];
 
     public function validate()
@@ -95,6 +104,9 @@ class BasicCarInfo extends Model
         if (null !== $this->useNatureCode) {
             $res['use_nature_code'] = $this->useNatureCode;
         }
+        if (null !== $this->mortgage) {
+            $res['mortgage'] = $this->mortgage;
+        }
 
         return $res;
     }
@@ -124,6 +136,9 @@ class BasicCarInfo extends Model
         }
         if (isset($map['use_nature_code'])) {
             $model->useNatureCode = $map['use_nature_code'];
+        }
+        if (isset($map['mortgage'])) {
+            $model->mortgage = $map['mortgage'];
         }
 
         return $model;

@@ -47,12 +47,21 @@ class CarUserInfo extends Model
      * @var string
      */
     public $userCertNo;
+
+    // 性别
+    /**
+     * @example girl
+     *
+     * @var string
+     */
+    public $userGender;
     protected $_name = [
         'userId'       => 'user_id',
         'phoneNum'     => 'phone_num',
         'cityCode'     => 'city_code',
         'userCertName' => 'user_cert_name',
         'userCertNo'   => 'user_cert_no',
+        'userGender'   => 'user_gender',
     ];
 
     public function validate()
@@ -80,6 +89,9 @@ class CarUserInfo extends Model
         if (null !== $this->userCertNo) {
             $res['user_cert_no'] = $this->userCertNo;
         }
+        if (null !== $this->userGender) {
+            $res['user_gender'] = $this->userGender;
+        }
 
         return $res;
     }
@@ -106,6 +118,9 @@ class CarUserInfo extends Model
         }
         if (isset($map['user_cert_no'])) {
             $model->userCertNo = $map['user_cert_no'];
+        }
+        if (isset($map['user_gender'])) {
+            $model->userGender = $map['user_gender'];
         }
 
         return $model;

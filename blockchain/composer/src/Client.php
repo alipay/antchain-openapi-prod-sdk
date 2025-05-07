@@ -885,6 +885,8 @@ use AntChain\BLOCKCHAIN\Models\QueryWaasDidPublickeyRequest;
 use AntChain\BLOCKCHAIN\Models\QueryWaasDidPublickeyResponse;
 use AntChain\BLOCKCHAIN\Models\RebootDidNotificationConsumerRequest;
 use AntChain\BLOCKCHAIN\Models\RebootDidNotificationConsumerResponse;
+use AntChain\BLOCKCHAIN\Models\RecognizeAuthCarinfoRequest;
+use AntChain\BLOCKCHAIN\Models\RecognizeAuthCarinfoResponse;
 use AntChain\BLOCKCHAIN\Models\RegisterWaasBusinessRequest;
 use AntChain\BLOCKCHAIN\Models\RegisterWaasBusinessResponse;
 use AntChain\BLOCKCHAIN\Models\ReinitChainCertAntRequest;
@@ -1390,7 +1392,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.28.44',
+                    'sdk_version'      => '1.28.45',
                     '_prod_code'       => 'BLOCKCHAIN',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -15321,6 +15323,39 @@ class Client
         Utils::validateModel($request);
 
         return SubmitAuthCarinfoResponse::fromMap($this->doRequest('1.0', 'baas.auth.carinfo.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 车信息识别
+     * Summary: 车信息识别.
+     *
+     * @param RecognizeAuthCarinfoRequest $request
+     *
+     * @return RecognizeAuthCarinfoResponse
+     */
+    public function recognizeAuthCarinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->recognizeAuthCarinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 车信息识别
+     * Summary: 车信息识别.
+     *
+     * @param RecognizeAuthCarinfoRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return RecognizeAuthCarinfoResponse
+     */
+    public function recognizeAuthCarinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RecognizeAuthCarinfoResponse::fromMap($this->doRequest('1.0', 'baas.auth.carinfo.recognize', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
