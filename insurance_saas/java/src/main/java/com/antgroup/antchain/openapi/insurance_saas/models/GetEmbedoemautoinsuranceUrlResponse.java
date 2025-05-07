@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.insurance_saas.models;
 
 import com.aliyun.tea.*;
 
-public class GetEmbedomeautoinsuranceUrlResponse extends TeaModel {
+public class GetEmbedoemautoinsuranceUrlResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -24,12 +24,12 @@ public class GetEmbedomeautoinsuranceUrlResponse extends TeaModel {
     @NameInMap("request_no")
     public String requestNo;
 
-    public static GetEmbedomeautoinsuranceUrlResponse build(java.util.Map<String, ?> map) throws Exception {
-        GetEmbedomeautoinsuranceUrlResponse self = new GetEmbedomeautoinsuranceUrlResponse();
+    public static GetEmbedoemautoinsuranceUrlResponse build(java.util.Map<String, ?> map) throws Exception {
+        GetEmbedoemautoinsuranceUrlResponse self = new GetEmbedoemautoinsuranceUrlResponse();
         return TeaModel.build(map, self);
     }
 
-    public GetEmbedomeautoinsuranceUrlResponse setReqMsgId(String reqMsgId) {
+    public GetEmbedoemautoinsuranceUrlResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +37,7 @@ public class GetEmbedomeautoinsuranceUrlResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public GetEmbedomeautoinsuranceUrlResponse setResultCode(String resultCode) {
+    public GetEmbedoemautoinsuranceUrlResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +45,7 @@ public class GetEmbedomeautoinsuranceUrlResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public GetEmbedomeautoinsuranceUrlResponse setResultMsg(String resultMsg) {
+    public GetEmbedoemautoinsuranceUrlResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,7 +53,7 @@ public class GetEmbedomeautoinsuranceUrlResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public GetEmbedomeautoinsuranceUrlResponse setUrl(String url) {
+    public GetEmbedoemautoinsuranceUrlResponse setUrl(String url) {
         this.url = url;
         return this;
     }
@@ -61,7 +61,7 @@ public class GetEmbedomeautoinsuranceUrlResponse extends TeaModel {
         return this.url;
     }
 
-    public GetEmbedomeautoinsuranceUrlResponse setRequestNo(String requestNo) {
+    public GetEmbedoemautoinsuranceUrlResponse setRequestNo(String requestNo) {
         this.requestNo = requestNo;
         return this;
     }

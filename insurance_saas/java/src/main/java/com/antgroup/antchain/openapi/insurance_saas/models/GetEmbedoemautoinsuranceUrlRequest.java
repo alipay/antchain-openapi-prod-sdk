@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.insurance_saas.models;
 
 import com.aliyun.tea.*;
 
-public class GetEmbedomeautoinsuranceUrlRequest extends TeaModel {
+public class GetEmbedoemautoinsuranceUrlRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -15,7 +15,7 @@ public class GetEmbedomeautoinsuranceUrlRequest extends TeaModel {
 
     // 产品编码
     @NameInMap("product_code")
-    @Validation(required = true, maxLength = 32)
+    @Validation(required = true, maxLength = 64)
     public String productCode;
 
     // 业务参数，json格式
@@ -23,12 +23,12 @@ public class GetEmbedomeautoinsuranceUrlRequest extends TeaModel {
     @Validation(required = true, maxLength = 1000)
     public String bizInfo;
 
-    public static GetEmbedomeautoinsuranceUrlRequest build(java.util.Map<String, ?> map) throws Exception {
-        GetEmbedomeautoinsuranceUrlRequest self = new GetEmbedomeautoinsuranceUrlRequest();
+    public static GetEmbedoemautoinsuranceUrlRequest build(java.util.Map<String, ?> map) throws Exception {
+        GetEmbedoemautoinsuranceUrlRequest self = new GetEmbedoemautoinsuranceUrlRequest();
         return TeaModel.build(map, self);
     }
 
-    public GetEmbedomeautoinsuranceUrlRequest setAuthToken(String authToken) {
+    public GetEmbedoemautoinsuranceUrlRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -36,7 +36,7 @@ public class GetEmbedomeautoinsuranceUrlRequest extends TeaModel {
         return this.authToken;
     }
 
-    public GetEmbedomeautoinsuranceUrlRequest setRequestNo(String requestNo) {
+    public GetEmbedoemautoinsuranceUrlRequest setRequestNo(String requestNo) {
         this.requestNo = requestNo;
         return this;
     }
@@ -44,7 +44,7 @@ public class GetEmbedomeautoinsuranceUrlRequest extends TeaModel {
         return this.requestNo;
     }
 
-    public GetEmbedomeautoinsuranceUrlRequest setProductCode(String productCode) {
+    public GetEmbedoemautoinsuranceUrlRequest setProductCode(String productCode) {
         this.productCode = productCode;
         return this;
     }
@@ -52,7 +52,7 @@ public class GetEmbedomeautoinsuranceUrlRequest extends TeaModel {
         return this.productCode;
     }
 
-    public GetEmbedomeautoinsuranceUrlRequest setBizInfo(String bizInfo) {
+    public GetEmbedoemautoinsuranceUrlRequest setBizInfo(String bizInfo) {
         this.bizInfo = bizInfo;
         return this;
     }
