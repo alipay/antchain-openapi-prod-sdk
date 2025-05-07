@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.13',
+                    'sdk_version': '1.8.14',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.13',
+                    'sdk_version': '1.8.14',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -1563,58 +1563,58 @@ class Client:
             await self.do_request_async('1.0', 'antcloud.insurance.embedcard.paysuc.issue', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def get_embedomeautoinsurance_url(
+    def get_embedoemautoinsurance_url(
         self,
-        request: insurance__saas_models.GetEmbedomeautoinsuranceUrlRequest,
-    ) -> insurance__saas_models.GetEmbedomeautoinsuranceUrlResponse:
+        request: insurance__saas_models.GetEmbedoemautoinsuranceUrlRequest,
+    ) -> insurance__saas_models.GetEmbedoemautoinsuranceUrlResponse:
         """
         Description: 嵌入式主机厂车险url链接获取
         Summary: 嵌入式主机厂车险url链接获取
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_embedomeautoinsurance_url_ex(request, headers, runtime)
+        return self.get_embedoemautoinsurance_url_ex(request, headers, runtime)
 
-    async def get_embedomeautoinsurance_url_async(
+    async def get_embedoemautoinsurance_url_async(
         self,
-        request: insurance__saas_models.GetEmbedomeautoinsuranceUrlRequest,
-    ) -> insurance__saas_models.GetEmbedomeautoinsuranceUrlResponse:
+        request: insurance__saas_models.GetEmbedoemautoinsuranceUrlRequest,
+    ) -> insurance__saas_models.GetEmbedoemautoinsuranceUrlResponse:
         """
         Description: 嵌入式主机厂车险url链接获取
         Summary: 嵌入式主机厂车险url链接获取
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.get_embedomeautoinsurance_url_ex_async(request, headers, runtime)
+        return await self.get_embedoemautoinsurance_url_ex_async(request, headers, runtime)
 
-    def get_embedomeautoinsurance_url_ex(
+    def get_embedoemautoinsurance_url_ex(
         self,
-        request: insurance__saas_models.GetEmbedomeautoinsuranceUrlRequest,
+        request: insurance__saas_models.GetEmbedoemautoinsuranceUrlRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> insurance__saas_models.GetEmbedomeautoinsuranceUrlResponse:
+    ) -> insurance__saas_models.GetEmbedoemautoinsuranceUrlResponse:
         """
         Description: 嵌入式主机厂车险url链接获取
         Summary: 嵌入式主机厂车险url链接获取
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            insurance__saas_models.GetEmbedomeautoinsuranceUrlResponse(),
-            self.do_request('1.0', 'antcloud.insurance.embedomeautoinsurance.url.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            insurance__saas_models.GetEmbedoemautoinsuranceUrlResponse(),
+            self.do_request('1.0', 'antcloud.insurance.embedoemautoinsurance.url.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def get_embedomeautoinsurance_url_ex_async(
+    async def get_embedoemautoinsurance_url_ex_async(
         self,
-        request: insurance__saas_models.GetEmbedomeautoinsuranceUrlRequest,
+        request: insurance__saas_models.GetEmbedoemautoinsuranceUrlRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> insurance__saas_models.GetEmbedomeautoinsuranceUrlResponse:
+    ) -> insurance__saas_models.GetEmbedoemautoinsuranceUrlResponse:
         """
         Description: 嵌入式主机厂车险url链接获取
         Summary: 嵌入式主机厂车险url链接获取
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            insurance__saas_models.GetEmbedomeautoinsuranceUrlResponse(),
-            await self.do_request_async('1.0', 'antcloud.insurance.embedomeautoinsurance.url.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            insurance__saas_models.GetEmbedoemautoinsuranceUrlResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.embedoemautoinsurance.url.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

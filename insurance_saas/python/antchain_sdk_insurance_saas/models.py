@@ -3847,7 +3847,7 @@ class IssueEmbedcardPaysucResponse(TeaModel):
         return self
 
 
-class GetEmbedomeautoinsuranceUrlRequest(TeaModel):
+class GetEmbedoemautoinsuranceUrlRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -3870,7 +3870,7 @@ class GetEmbedomeautoinsuranceUrlRequest(TeaModel):
             self.validate_max_length(self.request_no, 'request_no', 128)
         self.validate_required(self.product_code, 'product_code')
         if self.product_code is not None:
-            self.validate_max_length(self.product_code, 'product_code', 32)
+            self.validate_max_length(self.product_code, 'product_code', 64)
         self.validate_required(self.biz_info, 'biz_info')
         if self.biz_info is not None:
             self.validate_max_length(self.biz_info, 'biz_info', 1000)
@@ -3904,7 +3904,7 @@ class GetEmbedomeautoinsuranceUrlRequest(TeaModel):
         return self
 
 
-class GetEmbedomeautoinsuranceUrlResponse(TeaModel):
+class GetEmbedoemautoinsuranceUrlResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
