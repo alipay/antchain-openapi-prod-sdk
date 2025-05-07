@@ -137,7 +137,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.13"},
+                        {"sdk_version", "1.8.14"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.INSURANCE_SAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.13"},
+                        {"sdk_version", "1.8.14"},
                         {"_prod_code", "INSURANCE_SAAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1291,42 +1291,42 @@ namespace AntChain.SDK.INSURANCE_SAAS
          * Description: 嵌入式主机厂车险url链接获取
          * Summary: 嵌入式主机厂车险url链接获取
          */
-        public GetEmbedomeautoinsuranceUrlResponse GetEmbedomeautoinsuranceUrl(GetEmbedomeautoinsuranceUrlRequest request)
+        public GetEmbedoemautoinsuranceUrlResponse GetEmbedoemautoinsuranceUrl(GetEmbedoemautoinsuranceUrlRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return GetEmbedomeautoinsuranceUrlEx(request, headers, runtime);
+            return GetEmbedoemautoinsuranceUrlEx(request, headers, runtime);
         }
 
         /**
          * Description: 嵌入式主机厂车险url链接获取
          * Summary: 嵌入式主机厂车险url链接获取
          */
-        public async Task<GetEmbedomeautoinsuranceUrlResponse> GetEmbedomeautoinsuranceUrlAsync(GetEmbedomeautoinsuranceUrlRequest request)
+        public async Task<GetEmbedoemautoinsuranceUrlResponse> GetEmbedoemautoinsuranceUrlAsync(GetEmbedoemautoinsuranceUrlRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await GetEmbedomeautoinsuranceUrlExAsync(request, headers, runtime);
+            return await GetEmbedoemautoinsuranceUrlExAsync(request, headers, runtime);
         }
 
         /**
          * Description: 嵌入式主机厂车险url链接获取
          * Summary: 嵌入式主机厂车险url链接获取
          */
-        public GetEmbedomeautoinsuranceUrlResponse GetEmbedomeautoinsuranceUrlEx(GetEmbedomeautoinsuranceUrlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public GetEmbedoemautoinsuranceUrlResponse GetEmbedoemautoinsuranceUrlEx(GetEmbedoemautoinsuranceUrlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<GetEmbedomeautoinsuranceUrlResponse>(DoRequest("1.0", "antcloud.insurance.embedomeautoinsurance.url.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<GetEmbedoemautoinsuranceUrlResponse>(DoRequest("1.0", "antcloud.insurance.embedoemautoinsurance.url.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 嵌入式主机厂车险url链接获取
          * Summary: 嵌入式主机厂车险url链接获取
          */
-        public async Task<GetEmbedomeautoinsuranceUrlResponse> GetEmbedomeautoinsuranceUrlExAsync(GetEmbedomeautoinsuranceUrlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<GetEmbedoemautoinsuranceUrlResponse> GetEmbedoemautoinsuranceUrlExAsync(GetEmbedoemautoinsuranceUrlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<GetEmbedomeautoinsuranceUrlResponse>(await DoRequestAsync("1.0", "antcloud.insurance.embedomeautoinsurance.url.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<GetEmbedoemautoinsuranceUrlResponse>(await DoRequestAsync("1.0", "antcloud.insurance.embedoemautoinsurance.url.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

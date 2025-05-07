@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.INSURANCE_SAAS.Models
 {
-    public class GetEmbedomeautoinsuranceUrlRequest : TeaModel {
+    public class GetEmbedoemautoinsuranceUrlRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -21,7 +21,7 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
 
         // 产品编码
         [NameInMap("product_code")]
-        [Validation(Required=true, MaxLength=32)]
+        [Validation(Required=true, MaxLength=64)]
         public string ProductCode { get; set; }
 
         // 业务参数，json格式
