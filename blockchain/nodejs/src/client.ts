@@ -3523,6 +3523,8 @@ export class BasicCarInfo extends $tea.Model {
   modelCode: string;
   // 营运性质
   useNatureCode: string;
+  // 是否抵押
+  mortgage?: boolean;
   static names(): { [key: string]: string } {
     return {
       licenseNo: 'license_no',
@@ -3531,6 +3533,7 @@ export class BasicCarInfo extends $tea.Model {
       registerDate: 'register_date',
       modelCode: 'model_code',
       useNatureCode: 'use_nature_code',
+      mortgage: 'mortgage',
     };
   }
 
@@ -3542,6 +3545,7 @@ export class BasicCarInfo extends $tea.Model {
       registerDate: 'string',
       modelCode: 'string',
       useNatureCode: 'string',
+      mortgage: 'boolean',
     };
   }
 
@@ -5497,6 +5501,8 @@ export class CarUserInfo extends $tea.Model {
   userCertName?: string;
   // 证件号码
   userCertNo?: string;
+  // 性别
+  userGender?: string;
   static names(): { [key: string]: string } {
     return {
       userId: 'user_id',
@@ -5504,6 +5510,7 @@ export class CarUserInfo extends $tea.Model {
       cityCode: 'city_code',
       userCertName: 'user_cert_name',
       userCertNo: 'user_cert_no',
+      userGender: 'user_gender',
     };
   }
 
@@ -5514,6 +5521,7 @@ export class CarUserInfo extends $tea.Model {
       cityCode: 'string',
       userCertName: 'string',
       userCertNo: 'string',
+      userGender: 'string',
     };
   }
 
@@ -39558,6 +39566,65 @@ export class SubmitAuthCarinfoResponse extends $tea.Model {
   }
 }
 
+export class RecognizeAuthCarinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 车架号
+  vin: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      vin: 'vin',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      vin: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RecognizeAuthCarinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 校验结果
+  checkSuccess?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      checkSuccess: 'check_success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      checkSuccess: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class StartDidCorporateAgentcreateRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -54436,7 +54503,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.44",
+          sdk_version: "1.28.45",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
@@ -62507,6 +62574,25 @@ export default class Client {
   async submitAuthCarinfoEx(request: SubmitAuthCarinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAuthCarinfoResponse> {
     Util.validateModel(request);
     return $tea.cast<SubmitAuthCarinfoResponse>(await this.doRequest("1.0", "baas.auth.carinfo.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitAuthCarinfoResponse({}));
+  }
+
+  /**
+   * Description: 车信息识别
+   * Summary: 车信息识别
+   */
+  async recognizeAuthCarinfo(request: RecognizeAuthCarinfoRequest): Promise<RecognizeAuthCarinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.recognizeAuthCarinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 车信息识别
+   * Summary: 车信息识别
+   */
+  async recognizeAuthCarinfoEx(request: RecognizeAuthCarinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RecognizeAuthCarinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RecognizeAuthCarinfoResponse>(await this.doRequest("1.0", "baas.auth.carinfo.recognize", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RecognizeAuthCarinfoResponse({}));
   }
 
   /**
