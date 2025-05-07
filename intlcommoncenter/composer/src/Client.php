@@ -15,6 +15,8 @@ use AntChain\INTLCOMMONCENTER\Models\ImportProductRequest;
 use AntChain\INTLCOMMONCENTER\Models\ImportProductResponse;
 use AntChain\INTLCOMMONCENTER\Models\OperateApprovalCallbackRequest;
 use AntChain\INTLCOMMONCENTER\Models\OperateApprovalCallbackResponse;
+use AntChain\INTLCOMMONCENTER\Models\UpdateOfferMeterRequest;
+use AntChain\INTLCOMMONCENTER\Models\UpdateOfferMeterResponse;
 use AntChain\INTLCOMMONCENTER\Models\UpdateProductRequest;
 use AntChain\INTLCOMMONCENTER\Models\UpdateProductResponse;
 use AntChain\Util\UtilClient;
@@ -163,7 +165,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.5',
+                    'sdk_version'      => '1.2.0',
                     '_prod_code'       => 'INTLCOMMONCENTER',
                     '_prod_channel'    => 'default',
                 ];
@@ -308,5 +310,38 @@ class Client
         Utils::validateModel($request);
 
         return UpdateProductResponse::fromMap($this->doRequest('1.0', 'antchain.intlcommoncenter.product.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 计量对接完成时，用来更新国际商品的计量对接状态
+     * Summary: 国际商品计量对接状态更新.
+     *
+     * @param UpdateOfferMeterRequest $request
+     *
+     * @return UpdateOfferMeterResponse
+     */
+    public function updateOfferMeter($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateOfferMeterEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 计量对接完成时，用来更新国际商品的计量对接状态
+     * Summary: 国际商品计量对接状态更新.
+     *
+     * @param UpdateOfferMeterRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return UpdateOfferMeterResponse
+     */
+    public function updateOfferMeterEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateOfferMeterResponse::fromMap($this->doRequest('1.0', 'antchain.intlcommoncenter.offer.meter.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
