@@ -498,6 +498,76 @@ func (s *UpdateProductResponse) SetResultMsg(v string) *UpdateProductResponse {
 	return s
 }
 
+type UpdateOfferMeterRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 国际商品内部编码
+	OfferCode *string `json:"offer_code,omitempty" xml:"offer_code,omitempty" require:"true"`
+	// 计量对接状态，FINISH标识以完成计量对接
+	MeterAccessStatus *string `json:"meter_access_status,omitempty" xml:"meter_access_status,omitempty" require:"true"`
+}
+
+func (s UpdateOfferMeterRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateOfferMeterRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateOfferMeterRequest) SetAuthToken(v string) *UpdateOfferMeterRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateOfferMeterRequest) SetProductInstanceId(v string) *UpdateOfferMeterRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateOfferMeterRequest) SetOfferCode(v string) *UpdateOfferMeterRequest {
+	s.OfferCode = &v
+	return s
+}
+
+func (s *UpdateOfferMeterRequest) SetMeterAccessStatus(v string) *UpdateOfferMeterRequest {
+	s.MeterAccessStatus = &v
+	return s
+}
+
+type UpdateOfferMeterResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateOfferMeterResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateOfferMeterResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateOfferMeterResponse) SetReqMsgId(v string) *UpdateOfferMeterResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateOfferMeterResponse) SetResultCode(v string) *UpdateOfferMeterResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateOfferMeterResponse) SetResultMsg(v string) *UpdateOfferMeterResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -620,7 +690,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.5"),
+				"sdk_version":      tea.String("1.2.0"),
 				"_prod_code":       tea.String("INTLCOMMONCENTER"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -773,6 +843,40 @@ func (client *Client) UpdateProductEx(request *UpdateProductRequest, headers map
 	}
 	_result = &UpdateProductResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.intlcommoncenter.product.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 计量对接完成时，用来更新国际商品的计量对接状态
+ * Summary: 国际商品计量对接状态更新
+ */
+func (client *Client) UpdateOfferMeter(request *UpdateOfferMeterRequest) (_result *UpdateOfferMeterResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateOfferMeterResponse{}
+	_body, _err := client.UpdateOfferMeterEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 计量对接完成时，用来更新国际商品的计量对接状态
+ * Summary: 国际商品计量对接状态更新
+ */
+func (client *Client) UpdateOfferMeterEx(request *UpdateOfferMeterRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateOfferMeterResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateOfferMeterResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.intlcommoncenter.offer.meter.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
