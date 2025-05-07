@@ -2284,7 +2284,7 @@ export class IssueEmbedcardPaysucResponse extends $tea.Model {
   }
 }
 
-export class GetEmbedomeautoinsuranceUrlRequest extends $tea.Model {
+export class GetEmbedoemautoinsuranceUrlRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   // 调用方生成的唯一编码，参考格式： yyyyMMdd_xxxxx，已接口请求的当前日期开头；
@@ -2316,7 +2316,7 @@ export class GetEmbedomeautoinsuranceUrlRequest extends $tea.Model {
   }
 }
 
-export class GetEmbedomeautoinsuranceUrlResponse extends $tea.Model {
+export class GetEmbedoemautoinsuranceUrlResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -2465,7 +2465,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.13",
+          sdk_version: "1.8.14",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
@@ -2954,19 +2954,19 @@ export default class Client {
    * Description: 嵌入式主机厂车险url链接获取
    * Summary: 嵌入式主机厂车险url链接获取
    */
-  async getEmbedomeautoinsuranceUrl(request: GetEmbedomeautoinsuranceUrlRequest): Promise<GetEmbedomeautoinsuranceUrlResponse> {
+  async getEmbedoemautoinsuranceUrl(request: GetEmbedoemautoinsuranceUrlRequest): Promise<GetEmbedoemautoinsuranceUrlResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.getEmbedomeautoinsuranceUrlEx(request, headers, runtime);
+    return await this.getEmbedoemautoinsuranceUrlEx(request, headers, runtime);
   }
 
   /**
    * Description: 嵌入式主机厂车险url链接获取
    * Summary: 嵌入式主机厂车险url链接获取
    */
-  async getEmbedomeautoinsuranceUrlEx(request: GetEmbedomeautoinsuranceUrlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetEmbedomeautoinsuranceUrlResponse> {
+  async getEmbedoemautoinsuranceUrlEx(request: GetEmbedoemautoinsuranceUrlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetEmbedoemautoinsuranceUrlResponse> {
     Util.validateModel(request);
-    return $tea.cast<GetEmbedomeautoinsuranceUrlResponse>(await this.doRequest("1.0", "antcloud.insurance.embedomeautoinsurance.url.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetEmbedomeautoinsuranceUrlResponse({}));
+    return $tea.cast<GetEmbedoemautoinsuranceUrlResponse>(await this.doRequest("1.0", "antcloud.insurance.embedoemautoinsurance.url.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetEmbedoemautoinsuranceUrlResponse({}));
   }
 
 }
