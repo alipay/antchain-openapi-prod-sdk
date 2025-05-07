@@ -29,8 +29,8 @@ use AntChain\INSURANCE_SAAS\Models\FinishClaimSettleRequest;
 use AntChain\INSURANCE_SAAS\Models\FinishClaimSettleResponse;
 use AntChain\INSURANCE_SAAS\Models\GetEmbedcardUrlRequest;
 use AntChain\INSURANCE_SAAS\Models\GetEmbedcardUrlResponse;
-use AntChain\INSURANCE_SAAS\Models\GetEmbedomeautoinsuranceUrlRequest;
-use AntChain\INSURANCE_SAAS\Models\GetEmbedomeautoinsuranceUrlResponse;
+use AntChain\INSURANCE_SAAS\Models\GetEmbedoemautoinsuranceUrlRequest;
+use AntChain\INSURANCE_SAAS\Models\GetEmbedoemautoinsuranceUrlResponse;
 use AntChain\INSURANCE_SAAS\Models\IssueEmbedcardPaysucRequest;
 use AntChain\INSURANCE_SAAS\Models\IssueEmbedcardPaysucResponse;
 use AntChain\INSURANCE_SAAS\Models\NotifyPolicyResultRequest;
@@ -206,7 +206,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.13',
+                    'sdk_version'      => '1.8.14',
                     '_prod_code'       => 'INSURANCE_SAAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1017,32 +1017,32 @@ class Client
      * Description: 嵌入式主机厂车险url链接获取
      * Summary: 嵌入式主机厂车险url链接获取.
      *
-     * @param GetEmbedomeautoinsuranceUrlRequest $request
+     * @param GetEmbedoemautoinsuranceUrlRequest $request
      *
-     * @return GetEmbedomeautoinsuranceUrlResponse
+     * @return GetEmbedoemautoinsuranceUrlResponse
      */
-    public function getEmbedomeautoinsuranceUrl($request)
+    public function getEmbedoemautoinsuranceUrl($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->getEmbedomeautoinsuranceUrlEx($request, $headers, $runtime);
+        return $this->getEmbedoemautoinsuranceUrlEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 嵌入式主机厂车险url链接获取
      * Summary: 嵌入式主机厂车险url链接获取.
      *
-     * @param GetEmbedomeautoinsuranceUrlRequest $request
+     * @param GetEmbedoemautoinsuranceUrlRequest $request
      * @param string[]                           $headers
      * @param RuntimeOptions                     $runtime
      *
-     * @return GetEmbedomeautoinsuranceUrlResponse
+     * @return GetEmbedoemautoinsuranceUrlResponse
      */
-    public function getEmbedomeautoinsuranceUrlEx($request, $headers, $runtime)
+    public function getEmbedoemautoinsuranceUrlEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return GetEmbedomeautoinsuranceUrlResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.embedomeautoinsurance.url.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return GetEmbedoemautoinsuranceUrlResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.embedoemautoinsurance.url.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

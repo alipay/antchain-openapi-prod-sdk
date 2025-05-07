@@ -6,7 +6,7 @@ namespace AntChain\INSURANCE_SAAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetEmbedomeautoinsuranceUrlRequest extends Model
+class GetEmbedoemautoinsuranceUrlRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -44,7 +44,7 @@ class GetEmbedomeautoinsuranceUrlRequest extends Model
         Model::validateRequired('productCode', $this->productCode, true);
         Model::validateRequired('bizInfo', $this->bizInfo, true);
         Model::validateMaxLength('requestNo', $this->requestNo, 128);
-        Model::validateMaxLength('productCode', $this->productCode, 32);
+        Model::validateMaxLength('productCode', $this->productCode, 64);
         Model::validateMaxLength('bizInfo', $this->bizInfo, 1000);
     }
 
@@ -70,7 +70,7 @@ class GetEmbedomeautoinsuranceUrlRequest extends Model
     /**
      * @param array $map
      *
-     * @return GetEmbedomeautoinsuranceUrlRequest
+     * @return GetEmbedoemautoinsuranceUrlRequest
      */
     public static function fromMap($map = [])
     {

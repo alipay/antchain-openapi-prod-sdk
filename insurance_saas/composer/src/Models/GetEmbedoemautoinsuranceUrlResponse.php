@@ -6,7 +6,7 @@ namespace AntChain\INSURANCE_SAAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetEmbedomeautoinsuranceUrlResponse extends Model
+class GetEmbedoemautoinsuranceUrlResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -74,7 +74,7 @@ class GetEmbedomeautoinsuranceUrlResponse extends Model
     /**
      * @param array $map
      *
-     * @return GetEmbedomeautoinsuranceUrlResponse
+     * @return GetEmbedoemautoinsuranceUrlResponse
      */
     public static function fromMap($map = [])
     {
