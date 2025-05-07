@@ -3152,46 +3152,46 @@ func (s *IssueEmbedcardPaysucResponse) SetVoucherNo(v string) *IssueEmbedcardPay
 	return s
 }
 
-type GetEmbedomeautoinsuranceUrlRequest struct {
+type GetEmbedoemautoinsuranceUrlRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 调用方生成的唯一编码，参考格式： yyyyMMdd_xxxxx，已接口请求的当前日期开头；
 	RequestNo *string `json:"request_no,omitempty" xml:"request_no,omitempty" require:"true" maxLength:"128"`
 	// 产品编码
-	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true" maxLength:"32"`
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true" maxLength:"64"`
 	// 业务参数，json格式
 	BizInfo *string `json:"biz_info,omitempty" xml:"biz_info,omitempty" require:"true" maxLength:"1000"`
 }
 
-func (s GetEmbedomeautoinsuranceUrlRequest) String() string {
+func (s GetEmbedoemautoinsuranceUrlRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s GetEmbedomeautoinsuranceUrlRequest) GoString() string {
+func (s GetEmbedoemautoinsuranceUrlRequest) GoString() string {
 	return s.String()
 }
 
-func (s *GetEmbedomeautoinsuranceUrlRequest) SetAuthToken(v string) *GetEmbedomeautoinsuranceUrlRequest {
+func (s *GetEmbedoemautoinsuranceUrlRequest) SetAuthToken(v string) *GetEmbedoemautoinsuranceUrlRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *GetEmbedomeautoinsuranceUrlRequest) SetRequestNo(v string) *GetEmbedomeautoinsuranceUrlRequest {
+func (s *GetEmbedoemautoinsuranceUrlRequest) SetRequestNo(v string) *GetEmbedoemautoinsuranceUrlRequest {
 	s.RequestNo = &v
 	return s
 }
 
-func (s *GetEmbedomeautoinsuranceUrlRequest) SetProductCode(v string) *GetEmbedomeautoinsuranceUrlRequest {
+func (s *GetEmbedoemautoinsuranceUrlRequest) SetProductCode(v string) *GetEmbedoemautoinsuranceUrlRequest {
 	s.ProductCode = &v
 	return s
 }
 
-func (s *GetEmbedomeautoinsuranceUrlRequest) SetBizInfo(v string) *GetEmbedomeautoinsuranceUrlRequest {
+func (s *GetEmbedoemautoinsuranceUrlRequest) SetBizInfo(v string) *GetEmbedoemautoinsuranceUrlRequest {
 	s.BizInfo = &v
 	return s
 }
 
-type GetEmbedomeautoinsuranceUrlResponse struct {
+type GetEmbedoemautoinsuranceUrlResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -3204,35 +3204,35 @@ type GetEmbedomeautoinsuranceUrlResponse struct {
 	RequestNo *string `json:"request_no,omitempty" xml:"request_no,omitempty"`
 }
 
-func (s GetEmbedomeautoinsuranceUrlResponse) String() string {
+func (s GetEmbedoemautoinsuranceUrlResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s GetEmbedomeautoinsuranceUrlResponse) GoString() string {
+func (s GetEmbedoemautoinsuranceUrlResponse) GoString() string {
 	return s.String()
 }
 
-func (s *GetEmbedomeautoinsuranceUrlResponse) SetReqMsgId(v string) *GetEmbedomeautoinsuranceUrlResponse {
+func (s *GetEmbedoemautoinsuranceUrlResponse) SetReqMsgId(v string) *GetEmbedoemautoinsuranceUrlResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *GetEmbedomeautoinsuranceUrlResponse) SetResultCode(v string) *GetEmbedomeautoinsuranceUrlResponse {
+func (s *GetEmbedoemautoinsuranceUrlResponse) SetResultCode(v string) *GetEmbedoemautoinsuranceUrlResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *GetEmbedomeautoinsuranceUrlResponse) SetResultMsg(v string) *GetEmbedomeautoinsuranceUrlResponse {
+func (s *GetEmbedoemautoinsuranceUrlResponse) SetResultMsg(v string) *GetEmbedoemautoinsuranceUrlResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *GetEmbedomeautoinsuranceUrlResponse) SetUrl(v string) *GetEmbedomeautoinsuranceUrlResponse {
+func (s *GetEmbedoemautoinsuranceUrlResponse) SetUrl(v string) *GetEmbedoemautoinsuranceUrlResponse {
 	s.Url = &v
 	return s
 }
 
-func (s *GetEmbedomeautoinsuranceUrlResponse) SetRequestNo(v string) *GetEmbedomeautoinsuranceUrlResponse {
+func (s *GetEmbedoemautoinsuranceUrlResponse) SetRequestNo(v string) *GetEmbedoemautoinsuranceUrlResponse {
 	s.RequestNo = &v
 	return s
 }
@@ -3359,7 +3359,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.13"),
+				"sdk_version":      tea.String("1.8.14"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -4203,11 +4203,11 @@ func (client *Client) IssueEmbedcardPaysucEx(request *IssueEmbedcardPaysucReques
  * Description: 嵌入式主机厂车险url链接获取
  * Summary: 嵌入式主机厂车险url链接获取
  */
-func (client *Client) GetEmbedomeautoinsuranceUrl(request *GetEmbedomeautoinsuranceUrlRequest) (_result *GetEmbedomeautoinsuranceUrlResponse, _err error) {
+func (client *Client) GetEmbedoemautoinsuranceUrl(request *GetEmbedoemautoinsuranceUrlRequest) (_result *GetEmbedoemautoinsuranceUrlResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &GetEmbedomeautoinsuranceUrlResponse{}
-	_body, _err := client.GetEmbedomeautoinsuranceUrlEx(request, headers, runtime)
+	_result = &GetEmbedoemautoinsuranceUrlResponse{}
+	_body, _err := client.GetEmbedoemautoinsuranceUrlEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -4219,13 +4219,13 @@ func (client *Client) GetEmbedomeautoinsuranceUrl(request *GetEmbedomeautoinsura
  * Description: 嵌入式主机厂车险url链接获取
  * Summary: 嵌入式主机厂车险url链接获取
  */
-func (client *Client) GetEmbedomeautoinsuranceUrlEx(request *GetEmbedomeautoinsuranceUrlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetEmbedomeautoinsuranceUrlResponse, _err error) {
+func (client *Client) GetEmbedoemautoinsuranceUrlEx(request *GetEmbedoemautoinsuranceUrlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetEmbedoemautoinsuranceUrlResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &GetEmbedomeautoinsuranceUrlResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.embedomeautoinsurance.url.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &GetEmbedoemautoinsuranceUrlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.embedoemautoinsurance.url.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
