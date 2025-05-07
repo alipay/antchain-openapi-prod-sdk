@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.44',
+                    'sdk_version': '1.28.45',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.44',
+                    'sdk_version': '1.28.45',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -23849,6 +23849,62 @@ class Client:
         return TeaCore.from_map(
             blockchain_models.SubmitAuthCarinfoResponse(),
             await self.do_request_async('1.0', 'baas.auth.carinfo.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def recognize_auth_carinfo(
+        self,
+        request: blockchain_models.RecognizeAuthCarinfoRequest,
+    ) -> blockchain_models.RecognizeAuthCarinfoResponse:
+        """
+        Description: 车信息识别
+        Summary: 车信息识别
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.recognize_auth_carinfo_ex(request, headers, runtime)
+
+    async def recognize_auth_carinfo_async(
+        self,
+        request: blockchain_models.RecognizeAuthCarinfoRequest,
+    ) -> blockchain_models.RecognizeAuthCarinfoResponse:
+        """
+        Description: 车信息识别
+        Summary: 车信息识别
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.recognize_auth_carinfo_ex_async(request, headers, runtime)
+
+    def recognize_auth_carinfo_ex(
+        self,
+        request: blockchain_models.RecognizeAuthCarinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.RecognizeAuthCarinfoResponse:
+        """
+        Description: 车信息识别
+        Summary: 车信息识别
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.RecognizeAuthCarinfoResponse(),
+            self.do_request('1.0', 'baas.auth.carinfo.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def recognize_auth_carinfo_ex_async(
+        self,
+        request: blockchain_models.RecognizeAuthCarinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.RecognizeAuthCarinfoResponse:
+        """
+        Description: 车信息识别
+        Summary: 车信息识别
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.RecognizeAuthCarinfoResponse(),
+            await self.do_request_async('1.0', 'baas.auth.carinfo.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_did_corporate_agentcreate(
