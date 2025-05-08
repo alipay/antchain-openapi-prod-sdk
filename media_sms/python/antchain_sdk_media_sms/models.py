@@ -154,6 +154,81 @@ class Config(TeaModel):
         return self
 
 
+class ShortUrlResult(TeaModel):
+    def __init__(
+        self,
+        cust_flag: str = None,
+        dync_param: str = None,
+        aim_url: str = None,
+        aim_code: str = None,
+        result_code: str = None,
+        error_msg: str = None,
+        factorys: List[str] = None,
+    ):
+        # 短链创建时的标记字符串，可以用该字段关联短链的发送目标
+        self.cust_flag = cust_flag
+        # 卡片模板的动参字符串
+        self.dync_param = dync_param
+        # 短链链接
+        self.aim_url = aim_url
+        # 短链码
+        self.aim_code = aim_code
+        # 0:短链申请成功，非 0:短链申请失败
+        self.result_code = result_code
+        # 短链申请失败原因
+        self.error_msg = error_msg
+        # 支持该短链的厂商
+        self.factorys = factorys
+
+    def validate(self):
+        self.validate_required(self.cust_flag, 'cust_flag')
+        self.validate_required(self.dync_param, 'dync_param')
+        self.validate_required(self.aim_url, 'aim_url')
+        self.validate_required(self.aim_code, 'aim_code')
+        self.validate_required(self.result_code, 'result_code')
+        self.validate_required(self.factorys, 'factorys')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_flag is not None:
+            result['cust_flag'] = self.cust_flag
+        if self.dync_param is not None:
+            result['dync_param'] = self.dync_param
+        if self.aim_url is not None:
+            result['aim_url'] = self.aim_url
+        if self.aim_code is not None:
+            result['aim_code'] = self.aim_code
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.error_msg is not None:
+            result['error_msg'] = self.error_msg
+        if self.factorys is not None:
+            result['factorys'] = self.factorys
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('cust_flag') is not None:
+            self.cust_flag = m.get('cust_flag')
+        if m.get('dync_param') is not None:
+            self.dync_param = m.get('dync_param')
+        if m.get('aim_url') is not None:
+            self.aim_url = m.get('aim_url')
+        if m.get('aim_code') is not None:
+            self.aim_code = m.get('aim_code')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('error_msg') is not None:
+            self.error_msg = m.get('error_msg')
+        if m.get('factorys') is not None:
+            self.factorys = m.get('factorys')
+        return self
+
+
 class SmsSendStatus(TeaModel):
     def __init__(
         self,
@@ -195,6 +270,323 @@ class SmsSendStatus(TeaModel):
             self.status = m.get('status')
         if m.get('detail_msg') is not None:
             self.detail_msg = m.get('detail_msg')
+        return self
+
+
+class SmsTempCreateData(TeaModel):
+    def __init__(
+        self,
+        template_id: str = None,
+    ):
+        # 模版id
+        self.template_id = template_id
+
+    def validate(self):
+        self.validate_required(self.template_id, 'template_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.template_id is not None:
+            result['template_id'] = self.template_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('template_id') is not None:
+            self.template_id = m.get('template_id')
+        return self
+
+
+class SmsMaterial(TeaModel):
+    def __init__(
+        self,
+        material_name: str = None,
+        material_type: str = None,
+        material_content: str = None,
+    ):
+        # 素材名称，当素材类型
+        # 为"text/plain"时可不传，其他情况必传
+        self.material_name = material_name
+        # 素材类型
+        # 本期最多只⽀持⼀张图⽚和⼀段⽂本信息；变量占位符只能是按顺序的数字{1}-{9},最多⽀持9个变量；链接中的变量只能放在尾部，如：http://aabbcc/{1}
+        self.material_type = material_type
+        # 素材内容
+        self.material_content = material_content
+
+    def validate(self):
+        self.validate_required(self.material_type, 'material_type')
+        self.validate_required(self.material_content, 'material_content')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.material_name is not None:
+            result['material_name'] = self.material_name
+        if self.material_type is not None:
+            result['material_type'] = self.material_type
+        if self.material_content is not None:
+            result['material_content'] = self.material_content
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('material_name') is not None:
+            self.material_name = m.get('material_name')
+        if m.get('material_type') is not None:
+            self.material_type = m.get('material_type')
+        if m.get('material_content') is not None:
+            self.material_content = m.get('material_content')
+        return self
+
+
+class ContentSend(TeaModel):
+    def __init__(
+        self,
+        mobile: str = None,
+        template_param_list: List[str] = None,
+    ):
+        # 单条手机号
+        self.mobile = mobile
+        # 变量⻓度限制：
+        # “纯中⽂ 不超过 10 个字”；“数字 字⺟ 英⽂符号 不超过20 位”； “纯数字 不超过20 位” ；
+        # 有序的变量值列表，按顺序替换报备的模板短信⽂本帧中的变量，列表⻓度和变量个数不⼀致会导致替换变量错误
+        self.template_param_list = template_param_list
+
+    def validate(self):
+        self.validate_required(self.mobile, 'mobile')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.template_param_list is not None:
+            result['template_param_list'] = self.template_param_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('template_param_list') is not None:
+            self.template_param_list = m.get('template_param_list')
+        return self
+
+
+class ParseQueryParam(TeaModel):
+    def __init__(
+        self,
+        mobile: str = None,
+    ):
+        # 手机号
+        self.mobile = mobile
+
+    def validate(self):
+        self.validate_required(self.mobile, 'mobile')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        return self
+
+
+class ContentReply(TeaModel):
+    def __init__(
+        self,
+        phone: str = None,
+        reject: bool = None,
+        content: str = None,
+        reply_time: str = None,
+        ext_info: str = None,
+    ):
+        # 手机号
+        self.phone = phone
+        # 用户是否已经退订过
+        self.reject = reject
+        # 用户最新回复内容
+        self.content = content
+        # 用户回复时间
+        self.reply_time = reply_time
+        # 拓展字段
+        self.ext_info = ext_info
+
+    def validate(self):
+        self.validate_required(self.phone, 'phone')
+        self.validate_required(self.reject, 'reject')
+        self.validate_required(self.content, 'content')
+        self.validate_required(self.reply_time, 'reply_time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.phone is not None:
+            result['phone'] = self.phone
+        if self.reject is not None:
+            result['reject'] = self.reject
+        if self.content is not None:
+            result['content'] = self.content
+        if self.reply_time is not None:
+            result['reply_time'] = self.reply_time
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('phone') is not None:
+            self.phone = m.get('phone')
+        if m.get('reject') is not None:
+            self.reject = m.get('reject')
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('reply_time') is not None:
+            self.reply_time = m.get('reply_time')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
+class ShortUrlParseResult(TeaModel):
+    def __init__(
+        self,
+        cust_flag: str = None,
+        smart_template_id: str = None,
+        aim_url: str = None,
+        aim_code: str = None,
+        aim_code_type: str = None,
+        status: str = None,
+        describe: str = None,
+    ):
+        # 创建短链时传入的客户号，可以用该字段关联短链的发送目标
+        self.cust_flag = cust_flag
+        # 卡片模板id
+        self.smart_template_id = smart_template_id
+        # 短链地址
+        self.aim_url = aim_url
+        # 短链地址尾码
+        self.aim_code = aim_code
+        # BULK 群发,PERSONAL个性化
+        self.aim_code_type = aim_code_type
+        # 解析状态
+        self.status = status
+        # 解析状态描述
+        self.describe = describe
+
+    def validate(self):
+        self.validate_required(self.cust_flag, 'cust_flag')
+        self.validate_required(self.smart_template_id, 'smart_template_id')
+        self.validate_required(self.aim_url, 'aim_url')
+        self.validate_required(self.aim_code, 'aim_code')
+        self.validate_required(self.aim_code_type, 'aim_code_type')
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cust_flag is not None:
+            result['cust_flag'] = self.cust_flag
+        if self.smart_template_id is not None:
+            result['smart_template_id'] = self.smart_template_id
+        if self.aim_url is not None:
+            result['aim_url'] = self.aim_url
+        if self.aim_code is not None:
+            result['aim_code'] = self.aim_code
+        if self.aim_code_type is not None:
+            result['aim_code_type'] = self.aim_code_type
+        if self.status is not None:
+            result['status'] = self.status
+        if self.describe is not None:
+            result['describe'] = self.describe
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('cust_flag') is not None:
+            self.cust_flag = m.get('cust_flag')
+        if m.get('smart_template_id') is not None:
+            self.smart_template_id = m.get('smart_template_id')
+        if m.get('aim_url') is not None:
+            self.aim_url = m.get('aim_url')
+        if m.get('aim_code') is not None:
+            self.aim_code = m.get('aim_code')
+        if m.get('aim_code_type') is not None:
+            self.aim_code_type = m.get('aim_code_type')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('describe') is not None:
+            self.describe = m.get('describe')
+        return self
+
+
+class ShortUrlCreateResult(TeaModel):
+    def __init__(
+        self,
+        smart_template_id: str = None,
+        param_list: List[ShortUrlResult] = None,
+    ):
+        # 卡片模板id
+        self.smart_template_id = smart_template_id
+        # 短链详细信息列表
+        self.param_list = param_list
+
+    def validate(self):
+        self.validate_required(self.smart_template_id, 'smart_template_id')
+        self.validate_required(self.param_list, 'param_list')
+        if self.param_list:
+            for k in self.param_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.smart_template_id is not None:
+            result['smart_template_id'] = self.smart_template_id
+        result['param_list'] = []
+        if self.param_list is not None:
+            for k in self.param_list:
+                result['param_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('smart_template_id') is not None:
+            self.smart_template_id = m.get('smart_template_id')
+        self.param_list = []
+        if m.get('param_list') is not None:
+            for k in m.get('param_list'):
+                temp_model = ShortUrlResult()
+                self.param_list.append(temp_model.from_map(k))
         return self
 
 
@@ -305,16 +697,22 @@ class QueryTemplateStatusRes(TeaModel):
         return self
 
 
-class SmsTempCreateData(TeaModel):
+class ParseResultData(TeaModel):
     def __init__(
         self,
-        template_id: str = None,
+        mobile: str = None,
+        receive_state: int = None,
     ):
-        # 模版id
-        self.template_id = template_id
+        # 手机号
+        self.mobile = mobile
+        # 是否有解析能力
+        # 0:否
+        # 1: 是
+        self.receive_state = receive_state
 
     def validate(self):
-        self.validate_required(self.template_id, 'template_id')
+        self.validate_required(self.mobile, 'mobile')
+        self.validate_required(self.receive_state, 'receive_state')
 
     def to_map(self):
         _map = super().to_map()
@@ -322,14 +720,18 @@ class SmsTempCreateData(TeaModel):
             return _map
 
         result = dict()
-        if self.template_id is not None:
-            result['template_id'] = self.template_id
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.receive_state is not None:
+            result['receive_state'] = self.receive_state
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('template_id') is not None:
-            self.template_id = m.get('template_id')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('receive_state') is not None:
+            self.receive_state = m.get('receive_state')
         return self
 
 
@@ -361,25 +763,20 @@ class BatchSendTaskData(TeaModel):
         return self
 
 
-class SmsMaterial(TeaModel):
+class SmartTemplateDyncParam(TeaModel):
     def __init__(
         self,
-        material_name: str = None,
-        material_type: str = None,
-        material_content: str = None,
+        cust_flag: str = None,
+        dync_params: str = None,
     ):
-        # 素材名称，当素材类型
-        # 为"text/plain"时可不传，其他情况必传
-        self.material_name = material_name
-        # 素材类型
-        # 本期最多只⽀持⼀张图⽚和⼀段⽂本信息；变量占位符只能是按顺序的数字{1}-{9},最多⽀持9个变量；链接中的变量只能放在尾部，如：http://aabbcc/{1}
-        self.material_type = material_type
-        # 素材内容
-        self.material_content = material_content
+        # 可以用该字段关联短链的发送目标
+        self.cust_flag = cust_flag
+        # json字符串
+        # {"param1":"123","param2":"100"}
+        self.dync_params = dync_params
 
     def validate(self):
-        self.validate_required(self.material_type, 'material_type')
-        self.validate_required(self.material_content, 'material_content')
+        self.validate_required(self.cust_flag, 'cust_flag')
 
     def to_map(self):
         _map = super().to_map()
@@ -387,40 +784,31 @@ class SmsMaterial(TeaModel):
             return _map
 
         result = dict()
-        if self.material_name is not None:
-            result['material_name'] = self.material_name
-        if self.material_type is not None:
-            result['material_type'] = self.material_type
-        if self.material_content is not None:
-            result['material_content'] = self.material_content
+        if self.cust_flag is not None:
+            result['cust_flag'] = self.cust_flag
+        if self.dync_params is not None:
+            result['dync_params'] = self.dync_params
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('material_name') is not None:
-            self.material_name = m.get('material_name')
-        if m.get('material_type') is not None:
-            self.material_type = m.get('material_type')
-        if m.get('material_content') is not None:
-            self.material_content = m.get('material_content')
+        if m.get('cust_flag') is not None:
+            self.cust_flag = m.get('cust_flag')
+        if m.get('dync_params') is not None:
+            self.dync_params = m.get('dync_params')
         return self
 
 
-class ContentSend(TeaModel):
+class ShortMsgTempCreateData(TeaModel):
     def __init__(
         self,
-        mobile: str = None,
-        template_param_list: List[str] = None,
+        template_id: str = None,
     ):
-        # 单条手机号
-        self.mobile = mobile
-        # 变量⻓度限制：
-        # “纯中⽂ 不超过 10 个字”；“数字 字⺟ 英⽂符号 不超过20 位”； “纯数字 不超过20 位” ；
-        # 有序的变量值列表，按顺序替换报备的模板短信⽂本帧中的变量，列表⻓度和变量个数不⼀致会导致替换变量错误
-        self.template_param_list = template_param_list
+        # 普短模板id
+        self.template_id = template_id
 
     def validate(self):
-        self.validate_required(self.mobile, 'mobile')
+        self.validate_required(self.template_id, 'template_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -428,46 +816,326 @@ class ContentSend(TeaModel):
             return _map
 
         result = dict()
-        if self.mobile is not None:
-            result['mobile'] = self.mobile
-        if self.template_param_list is not None:
-            result['template_param_list'] = self.template_param_list
+        if self.template_id is not None:
+            result['template_id'] = self.template_id
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('mobile') is not None:
-            self.mobile = m.get('mobile')
-        if m.get('template_param_list') is not None:
-            self.template_param_list = m.get('template_param_list')
+        if m.get('template_id') is not None:
+            self.template_id = m.get('template_id')
         return self
 
 
-class ContentReply(TeaModel):
+class QueryShorturlParseabilityRequest(TeaModel):
     def __init__(
         self,
-        phone: str = None,
-        reject: bool = None,
-        content: str = None,
-        reply_time: str = None,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        smart_template_id: str = None,
+        mobiles: List[ParseQueryParam] = None,
+        tenant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 卡片模板id
+        self.smart_template_id = smart_template_id
+        # 待查询手机号列表
+        self.mobiles = mobiles
+        # 租户id
+        self.tenant_id = tenant_id
+
+    def validate(self):
+        self.validate_required(self.smart_template_id, 'smart_template_id')
+        self.validate_required(self.mobiles, 'mobiles')
+        if self.mobiles:
+            for k in self.mobiles:
+                if k:
+                    k.validate()
+        self.validate_required(self.tenant_id, 'tenant_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.smart_template_id is not None:
+            result['smart_template_id'] = self.smart_template_id
+        result['mobiles'] = []
+        if self.mobiles is not None:
+            for k in self.mobiles:
+                result['mobiles'].append(k.to_map() if k else None)
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('smart_template_id') is not None:
+            self.smart_template_id = m.get('smart_template_id')
+        self.mobiles = []
+        if m.get('mobiles') is not None:
+            for k in m.get('mobiles'):
+                temp_model = ParseQueryParam()
+                self.mobiles.append(temp_model.from_map(k))
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class QueryShorturlParseabilityResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[ParseResultData] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 解析结果列表
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = ParseResultData()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class CreateShorturlRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        smart_template_id: str = None,
+        sms_signs: List[str] = None,
+        show_times: int = None,
+        aim_code_type: str = None,
+        expire_time: int = None,
+        cust_batch_id: str = None,
+        param_list: List[SmartTemplateDyncParam] = None,
+        tenant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 卡片模板id
+        self.smart_template_id = smart_template_id
+        # 申请好的签名，最多 10 个签名
+        self.sms_signs = sms_signs
+        # 个性化短链建议10次
+        self.show_times = show_times
+        # BULK 群发
+        # PERSONAL个性化
+        self.aim_code_type = aim_code_type
+        # 个性化短链：时间最小 1天，最大 7 天，不填则默认 7 天；
+        self.expire_time = expire_time
+        # 短链所属生成批次，最长 50 位。
+        # 也是请求唯一id，每次请求不能重复，重复将返回该批次id上一次请求结果
+        self.cust_batch_id = cust_batch_id
+        # 接收智能短信测试短信手机号及动态参数对象列表，最大为 100 个
+        # 注：oppo 模板一次最多只能申请 10 个（模板审核厂商中包含oppo厂商就视为oppo模板）
+        self.param_list = param_list
+        # 租户id
+        self.tenant_id = tenant_id
+
+    def validate(self):
+        self.validate_required(self.smart_template_id, 'smart_template_id')
+        self.validate_required(self.sms_signs, 'sms_signs')
+        self.validate_required(self.show_times, 'show_times')
+        self.validate_required(self.aim_code_type, 'aim_code_type')
+        self.validate_required(self.expire_time, 'expire_time')
+        self.validate_required(self.cust_batch_id, 'cust_batch_id')
+        self.validate_required(self.param_list, 'param_list')
+        if self.param_list:
+            for k in self.param_list:
+                if k:
+                    k.validate()
+        self.validate_required(self.tenant_id, 'tenant_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.smart_template_id is not None:
+            result['smart_template_id'] = self.smart_template_id
+        if self.sms_signs is not None:
+            result['sms_signs'] = self.sms_signs
+        if self.show_times is not None:
+            result['show_times'] = self.show_times
+        if self.aim_code_type is not None:
+            result['aim_code_type'] = self.aim_code_type
+        if self.expire_time is not None:
+            result['expire_time'] = self.expire_time
+        if self.cust_batch_id is not None:
+            result['cust_batch_id'] = self.cust_batch_id
+        result['param_list'] = []
+        if self.param_list is not None:
+            for k in self.param_list:
+                result['param_list'].append(k.to_map() if k else None)
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('smart_template_id') is not None:
+            self.smart_template_id = m.get('smart_template_id')
+        if m.get('sms_signs') is not None:
+            self.sms_signs = m.get('sms_signs')
+        if m.get('show_times') is not None:
+            self.show_times = m.get('show_times')
+        if m.get('aim_code_type') is not None:
+            self.aim_code_type = m.get('aim_code_type')
+        if m.get('expire_time') is not None:
+            self.expire_time = m.get('expire_time')
+        if m.get('cust_batch_id') is not None:
+            self.cust_batch_id = m.get('cust_batch_id')
+        self.param_list = []
+        if m.get('param_list') is not None:
+            for k in m.get('param_list'):
+                temp_model = SmartTemplateDyncParam()
+                self.param_list.append(temp_model.from_map(k))
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class CreateShorturlResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: ShortUrlCreateResult = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 短链创建结果
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            temp_model = ShortUrlCreateResult()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class QueryShorturlParseresultRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        cust_batch_id: str = None,
+        aim_url: str = None,
+        tenant_id: str = None,
         ext_info: str = None,
     ):
-        # 手机号
-        self.phone = phone
-        # 用户是否已经退订过
-        self.reject = reject
-        # 用户最新回复内容
-        self.content = content
-        # 用户回复时间
-        self.reply_time = reply_time
-        # 拓展字段
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 短链批次号
+        self.cust_batch_id = cust_batch_id
+        # 短链地址
+        self.aim_url = aim_url
+        # 租户id
+        self.tenant_id = tenant_id
+        # 扩展信息
         self.ext_info = ext_info
 
     def validate(self):
-        self.validate_required(self.phone, 'phone')
-        self.validate_required(self.reject, 'reject')
-        self.validate_required(self.content, 'content')
-        self.validate_required(self.reply_time, 'reply_time')
+        self.validate_required(self.cust_batch_id, 'cust_batch_id')
+        self.validate_required(self.aim_url, 'aim_url')
+        self.validate_required(self.tenant_id, 'tenant_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -475,30 +1143,327 @@ class ContentReply(TeaModel):
             return _map
 
         result = dict()
-        if self.phone is not None:
-            result['phone'] = self.phone
-        if self.reject is not None:
-            result['reject'] = self.reject
-        if self.content is not None:
-            result['content'] = self.content
-        if self.reply_time is not None:
-            result['reply_time'] = self.reply_time
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.cust_batch_id is not None:
+            result['cust_batch_id'] = self.cust_batch_id
+        if self.aim_url is not None:
+            result['aim_url'] = self.aim_url
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
         if self.ext_info is not None:
             result['ext_info'] = self.ext_info
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('phone') is not None:
-            self.phone = m.get('phone')
-        if m.get('reject') is not None:
-            self.reject = m.get('reject')
-        if m.get('content') is not None:
-            self.content = m.get('content')
-        if m.get('reply_time') is not None:
-            self.reply_time = m.get('reply_time')
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('cust_batch_id') is not None:
+            self.cust_batch_id = m.get('cust_batch_id')
+        if m.get('aim_url') is not None:
+            self.aim_url = m.get('aim_url')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
         if m.get('ext_info') is not None:
             self.ext_info = m.get('ext_info')
+        return self
+
+
+class QueryShorturlParseresultResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[ShortUrlParseResult] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 短链解析记录
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = ShortUrlParseResult()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class CreateShortmsgTemplateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        request_unique_id: str = None,
+        sign_name: str = None,
+        content: str = None,
+        ext_info: str = None,
+        variable_template: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户id
+        self.tenant_id = tenant_id
+        # 唯一请求id
+        self.request_unique_id = request_unique_id
+        # 短信签名名称，不需要带着【】
+        self.sign_name = sign_name
+        # 短信内容
+        self.content = content
+        # 扩展信息
+        self.ext_info = ext_info
+        # 校验传入的参数是否有变量
+        self.variable_template = variable_template
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.request_unique_id, 'request_unique_id')
+        self.validate_required(self.sign_name, 'sign_name')
+        self.validate_required(self.content, 'content')
+        self.validate_required(self.variable_template, 'variable_template')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.request_unique_id is not None:
+            result['request_unique_id'] = self.request_unique_id
+        if self.sign_name is not None:
+            result['sign_name'] = self.sign_name
+        if self.content is not None:
+            result['content'] = self.content
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        if self.variable_template is not None:
+            result['variable_template'] = self.variable_template
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('request_unique_id') is not None:
+            self.request_unique_id = m.get('request_unique_id')
+        if m.get('sign_name') is not None:
+            self.sign_name = m.get('sign_name')
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        if m.get('variable_template') is not None:
+            self.variable_template = m.get('variable_template')
+        return self
+
+
+class CreateShortmsgTemplateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: ShortMsgTempCreateData = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 普短模板创建响应体
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            temp_model = ShortMsgTempCreateData()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class QueryAccountShorturlparseresultRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        ext_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户id
+        self.tenant_id = tenant_id
+        # 扩展字段
+        self.ext_info = ext_info
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
+class QueryAccountShorturlparseresultResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[ShortUrlParseResult] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 解析记录列表
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = ShortUrlParseResult()
+                self.data.append(temp_model.from_map(k))
         return self
 
 
