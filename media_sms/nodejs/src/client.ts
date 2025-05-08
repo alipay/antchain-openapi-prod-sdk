@@ -77,6 +77,51 @@ export class Config extends $tea.Model {
   }
 }
 
+// 短链结果
+export class ShortUrlResult extends $tea.Model {
+  // 短链创建时的标记字符串，可以用该字段关联短链的发送目标
+  custFlag: string;
+  // 卡片模板的动参字符串
+  dyncParam: string;
+  // 短链链接
+  aimUrl: string;
+  // 短链码
+  aimCode: string;
+  // 0:短链申请成功，非 0:短链申请失败
+  resultCode: string;
+  // 短链申请失败原因
+  errorMsg?: string;
+  // 支持该短链的厂商
+  factorys: string[];
+  static names(): { [key: string]: string } {
+    return {
+      custFlag: 'cust_flag',
+      dyncParam: 'dync_param',
+      aimUrl: 'aim_url',
+      aimCode: 'aim_code',
+      resultCode: 'result_code',
+      errorMsg: 'error_msg',
+      factorys: 'factorys',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      custFlag: 'string',
+      dyncParam: 'string',
+      aimUrl: 'string',
+      aimCode: 'string',
+      resultCode: 'string',
+      errorMsg: 'string',
+      factorys: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 消息发送状态
 export class SmsSendStatus extends $tea.Model {
   // 手机号
@@ -98,6 +143,213 @@ export class SmsSendStatus extends $tea.Model {
       phoneNo: 'string',
       status: 'string',
       detailMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 短信模版创建返回体
+export class SmsTempCreateData extends $tea.Model {
+  // 模版id
+  templateId: string;
+  static names(): { [key: string]: string } {
+    return {
+      templateId: 'template_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      templateId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 素材
+export class SmsMaterial extends $tea.Model {
+  // 素材名称，当素材类型
+  // 为"text/plain"时可不传，其他情况必传
+  materialName?: string;
+  // 素材类型
+  // 本期最多只⽀持⼀张图⽚和⼀段⽂本信息；变量占位符只能是按顺序的数字{1}-{9},最多⽀持9个变量；链接中的变量只能放在尾部，如：http://aabbcc/{1}
+  materialType: string;
+  // 素材内容
+  materialContent: string;
+  static names(): { [key: string]: string } {
+    return {
+      materialName: 'material_name',
+      materialType: 'material_type',
+      materialContent: 'material_content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      materialName: 'string',
+      materialType: 'string',
+      materialContent: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 发送内容
+export class ContentSend extends $tea.Model {
+  // 单条手机号
+  mobile: string;
+  // 变量⻓度限制：
+  // “纯中⽂ 不超过 10 个字”；“数字 字⺟ 英⽂符号 不超过20 位”； “纯数字 不超过20 位” ；
+  // 有序的变量值列表，按顺序替换报备的模板短信⽂本帧中的变量，列表⻓度和变量个数不⼀致会导致替换变量错误
+  templateParamList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      mobile: 'mobile',
+      templateParamList: 'template_param_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      mobile: 'string',
+      templateParamList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 解析查询参数
+export class ParseQueryParam extends $tea.Model {
+  // 手机号
+  mobile: string;
+  static names(): { [key: string]: string } {
+    return {
+      mobile: 'mobile',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      mobile: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 上行内容
+export class ContentReply extends $tea.Model {
+  // 手机号
+  phone: string;
+  // 用户是否已经退订过
+  reject: boolean;
+  // 用户最新回复内容
+  content: string;
+  // 用户回复时间
+  replyTime: string;
+  // 拓展字段
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      phone: 'phone',
+      reject: 'reject',
+      content: 'content',
+      replyTime: 'reply_time',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      phone: 'string',
+      reject: 'boolean',
+      content: 'string',
+      replyTime: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 短链解析结果
+export class ShortUrlParseResult extends $tea.Model {
+  // 创建短链时传入的客户号，可以用该字段关联短链的发送目标
+  custFlag: string;
+  // 卡片模板id
+  smartTemplateId: string;
+  // 短链地址
+  aimUrl: string;
+  // 短链地址尾码
+  aimCode: string;
+  // BULK 群发,PERSONAL个性化
+  aimCodeType: string;
+  // 解析状态
+  status: string;
+  // 解析状态描述
+  describe?: string;
+  static names(): { [key: string]: string } {
+    return {
+      custFlag: 'cust_flag',
+      smartTemplateId: 'smart_template_id',
+      aimUrl: 'aim_url',
+      aimCode: 'aim_code',
+      aimCodeType: 'aim_code_type',
+      status: 'status',
+      describe: 'describe',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      custFlag: 'string',
+      smartTemplateId: 'string',
+      aimUrl: 'string',
+      aimCode: 'string',
+      aimCodeType: 'string',
+      status: 'string',
+      describe: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 短链创建结果
+export class ShortUrlCreateResult extends $tea.Model {
+  // 卡片模板id
+  smartTemplateId: string;
+  // 短链详细信息列表
+  paramList: ShortUrlResult[];
+  static names(): { [key: string]: string } {
+    return {
+      smartTemplateId: 'smart_template_id',
+      paramList: 'param_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      smartTemplateId: 'string',
+      paramList: { 'type': 'array', 'itemType': ShortUrlResult },
     };
   }
 
@@ -175,19 +427,25 @@ export class QueryTemplateStatusRes extends $tea.Model {
   }
 }
 
-// 短信模版创建返回体
-export class SmsTempCreateData extends $tea.Model {
-  // 模版id
-  templateId: string;
+// 解析结果数据
+export class ParseResultData extends $tea.Model {
+  // 手机号
+  mobile: string;
+  // 是否有解析能力
+  // 0:否
+  // 1: 是
+  receiveState: number;
   static names(): { [key: string]: string } {
     return {
-      templateId: 'template_id',
+      mobile: 'mobile',
+      receiveState: 'receive_state',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      templateId: 'string',
+      mobile: 'string',
+      receiveState: 'number',
     };
   }
 
@@ -217,29 +475,24 @@ export class BatchSendTaskData extends $tea.Model {
   }
 }
 
-// 素材
-export class SmsMaterial extends $tea.Model {
-  // 素材名称，当素材类型
-  // 为"text/plain"时可不传，其他情况必传
-  materialName?: string;
-  // 素材类型
-  // 本期最多只⽀持⼀张图⽚和⼀段⽂本信息；变量占位符只能是按顺序的数字{1}-{9},最多⽀持9个变量；链接中的变量只能放在尾部，如：http://aabbcc/{1}
-  materialType: string;
-  // 素材内容
-  materialContent: string;
+// 卡片模板动态参数信息
+export class SmartTemplateDyncParam extends $tea.Model {
+  // 可以用该字段关联短链的发送目标
+  custFlag: string;
+  // json字符串
+  // {"param1":"123","param2":"100"}
+  dyncParams?: string;
   static names(): { [key: string]: string } {
     return {
-      materialName: 'material_name',
-      materialType: 'material_type',
-      materialContent: 'material_content',
+      custFlag: 'cust_flag',
+      dyncParams: 'dync_params',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      materialName: 'string',
-      materialType: 'string',
-      materialContent: 'string',
+      custFlag: 'string',
+      dyncParams: 'string',
     };
   }
 
@@ -248,25 +501,19 @@ export class SmsMaterial extends $tea.Model {
   }
 }
 
-// 发送内容
-export class ContentSend extends $tea.Model {
-  // 单条手机号
-  mobile: string;
-  // 变量⻓度限制：
-  // “纯中⽂ 不超过 10 个字”；“数字 字⺟ 英⽂符号 不超过20 位”； “纯数字 不超过20 位” ；
-  // 有序的变量值列表，按顺序替换报备的模板短信⽂本帧中的变量，列表⻓度和变量个数不⼀致会导致替换变量错误
-  templateParamList?: string[];
+// 普短模板创建响应体
+export class ShortMsgTempCreateData extends $tea.Model {
+  // 普短模板id
+  templateId: string;
   static names(): { [key: string]: string } {
     return {
-      mobile: 'mobile',
-      templateParamList: 'template_param_list',
+      templateId: 'template_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      mobile: 'string',
-      templateParamList: { 'type': 'array', 'itemType': 'string' },
+      templateId: 'string',
     };
   }
 
@@ -275,35 +522,368 @@ export class ContentSend extends $tea.Model {
   }
 }
 
-// 上行内容
-export class ContentReply extends $tea.Model {
-  // 手机号
-  phone: string;
-  // 用户是否已经退订过
-  reject: boolean;
-  // 用户最新回复内容
-  content: string;
-  // 用户回复时间
-  replyTime: string;
-  // 拓展字段
+export class QueryShorturlParseabilityRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 卡片模板id
+  smartTemplateId: string;
+  // 待查询手机号列表
+  mobiles: ParseQueryParam[];
+  // 租户id
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      smartTemplateId: 'smart_template_id',
+      mobiles: 'mobiles',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      smartTemplateId: 'string',
+      mobiles: { 'type': 'array', 'itemType': ParseQueryParam },
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryShorturlParseabilityResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 解析结果列表
+  data?: ParseResultData[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': ParseResultData },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateShorturlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 卡片模板id
+  smartTemplateId: string;
+  // 申请好的签名，最多 10 个签名
+  smsSigns: string[];
+  // 个性化短链建议10次
+  showTimes: number;
+  // BULK 群发
+  // PERSONAL个性化
+  aimCodeType: string;
+  // 个性化短链：时间最小 1天，最大 7 天，不填则默认 7 天；
+  expireTime: number;
+  // 短链所属生成批次，最长 50 位。
+  // 也是请求唯一id，每次请求不能重复，重复将返回该批次id上一次请求结果
+  custBatchId: string;
+  // 接收智能短信测试短信手机号及动态参数对象列表，最大为 100 个
+  // 注：oppo 模板一次最多只能申请 10 个（模板审核厂商中包含oppo厂商就视为oppo模板）
+  paramList: SmartTemplateDyncParam[];
+  // 租户id
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      smartTemplateId: 'smart_template_id',
+      smsSigns: 'sms_signs',
+      showTimes: 'show_times',
+      aimCodeType: 'aim_code_type',
+      expireTime: 'expire_time',
+      custBatchId: 'cust_batch_id',
+      paramList: 'param_list',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      smartTemplateId: 'string',
+      smsSigns: { 'type': 'array', 'itemType': 'string' },
+      showTimes: 'number',
+      aimCodeType: 'string',
+      expireTime: 'number',
+      custBatchId: 'string',
+      paramList: { 'type': 'array', 'itemType': SmartTemplateDyncParam },
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateShorturlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 短链创建结果
+  data?: ShortUrlCreateResult;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: ShortUrlCreateResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryShorturlParseresultRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 短链批次号
+  custBatchId: string;
+  // 短链地址
+  aimUrl: string;
+  // 租户id
+  tenantId: string;
+  // 扩展信息
   extInfo?: string;
   static names(): { [key: string]: string } {
     return {
-      phone: 'phone',
-      reject: 'reject',
-      content: 'content',
-      replyTime: 'reply_time',
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      custBatchId: 'cust_batch_id',
+      aimUrl: 'aim_url',
+      tenantId: 'tenant_id',
       extInfo: 'ext_info',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      phone: 'string',
-      reject: 'boolean',
-      content: 'string',
-      replyTime: 'string',
+      authToken: 'string',
+      productInstanceId: 'string',
+      custBatchId: 'string',
+      aimUrl: 'string',
+      tenantId: 'string',
       extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryShorturlParseresultResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 短链解析记录
+  data?: ShortUrlParseResult[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': ShortUrlParseResult },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateShortmsgTemplateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 唯一请求id
+  requestUniqueId: string;
+  // 短信签名名称，不需要带着【】
+  signName: string;
+  // 短信内容
+  content: string;
+  // 扩展信息
+  extInfo?: string;
+  // 校验传入的参数是否有变量
+  variableTemplate: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      requestUniqueId: 'request_unique_id',
+      signName: 'sign_name',
+      content: 'content',
+      extInfo: 'ext_info',
+      variableTemplate: 'variable_template',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      requestUniqueId: 'string',
+      signName: 'string',
+      content: 'string',
+      extInfo: 'string',
+      variableTemplate: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateShortmsgTemplateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 普短模板创建响应体
+  data?: ShortMsgTempCreateData;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: ShortMsgTempCreateData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAccountShorturlparseresultRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 扩展字段
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAccountShorturlparseresultResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 解析记录列表
+  data?: ShortUrlParseResult[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': ShortUrlParseResult },
     };
   }
 
@@ -858,7 +1438,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.19",
+          sdk_version: "1.1.1",
           _prod_code: "MEDIA_SMS",
           _prod_channel: "default",
         };
@@ -904,6 +1484,101 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: 查询手机号所在设备当前解析短链的能力
+   * Summary: 短链解析能力查询
+   */
+  async queryShorturlParseability(request: QueryShorturlParseabilityRequest): Promise<QueryShorturlParseabilityResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryShorturlParseabilityEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询手机号所在设备当前解析短链的能力
+   * Summary: 短链解析能力查询
+   */
+  async queryShorturlParseabilityEx(request: QueryShorturlParseabilityRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryShorturlParseabilityResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryShorturlParseabilityResponse>(await this.doRequest("1.0", "antdigital.mediasms.shorturl.parseability.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryShorturlParseabilityResponse({}));
+  }
+
+  /**
+   * Description: 短链生成
+   * Summary: 短链生成
+   */
+  async createShorturl(request: CreateShorturlRequest): Promise<CreateShorturlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createShorturlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 短链生成
+   * Summary: 短链生成
+   */
+  async createShorturlEx(request: CreateShorturlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateShorturlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateShorturlResponse>(await this.doRequest("1.0", "antdigital.mediasms.shorturl.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateShorturlResponse({}));
+  }
+
+  /**
+   * Description: 短链解析结果查询
+   * Summary: 短链解析结果查询
+   */
+  async queryShorturlParseresult(request: QueryShorturlParseresultRequest): Promise<QueryShorturlParseresultResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryShorturlParseresultEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 短链解析结果查询
+   * Summary: 短链解析结果查询
+   */
+  async queryShorturlParseresultEx(request: QueryShorturlParseresultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryShorturlParseresultResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryShorturlParseresultResponse>(await this.doRequest("1.0", "antdigital.mediasms.shorturl.parseresult.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryShorturlParseresultResponse({}));
+  }
+
+  /**
+   * Description: 普短模板创建
+   * Summary: 普短模板创建
+   */
+  async createShortmsgTemplate(request: CreateShortmsgTemplateRequest): Promise<CreateShortmsgTemplateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createShortmsgTemplateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 普短模板创建
+   * Summary: 普短模板创建
+   */
+  async createShortmsgTemplateEx(request: CreateShortmsgTemplateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateShortmsgTemplateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateShortmsgTemplateResponse>(await this.doRequest("1.0", "antdigital.mediasms.shortmsg.template.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateShortmsgTemplateResponse({}));
+  }
+
+  /**
+   * Description: 按帐号查询短链解析情况
+   * Summary: 按帐号查询短链解析情况
+   */
+  async queryAccountShorturlparseresult(request: QueryAccountShorturlparseresultRequest): Promise<QueryAccountShorturlparseresultResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAccountShorturlparseresultEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 按帐号查询短链解析情况
+   * Summary: 按帐号查询短链解析情况
+   */
+  async queryAccountShorturlparseresultEx(request: QueryAccountShorturlparseresultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAccountShorturlparseresultResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAccountShorturlparseresultResponse>(await this.doRequest("1.0", "antdigital.mediasms.account.shorturlparseresult.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAccountShorturlparseresultResponse({}));
   }
 
   /**
