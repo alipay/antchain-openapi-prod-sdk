@@ -137,7 +137,7 @@ namespace AntChain.SDK.MEDIA_SMS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.19"},
+                        {"sdk_version", "1.1.1"},
                         {"_prod_code", "MEDIA_SMS"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MEDIA_SMS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.19"},
+                        {"sdk_version", "1.1.1"},
                         {"_prod_code", "MEDIA_SMS"},
                         {"_prod_channel", "default"},
                     };
@@ -319,6 +319,216 @@ namespace AntChain.SDK.MEDIA_SMS
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: 查询手机号所在设备当前解析短链的能力
+         * Summary: 短链解析能力查询
+         */
+        public QueryShorturlParseabilityResponse QueryShorturlParseability(QueryShorturlParseabilityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryShorturlParseabilityEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询手机号所在设备当前解析短链的能力
+         * Summary: 短链解析能力查询
+         */
+        public async Task<QueryShorturlParseabilityResponse> QueryShorturlParseabilityAsync(QueryShorturlParseabilityRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryShorturlParseabilityExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询手机号所在设备当前解析短链的能力
+         * Summary: 短链解析能力查询
+         */
+        public QueryShorturlParseabilityResponse QueryShorturlParseabilityEx(QueryShorturlParseabilityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryShorturlParseabilityResponse>(DoRequest("1.0", "antdigital.mediasms.shorturl.parseability.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询手机号所在设备当前解析短链的能力
+         * Summary: 短链解析能力查询
+         */
+        public async Task<QueryShorturlParseabilityResponse> QueryShorturlParseabilityExAsync(QueryShorturlParseabilityRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryShorturlParseabilityResponse>(await DoRequestAsync("1.0", "antdigital.mediasms.shorturl.parseability.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 短链生成
+         * Summary: 短链生成
+         */
+        public CreateShorturlResponse CreateShorturl(CreateShorturlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateShorturlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 短链生成
+         * Summary: 短链生成
+         */
+        public async Task<CreateShorturlResponse> CreateShorturlAsync(CreateShorturlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateShorturlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 短链生成
+         * Summary: 短链生成
+         */
+        public CreateShorturlResponse CreateShorturlEx(CreateShorturlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateShorturlResponse>(DoRequest("1.0", "antdigital.mediasms.shorturl.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 短链生成
+         * Summary: 短链生成
+         */
+        public async Task<CreateShorturlResponse> CreateShorturlExAsync(CreateShorturlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateShorturlResponse>(await DoRequestAsync("1.0", "antdigital.mediasms.shorturl.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 短链解析结果查询
+         * Summary: 短链解析结果查询
+         */
+        public QueryShorturlParseresultResponse QueryShorturlParseresult(QueryShorturlParseresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryShorturlParseresultEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 短链解析结果查询
+         * Summary: 短链解析结果查询
+         */
+        public async Task<QueryShorturlParseresultResponse> QueryShorturlParseresultAsync(QueryShorturlParseresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryShorturlParseresultExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 短链解析结果查询
+         * Summary: 短链解析结果查询
+         */
+        public QueryShorturlParseresultResponse QueryShorturlParseresultEx(QueryShorturlParseresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryShorturlParseresultResponse>(DoRequest("1.0", "antdigital.mediasms.shorturl.parseresult.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 短链解析结果查询
+         * Summary: 短链解析结果查询
+         */
+        public async Task<QueryShorturlParseresultResponse> QueryShorturlParseresultExAsync(QueryShorturlParseresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryShorturlParseresultResponse>(await DoRequestAsync("1.0", "antdigital.mediasms.shorturl.parseresult.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 普短模板创建
+         * Summary: 普短模板创建
+         */
+        public CreateShortmsgTemplateResponse CreateShortmsgTemplate(CreateShortmsgTemplateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateShortmsgTemplateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 普短模板创建
+         * Summary: 普短模板创建
+         */
+        public async Task<CreateShortmsgTemplateResponse> CreateShortmsgTemplateAsync(CreateShortmsgTemplateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateShortmsgTemplateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 普短模板创建
+         * Summary: 普短模板创建
+         */
+        public CreateShortmsgTemplateResponse CreateShortmsgTemplateEx(CreateShortmsgTemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateShortmsgTemplateResponse>(DoRequest("1.0", "antdigital.mediasms.shortmsg.template.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 普短模板创建
+         * Summary: 普短模板创建
+         */
+        public async Task<CreateShortmsgTemplateResponse> CreateShortmsgTemplateExAsync(CreateShortmsgTemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateShortmsgTemplateResponse>(await DoRequestAsync("1.0", "antdigital.mediasms.shortmsg.template.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 按帐号查询短链解析情况
+         * Summary: 按帐号查询短链解析情况
+         */
+        public QueryAccountShorturlparseresultResponse QueryAccountShorturlparseresult(QueryAccountShorturlparseresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAccountShorturlparseresultEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 按帐号查询短链解析情况
+         * Summary: 按帐号查询短链解析情况
+         */
+        public async Task<QueryAccountShorturlparseresultResponse> QueryAccountShorturlparseresultAsync(QueryAccountShorturlparseresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAccountShorturlparseresultExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 按帐号查询短链解析情况
+         * Summary: 按帐号查询短链解析情况
+         */
+        public QueryAccountShorturlparseresultResponse QueryAccountShorturlparseresultEx(QueryAccountShorturlparseresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAccountShorturlparseresultResponse>(DoRequest("1.0", "antdigital.mediasms.account.shorturlparseresult.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 按帐号查询短链解析情况
+         * Summary: 按帐号查询短链解析情况
+         */
+        public async Task<QueryAccountShorturlparseresultResponse> QueryAccountShorturlparseresultExAsync(QueryAccountShorturlparseresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAccountShorturlparseresultResponse>(await DoRequestAsync("1.0", "antdigital.mediasms.account.shorturlparseresult.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
