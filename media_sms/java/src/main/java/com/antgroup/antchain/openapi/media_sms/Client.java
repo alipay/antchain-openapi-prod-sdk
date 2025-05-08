@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.19"),
+                    new TeaPair("sdk_version", "1.1.1"),
                     new TeaPair("_prod_code", "MEDIA_SMS"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -182,6 +182,101 @@ public class Client {
 
     public void addResponseInterceptor(ResponseInterceptor interceptor) {
         interceptorChain.addResponseInterceptor(interceptor);
+    }
+
+    /**
+     * Description: 查询手机号所在设备当前解析短链的能力
+     * Summary: 短链解析能力查询
+     */
+    public QueryShorturlParseabilityResponse queryShorturlParseability(QueryShorturlParseabilityRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryShorturlParseabilityEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询手机号所在设备当前解析短链的能力
+     * Summary: 短链解析能力查询
+     */
+    public QueryShorturlParseabilityResponse queryShorturlParseabilityEx(QueryShorturlParseabilityRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.mediasms.shorturl.parseability.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryShorturlParseabilityResponse());
+    }
+
+    /**
+     * Description: 短链生成
+     * Summary: 短链生成
+     */
+    public CreateShorturlResponse createShorturl(CreateShorturlRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createShorturlEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 短链生成
+     * Summary: 短链生成
+     */
+    public CreateShorturlResponse createShorturlEx(CreateShorturlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.mediasms.shorturl.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateShorturlResponse());
+    }
+
+    /**
+     * Description: 短链解析结果查询
+     * Summary: 短链解析结果查询
+     */
+    public QueryShorturlParseresultResponse queryShorturlParseresult(QueryShorturlParseresultRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryShorturlParseresultEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 短链解析结果查询
+     * Summary: 短链解析结果查询
+     */
+    public QueryShorturlParseresultResponse queryShorturlParseresultEx(QueryShorturlParseresultRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.mediasms.shorturl.parseresult.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryShorturlParseresultResponse());
+    }
+
+    /**
+     * Description: 普短模板创建
+     * Summary: 普短模板创建
+     */
+    public CreateShortmsgTemplateResponse createShortmsgTemplate(CreateShortmsgTemplateRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createShortmsgTemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 普短模板创建
+     * Summary: 普短模板创建
+     */
+    public CreateShortmsgTemplateResponse createShortmsgTemplateEx(CreateShortmsgTemplateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.mediasms.shortmsg.template.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateShortmsgTemplateResponse());
+    }
+
+    /**
+     * Description: 按帐号查询短链解析情况
+     * Summary: 按帐号查询短链解析情况
+     */
+    public QueryAccountShorturlparseresultResponse queryAccountShorturlparseresult(QueryAccountShorturlparseresultRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAccountShorturlparseresultEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 按帐号查询短链解析情况
+     * Summary: 按帐号查询短链解析情况
+     */
+    public QueryAccountShorturlparseresultResponse queryAccountShorturlparseresultEx(QueryAccountShorturlparseresultRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.mediasms.account.shorturlparseresult.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAccountShorturlparseresultResponse());
     }
 
     /**
