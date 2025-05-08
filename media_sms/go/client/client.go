@@ -148,6 +148,67 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 短链结果
+type ShortUrlResult struct {
+	// 短链创建时的标记字符串，可以用该字段关联短链的发送目标
+	CustFlag *string `json:"cust_flag,omitempty" xml:"cust_flag,omitempty" require:"true"`
+	// 卡片模板的动参字符串
+	DyncParam *string `json:"dync_param,omitempty" xml:"dync_param,omitempty" require:"true"`
+	// 短链链接
+	AimUrl *string `json:"aim_url,omitempty" xml:"aim_url,omitempty" require:"true"`
+	// 短链码
+	AimCode *string `json:"aim_code,omitempty" xml:"aim_code,omitempty" require:"true"`
+	// 0:短链申请成功，非 0:短链申请失败
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty" require:"true"`
+	// 短链申请失败原因
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
+	// 支持该短链的厂商
+	Factorys []*string `json:"factorys,omitempty" xml:"factorys,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ShortUrlResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ShortUrlResult) GoString() string {
+	return s.String()
+}
+
+func (s *ShortUrlResult) SetCustFlag(v string) *ShortUrlResult {
+	s.CustFlag = &v
+	return s
+}
+
+func (s *ShortUrlResult) SetDyncParam(v string) *ShortUrlResult {
+	s.DyncParam = &v
+	return s
+}
+
+func (s *ShortUrlResult) SetAimUrl(v string) *ShortUrlResult {
+	s.AimUrl = &v
+	return s
+}
+
+func (s *ShortUrlResult) SetAimCode(v string) *ShortUrlResult {
+	s.AimCode = &v
+	return s
+}
+
+func (s *ShortUrlResult) SetResultCode(v string) *ShortUrlResult {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ShortUrlResult) SetErrorMsg(v string) *ShortUrlResult {
+	s.ErrorMsg = &v
+	return s
+}
+
+func (s *ShortUrlResult) SetFactorys(v []*string) *ShortUrlResult {
+	s.Factorys = v
+	return s
+}
+
 // 消息发送状态
 type SmsSendStatus struct {
 	// 手机号
@@ -178,6 +239,241 @@ func (s *SmsSendStatus) SetStatus(v string) *SmsSendStatus {
 
 func (s *SmsSendStatus) SetDetailMsg(v string) *SmsSendStatus {
 	s.DetailMsg = &v
+	return s
+}
+
+// 短信模版创建返回体
+type SmsTempCreateData struct {
+	// 模版id
+	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty" require:"true"`
+}
+
+func (s SmsTempCreateData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SmsTempCreateData) GoString() string {
+	return s.String()
+}
+
+func (s *SmsTempCreateData) SetTemplateId(v string) *SmsTempCreateData {
+	s.TemplateId = &v
+	return s
+}
+
+// 素材
+type SmsMaterial struct {
+	// 素材名称，当素材类型
+	// 为"text/plain"时可不传，其他情况必传
+	MaterialName *string `json:"material_name,omitempty" xml:"material_name,omitempty"`
+	// 素材类型
+	// 本期最多只⽀持⼀张图⽚和⼀段⽂本信息；变量占位符只能是按顺序的数字{1}-{9},最多⽀持9个变量；链接中的变量只能放在尾部，如：http://aabbcc/{1}
+	MaterialType *string `json:"material_type,omitempty" xml:"material_type,omitempty" require:"true"`
+	// 素材内容
+	MaterialContent *string `json:"material_content,omitempty" xml:"material_content,omitempty" require:"true"`
+}
+
+func (s SmsMaterial) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SmsMaterial) GoString() string {
+	return s.String()
+}
+
+func (s *SmsMaterial) SetMaterialName(v string) *SmsMaterial {
+	s.MaterialName = &v
+	return s
+}
+
+func (s *SmsMaterial) SetMaterialType(v string) *SmsMaterial {
+	s.MaterialType = &v
+	return s
+}
+
+func (s *SmsMaterial) SetMaterialContent(v string) *SmsMaterial {
+	s.MaterialContent = &v
+	return s
+}
+
+// 发送内容
+type ContentSend struct {
+	// 单条手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 变量⻓度限制：
+	// “纯中⽂ 不超过 10 个字”；“数字 字⺟ 英⽂符号 不超过20 位”； “纯数字 不超过20 位” ；
+	// 有序的变量值列表，按顺序替换报备的模板短信⽂本帧中的变量，列表⻓度和变量个数不⼀致会导致替换变量错误
+	TemplateParamList []*string `json:"template_param_list,omitempty" xml:"template_param_list,omitempty" type:"Repeated"`
+}
+
+func (s ContentSend) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContentSend) GoString() string {
+	return s.String()
+}
+
+func (s *ContentSend) SetMobile(v string) *ContentSend {
+	s.Mobile = &v
+	return s
+}
+
+func (s *ContentSend) SetTemplateParamList(v []*string) *ContentSend {
+	s.TemplateParamList = v
+	return s
+}
+
+// 解析查询参数
+type ParseQueryParam struct {
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+}
+
+func (s ParseQueryParam) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ParseQueryParam) GoString() string {
+	return s.String()
+}
+
+func (s *ParseQueryParam) SetMobile(v string) *ParseQueryParam {
+	s.Mobile = &v
+	return s
+}
+
+// 上行内容
+type ContentReply struct {
+	// 手机号
+	Phone *string `json:"phone,omitempty" xml:"phone,omitempty" require:"true"`
+	// 用户是否已经退订过
+	Reject *bool `json:"reject,omitempty" xml:"reject,omitempty" require:"true"`
+	// 用户最新回复内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 用户回复时间
+	ReplyTime *string `json:"reply_time,omitempty" xml:"reply_time,omitempty" require:"true"`
+	// 拓展字段
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s ContentReply) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContentReply) GoString() string {
+	return s.String()
+}
+
+func (s *ContentReply) SetPhone(v string) *ContentReply {
+	s.Phone = &v
+	return s
+}
+
+func (s *ContentReply) SetReject(v bool) *ContentReply {
+	s.Reject = &v
+	return s
+}
+
+func (s *ContentReply) SetContent(v string) *ContentReply {
+	s.Content = &v
+	return s
+}
+
+func (s *ContentReply) SetReplyTime(v string) *ContentReply {
+	s.ReplyTime = &v
+	return s
+}
+
+func (s *ContentReply) SetExtInfo(v string) *ContentReply {
+	s.ExtInfo = &v
+	return s
+}
+
+// 短链解析结果
+type ShortUrlParseResult struct {
+	// 创建短链时传入的客户号，可以用该字段关联短链的发送目标
+	CustFlag *string `json:"cust_flag,omitempty" xml:"cust_flag,omitempty" require:"true"`
+	// 卡片模板id
+	SmartTemplateId *string `json:"smart_template_id,omitempty" xml:"smart_template_id,omitempty" require:"true"`
+	// 短链地址
+	AimUrl *string `json:"aim_url,omitempty" xml:"aim_url,omitempty" require:"true"`
+	// 短链地址尾码
+	AimCode *string `json:"aim_code,omitempty" xml:"aim_code,omitempty" require:"true"`
+	// BULK 群发,PERSONAL个性化
+	AimCodeType *string `json:"aim_code_type,omitempty" xml:"aim_code_type,omitempty" require:"true"`
+	// 解析状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 解析状态描述
+	Describe *string `json:"describe,omitempty" xml:"describe,omitempty"`
+}
+
+func (s ShortUrlParseResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ShortUrlParseResult) GoString() string {
+	return s.String()
+}
+
+func (s *ShortUrlParseResult) SetCustFlag(v string) *ShortUrlParseResult {
+	s.CustFlag = &v
+	return s
+}
+
+func (s *ShortUrlParseResult) SetSmartTemplateId(v string) *ShortUrlParseResult {
+	s.SmartTemplateId = &v
+	return s
+}
+
+func (s *ShortUrlParseResult) SetAimUrl(v string) *ShortUrlParseResult {
+	s.AimUrl = &v
+	return s
+}
+
+func (s *ShortUrlParseResult) SetAimCode(v string) *ShortUrlParseResult {
+	s.AimCode = &v
+	return s
+}
+
+func (s *ShortUrlParseResult) SetAimCodeType(v string) *ShortUrlParseResult {
+	s.AimCodeType = &v
+	return s
+}
+
+func (s *ShortUrlParseResult) SetStatus(v string) *ShortUrlParseResult {
+	s.Status = &v
+	return s
+}
+
+func (s *ShortUrlParseResult) SetDescribe(v string) *ShortUrlParseResult {
+	s.Describe = &v
+	return s
+}
+
+// 短链创建结果
+type ShortUrlCreateResult struct {
+	// 卡片模板id
+	SmartTemplateId *string `json:"smart_template_id,omitempty" xml:"smart_template_id,omitempty" require:"true"`
+	// 短链详细信息列表
+	ParamList []*ShortUrlResult `json:"param_list,omitempty" xml:"param_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ShortUrlCreateResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ShortUrlCreateResult) GoString() string {
+	return s.String()
+}
+
+func (s *ShortUrlCreateResult) SetSmartTemplateId(v string) *ShortUrlCreateResult {
+	s.SmartTemplateId = &v
+	return s
+}
+
+func (s *ShortUrlCreateResult) SetParamList(v []*ShortUrlResult) *ShortUrlCreateResult {
+	s.ParamList = v
 	return s
 }
 
@@ -264,22 +560,31 @@ func (s *QueryTemplateStatusRes) SetCensorResult(v string) *QueryTemplateStatusR
 	return s
 }
 
-// 短信模版创建返回体
-type SmsTempCreateData struct {
-	// 模版id
-	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty" require:"true"`
+// 解析结果数据
+type ParseResultData struct {
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 是否有解析能力
+	// 0:否
+	// 1: 是
+	ReceiveState *int64 `json:"receive_state,omitempty" xml:"receive_state,omitempty" require:"true"`
 }
 
-func (s SmsTempCreateData) String() string {
+func (s ParseResultData) String() string {
 	return tea.Prettify(s)
 }
 
-func (s SmsTempCreateData) GoString() string {
+func (s ParseResultData) GoString() string {
 	return s.String()
 }
 
-func (s *SmsTempCreateData) SetTemplateId(v string) *SmsTempCreateData {
-	s.TemplateId = &v
+func (s *ParseResultData) SetMobile(v string) *ParseResultData {
+	s.Mobile = &v
+	return s
+}
+
+func (s *ParseResultData) SetReceiveState(v int64) *ParseResultData {
+	s.ReceiveState = &v
 	return s
 }
 
@@ -302,113 +607,528 @@ func (s *BatchSendTaskData) SetBatchTaskId(v string) *BatchSendTaskData {
 	return s
 }
 
-// 素材
-type SmsMaterial struct {
-	// 素材名称，当素材类型
-	// 为"text/plain"时可不传，其他情况必传
-	MaterialName *string `json:"material_name,omitempty" xml:"material_name,omitempty"`
-	// 素材类型
-	// 本期最多只⽀持⼀张图⽚和⼀段⽂本信息；变量占位符只能是按顺序的数字{1}-{9},最多⽀持9个变量；链接中的变量只能放在尾部，如：http://aabbcc/{1}
-	MaterialType *string `json:"material_type,omitempty" xml:"material_type,omitempty" require:"true"`
-	// 素材内容
-	MaterialContent *string `json:"material_content,omitempty" xml:"material_content,omitempty" require:"true"`
+// 卡片模板动态参数信息
+type SmartTemplateDyncParam struct {
+	// 可以用该字段关联短链的发送目标
+	CustFlag *string `json:"cust_flag,omitempty" xml:"cust_flag,omitempty" require:"true"`
+	// json字符串
+	// {"param1":"123","param2":"100"}
+	DyncParams *string `json:"dync_params,omitempty" xml:"dync_params,omitempty"`
 }
 
-func (s SmsMaterial) String() string {
+func (s SmartTemplateDyncParam) String() string {
 	return tea.Prettify(s)
 }
 
-func (s SmsMaterial) GoString() string {
+func (s SmartTemplateDyncParam) GoString() string {
 	return s.String()
 }
 
-func (s *SmsMaterial) SetMaterialName(v string) *SmsMaterial {
-	s.MaterialName = &v
+func (s *SmartTemplateDyncParam) SetCustFlag(v string) *SmartTemplateDyncParam {
+	s.CustFlag = &v
 	return s
 }
 
-func (s *SmsMaterial) SetMaterialType(v string) *SmsMaterial {
-	s.MaterialType = &v
+func (s *SmartTemplateDyncParam) SetDyncParams(v string) *SmartTemplateDyncParam {
+	s.DyncParams = &v
 	return s
 }
 
-func (s *SmsMaterial) SetMaterialContent(v string) *SmsMaterial {
-	s.MaterialContent = &v
-	return s
+// 普短模板创建响应体
+type ShortMsgTempCreateData struct {
+	// 普短模板id
+	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty" require:"true"`
 }
 
-// 发送内容
-type ContentSend struct {
-	// 单条手机号
-	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
-	// 变量⻓度限制：
-	// “纯中⽂ 不超过 10 个字”；“数字 字⺟ 英⽂符号 不超过20 位”； “纯数字 不超过20 位” ；
-	// 有序的变量值列表，按顺序替换报备的模板短信⽂本帧中的变量，列表⻓度和变量个数不⼀致会导致替换变量错误
-	TemplateParamList []*string `json:"template_param_list,omitempty" xml:"template_param_list,omitempty" type:"Repeated"`
-}
-
-func (s ContentSend) String() string {
+func (s ShortMsgTempCreateData) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ContentSend) GoString() string {
+func (s ShortMsgTempCreateData) GoString() string {
 	return s.String()
 }
 
-func (s *ContentSend) SetMobile(v string) *ContentSend {
-	s.Mobile = &v
+func (s *ShortMsgTempCreateData) SetTemplateId(v string) *ShortMsgTempCreateData {
+	s.TemplateId = &v
 	return s
 }
 
-func (s *ContentSend) SetTemplateParamList(v []*string) *ContentSend {
-	s.TemplateParamList = v
+type QueryShorturlParseabilityRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 卡片模板id
+	SmartTemplateId *string `json:"smart_template_id,omitempty" xml:"smart_template_id,omitempty" require:"true"`
+	// 待查询手机号列表
+	Mobiles []*ParseQueryParam `json:"mobiles,omitempty" xml:"mobiles,omitempty" require:"true" type:"Repeated"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s QueryShorturlParseabilityRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryShorturlParseabilityRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryShorturlParseabilityRequest) SetAuthToken(v string) *QueryShorturlParseabilityRequest {
+	s.AuthToken = &v
 	return s
 }
 
-// 上行内容
-type ContentReply struct {
-	// 手机号
-	Phone *string `json:"phone,omitempty" xml:"phone,omitempty" require:"true"`
-	// 用户是否已经退订过
-	Reject *bool `json:"reject,omitempty" xml:"reject,omitempty" require:"true"`
-	// 用户最新回复内容
-	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
-	// 用户回复时间
-	ReplyTime *string `json:"reply_time,omitempty" xml:"reply_time,omitempty" require:"true"`
-	// 拓展字段
+func (s *QueryShorturlParseabilityRequest) SetProductInstanceId(v string) *QueryShorturlParseabilityRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryShorturlParseabilityRequest) SetSmartTemplateId(v string) *QueryShorturlParseabilityRequest {
+	s.SmartTemplateId = &v
+	return s
+}
+
+func (s *QueryShorturlParseabilityRequest) SetMobiles(v []*ParseQueryParam) *QueryShorturlParseabilityRequest {
+	s.Mobiles = v
+	return s
+}
+
+func (s *QueryShorturlParseabilityRequest) SetTenantId(v string) *QueryShorturlParseabilityRequest {
+	s.TenantId = &v
+	return s
+}
+
+type QueryShorturlParseabilityResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 解析结果列表
+	Data []*ParseResultData `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryShorturlParseabilityResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryShorturlParseabilityResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryShorturlParseabilityResponse) SetReqMsgId(v string) *QueryShorturlParseabilityResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryShorturlParseabilityResponse) SetResultCode(v string) *QueryShorturlParseabilityResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryShorturlParseabilityResponse) SetResultMsg(v string) *QueryShorturlParseabilityResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryShorturlParseabilityResponse) SetData(v []*ParseResultData) *QueryShorturlParseabilityResponse {
+	s.Data = v
+	return s
+}
+
+type CreateShorturlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 卡片模板id
+	SmartTemplateId *string `json:"smart_template_id,omitempty" xml:"smart_template_id,omitempty" require:"true"`
+	// 申请好的签名，最多 10 个签名
+	SmsSigns []*string `json:"sms_signs,omitempty" xml:"sms_signs,omitempty" require:"true" type:"Repeated"`
+	// 个性化短链建议10次
+	ShowTimes *int64 `json:"show_times,omitempty" xml:"show_times,omitempty" require:"true"`
+	// BULK 群发
+	// PERSONAL个性化
+	AimCodeType *string `json:"aim_code_type,omitempty" xml:"aim_code_type,omitempty" require:"true"`
+	// 个性化短链：时间最小 1天，最大 7 天，不填则默认 7 天；
+	ExpireTime *int64 `json:"expire_time,omitempty" xml:"expire_time,omitempty" require:"true"`
+	// 短链所属生成批次，最长 50 位。
+	// 也是请求唯一id，每次请求不能重复，重复将返回该批次id上一次请求结果
+	CustBatchId *string `json:"cust_batch_id,omitempty" xml:"cust_batch_id,omitempty" require:"true"`
+	// 接收智能短信测试短信手机号及动态参数对象列表，最大为 100 个
+	// 注：oppo 模板一次最多只能申请 10 个（模板审核厂商中包含oppo厂商就视为oppo模板）
+	ParamList []*SmartTemplateDyncParam `json:"param_list,omitempty" xml:"param_list,omitempty" require:"true" type:"Repeated"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s CreateShorturlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateShorturlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateShorturlRequest) SetAuthToken(v string) *CreateShorturlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateShorturlRequest) SetProductInstanceId(v string) *CreateShorturlRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateShorturlRequest) SetSmartTemplateId(v string) *CreateShorturlRequest {
+	s.SmartTemplateId = &v
+	return s
+}
+
+func (s *CreateShorturlRequest) SetSmsSigns(v []*string) *CreateShorturlRequest {
+	s.SmsSigns = v
+	return s
+}
+
+func (s *CreateShorturlRequest) SetShowTimes(v int64) *CreateShorturlRequest {
+	s.ShowTimes = &v
+	return s
+}
+
+func (s *CreateShorturlRequest) SetAimCodeType(v string) *CreateShorturlRequest {
+	s.AimCodeType = &v
+	return s
+}
+
+func (s *CreateShorturlRequest) SetExpireTime(v int64) *CreateShorturlRequest {
+	s.ExpireTime = &v
+	return s
+}
+
+func (s *CreateShorturlRequest) SetCustBatchId(v string) *CreateShorturlRequest {
+	s.CustBatchId = &v
+	return s
+}
+
+func (s *CreateShorturlRequest) SetParamList(v []*SmartTemplateDyncParam) *CreateShorturlRequest {
+	s.ParamList = v
+	return s
+}
+
+func (s *CreateShorturlRequest) SetTenantId(v string) *CreateShorturlRequest {
+	s.TenantId = &v
+	return s
+}
+
+type CreateShorturlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 短链创建结果
+	Data *ShortUrlCreateResult `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s CreateShorturlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateShorturlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateShorturlResponse) SetReqMsgId(v string) *CreateShorturlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateShorturlResponse) SetResultCode(v string) *CreateShorturlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateShorturlResponse) SetResultMsg(v string) *CreateShorturlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateShorturlResponse) SetData(v *ShortUrlCreateResult) *CreateShorturlResponse {
+	s.Data = v
+	return s
+}
+
+type QueryShorturlParseresultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 短链批次号
+	CustBatchId *string `json:"cust_batch_id,omitempty" xml:"cust_batch_id,omitempty" require:"true"`
+	// 短链地址
+	AimUrl *string `json:"aim_url,omitempty" xml:"aim_url,omitempty" require:"true"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 扩展信息
 	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
 
-func (s ContentReply) String() string {
+func (s QueryShorturlParseresultRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ContentReply) GoString() string {
+func (s QueryShorturlParseresultRequest) GoString() string {
 	return s.String()
 }
 
-func (s *ContentReply) SetPhone(v string) *ContentReply {
-	s.Phone = &v
+func (s *QueryShorturlParseresultRequest) SetAuthToken(v string) *QueryShorturlParseresultRequest {
+	s.AuthToken = &v
 	return s
 }
 
-func (s *ContentReply) SetReject(v bool) *ContentReply {
-	s.Reject = &v
+func (s *QueryShorturlParseresultRequest) SetProductInstanceId(v string) *QueryShorturlParseresultRequest {
+	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *ContentReply) SetContent(v string) *ContentReply {
+func (s *QueryShorturlParseresultRequest) SetCustBatchId(v string) *QueryShorturlParseresultRequest {
+	s.CustBatchId = &v
+	return s
+}
+
+func (s *QueryShorturlParseresultRequest) SetAimUrl(v string) *QueryShorturlParseresultRequest {
+	s.AimUrl = &v
+	return s
+}
+
+func (s *QueryShorturlParseresultRequest) SetTenantId(v string) *QueryShorturlParseresultRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryShorturlParseresultRequest) SetExtInfo(v string) *QueryShorturlParseresultRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+type QueryShorturlParseresultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 短链解析记录
+	Data []*ShortUrlParseResult `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryShorturlParseresultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryShorturlParseresultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryShorturlParseresultResponse) SetReqMsgId(v string) *QueryShorturlParseresultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryShorturlParseresultResponse) SetResultCode(v string) *QueryShorturlParseresultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryShorturlParseresultResponse) SetResultMsg(v string) *QueryShorturlParseresultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryShorturlParseresultResponse) SetData(v []*ShortUrlParseResult) *QueryShorturlParseresultResponse {
+	s.Data = v
+	return s
+}
+
+type CreateShortmsgTemplateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 唯一请求id
+	RequestUniqueId *string `json:"request_unique_id,omitempty" xml:"request_unique_id,omitempty" require:"true"`
+	// 短信签名名称，不需要带着【】
+	SignName *string `json:"sign_name,omitempty" xml:"sign_name,omitempty" require:"true"`
+	// 短信内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 扩展信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+	// 校验传入的参数是否有变量
+	VariableTemplate *bool `json:"variable_template,omitempty" xml:"variable_template,omitempty" require:"true"`
+}
+
+func (s CreateShortmsgTemplateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateShortmsgTemplateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateShortmsgTemplateRequest) SetAuthToken(v string) *CreateShortmsgTemplateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateShortmsgTemplateRequest) SetProductInstanceId(v string) *CreateShortmsgTemplateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateShortmsgTemplateRequest) SetTenantId(v string) *CreateShortmsgTemplateRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *CreateShortmsgTemplateRequest) SetRequestUniqueId(v string) *CreateShortmsgTemplateRequest {
+	s.RequestUniqueId = &v
+	return s
+}
+
+func (s *CreateShortmsgTemplateRequest) SetSignName(v string) *CreateShortmsgTemplateRequest {
+	s.SignName = &v
+	return s
+}
+
+func (s *CreateShortmsgTemplateRequest) SetContent(v string) *CreateShortmsgTemplateRequest {
 	s.Content = &v
 	return s
 }
 
-func (s *ContentReply) SetReplyTime(v string) *ContentReply {
-	s.ReplyTime = &v
+func (s *CreateShortmsgTemplateRequest) SetExtInfo(v string) *CreateShortmsgTemplateRequest {
+	s.ExtInfo = &v
 	return s
 }
 
-func (s *ContentReply) SetExtInfo(v string) *ContentReply {
+func (s *CreateShortmsgTemplateRequest) SetVariableTemplate(v bool) *CreateShortmsgTemplateRequest {
+	s.VariableTemplate = &v
+	return s
+}
+
+type CreateShortmsgTemplateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 普短模板创建响应体
+	Data *ShortMsgTempCreateData `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s CreateShortmsgTemplateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateShortmsgTemplateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateShortmsgTemplateResponse) SetReqMsgId(v string) *CreateShortmsgTemplateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateShortmsgTemplateResponse) SetResultCode(v string) *CreateShortmsgTemplateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateShortmsgTemplateResponse) SetResultMsg(v string) *CreateShortmsgTemplateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateShortmsgTemplateResponse) SetData(v *ShortMsgTempCreateData) *CreateShortmsgTemplateResponse {
+	s.Data = v
+	return s
+}
+
+type QueryAccountShorturlparseresultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 扩展字段
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s QueryAccountShorturlparseresultRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAccountShorturlparseresultRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAccountShorturlparseresultRequest) SetAuthToken(v string) *QueryAccountShorturlparseresultRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAccountShorturlparseresultRequest) SetProductInstanceId(v string) *QueryAccountShorturlparseresultRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAccountShorturlparseresultRequest) SetTenantId(v string) *QueryAccountShorturlparseresultRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryAccountShorturlparseresultRequest) SetExtInfo(v string) *QueryAccountShorturlparseresultRequest {
 	s.ExtInfo = &v
+	return s
+}
+
+type QueryAccountShorturlparseresultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 解析记录列表
+	Data []*ShortUrlParseResult `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryAccountShorturlparseresultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAccountShorturlparseresultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAccountShorturlparseresultResponse) SetReqMsgId(v string) *QueryAccountShorturlparseresultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAccountShorturlparseresultResponse) SetResultCode(v string) *QueryAccountShorturlparseresultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAccountShorturlparseresultResponse) SetResultMsg(v string) *QueryAccountShorturlparseresultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAccountShorturlparseresultResponse) SetData(v []*ShortUrlParseResult) *QueryAccountShorturlparseresultResponse {
+	s.Data = v
 	return s
 }
 
@@ -1090,7 +1810,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.19"),
+				"sdk_version":      tea.String("1.1.1"),
 				"_prod_code":       tea.String("MEDIA_SMS"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1146,6 +1866,176 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 查询手机号所在设备当前解析短链的能力
+ * Summary: 短链解析能力查询
+ */
+func (client *Client) QueryShorturlParseability(request *QueryShorturlParseabilityRequest) (_result *QueryShorturlParseabilityResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryShorturlParseabilityResponse{}
+	_body, _err := client.QueryShorturlParseabilityEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询手机号所在设备当前解析短链的能力
+ * Summary: 短链解析能力查询
+ */
+func (client *Client) QueryShorturlParseabilityEx(request *QueryShorturlParseabilityRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryShorturlParseabilityResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryShorturlParseabilityResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.mediasms.shorturl.parseability.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 短链生成
+ * Summary: 短链生成
+ */
+func (client *Client) CreateShorturl(request *CreateShorturlRequest) (_result *CreateShorturlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateShorturlResponse{}
+	_body, _err := client.CreateShorturlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 短链生成
+ * Summary: 短链生成
+ */
+func (client *Client) CreateShorturlEx(request *CreateShorturlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateShorturlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateShorturlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.mediasms.shorturl.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 短链解析结果查询
+ * Summary: 短链解析结果查询
+ */
+func (client *Client) QueryShorturlParseresult(request *QueryShorturlParseresultRequest) (_result *QueryShorturlParseresultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryShorturlParseresultResponse{}
+	_body, _err := client.QueryShorturlParseresultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 短链解析结果查询
+ * Summary: 短链解析结果查询
+ */
+func (client *Client) QueryShorturlParseresultEx(request *QueryShorturlParseresultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryShorturlParseresultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryShorturlParseresultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.mediasms.shorturl.parseresult.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 普短模板创建
+ * Summary: 普短模板创建
+ */
+func (client *Client) CreateShortmsgTemplate(request *CreateShortmsgTemplateRequest) (_result *CreateShortmsgTemplateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateShortmsgTemplateResponse{}
+	_body, _err := client.CreateShortmsgTemplateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 普短模板创建
+ * Summary: 普短模板创建
+ */
+func (client *Client) CreateShortmsgTemplateEx(request *CreateShortmsgTemplateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateShortmsgTemplateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateShortmsgTemplateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.mediasms.shortmsg.template.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 按帐号查询短链解析情况
+ * Summary: 按帐号查询短链解析情况
+ */
+func (client *Client) QueryAccountShorturlparseresult(request *QueryAccountShorturlparseresultRequest) (_result *QueryAccountShorturlparseresultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAccountShorturlparseresultResponse{}
+	_body, _err := client.QueryAccountShorturlparseresultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 按帐号查询短链解析情况
+ * Summary: 按帐号查询短链解析情况
+ */
+func (client *Client) QueryAccountShorturlparseresultEx(request *QueryAccountShorturlparseresultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAccountShorturlparseresultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAccountShorturlparseresultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.mediasms.account.shorturlparseresult.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
