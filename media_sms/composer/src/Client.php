@@ -13,14 +13,24 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\MEDIA_SMS\Models\CreateBatchSendRequest;
 use AntChain\MEDIA_SMS\Models\CreateBatchSendResponse;
+use AntChain\MEDIA_SMS\Models\CreateShortmsgTemplateRequest;
+use AntChain\MEDIA_SMS\Models\CreateShortmsgTemplateResponse;
+use AntChain\MEDIA_SMS\Models\CreateShorturlRequest;
+use AntChain\MEDIA_SMS\Models\CreateShorturlResponse;
 use AntChain\MEDIA_SMS\Models\CreateTemplateRequest;
 use AntChain\MEDIA_SMS\Models\CreateTemplateResponse;
 use AntChain\MEDIA_SMS\Models\QueryAccountMsgstatusRequest;
 use AntChain\MEDIA_SMS\Models\QueryAccountMsgstatusResponse;
+use AntChain\MEDIA_SMS\Models\QueryAccountShorturlparseresultRequest;
+use AntChain\MEDIA_SMS\Models\QueryAccountShorturlparseresultResponse;
 use AntChain\MEDIA_SMS\Models\QueryMsgStatusRequest;
 use AntChain\MEDIA_SMS\Models\QueryMsgStatusResponse;
 use AntChain\MEDIA_SMS\Models\QueryReplyRequest;
 use AntChain\MEDIA_SMS\Models\QueryReplyResponse;
+use AntChain\MEDIA_SMS\Models\QueryShorturlParseabilityRequest;
+use AntChain\MEDIA_SMS\Models\QueryShorturlParseabilityResponse;
+use AntChain\MEDIA_SMS\Models\QueryShorturlParseresultRequest;
+use AntChain\MEDIA_SMS\Models\QueryShorturlParseresultResponse;
 use AntChain\MEDIA_SMS\Models\QueryTemplateStatusRequest;
 use AntChain\MEDIA_SMS\Models\QueryTemplateStatusResponse;
 use AntChain\Util\UtilClient;
@@ -142,7 +152,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 消息发送状态
+            // 短链结果
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -170,7 +180,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.19',
+                    'sdk_version'      => '1.1.1',
                     '_prod_code'       => 'MEDIA_SMS',
                     '_prod_channel'    => 'default',
                 ];
@@ -216,6 +226,171 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 查询手机号所在设备当前解析短链的能力
+     * Summary: 短链解析能力查询.
+     *
+     * @param QueryShorturlParseabilityRequest $request
+     *
+     * @return QueryShorturlParseabilityResponse
+     */
+    public function queryShorturlParseability($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryShorturlParseabilityEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询手机号所在设备当前解析短链的能力
+     * Summary: 短链解析能力查询.
+     *
+     * @param QueryShorturlParseabilityRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryShorturlParseabilityResponse
+     */
+    public function queryShorturlParseabilityEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryShorturlParseabilityResponse::fromMap($this->doRequest('1.0', 'antdigital.mediasms.shorturl.parseability.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 短链生成
+     * Summary: 短链生成.
+     *
+     * @param CreateShorturlRequest $request
+     *
+     * @return CreateShorturlResponse
+     */
+    public function createShorturl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createShorturlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 短链生成
+     * Summary: 短链生成.
+     *
+     * @param CreateShorturlRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return CreateShorturlResponse
+     */
+    public function createShorturlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateShorturlResponse::fromMap($this->doRequest('1.0', 'antdigital.mediasms.shorturl.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 短链解析结果查询
+     * Summary: 短链解析结果查询.
+     *
+     * @param QueryShorturlParseresultRequest $request
+     *
+     * @return QueryShorturlParseresultResponse
+     */
+    public function queryShorturlParseresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryShorturlParseresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 短链解析结果查询
+     * Summary: 短链解析结果查询.
+     *
+     * @param QueryShorturlParseresultRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryShorturlParseresultResponse
+     */
+    public function queryShorturlParseresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryShorturlParseresultResponse::fromMap($this->doRequest('1.0', 'antdigital.mediasms.shorturl.parseresult.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 普短模板创建
+     * Summary: 普短模板创建.
+     *
+     * @param CreateShortmsgTemplateRequest $request
+     *
+     * @return CreateShortmsgTemplateResponse
+     */
+    public function createShortmsgTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createShortmsgTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 普短模板创建
+     * Summary: 普短模板创建.
+     *
+     * @param CreateShortmsgTemplateRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return CreateShortmsgTemplateResponse
+     */
+    public function createShortmsgTemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateShortmsgTemplateResponse::fromMap($this->doRequest('1.0', 'antdigital.mediasms.shortmsg.template.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 按帐号查询短链解析情况
+     * Summary: 按帐号查询短链解析情况.
+     *
+     * @param QueryAccountShorturlparseresultRequest $request
+     *
+     * @return QueryAccountShorturlparseresultResponse
+     */
+    public function queryAccountShorturlparseresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAccountShorturlparseresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 按帐号查询短链解析情况
+     * Summary: 按帐号查询短链解析情况.
+     *
+     * @param QueryAccountShorturlparseresultRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return QueryAccountShorturlparseresultResponse
+     */
+    public function queryAccountShorturlparseresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAccountShorturlparseresultResponse::fromMap($this->doRequest('1.0', 'antdigital.mediasms.account.shorturlparseresult.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
