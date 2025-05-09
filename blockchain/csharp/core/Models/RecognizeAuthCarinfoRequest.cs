@@ -23,6 +23,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=true)]
         public string Vin { get; set; }
 
+        // 场景码
+        [NameInMap("scene_code")]
+        [Validation(Required=true)]
+        public string SceneCode { get; set; }
+
     }
 
 }
