@@ -64369,15 +64369,19 @@ class RecognizeAuthCarinfoRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         vin: str = None,
+        scene_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 车架号
         self.vin = vin
+        # 场景码
+        self.scene_code = scene_code
 
     def validate(self):
         self.validate_required(self.vin, 'vin')
+        self.validate_required(self.scene_code, 'scene_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -64391,6 +64395,8 @@ class RecognizeAuthCarinfoRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.vin is not None:
             result['vin'] = self.vin
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
         return result
 
     def from_map(self, m: dict = None):
@@ -64401,6 +64407,8 @@ class RecognizeAuthCarinfoRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('vin') is not None:
             self.vin = m.get('vin')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
         return self
 
 
