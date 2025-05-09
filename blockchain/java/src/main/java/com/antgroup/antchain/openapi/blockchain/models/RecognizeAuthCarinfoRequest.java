@@ -16,6 +16,11 @@ public class RecognizeAuthCarinfoRequest extends TeaModel {
     @Validation(required = true)
     public String vin;
 
+    // 场景码
+    @NameInMap("scene_code")
+    @Validation(required = true)
+    public String sceneCode;
+
     public static RecognizeAuthCarinfoRequest build(java.util.Map<String, ?> map) throws Exception {
         RecognizeAuthCarinfoRequest self = new RecognizeAuthCarinfoRequest();
         return TeaModel.build(map, self);
@@ -43,6 +48,14 @@ public class RecognizeAuthCarinfoRequest extends TeaModel {
     }
     public String getVin() {
         return this.vin;
+    }
+
+    public RecognizeAuthCarinfoRequest setSceneCode(String sceneCode) {
+        this.sceneCode = sceneCode;
+        return this;
+    }
+    public String getSceneCode() {
+        return this.sceneCode;
     }
 
 }
