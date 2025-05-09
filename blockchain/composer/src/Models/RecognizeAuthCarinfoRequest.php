@@ -24,15 +24,23 @@ class RecognizeAuthCarinfoRequest extends Model
      * @var string
      */
     public $vin;
+
+    // 场景码
+    /**
+     * @var string
+     */
+    public $sceneCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'vin'               => 'vin',
+        'sceneCode'         => 'scene_code',
     ];
 
     public function validate()
     {
         Model::validateRequired('vin', $this->vin, true);
+        Model::validateRequired('sceneCode', $this->sceneCode, true);
     }
 
     public function toMap()
@@ -46,6 +54,9 @@ class RecognizeAuthCarinfoRequest extends Model
         }
         if (null !== $this->vin) {
             $res['vin'] = $this->vin;
+        }
+        if (null !== $this->sceneCode) {
+            $res['scene_code'] = $this->sceneCode;
         }
 
         return $res;
@@ -67,6 +78,9 @@ class RecognizeAuthCarinfoRequest extends Model
         }
         if (isset($map['vin'])) {
             $model->vin = $map['vin'];
+        }
+        if (isset($map['scene_code'])) {
+            $model->sceneCode = $map['scene_code'];
         }
 
         return $model;
