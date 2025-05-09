@@ -51412,6 +51412,8 @@ type RecognizeAuthCarinfoRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 车架号
 	Vin *string `json:"vin,omitempty" xml:"vin,omitempty" require:"true"`
+	// 场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
 }
 
 func (s RecognizeAuthCarinfoRequest) String() string {
@@ -51434,6 +51436,11 @@ func (s *RecognizeAuthCarinfoRequest) SetProductInstanceId(v string) *RecognizeA
 
 func (s *RecognizeAuthCarinfoRequest) SetVin(v string) *RecognizeAuthCarinfoRequest {
 	s.Vin = &v
+	return s
+}
+
+func (s *RecognizeAuthCarinfoRequest) SetSceneCode(v string) *RecognizeAuthCarinfoRequest {
+	s.SceneCode = &v
 	return s
 }
 
@@ -70774,7 +70781,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.45"),
+				"sdk_version":      tea.String("1.28.46"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
