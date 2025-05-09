@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.28.45',
+    sdk_version = '1.28.46',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -22650,6 +22650,8 @@ model RecognizeAuthCarinfoRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 车架号
   vin: string(name='vin'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
 }
 
 model RecognizeAuthCarinfoResponse = {
