@@ -39572,11 +39572,14 @@ export class RecognizeAuthCarinfoRequest extends $tea.Model {
   productInstanceId?: string;
   // 车架号
   vin: string;
+  // 场景码
+  sceneCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       vin: 'vin',
+      sceneCode: 'scene_code',
     };
   }
 
@@ -39585,6 +39588,7 @@ export class RecognizeAuthCarinfoRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       vin: 'string',
+      sceneCode: 'string',
     };
   }
 
@@ -54503,7 +54507,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.45",
+          sdk_version: "1.28.46",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
