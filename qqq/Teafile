@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "DEMOSDK",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-demosdk:1.0.4",
-    "go": "github.com/antchain-openapi-sdk-go/qqq/client:v1.0.4",
-    "csharp": "AntChain.SDK.DEMOSDK:1.0.4",
-    "ts": "@antchain/demosdk:1.0.4",
-    "php": "antchain/demosdk:1.0.4",
-    "python": "antchain_sdk_demosdk:1.0.4"
+    "java": "com.antgroup.antchain.openapi:openapi-demosdk:1.0.5",
+    "go": "github.com/antchain-openapi-sdk-go/qqq/client:v1.0.5",
+    "csharp": "AntChain.SDK.DEMOSDK:1.0.5",
+    "ts": "@antchain/demosdk:1.0.5",
+    "php": "antchain/demosdk:1.0.5",
+    "python": "antchain_sdk_demosdk:1.0.5"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
