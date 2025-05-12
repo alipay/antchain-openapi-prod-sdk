@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.11"},
+                        {"sdk_version", "1.0.12"},
                         {"_prod_code", "ak_6f8b0e7502ec49d28cd8ad0e5807bbf9"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.11"},
+                        {"sdk_version", "1.0.12"},
                         {"_prod_code", "ak_6f8b0e7502ec49d28cd8ad0e5807bbf9"},
                         {"_prod_channel", "saas"},
                     };
