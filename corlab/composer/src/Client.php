@@ -13,6 +13,14 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\CORLAB\Models\AddModelTaskRequest;
 use AntChain\CORLAB\Models\AddModelTaskResponse;
+use AntChain\CORLAB\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\CORLAB\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\CORLAB\Models\CreateModelbackTaskRequest;
+use AntChain\CORLAB\Models\CreateModelbackTaskResponse;
+use AntChain\CORLAB\Models\QueryModelbackProductRequest;
+use AntChain\CORLAB\Models\QueryModelbackProductResponse;
+use AntChain\CORLAB\Models\QueryModelbackTaskRequest;
+use AntChain\CORLAB\Models\QueryModelbackTaskResponse;
 use AntChain\CORLAB\Models\RecognizeModelRequest;
 use AntChain\CORLAB\Models\RecognizeModelResponse;
 use AntChain\Util\UtilClient;
@@ -134,6 +142,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 产品对应模版字段
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -161,7 +170,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.1',
+                    'sdk_version'      => '1.0.12',
                     '_prod_code'       => 'CORLAB',
                     '_prod_channel'    => 'default',
                 ];
@@ -273,5 +282,156 @@ class Client
         Utils::validateModel($request);
 
         return AddModelTaskResponse::fromMap($this->doRequest('1.0', 'antdigital.corlab.model.task.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: corlab模型回溯任务创建
+     * Summary: corlab模型回溯任务创建.
+     *
+     * @param CreateModelbackTaskRequest $request
+     *
+     * @return CreateModelbackTaskResponse
+     */
+    public function createModelbackTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createModelbackTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: corlab模型回溯任务创建
+     * Summary: corlab模型回溯任务创建.
+     *
+     * @param CreateModelbackTaskRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CreateModelbackTaskResponse
+     */
+    public function createModelbackTaskEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antdigital.corlab.modelback.task.create',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new CreateModelbackTaskResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return CreateModelbackTaskResponse::fromMap($this->doRequest('1.0', 'antdigital.corlab.modelback.task.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: corlab模型回溯任务查询
+     * Summary: corlab模型回溯任务查询.
+     *
+     * @param QueryModelbackTaskRequest $request
+     *
+     * @return QueryModelbackTaskResponse
+     */
+    public function queryModelbackTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryModelbackTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: corlab模型回溯任务查询
+     * Summary: corlab模型回溯任务查询.
+     *
+     * @param QueryModelbackTaskRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryModelbackTaskResponse
+     */
+    public function queryModelbackTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryModelbackTaskResponse::fromMap($this->doRequest('1.0', 'antdigital.corlab.modelback.task.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: corlab产品以及产品模版查询
+     * Summary: corlab产品以及产品模版查询.
+     *
+     * @param QueryModelbackProductRequest $request
+     *
+     * @return QueryModelbackProductResponse
+     */
+    public function queryModelbackProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryModelbackProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: corlab产品以及产品模版查询
+     * Summary: corlab产品以及产品模版查询.
+     *
+     * @param QueryModelbackProductRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryModelbackProductResponse
+     */
+    public function queryModelbackProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryModelbackProductResponse::fromMap($this->doRequest('1.0', 'antdigital.corlab.modelback.product.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
