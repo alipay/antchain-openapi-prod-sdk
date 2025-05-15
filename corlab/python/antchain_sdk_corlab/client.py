@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 产品对应模版字段
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.0.12',
                     '_prod_code': 'CORLAB',
                     '_prod_channel': 'default'
                 }
@@ -212,7 +213,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 产品对应模版字段
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.0.12',
                     '_prod_code': 'CORLAB',
                     '_prod_channel': 'default'
                 }
@@ -383,4 +385,264 @@ class Client:
         return TeaCore.from_map(
             corlab_models.AddModelTaskResponse(),
             await self.do_request_async('1.0', 'antdigital.corlab.model.task.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_modelback_task(
+        self,
+        request: corlab_models.CreateModelbackTaskRequest,
+    ) -> corlab_models.CreateModelbackTaskResponse:
+        """
+        Description: corlab模型回溯任务创建
+        Summary: corlab模型回溯任务创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_modelback_task_ex(request, headers, runtime)
+
+    async def create_modelback_task_async(
+        self,
+        request: corlab_models.CreateModelbackTaskRequest,
+    ) -> corlab_models.CreateModelbackTaskResponse:
+        """
+        Description: corlab模型回溯任务创建
+        Summary: corlab模型回溯任务创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_modelback_task_ex_async(request, headers, runtime)
+
+    def create_modelback_task_ex(
+        self,
+        request: corlab_models.CreateModelbackTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> corlab_models.CreateModelbackTaskResponse:
+        """
+        Description: corlab模型回溯任务创建
+        Summary: corlab模型回溯任务创建
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = corlab_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antdigital.corlab.modelback.task.create',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                create_modelback_task_response = corlab_models.CreateModelbackTaskResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return create_modelback_task_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            corlab_models.CreateModelbackTaskResponse(),
+            self.do_request('1.0', 'antdigital.corlab.modelback.task.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_modelback_task_ex_async(
+        self,
+        request: corlab_models.CreateModelbackTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> corlab_models.CreateModelbackTaskResponse:
+        """
+        Description: corlab模型回溯任务创建
+        Summary: corlab模型回溯任务创建
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = corlab_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antdigital.corlab.modelback.task.create',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                create_modelback_task_response = corlab_models.CreateModelbackTaskResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return create_modelback_task_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            corlab_models.CreateModelbackTaskResponse(),
+            await self.do_request_async('1.0', 'antdigital.corlab.modelback.task.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_modelback_task(
+        self,
+        request: corlab_models.QueryModelbackTaskRequest,
+    ) -> corlab_models.QueryModelbackTaskResponse:
+        """
+        Description: corlab模型回溯任务查询
+        Summary: corlab模型回溯任务查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_modelback_task_ex(request, headers, runtime)
+
+    async def query_modelback_task_async(
+        self,
+        request: corlab_models.QueryModelbackTaskRequest,
+    ) -> corlab_models.QueryModelbackTaskResponse:
+        """
+        Description: corlab模型回溯任务查询
+        Summary: corlab模型回溯任务查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_modelback_task_ex_async(request, headers, runtime)
+
+    def query_modelback_task_ex(
+        self,
+        request: corlab_models.QueryModelbackTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> corlab_models.QueryModelbackTaskResponse:
+        """
+        Description: corlab模型回溯任务查询
+        Summary: corlab模型回溯任务查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            corlab_models.QueryModelbackTaskResponse(),
+            self.do_request('1.0', 'antdigital.corlab.modelback.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_modelback_task_ex_async(
+        self,
+        request: corlab_models.QueryModelbackTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> corlab_models.QueryModelbackTaskResponse:
+        """
+        Description: corlab模型回溯任务查询
+        Summary: corlab模型回溯任务查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            corlab_models.QueryModelbackTaskResponse(),
+            await self.do_request_async('1.0', 'antdigital.corlab.modelback.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_modelback_product(
+        self,
+        request: corlab_models.QueryModelbackProductRequest,
+    ) -> corlab_models.QueryModelbackProductResponse:
+        """
+        Description: corlab产品以及产品模版查询
+        Summary: corlab产品以及产品模版查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_modelback_product_ex(request, headers, runtime)
+
+    async def query_modelback_product_async(
+        self,
+        request: corlab_models.QueryModelbackProductRequest,
+    ) -> corlab_models.QueryModelbackProductResponse:
+        """
+        Description: corlab产品以及产品模版查询
+        Summary: corlab产品以及产品模版查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_modelback_product_ex_async(request, headers, runtime)
+
+    def query_modelback_product_ex(
+        self,
+        request: corlab_models.QueryModelbackProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> corlab_models.QueryModelbackProductResponse:
+        """
+        Description: corlab产品以及产品模版查询
+        Summary: corlab产品以及产品模版查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            corlab_models.QueryModelbackProductResponse(),
+            self.do_request('1.0', 'antdigital.corlab.modelback.product.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_modelback_product_ex_async(
+        self,
+        request: corlab_models.QueryModelbackProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> corlab_models.QueryModelbackProductResponse:
+        """
+        Description: corlab产品以及产品模版查询
+        Summary: corlab产品以及产品模版查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            corlab_models.QueryModelbackProductResponse(),
+            await self.do_request_async('1.0', 'antdigital.corlab.modelback.product.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_antcloud_gatewayx_file_upload(
+        self,
+        request: corlab_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> corlab_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_antcloud_gatewayx_file_upload_ex(request, headers, runtime)
+
+    async def create_antcloud_gatewayx_file_upload_async(
+        self,
+        request: corlab_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> corlab_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_antcloud_gatewayx_file_upload_ex_async(request, headers, runtime)
+
+    def create_antcloud_gatewayx_file_upload_ex(
+        self,
+        request: corlab_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> corlab_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            corlab_models.CreateAntcloudGatewayxFileUploadResponse(),
+            self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_antcloud_gatewayx_file_upload_ex_async(
+        self,
+        request: corlab_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> corlab_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            corlab_models.CreateAntcloudGatewayxFileUploadResponse(),
+            await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
