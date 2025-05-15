@@ -1081,6 +1081,7 @@ class ReplaceRobotcallPhoneRequest(TeaModel):
         req_id: str = None,
         timestamp: int = None,
         aesphone: str = None,
+        robot_ak: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1091,6 +1092,8 @@ class ReplaceRobotcallPhoneRequest(TeaModel):
         self.timestamp = timestamp
         # 待解密号码
         self.aesphone = aesphone
+        # 调用方access_key
+        self.robot_ak = robot_ak
 
     def validate(self):
         self.validate_required(self.req_id, 'req_id')
@@ -1113,6 +1116,8 @@ class ReplaceRobotcallPhoneRequest(TeaModel):
             result['timestamp'] = self.timestamp
         if self.aesphone is not None:
             result['aesphone'] = self.aesphone
+        if self.robot_ak is not None:
+            result['robot_ak'] = self.robot_ak
         return result
 
     def from_map(self, m: dict = None):
@@ -1127,6 +1132,8 @@ class ReplaceRobotcallPhoneRequest(TeaModel):
             self.timestamp = m.get('timestamp')
         if m.get('aesphone') is not None:
             self.aesphone = m.get('aesphone')
+        if m.get('robot_ak') is not None:
+            self.robot_ak = m.get('robot_ak')
         return self
 
 
