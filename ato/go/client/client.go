@@ -7288,6 +7288,185 @@ func (s *RepayFundPlanResponse) SetResultMsg(v string) *RepayFundPlanResponse {
 	return s
 }
 
+type GetFundCompensatesignurlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	//  资方社会统一信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" require:"true"`
+	// 商户租户id
+	MerchantTenantId *string `json:"merchant_tenant_id,omitempty" xml:"merchant_tenant_id,omitempty" require:"true"`
+	// 商户社会统一信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
+	// 签约串类型
+	// TRANSFER:转账代偿签约串
+	// WITHHOLD:代扣代偿签约串
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+}
+
+func (s GetFundCompensatesignurlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetFundCompensatesignurlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetFundCompensatesignurlRequest) SetAuthToken(v string) *GetFundCompensatesignurlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetFundCompensatesignurlRequest) SetProductInstanceId(v string) *GetFundCompensatesignurlRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetFundCompensatesignurlRequest) SetFundId(v string) *GetFundCompensatesignurlRequest {
+	s.FundId = &v
+	return s
+}
+
+func (s *GetFundCompensatesignurlRequest) SetMerchantTenantId(v string) *GetFundCompensatesignurlRequest {
+	s.MerchantTenantId = &v
+	return s
+}
+
+func (s *GetFundCompensatesignurlRequest) SetMerchantId(v string) *GetFundCompensatesignurlRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *GetFundCompensatesignurlRequest) SetType(v string) *GetFundCompensatesignurlRequest {
+	s.Type = &v
+	return s
+}
+
+type GetFundCompensatesignurlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 签约链接
+	SignUrl *string `json:"sign_url,omitempty" xml:"sign_url,omitempty"`
+}
+
+func (s GetFundCompensatesignurlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetFundCompensatesignurlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetFundCompensatesignurlResponse) SetReqMsgId(v string) *GetFundCompensatesignurlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetFundCompensatesignurlResponse) SetResultCode(v string) *GetFundCompensatesignurlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetFundCompensatesignurlResponse) SetResultMsg(v string) *GetFundCompensatesignurlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetFundCompensatesignurlResponse) SetSignUrl(v string) *GetFundCompensatesignurlResponse {
+	s.SignUrl = &v
+	return s
+}
+
+type ConfirmFundCompensateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 资方社会统一信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" require:"true"`
+	// 商户租户id
+	MerchantTenantId *string `json:"merchant_tenant_id,omitempty" xml:"merchant_tenant_id,omitempty" require:"true"`
+	// 商户社会统一信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
+	// 签约串类型
+	// TRANSFER:转账代偿签约串
+	// WITHHOLD:代扣代偿签约串
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+}
+
+func (s ConfirmFundCompensateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmFundCompensateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmFundCompensateRequest) SetAuthToken(v string) *ConfirmFundCompensateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ConfirmFundCompensateRequest) SetProductInstanceId(v string) *ConfirmFundCompensateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ConfirmFundCompensateRequest) SetFundId(v string) *ConfirmFundCompensateRequest {
+	s.FundId = &v
+	return s
+}
+
+func (s *ConfirmFundCompensateRequest) SetMerchantTenantId(v string) *ConfirmFundCompensateRequest {
+	s.MerchantTenantId = &v
+	return s
+}
+
+func (s *ConfirmFundCompensateRequest) SetMerchantId(v string) *ConfirmFundCompensateRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *ConfirmFundCompensateRequest) SetType(v string) *ConfirmFundCompensateRequest {
+	s.Type = &v
+	return s
+}
+
+type ConfirmFundCompensateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ConfirmFundCompensateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConfirmFundCompensateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ConfirmFundCompensateResponse) SetReqMsgId(v string) *ConfirmFundCompensateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ConfirmFundCompensateResponse) SetResultCode(v string) *ConfirmFundCompensateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ConfirmFundCompensateResponse) SetResultMsg(v string) *ConfirmFundCompensateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type GetInnerProductRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -16483,7 +16662,7 @@ type QueryRiskRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 枚举值：蚁盾版、智租版、旗舰版，蚁盾版代表仅调用蚁盾风控，智租版代表仅调用小程序云风控，旗舰版代表调用蚁盾+旗舰版风控接口
-	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty" require:"true"`
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty"`
 	// 用户姓名
 	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true" maxLength:"2000"`
 	// 用户证件号码
@@ -16503,6 +16682,10 @@ type QueryRiskRequest struct {
 	PriceDetail *PriceDetail `json:"price_detail,omitempty" xml:"price_detail,omitempty"`
 	// 物流信息，智租版可选
 	DeliveryDetail *DeliveryDetail `json:"delivery_detail,omitempty" xml:"delivery_detail,omitempty"`
+	// 枚举值：3C_RENTAL、NE_RENTAL、OTHER_RENTAL、PETS、BEAUTY、EDUCATION、FITNESS、GENERAL_INDUSTRY_OTHER
+	Industry *string `json:"industry,omitempty" xml:"industry,omitempty"`
+	// 枚举值：ZOLOZ_V2、ZOLOZ_V3、GENERAL_INDUSTRY、APPLET_RISK
+	ModelVersion *string `json:"model_version,omitempty" xml:"model_version,omitempty"`
 }
 
 func (s QueryRiskRequest) String() string {
@@ -16570,6 +16753,16 @@ func (s *QueryRiskRequest) SetPriceDetail(v *PriceDetail) *QueryRiskRequest {
 
 func (s *QueryRiskRequest) SetDeliveryDetail(v *DeliveryDetail) *QueryRiskRequest {
 	s.DeliveryDetail = v
+	return s
+}
+
+func (s *QueryRiskRequest) SetIndustry(v string) *QueryRiskRequest {
+	s.Industry = &v
+	return s
+}
+
+func (s *QueryRiskRequest) SetModelVersion(v string) *QueryRiskRequest {
+	s.ModelVersion = &v
 	return s
 }
 
@@ -21724,7 +21917,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.14.38"),
+				"sdk_version":      tea.String("1.14.40"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -23071,6 +23264,74 @@ func (client *Client) RepayFundPlanEx(request *RepayFundPlanRequest, headers map
 	}
 	_result = &RepayFundPlanResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.plan.repay"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 资方代偿签约链接获取
+ * Summary: 资方代偿签约链接获取
+ */
+func (client *Client) GetFundCompensatesignurl(request *GetFundCompensatesignurlRequest) (_result *GetFundCompensatesignurlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetFundCompensatesignurlResponse{}
+	_body, _err := client.GetFundCompensatesignurlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 资方代偿签约链接获取
+ * Summary: 资方代偿签约链接获取
+ */
+func (client *Client) GetFundCompensatesignurlEx(request *GetFundCompensatesignurlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetFundCompensatesignurlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetFundCompensatesignurlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.compensatesignurl.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 转账代偿签约结果确认
+ * Summary: 转账代偿签约结果确认
+ */
+func (client *Client) ConfirmFundCompensate(request *ConfirmFundCompensateRequest) (_result *ConfirmFundCompensateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ConfirmFundCompensateResponse{}
+	_body, _err := client.ConfirmFundCompensateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 转账代偿签约结果确认
+ * Summary: 转账代偿签约结果确认
+ */
+func (client *Client) ConfirmFundCompensateEx(request *ConfirmFundCompensateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ConfirmFundCompensateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ConfirmFundCompensateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.compensate.confirm"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
