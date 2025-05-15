@@ -36,12 +36,19 @@ class ReplaceRobotcallPhoneRequest extends Model
      * @var string
      */
     public $aesphone;
+
+    // 调用方access_key
+    /**
+     * @var string
+     */
+    public $robotAk;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'reqId'             => 'req_id',
         'timestamp'         => 'timestamp',
         'aesphone'          => 'aesphone',
+        'robotAk'           => 'robot_ak',
     ];
 
     public function validate()
@@ -69,6 +76,9 @@ class ReplaceRobotcallPhoneRequest extends Model
         if (null !== $this->aesphone) {
             $res['aesphone'] = $this->aesphone;
         }
+        if (null !== $this->robotAk) {
+            $res['robot_ak'] = $this->robotAk;
+        }
 
         return $res;
     }
@@ -95,6 +105,9 @@ class ReplaceRobotcallPhoneRequest extends Model
         }
         if (isset($map['aesphone'])) {
             $model->aesphone = $map['aesphone'];
+        }
+        if (isset($map['robot_ak'])) {
+            $model->robotAk = $map['robot_ak'];
         }
 
         return $model;
