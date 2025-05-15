@@ -939,6 +939,8 @@ type ReplaceRobotcallPhoneRequest struct {
 	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
 	// 待解密号码
 	Aesphone *string `json:"aesphone,omitempty" xml:"aesphone,omitempty" require:"true"`
+	// 调用方access_key
+	RobotAk *string `json:"robot_ak,omitempty" xml:"robot_ak,omitempty"`
 }
 
 func (s ReplaceRobotcallPhoneRequest) String() string {
@@ -971,6 +973,11 @@ func (s *ReplaceRobotcallPhoneRequest) SetTimestamp(v int64) *ReplaceRobotcallPh
 
 func (s *ReplaceRobotcallPhoneRequest) SetAesphone(v string) *ReplaceRobotcallPhoneRequest {
 	s.Aesphone = &v
+	return s
+}
+
+func (s *ReplaceRobotcallPhoneRequest) SetRobotAk(v string) *ReplaceRobotcallPhoneRequest {
+	s.RobotAk = &v
 	return s
 }
 
@@ -1135,7 +1142,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.3"),
+				"sdk_version":      tea.String("1.0.4"),
 				"_prod_code":       tea.String("UNICONTACT"),
 				"_prod_channel":    tea.String("default"),
 			}
