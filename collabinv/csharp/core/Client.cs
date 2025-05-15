@@ -137,7 +137,7 @@ namespace AntChain.SDK.COLLABINV
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.20"},
+                        {"sdk_version", "1.0.22"},
                         {"_prod_code", "COLLABINV"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.COLLABINV
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.20"},
+                        {"sdk_version", "1.0.22"},
                         {"_prod_code", "COLLABINV"},
                         {"_prod_channel", "default"},
                     };
@@ -319,6 +319,48 @@ namespace AntChain.SDK.COLLABINV
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: sse查询
+         * Summary: sse查询
+         */
+        public QueryAgentSseResponse QueryAgentSse(QueryAgentSseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAgentSseEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: sse查询
+         * Summary: sse查询
+         */
+        public async Task<QueryAgentSseResponse> QueryAgentSseAsync(QueryAgentSseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAgentSseExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: sse查询
+         * Summary: sse查询
+         */
+        public QueryAgentSseResponse QueryAgentSseEx(QueryAgentSseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAgentSseResponse>(DoRequest("1.0", "antchain.zkcollabinv.agent.sse.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: sse查询
+         * Summary: sse查询
+         */
+        public async Task<QueryAgentSseResponse> QueryAgentSseExAsync(QueryAgentSseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAgentSseResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.agent.sse.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

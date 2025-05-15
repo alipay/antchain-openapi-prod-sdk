@@ -86,6 +86,11 @@ namespace AntChain.SDK.COLLABINV.Models
         [Validation(Required=true)]
         public string ExistingAmtLastYear { get; set; }
 
+        // 年月日
+        [NameInMap("date")]
+        [Validation(Required=true)]
+        public string Date { get; set; }
+
     }
 
 }

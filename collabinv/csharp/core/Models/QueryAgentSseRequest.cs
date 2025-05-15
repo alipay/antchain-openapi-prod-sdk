@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.COLLABINV.Models
 {
-    public class QueryIndexresearchBrandRequest : TeaModel {
+    public class QueryAgentSseRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,25 +18,25 @@ namespace AntChain.SDK.COLLABINV.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 品牌编码
-        [NameInMap("brand_code")]
+        // 用户ID
+        [NameInMap("user_id")]
         [Validation(Required=true)]
-        public string BrandCode { get; set; }
+        public string UserId { get; set; }
 
-        // 时间月份yyyyMM
-        [NameInMap("month")]
-        [Validation(Required=false)]
-        public string Month { get; set; }
-
-        // test-测试数据。prod-正式数据
-        [NameInMap("data_type")]
+        // 会话id
+        [NameInMap("session_id")]
         [Validation(Required=true)]
-        public string DataType { get; set; }
+        public string SessionId { get; set; }
 
-        // 时间频次 m-月/d-天
-        [NameInMap("time_type")]
+        // 查询词条
+        [NameInMap("query")]
         [Validation(Required=true)]
-        public string TimeType { get; set; }
+        public string Query { get; set; }
+
+        // 会话存活时长，单位毫秒，默认5分钟，最大不超过10分钟
+        [NameInMap("alive_time")]
+        [Validation(Required=true)]
+        public long? AliveTime { get; set; }
 
     }
 
