@@ -80,6 +80,11 @@ public class IndexData extends TeaModel {
     @Validation(required = true)
     public String existingAmtLastYear;
 
+    // 年月日
+    @NameInMap("date")
+    @Validation(required = true)
+    public String date;
+
     public static IndexData build(java.util.Map<String, ?> map) throws Exception {
         IndexData self = new IndexData();
         return TeaModel.build(map, self);
@@ -203,6 +208,14 @@ public class IndexData extends TeaModel {
     }
     public String getExistingAmtLastYear() {
         return this.existingAmtLastYear;
+    }
+
+    public IndexData setDate(String date) {
+        this.date = date;
+        return this;
+    }
+    public String getDate() {
+        return this.date;
     }
 
 }

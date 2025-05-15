@@ -18,8 +18,17 @@ public class QueryIndexresearchBrandRequest extends TeaModel {
 
     // 时间月份yyyyMM
     @NameInMap("month")
-    @Validation(required = true)
     public String month;
+
+    // test-测试数据。prod-正式数据
+    @NameInMap("data_type")
+    @Validation(required = true)
+    public String dataType;
+
+    // 时间频次 m-月/d-天
+    @NameInMap("time_type")
+    @Validation(required = true)
+    public String timeType;
 
     public static QueryIndexresearchBrandRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryIndexresearchBrandRequest self = new QueryIndexresearchBrandRequest();
@@ -56,6 +65,22 @@ public class QueryIndexresearchBrandRequest extends TeaModel {
     }
     public String getMonth() {
         return this.month;
+    }
+
+    public QueryIndexresearchBrandRequest setDataType(String dataType) {
+        this.dataType = dataType;
+        return this;
+    }
+    public String getDataType() {
+        return this.dataType;
+    }
+
+    public QueryIndexresearchBrandRequest setTimeType(String timeType) {
+        this.timeType = timeType;
+        return this;
+    }
+    public String getTimeType() {
+        return this.timeType;
     }
 
 }
