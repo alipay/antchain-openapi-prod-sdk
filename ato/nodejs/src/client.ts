@@ -5585,6 +5585,148 @@ export class RepayFundPlanResponse extends $tea.Model {
   }
 }
 
+export class GetFundCompensatesignurlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  //  资方社会统一信用代码
+  fundId: string;
+  // 商户租户id
+  merchantTenantId: string;
+  // 商户社会统一信用代码
+  merchantId: string;
+  // 签约串类型
+  // TRANSFER:转账代偿签约串
+  // WITHHOLD:代扣代偿签约串
+  type: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fundId: 'fund_id',
+      merchantTenantId: 'merchant_tenant_id',
+      merchantId: 'merchant_id',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fundId: 'string',
+      merchantTenantId: 'string',
+      merchantId: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetFundCompensatesignurlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 签约链接
+  signUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      signUrl: 'sign_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      signUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmFundCompensateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 资方社会统一信用代码
+  fundId: string;
+  // 商户租户id
+  merchantTenantId: string;
+  // 商户社会统一信用代码
+  merchantId: string;
+  // 签约串类型 
+  // TRANSFER:转账代偿签约串 
+  // WITHHOLD:代扣代偿签约串
+  type?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fundId: 'fund_id',
+      merchantTenantId: 'merchant_tenant_id',
+      merchantId: 'merchant_id',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fundId: 'string',
+      merchantTenantId: 'string',
+      merchantId: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmFundCompensateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class GetInnerProductRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -12688,7 +12830,7 @@ export class QueryRiskRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 枚举值：蚁盾版、智租版、旗舰版，蚁盾版代表仅调用蚁盾风控，智租版代表仅调用小程序云风控，旗舰版代表调用蚁盾+旗舰版风控接口
-  productName: string;
+  productName?: string;
   // 用户姓名
   userName: string;
   // 用户证件号码
@@ -12708,6 +12850,10 @@ export class QueryRiskRequest extends $tea.Model {
   priceDetail?: PriceDetail;
   // 物流信息，智租版可选
   deliveryDetail?: DeliveryDetail;
+  // 枚举值：3C_RENTAL、NE_RENTAL、OTHER_RENTAL、PETS、BEAUTY、EDUCATION、FITNESS、GENERAL_INDUSTRY_OTHER
+  industry?: string;
+  // 枚举值：ZOLOZ_V2、ZOLOZ_V3、GENERAL_INDUSTRY、APPLET_RISK
+  modelVersion?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -12722,6 +12868,8 @@ export class QueryRiskRequest extends $tea.Model {
       itemDetail: 'item_detail',
       priceDetail: 'price_detail',
       deliveryDetail: 'delivery_detail',
+      industry: 'industry',
+      modelVersion: 'model_version',
     };
   }
 
@@ -12739,6 +12887,8 @@ export class QueryRiskRequest extends $tea.Model {
       itemDetail: ItemDetail,
       priceDetail: PriceDetail,
       deliveryDetail: DeliveryDetail,
+      industry: 'string',
+      modelVersion: 'string',
     };
   }
 
@@ -16649,7 +16799,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.14.38",
+          sdk_version: "1.14.40",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
@@ -17428,6 +17578,44 @@ export default class Client {
   async repayFundPlanEx(request: RepayFundPlanRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RepayFundPlanResponse> {
     Util.validateModel(request);
     return $tea.cast<RepayFundPlanResponse>(await this.doRequest("1.0", "antchain.ato.fund.plan.repay", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RepayFundPlanResponse({}));
+  }
+
+  /**
+   * Description: 资方代偿签约链接获取
+   * Summary: 资方代偿签约链接获取
+   */
+  async getFundCompensatesignurl(request: GetFundCompensatesignurlRequest): Promise<GetFundCompensatesignurlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getFundCompensatesignurlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 资方代偿签约链接获取
+   * Summary: 资方代偿签约链接获取
+   */
+  async getFundCompensatesignurlEx(request: GetFundCompensatesignurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetFundCompensatesignurlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetFundCompensatesignurlResponse>(await this.doRequest("1.0", "antchain.ato.fund.compensatesignurl.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetFundCompensatesignurlResponse({}));
+  }
+
+  /**
+   * Description: 转账代偿签约结果确认
+   * Summary: 转账代偿签约结果确认
+   */
+  async confirmFundCompensate(request: ConfirmFundCompensateRequest): Promise<ConfirmFundCompensateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.confirmFundCompensateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 转账代偿签约结果确认
+   * Summary: 转账代偿签约结果确认
+   */
+  async confirmFundCompensateEx(request: ConfirmFundCompensateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmFundCompensateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConfirmFundCompensateResponse>(await this.doRequest("1.0", "antchain.ato.fund.compensate.confirm", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConfirmFundCompensateResponse({}));
   }
 
   /**
