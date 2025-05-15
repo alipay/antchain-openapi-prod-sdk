@@ -6,6 +6,7 @@ import (
 	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
+	"io"
 )
 
 /**
@@ -145,6 +146,131 @@ func (s *Config) SetMaxRequests(v int) *Config {
 
 func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	s.MaxRequestsPerHost = &v
+	return s
+}
+
+// 产品对应模版字段
+type TemplateContext struct {
+	// 模版header头
+	HeadName *string `json:"head_name,omitempty" xml:"head_name,omitempty" require:"true"`
+	// 字段描述
+	Remark *string `json:"remark,omitempty" xml:"remark,omitempty"`
+	// 是否为必填:REQUIRED,ONE_OF
+	RequireType *string `json:"require_type,omitempty" xml:"require_type,omitempty" require:"true"`
+}
+
+func (s TemplateContext) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TemplateContext) GoString() string {
+	return s.String()
+}
+
+func (s *TemplateContext) SetHeadName(v string) *TemplateContext {
+	s.HeadName = &v
+	return s
+}
+
+func (s *TemplateContext) SetRemark(v string) *TemplateContext {
+	s.Remark = &v
+	return s
+}
+
+func (s *TemplateContext) SetRequireType(v string) *TemplateContext {
+	s.RequireType = &v
+	return s
+}
+
+// 产品信息
+type ProductContext struct {
+	// 产品code
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 模版code
+	TemplateCode *string `json:"template_code,omitempty" xml:"template_code,omitempty" require:"true"`
+	// 模版内容,数组
+	TemplateContext []*TemplateContext `json:"template_context,omitempty" xml:"template_context,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ProductContext) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ProductContext) GoString() string {
+	return s.String()
+}
+
+func (s *ProductContext) SetProductCode(v string) *ProductContext {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *ProductContext) SetTemplateCode(v string) *ProductContext {
+	s.TemplateCode = &v
+	return s
+}
+
+func (s *ProductContext) SetTemplateContext(v []*TemplateContext) *ProductContext {
+	s.TemplateContext = v
+	return s
+}
+
+// corlab任务查询结果信息
+type ResultContext struct {
+	// 产品码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
+	// 结果文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty"`
+	// 结果文件下载地址
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
+}
+
+func (s ResultContext) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResultContext) GoString() string {
+	return s.String()
+}
+
+func (s *ResultContext) SetProductCode(v string) *ResultContext {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *ResultContext) SetFileName(v string) *ResultContext {
+	s.FileName = &v
+	return s
+}
+
+func (s *ResultContext) SetFileUrl(v string) *ResultContext {
+	s.FileUrl = &v
+	return s
+}
+
+// 键值对
+type XNameValuePair struct {
+	// 键名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 键值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s XNameValuePair) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XNameValuePair) GoString() string {
+	return s.String()
+}
+
+func (s *XNameValuePair) SetName(v string) *XNameValuePair {
+	s.Name = &v
+	return s
+}
+
+func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
+	s.Value = &v
 	return s
 }
 
@@ -393,6 +519,399 @@ func (s *AddModelTaskResponse) SetErrorInfo(v string) *AddModelTaskResponse {
 	return s
 }
 
+type CreateModelbackTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 文件唯一ID
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 创建任务时回溯的产品
+	ProductCodes []*string `json:"product_codes,omitempty" xml:"product_codes,omitempty" require:"true" type:"Repeated"`
+	// 样本模版编码
+	TemplateCode *string `json:"template_code,omitempty" xml:"template_code,omitempty" require:"true"`
+	// 样本记录名，不传为file_id
+	SampleFileName *string `json:"sample_file_name,omitempty" xml:"sample_file_name,omitempty"`
+}
+
+func (s CreateModelbackTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateModelbackTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateModelbackTaskRequest) SetAuthToken(v string) *CreateModelbackTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateModelbackTaskRequest) SetProductInstanceId(v string) *CreateModelbackTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateModelbackTaskRequest) SetFileObject(v io.Reader) *CreateModelbackTaskRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *CreateModelbackTaskRequest) SetFileObjectName(v string) *CreateModelbackTaskRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *CreateModelbackTaskRequest) SetFileId(v string) *CreateModelbackTaskRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *CreateModelbackTaskRequest) SetProductCodes(v []*string) *CreateModelbackTaskRequest {
+	s.ProductCodes = v
+	return s
+}
+
+func (s *CreateModelbackTaskRequest) SetTemplateCode(v string) *CreateModelbackTaskRequest {
+	s.TemplateCode = &v
+	return s
+}
+
+func (s *CreateModelbackTaskRequest) SetSampleFileName(v string) *CreateModelbackTaskRequest {
+	s.SampleFileName = &v
+	return s
+}
+
+type CreateModelbackTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务唯一标识
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty"`
+	// 任务状态：SUCCESS/RUNNING/FAIL
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s CreateModelbackTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateModelbackTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateModelbackTaskResponse) SetReqMsgId(v string) *CreateModelbackTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateModelbackTaskResponse) SetResultCode(v string) *CreateModelbackTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateModelbackTaskResponse) SetResultMsg(v string) *CreateModelbackTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateModelbackTaskResponse) SetBizCode(v string) *CreateModelbackTaskResponse {
+	s.BizCode = &v
+	return s
+}
+
+func (s *CreateModelbackTaskResponse) SetStatus(v string) *CreateModelbackTaskResponse {
+	s.Status = &v
+	return s
+}
+
+type QueryModelbackTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 根据任务唯一id查询
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty" require:"true"`
+}
+
+func (s QueryModelbackTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryModelbackTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryModelbackTaskRequest) SetAuthToken(v string) *QueryModelbackTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryModelbackTaskRequest) SetProductInstanceId(v string) *QueryModelbackTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryModelbackTaskRequest) SetBizCode(v string) *QueryModelbackTaskRequest {
+	s.BizCode = &v
+	return s
+}
+
+type QueryModelbackTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务唯一id
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty"`
+	// 任务状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 任务对应产品结果信息
+	ResultContexts []*ResultContext `json:"result_contexts,omitempty" xml:"result_contexts,omitempty" type:"Repeated"`
+	// 任务完成时间
+	FinishTime *string `json:"finish_time,omitempty" xml:"finish_time,omitempty"`
+}
+
+func (s QueryModelbackTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryModelbackTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryModelbackTaskResponse) SetReqMsgId(v string) *QueryModelbackTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryModelbackTaskResponse) SetResultCode(v string) *QueryModelbackTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryModelbackTaskResponse) SetResultMsg(v string) *QueryModelbackTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryModelbackTaskResponse) SetBizCode(v string) *QueryModelbackTaskResponse {
+	s.BizCode = &v
+	return s
+}
+
+func (s *QueryModelbackTaskResponse) SetStatus(v string) *QueryModelbackTaskResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryModelbackTaskResponse) SetResultContexts(v []*ResultContext) *QueryModelbackTaskResponse {
+	s.ResultContexts = v
+	return s
+}
+
+func (s *QueryModelbackTaskResponse) SetFinishTime(v string) *QueryModelbackTaskResponse {
+	s.FinishTime = &v
+	return s
+}
+
+type QueryModelbackProductRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 产品码，不传者返回该用户下所有产品，多个用逗号分隔
+	ProductCodes *string `json:"product_codes,omitempty" xml:"product_codes,omitempty" require:"true"`
+}
+
+func (s QueryModelbackProductRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryModelbackProductRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryModelbackProductRequest) SetAuthToken(v string) *QueryModelbackProductRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryModelbackProductRequest) SetProductInstanceId(v string) *QueryModelbackProductRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryModelbackProductRequest) SetProductCodes(v string) *QueryModelbackProductRequest {
+	s.ProductCodes = &v
+	return s
+}
+
+type QueryModelbackProductResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 产品模版信息
+	ProductContext []*ProductContext `json:"product_context,omitempty" xml:"product_context,omitempty" type:"Repeated"`
+}
+
+func (s QueryModelbackProductResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryModelbackProductResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryModelbackProductResponse) SetReqMsgId(v string) *QueryModelbackProductResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryModelbackProductResponse) SetResultCode(v string) *QueryModelbackProductResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryModelbackProductResponse) SetResultMsg(v string) *QueryModelbackProductResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryModelbackProductResponse) SetProductContext(v []*ProductContext) *QueryModelbackProductResponse {
+	s.ProductContext = v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 上传文件作用的openapi method
+	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty" require:"true"`
+	// 文件标签，多个标签;分割
+	FileLabel *string `json:"file_label,omitempty" xml:"file_label,omitempty" maxLength:"100"`
+	// 自定义的文件元数据
+	FileMetadata *string `json:"file_metadata,omitempty" xml:"file_metadata,omitempty" maxLength:"1000"`
+	// 文件名，不传则随机生成文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" maxLength:"100"`
+	// 文件的多媒体类型
+	MimeType *string `json:"mime_type,omitempty" xml:"mime_type,omitempty"`
+	// 产品方的api归属集群，即productInstanceId
+	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetAuthToken(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCode(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileLabel(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileLabel = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileMetadata(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileMetadata = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileName(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetMimeType(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.MimeType = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCluster = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传有效期
+	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 32位文件唯一id
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 放入http请求头里
+	UploadHeaders []*XNameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
+	// 文件上传地址
+	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetReqMsgId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultCode(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultMsg(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetExpiredTime(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ExpiredTime = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetFileId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.FileId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*XNameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadHeaders = v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadUrl(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadUrl = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -515,7 +1034,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("1.0.12"),
 				"_prod_code":       tea.String("CORLAB"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -634,6 +1153,172 @@ func (client *Client) AddModelTaskEx(request *AddModelTaskRequest, headers map[s
 	}
 	_result = &AddModelTaskResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.corlab.model.task.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: corlab模型回溯任务创建
+ * Summary: corlab模型回溯任务创建
+ */
+func (client *Client) CreateModelbackTask(request *CreateModelbackTaskRequest) (_result *CreateModelbackTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateModelbackTaskResponse{}
+	_body, _err := client.CreateModelbackTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: corlab模型回溯任务创建
+ * Summary: corlab模型回溯任务创建
+ */
+func (client *Client) CreateModelbackTaskEx(request *CreateModelbackTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateModelbackTaskResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antdigital.corlab.modelback.task.create"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			createModelbackTaskResponse := &CreateModelbackTaskResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = createModelbackTaskResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateModelbackTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.corlab.modelback.task.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: corlab模型回溯任务查询
+ * Summary: corlab模型回溯任务查询
+ */
+func (client *Client) QueryModelbackTask(request *QueryModelbackTaskRequest) (_result *QueryModelbackTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryModelbackTaskResponse{}
+	_body, _err := client.QueryModelbackTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: corlab模型回溯任务查询
+ * Summary: corlab模型回溯任务查询
+ */
+func (client *Client) QueryModelbackTaskEx(request *QueryModelbackTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryModelbackTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryModelbackTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.corlab.modelback.task.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: corlab产品以及产品模版查询
+ * Summary: corlab产品以及产品模版查询
+ */
+func (client *Client) QueryModelbackProduct(request *QueryModelbackProductRequest) (_result *QueryModelbackProductResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryModelbackProductResponse{}
+	_body, _err := client.QueryModelbackProductEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: corlab产品以及产品模版查询
+ * Summary: corlab产品以及产品模版查询
+ */
+func (client *Client) QueryModelbackProductEx(request *QueryModelbackProductRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryModelbackProductResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryModelbackProductResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.corlab.modelback.product.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUpload(request *CreateAntcloudGatewayxFileUploadRequest) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.CreateAntcloudGatewayxFileUploadEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUploadEx(request *CreateAntcloudGatewayxFileUploadRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.gatewayx.file.upload.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
