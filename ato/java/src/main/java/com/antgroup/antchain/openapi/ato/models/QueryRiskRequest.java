@@ -13,7 +13,6 @@ public class QueryRiskRequest extends TeaModel {
 
     // 枚举值：蚁盾版、智租版、旗舰版，蚁盾版代表仅调用蚁盾风控，智租版代表仅调用小程序云风控，旗舰版代表调用蚁盾+旗舰版风控接口
     @NameInMap("product_name")
-    @Validation(required = true)
     public String productName;
 
     // 用户姓名
@@ -58,6 +57,14 @@ public class QueryRiskRequest extends TeaModel {
     // 物流信息，智租版可选
     @NameInMap("delivery_detail")
     public DeliveryDetail deliveryDetail;
+
+    // 枚举值：3C_RENTAL、NE_RENTAL、OTHER_RENTAL、PETS、BEAUTY、EDUCATION、FITNESS、GENERAL_INDUSTRY_OTHER
+    @NameInMap("industry")
+    public String industry;
+
+    // 枚举值：ZOLOZ_V2、ZOLOZ_V3、GENERAL_INDUSTRY、APPLET_RISK
+    @NameInMap("model_version")
+    public String modelVersion;
 
     public static QueryRiskRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryRiskRequest self = new QueryRiskRequest();
@@ -158,6 +165,22 @@ public class QueryRiskRequest extends TeaModel {
     }
     public DeliveryDetail getDeliveryDetail() {
         return this.deliveryDetail;
+    }
+
+    public QueryRiskRequest setIndustry(String industry) {
+        this.industry = industry;
+        return this;
+    }
+    public String getIndustry() {
+        return this.industry;
+    }
+
+    public QueryRiskRequest setModelVersion(String modelVersion) {
+        this.modelVersion = modelVersion;
+        return this;
+    }
+    public String getModelVersion() {
+        return this.modelVersion;
     }
 
 }
