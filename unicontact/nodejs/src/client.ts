@@ -637,6 +637,8 @@ export class ReplaceRobotcallPhoneRequest extends $tea.Model {
   timestamp: number;
   // 待解密号码
   aesphone: string;
+  // 调用方access_key
+  robotAk?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -644,6 +646,7 @@ export class ReplaceRobotcallPhoneRequest extends $tea.Model {
       reqId: 'req_id',
       timestamp: 'timestamp',
       aesphone: 'aesphone',
+      robotAk: 'robot_ak',
     };
   }
 
@@ -654,6 +657,7 @@ export class ReplaceRobotcallPhoneRequest extends $tea.Model {
       reqId: 'string',
       timestamp: 'number',
       aesphone: 'string',
+      robotAk: 'string',
     };
   }
 
@@ -807,7 +811,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.3",
+          sdk_version: "1.0.4",
           _prod_code: "UNICONTACT",
           _prod_channel: "default",
         };
