@@ -224,6 +224,7 @@ class IndexData(TeaModel):
         shop_tag: str = None,
         brand_code: str = None,
         existing_amt_last_year: str = None,
+        date: str = None,
     ):
         # 月份
         # 
@@ -256,6 +257,8 @@ class IndexData(TeaModel):
         self.brand_code = brand_code
         # 同店上年同期评分
         self.existing_amt_last_year = existing_amt_last_year
+        # 年月日
+        self.date = date
 
     def validate(self):
         self.validate_required(self.month, 'month')
@@ -273,6 +276,7 @@ class IndexData(TeaModel):
         self.validate_required(self.shop_tag, 'shop_tag')
         self.validate_required(self.brand_code, 'brand_code')
         self.validate_required(self.existing_amt_last_year, 'existing_amt_last_year')
+        self.validate_required(self.date, 'date')
 
     def to_map(self):
         _map = super().to_map()
@@ -310,6 +314,8 @@ class IndexData(TeaModel):
             result['brand_code'] = self.brand_code
         if self.existing_amt_last_year is not None:
             result['existing_amt_last_year'] = self.existing_amt_last_year
+        if self.date is not None:
+            result['date'] = self.date
         return result
 
     def from_map(self, m: dict = None):
@@ -344,6 +350,8 @@ class IndexData(TeaModel):
             self.brand_code = m.get('brand_code')
         if m.get('existing_amt_last_year') is not None:
             self.existing_amt_last_year = m.get('existing_amt_last_year')
+        if m.get('date') is not None:
+            self.date = m.get('date')
         return self
 
 
@@ -453,6 +461,120 @@ class PageInfo(TeaModel):
         return self
 
 
+class QueryAgentSseRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        user_id: str = None,
+        session_id: str = None,
+        query: str = None,
+        alive_time: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 用户ID
+        self.user_id = user_id
+        # 会话id
+        self.session_id = session_id
+        # 查询词条
+        self.query = query
+        # 会话存活时长，单位毫秒，默认5分钟，最大不超过10分钟
+        self.alive_time = alive_time
+
+    def validate(self):
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.session_id, 'session_id')
+        self.validate_required(self.query, 'query')
+        self.validate_required(self.alive_time, 'alive_time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.query is not None:
+            result['query'] = self.query
+        if self.alive_time is not None:
+            result['alive_time'] = self.alive_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('query') is not None:
+            self.query = m.get('query')
+        if m.get('alive_time') is not None:
+            self.alive_time = m.get('alive_time')
+        return self
+
+
+class QueryAgentSseResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        message: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 消息
+        self.message = message
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.message is not None:
+            result['message'] = self.message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        return self
+
+
 class QueryIndexresearchBrandRequest(TeaModel):
     def __init__(
         self,
@@ -460,6 +582,8 @@ class QueryIndexresearchBrandRequest(TeaModel):
         product_instance_id: str = None,
         brand_code: str = None,
         month: str = None,
+        data_type: str = None,
+        time_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -468,10 +592,15 @@ class QueryIndexresearchBrandRequest(TeaModel):
         self.brand_code = brand_code
         # 时间月份yyyyMM
         self.month = month
+        # test-测试数据。prod-正式数据
+        self.data_type = data_type
+        # 时间频次 m-月/d-天
+        self.time_type = time_type
 
     def validate(self):
         self.validate_required(self.brand_code, 'brand_code')
-        self.validate_required(self.month, 'month')
+        self.validate_required(self.data_type, 'data_type')
+        self.validate_required(self.time_type, 'time_type')
 
     def to_map(self):
         _map = super().to_map()
@@ -487,6 +616,10 @@ class QueryIndexresearchBrandRequest(TeaModel):
             result['brand_code'] = self.brand_code
         if self.month is not None:
             result['month'] = self.month
+        if self.data_type is not None:
+            result['data_type'] = self.data_type
+        if self.time_type is not None:
+            result['time_type'] = self.time_type
         return result
 
     def from_map(self, m: dict = None):
@@ -499,6 +632,10 @@ class QueryIndexresearchBrandRequest(TeaModel):
             self.brand_code = m.get('brand_code')
         if m.get('month') is not None:
             self.month = m.get('month')
+        if m.get('data_type') is not None:
+            self.data_type = m.get('data_type')
+        if m.get('time_type') is not None:
+            self.time_type = m.get('time_type')
         return self
 
 

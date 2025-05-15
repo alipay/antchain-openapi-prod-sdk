@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.20',
+                    'sdk_version': '1.0.22',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.20',
+                    'sdk_version': '1.0.22',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -274,6 +274,62 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def query_agent_sse(
+        self,
+        request: collabinv_models.QueryAgentSseRequest,
+    ) -> collabinv_models.QueryAgentSseResponse:
+        """
+        Description: sse查询
+        Summary: sse查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_agent_sse_ex(request, headers, runtime)
+
+    async def query_agent_sse_async(
+        self,
+        request: collabinv_models.QueryAgentSseRequest,
+    ) -> collabinv_models.QueryAgentSseResponse:
+        """
+        Description: sse查询
+        Summary: sse查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_agent_sse_ex_async(request, headers, runtime)
+
+    def query_agent_sse_ex(
+        self,
+        request: collabinv_models.QueryAgentSseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.QueryAgentSseResponse:
+        """
+        Description: sse查询
+        Summary: sse查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.QueryAgentSseResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.agent.sse.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_agent_sse_ex_async(
+        self,
+        request: collabinv_models.QueryAgentSseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.QueryAgentSseResponse:
+        """
+        Description: sse查询
+        Summary: sse查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.QueryAgentSseResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.agent.sse.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def query_indexresearch_brand(
         self,
