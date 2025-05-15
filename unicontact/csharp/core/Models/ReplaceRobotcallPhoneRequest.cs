@@ -33,6 +33,11 @@ namespace AntChain.SDK.UNICONTACT.Models
         [Validation(Required=true)]
         public string Aesphone { get; set; }
 
+        // 调用方access_key
+        [NameInMap("robot_ak")]
+        [Validation(Required=false)]
+        public string RobotAk { get; set; }
+
     }
 
 }
