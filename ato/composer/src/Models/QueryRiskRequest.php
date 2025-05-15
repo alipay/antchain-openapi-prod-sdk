@@ -79,6 +79,18 @@ class QueryRiskRequest extends Model
      * @var DeliveryDetail
      */
     public $deliveryDetail;
+
+    // 枚举值：3C_RENTAL、NE_RENTAL、OTHER_RENTAL、PETS、BEAUTY、EDUCATION、FITNESS、GENERAL_INDUSTRY_OTHER
+    /**
+     * @var string
+     */
+    public $industry;
+
+    // 枚举值：ZOLOZ_V2、ZOLOZ_V3、GENERAL_INDUSTRY、APPLET_RISK
+    /**
+     * @var string
+     */
+    public $modelVersion;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -92,11 +104,12 @@ class QueryRiskRequest extends Model
         'itemDetail'        => 'item_detail',
         'priceDetail'       => 'price_detail',
         'deliveryDetail'    => 'delivery_detail',
+        'industry'          => 'industry',
+        'modelVersion'      => 'model_version',
     ];
 
     public function validate()
     {
-        Model::validateRequired('productName', $this->productName, true);
         Model::validateRequired('userName', $this->userName, true);
         Model::validateRequired('certNo', $this->certNo, true);
         Model::validateRequired('mobile', $this->mobile, true);
@@ -146,6 +159,12 @@ class QueryRiskRequest extends Model
         if (null !== $this->deliveryDetail) {
             $res['delivery_detail'] = null !== $this->deliveryDetail ? $this->deliveryDetail->toMap() : null;
         }
+        if (null !== $this->industry) {
+            $res['industry'] = $this->industry;
+        }
+        if (null !== $this->modelVersion) {
+            $res['model_version'] = $this->modelVersion;
+        }
 
         return $res;
     }
@@ -193,6 +212,12 @@ class QueryRiskRequest extends Model
         }
         if (isset($map['delivery_detail'])) {
             $model->deliveryDetail = DeliveryDetail::fromMap($map['delivery_detail']);
+        }
+        if (isset($map['industry'])) {
+            $model->industry = $map['industry'];
+        }
+        if (isset($map['model_version'])) {
+            $model->modelVersion = $map['model_version'];
         }
 
         return $model;

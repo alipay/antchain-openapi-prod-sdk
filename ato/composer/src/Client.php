@@ -51,6 +51,8 @@ use AntChain\ATO\Models\CloneInnerTemplatefileaddressRequest;
 use AntChain\ATO\Models\CloneInnerTemplatefileaddressResponse;
 use AntChain\ATO\Models\CloneInnerTemplateRequest;
 use AntChain\ATO\Models\CloneInnerTemplateResponse;
+use AntChain\ATO\Models\ConfirmFundCompensateRequest;
+use AntChain\ATO\Models\ConfirmFundCompensateResponse;
 use AntChain\ATO\Models\ConfirmFundUsercancelRequest;
 use AntChain\ATO\Models\ConfirmFundUsercancelResponse;
 use AntChain\ATO\Models\ConfirmWithholdSignasyncunsignRequest;
@@ -101,6 +103,8 @@ use AntChain\ATO\Models\DetailInnerTemplateRequest;
 use AntChain\ATO\Models\DetailInnerTemplateResponse;
 use AntChain\ATO\Models\DownloadInnerFileRequest;
 use AntChain\ATO\Models\DownloadInnerFileResponse;
+use AntChain\ATO\Models\GetFundCompensatesignurlRequest;
+use AntChain\ATO\Models\GetFundCompensatesignurlResponse;
 use AntChain\ATO\Models\GetFundFlowRequest;
 use AntChain\ATO\Models\GetFundFlowResponse;
 use AntChain\ATO\Models\GetFundMerchantperformanceRequest;
@@ -516,7 +520,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.14.38',
+                    'sdk_version'      => '1.14.40',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1810,6 +1814,72 @@ class Client
         Utils::validateModel($request);
 
         return RepayFundPlanResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.plan.repay', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资方代偿签约链接获取
+     * Summary: 资方代偿签约链接获取.
+     *
+     * @param GetFundCompensatesignurlRequest $request
+     *
+     * @return GetFundCompensatesignurlResponse
+     */
+    public function getFundCompensatesignurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getFundCompensatesignurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资方代偿签约链接获取
+     * Summary: 资方代偿签约链接获取.
+     *
+     * @param GetFundCompensatesignurlRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return GetFundCompensatesignurlResponse
+     */
+    public function getFundCompensatesignurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetFundCompensatesignurlResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.compensatesignurl.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 转账代偿签约结果确认
+     * Summary: 转账代偿签约结果确认.
+     *
+     * @param ConfirmFundCompensateRequest $request
+     *
+     * @return ConfirmFundCompensateResponse
+     */
+    public function confirmFundCompensate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->confirmFundCompensateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 转账代偿签约结果确认
+     * Summary: 转账代偿签约结果确认.
+     *
+     * @param ConfirmFundCompensateRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return ConfirmFundCompensateResponse
+     */
+    public function confirmFundCompensateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ConfirmFundCompensateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.compensate.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
