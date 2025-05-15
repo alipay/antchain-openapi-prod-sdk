@@ -137,7 +137,7 @@ namespace AntChain.SDK.CORLAB
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.0.12"},
                         {"_prod_code", "CORLAB"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.CORLAB
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.0.12"},
                         {"_prod_code", "CORLAB"},
                         {"_prod_channel", "default"},
                     };
@@ -403,6 +403,222 @@ namespace AntChain.SDK.CORLAB
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<AddModelTaskResponse>(await DoRequestAsync("1.0", "antdigital.corlab.model.task.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: corlab模型回溯任务创建
+         * Summary: corlab模型回溯任务创建
+         */
+        public CreateModelbackTaskResponse CreateModelbackTask(CreateModelbackTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateModelbackTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: corlab模型回溯任务创建
+         * Summary: corlab模型回溯任务创建
+         */
+        public async Task<CreateModelbackTaskResponse> CreateModelbackTaskAsync(CreateModelbackTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateModelbackTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: corlab模型回溯任务创建
+         * Summary: corlab模型回溯任务创建
+         */
+        public CreateModelbackTaskResponse CreateModelbackTaskEx(CreateModelbackTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antdigital.corlab.modelback.task.create",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    CreateModelbackTaskResponse createModelbackTaskResponse = new CreateModelbackTaskResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return createModelbackTaskResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateModelbackTaskResponse>(DoRequest("1.0", "antdigital.corlab.modelback.task.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: corlab模型回溯任务创建
+         * Summary: corlab模型回溯任务创建
+         */
+        public async Task<CreateModelbackTaskResponse> CreateModelbackTaskExAsync(CreateModelbackTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antdigital.corlab.modelback.task.create",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    CreateModelbackTaskResponse createModelbackTaskResponse = new CreateModelbackTaskResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return createModelbackTaskResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateModelbackTaskResponse>(await DoRequestAsync("1.0", "antdigital.corlab.modelback.task.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: corlab模型回溯任务查询
+         * Summary: corlab模型回溯任务查询
+         */
+        public QueryModelbackTaskResponse QueryModelbackTask(QueryModelbackTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryModelbackTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: corlab模型回溯任务查询
+         * Summary: corlab模型回溯任务查询
+         */
+        public async Task<QueryModelbackTaskResponse> QueryModelbackTaskAsync(QueryModelbackTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryModelbackTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: corlab模型回溯任务查询
+         * Summary: corlab模型回溯任务查询
+         */
+        public QueryModelbackTaskResponse QueryModelbackTaskEx(QueryModelbackTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryModelbackTaskResponse>(DoRequest("1.0", "antdigital.corlab.modelback.task.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: corlab模型回溯任务查询
+         * Summary: corlab模型回溯任务查询
+         */
+        public async Task<QueryModelbackTaskResponse> QueryModelbackTaskExAsync(QueryModelbackTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryModelbackTaskResponse>(await DoRequestAsync("1.0", "antdigital.corlab.modelback.task.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: corlab产品以及产品模版查询
+         * Summary: corlab产品以及产品模版查询
+         */
+        public QueryModelbackProductResponse QueryModelbackProduct(QueryModelbackProductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryModelbackProductEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: corlab产品以及产品模版查询
+         * Summary: corlab产品以及产品模版查询
+         */
+        public async Task<QueryModelbackProductResponse> QueryModelbackProductAsync(QueryModelbackProductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryModelbackProductExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: corlab产品以及产品模版查询
+         * Summary: corlab产品以及产品模版查询
+         */
+        public QueryModelbackProductResponse QueryModelbackProductEx(QueryModelbackProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryModelbackProductResponse>(DoRequest("1.0", "antdigital.corlab.modelback.product.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: corlab产品以及产品模版查询
+         * Summary: corlab产品以及产品模版查询
+         */
+        public async Task<QueryModelbackProductResponse> QueryModelbackProductExAsync(QueryModelbackProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryModelbackProductResponse>(await DoRequestAsync("1.0", "antdigital.corlab.modelback.product.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public CreateAntcloudGatewayxFileUploadResponse CreateAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateAntcloudGatewayxFileUploadEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public async Task<CreateAntcloudGatewayxFileUploadResponse> CreateAntcloudGatewayxFileUploadAsync(CreateAntcloudGatewayxFileUploadRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateAntcloudGatewayxFileUploadExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public CreateAntcloudGatewayxFileUploadResponse CreateAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAntcloudGatewayxFileUploadResponse>(DoRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public async Task<CreateAntcloudGatewayxFileUploadResponse> CreateAntcloudGatewayxFileUploadExAsync(CreateAntcloudGatewayxFileUploadRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAntcloudGatewayxFileUploadResponse>(await DoRequestAsync("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
