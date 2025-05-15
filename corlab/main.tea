@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.1',
+    sdk_version = '1.0.12',
     _prod_code = 'CORLAB',
     _prod_channel = 'default'
   };
@@ -159,6 +159,44 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// 产品对应模版字段
+model TemplateContext {
+  // 模版header头
+  headName: string(name='head_name', example='bizCode'),
+  // 字段描述
+  remark?: string(name='remark', example='加密身份id'),
+  // 是否为必填:REQUIRED,ONE_OF
+  requireType: string(name='require_type', example='ONE_OF'),
+}
+
+// 产品信息
+model ProductContext {
+  // 产品code
+  productCode: string(name='product_code', example='aft_v4'),
+  // 模版code
+  templateCode: string(name='template_code', example='tb-default'),
+  // 模版内容,数组
+  templateContext: [ TemplateContext ](name='template_context', example=''),
+}
+
+// corlab任务查询结果信息
+model ResultContext {
+  // 产品码
+  productCode?: string(name='product_code', example='aft_v4'),
+  // 结果文件名
+  fileName?: string(name='file_name', example='结果文件名'),
+  // 结果文件下载地址
+  fileUrl?: string(name='file_url', example='oss://xxxxx/xxxx'),
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
 }
 
 model RecognizeModelRequest = {
@@ -265,5 +303,208 @@ async function addModelTask(request: AddModelTaskRequest): AddModelTaskResponse 
 async function addModelTaskEx(request: AddModelTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddModelTaskResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.corlab.model.task.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateModelbackTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件唯一ID
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 创建任务时回溯的产品
+  productCodes: [ string ](name='product_codes'),
+  // 样本模版编码
+  templateCode: string(name='template_code'),
+  // 样本记录名，不传为file_id
+  sampleFileName?: string(name='sample_file_name'),
+}
+
+model CreateModelbackTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务唯一标识
+  bizCode?: string(name='biz_code'),
+  // 任务状态：SUCCESS/RUNNING/FAIL
+  status?: string(name='status'),
+}
+
+/**
+ * Description: corlab模型回溯任务创建
+ * Summary: corlab模型回溯任务创建
+ */
+async function createModelbackTask(request: CreateModelbackTaskRequest): CreateModelbackTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createModelbackTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: corlab模型回溯任务创建
+ * Summary: corlab模型回溯任务创建
+ */
+async function createModelbackTaskEx(request: CreateModelbackTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateModelbackTaskResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antdigital.corlab.modelback.task.create',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var createModelbackTaskResponse = new CreateModelbackTaskResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return createModelbackTaskResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.corlab.modelback.task.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryModelbackTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 根据任务唯一id查询
+  bizCode: string(name='biz_code'),
+}
+
+model QueryModelbackTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务唯一id
+  bizCode?: string(name='biz_code'),
+  // 任务状态
+  status?: string(name='status'),
+  // 任务对应产品结果信息
+  resultContexts?: [ ResultContext ](name='result_contexts'),
+  // 任务完成时间
+  finishTime?: string(name='finish_time'),
+}
+
+/**
+ * Description: corlab模型回溯任务查询
+ * Summary: corlab模型回溯任务查询
+ */
+async function queryModelbackTask(request: QueryModelbackTaskRequest): QueryModelbackTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryModelbackTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: corlab模型回溯任务查询
+ * Summary: corlab模型回溯任务查询
+ */
+async function queryModelbackTaskEx(request: QueryModelbackTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryModelbackTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.corlab.modelback.task.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryModelbackProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 产品码，不传者返回该用户下所有产品，多个用逗号分隔
+  productCodes: string(name='product_codes'),
+}
+
+model QueryModelbackProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 产品模版信息
+  productContext?: [ ProductContext ](name='product_context'),
+}
+
+/**
+ * Description: corlab产品以及产品模版查询
+ * Summary: corlab产品以及产品模版查询
+ */
+async function queryModelbackProduct(request: QueryModelbackProductRequest): QueryModelbackProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryModelbackProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: corlab产品以及产品模版查询
+ * Summary: corlab产品以及产品模版查询
+ */
+async function queryModelbackProductEx(request: QueryModelbackProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryModelbackProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.corlab.modelback.product.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
