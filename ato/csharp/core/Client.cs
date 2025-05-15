@@ -137,7 +137,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.14.38"},
+                        {"sdk_version", "1.14.40"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.14.38"},
+                        {"sdk_version", "1.14.40"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1937,6 +1937,90 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<RepayFundPlanResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.plan.repay", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资方代偿签约链接获取
+         * Summary: 资方代偿签约链接获取
+         */
+        public GetFundCompensatesignurlResponse GetFundCompensatesignurl(GetFundCompensatesignurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetFundCompensatesignurlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资方代偿签约链接获取
+         * Summary: 资方代偿签约链接获取
+         */
+        public async Task<GetFundCompensatesignurlResponse> GetFundCompensatesignurlAsync(GetFundCompensatesignurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetFundCompensatesignurlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资方代偿签约链接获取
+         * Summary: 资方代偿签约链接获取
+         */
+        public GetFundCompensatesignurlResponse GetFundCompensatesignurlEx(GetFundCompensatesignurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetFundCompensatesignurlResponse>(DoRequest("1.0", "antchain.ato.fund.compensatesignurl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资方代偿签约链接获取
+         * Summary: 资方代偿签约链接获取
+         */
+        public async Task<GetFundCompensatesignurlResponse> GetFundCompensatesignurlExAsync(GetFundCompensatesignurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetFundCompensatesignurlResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.compensatesignurl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 转账代偿签约结果确认
+         * Summary: 转账代偿签约结果确认
+         */
+        public ConfirmFundCompensateResponse ConfirmFundCompensate(ConfirmFundCompensateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ConfirmFundCompensateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 转账代偿签约结果确认
+         * Summary: 转账代偿签约结果确认
+         */
+        public async Task<ConfirmFundCompensateResponse> ConfirmFundCompensateAsync(ConfirmFundCompensateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ConfirmFundCompensateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 转账代偿签约结果确认
+         * Summary: 转账代偿签约结果确认
+         */
+        public ConfirmFundCompensateResponse ConfirmFundCompensateEx(ConfirmFundCompensateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmFundCompensateResponse>(DoRequest("1.0", "antchain.ato.fund.compensate.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 转账代偿签约结果确认
+         * Summary: 转账代偿签约结果确认
+         */
+        public async Task<ConfirmFundCompensateResponse> ConfirmFundCompensateExAsync(ConfirmFundCompensateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmFundCompensateResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.compensate.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
