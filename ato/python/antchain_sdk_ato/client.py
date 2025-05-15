@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.14.38',
+                    'sdk_version': '1.14.40',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.14.38',
+                    'sdk_version': '1.14.40',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -2397,6 +2397,118 @@ class Client:
         return TeaCore.from_map(
             ato_models.RepayFundPlanResponse(),
             await self.do_request_async('1.0', 'antchain.ato.fund.plan.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_fund_compensatesignurl(
+        self,
+        request: ato_models.GetFundCompensatesignurlRequest,
+    ) -> ato_models.GetFundCompensatesignurlResponse:
+        """
+        Description: 资方代偿签约链接获取
+        Summary: 资方代偿签约链接获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_fund_compensatesignurl_ex(request, headers, runtime)
+
+    async def get_fund_compensatesignurl_async(
+        self,
+        request: ato_models.GetFundCompensatesignurlRequest,
+    ) -> ato_models.GetFundCompensatesignurlResponse:
+        """
+        Description: 资方代偿签约链接获取
+        Summary: 资方代偿签约链接获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_fund_compensatesignurl_ex_async(request, headers, runtime)
+
+    def get_fund_compensatesignurl_ex(
+        self,
+        request: ato_models.GetFundCompensatesignurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.GetFundCompensatesignurlResponse:
+        """
+        Description: 资方代偿签约链接获取
+        Summary: 资方代偿签约链接获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.GetFundCompensatesignurlResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.compensatesignurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_fund_compensatesignurl_ex_async(
+        self,
+        request: ato_models.GetFundCompensatesignurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.GetFundCompensatesignurlResponse:
+        """
+        Description: 资方代偿签约链接获取
+        Summary: 资方代偿签约链接获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.GetFundCompensatesignurlResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.compensatesignurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def confirm_fund_compensate(
+        self,
+        request: ato_models.ConfirmFundCompensateRequest,
+    ) -> ato_models.ConfirmFundCompensateResponse:
+        """
+        Description: 转账代偿签约结果确认
+        Summary: 转账代偿签约结果确认
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.confirm_fund_compensate_ex(request, headers, runtime)
+
+    async def confirm_fund_compensate_async(
+        self,
+        request: ato_models.ConfirmFundCompensateRequest,
+    ) -> ato_models.ConfirmFundCompensateResponse:
+        """
+        Description: 转账代偿签约结果确认
+        Summary: 转账代偿签约结果确认
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.confirm_fund_compensate_ex_async(request, headers, runtime)
+
+    def confirm_fund_compensate_ex(
+        self,
+        request: ato_models.ConfirmFundCompensateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.ConfirmFundCompensateResponse:
+        """
+        Description: 转账代偿签约结果确认
+        Summary: 转账代偿签约结果确认
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.ConfirmFundCompensateResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.compensate.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def confirm_fund_compensate_ex_async(
+        self,
+        request: ato_models.ConfirmFundCompensateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.ConfirmFundCompensateResponse:
+        """
+        Description: 转账代偿签约结果确认
+        Summary: 转账代偿签约结果确认
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.ConfirmFundCompensateResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.compensate.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_inner_product(
