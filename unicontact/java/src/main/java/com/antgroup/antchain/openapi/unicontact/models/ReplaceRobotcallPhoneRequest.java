@@ -26,6 +26,10 @@ public class ReplaceRobotcallPhoneRequest extends TeaModel {
     @Validation(required = true)
     public String aesphone;
 
+    // 调用方access_key
+    @NameInMap("robot_ak")
+    public String robotAk;
+
     public static ReplaceRobotcallPhoneRequest build(java.util.Map<String, ?> map) throws Exception {
         ReplaceRobotcallPhoneRequest self = new ReplaceRobotcallPhoneRequest();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class ReplaceRobotcallPhoneRequest extends TeaModel {
     }
     public String getAesphone() {
         return this.aesphone;
+    }
+
+    public ReplaceRobotcallPhoneRequest setRobotAk(String robotAk) {
+        this.robotAk = robotAk;
+        return this;
+    }
+    public String getRobotAk() {
+        return this.robotAk;
     }
 
 }
