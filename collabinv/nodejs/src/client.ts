@@ -143,6 +143,8 @@ export class IndexData extends $tea.Model {
   brandCode: string;
   // 同店上年同期评分
   existingAmtLastYear: string;
+  // 年月日
+  date: string;
   static names(): { [key: string]: string } {
     return {
       month: 'month',
@@ -160,6 +162,7 @@ export class IndexData extends $tea.Model {
       shopTag: 'shop_tag',
       brandCode: 'brand_code',
       existingAmtLastYear: 'existing_amt_last_year',
+      date: 'date',
     };
   }
 
@@ -180,6 +183,7 @@ export class IndexData extends $tea.Model {
       shopTag: 'string',
       brandCode: 'string',
       existingAmtLastYear: 'string',
+      date: 'string',
     };
   }
 
@@ -258,6 +262,77 @@ export class PageInfo extends $tea.Model {
   }
 }
 
+export class QueryAgentSseRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户ID
+  userId: string;
+  // 会话id
+  sessionId: string;
+  // 查询词条
+  query: string;
+  // 会话存活时长，单位毫秒，默认5分钟，最大不超过10分钟
+  aliveTime: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userId: 'user_id',
+      sessionId: 'session_id',
+      query: 'query',
+      aliveTime: 'alive_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userId: 'string',
+      sessionId: 'string',
+      query: 'string',
+      aliveTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAgentSseResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 消息
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryIndexresearchBrandRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -265,13 +340,19 @@ export class QueryIndexresearchBrandRequest extends $tea.Model {
   // 品牌编码
   brandCode: string;
   // 时间月份yyyyMM
-  month: string;
+  month?: string;
+  // test-测试数据。prod-正式数据
+  dataType: string;
+  // 时间频次 m-月/d-天
+  timeType: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       brandCode: 'brand_code',
       month: 'month',
+      dataType: 'data_type',
+      timeType: 'time_type',
     };
   }
 
@@ -281,6 +362,8 @@ export class QueryIndexresearchBrandRequest extends $tea.Model {
       productInstanceId: 'string',
       brandCode: 'string',
       month: 'string',
+      dataType: 'string',
+      timeType: 'string',
     };
   }
 
@@ -1556,7 +1639,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.20",
+          sdk_version: "1.0.22",
           _prod_code: "COLLABINV",
           _prod_channel: "default",
         };
@@ -1602,6 +1685,25 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: sse查询
+   * Summary: sse查询
+   */
+  async queryAgentSse(request: QueryAgentSseRequest): Promise<QueryAgentSseResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAgentSseEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: sse查询
+   * Summary: sse查询
+   */
+  async queryAgentSseEx(request: QueryAgentSseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAgentSseResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAgentSseResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.agent.sse.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAgentSseResponse({}));
   }
 
   /**
