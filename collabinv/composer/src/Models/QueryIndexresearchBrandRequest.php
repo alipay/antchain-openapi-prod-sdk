@@ -30,17 +30,32 @@ class QueryIndexresearchBrandRequest extends Model
      * @var string
      */
     public $month;
+
+    // test-测试数据。prod-正式数据
+    /**
+     * @var string
+     */
+    public $dataType;
+
+    // 时间频次 m-月/d-天
+    /**
+     * @var string
+     */
+    public $timeType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'brandCode'         => 'brand_code',
         'month'             => 'month',
+        'dataType'          => 'data_type',
+        'timeType'          => 'time_type',
     ];
 
     public function validate()
     {
         Model::validateRequired('brandCode', $this->brandCode, true);
-        Model::validateRequired('month', $this->month, true);
+        Model::validateRequired('dataType', $this->dataType, true);
+        Model::validateRequired('timeType', $this->timeType, true);
     }
 
     public function toMap()
@@ -57,6 +72,12 @@ class QueryIndexresearchBrandRequest extends Model
         }
         if (null !== $this->month) {
             $res['month'] = $this->month;
+        }
+        if (null !== $this->dataType) {
+            $res['data_type'] = $this->dataType;
+        }
+        if (null !== $this->timeType) {
+            $res['time_type'] = $this->timeType;
         }
 
         return $res;
@@ -81,6 +102,12 @@ class QueryIndexresearchBrandRequest extends Model
         }
         if (isset($map['month'])) {
             $model->month = $map['month'];
+        }
+        if (isset($map['data_type'])) {
+            $model->dataType = $map['data_type'];
+        }
+        if (isset($map['time_type'])) {
+            $model->timeType = $map['time_type'];
         }
 
         return $model;

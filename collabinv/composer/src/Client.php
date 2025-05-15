@@ -17,6 +17,8 @@ use AntChain\COLLABINV\Models\ExecModelSampletaskRequest;
 use AntChain\COLLABINV\Models\ExecModelSampletaskResponse;
 use AntChain\COLLABINV\Models\PushModelSamplefileRequest;
 use AntChain\COLLABINV\Models\PushModelSamplefileResponse;
+use AntChain\COLLABINV\Models\QueryAgentSseRequest;
+use AntChain\COLLABINV\Models\QueryAgentSseResponse;
 use AntChain\COLLABINV\Models\QueryIndexresearchBrandindexRequest;
 use AntChain\COLLABINV\Models\QueryIndexresearchBrandindexResponse;
 use AntChain\COLLABINV\Models\QueryIndexresearchBrandRequest;
@@ -188,7 +190,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.20',
+                    'sdk_version'      => '1.0.22',
                     '_prod_code'       => 'COLLABINV',
                     '_prod_channel'    => 'default',
                 ];
@@ -234,6 +236,39 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: sse查询
+     * Summary: sse查询.
+     *
+     * @param QueryAgentSseRequest $request
+     *
+     * @return QueryAgentSseResponse
+     */
+    public function queryAgentSse($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAgentSseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: sse查询
+     * Summary: sse查询.
+     *
+     * @param QueryAgentSseRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryAgentSseResponse
+     */
+    public function queryAgentSseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAgentSseResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.agent.sse.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

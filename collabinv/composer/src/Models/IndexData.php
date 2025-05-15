@@ -128,6 +128,14 @@ class IndexData extends Model
      * @var string
      */
     public $existingAmtLastYear;
+
+    // 年月日
+    /**
+     * @example 20220101
+     *
+     * @var string
+     */
+    public $date;
     protected $_name = [
         'month'               => 'month',
         'cityTier'            => 'city_tier',
@@ -144,6 +152,7 @@ class IndexData extends Model
         'shopTag'             => 'shop_tag',
         'brandCode'           => 'brand_code',
         'existingAmtLastYear' => 'existing_amt_last_year',
+        'date'                => 'date',
     ];
 
     public function validate()
@@ -163,6 +172,7 @@ class IndexData extends Model
         Model::validateRequired('shopTag', $this->shopTag, true);
         Model::validateRequired('brandCode', $this->brandCode, true);
         Model::validateRequired('existingAmtLastYear', $this->existingAmtLastYear, true);
+        Model::validateRequired('date', $this->date, true);
     }
 
     public function toMap()
@@ -212,6 +222,9 @@ class IndexData extends Model
         }
         if (null !== $this->existingAmtLastYear) {
             $res['existing_amt_last_year'] = $this->existingAmtLastYear;
+        }
+        if (null !== $this->date) {
+            $res['date'] = $this->date;
         }
 
         return $res;
@@ -269,6 +282,9 @@ class IndexData extends Model
         }
         if (isset($map['existing_amt_last_year'])) {
             $model->existingAmtLastYear = $map['existing_amt_last_year'];
+        }
+        if (isset($map['date'])) {
+            $model->date = $map['date'];
         }
 
         return $model;
