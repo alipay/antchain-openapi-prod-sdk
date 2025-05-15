@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.20',
+    sdk_version = '1.0.22',
     _prod_code = 'COLLABINV',
     _prod_channel = 'default'
   };
@@ -206,6 +206,8 @@ model IndexData {
   brandCode: string(name='brand_code', example='P100100'),
   // 同店上年同期评分
   existingAmtLastYear: string(name='existing_amt_last_year', example='23.45'),
+  // 年月日
+  date: string(name='date', example='20220101'),
 }
 
 // 调用统计
@@ -234,6 +236,50 @@ model PageInfo {
   pageSize: long(name='page_size', example='10'),
 }
 
+model QueryAgentSseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户ID
+  userId: string(name='user_id'),
+  // 会话id
+  sessionId: string(name='session_id'),
+  // 查询词条
+  query: string(name='query'),
+  // 会话存活时长，单位毫秒，默认5分钟，最大不超过10分钟
+  aliveTime: long(name='alive_time'),
+}
+
+model QueryAgentSseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 消息
+  message?: string(name='message'),
+}
+
+/**
+ * Description: sse查询
+ * Summary: sse查询
+ */
+async function queryAgentSse(request: QueryAgentSseRequest): QueryAgentSseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAgentSseEx(request, headers, runtime);
+}
+
+/**
+ * Description: sse查询
+ * Summary: sse查询
+ */
+async function queryAgentSseEx(request: QueryAgentSseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAgentSseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.agent.sse.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryIndexresearchBrandRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -241,7 +287,11 @@ model QueryIndexresearchBrandRequest = {
   // 品牌编码
   brandCode: string(name='brand_code'),
   // 时间月份yyyyMM
-  month: string(name='month'),
+  month?: string(name='month'),
+  // test-测试数据。prod-正式数据
+  dataType: string(name='data_type'),
+  // 时间频次 m-月/d-天
+  timeType: string(name='time_type'),
 }
 
 model QueryIndexresearchBrandResponse = {
