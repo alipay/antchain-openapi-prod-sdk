@@ -121,6 +121,8 @@ use AntChain\SECURITYTECH\Models\SubmitDeviceriskReportRequest;
 use AntChain\SECURITYTECH\Models\SubmitDeviceriskReportResponse;
 use AntChain\SECURITYTECH\Models\UploadEtcWaybillRequest;
 use AntChain\SECURITYTECH\Models\UploadEtcWaybillResponse;
+use AntChain\SECURITYTECH\Models\UploadSimQrcodeRequest;
+use AntChain\SECURITYTECH\Models\UploadSimQrcodeResponse;
 use AntChain\SECURITYTECH\Models\VerifyIifaaDeviceRequest;
 use AntChain\SECURITYTECH\Models\VerifyIifaaDeviceResponse;
 use AntChain\Util\UtilClient;
@@ -270,7 +272,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.4.12',
+                    'sdk_version'      => '1.4.13',
                     '_prod_code'       => 'SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -912,6 +914,39 @@ class Client
         Utils::validateModel($request);
 
         return ConfirmSimOrderResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.sim.order.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 门店一体机车辆码上传解析接口
+     * Summary: 门店一体机车辆码上传解析接口.
+     *
+     * @param UploadSimQrcodeRequest $request
+     *
+     * @return UploadSimQrcodeResponse
+     */
+    public function uploadSimQrcode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadSimQrcodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 门店一体机车辆码上传解析接口
+     * Summary: 门店一体机车辆码上传解析接口.
+     *
+     * @param UploadSimQrcodeRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return UploadSimQrcodeResponse
+     */
+    public function uploadSimQrcodeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadSimQrcodeResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.sim.qrcode.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
