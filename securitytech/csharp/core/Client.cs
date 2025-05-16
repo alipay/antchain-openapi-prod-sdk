@@ -137,7 +137,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.12"},
+                        {"sdk_version", "1.4.13"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.12"},
+                        {"sdk_version", "1.4.13"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1079,6 +1079,48 @@ namespace AntChain.SDK.SECURITYTECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ConfirmSimOrderResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.sim.order.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 门店一体机车辆码上传解析接口
+         * Summary: 门店一体机车辆码上传解析接口
+         */
+        public UploadSimQrcodeResponse UploadSimQrcode(UploadSimQrcodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadSimQrcodeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 门店一体机车辆码上传解析接口
+         * Summary: 门店一体机车辆码上传解析接口
+         */
+        public async Task<UploadSimQrcodeResponse> UploadSimQrcodeAsync(UploadSimQrcodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadSimQrcodeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 门店一体机车辆码上传解析接口
+         * Summary: 门店一体机车辆码上传解析接口
+         */
+        public UploadSimQrcodeResponse UploadSimQrcodeEx(UploadSimQrcodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadSimQrcodeResponse>(DoRequest("1.0", "antsecuritytech.gateway.sim.qrcode.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 门店一体机车辆码上传解析接口
+         * Summary: 门店一体机车辆码上传解析接口
+         */
+        public async Task<UploadSimQrcodeResponse> UploadSimQrcodeExAsync(UploadSimQrcodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadSimQrcodeResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.sim.qrcode.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
