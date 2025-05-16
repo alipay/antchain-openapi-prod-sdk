@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.12',
+    sdk_version = '1.4.13',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -1526,6 +1526,54 @@ async function confirmSimOrder(request: ConfirmSimOrderRequest): ConfirmSimOrder
 async function confirmSimOrderEx(request: ConfirmSimOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmSimOrderResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.sim.order.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadSimQrcodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备号
+  deviceId: string(name='device_id'),
+  // 登录态token
+  token: string(name='token'),
+  // 车型
+  vehicleModel: string(name='vehicle_model'),
+  // 解析类型
+  parseType: string(name='parse_type'),
+  // base64后的图象数据
+  base64Data: string(name='base64_data'),
+}
+
+model UploadSimQrcodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 解析后结果
+  parsedContent?: string(name='parsed_content'),
+  // 非必填	json字符串，扩展预留
+  extraInfo?: string(name='extra_info'),
+}
+
+/**
+ * Description: 门店一体机车辆码上传解析接口
+ * Summary: 门店一体机车辆码上传解析接口
+ */
+async function uploadSimQrcode(request: UploadSimQrcodeRequest): UploadSimQrcodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadSimQrcodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 门店一体机车辆码上传解析接口
+ * Summary: 门店一体机车辆码上传解析接口
+ */
+async function uploadSimQrcodeEx(request: UploadSimQrcodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadSimQrcodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.sim.qrcode.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateBssecpicRequest = {
