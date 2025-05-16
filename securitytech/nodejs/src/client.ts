@@ -2811,6 +2811,85 @@ export class ConfirmSimOrderResponse extends $tea.Model {
   }
 }
 
+export class UploadSimQrcodeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备号
+  deviceId: string;
+  // 登录态token
+  token: string;
+  // 车型
+  vehicleModel: string;
+  // 解析类型
+  parseType: string;
+  // base64后的图象数据
+  base64Data: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceId: 'device_id',
+      token: 'token',
+      vehicleModel: 'vehicle_model',
+      parseType: 'parse_type',
+      base64Data: 'base64_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceId: 'string',
+      token: 'string',
+      vehicleModel: 'string',
+      parseType: 'string',
+      base64Data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadSimQrcodeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 解析后结果
+  parsedContent?: string;
+  // 非必填	json字符串，扩展预留
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      parsedContent: 'parsed_content',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      parsedContent: 'string',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateBssecpicRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -6117,7 +6196,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.12",
+          sdk_version: "1.4.13",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -6507,6 +6586,25 @@ export default class Client {
   async confirmSimOrderEx(request: ConfirmSimOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmSimOrderResponse> {
     Util.validateModel(request);
     return $tea.cast<ConfirmSimOrderResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.sim.order.confirm", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConfirmSimOrderResponse({}));
+  }
+
+  /**
+   * Description: 门店一体机车辆码上传解析接口
+   * Summary: 门店一体机车辆码上传解析接口
+   */
+  async uploadSimQrcode(request: UploadSimQrcodeRequest): Promise<UploadSimQrcodeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadSimQrcodeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 门店一体机车辆码上传解析接口
+   * Summary: 门店一体机车辆码上传解析接口
+   */
+  async uploadSimQrcodeEx(request: UploadSimQrcodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadSimQrcodeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadSimQrcodeResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.sim.qrcode.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadSimQrcodeResponse({}));
   }
 
   /**
