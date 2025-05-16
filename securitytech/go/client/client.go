@@ -3611,6 +3611,111 @@ func (s *ConfirmSimOrderResponse) SetResultMsg(v string) *ConfirmSimOrderRespons
 	return s
 }
 
+type UploadSimQrcodeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备号
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 登录态token
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+	// 车型
+	VehicleModel *string `json:"vehicle_model,omitempty" xml:"vehicle_model,omitempty" require:"true"`
+	// 解析类型
+	ParseType *string `json:"parse_type,omitempty" xml:"parse_type,omitempty" require:"true"`
+	// base64后的图象数据
+	Base64Data *string `json:"base64_data,omitempty" xml:"base64_data,omitempty" require:"true"`
+}
+
+func (s UploadSimQrcodeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadSimQrcodeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadSimQrcodeRequest) SetAuthToken(v string) *UploadSimQrcodeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadSimQrcodeRequest) SetProductInstanceId(v string) *UploadSimQrcodeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadSimQrcodeRequest) SetDeviceId(v string) *UploadSimQrcodeRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *UploadSimQrcodeRequest) SetToken(v string) *UploadSimQrcodeRequest {
+	s.Token = &v
+	return s
+}
+
+func (s *UploadSimQrcodeRequest) SetVehicleModel(v string) *UploadSimQrcodeRequest {
+	s.VehicleModel = &v
+	return s
+}
+
+func (s *UploadSimQrcodeRequest) SetParseType(v string) *UploadSimQrcodeRequest {
+	s.ParseType = &v
+	return s
+}
+
+func (s *UploadSimQrcodeRequest) SetBase64Data(v string) *UploadSimQrcodeRequest {
+	s.Base64Data = &v
+	return s
+}
+
+type UploadSimQrcodeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 解析后结果
+	ParsedContent *string `json:"parsed_content,omitempty" xml:"parsed_content,omitempty"`
+	// 非必填	json字符串，扩展预留
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s UploadSimQrcodeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadSimQrcodeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadSimQrcodeResponse) SetReqMsgId(v string) *UploadSimQrcodeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadSimQrcodeResponse) SetResultCode(v string) *UploadSimQrcodeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadSimQrcodeResponse) SetResultMsg(v string) *UploadSimQrcodeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadSimQrcodeResponse) SetParsedContent(v string) *UploadSimQrcodeResponse {
+	s.ParsedContent = &v
+	return s
+}
+
+func (s *UploadSimQrcodeResponse) SetExtraInfo(v string) *UploadSimQrcodeResponse {
+	s.ExtraInfo = &v
+	return s
+}
+
 type CreateBssecpicRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -8040,7 +8145,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.12"),
+				"sdk_version":      tea.String("1.4.13"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -8705,6 +8810,40 @@ func (client *Client) ConfirmSimOrderEx(request *ConfirmSimOrderRequest, headers
 	}
 	_result = &ConfirmSimOrderResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.sim.order.confirm"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 门店一体机车辆码上传解析接口
+ * Summary: 门店一体机车辆码上传解析接口
+ */
+func (client *Client) UploadSimQrcode(request *UploadSimQrcodeRequest) (_result *UploadSimQrcodeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadSimQrcodeResponse{}
+	_body, _err := client.UploadSimQrcodeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 门店一体机车辆码上传解析接口
+ * Summary: 门店一体机车辆码上传解析接口
+ */
+func (client *Client) UploadSimQrcodeEx(request *UploadSimQrcodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadSimQrcodeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadSimQrcodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.sim.qrcode.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
