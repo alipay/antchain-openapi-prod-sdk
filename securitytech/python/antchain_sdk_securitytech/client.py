@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.12',
+                    'sdk_version': '1.4.13',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.12',
+                    'sdk_version': '1.4.13',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -1285,6 +1285,62 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.ConfirmSimOrderResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.sim.order.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_sim_qrcode(
+        self,
+        request: securitytech_models.UploadSimQrcodeRequest,
+    ) -> securitytech_models.UploadSimQrcodeResponse:
+        """
+        Description: 门店一体机车辆码上传解析接口
+        Summary: 门店一体机车辆码上传解析接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_sim_qrcode_ex(request, headers, runtime)
+
+    async def upload_sim_qrcode_async(
+        self,
+        request: securitytech_models.UploadSimQrcodeRequest,
+    ) -> securitytech_models.UploadSimQrcodeResponse:
+        """
+        Description: 门店一体机车辆码上传解析接口
+        Summary: 门店一体机车辆码上传解析接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_sim_qrcode_ex_async(request, headers, runtime)
+
+    def upload_sim_qrcode_ex(
+        self,
+        request: securitytech_models.UploadSimQrcodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.UploadSimQrcodeResponse:
+        """
+        Description: 门店一体机车辆码上传解析接口
+        Summary: 门店一体机车辆码上传解析接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.UploadSimQrcodeResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.sim.qrcode.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_sim_qrcode_ex_async(
+        self,
+        request: securitytech_models.UploadSimQrcodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.UploadSimQrcodeResponse:
+        """
+        Description: 门店一体机车辆码上传解析接口
+        Summary: 门店一体机车辆码上传解析接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.UploadSimQrcodeResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.sim.qrcode.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_bssecpic(

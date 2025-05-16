@@ -4617,6 +4617,135 @@ class ConfirmSimOrderResponse(TeaModel):
         return self
 
 
+class UploadSimQrcodeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        device_id: str = None,
+        token: str = None,
+        vehicle_model: str = None,
+        parse_type: str = None,
+        base_64data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备号
+        self.device_id = device_id
+        # 登录态token
+        self.token = token
+        # 车型
+        self.vehicle_model = vehicle_model
+        # 解析类型
+        self.parse_type = parse_type
+        # base64后的图象数据
+        self.base_64data = base_64data
+
+    def validate(self):
+        self.validate_required(self.device_id, 'device_id')
+        self.validate_required(self.token, 'token')
+        self.validate_required(self.vehicle_model, 'vehicle_model')
+        self.validate_required(self.parse_type, 'parse_type')
+        self.validate_required(self.base_64data, 'base_64data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.device_id is not None:
+            result['device_id'] = self.device_id
+        if self.token is not None:
+            result['token'] = self.token
+        if self.vehicle_model is not None:
+            result['vehicle_model'] = self.vehicle_model
+        if self.parse_type is not None:
+            result['parse_type'] = self.parse_type
+        if self.base_64data is not None:
+            result['base64_data'] = self.base_64data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('device_id') is not None:
+            self.device_id = m.get('device_id')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        if m.get('vehicle_model') is not None:
+            self.vehicle_model = m.get('vehicle_model')
+        if m.get('parse_type') is not None:
+            self.parse_type = m.get('parse_type')
+        if m.get('base64_data') is not None:
+            self.base_64data = m.get('base64_data')
+        return self
+
+
+class UploadSimQrcodeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        parsed_content: str = None,
+        extra_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 解析后结果
+        self.parsed_content = parsed_content
+        # 非必填	json字符串，扩展预留
+        self.extra_info = extra_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.parsed_content is not None:
+            result['parsed_content'] = self.parsed_content
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('parsed_content') is not None:
+            self.parsed_content = m.get('parsed_content')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
+        return self
+
+
 class CreateBssecpicRequest(TeaModel):
     def __init__(
         self,
