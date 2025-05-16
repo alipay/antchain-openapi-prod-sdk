@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.4.12"),
+                    new TeaPair("sdk_version", "1.4.13"),
                     new TeaPair("_prod_code", "SECURITYTECH"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -526,6 +526,25 @@ public class Client {
     public ConfirmSimOrderResponse confirmSimOrderEx(ConfirmSimOrderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.sim.order.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmSimOrderResponse());
+    }
+
+    /**
+     * Description: 门店一体机车辆码上传解析接口
+     * Summary: 门店一体机车辆码上传解析接口
+     */
+    public UploadSimQrcodeResponse uploadSimQrcode(UploadSimQrcodeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadSimQrcodeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 门店一体机车辆码上传解析接口
+     * Summary: 门店一体机车辆码上传解析接口
+     */
+    public UploadSimQrcodeResponse uploadSimQrcodeEx(UploadSimQrcodeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.sim.qrcode.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadSimQrcodeResponse());
     }
 
     /**

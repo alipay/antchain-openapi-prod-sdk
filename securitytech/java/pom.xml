@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-securitytech</artifactId>
-  <version>1.4.12</version>
+  <version>1.4.13</version>
   <packaging>jar</packaging>
   <name>openapi-securitytech</name>
   <description>Ant Chain SECURITYTECH SDK for Java
