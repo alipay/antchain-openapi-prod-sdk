@@ -42,11 +42,6 @@ namespace AntChain.SDK.CORLAB.Models
         [Validation(Required=true)]
         public List<string> ProductCodes { get; set; }
 
-        // 样本模版编码
-        [NameInMap("template_code")]
-        [Validation(Required=true)]
-        public string TemplateCode { get; set; }
-
         // 样本记录名，不传为file_id
         [NameInMap("sample_file_name")]
         [Validation(Required=false)]

@@ -18,10 +18,10 @@ namespace AntChain.SDK.CORLAB.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 产品码，不传者返回该用户下所有产品，多个用逗号分隔
+        // 产品码，数组形式
         [NameInMap("product_codes")]
         [Validation(Required=true)]
-        public string ProductCodes { get; set; }
+        public List<string> ProductCodes { get; set; }
 
     }
 

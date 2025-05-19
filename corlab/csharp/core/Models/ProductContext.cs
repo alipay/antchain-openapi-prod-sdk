@@ -25,6 +25,11 @@ namespace AntChain.SDK.CORLAB.Models
         [Validation(Required=true)]
         public List<TemplateContext> TemplateContext { get; set; }
 
+        // 产品模型结果字段
+        [NameInMap("score_fields")]
+        [Validation(Required=true)]
+        public List<string> ScoreFields { get; set; }
+
     }
 
 }
