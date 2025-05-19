@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.17"),
+                    new TeaPair("sdk_version", "1.3.22"),
                     new TeaPair("_prod_code", "DEMOSDK"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -302,6 +302,47 @@ public class Client {
     public QueryCacheLimitResponse queryCacheLimitEx(QueryCacheLimitRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.cache.limit.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCacheLimitResponse());
+    }
+
+    /**
+     * Description: 个人工作台二期测试使用
+     * Summary: 个人工作台二期测试使用
+     */
+    public ApiFileUploadResponse apiFileUpload(ApiFileUploadRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.apiFileUploadEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期测试使用
+     * Summary: 个人工作台二期测试使用
+     */
+    public ApiFileUploadResponse apiFileUploadEx(ApiFileUploadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antchain.demosdk.file.upload.api"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                ApiFileUploadResponse apiFileUploadResponse = ApiFileUploadResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return apiFileUploadResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.file.upload.api", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApiFileUploadResponse());
     }
 
     /**
@@ -492,6 +533,63 @@ public class Client {
     public ImportAbcdOneResponse importAbcdOneEx(ImportAbcdOneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.abcd.one.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportAbcdOneResponse());
+    }
+
+    /**
+     * Description: 个人工作台二期分组路由灰度测试接口
+     * Summary: 个人工作台二期分组路由灰度测试接口
+     */
+    public ResetAbcdLimitResponse resetAbcdLimit(ResetAbcdLimitRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.resetAbcdLimitEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期分组路由灰度测试接口
+     * Summary: 个人工作台二期分组路由灰度测试接口
+     */
+    public ResetAbcdLimitResponse resetAbcdLimitEx(ResetAbcdLimitRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.abcd.limit.reset", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ResetAbcdLimitResponse());
+    }
+
+    /**
+     * Description: 个人工作台二期分组路由测试接口
+     * Summary: 个人工作台二期分组路由测试接口
+     */
+    public RegisterAbcdLimitResponse registerAbcdLimit(RegisterAbcdLimitRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.registerAbcdLimitEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期分组路由测试接口
+     * Summary: 个人工作台二期分组路由测试接口
+     */
+    public RegisterAbcdLimitResponse registerAbcdLimitEx(RegisterAbcdLimitRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.abcd.limit.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterAbcdLimitResponse());
+    }
+
+    /**
+     * Description: 测试接口
+     * Summary: 测试接口
+     */
+    public ParamLiuyzTestResponse paramLiuyzTest(ParamLiuyzTestRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.paramLiuyzTestEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 测试接口
+     * Summary: 测试接口
+     */
+    public ParamLiuyzTestResponse paramLiuyzTestEx(ParamLiuyzTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.liuyz.test.param", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ParamLiuyzTestResponse());
     }
 
     /**

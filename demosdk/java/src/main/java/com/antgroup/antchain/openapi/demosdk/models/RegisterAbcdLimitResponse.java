@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demosdk.models;
 
 import com.aliyun.tea.*;
 
-public class VerifyApiListResponse extends TeaModel {
+public class RegisterAbcdLimitResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,28 +16,20 @@ public class VerifyApiListResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 状态
+    // 返回结果
     @NameInMap("stauts")
     public String stauts;
 
-    // 描述
+    // 返回结果
     @NameInMap("msg")
     public String msg;
 
-    // copy
-    @NameInMap("init_desc")
-    public String initDesc;
-
-    // 组合返回请求结果
-    @NameInMap("init_pack")
-    public InitPack initPack;
-
-    public static VerifyApiListResponse build(java.util.Map<String, ?> map) throws Exception {
-        VerifyApiListResponse self = new VerifyApiListResponse();
+    public static RegisterAbcdLimitResponse build(java.util.Map<String, ?> map) throws Exception {
+        RegisterAbcdLimitResponse self = new RegisterAbcdLimitResponse();
         return TeaModel.build(map, self);
     }
 
-    public VerifyApiListResponse setReqMsgId(String reqMsgId) {
+    public RegisterAbcdLimitResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -45,7 +37,7 @@ public class VerifyApiListResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public VerifyApiListResponse setResultCode(String resultCode) {
+    public RegisterAbcdLimitResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -53,7 +45,7 @@ public class VerifyApiListResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public VerifyApiListResponse setResultMsg(String resultMsg) {
+    public RegisterAbcdLimitResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -61,7 +53,7 @@ public class VerifyApiListResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public VerifyApiListResponse setStauts(String stauts) {
+    public RegisterAbcdLimitResponse setStauts(String stauts) {
         this.stauts = stauts;
         return this;
     }
@@ -69,28 +61,12 @@ public class VerifyApiListResponse extends TeaModel {
         return this.stauts;
     }
 
-    public VerifyApiListResponse setMsg(String msg) {
+    public RegisterAbcdLimitResponse setMsg(String msg) {
         this.msg = msg;
         return this;
     }
     public String getMsg() {
         return this.msg;
-    }
-
-    public VerifyApiListResponse setInitDesc(String initDesc) {
-        this.initDesc = initDesc;
-        return this;
-    }
-    public String getInitDesc() {
-        return this.initDesc;
-    }
-
-    public VerifyApiListResponse setInitPack(InitPack initPack) {
-        this.initPack = initPack;
-        return this;
-    }
-    public InitPack getInitPack() {
-        return this.initPack;
     }
 
 }
