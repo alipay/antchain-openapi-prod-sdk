@@ -33,11 +33,6 @@ public class CreateModelbackTaskRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<String> productCodes;
 
-    // 样本模版编码
-    @NameInMap("template_code")
-    @Validation(required = true)
-    public String templateCode;
-
     // 样本记录名，不传为file_id
     @NameInMap("sample_file_name")
     public String sampleFileName;
@@ -93,14 +88,6 @@ public class CreateModelbackTaskRequest extends TeaModel {
     }
     public java.util.List<String> getProductCodes() {
         return this.productCodes;
-    }
-
-    public CreateModelbackTaskRequest setTemplateCode(String templateCode) {
-        this.templateCode = templateCode;
-        return this;
-    }
-    public String getTemplateCode() {
-        return this.templateCode;
     }
 
     public CreateModelbackTaskRequest setSampleFileName(String sampleFileName) {

@@ -11,10 +11,10 @@ public class QueryModelbackProductRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 产品码，不传者返回该用户下所有产品，多个用逗号分隔
+    // 产品码，数组形式
     @NameInMap("product_codes")
     @Validation(required = true)
-    public String productCodes;
+    public java.util.List<String> productCodes;
 
     public static QueryModelbackProductRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryModelbackProductRequest self = new QueryModelbackProductRequest();
@@ -37,11 +37,11 @@ public class QueryModelbackProductRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryModelbackProductRequest setProductCodes(String productCodes) {
+    public QueryModelbackProductRequest setProductCodes(java.util.List<String> productCodes) {
         this.productCodes = productCodes;
         return this;
     }
-    public String getProductCodes() {
+    public java.util.List<String> getProductCodes() {
         return this.productCodes;
     }
 

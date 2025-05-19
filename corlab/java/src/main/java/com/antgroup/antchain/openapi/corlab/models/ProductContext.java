@@ -19,6 +19,11 @@ public class ProductContext extends TeaModel {
     @Validation(required = true)
     public java.util.List<TemplateContext> templateContext;
 
+    // 产品模型结果字段
+    @NameInMap("score_fields")
+    @Validation(required = true)
+    public java.util.List<String> scoreFields;
+
     public static ProductContext build(java.util.Map<String, ?> map) throws Exception {
         ProductContext self = new ProductContext();
         return TeaModel.build(map, self);
@@ -46,6 +51,14 @@ public class ProductContext extends TeaModel {
     }
     public java.util.List<TemplateContext> getTemplateContext() {
         return this.templateContext;
+    }
+
+    public ProductContext setScoreFields(java.util.List<String> scoreFields) {
+        this.scoreFields = scoreFields;
+        return this;
+    }
+    public java.util.List<String> getScoreFields() {
+        return this.scoreFields;
     }
 
 }
