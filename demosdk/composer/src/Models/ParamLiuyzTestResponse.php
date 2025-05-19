@@ -6,7 +6,7 @@ namespace AntChain\DEMOSDK\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class VerifyApiListResponse extends Model
+class ParamLiuyzTestResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,37 +26,16 @@ class VerifyApiListResponse extends Model
      */
     public $resultMsg;
 
-    // 状态
+    // 0000
     /**
      * @var string
      */
-    public $stauts;
-
-    // 描述
-    /**
-     * @var string
-     */
-    public $msg;
-
-    // copy
-    /**
-     * @var string
-     */
-    public $initDesc;
-
-    // 组合返回请求结果
-    /**
-     * @var InitPack
-     */
-    public $initPack;
+    public $code;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'stauts'     => 'stauts',
-        'msg'        => 'msg',
-        'initDesc'   => 'init_desc',
-        'initPack'   => 'init_pack',
+        'code'       => 'code',
     ];
 
     public function validate()
@@ -75,17 +54,8 @@ class VerifyApiListResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->stauts) {
-            $res['stauts'] = $this->stauts;
-        }
-        if (null !== $this->msg) {
-            $res['msg'] = $this->msg;
-        }
-        if (null !== $this->initDesc) {
-            $res['init_desc'] = $this->initDesc;
-        }
-        if (null !== $this->initPack) {
-            $res['init_pack'] = null !== $this->initPack ? $this->initPack->toMap() : null;
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
         }
 
         return $res;
@@ -94,7 +64,7 @@ class VerifyApiListResponse extends Model
     /**
      * @param array $map
      *
-     * @return VerifyApiListResponse
+     * @return ParamLiuyzTestResponse
      */
     public static function fromMap($map = [])
     {
@@ -108,17 +78,8 @@ class VerifyApiListResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['stauts'])) {
-            $model->stauts = $map['stauts'];
-        }
-        if (isset($map['msg'])) {
-            $model->msg = $map['msg'];
-        }
-        if (isset($map['init_desc'])) {
-            $model->initDesc = $map['init_desc'];
-        }
-        if (isset($map['init_pack'])) {
-            $model->initPack = InitPack::fromMap($map['init_pack']);
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
         }
 
         return $model;

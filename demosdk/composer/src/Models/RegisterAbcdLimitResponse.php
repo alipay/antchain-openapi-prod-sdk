@@ -6,7 +6,7 @@ namespace AntChain\DEMOSDK\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class VerifyApiListResponse extends Model
+class RegisterAbcdLimitResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,37 +26,23 @@ class VerifyApiListResponse extends Model
      */
     public $resultMsg;
 
-    // 状态
+    // 返回结果
     /**
      * @var string
      */
     public $stauts;
 
-    // 描述
+    // 返回结果
     /**
      * @var string
      */
     public $msg;
-
-    // copy
-    /**
-     * @var string
-     */
-    public $initDesc;
-
-    // 组合返回请求结果
-    /**
-     * @var InitPack
-     */
-    public $initPack;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'stauts'     => 'stauts',
         'msg'        => 'msg',
-        'initDesc'   => 'init_desc',
-        'initPack'   => 'init_pack',
     ];
 
     public function validate()
@@ -81,12 +67,6 @@ class VerifyApiListResponse extends Model
         if (null !== $this->msg) {
             $res['msg'] = $this->msg;
         }
-        if (null !== $this->initDesc) {
-            $res['init_desc'] = $this->initDesc;
-        }
-        if (null !== $this->initPack) {
-            $res['init_pack'] = null !== $this->initPack ? $this->initPack->toMap() : null;
-        }
 
         return $res;
     }
@@ -94,7 +74,7 @@ class VerifyApiListResponse extends Model
     /**
      * @param array $map
      *
-     * @return VerifyApiListResponse
+     * @return RegisterAbcdLimitResponse
      */
     public static function fromMap($map = [])
     {
@@ -113,12 +93,6 @@ class VerifyApiListResponse extends Model
         }
         if (isset($map['msg'])) {
             $model->msg = $map['msg'];
-        }
-        if (isset($map['init_desc'])) {
-            $model->initDesc = $map['init_desc'];
-        }
-        if (isset($map['init_pack'])) {
-            $model->initPack = InitPack::fromMap($map['init_pack']);
         }
 
         return $model;

@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\DEMOSDK\Models\ApiFileUploadRequest;
+use AntChain\DEMOSDK\Models\ApiFileUploadResponse;
 use AntChain\DEMOSDK\Models\BindAaaBbbCccRequest;
 use AntChain\DEMOSDK\Models\BindAaaBbbCccResponse;
 use AntChain\DEMOSDK\Models\BindXxxRequest;
@@ -23,6 +25,8 @@ use AntChain\DEMOSDK\Models\ImportBbbCciRequest;
 use AntChain\DEMOSDK\Models\ImportBbbCciResponse;
 use AntChain\DEMOSDK\Models\ImportCreateTestRequest;
 use AntChain\DEMOSDK\Models\ImportCreateTestResponse;
+use AntChain\DEMOSDK\Models\ParamLiuyzTestRequest;
+use AntChain\DEMOSDK\Models\ParamLiuyzTestResponse;
 use AntChain\DEMOSDK\Models\QueryAaaCcdRequest;
 use AntChain\DEMOSDK\Models\QueryAaaCcdResponse;
 use AntChain\DEMOSDK\Models\QueryAbcdOneRequest;
@@ -37,6 +41,10 @@ use AntChain\DEMOSDK\Models\QueryTimeLimitRequest;
 use AntChain\DEMOSDK\Models\QueryTimeLimitResponse;
 use AntChain\DEMOSDK\Models\QueryWorkbenchTestRequest;
 use AntChain\DEMOSDK\Models\QueryWorkbenchTestResponse;
+use AntChain\DEMOSDK\Models\RegisterAbcdLimitRequest;
+use AntChain\DEMOSDK\Models\RegisterAbcdLimitResponse;
+use AntChain\DEMOSDK\Models\ResetAbcdLimitRequest;
+use AntChain\DEMOSDK\Models\ResetAbcdLimitResponse;
 use AntChain\DEMOSDK\Models\ResetBbbCccRequest;
 use AntChain\DEMOSDK\Models\ResetBbbCccResponse;
 use AntChain\DEMOSDK\Models\VerifyApiListRequest;
@@ -188,7 +196,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.17',
+                    'sdk_version'      => '1.3.22',
                     '_prod_code'       => 'DEMOSDK',
                     '_prod_channel'    => 'default',
                 ];
@@ -404,6 +412,58 @@ class Client
         Utils::validateModel($request);
 
         return QueryCacheLimitResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.cache.limit.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人工作台二期测试使用
+     * Summary: 个人工作台二期测试使用.
+     *
+     * @param ApiFileUploadRequest $request
+     *
+     * @return ApiFileUploadResponse
+     */
+    public function apiFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->apiFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期测试使用
+     * Summary: 个人工作台二期测试使用.
+     *
+     * @param ApiFileUploadRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return ApiFileUploadResponse
+     */
+    public function apiFileUploadEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antchain.demosdk.file.upload.api',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new ApiFileUploadResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return ApiFileUploadResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.file.upload.api', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -734,6 +794,105 @@ class Client
         Utils::validateModel($request);
 
         return ImportAbcdOneResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.abcd.one.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人工作台二期分组路由灰度测试接口
+     * Summary: 个人工作台二期分组路由灰度测试接口.
+     *
+     * @param ResetAbcdLimitRequest $request
+     *
+     * @return ResetAbcdLimitResponse
+     */
+    public function resetAbcdLimit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->resetAbcdLimitEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期分组路由灰度测试接口
+     * Summary: 个人工作台二期分组路由灰度测试接口.
+     *
+     * @param ResetAbcdLimitRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return ResetAbcdLimitResponse
+     */
+    public function resetAbcdLimitEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ResetAbcdLimitResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.abcd.limit.reset', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人工作台二期分组路由测试接口
+     * Summary: 个人工作台二期分组路由测试接口.
+     *
+     * @param RegisterAbcdLimitRequest $request
+     *
+     * @return RegisterAbcdLimitResponse
+     */
+    public function registerAbcdLimit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerAbcdLimitEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期分组路由测试接口
+     * Summary: 个人工作台二期分组路由测试接口.
+     *
+     * @param RegisterAbcdLimitRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return RegisterAbcdLimitResponse
+     */
+    public function registerAbcdLimitEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterAbcdLimitResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.abcd.limit.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试接口
+     * Summary: 测试接口.
+     *
+     * @param ParamLiuyzTestRequest $request
+     *
+     * @return ParamLiuyzTestResponse
+     */
+    public function paramLiuyzTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->paramLiuyzTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试接口
+     * Summary: 测试接口.
+     *
+     * @param ParamLiuyzTestRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return ParamLiuyzTestResponse
+     */
+    public function paramLiuyzTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ParamLiuyzTestResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.liuyz.test.param', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
