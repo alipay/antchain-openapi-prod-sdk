@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.17',
+    sdk_version = '1.3.22',
     _prod_code = 'DEMOSDK',
     _prod_channel = 'default'
   };
@@ -179,6 +179,16 @@ model DemoClass {
 model ResultTest {
   // 姓名
   name?: string(name='name', example='张三'),
+}
+
+// InitPack
+model InitPack {
+  // 2022-11-07 14:48
+  time?: string(name='time', example='2022-11-07 14:48'),
+  // wanyi
+  operator?: string(name='operator', example='wanyi'),
+  // 1
+  count?: long(name='count', example='1'),
 }
 
 // 键值对
@@ -373,6 +383,64 @@ async function queryCacheLimit(request: QueryCacheLimitRequest): QueryCacheLimit
 async function queryCacheLimitEx(request: QueryCacheLimitRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCacheLimitResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.demosdk.cache.limit.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApiFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // string
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model ApiFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 个人工作台二期测试使用
+ * Summary: 个人工作台二期测试使用
+ */
+async function apiFileUpload(request: ApiFileUploadRequest): ApiFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return apiFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人工作台二期测试使用
+ * Summary: 个人工作台二期测试使用
+ */
+async function apiFileUploadEx(request: ApiFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApiFileUploadResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.demosdk.file.upload.api',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var apiFileUploadResponse = new ApiFileUploadResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return apiFileUploadResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.file.upload.api', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ResetBbbCccRequest = {
@@ -588,6 +656,10 @@ model VerifyApiListResponse = {
   stauts?: string(name='stauts'),
   // 描述
   msg?: string(name='msg'),
+  // copy
+  initDesc?: string(name='init_desc'),
+  // 组合返回请求结果
+  initPack?: InitPack(name='init_pack'),
 }
 
 /**
@@ -785,6 +857,134 @@ async function importAbcdOne(request: ImportAbcdOneRequest): ImportAbcdOneRespon
 async function importAbcdOneEx(request: ImportAbcdOneRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportAbcdOneResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.demosdk.abcd.one.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ResetAbcdLimitRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 超时时间
+  timeout?: string(name='timeout'),
+  // 请求编号
+  count?: string(name='count'),
+  // 请求时间
+  time?: string(name='time'),
+  // 请求描述
+  desc?: string(name='desc'),
+  // 操作者
+  operator?: string(name='operator'),
+}
+
+model ResetAbcdLimitResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  stauts?: string(name='stauts'),
+  // 返回描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 个人工作台二期分组路由灰度测试接口
+ * Summary: 个人工作台二期分组路由灰度测试接口
+ */
+async function resetAbcdLimit(request: ResetAbcdLimitRequest): ResetAbcdLimitResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return resetAbcdLimitEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人工作台二期分组路由灰度测试接口
+ * Summary: 个人工作台二期分组路由灰度测试接口
+ */
+async function resetAbcdLimitEx(request: ResetAbcdLimitRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ResetAbcdLimitResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.abcd.limit.reset', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterAbcdLimitRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 超时时间
+  timeout?: string(name='timeout'),
+  // 操作者
+  operator?: string(name='operator'),
+}
+
+model RegisterAbcdLimitResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  stauts?: string(name='stauts'),
+  // 返回结果
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 个人工作台二期分组路由测试接口
+ * Summary: 个人工作台二期分组路由测试接口
+ */
+async function registerAbcdLimit(request: RegisterAbcdLimitRequest): RegisterAbcdLimitResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerAbcdLimitEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人工作台二期分组路由测试接口
+ * Summary: 个人工作台二期分组路由测试接口
+ */
+async function registerAbcdLimitEx(request: RegisterAbcdLimitRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterAbcdLimitResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.abcd.limit.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ParamLiuyzTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // aaa
+  paramA: string(name='param_a'),
+}
+
+model ParamLiuyzTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 0000
+  code?: string(name='code'),
+}
+
+/**
+ * Description: 测试接口
+ * Summary: 测试接口
+ */
+async function paramLiuyzTest(request: ParamLiuyzTestRequest): ParamLiuyzTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return paramLiuyzTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试接口
+ * Summary: 测试接口
+ */
+async function paramLiuyzTestEx(request: ParamLiuyzTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ParamLiuyzTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.liuyz.test.param', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
