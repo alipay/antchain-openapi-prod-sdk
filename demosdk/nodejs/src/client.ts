@@ -136,6 +136,35 @@ export class ResultTest extends $tea.Model {
   }
 }
 
+// InitPack
+export class InitPack extends $tea.Model {
+  // 2022-11-07 14:48
+  time?: string;
+  // wanyi
+  operator?: string;
+  // 1
+  count?: number;
+  static names(): { [key: string]: string } {
+    return {
+      time: 'time',
+      operator: 'operator',
+      count: 'count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      time: 'string',
+      operator: 'string',
+      count: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 键值对
 export class XNameValuePair extends $tea.Model {
   // 键名
@@ -362,6 +391,67 @@ export class QueryCacheLimitRequest extends $tea.Model {
 }
 
 export class QueryCacheLimitResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApiFileUploadRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // string
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApiFileUploadResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -730,6 +820,10 @@ export class VerifyApiListResponse extends $tea.Model {
   stauts?: string;
   // 描述
   msg?: string;
+  // copy
+  initDesc?: string;
+  // 组合返回请求结果
+  initPack?: InitPack;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -737,6 +831,8 @@ export class VerifyApiListResponse extends $tea.Model {
       resultMsg: 'result_msg',
       stauts: 'stauts',
       msg: 'msg',
+      initDesc: 'init_desc',
+      initPack: 'init_pack',
     };
   }
 
@@ -747,6 +843,8 @@ export class VerifyApiListResponse extends $tea.Model {
       resultMsg: 'string',
       stauts: 'string',
       msg: 'string',
+      initDesc: 'string',
+      initPack: InitPack,
     };
   }
 
@@ -1043,6 +1141,211 @@ export class ImportAbcdOneResponse extends $tea.Model {
   }
 }
 
+export class ResetAbcdLimitRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 超时时间
+  timeout?: string;
+  // 请求编号
+  count?: string;
+  // 请求时间
+  time?: string;
+  // 请求描述
+  desc?: string;
+  // 操作者
+  operator?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      timeout: 'timeout',
+      count: 'count',
+      time: 'time',
+      desc: 'desc',
+      operator: 'operator',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      timeout: 'string',
+      count: 'string',
+      time: 'string',
+      desc: 'string',
+      operator: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResetAbcdLimitResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回结果
+  stauts?: string;
+  // 返回描述
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      stauts: 'stauts',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      stauts: 'string',
+      msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterAbcdLimitRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 超时时间
+  timeout?: string;
+  // 操作者
+  operator?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      timeout: 'timeout',
+      operator: 'operator',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      timeout: 'string',
+      operator: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterAbcdLimitResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回结果
+  stauts?: string;
+  // 返回结果
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      stauts: 'stauts',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      stauts: 'string',
+      msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ParamLiuyzTestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // aaa
+  paramA: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      paramA: 'param_a',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      paramA: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ParamLiuyzTestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 0000
+  code?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1244,7 +1547,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.17",
+          sdk_version: "1.3.22",
           _prod_code: "DEMOSDK",
           _prod_channel: "default",
         };
@@ -1410,6 +1713,47 @@ export default class Client {
   async queryCacheLimitEx(request: QueryCacheLimitRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCacheLimitResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryCacheLimitResponse>(await this.doRequest("1.0", "antchain.demosdk.cache.limit.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCacheLimitResponse({}));
+  }
+
+  /**
+   * Description: 个人工作台二期测试使用
+   * Summary: 个人工作台二期测试使用
+   */
+  async apiFileUpload(request: ApiFileUploadRequest): Promise<ApiFileUploadResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.apiFileUploadEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人工作台二期测试使用
+   * Summary: 个人工作台二期测试使用
+   */
+  async apiFileUploadEx(request: ApiFileUploadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApiFileUploadResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antchain.demosdk.file.upload.api",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let apiFileUploadResponse = new ApiFileUploadResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return apiFileUploadResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<ApiFileUploadResponse>(await this.doRequest("1.0", "antchain.demosdk.file.upload.api", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApiFileUploadResponse({}));
   }
 
   /**
@@ -1600,6 +1944,63 @@ export default class Client {
   async importAbcdOneEx(request: ImportAbcdOneRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportAbcdOneResponse> {
     Util.validateModel(request);
     return $tea.cast<ImportAbcdOneResponse>(await this.doRequest("1.0", "antchain.demosdk.abcd.one.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportAbcdOneResponse({}));
+  }
+
+  /**
+   * Description: 个人工作台二期分组路由灰度测试接口
+   * Summary: 个人工作台二期分组路由灰度测试接口
+   */
+  async resetAbcdLimit(request: ResetAbcdLimitRequest): Promise<ResetAbcdLimitResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.resetAbcdLimitEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人工作台二期分组路由灰度测试接口
+   * Summary: 个人工作台二期分组路由灰度测试接口
+   */
+  async resetAbcdLimitEx(request: ResetAbcdLimitRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ResetAbcdLimitResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ResetAbcdLimitResponse>(await this.doRequest("1.0", "antchain.demosdk.abcd.limit.reset", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ResetAbcdLimitResponse({}));
+  }
+
+  /**
+   * Description: 个人工作台二期分组路由测试接口
+   * Summary: 个人工作台二期分组路由测试接口
+   */
+  async registerAbcdLimit(request: RegisterAbcdLimitRequest): Promise<RegisterAbcdLimitResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.registerAbcdLimitEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人工作台二期分组路由测试接口
+   * Summary: 个人工作台二期分组路由测试接口
+   */
+  async registerAbcdLimitEx(request: RegisterAbcdLimitRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterAbcdLimitResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RegisterAbcdLimitResponse>(await this.doRequest("1.0", "antchain.demosdk.abcd.limit.register", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RegisterAbcdLimitResponse({}));
+  }
+
+  /**
+   * Description: 测试接口
+   * Summary: 测试接口
+   */
+  async paramLiuyzTest(request: ParamLiuyzTestRequest): Promise<ParamLiuyzTestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.paramLiuyzTestEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 测试接口
+   * Summary: 测试接口
+   */
+  async paramLiuyzTestEx(request: ParamLiuyzTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ParamLiuyzTestResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ParamLiuyzTestResponse>(await this.doRequest("1.0", "antchain.demosdk.liuyz.test.param", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ParamLiuyzTestResponse({}));
   }
 
   /**
