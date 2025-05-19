@@ -203,6 +203,7 @@ class ProductContext(TeaModel):
         product_code: str = None,
         template_code: str = None,
         template_context: List[TemplateContext] = None,
+        score_fields: List[str] = None,
     ):
         # 产品code
         self.product_code = product_code
@@ -210,6 +211,8 @@ class ProductContext(TeaModel):
         self.template_code = template_code
         # 模版内容,数组
         self.template_context = template_context
+        # 产品模型结果字段
+        self.score_fields = score_fields
 
     def validate(self):
         self.validate_required(self.product_code, 'product_code')
@@ -219,6 +222,7 @@ class ProductContext(TeaModel):
             for k in self.template_context:
                 if k:
                     k.validate()
+        self.validate_required(self.score_fields, 'score_fields')
 
     def to_map(self):
         _map = super().to_map()
@@ -234,6 +238,8 @@ class ProductContext(TeaModel):
         if self.template_context is not None:
             for k in self.template_context:
                 result['template_context'].append(k.to_map() if k else None)
+        if self.score_fields is not None:
+            result['score_fields'] = self.score_fields
         return result
 
     def from_map(self, m: dict = None):
@@ -247,6 +253,8 @@ class ProductContext(TeaModel):
             for k in m.get('template_context'):
                 temp_model = TemplateContext()
                 self.template_context.append(temp_model.from_map(k))
+        if m.get('score_fields') is not None:
+            self.score_fields = m.get('score_fields')
         return self
 
 
@@ -633,7 +641,6 @@ class CreateModelbackTaskRequest(TeaModel):
         file_object_name: str = None,
         file_id: str = None,
         product_codes: List[str] = None,
-        template_code: str = None,
         sample_file_name: str = None,
     ):
         # OAuth模式下的授权token
@@ -647,15 +654,12 @@ class CreateModelbackTaskRequest(TeaModel):
         self.file_id = file_id
         # 创建任务时回溯的产品
         self.product_codes = product_codes
-        # 样本模版编码
-        self.template_code = template_code
         # 样本记录名，不传为file_id
         self.sample_file_name = sample_file_name
 
     def validate(self):
         self.validate_required(self.file_id, 'file_id')
         self.validate_required(self.product_codes, 'product_codes')
-        self.validate_required(self.template_code, 'template_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -675,8 +679,6 @@ class CreateModelbackTaskRequest(TeaModel):
             result['file_id'] = self.file_id
         if self.product_codes is not None:
             result['product_codes'] = self.product_codes
-        if self.template_code is not None:
-            result['template_code'] = self.template_code
         if self.sample_file_name is not None:
             result['sample_file_name'] = self.sample_file_name
         return result
@@ -695,8 +697,6 @@ class CreateModelbackTaskRequest(TeaModel):
             self.file_id = m.get('file_id')
         if m.get('product_codes') is not None:
             self.product_codes = m.get('product_codes')
-        if m.get('template_code') is not None:
-            self.template_code = m.get('template_code')
         if m.get('sample_file_name') is not None:
             self.sample_file_name = m.get('sample_file_name')
         return self
@@ -882,12 +882,12 @@ class QueryModelbackProductRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        product_codes: str = None,
+        product_codes: List[str] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 产品码，不传者返回该用户下所有产品，多个用逗号分隔
+        # 产品码，数组形式
         self.product_codes = product_codes
 
     def validate(self):
