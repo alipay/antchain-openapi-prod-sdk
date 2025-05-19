@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.17',
+                    'sdk_version': '1.3.22',
                     '_prod_code': 'DEMOSDK',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.17',
+                    'sdk_version': '1.3.22',
                     '_prod_code': 'DEMOSDK',
                     '_prod_channel': 'default'
                 }
@@ -569,6 +569,98 @@ class Client:
         return TeaCore.from_map(
             demosdk_models.QueryCacheLimitResponse(),
             await self.do_request_async('1.0', 'antchain.demosdk.cache.limit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def api_file_upload(
+        self,
+        request: demosdk_models.ApiFileUploadRequest,
+    ) -> demosdk_models.ApiFileUploadResponse:
+        """
+        Description: 个人工作台二期测试使用
+        Summary: 个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.api_file_upload_ex(request, headers, runtime)
+
+    async def api_file_upload_async(
+        self,
+        request: demosdk_models.ApiFileUploadRequest,
+    ) -> demosdk_models.ApiFileUploadResponse:
+        """
+        Description: 个人工作台二期测试使用
+        Summary: 个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.api_file_upload_ex_async(request, headers, runtime)
+
+    def api_file_upload_ex(
+        self,
+        request: demosdk_models.ApiFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ApiFileUploadResponse:
+        """
+        Description: 个人工作台二期测试使用
+        Summary: 个人工作台二期测试使用
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demosdk_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.demosdk.file.upload.api',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                api_file_upload_response = demosdk_models.ApiFileUploadResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return api_file_upload_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ApiFileUploadResponse(),
+            self.do_request('1.0', 'antchain.demosdk.file.upload.api', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def api_file_upload_ex_async(
+        self,
+        request: demosdk_models.ApiFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ApiFileUploadResponse:
+        """
+        Description: 个人工作台二期测试使用
+        Summary: 个人工作台二期测试使用
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = demosdk_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.demosdk.file.upload.api',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                api_file_upload_response = demosdk_models.ApiFileUploadResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return api_file_upload_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ApiFileUploadResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.file.upload.api', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def reset_bbb_ccc(
@@ -1129,6 +1221,174 @@ class Client:
         return TeaCore.from_map(
             demosdk_models.ImportAbcdOneResponse(),
             await self.do_request_async('1.0', 'antchain.demosdk.abcd.one.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def reset_abcd_limit(
+        self,
+        request: demosdk_models.ResetAbcdLimitRequest,
+    ) -> demosdk_models.ResetAbcdLimitResponse:
+        """
+        Description: 个人工作台二期分组路由灰度测试接口
+        Summary: 个人工作台二期分组路由灰度测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.reset_abcd_limit_ex(request, headers, runtime)
+
+    async def reset_abcd_limit_async(
+        self,
+        request: demosdk_models.ResetAbcdLimitRequest,
+    ) -> demosdk_models.ResetAbcdLimitResponse:
+        """
+        Description: 个人工作台二期分组路由灰度测试接口
+        Summary: 个人工作台二期分组路由灰度测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.reset_abcd_limit_ex_async(request, headers, runtime)
+
+    def reset_abcd_limit_ex(
+        self,
+        request: demosdk_models.ResetAbcdLimitRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ResetAbcdLimitResponse:
+        """
+        Description: 个人工作台二期分组路由灰度测试接口
+        Summary: 个人工作台二期分组路由灰度测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ResetAbcdLimitResponse(),
+            self.do_request('1.0', 'antchain.demosdk.abcd.limit.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def reset_abcd_limit_ex_async(
+        self,
+        request: demosdk_models.ResetAbcdLimitRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ResetAbcdLimitResponse:
+        """
+        Description: 个人工作台二期分组路由灰度测试接口
+        Summary: 个人工作台二期分组路由灰度测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ResetAbcdLimitResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.abcd.limit.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_abcd_limit(
+        self,
+        request: demosdk_models.RegisterAbcdLimitRequest,
+    ) -> demosdk_models.RegisterAbcdLimitResponse:
+        """
+        Description: 个人工作台二期分组路由测试接口
+        Summary: 个人工作台二期分组路由测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_abcd_limit_ex(request, headers, runtime)
+
+    async def register_abcd_limit_async(
+        self,
+        request: demosdk_models.RegisterAbcdLimitRequest,
+    ) -> demosdk_models.RegisterAbcdLimitResponse:
+        """
+        Description: 个人工作台二期分组路由测试接口
+        Summary: 个人工作台二期分组路由测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_abcd_limit_ex_async(request, headers, runtime)
+
+    def register_abcd_limit_ex(
+        self,
+        request: demosdk_models.RegisterAbcdLimitRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.RegisterAbcdLimitResponse:
+        """
+        Description: 个人工作台二期分组路由测试接口
+        Summary: 个人工作台二期分组路由测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.RegisterAbcdLimitResponse(),
+            self.do_request('1.0', 'antchain.demosdk.abcd.limit.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_abcd_limit_ex_async(
+        self,
+        request: demosdk_models.RegisterAbcdLimitRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.RegisterAbcdLimitResponse:
+        """
+        Description: 个人工作台二期分组路由测试接口
+        Summary: 个人工作台二期分组路由测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.RegisterAbcdLimitResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.abcd.limit.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def param_liuyz_test(
+        self,
+        request: demosdk_models.ParamLiuyzTestRequest,
+    ) -> demosdk_models.ParamLiuyzTestResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.param_liuyz_test_ex(request, headers, runtime)
+
+    async def param_liuyz_test_async(
+        self,
+        request: demosdk_models.ParamLiuyzTestRequest,
+    ) -> demosdk_models.ParamLiuyzTestResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.param_liuyz_test_ex_async(request, headers, runtime)
+
+    def param_liuyz_test_ex(
+        self,
+        request: demosdk_models.ParamLiuyzTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ParamLiuyzTestResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ParamLiuyzTestResponse(),
+            self.do_request('1.0', 'antchain.demosdk.liuyz.test.param', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def param_liuyz_test_ex_async(
+        self,
+        request: demosdk_models.ParamLiuyzTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ParamLiuyzTestResponse:
+        """
+        Description: 测试接口
+        Summary: 测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ParamLiuyzTestResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.liuyz.test.param', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
