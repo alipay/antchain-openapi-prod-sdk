@@ -31,10 +31,19 @@ class ProductContext extends Model
      * @var TemplateContext[]
      */
     public $templateContext;
+
+    // 产品模型结果字段
+    /**
+     * @example ["aft_v3_score","aft_v4_score"]
+     *
+     * @var string[]
+     */
+    public $scoreFields;
     protected $_name = [
         'productCode'     => 'product_code',
         'templateCode'    => 'template_code',
         'templateContext' => 'template_context',
+        'scoreFields'     => 'score_fields',
     ];
 
     public function validate()
@@ -42,6 +51,7 @@ class ProductContext extends Model
         Model::validateRequired('productCode', $this->productCode, true);
         Model::validateRequired('templateCode', $this->templateCode, true);
         Model::validateRequired('templateContext', $this->templateContext, true);
+        Model::validateRequired('scoreFields', $this->scoreFields, true);
     }
 
     public function toMap()
@@ -61,6 +71,9 @@ class ProductContext extends Model
                     $res['template_context'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->scoreFields) {
+            $res['score_fields'] = $this->scoreFields;
         }
 
         return $res;
@@ -87,6 +100,11 @@ class ProductContext extends Model
                 foreach ($map['template_context'] as $item) {
                     $model->templateContext[$n++] = null !== $item ? TemplateContext::fromMap($item) : $item;
                 }
+            }
+        }
+        if (isset($map['score_fields'])) {
+            if (!empty($map['score_fields'])) {
+                $model->scoreFields = $map['score_fields'];
             }
         }
 

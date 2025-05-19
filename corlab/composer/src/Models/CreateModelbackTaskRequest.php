@@ -46,12 +46,6 @@ class CreateModelbackTaskRequest extends Model
      */
     public $productCodes;
 
-    // 样本模版编码
-    /**
-     * @var string
-     */
-    public $templateCode;
-
     // 样本记录名，不传为file_id
     /**
      * @var string
@@ -62,7 +56,6 @@ class CreateModelbackTaskRequest extends Model
         'productInstanceId' => 'product_instance_id',
         'fileId'            => 'file_id',
         'productCodes'      => 'product_codes',
-        'templateCode'      => 'template_code',
         'sampleFileName'    => 'sample_file_name',
     ];
 
@@ -70,7 +63,6 @@ class CreateModelbackTaskRequest extends Model
     {
         Model::validateRequired('fileId', $this->fileId, true);
         Model::validateRequired('productCodes', $this->productCodes, true);
-        Model::validateRequired('templateCode', $this->templateCode, true);
     }
 
     public function toMap()
@@ -93,9 +85,6 @@ class CreateModelbackTaskRequest extends Model
         }
         if (null !== $this->productCodes) {
             $res['product_codes'] = $this->productCodes;
-        }
-        if (null !== $this->templateCode) {
-            $res['template_code'] = $this->templateCode;
         }
         if (null !== $this->sampleFileName) {
             $res['sample_file_name'] = $this->sampleFileName;
@@ -131,9 +120,6 @@ class CreateModelbackTaskRequest extends Model
             if (!empty($map['product_codes'])) {
                 $model->productCodes = $map['product_codes'];
             }
-        }
-        if (isset($map['template_code'])) {
-            $model->templateCode = $map['template_code'];
         }
         if (isset($map['sample_file_name'])) {
             $model->sampleFileName = $map['sample_file_name'];

@@ -19,9 +19,9 @@ class QueryModelbackProductRequest extends Model
      */
     public $productInstanceId;
 
-    // 产品码，不传者返回该用户下所有产品，多个用逗号分隔
+    // 产品码，数组形式
     /**
-     * @var string
+     * @var string[]
      */
     public $productCodes;
     protected $_name = [
@@ -66,7 +66,9 @@ class QueryModelbackProductRequest extends Model
             $model->productInstanceId = $map['product_instance_id'];
         }
         if (isset($map['product_codes'])) {
-            $model->productCodes = $map['product_codes'];
+            if (!empty($map['product_codes'])) {
+                $model->productCodes = $map['product_codes'];
+            }
         }
 
         return $model;
