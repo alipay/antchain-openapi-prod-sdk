@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>AntChain.SDK.DEMOSDK</AssemblyName>
-    <Version>1.3.17</Version>
+    <Version>1.3.22</Version>
     <LangVersion>5</LangVersion>
     <Authors>Ant Chain, Inc</Authors>
     <Description>Ant Chain DEMOSDK SDK Library for .NET</Description>

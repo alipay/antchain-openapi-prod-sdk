@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DEMOSDK.Models
 {
-    public class VerifyApiListResponse : TeaModel {
+    public class ParamLiuyzTestResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,10 @@ namespace AntChain.SDK.DEMOSDK.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 状态
-        [NameInMap("stauts")]
+        // 0000
+        [NameInMap("code")]
         [Validation(Required=false)]
-        public string Stauts { get; set; }
-
-        // 描述
-        [NameInMap("msg")]
-        [Validation(Required=false)]
-        public string Msg { get; set; }
-
-        // copy
-        [NameInMap("init_desc")]
-        [Validation(Required=false)]
-        public string InitDesc { get; set; }
-
-        // 组合返回请求结果
-        [NameInMap("init_pack")]
-        [Validation(Required=false)]
-        public InitPack InitPack { get; set; }
+        public string Code { get; set; }
 
     }
 
