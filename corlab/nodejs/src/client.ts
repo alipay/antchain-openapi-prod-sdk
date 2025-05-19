@@ -115,11 +115,14 @@ export class ProductContext extends $tea.Model {
   templateCode: string;
   // 模版内容,数组
   templateContext: TemplateContext[];
+  // 产品模型结果字段
+  scoreFields: string[];
   static names(): { [key: string]: string } {
     return {
       productCode: 'product_code',
       templateCode: 'template_code',
       templateContext: 'template_context',
+      scoreFields: 'score_fields',
     };
   }
 
@@ -128,6 +131,7 @@ export class ProductContext extends $tea.Model {
       productCode: 'string',
       templateCode: 'string',
       templateContext: { 'type': 'array', 'itemType': TemplateContext },
+      scoreFields: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -378,8 +382,6 @@ export class CreateModelbackTaskRequest extends $tea.Model {
   fileId: string;
   // 创建任务时回溯的产品
   productCodes: string[];
-  // 样本模版编码
-  templateCode: string;
   // 样本记录名，不传为file_id
   sampleFileName?: string;
   static names(): { [key: string]: string } {
@@ -390,7 +392,6 @@ export class CreateModelbackTaskRequest extends $tea.Model {
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
       productCodes: 'product_codes',
-      templateCode: 'template_code',
       sampleFileName: 'sample_file_name',
     };
   }
@@ -403,7 +404,6 @@ export class CreateModelbackTaskRequest extends $tea.Model {
       fileObjectName: 'string',
       fileId: 'string',
       productCodes: { 'type': 'array', 'itemType': 'string' },
-      templateCode: 'string',
       sampleFileName: 'string',
     };
   }
@@ -524,8 +524,8 @@ export class QueryModelbackProductRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 产品码，不传者返回该用户下所有产品，多个用逗号分隔
-  productCodes: string;
+  // 产品码，数组形式
+  productCodes: string[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -538,7 +538,7 @@ export class QueryModelbackProductRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      productCodes: 'string',
+      productCodes: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -780,7 +780,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.12",
+          sdk_version: "1.0.13",
           _prod_code: "CORLAB",
           _prod_channel: "default",
         };
