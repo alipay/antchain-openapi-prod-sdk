@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.12',
+    sdk_version = '1.0.13',
     _prod_code = 'CORLAB',
     _prod_channel = 'default'
   };
@@ -179,6 +179,8 @@ model ProductContext {
   templateCode: string(name='template_code', example='tb-default'),
   // 模版内容,数组
   templateContext: [ TemplateContext ](name='template_context', example=''),
+  // 产品模型结果字段
+  scoreFields: [ string ](name='score_fields', example='["aft_v3_score","aft_v4_score"]'),
 }
 
 // corlab任务查询结果信息
@@ -315,8 +317,6 @@ model CreateModelbackTaskRequest = {
   fileId: string(name='file_id'),
   // 创建任务时回溯的产品
   productCodes: [ string ](name='product_codes'),
-  // 样本模版编码
-  templateCode: string(name='template_code'),
   // 样本记录名，不传为file_id
   sampleFileName?: string(name='sample_file_name'),
 }
@@ -421,8 +421,8 @@ model QueryModelbackProductRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 产品码，不传者返回该用户下所有产品，多个用逗号分隔
-  productCodes: string(name='product_codes'),
+  // 产品码，数组形式
+  productCodes: [ string ](name='product_codes'),
 }
 
 model QueryModelbackProductResponse = {
