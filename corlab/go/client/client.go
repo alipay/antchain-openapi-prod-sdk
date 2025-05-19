@@ -190,6 +190,8 @@ type ProductContext struct {
 	TemplateCode *string `json:"template_code,omitempty" xml:"template_code,omitempty" require:"true"`
 	// 模版内容,数组
 	TemplateContext []*TemplateContext `json:"template_context,omitempty" xml:"template_context,omitempty" require:"true" type:"Repeated"`
+	// 产品模型结果字段
+	ScoreFields []*string `json:"score_fields,omitempty" xml:"score_fields,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s ProductContext) String() string {
@@ -212,6 +214,11 @@ func (s *ProductContext) SetTemplateCode(v string) *ProductContext {
 
 func (s *ProductContext) SetTemplateContext(v []*TemplateContext) *ProductContext {
 	s.TemplateContext = v
+	return s
+}
+
+func (s *ProductContext) SetScoreFields(v []*string) *ProductContext {
+	s.ScoreFields = v
 	return s
 }
 
@@ -531,8 +538,6 @@ type CreateModelbackTaskRequest struct {
 	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
 	// 创建任务时回溯的产品
 	ProductCodes []*string `json:"product_codes,omitempty" xml:"product_codes,omitempty" require:"true" type:"Repeated"`
-	// 样本模版编码
-	TemplateCode *string `json:"template_code,omitempty" xml:"template_code,omitempty" require:"true"`
 	// 样本记录名，不传为file_id
 	SampleFileName *string `json:"sample_file_name,omitempty" xml:"sample_file_name,omitempty"`
 }
@@ -572,11 +577,6 @@ func (s *CreateModelbackTaskRequest) SetFileId(v string) *CreateModelbackTaskReq
 
 func (s *CreateModelbackTaskRequest) SetProductCodes(v []*string) *CreateModelbackTaskRequest {
 	s.ProductCodes = v
-	return s
-}
-
-func (s *CreateModelbackTaskRequest) SetTemplateCode(v string) *CreateModelbackTaskRequest {
-	s.TemplateCode = &v
 	return s
 }
 
@@ -726,8 +726,8 @@ type QueryModelbackProductRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 产品码，不传者返回该用户下所有产品，多个用逗号分隔
-	ProductCodes *string `json:"product_codes,omitempty" xml:"product_codes,omitempty" require:"true"`
+	// 产品码，数组形式
+	ProductCodes []*string `json:"product_codes,omitempty" xml:"product_codes,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s QueryModelbackProductRequest) String() string {
@@ -748,8 +748,8 @@ func (s *QueryModelbackProductRequest) SetProductInstanceId(v string) *QueryMode
 	return s
 }
 
-func (s *QueryModelbackProductRequest) SetProductCodes(v string) *QueryModelbackProductRequest {
-	s.ProductCodes = &v
+func (s *QueryModelbackProductRequest) SetProductCodes(v []*string) *QueryModelbackProductRequest {
+	s.ProductCodes = v
 	return s
 }
 
@@ -1034,7 +1034,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.12"),
+				"sdk_version":      tea.String("1.0.13"),
 				"_prod_code":       tea.String("CORLAB"),
 				"_prod_channel":    tea.String("default"),
 			}
