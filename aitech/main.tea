@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.12',
+    sdk_version = '1.1.19',
     _prod_code = 'AITECH',
     _prod_channel = 'default'
   };
@@ -1100,6 +1100,82 @@ async function callbackAliyunAuditEx(request: CallbackAliyunAuditRequest, header
   return doRequest('1.0' ,'aitech.comm.aliyun.audit.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model TransferAuditFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 客户文件路径
+  url: string(name='url'),
+}
+
+model TransferAuditFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应信息
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 外部文件转存
+ * Summary: 文件转存接口
+ */
+async function transferAuditFile(request: TransferAuditFileRequest): TransferAuditFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return transferAuditFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 外部文件转存
+ * Summary: 文件转存接口
+ */
+async function transferAuditFileEx(request: TransferAuditFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): TransferAuditFileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.audit.file.transfer', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DownloadAuditFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件地址
+  url: string(name='url'),
+}
+
+model DownloadAuditFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应信息
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 文件下载接口
+ * Summary: 文件下载接口
+ */
+async function downloadAuditFile(request: DownloadAuditFileRequest): DownloadAuditFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return downloadAuditFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 文件下载接口
+ * Summary: 文件下载接口
+ */
+async function downloadAuditFileEx(request: DownloadAuditFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DownloadAuditFileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.audit.file.download', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryAicoguardcloudAdbsinkRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1895,7 +1971,7 @@ model ApplyGuardTextbaseRequest = {
   // 审核场景码，建议BASE_TEXT_SEC代指阿里云，文本审核增强版PLUS服务的某一个Service
   sceneCode: string(name='scene_code'),
   // 检测对象对应的数据ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-  dataId1: string(name='data_id1'),
+  dataId: string(name='data_id'),
   // 	
   // 标识上游应用来源，字符串长度不能超过 128
   appCode?: string(name='app_code'),
@@ -2021,5 +2097,112 @@ async function submitGuardVideobase(request: SubmitGuardVideobaseRequest): Submi
 async function submitGuardVideobaseEx(request: SubmitGuardVideobaseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitGuardVideobaseResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'aitech.comm.guard.videobase.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyGuardImagemultiplyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景，固定填写：SCENE_MULTIPLY_IMAGE_SEC
+  sceneCode: string(name='scene_code'),
+  // 数据Id，调用方入审数据的唯一Id
+  dataId: string(name='data_id'),
+  // 鉴定图片内容链接，url 和 content 参数二选一
+  url?: string(name='url'),
+  // 标识上游应用来源，字符串长度不能超过 128
+  appCode?: string(name='app_code'),
+  // 客户业务ID 由大小写英文字母、数字、下划线（_）、短划线...
+  businessId?: string(name='business_id'),
+  // 鉴定图片 base64 地址，url 和 content 参数二选一
+  content?: string(name='content'),
+}
+
+model ApplyGuardImagemultiplyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 光鉴检测结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 用于身份证、个人信息识别、防伪等
+ * Summary: 图片光鉴识别链路
+ */
+async function applyGuardImagemultiply(request: ApplyGuardImagemultiplyRequest): ApplyGuardImagemultiplyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyGuardImagemultiplyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于身份证、个人信息识别、防伪等
+ * Summary: 图片光鉴识别链路
+ */
+async function applyGuardImagemultiplyEx(request: ApplyGuardImagemultiplyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyGuardImagemultiplyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.guard.imagemultiply.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckGuardAnswerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 调用方标识
+  appCode: string(name='app_code'),
+  // 细分调用方标识，可与 appCode 传相同值
+  businessId?: string(name='business_id'),
+  // 文本内容，最大5000字符长度
+  content: string(name='content'),
+  // 场景code：
+  // ● llm_output_detection：大模型输出通用场景
+  sceneCode: string(name='scene_code'),
+  // 是否开启流式检测功能。默认值：N：不开启
+  // Y：开启
+  // N：不开启
+  flowDetect?: string(name='flow_detect'),
+  // 会话ID，标记本次请求内容属于同一段流式内容，文本审核引擎会自动拼接后进行审核，拼接文字片段后不超过10000字的部分
+  sessionId?: string(name='session_id'),
+  // 是否要针对大模型输出的CoT、回答进行代答/改写。默认值：N：不开启
+  // Y：开启
+  // N：不开启
+  replyProxy?: string(name='reply_proxy'),
+  // 是否要针对大模型输出的内容中的隐私数据进行脱敏。默认值：N：不开启
+  // Y：开启
+  // N：不开启
+  privacyDataObfuscation?: string(name='privacy_data_obfuscation'),
+}
+
+model CheckGuardAnswerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文本审核结果。返回结果中包含一个需自行转换的Json字符串
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 输出文本风险检测
+ * Summary: 输出文本风险检测
+ */
+async function checkGuardAnswer(request: CheckGuardAnswerRequest): CheckGuardAnswerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkGuardAnswerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 输出文本风险检测
+ * Summary: 输出文本风险检测
+ */
+async function checkGuardAnswerEx(request: CheckGuardAnswerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckGuardAnswerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.guard.answer.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
