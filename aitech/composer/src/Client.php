@@ -23,6 +23,8 @@ use AntChain\AITECH\Models\ApplyGuardImageadvancedRequest;
 use AntChain\AITECH\Models\ApplyGuardImageadvancedResponse;
 use AntChain\AITECH\Models\ApplyGuardImagebaseRequest;
 use AntChain\AITECH\Models\ApplyGuardImagebaseResponse;
+use AntChain\AITECH\Models\ApplyGuardImagemultiplyRequest;
+use AntChain\AITECH\Models\ApplyGuardImagemultiplyResponse;
 use AntChain\AITECH\Models\ApplyGuardTextbaseRequest;
 use AntChain\AITECH\Models\ApplyGuardTextbaseResponse;
 use AntChain\AITECH\Models\CallbackAliyunAuditRequest;
@@ -33,6 +35,10 @@ use AntChain\AITECH\Models\CallbackGuardItaskRequest;
 use AntChain\AITECH\Models\CallbackGuardItaskResponse;
 use AntChain\AITECH\Models\CallbackSofaAuditRequest;
 use AntChain\AITECH\Models\CallbackSofaAuditResponse;
+use AntChain\AITECH\Models\CheckGuardAnswerRequest;
+use AntChain\AITECH\Models\CheckGuardAnswerResponse;
+use AntChain\AITECH\Models\DownloadAuditFileRequest;
+use AntChain\AITECH\Models\DownloadAuditFileResponse;
 use AntChain\AITECH\Models\QueryAicoguardAdbsinkRequest;
 use AntChain\AITECH\Models\QueryAicoguardAdbsinkResponse;
 use AntChain\AITECH\Models\QueryAicoguardcloudAdbsinkRequest;
@@ -87,6 +93,8 @@ use AntChain\AITECH\Models\SubmitGuardVideobaseRequest;
 use AntChain\AITECH\Models\SubmitGuardVideobaseResponse;
 use AntChain\AITECH\Models\SubmitGuardVideoRequest;
 use AntChain\AITECH\Models\SubmitGuardVideoResponse;
+use AntChain\AITECH\Models\TransferAuditFileRequest;
+use AntChain\AITECH\Models\TransferAuditFileResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -234,7 +242,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.12',
+                    'sdk_version'      => '1.1.19',
                     '_prod_code'       => 'AITECH',
                     '_prod_channel'    => 'default',
                 ];
@@ -874,6 +882,72 @@ class Client
         Utils::validateModel($request);
 
         return CallbackAliyunAuditResponse::fromMap($this->doRequest('1.0', 'aitech.comm.aliyun.audit.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 外部文件转存
+     * Summary: 文件转存接口.
+     *
+     * @param TransferAuditFileRequest $request
+     *
+     * @return TransferAuditFileResponse
+     */
+    public function transferAuditFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->transferAuditFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 外部文件转存
+     * Summary: 文件转存接口.
+     *
+     * @param TransferAuditFileRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return TransferAuditFileResponse
+     */
+    public function transferAuditFileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return TransferAuditFileResponse::fromMap($this->doRequest('1.0', 'aitech.comm.audit.file.transfer', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文件下载接口
+     * Summary: 文件下载接口.
+     *
+     * @param DownloadAuditFileRequest $request
+     *
+     * @return DownloadAuditFileResponse
+     */
+    public function downloadAuditFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->downloadAuditFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文件下载接口
+     * Summary: 文件下载接口.
+     *
+     * @param DownloadAuditFileRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return DownloadAuditFileResponse
+     */
+    public function downloadAuditFileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DownloadAuditFileResponse::fromMap($this->doRequest('1.0', 'aitech.comm.audit.file.download', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1534,5 +1608,71 @@ class Client
         Utils::validateModel($request);
 
         return SubmitGuardVideobaseResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.videobase.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于身份证、个人信息识别、防伪等
+     * Summary: 图片光鉴识别链路.
+     *
+     * @param ApplyGuardImagemultiplyRequest $request
+     *
+     * @return ApplyGuardImagemultiplyResponse
+     */
+    public function applyGuardImagemultiply($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyGuardImagemultiplyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于身份证、个人信息识别、防伪等
+     * Summary: 图片光鉴识别链路.
+     *
+     * @param ApplyGuardImagemultiplyRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return ApplyGuardImagemultiplyResponse
+     */
+    public function applyGuardImagemultiplyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyGuardImagemultiplyResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.imagemultiply.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 输出文本风险检测
+     * Summary: 输出文本风险检测.
+     *
+     * @param CheckGuardAnswerRequest $request
+     *
+     * @return CheckGuardAnswerResponse
+     */
+    public function checkGuardAnswer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkGuardAnswerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 输出文本风险检测
+     * Summary: 输出文本风险检测.
+     *
+     * @param CheckGuardAnswerRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return CheckGuardAnswerResponse
+     */
+    public function checkGuardAnswerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckGuardAnswerResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guard.answer.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
