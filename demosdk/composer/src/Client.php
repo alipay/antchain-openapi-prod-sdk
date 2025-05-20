@@ -25,8 +25,12 @@ use AntChain\DEMOSDK\Models\ImportBbbCciRequest;
 use AntChain\DEMOSDK\Models\ImportBbbCciResponse;
 use AntChain\DEMOSDK\Models\ImportCreateTestRequest;
 use AntChain\DEMOSDK\Models\ImportCreateTestResponse;
+use AntChain\DEMOSDK\Models\ImportTwiceOneRequest;
+use AntChain\DEMOSDK\Models\ImportTwiceOneResponse;
 use AntChain\DEMOSDK\Models\ParamLiuyzTestRequest;
 use AntChain\DEMOSDK\Models\ParamLiuyzTestResponse;
+use AntChain\DEMOSDK\Models\PublishTwiceOneRequest;
+use AntChain\DEMOSDK\Models\PublishTwiceOneResponse;
 use AntChain\DEMOSDK\Models\QueryAaaCcdRequest;
 use AntChain\DEMOSDK\Models\QueryAaaCcdResponse;
 use AntChain\DEMOSDK\Models\QueryAbcdOneRequest;
@@ -39,6 +43,8 @@ use AntChain\DEMOSDK\Models\QueryCcXxRequest;
 use AntChain\DEMOSDK\Models\QueryCcXxResponse;
 use AntChain\DEMOSDK\Models\QueryTimeLimitRequest;
 use AntChain\DEMOSDK\Models\QueryTimeLimitResponse;
+use AntChain\DEMOSDK\Models\QueryTwiceOneRequest;
+use AntChain\DEMOSDK\Models\QueryTwiceOneResponse;
 use AntChain\DEMOSDK\Models\QueryWorkbenchTestRequest;
 use AntChain\DEMOSDK\Models\QueryWorkbenchTestResponse;
 use AntChain\DEMOSDK\Models\RegisterAbcdLimitRequest;
@@ -196,7 +202,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.22',
+                    'sdk_version'      => '1.3.23',
                     '_prod_code'       => 'DEMOSDK',
                     '_prod_channel'    => 'default',
                 ];
@@ -860,6 +866,105 @@ class Client
         Utils::validateModel($request);
 
         return RegisterAbcdLimitResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.abcd.limit.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人工作台预发测试使用
+     * Summary: 个人工作台预发测试使用.
+     *
+     * @param QueryTwiceOneRequest $request
+     *
+     * @return QueryTwiceOneResponse
+     */
+    public function queryTwiceOne($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTwiceOneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台预发测试使用
+     * Summary: 个人工作台预发测试使用.
+     *
+     * @param QueryTwiceOneRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryTwiceOneResponse
+     */
+    public function queryTwiceOneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTwiceOneResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.twice.one.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试.
+     *
+     * @param ImportTwiceOneRequest $request
+     *
+     * @return ImportTwiceOneResponse
+     */
+    public function importTwiceOne($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importTwiceOneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试.
+     *
+     * @param ImportTwiceOneRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return ImportTwiceOneResponse
+     */
+    public function importTwiceOneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportTwiceOneResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.twice.one.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试.
+     *
+     * @param PublishTwiceOneRequest $request
+     *
+     * @return PublishTwiceOneResponse
+     */
+    public function publishTwiceOne($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->publishTwiceOneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试.
+     *
+     * @param PublishTwiceOneRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return PublishTwiceOneResponse
+     */
+    public function publishTwiceOneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PublishTwiceOneResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.twice.one.publish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
