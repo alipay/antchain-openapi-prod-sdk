@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.12',
+                    'sdk_version': '1.1.19',
                     '_prod_code': 'AITECH',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.12',
+                    'sdk_version': '1.1.19',
                     '_prod_code': 'AITECH',
                     '_prod_channel': 'default'
                 }
@@ -1281,6 +1281,118 @@ class Client:
         return TeaCore.from_map(
             aitech_models.CallbackAliyunAuditResponse(),
             await self.do_request_async('1.0', 'aitech.comm.aliyun.audit.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def transfer_audit_file(
+        self,
+        request: aitech_models.TransferAuditFileRequest,
+    ) -> aitech_models.TransferAuditFileResponse:
+        """
+        Description: 外部文件转存
+        Summary: 文件转存接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.transfer_audit_file_ex(request, headers, runtime)
+
+    async def transfer_audit_file_async(
+        self,
+        request: aitech_models.TransferAuditFileRequest,
+    ) -> aitech_models.TransferAuditFileResponse:
+        """
+        Description: 外部文件转存
+        Summary: 文件转存接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.transfer_audit_file_ex_async(request, headers, runtime)
+
+    def transfer_audit_file_ex(
+        self,
+        request: aitech_models.TransferAuditFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.TransferAuditFileResponse:
+        """
+        Description: 外部文件转存
+        Summary: 文件转存接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.TransferAuditFileResponse(),
+            self.do_request('1.0', 'aitech.comm.audit.file.transfer', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def transfer_audit_file_ex_async(
+        self,
+        request: aitech_models.TransferAuditFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.TransferAuditFileResponse:
+        """
+        Description: 外部文件转存
+        Summary: 文件转存接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.TransferAuditFileResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.audit.file.transfer', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def download_audit_file(
+        self,
+        request: aitech_models.DownloadAuditFileRequest,
+    ) -> aitech_models.DownloadAuditFileResponse:
+        """
+        Description: 文件下载接口
+        Summary: 文件下载接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.download_audit_file_ex(request, headers, runtime)
+
+    async def download_audit_file_async(
+        self,
+        request: aitech_models.DownloadAuditFileRequest,
+    ) -> aitech_models.DownloadAuditFileResponse:
+        """
+        Description: 文件下载接口
+        Summary: 文件下载接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.download_audit_file_ex_async(request, headers, runtime)
+
+    def download_audit_file_ex(
+        self,
+        request: aitech_models.DownloadAuditFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.DownloadAuditFileResponse:
+        """
+        Description: 文件下载接口
+        Summary: 文件下载接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.DownloadAuditFileResponse(),
+            self.do_request('1.0', 'aitech.comm.audit.file.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def download_audit_file_ex_async(
+        self,
+        request: aitech_models.DownloadAuditFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.DownloadAuditFileResponse:
+        """
+        Description: 文件下载接口
+        Summary: 文件下载接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.DownloadAuditFileResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.audit.file.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_aicoguardcloud_adbsink(
@@ -2401,4 +2513,116 @@ class Client:
         return TeaCore.from_map(
             aitech_models.SubmitGuardVideobaseResponse(),
             await self.do_request_async('1.0', 'aitech.comm.guard.videobase.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_guard_imagemultiply(
+        self,
+        request: aitech_models.ApplyGuardImagemultiplyRequest,
+    ) -> aitech_models.ApplyGuardImagemultiplyResponse:
+        """
+        Description: 用于身份证、个人信息识别、防伪等
+        Summary: 图片光鉴识别链路
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_guard_imagemultiply_ex(request, headers, runtime)
+
+    async def apply_guard_imagemultiply_async(
+        self,
+        request: aitech_models.ApplyGuardImagemultiplyRequest,
+    ) -> aitech_models.ApplyGuardImagemultiplyResponse:
+        """
+        Description: 用于身份证、个人信息识别、防伪等
+        Summary: 图片光鉴识别链路
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_guard_imagemultiply_ex_async(request, headers, runtime)
+
+    def apply_guard_imagemultiply_ex(
+        self,
+        request: aitech_models.ApplyGuardImagemultiplyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.ApplyGuardImagemultiplyResponse:
+        """
+        Description: 用于身份证、个人信息识别、防伪等
+        Summary: 图片光鉴识别链路
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.ApplyGuardImagemultiplyResponse(),
+            self.do_request('1.0', 'aitech.comm.guard.imagemultiply.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_guard_imagemultiply_ex_async(
+        self,
+        request: aitech_models.ApplyGuardImagemultiplyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.ApplyGuardImagemultiplyResponse:
+        """
+        Description: 用于身份证、个人信息识别、防伪等
+        Summary: 图片光鉴识别链路
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.ApplyGuardImagemultiplyResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.guard.imagemultiply.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_guard_answer(
+        self,
+        request: aitech_models.CheckGuardAnswerRequest,
+    ) -> aitech_models.CheckGuardAnswerResponse:
+        """
+        Description: 输出文本风险检测
+        Summary: 输出文本风险检测
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_guard_answer_ex(request, headers, runtime)
+
+    async def check_guard_answer_async(
+        self,
+        request: aitech_models.CheckGuardAnswerRequest,
+    ) -> aitech_models.CheckGuardAnswerResponse:
+        """
+        Description: 输出文本风险检测
+        Summary: 输出文本风险检测
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_guard_answer_ex_async(request, headers, runtime)
+
+    def check_guard_answer_ex(
+        self,
+        request: aitech_models.CheckGuardAnswerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.CheckGuardAnswerResponse:
+        """
+        Description: 输出文本风险检测
+        Summary: 输出文本风险检测
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.CheckGuardAnswerResponse(),
+            self.do_request('1.0', 'aitech.comm.guard.answer.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_guard_answer_ex_async(
+        self,
+        request: aitech_models.CheckGuardAnswerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.CheckGuardAnswerResponse:
+        """
+        Description: 输出文本风险检测
+        Summary: 输出文本风险检测
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.CheckGuardAnswerResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.guard.answer.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

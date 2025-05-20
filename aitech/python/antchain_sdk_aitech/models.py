@@ -2747,6 +2747,186 @@ class CallbackAliyunAuditResponse(TeaModel):
         return self
 
 
+class TransferAuditFileRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        url: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 客户文件路径
+        self.url = url
+
+    def validate(self):
+        self.validate_required(self.url, 'url')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.url is not None:
+            result['url'] = self.url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        return self
+
+
+class TransferAuditFileResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 响应信息
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class DownloadAuditFileRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        url: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 文件地址
+        self.url = url
+
+    def validate(self):
+        self.validate_required(self.url, 'url')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.url is not None:
+            result['url'] = self.url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        return self
+
+
+class DownloadAuditFileResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 响应信息
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
 class QueryAicoguardcloudAdbsinkRequest(TeaModel):
     def __init__(
         self,
@@ -4809,7 +4989,7 @@ class ApplyGuardTextbaseRequest(TeaModel):
         product_instance_id: str = None,
         content: str = None,
         scene_code: str = None,
-        data_id_1: str = None,
+        data_id: str = None,
         app_code: str = None,
         business_id: str = None,
     ):
@@ -4821,7 +5001,7 @@ class ApplyGuardTextbaseRequest(TeaModel):
         # 审核场景码，建议BASE_TEXT_SEC代指阿里云，文本审核增强版PLUS服务的某一个Service
         self.scene_code = scene_code
         # 检测对象对应的数据ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-        self.data_id_1 = data_id_1
+        self.data_id = data_id
         # 
         # 标识上游应用来源，字符串长度不能超过 128
         self.app_code = app_code
@@ -4831,7 +5011,7 @@ class ApplyGuardTextbaseRequest(TeaModel):
     def validate(self):
         self.validate_required(self.content, 'content')
         self.validate_required(self.scene_code, 'scene_code')
-        self.validate_required(self.data_id_1, 'data_id_1')
+        self.validate_required(self.data_id, 'data_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -4847,8 +5027,8 @@ class ApplyGuardTextbaseRequest(TeaModel):
             result['content'] = self.content
         if self.scene_code is not None:
             result['scene_code'] = self.scene_code
-        if self.data_id_1 is not None:
-            result['data_id1'] = self.data_id_1
+        if self.data_id is not None:
+            result['data_id'] = self.data_id
         if self.app_code is not None:
             result['app_code'] = self.app_code
         if self.business_id is not None:
@@ -4865,8 +5045,8 @@ class ApplyGuardTextbaseRequest(TeaModel):
             self.content = m.get('content')
         if m.get('scene_code') is not None:
             self.scene_code = m.get('scene_code')
-        if m.get('data_id1') is not None:
-            self.data_id_1 = m.get('data_id1')
+        if m.get('data_id') is not None:
+            self.data_id = m.get('data_id')
         if m.get('app_code') is not None:
             self.app_code = m.get('app_code')
         if m.get('business_id') is not None:
@@ -5151,6 +5331,280 @@ class SubmitGuardVideobaseResponse(TeaModel):
             self.task_id = m.get('task_id')
         if m.get('data_id') is not None:
             self.data_id = m.get('data_id')
+        return self
+
+
+class ApplyGuardImagemultiplyRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_code: str = None,
+        data_id: str = None,
+        url: str = None,
+        app_code: str = None,
+        business_id: str = None,
+        content: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景，固定填写：SCENE_MULTIPLY_IMAGE_SEC
+        self.scene_code = scene_code
+        # 数据Id，调用方入审数据的唯一Id
+        self.data_id = data_id
+        # 鉴定图片内容链接，url 和 content 参数二选一
+        self.url = url
+        # 标识上游应用来源，字符串长度不能超过 128
+        self.app_code = app_code
+        # 客户业务ID 由大小写英文字母、数字、下划线（_）、短划线...
+        self.business_id = business_id
+        # 鉴定图片 base64 地址，url 和 content 参数二选一
+        self.content = content
+
+    def validate(self):
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.data_id, 'data_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.data_id is not None:
+            result['data_id'] = self.data_id
+        if self.url is not None:
+            result['url'] = self.url
+        if self.app_code is not None:
+            result['app_code'] = self.app_code
+        if self.business_id is not None:
+            result['business_id'] = self.business_id
+        if self.content is not None:
+            result['content'] = self.content
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('data_id') is not None:
+            self.data_id = m.get('data_id')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('app_code') is not None:
+            self.app_code = m.get('app_code')
+        if m.get('business_id') is not None:
+            self.business_id = m.get('business_id')
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        return self
+
+
+class ApplyGuardImagemultiplyResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 光鉴检测结果
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class CheckGuardAnswerRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        app_code: str = None,
+        business_id: str = None,
+        content: str = None,
+        scene_code: str = None,
+        flow_detect: str = None,
+        session_id: str = None,
+        reply_proxy: str = None,
+        privacy_data_obfuscation: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 调用方标识
+        self.app_code = app_code
+        # 细分调用方标识，可与 appCode 传相同值
+        self.business_id = business_id
+        # 文本内容，最大5000字符长度
+        self.content = content
+        # 场景code：
+        # ● llm_output_detection：大模型输出通用场景
+        self.scene_code = scene_code
+        # 是否开启流式检测功能。默认值：N：不开启
+        # Y：开启
+        # N：不开启
+        self.flow_detect = flow_detect
+        # 会话ID，标记本次请求内容属于同一段流式内容，文本审核引擎会自动拼接后进行审核，拼接文字片段后不超过10000字的部分
+        self.session_id = session_id
+        # 是否要针对大模型输出的CoT、回答进行代答/改写。默认值：N：不开启
+        # Y：开启
+        # N：不开启
+        self.reply_proxy = reply_proxy
+        # 是否要针对大模型输出的内容中的隐私数据进行脱敏。默认值：N：不开启
+        # Y：开启
+        # N：不开启
+        self.privacy_data_obfuscation = privacy_data_obfuscation
+
+    def validate(self):
+        self.validate_required(self.app_code, 'app_code')
+        self.validate_required(self.content, 'content')
+        self.validate_required(self.scene_code, 'scene_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.app_code is not None:
+            result['app_code'] = self.app_code
+        if self.business_id is not None:
+            result['business_id'] = self.business_id
+        if self.content is not None:
+            result['content'] = self.content
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.flow_detect is not None:
+            result['flow_detect'] = self.flow_detect
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.reply_proxy is not None:
+            result['reply_proxy'] = self.reply_proxy
+        if self.privacy_data_obfuscation is not None:
+            result['privacy_data_obfuscation'] = self.privacy_data_obfuscation
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('app_code') is not None:
+            self.app_code = m.get('app_code')
+        if m.get('business_id') is not None:
+            self.business_id = m.get('business_id')
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('flow_detect') is not None:
+            self.flow_detect = m.get('flow_detect')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('reply_proxy') is not None:
+            self.reply_proxy = m.get('reply_proxy')
+        if m.get('privacy_data_obfuscation') is not None:
+            self.privacy_data_obfuscation = m.get('privacy_data_obfuscation')
+        return self
+
+
+class CheckGuardAnswerResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 文本审核结果。返回结果中包含一个需自行转换的Json字符串
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
         return self
 
 
