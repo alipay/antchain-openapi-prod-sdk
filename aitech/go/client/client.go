@@ -2203,6 +2203,146 @@ func (s *CallbackAliyunAuditResponse) SetErrorMessage(v string) *CallbackAliyunA
 	return s
 }
 
+type TransferAuditFileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 客户文件路径
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+}
+
+func (s TransferAuditFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransferAuditFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *TransferAuditFileRequest) SetAuthToken(v string) *TransferAuditFileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *TransferAuditFileRequest) SetProductInstanceId(v string) *TransferAuditFileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *TransferAuditFileRequest) SetUrl(v string) *TransferAuditFileRequest {
+	s.Url = &v
+	return s
+}
+
+type TransferAuditFileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应信息
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s TransferAuditFileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransferAuditFileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *TransferAuditFileResponse) SetReqMsgId(v string) *TransferAuditFileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *TransferAuditFileResponse) SetResultCode(v string) *TransferAuditFileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *TransferAuditFileResponse) SetResultMsg(v string) *TransferAuditFileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *TransferAuditFileResponse) SetResult(v string) *TransferAuditFileResponse {
+	s.Result = &v
+	return s
+}
+
+type DownloadAuditFileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 文件地址
+	Url *string `json:"url,omitempty" xml:"url,omitempty" require:"true"`
+}
+
+func (s DownloadAuditFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DownloadAuditFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DownloadAuditFileRequest) SetAuthToken(v string) *DownloadAuditFileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DownloadAuditFileRequest) SetProductInstanceId(v string) *DownloadAuditFileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DownloadAuditFileRequest) SetUrl(v string) *DownloadAuditFileRequest {
+	s.Url = &v
+	return s
+}
+
+type DownloadAuditFileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应信息
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s DownloadAuditFileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DownloadAuditFileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DownloadAuditFileResponse) SetReqMsgId(v string) *DownloadAuditFileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DownloadAuditFileResponse) SetResultCode(v string) *DownloadAuditFileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DownloadAuditFileResponse) SetResultMsg(v string) *DownloadAuditFileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DownloadAuditFileResponse) SetResult(v string) *DownloadAuditFileResponse {
+	s.Result = &v
+	return s
+}
+
 type QueryAicoguardcloudAdbsinkRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -3892,7 +4032,7 @@ type ApplyGuardTextbaseRequest struct {
 	// 审核场景码，建议BASE_TEXT_SEC代指阿里云，文本审核增强版PLUS服务的某一个Service
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
 	// 检测对象对应的数据ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-	DataId1 *string `json:"data_id1,omitempty" xml:"data_id1,omitempty" require:"true"`
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
 	//
 	// 标识上游应用来源，字符串长度不能超过 128
 	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty"`
@@ -3928,8 +4068,8 @@ func (s *ApplyGuardTextbaseRequest) SetSceneCode(v string) *ApplyGuardTextbaseRe
 	return s
 }
 
-func (s *ApplyGuardTextbaseRequest) SetDataId1(v string) *ApplyGuardTextbaseRequest {
-	s.DataId1 = &v
+func (s *ApplyGuardTextbaseRequest) SetDataId(v string) *ApplyGuardTextbaseRequest {
+	s.DataId = &v
 	return s
 }
 
@@ -4171,6 +4311,237 @@ func (s *SubmitGuardVideobaseResponse) SetDataId(v string) *SubmitGuardVideobase
 	return s
 }
 
+type ApplyGuardImagemultiplyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景，固定填写：SCENE_MULTIPLY_IMAGE_SEC
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 数据Id，调用方入审数据的唯一Id
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 鉴定图片内容链接，url 和 content 参数二选一
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+	// 标识上游应用来源，字符串长度不能超过 128
+	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty"`
+	// 客户业务ID 由大小写英文字母、数字、下划线（_）、短划线...
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
+	// 鉴定图片 base64 地址，url 和 content 参数二选一
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+}
+
+func (s ApplyGuardImagemultiplyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyGuardImagemultiplyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyGuardImagemultiplyRequest) SetAuthToken(v string) *ApplyGuardImagemultiplyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyGuardImagemultiplyRequest) SetProductInstanceId(v string) *ApplyGuardImagemultiplyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyGuardImagemultiplyRequest) SetSceneCode(v string) *ApplyGuardImagemultiplyRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *ApplyGuardImagemultiplyRequest) SetDataId(v string) *ApplyGuardImagemultiplyRequest {
+	s.DataId = &v
+	return s
+}
+
+func (s *ApplyGuardImagemultiplyRequest) SetUrl(v string) *ApplyGuardImagemultiplyRequest {
+	s.Url = &v
+	return s
+}
+
+func (s *ApplyGuardImagemultiplyRequest) SetAppCode(v string) *ApplyGuardImagemultiplyRequest {
+	s.AppCode = &v
+	return s
+}
+
+func (s *ApplyGuardImagemultiplyRequest) SetBusinessId(v string) *ApplyGuardImagemultiplyRequest {
+	s.BusinessId = &v
+	return s
+}
+
+func (s *ApplyGuardImagemultiplyRequest) SetContent(v string) *ApplyGuardImagemultiplyRequest {
+	s.Content = &v
+	return s
+}
+
+type ApplyGuardImagemultiplyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 光鉴检测结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s ApplyGuardImagemultiplyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyGuardImagemultiplyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyGuardImagemultiplyResponse) SetReqMsgId(v string) *ApplyGuardImagemultiplyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyGuardImagemultiplyResponse) SetResultCode(v string) *ApplyGuardImagemultiplyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyGuardImagemultiplyResponse) SetResultMsg(v string) *ApplyGuardImagemultiplyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyGuardImagemultiplyResponse) SetResult(v string) *ApplyGuardImagemultiplyResponse {
+	s.Result = &v
+	return s
+}
+
+type CheckGuardAnswerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 调用方标识
+	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty" require:"true"`
+	// 细分调用方标识，可与 appCode 传相同值
+	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty"`
+	// 文本内容，最大5000字符长度
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 场景code：
+	// ● llm_output_detection：大模型输出通用场景
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 是否开启流式检测功能。默认值：N：不开启
+	// Y：开启
+	// N：不开启
+	FlowDetect *string `json:"flow_detect,omitempty" xml:"flow_detect,omitempty"`
+	// 会话ID，标记本次请求内容属于同一段流式内容，文本审核引擎会自动拼接后进行审核，拼接文字片段后不超过10000字的部分
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
+	// 是否要针对大模型输出的CoT、回答进行代答/改写。默认值：N：不开启
+	// Y：开启
+	// N：不开启
+	ReplyProxy *string `json:"reply_proxy,omitempty" xml:"reply_proxy,omitempty"`
+	// 是否要针对大模型输出的内容中的隐私数据进行脱敏。默认值：N：不开启
+	// Y：开启
+	// N：不开启
+	PrivacyDataObfuscation *string `json:"privacy_data_obfuscation,omitempty" xml:"privacy_data_obfuscation,omitempty"`
+}
+
+func (s CheckGuardAnswerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckGuardAnswerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckGuardAnswerRequest) SetAuthToken(v string) *CheckGuardAnswerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckGuardAnswerRequest) SetProductInstanceId(v string) *CheckGuardAnswerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckGuardAnswerRequest) SetAppCode(v string) *CheckGuardAnswerRequest {
+	s.AppCode = &v
+	return s
+}
+
+func (s *CheckGuardAnswerRequest) SetBusinessId(v string) *CheckGuardAnswerRequest {
+	s.BusinessId = &v
+	return s
+}
+
+func (s *CheckGuardAnswerRequest) SetContent(v string) *CheckGuardAnswerRequest {
+	s.Content = &v
+	return s
+}
+
+func (s *CheckGuardAnswerRequest) SetSceneCode(v string) *CheckGuardAnswerRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *CheckGuardAnswerRequest) SetFlowDetect(v string) *CheckGuardAnswerRequest {
+	s.FlowDetect = &v
+	return s
+}
+
+func (s *CheckGuardAnswerRequest) SetSessionId(v string) *CheckGuardAnswerRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *CheckGuardAnswerRequest) SetReplyProxy(v string) *CheckGuardAnswerRequest {
+	s.ReplyProxy = &v
+	return s
+}
+
+func (s *CheckGuardAnswerRequest) SetPrivacyDataObfuscation(v string) *CheckGuardAnswerRequest {
+	s.PrivacyDataObfuscation = &v
+	return s
+}
+
+type CheckGuardAnswerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文本审核结果。返回结果中包含一个需自行转换的Json字符串
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s CheckGuardAnswerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckGuardAnswerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckGuardAnswerResponse) SetReqMsgId(v string) *CheckGuardAnswerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckGuardAnswerResponse) SetResultCode(v string) *CheckGuardAnswerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckGuardAnswerResponse) SetResultMsg(v string) *CheckGuardAnswerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckGuardAnswerResponse) SetResult(v string) *CheckGuardAnswerResponse {
+	s.Result = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -4293,7 +4664,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.12"),
+				"sdk_version":      tea.String("1.1.19"),
 				"_prod_code":       tea.String("AITECH"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -4956,6 +5327,74 @@ func (client *Client) CallbackAliyunAuditEx(request *CallbackAliyunAuditRequest,
 	}
 	_result = &CallbackAliyunAuditResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.aliyun.audit.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 外部文件转存
+ * Summary: 文件转存接口
+ */
+func (client *Client) TransferAuditFile(request *TransferAuditFileRequest) (_result *TransferAuditFileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &TransferAuditFileResponse{}
+	_body, _err := client.TransferAuditFileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 外部文件转存
+ * Summary: 文件转存接口
+ */
+func (client *Client) TransferAuditFileEx(request *TransferAuditFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *TransferAuditFileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &TransferAuditFileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.audit.file.transfer"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 文件下载接口
+ * Summary: 文件下载接口
+ */
+func (client *Client) DownloadAuditFile(request *DownloadAuditFileRequest) (_result *DownloadAuditFileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DownloadAuditFileResponse{}
+	_body, _err := client.DownloadAuditFileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 文件下载接口
+ * Summary: 文件下载接口
+ */
+func (client *Client) DownloadAuditFileEx(request *DownloadAuditFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DownloadAuditFileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DownloadAuditFileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.audit.file.download"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -5636,6 +6075,74 @@ func (client *Client) SubmitGuardVideobaseEx(request *SubmitGuardVideobaseReques
 	}
 	_result = &SubmitGuardVideobaseResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.videobase.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用于身份证、个人信息识别、防伪等
+ * Summary: 图片光鉴识别链路
+ */
+func (client *Client) ApplyGuardImagemultiply(request *ApplyGuardImagemultiplyRequest) (_result *ApplyGuardImagemultiplyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyGuardImagemultiplyResponse{}
+	_body, _err := client.ApplyGuardImagemultiplyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用于身份证、个人信息识别、防伪等
+ * Summary: 图片光鉴识别链路
+ */
+func (client *Client) ApplyGuardImagemultiplyEx(request *ApplyGuardImagemultiplyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyGuardImagemultiplyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyGuardImagemultiplyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.imagemultiply.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 输出文本风险检测
+ * Summary: 输出文本风险检测
+ */
+func (client *Client) CheckGuardAnswer(request *CheckGuardAnswerRequest) (_result *CheckGuardAnswerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckGuardAnswerResponse{}
+	_body, _err := client.CheckGuardAnswerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 输出文本风险检测
+ * Summary: 输出文本风险检测
+ */
+func (client *Client) CheckGuardAnswerEx(request *CheckGuardAnswerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckGuardAnswerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckGuardAnswerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guard.answer.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
