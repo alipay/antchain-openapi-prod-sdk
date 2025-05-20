@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.22',
+                    'sdk_version': '1.3.23',
                     '_prod_code': 'DEMOSDK',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.22',
+                    'sdk_version': '1.3.23',
                     '_prod_code': 'DEMOSDK',
                     '_prod_channel': 'default'
                 }
@@ -1333,6 +1333,174 @@ class Client:
         return TeaCore.from_map(
             demosdk_models.RegisterAbcdLimitResponse(),
             await self.do_request_async('1.0', 'antchain.demosdk.abcd.limit.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_twice_one(
+        self,
+        request: demosdk_models.QueryTwiceOneRequest,
+    ) -> demosdk_models.QueryTwiceOneResponse:
+        """
+        Description: 个人工作台预发测试使用
+        Summary: 个人工作台预发测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_twice_one_ex(request, headers, runtime)
+
+    async def query_twice_one_async(
+        self,
+        request: demosdk_models.QueryTwiceOneRequest,
+    ) -> demosdk_models.QueryTwiceOneResponse:
+        """
+        Description: 个人工作台预发测试使用
+        Summary: 个人工作台预发测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_twice_one_ex_async(request, headers, runtime)
+
+    def query_twice_one_ex(
+        self,
+        request: demosdk_models.QueryTwiceOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryTwiceOneResponse:
+        """
+        Description: 个人工作台预发测试使用
+        Summary: 个人工作台预发测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryTwiceOneResponse(),
+            self.do_request('1.0', 'antchain.demosdk.twice.one.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_twice_one_ex_async(
+        self,
+        request: demosdk_models.QueryTwiceOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.QueryTwiceOneResponse:
+        """
+        Description: 个人工作台预发测试使用
+        Summary: 个人工作台预发测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.QueryTwiceOneResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.twice.one.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_twice_one(
+        self,
+        request: demosdk_models.ImportTwiceOneRequest,
+    ) -> demosdk_models.ImportTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_twice_one_ex(request, headers, runtime)
+
+    async def import_twice_one_async(
+        self,
+        request: demosdk_models.ImportTwiceOneRequest,
+    ) -> demosdk_models.ImportTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_twice_one_ex_async(request, headers, runtime)
+
+    def import_twice_one_ex(
+        self,
+        request: demosdk_models.ImportTwiceOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ImportTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ImportTwiceOneResponse(),
+            self.do_request('1.0', 'antchain.demosdk.twice.one.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_twice_one_ex_async(
+        self,
+        request: demosdk_models.ImportTwiceOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.ImportTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.ImportTwiceOneResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.twice.one.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def publish_twice_one(
+        self,
+        request: demosdk_models.PublishTwiceOneRequest,
+    ) -> demosdk_models.PublishTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.publish_twice_one_ex(request, headers, runtime)
+
+    async def publish_twice_one_async(
+        self,
+        request: demosdk_models.PublishTwiceOneRequest,
+    ) -> demosdk_models.PublishTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.publish_twice_one_ex_async(request, headers, runtime)
+
+    def publish_twice_one_ex(
+        self,
+        request: demosdk_models.PublishTwiceOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.PublishTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.PublishTwiceOneResponse(),
+            self.do_request('1.0', 'antchain.demosdk.twice.one.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def publish_twice_one_ex_async(
+        self,
+        request: demosdk_models.PublishTwiceOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demosdk_models.PublishTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demosdk_models.PublishTwiceOneResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.twice.one.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def param_liuyz_test(
