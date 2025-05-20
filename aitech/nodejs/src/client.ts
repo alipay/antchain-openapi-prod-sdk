@@ -1708,6 +1708,124 @@ export class CallbackAliyunAuditResponse extends $tea.Model {
   }
 }
 
+export class TransferAuditFileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 客户文件路径
+  url: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      url: 'url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      url: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class TransferAuditFileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应信息
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DownloadAuditFileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 文件地址
+  url: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      url: 'url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      url: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DownloadAuditFileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应信息
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryAicoguardcloudAdbsinkRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3000,7 +3118,7 @@ export class ApplyGuardTextbaseRequest extends $tea.Model {
   // 审核场景码，建议BASE_TEXT_SEC代指阿里云，文本审核增强版PLUS服务的某一个Service
   sceneCode: string;
   // 检测对象对应的数据ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-  dataId1: string;
+  dataId: string;
   // 	
   // 标识上游应用来源，字符串长度不能超过 128
   appCode?: string;
@@ -3012,7 +3130,7 @@ export class ApplyGuardTextbaseRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       content: 'content',
       sceneCode: 'scene_code',
-      dataId1: 'data_id1',
+      dataId: 'data_id',
       appCode: 'app_code',
       businessId: 'business_id',
     };
@@ -3024,7 +3142,7 @@ export class ApplyGuardTextbaseRequest extends $tea.Model {
       productInstanceId: 'string',
       content: 'string',
       sceneCode: 'string',
-      dataId1: 'string',
+      dataId: 'string',
       appCode: 'string',
       businessId: 'string',
     };
@@ -3213,6 +3331,179 @@ export class SubmitGuardVideobaseResponse extends $tea.Model {
   }
 }
 
+export class ApplyGuardImagemultiplyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景，固定填写：SCENE_MULTIPLY_IMAGE_SEC
+  sceneCode: string;
+  // 数据Id，调用方入审数据的唯一Id
+  dataId: string;
+  // 鉴定图片内容链接，url 和 content 参数二选一
+  url?: string;
+  // 标识上游应用来源，字符串长度不能超过 128
+  appCode?: string;
+  // 客户业务ID 由大小写英文字母、数字、下划线（_）、短划线...
+  businessId?: string;
+  // 鉴定图片 base64 地址，url 和 content 参数二选一
+  content?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneCode: 'scene_code',
+      dataId: 'data_id',
+      url: 'url',
+      appCode: 'app_code',
+      businessId: 'business_id',
+      content: 'content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneCode: 'string',
+      dataId: 'string',
+      url: 'string',
+      appCode: 'string',
+      businessId: 'string',
+      content: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyGuardImagemultiplyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 光鉴检测结果
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckGuardAnswerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 调用方标识
+  appCode: string;
+  // 细分调用方标识，可与 appCode 传相同值
+  businessId?: string;
+  // 文本内容，最大5000字符长度
+  content: string;
+  // 场景code：
+  // ● llm_output_detection：大模型输出通用场景
+  sceneCode: string;
+  // 是否开启流式检测功能。默认值：N：不开启
+  // Y：开启
+  // N：不开启
+  flowDetect?: string;
+  // 会话ID，标记本次请求内容属于同一段流式内容，文本审核引擎会自动拼接后进行审核，拼接文字片段后不超过10000字的部分
+  sessionId?: string;
+  // 是否要针对大模型输出的CoT、回答进行代答/改写。默认值：N：不开启
+  // Y：开启
+  // N：不开启
+  replyProxy?: string;
+  // 是否要针对大模型输出的内容中的隐私数据进行脱敏。默认值：N：不开启
+  // Y：开启
+  // N：不开启
+  privacyDataObfuscation?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      appCode: 'app_code',
+      businessId: 'business_id',
+      content: 'content',
+      sceneCode: 'scene_code',
+      flowDetect: 'flow_detect',
+      sessionId: 'session_id',
+      replyProxy: 'reply_proxy',
+      privacyDataObfuscation: 'privacy_data_obfuscation',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      appCode: 'string',
+      businessId: 'string',
+      content: 'string',
+      sceneCode: 'string',
+      flowDetect: 'string',
+      sessionId: 'string',
+      replyProxy: 'string',
+      privacyDataObfuscation: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckGuardAnswerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 文本审核结果。返回结果中包含一个需自行转换的Json字符串
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -3326,7 +3617,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.12",
+          sdk_version: "1.1.19",
           _prod_code: "AITECH",
           _prod_channel: "default",
         };
@@ -3717,6 +4008,44 @@ export default class Client {
   }
 
   /**
+   * Description: 外部文件转存
+   * Summary: 文件转存接口
+   */
+  async transferAuditFile(request: TransferAuditFileRequest): Promise<TransferAuditFileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.transferAuditFileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 外部文件转存
+   * Summary: 文件转存接口
+   */
+  async transferAuditFileEx(request: TransferAuditFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<TransferAuditFileResponse> {
+    Util.validateModel(request);
+    return $tea.cast<TransferAuditFileResponse>(await this.doRequest("1.0", "aitech.comm.audit.file.transfer", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new TransferAuditFileResponse({}));
+  }
+
+  /**
+   * Description: 文件下载接口
+   * Summary: 文件下载接口
+   */
+  async downloadAuditFile(request: DownloadAuditFileRequest): Promise<DownloadAuditFileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.downloadAuditFileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 文件下载接口
+   * Summary: 文件下载接口
+   */
+  async downloadAuditFileEx(request: DownloadAuditFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DownloadAuditFileResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DownloadAuditFileResponse>(await this.doRequest("1.0", "aitech.comm.audit.file.download", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DownloadAuditFileResponse({}));
+  }
+
+  /**
    * Description: 阿里云ADB调用接口
    * Summary: 阿里云ADB调用接口
    */
@@ -4094,6 +4423,44 @@ export default class Client {
   async submitGuardVideobaseEx(request: SubmitGuardVideobaseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitGuardVideobaseResponse> {
     Util.validateModel(request);
     return $tea.cast<SubmitGuardVideobaseResponse>(await this.doRequest("1.0", "aitech.comm.guard.videobase.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitGuardVideobaseResponse({}));
+  }
+
+  /**
+   * Description: 用于身份证、个人信息识别、防伪等
+   * Summary: 图片光鉴识别链路
+   */
+  async applyGuardImagemultiply(request: ApplyGuardImagemultiplyRequest): Promise<ApplyGuardImagemultiplyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyGuardImagemultiplyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用于身份证、个人信息识别、防伪等
+   * Summary: 图片光鉴识别链路
+   */
+  async applyGuardImagemultiplyEx(request: ApplyGuardImagemultiplyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyGuardImagemultiplyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyGuardImagemultiplyResponse>(await this.doRequest("1.0", "aitech.comm.guard.imagemultiply.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyGuardImagemultiplyResponse({}));
+  }
+
+  /**
+   * Description: 输出文本风险检测
+   * Summary: 输出文本风险检测
+   */
+  async checkGuardAnswer(request: CheckGuardAnswerRequest): Promise<CheckGuardAnswerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkGuardAnswerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 输出文本风险检测
+   * Summary: 输出文本风险检测
+   */
+  async checkGuardAnswerEx(request: CheckGuardAnswerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckGuardAnswerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckGuardAnswerResponse>(await this.doRequest("1.0", "aitech.comm.guard.answer.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckGuardAnswerResponse({}));
   }
 
 }
