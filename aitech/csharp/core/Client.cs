@@ -137,7 +137,7 @@ namespace AntChain.SDK.AITECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.12"},
+                        {"sdk_version", "1.1.19"},
                         {"_prod_code", "AITECH"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.AITECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.12"},
+                        {"sdk_version", "1.1.19"},
                         {"_prod_code", "AITECH"},
                         {"_prod_channel", "default"},
                     };
@@ -1075,6 +1075,90 @@ namespace AntChain.SDK.AITECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CallbackAliyunAuditResponse>(await DoRequestAsync("1.0", "aitech.comm.aliyun.audit.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外部文件转存
+         * Summary: 文件转存接口
+         */
+        public TransferAuditFileResponse TransferAuditFile(TransferAuditFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return TransferAuditFileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外部文件转存
+         * Summary: 文件转存接口
+         */
+        public async Task<TransferAuditFileResponse> TransferAuditFileAsync(TransferAuditFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await TransferAuditFileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外部文件转存
+         * Summary: 文件转存接口
+         */
+        public TransferAuditFileResponse TransferAuditFileEx(TransferAuditFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<TransferAuditFileResponse>(DoRequest("1.0", "aitech.comm.audit.file.transfer", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外部文件转存
+         * Summary: 文件转存接口
+         */
+        public async Task<TransferAuditFileResponse> TransferAuditFileExAsync(TransferAuditFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<TransferAuditFileResponse>(await DoRequestAsync("1.0", "aitech.comm.audit.file.transfer", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 文件下载接口
+         * Summary: 文件下载接口
+         */
+        public DownloadAuditFileResponse DownloadAuditFile(DownloadAuditFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DownloadAuditFileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 文件下载接口
+         * Summary: 文件下载接口
+         */
+        public async Task<DownloadAuditFileResponse> DownloadAuditFileAsync(DownloadAuditFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DownloadAuditFileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 文件下载接口
+         * Summary: 文件下载接口
+         */
+        public DownloadAuditFileResponse DownloadAuditFileEx(DownloadAuditFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DownloadAuditFileResponse>(DoRequest("1.0", "aitech.comm.audit.file.download", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 文件下载接口
+         * Summary: 文件下载接口
+         */
+        public async Task<DownloadAuditFileResponse> DownloadAuditFileExAsync(DownloadAuditFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DownloadAuditFileResponse>(await DoRequestAsync("1.0", "aitech.comm.audit.file.download", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -1915,6 +1999,90 @@ namespace AntChain.SDK.AITECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SubmitGuardVideobaseResponse>(await DoRequestAsync("1.0", "aitech.comm.guard.videobase.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于身份证、个人信息识别、防伪等
+         * Summary: 图片光鉴识别链路
+         */
+        public ApplyGuardImagemultiplyResponse ApplyGuardImagemultiply(ApplyGuardImagemultiplyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyGuardImagemultiplyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于身份证、个人信息识别、防伪等
+         * Summary: 图片光鉴识别链路
+         */
+        public async Task<ApplyGuardImagemultiplyResponse> ApplyGuardImagemultiplyAsync(ApplyGuardImagemultiplyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyGuardImagemultiplyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于身份证、个人信息识别、防伪等
+         * Summary: 图片光鉴识别链路
+         */
+        public ApplyGuardImagemultiplyResponse ApplyGuardImagemultiplyEx(ApplyGuardImagemultiplyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyGuardImagemultiplyResponse>(DoRequest("1.0", "aitech.comm.guard.imagemultiply.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于身份证、个人信息识别、防伪等
+         * Summary: 图片光鉴识别链路
+         */
+        public async Task<ApplyGuardImagemultiplyResponse> ApplyGuardImagemultiplyExAsync(ApplyGuardImagemultiplyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyGuardImagemultiplyResponse>(await DoRequestAsync("1.0", "aitech.comm.guard.imagemultiply.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 输出文本风险检测
+         * Summary: 输出文本风险检测
+         */
+        public CheckGuardAnswerResponse CheckGuardAnswer(CheckGuardAnswerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckGuardAnswerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 输出文本风险检测
+         * Summary: 输出文本风险检测
+         */
+        public async Task<CheckGuardAnswerResponse> CheckGuardAnswerAsync(CheckGuardAnswerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckGuardAnswerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 输出文本风险检测
+         * Summary: 输出文本风险检测
+         */
+        public CheckGuardAnswerResponse CheckGuardAnswerEx(CheckGuardAnswerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckGuardAnswerResponse>(DoRequest("1.0", "aitech.comm.guard.answer.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 输出文本风险检测
+         * Summary: 输出文本风险检测
+         */
+        public async Task<CheckGuardAnswerResponse> CheckGuardAnswerExAsync(CheckGuardAnswerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckGuardAnswerResponse>(await DoRequestAsync("1.0", "aitech.comm.guard.answer.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
