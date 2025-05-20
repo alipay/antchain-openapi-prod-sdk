@@ -266,13 +266,13 @@ export class CreateFacevrfServerRequest extends $tea.Model {
   // h5认证完成后，服务端回调此地址通知商户认证结果
   callbackUrl?: string;
   // 真实姓名
-  certName: string;
+  certName?: string;
   // 证件号码
-  certNo: string;
+  certNo?: string;
   // cert_name、cert_no两个字段的传入模式。0：明文1：密文
   encType?: string;
   // 证件类型，如身份证
-  certType: string;
+  certType?: string;
   // 预留扩展参数
   externParam?: string;
   // 自定义比对源人脸图像，base64编码格式
@@ -4737,7 +4737,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.4",
+          sdk_version: "1.20.0",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
