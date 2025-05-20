@@ -497,9 +497,6 @@ class CreateFacevrfServerRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.biz_code, 'biz_code')
-        self.validate_required(self.cert_name, 'cert_name')
-        self.validate_required(self.cert_no, 'cert_no')
-        self.validate_required(self.cert_type, 'cert_type')
         self.validate_required(self.identity_type, 'identity_type')
         self.validate_required(self.outer_order_no, 'outer_order_no')
         self.validate_required(self.scene_id, 'scene_id')
