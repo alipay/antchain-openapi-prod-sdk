@@ -22,12 +22,10 @@ public class CreateFacevrfServerRequest extends TeaModel {
 
     // 真实姓名
     @NameInMap("cert_name")
-    @Validation(required = true)
     public String certName;
 
     // 证件号码
     @NameInMap("cert_no")
-    @Validation(required = true)
     public String certNo;
 
     // cert_name、cert_no两个字段的传入模式。0：明文1：密文
@@ -36,7 +34,6 @@ public class CreateFacevrfServerRequest extends TeaModel {
 
     // 证件类型，如身份证
     @NameInMap("cert_type")
-    @Validation(required = true)
     public String certType;
 
     // 预留扩展参数
