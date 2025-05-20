@@ -30,12 +30,12 @@ namespace AntChain.SDK.REALPERSON.Models
 
         // 真实姓名
         [NameInMap("cert_name")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CertName { get; set; }
 
         // 证件号码
         [NameInMap("cert_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CertNo { get; set; }
 
         // cert_name、cert_no两个字段的传入模式。0：明文1：密文
@@ -45,7 +45,7 @@ namespace AntChain.SDK.REALPERSON.Models
 
         // 证件类型，如身份证
         [NameInMap("cert_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CertType { get; set; }
 
         // 预留扩展参数
