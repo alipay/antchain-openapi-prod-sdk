@@ -137,7 +137,7 @@ namespace AntChain.SDK.DEMOSDK
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.22"},
+                        {"sdk_version", "1.3.23"},
                         {"_prod_code", "DEMOSDK"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DEMOSDK
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.22"},
+                        {"sdk_version", "1.3.23"},
                         {"_prod_code", "DEMOSDK"},
                         {"_prod_channel", "default"},
                     };
@@ -1177,6 +1177,132 @@ namespace AntChain.SDK.DEMOSDK
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<RegisterAbcdLimitResponse>(await DoRequestAsync("1.0", "antchain.demosdk.abcd.limit.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人工作台预发测试使用
+         * Summary: 个人工作台预发测试使用
+         */
+        public QueryTwiceOneResponse QueryTwiceOne(QueryTwiceOneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTwiceOneEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人工作台预发测试使用
+         * Summary: 个人工作台预发测试使用
+         */
+        public async Task<QueryTwiceOneResponse> QueryTwiceOneAsync(QueryTwiceOneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTwiceOneExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人工作台预发测试使用
+         * Summary: 个人工作台预发测试使用
+         */
+        public QueryTwiceOneResponse QueryTwiceOneEx(QueryTwiceOneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTwiceOneResponse>(DoRequest("1.0", "antchain.demosdk.twice.one.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人工作台预发测试使用
+         * Summary: 个人工作台预发测试使用
+         */
+        public async Task<QueryTwiceOneResponse> QueryTwiceOneExAsync(QueryTwiceOneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTwiceOneResponse>(await DoRequestAsync("1.0", "antchain.demosdk.twice.one.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人工作台二期预发测试
+         * Summary: 个人工作台二期预发测试
+         */
+        public ImportTwiceOneResponse ImportTwiceOne(ImportTwiceOneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportTwiceOneEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人工作台二期预发测试
+         * Summary: 个人工作台二期预发测试
+         */
+        public async Task<ImportTwiceOneResponse> ImportTwiceOneAsync(ImportTwiceOneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportTwiceOneExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人工作台二期预发测试
+         * Summary: 个人工作台二期预发测试
+         */
+        public ImportTwiceOneResponse ImportTwiceOneEx(ImportTwiceOneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportTwiceOneResponse>(DoRequest("1.0", "antchain.demosdk.twice.one.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人工作台二期预发测试
+         * Summary: 个人工作台二期预发测试
+         */
+        public async Task<ImportTwiceOneResponse> ImportTwiceOneExAsync(ImportTwiceOneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportTwiceOneResponse>(await DoRequestAsync("1.0", "antchain.demosdk.twice.one.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人工作台二期预发测试
+         * Summary: 个人工作台二期预发测试
+         */
+        public PublishTwiceOneResponse PublishTwiceOne(PublishTwiceOneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PublishTwiceOneEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人工作台二期预发测试
+         * Summary: 个人工作台二期预发测试
+         */
+        public async Task<PublishTwiceOneResponse> PublishTwiceOneAsync(PublishTwiceOneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PublishTwiceOneExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人工作台二期预发测试
+         * Summary: 个人工作台二期预发测试
+         */
+        public PublishTwiceOneResponse PublishTwiceOneEx(PublishTwiceOneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PublishTwiceOneResponse>(DoRequest("1.0", "antchain.demosdk.twice.one.publish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人工作台二期预发测试
+         * Summary: 个人工作台二期预发测试
+         */
+        public async Task<PublishTwiceOneResponse> PublishTwiceOneExAsync(PublishTwiceOneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PublishTwiceOneResponse>(await DoRequestAsync("1.0", "antchain.demosdk.twice.one.publish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
