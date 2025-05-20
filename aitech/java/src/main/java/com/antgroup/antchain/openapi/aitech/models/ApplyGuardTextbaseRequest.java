@@ -22,9 +22,9 @@ public class ApplyGuardTextbaseRequest extends TeaModel {
     public String sceneCode;
 
     // 检测对象对应的数据ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
-    @NameInMap("data_id1")
+    @NameInMap("data_id")
     @Validation(required = true)
-    public String dataId1;
+    public String dataId;
 
     // 	
     // 标识上游应用来源，字符串长度不能超过 128
@@ -72,12 +72,12 @@ public class ApplyGuardTextbaseRequest extends TeaModel {
         return this.sceneCode;
     }
 
-    public ApplyGuardTextbaseRequest setDataId1(String dataId1) {
-        this.dataId1 = dataId1;
+    public ApplyGuardTextbaseRequest setDataId(String dataId) {
+        this.dataId = dataId;
         return this;
     }
-    public String getDataId1() {
-        return this.dataId1;
+    public String getDataId() {
+        return this.dataId;
     }
 
     public ApplyGuardTextbaseRequest setAppCode(String appCode) {

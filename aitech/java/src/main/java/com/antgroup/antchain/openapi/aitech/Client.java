@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.12"),
+                    new TeaPair("sdk_version", "1.1.19"),
                     new TeaPair("_prod_code", "AITECH"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -527,6 +527,44 @@ public class Client {
     }
 
     /**
+     * Description: 外部文件转存
+     * Summary: 文件转存接口
+     */
+    public TransferAuditFileResponse transferAuditFile(TransferAuditFileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.transferAuditFileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 外部文件转存
+     * Summary: 文件转存接口
+     */
+    public TransferAuditFileResponse transferAuditFileEx(TransferAuditFileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.audit.file.transfer", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new TransferAuditFileResponse());
+    }
+
+    /**
+     * Description: 文件下载接口
+     * Summary: 文件下载接口
+     */
+    public DownloadAuditFileResponse downloadAuditFile(DownloadAuditFileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.downloadAuditFileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 文件下载接口
+     * Summary: 文件下载接口
+     */
+    public DownloadAuditFileResponse downloadAuditFileEx(DownloadAuditFileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.audit.file.download", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DownloadAuditFileResponse());
+    }
+
+    /**
      * Description: 阿里云ADB调用接口
      * Summary: 阿里云ADB调用接口
      */
@@ -904,5 +942,43 @@ public class Client {
     public SubmitGuardVideobaseResponse submitGuardVideobaseEx(SubmitGuardVideobaseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guard.videobase.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitGuardVideobaseResponse());
+    }
+
+    /**
+     * Description: 用于身份证、个人信息识别、防伪等
+     * Summary: 图片光鉴识别链路
+     */
+    public ApplyGuardImagemultiplyResponse applyGuardImagemultiply(ApplyGuardImagemultiplyRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyGuardImagemultiplyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 用于身份证、个人信息识别、防伪等
+     * Summary: 图片光鉴识别链路
+     */
+    public ApplyGuardImagemultiplyResponse applyGuardImagemultiplyEx(ApplyGuardImagemultiplyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guard.imagemultiply.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyGuardImagemultiplyResponse());
+    }
+
+    /**
+     * Description: 输出文本风险检测
+     * Summary: 输出文本风险检测
+     */
+    public CheckGuardAnswerResponse checkGuardAnswer(CheckGuardAnswerRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkGuardAnswerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 输出文本风险检测
+     * Summary: 输出文本风险检测
+     */
+    public CheckGuardAnswerResponse checkGuardAnswerEx(CheckGuardAnswerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guard.answer.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckGuardAnswerResponse());
     }
 }
