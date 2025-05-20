@@ -153,9 +153,6 @@ class CreateFacevrfServerRequest extends Model
     public function validate()
     {
         Model::validateRequired('bizCode', $this->bizCode, true);
-        Model::validateRequired('certName', $this->certName, true);
-        Model::validateRequired('certNo', $this->certNo, true);
-        Model::validateRequired('certType', $this->certType, true);
         Model::validateRequired('identityType', $this->identityType, true);
         Model::validateRequired('outerOrderNo', $this->outerOrderNo, true);
         Model::validateRequired('sceneId', $this->sceneId, true);
