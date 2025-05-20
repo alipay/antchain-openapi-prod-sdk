@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.22',
+    sdk_version = '1.3.23',
     _prod_code = 'DEMOSDK',
     _prod_channel = 'default'
   };
@@ -947,6 +947,126 @@ async function registerAbcdLimit(request: RegisterAbcdLimitRequest): RegisterAbc
 async function registerAbcdLimitEx(request: RegisterAbcdLimitRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterAbcdLimitResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.demosdk.abcd.limit.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTwiceOneRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 超时时间
+  time?: string(name='time'),
+}
+
+model QueryTwiceOneResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  stauts?: string(name='stauts'),
+  // 返回信息描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 个人工作台预发测试使用
+ * Summary: 个人工作台预发测试使用
+ */
+async function queryTwiceOne(request: QueryTwiceOneRequest): QueryTwiceOneResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTwiceOneEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人工作台预发测试使用
+ * Summary: 个人工作台预发测试使用
+ */
+async function queryTwiceOneEx(request: QueryTwiceOneRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTwiceOneResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.twice.one.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportTwiceOneRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 超时时间
+  timeout?: string(name='timeout'),
+}
+
+model ImportTwiceOneResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  stauts?: string(name='stauts'),
+  // 返回结果描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+async function importTwiceOne(request: ImportTwiceOneRequest): ImportTwiceOneResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importTwiceOneEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+async function importTwiceOneEx(request: ImportTwiceOneRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportTwiceOneResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.twice.one.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PublishTwiceOneRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 超时时间
+  timeout?: string(name='timeout'),
+}
+
+model PublishTwiceOneResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回状态码
+  stauts?: string(name='stauts'),
+  // 返回结果描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+async function publishTwiceOne(request: PublishTwiceOneRequest): PublishTwiceOneResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return publishTwiceOneEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+async function publishTwiceOneEx(request: PublishTwiceOneRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PublishTwiceOneResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.twice.one.publish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ParamLiuyzTestRequest = {
