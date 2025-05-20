@@ -1639,6 +1639,237 @@ func (s *RegisterAbcdLimitResponse) SetMsg(v string) *RegisterAbcdLimitResponse 
 	return s
 }
 
+type QueryTwiceOneRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间
+	Time *string `json:"time,omitempty" xml:"time,omitempty"`
+}
+
+func (s QueryTwiceOneRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTwiceOneRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTwiceOneRequest) SetAuthToken(v string) *QueryTwiceOneRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTwiceOneRequest) SetProductInstanceId(v string) *QueryTwiceOneRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTwiceOneRequest) SetTime(v string) *QueryTwiceOneRequest {
+	s.Time = &v
+	return s
+}
+
+type QueryTwiceOneResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Stauts *string `json:"stauts,omitempty" xml:"stauts,omitempty"`
+	// 返回信息描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s QueryTwiceOneResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTwiceOneResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTwiceOneResponse) SetReqMsgId(v string) *QueryTwiceOneResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTwiceOneResponse) SetResultCode(v string) *QueryTwiceOneResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTwiceOneResponse) SetResultMsg(v string) *QueryTwiceOneResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTwiceOneResponse) SetStauts(v string) *QueryTwiceOneResponse {
+	s.Stauts = &v
+	return s
+}
+
+func (s *QueryTwiceOneResponse) SetMsg(v string) *QueryTwiceOneResponse {
+	s.Msg = &v
+	return s
+}
+
+type ImportTwiceOneRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty"`
+}
+
+func (s ImportTwiceOneRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportTwiceOneRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ImportTwiceOneRequest) SetAuthToken(v string) *ImportTwiceOneRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ImportTwiceOneRequest) SetProductInstanceId(v string) *ImportTwiceOneRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ImportTwiceOneRequest) SetTimeout(v string) *ImportTwiceOneRequest {
+	s.Timeout = &v
+	return s
+}
+
+type ImportTwiceOneResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Stauts *string `json:"stauts,omitempty" xml:"stauts,omitempty"`
+	// 返回结果描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s ImportTwiceOneResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportTwiceOneResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ImportTwiceOneResponse) SetReqMsgId(v string) *ImportTwiceOneResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ImportTwiceOneResponse) SetResultCode(v string) *ImportTwiceOneResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ImportTwiceOneResponse) SetResultMsg(v string) *ImportTwiceOneResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ImportTwiceOneResponse) SetStauts(v string) *ImportTwiceOneResponse {
+	s.Stauts = &v
+	return s
+}
+
+func (s *ImportTwiceOneResponse) SetMsg(v string) *ImportTwiceOneResponse {
+	s.Msg = &v
+	return s
+}
+
+type PublishTwiceOneRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty"`
+}
+
+func (s PublishTwiceOneRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PublishTwiceOneRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PublishTwiceOneRequest) SetAuthToken(v string) *PublishTwiceOneRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PublishTwiceOneRequest) SetProductInstanceId(v string) *PublishTwiceOneRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PublishTwiceOneRequest) SetTimeout(v string) *PublishTwiceOneRequest {
+	s.Timeout = &v
+	return s
+}
+
+type PublishTwiceOneResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回状态码
+	Stauts *string `json:"stauts,omitempty" xml:"stauts,omitempty"`
+	// 返回结果描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s PublishTwiceOneResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PublishTwiceOneResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PublishTwiceOneResponse) SetReqMsgId(v string) *PublishTwiceOneResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PublishTwiceOneResponse) SetResultCode(v string) *PublishTwiceOneResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PublishTwiceOneResponse) SetResultMsg(v string) *PublishTwiceOneResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PublishTwiceOneResponse) SetStauts(v string) *PublishTwiceOneResponse {
+	s.Stauts = &v
+	return s
+}
+
+func (s *PublishTwiceOneResponse) SetMsg(v string) *PublishTwiceOneResponse {
+	s.Msg = &v
+	return s
+}
+
 type ParamLiuyzTestRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1951,7 +2182,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.22"),
+				"sdk_version":      tea.String("1.3.23"),
 				"_prod_code":       tea.String("DEMOSDK"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -2670,6 +2901,108 @@ func (client *Client) RegisterAbcdLimitEx(request *RegisterAbcdLimitRequest, hea
 	}
 	_result = &RegisterAbcdLimitResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.abcd.limit.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台预发测试使用
+ * Summary: 个人工作台预发测试使用
+ */
+func (client *Client) QueryTwiceOne(request *QueryTwiceOneRequest) (_result *QueryTwiceOneResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTwiceOneResponse{}
+	_body, _err := client.QueryTwiceOneEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台预发测试使用
+ * Summary: 个人工作台预发测试使用
+ */
+func (client *Client) QueryTwiceOneEx(request *QueryTwiceOneRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTwiceOneResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTwiceOneResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.twice.one.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+func (client *Client) ImportTwiceOne(request *ImportTwiceOneRequest) (_result *ImportTwiceOneResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ImportTwiceOneResponse{}
+	_body, _err := client.ImportTwiceOneEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+func (client *Client) ImportTwiceOneEx(request *ImportTwiceOneRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportTwiceOneResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ImportTwiceOneResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.twice.one.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+func (client *Client) PublishTwiceOne(request *PublishTwiceOneRequest) (_result *PublishTwiceOneResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PublishTwiceOneResponse{}
+	_body, _err := client.PublishTwiceOneEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+func (client *Client) PublishTwiceOneEx(request *PublishTwiceOneRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PublishTwiceOneResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PublishTwiceOneResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.twice.one.publish"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
