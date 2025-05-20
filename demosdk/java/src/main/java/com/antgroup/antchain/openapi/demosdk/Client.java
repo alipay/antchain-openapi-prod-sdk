@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.22"),
+                    new TeaPair("sdk_version", "1.3.23"),
                     new TeaPair("_prod_code", "DEMOSDK"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -571,6 +571,63 @@ public class Client {
     public RegisterAbcdLimitResponse registerAbcdLimitEx(RegisterAbcdLimitRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.abcd.limit.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterAbcdLimitResponse());
+    }
+
+    /**
+     * Description: 个人工作台预发测试使用
+     * Summary: 个人工作台预发测试使用
+     */
+    public QueryTwiceOneResponse queryTwiceOne(QueryTwiceOneRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTwiceOneEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 个人工作台预发测试使用
+     * Summary: 个人工作台预发测试使用
+     */
+    public QueryTwiceOneResponse queryTwiceOneEx(QueryTwiceOneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.twice.one.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTwiceOneResponse());
+    }
+
+    /**
+     * Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试
+     */
+    public ImportTwiceOneResponse importTwiceOne(ImportTwiceOneRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importTwiceOneEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试
+     */
+    public ImportTwiceOneResponse importTwiceOneEx(ImportTwiceOneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.twice.one.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportTwiceOneResponse());
+    }
+
+    /**
+     * Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试
+     */
+    public PublishTwiceOneResponse publishTwiceOne(PublishTwiceOneRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.publishTwiceOneEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试
+     */
+    public PublishTwiceOneResponse publishTwiceOneEx(PublishTwiceOneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.demosdk.twice.one.publish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PublishTwiceOneResponse());
     }
 
     /**
