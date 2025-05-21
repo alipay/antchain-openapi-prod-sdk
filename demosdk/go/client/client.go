@@ -1644,7 +1644,7 @@ type QueryTwiceOneRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 超时时间
-	Time *string `json:"time,omitempty" xml:"time,omitempty"`
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty"`
 }
 
 func (s QueryTwiceOneRequest) String() string {
@@ -1665,8 +1665,8 @@ func (s *QueryTwiceOneRequest) SetProductInstanceId(v string) *QueryTwiceOneRequ
 	return s
 }
 
-func (s *QueryTwiceOneRequest) SetTime(v string) *QueryTwiceOneRequest {
-	s.Time = &v
+func (s *QueryTwiceOneRequest) SetTimeout(v string) *QueryTwiceOneRequest {
+	s.Timeout = &v
 	return s
 }
 
@@ -2182,7 +2182,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.23"),
+				"sdk_version":      tea.String("1.3.24"),
 				"_prod_code":       tea.String("DEMOSDK"),
 				"_prod_channel":    tea.String("default"),
 			}
