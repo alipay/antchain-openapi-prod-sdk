@@ -16,17 +16,21 @@ public class CreateElectrocarApplycarkeycertificateResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 凭证接口返回参数
-    @NameInMap("car_key_init_data")
-    public String carKeyInitData;
+    // sn 
+    @NameInMap("tuid")
+    public String tuid;
+
+    // deviceDid
+    @NameInMap("device_did")
+    public String deviceDid;
 
     // 三元组+连接实例id
     @NameInMap("mqtt_content")
     public String mqttContent;
 
-    // deviceDid
-    @NameInMap("device_did")
-    public String deviceDid;
+    // 凭证接口返回参数
+    @NameInMap("car_key_init_data")
+    public String carKeyInitData;
 
     // 成功/失败
     @NameInMap("success")
@@ -61,12 +65,20 @@ public class CreateElectrocarApplycarkeycertificateResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CreateElectrocarApplycarkeycertificateResponse setCarKeyInitData(String carKeyInitData) {
-        this.carKeyInitData = carKeyInitData;
+    public CreateElectrocarApplycarkeycertificateResponse setTuid(String tuid) {
+        this.tuid = tuid;
         return this;
     }
-    public String getCarKeyInitData() {
-        return this.carKeyInitData;
+    public String getTuid() {
+        return this.tuid;
+    }
+
+    public CreateElectrocarApplycarkeycertificateResponse setDeviceDid(String deviceDid) {
+        this.deviceDid = deviceDid;
+        return this;
+    }
+    public String getDeviceDid() {
+        return this.deviceDid;
     }
 
     public CreateElectrocarApplycarkeycertificateResponse setMqttContent(String mqttContent) {
@@ -77,12 +89,12 @@ public class CreateElectrocarApplycarkeycertificateResponse extends TeaModel {
         return this.mqttContent;
     }
 
-    public CreateElectrocarApplycarkeycertificateResponse setDeviceDid(String deviceDid) {
-        this.deviceDid = deviceDid;
+    public CreateElectrocarApplycarkeycertificateResponse setCarKeyInitData(String carKeyInitData) {
+        this.carKeyInitData = carKeyInitData;
         return this;
     }
-    public String getDeviceDid() {
-        return this.deviceDid;
+    public String getCarKeyInitData() {
+        return this.carKeyInitData;
     }
 
     public CreateElectrocarApplycarkeycertificateResponse setSuccess(Boolean success) {
