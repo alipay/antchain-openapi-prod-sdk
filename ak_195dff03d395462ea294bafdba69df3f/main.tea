@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.1',
+    sdk_version = '1.5.0',
     _prod_code = 'ak_195dff03d395462ea294bafdba69df3f',
     _prod_channel = 'saas'
   };
@@ -1715,6 +1715,10 @@ model CancelAntchainAtoFundPlanRequest = {
   operation?: string(maxLength=64, name='operation'),
   // 赎回金额,单位为分,取消并赎回时必填
   redeemAmount?: long(minimum=10, name='redeem_amount'),
+  // 赎回类型，为空默认为 TRANSFER 
+  // 转账代偿：TRANSFER
+  // 代扣代偿：WITHHOLD
+  redeemType?: string(maxLength=64, name='redeem_type'),
 }
 
 model CancelAntchainAtoFundPlanResponse = {
@@ -3888,6 +3892,96 @@ async function queryAntchainAtoFundAssetpackage(request: QueryAntchainAtoFundAss
 async function queryAntchainAtoFundAssetpackageEx(request: QueryAntchainAtoFundAssetpackageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainAtoFundAssetpackageResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.ato.fund.assetpackage.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAntchainAtoFundCompensatesignurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  //  资方社会统一信用代码
+  fundId: string(name='fund_id'),
+  // 商户租户id
+  merchantTenantId: string(name='merchant_tenant_id'),
+  // 商户社会统一信用代码
+  merchantId: string(name='merchant_id'),
+  // 签约串类型
+  // TRANSFER:转账代偿签约串
+  // WITHHOLD:代扣代偿签约串
+  type: string(name='type'),
+}
+
+model GetAntchainAtoFundCompensatesignurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 签约链接
+  signUrl?: string(name='sign_url'),
+}
+
+/**
+ * Description: 资方代偿签约链接获取
+ * Summary: 资方代偿签约链接获取
+ */
+async function getAntchainAtoFundCompensatesignurl(request: GetAntchainAtoFundCompensatesignurlRequest): GetAntchainAtoFundCompensatesignurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAntchainAtoFundCompensatesignurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 资方代偿签约链接获取
+ * Summary: 资方代偿签约链接获取
+ */
+async function getAntchainAtoFundCompensatesignurlEx(request: GetAntchainAtoFundCompensatesignurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAntchainAtoFundCompensatesignurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.fund.compensatesignurl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConfirmAntchainAtoFundCompensateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 资方社会统一信用代码
+  fundId: string(name='fund_id'),
+  // 商户租户id
+  merchantTenantId: string(name='merchant_tenant_id'),
+  // 商户社会统一信用代码
+  merchantId: string(name='merchant_id'),
+  // 签约串类型 
+  // TRANSFER:转账代偿签约串 
+  // WITHHOLD:代扣代偿签约串
+  type?: string(name='type'),
+}
+
+model ConfirmAntchainAtoFundCompensateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 转账代偿签约结果确认
+ * Summary: 转账代偿签约结果确认
+ */
+async function confirmAntchainAtoFundCompensate(request: ConfirmAntchainAtoFundCompensateRequest): ConfirmAntchainAtoFundCompensateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return confirmAntchainAtoFundCompensateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 转账代偿签约结果确认
+ * Summary: 转账代偿签约结果确认
+ */
+async function confirmAntchainAtoFundCompensateEx(request: ConfirmAntchainAtoFundCompensateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmAntchainAtoFundCompensateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.fund.compensate.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
