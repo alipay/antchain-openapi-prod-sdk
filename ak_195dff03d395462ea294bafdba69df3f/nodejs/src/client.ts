@@ -2759,6 +2759,10 @@ export class CancelAntchainAtoFundPlanRequest extends $tea.Model {
   operation?: string;
   // 赎回金额,单位为分,取消并赎回时必填
   redeemAmount?: number;
+  // 赎回类型，为空默认为 TRANSFER 
+  // 转账代偿：TRANSFER
+  // 代扣代偿：WITHHOLD
+  redeemType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2769,6 +2773,7 @@ export class CancelAntchainAtoFundPlanRequest extends $tea.Model {
       fundId: 'fund_id',
       operation: 'operation',
       redeemAmount: 'redeem_amount',
+      redeemType: 'redeem_type',
     };
   }
 
@@ -2782,6 +2787,7 @@ export class CancelAntchainAtoFundPlanRequest extends $tea.Model {
       fundId: 'string',
       operation: 'string',
       redeemAmount: 'number',
+      redeemType: 'string',
     };
   }
 
@@ -6209,6 +6215,148 @@ export class QueryAntchainAtoFundAssetpackageResponse extends $tea.Model {
   }
 }
 
+export class GetAntchainAtoFundCompensatesignurlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  //  资方社会统一信用代码
+  fundId: string;
+  // 商户租户id
+  merchantTenantId: string;
+  // 商户社会统一信用代码
+  merchantId: string;
+  // 签约串类型
+  // TRANSFER:转账代偿签约串
+  // WITHHOLD:代扣代偿签约串
+  type: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fundId: 'fund_id',
+      merchantTenantId: 'merchant_tenant_id',
+      merchantId: 'merchant_id',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fundId: 'string',
+      merchantTenantId: 'string',
+      merchantId: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAntchainAtoFundCompensatesignurlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 签约链接
+  signUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      signUrl: 'sign_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      signUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmAntchainAtoFundCompensateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 资方社会统一信用代码
+  fundId: string;
+  // 商户租户id
+  merchantTenantId: string;
+  // 商户社会统一信用代码
+  merchantId: string;
+  // 签约串类型 
+  // TRANSFER:转账代偿签约串 
+  // WITHHOLD:代扣代偿签约串
+  type?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fundId: 'fund_id',
+      merchantTenantId: 'merchant_tenant_id',
+      merchantId: 'merchant_id',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fundId: 'string',
+      merchantTenantId: 'string',
+      merchantId: 'string',
+      type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmAntchainAtoFundCompensateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -6410,7 +6558,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.1",
+          sdk_version: "1.5.0",
           _prod_code: "ak_195dff03d395462ea294bafdba69df3f",
           _prod_channel: "saas",
         };
@@ -7877,6 +8025,44 @@ export default class Client {
   async queryAntchainAtoFundAssetpackageEx(request: QueryAntchainAtoFundAssetpackageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainAtoFundAssetpackageResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAntchainAtoFundAssetpackageResponse>(await this.doRequest("1.0", "antchain.ato.fund.assetpackage.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainAtoFundAssetpackageResponse({}));
+  }
+
+  /**
+   * Description: 资方代偿签约链接获取
+   * Summary: 资方代偿签约链接获取
+   */
+  async getAntchainAtoFundCompensatesignurl(request: GetAntchainAtoFundCompensatesignurlRequest): Promise<GetAntchainAtoFundCompensatesignurlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getAntchainAtoFundCompensatesignurlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 资方代偿签约链接获取
+   * Summary: 资方代偿签约链接获取
+   */
+  async getAntchainAtoFundCompensatesignurlEx(request: GetAntchainAtoFundCompensatesignurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAntchainAtoFundCompensatesignurlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetAntchainAtoFundCompensatesignurlResponse>(await this.doRequest("1.0", "antchain.ato.fund.compensatesignurl.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAntchainAtoFundCompensatesignurlResponse({}));
+  }
+
+  /**
+   * Description: 转账代偿签约结果确认
+   * Summary: 转账代偿签约结果确认
+   */
+  async confirmAntchainAtoFundCompensate(request: ConfirmAntchainAtoFundCompensateRequest): Promise<ConfirmAntchainAtoFundCompensateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.confirmAntchainAtoFundCompensateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 转账代偿签约结果确认
+   * Summary: 转账代偿签约结果确认
+   */
+  async confirmAntchainAtoFundCompensateEx(request: ConfirmAntchainAtoFundCompensateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmAntchainAtoFundCompensateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConfirmAntchainAtoFundCompensateResponse>(await this.doRequest("1.0", "antchain.ato.fund.compensate.confirm", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConfirmAntchainAtoFundCompensateResponse({}));
   }
 
   /**
