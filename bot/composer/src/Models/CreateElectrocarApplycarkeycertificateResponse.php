@@ -26,11 +26,17 @@ class CreateElectrocarApplycarkeycertificateResponse extends Model
      */
     public $resultMsg;
 
-    // 凭证接口返回参数
+    // sn
     /**
      * @var string
      */
-    public $carKeyInitData;
+    public $tuid;
+
+    // deviceDid
+    /**
+     * @var string
+     */
+    public $deviceDid;
 
     // 三元组+连接实例id
     /**
@@ -38,11 +44,11 @@ class CreateElectrocarApplycarkeycertificateResponse extends Model
      */
     public $mqttContent;
 
-    // deviceDid
+    // 凭证接口返回参数
     /**
      * @var string
      */
-    public $deviceDid;
+    public $carKeyInitData;
 
     // 成功/失败
     /**
@@ -53,9 +59,10 @@ class CreateElectrocarApplycarkeycertificateResponse extends Model
         'reqMsgId'       => 'req_msg_id',
         'resultCode'     => 'result_code',
         'resultMsg'      => 'result_msg',
-        'carKeyInitData' => 'car_key_init_data',
-        'mqttContent'    => 'mqtt_content',
+        'tuid'           => 'tuid',
         'deviceDid'      => 'device_did',
+        'mqttContent'    => 'mqtt_content',
+        'carKeyInitData' => 'car_key_init_data',
         'success'        => 'success',
     ];
 
@@ -75,14 +82,17 @@ class CreateElectrocarApplycarkeycertificateResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->carKeyInitData) {
-            $res['car_key_init_data'] = $this->carKeyInitData;
+        if (null !== $this->tuid) {
+            $res['tuid'] = $this->tuid;
+        }
+        if (null !== $this->deviceDid) {
+            $res['device_did'] = $this->deviceDid;
         }
         if (null !== $this->mqttContent) {
             $res['mqtt_content'] = $this->mqttContent;
         }
-        if (null !== $this->deviceDid) {
-            $res['device_did'] = $this->deviceDid;
+        if (null !== $this->carKeyInitData) {
+            $res['car_key_init_data'] = $this->carKeyInitData;
         }
         if (null !== $this->success) {
             $res['success'] = $this->success;
@@ -108,14 +118,17 @@ class CreateElectrocarApplycarkeycertificateResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['car_key_init_data'])) {
-            $model->carKeyInitData = $map['car_key_init_data'];
+        if (isset($map['tuid'])) {
+            $model->tuid = $map['tuid'];
+        }
+        if (isset($map['device_did'])) {
+            $model->deviceDid = $map['device_did'];
         }
         if (isset($map['mqtt_content'])) {
             $model->mqttContent = $map['mqtt_content'];
         }
-        if (isset($map['device_did'])) {
-            $model->deviceDid = $map['device_did'];
+        if (isset($map['car_key_init_data'])) {
+            $model->carKeyInitData = $map['car_key_init_data'];
         }
         if (isset($map['success'])) {
             $model->success = $map['success'];
