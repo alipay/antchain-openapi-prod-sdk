@@ -24,20 +24,25 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 凭证接口返回参数
-        [NameInMap("car_key_init_data")]
+        // sn 
+        [NameInMap("tuid")]
         [Validation(Required=false)]
-        public string CarKeyInitData { get; set; }
+        public string Tuid { get; set; }
+
+        // deviceDid
+        [NameInMap("device_did")]
+        [Validation(Required=false)]
+        public string DeviceDid { get; set; }
 
         // 三元组+连接实例id
         [NameInMap("mqtt_content")]
         [Validation(Required=false)]
         public string MqttContent { get; set; }
 
-        // deviceDid
-        [NameInMap("device_did")]
+        // 凭证接口返回参数
+        [NameInMap("car_key_init_data")]
         [Validation(Required=false)]
-        public string DeviceDid { get; set; }
+        public string CarKeyInitData { get; set; }
 
         // 成功/失败
         [NameInMap("success")]
