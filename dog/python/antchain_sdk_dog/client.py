@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2'
+                    'sdk_version': '1.0.6',
+                    '_prod_code': 'DOG',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -200,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2'
+                    'sdk_version': '1.0.6',
+                    '_prod_code': 'DOG',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -271,12 +275,68 @@ class Client:
                 raise e
         raise UnretryableException(_last_request, _last_exception)
 
+    def save_aone(
+        self,
+        request: dog_models.SaveAoneRequest,
+    ) -> dog_models.SaveAoneResponse:
+        """
+        Description: save form to aone
+        Summary: save form to aone
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.save_aone_ex(request, headers, runtime)
+
+    async def save_aone_async(
+        self,
+        request: dog_models.SaveAoneRequest,
+    ) -> dog_models.SaveAoneResponse:
+        """
+        Description: save form to aone
+        Summary: save form to aone
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.save_aone_ex_async(request, headers, runtime)
+
+    def save_aone_ex(
+        self,
+        request: dog_models.SaveAoneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dog_models.SaveAoneResponse:
+        """
+        Description: save form to aone
+        Summary: save form to aone
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dog_models.SaveAoneResponse(),
+            self.do_request('1.0', 'demo.dog.aone.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def save_aone_ex_async(
+        self,
+        request: dog_models.SaveAoneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dog_models.SaveAoneResponse:
+        """
+        Description: save form to aone
+        Summary: save form to aone
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dog_models.SaveAoneResponse(),
+            await self.do_request_async('1.0', 'demo.dog.aone.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def get_age(
         self,
         request: dog_models.GetAgeRequest,
     ) -> dog_models.GetAgeResponse:
         """
-        Description: 该接口用于获取狗狗的年龄
+        Description: 该接口用于获取狗狗的年龄A
         Summary: 获取狗狗的年龄
         """
         runtime = util_models.RuntimeOptions()
@@ -288,7 +348,7 @@ class Client:
         request: dog_models.GetAgeRequest,
     ) -> dog_models.GetAgeResponse:
         """
-        Description: 该接口用于获取狗狗的年龄
+        Description: 该接口用于获取狗狗的年龄A
         Summary: 获取狗狗的年龄
         """
         runtime = util_models.RuntimeOptions()
@@ -302,7 +362,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> dog_models.GetAgeResponse:
         """
-        Description: 该接口用于获取狗狗的年龄
+        Description: 该接口用于获取狗狗的年龄A
         Summary: 获取狗狗的年龄
         """
         UtilClient.validate_model(request)
@@ -318,11 +378,235 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> dog_models.GetAgeResponse:
         """
-        Description: 该接口用于获取狗狗的年龄
+        Description: 该接口用于获取狗狗的年龄A
         Summary: 获取狗狗的年龄
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             dog_models.GetAgeResponse(),
             await self.do_request_async('1.0', 'demo.dog.age.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_emebd_test(
+        self,
+        request: dog_models.QueryEmebdTestRequest,
+    ) -> dog_models.QueryEmebdTestResponse:
+        """
+        Description: 近端网关测试接口
+        Summary: 近端网关测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_emebd_test_ex(request, headers, runtime)
+
+    async def query_emebd_test_async(
+        self,
+        request: dog_models.QueryEmebdTestRequest,
+    ) -> dog_models.QueryEmebdTestResponse:
+        """
+        Description: 近端网关测试接口
+        Summary: 近端网关测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_emebd_test_ex_async(request, headers, runtime)
+
+    def query_emebd_test_ex(
+        self,
+        request: dog_models.QueryEmebdTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dog_models.QueryEmebdTestResponse:
+        """
+        Description: 近端网关测试接口
+        Summary: 近端网关测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dog_models.QueryEmebdTestResponse(),
+            self.do_request('1.0', 'demo.dog.emebd.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_emebd_test_ex_async(
+        self,
+        request: dog_models.QueryEmebdTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dog_models.QueryEmebdTestResponse:
+        """
+        Description: 近端网关测试接口
+        Summary: 近端网关测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dog_models.QueryEmebdTestResponse(),
+            await self.do_request_async('1.0', 'demo.dog.emebd.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_workbench_test(
+        self,
+        request: dog_models.CreateWorkbenchTestRequest,
+    ) -> dog_models.CreateWorkbenchTestResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_workbench_test_ex(request, headers, runtime)
+
+    async def create_workbench_test_async(
+        self,
+        request: dog_models.CreateWorkbenchTestRequest,
+    ) -> dog_models.CreateWorkbenchTestResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_workbench_test_ex_async(request, headers, runtime)
+
+    def create_workbench_test_ex(
+        self,
+        request: dog_models.CreateWorkbenchTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dog_models.CreateWorkbenchTestResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dog_models.CreateWorkbenchTestResponse(),
+            self.do_request('1.0', 'demo.dog.workbench.test.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_workbench_test_ex_async(
+        self,
+        request: dog_models.CreateWorkbenchTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dog_models.CreateWorkbenchTestResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dog_models.CreateWorkbenchTestResponse(),
+            await self.do_request_async('1.0', 'demo.dog.workbench.test.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_aaa_bbb(
+        self,
+        request: dog_models.QueryAaaBbbRequest,
+    ) -> dog_models.QueryAaaBbbResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_aaa_bbb_ex(request, headers, runtime)
+
+    async def query_aaa_bbb_async(
+        self,
+        request: dog_models.QueryAaaBbbRequest,
+    ) -> dog_models.QueryAaaBbbResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_aaa_bbb_ex_async(request, headers, runtime)
+
+    def query_aaa_bbb_ex(
+        self,
+        request: dog_models.QueryAaaBbbRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dog_models.QueryAaaBbbResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dog_models.QueryAaaBbbResponse(),
+            self.do_request('1.0', 'demo.dog.aaa.bbb.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_aaa_bbb_ex_async(
+        self,
+        request: dog_models.QueryAaaBbbRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dog_models.QueryAaaBbbResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dog_models.QueryAaaBbbResponse(),
+            await self.do_request_async('1.0', 'demo.dog.aaa.bbb.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_workbench_test(
+        self,
+        request: dog_models.QueryWorkbenchTestRequest,
+    ) -> dog_models.QueryWorkbenchTestResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_workbench_test_ex(request, headers, runtime)
+
+    async def query_workbench_test_async(
+        self,
+        request: dog_models.QueryWorkbenchTestRequest,
+    ) -> dog_models.QueryWorkbenchTestResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_workbench_test_ex_async(request, headers, runtime)
+
+    def query_workbench_test_ex(
+        self,
+        request: dog_models.QueryWorkbenchTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dog_models.QueryWorkbenchTestResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dog_models.QueryWorkbenchTestResponse(),
+            self.do_request('1.0', 'demo.dog.workbench.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_workbench_test_ex_async(
+        self,
+        request: dog_models.QueryWorkbenchTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dog_models.QueryWorkbenchTestResponse:
+        """
+        Description: 用于个人工作台二期测试使用
+        Summary: 用于个人工作台二期测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dog_models.QueryWorkbenchTestResponse(),
+            await self.do_request_async('1.0', 'demo.dog.workbench.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
