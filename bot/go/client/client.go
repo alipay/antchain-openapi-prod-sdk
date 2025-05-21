@@ -23160,12 +23160,14 @@ type CreateElectrocarApplycarkeycertificateResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 凭证接口返回参数
-	CarKeyInitData *string `json:"car_key_init_data,omitempty" xml:"car_key_init_data,omitempty"`
-	// 三元组+连接实例id
-	MqttContent *string `json:"mqtt_content,omitempty" xml:"mqtt_content,omitempty"`
+	// sn
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
 	// deviceDid
 	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty"`
+	// 三元组+连接实例id
+	MqttContent *string `json:"mqtt_content,omitempty" xml:"mqtt_content,omitempty"`
+	// 凭证接口返回参数
+	CarKeyInitData *string `json:"car_key_init_data,omitempty" xml:"car_key_init_data,omitempty"`
 	// 成功/失败
 	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
 }
@@ -23193,8 +23195,13 @@ func (s *CreateElectrocarApplycarkeycertificateResponse) SetResultMsg(v string) 
 	return s
 }
 
-func (s *CreateElectrocarApplycarkeycertificateResponse) SetCarKeyInitData(v string) *CreateElectrocarApplycarkeycertificateResponse {
-	s.CarKeyInitData = &v
+func (s *CreateElectrocarApplycarkeycertificateResponse) SetTuid(v string) *CreateElectrocarApplycarkeycertificateResponse {
+	s.Tuid = &v
+	return s
+}
+
+func (s *CreateElectrocarApplycarkeycertificateResponse) SetDeviceDid(v string) *CreateElectrocarApplycarkeycertificateResponse {
+	s.DeviceDid = &v
 	return s
 }
 
@@ -23203,8 +23210,8 @@ func (s *CreateElectrocarApplycarkeycertificateResponse) SetMqttContent(v string
 	return s
 }
 
-func (s *CreateElectrocarApplycarkeycertificateResponse) SetDeviceDid(v string) *CreateElectrocarApplycarkeycertificateResponse {
-	s.DeviceDid = &v
+func (s *CreateElectrocarApplycarkeycertificateResponse) SetCarKeyInitData(v string) *CreateElectrocarApplycarkeycertificateResponse {
+	s.CarKeyInitData = &v
 	return s
 }
 
@@ -36649,7 +36656,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.24"),
+				"sdk_version":      tea.String("1.12.25"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
