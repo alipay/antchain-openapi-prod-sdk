@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.2',
+    sdk_version = '1.0.6',
+    _prod_code = 'DOG',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -145,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -181,16 +183,78 @@ model DogHome {
   leader: Dog(name='leader', example=''),
 }
 
+// aone  返回结构
+model ResultList {
+  // 返回结果
+  result: DogHome(name='result', example='{"name":"value"}'),
+}
+
+// InitPack
+model InitPack {
+  // 2022-11-07 14:48
+  time?: string(name='time', example='2022-11-07 14:48'),
+  // wanyi
+  operator?: string(name='operator', example='wanyi'),
+  // 1
+  count?: long(name='count', example='1'),
+}
+
+model SaveAoneRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 创建者的工号
+  author: string(name='author'),
+  // versionIds
+  versionIds: [ long ](name='version_ids'),
+  // assignedTo
+  assignedTo: string(name='assigned_to'),
+}
+
+model SaveAoneResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结构体
+  result?: ResultList(name='result'),
+}
+
+/**
+ * Description: save form to aone 
+ * Summary: save form to aone 
+ */
+async function saveAone(request: SaveAoneRequest): SaveAoneResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return saveAoneEx(request, headers, runtime);
+}
+
+/**
+ * Description: save form to aone 
+ * Summary: save form to aone 
+ */
+async function saveAoneEx(request: SaveAoneRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveAoneResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.dog.aone.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model GetAgeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 狗狗的id
-  id: string(name='id'),
   // 数组结构体
-  dog: [ Dog ](name='dog'),
+  dog?: [ Dog ](name='dog'),
+  // 狗狗的id
+  id: long(name='id'),
   // 结构体
   home: DogHome(name='home'),
+  // alipay
+  fileId: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='file_id'),
+  // test
+  test: string(name='test'),
 }
 
 model GetAgeResponse = {
@@ -205,7 +269,7 @@ model GetAgeResponse = {
 }
 
 /**
- * Description: 该接口用于获取狗狗的年龄
+ * Description: 该接口用于获取狗狗的年龄A
  * Summary: 获取狗狗的年龄
  */
 async function getAge(request: GetAgeRequest): GetAgeResponse {
@@ -215,11 +279,173 @@ async function getAge(request: GetAgeRequest): GetAgeResponse {
 }
 
 /**
- * Description: 该接口用于获取狗狗的年龄
+ * Description: 该接口用于获取狗狗的年龄A
  * Summary: 获取狗狗的年龄
  */
 async function getAgeEx(request: GetAgeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAgeResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.dog.age.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEmebdTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 示例
+  timeout?: string(name='timeout'),
+}
+
+model QueryEmebdTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 近端网关测试接口
+ * Summary: 近端网关测试接口
+ */
+async function queryEmebdTest(request: QueryEmebdTestRequest): QueryEmebdTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEmebdTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 近端网关测试接口
+ * Summary: 近端网关测试接口
+ */
+async function queryEmebdTestEx(request: QueryEmebdTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEmebdTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.dog.emebd.test.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateWorkbenchTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 3000
+  timeout: string(name='timeout'),
+}
+
+model CreateWorkbenchTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // OK
+  stauts?: string(name='stauts'),
+  // SUCCESS le
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 用于个人工作台二期测试使用
+ * Summary: 用于个人工作台二期测试使用
+ */
+async function createWorkbenchTest(request: CreateWorkbenchTestRequest): CreateWorkbenchTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createWorkbenchTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于个人工作台二期测试使用
+ * Summary: 用于个人工作台二期测试使用
+ */
+async function createWorkbenchTestEx(request: CreateWorkbenchTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateWorkbenchTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.dog.workbench.test.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAaaBbbRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryAaaBbbResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 用于个人工作台二期测试使用
+ * Summary: 用于个人工作台二期测试使用
+ */
+async function queryAaaBbb(request: QueryAaaBbbRequest): QueryAaaBbbResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAaaBbbEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于个人工作台二期测试使用
+ * Summary: 用于个人工作台二期测试使用
+ */
+async function queryAaaBbbEx(request: QueryAaaBbbRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAaaBbbResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.dog.aaa.bbb.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryWorkbenchTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 3000
+  timeout?: string(name='timeout'),
+  // 1
+  count?: long(name='count'),
+  // 2022-11-07 14:46
+  time?: string(name='time'),
+  // call for back
+  desc?: string(name='desc'),
+  // wanyi
+  operator?: string(name='operator'),
+}
+
+model QueryWorkbenchTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // OK
+  stauts?: string(name='stauts'),
+  // SUCCESS le
+  msg?: string(name='msg'),
+  // copy
+  initDesc?: string(name='init_desc'),
+  // 组合返回请求结果
+  initPack?: InitPack(name='init_pack'),
+}
+
+/**
+ * Description: 用于个人工作台二期测试使用
+ * Summary: 用于个人工作台二期测试使用
+ */
+async function queryWorkbenchTest(request: QueryWorkbenchTestRequest): QueryWorkbenchTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryWorkbenchTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于个人工作台二期测试使用
+ * Summary: 用于个人工作台二期测试使用
+ */
+async function queryWorkbenchTestEx(request: QueryWorkbenchTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryWorkbenchTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.dog.workbench.test.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
