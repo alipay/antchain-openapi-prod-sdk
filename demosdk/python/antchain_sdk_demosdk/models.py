@@ -2053,13 +2053,13 @@ class QueryTwiceOneRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        time: str = None,
+        timeout: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 超时时间
-        self.time = time
+        self.timeout = timeout
 
     def validate(self):
         pass
@@ -2074,8 +2074,8 @@ class QueryTwiceOneRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.time is not None:
-            result['time'] = self.time
+        if self.timeout is not None:
+            result['timeout'] = self.timeout
         return result
 
     def from_map(self, m: dict = None):
@@ -2084,8 +2084,8 @@ class QueryTwiceOneRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('time') is not None:
-            self.time = m.get('time')
+        if m.get('timeout') is not None:
+            self.timeout = m.get('timeout')
         return self
 
 
