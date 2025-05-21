@@ -1292,12 +1292,12 @@ export class QueryTwiceOneRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 超时时间
-  time?: string;
+  timeout?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      time: 'time',
+      timeout: 'timeout',
     };
   }
 
@@ -1305,7 +1305,7 @@ export class QueryTwiceOneRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      time: 'string',
+      timeout: 'string',
     };
   }
 
@@ -1736,7 +1736,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.23",
+          sdk_version: "1.3.24",
           _prod_code: "DEMOSDK",
           _prod_channel: "default",
         };
