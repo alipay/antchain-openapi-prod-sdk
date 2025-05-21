@@ -91,7 +91,7 @@ namespace AntChain.SDK.DOG
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,9 @@ namespace AntChain.SDK.DOG
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.2"},
+                        {"sdk_version", "1.0.6"},
+                        {"_prod_code", "DOG"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -215,7 +217,7 @@ namespace AntChain.SDK.DOG
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -261,7 +263,9 @@ namespace AntChain.SDK.DOG
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.2"},
+                        {"sdk_version", "1.0.6"},
+                        {"_prod_code", "DOG"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -318,7 +322,49 @@ namespace AntChain.SDK.DOG
         }
 
         /**
-         * Description: 该接口用于获取狗狗的年龄
+         * Description: save form to aone 
+         * Summary: save form to aone 
+         */
+        public SaveAoneResponse SaveAone(SaveAoneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SaveAoneEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: save form to aone 
+         * Summary: save form to aone 
+         */
+        public async Task<SaveAoneResponse> SaveAoneAsync(SaveAoneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SaveAoneExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: save form to aone 
+         * Summary: save form to aone 
+         */
+        public SaveAoneResponse SaveAoneEx(SaveAoneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveAoneResponse>(DoRequest("1.0", "demo.dog.aone.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: save form to aone 
+         * Summary: save form to aone 
+         */
+        public async Task<SaveAoneResponse> SaveAoneExAsync(SaveAoneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveAoneResponse>(await DoRequestAsync("1.0", "demo.dog.aone.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 该接口用于获取狗狗的年龄A
          * Summary: 获取狗狗的年龄
          */
         public GetAgeResponse GetAge(GetAgeRequest request)
@@ -329,7 +375,7 @@ namespace AntChain.SDK.DOG
         }
 
         /**
-         * Description: 该接口用于获取狗狗的年龄
+         * Description: 该接口用于获取狗狗的年龄A
          * Summary: 获取狗狗的年龄
          */
         public async Task<GetAgeResponse> GetAgeAsync(GetAgeRequest request)
@@ -340,7 +386,7 @@ namespace AntChain.SDK.DOG
         }
 
         /**
-         * Description: 该接口用于获取狗狗的年龄
+         * Description: 该接口用于获取狗狗的年龄A
          * Summary: 获取狗狗的年龄
          */
         public GetAgeResponse GetAgeEx(GetAgeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -350,13 +396,181 @@ namespace AntChain.SDK.DOG
         }
 
         /**
-         * Description: 该接口用于获取狗狗的年龄
+         * Description: 该接口用于获取狗狗的年龄A
          * Summary: 获取狗狗的年龄
          */
         public async Task<GetAgeResponse> GetAgeExAsync(GetAgeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetAgeResponse>(await DoRequestAsync("1.0", "demo.dog.age.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 近端网关测试接口
+         * Summary: 近端网关测试接口
+         */
+        public QueryEmebdTestResponse QueryEmebdTest(QueryEmebdTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryEmebdTestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 近端网关测试接口
+         * Summary: 近端网关测试接口
+         */
+        public async Task<QueryEmebdTestResponse> QueryEmebdTestAsync(QueryEmebdTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryEmebdTestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 近端网关测试接口
+         * Summary: 近端网关测试接口
+         */
+        public QueryEmebdTestResponse QueryEmebdTestEx(QueryEmebdTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEmebdTestResponse>(DoRequest("1.0", "demo.dog.emebd.test.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 近端网关测试接口
+         * Summary: 近端网关测试接口
+         */
+        public async Task<QueryEmebdTestResponse> QueryEmebdTestExAsync(QueryEmebdTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEmebdTestResponse>(await DoRequestAsync("1.0", "demo.dog.emebd.test.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于个人工作台二期测试使用
+         * Summary: 用于个人工作台二期测试使用
+         */
+        public CreateWorkbenchTestResponse CreateWorkbenchTest(CreateWorkbenchTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateWorkbenchTestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于个人工作台二期测试使用
+         * Summary: 用于个人工作台二期测试使用
+         */
+        public async Task<CreateWorkbenchTestResponse> CreateWorkbenchTestAsync(CreateWorkbenchTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateWorkbenchTestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于个人工作台二期测试使用
+         * Summary: 用于个人工作台二期测试使用
+         */
+        public CreateWorkbenchTestResponse CreateWorkbenchTestEx(CreateWorkbenchTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateWorkbenchTestResponse>(DoRequest("1.0", "demo.dog.workbench.test.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于个人工作台二期测试使用
+         * Summary: 用于个人工作台二期测试使用
+         */
+        public async Task<CreateWorkbenchTestResponse> CreateWorkbenchTestExAsync(CreateWorkbenchTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateWorkbenchTestResponse>(await DoRequestAsync("1.0", "demo.dog.workbench.test.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于个人工作台二期测试使用
+         * Summary: 用于个人工作台二期测试使用
+         */
+        public QueryAaaBbbResponse QueryAaaBbb(QueryAaaBbbRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAaaBbbEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于个人工作台二期测试使用
+         * Summary: 用于个人工作台二期测试使用
+         */
+        public async Task<QueryAaaBbbResponse> QueryAaaBbbAsync(QueryAaaBbbRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAaaBbbExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于个人工作台二期测试使用
+         * Summary: 用于个人工作台二期测试使用
+         */
+        public QueryAaaBbbResponse QueryAaaBbbEx(QueryAaaBbbRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAaaBbbResponse>(DoRequest("1.0", "demo.dog.aaa.bbb.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于个人工作台二期测试使用
+         * Summary: 用于个人工作台二期测试使用
+         */
+        public async Task<QueryAaaBbbResponse> QueryAaaBbbExAsync(QueryAaaBbbRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAaaBbbResponse>(await DoRequestAsync("1.0", "demo.dog.aaa.bbb.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于个人工作台二期测试使用
+         * Summary: 用于个人工作台二期测试使用
+         */
+        public QueryWorkbenchTestResponse QueryWorkbenchTest(QueryWorkbenchTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryWorkbenchTestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于个人工作台二期测试使用
+         * Summary: 用于个人工作台二期测试使用
+         */
+        public async Task<QueryWorkbenchTestResponse> QueryWorkbenchTestAsync(QueryWorkbenchTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryWorkbenchTestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于个人工作台二期测试使用
+         * Summary: 用于个人工作台二期测试使用
+         */
+        public QueryWorkbenchTestResponse QueryWorkbenchTestEx(QueryWorkbenchTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryWorkbenchTestResponse>(DoRequest("1.0", "demo.dog.workbench.test.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于个人工作台二期测试使用
+         * Summary: 用于个人工作台二期测试使用
+         */
+        public async Task<QueryWorkbenchTestResponse> QueryWorkbenchTestExAsync(QueryWorkbenchTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryWorkbenchTestResponse>(await DoRequestAsync("1.0", "demo.dog.workbench.test.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
