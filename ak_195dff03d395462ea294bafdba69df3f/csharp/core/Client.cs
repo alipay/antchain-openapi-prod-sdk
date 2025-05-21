@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.1"},
+                        {"sdk_version", "1.5.0"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.1"},
+                        {"sdk_version", "1.5.0"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -3457,6 +3457,90 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAntchainAtoFundAssetpackageResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.assetpackage.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资方代偿签约链接获取
+         * Summary: 资方代偿签约链接获取
+         */
+        public GetAntchainAtoFundCompensatesignurlResponse GetAntchainAtoFundCompensatesignurl(GetAntchainAtoFundCompensatesignurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetAntchainAtoFundCompensatesignurlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资方代偿签约链接获取
+         * Summary: 资方代偿签约链接获取
+         */
+        public async Task<GetAntchainAtoFundCompensatesignurlResponse> GetAntchainAtoFundCompensatesignurlAsync(GetAntchainAtoFundCompensatesignurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetAntchainAtoFundCompensatesignurlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资方代偿签约链接获取
+         * Summary: 资方代偿签约链接获取
+         */
+        public GetAntchainAtoFundCompensatesignurlResponse GetAntchainAtoFundCompensatesignurlEx(GetAntchainAtoFundCompensatesignurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAntchainAtoFundCompensatesignurlResponse>(DoRequest("1.0", "antchain.ato.fund.compensatesignurl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资方代偿签约链接获取
+         * Summary: 资方代偿签约链接获取
+         */
+        public async Task<GetAntchainAtoFundCompensatesignurlResponse> GetAntchainAtoFundCompensatesignurlExAsync(GetAntchainAtoFundCompensatesignurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAntchainAtoFundCompensatesignurlResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.compensatesignurl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 转账代偿签约结果确认
+         * Summary: 转账代偿签约结果确认
+         */
+        public ConfirmAntchainAtoFundCompensateResponse ConfirmAntchainAtoFundCompensate(ConfirmAntchainAtoFundCompensateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ConfirmAntchainAtoFundCompensateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 转账代偿签约结果确认
+         * Summary: 转账代偿签约结果确认
+         */
+        public async Task<ConfirmAntchainAtoFundCompensateResponse> ConfirmAntchainAtoFundCompensateAsync(ConfirmAntchainAtoFundCompensateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ConfirmAntchainAtoFundCompensateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 转账代偿签约结果确认
+         * Summary: 转账代偿签约结果确认
+         */
+        public ConfirmAntchainAtoFundCompensateResponse ConfirmAntchainAtoFundCompensateEx(ConfirmAntchainAtoFundCompensateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmAntchainAtoFundCompensateResponse>(DoRequest("1.0", "antchain.ato.fund.compensate.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 转账代偿签约结果确认
+         * Summary: 转账代偿签约结果确认
+         */
+        public async Task<ConfirmAntchainAtoFundCompensateResponse> ConfirmAntchainAtoFundCompensateExAsync(ConfirmAntchainAtoFundCompensateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ConfirmAntchainAtoFundCompensateResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.compensate.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
