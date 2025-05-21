@@ -17644,12 +17644,14 @@ export class CreateElectrocarApplycarkeycertificateResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 凭证接口返回参数
-  carKeyInitData?: string;
-  // 三元组+连接实例id
-  mqttContent?: string;
+  // sn 
+  tuid?: string;
   // deviceDid
   deviceDid?: string;
+  // 三元组+连接实例id
+  mqttContent?: string;
+  // 凭证接口返回参数
+  carKeyInitData?: string;
   // 成功/失败
   success?: boolean;
   static names(): { [key: string]: string } {
@@ -17657,9 +17659,10 @@ export class CreateElectrocarApplycarkeycertificateResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      carKeyInitData: 'car_key_init_data',
-      mqttContent: 'mqtt_content',
+      tuid: 'tuid',
       deviceDid: 'device_did',
+      mqttContent: 'mqtt_content',
+      carKeyInitData: 'car_key_init_data',
       success: 'success',
     };
   }
@@ -17669,9 +17672,10 @@ export class CreateElectrocarApplycarkeycertificateResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      carKeyInitData: 'string',
-      mqttContent: 'string',
+      tuid: 'string',
       deviceDid: 'string',
+      mqttContent: 'string',
+      carKeyInitData: 'string',
       success: 'boolean',
     };
   }
@@ -28118,7 +28122,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.24",
+          sdk_version: "1.12.25",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
