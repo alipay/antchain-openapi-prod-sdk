@@ -23,11 +23,11 @@ class QueryTwiceOneRequest extends Model
     /**
      * @var string
      */
-    public $time;
+    public $timeout;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'time'              => 'time',
+        'timeout'           => 'timeout',
     ];
 
     public function validate()
@@ -43,8 +43,8 @@ class QueryTwiceOneRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->time) {
-            $res['time'] = $this->time;
+        if (null !== $this->timeout) {
+            $res['timeout'] = $this->timeout;
         }
 
         return $res;
@@ -64,8 +64,8 @@ class QueryTwiceOneRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['time'])) {
-            $model->time = $map['time'];
+        if (isset($map['timeout'])) {
+            $model->timeout = $map['timeout'];
         }
 
         return $model;
