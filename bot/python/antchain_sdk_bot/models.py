@@ -28932,9 +28932,10 @@ class CreateElectrocarApplycarkeycertificateResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        car_key_init_data: str = None,
-        mqtt_content: str = None,
+        tuid: str = None,
         device_did: str = None,
+        mqtt_content: str = None,
+        car_key_init_data: str = None,
         success: bool = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -28943,12 +28944,14 @@ class CreateElectrocarApplycarkeycertificateResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 凭证接口返回参数
-        self.car_key_init_data = car_key_init_data
-        # 三元组+连接实例id
-        self.mqtt_content = mqtt_content
+        # sn
+        self.tuid = tuid
         # deviceDid
         self.device_did = device_did
+        # 三元组+连接实例id
+        self.mqtt_content = mqtt_content
+        # 凭证接口返回参数
+        self.car_key_init_data = car_key_init_data
         # 成功/失败
         self.success = success
 
@@ -28967,12 +28970,14 @@ class CreateElectrocarApplycarkeycertificateResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.car_key_init_data is not None:
-            result['car_key_init_data'] = self.car_key_init_data
-        if self.mqtt_content is not None:
-            result['mqtt_content'] = self.mqtt_content
+        if self.tuid is not None:
+            result['tuid'] = self.tuid
         if self.device_did is not None:
             result['device_did'] = self.device_did
+        if self.mqtt_content is not None:
+            result['mqtt_content'] = self.mqtt_content
+        if self.car_key_init_data is not None:
+            result['car_key_init_data'] = self.car_key_init_data
         if self.success is not None:
             result['success'] = self.success
         return result
@@ -28985,12 +28990,14 @@ class CreateElectrocarApplycarkeycertificateResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('car_key_init_data') is not None:
-            self.car_key_init_data = m.get('car_key_init_data')
-        if m.get('mqtt_content') is not None:
-            self.mqtt_content = m.get('mqtt_content')
+        if m.get('tuid') is not None:
+            self.tuid = m.get('tuid')
         if m.get('device_did') is not None:
             self.device_did = m.get('device_did')
+        if m.get('mqtt_content') is not None:
+            self.mqtt_content = m.get('mqtt_content')
+        if m.get('car_key_init_data') is not None:
+            self.car_key_init_data = m.get('car_key_init_data')
         if m.get('success') is not None:
             self.success = m.get('success')
         return self
