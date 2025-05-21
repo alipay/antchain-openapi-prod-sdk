@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.24',
+    sdk_version = '1.12.25',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -9605,12 +9605,14 @@ model CreateElectrocarApplycarkeycertificateResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 凭证接口返回参数
-  carKeyInitData?: string(name='car_key_init_data'),
-  // 三元组+连接实例id
-  mqttContent?: string(name='mqtt_content'),
+  // sn 
+  tuid?: string(name='tuid'),
   // deviceDid
   deviceDid?: string(name='device_did'),
+  // 三元组+连接实例id
+  mqttContent?: string(name='mqtt_content'),
+  // 凭证接口返回参数
+  carKeyInitData?: string(name='car_key_init_data'),
   // 成功/失败
   success?: boolean(name='success'),
 }
