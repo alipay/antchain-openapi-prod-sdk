@@ -12,8 +12,8 @@ public class QueryTwiceOneRequest extends TeaModel {
     public String productInstanceId;
 
     // 超时时间
-    @NameInMap("time")
-    public String time;
+    @NameInMap("timeout")
+    public String timeout;
 
     public static QueryTwiceOneRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryTwiceOneRequest self = new QueryTwiceOneRequest();
@@ -36,12 +36,12 @@ public class QueryTwiceOneRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryTwiceOneRequest setTime(String time) {
-        this.time = time;
+    public QueryTwiceOneRequest setTimeout(String timeout) {
+        this.timeout = timeout;
         return this;
     }
-    public String getTime() {
-        return this.time;
+    public String getTimeout() {
+        return this.timeout;
     }
 
 }
