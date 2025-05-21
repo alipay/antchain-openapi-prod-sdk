@@ -43,6 +43,13 @@ public class CancelAntchainAtoFundPlanRequest extends TeaModel {
     @NameInMap("redeem_amount")
     public Long redeemAmount;
 
+    // 赎回类型，为空默认为 TRANSFER 
+    // 转账代偿：TRANSFER
+    // 代扣代偿：WITHHOLD
+    @NameInMap("redeem_type")
+    @Validation(maxLength = 64)
+    public String redeemType;
+
     public static CancelAntchainAtoFundPlanRequest build(java.util.Map<String, ?> map) throws Exception {
         CancelAntchainAtoFundPlanRequest self = new CancelAntchainAtoFundPlanRequest();
         return TeaModel.build(map, self);
@@ -110,6 +117,14 @@ public class CancelAntchainAtoFundPlanRequest extends TeaModel {
     }
     public Long getRedeemAmount() {
         return this.redeemAmount;
+    }
+
+    public CancelAntchainAtoFundPlanRequest setRedeemType(String redeemType) {
+        this.redeemType = redeemType;
+        return this;
+    }
+    public String getRedeemType() {
+        return this.redeemType;
     }
 
 }

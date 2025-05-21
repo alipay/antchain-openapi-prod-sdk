@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.4.1"),
+                    new TeaPair("sdk_version", "1.5.0"),
                     new TeaPair("_prod_code", "ak_195dff03d395462ea294bafdba69df3f"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -1603,6 +1603,44 @@ public class Client {
     public QueryAntchainAtoFundAssetpackageResponse queryAntchainAtoFundAssetpackageEx(QueryAntchainAtoFundAssetpackageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.assetpackage.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainAtoFundAssetpackageResponse());
+    }
+
+    /**
+     * Description: 资方代偿签约链接获取
+     * Summary: 资方代偿签约链接获取
+     */
+    public GetAntchainAtoFundCompensatesignurlResponse getAntchainAtoFundCompensatesignurl(GetAntchainAtoFundCompensatesignurlRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getAntchainAtoFundCompensatesignurlEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 资方代偿签约链接获取
+     * Summary: 资方代偿签约链接获取
+     */
+    public GetAntchainAtoFundCompensatesignurlResponse getAntchainAtoFundCompensatesignurlEx(GetAntchainAtoFundCompensatesignurlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.compensatesignurl.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAntchainAtoFundCompensatesignurlResponse());
+    }
+
+    /**
+     * Description: 转账代偿签约结果确认
+     * Summary: 转账代偿签约结果确认
+     */
+    public ConfirmAntchainAtoFundCompensateResponse confirmAntchainAtoFundCompensate(ConfirmAntchainAtoFundCompensateRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.confirmAntchainAtoFundCompensateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 转账代偿签约结果确认
+     * Summary: 转账代偿签约结果确认
+     */
+    public ConfirmAntchainAtoFundCompensateResponse confirmAntchainAtoFundCompensateEx(ConfirmAntchainAtoFundCompensateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.compensate.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmAntchainAtoFundCompensateResponse());
     }
 
     /**
