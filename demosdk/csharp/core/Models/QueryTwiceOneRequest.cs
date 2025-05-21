@@ -19,9 +19,9 @@ namespace AntChain.SDK.DEMOSDK.Models
         public string ProductInstanceId { get; set; }
 
         // 超时时间
-        [NameInMap("time")]
+        [NameInMap("timeout")]
         [Validation(Required=false)]
-        public string Time { get; set; }
+        public string Timeout { get; set; }
 
     }
 
