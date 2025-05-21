@@ -11,8 +11,18 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\DOG\Models\CreateWorkbenchTestRequest;
+use AntChain\DOG\Models\CreateWorkbenchTestResponse;
 use AntChain\DOG\Models\GetAgeRequest;
 use AntChain\DOG\Models\GetAgeResponse;
+use AntChain\DOG\Models\QueryAaaBbbRequest;
+use AntChain\DOG\Models\QueryAaaBbbResponse;
+use AntChain\DOG\Models\QueryEmebdTestRequest;
+use AntChain\DOG\Models\QueryEmebdTestResponse;
+use AntChain\DOG\Models\QueryWorkbenchTestRequest;
+use AntChain\DOG\Models\QueryWorkbenchTestResponse;
+use AntChain\DOG\Models\SaveAoneRequest;
+use AntChain\DOG\Models\SaveAoneResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -112,18 +122,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -160,7 +170,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.2',
+                    'sdk_version'      => '1.0.6',
+                    '_prod_code'       => 'DOG',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -207,7 +219,40 @@ class Client
     }
 
     /**
-     * Description: 该接口用于获取狗狗的年龄
+     * Description: save form to aone
+     * Summary: save form to aone.
+     *
+     * @param SaveAoneRequest $request
+     *
+     * @return SaveAoneResponse
+     */
+    public function saveAone($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveAoneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: save form to aone
+     * Summary: save form to aone.
+     *
+     * @param SaveAoneRequest $request
+     * @param string[]        $headers
+     * @param RuntimeOptions  $runtime
+     *
+     * @return SaveAoneResponse
+     */
+    public function saveAoneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveAoneResponse::fromMap($this->doRequest('1.0', 'demo.dog.aone.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 该接口用于获取狗狗的年龄A
      * Summary: 获取狗狗的年龄.
      *
      * @param GetAgeRequest $request
@@ -223,7 +268,7 @@ class Client
     }
 
     /**
-     * Description: 该接口用于获取狗狗的年龄
+     * Description: 该接口用于获取狗狗的年龄A
      * Summary: 获取狗狗的年龄.
      *
      * @param GetAgeRequest  $request
@@ -237,5 +282,137 @@ class Client
         Utils::validateModel($request);
 
         return GetAgeResponse::fromMap($this->doRequest('1.0', 'demo.dog.age.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 近端网关测试接口
+     * Summary: 近端网关测试接口.
+     *
+     * @param QueryEmebdTestRequest $request
+     *
+     * @return QueryEmebdTestResponse
+     */
+    public function queryEmebdTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEmebdTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 近端网关测试接口
+     * Summary: 近端网关测试接口.
+     *
+     * @param QueryEmebdTestRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryEmebdTestResponse
+     */
+    public function queryEmebdTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEmebdTestResponse::fromMap($this->doRequest('1.0', 'demo.dog.emebd.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用.
+     *
+     * @param CreateWorkbenchTestRequest $request
+     *
+     * @return CreateWorkbenchTestResponse
+     */
+    public function createWorkbenchTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createWorkbenchTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用.
+     *
+     * @param CreateWorkbenchTestRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CreateWorkbenchTestResponse
+     */
+    public function createWorkbenchTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateWorkbenchTestResponse::fromMap($this->doRequest('1.0', 'demo.dog.workbench.test.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用.
+     *
+     * @param QueryAaaBbbRequest $request
+     *
+     * @return QueryAaaBbbResponse
+     */
+    public function queryAaaBbb($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAaaBbbEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用.
+     *
+     * @param QueryAaaBbbRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return QueryAaaBbbResponse
+     */
+    public function queryAaaBbbEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAaaBbbResponse::fromMap($this->doRequest('1.0', 'demo.dog.aaa.bbb.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用.
+     *
+     * @param QueryWorkbenchTestRequest $request
+     *
+     * @return QueryWorkbenchTestResponse
+     */
+    public function queryWorkbenchTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryWorkbenchTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用.
+     *
+     * @param QueryWorkbenchTestRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryWorkbenchTestResponse
+     */
+    public function queryWorkbenchTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryWorkbenchTestResponse::fromMap($this->doRequest('1.0', 'demo.dog.workbench.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
