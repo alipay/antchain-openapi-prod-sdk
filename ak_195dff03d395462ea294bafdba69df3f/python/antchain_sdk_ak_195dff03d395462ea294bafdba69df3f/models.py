@@ -4604,6 +4604,7 @@ class CancelAntchainAtoFundPlanRequest(TeaModel):
         fund_id: str = None,
         operation: str = None,
         redeem_amount: int = None,
+        redeem_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4623,6 +4624,10 @@ class CancelAntchainAtoFundPlanRequest(TeaModel):
         self.operation = operation
         # 赎回金额,单位为分,取消并赎回时必填
         self.redeem_amount = redeem_amount
+        # 赎回类型，为空默认为 TRANSFER
+        # 转账代偿：TRANSFER
+        # 代扣代偿：WITHHOLD
+        self.redeem_type = redeem_type
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -4634,6 +4639,8 @@ class CancelAntchainAtoFundPlanRequest(TeaModel):
             self.validate_max_length(self.operation, 'operation', 64)
         if self.redeem_amount is not None:
             self.validate_minimum(self.redeem_amount, 'redeem_amount', 10)
+        if self.redeem_type is not None:
+            self.validate_max_length(self.redeem_type, 'redeem_type', 64)
 
     def to_map(self):
         _map = super().to_map()
@@ -4657,6 +4664,8 @@ class CancelAntchainAtoFundPlanRequest(TeaModel):
             result['operation'] = self.operation
         if self.redeem_amount is not None:
             result['redeem_amount'] = self.redeem_amount
+        if self.redeem_type is not None:
+            result['redeem_type'] = self.redeem_type
         return result
 
     def from_map(self, m: dict = None):
@@ -4677,6 +4686,8 @@ class CancelAntchainAtoFundPlanRequest(TeaModel):
             self.operation = m.get('operation')
         if m.get('redeem_amount') is not None:
             self.redeem_amount = m.get('redeem_amount')
+        if m.get('redeem_type') is not None:
+            self.redeem_type = m.get('redeem_type')
         return self
 
 
@@ -10293,6 +10304,230 @@ class QueryAntchainAtoFundAssetpackageResponse(TeaModel):
             for k in m.get('order_list'):
                 temp_model = AssetPackageOrderInfo()
                 self.order_list.append(temp_model.from_map(k))
+        return self
+
+
+class GetAntchainAtoFundCompensatesignurlRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        fund_id: str = None,
+        merchant_tenant_id: str = None,
+        merchant_id: str = None,
+        type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 资方社会统一信用代码
+        self.fund_id = fund_id
+        # 商户租户id
+        self.merchant_tenant_id = merchant_tenant_id
+        # 商户社会统一信用代码
+        self.merchant_id = merchant_id
+        # 签约串类型
+        # TRANSFER:转账代偿签约串
+        # WITHHOLD:代扣代偿签约串
+        self.type = type
+
+    def validate(self):
+        self.validate_required(self.fund_id, 'fund_id')
+        self.validate_required(self.merchant_tenant_id, 'merchant_tenant_id')
+        self.validate_required(self.merchant_id, 'merchant_id')
+        self.validate_required(self.type, 'type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
+        if self.merchant_tenant_id is not None:
+            result['merchant_tenant_id'] = self.merchant_tenant_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
+        if m.get('merchant_tenant_id') is not None:
+            self.merchant_tenant_id = m.get('merchant_tenant_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class GetAntchainAtoFundCompensatesignurlResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        sign_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 签约链接
+        self.sign_url = sign_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.sign_url is not None:
+            result['sign_url'] = self.sign_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('sign_url') is not None:
+            self.sign_url = m.get('sign_url')
+        return self
+
+
+class ConfirmAntchainAtoFundCompensateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        fund_id: str = None,
+        merchant_tenant_id: str = None,
+        merchant_id: str = None,
+        type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 资方社会统一信用代码
+        self.fund_id = fund_id
+        # 商户租户id
+        self.merchant_tenant_id = merchant_tenant_id
+        # 商户社会统一信用代码
+        self.merchant_id = merchant_id
+        # 签约串类型
+        # TRANSFER:转账代偿签约串
+        # WITHHOLD:代扣代偿签约串
+        self.type = type
+
+    def validate(self):
+        self.validate_required(self.fund_id, 'fund_id')
+        self.validate_required(self.merchant_tenant_id, 'merchant_tenant_id')
+        self.validate_required(self.merchant_id, 'merchant_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
+        if self.merchant_tenant_id is not None:
+            result['merchant_tenant_id'] = self.merchant_tenant_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
+        if m.get('merchant_tenant_id') is not None:
+            self.merchant_tenant_id = m.get('merchant_tenant_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class ConfirmAntchainAtoFundCompensateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 

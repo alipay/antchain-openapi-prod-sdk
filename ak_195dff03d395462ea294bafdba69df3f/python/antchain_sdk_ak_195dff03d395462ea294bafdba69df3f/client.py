@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.1',
+                    'sdk_version': '1.5.0',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.1',
+                    'sdk_version': '1.5.0',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -4369,6 +4369,118 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAssetpackageResponse(),
             await self.do_request_async('1.0', 'antchain.ato.fund.assetpackage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_antchain_ato_fund_compensatesignurl(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundCompensatesignurlRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundCompensatesignurlResponse:
+        """
+        Description: 资方代偿签约链接获取
+        Summary: 资方代偿签约链接获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_antchain_ato_fund_compensatesignurl_ex(request, headers, runtime)
+
+    async def get_antchain_ato_fund_compensatesignurl_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundCompensatesignurlRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundCompensatesignurlResponse:
+        """
+        Description: 资方代偿签约链接获取
+        Summary: 资方代偿签约链接获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_antchain_ato_fund_compensatesignurl_ex_async(request, headers, runtime)
+
+    def get_antchain_ato_fund_compensatesignurl_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundCompensatesignurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundCompensatesignurlResponse:
+        """
+        Description: 资方代偿签约链接获取
+        Summary: 资方代偿签约链接获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundCompensatesignurlResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.compensatesignurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_antchain_ato_fund_compensatesignurl_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundCompensatesignurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundCompensatesignurlResponse:
+        """
+        Description: 资方代偿签约链接获取
+        Summary: 资方代偿签约链接获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundCompensatesignurlResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.compensatesignurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def confirm_antchain_ato_fund_compensate(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ConfirmAntchainAtoFundCompensateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ConfirmAntchainAtoFundCompensateResponse:
+        """
+        Description: 转账代偿签约结果确认
+        Summary: 转账代偿签约结果确认
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.confirm_antchain_ato_fund_compensate_ex(request, headers, runtime)
+
+    async def confirm_antchain_ato_fund_compensate_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ConfirmAntchainAtoFundCompensateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ConfirmAntchainAtoFundCompensateResponse:
+        """
+        Description: 转账代偿签约结果确认
+        Summary: 转账代偿签约结果确认
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.confirm_antchain_ato_fund_compensate_ex_async(request, headers, runtime)
+
+    def confirm_antchain_ato_fund_compensate_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ConfirmAntchainAtoFundCompensateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ConfirmAntchainAtoFundCompensateResponse:
+        """
+        Description: 转账代偿签约结果确认
+        Summary: 转账代偿签约结果确认
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ConfirmAntchainAtoFundCompensateResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.compensate.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def confirm_antchain_ato_fund_compensate_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ConfirmAntchainAtoFundCompensateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ConfirmAntchainAtoFundCompensateResponse:
+        """
+        Description: 转账代偿签约结果确认
+        Summary: 转账代偿签约结果确认
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ConfirmAntchainAtoFundCompensateResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.compensate.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
