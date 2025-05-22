@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.22"),
+                    new TeaPair("sdk_version", "1.0.37"),
                     new TeaPair("_prod_code", "COLLABINV"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -201,6 +201,120 @@ public class Client {
     public QueryAgentSseResponse queryAgentSseEx(QueryAgentSseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.agent.sse.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAgentSseResponse());
+    }
+
+    /**
+     * Description: 根据用户id查询用户会话列表
+     * Summary: 根据用户id查询用户会话列表
+     */
+    public ListAgentConversationResponse listAgentConversation(ListAgentConversationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listAgentConversationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据用户id查询用户会话列表
+     * Summary: 根据用户id查询用户会话列表
+     */
+    public ListAgentConversationResponse listAgentConversationEx(ListAgentConversationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.agent.conversation.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAgentConversationResponse());
+    }
+
+    /**
+     * Description: 根据用户Id会话ID删除会话
+     * Summary: 删除会话
+     */
+    public DeleteAgentConversationResponse deleteAgentConversation(DeleteAgentConversationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteAgentConversationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据用户Id会话ID删除会话
+     * Summary: 删除会话
+     */
+    public DeleteAgentConversationResponse deleteAgentConversationEx(DeleteAgentConversationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.agent.conversation.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteAgentConversationResponse());
+    }
+
+    /**
+     * Description: 删除用户所有会话
+     * Summary: 删除用户所有会话
+     */
+    public BatchdeleteAgentConversationResponse batchdeleteAgentConversation(BatchdeleteAgentConversationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchdeleteAgentConversationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 删除用户所有会话
+     * Summary: 删除用户所有会话
+     */
+    public BatchdeleteAgentConversationResponse batchdeleteAgentConversationEx(BatchdeleteAgentConversationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.agent.conversation.batchdelete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchdeleteAgentConversationResponse());
+    }
+
+    /**
+     * Description: 获取会话消息列表
+     * Summary: 获取会话消息列表
+     */
+    public ListAgentMessageResponse listAgentMessage(ListAgentMessageRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listAgentMessageEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取会话消息列表
+     * Summary: 获取会话消息列表
+     */
+    public ListAgentMessageResponse listAgentMessageEx(ListAgentMessageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.agent.message.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListAgentMessageResponse());
+    }
+
+    /**
+     * Description: 编辑会话信息
+     * Summary: 编辑会话信息
+     */
+    public UpdateAgentConversationResponse updateAgentConversation(UpdateAgentConversationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateAgentConversationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 编辑会话信息
+     * Summary: 编辑会话信息
+     */
+    public UpdateAgentConversationResponse updateAgentConversationEx(UpdateAgentConversationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.agent.conversation.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateAgentConversationResponse());
+    }
+
+    /**
+     * Description: idMapping碰撞
+     * Summary: idMapping碰撞
+     */
+    public ImportIdmapSamplefileResponse importIdmapSamplefile(ImportIdmapSamplefileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importIdmapSamplefileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: idMapping碰撞
+     * Summary: idMapping碰撞
+     */
+    public ImportIdmapSamplefileResponse importIdmapSamplefileEx(ImportIdmapSamplefileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.idmap.samplefile.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportIdmapSamplefileResponse());
     }
 
     /**

@@ -31,6 +31,11 @@ public class QueryAgentSseRequest extends TeaModel {
     @Validation(required = true)
     public Long aliveTime;
 
+    // agent_id
+    @NameInMap("agent_id")
+    @Validation(required = true)
+    public String agentId;
+
     public static QueryAgentSseRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAgentSseRequest self = new QueryAgentSseRequest();
         return TeaModel.build(map, self);
@@ -82,6 +87,14 @@ public class QueryAgentSseRequest extends TeaModel {
     }
     public Long getAliveTime() {
         return this.aliveTime;
+    }
+
+    public QueryAgentSseRequest setAgentId(String agentId) {
+        this.agentId = agentId;
+        return this;
+    }
+    public String getAgentId() {
+        return this.agentId;
     }
 
 }
