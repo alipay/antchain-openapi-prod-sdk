@@ -279,6 +279,9 @@ class ConvertAdDataRequest(TeaModel):
         first_pay_amount: str = None,
         upgrade_pay_amount: str = None,
         upgrade_renewval_amount: str = None,
+        industry: str = None,
+        loan_amount: str = None,
+        ext: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -331,12 +334,19 @@ class ConvertAdDataRequest(TeaModel):
         self.upgrade_pay_amount = upgrade_pay_amount
         # 续费保费(蚂蚁数科定义)，用户M2进行保险续费的费用。
         self.upgrade_renewval_amount = upgrade_renewval_amount
+        # 行业
+        self.industry = industry
+        # 用户的借款金额
+        self.loan_amount = loan_amount
+        # 扩展json
+        self.ext = ext
 
     def validate(self):
         self.validate_required(self.account_id, 'account_id')
         self.validate_required(self.click_id, 'click_id')
         self.validate_required(self.event_code, 'event_code')
         self.validate_required(self.event_time, 'event_time')
+        self.validate_required(self.industry, 'industry')
 
     def to_map(self):
         _map = super().to_map()
@@ -390,6 +400,12 @@ class ConvertAdDataRequest(TeaModel):
             result['upgrade_pay_amount'] = self.upgrade_pay_amount
         if self.upgrade_renewval_amount is not None:
             result['upgrade_renewval_amount'] = self.upgrade_renewval_amount
+        if self.industry is not None:
+            result['industry'] = self.industry
+        if self.loan_amount is not None:
+            result['loan_amount'] = self.loan_amount
+        if self.ext is not None:
+            result['ext'] = self.ext
         return result
 
     def from_map(self, m: dict = None):
@@ -440,6 +456,12 @@ class ConvertAdDataRequest(TeaModel):
             self.upgrade_pay_amount = m.get('upgrade_pay_amount')
         if m.get('upgrade_renewval_amount') is not None:
             self.upgrade_renewval_amount = m.get('upgrade_renewval_amount')
+        if m.get('industry') is not None:
+            self.industry = m.get('industry')
+        if m.get('loan_amount') is not None:
+            self.loan_amount = m.get('loan_amount')
+        if m.get('ext') is not None:
+            self.ext = m.get('ext')
         return self
 
 

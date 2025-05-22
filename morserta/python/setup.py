@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_morserta.
 
-Created on 25/04/2025
+Created on 22/05/2025
 
 @author: Ant Chain SDK
 """
