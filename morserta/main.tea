@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '3.0.1',
+    sdk_version = '3.0.2',
     _prod_code = 'MORSERTA',
     _prod_channel = 'default'
   };
@@ -254,6 +254,12 @@ model ConvertAdDataRequest = {
   upgradePayAmount?: string(name='upgrade_pay_amount'),
   // 续费保费(蚂蚁数科定义)，用户M2进行保险续费的费用。
   upgradeRenewvalAmount?: string(name='upgrade_renewval_amount'),
+  // 行业
+  industry: string(name='industry'),
+  // 用户的借款金额
+  loanAmount?: string(name='loan_amount'),
+  // 扩展json
+  ext?: string(name='ext'),
 }
 
 model ConvertAdDataResponse = {
