@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 特征集信息
+            # 聊天消息
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.22',
+                    'sdk_version': '1.0.37',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 特征集信息
+            # 聊天消息
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.22',
+                    'sdk_version': '1.0.37',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -329,6 +329,342 @@ class Client:
         return TeaCore.from_map(
             collabinv_models.QueryAgentSseResponse(),
             await self.do_request_async('1.0', 'antchain.zkcollabinv.agent.sse.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_agent_conversation(
+        self,
+        request: collabinv_models.ListAgentConversationRequest,
+    ) -> collabinv_models.ListAgentConversationResponse:
+        """
+        Description: 根据用户id查询用户会话列表
+        Summary: 根据用户id查询用户会话列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_agent_conversation_ex(request, headers, runtime)
+
+    async def list_agent_conversation_async(
+        self,
+        request: collabinv_models.ListAgentConversationRequest,
+    ) -> collabinv_models.ListAgentConversationResponse:
+        """
+        Description: 根据用户id查询用户会话列表
+        Summary: 根据用户id查询用户会话列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_agent_conversation_ex_async(request, headers, runtime)
+
+    def list_agent_conversation_ex(
+        self,
+        request: collabinv_models.ListAgentConversationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.ListAgentConversationResponse:
+        """
+        Description: 根据用户id查询用户会话列表
+        Summary: 根据用户id查询用户会话列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.ListAgentConversationResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.agent.conversation.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_agent_conversation_ex_async(
+        self,
+        request: collabinv_models.ListAgentConversationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.ListAgentConversationResponse:
+        """
+        Description: 根据用户id查询用户会话列表
+        Summary: 根据用户id查询用户会话列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.ListAgentConversationResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.agent.conversation.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_agent_conversation(
+        self,
+        request: collabinv_models.DeleteAgentConversationRequest,
+    ) -> collabinv_models.DeleteAgentConversationResponse:
+        """
+        Description: 根据用户Id会话ID删除会话
+        Summary: 删除会话
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_agent_conversation_ex(request, headers, runtime)
+
+    async def delete_agent_conversation_async(
+        self,
+        request: collabinv_models.DeleteAgentConversationRequest,
+    ) -> collabinv_models.DeleteAgentConversationResponse:
+        """
+        Description: 根据用户Id会话ID删除会话
+        Summary: 删除会话
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_agent_conversation_ex_async(request, headers, runtime)
+
+    def delete_agent_conversation_ex(
+        self,
+        request: collabinv_models.DeleteAgentConversationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.DeleteAgentConversationResponse:
+        """
+        Description: 根据用户Id会话ID删除会话
+        Summary: 删除会话
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.DeleteAgentConversationResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.agent.conversation.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_agent_conversation_ex_async(
+        self,
+        request: collabinv_models.DeleteAgentConversationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.DeleteAgentConversationResponse:
+        """
+        Description: 根据用户Id会话ID删除会话
+        Summary: 删除会话
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.DeleteAgentConversationResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.agent.conversation.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchdelete_agent_conversation(
+        self,
+        request: collabinv_models.BatchdeleteAgentConversationRequest,
+    ) -> collabinv_models.BatchdeleteAgentConversationResponse:
+        """
+        Description: 删除用户所有会话
+        Summary: 删除用户所有会话
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchdelete_agent_conversation_ex(request, headers, runtime)
+
+    async def batchdelete_agent_conversation_async(
+        self,
+        request: collabinv_models.BatchdeleteAgentConversationRequest,
+    ) -> collabinv_models.BatchdeleteAgentConversationResponse:
+        """
+        Description: 删除用户所有会话
+        Summary: 删除用户所有会话
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchdelete_agent_conversation_ex_async(request, headers, runtime)
+
+    def batchdelete_agent_conversation_ex(
+        self,
+        request: collabinv_models.BatchdeleteAgentConversationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.BatchdeleteAgentConversationResponse:
+        """
+        Description: 删除用户所有会话
+        Summary: 删除用户所有会话
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.BatchdeleteAgentConversationResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.agent.conversation.batchdelete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchdelete_agent_conversation_ex_async(
+        self,
+        request: collabinv_models.BatchdeleteAgentConversationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.BatchdeleteAgentConversationResponse:
+        """
+        Description: 删除用户所有会话
+        Summary: 删除用户所有会话
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.BatchdeleteAgentConversationResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.agent.conversation.batchdelete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_agent_message(
+        self,
+        request: collabinv_models.ListAgentMessageRequest,
+    ) -> collabinv_models.ListAgentMessageResponse:
+        """
+        Description: 获取会话消息列表
+        Summary: 获取会话消息列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_agent_message_ex(request, headers, runtime)
+
+    async def list_agent_message_async(
+        self,
+        request: collabinv_models.ListAgentMessageRequest,
+    ) -> collabinv_models.ListAgentMessageResponse:
+        """
+        Description: 获取会话消息列表
+        Summary: 获取会话消息列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_agent_message_ex_async(request, headers, runtime)
+
+    def list_agent_message_ex(
+        self,
+        request: collabinv_models.ListAgentMessageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.ListAgentMessageResponse:
+        """
+        Description: 获取会话消息列表
+        Summary: 获取会话消息列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.ListAgentMessageResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.agent.message.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_agent_message_ex_async(
+        self,
+        request: collabinv_models.ListAgentMessageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.ListAgentMessageResponse:
+        """
+        Description: 获取会话消息列表
+        Summary: 获取会话消息列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.ListAgentMessageResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.agent.message.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_agent_conversation(
+        self,
+        request: collabinv_models.UpdateAgentConversationRequest,
+    ) -> collabinv_models.UpdateAgentConversationResponse:
+        """
+        Description: 编辑会话信息
+        Summary: 编辑会话信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_agent_conversation_ex(request, headers, runtime)
+
+    async def update_agent_conversation_async(
+        self,
+        request: collabinv_models.UpdateAgentConversationRequest,
+    ) -> collabinv_models.UpdateAgentConversationResponse:
+        """
+        Description: 编辑会话信息
+        Summary: 编辑会话信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_agent_conversation_ex_async(request, headers, runtime)
+
+    def update_agent_conversation_ex(
+        self,
+        request: collabinv_models.UpdateAgentConversationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.UpdateAgentConversationResponse:
+        """
+        Description: 编辑会话信息
+        Summary: 编辑会话信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.UpdateAgentConversationResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.agent.conversation.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_agent_conversation_ex_async(
+        self,
+        request: collabinv_models.UpdateAgentConversationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.UpdateAgentConversationResponse:
+        """
+        Description: 编辑会话信息
+        Summary: 编辑会话信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.UpdateAgentConversationResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.agent.conversation.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_idmap_samplefile(
+        self,
+        request: collabinv_models.ImportIdmapSamplefileRequest,
+    ) -> collabinv_models.ImportIdmapSamplefileResponse:
+        """
+        Description: idMapping碰撞
+        Summary: idMapping碰撞
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_idmap_samplefile_ex(request, headers, runtime)
+
+    async def import_idmap_samplefile_async(
+        self,
+        request: collabinv_models.ImportIdmapSamplefileRequest,
+    ) -> collabinv_models.ImportIdmapSamplefileResponse:
+        """
+        Description: idMapping碰撞
+        Summary: idMapping碰撞
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_idmap_samplefile_ex_async(request, headers, runtime)
+
+    def import_idmap_samplefile_ex(
+        self,
+        request: collabinv_models.ImportIdmapSamplefileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.ImportIdmapSamplefileResponse:
+        """
+        Description: idMapping碰撞
+        Summary: idMapping碰撞
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.ImportIdmapSamplefileResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.idmap.samplefile.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_idmap_samplefile_ex_async(
+        self,
+        request: collabinv_models.ImportIdmapSamplefileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.ImportIdmapSamplefileResponse:
+        """
+        Description: idMapping碰撞
+        Summary: idMapping碰撞
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.ImportIdmapSamplefileResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.idmap.samplefile.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_indexresearch_brand(
