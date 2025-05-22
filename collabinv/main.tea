@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.22',
+    sdk_version = '1.0.37',
     _prod_code = 'COLLABINV',
     _prod_channel = 'default'
   };
@@ -159,6 +159,32 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// 聊天消息
+model ChatMessageInfo {
+  // 会话ID
+  sessionId: string(name='session_id', example='3330003'),
+  // 提问内容
+  query?: string(name='query', example='提问内容'),
+  // 恢复内容
+  answer?: string(name='answer', example='恢复内容'),
+  // 创建时间
+  createDate: string(name='create_date', example='2025-04-24 17:54:23'),
+}
+
+// agent会话信息
+model ChatConversationInfo {
+  // 会话ID
+  sessionId: string(name='session_id', example='3330003'),
+  // 用户ID
+  userId: string(name='user_id', example='3330003'),
+  // agent ID
+  agentId: string(name='agent_id', example='3330003'),
+  // 会话名称
+  title?: string(name='title', example='会话名称'),
+  // 创建时间
+  createDate: string(name='create_date', example='2024-11-28 15:17'),
 }
 
 // 特征集信息
@@ -248,6 +274,8 @@ model QueryAgentSseRequest = {
   query: string(name='query'),
   // 会话存活时长，单位毫秒，默认5分钟，最大不超过10分钟
   aliveTime: long(name='alive_time'),
+  // agent_id
+  agentId: string(name='agent_id'),
 }
 
 model QueryAgentSseResponse = {
@@ -278,6 +306,266 @@ async function queryAgentSse(request: QueryAgentSseRequest): QueryAgentSseRespon
 async function queryAgentSseEx(request: QueryAgentSseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAgentSseResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.zkcollabinv.agent.sse.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAgentConversationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户ID
+  userId: string(name='user_id'),
+  // agent id
+  agentId: string(name='agent_id'),
+  // page_info
+  pageInfo: PageInfo(name='page_info'),
+}
+
+model ListAgentConversationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // page_info
+  pageInfo?: PageInfo(name='page_info'),
+  // 会话列表信息
+  conversationData?: [ ChatConversationInfo ](name='conversation_data'),
+}
+
+/**
+ * Description: 根据用户id查询用户会话列表
+ * Summary: 根据用户id查询用户会话列表
+ */
+async function listAgentConversation(request: ListAgentConversationRequest): ListAgentConversationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAgentConversationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据用户id查询用户会话列表
+ * Summary: 根据用户id查询用户会话列表
+ */
+async function listAgentConversationEx(request: ListAgentConversationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAgentConversationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.agent.conversation.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteAgentConversationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户ID
+  userId: string(name='user_id'),
+  // 会话ID
+  sessionId: string(name='session_id'),
+}
+
+model DeleteAgentConversationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作结果
+  result?: boolean(name='result'),
+}
+
+/**
+ * Description: 根据用户Id会话ID删除会话
+ * Summary: 删除会话
+ */
+async function deleteAgentConversation(request: DeleteAgentConversationRequest): DeleteAgentConversationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteAgentConversationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据用户Id会话ID删除会话
+ * Summary: 删除会话
+ */
+async function deleteAgentConversationEx(request: DeleteAgentConversationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteAgentConversationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.agent.conversation.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchdeleteAgentConversationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户ID
+  userId: string(name='user_id'),
+}
+
+model BatchdeleteAgentConversationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作结果
+  result?: boolean(name='result'),
+}
+
+/**
+ * Description: 删除用户所有会话
+ * Summary: 删除用户所有会话
+ */
+async function batchdeleteAgentConversation(request: BatchdeleteAgentConversationRequest): BatchdeleteAgentConversationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchdeleteAgentConversationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除用户所有会话
+ * Summary: 删除用户所有会话
+ */
+async function batchdeleteAgentConversationEx(request: BatchdeleteAgentConversationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchdeleteAgentConversationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.agent.conversation.batchdelete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAgentMessageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户id
+  userId: string(name='user_id'),
+  // 会话ID
+  sessionId: string(name='session_id'),
+  // page_info
+  pageInfo: PageInfo(name='page_info'),
+}
+
+model ListAgentMessageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // page_info
+  pageInfo?: PageInfo(name='page_info'),
+  // 消息列表
+  messageData?: [ ChatMessageInfo ](name='message_data'),
+}
+
+/**
+ * Description: 获取会话消息列表
+ * Summary: 获取会话消息列表
+ */
+async function listAgentMessage(request: ListAgentMessageRequest): ListAgentMessageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAgentMessageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取会话消息列表
+ * Summary: 获取会话消息列表
+ */
+async function listAgentMessageEx(request: ListAgentMessageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAgentMessageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.agent.message.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateAgentConversationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户ID
+  userId: string(name='user_id'),
+  // 会话ID
+  sessionId: string(name='session_id'),
+  // 会话名称
+  title: string(name='title'),
+}
+
+model UpdateAgentConversationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作结果
+  result?: boolean(name='result'),
+}
+
+/**
+ * Description: 编辑会话信息
+ * Summary: 编辑会话信息
+ */
+async function updateAgentConversation(request: UpdateAgentConversationRequest): UpdateAgentConversationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateAgentConversationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 编辑会话信息
+ * Summary: 编辑会话信息
+ */
+async function updateAgentConversationEx(request: UpdateAgentConversationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateAgentConversationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.agent.conversation.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportIdmapSamplefileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // oss文件名称
+  fileName: string(name='file_name'),
+  // 项目ID
+  projectInfoId: string(name='project_info_id'),
+  // 查询列
+  paramType: string(name='param_type'),
+  // 结果列
+  resultType: string(name='result_type'),
+  // 样本Code
+  sampleCode: string(name='sample_code'),
+  // 样本任务Code
+  sampleTaskCode: string(name='sample_task_code'),
+  // oss文件路径
+  filePath: string(name='file_path'),
+}
+
+model ImportIdmapSamplefileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传结果地址路径
+  resultFilePath?: string(name='result_file_path'),
+  // oss结果文件名称
+  resultFileName?: string(name='result_file_name'),
+}
+
+/**
+ * Description: idMapping碰撞
+ * Summary: idMapping碰撞
+ */
+async function importIdmapSamplefile(request: ImportIdmapSamplefileRequest): ImportIdmapSamplefileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importIdmapSamplefileEx(request, headers, runtime);
+}
+
+/**
+ * Description: idMapping碰撞
+ * Summary: idMapping碰撞
+ */
+async function importIdmapSamplefileEx(request: ImportIdmapSamplefileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportIdmapSamplefileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.idmap.samplefile.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIndexresearchBrandRequest = {
