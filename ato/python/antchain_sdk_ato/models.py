@@ -5830,6 +5830,7 @@ class CancelFundPlanRequest(TeaModel):
         fund_id: str = None,
         operation: str = None,
         redeem_amount: int = None,
+        redeem_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -5849,6 +5850,10 @@ class CancelFundPlanRequest(TeaModel):
         self.operation = operation
         # 赎回金额,单位为分,取消并赎回时必填
         self.redeem_amount = redeem_amount
+        # 赎回类型，为空默认为 TRANSFER
+        # 转账代偿：TRANSFER
+        # 代扣代偿：WITHHOLD
+        self.redeem_type = redeem_type
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -5860,6 +5865,8 @@ class CancelFundPlanRequest(TeaModel):
             self.validate_max_length(self.operation, 'operation', 64)
         if self.redeem_amount is not None:
             self.validate_minimum(self.redeem_amount, 'redeem_amount', 10)
+        if self.redeem_type is not None:
+            self.validate_max_length(self.redeem_type, 'redeem_type', 64)
 
     def to_map(self):
         _map = super().to_map()
@@ -5883,6 +5890,8 @@ class CancelFundPlanRequest(TeaModel):
             result['operation'] = self.operation
         if self.redeem_amount is not None:
             result['redeem_amount'] = self.redeem_amount
+        if self.redeem_type is not None:
+            result['redeem_type'] = self.redeem_type
         return result
 
     def from_map(self, m: dict = None):
@@ -5903,6 +5912,8 @@ class CancelFundPlanRequest(TeaModel):
             self.operation = m.get('operation')
         if m.get('redeem_amount') is not None:
             self.redeem_amount = m.get('redeem_amount')
+        if m.get('redeem_type') is not None:
+            self.redeem_type = m.get('redeem_type')
         return self
 
 
