@@ -148,6 +148,93 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 聊天消息
+type ChatMessageInfo struct {
+	// 会话ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 提问内容
+	Query *string `json:"query,omitempty" xml:"query,omitempty"`
+	// 恢复内容
+	Answer *string `json:"answer,omitempty" xml:"answer,omitempty"`
+	// 创建时间
+	CreateDate *string `json:"create_date,omitempty" xml:"create_date,omitempty" require:"true"`
+}
+
+func (s ChatMessageInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChatMessageInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ChatMessageInfo) SetSessionId(v string) *ChatMessageInfo {
+	s.SessionId = &v
+	return s
+}
+
+func (s *ChatMessageInfo) SetQuery(v string) *ChatMessageInfo {
+	s.Query = &v
+	return s
+}
+
+func (s *ChatMessageInfo) SetAnswer(v string) *ChatMessageInfo {
+	s.Answer = &v
+	return s
+}
+
+func (s *ChatMessageInfo) SetCreateDate(v string) *ChatMessageInfo {
+	s.CreateDate = &v
+	return s
+}
+
+// agent会话信息
+type ChatConversationInfo struct {
+	// 会话ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// agent ID
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 会话名称
+	Title *string `json:"title,omitempty" xml:"title,omitempty"`
+	// 创建时间
+	CreateDate *string `json:"create_date,omitempty" xml:"create_date,omitempty" require:"true"`
+}
+
+func (s ChatConversationInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ChatConversationInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ChatConversationInfo) SetSessionId(v string) *ChatConversationInfo {
+	s.SessionId = &v
+	return s
+}
+
+func (s *ChatConversationInfo) SetUserId(v string) *ChatConversationInfo {
+	s.UserId = &v
+	return s
+}
+
+func (s *ChatConversationInfo) SetAgentId(v string) *ChatConversationInfo {
+	s.AgentId = &v
+	return s
+}
+
+func (s *ChatConversationInfo) SetTitle(v string) *ChatConversationInfo {
+	s.Title = &v
+	return s
+}
+
+func (s *ChatConversationInfo) SetCreateDate(v string) *ChatConversationInfo {
+	s.CreateDate = &v
+	return s
+}
+
 // 特征集信息
 type FeatureSetInfo struct {
 	// 特征集编码
@@ -412,6 +499,8 @@ type QueryAgentSseRequest struct {
 	Query *string `json:"query,omitempty" xml:"query,omitempty" require:"true"`
 	// 会话存活时长，单位毫秒，默认5分钟，最大不超过10分钟
 	AliveTime *int64 `json:"alive_time,omitempty" xml:"alive_time,omitempty" require:"true"`
+	// agent_id
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
 }
 
 func (s QueryAgentSseRequest) String() string {
@@ -452,6 +541,11 @@ func (s *QueryAgentSseRequest) SetAliveTime(v int64) *QueryAgentSseRequest {
 	return s
 }
 
+func (s *QueryAgentSseRequest) SetAgentId(v string) *QueryAgentSseRequest {
+	s.AgentId = &v
+	return s
+}
+
 type QueryAgentSseResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -488,6 +582,538 @@ func (s *QueryAgentSseResponse) SetResultMsg(v string) *QueryAgentSseResponse {
 
 func (s *QueryAgentSseResponse) SetMessage(v string) *QueryAgentSseResponse {
 	s.Message = &v
+	return s
+}
+
+type ListAgentConversationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// agent id
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// page_info
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty" require:"true"`
+}
+
+func (s ListAgentConversationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAgentConversationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListAgentConversationRequest) SetAuthToken(v string) *ListAgentConversationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListAgentConversationRequest) SetProductInstanceId(v string) *ListAgentConversationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListAgentConversationRequest) SetUserId(v string) *ListAgentConversationRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *ListAgentConversationRequest) SetAgentId(v string) *ListAgentConversationRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *ListAgentConversationRequest) SetPageInfo(v *PageInfo) *ListAgentConversationRequest {
+	s.PageInfo = v
+	return s
+}
+
+type ListAgentConversationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// page_info
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+	// 会话列表信息
+	ConversationData []*ChatConversationInfo `json:"conversation_data,omitempty" xml:"conversation_data,omitempty" type:"Repeated"`
+}
+
+func (s ListAgentConversationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAgentConversationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListAgentConversationResponse) SetReqMsgId(v string) *ListAgentConversationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListAgentConversationResponse) SetResultCode(v string) *ListAgentConversationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListAgentConversationResponse) SetResultMsg(v string) *ListAgentConversationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListAgentConversationResponse) SetPageInfo(v *PageInfo) *ListAgentConversationResponse {
+	s.PageInfo = v
+	return s
+}
+
+func (s *ListAgentConversationResponse) SetConversationData(v []*ChatConversationInfo) *ListAgentConversationResponse {
+	s.ConversationData = v
+	return s
+}
+
+type DeleteAgentConversationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 会话ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+}
+
+func (s DeleteAgentConversationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteAgentConversationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteAgentConversationRequest) SetAuthToken(v string) *DeleteAgentConversationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteAgentConversationRequest) SetProductInstanceId(v string) *DeleteAgentConversationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeleteAgentConversationRequest) SetUserId(v string) *DeleteAgentConversationRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *DeleteAgentConversationRequest) SetSessionId(v string) *DeleteAgentConversationRequest {
+	s.SessionId = &v
+	return s
+}
+
+type DeleteAgentConversationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作结果
+	Result *bool `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s DeleteAgentConversationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteAgentConversationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteAgentConversationResponse) SetReqMsgId(v string) *DeleteAgentConversationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteAgentConversationResponse) SetResultCode(v string) *DeleteAgentConversationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteAgentConversationResponse) SetResultMsg(v string) *DeleteAgentConversationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DeleteAgentConversationResponse) SetResult(v bool) *DeleteAgentConversationResponse {
+	s.Result = &v
+	return s
+}
+
+type BatchdeleteAgentConversationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+}
+
+func (s BatchdeleteAgentConversationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchdeleteAgentConversationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchdeleteAgentConversationRequest) SetAuthToken(v string) *BatchdeleteAgentConversationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchdeleteAgentConversationRequest) SetProductInstanceId(v string) *BatchdeleteAgentConversationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchdeleteAgentConversationRequest) SetUserId(v string) *BatchdeleteAgentConversationRequest {
+	s.UserId = &v
+	return s
+}
+
+type BatchdeleteAgentConversationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作结果
+	Result *bool `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s BatchdeleteAgentConversationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchdeleteAgentConversationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchdeleteAgentConversationResponse) SetReqMsgId(v string) *BatchdeleteAgentConversationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchdeleteAgentConversationResponse) SetResultCode(v string) *BatchdeleteAgentConversationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchdeleteAgentConversationResponse) SetResultMsg(v string) *BatchdeleteAgentConversationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BatchdeleteAgentConversationResponse) SetResult(v bool) *BatchdeleteAgentConversationResponse {
+	s.Result = &v
+	return s
+}
+
+type ListAgentMessageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 会话ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// page_info
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty" require:"true"`
+}
+
+func (s ListAgentMessageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAgentMessageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListAgentMessageRequest) SetAuthToken(v string) *ListAgentMessageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListAgentMessageRequest) SetProductInstanceId(v string) *ListAgentMessageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListAgentMessageRequest) SetUserId(v string) *ListAgentMessageRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *ListAgentMessageRequest) SetSessionId(v string) *ListAgentMessageRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *ListAgentMessageRequest) SetPageInfo(v *PageInfo) *ListAgentMessageRequest {
+	s.PageInfo = v
+	return s
+}
+
+type ListAgentMessageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// page_info
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+	// 消息列表
+	MessageData []*ChatMessageInfo `json:"message_data,omitempty" xml:"message_data,omitempty" type:"Repeated"`
+}
+
+func (s ListAgentMessageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListAgentMessageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListAgentMessageResponse) SetReqMsgId(v string) *ListAgentMessageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListAgentMessageResponse) SetResultCode(v string) *ListAgentMessageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListAgentMessageResponse) SetResultMsg(v string) *ListAgentMessageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListAgentMessageResponse) SetPageInfo(v *PageInfo) *ListAgentMessageResponse {
+	s.PageInfo = v
+	return s
+}
+
+func (s *ListAgentMessageResponse) SetMessageData(v []*ChatMessageInfo) *ListAgentMessageResponse {
+	s.MessageData = v
+	return s
+}
+
+type UpdateAgentConversationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 会话ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 会话名称
+	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
+}
+
+func (s UpdateAgentConversationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateAgentConversationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateAgentConversationRequest) SetAuthToken(v string) *UpdateAgentConversationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateAgentConversationRequest) SetProductInstanceId(v string) *UpdateAgentConversationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateAgentConversationRequest) SetUserId(v string) *UpdateAgentConversationRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *UpdateAgentConversationRequest) SetSessionId(v string) *UpdateAgentConversationRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *UpdateAgentConversationRequest) SetTitle(v string) *UpdateAgentConversationRequest {
+	s.Title = &v
+	return s
+}
+
+type UpdateAgentConversationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作结果
+	Result *bool `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s UpdateAgentConversationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateAgentConversationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateAgentConversationResponse) SetReqMsgId(v string) *UpdateAgentConversationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateAgentConversationResponse) SetResultCode(v string) *UpdateAgentConversationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateAgentConversationResponse) SetResultMsg(v string) *UpdateAgentConversationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdateAgentConversationResponse) SetResult(v bool) *UpdateAgentConversationResponse {
+	s.Result = &v
+	return s
+}
+
+type ImportIdmapSamplefileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// oss文件名称
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
+	// 项目ID
+	ProjectInfoId *string `json:"project_info_id,omitempty" xml:"project_info_id,omitempty" require:"true"`
+	// 查询列
+	ParamType *string `json:"param_type,omitempty" xml:"param_type,omitempty" require:"true"`
+	// 结果列
+	ResultType *string `json:"result_type,omitempty" xml:"result_type,omitempty" require:"true"`
+	// 样本Code
+	SampleCode *string `json:"sample_code,omitempty" xml:"sample_code,omitempty" require:"true"`
+	// 样本任务Code
+	SampleTaskCode *string `json:"sample_task_code,omitempty" xml:"sample_task_code,omitempty" require:"true"`
+	// oss文件路径
+	FilePath *string `json:"file_path,omitempty" xml:"file_path,omitempty" require:"true"`
+}
+
+func (s ImportIdmapSamplefileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportIdmapSamplefileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ImportIdmapSamplefileRequest) SetAuthToken(v string) *ImportIdmapSamplefileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ImportIdmapSamplefileRequest) SetProductInstanceId(v string) *ImportIdmapSamplefileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ImportIdmapSamplefileRequest) SetFileName(v string) *ImportIdmapSamplefileRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *ImportIdmapSamplefileRequest) SetProjectInfoId(v string) *ImportIdmapSamplefileRequest {
+	s.ProjectInfoId = &v
+	return s
+}
+
+func (s *ImportIdmapSamplefileRequest) SetParamType(v string) *ImportIdmapSamplefileRequest {
+	s.ParamType = &v
+	return s
+}
+
+func (s *ImportIdmapSamplefileRequest) SetResultType(v string) *ImportIdmapSamplefileRequest {
+	s.ResultType = &v
+	return s
+}
+
+func (s *ImportIdmapSamplefileRequest) SetSampleCode(v string) *ImportIdmapSamplefileRequest {
+	s.SampleCode = &v
+	return s
+}
+
+func (s *ImportIdmapSamplefileRequest) SetSampleTaskCode(v string) *ImportIdmapSamplefileRequest {
+	s.SampleTaskCode = &v
+	return s
+}
+
+func (s *ImportIdmapSamplefileRequest) SetFilePath(v string) *ImportIdmapSamplefileRequest {
+	s.FilePath = &v
+	return s
+}
+
+type ImportIdmapSamplefileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传结果地址路径
+	ResultFilePath *string `json:"result_file_path,omitempty" xml:"result_file_path,omitempty"`
+	// oss结果文件名称
+	ResultFileName *string `json:"result_file_name,omitempty" xml:"result_file_name,omitempty"`
+}
+
+func (s ImportIdmapSamplefileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportIdmapSamplefileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ImportIdmapSamplefileResponse) SetReqMsgId(v string) *ImportIdmapSamplefileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ImportIdmapSamplefileResponse) SetResultCode(v string) *ImportIdmapSamplefileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ImportIdmapSamplefileResponse) SetResultMsg(v string) *ImportIdmapSamplefileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ImportIdmapSamplefileResponse) SetResultFilePath(v string) *ImportIdmapSamplefileResponse {
+	s.ResultFilePath = &v
+	return s
+}
+
+func (s *ImportIdmapSamplefileResponse) SetResultFileName(v string) *ImportIdmapSamplefileResponse {
+	s.ResultFileName = &v
 	return s
 }
 
@@ -2196,7 +2822,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.22"),
+				"sdk_version":      tea.String("1.0.37"),
 				"_prod_code":       tea.String("COLLABINV"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -2281,6 +2907,210 @@ func (client *Client) QueryAgentSseEx(request *QueryAgentSseRequest, headers map
 	}
 	_result = &QueryAgentSseResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.agent.sse.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据用户id查询用户会话列表
+ * Summary: 根据用户id查询用户会话列表
+ */
+func (client *Client) ListAgentConversation(request *ListAgentConversationRequest) (_result *ListAgentConversationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListAgentConversationResponse{}
+	_body, _err := client.ListAgentConversationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据用户id查询用户会话列表
+ * Summary: 根据用户id查询用户会话列表
+ */
+func (client *Client) ListAgentConversationEx(request *ListAgentConversationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListAgentConversationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListAgentConversationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.agent.conversation.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据用户Id会话ID删除会话
+ * Summary: 删除会话
+ */
+func (client *Client) DeleteAgentConversation(request *DeleteAgentConversationRequest) (_result *DeleteAgentConversationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteAgentConversationResponse{}
+	_body, _err := client.DeleteAgentConversationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据用户Id会话ID删除会话
+ * Summary: 删除会话
+ */
+func (client *Client) DeleteAgentConversationEx(request *DeleteAgentConversationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteAgentConversationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteAgentConversationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.agent.conversation.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 删除用户所有会话
+ * Summary: 删除用户所有会话
+ */
+func (client *Client) BatchdeleteAgentConversation(request *BatchdeleteAgentConversationRequest) (_result *BatchdeleteAgentConversationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchdeleteAgentConversationResponse{}
+	_body, _err := client.BatchdeleteAgentConversationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 删除用户所有会话
+ * Summary: 删除用户所有会话
+ */
+func (client *Client) BatchdeleteAgentConversationEx(request *BatchdeleteAgentConversationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchdeleteAgentConversationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchdeleteAgentConversationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.agent.conversation.batchdelete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取会话消息列表
+ * Summary: 获取会话消息列表
+ */
+func (client *Client) ListAgentMessage(request *ListAgentMessageRequest) (_result *ListAgentMessageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListAgentMessageResponse{}
+	_body, _err := client.ListAgentMessageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取会话消息列表
+ * Summary: 获取会话消息列表
+ */
+func (client *Client) ListAgentMessageEx(request *ListAgentMessageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListAgentMessageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListAgentMessageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.agent.message.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 编辑会话信息
+ * Summary: 编辑会话信息
+ */
+func (client *Client) UpdateAgentConversation(request *UpdateAgentConversationRequest) (_result *UpdateAgentConversationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateAgentConversationResponse{}
+	_body, _err := client.UpdateAgentConversationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 编辑会话信息
+ * Summary: 编辑会话信息
+ */
+func (client *Client) UpdateAgentConversationEx(request *UpdateAgentConversationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateAgentConversationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateAgentConversationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.agent.conversation.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: idMapping碰撞
+ * Summary: idMapping碰撞
+ */
+func (client *Client) ImportIdmapSamplefile(request *ImportIdmapSamplefileRequest) (_result *ImportIdmapSamplefileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ImportIdmapSamplefileResponse{}
+	_body, _err := client.ImportIdmapSamplefileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: idMapping碰撞
+ * Summary: idMapping碰撞
+ */
+func (client *Client) ImportIdmapSamplefileEx(request *ImportIdmapSamplefileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportIdmapSamplefileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ImportIdmapSamplefileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.idmap.samplefile.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
