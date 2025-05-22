@@ -51,6 +51,13 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public long? RedeemAmount { get; set; }
 
+        // 赎回类型，为空默认为 TRANSFER 
+        // 转账代偿：TRANSFER
+        // 代扣代偿：WITHHOLD
+        [NameInMap("redeem_type")]
+        [Validation(Required=false, MaxLength=64)]
+        public string RedeemType { get; set; }
+
     }
 
 }
