@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.COLLABINV.Models
 {
-    public class QueryAgentSseRequest : TeaModel {
+    public class DeleteAgentConversationRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -23,25 +23,10 @@ namespace AntChain.SDK.COLLABINV.Models
         [Validation(Required=true)]
         public string UserId { get; set; }
 
-        // 会话id
+        // 会话ID
         [NameInMap("session_id")]
         [Validation(Required=true)]
         public string SessionId { get; set; }
-
-        // 查询词条
-        [NameInMap("query")]
-        [Validation(Required=true)]
-        public string Query { get; set; }
-
-        // 会话存活时长，单位毫秒，默认5分钟，最大不超过10分钟
-        [NameInMap("alive_time")]
-        [Validation(Required=true)]
-        public long? AliveTime { get; set; }
-
-        // agent_id
-        [NameInMap("agent_id")]
-        [Validation(Required=true)]
-        public string AgentId { get; set; }
 
     }
 

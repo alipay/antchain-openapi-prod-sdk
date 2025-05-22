@@ -137,7 +137,7 @@ namespace AntChain.SDK.COLLABINV
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.22"},
+                        {"sdk_version", "1.0.37"},
                         {"_prod_code", "COLLABINV"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.COLLABINV
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.22"},
+                        {"sdk_version", "1.0.37"},
                         {"_prod_code", "COLLABINV"},
                         {"_prod_channel", "default"},
                     };
@@ -361,6 +361,258 @@ namespace AntChain.SDK.COLLABINV
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAgentSseResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.agent.sse.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据用户id查询用户会话列表
+         * Summary: 根据用户id查询用户会话列表
+         */
+        public ListAgentConversationResponse ListAgentConversation(ListAgentConversationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListAgentConversationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据用户id查询用户会话列表
+         * Summary: 根据用户id查询用户会话列表
+         */
+        public async Task<ListAgentConversationResponse> ListAgentConversationAsync(ListAgentConversationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListAgentConversationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据用户id查询用户会话列表
+         * Summary: 根据用户id查询用户会话列表
+         */
+        public ListAgentConversationResponse ListAgentConversationEx(ListAgentConversationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAgentConversationResponse>(DoRequest("1.0", "antchain.zkcollabinv.agent.conversation.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据用户id查询用户会话列表
+         * Summary: 根据用户id查询用户会话列表
+         */
+        public async Task<ListAgentConversationResponse> ListAgentConversationExAsync(ListAgentConversationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAgentConversationResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.agent.conversation.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据用户Id会话ID删除会话
+         * Summary: 删除会话
+         */
+        public DeleteAgentConversationResponse DeleteAgentConversation(DeleteAgentConversationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteAgentConversationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据用户Id会话ID删除会话
+         * Summary: 删除会话
+         */
+        public async Task<DeleteAgentConversationResponse> DeleteAgentConversationAsync(DeleteAgentConversationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteAgentConversationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据用户Id会话ID删除会话
+         * Summary: 删除会话
+         */
+        public DeleteAgentConversationResponse DeleteAgentConversationEx(DeleteAgentConversationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteAgentConversationResponse>(DoRequest("1.0", "antchain.zkcollabinv.agent.conversation.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据用户Id会话ID删除会话
+         * Summary: 删除会话
+         */
+        public async Task<DeleteAgentConversationResponse> DeleteAgentConversationExAsync(DeleteAgentConversationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteAgentConversationResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.agent.conversation.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除用户所有会话
+         * Summary: 删除用户所有会话
+         */
+        public BatchdeleteAgentConversationResponse BatchdeleteAgentConversation(BatchdeleteAgentConversationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchdeleteAgentConversationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除用户所有会话
+         * Summary: 删除用户所有会话
+         */
+        public async Task<BatchdeleteAgentConversationResponse> BatchdeleteAgentConversationAsync(BatchdeleteAgentConversationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchdeleteAgentConversationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除用户所有会话
+         * Summary: 删除用户所有会话
+         */
+        public BatchdeleteAgentConversationResponse BatchdeleteAgentConversationEx(BatchdeleteAgentConversationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchdeleteAgentConversationResponse>(DoRequest("1.0", "antchain.zkcollabinv.agent.conversation.batchdelete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除用户所有会话
+         * Summary: 删除用户所有会话
+         */
+        public async Task<BatchdeleteAgentConversationResponse> BatchdeleteAgentConversationExAsync(BatchdeleteAgentConversationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchdeleteAgentConversationResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.agent.conversation.batchdelete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取会话消息列表
+         * Summary: 获取会话消息列表
+         */
+        public ListAgentMessageResponse ListAgentMessage(ListAgentMessageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListAgentMessageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取会话消息列表
+         * Summary: 获取会话消息列表
+         */
+        public async Task<ListAgentMessageResponse> ListAgentMessageAsync(ListAgentMessageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListAgentMessageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取会话消息列表
+         * Summary: 获取会话消息列表
+         */
+        public ListAgentMessageResponse ListAgentMessageEx(ListAgentMessageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAgentMessageResponse>(DoRequest("1.0", "antchain.zkcollabinv.agent.message.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取会话消息列表
+         * Summary: 获取会话消息列表
+         */
+        public async Task<ListAgentMessageResponse> ListAgentMessageExAsync(ListAgentMessageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListAgentMessageResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.agent.message.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 编辑会话信息
+         * Summary: 编辑会话信息
+         */
+        public UpdateAgentConversationResponse UpdateAgentConversation(UpdateAgentConversationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateAgentConversationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 编辑会话信息
+         * Summary: 编辑会话信息
+         */
+        public async Task<UpdateAgentConversationResponse> UpdateAgentConversationAsync(UpdateAgentConversationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateAgentConversationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 编辑会话信息
+         * Summary: 编辑会话信息
+         */
+        public UpdateAgentConversationResponse UpdateAgentConversationEx(UpdateAgentConversationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateAgentConversationResponse>(DoRequest("1.0", "antchain.zkcollabinv.agent.conversation.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 编辑会话信息
+         * Summary: 编辑会话信息
+         */
+        public async Task<UpdateAgentConversationResponse> UpdateAgentConversationExAsync(UpdateAgentConversationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateAgentConversationResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.agent.conversation.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: idMapping碰撞
+         * Summary: idMapping碰撞
+         */
+        public ImportIdmapSamplefileResponse ImportIdmapSamplefile(ImportIdmapSamplefileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportIdmapSamplefileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: idMapping碰撞
+         * Summary: idMapping碰撞
+         */
+        public async Task<ImportIdmapSamplefileResponse> ImportIdmapSamplefileAsync(ImportIdmapSamplefileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportIdmapSamplefileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: idMapping碰撞
+         * Summary: idMapping碰撞
+         */
+        public ImportIdmapSamplefileResponse ImportIdmapSamplefileEx(ImportIdmapSamplefileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportIdmapSamplefileResponse>(DoRequest("1.0", "antchain.zkcollabinv.idmap.samplefile.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: idMapping碰撞
+         * Summary: idMapping碰撞
+         */
+        public async Task<ImportIdmapSamplefileResponse> ImportIdmapSamplefileExAsync(ImportIdmapSamplefileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportIdmapSamplefileResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.idmap.samplefile.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
