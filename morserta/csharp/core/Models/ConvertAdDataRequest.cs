@@ -129,6 +129,21 @@ namespace AntChain.SDK.MORSERTA.Models
         [Validation(Required=false)]
         public string UpgradeRenewvalAmount { get; set; }
 
+        // 行业
+        [NameInMap("industry")]
+        [Validation(Required=true)]
+        public string Industry { get; set; }
+
+        // 用户的借款金额
+        [NameInMap("loan_amount")]
+        [Validation(Required=false)]
+        public string LoanAmount { get; set; }
+
+        // 扩展json
+        [NameInMap("ext")]
+        [Validation(Required=false)]
+        public string Ext { get; set; }
+
     }
 
 }
