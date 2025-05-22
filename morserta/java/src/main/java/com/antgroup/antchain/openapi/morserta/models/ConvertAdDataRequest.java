@@ -105,6 +105,19 @@ public class ConvertAdDataRequest extends TeaModel {
     @NameInMap("upgrade_renewval_amount")
     public String upgradeRenewvalAmount;
 
+    // 行业
+    @NameInMap("industry")
+    @Validation(required = true)
+    public String industry;
+
+    // 用户的借款金额
+    @NameInMap("loan_amount")
+    public String loanAmount;
+
+    // 扩展json
+    @NameInMap("ext")
+    public String ext;
+
     public static ConvertAdDataRequest build(java.util.Map<String, ?> map) throws Exception {
         ConvertAdDataRequest self = new ConvertAdDataRequest();
         return TeaModel.build(map, self);
@@ -292,6 +305,30 @@ public class ConvertAdDataRequest extends TeaModel {
     }
     public String getUpgradeRenewvalAmount() {
         return this.upgradeRenewvalAmount;
+    }
+
+    public ConvertAdDataRequest setIndustry(String industry) {
+        this.industry = industry;
+        return this;
+    }
+    public String getIndustry() {
+        return this.industry;
+    }
+
+    public ConvertAdDataRequest setLoanAmount(String loanAmount) {
+        this.loanAmount = loanAmount;
+        return this;
+    }
+    public String getLoanAmount() {
+        return this.loanAmount;
+    }
+
+    public ConvertAdDataRequest setExt(String ext) {
+        this.ext = ext;
+        return this;
+    }
+    public String getExt() {
+        return this.ext;
     }
 
 }
