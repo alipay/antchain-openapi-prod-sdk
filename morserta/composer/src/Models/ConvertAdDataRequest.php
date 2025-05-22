@@ -150,6 +150,24 @@ class ConvertAdDataRequest extends Model
      * @var string
      */
     public $upgradeRenewvalAmount;
+
+    // 行业
+    /**
+     * @var string
+     */
+    public $industry;
+
+    // 用户的借款金额
+    /**
+     * @var string
+     */
+    public $loanAmount;
+
+    // 扩展json
+    /**
+     * @var string
+     */
+    public $ext;
     protected $_name = [
         'authToken'             => 'auth_token',
         'accountId'             => 'account_id',
@@ -174,6 +192,9 @@ class ConvertAdDataRequest extends Model
         'firstPayAmount'        => 'first_pay_amount',
         'upgradePayAmount'      => 'upgrade_pay_amount',
         'upgradeRenewvalAmount' => 'upgrade_renewval_amount',
+        'industry'              => 'industry',
+        'loanAmount'            => 'loan_amount',
+        'ext'                   => 'ext',
     ];
 
     public function validate()
@@ -182,6 +203,7 @@ class ConvertAdDataRequest extends Model
         Model::validateRequired('clickId', $this->clickId, true);
         Model::validateRequired('eventCode', $this->eventCode, true);
         Model::validateRequired('eventTime', $this->eventTime, true);
+        Model::validateRequired('industry', $this->industry, true);
     }
 
     public function toMap()
@@ -255,6 +277,15 @@ class ConvertAdDataRequest extends Model
         }
         if (null !== $this->upgradeRenewvalAmount) {
             $res['upgrade_renewval_amount'] = $this->upgradeRenewvalAmount;
+        }
+        if (null !== $this->industry) {
+            $res['industry'] = $this->industry;
+        }
+        if (null !== $this->loanAmount) {
+            $res['loan_amount'] = $this->loanAmount;
+        }
+        if (null !== $this->ext) {
+            $res['ext'] = $this->ext;
         }
 
         return $res;
@@ -336,6 +367,15 @@ class ConvertAdDataRequest extends Model
         }
         if (isset($map['upgrade_renewval_amount'])) {
             $model->upgradeRenewvalAmount = $map['upgrade_renewval_amount'];
+        }
+        if (isset($map['industry'])) {
+            $model->industry = $map['industry'];
+        }
+        if (isset($map['loan_amount'])) {
+            $model->loanAmount = $map['loan_amount'];
+        }
+        if (isset($map['ext'])) {
+            $model->ext = $map['ext'];
         }
 
         return $model;
