@@ -11,10 +11,20 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\COLLABINV\Models\BatchdeleteAgentConversationRequest;
+use AntChain\COLLABINV\Models\BatchdeleteAgentConversationResponse;
 use AntChain\COLLABINV\Models\BatchqueryModelCommonscoreRequest;
 use AntChain\COLLABINV\Models\BatchqueryModelCommonscoreResponse;
+use AntChain\COLLABINV\Models\DeleteAgentConversationRequest;
+use AntChain\COLLABINV\Models\DeleteAgentConversationResponse;
 use AntChain\COLLABINV\Models\ExecModelSampletaskRequest;
 use AntChain\COLLABINV\Models\ExecModelSampletaskResponse;
+use AntChain\COLLABINV\Models\ImportIdmapSamplefileRequest;
+use AntChain\COLLABINV\Models\ImportIdmapSamplefileResponse;
+use AntChain\COLLABINV\Models\ListAgentConversationRequest;
+use AntChain\COLLABINV\Models\ListAgentConversationResponse;
+use AntChain\COLLABINV\Models\ListAgentMessageRequest;
+use AntChain\COLLABINV\Models\ListAgentMessageResponse;
 use AntChain\COLLABINV\Models\PushModelSamplefileRequest;
 use AntChain\COLLABINV\Models\PushModelSamplefileResponse;
 use AntChain\COLLABINV\Models\QueryAgentSseRequest;
@@ -43,6 +53,8 @@ use AntChain\COLLABINV\Models\QueryModelWorkscoreRequest;
 use AntChain\COLLABINV\Models\QueryModelWorkscoreResponse;
 use AntChain\COLLABINV\Models\SubmitModelInstanceRequest;
 use AntChain\COLLABINV\Models\SubmitModelInstanceResponse;
+use AntChain\COLLABINV\Models\UpdateAgentConversationRequest;
+use AntChain\COLLABINV\Models\UpdateAgentConversationResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -162,7 +174,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 特征集信息
+            // 聊天消息
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -190,7 +202,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.22',
+                    'sdk_version'      => '1.0.37',
                     '_prod_code'       => 'COLLABINV',
                     '_prod_channel'    => 'default',
                 ];
@@ -269,6 +281,204 @@ class Client
         Utils::validateModel($request);
 
         return QueryAgentSseResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.agent.sse.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据用户id查询用户会话列表
+     * Summary: 根据用户id查询用户会话列表.
+     *
+     * @param ListAgentConversationRequest $request
+     *
+     * @return ListAgentConversationResponse
+     */
+    public function listAgentConversation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listAgentConversationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据用户id查询用户会话列表
+     * Summary: 根据用户id查询用户会话列表.
+     *
+     * @param ListAgentConversationRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return ListAgentConversationResponse
+     */
+    public function listAgentConversationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListAgentConversationResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.agent.conversation.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据用户Id会话ID删除会话
+     * Summary: 删除会话.
+     *
+     * @param DeleteAgentConversationRequest $request
+     *
+     * @return DeleteAgentConversationResponse
+     */
+    public function deleteAgentConversation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteAgentConversationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据用户Id会话ID删除会话
+     * Summary: 删除会话.
+     *
+     * @param DeleteAgentConversationRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return DeleteAgentConversationResponse
+     */
+    public function deleteAgentConversationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteAgentConversationResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.agent.conversation.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除用户所有会话
+     * Summary: 删除用户所有会话.
+     *
+     * @param BatchdeleteAgentConversationRequest $request
+     *
+     * @return BatchdeleteAgentConversationResponse
+     */
+    public function batchdeleteAgentConversation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchdeleteAgentConversationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除用户所有会话
+     * Summary: 删除用户所有会话.
+     *
+     * @param BatchdeleteAgentConversationRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return BatchdeleteAgentConversationResponse
+     */
+    public function batchdeleteAgentConversationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchdeleteAgentConversationResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.agent.conversation.batchdelete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取会话消息列表
+     * Summary: 获取会话消息列表.
+     *
+     * @param ListAgentMessageRequest $request
+     *
+     * @return ListAgentMessageResponse
+     */
+    public function listAgentMessage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listAgentMessageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取会话消息列表
+     * Summary: 获取会话消息列表.
+     *
+     * @param ListAgentMessageRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return ListAgentMessageResponse
+     */
+    public function listAgentMessageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListAgentMessageResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.agent.message.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 编辑会话信息
+     * Summary: 编辑会话信息.
+     *
+     * @param UpdateAgentConversationRequest $request
+     *
+     * @return UpdateAgentConversationResponse
+     */
+    public function updateAgentConversation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateAgentConversationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 编辑会话信息
+     * Summary: 编辑会话信息.
+     *
+     * @param UpdateAgentConversationRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return UpdateAgentConversationResponse
+     */
+    public function updateAgentConversationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateAgentConversationResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.agent.conversation.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: idMapping碰撞
+     * Summary: idMapping碰撞.
+     *
+     * @param ImportIdmapSamplefileRequest $request
+     *
+     * @return ImportIdmapSamplefileResponse
+     */
+    public function importIdmapSamplefile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importIdmapSamplefileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: idMapping碰撞
+     * Summary: idMapping碰撞.
+     *
+     * @param ImportIdmapSamplefileRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return ImportIdmapSamplefileResponse
+     */
+    public function importIdmapSamplefileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportIdmapSamplefileResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.idmap.samplefile.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

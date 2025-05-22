@@ -6,7 +6,7 @@ namespace AntChain\COLLABINV\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAgentSseRequest extends Model
+class ListAgentConversationRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,46 +25,30 @@ class QueryAgentSseRequest extends Model
      */
     public $userId;
 
-    // 会话id
-    /**
-     * @var string
-     */
-    public $sessionId;
-
-    // 查询词条
-    /**
-     * @var string
-     */
-    public $query;
-
-    // 会话存活时长，单位毫秒，默认5分钟，最大不超过10分钟
-    /**
-     * @var int
-     */
-    public $aliveTime;
-
-    // agent_id
+    // agent id
     /**
      * @var string
      */
     public $agentId;
+
+    // page_info
+    /**
+     * @var PageInfo
+     */
+    public $pageInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'userId'            => 'user_id',
-        'sessionId'         => 'session_id',
-        'query'             => 'query',
-        'aliveTime'         => 'alive_time',
         'agentId'           => 'agent_id',
+        'pageInfo'          => 'page_info',
     ];
 
     public function validate()
     {
         Model::validateRequired('userId', $this->userId, true);
-        Model::validateRequired('sessionId', $this->sessionId, true);
-        Model::validateRequired('query', $this->query, true);
-        Model::validateRequired('aliveTime', $this->aliveTime, true);
         Model::validateRequired('agentId', $this->agentId, true);
+        Model::validateRequired('pageInfo', $this->pageInfo, true);
     }
 
     public function toMap()
@@ -79,17 +63,11 @@ class QueryAgentSseRequest extends Model
         if (null !== $this->userId) {
             $res['user_id'] = $this->userId;
         }
-        if (null !== $this->sessionId) {
-            $res['session_id'] = $this->sessionId;
-        }
-        if (null !== $this->query) {
-            $res['query'] = $this->query;
-        }
-        if (null !== $this->aliveTime) {
-            $res['alive_time'] = $this->aliveTime;
-        }
         if (null !== $this->agentId) {
             $res['agent_id'] = $this->agentId;
+        }
+        if (null !== $this->pageInfo) {
+            $res['page_info'] = null !== $this->pageInfo ? $this->pageInfo->toMap() : null;
         }
 
         return $res;
@@ -98,7 +76,7 @@ class QueryAgentSseRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryAgentSseRequest
+     * @return ListAgentConversationRequest
      */
     public static function fromMap($map = [])
     {
@@ -112,17 +90,11 @@ class QueryAgentSseRequest extends Model
         if (isset($map['user_id'])) {
             $model->userId = $map['user_id'];
         }
-        if (isset($map['session_id'])) {
-            $model->sessionId = $map['session_id'];
-        }
-        if (isset($map['query'])) {
-            $model->query = $map['query'];
-        }
-        if (isset($map['alive_time'])) {
-            $model->aliveTime = $map['alive_time'];
-        }
         if (isset($map['agent_id'])) {
             $model->agentId = $map['agent_id'];
+        }
+        if (isset($map['page_info'])) {
+            $model->pageInfo = PageInfo::fromMap($map['page_info']);
         }
 
         return $model;
