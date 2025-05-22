@@ -193,6 +193,12 @@ export class ConvertAdDataRequest extends $tea.Model {
   upgradePayAmount?: string;
   // 续费保费(蚂蚁数科定义)，用户M2进行保险续费的费用。
   upgradeRenewvalAmount?: string;
+  // 行业
+  industry: string;
+  // 用户的借款金额
+  loanAmount?: string;
+  // 扩展json
+  ext?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -218,6 +224,9 @@ export class ConvertAdDataRequest extends $tea.Model {
       firstPayAmount: 'first_pay_amount',
       upgradePayAmount: 'upgrade_pay_amount',
       upgradeRenewvalAmount: 'upgrade_renewval_amount',
+      industry: 'industry',
+      loanAmount: 'loan_amount',
+      ext: 'ext',
     };
   }
 
@@ -246,6 +255,9 @@ export class ConvertAdDataRequest extends $tea.Model {
       firstPayAmount: 'string',
       upgradePayAmount: 'string',
       upgradeRenewvalAmount: 'string',
+      industry: 'string',
+      loanAmount: 'string',
+      ext: 'string',
     };
   }
 
@@ -527,7 +539,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "3.0.1",
+          sdk_version: "3.0.2",
           _prod_code: "MORSERTA",
           _prod_channel: "default",
         };
