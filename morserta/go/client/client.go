@@ -278,6 +278,12 @@ type ConvertAdDataRequest struct {
 	UpgradePayAmount *string `json:"upgrade_pay_amount,omitempty" xml:"upgrade_pay_amount,omitempty"`
 	// 续费保费(蚂蚁数科定义)，用户M2进行保险续费的费用。
 	UpgradeRenewvalAmount *string `json:"upgrade_renewval_amount,omitempty" xml:"upgrade_renewval_amount,omitempty"`
+	// 行业
+	Industry *string `json:"industry,omitempty" xml:"industry,omitempty" require:"true"`
+	// 用户的借款金额
+	LoanAmount *string `json:"loan_amount,omitempty" xml:"loan_amount,omitempty"`
+	// 扩展json
+	Ext *string `json:"ext,omitempty" xml:"ext,omitempty"`
 }
 
 func (s ConvertAdDataRequest) String() string {
@@ -400,6 +406,21 @@ func (s *ConvertAdDataRequest) SetUpgradePayAmount(v string) *ConvertAdDataReque
 
 func (s *ConvertAdDataRequest) SetUpgradeRenewvalAmount(v string) *ConvertAdDataRequest {
 	s.UpgradeRenewvalAmount = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetIndustry(v string) *ConvertAdDataRequest {
+	s.Industry = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetLoanAmount(v string) *ConvertAdDataRequest {
+	s.LoanAmount = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetExt(v string) *ConvertAdDataRequest {
+	s.Ext = &v
 	return s
 }
 
@@ -720,7 +741,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("3.0.1"),
+				"sdk_version":      tea.String("3.0.2"),
 				"_prod_code":       tea.String("MORSERTA"),
 				"_prod_channel":    tea.String("default"),
 			}
