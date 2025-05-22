@@ -77,6 +77,76 @@ export class Config extends $tea.Model {
   }
 }
 
+// 聊天消息
+export class ChatMessageInfo extends $tea.Model {
+  // 会话ID
+  sessionId: string;
+  // 提问内容
+  query?: string;
+  // 恢复内容
+  answer?: string;
+  // 创建时间
+  createDate: string;
+  static names(): { [key: string]: string } {
+    return {
+      sessionId: 'session_id',
+      query: 'query',
+      answer: 'answer',
+      createDate: 'create_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      sessionId: 'string',
+      query: 'string',
+      answer: 'string',
+      createDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// agent会话信息
+export class ChatConversationInfo extends $tea.Model {
+  // 会话ID
+  sessionId: string;
+  // 用户ID
+  userId: string;
+  // agent ID
+  agentId: string;
+  // 会话名称
+  title?: string;
+  // 创建时间
+  createDate: string;
+  static names(): { [key: string]: string } {
+    return {
+      sessionId: 'session_id',
+      userId: 'user_id',
+      agentId: 'agent_id',
+      title: 'title',
+      createDate: 'create_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      sessionId: 'string',
+      userId: 'string',
+      agentId: 'string',
+      title: 'string',
+      createDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 特征集信息
 export class FeatureSetInfo extends $tea.Model {
   // 特征集编码
@@ -274,6 +344,8 @@ export class QueryAgentSseRequest extends $tea.Model {
   query: string;
   // 会话存活时长，单位毫秒，默认5分钟，最大不超过10分钟
   aliveTime: number;
+  // agent_id
+  agentId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -282,6 +354,7 @@ export class QueryAgentSseRequest extends $tea.Model {
       sessionId: 'session_id',
       query: 'query',
       aliveTime: 'alive_time',
+      agentId: 'agent_id',
     };
   }
 
@@ -293,6 +366,7 @@ export class QueryAgentSseRequest extends $tea.Model {
       sessionId: 'string',
       query: 'string',
       aliveTime: 'number',
+      agentId: 'string',
     };
   }
 
@@ -325,6 +399,424 @@ export class QueryAgentSseResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAgentConversationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户ID
+  userId: string;
+  // agent id
+  agentId: string;
+  // page_info
+  pageInfo: PageInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userId: 'user_id',
+      agentId: 'agent_id',
+      pageInfo: 'page_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userId: 'string',
+      agentId: 'string',
+      pageInfo: PageInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAgentConversationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // page_info
+  pageInfo?: PageInfo;
+  // 会话列表信息
+  conversationData?: ChatConversationInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pageInfo: 'page_info',
+      conversationData: 'conversation_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pageInfo: PageInfo,
+      conversationData: { 'type': 'array', 'itemType': ChatConversationInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteAgentConversationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户ID
+  userId: string;
+  // 会话ID
+  sessionId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userId: 'user_id',
+      sessionId: 'session_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userId: 'string',
+      sessionId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteAgentConversationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 操作结果
+  result?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchdeleteAgentConversationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户ID
+  userId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchdeleteAgentConversationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 操作结果
+  result?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAgentMessageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户id
+  userId: string;
+  // 会话ID
+  sessionId: string;
+  // page_info
+  pageInfo: PageInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userId: 'user_id',
+      sessionId: 'session_id',
+      pageInfo: 'page_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userId: 'string',
+      sessionId: 'string',
+      pageInfo: PageInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListAgentMessageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // page_info
+  pageInfo?: PageInfo;
+  // 消息列表
+  messageData?: ChatMessageInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pageInfo: 'page_info',
+      messageData: 'message_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pageInfo: PageInfo,
+      messageData: { 'type': 'array', 'itemType': ChatMessageInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateAgentConversationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户ID
+  userId: string;
+  // 会话ID
+  sessionId: string;
+  // 会话名称
+  title: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userId: 'user_id',
+      sessionId: 'session_id',
+      title: 'title',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userId: 'string',
+      sessionId: 'string',
+      title: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateAgentConversationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 操作结果
+  result?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportIdmapSamplefileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // oss文件名称
+  fileName: string;
+  // 项目ID
+  projectInfoId: string;
+  // 查询列
+  paramType: string;
+  // 结果列
+  resultType: string;
+  // 样本Code
+  sampleCode: string;
+  // 样本任务Code
+  sampleTaskCode: string;
+  // oss文件路径
+  filePath: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileName: 'file_name',
+      projectInfoId: 'project_info_id',
+      paramType: 'param_type',
+      resultType: 'result_type',
+      sampleCode: 'sample_code',
+      sampleTaskCode: 'sample_task_code',
+      filePath: 'file_path',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileName: 'string',
+      projectInfoId: 'string',
+      paramType: 'string',
+      resultType: 'string',
+      sampleCode: 'string',
+      sampleTaskCode: 'string',
+      filePath: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportIdmapSamplefileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上传结果地址路径
+  resultFilePath?: string;
+  // oss结果文件名称
+  resultFileName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      resultFilePath: 'result_file_path',
+      resultFileName: 'result_file_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      resultFilePath: 'string',
+      resultFileName: 'string',
     };
   }
 
@@ -1639,7 +2131,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.22",
+          sdk_version: "1.0.37",
           _prod_code: "COLLABINV",
           _prod_channel: "default",
         };
@@ -1704,6 +2196,120 @@ export default class Client {
   async queryAgentSseEx(request: QueryAgentSseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAgentSseResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAgentSseResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.agent.sse.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAgentSseResponse({}));
+  }
+
+  /**
+   * Description: 根据用户id查询用户会话列表
+   * Summary: 根据用户id查询用户会话列表
+   */
+  async listAgentConversation(request: ListAgentConversationRequest): Promise<ListAgentConversationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listAgentConversationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据用户id查询用户会话列表
+   * Summary: 根据用户id查询用户会话列表
+   */
+  async listAgentConversationEx(request: ListAgentConversationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAgentConversationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListAgentConversationResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.agent.conversation.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAgentConversationResponse({}));
+  }
+
+  /**
+   * Description: 根据用户Id会话ID删除会话
+   * Summary: 删除会话
+   */
+  async deleteAgentConversation(request: DeleteAgentConversationRequest): Promise<DeleteAgentConversationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deleteAgentConversationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据用户Id会话ID删除会话
+   * Summary: 删除会话
+   */
+  async deleteAgentConversationEx(request: DeleteAgentConversationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteAgentConversationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeleteAgentConversationResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.agent.conversation.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteAgentConversationResponse({}));
+  }
+
+  /**
+   * Description: 删除用户所有会话
+   * Summary: 删除用户所有会话
+   */
+  async batchdeleteAgentConversation(request: BatchdeleteAgentConversationRequest): Promise<BatchdeleteAgentConversationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchdeleteAgentConversationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 删除用户所有会话
+   * Summary: 删除用户所有会话
+   */
+  async batchdeleteAgentConversationEx(request: BatchdeleteAgentConversationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchdeleteAgentConversationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchdeleteAgentConversationResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.agent.conversation.batchdelete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchdeleteAgentConversationResponse({}));
+  }
+
+  /**
+   * Description: 获取会话消息列表
+   * Summary: 获取会话消息列表
+   */
+  async listAgentMessage(request: ListAgentMessageRequest): Promise<ListAgentMessageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listAgentMessageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取会话消息列表
+   * Summary: 获取会话消息列表
+   */
+  async listAgentMessageEx(request: ListAgentMessageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListAgentMessageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListAgentMessageResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.agent.message.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListAgentMessageResponse({}));
+  }
+
+  /**
+   * Description: 编辑会话信息
+   * Summary: 编辑会话信息
+   */
+  async updateAgentConversation(request: UpdateAgentConversationRequest): Promise<UpdateAgentConversationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateAgentConversationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 编辑会话信息
+   * Summary: 编辑会话信息
+   */
+  async updateAgentConversationEx(request: UpdateAgentConversationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateAgentConversationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateAgentConversationResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.agent.conversation.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateAgentConversationResponse({}));
+  }
+
+  /**
+   * Description: idMapping碰撞
+   * Summary: idMapping碰撞
+   */
+  async importIdmapSamplefile(request: ImportIdmapSamplefileRequest): Promise<ImportIdmapSamplefileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importIdmapSamplefileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: idMapping碰撞
+   * Summary: idMapping碰撞
+   */
+  async importIdmapSamplefileEx(request: ImportIdmapSamplefileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportIdmapSamplefileResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportIdmapSamplefileResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.idmap.samplefile.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportIdmapSamplefileResponse({}));
   }
 
   /**
