@@ -57,6 +57,14 @@ class CancelFundPlanRequest extends Model
      * @var int
      */
     public $redeemAmount;
+
+    // 赎回类型，为空默认为 TRANSFER
+    // 转账代偿：TRANSFER
+    // 代扣代偿：WITHHOLD
+    /**
+     * @var string
+     */
+    public $redeemType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -66,6 +74,7 @@ class CancelFundPlanRequest extends Model
         'fundId'            => 'fund_id',
         'operation'         => 'operation',
         'redeemAmount'      => 'redeem_amount',
+        'redeemType'        => 'redeem_type',
     ];
 
     public function validate()
@@ -75,6 +84,7 @@ class CancelFundPlanRequest extends Model
         Model::validateRequired('cancelReason', $this->cancelReason, true);
         Model::validateMaxLength('fundId', $this->fundId, 64);
         Model::validateMaxLength('operation', $this->operation, 64);
+        Model::validateMaxLength('redeemType', $this->redeemType, 64);
         Model::validateMinimum('redeemAmount', $this->redeemAmount, 10);
     }
 
@@ -104,6 +114,9 @@ class CancelFundPlanRequest extends Model
         }
         if (null !== $this->redeemAmount) {
             $res['redeem_amount'] = $this->redeemAmount;
+        }
+        if (null !== $this->redeemType) {
+            $res['redeem_type'] = $this->redeemType;
         }
 
         return $res;
@@ -140,6 +153,9 @@ class CancelFundPlanRequest extends Model
         }
         if (isset($map['redeem_amount'])) {
             $model->redeemAmount = $map['redeem_amount'];
+        }
+        if (isset($map['redeem_type'])) {
+            $model->redeemType = $map['redeem_type'];
         }
 
         return $model;
