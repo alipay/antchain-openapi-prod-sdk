@@ -297,6 +297,82 @@ func (s *GeneralResourcePatch) SetSize(v int64) *GeneralResourcePatch {
 	return s
 }
 
+// 七麦安卓ASO接入信息
+type Data struct {
+	// 订单安排日期
+	Day *string `json:"day,omitempty" xml:"day,omitempty" require:"true"`
+	// 设备信息（oaid）
+	Device *string `json:"device,omitempty" xml:"device,omitempty" require:"true"`
+	// 关键词
+	Keyword *string `json:"keyword,omitempty" xml:"keyword,omitempty" require:"true"`
+	// 应用商店id
+	// 2:OPPO
+	// 3:联想
+	// 4:华为
+	// 5:小米
+	// 6:魅族
+	// 7:360
+	// 8:应用宝
+	// 9:VIVO
+	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
+	// 应用商店描述
+	StoreDesc *string `json:"store_desc,omitempty" xml:"store_desc,omitempty" require:"true"`
+	// 激活时间
+	ActiveTime *string `json:"active_time,omitempty" xml:"active_time,omitempty" require:"true"`
+	// 任务截图1
+	ImgUrl1 *string `json:"img_url_1,omitempty" xml:"img_url_1,omitempty" require:"true"`
+	// 任务截图2
+	ImgUrl2 *string `json:"img_url_2,omitempty" xml:"img_url_2,omitempty" require:"true"`
+}
+
+func (s Data) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Data) GoString() string {
+	return s.String()
+}
+
+func (s *Data) SetDay(v string) *Data {
+	s.Day = &v
+	return s
+}
+
+func (s *Data) SetDevice(v string) *Data {
+	s.Device = &v
+	return s
+}
+
+func (s *Data) SetKeyword(v string) *Data {
+	s.Keyword = &v
+	return s
+}
+
+func (s *Data) SetStoreId(v string) *Data {
+	s.StoreId = &v
+	return s
+}
+
+func (s *Data) SetStoreDesc(v string) *Data {
+	s.StoreDesc = &v
+	return s
+}
+
+func (s *Data) SetActiveTime(v string) *Data {
+	s.ActiveTime = &v
+	return s
+}
+
+func (s *Data) SetImgUrl1(v string) *Data {
+	s.ImgUrl1 = &v
+	return s
+}
+
+func (s *Data) SetImgUrl2(v string) *Data {
+	s.ImgUrl2 = &v
+	return s
+}
+
 // 外部订单对象
 type ExternalOrderDTO struct {
 	// 订单的状态
@@ -790,6 +866,83 @@ func (s *SubmitAsoClickResponse) SetResultMsg(v string) *SubmitAsoClickResponse 
 }
 
 func (s *SubmitAsoClickResponse) SetResult(v string) *SubmitAsoClickResponse {
+	s.Result = &v
+	return s
+}
+
+type SubmitAsoAndroidclickRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 提交的批量数据
+	DataList []*Data `json:"data_list,omitempty" xml:"data_list,omitempty" require:"true" type:"Repeated"`
+	// 数据来源:qimai
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+}
+
+func (s SubmitAsoAndroidclickRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAsoAndroidclickRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAsoAndroidclickRequest) SetAuthToken(v string) *SubmitAsoAndroidclickRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitAsoAndroidclickRequest) SetProductInstanceId(v string) *SubmitAsoAndroidclickRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitAsoAndroidclickRequest) SetDataList(v []*Data) *SubmitAsoAndroidclickRequest {
+	s.DataList = v
+	return s
+}
+
+func (s *SubmitAsoAndroidclickRequest) SetSource(v string) *SubmitAsoAndroidclickRequest {
+	s.Source = &v
+	return s
+}
+
+type SubmitAsoAndroidclickResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s SubmitAsoAndroidclickResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAsoAndroidclickResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAsoAndroidclickResponse) SetReqMsgId(v string) *SubmitAsoAndroidclickResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitAsoAndroidclickResponse) SetResultCode(v string) *SubmitAsoAndroidclickResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitAsoAndroidclickResponse) SetResultMsg(v string) *SubmitAsoAndroidclickResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitAsoAndroidclickResponse) SetResult(v string) *SubmitAsoAndroidclickResponse {
 	s.Result = &v
 	return s
 }
@@ -3150,7 +3303,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.32"),
+				"sdk_version":      tea.String("1.0.35"),
 				"_prod_code":       tea.String("NFTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -3269,6 +3422,40 @@ func (client *Client) SubmitAsoClickEx(request *SubmitAsoClickRequest, headers m
 	}
 	_result = &SubmitAsoClickResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.aso.click.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 七麦安卓ASO接入
+ * Summary: 七麦安卓ASO接入
+ */
+func (client *Client) SubmitAsoAndroidclick(request *SubmitAsoAndroidclickRequest) (_result *SubmitAsoAndroidclickResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitAsoAndroidclickResponse{}
+	_body, _err := client.SubmitAsoAndroidclickEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 七麦安卓ASO接入
+ * Summary: 七麦安卓ASO接入
+ */
+func (client *Client) SubmitAsoAndroidclickEx(request *SubmitAsoAndroidclickRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitAsoAndroidclickResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitAsoAndroidclickResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.aso.androidclick.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
