@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.32',
+    sdk_version = '1.0.35',
     _prod_code = 'NFTC',
     _prod_channel = 'undefined'
   };
@@ -204,6 +204,34 @@ model GeneralResourcePatch {
   md5: string(name='md5', example='9d5f26c7469ea9699a6e5f03ecfce24d'),
   // 差量包文件大小
   size: long(name='size', example='123'),
+}
+
+// 七麦安卓ASO接入信息
+model Data {
+  // 订单安排日期
+  day: string(name='day', example='20250522'),
+  // 设备信息（oaid）
+  device: string(name='device', example='ABCASFDWOIFOH'),
+  // 关键词
+  keyword: string(name='keyword', example='afasf'),
+  // 应用商店id
+  // 2:OPPO
+  // 3:联想
+  // 4:华为
+  // 5:小米
+  // 6:魅族
+  // 7:360
+  // 8:应用宝
+  // 9:VIVO
+  storeId: string(name='store_id', example='2'),
+  // 应用商店描述
+  storeDesc: string(name='store_desc', example='测试的'),
+  // 激活时间
+  activeTime: string(name='active_time', example='20250522'),
+  // 任务截图1
+  imgUrl1: string(name='img_url_1', example='abc.com'),
+  // 任务截图2
+  imgUrl2: string(name='img_url_2', example='abc.com'),
 }
 
 // 外部订单对象
@@ -388,6 +416,46 @@ async function submitAsoClick(request: SubmitAsoClickRequest): SubmitAsoClickRes
 async function submitAsoClickEx(request: SubmitAsoClickRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAsoClickResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.nftc.aso.click.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitAsoAndroidclickRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 提交的批量数据
+  dataList: [ Data ](name='data_list'),
+  // 数据来源:qimai
+  source: string(name='source'),
+}
+
+model SubmitAsoAndroidclickResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 七麦安卓ASO接入
+ * Summary: 七麦安卓ASO接入
+ */
+async function submitAsoAndroidclick(request: SubmitAsoAndroidclickRequest): SubmitAsoAndroidclickResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitAsoAndroidclickEx(request, headers, runtime);
+}
+
+/**
+ * Description: 七麦安卓ASO接入
+ * Summary: 七麦安卓ASO接入
+ */
+async function submitAsoAndroidclickEx(request: SubmitAsoAndroidclickRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAsoAndroidclickResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftc.aso.androidclick.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryAvatarProfileRequest = {
