@@ -343,6 +343,98 @@ class GeneralResourcePatch(TeaModel):
         return self
 
 
+class Data(TeaModel):
+    def __init__(
+        self,
+        day: str = None,
+        device: str = None,
+        keyword: str = None,
+        store_id: str = None,
+        store_desc: str = None,
+        active_time: str = None,
+        img_url_1: str = None,
+        img_url_2: str = None,
+    ):
+        # 订单安排日期
+        self.day = day
+        # 设备信息（oaid）
+        self.device = device
+        # 关键词
+        self.keyword = keyword
+        # 应用商店id
+        # 2:OPPO
+        # 3:联想
+        # 4:华为
+        # 5:小米
+        # 6:魅族
+        # 7:360
+        # 8:应用宝
+        # 9:VIVO
+        self.store_id = store_id
+        # 应用商店描述
+        self.store_desc = store_desc
+        # 激活时间
+        self.active_time = active_time
+        # 任务截图1
+        self.img_url_1 = img_url_1
+        # 任务截图2
+        self.img_url_2 = img_url_2
+
+    def validate(self):
+        self.validate_required(self.day, 'day')
+        self.validate_required(self.device, 'device')
+        self.validate_required(self.keyword, 'keyword')
+        self.validate_required(self.store_id, 'store_id')
+        self.validate_required(self.store_desc, 'store_desc')
+        self.validate_required(self.active_time, 'active_time')
+        self.validate_required(self.img_url_1, 'img_url_1')
+        self.validate_required(self.img_url_2, 'img_url_2')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.day is not None:
+            result['day'] = self.day
+        if self.device is not None:
+            result['device'] = self.device
+        if self.keyword is not None:
+            result['keyword'] = self.keyword
+        if self.store_id is not None:
+            result['store_id'] = self.store_id
+        if self.store_desc is not None:
+            result['store_desc'] = self.store_desc
+        if self.active_time is not None:
+            result['active_time'] = self.active_time
+        if self.img_url_1 is not None:
+            result['img_url_1'] = self.img_url_1
+        if self.img_url_2 is not None:
+            result['img_url_2'] = self.img_url_2
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('day') is not None:
+            self.day = m.get('day')
+        if m.get('device') is not None:
+            self.device = m.get('device')
+        if m.get('keyword') is not None:
+            self.keyword = m.get('keyword')
+        if m.get('store_id') is not None:
+            self.store_id = m.get('store_id')
+        if m.get('store_desc') is not None:
+            self.store_desc = m.get('store_desc')
+        if m.get('active_time') is not None:
+            self.active_time = m.get('active_time')
+        if m.get('img_url_1') is not None:
+            self.img_url_1 = m.get('img_url_1')
+        if m.get('img_url_2') is not None:
+            self.img_url_2 = m.get('img_url_2')
+        return self
+
+
 class ExternalOrderDTO(TeaModel):
     def __init__(
         self,
@@ -988,6 +1080,113 @@ class SubmitAsoClickResponse(TeaModel):
         # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否成功 0: 失败; 1:成功
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class SubmitAsoAndroidclickRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        data_list: List[Data] = None,
+        source: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 提交的批量数据
+        self.data_list = data_list
+        # 数据来源:qimai
+        self.source = source
+
+    def validate(self):
+        self.validate_required(self.data_list, 'data_list')
+        if self.data_list:
+            for k in self.data_list:
+                if k:
+                    k.validate()
+        self.validate_required(self.source, 'source')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        result['data_list'] = []
+        if self.data_list is not None:
+            for k in self.data_list:
+                result['data_list'].append(k.to_map() if k else None)
+        if self.source is not None:
+            result['source'] = self.source
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        self.data_list = []
+        if m.get('data_list') is not None:
+            for k in m.get('data_list'):
+                temp_model = Data()
+                self.data_list.append(temp_model.from_map(k))
+        if m.get('source') is not None:
+            self.source = m.get('source')
+        return self
+
+
+class SubmitAsoAndroidclickResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否成功
         self.result = result
 
     def validate(self):

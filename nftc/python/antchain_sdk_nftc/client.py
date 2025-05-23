@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.32',
+                    'sdk_version': '1.0.35',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.32',
+                    'sdk_version': '1.0.35',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -385,6 +385,62 @@ class Client:
         return TeaCore.from_map(
             nftc_models.SubmitAsoClickResponse(),
             await self.do_request_async('1.0', 'antchain.nftc.aso.click.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_aso_androidclick(
+        self,
+        request: nftc_models.SubmitAsoAndroidclickRequest,
+    ) -> nftc_models.SubmitAsoAndroidclickResponse:
+        """
+        Description: 七麦安卓ASO接入
+        Summary: 七麦安卓ASO接入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_aso_androidclick_ex(request, headers, runtime)
+
+    async def submit_aso_androidclick_async(
+        self,
+        request: nftc_models.SubmitAsoAndroidclickRequest,
+    ) -> nftc_models.SubmitAsoAndroidclickResponse:
+        """
+        Description: 七麦安卓ASO接入
+        Summary: 七麦安卓ASO接入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_aso_androidclick_ex_async(request, headers, runtime)
+
+    def submit_aso_androidclick_ex(
+        self,
+        request: nftc_models.SubmitAsoAndroidclickRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.SubmitAsoAndroidclickResponse:
+        """
+        Description: 七麦安卓ASO接入
+        Summary: 七麦安卓ASO接入
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.SubmitAsoAndroidclickResponse(),
+            self.do_request('1.0', 'antchain.nftc.aso.androidclick.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_aso_androidclick_ex_async(
+        self,
+        request: nftc_models.SubmitAsoAndroidclickRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.SubmitAsoAndroidclickResponse:
+        """
+        Description: 七麦安卓ASO接入
+        Summary: 七麦安卓ASO接入
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.SubmitAsoAndroidclickResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.aso.androidclick.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_avatar_profile(
