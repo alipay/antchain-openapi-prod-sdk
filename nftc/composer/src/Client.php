@@ -59,6 +59,8 @@ use AntChain\NFTC\Models\SendPromoPrizeRequest;
 use AntChain\NFTC\Models\SendPromoPrizeResponse;
 use AntChain\NFTC\Models\SendSmsMessageRequest;
 use AntChain\NFTC\Models\SendSmsMessageResponse;
+use AntChain\NFTC\Models\SubmitAsoAndroidclickRequest;
+use AntChain\NFTC\Models\SubmitAsoAndroidclickResponse;
 use AntChain\NFTC\Models\SubmitAsoClickRequest;
 use AntChain\NFTC\Models\SubmitAsoClickResponse;
 use AntChain\Util\UtilClient;
@@ -208,7 +210,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.32',
+                    'sdk_version'      => '1.0.35',
                     '_prod_code'       => 'NFTC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -320,6 +322,39 @@ class Client
         Utils::validateModel($request);
 
         return SubmitAsoClickResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.aso.click.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 七麦安卓ASO接入
+     * Summary: 七麦安卓ASO接入.
+     *
+     * @param SubmitAsoAndroidclickRequest $request
+     *
+     * @return SubmitAsoAndroidclickResponse
+     */
+    public function submitAsoAndroidclick($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAsoAndroidclickEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 七麦安卓ASO接入
+     * Summary: 七麦安卓ASO接入.
+     *
+     * @param SubmitAsoAndroidclickRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return SubmitAsoAndroidclickResponse
+     */
+    public function submitAsoAndroidclickEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAsoAndroidclickResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.aso.androidclick.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
