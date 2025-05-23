@@ -137,7 +137,7 @@ namespace AntChain.SDK.NFTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.32"},
+                        {"sdk_version", "1.0.35"},
                         {"_prod_code", "NFTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.NFTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.32"},
+                        {"sdk_version", "1.0.35"},
                         {"_prod_code", "NFTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -403,6 +403,48 @@ namespace AntChain.SDK.NFTC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SubmitAsoClickResponse>(await DoRequestAsync("1.0", "antchain.nftc.aso.click.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 七麦安卓ASO接入
+         * Summary: 七麦安卓ASO接入
+         */
+        public SubmitAsoAndroidclickResponse SubmitAsoAndroidclick(SubmitAsoAndroidclickRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitAsoAndroidclickEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 七麦安卓ASO接入
+         * Summary: 七麦安卓ASO接入
+         */
+        public async Task<SubmitAsoAndroidclickResponse> SubmitAsoAndroidclickAsync(SubmitAsoAndroidclickRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitAsoAndroidclickExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 七麦安卓ASO接入
+         * Summary: 七麦安卓ASO接入
+         */
+        public SubmitAsoAndroidclickResponse SubmitAsoAndroidclickEx(SubmitAsoAndroidclickRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAsoAndroidclickResponse>(DoRequest("1.0", "antchain.nftc.aso.androidclick.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 七麦安卓ASO接入
+         * Summary: 七麦安卓ASO接入
+         */
+        public async Task<SubmitAsoAndroidclickResponse> SubmitAsoAndroidclickExAsync(SubmitAsoAndroidclickRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAsoAndroidclickResponse>(await DoRequestAsync("1.0", "antchain.nftc.aso.androidclick.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
