@@ -193,6 +193,63 @@ export class GeneralResourcePatch extends $tea.Model {
   }
 }
 
+// 七麦安卓ASO接入信息
+export class Data extends $tea.Model {
+  // 订单安排日期
+  day: string;
+  // 设备信息（oaid）
+  device: string;
+  // 关键词
+  keyword: string;
+  // 应用商店id
+  // 2:OPPO
+  // 3:联想
+  // 4:华为
+  // 5:小米
+  // 6:魅族
+  // 7:360
+  // 8:应用宝
+  // 9:VIVO
+  storeId: string;
+  // 应用商店描述
+  storeDesc: string;
+  // 激活时间
+  activeTime: string;
+  // 任务截图1
+  imgUrl1: string;
+  // 任务截图2
+  imgUrl2: string;
+  static names(): { [key: string]: string } {
+    return {
+      day: 'day',
+      device: 'device',
+      keyword: 'keyword',
+      storeId: 'store_id',
+      storeDesc: 'store_desc',
+      activeTime: 'active_time',
+      imgUrl1: 'img_url_1',
+      imgUrl2: 'img_url_2',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      day: 'string',
+      device: 'string',
+      keyword: 'string',
+      storeId: 'string',
+      storeDesc: 'string',
+      activeTime: 'string',
+      imgUrl1: 'string',
+      imgUrl2: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 外部订单对象
 export class ExternalOrderDTO extends $tea.Model {
   // 订单的状态
@@ -524,6 +581,69 @@ export class SubmitAsoClickResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 是否成功 0: 失败; 1:成功
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAsoAndroidclickRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 提交的批量数据
+  dataList: Data[];
+  // 数据来源:qimai
+  source: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      dataList: 'data_list',
+      source: 'source',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      dataList: { 'type': 'array', 'itemType': Data },
+      source: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAsoAndroidclickResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
   result?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2387,7 +2507,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.32",
+          sdk_version: "1.0.35",
           _prod_code: "NFTC",
           _prod_channel: "undefined",
         };
@@ -2471,6 +2591,25 @@ export default class Client {
   async submitAsoClickEx(request: SubmitAsoClickRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAsoClickResponse> {
     Util.validateModel(request);
     return $tea.cast<SubmitAsoClickResponse>(await this.doRequest("1.0", "antchain.nftc.aso.click.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitAsoClickResponse({}));
+  }
+
+  /**
+   * Description: 七麦安卓ASO接入
+   * Summary: 七麦安卓ASO接入
+   */
+  async submitAsoAndroidclick(request: SubmitAsoAndroidclickRequest): Promise<SubmitAsoAndroidclickResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitAsoAndroidclickEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 七麦安卓ASO接入
+   * Summary: 七麦安卓ASO接入
+   */
+  async submitAsoAndroidclickEx(request: SubmitAsoAndroidclickRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAsoAndroidclickResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitAsoAndroidclickResponse>(await this.doRequest("1.0", "antchain.nftc.aso.androidclick.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitAsoAndroidclickResponse({}));
   }
 
   /**
