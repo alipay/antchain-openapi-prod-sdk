@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.32"),
+                    new TeaPair("sdk_version", "1.0.35"),
                     new TeaPair("_prod_code", "NFTC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -220,6 +220,25 @@ public class Client {
     public SubmitAsoClickResponse submitAsoClickEx(SubmitAsoClickRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.aso.click.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAsoClickResponse());
+    }
+
+    /**
+     * Description: 七麦安卓ASO接入
+     * Summary: 七麦安卓ASO接入
+     */
+    public SubmitAsoAndroidclickResponse submitAsoAndroidclick(SubmitAsoAndroidclickRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitAsoAndroidclickEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 七麦安卓ASO接入
+     * Summary: 七麦安卓ASO接入
+     */
+    public SubmitAsoAndroidclickResponse submitAsoAndroidclickEx(SubmitAsoAndroidclickRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.nftc.aso.androidclick.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAsoAndroidclickResponse());
     }
 
     /**
