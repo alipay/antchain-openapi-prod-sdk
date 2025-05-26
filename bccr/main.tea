@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.55',
+    sdk_version = '1.19.67',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -465,6 +465,14 @@ model ReceiveInfo {
   deliveryInfo: DeliveryInfo(name='delivery_info', example=''),
 }
 
+// 服务商下工作人员
+model IsvWorkerInfoVO {
+  // 工作人员账号id
+  workerAccountId: string(name='worker_account_id', example='AC000100000000011000'),
+  // 工作人员姓名
+  workerName: string(name='worker_name', example='张三'),
+}
+
 // 日统计数据模型
 model DayStatisticsInfo {
   // 日期时间戳
@@ -513,6 +521,12 @@ model GoodSkuInfo {
   skuNum: string(name='sku_num', example='001'),
   // 授权规格价格(单位：分)
   price: long(name='price', example='10'),
+}
+
+// 服务商工作人员列表
+model IsvWorkerInfoVOList {
+  // 服务商下工作人员信息列表
+  isvWorkerInfoList: [ IsvWorkerInfoVO ](name='isv_worker_info_list', example='  [{ "workerAccountId": "AC000100000000011000","workerName": "testName"  }]'),
 }
 
 // 订单明细
@@ -657,12 +671,52 @@ model RefuseInfo {
   notificationPath: string(name='notification_path', example='不予办理决定书路径/终止决定书路径'),
 }
 
+// 骑行保平台任务详情
+model InsuranceTaskDetailInfo {
+  // 用户备注
+  userMemo?: string(name='user_memo', example='""'),
+  // 上门人员姓名
+  doorToDoorWorkerName?: string(name='door_to_door_worker_name', example='张三'),
+  // 电池包装码
+  batteryPackagingCode?: string(name='battery_packaging_code', example='ABC'),
+  // 电池码
+  batteryCode?: string(name='battery_code', example='ABC'),
+  // 图片列表
+  installImages?: [ string ](name='install_images', example='["image1", "image2"]'),
+  // 任务id
+  taskId: string(name='task_id', example='12'),
+  // 任务状态
+  taskStatus: string(name='task_status', example='"doorToDoorFinsh" (已完成)'),
+  // 电池型号
+  batteryType: string(name='battery_type', example='123'),
+  // 上门地址
+  serviceAddress: string(name='service_address', example='杭州市西湖区某小区'),
+  // 租赁人姓名
+  batteryRenterName: string(name='battery_renter_name', example='张三'),
+  // 租赁人电话
+  batteryRenterPhone: string(name='battery_renter_phone', example='15666666666'),
+  // 上门时间
+  serviceTime: string(name='service_time', example='2025-05-16 11:00:00'),
+  // 任务所属服务商账号id
+  isvAccountId: string(name='isv_account_id', example='AC000100000000011000'),
+}
+
 // 取证网址信息
 model EvidenceUrlInfo {
   // 取证网址
   url: string(name='url', example='www.baidu.com'),
   // 音视频取证时间
   autoSurfingMinute?: long(name='auto_surfing_minute', example='10'),
+}
+
+// 版权商品库存
+model ItemInventoryVO {
+  // 库存数量
+  stock: long(name='stock', example='1000'),
+  // 生效时间
+  gmtValid: string(name='gmt_valid', example='2025-05-20 08:00:00'),
+  // 失效时间
+  gmtInvalid: string(name='gmt_invalid', example='2025-05-20 09:00:00'),
 }
 
 // 出海视频统计数据
@@ -5407,6 +5461,272 @@ async function cancelDciRegistration(request: CancelDciRegistrationRequest): Can
 async function cancelDciRegistrationEx(request: CancelDciRegistrationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelDciRegistrationResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bccr.dci.registration.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateScreenshotNewRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 取证名称（最长128个字符）
+  name: string(maxLength=128, minLength=1, name='name'),
+  // 取证备注（最长512个字符）
+  memo?: string(maxLength=512, name='memo'),
+  // 取证地址（最长2048个字符）
+  url: string(maxLength=2048, minLength=8, name='url'),
+  // 公证处Id
+  orgId?: string(name='org_id'),
+  // 取证人证件名称
+  certName: string(name='cert_name'),
+  // 取证人证件号码
+  certNo: string(name='cert_no'),
+  // 取证人证件类型
+  certType: string(name='cert_type'),
+  // 法人代表姓名(如果certType为BUSINESS_LICENSE 则必传)
+  legalPersonName?: string(name='legal_person_name'),
+  // 法人代表身份证号(如果certType为BUSINESS_LICENSE 则必传)
+  legalPersonNo?: string(name='legal_person_no'),
+  // 法人证件类型
+  legalPersonType?: string(name='legal_person_type'),
+  // 企业用户取证人姓名(如果certType为BUSINESS_LICENSE 则必传)
+  agentName?: string(name='agent_name'),
+  // 企业用户取证人身份证号(如果certType为BUSINESS_LICENSE 则必传)
+  agentNo?: string(name='agent_no'),
+  // 取证人电话号码，生成公证处证书需要，公证处需要作登记 格式范例：(86-573)2651630 或 (86)13738258505
+  phoneNum?: string(name='phone_num'),
+  // 代理信息
+  fileId?: ProxyData(name='file_id'),
+  // 保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符
+  clientToken: string(maxLength=64, minLength=1, name='client_token'),
+}
+
+model CreateScreenshotNewResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 取证id
+  evidenceId?: string(name='evidence_id'),
+}
+
+/**
+ * Description: 法信云网页取证
+ * Summary: 法信云网页取证
+ */
+async function createScreenshotNew(request: CreateScreenshotNewRequest): CreateScreenshotNewResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createScreenshotNewEx(request, headers, runtime);
+}
+
+/**
+ * Description: 法信云网页取证
+ * Summary: 法信云网页取证
+ */
+async function createScreenshotNewEx(request: CreateScreenshotNewRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateScreenshotNewResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.screenshot.new.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateCyclinginsuranceServiceorderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 来源场景
+  scene: string(name='scene'),
+  // 请求唯一id
+  requestId: string(name='request_id'),
+  // 调用方应用名
+  callerAppName: string(name='caller_app_name'),
+  // 业务id，用于幂等
+  bizId: string(name='biz_id'),
+  // 下单账号
+  accountId: string(name='account_id'),
+  // 商品码
+  itemCode: string(name='item_code'),
+  // 商品属性
+  itemAttributes: string(name='item_attributes'),
+}
+
+model CreateCyclinginsuranceServiceorderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单id
+  orderId?: string(name='order_id'),
+}
+
+/**
+ * Description: 骑行保创建订单接口
+ * Summary: 骑行保创建订单接口
+ */
+async function createCyclinginsuranceServiceorder(request: CreateCyclinginsuranceServiceorderRequest): CreateCyclinginsuranceServiceorderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createCyclinginsuranceServiceorderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 骑行保创建订单接口
+ * Summary: 骑行保创建订单接口
+ */
+async function createCyclinginsuranceServiceorderEx(request: CreateCyclinginsuranceServiceorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateCyclinginsuranceServiceorderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.cyclinginsurance.serviceorder.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCyclinginsuranceServiceinventoryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景
+  scene: string(name='scene'),
+  // 请求id，用于链路追踪，如uuid
+  requestId: string(name='request_id'),
+  // 调用方
+  callerAppName: string(name='caller_app_name'),
+  // 服务商账号id
+  accountId: string(name='account_id'),
+  // 商品code
+  itemCode: string(name='item_code'),
+  // 商品属性
+  itemAttributes: string(name='item_attributes'),
+}
+
+model QueryCyclinginsuranceServiceinventoryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商品库存列表
+  itemInventorys?: [ ItemInventoryVO ](name='item_inventorys'),
+}
+
+/**
+ * Description: 服务商作业人员服务库存查询
+ * Summary: 服务商作业人员服务库存查询
+ */
+async function queryCyclinginsuranceServiceinventory(request: QueryCyclinginsuranceServiceinventoryRequest): QueryCyclinginsuranceServiceinventoryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCyclinginsuranceServiceinventoryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 服务商作业人员服务库存查询
+ * Summary: 服务商作业人员服务库存查询
+ */
+async function queryCyclinginsuranceServiceinventoryEx(request: QueryCyclinginsuranceServiceinventoryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCyclinginsuranceServiceinventoryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.cyclinginsurance.serviceinventory.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCyclinginsuranceOrderdetailRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务场景
+  scene: string(name='scene'),
+  // 请求id
+  requestId: string(name='request_id'),
+  // 请求方应用名
+  callerAppName: string(name='caller_app_name'),
+  // 订单号
+  orderId: string(name='order_id'),
+}
+
+model QueryCyclinginsuranceOrderdetailResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单号
+  orderId?: string(name='order_id'),
+  // 订单账号
+  acoountId?: string(name='acoount_id'),
+  // 商品码
+  itemCode?: string(name='item_code'),
+  // 商品属性
+  itemAttributes?: string(name='item_attributes'),
+  // 订单履约流程信息
+  fulfillmentProcessInfo?: string(name='fulfillment_process_info'),
+  // 附件
+  attachments?: string(name='attachments'),
+}
+
+/**
+ * Description: 骑行保查询订单详情
+ * Summary: 骑行保查询订单详情
+ */
+async function queryCyclinginsuranceOrderdetail(request: QueryCyclinginsuranceOrderdetailRequest): QueryCyclinginsuranceOrderdetailResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCyclinginsuranceOrderdetailEx(request, headers, runtime);
+}
+
+/**
+ * Description: 骑行保查询订单详情
+ * Summary: 骑行保查询订单详情
+ */
+async function queryCyclinginsuranceOrderdetailEx(request: QueryCyclinginsuranceOrderdetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCyclinginsuranceOrderdetailResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.cyclinginsurance.orderdetail.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelCyclinginsuranceServiceorderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求唯一Id
+  requestId: string(name='request_id'),
+  // 来源场景
+  scene: string(name='scene'),
+  // 调用应用名
+  callerAppName: string(name='caller_app_name'),
+  // 外部业务id，用于幂等
+  bizId: string(name='biz_id'),
+  // 订单id
+  orderId: string(name='order_id'),
+  // 账号id
+  accountId: string(name='account_id'),
+}
+
+model CancelCyclinginsuranceServiceorderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单取消是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 骑行保取消订单接口
+ * Summary: 骑行保取消订单接口
+ */
+async function cancelCyclinginsuranceServiceorder(request: CancelCyclinginsuranceServiceorderRequest): CancelCyclinginsuranceServiceorderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelCyclinginsuranceServiceorderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 骑行保取消订单接口
+ * Summary: 骑行保取消订单接口
+ */
+async function cancelCyclinginsuranceServiceorderEx(request: CancelCyclinginsuranceServiceorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelCyclinginsuranceServiceorderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.cyclinginsurance.serviceorder.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model AddContentRequest = {
