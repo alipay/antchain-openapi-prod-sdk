@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.55',
+                    'sdk_version': '1.19.67',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.55',
+                    'sdk_version': '1.19.67',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -4473,6 +4473,286 @@ class Client:
         return TeaCore.from_map(
             bccr_models.CancelDciRegistrationResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.dci.registration.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_screenshot_new(
+        self,
+        request: bccr_models.CreateScreenshotNewRequest,
+    ) -> bccr_models.CreateScreenshotNewResponse:
+        """
+        Description: 法信云网页取证
+        Summary: 法信云网页取证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_screenshot_new_ex(request, headers, runtime)
+
+    async def create_screenshot_new_async(
+        self,
+        request: bccr_models.CreateScreenshotNewRequest,
+    ) -> bccr_models.CreateScreenshotNewResponse:
+        """
+        Description: 法信云网页取证
+        Summary: 法信云网页取证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_screenshot_new_ex_async(request, headers, runtime)
+
+    def create_screenshot_new_ex(
+        self,
+        request: bccr_models.CreateScreenshotNewRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateScreenshotNewResponse:
+        """
+        Description: 法信云网页取证
+        Summary: 法信云网页取证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateScreenshotNewResponse(),
+            self.do_request('1.0', 'blockchain.bccr.screenshot.new.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_screenshot_new_ex_async(
+        self,
+        request: bccr_models.CreateScreenshotNewRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateScreenshotNewResponse:
+        """
+        Description: 法信云网页取证
+        Summary: 法信云网页取证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateScreenshotNewResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.screenshot.new.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_cyclinginsurance_serviceorder(
+        self,
+        request: bccr_models.CreateCyclinginsuranceServiceorderRequest,
+    ) -> bccr_models.CreateCyclinginsuranceServiceorderResponse:
+        """
+        Description: 骑行保创建订单接口
+        Summary: 骑行保创建订单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_cyclinginsurance_serviceorder_ex(request, headers, runtime)
+
+    async def create_cyclinginsurance_serviceorder_async(
+        self,
+        request: bccr_models.CreateCyclinginsuranceServiceorderRequest,
+    ) -> bccr_models.CreateCyclinginsuranceServiceorderResponse:
+        """
+        Description: 骑行保创建订单接口
+        Summary: 骑行保创建订单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_cyclinginsurance_serviceorder_ex_async(request, headers, runtime)
+
+    def create_cyclinginsurance_serviceorder_ex(
+        self,
+        request: bccr_models.CreateCyclinginsuranceServiceorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateCyclinginsuranceServiceorderResponse:
+        """
+        Description: 骑行保创建订单接口
+        Summary: 骑行保创建订单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateCyclinginsuranceServiceorderResponse(),
+            self.do_request('1.0', 'blockchain.bccr.cyclinginsurance.serviceorder.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_cyclinginsurance_serviceorder_ex_async(
+        self,
+        request: bccr_models.CreateCyclinginsuranceServiceorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CreateCyclinginsuranceServiceorderResponse:
+        """
+        Description: 骑行保创建订单接口
+        Summary: 骑行保创建订单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CreateCyclinginsuranceServiceorderResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.cyclinginsurance.serviceorder.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_cyclinginsurance_serviceinventory(
+        self,
+        request: bccr_models.QueryCyclinginsuranceServiceinventoryRequest,
+    ) -> bccr_models.QueryCyclinginsuranceServiceinventoryResponse:
+        """
+        Description: 服务商作业人员服务库存查询
+        Summary: 服务商作业人员服务库存查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_cyclinginsurance_serviceinventory_ex(request, headers, runtime)
+
+    async def query_cyclinginsurance_serviceinventory_async(
+        self,
+        request: bccr_models.QueryCyclinginsuranceServiceinventoryRequest,
+    ) -> bccr_models.QueryCyclinginsuranceServiceinventoryResponse:
+        """
+        Description: 服务商作业人员服务库存查询
+        Summary: 服务商作业人员服务库存查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_cyclinginsurance_serviceinventory_ex_async(request, headers, runtime)
+
+    def query_cyclinginsurance_serviceinventory_ex(
+        self,
+        request: bccr_models.QueryCyclinginsuranceServiceinventoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryCyclinginsuranceServiceinventoryResponse:
+        """
+        Description: 服务商作业人员服务库存查询
+        Summary: 服务商作业人员服务库存查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryCyclinginsuranceServiceinventoryResponse(),
+            self.do_request('1.0', 'blockchain.bccr.cyclinginsurance.serviceinventory.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_cyclinginsurance_serviceinventory_ex_async(
+        self,
+        request: bccr_models.QueryCyclinginsuranceServiceinventoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryCyclinginsuranceServiceinventoryResponse:
+        """
+        Description: 服务商作业人员服务库存查询
+        Summary: 服务商作业人员服务库存查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryCyclinginsuranceServiceinventoryResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.cyclinginsurance.serviceinventory.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_cyclinginsurance_orderdetail(
+        self,
+        request: bccr_models.QueryCyclinginsuranceOrderdetailRequest,
+    ) -> bccr_models.QueryCyclinginsuranceOrderdetailResponse:
+        """
+        Description: 骑行保查询订单详情
+        Summary: 骑行保查询订单详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_cyclinginsurance_orderdetail_ex(request, headers, runtime)
+
+    async def query_cyclinginsurance_orderdetail_async(
+        self,
+        request: bccr_models.QueryCyclinginsuranceOrderdetailRequest,
+    ) -> bccr_models.QueryCyclinginsuranceOrderdetailResponse:
+        """
+        Description: 骑行保查询订单详情
+        Summary: 骑行保查询订单详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_cyclinginsurance_orderdetail_ex_async(request, headers, runtime)
+
+    def query_cyclinginsurance_orderdetail_ex(
+        self,
+        request: bccr_models.QueryCyclinginsuranceOrderdetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryCyclinginsuranceOrderdetailResponse:
+        """
+        Description: 骑行保查询订单详情
+        Summary: 骑行保查询订单详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryCyclinginsuranceOrderdetailResponse(),
+            self.do_request('1.0', 'blockchain.bccr.cyclinginsurance.orderdetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_cyclinginsurance_orderdetail_ex_async(
+        self,
+        request: bccr_models.QueryCyclinginsuranceOrderdetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.QueryCyclinginsuranceOrderdetailResponse:
+        """
+        Description: 骑行保查询订单详情
+        Summary: 骑行保查询订单详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.QueryCyclinginsuranceOrderdetailResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.cyclinginsurance.orderdetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_cyclinginsurance_serviceorder(
+        self,
+        request: bccr_models.CancelCyclinginsuranceServiceorderRequest,
+    ) -> bccr_models.CancelCyclinginsuranceServiceorderResponse:
+        """
+        Description: 骑行保取消订单接口
+        Summary: 骑行保取消订单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_cyclinginsurance_serviceorder_ex(request, headers, runtime)
+
+    async def cancel_cyclinginsurance_serviceorder_async(
+        self,
+        request: bccr_models.CancelCyclinginsuranceServiceorderRequest,
+    ) -> bccr_models.CancelCyclinginsuranceServiceorderResponse:
+        """
+        Description: 骑行保取消订单接口
+        Summary: 骑行保取消订单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_cyclinginsurance_serviceorder_ex_async(request, headers, runtime)
+
+    def cancel_cyclinginsurance_serviceorder_ex(
+        self,
+        request: bccr_models.CancelCyclinginsuranceServiceorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CancelCyclinginsuranceServiceorderResponse:
+        """
+        Description: 骑行保取消订单接口
+        Summary: 骑行保取消订单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CancelCyclinginsuranceServiceorderResponse(),
+            self.do_request('1.0', 'blockchain.bccr.cyclinginsurance.serviceorder.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_cyclinginsurance_serviceorder_ex_async(
+        self,
+        request: bccr_models.CancelCyclinginsuranceServiceorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.CancelCyclinginsuranceServiceorderResponse:
+        """
+        Description: 骑行保取消订单接口
+        Summary: 骑行保取消订单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.CancelCyclinginsuranceServiceorderResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.cyclinginsurance.serviceorder.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def add_content(
