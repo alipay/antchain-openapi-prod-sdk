@@ -27,6 +27,8 @@ use AntChain\BCCR\Models\ApplyNotaryOrderRequest;
 use AntChain\BCCR\Models\ApplyNotaryOrderResponse;
 use AntChain\BCCR\Models\CallbackDciPayresultRequest;
 use AntChain\BCCR\Models\CallbackDciPayresultResponse;
+use AntChain\BCCR\Models\CancelCyclinginsuranceServiceorderRequest;
+use AntChain\BCCR\Models\CancelCyclinginsuranceServiceorderResponse;
 use AntChain\BCCR\Models\CancelDciRegistrationRequest;
 use AntChain\BCCR\Models\CancelDciRegistrationResponse;
 use AntChain\BCCR\Models\CancelTradeUsageRequest;
@@ -35,6 +37,8 @@ use AntChain\BCCR\Models\CloseDciRegistrationRequest;
 use AntChain\BCCR\Models\CloseDciRegistrationResponse;
 use AntChain\BCCR\Models\CreateCertificateRequest;
 use AntChain\BCCR\Models\CreateCertificateResponse;
+use AntChain\BCCR\Models\CreateCyclinginsuranceServiceorderRequest;
+use AntChain\BCCR\Models\CreateCyclinginsuranceServiceorderResponse;
 use AntChain\BCCR\Models\CreateDciPreregistrationRequest;
 use AntChain\BCCR\Models\CreateDciPreregistrationResponse;
 use AntChain\BCCR\Models\CreateDciRegistrationcertRequest;
@@ -63,6 +67,8 @@ use AntChain\BCCR\Models\CreateRecodescreenRequest;
 use AntChain\BCCR\Models\CreateRecodescreenResponse;
 use AntChain\BCCR\Models\CreateRecordscreenRequest;
 use AntChain\BCCR\Models\CreateRecordscreenResponse;
+use AntChain\BCCR\Models\CreateScreenshotNewRequest;
+use AntChain\BCCR\Models\CreateScreenshotNewResponse;
 use AntChain\BCCR\Models\CreateScreenshotRequest;
 use AntChain\BCCR\Models\CreateScreenshotResponse;
 use AntChain\BCCR\Models\ExecTradeCoverRequest;
@@ -95,6 +101,10 @@ use AntChain\BCCR\Models\QueryContentStatisticsRequest;
 use AntChain\BCCR\Models\QueryContentStatisticsResponse;
 use AntChain\BCCR\Models\QueryContentStatusRequest;
 use AntChain\BCCR\Models\QueryContentStatusResponse;
+use AntChain\BCCR\Models\QueryCyclinginsuranceOrderdetailRequest;
+use AntChain\BCCR\Models\QueryCyclinginsuranceOrderdetailResponse;
+use AntChain\BCCR\Models\QueryCyclinginsuranceServiceinventoryRequest;
+use AntChain\BCCR\Models\QueryCyclinginsuranceServiceinventoryResponse;
 use AntChain\BCCR\Models\QueryDciContentsecurityRequest;
 use AntChain\BCCR\Models\QueryDciContentsecurityResponse;
 use AntChain\BCCR\Models\QueryDciFeedbackRequest;
@@ -324,7 +334,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.19.55',
+                    'sdk_version'      => '1.19.67',
                     '_prod_code'       => 'BCCR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2845,6 +2855,171 @@ class Client
         Utils::validateModel($request);
 
         return CancelDciRegistrationResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.registration.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 法信云网页取证
+     * Summary: 法信云网页取证
+     *
+     * @param CreateScreenshotNewRequest $request
+     *
+     * @return CreateScreenshotNewResponse
+     */
+    public function createScreenshotNew($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createScreenshotNewEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 法信云网页取证
+     * Summary: 法信云网页取证
+     *
+     * @param CreateScreenshotNewRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CreateScreenshotNewResponse
+     */
+    public function createScreenshotNewEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateScreenshotNewResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.screenshot.new.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 骑行保创建订单接口
+     * Summary: 骑行保创建订单接口.
+     *
+     * @param CreateCyclinginsuranceServiceorderRequest $request
+     *
+     * @return CreateCyclinginsuranceServiceorderResponse
+     */
+    public function createCyclinginsuranceServiceorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createCyclinginsuranceServiceorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 骑行保创建订单接口
+     * Summary: 骑行保创建订单接口.
+     *
+     * @param CreateCyclinginsuranceServiceorderRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return CreateCyclinginsuranceServiceorderResponse
+     */
+    public function createCyclinginsuranceServiceorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateCyclinginsuranceServiceorderResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.cyclinginsurance.serviceorder.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 服务商作业人员服务库存查询
+     * Summary: 服务商作业人员服务库存查询.
+     *
+     * @param QueryCyclinginsuranceServiceinventoryRequest $request
+     *
+     * @return QueryCyclinginsuranceServiceinventoryResponse
+     */
+    public function queryCyclinginsuranceServiceinventory($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCyclinginsuranceServiceinventoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 服务商作业人员服务库存查询
+     * Summary: 服务商作业人员服务库存查询.
+     *
+     * @param QueryCyclinginsuranceServiceinventoryRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return QueryCyclinginsuranceServiceinventoryResponse
+     */
+    public function queryCyclinginsuranceServiceinventoryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCyclinginsuranceServiceinventoryResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.cyclinginsurance.serviceinventory.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 骑行保查询订单详情
+     * Summary: 骑行保查询订单详情.
+     *
+     * @param QueryCyclinginsuranceOrderdetailRequest $request
+     *
+     * @return QueryCyclinginsuranceOrderdetailResponse
+     */
+    public function queryCyclinginsuranceOrderdetail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCyclinginsuranceOrderdetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 骑行保查询订单详情
+     * Summary: 骑行保查询订单详情.
+     *
+     * @param QueryCyclinginsuranceOrderdetailRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return QueryCyclinginsuranceOrderdetailResponse
+     */
+    public function queryCyclinginsuranceOrderdetailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCyclinginsuranceOrderdetailResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.cyclinginsurance.orderdetail.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 骑行保取消订单接口
+     * Summary: 骑行保取消订单接口.
+     *
+     * @param CancelCyclinginsuranceServiceorderRequest $request
+     *
+     * @return CancelCyclinginsuranceServiceorderResponse
+     */
+    public function cancelCyclinginsuranceServiceorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelCyclinginsuranceServiceorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 骑行保取消订单接口
+     * Summary: 骑行保取消订单接口.
+     *
+     * @param CancelCyclinginsuranceServiceorderRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return CancelCyclinginsuranceServiceorderResponse
+     */
+    public function cancelCyclinginsuranceServiceorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelCyclinginsuranceServiceorderResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.cyclinginsurance.serviceorder.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
