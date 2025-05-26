@@ -874,6 +874,31 @@ export class ReceiveInfo extends $tea.Model {
   }
 }
 
+// 服务商下工作人员
+export class IsvWorkerInfoVO extends $tea.Model {
+  // 工作人员账号id
+  workerAccountId: string;
+  // 工作人员姓名
+  workerName: string;
+  static names(): { [key: string]: string } {
+    return {
+      workerAccountId: 'worker_account_id',
+      workerName: 'worker_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      workerAccountId: 'string',
+      workerName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 日统计数据模型
 export class DayStatisticsInfo extends $tea.Model {
   // 日期时间戳
@@ -1011,6 +1036,27 @@ export class GoodSkuInfo extends $tea.Model {
     return {
       skuNum: 'string',
       price: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 服务商工作人员列表
+export class IsvWorkerInfoVOList extends $tea.Model {
+  // 服务商下工作人员信息列表
+  isvWorkerInfoList: IsvWorkerInfoVO[];
+  static names(): { [key: string]: string } {
+    return {
+      isvWorkerInfoList: 'isv_worker_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      isvWorkerInfoList: { 'type': 'array', 'itemType': IsvWorkerInfoVO },
     };
   }
 
@@ -1393,6 +1439,75 @@ export class RefuseInfo extends $tea.Model {
   }
 }
 
+// 骑行保平台任务详情
+export class InsuranceTaskDetailInfo extends $tea.Model {
+  // 用户备注
+  userMemo?: string;
+  // 上门人员姓名
+  doorToDoorWorkerName?: string;
+  // 电池包装码
+  batteryPackagingCode?: string;
+  // 电池码
+  batteryCode?: string;
+  // 图片列表
+  installImages?: string[];
+  // 任务id
+  taskId: string;
+  // 任务状态
+  taskStatus: string;
+  // 电池型号
+  batteryType: string;
+  // 上门地址
+  serviceAddress: string;
+  // 租赁人姓名
+  batteryRenterName: string;
+  // 租赁人电话
+  batteryRenterPhone: string;
+  // 上门时间
+  serviceTime: string;
+  // 任务所属服务商账号id
+  isvAccountId: string;
+  static names(): { [key: string]: string } {
+    return {
+      userMemo: 'user_memo',
+      doorToDoorWorkerName: 'door_to_door_worker_name',
+      batteryPackagingCode: 'battery_packaging_code',
+      batteryCode: 'battery_code',
+      installImages: 'install_images',
+      taskId: 'task_id',
+      taskStatus: 'task_status',
+      batteryType: 'battery_type',
+      serviceAddress: 'service_address',
+      batteryRenterName: 'battery_renter_name',
+      batteryRenterPhone: 'battery_renter_phone',
+      serviceTime: 'service_time',
+      isvAccountId: 'isv_account_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userMemo: 'string',
+      doorToDoorWorkerName: 'string',
+      batteryPackagingCode: 'string',
+      batteryCode: 'string',
+      installImages: { 'type': 'array', 'itemType': 'string' },
+      taskId: 'string',
+      taskStatus: 'string',
+      batteryType: 'string',
+      serviceAddress: 'string',
+      batteryRenterName: 'string',
+      batteryRenterPhone: 'string',
+      serviceTime: 'string',
+      isvAccountId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 取证网址信息
 export class EvidenceUrlInfo extends $tea.Model {
   // 取证网址
@@ -1410,6 +1525,35 @@ export class EvidenceUrlInfo extends $tea.Model {
     return {
       url: 'string',
       autoSurfingMinute: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 版权商品库存
+export class ItemInventoryVO extends $tea.Model {
+  // 库存数量
+  stock: number;
+  // 生效时间
+  gmtValid: string;
+  // 失效时间
+  gmtInvalid: string;
+  static names(): { [key: string]: string } {
+    return {
+      stock: 'stock',
+      gmtValid: 'gmt_valid',
+      gmtInvalid: 'gmt_invalid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      stock: 'number',
+      gmtValid: 'string',
+      gmtInvalid: 'string',
     };
   }
 
@@ -9904,6 +10048,453 @@ export class CancelDciRegistrationResponse extends $tea.Model {
   }
 }
 
+export class CreateScreenshotNewRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 取证名称（最长128个字符）
+  name: string;
+  // 取证备注（最长512个字符）
+  memo?: string;
+  // 取证地址（最长2048个字符）
+  url: string;
+  // 公证处Id
+  orgId?: string;
+  // 取证人证件名称
+  certName: string;
+  // 取证人证件号码
+  certNo: string;
+  // 取证人证件类型
+  certType: string;
+  // 法人代表姓名(如果certType为BUSINESS_LICENSE 则必传)
+  legalPersonName?: string;
+  // 法人代表身份证号(如果certType为BUSINESS_LICENSE 则必传)
+  legalPersonNo?: string;
+  // 法人证件类型
+  legalPersonType?: string;
+  // 企业用户取证人姓名(如果certType为BUSINESS_LICENSE 则必传)
+  agentName?: string;
+  // 企业用户取证人身份证号(如果certType为BUSINESS_LICENSE 则必传)
+  agentNo?: string;
+  // 取证人电话号码，生成公证处证书需要，公证处需要作登记 格式范例：(86-573)2651630 或 (86)13738258505
+  phoneNum?: string;
+  // 代理信息
+  fileId?: ProxyData;
+  // 保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符
+  clientToken: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      name: 'name',
+      memo: 'memo',
+      url: 'url',
+      orgId: 'org_id',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      certType: 'cert_type',
+      legalPersonName: 'legal_person_name',
+      legalPersonNo: 'legal_person_no',
+      legalPersonType: 'legal_person_type',
+      agentName: 'agent_name',
+      agentNo: 'agent_no',
+      phoneNum: 'phone_num',
+      fileId: 'file_id',
+      clientToken: 'client_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      name: 'string',
+      memo: 'string',
+      url: 'string',
+      orgId: 'string',
+      certName: 'string',
+      certNo: 'string',
+      certType: 'string',
+      legalPersonName: 'string',
+      legalPersonNo: 'string',
+      legalPersonType: 'string',
+      agentName: 'string',
+      agentNo: 'string',
+      phoneNum: 'string',
+      fileId: ProxyData,
+      clientToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateScreenshotNewResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 取证id
+  evidenceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      evidenceId: 'evidence_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      evidenceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateCyclinginsuranceServiceorderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 来源场景
+  scene: string;
+  // 请求唯一id
+  requestId: string;
+  // 调用方应用名
+  callerAppName: string;
+  // 业务id，用于幂等
+  bizId: string;
+  // 下单账号
+  accountId: string;
+  // 商品码
+  itemCode: string;
+  // 商品属性
+  itemAttributes: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      scene: 'scene',
+      requestId: 'request_id',
+      callerAppName: 'caller_app_name',
+      bizId: 'biz_id',
+      accountId: 'account_id',
+      itemCode: 'item_code',
+      itemAttributes: 'item_attributes',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      scene: 'string',
+      requestId: 'string',
+      callerAppName: 'string',
+      bizId: 'string',
+      accountId: 'string',
+      itemCode: 'string',
+      itemAttributes: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateCyclinginsuranceServiceorderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单id
+  orderId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCyclinginsuranceServiceinventoryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景
+  scene: string;
+  // 请求id，用于链路追踪，如uuid
+  requestId: string;
+  // 调用方
+  callerAppName: string;
+  // 服务商账号id
+  accountId: string;
+  // 商品code
+  itemCode: string;
+  // 商品属性
+  itemAttributes: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      scene: 'scene',
+      requestId: 'request_id',
+      callerAppName: 'caller_app_name',
+      accountId: 'account_id',
+      itemCode: 'item_code',
+      itemAttributes: 'item_attributes',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      scene: 'string',
+      requestId: 'string',
+      callerAppName: 'string',
+      accountId: 'string',
+      itemCode: 'string',
+      itemAttributes: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCyclinginsuranceServiceinventoryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 商品库存列表
+  itemInventorys?: ItemInventoryVO[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      itemInventorys: 'item_inventorys',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      itemInventorys: { 'type': 'array', 'itemType': ItemInventoryVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCyclinginsuranceOrderdetailRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务场景
+  scene: string;
+  // 请求id
+  requestId: string;
+  // 请求方应用名
+  callerAppName: string;
+  // 订单号
+  orderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      scene: 'scene',
+      requestId: 'request_id',
+      callerAppName: 'caller_app_name',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      scene: 'string',
+      requestId: 'string',
+      callerAppName: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCyclinginsuranceOrderdetailResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单号
+  orderId?: string;
+  // 订单账号
+  acoountId?: string;
+  // 商品码
+  itemCode?: string;
+  // 商品属性
+  itemAttributes?: string;
+  // 订单履约流程信息
+  fulfillmentProcessInfo?: string;
+  // 附件
+  attachments?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+      acoountId: 'acoount_id',
+      itemCode: 'item_code',
+      itemAttributes: 'item_attributes',
+      fulfillmentProcessInfo: 'fulfillment_process_info',
+      attachments: 'attachments',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+      acoountId: 'string',
+      itemCode: 'string',
+      itemAttributes: 'string',
+      fulfillmentProcessInfo: 'string',
+      attachments: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelCyclinginsuranceServiceorderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求唯一Id
+  requestId: string;
+  // 来源场景
+  scene: string;
+  // 调用应用名
+  callerAppName: string;
+  // 外部业务id，用于幂等
+  bizId: string;
+  // 订单id
+  orderId: string;
+  // 账号id
+  accountId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestId: 'request_id',
+      scene: 'scene',
+      callerAppName: 'caller_app_name',
+      bizId: 'biz_id',
+      orderId: 'order_id',
+      accountId: 'account_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestId: 'string',
+      scene: 'string',
+      callerAppName: 'string',
+      bizId: 'string',
+      orderId: 'string',
+      accountId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelCyclinginsuranceServiceorderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单取消是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class AddContentRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -10649,7 +11240,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.55",
+          sdk_version: "1.19.67",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
@@ -12120,6 +12711,101 @@ export default class Client {
   async cancelDciRegistrationEx(request: CancelDciRegistrationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelDciRegistrationResponse> {
     Util.validateModel(request);
     return $tea.cast<CancelDciRegistrationResponse>(await this.doRequest("1.0", "blockchain.bccr.dci.registration.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelDciRegistrationResponse({}));
+  }
+
+  /**
+   * Description: 法信云网页取证
+   * Summary: 法信云网页取证
+   */
+  async createScreenshotNew(request: CreateScreenshotNewRequest): Promise<CreateScreenshotNewResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createScreenshotNewEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 法信云网页取证
+   * Summary: 法信云网页取证
+   */
+  async createScreenshotNewEx(request: CreateScreenshotNewRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateScreenshotNewResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateScreenshotNewResponse>(await this.doRequest("1.0", "blockchain.bccr.screenshot.new.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateScreenshotNewResponse({}));
+  }
+
+  /**
+   * Description: 骑行保创建订单接口
+   * Summary: 骑行保创建订单接口
+   */
+  async createCyclinginsuranceServiceorder(request: CreateCyclinginsuranceServiceorderRequest): Promise<CreateCyclinginsuranceServiceorderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createCyclinginsuranceServiceorderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 骑行保创建订单接口
+   * Summary: 骑行保创建订单接口
+   */
+  async createCyclinginsuranceServiceorderEx(request: CreateCyclinginsuranceServiceorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateCyclinginsuranceServiceorderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateCyclinginsuranceServiceorderResponse>(await this.doRequest("1.0", "blockchain.bccr.cyclinginsurance.serviceorder.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateCyclinginsuranceServiceorderResponse({}));
+  }
+
+  /**
+   * Description: 服务商作业人员服务库存查询
+   * Summary: 服务商作业人员服务库存查询
+   */
+  async queryCyclinginsuranceServiceinventory(request: QueryCyclinginsuranceServiceinventoryRequest): Promise<QueryCyclinginsuranceServiceinventoryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCyclinginsuranceServiceinventoryEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 服务商作业人员服务库存查询
+   * Summary: 服务商作业人员服务库存查询
+   */
+  async queryCyclinginsuranceServiceinventoryEx(request: QueryCyclinginsuranceServiceinventoryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCyclinginsuranceServiceinventoryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCyclinginsuranceServiceinventoryResponse>(await this.doRequest("1.0", "blockchain.bccr.cyclinginsurance.serviceinventory.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCyclinginsuranceServiceinventoryResponse({}));
+  }
+
+  /**
+   * Description: 骑行保查询订单详情
+   * Summary: 骑行保查询订单详情
+   */
+  async queryCyclinginsuranceOrderdetail(request: QueryCyclinginsuranceOrderdetailRequest): Promise<QueryCyclinginsuranceOrderdetailResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCyclinginsuranceOrderdetailEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 骑行保查询订单详情
+   * Summary: 骑行保查询订单详情
+   */
+  async queryCyclinginsuranceOrderdetailEx(request: QueryCyclinginsuranceOrderdetailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCyclinginsuranceOrderdetailResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCyclinginsuranceOrderdetailResponse>(await this.doRequest("1.0", "blockchain.bccr.cyclinginsurance.orderdetail.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCyclinginsuranceOrderdetailResponse({}));
+  }
+
+  /**
+   * Description: 骑行保取消订单接口
+   * Summary: 骑行保取消订单接口
+   */
+  async cancelCyclinginsuranceServiceorder(request: CancelCyclinginsuranceServiceorderRequest): Promise<CancelCyclinginsuranceServiceorderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.cancelCyclinginsuranceServiceorderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 骑行保取消订单接口
+   * Summary: 骑行保取消订单接口
+   */
+  async cancelCyclinginsuranceServiceorderEx(request: CancelCyclinginsuranceServiceorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelCyclinginsuranceServiceorderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CancelCyclinginsuranceServiceorderResponse>(await this.doRequest("1.0", "blockchain.bccr.cyclinginsurance.serviceorder.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelCyclinginsuranceServiceorderResponse({}));
   }
 
   /**
