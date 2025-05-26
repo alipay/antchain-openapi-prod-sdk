@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.19.55"),
+                    new TeaPair("sdk_version", "1.19.67"),
                     new TeaPair("_prod_code", "BCCR"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1607,6 +1607,101 @@ public class Client {
     public CancelDciRegistrationResponse cancelDciRegistrationEx(CancelDciRegistrationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.dci.registration.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelDciRegistrationResponse());
+    }
+
+    /**
+     * Description: 法信云网页取证
+     * Summary: 法信云网页取证
+     */
+    public CreateScreenshotNewResponse createScreenshotNew(CreateScreenshotNewRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createScreenshotNewEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 法信云网页取证
+     * Summary: 法信云网页取证
+     */
+    public CreateScreenshotNewResponse createScreenshotNewEx(CreateScreenshotNewRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.screenshot.new.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateScreenshotNewResponse());
+    }
+
+    /**
+     * Description: 骑行保创建订单接口
+     * Summary: 骑行保创建订单接口
+     */
+    public CreateCyclinginsuranceServiceorderResponse createCyclinginsuranceServiceorder(CreateCyclinginsuranceServiceorderRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createCyclinginsuranceServiceorderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 骑行保创建订单接口
+     * Summary: 骑行保创建订单接口
+     */
+    public CreateCyclinginsuranceServiceorderResponse createCyclinginsuranceServiceorderEx(CreateCyclinginsuranceServiceorderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.cyclinginsurance.serviceorder.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateCyclinginsuranceServiceorderResponse());
+    }
+
+    /**
+     * Description: 服务商作业人员服务库存查询
+     * Summary: 服务商作业人员服务库存查询
+     */
+    public QueryCyclinginsuranceServiceinventoryResponse queryCyclinginsuranceServiceinventory(QueryCyclinginsuranceServiceinventoryRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCyclinginsuranceServiceinventoryEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 服务商作业人员服务库存查询
+     * Summary: 服务商作业人员服务库存查询
+     */
+    public QueryCyclinginsuranceServiceinventoryResponse queryCyclinginsuranceServiceinventoryEx(QueryCyclinginsuranceServiceinventoryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.cyclinginsurance.serviceinventory.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCyclinginsuranceServiceinventoryResponse());
+    }
+
+    /**
+     * Description: 骑行保查询订单详情
+     * Summary: 骑行保查询订单详情
+     */
+    public QueryCyclinginsuranceOrderdetailResponse queryCyclinginsuranceOrderdetail(QueryCyclinginsuranceOrderdetailRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCyclinginsuranceOrderdetailEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 骑行保查询订单详情
+     * Summary: 骑行保查询订单详情
+     */
+    public QueryCyclinginsuranceOrderdetailResponse queryCyclinginsuranceOrderdetailEx(QueryCyclinginsuranceOrderdetailRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.cyclinginsurance.orderdetail.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCyclinginsuranceOrderdetailResponse());
+    }
+
+    /**
+     * Description: 骑行保取消订单接口
+     * Summary: 骑行保取消订单接口
+     */
+    public CancelCyclinginsuranceServiceorderResponse cancelCyclinginsuranceServiceorder(CancelCyclinginsuranceServiceorderRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.cancelCyclinginsuranceServiceorderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 骑行保取消订单接口
+     * Summary: 骑行保取消订单接口
+     */
+    public CancelCyclinginsuranceServiceorderResponse cancelCyclinginsuranceServiceorderEx(CancelCyclinginsuranceServiceorderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.cyclinginsurance.serviceorder.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelCyclinginsuranceServiceorderResponse());
     }
 
     /**
