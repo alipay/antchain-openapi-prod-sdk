@@ -137,7 +137,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.55"},
+                        {"sdk_version", "1.19.67"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.55"},
+                        {"sdk_version", "1.19.67"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3469,6 +3469,216 @@ namespace AntChain.SDK.BCCR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CancelDciRegistrationResponse>(await DoRequestAsync("1.0", "blockchain.bccr.dci.registration.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 法信云网页取证
+         * Summary: 法信云网页取证
+         */
+        public CreateScreenshotNewResponse CreateScreenshotNew(CreateScreenshotNewRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateScreenshotNewEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 法信云网页取证
+         * Summary: 法信云网页取证
+         */
+        public async Task<CreateScreenshotNewResponse> CreateScreenshotNewAsync(CreateScreenshotNewRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateScreenshotNewExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 法信云网页取证
+         * Summary: 法信云网页取证
+         */
+        public CreateScreenshotNewResponse CreateScreenshotNewEx(CreateScreenshotNewRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateScreenshotNewResponse>(DoRequest("1.0", "blockchain.bccr.screenshot.new.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 法信云网页取证
+         * Summary: 法信云网页取证
+         */
+        public async Task<CreateScreenshotNewResponse> CreateScreenshotNewExAsync(CreateScreenshotNewRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateScreenshotNewResponse>(await DoRequestAsync("1.0", "blockchain.bccr.screenshot.new.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 骑行保创建订单接口
+         * Summary: 骑行保创建订单接口
+         */
+        public CreateCyclinginsuranceServiceorderResponse CreateCyclinginsuranceServiceorder(CreateCyclinginsuranceServiceorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateCyclinginsuranceServiceorderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 骑行保创建订单接口
+         * Summary: 骑行保创建订单接口
+         */
+        public async Task<CreateCyclinginsuranceServiceorderResponse> CreateCyclinginsuranceServiceorderAsync(CreateCyclinginsuranceServiceorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateCyclinginsuranceServiceorderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 骑行保创建订单接口
+         * Summary: 骑行保创建订单接口
+         */
+        public CreateCyclinginsuranceServiceorderResponse CreateCyclinginsuranceServiceorderEx(CreateCyclinginsuranceServiceorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateCyclinginsuranceServiceorderResponse>(DoRequest("1.0", "blockchain.bccr.cyclinginsurance.serviceorder.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 骑行保创建订单接口
+         * Summary: 骑行保创建订单接口
+         */
+        public async Task<CreateCyclinginsuranceServiceorderResponse> CreateCyclinginsuranceServiceorderExAsync(CreateCyclinginsuranceServiceorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateCyclinginsuranceServiceorderResponse>(await DoRequestAsync("1.0", "blockchain.bccr.cyclinginsurance.serviceorder.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 服务商作业人员服务库存查询
+         * Summary: 服务商作业人员服务库存查询
+         */
+        public QueryCyclinginsuranceServiceinventoryResponse QueryCyclinginsuranceServiceinventory(QueryCyclinginsuranceServiceinventoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCyclinginsuranceServiceinventoryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 服务商作业人员服务库存查询
+         * Summary: 服务商作业人员服务库存查询
+         */
+        public async Task<QueryCyclinginsuranceServiceinventoryResponse> QueryCyclinginsuranceServiceinventoryAsync(QueryCyclinginsuranceServiceinventoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCyclinginsuranceServiceinventoryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 服务商作业人员服务库存查询
+         * Summary: 服务商作业人员服务库存查询
+         */
+        public QueryCyclinginsuranceServiceinventoryResponse QueryCyclinginsuranceServiceinventoryEx(QueryCyclinginsuranceServiceinventoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCyclinginsuranceServiceinventoryResponse>(DoRequest("1.0", "blockchain.bccr.cyclinginsurance.serviceinventory.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 服务商作业人员服务库存查询
+         * Summary: 服务商作业人员服务库存查询
+         */
+        public async Task<QueryCyclinginsuranceServiceinventoryResponse> QueryCyclinginsuranceServiceinventoryExAsync(QueryCyclinginsuranceServiceinventoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCyclinginsuranceServiceinventoryResponse>(await DoRequestAsync("1.0", "blockchain.bccr.cyclinginsurance.serviceinventory.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 骑行保查询订单详情
+         * Summary: 骑行保查询订单详情
+         */
+        public QueryCyclinginsuranceOrderdetailResponse QueryCyclinginsuranceOrderdetail(QueryCyclinginsuranceOrderdetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCyclinginsuranceOrderdetailEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 骑行保查询订单详情
+         * Summary: 骑行保查询订单详情
+         */
+        public async Task<QueryCyclinginsuranceOrderdetailResponse> QueryCyclinginsuranceOrderdetailAsync(QueryCyclinginsuranceOrderdetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCyclinginsuranceOrderdetailExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 骑行保查询订单详情
+         * Summary: 骑行保查询订单详情
+         */
+        public QueryCyclinginsuranceOrderdetailResponse QueryCyclinginsuranceOrderdetailEx(QueryCyclinginsuranceOrderdetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCyclinginsuranceOrderdetailResponse>(DoRequest("1.0", "blockchain.bccr.cyclinginsurance.orderdetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 骑行保查询订单详情
+         * Summary: 骑行保查询订单详情
+         */
+        public async Task<QueryCyclinginsuranceOrderdetailResponse> QueryCyclinginsuranceOrderdetailExAsync(QueryCyclinginsuranceOrderdetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCyclinginsuranceOrderdetailResponse>(await DoRequestAsync("1.0", "blockchain.bccr.cyclinginsurance.orderdetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 骑行保取消订单接口
+         * Summary: 骑行保取消订单接口
+         */
+        public CancelCyclinginsuranceServiceorderResponse CancelCyclinginsuranceServiceorder(CancelCyclinginsuranceServiceorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CancelCyclinginsuranceServiceorderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 骑行保取消订单接口
+         * Summary: 骑行保取消订单接口
+         */
+        public async Task<CancelCyclinginsuranceServiceorderResponse> CancelCyclinginsuranceServiceorderAsync(CancelCyclinginsuranceServiceorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CancelCyclinginsuranceServiceorderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 骑行保取消订单接口
+         * Summary: 骑行保取消订单接口
+         */
+        public CancelCyclinginsuranceServiceorderResponse CancelCyclinginsuranceServiceorderEx(CancelCyclinginsuranceServiceorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelCyclinginsuranceServiceorderResponse>(DoRequest("1.0", "blockchain.bccr.cyclinginsurance.serviceorder.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 骑行保取消订单接口
+         * Summary: 骑行保取消订单接口
+         */
+        public async Task<CancelCyclinginsuranceServiceorderResponse> CancelCyclinginsuranceServiceorderExAsync(CancelCyclinginsuranceServiceorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelCyclinginsuranceServiceorderResponse>(await DoRequestAsync("1.0", "blockchain.bccr.cyclinginsurance.serviceorder.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
