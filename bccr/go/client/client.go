@@ -13761,6 +13761,12 @@ type CreateCyclinginsuranceServiceorderRequest struct {
 	// 商品码
 	ItemCode *string `json:"item_code,omitempty" xml:"item_code,omitempty" require:"true"`
 	// 商品属性
+	// serviceStartTime:服务开始时间
+	// serviceEndTime:服务结束时间
+	// tenantAddress:上门地址
+	// tenantPhone:租赁人电话
+	// insurancePolicyId:保险单号
+	// batteryType:电池型号
 	ItemAttributes *string `json:"item_attributes,omitempty" xml:"item_attributes,omitempty" require:"true"`
 }
 
@@ -13973,6 +13979,8 @@ type QueryCyclinginsuranceOrderdetailRequest struct {
 	CallerAppName *string `json:"caller_app_name,omitempty" xml:"caller_app_name,omitempty" require:"true"`
 	// 订单号
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 账号id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
 }
 
 func (s QueryCyclinginsuranceOrderdetailRequest) String() string {
@@ -14013,6 +14021,11 @@ func (s *QueryCyclinginsuranceOrderdetailRequest) SetOrderId(v string) *QueryCyc
 	return s
 }
 
+func (s *QueryCyclinginsuranceOrderdetailRequest) SetAccountId(v string) *QueryCyclinginsuranceOrderdetailRequest {
+	s.AccountId = &v
+	return s
+}
+
 type QueryCyclinginsuranceOrderdetailResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -14027,10 +14040,21 @@ type QueryCyclinginsuranceOrderdetailResponse struct {
 	// 商品码
 	ItemCode *string `json:"item_code,omitempty" xml:"item_code,omitempty"`
 	// 商品属性
+	// serviceStartTime:服务开始时间
+	// serviceEndTime:服务结束时间
+	// tenantAddress:上门地址
+	// tenantPhone:租赁人电话
+	// insurancePolicyId:保险单号
+	// batteryType:电池型号
 	ItemAttributes *string `json:"item_attributes,omitempty" xml:"item_attributes,omitempty"`
 	// 订单履约流程信息
+	// workerName:上门师傅姓名
+	// workerPhone:上门师傅电话
+	// batteryCode:电池码
+	// batteryPackagingCode:电池外包装码
 	FulfillmentProcessInfo *string `json:"fulfillment_process_info,omitempty" xml:"fulfillment_process_info,omitempty"`
 	// 附件
+	// installImages: 上门安装图片
 	Attachments *string `json:"attachments,omitempty" xml:"attachments,omitempty"`
 }
 
@@ -15154,7 +15178,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.67"),
+				"sdk_version":      tea.String("1.19.68"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
