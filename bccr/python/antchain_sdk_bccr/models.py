@@ -16961,6 +16961,12 @@ class CreateCyclinginsuranceServiceorderRequest(TeaModel):
         # 商品码
         self.item_code = item_code
         # 商品属性
+        # serviceStartTime:服务开始时间
+        # serviceEndTime:服务结束时间
+        # tenantAddress:上门地址
+        # tenantPhone:租赁人电话
+        # insurancePolicyId:保险单号
+        # batteryType:电池型号
         self.item_attributes = item_attributes
 
     def validate(self):
@@ -17217,6 +17223,7 @@ class QueryCyclinginsuranceOrderdetailRequest(TeaModel):
         request_id: str = None,
         caller_app_name: str = None,
         order_id: str = None,
+        account_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -17229,12 +17236,15 @@ class QueryCyclinginsuranceOrderdetailRequest(TeaModel):
         self.caller_app_name = caller_app_name
         # 订单号
         self.order_id = order_id
+        # 账号id
+        self.account_id = account_id
 
     def validate(self):
         self.validate_required(self.scene, 'scene')
         self.validate_required(self.request_id, 'request_id')
         self.validate_required(self.caller_app_name, 'caller_app_name')
         self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.account_id, 'account_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -17254,6 +17264,8 @@ class QueryCyclinginsuranceOrderdetailRequest(TeaModel):
             result['caller_app_name'] = self.caller_app_name
         if self.order_id is not None:
             result['order_id'] = self.order_id
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
         return result
 
     def from_map(self, m: dict = None):
@@ -17270,6 +17282,8 @@ class QueryCyclinginsuranceOrderdetailRequest(TeaModel):
             self.caller_app_name = m.get('caller_app_name')
         if m.get('order_id') is not None:
             self.order_id = m.get('order_id')
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
         return self
 
 
@@ -17299,10 +17313,21 @@ class QueryCyclinginsuranceOrderdetailResponse(TeaModel):
         # 商品码
         self.item_code = item_code
         # 商品属性
+        # serviceStartTime:服务开始时间
+        # serviceEndTime:服务结束时间
+        # tenantAddress:上门地址
+        # tenantPhone:租赁人电话
+        # insurancePolicyId:保险单号
+        # batteryType:电池型号
         self.item_attributes = item_attributes
         # 订单履约流程信息
+        # workerName:上门师傅姓名
+        # workerPhone:上门师傅电话
+        # batteryCode:电池码
+        # batteryPackagingCode:电池外包装码
         self.fulfillment_process_info = fulfillment_process_info
         # 附件
+        # installImages: 上门安装图片
         self.attachments = attachments
 
     def validate(self):
