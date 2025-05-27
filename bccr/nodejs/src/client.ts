@@ -10180,6 +10180,12 @@ export class CreateCyclinginsuranceServiceorderRequest extends $tea.Model {
   // 商品码
   itemCode: string;
   // 商品属性
+  // serviceStartTime:服务开始时间
+  // serviceEndTime:服务结束时间
+  // tenantAddress:上门地址
+  // tenantPhone:租赁人电话
+  // insurancePolicyId:保险单号
+  // batteryType:电池型号
   itemAttributes: string;
   static names(): { [key: string]: string } {
     return {
@@ -10337,6 +10343,8 @@ export class QueryCyclinginsuranceOrderdetailRequest extends $tea.Model {
   callerAppName: string;
   // 订单号
   orderId: string;
+  // 账号id
+  accountId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10345,6 +10353,7 @@ export class QueryCyclinginsuranceOrderdetailRequest extends $tea.Model {
       requestId: 'request_id',
       callerAppName: 'caller_app_name',
       orderId: 'order_id',
+      accountId: 'account_id',
     };
   }
 
@@ -10356,6 +10365,7 @@ export class QueryCyclinginsuranceOrderdetailRequest extends $tea.Model {
       requestId: 'string',
       callerAppName: 'string',
       orderId: 'string',
+      accountId: 'string',
     };
   }
 
@@ -10378,10 +10388,21 @@ export class QueryCyclinginsuranceOrderdetailResponse extends $tea.Model {
   // 商品码
   itemCode?: string;
   // 商品属性
+  // serviceStartTime:服务开始时间
+  // serviceEndTime:服务结束时间
+  // tenantAddress:上门地址
+  // tenantPhone:租赁人电话
+  // insurancePolicyId:保险单号
+  // batteryType:电池型号
   itemAttributes?: string;
   // 订单履约流程信息
+  // workerName:上门师傅姓名
+  // workerPhone:上门师傅电话
+  // batteryCode:电池码
+  // batteryPackagingCode:电池外包装码
   fulfillmentProcessInfo?: string;
   // 附件
+  // installImages: 上门安装图片
   attachments?: string;
   static names(): { [key: string]: string } {
     return {
@@ -11240,7 +11261,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.67",
+          sdk_version: "1.19.68",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
