@@ -45,18 +45,29 @@ class QueryCyclinginsuranceOrderdetailResponse extends Model
     public $itemCode;
 
     // 商品属性
+    // serviceStartTime:服务开始时间
+    // serviceEndTime:服务结束时间
+    // tenantAddress:上门地址
+    // tenantPhone:租赁人电话
+    // insurancePolicyId:保险单号
+    // batteryType:电池型号
     /**
      * @var string
      */
     public $itemAttributes;
 
     // 订单履约流程信息
+    // workerName:上门师傅姓名
+    // workerPhone:上门师傅电话
+    // batteryCode:电池码
+    // batteryPackagingCode:电池外包装码
     /**
      * @var string
      */
     public $fulfillmentProcessInfo;
 
     // 附件
+    // installImages: 上门安装图片
     /**
      * @var string
      */

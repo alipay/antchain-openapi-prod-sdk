@@ -42,6 +42,12 @@ class QueryCyclinginsuranceOrderdetailRequest extends Model
      * @var string
      */
     public $orderId;
+
+    // 账号id
+    /**
+     * @var string
+     */
+    public $accountId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +55,7 @@ class QueryCyclinginsuranceOrderdetailRequest extends Model
         'requestId'         => 'request_id',
         'callerAppName'     => 'caller_app_name',
         'orderId'           => 'order_id',
+        'accountId'         => 'account_id',
     ];
 
     public function validate()
@@ -57,6 +64,7 @@ class QueryCyclinginsuranceOrderdetailRequest extends Model
         Model::validateRequired('requestId', $this->requestId, true);
         Model::validateRequired('callerAppName', $this->callerAppName, true);
         Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('accountId', $this->accountId, true);
     }
 
     public function toMap()
@@ -79,6 +87,9 @@ class QueryCyclinginsuranceOrderdetailRequest extends Model
         }
         if (null !== $this->orderId) {
             $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->accountId) {
+            $res['account_id'] = $this->accountId;
         }
 
         return $res;
@@ -109,6 +120,9 @@ class QueryCyclinginsuranceOrderdetailRequest extends Model
         }
         if (isset($map['order_id'])) {
             $model->orderId = $map['order_id'];
+        }
+        if (isset($map['account_id'])) {
+            $model->accountId = $map['account_id'];
         }
 
         return $model;
