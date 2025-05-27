@@ -31,6 +31,11 @@ public class QueryCyclinginsuranceOrderdetailRequest extends TeaModel {
     @Validation(required = true)
     public String orderId;
 
+    // 账号id
+    @NameInMap("account_id")
+    @Validation(required = true)
+    public String accountId;
+
     public static QueryCyclinginsuranceOrderdetailRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryCyclinginsuranceOrderdetailRequest self = new QueryCyclinginsuranceOrderdetailRequest();
         return TeaModel.build(map, self);
@@ -82,6 +87,14 @@ public class QueryCyclinginsuranceOrderdetailRequest extends TeaModel {
     }
     public String getOrderId() {
         return this.orderId;
+    }
+
+    public QueryCyclinginsuranceOrderdetailRequest setAccountId(String accountId) {
+        this.accountId = accountId;
+        return this;
+    }
+    public String getAccountId() {
+        return this.accountId;
     }
 
 }
