@@ -40,16 +40,27 @@ namespace AntChain.SDK.BCCR.Models
         public string ItemCode { get; set; }
 
         // 商品属性
+        // serviceStartTime:服务开始时间
+        // serviceEndTime:服务结束时间
+        // tenantAddress:上门地址
+        // tenantPhone:租赁人电话
+        // insurancePolicyId:保险单号
+        // batteryType:电池型号
         [NameInMap("item_attributes")]
         [Validation(Required=false)]
         public string ItemAttributes { get; set; }
 
         // 订单履约流程信息
+        // workerName:上门师傅姓名
+        // workerPhone:上门师傅电话
+        // batteryCode:电池码
+        // batteryPackagingCode:电池外包装码
         [NameInMap("fulfillment_process_info")]
         [Validation(Required=false)]
         public string FulfillmentProcessInfo { get; set; }
 
         // 附件
+        // installImages: 上门安装图片
         [NameInMap("attachments")]
         [Validation(Required=false)]
         public string Attachments { get; set; }

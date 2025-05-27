@@ -49,6 +49,12 @@ namespace AntChain.SDK.BCCR.Models
         public string ItemCode { get; set; }
 
         // 商品属性
+        // serviceStartTime:服务开始时间
+        // serviceEndTime:服务结束时间
+        // tenantAddress:上门地址
+        // tenantPhone:租赁人电话
+        // insurancePolicyId:保险单号
+        // batteryType:电池型号
         [NameInMap("item_attributes")]
         [Validation(Required=true)]
         public string ItemAttributes { get; set; }

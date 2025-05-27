@@ -38,6 +38,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string OrderId { get; set; }
 
+        // 账号id
+        [NameInMap("account_id")]
+        [Validation(Required=true)]
+        public string AccountId { get; set; }
+
     }
 
 }
