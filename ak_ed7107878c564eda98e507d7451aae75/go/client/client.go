@@ -516,6 +516,8 @@ type AvatarStreamInfo struct {
 	Background *string `json:"background,omitempty" xml:"background,omitempty"`
 	// 流id
 	StreamId *string `json:"stream_id,omitempty" xml:"stream_id,omitempty" require:"true"`
+	// 设备sn号
+	SerialNumber *string `json:"serial_number,omitempty" xml:"serial_number,omitempty"`
 }
 
 func (s AvatarStreamInfo) String() string {
@@ -543,6 +545,11 @@ func (s *AvatarStreamInfo) SetBackground(v string) *AvatarStreamInfo {
 
 func (s *AvatarStreamInfo) SetStreamId(v string) *AvatarStreamInfo {
 	s.StreamId = &v
+	return s
+}
+
+func (s *AvatarStreamInfo) SetSerialNumber(v string) *AvatarStreamInfo {
+	s.SerialNumber = &v
 	return s
 }
 
@@ -583,6 +590,39 @@ func (s *ImportTaskResult) SetErrorMessage(v string) *ImportTaskResult {
 
 func (s *ImportTaskResult) SetFileUrl(v string) *ImportTaskResult {
 	s.FileUrl = &v
+	return s
+}
+
+// 行动点配置
+type BubbleButton struct {
+	// 按钮文案
+	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
+	// 行动点执行动作值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// 行动点执行动作类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+}
+
+func (s BubbleButton) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BubbleButton) GoString() string {
+	return s.String()
+}
+
+func (s *BubbleButton) SetTitle(v string) *BubbleButton {
+	s.Title = &v
+	return s
+}
+
+func (s *BubbleButton) SetValue(v string) *BubbleButton {
+	s.Value = &v
+	return s
+}
+
+func (s *BubbleButton) SetType(v string) *BubbleButton {
+	s.Type = &v
 	return s
 }
 
@@ -1091,6 +1131,10 @@ type AddUniversalsaasDigitalhumanKnowledgeRequest struct {
 	SentenceList []*string `json:"sentence_list,omitempty" xml:"sentence_list,omitempty" require:"true" type:"Repeated"`
 	// 答案文案
 	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 动画播报文案
+	BroadcastContent *string `json:"broadcast_content,omitempty" xml:"broadcast_content,omitempty"`
+	// 行动点配置
+	BubbleButtonConfig []*BubbleButton `json:"bubble_button_config,omitempty" xml:"bubble_button_config,omitempty" type:"Repeated"`
 }
 
 func (s AddUniversalsaasDigitalhumanKnowledgeRequest) String() string {
@@ -1133,6 +1177,16 @@ func (s *AddUniversalsaasDigitalhumanKnowledgeRequest) SetSentenceList(v []*stri
 
 func (s *AddUniversalsaasDigitalhumanKnowledgeRequest) SetContent(v string) *AddUniversalsaasDigitalhumanKnowledgeRequest {
 	s.Content = &v
+	return s
+}
+
+func (s *AddUniversalsaasDigitalhumanKnowledgeRequest) SetBroadcastContent(v string) *AddUniversalsaasDigitalhumanKnowledgeRequest {
+	s.BroadcastContent = &v
+	return s
+}
+
+func (s *AddUniversalsaasDigitalhumanKnowledgeRequest) SetBubbleButtonConfig(v []*BubbleButton) *AddUniversalsaasDigitalhumanKnowledgeRequest {
+	s.BubbleButtonConfig = v
 	return s
 }
 
@@ -1191,6 +1245,10 @@ type UpdateUniversalsaasDigitalhumanKnowledgeRequest struct {
 	SentenceList []*string `json:"sentence_list,omitempty" xml:"sentence_list,omitempty" require:"true" type:"Repeated"`
 	// 答案文案
 	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 动画播报内容
+	BroadcastContent *string `json:"broadcast_content,omitempty" xml:"broadcast_content,omitempty"`
+	// 行动点配置
+	BubbleButtonConfig []*BubbleButton `json:"bubble_button_config,omitempty" xml:"bubble_button_config,omitempty" type:"Repeated"`
 }
 
 func (s UpdateUniversalsaasDigitalhumanKnowledgeRequest) String() string {
@@ -1238,6 +1296,16 @@ func (s *UpdateUniversalsaasDigitalhumanKnowledgeRequest) SetSentenceList(v []*s
 
 func (s *UpdateUniversalsaasDigitalhumanKnowledgeRequest) SetContent(v string) *UpdateUniversalsaasDigitalhumanKnowledgeRequest {
 	s.Content = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanKnowledgeRequest) SetBroadcastContent(v string) *UpdateUniversalsaasDigitalhumanKnowledgeRequest {
+	s.BroadcastContent = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanKnowledgeRequest) SetBubbleButtonConfig(v []*BubbleButton) *UpdateUniversalsaasDigitalhumanKnowledgeRequest {
+	s.BubbleButtonConfig = v
 	return s
 }
 
@@ -3144,7 +3212,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.6"),
+				"sdk_version":      tea.String("1.1.7"),
 				"_prod_code":       tea.String("ak_ed7107878c564eda98e507d7451aae75"),
 				"_prod_channel":    tea.String("saas"),
 			}
