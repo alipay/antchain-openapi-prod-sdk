@@ -39,11 +39,20 @@ class AvatarStreamInfo extends Model
      * @var string
      */
     public $streamId;
+
+    // 设备sn号
+    /**
+     * @example 1234
+     *
+     * @var string
+     */
+    public $serialNumber;
     protected $_name = [
-        'modelId'    => 'model_id',
-        'voiceCode'  => 'voice_code',
-        'background' => 'background',
-        'streamId'   => 'stream_id',
+        'modelId'      => 'model_id',
+        'voiceCode'    => 'voice_code',
+        'background'   => 'background',
+        'streamId'     => 'stream_id',
+        'serialNumber' => 'serial_number',
     ];
 
     public function validate()
@@ -65,6 +74,9 @@ class AvatarStreamInfo extends Model
         }
         if (null !== $this->streamId) {
             $res['stream_id'] = $this->streamId;
+        }
+        if (null !== $this->serialNumber) {
+            $res['serial_number'] = $this->serialNumber;
         }
 
         return $res;
@@ -89,6 +101,9 @@ class AvatarStreamInfo extends Model
         }
         if (isset($map['stream_id'])) {
             $model->streamId = $map['stream_id'];
+        }
+        if (isset($map['serial_number'])) {
+            $model->serialNumber = $map['serial_number'];
         }
 
         return $model;

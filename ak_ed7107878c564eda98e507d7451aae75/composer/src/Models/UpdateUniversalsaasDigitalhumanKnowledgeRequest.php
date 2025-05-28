@@ -54,15 +54,29 @@ class UpdateUniversalsaasDigitalhumanKnowledgeRequest extends Model
      * @var string
      */
     public $content;
+
+    // 动画播报内容
+    /**
+     * @var string
+     */
+    public $broadcastContent;
+
+    // 行动点配置
+    /**
+     * @var BubbleButton[]
+     */
+    public $bubbleButtonConfig;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'tenantCode'        => 'tenant_code',
-        'libraryId'         => 'library_id',
-        'id'                => 'id',
-        'questionTitle'     => 'question_title',
-        'sentenceList'      => 'sentence_list',
-        'content'           => 'content',
+        'authToken'          => 'auth_token',
+        'productInstanceId'  => 'product_instance_id',
+        'tenantCode'         => 'tenant_code',
+        'libraryId'          => 'library_id',
+        'id'                 => 'id',
+        'questionTitle'      => 'question_title',
+        'sentenceList'       => 'sentence_list',
+        'content'            => 'content',
+        'broadcastContent'   => 'broadcast_content',
+        'bubbleButtonConfig' => 'bubble_button_config',
     ];
 
     public function validate()
@@ -102,6 +116,18 @@ class UpdateUniversalsaasDigitalhumanKnowledgeRequest extends Model
         if (null !== $this->content) {
             $res['content'] = $this->content;
         }
+        if (null !== $this->broadcastContent) {
+            $res['broadcast_content'] = $this->broadcastContent;
+        }
+        if (null !== $this->bubbleButtonConfig) {
+            $res['bubble_button_config'] = [];
+            if (null !== $this->bubbleButtonConfig && \is_array($this->bubbleButtonConfig)) {
+                $n = 0;
+                foreach ($this->bubbleButtonConfig as $item) {
+                    $res['bubble_button_config'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
 
         return $res;
     }
@@ -139,6 +165,18 @@ class UpdateUniversalsaasDigitalhumanKnowledgeRequest extends Model
         }
         if (isset($map['content'])) {
             $model->content = $map['content'];
+        }
+        if (isset($map['broadcast_content'])) {
+            $model->broadcastContent = $map['broadcast_content'];
+        }
+        if (isset($map['bubble_button_config'])) {
+            if (!empty($map['bubble_button_config'])) {
+                $model->bubbleButtonConfig = [];
+                $n                         = 0;
+                foreach ($map['bubble_button_config'] as $item) {
+                    $model->bubbleButtonConfig[$n++] = null !== $item ? BubbleButton::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
