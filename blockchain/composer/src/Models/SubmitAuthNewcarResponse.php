@@ -6,7 +6,7 @@ namespace AntChain\BLOCKCHAIN\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class RecognizeAuthCarinfoResponse extends Model
+class SubmitAuthNewcarResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class RecognizeAuthCarinfoResponse extends Model
      */
     public $resultMsg;
 
-    // 校验结果
+    // 提交是否成功
     /**
      * @var bool
      */
-    public $checkSuccess;
+    public $pushSuccess;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'checkSuccess' => 'check_success',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'pushSuccess' => 'push_success',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class RecognizeAuthCarinfoResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->checkSuccess) {
-            $res['check_success'] = $this->checkSuccess;
+        if (null !== $this->pushSuccess) {
+            $res['push_success'] = $this->pushSuccess;
         }
 
         return $res;
@@ -64,7 +64,7 @@ class RecognizeAuthCarinfoResponse extends Model
     /**
      * @param array $map
      *
-     * @return RecognizeAuthCarinfoResponse
+     * @return SubmitAuthNewcarResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +78,8 @@ class RecognizeAuthCarinfoResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['check_success'])) {
-            $model->checkSuccess = $map['check_success'];
+        if (isset($map['push_success'])) {
+            $model->pushSuccess = $map['push_success'];
         }
 
         return $model;
