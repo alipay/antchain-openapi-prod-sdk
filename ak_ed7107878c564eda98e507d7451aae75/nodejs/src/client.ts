@@ -363,12 +363,15 @@ export class AvatarStreamInfo extends $tea.Model {
   background?: string;
   // 流id
   streamId: string;
+  // 设备sn号
+  serialNumber?: string;
   static names(): { [key: string]: string } {
     return {
       modelId: 'model_id',
       voiceCode: 'voice_code',
       background: 'background',
       streamId: 'stream_id',
+      serialNumber: 'serial_number',
     };
   }
 
@@ -378,6 +381,7 @@ export class AvatarStreamInfo extends $tea.Model {
       voiceCode: 'string',
       background: 'string',
       streamId: 'string',
+      serialNumber: 'string',
     };
   }
 
@@ -411,6 +415,35 @@ export class ImportTaskResult extends $tea.Model {
       progress: 'number',
       errorMessage: 'string',
       fileUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 行动点配置
+export class BubbleButton extends $tea.Model {
+  // 按钮文案
+  title: string;
+  // 行动点执行动作值
+  value: string;
+  // 行动点执行动作类型
+  type: string;
+  static names(): { [key: string]: string } {
+    return {
+      title: 'title',
+      value: 'value',
+      type: 'type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      title: 'string',
+      value: 'string',
+      type: 'string',
     };
   }
 
@@ -839,6 +872,10 @@ export class AddUniversalsaasDigitalhumanKnowledgeRequest extends $tea.Model {
   sentenceList: string[];
   // 答案文案
   content: string;
+  // 动画播报文案
+  broadcastContent?: string;
+  // 行动点配置
+  bubbleButtonConfig?: BubbleButton[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -848,6 +885,8 @@ export class AddUniversalsaasDigitalhumanKnowledgeRequest extends $tea.Model {
       questionTitle: 'question_title',
       sentenceList: 'sentence_list',
       content: 'content',
+      broadcastContent: 'broadcast_content',
+      bubbleButtonConfig: 'bubble_button_config',
     };
   }
 
@@ -860,6 +899,8 @@ export class AddUniversalsaasDigitalhumanKnowledgeRequest extends $tea.Model {
       questionTitle: 'string',
       sentenceList: { 'type': 'array', 'itemType': 'string' },
       content: 'string',
+      broadcastContent: 'string',
+      bubbleButtonConfig: { 'type': 'array', 'itemType': BubbleButton },
     };
   }
 
@@ -916,6 +957,10 @@ export class UpdateUniversalsaasDigitalhumanKnowledgeRequest extends $tea.Model 
   sentenceList: string[];
   // 答案文案
   content: string;
+  // 动画播报内容
+  broadcastContent?: string;
+  // 行动点配置
+  bubbleButtonConfig?: BubbleButton[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -926,6 +971,8 @@ export class UpdateUniversalsaasDigitalhumanKnowledgeRequest extends $tea.Model 
       questionTitle: 'question_title',
       sentenceList: 'sentence_list',
       content: 'content',
+      broadcastContent: 'broadcast_content',
+      bubbleButtonConfig: 'bubble_button_config',
     };
   }
 
@@ -939,6 +986,8 @@ export class UpdateUniversalsaasDigitalhumanKnowledgeRequest extends $tea.Model 
       questionTitle: 'string',
       sentenceList: { 'type': 'array', 'itemType': 'string' },
       content: 'string',
+      broadcastContent: 'string',
+      bubbleButtonConfig: { 'type': 'array', 'itemType': BubbleButton },
     };
   }
 
@@ -2468,7 +2517,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.6",
+          sdk_version: "1.1.7",
           _prod_code: "ak_ed7107878c564eda98e507d7451aae75",
           _prod_channel: "saas",
         };
