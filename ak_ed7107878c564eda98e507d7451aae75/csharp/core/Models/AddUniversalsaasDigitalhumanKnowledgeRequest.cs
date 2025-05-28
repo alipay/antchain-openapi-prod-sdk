@@ -43,6 +43,16 @@ namespace AntChain.SDK.Ak_ed7107878c564eda98e507d7451aae75.Models
         [Validation(Required=true)]
         public string Content { get; set; }
 
+        // 动画播报文案
+        [NameInMap("broadcast_content")]
+        [Validation(Required=false)]
+        public string BroadcastContent { get; set; }
+
+        // 行动点配置
+        [NameInMap("bubble_button_config")]
+        [Validation(Required=false)]
+        public List<BubbleButton> BubbleButtonConfig { get; set; }
+
     }
 
 }

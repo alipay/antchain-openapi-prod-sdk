@@ -30,6 +30,11 @@ namespace AntChain.SDK.Ak_ed7107878c564eda98e507d7451aae75.Models
         [Validation(Required=true)]
         public string StreamId { get; set; }
 
+        // 设备sn号
+        [NameInMap("serial_number")]
+        [Validation(Required=false)]
+        public string SerialNumber { get; set; }
+
     }
 
 }
