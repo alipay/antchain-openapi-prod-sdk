@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.6',
+    sdk_version = '1.1.7',
     _prod_code = 'ak_ed7107878c564eda98e507d7451aae75',
     _prod_channel = 'saas'
   };
@@ -277,6 +277,8 @@ model AvatarStreamInfo {
   background?: string(name='background', example='www.123.com'),
   // 流id
   streamId: string(name='stream_id', example='live-avatar-6741_20250410104550'),
+  // 设备sn号
+  serialNumber?: string(name='serial_number', example='1234'),
 }
 
 // 知识点批量导入任务结果
@@ -289,6 +291,16 @@ model ImportTaskResult {
   errorMessage?: string(name='error_message', example='错误日志'),
   // 导入日志文件url
   fileUrl?: string(name='file_url', example='www.123.com'),
+}
+
+// 行动点配置
+model BubbleButton {
+  // 按钮文案
+  title: string(name='title', example='你好'),
+  // 行动点执行动作值
+  value: string(name='value', example='70001'),
+  // 行动点执行动作类型
+  type: string(name='type', example='OUT_BIZ_ID'),
 }
 
 // 数字人平台--交互配置信息
@@ -537,6 +549,10 @@ model AddUniversalsaasDigitalhumanKnowledgeRequest = {
   sentenceList: [ string ](name='sentence_list'),
   // 答案文案
   content: string(name='content'),
+  // 动画播报文案
+  broadcastContent?: string(name='broadcast_content'),
+  // 行动点配置
+  bubbleButtonConfig?: [ BubbleButton ](name='bubble_button_config'),
 }
 
 model AddUniversalsaasDigitalhumanKnowledgeResponse = {
@@ -585,6 +601,10 @@ model UpdateUniversalsaasDigitalhumanKnowledgeRequest = {
   sentenceList: [ string ](name='sentence_list'),
   // 答案文案
   content: string(name='content'),
+  // 动画播报内容
+  broadcastContent?: string(name='broadcast_content'),
+  // 行动点配置
+  bubbleButtonConfig?: [ BubbleButton ](name='bubble_button_config'),
 }
 
 model UpdateUniversalsaasDigitalhumanKnowledgeResponse = {
