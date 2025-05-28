@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BLOCKCHAIN.Models
 {
-    public class RecognizeAuthCarinfoResponse : TeaModel {
+    public class SubmitAuthNewcarResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 校验结果
-        [NameInMap("check_success")]
+        // 提交是否成功
+        [NameInMap("push_success")]
         [Validation(Required=false)]
-        public bool? CheckSuccess { get; set; }
+        public bool? PushSuccess { get; set; }
 
     }
 
