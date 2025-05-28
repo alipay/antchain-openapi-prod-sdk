@@ -602,6 +602,7 @@ class AvatarStreamInfo(TeaModel):
         voice_code: str = None,
         background: str = None,
         stream_id: str = None,
+        serial_number: str = None,
     ):
         # 形象id
         self.model_id = model_id
@@ -611,6 +612,8 @@ class AvatarStreamInfo(TeaModel):
         self.background = background
         # 流id
         self.stream_id = stream_id
+        # 设备sn号
+        self.serial_number = serial_number
 
     def validate(self):
         self.validate_required(self.stream_id, 'stream_id')
@@ -629,6 +632,8 @@ class AvatarStreamInfo(TeaModel):
             result['background'] = self.background
         if self.stream_id is not None:
             result['stream_id'] = self.stream_id
+        if self.serial_number is not None:
+            result['serial_number'] = self.serial_number
         return result
 
     def from_map(self, m: dict = None):
@@ -641,6 +646,8 @@ class AvatarStreamInfo(TeaModel):
             self.background = m.get('background')
         if m.get('stream_id') is not None:
             self.stream_id = m.get('stream_id')
+        if m.get('serial_number') is not None:
+            self.serial_number = m.get('serial_number')
         return self
 
 
@@ -690,6 +697,50 @@ class ImportTaskResult(TeaModel):
             self.error_message = m.get('error_message')
         if m.get('file_url') is not None:
             self.file_url = m.get('file_url')
+        return self
+
+
+class BubbleButton(TeaModel):
+    def __init__(
+        self,
+        title: str = None,
+        value: str = None,
+        type: str = None,
+    ):
+        # 按钮文案
+        self.title = title
+        # 行动点执行动作值
+        self.value = value
+        # 行动点执行动作类型
+        self.type = type
+
+    def validate(self):
+        self.validate_required(self.title, 'title')
+        self.validate_required(self.value, 'value')
+        self.validate_required(self.type, 'type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.title is not None:
+            result['title'] = self.title
+        if self.value is not None:
+            result['value'] = self.value
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        if m.get('type') is not None:
+            self.type = m.get('type')
         return self
 
 
@@ -1349,6 +1400,8 @@ class AddUniversalsaasDigitalhumanKnowledgeRequest(TeaModel):
         question_title: str = None,
         sentence_list: List[str] = None,
         content: str = None,
+        broadcast_content: str = None,
+        bubble_button_config: List[BubbleButton] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1363,6 +1416,10 @@ class AddUniversalsaasDigitalhumanKnowledgeRequest(TeaModel):
         self.sentence_list = sentence_list
         # 答案文案
         self.content = content
+        # 动画播报文案
+        self.broadcast_content = broadcast_content
+        # 行动点配置
+        self.bubble_button_config = bubble_button_config
 
     def validate(self):
         self.validate_required(self.tenant_code, 'tenant_code')
@@ -1370,6 +1427,10 @@ class AddUniversalsaasDigitalhumanKnowledgeRequest(TeaModel):
         self.validate_required(self.question_title, 'question_title')
         self.validate_required(self.sentence_list, 'sentence_list')
         self.validate_required(self.content, 'content')
+        if self.bubble_button_config:
+            for k in self.bubble_button_config:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -1391,6 +1452,12 @@ class AddUniversalsaasDigitalhumanKnowledgeRequest(TeaModel):
             result['sentence_list'] = self.sentence_list
         if self.content is not None:
             result['content'] = self.content
+        if self.broadcast_content is not None:
+            result['broadcast_content'] = self.broadcast_content
+        result['bubble_button_config'] = []
+        if self.bubble_button_config is not None:
+            for k in self.bubble_button_config:
+                result['bubble_button_config'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -1409,6 +1476,13 @@ class AddUniversalsaasDigitalhumanKnowledgeRequest(TeaModel):
             self.sentence_list = m.get('sentence_list')
         if m.get('content') is not None:
             self.content = m.get('content')
+        if m.get('broadcast_content') is not None:
+            self.broadcast_content = m.get('broadcast_content')
+        self.bubble_button_config = []
+        if m.get('bubble_button_config') is not None:
+            for k in m.get('bubble_button_config'):
+                temp_model = BubbleButton()
+                self.bubble_button_config.append(temp_model.from_map(k))
         return self
 
 
@@ -1472,6 +1546,8 @@ class UpdateUniversalsaasDigitalhumanKnowledgeRequest(TeaModel):
         question_title: str = None,
         sentence_list: List[str] = None,
         content: str = None,
+        broadcast_content: str = None,
+        bubble_button_config: List[BubbleButton] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1488,6 +1564,10 @@ class UpdateUniversalsaasDigitalhumanKnowledgeRequest(TeaModel):
         self.sentence_list = sentence_list
         # 答案文案
         self.content = content
+        # 动画播报内容
+        self.broadcast_content = broadcast_content
+        # 行动点配置
+        self.bubble_button_config = bubble_button_config
 
     def validate(self):
         self.validate_required(self.tenant_code, 'tenant_code')
@@ -1496,6 +1576,10 @@ class UpdateUniversalsaasDigitalhumanKnowledgeRequest(TeaModel):
         self.validate_required(self.question_title, 'question_title')
         self.validate_required(self.sentence_list, 'sentence_list')
         self.validate_required(self.content, 'content')
+        if self.bubble_button_config:
+            for k in self.bubble_button_config:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -1519,6 +1603,12 @@ class UpdateUniversalsaasDigitalhumanKnowledgeRequest(TeaModel):
             result['sentence_list'] = self.sentence_list
         if self.content is not None:
             result['content'] = self.content
+        if self.broadcast_content is not None:
+            result['broadcast_content'] = self.broadcast_content
+        result['bubble_button_config'] = []
+        if self.bubble_button_config is not None:
+            for k in self.bubble_button_config:
+                result['bubble_button_config'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -1539,6 +1629,13 @@ class UpdateUniversalsaasDigitalhumanKnowledgeRequest(TeaModel):
             self.sentence_list = m.get('sentence_list')
         if m.get('content') is not None:
             self.content = m.get('content')
+        if m.get('broadcast_content') is not None:
+            self.broadcast_content = m.get('broadcast_content')
+        self.bubble_button_config = []
+        if m.get('bubble_button_config') is not None:
+            for k in m.get('bubble_button_config'):
+                temp_model = BubbleButton()
+                self.bubble_button_config.append(temp_model.from_map(k))
         return self
 
 
