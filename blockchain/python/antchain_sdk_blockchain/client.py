@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.46',
+                    'sdk_version': '1.28.48',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.46',
+                    'sdk_version': '1.28.48',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -23905,6 +23905,62 @@ class Client:
         return TeaCore.from_map(
             blockchain_models.RecognizeAuthCarinfoResponse(),
             await self.do_request_async('1.0', 'baas.auth.carinfo.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_auth_newcar(
+        self,
+        request: blockchain_models.SubmitAuthNewcarRequest,
+    ) -> blockchain_models.SubmitAuthNewcarResponse:
+        """
+        Description: 新车线索提交
+        Summary: 新车线索提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_auth_newcar_ex(request, headers, runtime)
+
+    async def submit_auth_newcar_async(
+        self,
+        request: blockchain_models.SubmitAuthNewcarRequest,
+    ) -> blockchain_models.SubmitAuthNewcarResponse:
+        """
+        Description: 新车线索提交
+        Summary: 新车线索提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_auth_newcar_ex_async(request, headers, runtime)
+
+    def submit_auth_newcar_ex(
+        self,
+        request: blockchain_models.SubmitAuthNewcarRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.SubmitAuthNewcarResponse:
+        """
+        Description: 新车线索提交
+        Summary: 新车线索提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.SubmitAuthNewcarResponse(),
+            self.do_request('1.0', 'baas.auth.newcar.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_auth_newcar_ex_async(
+        self,
+        request: blockchain_models.SubmitAuthNewcarRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.SubmitAuthNewcarResponse:
+        """
+        Description: 新车线索提交
+        Summary: 新车线索提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.SubmitAuthNewcarResponse(),
+            await self.do_request_async('1.0', 'baas.auth.newcar.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_did_corporate_agentcreate(

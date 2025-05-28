@@ -64418,7 +64418,7 @@ class RecognizeAuthCarinfoResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        check_success: str = None,
+        check_success: bool = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -64458,6 +64458,129 @@ class RecognizeAuthCarinfoResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('check_success') is not None:
             self.check_success = m.get('check_success')
+        return self
+
+
+class SubmitAuthNewcarRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_code: str = None,
+        user_info: CarUserInfo = None,
+        car_series: str = None,
+        finaical_plan: str = None,
+        purcharse_time: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景码
+        self.scene_code = scene_code
+        # 用户信息
+        self.user_info = user_info
+        # 车系
+        self.car_series = car_series
+        # 金融方案
+        self.finaical_plan = finaical_plan
+        # 预计购买时间
+        self.purcharse_time = purcharse_time
+
+    def validate(self):
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.user_info, 'user_info')
+        if self.user_info:
+            self.user_info.validate()
+        self.validate_required(self.car_series, 'car_series')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.user_info is not None:
+            result['user_info'] = self.user_info.to_map()
+        if self.car_series is not None:
+            result['car_series'] = self.car_series
+        if self.finaical_plan is not None:
+            result['finaical_plan'] = self.finaical_plan
+        if self.purcharse_time is not None:
+            result['purcharse_time'] = self.purcharse_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('user_info') is not None:
+            temp_model = CarUserInfo()
+            self.user_info = temp_model.from_map(m['user_info'])
+        if m.get('car_series') is not None:
+            self.car_series = m.get('car_series')
+        if m.get('finaical_plan') is not None:
+            self.finaical_plan = m.get('finaical_plan')
+        if m.get('purcharse_time') is not None:
+            self.purcharse_time = m.get('purcharse_time')
+        return self
+
+
+class SubmitAuthNewcarResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        push_success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 提交是否成功
+        self.push_success = push_success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.push_success is not None:
+            result['push_success'] = self.push_success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('push_success') is not None:
+            self.push_success = m.get('push_success')
         return self
 
 
