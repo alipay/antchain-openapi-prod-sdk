@@ -39605,7 +39605,7 @@ export class RecognizeAuthCarinfoResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 校验结果
-  checkSuccess?: string;
+  checkSuccess?: boolean;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -39620,7 +39620,82 @@ export class RecognizeAuthCarinfoResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      checkSuccess: 'string',
+      checkSuccess: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAuthNewcarRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景码
+  sceneCode: string;
+  // 用户信息
+  userInfo: CarUserInfo;
+  // 车系
+  carSeries: string;
+  // 金融方案
+  finaicalPlan?: string;
+  // 预计购买时间
+  purcharseTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneCode: 'scene_code',
+      userInfo: 'user_info',
+      carSeries: 'car_series',
+      finaicalPlan: 'finaical_plan',
+      purcharseTime: 'purcharse_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneCode: 'string',
+      userInfo: CarUserInfo,
+      carSeries: 'string',
+      finaicalPlan: 'string',
+      purcharseTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAuthNewcarResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 提交是否成功
+  pushSuccess?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pushSuccess: 'push_success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pushSuccess: 'boolean',
     };
   }
 
@@ -54507,7 +54582,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.46",
+          sdk_version: "1.28.48",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
@@ -62597,6 +62672,25 @@ export default class Client {
   async recognizeAuthCarinfoEx(request: RecognizeAuthCarinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RecognizeAuthCarinfoResponse> {
     Util.validateModel(request);
     return $tea.cast<RecognizeAuthCarinfoResponse>(await this.doRequest("1.0", "baas.auth.carinfo.recognize", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RecognizeAuthCarinfoResponse({}));
+  }
+
+  /**
+   * Description: 新车线索提交
+   * Summary: 新车线索提交
+   */
+  async submitAuthNewcar(request: SubmitAuthNewcarRequest): Promise<SubmitAuthNewcarResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitAuthNewcarEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 新车线索提交
+   * Summary: 新车线索提交
+   */
+  async submitAuthNewcarEx(request: SubmitAuthNewcarRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAuthNewcarResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitAuthNewcarResponse>(await this.doRequest("1.0", "baas.auth.newcar.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitAuthNewcarResponse({}));
   }
 
   /**
