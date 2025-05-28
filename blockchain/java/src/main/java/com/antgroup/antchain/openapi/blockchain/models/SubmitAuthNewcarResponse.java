@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.blockchain.models;
 
 import com.aliyun.tea.*;
 
-public class RecognizeAuthCarinfoResponse extends TeaModel {
+public class SubmitAuthNewcarResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class RecognizeAuthCarinfoResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 校验结果
-    @NameInMap("check_success")
-    public Boolean checkSuccess;
+    // 提交是否成功
+    @NameInMap("push_success")
+    public Boolean pushSuccess;
 
-    public static RecognizeAuthCarinfoResponse build(java.util.Map<String, ?> map) throws Exception {
-        RecognizeAuthCarinfoResponse self = new RecognizeAuthCarinfoResponse();
+    public static SubmitAuthNewcarResponse build(java.util.Map<String, ?> map) throws Exception {
+        SubmitAuthNewcarResponse self = new SubmitAuthNewcarResponse();
         return TeaModel.build(map, self);
     }
 
-    public RecognizeAuthCarinfoResponse setReqMsgId(String reqMsgId) {
+    public SubmitAuthNewcarResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class RecognizeAuthCarinfoResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public RecognizeAuthCarinfoResponse setResultCode(String resultCode) {
+    public SubmitAuthNewcarResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class RecognizeAuthCarinfoResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public RecognizeAuthCarinfoResponse setResultMsg(String resultMsg) {
+    public SubmitAuthNewcarResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class RecognizeAuthCarinfoResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public RecognizeAuthCarinfoResponse setCheckSuccess(Boolean checkSuccess) {
-        this.checkSuccess = checkSuccess;
+    public SubmitAuthNewcarResponse setPushSuccess(Boolean pushSuccess) {
+        this.pushSuccess = pushSuccess;
         return this;
     }
-    public Boolean getCheckSuccess() {
-        return this.checkSuccess;
+    public Boolean getPushSuccess() {
+        return this.pushSuccess;
     }
 
 }
