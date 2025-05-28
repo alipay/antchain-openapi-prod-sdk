@@ -21,6 +21,10 @@ public class AvatarStreamInfo extends TeaModel {
     @Validation(required = true)
     public String streamId;
 
+    // 设备sn号
+    @NameInMap("serial_number")
+    public String serialNumber;
+
     public static AvatarStreamInfo build(java.util.Map<String, ?> map) throws Exception {
         AvatarStreamInfo self = new AvatarStreamInfo();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class AvatarStreamInfo extends TeaModel {
     }
     public String getStreamId() {
         return this.streamId;
+    }
+
+    public AvatarStreamInfo setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+        return this;
+    }
+    public String getSerialNumber() {
+        return this.serialNumber;
     }
 
 }

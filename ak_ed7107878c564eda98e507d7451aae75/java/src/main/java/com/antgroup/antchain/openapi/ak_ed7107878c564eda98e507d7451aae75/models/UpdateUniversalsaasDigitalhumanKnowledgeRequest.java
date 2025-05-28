@@ -41,6 +41,14 @@ public class UpdateUniversalsaasDigitalhumanKnowledgeRequest extends TeaModel {
     @Validation(required = true)
     public String content;
 
+    // 动画播报内容
+    @NameInMap("broadcast_content")
+    public String broadcastContent;
+
+    // 行动点配置
+    @NameInMap("bubble_button_config")
+    public java.util.List<BubbleButton> bubbleButtonConfig;
+
     public static UpdateUniversalsaasDigitalhumanKnowledgeRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateUniversalsaasDigitalhumanKnowledgeRequest self = new UpdateUniversalsaasDigitalhumanKnowledgeRequest();
         return TeaModel.build(map, self);
@@ -108,6 +116,22 @@ public class UpdateUniversalsaasDigitalhumanKnowledgeRequest extends TeaModel {
     }
     public String getContent() {
         return this.content;
+    }
+
+    public UpdateUniversalsaasDigitalhumanKnowledgeRequest setBroadcastContent(String broadcastContent) {
+        this.broadcastContent = broadcastContent;
+        return this;
+    }
+    public String getBroadcastContent() {
+        return this.broadcastContent;
+    }
+
+    public UpdateUniversalsaasDigitalhumanKnowledgeRequest setBubbleButtonConfig(java.util.List<BubbleButton> bubbleButtonConfig) {
+        this.bubbleButtonConfig = bubbleButtonConfig;
+        return this;
+    }
+    public java.util.List<BubbleButton> getBubbleButtonConfig() {
+        return this.bubbleButtonConfig;
     }
 
 }
