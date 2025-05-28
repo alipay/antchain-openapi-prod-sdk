@@ -1,0 +1,71 @@
+{
+  "scope": "antchain",
+  "name": "BENCHTWOCREATEONE",
+  "version": "1.0.0",
+  "main": "./main.tea",
+  "maintainers": [
+    {
+      "name": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  ],
+  "releases": {
+    "java": "com.antgroup.antchain.openapi:openapi-benchtwocreateone:1.0.1",
+    "go": "github.com/antchain-openapi-sdk-go/l4-benchtwocreateone/client:v1.0.1",
+    "csharp": "AntChain.SDK.BENCHTWOCREATEONE:1.0.1",
+    "ts": "@antchain/benchtwocreateone:1.0.1",
+    "php": "antchain/benchtwocreateone:1.0.1",
+    "python": "antchain_sdk_benchtwocreateone:0.0.1"
+  },
+  "libraries": {
+    "Util": "darabonba:Util:*",
+    "RPCUtil": "alibabacloud:RPCUtil:*",
+    "AntchainUtil": "antchain:AntchainUtil:*"
+  },
+  "java": {
+    "package": "com.antgroup.antchain.openapi.benchtwocreateone",
+    "packageInfo": {
+      "description": "Ant Chain BENCHTWOCREATEONE SDK for Java",
+      "url": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "licenseNmae": "The Apache License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "developerId": "alipayproducts",
+      "developerName": "Ant Chain SDK",
+      "groupId": "com.antgroup.antchain.openapi",
+      "developerEmail": "alipaysdk@alipay.com"
+    }
+  },
+  "csharp": {
+    "className": "Client",
+    "namespace": "AntChain.SDK.BENCHTWOCREATEONE",
+    "packageInfo": {
+      "name": "benchtwocreateone",
+      "title": "antchain-benchtwocreateone",
+      "description": "Ant Chain BENCHTWOCREATEONE SDK Library for .NET",
+      "company": "Ant Chain, Inc"
+    }
+  },
+  "php": {
+    "package": "AntChain.BENCHTWOCREATEONE",
+    "clientName": "Client",
+    "packageInfo": {
+      "name": "antchain/benchtwocreateone",
+      "desc": "Ant Chain SDK Library for PHP",
+      "github": "https://github.com/alipay/antchain-openapi-sdk-php",
+      "files": {
+        "LICENSE": "../LICENSE"
+      }
+    }
+  },
+  "python": {
+    "package": "antchain_sdk_benchtwocreateone",
+    "clientName": "client",
+    "packageInfo": {
+      "name": "antchain_benchtwocreateone",
+      "desc": "Ant Chain BENCHTWOCREATEONE SDK Library for Python",
+      "github": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "author": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  }
+}
