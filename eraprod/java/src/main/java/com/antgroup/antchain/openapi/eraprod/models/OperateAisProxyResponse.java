@@ -16,6 +16,10 @@ public class OperateAisProxyResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 返回结果，JSON结构
+    @NameInMap("result_json")
+    public String resultJson;
+
     public static OperateAisProxyResponse build(java.util.Map<String, ?> map) throws Exception {
         OperateAisProxyResponse self = new OperateAisProxyResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class OperateAisProxyResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public OperateAisProxyResponse setResultJson(String resultJson) {
+        this.resultJson = resultJson;
+        return this;
+    }
+    public String getResultJson() {
+        return this.resultJson;
     }
 
 }
