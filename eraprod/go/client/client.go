@@ -186,6 +186,8 @@ type OperateAisProxyResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果，JSON结构
+	ResultJson *string `json:"result_json,omitempty" xml:"result_json,omitempty"`
 }
 
 func (s OperateAisProxyResponse) String() string {
@@ -208,6 +210,11 @@ func (s *OperateAisProxyResponse) SetResultCode(v string) *OperateAisProxyRespon
 
 func (s *OperateAisProxyResponse) SetResultMsg(v string) *OperateAisProxyResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateAisProxyResponse) SetResultJson(v string) *OperateAisProxyResponse {
+	s.ResultJson = &v
 	return s
 }
 
@@ -333,7 +340,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("ERAPROD"),
 				"_prod_channel":    tea.String("default"),
 			}
