@@ -200,6 +200,7 @@ class OperateAisProxyResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        result_json: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -207,6 +208,8 @@ class OperateAisProxyResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 返回结果，JSON结构
+        self.result_json = result_json
 
     def validate(self):
         pass
@@ -223,6 +226,8 @@ class OperateAisProxyResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.result_json is not None:
+            result['result_json'] = self.result_json
         return result
 
     def from_map(self, m: dict = None):
@@ -233,6 +238,8 @@ class OperateAisProxyResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('result_json') is not None:
+            self.result_json = m.get('result_json')
         return self
 
 
