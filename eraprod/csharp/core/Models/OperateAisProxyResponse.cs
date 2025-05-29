@@ -24,6 +24,11 @@ namespace AntChain.SDK.ERAPROD.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 返回结果，JSON结构
+        [NameInMap("result_json")]
+        [Validation(Required=false)]
+        public string ResultJson { get; set; }
+
     }
 
 }
