@@ -111,11 +111,14 @@ export class OperateAisProxyResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 返回结果，JSON结构
+  resultJson?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      resultJson: 'result_json',
     };
   }
 
@@ -124,6 +127,7 @@ export class OperateAisProxyResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      resultJson: 'string',
     };
   }
 
@@ -245,7 +249,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
           _prod_code: "ERAPROD",
           _prod_channel: "default",
         };
