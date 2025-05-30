@@ -227,6 +227,67 @@ func (s *OutParams) SetValue(v string) *OutParams {
 	return s
 }
 
+// 安全场景参数
+type SecurityScene struct {
+	// 接入渠道
+	AccessChannel *string `json:"access_channel,omitempty" xml:"access_channel,omitempty"`
+	// 事件信息
+	CtuParams *string `json:"ctu_params,omitempty" xml:"ctu_params,omitempty"`
+	// 产品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty"`
+	// 产品节点
+	ProductNode *string `json:"product_node,omitempty" xml:"product_node,omitempty"`
+	// 扩展参数
+	SecuritySceneParams *string `json:"security_scene_params,omitempty" xml:"security_scene_params,omitempty"`
+	// 系统名称
+	SystemName *string `json:"system_name,omitempty" xml:"system_name,omitempty"`
+	// 总金额
+	TotalFee *string `json:"total_fee,omitempty" xml:"total_fee,omitempty"`
+}
+
+func (s SecurityScene) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SecurityScene) GoString() string {
+	return s.String()
+}
+
+func (s *SecurityScene) SetAccessChannel(v string) *SecurityScene {
+	s.AccessChannel = &v
+	return s
+}
+
+func (s *SecurityScene) SetCtuParams(v string) *SecurityScene {
+	s.CtuParams = &v
+	return s
+}
+
+func (s *SecurityScene) SetProductName(v string) *SecurityScene {
+	s.ProductName = &v
+	return s
+}
+
+func (s *SecurityScene) SetProductNode(v string) *SecurityScene {
+	s.ProductNode = &v
+	return s
+}
+
+func (s *SecurityScene) SetSecuritySceneParams(v string) *SecurityScene {
+	s.SecuritySceneParams = &v
+	return s
+}
+
+func (s *SecurityScene) SetSystemName(v string) *SecurityScene {
+	s.SystemName = &v
+	return s
+}
+
+func (s *SecurityScene) SetTotalFee(v string) *SecurityScene {
+	s.TotalFee = &v
+	return s
+}
+
 // 天枢系统Contact结构体
 type Contact struct {
 	// 联系人类型
@@ -949,67 +1010,6 @@ func (s *RuleDetail) SetValue(v string) *RuleDetail {
 	return s
 }
 
-// 安全场景参数
-type SecurityScene struct {
-	// 接入渠道
-	AccessChannel *string `json:"access_channel,omitempty" xml:"access_channel,omitempty"`
-	// 事件信息
-	CtuParams *string `json:"ctu_params,omitempty" xml:"ctu_params,omitempty"`
-	// 产品名称
-	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty"`
-	// 产品节点
-	ProductNode *string `json:"product_node,omitempty" xml:"product_node,omitempty"`
-	// 扩展参数
-	SecuritySceneParams *string `json:"security_scene_params,omitempty" xml:"security_scene_params,omitempty"`
-	// 系统名称
-	SystemName *string `json:"system_name,omitempty" xml:"system_name,omitempty"`
-	// 总金额
-	TotalFee *string `json:"total_fee,omitempty" xml:"total_fee,omitempty"`
-}
-
-func (s SecurityScene) String() string {
-	return tea.Prettify(s)
-}
-
-func (s SecurityScene) GoString() string {
-	return s.String()
-}
-
-func (s *SecurityScene) SetAccessChannel(v string) *SecurityScene {
-	s.AccessChannel = &v
-	return s
-}
-
-func (s *SecurityScene) SetCtuParams(v string) *SecurityScene {
-	s.CtuParams = &v
-	return s
-}
-
-func (s *SecurityScene) SetProductName(v string) *SecurityScene {
-	s.ProductName = &v
-	return s
-}
-
-func (s *SecurityScene) SetProductNode(v string) *SecurityScene {
-	s.ProductNode = &v
-	return s
-}
-
-func (s *SecurityScene) SetSecuritySceneParams(v string) *SecurityScene {
-	s.SecuritySceneParams = &v
-	return s
-}
-
-func (s *SecurityScene) SetSystemName(v string) *SecurityScene {
-	s.SystemName = &v
-	return s
-}
-
-func (s *SecurityScene) SetTotalFee(v string) *SecurityScene {
-	s.TotalFee = &v
-	return s
-}
-
 // 天枢系统专用RepayResult结构体
 type RepayResult struct {
 	// 客户编码
@@ -1401,6 +1401,25 @@ func (s *RtopCompanyRiskFactor) SetName(v string) *RtopCompanyRiskFactor {
 
 func (s *RtopCompanyRiskFactor) SetScore(v int64) *RtopCompanyRiskFactor {
 	s.Score = &v
+	return s
+}
+
+// 测试
+type TestStruct struct {
+	// 测试
+	TestField []*SecurityScene `json:"test_field,omitempty" xml:"test_field,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s TestStruct) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TestStruct) GoString() string {
+	return s.String()
+}
+
+func (s *TestStruct) SetTestField(v []*SecurityScene) *TestStruct {
+	s.TestField = v
 	return s
 }
 
@@ -13232,13 +13251,15 @@ type QueryDubbridgeUsecreditStatusRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 用信申请订单号
-	OriginalOrderNo *string `json:"original_order_no,omitempty" xml:"original_order_no,omitempty" require:"true"`
 	// 请求网络流水号
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
 	// 1：现金贷（默认）
 	// 2：分期付
 	ProdType *string `json:"prod_type,omitempty" xml:"prod_type,omitempty"`
+	// prod_type=1时，用信申请的订单号
+	OriginalOrderNo *string `json:"original_order_no,omitempty" xml:"original_order_no,omitempty" require:"true"`
+	// 资产方购物订单号
+	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty"`
 }
 
 func (s QueryDubbridgeUsecreditStatusRequest) String() string {
@@ -13259,11 +13280,6 @@ func (s *QueryDubbridgeUsecreditStatusRequest) SetProductInstanceId(v string) *Q
 	return s
 }
 
-func (s *QueryDubbridgeUsecreditStatusRequest) SetOriginalOrderNo(v string) *QueryDubbridgeUsecreditStatusRequest {
-	s.OriginalOrderNo = &v
-	return s
-}
-
 func (s *QueryDubbridgeUsecreditStatusRequest) SetOrderNo(v string) *QueryDubbridgeUsecreditStatusRequest {
 	s.OrderNo = &v
 	return s
@@ -13271,6 +13287,16 @@ func (s *QueryDubbridgeUsecreditStatusRequest) SetOrderNo(v string) *QueryDubbri
 
 func (s *QueryDubbridgeUsecreditStatusRequest) SetProdType(v string) *QueryDubbridgeUsecreditStatusRequest {
 	s.ProdType = &v
+	return s
+}
+
+func (s *QueryDubbridgeUsecreditStatusRequest) SetOriginalOrderNo(v string) *QueryDubbridgeUsecreditStatusRequest {
+	s.OriginalOrderNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeUsecreditStatusRequest) SetBizOrderNo(v string) *QueryDubbridgeUsecreditStatusRequest {
+	s.BizOrderNo = &v
 	return s
 }
 
@@ -15225,6 +15251,9 @@ type CancelDubbridgeInstallmentOrderRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 订单号：request请求单号，每次请求唯一，如uuid
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 1：现金贷、2：分期付
+	//
+	ProdType *string `json:"prod_type,omitempty" xml:"prod_type,omitempty"`
 	// 待支付的购物订单编号
 	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty" require:"true"`
 	// 渠道方唯一标识
@@ -15253,6 +15282,11 @@ func (s *CancelDubbridgeInstallmentOrderRequest) SetProductInstanceId(v string) 
 
 func (s *CancelDubbridgeInstallmentOrderRequest) SetOrderNo(v string) *CancelDubbridgeInstallmentOrderRequest {
 	s.OrderNo = &v
+	return s
+}
+
+func (s *CancelDubbridgeInstallmentOrderRequest) SetProdType(v string) *CancelDubbridgeInstallmentOrderRequest {
+	s.ProdType = &v
 	return s
 }
 
@@ -29362,6 +29396,8 @@ type UploadUmktOfflinedecisionRequest struct {
 	// 待上传文件名
 	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
 	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 非必填, 默认OFFLINE_DECISION
+	RelationType *string `json:"relation_type,omitempty" xml:"relation_type,omitempty"`
 }
 
 func (s UploadUmktOfflinedecisionRequest) String() string {
@@ -29404,6 +29440,11 @@ func (s *UploadUmktOfflinedecisionRequest) SetFileObjectName(v string) *UploadUm
 
 func (s *UploadUmktOfflinedecisionRequest) SetFileId(v string) *UploadUmktOfflinedecisionRequest {
 	s.FileId = &v
+	return s
+}
+
+func (s *UploadUmktOfflinedecisionRequest) SetRelationType(v string) *UploadUmktOfflinedecisionRequest {
+	s.RelationType = &v
 	return s
 }
 
@@ -30035,7 +30076,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.23.9"),
+				"sdk_version":      tea.String("1.23.10"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
