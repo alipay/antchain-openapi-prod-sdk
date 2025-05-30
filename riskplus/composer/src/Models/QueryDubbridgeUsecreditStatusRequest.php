@@ -19,12 +19,6 @@ class QueryDubbridgeUsecreditStatusRequest extends Model
      */
     public $productInstanceId;
 
-    // 用信申请订单号
-    /**
-     * @var string
-     */
-    public $originalOrderNo;
-
     // 请求网络流水号
     /**
      * @var string
@@ -37,18 +31,31 @@ class QueryDubbridgeUsecreditStatusRequest extends Model
      * @var string
      */
     public $prodType;
+
+    // prod_type=1时，用信申请的订单号
+    /**
+     * @var string
+     */
+    public $originalOrderNo;
+
+    // 资产方购物订单号
+    /**
+     * @var string
+     */
+    public $bizOrderNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'originalOrderNo'   => 'original_order_no',
         'orderNo'           => 'order_no',
         'prodType'          => 'prod_type',
+        'originalOrderNo'   => 'original_order_no',
+        'bizOrderNo'        => 'biz_order_no',
     ];
 
     public function validate()
     {
-        Model::validateRequired('originalOrderNo', $this->originalOrderNo, true);
         Model::validateRequired('orderNo', $this->orderNo, true);
+        Model::validateRequired('originalOrderNo', $this->originalOrderNo, true);
     }
 
     public function toMap()
@@ -60,14 +67,17 @@ class QueryDubbridgeUsecreditStatusRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->originalOrderNo) {
-            $res['original_order_no'] = $this->originalOrderNo;
-        }
         if (null !== $this->orderNo) {
             $res['order_no'] = $this->orderNo;
         }
         if (null !== $this->prodType) {
             $res['prod_type'] = $this->prodType;
+        }
+        if (null !== $this->originalOrderNo) {
+            $res['original_order_no'] = $this->originalOrderNo;
+        }
+        if (null !== $this->bizOrderNo) {
+            $res['biz_order_no'] = $this->bizOrderNo;
         }
 
         return $res;
@@ -87,14 +97,17 @@ class QueryDubbridgeUsecreditStatusRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['original_order_no'])) {
-            $model->originalOrderNo = $map['original_order_no'];
-        }
         if (isset($map['order_no'])) {
             $model->orderNo = $map['order_no'];
         }
         if (isset($map['prod_type'])) {
             $model->prodType = $map['prod_type'];
+        }
+        if (isset($map['original_order_no'])) {
+            $model->originalOrderNo = $map['original_order_no'];
+        }
+        if (isset($map['biz_order_no'])) {
+            $model->bizOrderNo = $map['biz_order_no'];
         }
 
         return $model;

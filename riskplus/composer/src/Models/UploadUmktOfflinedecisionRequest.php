@@ -51,12 +51,19 @@ class UploadUmktOfflinedecisionRequest extends Model
      * @var string
      */
     public $fileId;
+
+    // 非必填, 默认OFFLINE_DECISION
+    /**
+     * @var string
+     */
+    public $relationType;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
         'offlineDecisionPlanId' => 'offline_decision_plan_id',
         'fileTemplate'          => 'file_template',
         'fileId'                => 'file_id',
+        'relationType'          => 'relation_type',
     ];
 
     public function validate()
@@ -90,6 +97,9 @@ class UploadUmktOfflinedecisionRequest extends Model
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
         }
+        if (null !== $this->relationType) {
+            $res['relation_type'] = $this->relationType;
+        }
 
         return $res;
     }
@@ -122,6 +132,9 @@ class UploadUmktOfflinedecisionRequest extends Model
         }
         if (isset($map['file_id'])) {
             $model->fileId = $map['file_id'];
+        }
+        if (isset($map['relation_type'])) {
+            $model->relationType = $map['relation_type'];
         }
 
         return $model;

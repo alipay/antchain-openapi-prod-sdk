@@ -25,6 +25,13 @@ class CancelDubbridgeInstallmentOrderRequest extends Model
      */
     public $orderNo;
 
+    // 1：现金贷、2：分期付
+    //
+    /**
+     * @var string
+     */
+    public $prodType;
+
     // 待支付的购物订单编号
     /**
      * @var string
@@ -46,6 +53,7 @@ class CancelDubbridgeInstallmentOrderRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'orderNo'           => 'order_no',
+        'prodType'          => 'prod_type',
         'bizOrderNo'        => 'biz_order_no',
         'openId'            => 'open_id',
         'customerNo'        => 'customer_no',
@@ -68,6 +76,9 @@ class CancelDubbridgeInstallmentOrderRequest extends Model
         }
         if (null !== $this->orderNo) {
             $res['order_no'] = $this->orderNo;
+        }
+        if (null !== $this->prodType) {
+            $res['prod_type'] = $this->prodType;
         }
         if (null !== $this->bizOrderNo) {
             $res['biz_order_no'] = $this->bizOrderNo;
@@ -98,6 +109,9 @@ class CancelDubbridgeInstallmentOrderRequest extends Model
         }
         if (isset($map['order_no'])) {
             $model->orderNo = $map['order_no'];
+        }
+        if (isset($map['prod_type'])) {
+            $model->prodType = $map['prod_type'];
         }
         if (isset($map['biz_order_no'])) {
             $model->bizOrderNo = $map['biz_order_no'];
