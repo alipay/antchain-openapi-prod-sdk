@@ -23,6 +23,12 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string OrderNo { get; set; }
 
+        // 1：现金贷、2：分期付
+        // 
+        [NameInMap("prod_type")]
+        [Validation(Required=false)]
+        public string ProdType { get; set; }
+
         // 待支付的购物订单编号
         [NameInMap("biz_order_no")]
         [Validation(Required=true)]

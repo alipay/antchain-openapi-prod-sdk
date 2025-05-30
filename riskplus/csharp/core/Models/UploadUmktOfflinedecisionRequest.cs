@@ -47,6 +47,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string FileId { get; set; }
 
+        // 非必填, 默认OFFLINE_DECISION
+        [NameInMap("relation_type")]
+        [Validation(Required=false)]
+        public string RelationType { get; set; }
+
     }
 
 }
