@@ -153,6 +153,51 @@ export class OutParams extends $tea.Model {
   }
 }
 
+// 安全场景参数
+export class SecurityScene extends $tea.Model {
+  // 接入渠道
+  accessChannel?: string;
+  // 事件信息
+  ctuParams?: string;
+  // 产品名称
+  productName?: string;
+  // 产品节点
+  productNode?: string;
+  // 扩展参数
+  securitySceneParams?: string;
+  // 系统名称
+  systemName?: string;
+  // 总金额
+  totalFee?: string;
+  static names(): { [key: string]: string } {
+    return {
+      accessChannel: 'access_channel',
+      ctuParams: 'ctu_params',
+      productName: 'product_name',
+      productNode: 'product_node',
+      securitySceneParams: 'security_scene_params',
+      systemName: 'system_name',
+      totalFee: 'total_fee',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      accessChannel: 'string',
+      ctuParams: 'string',
+      productName: 'string',
+      productNode: 'string',
+      securitySceneParams: 'string',
+      systemName: 'string',
+      totalFee: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 天枢系统Contact结构体
 export class Contact extends $tea.Model {
   // 联系人类型
@@ -745,51 +790,6 @@ export class RuleDetail extends $tea.Model {
   }
 }
 
-// 安全场景参数
-export class SecurityScene extends $tea.Model {
-  // 接入渠道
-  accessChannel?: string;
-  // 事件信息
-  ctuParams?: string;
-  // 产品名称
-  productName?: string;
-  // 产品节点
-  productNode?: string;
-  // 扩展参数
-  securitySceneParams?: string;
-  // 系统名称
-  systemName?: string;
-  // 总金额
-  totalFee?: string;
-  static names(): { [key: string]: string } {
-    return {
-      accessChannel: 'access_channel',
-      ctuParams: 'ctu_params',
-      productName: 'product_name',
-      productNode: 'product_node',
-      securitySceneParams: 'security_scene_params',
-      systemName: 'system_name',
-      totalFee: 'total_fee',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      accessChannel: 'string',
-      ctuParams: 'string',
-      productName: 'string',
-      productNode: 'string',
-      securitySceneParams: 'string',
-      systemName: 'string',
-      totalFee: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 天枢系统专用RepayResult结构体
 export class RepayResult extends $tea.Model {
   // 客户编码
@@ -1068,6 +1068,27 @@ export class RtopCompanyRiskFactor extends $tea.Model {
     return {
       name: 'string',
       score: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 测试
+export class TestStruct extends $tea.Model {
+  // 测试
+  testField: SecurityScene[];
+  static names(): { [key: string]: string } {
+    return {
+      testField: 'test_field',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      testField: { 'type': 'array', 'itemType': SecurityScene },
     };
   }
 
@@ -9843,20 +9864,23 @@ export class QueryDubbridgeUsecreditStatusRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 用信申请订单号
-  originalOrderNo: string;
   // 请求网络流水号
   orderNo: string;
   // 1：现金贷（默认）
   // 2：分期付
   prodType?: string;
+  // prod_type=1时，用信申请的订单号
+  originalOrderNo: string;
+  // 资产方购物订单号
+  bizOrderNo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      originalOrderNo: 'original_order_no',
       orderNo: 'order_no',
       prodType: 'prod_type',
+      originalOrderNo: 'original_order_no',
+      bizOrderNo: 'biz_order_no',
     };
   }
 
@@ -9864,9 +9888,10 @@ export class QueryDubbridgeUsecreditStatusRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      originalOrderNo: 'string',
       orderNo: 'string',
       prodType: 'string',
+      originalOrderNo: 'string',
+      bizOrderNo: 'string',
     };
   }
 
@@ -11335,6 +11360,9 @@ export class CancelDubbridgeInstallmentOrderRequest extends $tea.Model {
   productInstanceId?: string;
   // 订单号：request请求单号，每次请求唯一，如uuid
   orderNo: string;
+  // 1：现金贷、2：分期付
+  // 
+  prodType?: string;
   // 待支付的购物订单编号
   bizOrderNo: string;
   // 渠道方唯一标识
@@ -11346,6 +11374,7 @@ export class CancelDubbridgeInstallmentOrderRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       orderNo: 'order_no',
+      prodType: 'prod_type',
       bizOrderNo: 'biz_order_no',
       openId: 'open_id',
       customerNo: 'customer_no',
@@ -11357,6 +11386,7 @@ export class CancelDubbridgeInstallmentOrderRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       orderNo: 'string',
+      prodType: 'string',
       bizOrderNo: 'string',
       openId: 'string',
       customerNo: 'string',
@@ -21978,6 +22008,8 @@ export class UploadUmktOfflinedecisionRequest extends $tea.Model {
   fileObject?: Readable;
   fileObjectName?: string;
   fileId: string;
+  // 非必填, 默认OFFLINE_DECISION
+  relationType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -21987,6 +22019,7 @@ export class UploadUmktOfflinedecisionRequest extends $tea.Model {
       fileObject: 'fileObject',
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
+      relationType: 'relation_type',
     };
   }
 
@@ -21999,6 +22032,7 @@ export class UploadUmktOfflinedecisionRequest extends $tea.Model {
       fileObject: 'Readable',
       fileObjectName: 'string',
       fileId: 'string',
+      relationType: 'string',
     };
   }
 
@@ -22514,7 +22548,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.23.9",
+          sdk_version: "1.23.10",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
