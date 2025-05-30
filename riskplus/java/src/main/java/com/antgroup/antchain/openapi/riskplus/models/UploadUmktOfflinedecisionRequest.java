@@ -38,6 +38,10 @@ public class UploadUmktOfflinedecisionRequest extends TeaModel {
     @Validation(required = true)
     public String fileId;
 
+    // 非必填, 默认OFFLINE_DECISION
+    @NameInMap("relation_type")
+    public String relationType;
+
     public static UploadUmktOfflinedecisionRequest build(java.util.Map<String, ?> map) throws Exception {
         UploadUmktOfflinedecisionRequest self = new UploadUmktOfflinedecisionRequest();
         return TeaModel.build(map, self);
@@ -97,6 +101,14 @@ public class UploadUmktOfflinedecisionRequest extends TeaModel {
     }
     public String getFileId() {
         return this.fileId;
+    }
+
+    public UploadUmktOfflinedecisionRequest setRelationType(String relationType) {
+        this.relationType = relationType;
+        return this;
+    }
+    public String getRelationType() {
+        return this.relationType;
     }
 
 }

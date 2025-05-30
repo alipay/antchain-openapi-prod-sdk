@@ -16,6 +16,11 @@ public class CancelDubbridgeInstallmentOrderRequest extends TeaModel {
     @Validation(required = true)
     public String orderNo;
 
+    // 1：现金贷、2：分期付
+    // 
+    @NameInMap("prod_type")
+    public String prodType;
+
     // 待支付的购物订单编号
     @NameInMap("biz_order_no")
     @Validation(required = true)
@@ -56,6 +61,14 @@ public class CancelDubbridgeInstallmentOrderRequest extends TeaModel {
     }
     public String getOrderNo() {
         return this.orderNo;
+    }
+
+    public CancelDubbridgeInstallmentOrderRequest setProdType(String prodType) {
+        this.prodType = prodType;
+        return this;
+    }
+    public String getProdType() {
+        return this.prodType;
     }
 
     public CancelDubbridgeInstallmentOrderRequest setBizOrderNo(String bizOrderNo) {

@@ -11,11 +11,6 @@ public class QueryDubbridgeUsecreditStatusRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 用信申请订单号
-    @NameInMap("original_order_no")
-    @Validation(required = true)
-    public String originalOrderNo;
-
     // 请求网络流水号
     @NameInMap("order_no")
     @Validation(required = true)
@@ -25,6 +20,15 @@ public class QueryDubbridgeUsecreditStatusRequest extends TeaModel {
     // 2：分期付
     @NameInMap("prod_type")
     public String prodType;
+
+    // prod_type=1时，用信申请的订单号
+    @NameInMap("original_order_no")
+    @Validation(required = true)
+    public String originalOrderNo;
+
+    // 资产方购物订单号
+    @NameInMap("biz_order_no")
+    public String bizOrderNo;
 
     public static QueryDubbridgeUsecreditStatusRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeUsecreditStatusRequest self = new QueryDubbridgeUsecreditStatusRequest();
@@ -47,14 +51,6 @@ public class QueryDubbridgeUsecreditStatusRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryDubbridgeUsecreditStatusRequest setOriginalOrderNo(String originalOrderNo) {
-        this.originalOrderNo = originalOrderNo;
-        return this;
-    }
-    public String getOriginalOrderNo() {
-        return this.originalOrderNo;
-    }
-
     public QueryDubbridgeUsecreditStatusRequest setOrderNo(String orderNo) {
         this.orderNo = orderNo;
         return this;
@@ -69,6 +65,22 @@ public class QueryDubbridgeUsecreditStatusRequest extends TeaModel {
     }
     public String getProdType() {
         return this.prodType;
+    }
+
+    public QueryDubbridgeUsecreditStatusRequest setOriginalOrderNo(String originalOrderNo) {
+        this.originalOrderNo = originalOrderNo;
+        return this;
+    }
+    public String getOriginalOrderNo() {
+        return this.originalOrderNo;
+    }
+
+    public QueryDubbridgeUsecreditStatusRequest setBizOrderNo(String bizOrderNo) {
+        this.bizOrderNo = bizOrderNo;
+        return this;
+    }
+    public String getBizOrderNo() {
+        return this.bizOrderNo;
     }
 
 }
