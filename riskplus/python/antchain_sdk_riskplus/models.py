@@ -262,6 +262,76 @@ class OutParams(TeaModel):
         return self
 
 
+class SecurityScene(TeaModel):
+    def __init__(
+        self,
+        access_channel: str = None,
+        ctu_params: str = None,
+        product_name: str = None,
+        product_node: str = None,
+        security_scene_params: str = None,
+        system_name: str = None,
+        total_fee: str = None,
+    ):
+        # 接入渠道
+        self.access_channel = access_channel
+        # 事件信息
+        self.ctu_params = ctu_params
+        # 产品名称
+        self.product_name = product_name
+        # 产品节点
+        self.product_node = product_node
+        # 扩展参数
+        self.security_scene_params = security_scene_params
+        # 系统名称
+        self.system_name = system_name
+        # 总金额
+        self.total_fee = total_fee
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_channel is not None:
+            result['access_channel'] = self.access_channel
+        if self.ctu_params is not None:
+            result['ctu_params'] = self.ctu_params
+        if self.product_name is not None:
+            result['product_name'] = self.product_name
+        if self.product_node is not None:
+            result['product_node'] = self.product_node
+        if self.security_scene_params is not None:
+            result['security_scene_params'] = self.security_scene_params
+        if self.system_name is not None:
+            result['system_name'] = self.system_name
+        if self.total_fee is not None:
+            result['total_fee'] = self.total_fee
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('access_channel') is not None:
+            self.access_channel = m.get('access_channel')
+        if m.get('ctu_params') is not None:
+            self.ctu_params = m.get('ctu_params')
+        if m.get('product_name') is not None:
+            self.product_name = m.get('product_name')
+        if m.get('product_node') is not None:
+            self.product_node = m.get('product_node')
+        if m.get('security_scene_params') is not None:
+            self.security_scene_params = m.get('security_scene_params')
+        if m.get('system_name') is not None:
+            self.system_name = m.get('system_name')
+        if m.get('total_fee') is not None:
+            self.total_fee = m.get('total_fee')
+        return self
+
+
 class Contact(TeaModel):
     def __init__(
         self,
@@ -1166,76 +1236,6 @@ class RuleDetail(TeaModel):
         return self
 
 
-class SecurityScene(TeaModel):
-    def __init__(
-        self,
-        access_channel: str = None,
-        ctu_params: str = None,
-        product_name: str = None,
-        product_node: str = None,
-        security_scene_params: str = None,
-        system_name: str = None,
-        total_fee: str = None,
-    ):
-        # 接入渠道
-        self.access_channel = access_channel
-        # 事件信息
-        self.ctu_params = ctu_params
-        # 产品名称
-        self.product_name = product_name
-        # 产品节点
-        self.product_node = product_node
-        # 扩展参数
-        self.security_scene_params = security_scene_params
-        # 系统名称
-        self.system_name = system_name
-        # 总金额
-        self.total_fee = total_fee
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.access_channel is not None:
-            result['access_channel'] = self.access_channel
-        if self.ctu_params is not None:
-            result['ctu_params'] = self.ctu_params
-        if self.product_name is not None:
-            result['product_name'] = self.product_name
-        if self.product_node is not None:
-            result['product_node'] = self.product_node
-        if self.security_scene_params is not None:
-            result['security_scene_params'] = self.security_scene_params
-        if self.system_name is not None:
-            result['system_name'] = self.system_name
-        if self.total_fee is not None:
-            result['total_fee'] = self.total_fee
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('access_channel') is not None:
-            self.access_channel = m.get('access_channel')
-        if m.get('ctu_params') is not None:
-            self.ctu_params = m.get('ctu_params')
-        if m.get('product_name') is not None:
-            self.product_name = m.get('product_name')
-        if m.get('product_node') is not None:
-            self.product_node = m.get('product_node')
-        if m.get('security_scene_params') is not None:
-            self.security_scene_params = m.get('security_scene_params')
-        if m.get('system_name') is not None:
-            self.system_name = m.get('system_name')
-        if m.get('total_fee') is not None:
-            self.total_fee = m.get('total_fee')
-        return self
-
-
 class RepayResult(TeaModel):
     def __init__(
         self,
@@ -1740,6 +1740,43 @@ class RtopCompanyRiskFactor(TeaModel):
             self.name = m.get('name')
         if m.get('score') is not None:
             self.score = m.get('score')
+        return self
+
+
+class TestStruct(TeaModel):
+    def __init__(
+        self,
+        test_field: List[SecurityScene] = None,
+    ):
+        # 测试
+        self.test_field = test_field
+
+    def validate(self):
+        self.validate_required(self.test_field, 'test_field')
+        if self.test_field:
+            for k in self.test_field:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['test_field'] = []
+        if self.test_field is not None:
+            for k in self.test_field:
+                result['test_field'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        self.test_field = []
+        if m.get('test_field') is not None:
+            for k in m.get('test_field'):
+                temp_model = SecurityScene()
+                self.test_field.append(temp_model.from_map(k))
         return self
 
 
@@ -16388,24 +16425,27 @@ class QueryDubbridgeUsecreditStatusRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        original_order_no: str = None,
         order_no: str = None,
         prod_type: str = None,
+        original_order_no: str = None,
+        biz_order_no: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 用信申请订单号
-        self.original_order_no = original_order_no
         # 请求网络流水号
         self.order_no = order_no
         # 1：现金贷（默认）
         # 2：分期付
         self.prod_type = prod_type
+        # prod_type=1时，用信申请的订单号
+        self.original_order_no = original_order_no
+        # 资产方购物订单号
+        self.biz_order_no = biz_order_no
 
     def validate(self):
-        self.validate_required(self.original_order_no, 'original_order_no')
         self.validate_required(self.order_no, 'order_no')
+        self.validate_required(self.original_order_no, 'original_order_no')
 
     def to_map(self):
         _map = super().to_map()
@@ -16417,12 +16457,14 @@ class QueryDubbridgeUsecreditStatusRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.original_order_no is not None:
-            result['original_order_no'] = self.original_order_no
         if self.order_no is not None:
             result['order_no'] = self.order_no
         if self.prod_type is not None:
             result['prod_type'] = self.prod_type
+        if self.original_order_no is not None:
+            result['original_order_no'] = self.original_order_no
+        if self.biz_order_no is not None:
+            result['biz_order_no'] = self.biz_order_no
         return result
 
     def from_map(self, m: dict = None):
@@ -16431,12 +16473,14 @@ class QueryDubbridgeUsecreditStatusRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('original_order_no') is not None:
-            self.original_order_no = m.get('original_order_no')
         if m.get('order_no') is not None:
             self.order_no = m.get('order_no')
         if m.get('prod_type') is not None:
             self.prod_type = m.get('prod_type')
+        if m.get('original_order_no') is not None:
+            self.original_order_no = m.get('original_order_no')
+        if m.get('biz_order_no') is not None:
+            self.biz_order_no = m.get('biz_order_no')
         return self
 
 
@@ -18845,6 +18889,7 @@ class CancelDubbridgeInstallmentOrderRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         order_no: str = None,
+        prod_type: str = None,
         biz_order_no: str = None,
         open_id: str = None,
         customer_no: str = None,
@@ -18854,6 +18899,9 @@ class CancelDubbridgeInstallmentOrderRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 订单号：request请求单号，每次请求唯一，如uuid
         self.order_no = order_no
+        # 1：现金贷、2：分期付
+        # 
+        self.prod_type = prod_type
         # 待支付的购物订单编号
         self.biz_order_no = biz_order_no
         # 渠道方唯一标识
@@ -18877,6 +18925,8 @@ class CancelDubbridgeInstallmentOrderRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.order_no is not None:
             result['order_no'] = self.order_no
+        if self.prod_type is not None:
+            result['prod_type'] = self.prod_type
         if self.biz_order_no is not None:
             result['biz_order_no'] = self.biz_order_no
         if self.open_id is not None:
@@ -18893,6 +18943,8 @@ class CancelDubbridgeInstallmentOrderRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('order_no') is not None:
             self.order_no = m.get('order_no')
+        if m.get('prod_type') is not None:
+            self.prod_type = m.get('prod_type')
         if m.get('biz_order_no') is not None:
             self.biz_order_no = m.get('biz_order_no')
         if m.get('open_id') is not None:
@@ -36616,6 +36668,7 @@ class UploadUmktOfflinedecisionRequest(TeaModel):
         file_object: BinaryIO = None,
         file_object_name: str = None,
         file_id: str = None,
+        relation_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -36630,6 +36683,8 @@ class UploadUmktOfflinedecisionRequest(TeaModel):
         # 待上传文件名
         self.file_object_name = file_object_name
         self.file_id = file_id
+        # 非必填, 默认OFFLINE_DECISION
+        self.relation_type = relation_type
 
     def validate(self):
         self.validate_required(self.offline_decision_plan_id, 'offline_decision_plan_id')
@@ -36656,6 +36711,8 @@ class UploadUmktOfflinedecisionRequest(TeaModel):
             result['fileObjectName'] = self.file_object_name
         if self.file_id is not None:
             result['file_id'] = self.file_id
+        if self.relation_type is not None:
+            result['relation_type'] = self.relation_type
         return result
 
     def from_map(self, m: dict = None):
@@ -36674,6 +36731,8 @@ class UploadUmktOfflinedecisionRequest(TeaModel):
             self.file_object_name = m.get('fileObjectName')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
+        if m.get('relation_type') is not None:
+            self.relation_type = m.get('relation_type')
         return self
 
 
