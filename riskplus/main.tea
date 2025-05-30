@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.23.9',
+    sdk_version = '1.23.10',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -183,6 +183,24 @@ model OutParams {
   desc: string(name='desc', example='率利'),
   // 参数值
   value: string(name='value', example='accept'),
+}
+
+// 安全场景参数
+model SecurityScene {
+  // 接入渠道
+  accessChannel?: string(name='access_channel', example='web'),
+  // 事件信息
+  ctuParams?: string(name='ctu_params', example=''),
+  // 产品名称
+  productName?: string(name='product_name', example='mobile_cashier'),
+  // 产品节点
+  productNode?: string(name='product_node', example='code'),
+  // 扩展参数
+  securitySceneParams?: string(name='security_scene_params', example='1234'),
+  // 系统名称
+  systemName?: string(name='system_name', example='mobilecashier'),
+  // 总金额
+  totalFee?: string(name='total_fee', example='10.0'),
 }
 
 // 天枢系统Contact结构体
@@ -429,24 +447,6 @@ model RuleDetail {
   value: string(name='value', example='19'),
 }
 
-// 安全场景参数
-model SecurityScene {
-  // 接入渠道
-  accessChannel?: string(name='access_channel', example='web'),
-  // 事件信息
-  ctuParams?: string(name='ctu_params', example=''),
-  // 产品名称
-  productName?: string(name='product_name', example='mobile_cashier'),
-  // 产品节点
-  productNode?: string(name='product_node', example='code'),
-  // 扩展参数
-  securitySceneParams?: string(name='security_scene_params', example='1234'),
-  // 系统名称
-  systemName?: string(name='system_name', example='mobilecashier'),
-  // 总金额
-  totalFee?: string(name='total_fee', example='10.0'),
-}
-
 // 天枢系统专用RepayResult结构体
 model RepayResult {
   // 客户编码
@@ -561,6 +561,12 @@ model RtopCompanyRiskFactor {
   name?: string(name='name', example='1'),
   // 维度分数
   score?: long(name='score', example=''),
+}
+
+// 测试
+model TestStruct {
+  // 测试
+  testField: [ SecurityScene ](name='test_field', example=''),
 }
 
 // 天枢系统专用Material结构体
@@ -5059,13 +5065,15 @@ model QueryDubbridgeUsecreditStatusRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 用信申请订单号
-  originalOrderNo: string(name='original_order_no'),
   // 请求网络流水号
   orderNo: string(name='order_no'),
   // 1：现金贷（默认）
   // 2：分期付
   prodType?: string(name='prod_type'),
+  // prod_type=1时，用信申请的订单号
+  originalOrderNo: string(name='original_order_no'),
+  // 资产方购物订单号
+  bizOrderNo?: string(name='biz_order_no'),
 }
 
 model QueryDubbridgeUsecreditStatusResponse = {
@@ -5971,6 +5979,9 @@ model CancelDubbridgeInstallmentOrderRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 订单号：request请求单号，每次请求唯一，如uuid
   orderNo: string(name='order_no'),
+  // 1：现金贷、2：分期付
+  // 
+  prodType?: string(name='prod_type'),
   // 待支付的购物订单编号
   bizOrderNo: string(name='biz_order_no'),
   // 渠道方唯一标识
@@ -12573,6 +12584,8 @@ model UploadUmktOfflinedecisionRequest = {
   fileObject?: readable(description='待上传文件', ignore='true'),
   fileObjectName?: string(description='待上传文件名', ignore='true'),
   fileId: string(name='file_id'),
+  // 非必填, 默认OFFLINE_DECISION
+  relationType?: string(name='relation_type'),
 }
 
 model UploadUmktOfflinedecisionResponse = {
