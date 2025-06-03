@@ -137,7 +137,7 @@ namespace AntChain.SDK.ABC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.14"},
+                        {"sdk_version", "1.0.15"},
                         {"_prod_code", "ABC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ABC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.14"},
+                        {"sdk_version", "1.0.15"},
                         {"_prod_code", "ABC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1087,6 +1087,90 @@ namespace AntChain.SDK.ABC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ImportOneLimitResponse>(await DoRequestAsync("1.0", "antchain.abc.one.limit.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人工作台二期预发测试
+         * Summary: 个人工作台二期预发测试
+         */
+        public StabilizeOneLimitResponse StabilizeOneLimit(StabilizeOneLimitRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StabilizeOneLimitEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人工作台二期预发测试
+         * Summary: 个人工作台二期预发测试
+         */
+        public async Task<StabilizeOneLimitResponse> StabilizeOneLimitAsync(StabilizeOneLimitRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StabilizeOneLimitExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人工作台二期预发测试
+         * Summary: 个人工作台二期预发测试
+         */
+        public StabilizeOneLimitResponse StabilizeOneLimitEx(StabilizeOneLimitRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StabilizeOneLimitResponse>(DoRequest("1.0", "antchain.abc.one.limit.stabilize", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人工作台二期预发测试
+         * Summary: 个人工作台二期预发测试
+         */
+        public async Task<StabilizeOneLimitResponse> StabilizeOneLimitExAsync(StabilizeOneLimitRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StabilizeOneLimitResponse>(await DoRequestAsync("1.0", "antchain.abc.one.limit.stabilize", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人工作台二期测试接口
+         * Summary: 个人工作台二期测试接口
+         */
+        public UnstabilizeOneLimitResponse UnstabilizeOneLimit(UnstabilizeOneLimitRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UnstabilizeOneLimitEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人工作台二期测试接口
+         * Summary: 个人工作台二期测试接口
+         */
+        public async Task<UnstabilizeOneLimitResponse> UnstabilizeOneLimitAsync(UnstabilizeOneLimitRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UnstabilizeOneLimitExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人工作台二期测试接口
+         * Summary: 个人工作台二期测试接口
+         */
+        public UnstabilizeOneLimitResponse UnstabilizeOneLimitEx(UnstabilizeOneLimitRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UnstabilizeOneLimitResponse>(DoRequest("1.0", "antchain.abc.one.limit.unstabilize", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人工作台二期测试接口
+         * Summary: 个人工作台二期测试接口
+         */
+        public async Task<UnstabilizeOneLimitResponse> UnstabilizeOneLimitExAsync(UnstabilizeOneLimitRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UnstabilizeOneLimitResponse>(await DoRequestAsync("1.0", "antchain.abc.one.limit.unstabilize", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
