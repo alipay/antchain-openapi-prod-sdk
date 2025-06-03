@@ -1848,6 +1848,160 @@ func (s *ImportOneLimitResponse) SetMsg(v string) *ImportOneLimitResponse {
 	return s
 }
 
+type StabilizeOneLimitRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
+}
+
+func (s StabilizeOneLimitRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StabilizeOneLimitRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StabilizeOneLimitRequest) SetAuthToken(v string) *StabilizeOneLimitRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StabilizeOneLimitRequest) SetProductInstanceId(v string) *StabilizeOneLimitRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StabilizeOneLimitRequest) SetTimeout(v string) *StabilizeOneLimitRequest {
+	s.Timeout = &v
+	return s
+}
+
+type StabilizeOneLimitResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态码
+	Stauts *string `json:"stauts,omitempty" xml:"stauts,omitempty"`
+	// 状态描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s StabilizeOneLimitResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StabilizeOneLimitResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StabilizeOneLimitResponse) SetReqMsgId(v string) *StabilizeOneLimitResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StabilizeOneLimitResponse) SetResultCode(v string) *StabilizeOneLimitResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StabilizeOneLimitResponse) SetResultMsg(v string) *StabilizeOneLimitResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *StabilizeOneLimitResponse) SetStauts(v string) *StabilizeOneLimitResponse {
+	s.Stauts = &v
+	return s
+}
+
+func (s *StabilizeOneLimitResponse) SetMsg(v string) *StabilizeOneLimitResponse {
+	s.Msg = &v
+	return s
+}
+
+type UnstabilizeOneLimitRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
+}
+
+func (s UnstabilizeOneLimitRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnstabilizeOneLimitRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UnstabilizeOneLimitRequest) SetAuthToken(v string) *UnstabilizeOneLimitRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UnstabilizeOneLimitRequest) SetProductInstanceId(v string) *UnstabilizeOneLimitRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UnstabilizeOneLimitRequest) SetTimeout(v string) *UnstabilizeOneLimitRequest {
+	s.Timeout = &v
+	return s
+}
+
+type UnstabilizeOneLimitResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果码描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 状态码
+	Stauts *string `json:"stauts,omitempty" xml:"stauts,omitempty"`
+}
+
+func (s UnstabilizeOneLimitResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnstabilizeOneLimitResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UnstabilizeOneLimitResponse) SetReqMsgId(v string) *UnstabilizeOneLimitResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UnstabilizeOneLimitResponse) SetResultCode(v string) *UnstabilizeOneLimitResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UnstabilizeOneLimitResponse) SetResultMsg(v string) *UnstabilizeOneLimitResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UnstabilizeOneLimitResponse) SetMsg(v string) *UnstabilizeOneLimitResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *UnstabilizeOneLimitResponse) SetStauts(v string) *UnstabilizeOneLimitResponse {
+	s.Stauts = &v
+	return s
+}
+
 type QueryGongxiangTesttestRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2167,7 +2321,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.14"),
+				"sdk_version":      tea.String("1.0.15"),
 				"_prod_code":       tea.String("ABC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -2822,6 +2976,74 @@ func (client *Client) ImportOneLimitEx(request *ImportOneLimitRequest, headers m
 	}
 	_result = &ImportOneLimitResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.abc.one.limit.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+func (client *Client) StabilizeOneLimit(request *StabilizeOneLimitRequest) (_result *StabilizeOneLimitResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StabilizeOneLimitResponse{}
+	_body, _err := client.StabilizeOneLimitEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+func (client *Client) StabilizeOneLimitEx(request *StabilizeOneLimitRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StabilizeOneLimitResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StabilizeOneLimitResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.abc.one.limit.stabilize"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期测试接口
+ * Summary: 个人工作台二期测试接口
+ */
+func (client *Client) UnstabilizeOneLimit(request *UnstabilizeOneLimitRequest) (_result *UnstabilizeOneLimitResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UnstabilizeOneLimitResponse{}
+	_body, _err := client.UnstabilizeOneLimitEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期测试接口
+ * Summary: 个人工作台二期测试接口
+ */
+func (client *Client) UnstabilizeOneLimitEx(request *UnstabilizeOneLimitRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UnstabilizeOneLimitResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UnstabilizeOneLimitResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.abc.one.limit.unstabilize"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
