@@ -45,6 +45,10 @@ use AntChain\ABC\Models\QueryTimeThreeRequest;
 use AntChain\ABC\Models\QueryTimeThreeResponse;
 use AntChain\ABC\Models\QueryTimeTwoRequest;
 use AntChain\ABC\Models\QueryTimeTwoResponse;
+use AntChain\ABC\Models\StabilizeOneLimitRequest;
+use AntChain\ABC\Models\StabilizeOneLimitResponse;
+use AntChain\ABC\Models\UnstabilizeOneLimitRequest;
+use AntChain\ABC\Models\UnstabilizeOneLimitResponse;
 use AntChain\ABC\Models\UploadTestFileRequest;
 use AntChain\ABC\Models\UploadTestFileResponse;
 use AntChain\Util\UtilClient;
@@ -194,7 +198,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.14',
+                    'sdk_version'      => '1.0.15',
                     '_prod_code'       => 'ABC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -806,6 +810,72 @@ class Client
         Utils::validateModel($request);
 
         return ImportOneLimitResponse::fromMap($this->doRequest('1.0', 'antchain.abc.one.limit.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试.
+     *
+     * @param StabilizeOneLimitRequest $request
+     *
+     * @return StabilizeOneLimitResponse
+     */
+    public function stabilizeOneLimit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->stabilizeOneLimitEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试.
+     *
+     * @param StabilizeOneLimitRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return StabilizeOneLimitResponse
+     */
+    public function stabilizeOneLimitEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StabilizeOneLimitResponse::fromMap($this->doRequest('1.0', 'antchain.abc.one.limit.stabilize', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人工作台二期测试接口
+     * Summary: 个人工作台二期测试接口.
+     *
+     * @param UnstabilizeOneLimitRequest $request
+     *
+     * @return UnstabilizeOneLimitResponse
+     */
+    public function unstabilizeOneLimit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->unstabilizeOneLimitEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期测试接口
+     * Summary: 个人工作台二期测试接口.
+     *
+     * @param UnstabilizeOneLimitRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return UnstabilizeOneLimitResponse
+     */
+    public function unstabilizeOneLimitEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UnstabilizeOneLimitResponse::fromMap($this->doRequest('1.0', 'antchain.abc.one.limit.unstabilize', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
