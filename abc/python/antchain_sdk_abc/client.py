@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.14',
+                    'sdk_version': '1.0.15',
                     '_prod_code': 'ABC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.14',
+                    'sdk_version': '1.0.15',
                     '_prod_code': 'ABC',
                     '_prod_channel': 'undefined'
                 }
@@ -1241,6 +1241,118 @@ class Client:
         return TeaCore.from_map(
             abc_models.ImportOneLimitResponse(),
             await self.do_request_async('1.0', 'antchain.abc.one.limit.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def stabilize_one_limit(
+        self,
+        request: abc_models.StabilizeOneLimitRequest,
+    ) -> abc_models.StabilizeOneLimitResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.stabilize_one_limit_ex(request, headers, runtime)
+
+    async def stabilize_one_limit_async(
+        self,
+        request: abc_models.StabilizeOneLimitRequest,
+    ) -> abc_models.StabilizeOneLimitResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.stabilize_one_limit_ex_async(request, headers, runtime)
+
+    def stabilize_one_limit_ex(
+        self,
+        request: abc_models.StabilizeOneLimitRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> abc_models.StabilizeOneLimitResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            abc_models.StabilizeOneLimitResponse(),
+            self.do_request('1.0', 'antchain.abc.one.limit.stabilize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def stabilize_one_limit_ex_async(
+        self,
+        request: abc_models.StabilizeOneLimitRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> abc_models.StabilizeOneLimitResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            abc_models.StabilizeOneLimitResponse(),
+            await self.do_request_async('1.0', 'antchain.abc.one.limit.stabilize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def unstabilize_one_limit(
+        self,
+        request: abc_models.UnstabilizeOneLimitRequest,
+    ) -> abc_models.UnstabilizeOneLimitResponse:
+        """
+        Description: 个人工作台二期测试接口
+        Summary: 个人工作台二期测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.unstabilize_one_limit_ex(request, headers, runtime)
+
+    async def unstabilize_one_limit_async(
+        self,
+        request: abc_models.UnstabilizeOneLimitRequest,
+    ) -> abc_models.UnstabilizeOneLimitResponse:
+        """
+        Description: 个人工作台二期测试接口
+        Summary: 个人工作台二期测试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.unstabilize_one_limit_ex_async(request, headers, runtime)
+
+    def unstabilize_one_limit_ex(
+        self,
+        request: abc_models.UnstabilizeOneLimitRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> abc_models.UnstabilizeOneLimitResponse:
+        """
+        Description: 个人工作台二期测试接口
+        Summary: 个人工作台二期测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            abc_models.UnstabilizeOneLimitResponse(),
+            self.do_request('1.0', 'antchain.abc.one.limit.unstabilize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def unstabilize_one_limit_ex_async(
+        self,
+        request: abc_models.UnstabilizeOneLimitRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> abc_models.UnstabilizeOneLimitResponse:
+        """
+        Description: 个人工作台二期测试接口
+        Summary: 个人工作台二期测试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            abc_models.UnstabilizeOneLimitResponse(),
+            await self.do_request_async('1.0', 'antchain.abc.one.limit.unstabilize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_gongxiang_testtest(
