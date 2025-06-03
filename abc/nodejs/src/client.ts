@@ -1471,6 +1471,132 @@ export class ImportOneLimitResponse extends $tea.Model {
   }
 }
 
+export class StabilizeOneLimitRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 超时时间
+  timeout: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      timeout: 'timeout',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      timeout: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StabilizeOneLimitResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 状态码
+  stauts?: string;
+  // 状态描述
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      stauts: 'stauts',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      stauts: 'string',
+      msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UnstabilizeOneLimitRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 超时时间
+  timeout: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      timeout: 'timeout',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      timeout: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UnstabilizeOneLimitResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果码描述
+  msg?: string;
+  // 状态码
+  stauts?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      msg: 'msg',
+      stauts: 'stauts',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      msg: 'string',
+      stauts: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryGongxiangTesttestRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1735,7 +1861,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.14",
+          sdk_version: "1.0.15",
           _prod_code: "ABC",
           _prod_channel: "undefined",
         };
@@ -2129,6 +2255,44 @@ export default class Client {
   async importOneLimitEx(request: ImportOneLimitRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportOneLimitResponse> {
     Util.validateModel(request);
     return $tea.cast<ImportOneLimitResponse>(await this.doRequest("1.0", "antchain.abc.one.limit.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportOneLimitResponse({}));
+  }
+
+  /**
+   * Description: 个人工作台二期预发测试
+   * Summary: 个人工作台二期预发测试
+   */
+  async stabilizeOneLimit(request: StabilizeOneLimitRequest): Promise<StabilizeOneLimitResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.stabilizeOneLimitEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人工作台二期预发测试
+   * Summary: 个人工作台二期预发测试
+   */
+  async stabilizeOneLimitEx(request: StabilizeOneLimitRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StabilizeOneLimitResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StabilizeOneLimitResponse>(await this.doRequest("1.0", "antchain.abc.one.limit.stabilize", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StabilizeOneLimitResponse({}));
+  }
+
+  /**
+   * Description: 个人工作台二期测试接口
+   * Summary: 个人工作台二期测试接口
+   */
+  async unstabilizeOneLimit(request: UnstabilizeOneLimitRequest): Promise<UnstabilizeOneLimitResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.unstabilizeOneLimitEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人工作台二期测试接口
+   * Summary: 个人工作台二期测试接口
+   */
+  async unstabilizeOneLimitEx(request: UnstabilizeOneLimitRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UnstabilizeOneLimitResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UnstabilizeOneLimitResponse>(await this.doRequest("1.0", "antchain.abc.one.limit.unstabilize", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UnstabilizeOneLimitResponse({}));
   }
 
   /**
