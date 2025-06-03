@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.14"),
+                    new TeaPair("sdk_version", "1.0.15"),
                     new TeaPair("_prod_code", "ABC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -530,6 +530,44 @@ public class Client {
     public ImportOneLimitResponse importOneLimitEx(ImportOneLimitRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.abc.one.limit.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportOneLimitResponse());
+    }
+
+    /**
+     * Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试
+     */
+    public StabilizeOneLimitResponse stabilizeOneLimit(StabilizeOneLimitRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.stabilizeOneLimitEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试
+     */
+    public StabilizeOneLimitResponse stabilizeOneLimitEx(StabilizeOneLimitRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.abc.one.limit.stabilize", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StabilizeOneLimitResponse());
+    }
+
+    /**
+     * Description: 个人工作台二期测试接口
+     * Summary: 个人工作台二期测试接口
+     */
+    public UnstabilizeOneLimitResponse unstabilizeOneLimit(UnstabilizeOneLimitRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.unstabilizeOneLimitEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期测试接口
+     * Summary: 个人工作台二期测试接口
+     */
+    public UnstabilizeOneLimitResponse unstabilizeOneLimitEx(UnstabilizeOneLimitRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.abc.one.limit.unstabilize", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UnstabilizeOneLimitResponse());
     }
 
     /**
