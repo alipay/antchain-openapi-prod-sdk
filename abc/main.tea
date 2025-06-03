@@ -1,0 +1,1073 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.14',
+    _prod_code = 'ABC',
+    _prod_channel = 'undefined'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 子结构体
+model SubDemoStruct {
+  // name
+  name: string(name='name', example='name'),
+  // value
+  value: string(name='value', example='value'),
+}
+
+// ABC示例结构体
+model AbcDemoStruct {
+  // 字符串属性
+  someString?: string(maxLength=100, minLength=10, name='some_string', example='str'),
+  // Long型属性
+  someNumber: long(maximum=100, minimum=1, name='some_number', example='100'),
+  // 布尔型
+  someBoolean: boolean(name='some_boolean', example='true, false'),
+  // ISO8601格式字符串：yyyy-MM-dd_T_HH:mm:ss_Z_
+  someDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='some_date', example='2018-10-10T10:10:00Z'),
+  // 字符串数组
+  someStringList?: [ string ](name='some_string_list', example='somestring'),
+  // 子结构体
+  someStruct: SubDemoStruct(name='some_struct', example='{ "name": "value" }'),
+  // 结构体数组
+  someStructList: [ SubDemoStruct ](name='some_struct_list', example='[{"name": "value"}]'),
+}
+
+// TestDemo
+model TestDemo {
+  // id
+  demo: string(name='demo', example='id'),
+}
+
+// 模拟大安全类型
+model FaceImage {
+  // 1123
+  content?: string(name='content', example='123'),
+  // 123
+  rect: string(name='rect', example='123'),
+}
+
+// 结构体返回结构
+model ResultListDemo {
+  // 返回结果码
+  code: AbcDemoStruct(name='code', example='{"name":"value"}'),
+  // 返回结果
+  data: AbcDemoStruct(name='data', example='{"name":{"key":"value"}}'),
+  // 返回信息
+  message: AbcDemoStruct(name='message', example='{"message":"success"}'),
+}
+
+// 姓名和年龄
+model NameAndAge {
+  // 姓名
+  name?: string(name='name', example='张三'),
+  // 年龄
+  age?: long(name='age', example='18'),
+}
+
+// 共享能力六期接入rasp回归
+model GongXiangnengli {
+}
+
+// 初始参数
+model InitParks {
+  // 返回接收到请求的当前时间
+  time: string(name='time', example='2024-11-03 14:00'),
+  // 操作人
+  operator: string(name='operator', example='姜泽琦'),
+  // 请求编号
+  count: long(name='count', example='1'),
+}
+
+// 11
+model InitPark {
+  // 1
+  demo: string(name='demo', example='1'),
+}
+
+// 初始
+model InitPack {
+  // 请求时间
+  time: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='time', example='2018-10-10T10:10:00Z'),
+  // 请求人
+  operate: string(name='operate', example='张三'),
+  // 编号
+  count: long(name='count', example='1'),
+}
+
+// 测试使用
+model TestPark {
+  // 请求时间
+  time: string(name='time', example='2022-11-07 14:48'),
+  // 请求人
+  operator: string(name='operator', example='张三'),
+  // 请求编号
+  count: long(name='count', example='1'),
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
+}
+
+model PreviewDemoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 字符串入参
+  inputString: string(maxLength=1000, minLength=10, name='input_string'),
+  // Long型入参
+  inputNumber?: long(name='input_number'),
+  // 布尔型入参
+  inputBoolean: boolean(name='input_boolean'),
+  // ISO8601格式字符串：yyyy-MM-dd_T_HH:mm:ss_Z_
+  inputDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='input_date'),
+  // 字符串列表入参
+  inputStringList?: [ string ](name='input_string_list'),
+  // 示例结构体入参
+  inputStruct: AbcDemoStruct(name='input_struct'),
+  // 结构体数组入参
+  inputStructList: [ AbcDemoStruct ](name='input_struct_list'),
+  // 123
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model PreviewDemoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 字符串回参
+  outputString?: string(name='output_string'),
+  // Long型回参
+  outputNumber?: long(name='output_number'),
+  // 布尔型回参
+  outputBoolean?: boolean(name='output_boolean'),
+  // ISO8602格式字符串：yyyy-MM-dd_T_HH:mm:ss_Z_
+  outputDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='output_date'),
+  // 字符串数组
+  outputStringList?: [ string ](name='output_string_list'),
+  // 结构体回参
+  outputStruct?: AbcDemoStruct(name='output_struct'),
+  // 结构体列表回参
+  outputStructList?: [ AbcDemoStruct ](name='output_struct_list'),
+}
+
+/**
+ * Description: 录入演示111
+ * Summary: 录入演示API
+ */
+async function previewDemo(request: PreviewDemoRequest): PreviewDemoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return previewDemoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 录入演示111
+ * Summary: 录入演示API
+ */
+async function previewDemoEx(request: PreviewDemoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PreviewDemoResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.abc.demo.preview',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var previewDemoResponse = new PreviewDemoResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return previewDemoResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.abc.demo.preview', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryGatewayRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询输入
+  // 
+  data: string(name='data'),
+  // 结构体参数
+  param: AbcDemoStruct(name='param'),
+}
+
+model QueryGatewayResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回查询
+  queryResult?: string(name='query_result'),
+}
+
+/**
+ * Description: 测试导入api1
+ * Summary: 测试导入api1
+ */
+async function queryGateway(request: QueryGatewayRequest): QueryGatewayResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGatewayEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试导入api1
+ * Summary: 测试导入api1
+ */
+async function queryGatewayEx(request: QueryGatewayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGatewayResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.abc.gateway.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAbcdaAbcddaaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model QueryAbcdaAbcddaaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 调试a s dddd
+ * Summary: 调试1
+ */
+async function queryAbcdaAbcddaa(request: QueryAbcdaAbcddaaRequest): QueryAbcdaAbcddaaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAbcdaAbcddaaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 调试a s dddd
+ * Summary: 调试1
+ */
+async function queryAbcdaAbcddaaEx(request: QueryAbcdaAbcddaaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAbcdaAbcddaaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.abc.abcda.abcddaa.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model MatchSecurityFaceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 123
+  bizId: string(name='biz_id'),
+  // 123
+  face1?: FaceImage(name='face1'),
+  // 123
+  face2?: FaceImage(name='face2'),
+}
+
+model MatchSecurityFaceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 123
+  transactionId?: string(name='transaction_id'),
+  // 123
+  samePerson?: string(name='same_person'),
+  // 123
+  score?: string(name='score'),
+}
+
+/**
+ * Description: 测试大安全接口
+ * Summary: 测试大安全接口
+ */
+async function matchSecurityFace(request: MatchSecurityFaceRequest): MatchSecurityFaceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return matchSecurityFaceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试大安全接口
+ * Summary: 测试大安全接口
+ */
+async function matchSecurityFaceEx(request: MatchSecurityFaceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): MatchSecurityFaceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.abc.security.face.match', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadTestFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 123
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadTestFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 文件上传测试接口
+ * Summary: 文件上传测试接口
+ */
+async function uploadTestFile(request: UploadTestFileRequest): UploadTestFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadTestFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 文件上传测试接口
+ * Summary: 文件上传测试接口
+ */
+async function uploadTestFileEx(request: UploadTestFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadTestFileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.abc.test.file.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadTestFileResponse = new UploadTestFileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadTestFileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.abc.test.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTimeOneRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 超时时间
+  timeout?: string(name='timeout'),
+}
+
+model QueryTimeOneResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态码
+  stauts?: string(name='stauts'),
+  // OK
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 压测接口1
+ * Summary: 压测接口1
+ */
+async function queryTimeOne(request: QueryTimeOneRequest): QueryTimeOneResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTimeOneEx(request, headers, runtime);
+}
+
+/**
+ * Description: 压测接口1
+ * Summary: 压测接口1
+ */
+async function queryTimeOneEx(request: QueryTimeOneRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTimeOneResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.abc.time.one.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTimeTwoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 下游超时时间
+  timeout?: string(name='timeout'),
+}
+
+model QueryTimeTwoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态码
+  stauts?: string(name='stauts'),
+  // OK
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 压测接口2
+ * Summary: 压测接口2
+ */
+async function queryTimeTwo(request: QueryTimeTwoRequest): QueryTimeTwoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTimeTwoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 压测接口2
+ * Summary: 压测接口2
+ */
+async function queryTimeTwoEx(request: QueryTimeTwoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTimeTwoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.abc.time.two.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTimeThreeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 下游超时时间
+  timeout?: string(name='timeout'),
+}
+
+model QueryTimeThreeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态码
+  stauts?: string(name='stauts'),
+  // OK
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 压测接口3
+ * Summary: 压测接口3
+ */
+async function queryTimeThree(request: QueryTimeThreeRequest): QueryTimeThreeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTimeThreeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 压测接口3
+ * Summary: 压测接口3
+ */
+async function queryTimeThreeEx(request: QueryTimeThreeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTimeThreeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.abc.time.three.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTimeFourRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 超时时间
+  timeout?: string(name='timeout'),
+}
+
+model QueryTimeFourResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态码
+  stauts?: string(name='stauts'),
+  // OK
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 压测接口4
+ * Summary: 压测接口4
+ */
+async function queryTimeFour(request: QueryTimeFourRequest): QueryTimeFourResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTimeFourEx(request, headers, runtime);
+}
+
+/**
+ * Description: 压测接口4
+ * Summary: 压测接口4
+ */
+async function queryTimeFourEx(request: QueryTimeFourRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTimeFourResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.abc.time.four.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTimeFiveRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 下游超时时间
+  timeout?: string(name='timeout'),
+}
+
+model QueryTimeFiveResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态码
+  stauts?: string(name='stauts'),
+  // OK
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 压测接口5
+ * Summary: 压测接口5
+ */
+async function queryTimeFive(request: QueryTimeFiveRequest): QueryTimeFiveResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTimeFiveEx(request, headers, runtime);
+}
+
+/**
+ * Description: 压测接口5
+ * Summary: 压测接口5
+ */
+async function queryTimeFiveEx(request: QueryTimeFiveRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTimeFiveResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.abc.time.five.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateapiExistingProductsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 计算值输入
+  execNum: long(name='exec_num'),
+}
+
+model CreateapiExistingProductsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 计算值返回
+  execNumEcho?: long(name='exec_num_echo'),
+}
+
+/**
+ * Description: 已有产品创建api
+ * Summary: 已有产品创建api
+ */
+async function createapiExistingProducts(request: CreateapiExistingProductsRequest): CreateapiExistingProductsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createapiExistingProductsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 已有产品创建api
+ * Summary: 已有产品创建api
+ */
+async function createapiExistingProductsEx(request: CreateapiExistingProductsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateapiExistingProductsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.abc.existing.products.createapi', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model APreCreateApiRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求时间
+  time: string(name='time'),
+  // 请求发起人
+  operator: string(name='operator'),
+  // 请求编号
+  count: long(name='count'),
+  // 原始信息
+  originInfo: string(name='origin_info'),
+}
+
+model APreCreateApiResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 跟新后的info
+  updInfo?: string(name='upd_info'),
+  // 组合返回请求结果
+  updPark?: InitParks(name='upd_park'),
+}
+
+/**
+ * Description: 已有产品下创建的api
+ * Summary: 已有产品下创建的api
+ */
+async function aPreCreateApi(request: APreCreateApiRequest): APreCreateApiResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return aPreCreateApiEx(request, headers, runtime);
+}
+
+/**
+ * Description: 已有产品下创建的api
+ * Summary: 已有产品下创建的api
+ */
+async function aPreCreateApiEx(request: APreCreateApiRequest, headers: map[string]string, runtime: Util.RuntimeOptions): APreCreateApiResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.abc.pre.create.api.a', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApiTestCreateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 1
+  timeout: string(name='timeout'),
+}
+
+model ApiTestCreateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求返回描述
+  status?: string(name='status'),
+  // msg
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 测试使用api
+ * Summary: 测试使用api
+ */
+async function apiTestCreate(request: ApiTestCreateRequest): ApiTestCreateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return apiTestCreateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 测试使用api
+ * Summary: 测试使用api
+ */
+async function apiTestCreateEx(request: ApiTestCreateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApiTestCreateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.abc.test.create.api', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApprovalTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 入参
+  input: string(name='input'),
+  // 新增字段
+  delete: string(name='delete'),
+}
+
+model QueryApprovalTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 回参
+  msg?: string(name='msg'),
+  // 新增字段
+  code?: long(name='code'),
+}
+
+/**
+ * Description: 用于测试api评审接入SDL/修改后的评审/0323
+ * Summary: 用于测试api评审接入SDL/修改后的评审/0323
+ */
+async function queryApprovalTest(request: QueryApprovalTestRequest): QueryApprovalTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApprovalTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于测试api评审接入SDL/修改后的评审/0323
+ * Summary: 用于测试api评审接入SDL/修改后的评审/0323
+ */
+async function queryApprovalTestEx(request: QueryApprovalTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApprovalTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.abc.approval.test.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryOneLimitRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 超时时间
+  timeout: string(name='timeout'),
+}
+
+model QueryOneLimitResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态码
+  stauts?: string(name='stauts'),
+  // 状态码描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+async function queryOneLimit(request: QueryOneLimitRequest): QueryOneLimitResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryOneLimitEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+async function queryOneLimitEx(request: QueryOneLimitRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryOneLimitResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.abc.one.limit.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportOneLimitRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 超时时间
+  timeout: string(name='timeout'),
+}
+
+model ImportOneLimitResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态码
+  stauts?: string(name='stauts'),
+  // 状态描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+async function importOneLimit(request: ImportOneLimitRequest): ImportOneLimitResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importOneLimitEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+async function importOneLimitEx(request: ImportOneLimitRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportOneLimitResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.abc.one.limit.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryGongxiangTesttestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 验证
+  character1: string(name='character1'),
+  // 用于验证
+  character2: long(name='character2'),
+}
+
+model QueryGongxiangTesttestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 回参
+  character1?: string(name='character1'),
+}
+
+/**
+ * Description: 用于共享能力中心六期接入rasp回归验证
+ * Summary: 用于共享能力中心六期接入rasp回归验证
+ */
+async function queryGongxiangTesttest(request: QueryGongxiangTesttestRequest): QueryGongxiangTesttestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGongxiangTesttestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于共享能力中心六期接入rasp回归验证
+ * Summary: 用于共享能力中心六期接入rasp回归验证
+ */
+async function queryGongxiangTesttestEx(request: QueryGongxiangTesttestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGongxiangTesttestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.abc.gongxiang.testtest.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
