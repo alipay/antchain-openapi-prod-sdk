@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "antdigital_DEMOSDK",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-antdigital_demosdk:1.3.24",
-    "go": "github.com/antchain-openapi-sdk-go/demosdk/client:v1.3.24",
-    "csharp": "AntChain.SDK.Antdigital_DEMOSDK:1.3.24",
-    "ts": "@antchain/antdigital_demosdk:1.3.24",
-    "php": "antchain/antdigital_demosdk:1.3.24",
-    "python": "antchain_sdk_antdigital_demosdk:1.3.24"
+    "java": "com.antgroup.antchain.openapi:openapi-antdigital_demosdk:1.3.33",
+    "go": "github.com/antchain-openapi-sdk-go/demosdk/client:v1.3.33",
+    "csharp": "AntChain.SDK.Antdigital_DEMOSDK:1.3.33",
+    "ts": "@antchain/antdigital_demosdk:1.3.33",
+    "php": "antchain/antdigital_demosdk:1.3.33",
+    "python": "antchain_sdk_antdigital_demosdk:1.3.33"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
