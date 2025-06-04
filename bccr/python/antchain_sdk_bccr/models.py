@@ -16528,6 +16528,7 @@ class FinishDciRegistrationcertRequest(TeaModel):
         certificate_url: str = None,
         sample_url: str = None,
         client_token: str = None,
+        registration_time: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -16542,11 +16543,15 @@ class FinishDciRegistrationcertRequest(TeaModel):
         self.sample_url = sample_url
         # 客户端幂等token
         self.client_token = client_token
+        # 登记时间
+        self.registration_time = registration_time
 
     def validate(self):
         self.validate_required(self.task_id, 'task_id')
         self.validate_required(self.reg_number, 'reg_number')
         self.validate_required(self.client_token, 'client_token')
+        if self.registration_time is not None:
+            self.validate_pattern(self.registration_time, 'registration_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         _map = super().to_map()
@@ -16568,6 +16573,8 @@ class FinishDciRegistrationcertRequest(TeaModel):
             result['sample_url'] = self.sample_url
         if self.client_token is not None:
             result['client_token'] = self.client_token
+        if self.registration_time is not None:
+            result['registration_time'] = self.registration_time
         return result
 
     def from_map(self, m: dict = None):
@@ -16586,6 +16593,8 @@ class FinishDciRegistrationcertRequest(TeaModel):
             self.sample_url = m.get('sample_url')
         if m.get('client_token') is not None:
             self.client_token = m.get('client_token')
+        if m.get('registration_time') is not None:
+            self.registration_time = m.get('registration_time')
         return self
 
 
@@ -16965,8 +16974,23 @@ class CreateCyclinginsuranceServiceorderRequest(TeaModel):
         # serviceEndTime:服务结束时间
         # tenantAddress:上门地址
         # tenantPhone:租赁人电话
+        # tenantName:租赁人姓名
         # insurancePolicyId:保险单号
         # batteryType:电池型号
+        # 示例
+        # {
+        # "serviceEndTime": "2025-05-16 10:00:00",
+        # "serviceStartTime" : "2025-05-16 11:00:00",
+        # "tenantPhone": "15888888885",
+        # "tenantName": "张三",
+        # "insurancePolicyId":"test123",
+        # "serviceLocationType":"DOOR_TO_DOOR"
+        # "batteryType": "abc480v",
+        # "tenantAddressProvince":"浙江省",
+        # "tenantAddressCity": "杭州市",
+        # "tenantAddressDistrict": "西湖区",
+        # "tenantAddressDetail": "xx街道"
+        # }
         self.item_attributes = item_attributes
 
     def validate(self):
@@ -17102,6 +17126,9 @@ class QueryCyclinginsuranceServiceinventoryRequest(TeaModel):
         # 商品code
         self.item_code = item_code
         # 商品属性
+        # tenantAddressProvince: 上门地址所在省
+        # tenantAddressCity：上门地址所在市
+        # insurancePolicyId:保险单号
         self.item_attributes = item_attributes
 
     def validate(self):

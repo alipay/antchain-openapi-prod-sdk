@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_bccr.
 
-Created on 27/05/2025
+Created on 04/06/2025
 
 @author: Ant Chain SDK
 """
