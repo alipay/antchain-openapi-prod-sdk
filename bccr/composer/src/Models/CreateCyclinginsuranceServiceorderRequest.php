@@ -60,8 +60,23 @@ class CreateCyclinginsuranceServiceorderRequest extends Model
     // serviceEndTime:服务结束时间
     // tenantAddress:上门地址
     // tenantPhone:租赁人电话
+    // tenantName:租赁人姓名
     // insurancePolicyId:保险单号
     // batteryType:电池型号
+    // 示例
+    // {
+    // "serviceEndTime": "2025-05-16 10:00:00",
+    // "serviceStartTime" : "2025-05-16 11:00:00",
+    // "tenantPhone": "15888888885",
+    // "tenantName": "张三",
+    // "insurancePolicyId":"test123",
+    // "serviceLocationType":"DOOR_TO_DOOR"
+    // "batteryType": "abc480v",
+    // "tenantAddressProvince":"浙江省",
+    // "tenantAddressCity": "杭州市",
+    // "tenantAddressDistrict": "西湖区",
+    // "tenantAddressDetail": "xx街道"
+    // }
     /**
      * @var string
      */

@@ -48,6 +48,12 @@ class FinishDciRegistrationcertRequest extends Model
      * @var string
      */
     public $clientToken;
+
+    // 登记时间
+    /**
+     * @var string
+     */
+    public $registrationTime;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +62,7 @@ class FinishDciRegistrationcertRequest extends Model
         'certificateUrl'    => 'certificate_url',
         'sampleUrl'         => 'sample_url',
         'clientToken'       => 'client_token',
+        'registrationTime'  => 'registration_time',
     ];
 
     public function validate()
@@ -63,6 +70,7 @@ class FinishDciRegistrationcertRequest extends Model
         Model::validateRequired('taskId', $this->taskId, true);
         Model::validateRequired('regNumber', $this->regNumber, true);
         Model::validateRequired('clientToken', $this->clientToken, true);
+        Model::validatePattern('registrationTime', $this->registrationTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -88,6 +96,9 @@ class FinishDciRegistrationcertRequest extends Model
         }
         if (null !== $this->clientToken) {
             $res['client_token'] = $this->clientToken;
+        }
+        if (null !== $this->registrationTime) {
+            $res['registration_time'] = $this->registrationTime;
         }
 
         return $res;
@@ -121,6 +132,9 @@ class FinishDciRegistrationcertRequest extends Model
         }
         if (isset($map['client_token'])) {
             $model->clientToken = $map['client_token'];
+        }
+        if (isset($map['registration_time'])) {
+            $model->registrationTime = $map['registration_time'];
         }
 
         return $model;

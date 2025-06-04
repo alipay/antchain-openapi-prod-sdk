@@ -50,6 +50,9 @@ class QueryCyclinginsuranceServiceinventoryRequest extends Model
     public $itemCode;
 
     // 商品属性
+    // tenantAddressProvince: 上门地址所在省
+    // tenantAddressCity：上门地址所在市
+    // insurancePolicyId:保险单号
     /**
      * @var string
      */
