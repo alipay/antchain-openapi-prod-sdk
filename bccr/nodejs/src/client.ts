@@ -9928,6 +9928,8 @@ export class FinishDciRegistrationcertRequest extends $tea.Model {
   sampleUrl?: string;
   // 客户端幂等token
   clientToken: string;
+  // 登记时间
+  registrationTime?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -9937,6 +9939,7 @@ export class FinishDciRegistrationcertRequest extends $tea.Model {
       certificateUrl: 'certificate_url',
       sampleUrl: 'sample_url',
       clientToken: 'client_token',
+      registrationTime: 'registration_time',
     };
   }
 
@@ -9949,6 +9952,7 @@ export class FinishDciRegistrationcertRequest extends $tea.Model {
       certificateUrl: 'string',
       sampleUrl: 'string',
       clientToken: 'string',
+      registrationTime: 'string',
     };
   }
 
@@ -10184,8 +10188,23 @@ export class CreateCyclinginsuranceServiceorderRequest extends $tea.Model {
   // serviceEndTime:服务结束时间
   // tenantAddress:上门地址
   // tenantPhone:租赁人电话
+  // tenantName:租赁人姓名
   // insurancePolicyId:保险单号
   // batteryType:电池型号
+  // 示例
+  // { 
+  // "serviceEndTime": "2025-05-16 10:00:00",
+  //  "serviceStartTime" : "2025-05-16 11:00:00",
+  //   "tenantPhone": "15888888885",
+  //   "tenantName": "张三",
+  //   "insurancePolicyId":"test123",
+  //   "serviceLocationType":"DOOR_TO_DOOR"
+  //    "batteryType": "abc480v",
+  //    "tenantAddressProvince":"浙江省",
+  //    "tenantAddressCity": "杭州市",
+  //    "tenantAddressDistrict": "西湖区",
+  //    "tenantAddressDetail": "xx街道"
+  // }
   itemAttributes: string;
   static names(): { [key: string]: string } {
     return {
@@ -10267,6 +10286,9 @@ export class QueryCyclinginsuranceServiceinventoryRequest extends $tea.Model {
   // 商品code
   itemCode: string;
   // 商品属性
+  // tenantAddressProvince: 上门地址所在省
+  // tenantAddressCity：上门地址所在市
+  // insurancePolicyId:保险单号
   itemAttributes: string;
   static names(): { [key: string]: string } {
     return {
@@ -11261,7 +11283,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.68",
+          sdk_version: "1.19.69",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
