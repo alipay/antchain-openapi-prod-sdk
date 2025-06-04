@@ -13422,6 +13422,8 @@ type FinishDciRegistrationcertRequest struct {
 	SampleUrl *string `json:"sample_url,omitempty" xml:"sample_url,omitempty"`
 	// 客户端幂等token
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+	// 登记时间
+	RegistrationTime *string `json:"registration_time,omitempty" xml:"registration_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s FinishDciRegistrationcertRequest) String() string {
@@ -13464,6 +13466,11 @@ func (s *FinishDciRegistrationcertRequest) SetSampleUrl(v string) *FinishDciRegi
 
 func (s *FinishDciRegistrationcertRequest) SetClientToken(v string) *FinishDciRegistrationcertRequest {
 	s.ClientToken = &v
+	return s
+}
+
+func (s *FinishDciRegistrationcertRequest) SetRegistrationTime(v string) *FinishDciRegistrationcertRequest {
+	s.RegistrationTime = &v
 	return s
 }
 
@@ -13765,8 +13772,23 @@ type CreateCyclinginsuranceServiceorderRequest struct {
 	// serviceEndTime:服务结束时间
 	// tenantAddress:上门地址
 	// tenantPhone:租赁人电话
+	// tenantName:租赁人姓名
 	// insurancePolicyId:保险单号
 	// batteryType:电池型号
+	// 示例
+	// {
+	// "serviceEndTime": "2025-05-16 10:00:00",
+	//  "serviceStartTime" : "2025-05-16 11:00:00",
+	//   "tenantPhone": "15888888885",
+	//   "tenantName": "张三",
+	//   "insurancePolicyId":"test123",
+	//   "serviceLocationType":"DOOR_TO_DOOR"
+	//    "batteryType": "abc480v",
+	//    "tenantAddressProvince":"浙江省",
+	//    "tenantAddressCity": "杭州市",
+	//    "tenantAddressDistrict": "西湖区",
+	//    "tenantAddressDetail": "xx街道"
+	// }
 	ItemAttributes *string `json:"item_attributes,omitempty" xml:"item_attributes,omitempty" require:"true"`
 }
 
@@ -13877,6 +13899,9 @@ type QueryCyclinginsuranceServiceinventoryRequest struct {
 	// 商品code
 	ItemCode *string `json:"item_code,omitempty" xml:"item_code,omitempty" require:"true"`
 	// 商品属性
+	// tenantAddressProvince: 上门地址所在省
+	// tenantAddressCity：上门地址所在市
+	// insurancePolicyId:保险单号
 	ItemAttributes *string `json:"item_attributes,omitempty" xml:"item_attributes,omitempty" require:"true"`
 }
 
@@ -15178,7 +15203,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.68"),
+				"sdk_version":      tea.String("1.19.69"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
