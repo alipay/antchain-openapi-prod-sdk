@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.68',
+    sdk_version = '1.19.69',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -5393,6 +5393,8 @@ model FinishDciRegistrationcertRequest = {
   sampleUrl?: string(name='sample_url'),
   // 客户端幂等token
   clientToken: string(name='client_token'),
+  // 登记时间
+  registrationTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='registration_time'),
 }
 
 model FinishDciRegistrationcertResponse = {
@@ -5550,8 +5552,23 @@ model CreateCyclinginsuranceServiceorderRequest = {
   // serviceEndTime:服务结束时间
   // tenantAddress:上门地址
   // tenantPhone:租赁人电话
+  // tenantName:租赁人姓名
   // insurancePolicyId:保险单号
   // batteryType:电池型号
+  // 示例
+  // { 
+  // "serviceEndTime": "2025-05-16 10:00:00",
+  //  "serviceStartTime" : "2025-05-16 11:00:00",
+  //   "tenantPhone": "15888888885",
+  //   "tenantName": "张三",
+  //   "insurancePolicyId":"test123",
+  //   "serviceLocationType":"DOOR_TO_DOOR"
+  //    "batteryType": "abc480v",
+  //    "tenantAddressProvince":"浙江省",
+  //    "tenantAddressCity": "杭州市",
+  //    "tenantAddressDistrict": "西湖区",
+  //    "tenantAddressDetail": "xx街道"
+  // }
   itemAttributes: string(name='item_attributes'),
 }
 
@@ -5600,6 +5617,9 @@ model QueryCyclinginsuranceServiceinventoryRequest = {
   // 商品code
   itemCode: string(name='item_code'),
   // 商品属性
+  // tenantAddressProvince: 上门地址所在省
+  // tenantAddressCity：上门地址所在市
+  // insurancePolicyId:保险单号
   itemAttributes: string(name='item_attributes'),
 }
 
