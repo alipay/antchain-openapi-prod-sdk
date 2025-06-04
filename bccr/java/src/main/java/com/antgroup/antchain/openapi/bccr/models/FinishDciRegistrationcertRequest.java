@@ -34,6 +34,11 @@ public class FinishDciRegistrationcertRequest extends TeaModel {
     @Validation(required = true)
     public String clientToken;
 
+    // 登记时间
+    @NameInMap("registration_time")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String registrationTime;
+
     public static FinishDciRegistrationcertRequest build(java.util.Map<String, ?> map) throws Exception {
         FinishDciRegistrationcertRequest self = new FinishDciRegistrationcertRequest();
         return TeaModel.build(map, self);
@@ -93,6 +98,14 @@ public class FinishDciRegistrationcertRequest extends TeaModel {
     }
     public String getClientToken() {
         return this.clientToken;
+    }
+
+    public FinishDciRegistrationcertRequest setRegistrationTime(String registrationTime) {
+        this.registrationTime = registrationTime;
+        return this;
+    }
+    public String getRegistrationTime() {
+        return this.registrationTime;
     }
 
 }
