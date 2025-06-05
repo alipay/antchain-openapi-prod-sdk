@@ -40,6 +40,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string UserGender { get; set; }
 
+        // 昵称
+        [NameInMap("nick")]
+        [Validation(Required=false)]
+        public string Nick { get; set; }
+
     }
 
 }
