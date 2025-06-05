@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.28.48',
+    sdk_version = '1.28.49',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -2264,6 +2264,8 @@ model CarUserInfo {
   userCertNo?: string(name='user_cert_no', example='xxxxx'),
   // 性别
   userGender?: string(name='user_gender', example='girl'),
+  // 昵称
+  nick?: string(name='nick', example='xxxxx'),
 }
 
 // 营销分销商品信息
