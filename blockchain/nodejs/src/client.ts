@@ -5503,6 +5503,8 @@ export class CarUserInfo extends $tea.Model {
   userCertNo?: string;
   // 性别
   userGender?: string;
+  // 昵称
+  nick?: string;
   static names(): { [key: string]: string } {
     return {
       userId: 'user_id',
@@ -5511,6 +5513,7 @@ export class CarUserInfo extends $tea.Model {
       userCertName: 'user_cert_name',
       userCertNo: 'user_cert_no',
       userGender: 'user_gender',
+      nick: 'nick',
     };
   }
 
@@ -5522,6 +5525,7 @@ export class CarUserInfo extends $tea.Model {
       userCertName: 'string',
       userCertNo: 'string',
       userGender: 'string',
+      nick: 'string',
     };
   }
 
@@ -54582,7 +54586,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.48",
+          sdk_version: "1.28.49",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
