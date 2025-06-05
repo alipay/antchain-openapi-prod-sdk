@@ -8899,6 +8899,7 @@ class CarUserInfo(TeaModel):
         user_cert_name: str = None,
         user_cert_no: str = None,
         user_gender: str = None,
+        nick: str = None,
     ):
         # 唯一标识用户的id
         self.user_id = user_id
@@ -8912,6 +8913,8 @@ class CarUserInfo(TeaModel):
         self.user_cert_no = user_cert_no
         # 性别
         self.user_gender = user_gender
+        # 昵称
+        self.nick = nick
 
     def validate(self):
         self.validate_required(self.user_id, 'user_id')
@@ -8936,6 +8939,8 @@ class CarUserInfo(TeaModel):
             result['user_cert_no'] = self.user_cert_no
         if self.user_gender is not None:
             result['user_gender'] = self.user_gender
+        if self.nick is not None:
+            result['nick'] = self.nick
         return result
 
     def from_map(self, m: dict = None):
@@ -8952,6 +8957,8 @@ class CarUserInfo(TeaModel):
             self.user_cert_no = m.get('user_cert_no')
         if m.get('user_gender') is not None:
             self.user_gender = m.get('user_gender')
+        if m.get('nick') is not None:
+            self.nick = m.get('nick')
         return self
 
 
