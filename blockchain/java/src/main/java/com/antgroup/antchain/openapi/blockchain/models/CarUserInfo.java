@@ -31,6 +31,10 @@ public class CarUserInfo extends TeaModel {
     @NameInMap("user_gender")
     public String userGender;
 
+    // 昵称
+    @NameInMap("nick")
+    public String nick;
+
     public static CarUserInfo build(java.util.Map<String, ?> map) throws Exception {
         CarUserInfo self = new CarUserInfo();
         return TeaModel.build(map, self);
@@ -82,6 +86,14 @@ public class CarUserInfo extends TeaModel {
     }
     public String getUserGender() {
         return this.userGender;
+    }
+
+    public CarUserInfo setNick(String nick) {
+        this.nick = nick;
+        return this;
+    }
+    public String getNick() {
+        return this.nick;
     }
 
 }
