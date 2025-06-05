@@ -7176,6 +7176,8 @@ type CarUserInfo struct {
 	UserCertNo *string `json:"user_cert_no,omitempty" xml:"user_cert_no,omitempty"`
 	// 性别
 	UserGender *string `json:"user_gender,omitempty" xml:"user_gender,omitempty"`
+	// 昵称
+	Nick *string `json:"nick,omitempty" xml:"nick,omitempty"`
 }
 
 func (s CarUserInfo) String() string {
@@ -7213,6 +7215,11 @@ func (s *CarUserInfo) SetUserCertNo(v string) *CarUserInfo {
 
 func (s *CarUserInfo) SetUserGender(v string) *CarUserInfo {
 	s.UserGender = &v
+	return s
+}
+
+func (s *CarUserInfo) SetNick(v string) *CarUserInfo {
+	s.Nick = &v
 	return s
 }
 
@@ -70879,7 +70886,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.48"),
+				"sdk_version":      tea.String("1.28.49"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
