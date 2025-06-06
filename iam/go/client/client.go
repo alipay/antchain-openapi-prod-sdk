@@ -1445,6 +1445,8 @@ type Operator struct {
 	WorkNo *string `json:"work_no,omitempty" xml:"work_no,omitempty"`
 	// 部门唯一码
 	DepartmentCode *string `json:"department_code,omitempty" xml:"department_code,omitempty"`
+	// 最近一次登录时间，为空则代表没有登录过，ISO8601格式，
+	LastLoginTime *string `json:"last_login_time,omitempty" xml:"last_login_time,omitempty"`
 }
 
 func (s Operator) String() string {
@@ -1532,6 +1534,11 @@ func (s *Operator) SetWorkNo(v string) *Operator {
 
 func (s *Operator) SetDepartmentCode(v string) *Operator {
 	s.DepartmentCode = &v
+	return s
+}
+
+func (s *Operator) SetLastLoginTime(v string) *Operator {
+	s.LastLoginTime = &v
 	return s
 }
 
@@ -7962,6 +7969,176 @@ func (s *GetOperatorLogintokenResponse) SetLoginToken(v string) *GetOperatorLogi
 	return s
 }
 
+type ApplyTrustloginTokenRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 系统来源
+	SourceSystem *string `json:"source_system,omitempty" xml:"source_system,omitempty" require:"true"`
+	// 登录账号
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+}
+
+func (s ApplyTrustloginTokenRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyTrustloginTokenRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyTrustloginTokenRequest) SetAuthToken(v string) *ApplyTrustloginTokenRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyTrustloginTokenRequest) SetUserId(v string) *ApplyTrustloginTokenRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *ApplyTrustloginTokenRequest) SetSourceSystem(v string) *ApplyTrustloginTokenRequest {
+	s.SourceSystem = &v
+	return s
+}
+
+func (s *ApplyTrustloginTokenRequest) SetLoginName(v string) *ApplyTrustloginTokenRequest {
+	s.LoginName = &v
+	return s
+}
+
+type ApplyTrustloginTokenResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用于登录的token
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+}
+
+func (s ApplyTrustloginTokenResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyTrustloginTokenResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyTrustloginTokenResponse) SetReqMsgId(v string) *ApplyTrustloginTokenResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyTrustloginTokenResponse) SetResultCode(v string) *ApplyTrustloginTokenResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyTrustloginTokenResponse) SetResultMsg(v string) *ApplyTrustloginTokenResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyTrustloginTokenResponse) SetAccessToken(v string) *ApplyTrustloginTokenResponse {
+	s.AccessToken = &v
+	return s
+}
+
+func (s *ApplyTrustloginTokenResponse) SetUserId(v string) *ApplyTrustloginTokenResponse {
+	s.UserId = &v
+	return s
+}
+
+type VerifyTrustloginTokenRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 系统来源
+	SourceSystem *string `json:"source_system,omitempty" xml:"source_system,omitempty" require:"true"`
+	// 申请免密登录时获取的token
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
+}
+
+func (s VerifyTrustloginTokenRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyTrustloginTokenRequest) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyTrustloginTokenRequest) SetAuthToken(v string) *VerifyTrustloginTokenRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *VerifyTrustloginTokenRequest) SetUserId(v string) *VerifyTrustloginTokenRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *VerifyTrustloginTokenRequest) SetSourceSystem(v string) *VerifyTrustloginTokenRequest {
+	s.SourceSystem = &v
+	return s
+}
+
+func (s *VerifyTrustloginTokenRequest) SetAccessToken(v string) *VerifyTrustloginTokenRequest {
+	s.AccessToken = &v
+	return s
+}
+
+type VerifyTrustloginTokenResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 验证结果，valid有效，invalid无效
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s VerifyTrustloginTokenResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyTrustloginTokenResponse) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyTrustloginTokenResponse) SetReqMsgId(v string) *VerifyTrustloginTokenResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *VerifyTrustloginTokenResponse) SetResultCode(v string) *VerifyTrustloginTokenResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *VerifyTrustloginTokenResponse) SetResultMsg(v string) *VerifyTrustloginTokenResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *VerifyTrustloginTokenResponse) SetUserId(v string) *VerifyTrustloginTokenResponse {
+	s.UserId = &v
+	return s
+}
+
+func (s *VerifyTrustloginTokenResponse) SetResult(v string) *VerifyTrustloginTokenResponse {
+	s.Result = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -8084,7 +8261,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("3.12.8"),
+				"sdk_version":      tea.String("3.13.1"),
 				"_prod_code":       tea.String("IAM"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -10753,6 +10930,74 @@ func (client *Client) GetOperatorLogintokenEx(request *GetOperatorLogintokenRequ
 	}
 	_result = &GetOperatorLogintokenResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.operator.logintoken.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: token用于三方会员免密登录，与数科官网token不通用
+ * Summary: 三方会员免密登录token申请
+ */
+func (client *Client) ApplyTrustloginToken(request *ApplyTrustloginTokenRequest) (_result *ApplyTrustloginTokenResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyTrustloginTokenResponse{}
+	_body, _err := client.ApplyTrustloginTokenEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: token用于三方会员免密登录，与数科官网token不通用
+ * Summary: 三方会员免密登录token申请
+ */
+func (client *Client) ApplyTrustloginTokenEx(request *ApplyTrustloginTokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyTrustloginTokenResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyTrustloginTokenResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.trustlogin.token.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 三方会员免密登录token校验，与数科官网token不通用
+ * Summary: 三方会员免密登录token校验
+ */
+func (client *Client) VerifyTrustloginToken(request *VerifyTrustloginTokenRequest) (_result *VerifyTrustloginTokenResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &VerifyTrustloginTokenResponse{}
+	_body, _err := client.VerifyTrustloginTokenEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 三方会员免密登录token校验，与数科官网token不通用
+ * Summary: 三方会员免密登录token校验
+ */
+func (client *Client) VerifyTrustloginTokenEx(request *VerifyTrustloginTokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerifyTrustloginTokenResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &VerifyTrustloginTokenResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.iam.trustlogin.token.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
