@@ -17,6 +17,8 @@ use AntChain\IAM\Models\AddRoleActionRequest;
 use AntChain\IAM\Models\AddRoleActionResponse;
 use AntChain\IAM\Models\AddTenantMemberRequest;
 use AntChain\IAM\Models\AddTenantMemberResponse;
+use AntChain\IAM\Models\ApplyTrustloginTokenRequest;
+use AntChain\IAM\Models\ApplyTrustloginTokenResponse;
 use AntChain\IAM\Models\ApplyTrustloginUrlRequest;
 use AntChain\IAM\Models\ApplyTrustloginUrlResponse;
 use AntChain\IAM\Models\AssumeStsRequest;
@@ -165,6 +167,8 @@ use AntChain\IAM\Models\VerifyPasswordRequest;
 use AntChain\IAM\Models\VerifyPasswordResponse;
 use AntChain\IAM\Models\VerifySessionTokenRequest;
 use AntChain\IAM\Models\VerifySessionTokenResponse;
+use AntChain\IAM\Models\VerifyTrustloginTokenRequest;
+use AntChain\IAM\Models\VerifyTrustloginTokenResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -311,7 +315,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '3.12.8',
+                    'sdk_version'      => '3.13.1',
                     '_prod_code'       => 'IAM',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2898,5 +2902,71 @@ class Client
         Utils::validateModel($request);
 
         return GetOperatorLogintokenResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.operator.logintoken.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: token用于三方会员免密登录，与数科官网token不通用
+     * Summary: 三方会员免密登录token申请.
+     *
+     * @param ApplyTrustloginTokenRequest $request
+     *
+     * @return ApplyTrustloginTokenResponse
+     */
+    public function applyTrustloginToken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyTrustloginTokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: token用于三方会员免密登录，与数科官网token不通用
+     * Summary: 三方会员免密登录token申请.
+     *
+     * @param ApplyTrustloginTokenRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return ApplyTrustloginTokenResponse
+     */
+    public function applyTrustloginTokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyTrustloginTokenResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.trustlogin.token.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 三方会员免密登录token校验，与数科官网token不通用
+     * Summary: 三方会员免密登录token校验.
+     *
+     * @param VerifyTrustloginTokenRequest $request
+     *
+     * @return VerifyTrustloginTokenResponse
+     */
+    public function verifyTrustloginToken($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyTrustloginTokenEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 三方会员免密登录token校验，与数科官网token不通用
+     * Summary: 三方会员免密登录token校验.
+     *
+     * @param VerifyTrustloginTokenRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return VerifyTrustloginTokenResponse
+     */
+    public function verifyTrustloginTokenEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyTrustloginTokenResponse::fromMap($this->doRequest('1.0', 'antcloud.iam.trustlogin.token.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

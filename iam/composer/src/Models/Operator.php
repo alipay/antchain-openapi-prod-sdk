@@ -135,6 +135,14 @@ class Operator extends Model
      * @var string
      */
     public $departmentCode;
+
+    // 最近一次登录时间，为空则代表没有登录过，ISO8601格式，
+    /**
+     * @example 2023-03-23T11:33:27Z
+     *
+     * @var string
+     */
+    public $lastLoginTime;
     protected $_name = [
         'createTime'     => 'create_time',
         'customer'       => 'customer',
@@ -152,6 +160,7 @@ class Operator extends Model
         'updateTime'     => 'update_time',
         'workNo'         => 'work_no',
         'departmentCode' => 'department_code',
+        'lastLoginTime'  => 'last_login_time',
     ];
 
     public function validate()
@@ -208,6 +217,9 @@ class Operator extends Model
         }
         if (null !== $this->departmentCode) {
             $res['department_code'] = $this->departmentCode;
+        }
+        if (null !== $this->lastLoginTime) {
+            $res['last_login_time'] = $this->lastLoginTime;
         }
 
         return $res;
@@ -270,6 +282,9 @@ class Operator extends Model
         }
         if (isset($map['department_code'])) {
             $model->departmentCode = $map['department_code'];
+        }
+        if (isset($map['last_login_time'])) {
+            $model->lastLoginTime = $map['last_login_time'];
         }
 
         return $model;
