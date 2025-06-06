@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.12.8',
+                    'sdk_version': '3.13.1',
                     '_prod_code': 'IAM',
                     '_prod_channel': 'undefined'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.12.8',
+                    'sdk_version': '3.13.1',
                     '_prod_code': 'IAM',
                     '_prod_channel': 'undefined'
                 }
@@ -4583,4 +4583,116 @@ class Client:
         return TeaCore.from_map(
             iam_models.GetOperatorLogintokenResponse(),
             await self.do_request_async('1.0', 'antcloud.iam.operator.logintoken.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_trustlogin_token(
+        self,
+        request: iam_models.ApplyTrustloginTokenRequest,
+    ) -> iam_models.ApplyTrustloginTokenResponse:
+        """
+        Description: token用于三方会员免密登录，与数科官网token不通用
+        Summary: 三方会员免密登录token申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_trustlogin_token_ex(request, headers, runtime)
+
+    async def apply_trustlogin_token_async(
+        self,
+        request: iam_models.ApplyTrustloginTokenRequest,
+    ) -> iam_models.ApplyTrustloginTokenResponse:
+        """
+        Description: token用于三方会员免密登录，与数科官网token不通用
+        Summary: 三方会员免密登录token申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_trustlogin_token_ex_async(request, headers, runtime)
+
+    def apply_trustlogin_token_ex(
+        self,
+        request: iam_models.ApplyTrustloginTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iam_models.ApplyTrustloginTokenResponse:
+        """
+        Description: token用于三方会员免密登录，与数科官网token不通用
+        Summary: 三方会员免密登录token申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iam_models.ApplyTrustloginTokenResponse(),
+            self.do_request('1.0', 'antcloud.iam.trustlogin.token.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_trustlogin_token_ex_async(
+        self,
+        request: iam_models.ApplyTrustloginTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iam_models.ApplyTrustloginTokenResponse:
+        """
+        Description: token用于三方会员免密登录，与数科官网token不通用
+        Summary: 三方会员免密登录token申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iam_models.ApplyTrustloginTokenResponse(),
+            await self.do_request_async('1.0', 'antcloud.iam.trustlogin.token.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_trustlogin_token(
+        self,
+        request: iam_models.VerifyTrustloginTokenRequest,
+    ) -> iam_models.VerifyTrustloginTokenResponse:
+        """
+        Description: 三方会员免密登录token校验，与数科官网token不通用
+        Summary: 三方会员免密登录token校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_trustlogin_token_ex(request, headers, runtime)
+
+    async def verify_trustlogin_token_async(
+        self,
+        request: iam_models.VerifyTrustloginTokenRequest,
+    ) -> iam_models.VerifyTrustloginTokenResponse:
+        """
+        Description: 三方会员免密登录token校验，与数科官网token不通用
+        Summary: 三方会员免密登录token校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_trustlogin_token_ex_async(request, headers, runtime)
+
+    def verify_trustlogin_token_ex(
+        self,
+        request: iam_models.VerifyTrustloginTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iam_models.VerifyTrustloginTokenResponse:
+        """
+        Description: 三方会员免密登录token校验，与数科官网token不通用
+        Summary: 三方会员免密登录token校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iam_models.VerifyTrustloginTokenResponse(),
+            self.do_request('1.0', 'antcloud.iam.trustlogin.token.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_trustlogin_token_ex_async(
+        self,
+        request: iam_models.VerifyTrustloginTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> iam_models.VerifyTrustloginTokenResponse:
+        """
+        Description: 三方会员免密登录token校验，与数科官网token不通用
+        Summary: 三方会员免密登录token校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            iam_models.VerifyTrustloginTokenResponse(),
+            await self.do_request_async('1.0', 'antcloud.iam.trustlogin.token.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

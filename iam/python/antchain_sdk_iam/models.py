@@ -1765,6 +1765,7 @@ class Operator(TeaModel):
         update_time: str = None,
         work_no: str = None,
         department_code: str = None,
+        last_login_time: str = None,
     ):
         # 操作员创建时间，ISO8601格式
         self.create_time = create_time
@@ -1798,6 +1799,8 @@ class Operator(TeaModel):
         self.work_no = work_no
         # 部门唯一码
         self.department_code = department_code
+        # 最近一次登录时间，为空则代表没有登录过，ISO8601格式，
+        self.last_login_time = last_login_time
 
     def validate(self):
         pass
@@ -1840,6 +1843,8 @@ class Operator(TeaModel):
             result['work_no'] = self.work_no
         if self.department_code is not None:
             result['department_code'] = self.department_code
+        if self.last_login_time is not None:
+            result['last_login_time'] = self.last_login_time
         return result
 
     def from_map(self, m: dict = None):
@@ -1876,6 +1881,8 @@ class Operator(TeaModel):
             self.work_no = m.get('work_no')
         if m.get('department_code') is not None:
             self.department_code = m.get('department_code')
+        if m.get('last_login_time') is not None:
+            self.last_login_time = m.get('last_login_time')
         return self
 
 
@@ -10126,6 +10133,219 @@ class GetOperatorLogintokenResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('login_token') is not None:
             self.login_token = m.get('login_token')
+        return self
+
+
+class ApplyTrustloginTokenRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        user_id: str = None,
+        source_system: str = None,
+        login_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 用户ID
+        self.user_id = user_id
+        # 系统来源
+        self.source_system = source_system
+        # 登录账号
+        self.login_name = login_name
+
+    def validate(self):
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.source_system, 'source_system')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.source_system is not None:
+            result['source_system'] = self.source_system
+        if self.login_name is not None:
+            result['login_name'] = self.login_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('source_system') is not None:
+            self.source_system = m.get('source_system')
+        if m.get('login_name') is not None:
+            self.login_name = m.get('login_name')
+        return self
+
+
+class ApplyTrustloginTokenResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        access_token: str = None,
+        user_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 用于登录的token
+        self.access_token = access_token
+        # 用户ID
+        self.user_id = user_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.access_token is not None:
+            result['access_token'] = self.access_token
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('access_token') is not None:
+            self.access_token = m.get('access_token')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        return self
+
+
+class VerifyTrustloginTokenRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        user_id: str = None,
+        source_system: str = None,
+        access_token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 用户ID
+        self.user_id = user_id
+        # 系统来源
+        self.source_system = source_system
+        # 申请免密登录时获取的token
+        self.access_token = access_token
+
+    def validate(self):
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.source_system, 'source_system')
+        self.validate_required(self.access_token, 'access_token')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.source_system is not None:
+            result['source_system'] = self.source_system
+        if self.access_token is not None:
+            result['access_token'] = self.access_token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('source_system') is not None:
+            self.source_system = m.get('source_system')
+        if m.get('access_token') is not None:
+            self.access_token = m.get('access_token')
+        return self
+
+
+class VerifyTrustloginTokenResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        user_id: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 用户ID
+        self.user_id = user_id
+        # 验证结果，valid有效，invalid无效
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('result') is not None:
+            self.result = m.get('result')
         return self
 
 
