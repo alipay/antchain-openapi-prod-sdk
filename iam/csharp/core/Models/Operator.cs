@@ -90,6 +90,11 @@ namespace AntChain.SDK.IAM.Models
         [Validation(Required=false)]
         public string DepartmentCode { get; set; }
 
+        // 最近一次登录时间，为空则代表没有登录过，ISO8601格式，
+        [NameInMap("last_login_time")]
+        [Validation(Required=false)]
+        public string LastLoginTime { get; set; }
+
     }
 
 }

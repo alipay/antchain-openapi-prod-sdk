@@ -137,7 +137,7 @@ namespace AntChain.SDK.IAM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "3.12.8"},
+                        {"sdk_version", "3.13.1"},
                         {"_prod_code", "IAM"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.IAM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "3.12.8"},
+                        {"sdk_version", "3.13.1"},
                         {"_prod_code", "IAM"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3553,6 +3553,90 @@ namespace AntChain.SDK.IAM
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetOperatorLogintokenResponse>(await DoRequestAsync("1.0", "antcloud.iam.operator.logintoken.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: token用于三方会员免密登录，与数科官网token不通用
+         * Summary: 三方会员免密登录token申请
+         */
+        public ApplyTrustloginTokenResponse ApplyTrustloginToken(ApplyTrustloginTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyTrustloginTokenEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: token用于三方会员免密登录，与数科官网token不通用
+         * Summary: 三方会员免密登录token申请
+         */
+        public async Task<ApplyTrustloginTokenResponse> ApplyTrustloginTokenAsync(ApplyTrustloginTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyTrustloginTokenExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: token用于三方会员免密登录，与数科官网token不通用
+         * Summary: 三方会员免密登录token申请
+         */
+        public ApplyTrustloginTokenResponse ApplyTrustloginTokenEx(ApplyTrustloginTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyTrustloginTokenResponse>(DoRequest("1.0", "antcloud.iam.trustlogin.token.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: token用于三方会员免密登录，与数科官网token不通用
+         * Summary: 三方会员免密登录token申请
+         */
+        public async Task<ApplyTrustloginTokenResponse> ApplyTrustloginTokenExAsync(ApplyTrustloginTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyTrustloginTokenResponse>(await DoRequestAsync("1.0", "antcloud.iam.trustlogin.token.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 三方会员免密登录token校验，与数科官网token不通用
+         * Summary: 三方会员免密登录token校验
+         */
+        public VerifyTrustloginTokenResponse VerifyTrustloginToken(VerifyTrustloginTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return VerifyTrustloginTokenEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 三方会员免密登录token校验，与数科官网token不通用
+         * Summary: 三方会员免密登录token校验
+         */
+        public async Task<VerifyTrustloginTokenResponse> VerifyTrustloginTokenAsync(VerifyTrustloginTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await VerifyTrustloginTokenExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 三方会员免密登录token校验，与数科官网token不通用
+         * Summary: 三方会员免密登录token校验
+         */
+        public VerifyTrustloginTokenResponse VerifyTrustloginTokenEx(VerifyTrustloginTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyTrustloginTokenResponse>(DoRequest("1.0", "antcloud.iam.trustlogin.token.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 三方会员免密登录token校验，与数科官网token不通用
+         * Summary: 三方会员免密登录token校验
+         */
+        public async Task<VerifyTrustloginTokenResponse> VerifyTrustloginTokenExAsync(VerifyTrustloginTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<VerifyTrustloginTokenResponse>(await DoRequestAsync("1.0", "antcloud.iam.trustlogin.token.verify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
