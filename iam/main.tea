@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '3.12.8',
+    sdk_version = '3.13.1',
     _prod_code = 'IAM',
     _prod_channel = 'undefined'
   };
@@ -568,6 +568,8 @@ model Operator {
   workNo?: string(name='work_no', example='0001'),
   // 部门唯一码
   departmentCode?: string(name='department_code', example=' '),
+  // 最近一次登录时间，为空则代表没有登录过，ISO8601格式，
+  lastLoginTime?: string(name='last_login_time', example='2023-03-23T11:33:27Z'),
 }
 
 model GetRoleRequest = {
@@ -3856,5 +3858,91 @@ async function getOperatorLogintoken(request: GetOperatorLogintokenRequest): Get
 async function getOperatorLogintokenEx(request: GetOperatorLogintokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetOperatorLogintokenResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.iam.operator.logintoken.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyTrustloginTokenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 用户ID
+  userId: string(name='user_id'),
+  // 系统来源
+  sourceSystem: string(name='source_system'),
+  // 登录账号
+  loginName?: string(name='login_name'),
+}
+
+model ApplyTrustloginTokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用于登录的token
+  accessToken?: string(name='access_token'),
+  // 用户ID
+  userId?: string(name='user_id'),
+}
+
+/**
+ * Description: token用于三方会员免密登录，与数科官网token不通用
+ * Summary: 三方会员免密登录token申请
+ */
+async function applyTrustloginToken(request: ApplyTrustloginTokenRequest): ApplyTrustloginTokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyTrustloginTokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: token用于三方会员免密登录，与数科官网token不通用
+ * Summary: 三方会员免密登录token申请
+ */
+async function applyTrustloginTokenEx(request: ApplyTrustloginTokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyTrustloginTokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.iam.trustlogin.token.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyTrustloginTokenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 用户ID
+  userId: string(name='user_id'),
+  // 系统来源
+  sourceSystem: string(name='source_system'),
+  // 申请免密登录时获取的token
+  accessToken: string(name='access_token'),
+}
+
+model VerifyTrustloginTokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户ID
+  userId?: string(name='user_id'),
+  // 验证结果，valid有效，invalid无效
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 三方会员免密登录token校验，与数科官网token不通用
+ * Summary: 三方会员免密登录token校验
+ */
+async function verifyTrustloginToken(request: VerifyTrustloginTokenRequest): VerifyTrustloginTokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyTrustloginTokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 三方会员免密登录token校验，与数科官网token不通用
+ * Summary: 三方会员免密登录token校验
+ */
+async function verifyTrustloginTokenEx(request: VerifyTrustloginTokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyTrustloginTokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.iam.trustlogin.token.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 

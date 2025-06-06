@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "IAM",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-iam:3.12.8",
-    "go": "github.com/antchain-openapi-sdk-go/iam/v3/client:v3.12.8",
-    "csharp": "AntChain.SDK.IAM:3.12.8",
-    "ts": "@antchain/iam:3.12.8",
-    "php": "antchain/iam:3.12.8",
-    "python": "antchain_sdk_iam:3.12.8"
+    "java": "com.antgroup.antchain.openapi:openapi-iam:3.13.1",
+    "go": "github.com/antchain-openapi-sdk-go/iam/v3/client:v3.13.1",
+    "csharp": "AntChain.SDK.IAM:3.13.1",
+    "ts": "@antchain/iam:3.13.1",
+    "php": "antchain/iam:3.13.1",
+    "python": "antchain_sdk_iam:3.13.1"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
