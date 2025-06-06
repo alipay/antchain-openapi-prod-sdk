@@ -15,6 +15,7 @@ public class QueryGroupMemberRequest extends TeaModel {
 
     // 页大小
     @NameInMap("page_size")
+    @Validation(maximum = 100, minimum = 10)
     public Long pageSize;
 
     // 当前页

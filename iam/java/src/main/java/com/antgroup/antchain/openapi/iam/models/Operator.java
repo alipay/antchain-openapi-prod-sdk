@@ -68,6 +68,10 @@ public class Operator extends TeaModel {
     @NameInMap("department_code")
     public String departmentCode;
 
+    // 最近一次登录时间，为空则代表没有登录过，ISO8601格式，
+    @NameInMap("last_login_time")
+    public String lastLoginTime;
+
     public static Operator build(java.util.Map<String, ?> map) throws Exception {
         Operator self = new Operator();
         return TeaModel.build(map, self);
@@ -199,6 +203,14 @@ public class Operator extends TeaModel {
     }
     public String getDepartmentCode() {
         return this.departmentCode;
+    }
+
+    public Operator setLastLoginTime(String lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+        return this;
+    }
+    public String getLastLoginTime() {
+        return this.lastLoginTime;
     }
 
 }
