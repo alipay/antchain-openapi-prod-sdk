@@ -1085,6 +1085,8 @@ export class Operator extends $tea.Model {
   workNo?: string;
   // 部门唯一码
   departmentCode?: string;
+  // 最近一次登录时间，为空则代表没有登录过，ISO8601格式，
+  lastLoginTime?: string;
   static names(): { [key: string]: string } {
     return {
       createTime: 'create_time',
@@ -1103,6 +1105,7 @@ export class Operator extends $tea.Model {
       updateTime: 'update_time',
       workNo: 'work_no',
       departmentCode: 'department_code',
+      lastLoginTime: 'last_login_time',
     };
   }
 
@@ -1124,6 +1127,7 @@ export class Operator extends $tea.Model {
       updateTime: 'string',
       workNo: 'string',
       departmentCode: 'string',
+      lastLoginTime: 'string',
     };
   }
 
@@ -6307,6 +6311,142 @@ export class GetOperatorLogintokenResponse extends $tea.Model {
   }
 }
 
+export class ApplyTrustloginTokenRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 用户ID
+  userId: string;
+  // 系统来源
+  sourceSystem: string;
+  // 登录账号
+  loginName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      userId: 'user_id',
+      sourceSystem: 'source_system',
+      loginName: 'login_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      userId: 'string',
+      sourceSystem: 'string',
+      loginName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyTrustloginTokenResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用于登录的token
+  accessToken?: string;
+  // 用户ID
+  userId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      accessToken: 'access_token',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      accessToken: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class VerifyTrustloginTokenRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 用户ID
+  userId: string;
+  // 系统来源
+  sourceSystem: string;
+  // 申请免密登录时获取的token
+  accessToken: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      userId: 'user_id',
+      sourceSystem: 'source_system',
+      accessToken: 'access_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      userId: 'string',
+      sourceSystem: 'string',
+      accessToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class VerifyTrustloginTokenResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户ID
+  userId?: string;
+  // 验证结果，valid有效，invalid无效
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      userId: 'user_id',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      userId: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -6334,7 +6474,7 @@ export default class Client {
    * @param config config contains the necessary information to create a client
    */
   constructor(config: Config) {
-    if (Util.isUnset($tea.toMap(config))) {
+    if (Util.isUnset(config)) {
       throw $tea.newError({
         code: "ParameterMissing",
         message: "'config' can not be unset",
@@ -6420,7 +6560,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "3.12.8",
+          sdk_version: "3.13.1",
           _prod_code: "IAM",
           _prod_channel: "undefined",
         };
@@ -7929,6 +8069,44 @@ export default class Client {
   async getOperatorLogintokenEx(request: GetOperatorLogintokenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetOperatorLogintokenResponse> {
     Util.validateModel(request);
     return $tea.cast<GetOperatorLogintokenResponse>(await this.doRequest("1.0", "antcloud.iam.operator.logintoken.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetOperatorLogintokenResponse({}));
+  }
+
+  /**
+   * Description: token用于三方会员免密登录，与数科官网token不通用
+   * Summary: 三方会员免密登录token申请
+   */
+  async applyTrustloginToken(request: ApplyTrustloginTokenRequest): Promise<ApplyTrustloginTokenResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyTrustloginTokenEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: token用于三方会员免密登录，与数科官网token不通用
+   * Summary: 三方会员免密登录token申请
+   */
+  async applyTrustloginTokenEx(request: ApplyTrustloginTokenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyTrustloginTokenResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyTrustloginTokenResponse>(await this.doRequest("1.0", "antcloud.iam.trustlogin.token.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyTrustloginTokenResponse({}));
+  }
+
+  /**
+   * Description: 三方会员免密登录token校验，与数科官网token不通用
+   * Summary: 三方会员免密登录token校验
+   */
+  async verifyTrustloginToken(request: VerifyTrustloginTokenRequest): Promise<VerifyTrustloginTokenResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.verifyTrustloginTokenEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 三方会员免密登录token校验，与数科官网token不通用
+   * Summary: 三方会员免密登录token校验
+   */
+  async verifyTrustloginTokenEx(request: VerifyTrustloginTokenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<VerifyTrustloginTokenResponse> {
+    Util.validateModel(request);
+    return $tea.cast<VerifyTrustloginTokenResponse>(await this.doRequest("1.0", "antcloud.iam.trustlogin.token.verify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new VerifyTrustloginTokenResponse({}));
   }
 
 }
