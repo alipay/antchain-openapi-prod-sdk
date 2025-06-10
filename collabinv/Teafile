@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "COLLABINV",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-collabinv:1.0.37",
-    "go": "github.com/antchain-openapi-sdk-go/collabinv/client:v1.0.37",
-    "csharp": "AntChain.SDK.COLLABINV:1.0.37",
+    "java": "com.antgroup.antchain.openapi:openapi-collabinv:1.0.40",
+    "go": "github.com/antchain-openapi-sdk-go/collabinv/client:v1.0.40",
+    "csharp": "AntChain.SDK.COLLABINV:1.0.40",
     "ts": "@antchain/collabinv:1.0.37",
-    "php": "antchain/collabinv:1.0.37",
-    "python": "antchain_sdk_collabinv:1.0.37"
+    "php": "antchain/collabinv:1.0.40",
+    "python": "antchain_sdk_collabinv:1.0.40"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
