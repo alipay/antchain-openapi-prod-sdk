@@ -46,6 +46,11 @@ public class ImportIdmapSamplefileRequest extends TeaModel {
     @Validation(required = true)
     public String filePath;
 
+    // 数据源code
+    @NameInMap("data_source")
+    @Validation(required = true)
+    public String dataSource;
+
     public static ImportIdmapSamplefileRequest build(java.util.Map<String, ?> map) throws Exception {
         ImportIdmapSamplefileRequest self = new ImportIdmapSamplefileRequest();
         return TeaModel.build(map, self);
@@ -121,6 +126,14 @@ public class ImportIdmapSamplefileRequest extends TeaModel {
     }
     public String getFilePath() {
         return this.filePath;
+    }
+
+    public ImportIdmapSamplefileRequest setDataSource(String dataSource) {
+        this.dataSource = dataSource;
+        return this;
+    }
+    public String getDataSource() {
+        return this.dataSource;
     }
 
 }
