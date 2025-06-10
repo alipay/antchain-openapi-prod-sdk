@@ -60,6 +60,12 @@ class ImportIdmapSamplefileRequest extends Model
      * @var string
      */
     public $filePath;
+
+    // 数据源code
+    /**
+     * @var string
+     */
+    public $dataSource;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -70,6 +76,7 @@ class ImportIdmapSamplefileRequest extends Model
         'sampleCode'        => 'sample_code',
         'sampleTaskCode'    => 'sample_task_code',
         'filePath'          => 'file_path',
+        'dataSource'        => 'data_source',
     ];
 
     public function validate()
@@ -81,6 +88,7 @@ class ImportIdmapSamplefileRequest extends Model
         Model::validateRequired('sampleCode', $this->sampleCode, true);
         Model::validateRequired('sampleTaskCode', $this->sampleTaskCode, true);
         Model::validateRequired('filePath', $this->filePath, true);
+        Model::validateRequired('dataSource', $this->dataSource, true);
     }
 
     public function toMap()
@@ -112,6 +120,9 @@ class ImportIdmapSamplefileRequest extends Model
         }
         if (null !== $this->filePath) {
             $res['file_path'] = $this->filePath;
+        }
+        if (null !== $this->dataSource) {
+            $res['data_source'] = $this->dataSource;
         }
 
         return $res;
@@ -151,6 +162,9 @@ class ImportIdmapSamplefileRequest extends Model
         }
         if (isset($map['file_path'])) {
             $model->filePath = $map['file_path'];
+        }
+        if (isset($map['data_source'])) {
+            $model->dataSource = $map['data_source'];
         }
 
         return $model;
