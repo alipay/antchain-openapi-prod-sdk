@@ -1016,6 +1016,8 @@ type ImportIdmapSamplefileRequest struct {
 	SampleTaskCode *string `json:"sample_task_code,omitempty" xml:"sample_task_code,omitempty" require:"true"`
 	// oss文件路径
 	FilePath *string `json:"file_path,omitempty" xml:"file_path,omitempty" require:"true"`
+	// 数据源code
+	DataSource *string `json:"data_source,omitempty" xml:"data_source,omitempty" require:"true"`
 }
 
 func (s ImportIdmapSamplefileRequest) String() string {
@@ -1068,6 +1070,11 @@ func (s *ImportIdmapSamplefileRequest) SetSampleTaskCode(v string) *ImportIdmapS
 
 func (s *ImportIdmapSamplefileRequest) SetFilePath(v string) *ImportIdmapSamplefileRequest {
 	s.FilePath = &v
+	return s
+}
+
+func (s *ImportIdmapSamplefileRequest) SetDataSource(v string) *ImportIdmapSamplefileRequest {
+	s.DataSource = &v
 	return s
 }
 
@@ -2822,7 +2829,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.37"),
+				"sdk_version":      tea.String("1.0.40"),
 				"_prod_code":       tea.String("COLLABINV"),
 				"_prod_channel":    tea.String("default"),
 			}
