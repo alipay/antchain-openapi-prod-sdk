@@ -756,6 +756,8 @@ export class ImportIdmapSamplefileRequest extends $tea.Model {
   sampleTaskCode: string;
   // oss文件路径
   filePath: string;
+  // 数据源code
+  dataSource: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -767,6 +769,7 @@ export class ImportIdmapSamplefileRequest extends $tea.Model {
       sampleCode: 'sample_code',
       sampleTaskCode: 'sample_task_code',
       filePath: 'file_path',
+      dataSource: 'data_source',
     };
   }
 
@@ -781,6 +784,7 @@ export class ImportIdmapSamplefileRequest extends $tea.Model {
       sampleCode: 'string',
       sampleTaskCode: 'string',
       filePath: 'string',
+      dataSource: 'string',
     };
   }
 
@@ -2131,7 +2135,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.37",
+          sdk_version: "1.0.40",
           _prod_code: "COLLABINV",
           _prod_channel: "default",
         };
