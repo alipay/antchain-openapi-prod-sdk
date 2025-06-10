@@ -1252,6 +1252,7 @@ class ImportIdmapSamplefileRequest(TeaModel):
         sample_code: str = None,
         sample_task_code: str = None,
         file_path: str = None,
+        data_source: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1270,6 +1271,8 @@ class ImportIdmapSamplefileRequest(TeaModel):
         self.sample_task_code = sample_task_code
         # oss文件路径
         self.file_path = file_path
+        # 数据源code
+        self.data_source = data_source
 
     def validate(self):
         self.validate_required(self.file_name, 'file_name')
@@ -1279,6 +1282,7 @@ class ImportIdmapSamplefileRequest(TeaModel):
         self.validate_required(self.sample_code, 'sample_code')
         self.validate_required(self.sample_task_code, 'sample_task_code')
         self.validate_required(self.file_path, 'file_path')
+        self.validate_required(self.data_source, 'data_source')
 
     def to_map(self):
         _map = super().to_map()
@@ -1304,6 +1308,8 @@ class ImportIdmapSamplefileRequest(TeaModel):
             result['sample_task_code'] = self.sample_task_code
         if self.file_path is not None:
             result['file_path'] = self.file_path
+        if self.data_source is not None:
+            result['data_source'] = self.data_source
         return result
 
     def from_map(self, m: dict = None):
@@ -1326,6 +1332,8 @@ class ImportIdmapSamplefileRequest(TeaModel):
             self.sample_task_code = m.get('sample_task_code')
         if m.get('file_path') is not None:
             self.file_path = m.get('file_path')
+        if m.get('data_source') is not None:
+            self.data_source = m.get('data_source')
         return self
 
 
