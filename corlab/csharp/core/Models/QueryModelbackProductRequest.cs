@@ -20,7 +20,7 @@ namespace AntChain.SDK.CORLAB.Models
 
         // 产品码，数组形式
         [NameInMap("product_codes")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public List<string> ProductCodes { get; set; }
 
     }

@@ -47,6 +47,11 @@ namespace AntChain.SDK.CORLAB.Models
         [Validation(Required=false)]
         public string SampleFileName { get; set; }
 
+        // 目前只支持MD5,SHA_256两种加密方式
+        [NameInMap("key_type")]
+        [Validation(Required=true)]
+        public string KeyType { get; set; }
+
     }
 
 }
