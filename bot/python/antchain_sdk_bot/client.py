@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.25',
+                    'sdk_version': '1.12.26',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.25',
+                    'sdk_version': '1.12.26',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -14737,6 +14737,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.SyncAssetelementProjectResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.assetelement.project.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_device_bydeviceid(
+        self,
+        request: bot_models.UpdateDeviceBydeviceidRequest,
+    ) -> bot_models.UpdateDeviceBydeviceidResponse:
+        """
+        Description: 根据deviceId更新设备
+        Summary: 根据deviceId更新设备
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_device_bydeviceid_ex(request, headers, runtime)
+
+    async def update_device_bydeviceid_async(
+        self,
+        request: bot_models.UpdateDeviceBydeviceidRequest,
+    ) -> bot_models.UpdateDeviceBydeviceidResponse:
+        """
+        Description: 根据deviceId更新设备
+        Summary: 根据deviceId更新设备
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_device_bydeviceid_ex_async(request, headers, runtime)
+
+    def update_device_bydeviceid_ex(
+        self,
+        request: bot_models.UpdateDeviceBydeviceidRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateDeviceBydeviceidResponse:
+        """
+        Description: 根据deviceId更新设备
+        Summary: 根据deviceId更新设备
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UpdateDeviceBydeviceidResponse(),
+            self.do_request('1.0', 'blockchain.bot.device.bydeviceid.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_device_bydeviceid_ex_async(
+        self,
+        request: bot_models.UpdateDeviceBydeviceidRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateDeviceBydeviceidResponse:
+        """
+        Description: 根据deviceId更新设备
+        Summary: 根据deviceId更新设备
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UpdateDeviceBydeviceidResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.device.bydeviceid.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
