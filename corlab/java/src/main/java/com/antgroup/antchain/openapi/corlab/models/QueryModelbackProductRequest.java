@@ -13,7 +13,6 @@ public class QueryModelbackProductRequest extends TeaModel {
 
     // 产品码，数组形式
     @NameInMap("product_codes")
-    @Validation(required = true)
     public java.util.List<String> productCodes;
 
     public static QueryModelbackProductRequest build(java.util.Map<String, ?> map) throws Exception {

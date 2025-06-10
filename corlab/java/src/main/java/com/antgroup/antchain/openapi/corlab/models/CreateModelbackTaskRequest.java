@@ -37,6 +37,11 @@ public class CreateModelbackTaskRequest extends TeaModel {
     @NameInMap("sample_file_name")
     public String sampleFileName;
 
+    // 目前只支持MD5,SHA_256两种加密方式
+    @NameInMap("key_type")
+    @Validation(required = true)
+    public String keyType;
+
     public static CreateModelbackTaskRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateModelbackTaskRequest self = new CreateModelbackTaskRequest();
         return TeaModel.build(map, self);
@@ -96,6 +101,14 @@ public class CreateModelbackTaskRequest extends TeaModel {
     }
     public String getSampleFileName() {
         return this.sampleFileName;
+    }
+
+    public CreateModelbackTaskRequest setKeyType(String keyType) {
+        this.keyType = keyType;
+        return this;
+    }
+    public String getKeyType() {
+        return this.keyType;
     }
 
 }
