@@ -53,6 +53,11 @@ namespace AntChain.SDK.COLLABINV.Models
         [Validation(Required=true)]
         public string FilePath { get; set; }
 
+        // 数据源code
+        [NameInMap("data_source")]
+        [Validation(Required=true)]
+        public string DataSource { get; set; }
+
     }
 
 }
