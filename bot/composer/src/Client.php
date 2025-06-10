@@ -525,6 +525,8 @@ use AntChain\BOT\Models\UpdateAlertStrategyRequest;
 use AntChain\BOT\Models\UpdateAlertStrategyResponse;
 use AntChain\BOT\Models\UpdateCustomerEntityRequest;
 use AntChain\BOT\Models\UpdateCustomerEntityResponse;
+use AntChain\BOT\Models\UpdateDeviceBydeviceidRequest;
+use AntChain\BOT\Models\UpdateDeviceBydeviceidResponse;
 use AntChain\BOT\Models\UpdateDevicecorpThingmodelRequest;
 use AntChain\BOT\Models\UpdateDevicecorpThingmodelResponse;
 use AntChain\BOT\Models\UpdateDeviceInfobydeviceRequest;
@@ -706,7 +708,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.25',
+                    'sdk_version'      => '1.12.26',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -9271,6 +9273,39 @@ class Client
         Utils::validateModel($request);
 
         return SyncAssetelementProjectResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.assetelement.project.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据deviceId更新设备
+     * Summary: 根据deviceId更新设备.
+     *
+     * @param UpdateDeviceBydeviceidRequest $request
+     *
+     * @return UpdateDeviceBydeviceidResponse
+     */
+    public function updateDeviceBydeviceid($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDeviceBydeviceidEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据deviceId更新设备
+     * Summary: 根据deviceId更新设备.
+     *
+     * @param UpdateDeviceBydeviceidRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return UpdateDeviceBydeviceidResponse
+     */
+    public function updateDeviceBydeviceidEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDeviceBydeviceidResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.bydeviceid.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
