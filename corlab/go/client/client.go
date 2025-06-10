@@ -540,6 +540,8 @@ type CreateModelbackTaskRequest struct {
 	ProductCodes []*string `json:"product_codes,omitempty" xml:"product_codes,omitempty" require:"true" type:"Repeated"`
 	// 样本记录名，不传为file_id
 	SampleFileName *string `json:"sample_file_name,omitempty" xml:"sample_file_name,omitempty"`
+	// 目前只支持MD5,SHA_256两种加密方式
+	KeyType *string `json:"key_type,omitempty" xml:"key_type,omitempty" require:"true"`
 }
 
 func (s CreateModelbackTaskRequest) String() string {
@@ -582,6 +584,11 @@ func (s *CreateModelbackTaskRequest) SetProductCodes(v []*string) *CreateModelba
 
 func (s *CreateModelbackTaskRequest) SetSampleFileName(v string) *CreateModelbackTaskRequest {
 	s.SampleFileName = &v
+	return s
+}
+
+func (s *CreateModelbackTaskRequest) SetKeyType(v string) *CreateModelbackTaskRequest {
+	s.KeyType = &v
 	return s
 }
 
@@ -727,7 +734,7 @@ type QueryModelbackProductRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 产品码，数组形式
-	ProductCodes []*string `json:"product_codes,omitempty" xml:"product_codes,omitempty" require:"true" type:"Repeated"`
+	ProductCodes []*string `json:"product_codes,omitempty" xml:"product_codes,omitempty" type:"Repeated"`
 }
 
 func (s QueryModelbackProductRequest) String() string {
@@ -1034,7 +1041,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.13"),
+				"sdk_version":      tea.String("1.0.14"),
 				"_prod_code":       tea.String("CORLAB"),
 				"_prod_channel":    tea.String("default"),
 			}
