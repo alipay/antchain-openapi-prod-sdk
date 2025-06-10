@@ -32,7 +32,6 @@ class QueryModelbackProductRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('productCodes', $this->productCodes, true);
     }
 
     public function toMap()

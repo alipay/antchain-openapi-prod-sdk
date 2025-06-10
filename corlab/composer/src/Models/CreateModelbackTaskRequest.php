@@ -51,18 +51,26 @@ class CreateModelbackTaskRequest extends Model
      * @var string
      */
     public $sampleFileName;
+
+    // 目前只支持MD5,SHA_256两种加密方式
+    /**
+     * @var string
+     */
+    public $keyType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'fileId'            => 'file_id',
         'productCodes'      => 'product_codes',
         'sampleFileName'    => 'sample_file_name',
+        'keyType'           => 'key_type',
     ];
 
     public function validate()
     {
         Model::validateRequired('fileId', $this->fileId, true);
         Model::validateRequired('productCodes', $this->productCodes, true);
+        Model::validateRequired('keyType', $this->keyType, true);
     }
 
     public function toMap()
@@ -88,6 +96,9 @@ class CreateModelbackTaskRequest extends Model
         }
         if (null !== $this->sampleFileName) {
             $res['sample_file_name'] = $this->sampleFileName;
+        }
+        if (null !== $this->keyType) {
+            $res['key_type'] = $this->keyType;
         }
 
         return $res;
@@ -123,6 +134,9 @@ class CreateModelbackTaskRequest extends Model
         }
         if (isset($map['sample_file_name'])) {
             $model->sampleFileName = $map['sample_file_name'];
+        }
+        if (isset($map['key_type'])) {
+            $model->keyType = $map['key_type'];
         }
 
         return $model;
