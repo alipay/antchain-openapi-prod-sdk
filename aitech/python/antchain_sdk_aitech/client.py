@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.19',
+                    'sdk_version': '1.1.20',
                     '_prod_code': 'AITECH',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.19',
+                    'sdk_version': '1.1.20',
                     '_prod_code': 'AITECH',
                     '_prod_channel': 'default'
                 }
@@ -1393,6 +1393,286 @@ class Client:
         return TeaCore.from_map(
             aitech_models.DownloadAuditFileResponse(),
             await self.do_request_async('1.0', 'aitech.comm.audit.file.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def save_audit_meiyou(
+        self,
+        request: aitech_models.SaveAuditMeiyouRequest,
+    ) -> aitech_models.SaveAuditMeiyouResponse:
+        """
+        Description: 美柚待审核信息保存
+        Summary: 美柚待审核信息保存接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.save_audit_meiyou_ex(request, headers, runtime)
+
+    async def save_audit_meiyou_async(
+        self,
+        request: aitech_models.SaveAuditMeiyouRequest,
+    ) -> aitech_models.SaveAuditMeiyouResponse:
+        """
+        Description: 美柚待审核信息保存
+        Summary: 美柚待审核信息保存接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.save_audit_meiyou_ex_async(request, headers, runtime)
+
+    def save_audit_meiyou_ex(
+        self,
+        request: aitech_models.SaveAuditMeiyouRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.SaveAuditMeiyouResponse:
+        """
+        Description: 美柚待审核信息保存
+        Summary: 美柚待审核信息保存接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.SaveAuditMeiyouResponse(),
+            self.do_request('1.0', 'aitech.comm.audit.meiyou.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def save_audit_meiyou_ex_async(
+        self,
+        request: aitech_models.SaveAuditMeiyouRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.SaveAuditMeiyouResponse:
+        """
+        Description: 美柚待审核信息保存
+        Summary: 美柚待审核信息保存接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.SaveAuditMeiyouResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.audit.meiyou.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_audit_meiyou(
+        self,
+        request: aitech_models.UpdateAuditMeiyouRequest,
+    ) -> aitech_models.UpdateAuditMeiyouResponse:
+        """
+        Description: 美柚审核信息存储请求
+        Summary: 美柚审核信息存储请求
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_audit_meiyou_ex(request, headers, runtime)
+
+    async def update_audit_meiyou_async(
+        self,
+        request: aitech_models.UpdateAuditMeiyouRequest,
+    ) -> aitech_models.UpdateAuditMeiyouResponse:
+        """
+        Description: 美柚审核信息存储请求
+        Summary: 美柚审核信息存储请求
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_audit_meiyou_ex_async(request, headers, runtime)
+
+    def update_audit_meiyou_ex(
+        self,
+        request: aitech_models.UpdateAuditMeiyouRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.UpdateAuditMeiyouResponse:
+        """
+        Description: 美柚审核信息存储请求
+        Summary: 美柚审核信息存储请求
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.UpdateAuditMeiyouResponse(),
+            self.do_request('1.0', 'aitech.comm.audit.meiyou.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_audit_meiyou_ex_async(
+        self,
+        request: aitech_models.UpdateAuditMeiyouRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.UpdateAuditMeiyouResponse:
+        """
+        Description: 美柚审核信息存储请求
+        Summary: 美柚审核信息存储请求
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.UpdateAuditMeiyouResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.audit.meiyou.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_meiyou_audit(
+        self,
+        request: aitech_models.QueryMeiyouAuditRequest,
+    ) -> aitech_models.QueryMeiyouAuditResponse:
+        """
+        Description: 美柚审核信息查询接口
+        Summary: 美柚审核信息查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_meiyou_audit_ex(request, headers, runtime)
+
+    async def query_meiyou_audit_async(
+        self,
+        request: aitech_models.QueryMeiyouAuditRequest,
+    ) -> aitech_models.QueryMeiyouAuditResponse:
+        """
+        Description: 美柚审核信息查询接口
+        Summary: 美柚审核信息查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_meiyou_audit_ex_async(request, headers, runtime)
+
+    def query_meiyou_audit_ex(
+        self,
+        request: aitech_models.QueryMeiyouAuditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryMeiyouAuditResponse:
+        """
+        Description: 美柚审核信息查询接口
+        Summary: 美柚审核信息查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryMeiyouAuditResponse(),
+            self.do_request('1.0', 'aitech.comm.meiyou.audit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_meiyou_audit_ex_async(
+        self,
+        request: aitech_models.QueryMeiyouAuditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryMeiyouAuditResponse:
+        """
+        Description: 美柚审核信息查询接口
+        Summary: 美柚审核信息查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryMeiyouAuditResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.meiyou.audit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_meiyou_audittopic(
+        self,
+        request: aitech_models.QueryMeiyouAudittopicRequest,
+    ) -> aitech_models.QueryMeiyouAudittopicResponse:
+        """
+        Description: 美柚主题信息查询接口
+        Summary: 美柚主题信息查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_meiyou_audittopic_ex(request, headers, runtime)
+
+    async def query_meiyou_audittopic_async(
+        self,
+        request: aitech_models.QueryMeiyouAudittopicRequest,
+    ) -> aitech_models.QueryMeiyouAudittopicResponse:
+        """
+        Description: 美柚主题信息查询接口
+        Summary: 美柚主题信息查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_meiyou_audittopic_ex_async(request, headers, runtime)
+
+    def query_meiyou_audittopic_ex(
+        self,
+        request: aitech_models.QueryMeiyouAudittopicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryMeiyouAudittopicResponse:
+        """
+        Description: 美柚主题信息查询接口
+        Summary: 美柚主题信息查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryMeiyouAudittopicResponse(),
+            self.do_request('1.0', 'aitech.comm.meiyou.audittopic.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_meiyou_audittopic_ex_async(
+        self,
+        request: aitech_models.QueryMeiyouAudittopicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryMeiyouAudittopicResponse:
+        """
+        Description: 美柚主题信息查询接口
+        Summary: 美柚主题信息查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryMeiyouAudittopicResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.meiyou.audittopic.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_meiyou_audit(
+        self,
+        request: aitech_models.UpdateMeiyouAuditRequest,
+    ) -> aitech_models.UpdateMeiyouAuditResponse:
+        """
+        Description: 更新美柚itag关联关系接口
+        Summary: 更新美柚itag关联关系接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_meiyou_audit_ex(request, headers, runtime)
+
+    async def update_meiyou_audit_async(
+        self,
+        request: aitech_models.UpdateMeiyouAuditRequest,
+    ) -> aitech_models.UpdateMeiyouAuditResponse:
+        """
+        Description: 更新美柚itag关联关系接口
+        Summary: 更新美柚itag关联关系接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_meiyou_audit_ex_async(request, headers, runtime)
+
+    def update_meiyou_audit_ex(
+        self,
+        request: aitech_models.UpdateMeiyouAuditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.UpdateMeiyouAuditResponse:
+        """
+        Description: 更新美柚itag关联关系接口
+        Summary: 更新美柚itag关联关系接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.UpdateMeiyouAuditResponse(),
+            self.do_request('1.0', 'aitech.comm.meiyou.audit.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_meiyou_audit_ex_async(
+        self,
+        request: aitech_models.UpdateMeiyouAuditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.UpdateMeiyouAuditResponse:
+        """
+        Description: 更新美柚itag关联关系接口
+        Summary: 更新美柚itag关联关系接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.UpdateMeiyouAuditResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.meiyou.audit.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_aicoguardcloud_adbsink(

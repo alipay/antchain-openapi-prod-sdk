@@ -522,6 +522,92 @@ class LogoAuditResult(TeaModel):
         return self
 
 
+class MeiyouTopicWebInfo(TeaModel):
+    def __init__(
+        self,
+        content: str = None,
+        current_floor: int = None,
+        call_back_floor: int = None,
+        publish_time: int = None,
+        images: str = None,
+        user_nickname: str = None,
+        user_id: str = None,
+        user_type: str = None,
+        user_avatar: str = None,
+    ):
+        # 内容文本
+        self.content = content
+        # 当前楼层
+        self.current_floor = current_floor
+        # 回复楼层
+        self.call_back_floor = call_back_floor
+        # 发布时间戳(毫秒)
+        # 
+        self.publish_time = publish_time
+        # 图片URL数组(JSON字符串)
+        self.images = images
+        # 用户昵称
+        self.user_nickname = user_nickname
+        # 用户ID
+        self.user_id = user_id
+        # 用户类型
+        # 
+        self.user_type = user_type
+        # 用户头像URL
+        self.user_avatar = user_avatar
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.current_floor is not None:
+            result['current_floor'] = self.current_floor
+        if self.call_back_floor is not None:
+            result['call_back_floor'] = self.call_back_floor
+        if self.publish_time is not None:
+            result['publish_time'] = self.publish_time
+        if self.images is not None:
+            result['images'] = self.images
+        if self.user_nickname is not None:
+            result['user_nickname'] = self.user_nickname
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_type is not None:
+            result['user_type'] = self.user_type
+        if self.user_avatar is not None:
+            result['user_avatar'] = self.user_avatar
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('current_floor') is not None:
+            self.current_floor = m.get('current_floor')
+        if m.get('call_back_floor') is not None:
+            self.call_back_floor = m.get('call_back_floor')
+        if m.get('publish_time') is not None:
+            self.publish_time = m.get('publish_time')
+        if m.get('images') is not None:
+            self.images = m.get('images')
+        if m.get('user_nickname') is not None:
+            self.user_nickname = m.get('user_nickname')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_type') is not None:
+            self.user_type = m.get('user_type')
+        if m.get('user_avatar') is not None:
+            self.user_avatar = m.get('user_avatar')
+        return self
+
+
 class AntCloudProdProviderHttpResponse(TeaModel):
     def __init__(
         self,
@@ -685,6 +771,115 @@ class TextSyncAuditResult(TeaModel):
             for k in m.get('labels'):
                 temp_model = AuditSyncLabel()
                 self.labels.append(temp_model.from_map(k))
+        return self
+
+
+class MeiyouAuditSaveWebInfo(TeaModel):
+    def __init__(
+        self,
+        topic_id: int = None,
+        audit_id: int = None,
+        content: str = None,
+        publish_time: int = None,
+        images: str = None,
+        primary_business: str = None,
+        secondary_business: str = None,
+        user_nickname: str = None,
+        user_id: str = None,
+        user_type: str = None,
+        user_avatar: str = None,
+        topic_infos: MeiyouTopicWebInfo = None,
+    ):
+        # 主题ID
+        self.topic_id = topic_id
+        # 审核记录ID
+        self.audit_id = audit_id
+        # 内容文本
+        self.content = content
+        # 发布时间戳(毫秒)
+        self.publish_time = publish_time
+        # 图片URL数组(JSON字符串)
+        self.images = images
+        # 一级业务
+        self.primary_business = primary_business
+        # 二级业务
+        self.secondary_business = secondary_business
+        # 用户昵称
+        self.user_nickname = user_nickname
+        # 用户ID
+        self.user_id = user_id
+        # 用户类型
+        # 
+        self.user_type = user_type
+        # 用户头像URL
+        self.user_avatar = user_avatar
+        # 主题信息
+        self.topic_infos = topic_infos
+
+    def validate(self):
+        self.validate_required(self.audit_id, 'audit_id')
+        if self.topic_infos:
+            self.topic_infos.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.topic_id is not None:
+            result['topic_id'] = self.topic_id
+        if self.audit_id is not None:
+            result['audit_id'] = self.audit_id
+        if self.content is not None:
+            result['content'] = self.content
+        if self.publish_time is not None:
+            result['publish_time'] = self.publish_time
+        if self.images is not None:
+            result['images'] = self.images
+        if self.primary_business is not None:
+            result['primary_business'] = self.primary_business
+        if self.secondary_business is not None:
+            result['secondary_business'] = self.secondary_business
+        if self.user_nickname is not None:
+            result['user_nickname'] = self.user_nickname
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_type is not None:
+            result['user_type'] = self.user_type
+        if self.user_avatar is not None:
+            result['user_avatar'] = self.user_avatar
+        if self.topic_infos is not None:
+            result['topic_infos'] = self.topic_infos.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('topic_id') is not None:
+            self.topic_id = m.get('topic_id')
+        if m.get('audit_id') is not None:
+            self.audit_id = m.get('audit_id')
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('publish_time') is not None:
+            self.publish_time = m.get('publish_time')
+        if m.get('images') is not None:
+            self.images = m.get('images')
+        if m.get('primary_business') is not None:
+            self.primary_business = m.get('primary_business')
+        if m.get('secondary_business') is not None:
+            self.secondary_business = m.get('secondary_business')
+        if m.get('user_nickname') is not None:
+            self.user_nickname = m.get('user_nickname')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_type') is not None:
+            self.user_type = m.get('user_type')
+        if m.get('user_avatar') is not None:
+            self.user_avatar = m.get('user_avatar')
+        if m.get('topic_infos') is not None:
+            temp_model = MeiyouTopicWebInfo()
+            self.topic_infos = temp_model.from_map(m['topic_infos'])
         return self
 
 
@@ -2893,6 +3088,575 @@ class DownloadAuditFileResponse(TeaModel):
         # 异常信息的文本描述
         self.result_msg = result_msg
         # 响应信息
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class SaveAuditMeiyouRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        request: List[MeiyouAuditSaveWebInfo] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 美柚待审核信息保存请求
+        self.request = request
+
+    def validate(self):
+        self.validate_required(self.request, 'request')
+        if self.request:
+            for k in self.request:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        result['request'] = []
+        if self.request is not None:
+            for k in self.request:
+                result['request'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        self.request = []
+        if m.get('request') is not None:
+            for k in m.get('request'):
+                temp_model = MeiyouAuditSaveWebInfo()
+                self.request.append(temp_model.from_map(k))
+        return self
+
+
+class SaveAuditMeiyouResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        error_code: str = None,
+        error_message: str = None,
+        request_id: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 码值
+        self.error_code = error_code
+        # 错误信息
+        self.error_message = error_message
+        # 请求ID
+        self.request_id = request_id
+        # 响应结果
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.error_code is not None:
+            result['error_code'] = self.error_code
+        if self.error_message is not None:
+            result['error_message'] = self.error_message
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('error_code') is not None:
+            self.error_code = m.get('error_code')
+        if m.get('error_message') is not None:
+            self.error_message = m.get('error_message')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class UpdateAuditMeiyouRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        audit_id: int = None,
+        audit_result: str = None,
+        audit_reason: str = None,
+        audit_operator: str = None,
+        audit_time: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 审核记录ID
+        self.audit_id = audit_id
+        # 审核结果
+        self.audit_result = audit_result
+        # 审核原因
+        self.audit_reason = audit_reason
+        # 操作人
+        self.audit_operator = audit_operator
+        # 操作时间戳(毫秒)
+        self.audit_time = audit_time
+
+    def validate(self):
+        self.validate_required(self.audit_id, 'audit_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.audit_id is not None:
+            result['audit_id'] = self.audit_id
+        if self.audit_result is not None:
+            result['audit_result'] = self.audit_result
+        if self.audit_reason is not None:
+            result['audit_reason'] = self.audit_reason
+        if self.audit_operator is not None:
+            result['audit_operator'] = self.audit_operator
+        if self.audit_time is not None:
+            result['audit_time'] = self.audit_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('audit_id') is not None:
+            self.audit_id = m.get('audit_id')
+        if m.get('audit_result') is not None:
+            self.audit_result = m.get('audit_result')
+        if m.get('audit_reason') is not None:
+            self.audit_reason = m.get('audit_reason')
+        if m.get('audit_operator') is not None:
+            self.audit_operator = m.get('audit_operator')
+        if m.get('audit_time') is not None:
+            self.audit_time = m.get('audit_time')
+        return self
+
+
+class UpdateAuditMeiyouResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        error_code: str = None,
+        error_message: str = None,
+        request_id: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 异常码值
+        self.error_code = error_code
+        # 异常信息
+        self.error_message = error_message
+        # 请求ID
+        self.request_id = request_id
+        # 响应结果
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.error_code is not None:
+            result['error_code'] = self.error_code
+        if self.error_message is not None:
+            result['error_message'] = self.error_message
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('error_code') is not None:
+            self.error_code = m.get('error_code')
+        if m.get('error_message') is not None:
+            self.error_message = m.get('error_message')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class QueryMeiyouAuditRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        audit_ids: List[int] = None,
+        audit_state: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 审核记录ID
+        self.audit_ids = audit_ids
+        # 美柚itag关联状态
+        self.audit_state = audit_state
+
+    def validate(self):
+        self.validate_required(self.audit_ids, 'audit_ids')
+        self.validate_required(self.audit_state, 'audit_state')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.audit_ids is not None:
+            result['audit_ids'] = self.audit_ids
+        if self.audit_state is not None:
+            result['audit_state'] = self.audit_state
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('audit_ids') is not None:
+            self.audit_ids = m.get('audit_ids')
+        if m.get('audit_state') is not None:
+            self.audit_state = m.get('audit_state')
+        return self
+
+
+class QueryMeiyouAuditResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 响应信息
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class QueryMeiyouAudittopicRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        topic_ids: List[int] = None,
+        topic_state: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 主题ID
+        self.topic_ids = topic_ids
+        # 美柚itag关联状态
+        self.topic_state = topic_state
+
+    def validate(self):
+        self.validate_required(self.topic_ids, 'topic_ids')
+        self.validate_required(self.topic_state, 'topic_state')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.topic_ids is not None:
+            result['topic_ids'] = self.topic_ids
+        if self.topic_state is not None:
+            result['topic_state'] = self.topic_state
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('topic_ids') is not None:
+            self.topic_ids = m.get('topic_ids')
+        if m.get('topic_state') is not None:
+            self.topic_state = m.get('topic_state')
+        return self
+
+
+class QueryMeiyouAudittopicResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 接口响应
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class UpdateMeiyouAuditRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        topic_ids: List[int] = None,
+        topic_state: str = None,
+        audit_ids: List[int] = None,
+        audit_state: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 主题ID
+        self.topic_ids = topic_ids
+        # 美柚itag关联状态
+        self.topic_state = topic_state
+        # 审核记录ID
+        self.audit_ids = audit_ids
+        # 美柚itag关联状态
+        self.audit_state = audit_state
+
+    def validate(self):
+        self.validate_required(self.topic_ids, 'topic_ids')
+        self.validate_required(self.topic_state, 'topic_state')
+        self.validate_required(self.audit_ids, 'audit_ids')
+        self.validate_required(self.audit_state, 'audit_state')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.topic_ids is not None:
+            result['topic_ids'] = self.topic_ids
+        if self.topic_state is not None:
+            result['topic_state'] = self.topic_state
+        if self.audit_ids is not None:
+            result['audit_ids'] = self.audit_ids
+        if self.audit_state is not None:
+            result['audit_state'] = self.audit_state
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('topic_ids') is not None:
+            self.topic_ids = m.get('topic_ids')
+        if m.get('topic_state') is not None:
+            self.topic_state = m.get('topic_state')
+        if m.get('audit_ids') is not None:
+            self.audit_ids = m.get('audit_ids')
+        if m.get('audit_state') is not None:
+            self.audit_state = m.get('audit_state')
+        return self
+
+
+class UpdateMeiyouAuditResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 接口响应
         self.result = result
 
     def validate(self):
