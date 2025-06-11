@@ -137,7 +137,7 @@ namespace AntChain.SDK.AITECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.19"},
+                        {"sdk_version", "1.1.20"},
                         {"_prod_code", "AITECH"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.AITECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.19"},
+                        {"sdk_version", "1.1.20"},
                         {"_prod_code", "AITECH"},
                         {"_prod_channel", "default"},
                     };
@@ -1159,6 +1159,216 @@ namespace AntChain.SDK.AITECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<DownloadAuditFileResponse>(await DoRequestAsync("1.0", "aitech.comm.audit.file.download", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 美柚待审核信息保存
+         * Summary: 美柚待审核信息保存接口
+         */
+        public SaveAuditMeiyouResponse SaveAuditMeiyou(SaveAuditMeiyouRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SaveAuditMeiyouEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 美柚待审核信息保存
+         * Summary: 美柚待审核信息保存接口
+         */
+        public async Task<SaveAuditMeiyouResponse> SaveAuditMeiyouAsync(SaveAuditMeiyouRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SaveAuditMeiyouExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 美柚待审核信息保存
+         * Summary: 美柚待审核信息保存接口
+         */
+        public SaveAuditMeiyouResponse SaveAuditMeiyouEx(SaveAuditMeiyouRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveAuditMeiyouResponse>(DoRequest("1.0", "aitech.comm.audit.meiyou.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 美柚待审核信息保存
+         * Summary: 美柚待审核信息保存接口
+         */
+        public async Task<SaveAuditMeiyouResponse> SaveAuditMeiyouExAsync(SaveAuditMeiyouRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveAuditMeiyouResponse>(await DoRequestAsync("1.0", "aitech.comm.audit.meiyou.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 美柚审核信息存储请求
+         * Summary: 美柚审核信息存储请求
+         */
+        public UpdateAuditMeiyouResponse UpdateAuditMeiyou(UpdateAuditMeiyouRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateAuditMeiyouEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 美柚审核信息存储请求
+         * Summary: 美柚审核信息存储请求
+         */
+        public async Task<UpdateAuditMeiyouResponse> UpdateAuditMeiyouAsync(UpdateAuditMeiyouRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateAuditMeiyouExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 美柚审核信息存储请求
+         * Summary: 美柚审核信息存储请求
+         */
+        public UpdateAuditMeiyouResponse UpdateAuditMeiyouEx(UpdateAuditMeiyouRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateAuditMeiyouResponse>(DoRequest("1.0", "aitech.comm.audit.meiyou.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 美柚审核信息存储请求
+         * Summary: 美柚审核信息存储请求
+         */
+        public async Task<UpdateAuditMeiyouResponse> UpdateAuditMeiyouExAsync(UpdateAuditMeiyouRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateAuditMeiyouResponse>(await DoRequestAsync("1.0", "aitech.comm.audit.meiyou.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 美柚审核信息查询接口
+         * Summary: 美柚审核信息查询接口
+         */
+        public QueryMeiyouAuditResponse QueryMeiyouAudit(QueryMeiyouAuditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMeiyouAuditEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 美柚审核信息查询接口
+         * Summary: 美柚审核信息查询接口
+         */
+        public async Task<QueryMeiyouAuditResponse> QueryMeiyouAuditAsync(QueryMeiyouAuditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMeiyouAuditExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 美柚审核信息查询接口
+         * Summary: 美柚审核信息查询接口
+         */
+        public QueryMeiyouAuditResponse QueryMeiyouAuditEx(QueryMeiyouAuditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMeiyouAuditResponse>(DoRequest("1.0", "aitech.comm.meiyou.audit.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 美柚审核信息查询接口
+         * Summary: 美柚审核信息查询接口
+         */
+        public async Task<QueryMeiyouAuditResponse> QueryMeiyouAuditExAsync(QueryMeiyouAuditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMeiyouAuditResponse>(await DoRequestAsync("1.0", "aitech.comm.meiyou.audit.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 美柚主题信息查询接口
+         * Summary: 美柚主题信息查询接口
+         */
+        public QueryMeiyouAudittopicResponse QueryMeiyouAudittopic(QueryMeiyouAudittopicRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMeiyouAudittopicEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 美柚主题信息查询接口
+         * Summary: 美柚主题信息查询接口
+         */
+        public async Task<QueryMeiyouAudittopicResponse> QueryMeiyouAudittopicAsync(QueryMeiyouAudittopicRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMeiyouAudittopicExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 美柚主题信息查询接口
+         * Summary: 美柚主题信息查询接口
+         */
+        public QueryMeiyouAudittopicResponse QueryMeiyouAudittopicEx(QueryMeiyouAudittopicRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMeiyouAudittopicResponse>(DoRequest("1.0", "aitech.comm.meiyou.audittopic.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 美柚主题信息查询接口
+         * Summary: 美柚主题信息查询接口
+         */
+        public async Task<QueryMeiyouAudittopicResponse> QueryMeiyouAudittopicExAsync(QueryMeiyouAudittopicRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMeiyouAudittopicResponse>(await DoRequestAsync("1.0", "aitech.comm.meiyou.audittopic.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新美柚itag关联关系接口
+         * Summary: 更新美柚itag关联关系接口
+         */
+        public UpdateMeiyouAuditResponse UpdateMeiyouAudit(UpdateMeiyouAuditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateMeiyouAuditEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新美柚itag关联关系接口
+         * Summary: 更新美柚itag关联关系接口
+         */
+        public async Task<UpdateMeiyouAuditResponse> UpdateMeiyouAuditAsync(UpdateMeiyouAuditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateMeiyouAuditExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新美柚itag关联关系接口
+         * Summary: 更新美柚itag关联关系接口
+         */
+        public UpdateMeiyouAuditResponse UpdateMeiyouAuditEx(UpdateMeiyouAuditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateMeiyouAuditResponse>(DoRequest("1.0", "aitech.comm.meiyou.audit.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新美柚itag关联关系接口
+         * Summary: 更新美柚itag关联关系接口
+         */
+        public async Task<UpdateMeiyouAuditResponse> UpdateMeiyouAuditExAsync(UpdateMeiyouAuditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateMeiyouAuditResponse>(await DoRequestAsync("1.0", "aitech.comm.meiyou.audit.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
