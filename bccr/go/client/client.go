@@ -13614,7 +13614,7 @@ type CreateScreenshotNewRequest struct {
 	// 取证人电话号码，生成公证处证书需要，公证处需要作登记 格式范例：(86-573)2651630 或 (86)13738258505
 	PhoneNum *string `json:"phone_num,omitempty" xml:"phone_num,omitempty"`
 	// 代理信息
-	FileId *ProxyData `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	ProxyInfo *ProxyData `json:"proxy_info,omitempty" xml:"proxy_info,omitempty"`
 	// 保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true" maxLength:"64" minLength:"1"`
 }
@@ -13702,8 +13702,8 @@ func (s *CreateScreenshotNewRequest) SetPhoneNum(v string) *CreateScreenshotNewR
 	return s
 }
 
-func (s *CreateScreenshotNewRequest) SetFileId(v *ProxyData) *CreateScreenshotNewRequest {
-	s.FileId = v
+func (s *CreateScreenshotNewRequest) SetProxyInfo(v *ProxyData) *CreateScreenshotNewRequest {
+	s.ProxyInfo = v
 	return s
 }
 
@@ -14081,6 +14081,10 @@ type QueryCyclinginsuranceOrderdetailResponse struct {
 	// 附件
 	// installImages: 上门安装图片
 	Attachments *string `json:"attachments,omitempty" xml:"attachments,omitempty"`
+	// waitDoorToDoor 待配送
+	// doorToDoorFinish 已完成
+	// doorToDoorCancel 已取消
+	OrderStatus *string `json:"order_status,omitempty" xml:"order_status,omitempty"`
 }
 
 func (s QueryCyclinginsuranceOrderdetailResponse) String() string {
@@ -14133,6 +14137,11 @@ func (s *QueryCyclinginsuranceOrderdetailResponse) SetFulfillmentProcessInfo(v s
 
 func (s *QueryCyclinginsuranceOrderdetailResponse) SetAttachments(v string) *QueryCyclinginsuranceOrderdetailResponse {
 	s.Attachments = &v
+	return s
+}
+
+func (s *QueryCyclinginsuranceOrderdetailResponse) SetOrderStatus(v string) *QueryCyclinginsuranceOrderdetailResponse {
+	s.OrderStatus = &v
 	return s
 }
 
@@ -15203,7 +15212,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.69"),
+				"sdk_version":      tea.String("1.19.71"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
