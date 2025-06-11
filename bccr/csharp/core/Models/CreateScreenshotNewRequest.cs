@@ -84,9 +84,9 @@ namespace AntChain.SDK.BCCR.Models
         public string PhoneNum { get; set; }
 
         // 代理信息
-        [NameInMap("file_id")]
+        [NameInMap("proxy_info")]
         [Validation(Required=false)]
-        public ProxyData FileId { get; set; }
+        public ProxyData ProxyInfo { get; set; }
 
         // 保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符
         [NameInMap("client_token")]

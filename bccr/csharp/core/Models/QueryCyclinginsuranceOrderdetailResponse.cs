@@ -65,6 +65,13 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string Attachments { get; set; }
 
+        // waitDoorToDoor 待配送
+        // doorToDoorFinish 已完成
+        // doorToDoorCancel 已取消
+        [NameInMap("order_status")]
+        [Validation(Required=false)]
+        public string OrderStatus { get; set; }
+
     }
 
 }
