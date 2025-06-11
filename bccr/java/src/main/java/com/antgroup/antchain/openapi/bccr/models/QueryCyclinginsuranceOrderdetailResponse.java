@@ -51,6 +51,12 @@ public class QueryCyclinginsuranceOrderdetailResponse extends TeaModel {
     @NameInMap("attachments")
     public String attachments;
 
+    // waitDoorToDoor 待配送
+    // doorToDoorFinish 已完成
+    // doorToDoorCancel 已取消
+    @NameInMap("order_status")
+    public String orderStatus;
+
     public static QueryCyclinginsuranceOrderdetailResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryCyclinginsuranceOrderdetailResponse self = new QueryCyclinginsuranceOrderdetailResponse();
         return TeaModel.build(map, self);
@@ -126,6 +132,14 @@ public class QueryCyclinginsuranceOrderdetailResponse extends TeaModel {
     }
     public String getAttachments() {
         return this.attachments;
+    }
+
+    public QueryCyclinginsuranceOrderdetailResponse setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+        return this;
+    }
+    public String getOrderStatus() {
+        return this.orderStatus;
     }
 
 }

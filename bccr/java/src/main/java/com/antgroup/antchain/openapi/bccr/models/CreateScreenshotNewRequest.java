@@ -70,8 +70,8 @@ public class CreateScreenshotNewRequest extends TeaModel {
     public String phoneNum;
 
     // 代理信息
-    @NameInMap("file_id")
-    public ProxyData fileId;
+    @NameInMap("proxy_info")
+    public ProxyData proxyInfo;
 
     // 保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符
     @NameInMap("client_token")
@@ -203,12 +203,12 @@ public class CreateScreenshotNewRequest extends TeaModel {
         return this.phoneNum;
     }
 
-    public CreateScreenshotNewRequest setFileId(ProxyData fileId) {
-        this.fileId = fileId;
+    public CreateScreenshotNewRequest setProxyInfo(ProxyData proxyInfo) {
+        this.proxyInfo = proxyInfo;
         return this;
     }
-    public ProxyData getFileId() {
-        return this.fileId;
+    public ProxyData getProxyInfo() {
+        return this.proxyInfo;
     }
 
     public CreateScreenshotNewRequest setClientToken(String clientToken) {
