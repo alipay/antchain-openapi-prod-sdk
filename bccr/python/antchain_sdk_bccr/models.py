@@ -16755,7 +16755,7 @@ class CreateScreenshotNewRequest(TeaModel):
         agent_name: str = None,
         agent_no: str = None,
         phone_num: str = None,
-        file_id: ProxyData = None,
+        proxy_info: ProxyData = None,
         client_token: str = None,
     ):
         # OAuth模式下的授权token
@@ -16788,7 +16788,7 @@ class CreateScreenshotNewRequest(TeaModel):
         # 取证人电话号码，生成公证处证书需要，公证处需要作登记 格式范例：(86-573)2651630 或 (86)13738258505
         self.phone_num = phone_num
         # 代理信息
-        self.file_id = file_id
+        self.proxy_info = proxy_info
         # 保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符
         self.client_token = client_token
 
@@ -16804,8 +16804,8 @@ class CreateScreenshotNewRequest(TeaModel):
         self.validate_required(self.cert_name, 'cert_name')
         self.validate_required(self.cert_no, 'cert_no')
         self.validate_required(self.cert_type, 'cert_type')
-        if self.file_id:
-            self.file_id.validate()
+        if self.proxy_info:
+            self.proxy_info.validate()
         self.validate_required(self.client_token, 'client_token')
         if self.client_token is not None:
             self.validate_max_length(self.client_token, 'client_token', 64)
@@ -16846,8 +16846,8 @@ class CreateScreenshotNewRequest(TeaModel):
             result['agent_no'] = self.agent_no
         if self.phone_num is not None:
             result['phone_num'] = self.phone_num
-        if self.file_id is not None:
-            result['file_id'] = self.file_id.to_map()
+        if self.proxy_info is not None:
+            result['proxy_info'] = self.proxy_info.to_map()
         if self.client_token is not None:
             result['client_token'] = self.client_token
         return result
@@ -16884,9 +16884,9 @@ class CreateScreenshotNewRequest(TeaModel):
             self.agent_no = m.get('agent_no')
         if m.get('phone_num') is not None:
             self.phone_num = m.get('phone_num')
-        if m.get('file_id') is not None:
+        if m.get('proxy_info') is not None:
             temp_model = ProxyData()
-            self.file_id = temp_model.from_map(m['file_id'])
+            self.proxy_info = temp_model.from_map(m['proxy_info'])
         if m.get('client_token') is not None:
             self.client_token = m.get('client_token')
         return self
@@ -17326,6 +17326,7 @@ class QueryCyclinginsuranceOrderdetailResponse(TeaModel):
         item_attributes: str = None,
         fulfillment_process_info: str = None,
         attachments: str = None,
+        order_status: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -17356,6 +17357,10 @@ class QueryCyclinginsuranceOrderdetailResponse(TeaModel):
         # 附件
         # installImages: 上门安装图片
         self.attachments = attachments
+        # waitDoorToDoor 待配送
+        # doorToDoorFinish 已完成
+        # doorToDoorCancel 已取消
+        self.order_status = order_status
 
     def validate(self):
         pass
@@ -17384,6 +17389,8 @@ class QueryCyclinginsuranceOrderdetailResponse(TeaModel):
             result['fulfillment_process_info'] = self.fulfillment_process_info
         if self.attachments is not None:
             result['attachments'] = self.attachments
+        if self.order_status is not None:
+            result['order_status'] = self.order_status
         return result
 
     def from_map(self, m: dict = None):
@@ -17406,6 +17413,8 @@ class QueryCyclinginsuranceOrderdetailResponse(TeaModel):
             self.fulfillment_process_info = m.get('fulfillment_process_info')
         if m.get('attachments') is not None:
             self.attachments = m.get('attachments')
+        if m.get('order_status') is not None:
+            self.order_status = m.get('order_status')
         return self
 
 
