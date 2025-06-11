@@ -10083,7 +10083,7 @@ export class CreateScreenshotNewRequest extends $tea.Model {
   // 取证人电话号码，生成公证处证书需要，公证处需要作登记 格式范例：(86-573)2651630 或 (86)13738258505
   phoneNum?: string;
   // 代理信息
-  fileId?: ProxyData;
+  proxyInfo?: ProxyData;
   // 保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符
   clientToken: string;
   static names(): { [key: string]: string } {
@@ -10103,7 +10103,7 @@ export class CreateScreenshotNewRequest extends $tea.Model {
       agentName: 'agent_name',
       agentNo: 'agent_no',
       phoneNum: 'phone_num',
-      fileId: 'file_id',
+      proxyInfo: 'proxy_info',
       clientToken: 'client_token',
     };
   }
@@ -10125,7 +10125,7 @@ export class CreateScreenshotNewRequest extends $tea.Model {
       agentName: 'string',
       agentNo: 'string',
       phoneNum: 'string',
-      fileId: ProxyData,
+      proxyInfo: ProxyData,
       clientToken: 'string',
     };
   }
@@ -10426,6 +10426,10 @@ export class QueryCyclinginsuranceOrderdetailResponse extends $tea.Model {
   // 附件
   // installImages: 上门安装图片
   attachments?: string;
+  // waitDoorToDoor 待配送
+  // doorToDoorFinish 已完成
+  // doorToDoorCancel 已取消
+  orderStatus?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -10437,6 +10441,7 @@ export class QueryCyclinginsuranceOrderdetailResponse extends $tea.Model {
       itemAttributes: 'item_attributes',
       fulfillmentProcessInfo: 'fulfillment_process_info',
       attachments: 'attachments',
+      orderStatus: 'order_status',
     };
   }
 
@@ -10451,6 +10456,7 @@ export class QueryCyclinginsuranceOrderdetailResponse extends $tea.Model {
       itemAttributes: 'string',
       fulfillmentProcessInfo: 'string',
       attachments: 'string',
+      orderStatus: 'string',
     };
   }
 
@@ -11283,7 +11289,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.69",
+          sdk_version: "1.19.71",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
