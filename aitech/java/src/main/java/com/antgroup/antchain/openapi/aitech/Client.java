@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.19"),
+                    new TeaPair("sdk_version", "1.1.20"),
                     new TeaPair("_prod_code", "AITECH"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -562,6 +562,101 @@ public class Client {
     public DownloadAuditFileResponse downloadAuditFileEx(DownloadAuditFileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.audit.file.download", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DownloadAuditFileResponse());
+    }
+
+    /**
+     * Description: 美柚待审核信息保存
+     * Summary: 美柚待审核信息保存接口
+     */
+    public SaveAuditMeiyouResponse saveAuditMeiyou(SaveAuditMeiyouRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.saveAuditMeiyouEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 美柚待审核信息保存
+     * Summary: 美柚待审核信息保存接口
+     */
+    public SaveAuditMeiyouResponse saveAuditMeiyouEx(SaveAuditMeiyouRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.audit.meiyou.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveAuditMeiyouResponse());
+    }
+
+    /**
+     * Description: 美柚审核信息存储请求
+     * Summary: 美柚审核信息存储请求
+     */
+    public UpdateAuditMeiyouResponse updateAuditMeiyou(UpdateAuditMeiyouRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateAuditMeiyouEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 美柚审核信息存储请求
+     * Summary: 美柚审核信息存储请求
+     */
+    public UpdateAuditMeiyouResponse updateAuditMeiyouEx(UpdateAuditMeiyouRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.audit.meiyou.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateAuditMeiyouResponse());
+    }
+
+    /**
+     * Description: 美柚审核信息查询接口
+     * Summary: 美柚审核信息查询接口
+     */
+    public QueryMeiyouAuditResponse queryMeiyouAudit(QueryMeiyouAuditRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryMeiyouAuditEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 美柚审核信息查询接口
+     * Summary: 美柚审核信息查询接口
+     */
+    public QueryMeiyouAuditResponse queryMeiyouAuditEx(QueryMeiyouAuditRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.meiyou.audit.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMeiyouAuditResponse());
+    }
+
+    /**
+     * Description: 美柚主题信息查询接口
+     * Summary: 美柚主题信息查询接口
+     */
+    public QueryMeiyouAudittopicResponse queryMeiyouAudittopic(QueryMeiyouAudittopicRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryMeiyouAudittopicEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 美柚主题信息查询接口
+     * Summary: 美柚主题信息查询接口
+     */
+    public QueryMeiyouAudittopicResponse queryMeiyouAudittopicEx(QueryMeiyouAudittopicRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.meiyou.audittopic.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMeiyouAudittopicResponse());
+    }
+
+    /**
+     * Description: 更新美柚itag关联关系接口
+     * Summary: 更新美柚itag关联关系接口
+     */
+    public UpdateMeiyouAuditResponse updateMeiyouAudit(UpdateMeiyouAuditRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateMeiyouAuditEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新美柚itag关联关系接口
+     * Summary: 更新美柚itag关联关系接口
+     */
+    public UpdateMeiyouAuditResponse updateMeiyouAuditEx(UpdateMeiyouAuditRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.meiyou.audit.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateMeiyouAuditResponse());
     }
 
     /**
