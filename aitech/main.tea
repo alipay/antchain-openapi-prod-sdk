@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.19',
+    sdk_version = '1.1.20',
     _prod_code = 'AITECH',
     _prod_channel = 'default'
   };
@@ -241,6 +241,30 @@ model LogoAuditResult {
   details: [ LogoDetail ](name='details', example=''),
 }
 
+// 主题信息
+model MeiyouTopicWebInfo {
+  // 内容文本
+  content?: string(name='content', example='内容文本'),
+  // 当前楼层
+  currentFloor?: long(name='current_floor', example='1'),
+  // 回复楼层
+  callBackFloor?: long(name='call_back_floor', example='1'),
+  // 发布时间戳(毫秒)
+  // 
+  publishTime?: long(name='publish_time', example=''),
+  // 图片URL数组(JSON字符串)
+  images?: string(name='images', example='{}'),
+  // 用户昵称
+  userNickname?: string(name='user_nickname', example='a'),
+  // 用户ID
+  userId?: string(name='user_id', example='1'),
+  // 用户类型
+  // 
+  userType?: string(name='user_type', example='q'),
+  // 用户头像URL
+  userAvatar?: string(name='user_avatar', example='http://test'),
+}
+
 // 网关响应模型
 model AntCloudProdProviderHttpResponse {
   // maya返回结果
@@ -273,6 +297,35 @@ model TextSyncAuditResult {
   riskLevel: string(name='risk_level', example='high'),
   // 审核标签列表
   labels: [ AuditSyncLabel ](name='labels', example='[{"label":"sex", "probability":66.5, "description":"疑似色情内容", "riskWords":"AA,BB,CC"}]'),
+}
+
+// 美柚审核信息存储
+model MeiyouAuditSaveWebInfo {
+  // 主题ID
+  topicId?: long(name='topic_id', example='1'),
+  // 审核记录ID
+  auditId: long(name='audit_id', example='1'),
+  // 内容文本
+  content?: string(name='content', example='小蜜'),
+  // 发布时间戳(毫秒)
+  publishTime?: long(name='publish_time', example=''),
+  // 图片URL数组(JSON字符串)
+  images?: string(name='images', example='{}'),
+  // 一级业务
+  primaryBusiness?: string(name='primary_business', example='一级业务'),
+  // 二级业务
+  secondaryBusiness?: string(name='secondary_business', example='二级业务'),
+  // 用户昵称
+  userNickname?: string(name='user_nickname', example='用户昵称'),
+  // 用户ID
+  userId?: string(name='user_id', example='用户ID'),
+  // 用户类型
+  // 
+  userType?: string(name='user_type', example='用户类型'),
+  // 用户头像URL
+  userAvatar?: string(name='user_avatar', example='http://'),
+  //  主题信息
+  topicInfos?: MeiyouTopicWebInfo(name='topic_infos', example=' 主题信息'),
 }
 
 model ApplyAuditImageRequest = {
@@ -1174,6 +1227,226 @@ async function downloadAuditFile(request: DownloadAuditFileRequest): DownloadAud
 async function downloadAuditFileEx(request: DownloadAuditFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DownloadAuditFileResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'aitech.comm.audit.file.download', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SaveAuditMeiyouRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 美柚待审核信息保存请求
+  request: [ MeiyouAuditSaveWebInfo ](name='request'),
+}
+
+model SaveAuditMeiyouResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 码值
+  errorCode?: string(name='error_code'),
+  // 错误信息
+  errorMessage?: string(name='error_message'),
+  // 请求ID
+  requestId?: string(name='request_id'),
+  // 响应结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 美柚待审核信息保存
+ * Summary: 美柚待审核信息保存接口
+ */
+async function saveAuditMeiyou(request: SaveAuditMeiyouRequest): SaveAuditMeiyouResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return saveAuditMeiyouEx(request, headers, runtime);
+}
+
+/**
+ * Description: 美柚待审核信息保存
+ * Summary: 美柚待审核信息保存接口
+ */
+async function saveAuditMeiyouEx(request: SaveAuditMeiyouRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveAuditMeiyouResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.audit.meiyou.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateAuditMeiyouRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 审核记录ID
+  auditId: long(name='audit_id'),
+  // 审核结果
+  auditResult?: string(name='audit_result'),
+  // 审核原因
+  auditReason?: string(name='audit_reason'),
+  // 操作人
+  auditOperator?: string(name='audit_operator'),
+  // 操作时间戳(毫秒)
+  auditTime?: long(name='audit_time'),
+}
+
+model UpdateAuditMeiyouResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 异常码值
+  errorCode?: string(name='error_code'),
+  // 异常信息
+  errorMessage?: string(name='error_message'),
+  // 请求ID
+  requestId?: string(name='request_id'),
+  // 响应结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 美柚审核信息存储请求
+ * Summary: 美柚审核信息存储请求
+ */
+async function updateAuditMeiyou(request: UpdateAuditMeiyouRequest): UpdateAuditMeiyouResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateAuditMeiyouEx(request, headers, runtime);
+}
+
+/**
+ * Description: 美柚审核信息存储请求
+ * Summary: 美柚审核信息存储请求
+ */
+async function updateAuditMeiyouEx(request: UpdateAuditMeiyouRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateAuditMeiyouResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.audit.meiyou.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMeiyouAuditRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 审核记录ID
+  auditIds: [ long ](name='audit_ids'),
+  // 美柚itag关联状态
+  auditState: string(name='audit_state'),
+}
+
+model QueryMeiyouAuditResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应信息
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 美柚审核信息查询接口
+ * Summary: 美柚审核信息查询接口
+ */
+async function queryMeiyouAudit(request: QueryMeiyouAuditRequest): QueryMeiyouAuditResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMeiyouAuditEx(request, headers, runtime);
+}
+
+/**
+ * Description: 美柚审核信息查询接口
+ * Summary: 美柚审核信息查询接口
+ */
+async function queryMeiyouAuditEx(request: QueryMeiyouAuditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMeiyouAuditResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.meiyou.audit.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMeiyouAudittopicRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 主题ID
+  topicIds: [ long ](name='topic_ids'),
+  // 美柚itag关联状态
+  topicState: string(name='topic_state'),
+}
+
+model QueryMeiyouAudittopicResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口响应
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 美柚主题信息查询接口
+ * Summary: 美柚主题信息查询接口
+ */
+async function queryMeiyouAudittopic(request: QueryMeiyouAudittopicRequest): QueryMeiyouAudittopicResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMeiyouAudittopicEx(request, headers, runtime);
+}
+
+/**
+ * Description: 美柚主题信息查询接口
+ * Summary: 美柚主题信息查询接口
+ */
+async function queryMeiyouAudittopicEx(request: QueryMeiyouAudittopicRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMeiyouAudittopicResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.meiyou.audittopic.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateMeiyouAuditRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 主题ID
+  topicIds: [ long ](name='topic_ids'),
+  // 美柚itag关联状态
+  topicState: string(name='topic_state'),
+  // 审核记录ID
+  auditIds: [ long ](name='audit_ids'),
+  // 美柚itag关联状态
+  auditState: string(name='audit_state'),
+}
+
+model UpdateMeiyouAuditResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口响应
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 更新美柚itag关联关系接口
+ * Summary: 更新美柚itag关联关系接口
+ */
+async function updateMeiyouAudit(request: UpdateMeiyouAuditRequest): UpdateMeiyouAuditResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateMeiyouAuditEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新美柚itag关联关系接口
+ * Summary: 更新美柚itag关联关系接口
+ */
+async function updateMeiyouAuditEx(request: UpdateMeiyouAuditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateMeiyouAuditResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.meiyou.audit.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryAicoguardcloudAdbsinkRequest = {
