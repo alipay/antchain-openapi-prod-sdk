@@ -72,6 +72,14 @@ class QueryCyclinginsuranceOrderdetailResponse extends Model
      * @var string
      */
     public $attachments;
+
+    // waitDoorToDoor 待配送
+    // doorToDoorFinish 已完成
+    // doorToDoorCancel 已取消
+    /**
+     * @var string
+     */
+    public $orderStatus;
     protected $_name = [
         'reqMsgId'               => 'req_msg_id',
         'resultCode'             => 'result_code',
@@ -82,6 +90,7 @@ class QueryCyclinginsuranceOrderdetailResponse extends Model
         'itemAttributes'         => 'item_attributes',
         'fulfillmentProcessInfo' => 'fulfillment_process_info',
         'attachments'            => 'attachments',
+        'orderStatus'            => 'order_status',
     ];
 
     public function validate()
@@ -117,6 +126,9 @@ class QueryCyclinginsuranceOrderdetailResponse extends Model
         }
         if (null !== $this->attachments) {
             $res['attachments'] = $this->attachments;
+        }
+        if (null !== $this->orderStatus) {
+            $res['order_status'] = $this->orderStatus;
         }
 
         return $res;
@@ -156,6 +168,9 @@ class QueryCyclinginsuranceOrderdetailResponse extends Model
         }
         if (isset($map['attachments'])) {
             $model->attachments = $map['attachments'];
+        }
+        if (isset($map['order_status'])) {
+            $model->orderStatus = $map['order_status'];
         }
 
         return $model;

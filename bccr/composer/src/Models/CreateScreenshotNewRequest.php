@@ -101,7 +101,7 @@ class CreateScreenshotNewRequest extends Model
     /**
      * @var ProxyData
      */
-    public $fileId;
+    public $proxyInfo;
 
     // 保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。clientToken只支持ASCII字符，且不能超过64个字符
     /**
@@ -124,7 +124,7 @@ class CreateScreenshotNewRequest extends Model
         'agentName'         => 'agent_name',
         'agentNo'           => 'agent_no',
         'phoneNum'          => 'phone_num',
-        'fileId'            => 'file_id',
+        'proxyInfo'         => 'proxy_info',
         'clientToken'       => 'client_token',
     ];
 
@@ -193,8 +193,8 @@ class CreateScreenshotNewRequest extends Model
         if (null !== $this->phoneNum) {
             $res['phone_num'] = $this->phoneNum;
         }
-        if (null !== $this->fileId) {
-            $res['file_id'] = null !== $this->fileId ? $this->fileId->toMap() : null;
+        if (null !== $this->proxyInfo) {
+            $res['proxy_info'] = null !== $this->proxyInfo ? $this->proxyInfo->toMap() : null;
         }
         if (null !== $this->clientToken) {
             $res['client_token'] = $this->clientToken;
@@ -256,8 +256,8 @@ class CreateScreenshotNewRequest extends Model
         if (isset($map['phone_num'])) {
             $model->phoneNum = $map['phone_num'];
         }
-        if (isset($map['file_id'])) {
-            $model->fileId = ProxyData::fromMap($map['file_id']);
+        if (isset($map['proxy_info'])) {
+            $model->proxyInfo = ProxyData::fromMap($map['proxy_info']);
         }
         if (isset($map['client_token'])) {
             $model->clientToken = $map['client_token'];
