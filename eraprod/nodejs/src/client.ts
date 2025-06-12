@@ -82,12 +82,15 @@ export class OperateAisProxyRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 入参json
-  data: string;
+  bizData: string;
+  // 系统参数
+  systemData: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      data: 'data',
+      bizData: 'biz_data',
+      systemData: 'system_data',
     };
   }
 
@@ -95,7 +98,8 @@ export class OperateAisProxyRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      data: 'string',
+      bizData: 'string',
+      systemData: 'string',
     };
   }
 
@@ -249,7 +253,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.1",
+          sdk_version: "1.0.2",
           _prod_code: "ERAPROD",
           _prod_channel: "default",
         };
