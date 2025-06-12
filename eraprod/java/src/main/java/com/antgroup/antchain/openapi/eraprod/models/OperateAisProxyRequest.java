@@ -12,9 +12,14 @@ public class OperateAisProxyRequest extends TeaModel {
     public String productInstanceId;
 
     // 入参json
-    @NameInMap("data")
+    @NameInMap("biz_data")
     @Validation(required = true)
-    public String data;
+    public String bizData;
+
+    // 系统参数
+    @NameInMap("system_data")
+    @Validation(required = true)
+    public String systemData;
 
     public static OperateAisProxyRequest build(java.util.Map<String, ?> map) throws Exception {
         OperateAisProxyRequest self = new OperateAisProxyRequest();
@@ -37,12 +42,20 @@ public class OperateAisProxyRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public OperateAisProxyRequest setData(String data) {
-        this.data = data;
+    public OperateAisProxyRequest setBizData(String bizData) {
+        this.bizData = bizData;
         return this;
     }
-    public String getData() {
-        return this.data;
+    public String getBizData() {
+        return this.bizData;
+    }
+
+    public OperateAisProxyRequest setSystemData(String systemData) {
+        this.systemData = systemData;
+        return this;
+    }
+    public String getSystemData() {
+        return this.systemData;
     }
 
 }
