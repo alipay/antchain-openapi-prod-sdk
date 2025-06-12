@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.1',
+    sdk_version = '1.0.2',
     _prod_code = 'ERAPROD',
     _prod_channel = 'default'
   };
@@ -166,7 +166,9 @@ model OperateAisProxyRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 入参json
-  data: string(name='data'),
+  bizData: string(name='biz_data'),
+  // 系统参数
+  systemData: string(name='system_data'),
 }
 
 model OperateAisProxyResponse = {

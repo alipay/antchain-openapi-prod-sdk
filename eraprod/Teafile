@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "ERAPROD",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-eraprod:1.0.1",
-    "go": "github.com/antchain-openapi-sdk-go/eraprod/client:v1.0.1",
-    "csharp": "AntChain.SDK.ERAPROD:1.0.1",
-    "ts": "@antchain/eraprod:1.0.1",
-    "php": "antchain/eraprod:1.0.1",
-    "python": "antchain_sdk_eraprod:1.0.1"
+    "java": "com.antgroup.antchain.openapi:openapi-eraprod:1.0.2",
+    "go": "github.com/antchain-openapi-sdk-go/eraprod/client:v1.0.2",
+    "csharp": "AntChain.SDK.ERAPROD:1.0.2",
+    "ts": "@antchain/eraprod:1.0.2",
+    "php": "antchain/eraprod:1.0.2",
+    "python": "antchain_sdk_eraprod:1.0.2"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
