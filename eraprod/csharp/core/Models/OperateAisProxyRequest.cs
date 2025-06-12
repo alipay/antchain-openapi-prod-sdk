@@ -19,9 +19,14 @@ namespace AntChain.SDK.ERAPROD.Models
         public string ProductInstanceId { get; set; }
 
         // 入参json
-        [NameInMap("data")]
+        [NameInMap("biz_data")]
         [Validation(Required=true)]
-        public string Data { get; set; }
+        public string BizData { get; set; }
+
+        // 系统参数
+        [NameInMap("system_data")]
+        [Validation(Required=true)]
+        public string SystemData { get; set; }
 
     }
 
