@@ -158,16 +158,20 @@ class OperateAisProxyRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        data: str = None,
+        biz_data: str = None,
+        system_data: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 入参json
-        self.data = data
+        self.biz_data = biz_data
+        # 系统参数
+        self.system_data = system_data
 
     def validate(self):
-        self.validate_required(self.data, 'data')
+        self.validate_required(self.biz_data, 'biz_data')
+        self.validate_required(self.system_data, 'system_data')
 
     def to_map(self):
         _map = super().to_map()
@@ -179,8 +183,10 @@ class OperateAisProxyRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.data is not None:
-            result['data'] = self.data
+        if self.biz_data is not None:
+            result['biz_data'] = self.biz_data
+        if self.system_data is not None:
+            result['system_data'] = self.system_data
         return result
 
     def from_map(self, m: dict = None):
@@ -189,8 +195,10 @@ class OperateAisProxyRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('data') is not None:
-            self.data = m.get('data')
+        if m.get('biz_data') is not None:
+            self.biz_data = m.get('biz_data')
+        if m.get('system_data') is not None:
+            self.system_data = m.get('system_data')
         return self
 
 
