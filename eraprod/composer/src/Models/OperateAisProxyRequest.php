@@ -23,16 +23,24 @@ class OperateAisProxyRequest extends Model
     /**
      * @var string
      */
-    public $data;
+    public $bizData;
+
+    // 系统参数
+    /**
+     * @var string
+     */
+    public $systemData;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'data'              => 'data',
+        'bizData'           => 'biz_data',
+        'systemData'        => 'system_data',
     ];
 
     public function validate()
     {
-        Model::validateRequired('data', $this->data, true);
+        Model::validateRequired('bizData', $this->bizData, true);
+        Model::validateRequired('systemData', $this->systemData, true);
     }
 
     public function toMap()
@@ -44,8 +52,11 @@ class OperateAisProxyRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->data) {
-            $res['data'] = $this->data;
+        if (null !== $this->bizData) {
+            $res['biz_data'] = $this->bizData;
+        }
+        if (null !== $this->systemData) {
+            $res['system_data'] = $this->systemData;
         }
 
         return $res;
@@ -65,8 +76,11 @@ class OperateAisProxyRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['data'])) {
-            $model->data = $map['data'];
+        if (isset($map['biz_data'])) {
+            $model->bizData = $map['biz_data'];
+        }
+        if (isset($map['system_data'])) {
+            $model->systemData = $map['system_data'];
         }
 
         return $model;
