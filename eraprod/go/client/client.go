@@ -153,7 +153,9 @@ type OperateAisProxyRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 入参json
-	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+	BizData *string `json:"biz_data,omitempty" xml:"biz_data,omitempty" require:"true"`
+	// 系统参数
+	SystemData *string `json:"system_data,omitempty" xml:"system_data,omitempty" require:"true"`
 }
 
 func (s OperateAisProxyRequest) String() string {
@@ -174,8 +176,13 @@ func (s *OperateAisProxyRequest) SetProductInstanceId(v string) *OperateAisProxy
 	return s
 }
 
-func (s *OperateAisProxyRequest) SetData(v string) *OperateAisProxyRequest {
-	s.Data = &v
+func (s *OperateAisProxyRequest) SetBizData(v string) *OperateAisProxyRequest {
+	s.BizData = &v
+	return s
+}
+
+func (s *OperateAisProxyRequest) SetSystemData(v string) *OperateAisProxyRequest {
+	s.SystemData = &v
 	return s
 }
 
@@ -340,7 +347,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("1.0.2"),
 				"_prod_code":       tea.String("ERAPROD"),
 				"_prod_channel":    tea.String("default"),
 			}
