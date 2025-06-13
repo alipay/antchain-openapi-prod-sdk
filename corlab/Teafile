@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "CORLAB",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-corlab:1.0.14",
-    "go": "github.com/antchain-openapi-sdk-go/corlab/client:v1.0.14",
-    "csharp": "AntChain.SDK.CORLAB:1.0.14",
-    "ts": "@antchain/corlab:1.0.14",
-    "php": "antchain/corlab:1.0.14",
-    "python": "antchain_sdk_corlab:1.0.14"
+    "java": "com.antgroup.antchain.openapi:openapi-corlab:1.0.15",
+    "go": "github.com/antchain-openapi-sdk-go/corlab/client:v1.0.15",
+    "csharp": "AntChain.SDK.CORLAB:1.0.15",
+    "ts": "@antchain/corlab:1.0.15",
+    "php": "antchain/corlab:1.0.15",
+    "python": "antchain_sdk_corlab:1.0.15"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
