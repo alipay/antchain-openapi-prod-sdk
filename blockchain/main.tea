@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.28.50',
+    sdk_version = '1.28.51',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -2565,6 +2565,21 @@ model ContractQueryDetailReq {
   serviceId: string(maxLength=64, minLength=1, name='service_id', example='cme20230724104931af3a4d'),
 }
 
+// 车辆基本信息
+model CarInfo {
+  // 车辆信息
+  licenseNo: string(name='license_no', example='xxx'),
+  // 车架号
+  vin: string(name='vin', example='xx'),
+  // 发动机号
+  engineNo: string(name='engine_no', example='xxx'),
+  // 
+  // 注册日期
+  registerDate: string(name='register_date', example='xxxx'),
+  // 车型
+  modelCode: string(name='model_code', example='xxx'),
+}
+
 // 智能合约市场列表查询
 model ContractTemplateQueryReq {
   // 页码
@@ -2938,6 +2953,14 @@ model DisServiceInfo {
   serviceId: string(name='service_id', example='did:service:xxxxxx'),
   // 服务类型
   serviceType: string(name='service_type', example='xxxx'),
+}
+
+// 用户基本信息
+model CarOwnerUserInfo {
+  // 用户id
+  userId: string(name='user_id', example='XX'),
+  // 手机号
+  phoneNum: string(name='phone_num', example='XXX'),
 }
 
 // POAP徽章的详细信息
@@ -22730,6 +22753,93 @@ async function submitAuthNewcar(request: SubmitAuthNewcarRequest): SubmitAuthNew
 async function submitAuthNewcarEx(request: SubmitAuthNewcarRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAuthNewcarResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.auth.newcar.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAuthInsuranceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+  // 手机号
+  phoneNum: string(name='phone_num'),
+  // 车辆信息
+  carInfo: BasicCarInfo(name='car_info'),
+}
+
+model QueryAuthInsuranceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 	
+  // 提交是否成功
+  pushSuccess?: string(name='push_success'),
+}
+
+/**
+ * Description: 平安车险车辆绑定 天猫使用
+ * Summary: 平安车险车辆绑定 天猫使用
+ */
+async function queryAuthInsurance(request: QueryAuthInsuranceRequest): QueryAuthInsuranceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAuthInsuranceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 平安车险车辆绑定 天猫使用
+ * Summary: 平安车险车辆绑定 天猫使用
+ */
+async function queryAuthInsuranceEx(request: QueryAuthInsuranceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAuthInsuranceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.insurance.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterAuthCarownerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 唯一场景码
+  sceneCode: string(name='scene_code'),
+  // 用户基本信息
+  userInfo: CarOwnerUserInfo(name='user_info'),
+  // 车辆信息
+  carInfo: CarInfo(name='car_info'),
+}
+
+model RegisterAuthCarownerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  pushSuccess?: boolean(name='push_success'),
+  //  token
+  token?: string(name='token'),
+}
+
+/**
+ * Description: 车主信息提交
+ * Summary: 车主信息提交
+ */
+async function registerAuthCarowner(request: RegisterAuthCarownerRequest): RegisterAuthCarownerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerAuthCarownerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 车主信息提交
+ * Summary: 车主信息提交
+ */
+async function registerAuthCarownerEx(request: RegisterAuthCarownerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterAuthCarownerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.carowner.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StartDidCorporateAgentcreateRequest = {
