@@ -8214,6 +8214,54 @@ func (s *ContractQueryDetailReq) SetServiceId(v string) *ContractQueryDetailReq 
 	return s
 }
 
+// 车辆基本信息
+type CarInfo struct {
+	// 车辆信息
+	LicenseNo *string `json:"license_no,omitempty" xml:"license_no,omitempty" require:"true"`
+	// 车架号
+	Vin *string `json:"vin,omitempty" xml:"vin,omitempty" require:"true"`
+	// 发动机号
+	EngineNo *string `json:"engine_no,omitempty" xml:"engine_no,omitempty" require:"true"`
+	//
+	// 注册日期
+	RegisterDate *string `json:"register_date,omitempty" xml:"register_date,omitempty" require:"true"`
+	// 车型
+	ModelCode *string `json:"model_code,omitempty" xml:"model_code,omitempty" require:"true"`
+}
+
+func (s CarInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CarInfo) SetLicenseNo(v string) *CarInfo {
+	s.LicenseNo = &v
+	return s
+}
+
+func (s *CarInfo) SetVin(v string) *CarInfo {
+	s.Vin = &v
+	return s
+}
+
+func (s *CarInfo) SetEngineNo(v string) *CarInfo {
+	s.EngineNo = &v
+	return s
+}
+
+func (s *CarInfo) SetRegisterDate(v string) *CarInfo {
+	s.RegisterDate = &v
+	return s
+}
+
+func (s *CarInfo) SetModelCode(v string) *CarInfo {
+	s.ModelCode = &v
+	return s
+}
+
 // 智能合约市场列表查询
 type ContractTemplateQueryReq struct {
 	// 页码
@@ -9471,6 +9519,32 @@ func (s *DisServiceInfo) SetServiceId(v string) *DisServiceInfo {
 
 func (s *DisServiceInfo) SetServiceType(v string) *DisServiceInfo {
 	s.ServiceType = &v
+	return s
+}
+
+// 用户基本信息
+type CarOwnerUserInfo struct {
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 手机号
+	PhoneNum *string `json:"phone_num,omitempty" xml:"phone_num,omitempty" require:"true"`
+}
+
+func (s CarOwnerUserInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarOwnerUserInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CarOwnerUserInfo) SetUserId(v string) *CarOwnerUserInfo {
+	s.UserId = &v
+	return s
+}
+
+func (s *CarOwnerUserInfo) SetPhoneNum(v string) *CarOwnerUserInfo {
+	s.PhoneNum = &v
 	return s
 }
 
@@ -51588,6 +51662,182 @@ func (s *SubmitAuthNewcarResponse) SetPushSuccess(v bool) *SubmitAuthNewcarRespo
 	return s
 }
 
+type QueryAuthInsuranceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 手机号
+	PhoneNum *string `json:"phone_num,omitempty" xml:"phone_num,omitempty" require:"true"`
+	// 车辆信息
+	CarInfo *BasicCarInfo `json:"car_info,omitempty" xml:"car_info,omitempty" require:"true"`
+}
+
+func (s QueryAuthInsuranceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthInsuranceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthInsuranceRequest) SetAuthToken(v string) *QueryAuthInsuranceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAuthInsuranceRequest) SetProductInstanceId(v string) *QueryAuthInsuranceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAuthInsuranceRequest) SetSceneCode(v string) *QueryAuthInsuranceRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *QueryAuthInsuranceRequest) SetPhoneNum(v string) *QueryAuthInsuranceRequest {
+	s.PhoneNum = &v
+	return s
+}
+
+func (s *QueryAuthInsuranceRequest) SetCarInfo(v *BasicCarInfo) *QueryAuthInsuranceRequest {
+	s.CarInfo = v
+	return s
+}
+
+type QueryAuthInsuranceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	//
+	// 提交是否成功
+	PushSuccess *string `json:"push_success,omitempty" xml:"push_success,omitempty"`
+}
+
+func (s QueryAuthInsuranceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthInsuranceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthInsuranceResponse) SetReqMsgId(v string) *QueryAuthInsuranceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAuthInsuranceResponse) SetResultCode(v string) *QueryAuthInsuranceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAuthInsuranceResponse) SetResultMsg(v string) *QueryAuthInsuranceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAuthInsuranceResponse) SetPushSuccess(v string) *QueryAuthInsuranceResponse {
+	s.PushSuccess = &v
+	return s
+}
+
+type RegisterAuthCarownerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 唯一场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 用户基本信息
+	UserInfo *CarOwnerUserInfo `json:"user_info,omitempty" xml:"user_info,omitempty" require:"true"`
+	// 车辆信息
+	CarInfo *CarInfo `json:"car_info,omitempty" xml:"car_info,omitempty" require:"true"`
+}
+
+func (s RegisterAuthCarownerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterAuthCarownerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterAuthCarownerRequest) SetAuthToken(v string) *RegisterAuthCarownerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RegisterAuthCarownerRequest) SetProductInstanceId(v string) *RegisterAuthCarownerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RegisterAuthCarownerRequest) SetSceneCode(v string) *RegisterAuthCarownerRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *RegisterAuthCarownerRequest) SetUserInfo(v *CarOwnerUserInfo) *RegisterAuthCarownerRequest {
+	s.UserInfo = v
+	return s
+}
+
+func (s *RegisterAuthCarownerRequest) SetCarInfo(v *CarInfo) *RegisterAuthCarownerRequest {
+	s.CarInfo = v
+	return s
+}
+
+type RegisterAuthCarownerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	PushSuccess *bool `json:"push_success,omitempty" xml:"push_success,omitempty"`
+	//  token
+	Token *string `json:"token,omitempty" xml:"token,omitempty"`
+}
+
+func (s RegisterAuthCarownerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterAuthCarownerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterAuthCarownerResponse) SetReqMsgId(v string) *RegisterAuthCarownerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RegisterAuthCarownerResponse) SetResultCode(v string) *RegisterAuthCarownerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RegisterAuthCarownerResponse) SetResultMsg(v string) *RegisterAuthCarownerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RegisterAuthCarownerResponse) SetPushSuccess(v bool) *RegisterAuthCarownerResponse {
+	s.PushSuccess = &v
+	return s
+}
+
+func (s *RegisterAuthCarownerResponse) SetToken(v string) *RegisterAuthCarownerResponse {
+	s.Token = &v
+	return s
+}
+
 type StartDidCorporateAgentcreateRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -70886,7 +71136,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.50"),
+				"sdk_version":      tea.String("1.28.51"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -85331,6 +85581,74 @@ func (client *Client) SubmitAuthNewcarEx(request *SubmitAuthNewcarRequest, heade
 	}
 	_result = &SubmitAuthNewcarResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.newcar.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 平安车险车辆绑定 天猫使用
+ * Summary: 平安车险车辆绑定 天猫使用
+ */
+func (client *Client) QueryAuthInsurance(request *QueryAuthInsuranceRequest) (_result *QueryAuthInsuranceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAuthInsuranceResponse{}
+	_body, _err := client.QueryAuthInsuranceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 平安车险车辆绑定 天猫使用
+ * Summary: 平安车险车辆绑定 天猫使用
+ */
+func (client *Client) QueryAuthInsuranceEx(request *QueryAuthInsuranceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAuthInsuranceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAuthInsuranceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.insurance.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 车主信息提交
+ * Summary: 车主信息提交
+ */
+func (client *Client) RegisterAuthCarowner(request *RegisterAuthCarownerRequest) (_result *RegisterAuthCarownerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RegisterAuthCarownerResponse{}
+	_body, _err := client.RegisterAuthCarownerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 车主信息提交
+ * Summary: 车主信息提交
+ */
+func (client *Client) RegisterAuthCarownerEx(request *RegisterAuthCarownerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RegisterAuthCarownerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RegisterAuthCarownerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.carowner.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
