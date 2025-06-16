@@ -615,6 +615,8 @@ use AntChain\BLOCKCHAIN\Models\QueryAuthCrowdUploadurlRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthCrowdUploadurlResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthIdentityauthRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthIdentityauthResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAuthInsuranceRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAuthInsuranceResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthOrgStatusRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthOrgStatusResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthPoapRequest;
@@ -887,6 +889,8 @@ use AntChain\BLOCKCHAIN\Models\RebootDidNotificationConsumerRequest;
 use AntChain\BLOCKCHAIN\Models\RebootDidNotificationConsumerResponse;
 use AntChain\BLOCKCHAIN\Models\RecognizeAuthCarinfoRequest;
 use AntChain\BLOCKCHAIN\Models\RecognizeAuthCarinfoResponse;
+use AntChain\BLOCKCHAIN\Models\RegisterAuthCarownerRequest;
+use AntChain\BLOCKCHAIN\Models\RegisterAuthCarownerResponse;
 use AntChain\BLOCKCHAIN\Models\RegisterWaasBusinessRequest;
 use AntChain\BLOCKCHAIN\Models\RegisterWaasBusinessResponse;
 use AntChain\BLOCKCHAIN\Models\ReinitChainCertAntRequest;
@@ -1394,7 +1398,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.28.50',
+                    'sdk_version'      => '1.28.51',
                     '_prod_code'       => 'BLOCKCHAIN',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -15391,6 +15395,72 @@ class Client
         Utils::validateModel($request);
 
         return SubmitAuthNewcarResponse::fromMap($this->doRequest('1.0', 'baas.auth.newcar.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 平安车险车辆绑定 天猫使用
+     * Summary: 平安车险车辆绑定 天猫使用.
+     *
+     * @param QueryAuthInsuranceRequest $request
+     *
+     * @return QueryAuthInsuranceResponse
+     */
+    public function queryAuthInsurance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuthInsuranceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 平安车险车辆绑定 天猫使用
+     * Summary: 平安车险车辆绑定 天猫使用.
+     *
+     * @param QueryAuthInsuranceRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryAuthInsuranceResponse
+     */
+    public function queryAuthInsuranceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuthInsuranceResponse::fromMap($this->doRequest('1.0', 'baas.auth.insurance.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 车主信息提交
+     * Summary: 车主信息提交.
+     *
+     * @param RegisterAuthCarownerRequest $request
+     *
+     * @return RegisterAuthCarownerResponse
+     */
+    public function registerAuthCarowner($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerAuthCarownerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 车主信息提交
+     * Summary: 车主信息提交.
+     *
+     * @param RegisterAuthCarownerRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return RegisterAuthCarownerResponse
+     */
+    public function registerAuthCarownerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterAuthCarownerResponse::fromMap($this->doRequest('1.0', 'baas.auth.carowner.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
