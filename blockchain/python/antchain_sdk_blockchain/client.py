@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.50',
+                    'sdk_version': '1.28.51',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.50',
+                    'sdk_version': '1.28.51',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -23961,6 +23961,118 @@ class Client:
         return TeaCore.from_map(
             blockchain_models.SubmitAuthNewcarResponse(),
             await self.do_request_async('1.0', 'baas.auth.newcar.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_auth_insurance(
+        self,
+        request: blockchain_models.QueryAuthInsuranceRequest,
+    ) -> blockchain_models.QueryAuthInsuranceResponse:
+        """
+        Description: 平安车险车辆绑定 天猫使用
+        Summary: 平安车险车辆绑定 天猫使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_auth_insurance_ex(request, headers, runtime)
+
+    async def query_auth_insurance_async(
+        self,
+        request: blockchain_models.QueryAuthInsuranceRequest,
+    ) -> blockchain_models.QueryAuthInsuranceResponse:
+        """
+        Description: 平安车险车辆绑定 天猫使用
+        Summary: 平安车险车辆绑定 天猫使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_auth_insurance_ex_async(request, headers, runtime)
+
+    def query_auth_insurance_ex(
+        self,
+        request: blockchain_models.QueryAuthInsuranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthInsuranceResponse:
+        """
+        Description: 平安车险车辆绑定 天猫使用
+        Summary: 平安车险车辆绑定 天猫使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthInsuranceResponse(),
+            self.do_request('1.0', 'baas.auth.insurance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_auth_insurance_ex_async(
+        self,
+        request: blockchain_models.QueryAuthInsuranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthInsuranceResponse:
+        """
+        Description: 平安车险车辆绑定 天猫使用
+        Summary: 平安车险车辆绑定 天猫使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthInsuranceResponse(),
+            await self.do_request_async('1.0', 'baas.auth.insurance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_auth_carowner(
+        self,
+        request: blockchain_models.RegisterAuthCarownerRequest,
+    ) -> blockchain_models.RegisterAuthCarownerResponse:
+        """
+        Description: 车主信息提交
+        Summary: 车主信息提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_auth_carowner_ex(request, headers, runtime)
+
+    async def register_auth_carowner_async(
+        self,
+        request: blockchain_models.RegisterAuthCarownerRequest,
+    ) -> blockchain_models.RegisterAuthCarownerResponse:
+        """
+        Description: 车主信息提交
+        Summary: 车主信息提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_auth_carowner_ex_async(request, headers, runtime)
+
+    def register_auth_carowner_ex(
+        self,
+        request: blockchain_models.RegisterAuthCarownerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.RegisterAuthCarownerResponse:
+        """
+        Description: 车主信息提交
+        Summary: 车主信息提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.RegisterAuthCarownerResponse(),
+            self.do_request('1.0', 'baas.auth.carowner.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_auth_carowner_ex_async(
+        self,
+        request: blockchain_models.RegisterAuthCarownerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.RegisterAuthCarownerResponse:
+        """
+        Description: 车主信息提交
+        Summary: 车主信息提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.RegisterAuthCarownerResponse(),
+            await self.do_request_async('1.0', 'baas.auth.carowner.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_did_corporate_agentcreate(
