@@ -137,7 +137,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.28.50"},
+                        {"sdk_version", "1.28.51"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.28.50"},
+                        {"sdk_version", "1.28.51"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -18137,6 +18137,90 @@ namespace AntChain.SDK.BLOCKCHAIN
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SubmitAuthNewcarResponse>(await DoRequestAsync("1.0", "baas.auth.newcar.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 平安车险车辆绑定 天猫使用
+         * Summary: 平安车险车辆绑定 天猫使用
+         */
+        public QueryAuthInsuranceResponse QueryAuthInsurance(QueryAuthInsuranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAuthInsuranceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 平安车险车辆绑定 天猫使用
+         * Summary: 平安车险车辆绑定 天猫使用
+         */
+        public async Task<QueryAuthInsuranceResponse> QueryAuthInsuranceAsync(QueryAuthInsuranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAuthInsuranceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 平安车险车辆绑定 天猫使用
+         * Summary: 平安车险车辆绑定 天猫使用
+         */
+        public QueryAuthInsuranceResponse QueryAuthInsuranceEx(QueryAuthInsuranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAuthInsuranceResponse>(DoRequest("1.0", "baas.auth.insurance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 平安车险车辆绑定 天猫使用
+         * Summary: 平安车险车辆绑定 天猫使用
+         */
+        public async Task<QueryAuthInsuranceResponse> QueryAuthInsuranceExAsync(QueryAuthInsuranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAuthInsuranceResponse>(await DoRequestAsync("1.0", "baas.auth.insurance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 车主信息提交
+         * Summary: 车主信息提交
+         */
+        public RegisterAuthCarownerResponse RegisterAuthCarowner(RegisterAuthCarownerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RegisterAuthCarownerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 车主信息提交
+         * Summary: 车主信息提交
+         */
+        public async Task<RegisterAuthCarownerResponse> RegisterAuthCarownerAsync(RegisterAuthCarownerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RegisterAuthCarownerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 车主信息提交
+         * Summary: 车主信息提交
+         */
+        public RegisterAuthCarownerResponse RegisterAuthCarownerEx(RegisterAuthCarownerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterAuthCarownerResponse>(DoRequest("1.0", "baas.auth.carowner.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 车主信息提交
+         * Summary: 车主信息提交
+         */
+        public async Task<RegisterAuthCarownerResponse> RegisterAuthCarownerExAsync(RegisterAuthCarownerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterAuthCarownerResponse>(await DoRequestAsync("1.0", "baas.auth.carowner.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
