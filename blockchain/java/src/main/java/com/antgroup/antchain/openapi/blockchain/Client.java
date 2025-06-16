@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.28.50"),
+                    new TeaPair("sdk_version", "1.28.51"),
                     new TeaPair("_prod_code", "BLOCKCHAIN"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -8245,6 +8245,44 @@ public class Client {
     public SubmitAuthNewcarResponse submitAuthNewcarEx(SubmitAuthNewcarRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.auth.newcar.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAuthNewcarResponse());
+    }
+
+    /**
+     * Description: 平安车险车辆绑定 天猫使用
+     * Summary: 平安车险车辆绑定 天猫使用
+     */
+    public QueryAuthInsuranceResponse queryAuthInsurance(QueryAuthInsuranceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAuthInsuranceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 平安车险车辆绑定 天猫使用
+     * Summary: 平安车险车辆绑定 天猫使用
+     */
+    public QueryAuthInsuranceResponse queryAuthInsuranceEx(QueryAuthInsuranceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.insurance.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAuthInsuranceResponse());
+    }
+
+    /**
+     * Description: 车主信息提交
+     * Summary: 车主信息提交
+     */
+    public RegisterAuthCarownerResponse registerAuthCarowner(RegisterAuthCarownerRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.registerAuthCarownerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 车主信息提交
+     * Summary: 车主信息提交
+     */
+    public RegisterAuthCarownerResponse registerAuthCarownerEx(RegisterAuthCarownerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.carowner.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterAuthCarownerResponse());
     }
 
     /**
