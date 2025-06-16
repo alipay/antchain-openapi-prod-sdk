@@ -6334,6 +6334,44 @@ export class ContractQueryDetailReq extends $tea.Model {
   }
 }
 
+// 车辆基本信息
+export class CarInfo extends $tea.Model {
+  // 车辆信息
+  licenseNo: string;
+  // 车架号
+  vin: string;
+  // 发动机号
+  engineNo: string;
+  // 
+  // 注册日期
+  registerDate: string;
+  // 车型
+  modelCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      licenseNo: 'license_no',
+      vin: 'vin',
+      engineNo: 'engine_no',
+      registerDate: 'register_date',
+      modelCode: 'model_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      licenseNo: 'string',
+      vin: 'string',
+      engineNo: 'string',
+      registerDate: 'string',
+      modelCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 智能合约市场列表查询
 export class ContractTemplateQueryReq extends $tea.Model {
   // 页码
@@ -7300,6 +7338,31 @@ export class DisServiceInfo extends $tea.Model {
       endPoint: 'string',
       serviceId: 'string',
       serviceType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用户基本信息
+export class CarOwnerUserInfo extends $tea.Model {
+  // 用户id
+  userId: string;
+  // 手机号
+  phoneNum: string;
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      phoneNum: 'phone_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      phoneNum: 'string',
     };
   }
 
@@ -39708,6 +39771,145 @@ export class SubmitAuthNewcarResponse extends $tea.Model {
   }
 }
 
+export class QueryAuthInsuranceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景码
+  sceneCode: string;
+  // 手机号
+  phoneNum: string;
+  // 车辆信息
+  carInfo: BasicCarInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneCode: 'scene_code',
+      phoneNum: 'phone_num',
+      carInfo: 'car_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneCode: 'string',
+      phoneNum: 'string',
+      carInfo: BasicCarInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuthInsuranceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 	
+  // 提交是否成功
+  pushSuccess?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pushSuccess: 'push_success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pushSuccess: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterAuthCarownerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 唯一场景码
+  sceneCode: string;
+  // 用户基本信息
+  userInfo: CarOwnerUserInfo;
+  // 车辆信息
+  carInfo: CarInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneCode: 'scene_code',
+      userInfo: 'user_info',
+      carInfo: 'car_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneCode: 'string',
+      userInfo: CarOwnerUserInfo,
+      carInfo: CarInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RegisterAuthCarownerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  pushSuccess?: boolean;
+  //  token
+  token?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pushSuccess: 'push_success',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pushSuccess: 'boolean',
+      token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class StartDidCorporateAgentcreateRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -54586,7 +54788,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.50",
+          sdk_version: "1.28.51",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
@@ -62695,6 +62897,44 @@ export default class Client {
   async submitAuthNewcarEx(request: SubmitAuthNewcarRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAuthNewcarResponse> {
     Util.validateModel(request);
     return $tea.cast<SubmitAuthNewcarResponse>(await this.doRequest("1.0", "baas.auth.newcar.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitAuthNewcarResponse({}));
+  }
+
+  /**
+   * Description: 平安车险车辆绑定 天猫使用
+   * Summary: 平安车险车辆绑定 天猫使用
+   */
+  async queryAuthInsurance(request: QueryAuthInsuranceRequest): Promise<QueryAuthInsuranceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAuthInsuranceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 平安车险车辆绑定 天猫使用
+   * Summary: 平安车险车辆绑定 天猫使用
+   */
+  async queryAuthInsuranceEx(request: QueryAuthInsuranceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAuthInsuranceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAuthInsuranceResponse>(await this.doRequest("1.0", "baas.auth.insurance.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAuthInsuranceResponse({}));
+  }
+
+  /**
+   * Description: 车主信息提交
+   * Summary: 车主信息提交
+   */
+  async registerAuthCarowner(request: RegisterAuthCarownerRequest): Promise<RegisterAuthCarownerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.registerAuthCarownerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 车主信息提交
+   * Summary: 车主信息提交
+   */
+  async registerAuthCarownerEx(request: RegisterAuthCarownerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterAuthCarownerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RegisterAuthCarownerResponse>(await this.doRequest("1.0", "baas.auth.carowner.register", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RegisterAuthCarownerResponse({}));
   }
 
   /**
