@@ -6260,6 +6260,218 @@ func (s *QueryAlipayverifyServerResponse) SetReason(v string) *QueryAlipayverify
 	return s
 }
 
+type CheckCarTwometaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// "0"：不加密；
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty" require:"true"`
+	// 车牌号
+	LicensePlate *string `json:"license_plate,omitempty" xml:"license_plate,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s CheckCarTwometaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckCarTwometaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckCarTwometaRequest) SetAuthToken(v string) *CheckCarTwometaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckCarTwometaRequest) SetProductInstanceId(v string) *CheckCarTwometaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckCarTwometaRequest) SetOuterOrderNo(v string) *CheckCarTwometaRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CheckCarTwometaRequest) SetEncryptType(v string) *CheckCarTwometaRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *CheckCarTwometaRequest) SetLicensePlate(v string) *CheckCarTwometaRequest {
+	s.LicensePlate = &v
+	return s
+}
+
+func (s *CheckCarTwometaRequest) SetCertName(v string) *CheckCarTwometaRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CheckCarTwometaRequest) SetExternParam(v string) *CheckCarTwometaRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type CheckCarTwometaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，为JSONObject。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s CheckCarTwometaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckCarTwometaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckCarTwometaResponse) SetReqMsgId(v string) *CheckCarTwometaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckCarTwometaResponse) SetResultCode(v string) *CheckCarTwometaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckCarTwometaResponse) SetResultMsg(v string) *CheckCarTwometaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckCarTwometaResponse) SetExternInfo(v string) *CheckCarTwometaResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryEducationBackgroundRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 入参加密模式：
+	// "0"：不加密；
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty" require:"true"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryEducationBackgroundRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEducationBackgroundRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEducationBackgroundRequest) SetAuthToken(v string) *QueryEducationBackgroundRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundRequest) SetProductInstanceId(v string) *QueryEducationBackgroundRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundRequest) SetOuterOrderNo(v string) *QueryEducationBackgroundRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundRequest) SetEncryptType(v string) *QueryEducationBackgroundRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundRequest) SetCertNo(v string) *QueryEducationBackgroundRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundRequest) SetMobile(v string) *QueryEducationBackgroundRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundRequest) SetCertName(v string) *QueryEducationBackgroundRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundRequest) SetExternParam(v string) *QueryEducationBackgroundRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryEducationBackgroundResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 学历信息，仅当结果码为OK时返回。学历信息字段为一JSONArray。
+	EducationInfo *string `json:"education_info,omitempty" xml:"education_info,omitempty"`
+	// 扩展信息，预留字段。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryEducationBackgroundResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEducationBackgroundResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEducationBackgroundResponse) SetReqMsgId(v string) *QueryEducationBackgroundResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundResponse) SetResultCode(v string) *QueryEducationBackgroundResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundResponse) SetResultMsg(v string) *QueryEducationBackgroundResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundResponse) SetEducationInfo(v string) *QueryEducationBackgroundResponse {
+	s.EducationInfo = &v
+	return s
+}
+
+func (s *QueryEducationBackgroundResponse) SetExternInfo(v string) *QueryEducationBackgroundResponse {
+	s.ExternInfo = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -6502,7 +6714,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.20.0"),
+				"sdk_version":      tea.String("1.20.2"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -8275,6 +8487,74 @@ func (client *Client) QueryAlipayverifyServerEx(request *QueryAlipayverifyServer
 	}
 	_result = &QueryAlipayverifyServerResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.alipayverify.server.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 车辆资产验证
+ * Summary: 车辆资产验证
+ */
+func (client *Client) CheckCarTwometa(request *CheckCarTwometaRequest) (_result *CheckCarTwometaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckCarTwometaResponse{}
+	_body, _err := client.CheckCarTwometaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 车辆资产验证
+ * Summary: 车辆资产验证
+ */
+func (client *Client) CheckCarTwometaEx(request *CheckCarTwometaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckCarTwometaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckCarTwometaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.car.twometa.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 学历验证
+ * Summary: 学历验证
+ */
+func (client *Client) QueryEducationBackground(request *QueryEducationBackgroundRequest) (_result *QueryEducationBackgroundResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEducationBackgroundResponse{}
+	_body, _err := client.QueryEducationBackgroundEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 学历验证
+ * Summary: 学历验证
+ */
+func (client *Client) QueryEducationBackgroundEx(request *QueryEducationBackgroundRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEducationBackgroundResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEducationBackgroundResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.education.background.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
