@@ -21,6 +21,8 @@ use AntChain\REALPERSON\Models\CheckBankcardTwometaRequest;
 use AntChain\REALPERSON\Models\CheckBankcardTwometaResponse;
 use AntChain\REALPERSON\Models\CheckCarrierTwometaRequest;
 use AntChain\REALPERSON\Models\CheckCarrierTwometaResponse;
+use AntChain\REALPERSON\Models\CheckCarTwometaRequest;
+use AntChain\REALPERSON\Models\CheckCarTwometaResponse;
 use AntChain\REALPERSON\Models\CheckIndividualidFourmetaRequest;
 use AntChain\REALPERSON\Models\CheckIndividualidFourmetaResponse;
 use AntChain\REALPERSON\Models\CheckIndividualidThreemetaRequest;
@@ -81,6 +83,8 @@ use AntChain\REALPERSON\Models\QueryDeepsecTsbmrqRequest;
 use AntChain\REALPERSON\Models\QueryDeepsecTsbmrqResponse;
 use AntChain\REALPERSON\Models\QueryDemoInfoRequest;
 use AntChain\REALPERSON\Models\QueryDemoInfoResponse;
+use AntChain\REALPERSON\Models\QueryEducationBackgroundRequest;
+use AntChain\REALPERSON\Models\QueryEducationBackgroundResponse;
 use AntChain\REALPERSON\Models\QueryEducationInfoRequest;
 use AntChain\REALPERSON\Models\QueryEducationInfoResponse;
 use AntChain\REALPERSON\Models\QueryFaceverifyServerRequest;
@@ -256,7 +260,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.20.0',
+                    'sdk_version'      => '1.20.2',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1943,6 +1947,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryAlipayverifyServerResponse::fromMap($this->doRequest('1.0', 'di.realperson.alipayverify.server.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 车辆资产验证
+     * Summary: 车辆资产验证
+     *
+     * @param CheckCarTwometaRequest $request
+     *
+     * @return CheckCarTwometaResponse
+     */
+    public function checkCarTwometa($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkCarTwometaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 车辆资产验证
+     * Summary: 车辆资产验证
+     *
+     * @param CheckCarTwometaRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return CheckCarTwometaResponse
+     */
+    public function checkCarTwometaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckCarTwometaResponse::fromMap($this->doRequest('1.0', 'di.realperson.car.twometa.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 学历验证
+     * Summary: 学历验证
+     *
+     * @param QueryEducationBackgroundRequest $request
+     *
+     * @return QueryEducationBackgroundResponse
+     */
+    public function queryEducationBackground($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEducationBackgroundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 学历验证
+     * Summary: 学历验证
+     *
+     * @param QueryEducationBackgroundRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryEducationBackgroundResponse
+     */
+    public function queryEducationBackgroundEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEducationBackgroundResponse::fromMap($this->doRequest('1.0', 'di.realperson.education.background.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
