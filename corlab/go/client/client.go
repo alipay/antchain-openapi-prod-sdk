@@ -542,6 +542,8 @@ type CreateModelbackTaskRequest struct {
 	SampleFileName *string `json:"sample_file_name,omitempty" xml:"sample_file_name,omitempty"`
 	// 目前只支持MD5,SHA_256两种加密方式
 	KeyType *string `json:"key_type,omitempty" xml:"key_type,omitempty" require:"true"`
+	// 客户方唯一code
+	UniqueCode *string `json:"unique_code,omitempty" xml:"unique_code,omitempty" require:"true"`
 }
 
 func (s CreateModelbackTaskRequest) String() string {
@@ -589,6 +591,11 @@ func (s *CreateModelbackTaskRequest) SetSampleFileName(v string) *CreateModelbac
 
 func (s *CreateModelbackTaskRequest) SetKeyType(v string) *CreateModelbackTaskRequest {
 	s.KeyType = &v
+	return s
+}
+
+func (s *CreateModelbackTaskRequest) SetUniqueCode(v string) *CreateModelbackTaskRequest {
+	s.UniqueCode = &v
 	return s
 }
 
@@ -1041,7 +1048,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.15"),
+				"sdk_version":      tea.String("1.0.16"),
 				"_prod_code":       tea.String("CORLAB"),
 				"_prod_channel":    tea.String("default"),
 			}
