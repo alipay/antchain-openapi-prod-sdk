@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.20.0',
+                    'sdk_version': '1.20.2',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.20.0',
+                    'sdk_version': '1.20.2',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -3069,6 +3069,118 @@ class Client:
         return TeaCore.from_map(
             realperson_models.QueryAlipayverifyServerResponse(),
             await self.do_request_async('1.0', 'di.realperson.alipayverify.server.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_car_twometa(
+        self,
+        request: realperson_models.CheckCarTwometaRequest,
+    ) -> realperson_models.CheckCarTwometaResponse:
+        """
+        Description: 车辆资产验证
+        Summary: 车辆资产验证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_car_twometa_ex(request, headers, runtime)
+
+    async def check_car_twometa_async(
+        self,
+        request: realperson_models.CheckCarTwometaRequest,
+    ) -> realperson_models.CheckCarTwometaResponse:
+        """
+        Description: 车辆资产验证
+        Summary: 车辆资产验证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_car_twometa_ex_async(request, headers, runtime)
+
+    def check_car_twometa_ex(
+        self,
+        request: realperson_models.CheckCarTwometaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckCarTwometaResponse:
+        """
+        Description: 车辆资产验证
+        Summary: 车辆资产验证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.CheckCarTwometaResponse(),
+            self.do_request('1.0', 'di.realperson.car.twometa.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_car_twometa_ex_async(
+        self,
+        request: realperson_models.CheckCarTwometaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckCarTwometaResponse:
+        """
+        Description: 车辆资产验证
+        Summary: 车辆资产验证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.CheckCarTwometaResponse(),
+            await self.do_request_async('1.0', 'di.realperson.car.twometa.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_education_background(
+        self,
+        request: realperson_models.QueryEducationBackgroundRequest,
+    ) -> realperson_models.QueryEducationBackgroundResponse:
+        """
+        Description: 学历验证
+        Summary: 学历验证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_education_background_ex(request, headers, runtime)
+
+    async def query_education_background_async(
+        self,
+        request: realperson_models.QueryEducationBackgroundRequest,
+    ) -> realperson_models.QueryEducationBackgroundResponse:
+        """
+        Description: 学历验证
+        Summary: 学历验证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_education_background_ex_async(request, headers, runtime)
+
+    def query_education_background_ex(
+        self,
+        request: realperson_models.QueryEducationBackgroundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryEducationBackgroundResponse:
+        """
+        Description: 学历验证
+        Summary: 学历验证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryEducationBackgroundResponse(),
+            self.do_request('1.0', 'di.realperson.education.background.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_education_background_ex_async(
+        self,
+        request: realperson_models.QueryEducationBackgroundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryEducationBackgroundResponse:
+        """
+        Description: 学历验证
+        Summary: 学历验证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryEducationBackgroundResponse(),
+            await self.do_request_async('1.0', 'di.realperson.education.background.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
