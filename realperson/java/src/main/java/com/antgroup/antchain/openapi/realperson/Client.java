@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.20.0"),
+                    new TeaPair("sdk_version", "1.20.2"),
                     new TeaPair("_prod_code", "REALPERSON"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1160,6 +1160,44 @@ public class Client {
     public QueryAlipayverifyServerResponse queryAlipayverifyServerEx(QueryAlipayverifyServerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.alipayverify.server.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAlipayverifyServerResponse());
+    }
+
+    /**
+     * Description: 车辆资产验证
+     * Summary: 车辆资产验证
+     */
+    public CheckCarTwometaResponse checkCarTwometa(CheckCarTwometaRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkCarTwometaEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 车辆资产验证
+     * Summary: 车辆资产验证
+     */
+    public CheckCarTwometaResponse checkCarTwometaEx(CheckCarTwometaRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.car.twometa.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckCarTwometaResponse());
+    }
+
+    /**
+     * Description: 学历验证
+     * Summary: 学历验证
+     */
+    public QueryEducationBackgroundResponse queryEducationBackground(QueryEducationBackgroundRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryEducationBackgroundEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 学历验证
+     * Summary: 学历验证
+     */
+    public QueryEducationBackgroundResponse queryEducationBackgroundEx(QueryEducationBackgroundRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.education.background.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEducationBackgroundResponse());
     }
 
     /**
