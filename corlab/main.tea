@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.15',
+    sdk_version = '1.0.16',
     _prod_code = 'CORLAB',
     _prod_channel = 'default'
   };
@@ -321,6 +321,8 @@ model CreateModelbackTaskRequest = {
   sampleFileName?: string(name='sample_file_name'),
   // 目前只支持MD5,SHA_256两种加密方式
   keyType: string(name='key_type'),
+  // 客户方唯一code
+  uniqueCode: string(name='unique_code'),
 }
 
 model CreateModelbackTaskResponse = {
