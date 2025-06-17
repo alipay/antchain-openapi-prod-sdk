@@ -52,6 +52,11 @@ namespace AntChain.SDK.CORLAB.Models
         [Validation(Required=true)]
         public string KeyType { get; set; }
 
+        // 客户方唯一code
+        [NameInMap("unique_code")]
+        [Validation(Required=true)]
+        public string UniqueCode { get; set; }
+
     }
 
 }
