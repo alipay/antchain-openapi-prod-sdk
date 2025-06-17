@@ -643,6 +643,7 @@ class CreateModelbackTaskRequest(TeaModel):
         product_codes: List[str] = None,
         sample_file_name: str = None,
         key_type: str = None,
+        unique_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -659,11 +660,14 @@ class CreateModelbackTaskRequest(TeaModel):
         self.sample_file_name = sample_file_name
         # 目前只支持MD5,SHA_256两种加密方式
         self.key_type = key_type
+        # 客户方唯一code
+        self.unique_code = unique_code
 
     def validate(self):
         self.validate_required(self.file_id, 'file_id')
         self.validate_required(self.product_codes, 'product_codes')
         self.validate_required(self.key_type, 'key_type')
+        self.validate_required(self.unique_code, 'unique_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -687,6 +691,8 @@ class CreateModelbackTaskRequest(TeaModel):
             result['sample_file_name'] = self.sample_file_name
         if self.key_type is not None:
             result['key_type'] = self.key_type
+        if self.unique_code is not None:
+            result['unique_code'] = self.unique_code
         return result
 
     def from_map(self, m: dict = None):
@@ -707,6 +713,8 @@ class CreateModelbackTaskRequest(TeaModel):
             self.sample_file_name = m.get('sample_file_name')
         if m.get('key_type') is not None:
             self.key_type = m.get('key_type')
+        if m.get('unique_code') is not None:
+            self.unique_code = m.get('unique_code')
         return self
 
 
