@@ -386,6 +386,8 @@ export class CreateModelbackTaskRequest extends $tea.Model {
   sampleFileName?: string;
   // 目前只支持MD5,SHA_256两种加密方式
   keyType: string;
+  // 客户方唯一code
+  uniqueCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -396,6 +398,7 @@ export class CreateModelbackTaskRequest extends $tea.Model {
       productCodes: 'product_codes',
       sampleFileName: 'sample_file_name',
       keyType: 'key_type',
+      uniqueCode: 'unique_code',
     };
   }
 
@@ -409,6 +412,7 @@ export class CreateModelbackTaskRequest extends $tea.Model {
       productCodes: { 'type': 'array', 'itemType': 'string' },
       sampleFileName: 'string',
       keyType: 'string',
+      uniqueCode: 'string',
     };
   }
 
@@ -784,7 +788,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.15",
+          sdk_version: "1.0.16",
           _prod_code: "CORLAB",
           _prod_channel: "default",
         };
