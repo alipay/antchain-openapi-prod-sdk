@@ -42,6 +42,11 @@ public class CreateModelbackTaskRequest extends TeaModel {
     @Validation(required = true)
     public String keyType;
 
+    // 客户方唯一code
+    @NameInMap("unique_code")
+    @Validation(required = true)
+    public String uniqueCode;
+
     public static CreateModelbackTaskRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateModelbackTaskRequest self = new CreateModelbackTaskRequest();
         return TeaModel.build(map, self);
@@ -109,6 +114,14 @@ public class CreateModelbackTaskRequest extends TeaModel {
     }
     public String getKeyType() {
         return this.keyType;
+    }
+
+    public CreateModelbackTaskRequest setUniqueCode(String uniqueCode) {
+        this.uniqueCode = uniqueCode;
+        return this;
+    }
+    public String getUniqueCode() {
+        return this.uniqueCode;
     }
 
 }
