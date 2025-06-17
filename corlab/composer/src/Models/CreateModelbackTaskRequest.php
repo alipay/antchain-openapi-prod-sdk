@@ -57,6 +57,12 @@ class CreateModelbackTaskRequest extends Model
      * @var string
      */
     public $keyType;
+
+    // 客户方唯一code
+    /**
+     * @var string
+     */
+    public $uniqueCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -64,6 +70,7 @@ class CreateModelbackTaskRequest extends Model
         'productCodes'      => 'product_codes',
         'sampleFileName'    => 'sample_file_name',
         'keyType'           => 'key_type',
+        'uniqueCode'        => 'unique_code',
     ];
 
     public function validate()
@@ -71,6 +78,7 @@ class CreateModelbackTaskRequest extends Model
         Model::validateRequired('fileId', $this->fileId, true);
         Model::validateRequired('productCodes', $this->productCodes, true);
         Model::validateRequired('keyType', $this->keyType, true);
+        Model::validateRequired('uniqueCode', $this->uniqueCode, true);
     }
 
     public function toMap()
@@ -99,6 +107,9 @@ class CreateModelbackTaskRequest extends Model
         }
         if (null !== $this->keyType) {
             $res['key_type'] = $this->keyType;
+        }
+        if (null !== $this->uniqueCode) {
+            $res['unique_code'] = $this->uniqueCode;
         }
 
         return $res;
@@ -137,6 +148,9 @@ class CreateModelbackTaskRequest extends Model
         }
         if (isset($map['key_type'])) {
             $model->keyType = $map['key_type'];
+        }
+        if (isset($map['unique_code'])) {
+            $model->uniqueCode = $map['unique_code'];
         }
 
         return $model;
