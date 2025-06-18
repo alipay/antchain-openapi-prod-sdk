@@ -9255,6 +9255,7 @@ class OnlinePressureTestTask(TeaModel):
         project_id: str = None,
         pt_task_id: str = None,
         failure_reason: str = None,
+        extra_info: str = None,
     ):
         # DATE
         self.gmt_create = gmt_create
@@ -9289,6 +9290,8 @@ class OnlinePressureTestTask(TeaModel):
         self.pt_task_id = pt_task_id
         # 压测不通过的原因
         self.failure_reason = failure_reason
+        # 拓展信息
+        self.extra_info = extra_info
 
     def validate(self):
         if self.gmt_create is not None:
@@ -9338,6 +9341,8 @@ class OnlinePressureTestTask(TeaModel):
             result['pt_task_id'] = self.pt_task_id
         if self.failure_reason is not None:
             result['failure_reason'] = self.failure_reason
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
         return result
 
     def from_map(self, m: dict = None):
@@ -9366,6 +9371,8 @@ class OnlinePressureTestTask(TeaModel):
             self.pt_task_id = m.get('pt_task_id')
         if m.get('failure_reason') is not None:
             self.failure_reason = m.get('failure_reason')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
         return self
 
 
