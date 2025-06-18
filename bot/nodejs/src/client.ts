@@ -5757,6 +5757,8 @@ export class OnlinePressureTestTask extends $tea.Model {
   ptTaskId: string;
   // 压测不通过的原因
   failureReason: string;
+  // 拓展信息
+  extraInfo?: string;
   static names(): { [key: string]: string } {
     return {
       gmtCreate: 'gmt_create',
@@ -5771,6 +5773,7 @@ export class OnlinePressureTestTask extends $tea.Model {
       projectId: 'project_id',
       ptTaskId: 'pt_task_id',
       failureReason: 'failure_reason',
+      extraInfo: 'extra_info',
     };
   }
 
@@ -5788,6 +5791,7 @@ export class OnlinePressureTestTask extends $tea.Model {
       projectId: 'string',
       ptTaskId: 'string',
       failureReason: 'string',
+      extraInfo: 'string',
     };
   }
 
@@ -28225,7 +28229,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.26",
+          sdk_version: "1.12.27",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
