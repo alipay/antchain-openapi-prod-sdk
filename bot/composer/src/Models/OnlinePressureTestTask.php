@@ -112,6 +112,14 @@ class OnlinePressureTestTask extends Model
      * @var string
      */
     public $failureReason;
+
+    // 拓展信息
+    /**
+     * @example {...}
+     *
+     * @var string
+     */
+    public $extraInfo;
     protected $_name = [
         'gmtCreate'        => 'gmt_create',
         'gmtModified'      => 'gmt_modified',
@@ -125,6 +133,7 @@ class OnlinePressureTestTask extends Model
         'projectId'        => 'project_id',
         'ptTaskId'         => 'pt_task_id',
         'failureReason'    => 'failure_reason',
+        'extraInfo'        => 'extra_info',
     ];
 
     public function validate()
@@ -182,6 +191,9 @@ class OnlinePressureTestTask extends Model
         if (null !== $this->failureReason) {
             $res['failure_reason'] = $this->failureReason;
         }
+        if (null !== $this->extraInfo) {
+            $res['extra_info'] = $this->extraInfo;
+        }
 
         return $res;
     }
@@ -229,6 +241,9 @@ class OnlinePressureTestTask extends Model
         }
         if (isset($map['failure_reason'])) {
             $model->failureReason = $map['failure_reason'];
+        }
+        if (isset($map['extra_info'])) {
+            $model->extraInfo = $map['extra_info'];
         }
 
         return $model;
