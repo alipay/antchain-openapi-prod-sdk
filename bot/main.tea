@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.26',
+    sdk_version = '1.12.27',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -2513,6 +2513,8 @@ model OnlinePressureTestTask {
   ptTaskId: string(name='pt_task_id', example='11223344566'),
   // 压测不通过的原因
   failureReason: string(name='failure_reason', example='数据验签失败'),
+  // 拓展信息
+  extraInfo?: string(name='extra_info', example='{...}'),
 }
 
 // 客户对应设备
