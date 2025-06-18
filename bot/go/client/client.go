@@ -7462,6 +7462,8 @@ type OnlinePressureTestTask struct {
 	PtTaskId *string `json:"pt_task_id,omitempty" xml:"pt_task_id,omitempty" require:"true"`
 	// 压测不通过的原因
 	FailureReason *string `json:"failure_reason,omitempty" xml:"failure_reason,omitempty" require:"true"`
+	// 拓展信息
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
 }
 
 func (s OnlinePressureTestTask) String() string {
@@ -7529,6 +7531,11 @@ func (s *OnlinePressureTestTask) SetPtTaskId(v string) *OnlinePressureTestTask {
 
 func (s *OnlinePressureTestTask) SetFailureReason(v string) *OnlinePressureTestTask {
 	s.FailureReason = &v
+	return s
+}
+
+func (s *OnlinePressureTestTask) SetExtraInfo(v string) *OnlinePressureTestTask {
+	s.ExtraInfo = &v
 	return s
 }
 
@@ -36803,7 +36810,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.26"),
+				"sdk_version":      tea.String("1.12.27"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
