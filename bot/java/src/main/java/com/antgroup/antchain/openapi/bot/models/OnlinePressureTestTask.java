@@ -71,6 +71,10 @@ public class OnlinePressureTestTask extends TeaModel {
     @Validation(required = true)
     public String failureReason;
 
+    // 拓展信息
+    @NameInMap("extra_info")
+    public String extraInfo;
+
     public static OnlinePressureTestTask build(java.util.Map<String, ?> map) throws Exception {
         OnlinePressureTestTask self = new OnlinePressureTestTask();
         return TeaModel.build(map, self);
@@ -170,6 +174,14 @@ public class OnlinePressureTestTask extends TeaModel {
     }
     public String getFailureReason() {
         return this.failureReason;
+    }
+
+    public OnlinePressureTestTask setExtraInfo(String extraInfo) {
+        this.extraInfo = extraInfo;
+        return this;
+    }
+    public String getExtraInfo() {
+        return this.extraInfo;
     }
 
 }
