@@ -79,6 +79,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string FailureReason { get; set; }
 
+        // 拓展信息
+        [NameInMap("extra_info")]
+        [Validation(Required=false)]
+        public string ExtraInfo { get; set; }
+
     }
 
 }
