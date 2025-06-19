@@ -13,12 +13,22 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\ASSET\Models\AddSupplierPaymentRequest;
 use AntChain\ASSET\Models\AddSupplierPaymentResponse;
+use AntChain\ASSET\Models\CallbackOrgoperationRepayRequest;
+use AntChain\ASSET\Models\CallbackOrgoperationRepayResponse;
 use AntChain\ASSET\Models\QueryStatisticsBudgetRequest;
 use AntChain\ASSET\Models\QueryStatisticsBudgetResponse;
 use AntChain\ASSET\Models\QueryStatisticsConversionmetricsRequest;
 use AntChain\ASSET\Models\QueryStatisticsConversionmetricsResponse;
 use AntChain\ASSET\Models\QueryStatisticsMetricsRequest;
 use AntChain\ASSET\Models\QueryStatisticsMetricsResponse;
+use AntChain\ASSET\Models\QueryStatisticsOrgconversionRequest;
+use AntChain\ASSET\Models\QueryStatisticsOrgconversionResponse;
+use AntChain\ASSET\Models\QueryStatisticsOrgoverviewRequest;
+use AntChain\ASSET\Models\QueryStatisticsOrgoverviewResponse;
+use AntChain\ASSET\Models\QueryStatisticsOrgtraderangeRequest;
+use AntChain\ASSET\Models\QueryStatisticsOrgtraderangeResponse;
+use AntChain\ASSET\Models\QueryStatisticsOrgtrendRequest;
+use AntChain\ASSET\Models\QueryStatisticsOrgtrendResponse;
 use AntChain\ASSET\Models\QuerySupplierFundamtRequest;
 use AntChain\ASSET\Models\QuerySupplierFundamtResponse;
 use AntChain\ASSET\Models\QuerySupplierMonthwriteofffileRequest;
@@ -170,7 +180,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.13',
+                    'sdk_version'      => '1.0.21',
                     '_prod_code'       => 'ASSET',
                     '_prod_channel'    => 'default',
                 ];
@@ -318,6 +328,39 @@ class Client
     }
 
     /**
+     * Description: 机构权益运营还款回调
+     * Summary: 机构权益运营还款回调.
+     *
+     * @param CallbackOrgoperationRepayRequest $request
+     *
+     * @return CallbackOrgoperationRepayResponse
+     */
+    public function callbackOrgoperationRepay($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackOrgoperationRepayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 机构权益运营还款回调
+     * Summary: 机构权益运营还款回调.
+     *
+     * @param CallbackOrgoperationRepayRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return CallbackOrgoperationRepayResponse
+     */
+    public function callbackOrgoperationRepayEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackOrgoperationRepayResponse::fromMap($this->doRequest('1.0', 'antdigital.asset.orgoperation.repay.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 查询数据统计预算金额
      * Summary: 查询数据统计预算金额.
      *
@@ -414,5 +457,137 @@ class Client
         Utils::validateModel($request);
 
         return QueryStatisticsConversionmetricsResponse::fromMap($this->doRequest('1.0', 'antdigital.asset.statistics.conversionmetrics.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询机构总览数据
+     * Summary: 查询机构总览数据.
+     *
+     * @param QueryStatisticsOrgoverviewRequest $request
+     *
+     * @return QueryStatisticsOrgoverviewResponse
+     */
+    public function queryStatisticsOrgoverview($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryStatisticsOrgoverviewEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询机构总览数据
+     * Summary: 查询机构总览数据.
+     *
+     * @param QueryStatisticsOrgoverviewRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryStatisticsOrgoverviewResponse
+     */
+    public function queryStatisticsOrgoverviewEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryStatisticsOrgoverviewResponse::fromMap($this->doRequest('1.0', 'antdigital.asset.statistics.orgoverview.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询机构趋势看板数据
+     * Summary: 查询机构趋势看板数据.
+     *
+     * @param QueryStatisticsOrgtrendRequest $request
+     *
+     * @return QueryStatisticsOrgtrendResponse
+     */
+    public function queryStatisticsOrgtrend($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryStatisticsOrgtrendEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询机构趋势看板数据
+     * Summary: 查询机构趋势看板数据.
+     *
+     * @param QueryStatisticsOrgtrendRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryStatisticsOrgtrendResponse
+     */
+    public function queryStatisticsOrgtrendEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryStatisticsOrgtrendResponse::fromMap($this->doRequest('1.0', 'antdigital.asset.statistics.orgtrend.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 机构券转化情况
+     * Summary: 机构券转化情况.
+     *
+     * @param QueryStatisticsOrgconversionRequest $request
+     *
+     * @return QueryStatisticsOrgconversionResponse
+     */
+    public function queryStatisticsOrgconversion($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryStatisticsOrgconversionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 机构券转化情况
+     * Summary: 机构券转化情况.
+     *
+     * @param QueryStatisticsOrgconversionRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryStatisticsOrgconversionResponse
+     */
+    public function queryStatisticsOrgconversionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryStatisticsOrgconversionResponse::fromMap($this->doRequest('1.0', 'antdigital.asset.statistics.orgconversion.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 大额交易情况统计
+     * Summary: 大额交易情况统计
+     *
+     * @param QueryStatisticsOrgtraderangeRequest $request
+     *
+     * @return QueryStatisticsOrgtraderangeResponse
+     */
+    public function queryStatisticsOrgtraderange($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryStatisticsOrgtraderangeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 大额交易情况统计
+     * Summary: 大额交易情况统计
+     *
+     * @param QueryStatisticsOrgtraderangeRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryStatisticsOrgtraderangeResponse
+     */
+    public function queryStatisticsOrgtraderangeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryStatisticsOrgtraderangeResponse::fromMap($this->doRequest('1.0', 'antdigital.asset.statistics.orgtraderange.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
