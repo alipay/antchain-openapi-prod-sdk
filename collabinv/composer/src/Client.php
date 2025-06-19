@@ -33,6 +33,10 @@ use AntChain\COLLABINV\Models\QueryIndexresearchBrandindexRequest;
 use AntChain\COLLABINV\Models\QueryIndexresearchBrandindexResponse;
 use AntChain\COLLABINV\Models\QueryIndexresearchBrandRequest;
 use AntChain\COLLABINV\Models\QueryIndexresearchBrandResponse;
+use AntChain\COLLABINV\Models\QueryIndexresearchConsumeindustryRequest;
+use AntChain\COLLABINV\Models\QueryIndexresearchConsumeindustryResponse;
+use AntChain\COLLABINV\Models\QueryIndexresearchIndustryRequest;
+use AntChain\COLLABINV\Models\QueryIndexresearchIndustryResponse;
 use AntChain\COLLABINV\Models\QueryLocationInternalRequest;
 use AntChain\COLLABINV\Models\QueryLocationInternalResponse;
 use AntChain\COLLABINV\Models\QueryLocationTradeRequest;
@@ -202,7 +206,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.40',
+                    'sdk_version'      => '1.0.41',
                     '_prod_code'       => 'COLLABINV',
                     '_prod_channel'    => 'default',
                 ];
@@ -545,6 +549,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryIndexresearchBrandindexResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.indexresearch.brandindex.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 消费行业报告查询
+     * Summary: 消费行业报告查询.
+     *
+     * @param QueryIndexresearchConsumeindustryRequest $request
+     *
+     * @return QueryIndexresearchConsumeindustryResponse
+     */
+    public function queryIndexresearchConsumeindustry($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIndexresearchConsumeindustryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 消费行业报告查询
+     * Summary: 消费行业报告查询.
+     *
+     * @param QueryIndexresearchConsumeindustryRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return QueryIndexresearchConsumeindustryResponse
+     */
+    public function queryIndexresearchConsumeindustryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIndexresearchConsumeindustryResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.indexresearch.consumeindustry.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 消费行业报告行业查询
+     * Summary: 消费行业报告行业查询.
+     *
+     * @param QueryIndexresearchIndustryRequest $request
+     *
+     * @return QueryIndexresearchIndustryResponse
+     */
+    public function queryIndexresearchIndustry($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIndexresearchIndustryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 消费行业报告行业查询
+     * Summary: 消费行业报告行业查询.
+     *
+     * @param QueryIndexresearchIndustryRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryIndexresearchIndustryResponse
+     */
+    public function queryIndexresearchIndustryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIndexresearchIndustryResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.indexresearch.industry.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
