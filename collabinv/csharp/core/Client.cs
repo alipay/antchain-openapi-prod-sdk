@@ -137,7 +137,7 @@ namespace AntChain.SDK.COLLABINV
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.40"},
+                        {"sdk_version", "1.0.41"},
                         {"_prod_code", "COLLABINV"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.COLLABINV
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.40"},
+                        {"sdk_version", "1.0.41"},
                         {"_prod_code", "COLLABINV"},
                         {"_prod_channel", "default"},
                     };
@@ -697,6 +697,90 @@ namespace AntChain.SDK.COLLABINV
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryIndexresearchBrandindexResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.indexresearch.brandindex.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 消费行业报告查询
+         * Summary: 消费行业报告查询
+         */
+        public QueryIndexresearchConsumeindustryResponse QueryIndexresearchConsumeindustry(QueryIndexresearchConsumeindustryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryIndexresearchConsumeindustryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 消费行业报告查询
+         * Summary: 消费行业报告查询
+         */
+        public async Task<QueryIndexresearchConsumeindustryResponse> QueryIndexresearchConsumeindustryAsync(QueryIndexresearchConsumeindustryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryIndexresearchConsumeindustryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 消费行业报告查询
+         * Summary: 消费行业报告查询
+         */
+        public QueryIndexresearchConsumeindustryResponse QueryIndexresearchConsumeindustryEx(QueryIndexresearchConsumeindustryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIndexresearchConsumeindustryResponse>(DoRequest("1.0", "antchain.zkcollabinv.indexresearch.consumeindustry.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 消费行业报告查询
+         * Summary: 消费行业报告查询
+         */
+        public async Task<QueryIndexresearchConsumeindustryResponse> QueryIndexresearchConsumeindustryExAsync(QueryIndexresearchConsumeindustryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIndexresearchConsumeindustryResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.indexresearch.consumeindustry.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 消费行业报告行业查询
+         * Summary: 消费行业报告行业查询
+         */
+        public QueryIndexresearchIndustryResponse QueryIndexresearchIndustry(QueryIndexresearchIndustryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryIndexresearchIndustryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 消费行业报告行业查询
+         * Summary: 消费行业报告行业查询
+         */
+        public async Task<QueryIndexresearchIndustryResponse> QueryIndexresearchIndustryAsync(QueryIndexresearchIndustryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryIndexresearchIndustryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 消费行业报告行业查询
+         * Summary: 消费行业报告行业查询
+         */
+        public QueryIndexresearchIndustryResponse QueryIndexresearchIndustryEx(QueryIndexresearchIndustryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIndexresearchIndustryResponse>(DoRequest("1.0", "antchain.zkcollabinv.indexresearch.industry.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 消费行业报告行业查询
+         * Summary: 消费行业报告行业查询
+         */
+        public async Task<QueryIndexresearchIndustryResponse> QueryIndexresearchIndustryExAsync(QueryIndexresearchIndustryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryIndexresearchIndustryResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.indexresearch.industry.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
