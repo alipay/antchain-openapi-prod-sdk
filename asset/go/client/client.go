@@ -181,6 +181,86 @@ func (s *SubMetricData) SetValue(v string) *SubMetricData {
 	return s
 }
 
+// 交易区间数据
+type TradeRangeData struct {
+	// 区间开始
+	Start *string `json:"start,omitempty" xml:"start,omitempty" require:"true"`
+	// 区间结束
+	End *string `json:"end,omitempty" xml:"end,omitempty" require:"true"`
+	// 区间内统计值
+	Value *int64 `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// 百分比
+	Rate *string `json:"rate,omitempty" xml:"rate,omitempty" require:"true"`
+}
+
+func (s TradeRangeData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TradeRangeData) GoString() string {
+	return s.String()
+}
+
+func (s *TradeRangeData) SetStart(v string) *TradeRangeData {
+	s.Start = &v
+	return s
+}
+
+func (s *TradeRangeData) SetEnd(v string) *TradeRangeData {
+	s.End = &v
+	return s
+}
+
+func (s *TradeRangeData) SetValue(v int64) *TradeRangeData {
+	s.Value = &v
+	return s
+}
+
+func (s *TradeRangeData) SetRate(v string) *TradeRangeData {
+	s.Rate = &v
+	return s
+}
+
+// 机构趋势数据
+type OrgTrendData struct {
+	// 日期
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+	// 还款金额
+	RepaymentAmt *string `json:"repayment_amt,omitempty" xml:"repayment_amt,omitempty" require:"true"`
+	// 预算金额
+	BudgetAmt *string `json:"budget_amt,omitempty" xml:"budget_amt,omitempty" require:"true"`
+	// 交易金额
+	TradeAmt *string `json:"trade_amt,omitempty" xml:"trade_amt,omitempty" require:"true"`
+}
+
+func (s OrgTrendData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrgTrendData) GoString() string {
+	return s.String()
+}
+
+func (s *OrgTrendData) SetDate(v string) *OrgTrendData {
+	s.Date = &v
+	return s
+}
+
+func (s *OrgTrendData) SetRepaymentAmt(v string) *OrgTrendData {
+	s.RepaymentAmt = &v
+	return s
+}
+
+func (s *OrgTrendData) SetBudgetAmt(v string) *OrgTrendData {
+	s.BudgetAmt = &v
+	return s
+}
+
+func (s *OrgTrendData) SetTradeAmt(v string) *OrgTrendData {
+	s.TradeAmt = &v
+	return s
+}
+
 // 查询数据统计指标结果
 type MetricData struct {
 	// 租户指标: OPERATING_INCOME, REPAY_AMOUNT, REPAY_NUMBER, REPAY_USER_NUMBER, REPAY_AVG_AMOUNT, ALI_DST_AMT
@@ -211,6 +291,65 @@ func (s *MetricData) SetTotal(v string) *MetricData {
 
 func (s *MetricData) SetSubList(v []*SubMetricData) *MetricData {
 	s.SubList = v
+	return s
+}
+
+// 转化统计数据
+type ConversionData struct {
+	// 渠道
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
+	// 投放人数
+	SendCnt *int64 `json:"send_cnt,omitempty" xml:"send_cnt,omitempty" require:"true"`
+	// 核销人数
+	UseCnt *int64 `json:"use_cnt,omitempty" xml:"use_cnt,omitempty" require:"true"`
+	// 核销率
+	UseRate *string `json:"use_rate,omitempty" xml:"use_rate,omitempty" require:"true"`
+}
+
+func (s ConversionData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ConversionData) GoString() string {
+	return s.String()
+}
+
+func (s *ConversionData) SetChannel(v string) *ConversionData {
+	s.Channel = &v
+	return s
+}
+
+func (s *ConversionData) SetSendCnt(v int64) *ConversionData {
+	s.SendCnt = &v
+	return s
+}
+
+func (s *ConversionData) SetUseCnt(v int64) *ConversionData {
+	s.UseCnt = &v
+	return s
+}
+
+func (s *ConversionData) SetUseRate(v string) *ConversionData {
+	s.UseRate = &v
+	return s
+}
+
+// 还款回调结果数据
+type RepayCallBackResData struct {
+	// 状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s RepayCallBackResData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RepayCallBackResData) GoString() string {
+	return s.String()
+}
+
+func (s *RepayCallBackResData) SetStatus(v string) *RepayCallBackResData {
+	s.Status = &v
 	return s
 }
 
@@ -258,6 +397,130 @@ func (s *PaymentRecord) SetPaymentDate(v string) *PaymentRecord {
 
 func (s *PaymentRecord) SetRequestUniqueId(v string) *PaymentRecord {
 	s.RequestUniqueId = &v
+	return s
+}
+
+// 机构总览数据
+type OrgOverviewData struct {
+	// 预算总金额
+	TotalBudgetAmt *string `json:"total_budget_amt,omitempty" xml:"total_budget_amt,omitempty" require:"true"`
+	// 花呗预算金额
+	HuabeiBudgetAmt *string `json:"huabei_budget_amt,omitempty" xml:"huabei_budget_amt,omitempty" require:"true"`
+	// 借呗预算金额
+	JiebeiBudgetAmt *string `json:"jiebei_budget_amt,omitempty" xml:"jiebei_budget_amt,omitempty" require:"true"`
+	// 小微预算金额
+	XiaoweiBudgetAmt *string `json:"xiaowei_budget_amt,omitempty" xml:"xiaowei_budget_amt,omitempty" require:"true"`
+	// 服务费预算金额
+	ServiceBudgetAmt *string `json:"service_budget_amt,omitempty" xml:"service_budget_amt,omitempty" require:"true"`
+	// 总回款金额
+	TotalRepaymentAmt *string `json:"total_repayment_amt,omitempty" xml:"total_repayment_amt,omitempty" require:"true"`
+	// 花呗回款金额
+	HuabeiRepaymentAmt *string `json:"huabei_repayment_amt,omitempty" xml:"huabei_repayment_amt,omitempty" require:"true"`
+	// 借呗回款金额
+	JiebeiRepaymentAmt *string `json:"jiebei_repayment_amt,omitempty" xml:"jiebei_repayment_amt,omitempty" require:"true"`
+	// 小微回款金额
+	XiaoweiRepaymentAmt *string `json:"xiaowei_repayment_amt,omitempty" xml:"xiaowei_repayment_amt,omitempty" require:"true"`
+	// 总交易金额
+	TotalTradeAmt *string `json:"total_trade_amt,omitempty" xml:"total_trade_amt,omitempty" require:"true"`
+	// 花呗交易金额
+	HuabeiTradeAmt *string `json:"huabei_trade_amt,omitempty" xml:"huabei_trade_amt,omitempty" require:"true"`
+	// 借呗交易金额
+	JiebeiTradeAmt *string `json:"jiebei_trade_amt,omitempty" xml:"jiebei_trade_amt,omitempty" require:"true"`
+	// 小微交易金额
+	XiaoweiTradeAmt *string `json:"xiaowei_trade_amt,omitempty" xml:"xiaowei_trade_amt,omitempty" require:"true"`
+	// 内部补贴金额
+	InternalSubsidyAmt *string `json:"internal_subsidy_amt,omitempty" xml:"internal_subsidy_amt,omitempty" require:"true"`
+	// 净回款额
+	TotalNetRepaymentAmt *string `json:"total_net_repayment_amt,omitempty" xml:"total_net_repayment_amt,omitempty" require:"true"`
+	// 活动roi
+	ActivityRoi *string `json:"activity_roi,omitempty" xml:"activity_roi,omitempty" require:"true"`
+}
+
+func (s OrgOverviewData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrgOverviewData) GoString() string {
+	return s.String()
+}
+
+func (s *OrgOverviewData) SetTotalBudgetAmt(v string) *OrgOverviewData {
+	s.TotalBudgetAmt = &v
+	return s
+}
+
+func (s *OrgOverviewData) SetHuabeiBudgetAmt(v string) *OrgOverviewData {
+	s.HuabeiBudgetAmt = &v
+	return s
+}
+
+func (s *OrgOverviewData) SetJiebeiBudgetAmt(v string) *OrgOverviewData {
+	s.JiebeiBudgetAmt = &v
+	return s
+}
+
+func (s *OrgOverviewData) SetXiaoweiBudgetAmt(v string) *OrgOverviewData {
+	s.XiaoweiBudgetAmt = &v
+	return s
+}
+
+func (s *OrgOverviewData) SetServiceBudgetAmt(v string) *OrgOverviewData {
+	s.ServiceBudgetAmt = &v
+	return s
+}
+
+func (s *OrgOverviewData) SetTotalRepaymentAmt(v string) *OrgOverviewData {
+	s.TotalRepaymentAmt = &v
+	return s
+}
+
+func (s *OrgOverviewData) SetHuabeiRepaymentAmt(v string) *OrgOverviewData {
+	s.HuabeiRepaymentAmt = &v
+	return s
+}
+
+func (s *OrgOverviewData) SetJiebeiRepaymentAmt(v string) *OrgOverviewData {
+	s.JiebeiRepaymentAmt = &v
+	return s
+}
+
+func (s *OrgOverviewData) SetXiaoweiRepaymentAmt(v string) *OrgOverviewData {
+	s.XiaoweiRepaymentAmt = &v
+	return s
+}
+
+func (s *OrgOverviewData) SetTotalTradeAmt(v string) *OrgOverviewData {
+	s.TotalTradeAmt = &v
+	return s
+}
+
+func (s *OrgOverviewData) SetHuabeiTradeAmt(v string) *OrgOverviewData {
+	s.HuabeiTradeAmt = &v
+	return s
+}
+
+func (s *OrgOverviewData) SetJiebeiTradeAmt(v string) *OrgOverviewData {
+	s.JiebeiTradeAmt = &v
+	return s
+}
+
+func (s *OrgOverviewData) SetXiaoweiTradeAmt(v string) *OrgOverviewData {
+	s.XiaoweiTradeAmt = &v
+	return s
+}
+
+func (s *OrgOverviewData) SetInternalSubsidyAmt(v string) *OrgOverviewData {
+	s.InternalSubsidyAmt = &v
+	return s
+}
+
+func (s *OrgOverviewData) SetTotalNetRepaymentAmt(v string) *OrgOverviewData {
+	s.TotalNetRepaymentAmt = &v
+	return s
+}
+
+func (s *OrgOverviewData) SetActivityRoi(v string) *OrgOverviewData {
+	s.ActivityRoi = &v
 	return s
 }
 
@@ -567,6 +830,104 @@ func (s *AddSupplierPaymentResponse) SetData(v bool) *AddSupplierPaymentResponse
 	return s
 }
 
+type CallbackOrgoperationRepayRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 还款编号
+	RepayRecordNo *string `json:"repay_record_no,omitempty" xml:"repay_record_no,omitempty" require:"true"`
+	// 状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 扩展属性
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+	// 请求唯一id，最长32字符
+	RequestUniqueId *string `json:"request_unique_id,omitempty" xml:"request_unique_id,omitempty" require:"true"`
+}
+
+func (s CallbackOrgoperationRepayRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackOrgoperationRepayRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackOrgoperationRepayRequest) SetAuthToken(v string) *CallbackOrgoperationRepayRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackOrgoperationRepayRequest) SetProductInstanceId(v string) *CallbackOrgoperationRepayRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackOrgoperationRepayRequest) SetTenantId(v string) *CallbackOrgoperationRepayRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *CallbackOrgoperationRepayRequest) SetRepayRecordNo(v string) *CallbackOrgoperationRepayRequest {
+	s.RepayRecordNo = &v
+	return s
+}
+
+func (s *CallbackOrgoperationRepayRequest) SetStatus(v string) *CallbackOrgoperationRepayRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *CallbackOrgoperationRepayRequest) SetExtInfo(v string) *CallbackOrgoperationRepayRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+func (s *CallbackOrgoperationRepayRequest) SetRequestUniqueId(v string) *CallbackOrgoperationRepayRequest {
+	s.RequestUniqueId = &v
+	return s
+}
+
+type CallbackOrgoperationRepayResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 还款回调处理状态
+	Data *RepayCallBackResData `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s CallbackOrgoperationRepayResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackOrgoperationRepayResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackOrgoperationRepayResponse) SetReqMsgId(v string) *CallbackOrgoperationRepayResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackOrgoperationRepayResponse) SetResultCode(v string) *CallbackOrgoperationRepayResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackOrgoperationRepayResponse) SetResultMsg(v string) *CallbackOrgoperationRepayResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CallbackOrgoperationRepayResponse) SetData(v *RepayCallBackResData) *CallbackOrgoperationRepayResponse {
+	s.Data = v
+	return s
+}
+
 type QueryStatisticsBudgetRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -836,6 +1197,370 @@ func (s *QueryStatisticsConversionmetricsResponse) SetData(v *ProcessConversionM
 	return s
 }
 
+type QueryStatisticsOrgoverviewRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 开始时间
+	StartDate *string `json:"start_date,omitempty" xml:"start_date,omitempty" require:"true"`
+	// 结束日期
+	EndDate *string `json:"end_date,omitempty" xml:"end_date,omitempty" require:"true"`
+	// 租户
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 请求唯一id
+	RequestUniqueId *string `json:"request_unique_id,omitempty" xml:"request_unique_id,omitempty" require:"true"`
+}
+
+func (s QueryStatisticsOrgoverviewRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryStatisticsOrgoverviewRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryStatisticsOrgoverviewRequest) SetAuthToken(v string) *QueryStatisticsOrgoverviewRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgoverviewRequest) SetProductInstanceId(v string) *QueryStatisticsOrgoverviewRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgoverviewRequest) SetStartDate(v string) *QueryStatisticsOrgoverviewRequest {
+	s.StartDate = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgoverviewRequest) SetEndDate(v string) *QueryStatisticsOrgoverviewRequest {
+	s.EndDate = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgoverviewRequest) SetTenantId(v string) *QueryStatisticsOrgoverviewRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgoverviewRequest) SetRequestUniqueId(v string) *QueryStatisticsOrgoverviewRequest {
+	s.RequestUniqueId = &v
+	return s
+}
+
+type QueryStatisticsOrgoverviewResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 机构总览数据
+	Data *OrgOverviewData `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryStatisticsOrgoverviewResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryStatisticsOrgoverviewResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryStatisticsOrgoverviewResponse) SetReqMsgId(v string) *QueryStatisticsOrgoverviewResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgoverviewResponse) SetResultCode(v string) *QueryStatisticsOrgoverviewResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgoverviewResponse) SetResultMsg(v string) *QueryStatisticsOrgoverviewResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgoverviewResponse) SetData(v *OrgOverviewData) *QueryStatisticsOrgoverviewResponse {
+	s.Data = v
+	return s
+}
+
+type QueryStatisticsOrgtrendRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 开始日期
+	StartDate *string `json:"start_date,omitempty" xml:"start_date,omitempty" require:"true"`
+	// 结束日期
+	EndDate *string `json:"end_date,omitempty" xml:"end_date,omitempty" require:"true"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 请求唯一标识
+	RequestUniqueId *string `json:"request_unique_id,omitempty" xml:"request_unique_id,omitempty" require:"true"`
+}
+
+func (s QueryStatisticsOrgtrendRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryStatisticsOrgtrendRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryStatisticsOrgtrendRequest) SetAuthToken(v string) *QueryStatisticsOrgtrendRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgtrendRequest) SetProductInstanceId(v string) *QueryStatisticsOrgtrendRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgtrendRequest) SetStartDate(v string) *QueryStatisticsOrgtrendRequest {
+	s.StartDate = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgtrendRequest) SetEndDate(v string) *QueryStatisticsOrgtrendRequest {
+	s.EndDate = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgtrendRequest) SetTenantId(v string) *QueryStatisticsOrgtrendRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgtrendRequest) SetRequestUniqueId(v string) *QueryStatisticsOrgtrendRequest {
+	s.RequestUniqueId = &v
+	return s
+}
+
+type QueryStatisticsOrgtrendResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 机构趋势数据
+	Data []*OrgTrendData `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryStatisticsOrgtrendResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryStatisticsOrgtrendResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryStatisticsOrgtrendResponse) SetReqMsgId(v string) *QueryStatisticsOrgtrendResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgtrendResponse) SetResultCode(v string) *QueryStatisticsOrgtrendResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgtrendResponse) SetResultMsg(v string) *QueryStatisticsOrgtrendResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgtrendResponse) SetData(v []*OrgTrendData) *QueryStatisticsOrgtrendResponse {
+	s.Data = v
+	return s
+}
+
+type QueryStatisticsOrgconversionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 开始日期
+	StartDate *string `json:"start_date,omitempty" xml:"start_date,omitempty" require:"true"`
+	// 结束日期
+	EndDate *string `json:"end_date,omitempty" xml:"end_date,omitempty" require:"true"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 请求唯一标识
+	RequestUniqueId *string `json:"request_unique_id,omitempty" xml:"request_unique_id,omitempty" require:"true"`
+}
+
+func (s QueryStatisticsOrgconversionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryStatisticsOrgconversionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryStatisticsOrgconversionRequest) SetAuthToken(v string) *QueryStatisticsOrgconversionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgconversionRequest) SetProductInstanceId(v string) *QueryStatisticsOrgconversionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgconversionRequest) SetStartDate(v string) *QueryStatisticsOrgconversionRequest {
+	s.StartDate = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgconversionRequest) SetEndDate(v string) *QueryStatisticsOrgconversionRequest {
+	s.EndDate = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgconversionRequest) SetTenantId(v string) *QueryStatisticsOrgconversionRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgconversionRequest) SetRequestUniqueId(v string) *QueryStatisticsOrgconversionRequest {
+	s.RequestUniqueId = &v
+	return s
+}
+
+type QueryStatisticsOrgconversionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 转化数据
+	Data []*ConversionData `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryStatisticsOrgconversionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryStatisticsOrgconversionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryStatisticsOrgconversionResponse) SetReqMsgId(v string) *QueryStatisticsOrgconversionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgconversionResponse) SetResultCode(v string) *QueryStatisticsOrgconversionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgconversionResponse) SetResultMsg(v string) *QueryStatisticsOrgconversionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgconversionResponse) SetData(v []*ConversionData) *QueryStatisticsOrgconversionResponse {
+	s.Data = v
+	return s
+}
+
+type QueryStatisticsOrgtraderangeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 开始日期
+	StartDate *string `json:"start_date,omitempty" xml:"start_date,omitempty" require:"true"`
+	// 结束日期
+	EndDate *string `json:"end_date,omitempty" xml:"end_date,omitempty" require:"true"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 请求唯一标识
+	RequestUniqueId *string `json:"request_unique_id,omitempty" xml:"request_unique_id,omitempty" require:"true"`
+}
+
+func (s QueryStatisticsOrgtraderangeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryStatisticsOrgtraderangeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryStatisticsOrgtraderangeRequest) SetAuthToken(v string) *QueryStatisticsOrgtraderangeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgtraderangeRequest) SetProductInstanceId(v string) *QueryStatisticsOrgtraderangeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgtraderangeRequest) SetStartDate(v string) *QueryStatisticsOrgtraderangeRequest {
+	s.StartDate = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgtraderangeRequest) SetEndDate(v string) *QueryStatisticsOrgtraderangeRequest {
+	s.EndDate = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgtraderangeRequest) SetTenantId(v string) *QueryStatisticsOrgtraderangeRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgtraderangeRequest) SetRequestUniqueId(v string) *QueryStatisticsOrgtraderangeRequest {
+	s.RequestUniqueId = &v
+	return s
+}
+
+type QueryStatisticsOrgtraderangeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 交易区间统计
+	Data []*TradeRangeData `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryStatisticsOrgtraderangeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryStatisticsOrgtraderangeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryStatisticsOrgtraderangeResponse) SetReqMsgId(v string) *QueryStatisticsOrgtraderangeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgtraderangeResponse) SetResultCode(v string) *QueryStatisticsOrgtraderangeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgtraderangeResponse) SetResultMsg(v string) *QueryStatisticsOrgtraderangeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryStatisticsOrgtraderangeResponse) SetData(v []*TradeRangeData) *QueryStatisticsOrgtraderangeResponse {
+	s.Data = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -958,7 +1683,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.13"),
+				"sdk_version":      tea.String("1.0.21"),
 				"_prod_code":       tea.String("ASSET"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1119,6 +1844,40 @@ func (client *Client) AddSupplierPaymentEx(request *AddSupplierPaymentRequest, h
 }
 
 /**
+ * Description: 机构权益运营还款回调
+ * Summary: 机构权益运营还款回调
+ */
+func (client *Client) CallbackOrgoperationRepay(request *CallbackOrgoperationRepayRequest) (_result *CallbackOrgoperationRepayResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackOrgoperationRepayResponse{}
+	_body, _err := client.CallbackOrgoperationRepayEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 机构权益运营还款回调
+ * Summary: 机构权益运营还款回调
+ */
+func (client *Client) CallbackOrgoperationRepayEx(request *CallbackOrgoperationRepayRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackOrgoperationRepayResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackOrgoperationRepayResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.asset.orgoperation.repay.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 查询数据统计预算金额
  * Summary: 查询数据统计预算金额
  */
@@ -1213,6 +1972,142 @@ func (client *Client) QueryStatisticsConversionmetricsEx(request *QueryStatistic
 	}
 	_result = &QueryStatisticsConversionmetricsResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.asset.statistics.conversionmetrics.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询机构总览数据
+ * Summary: 查询机构总览数据
+ */
+func (client *Client) QueryStatisticsOrgoverview(request *QueryStatisticsOrgoverviewRequest) (_result *QueryStatisticsOrgoverviewResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryStatisticsOrgoverviewResponse{}
+	_body, _err := client.QueryStatisticsOrgoverviewEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询机构总览数据
+ * Summary: 查询机构总览数据
+ */
+func (client *Client) QueryStatisticsOrgoverviewEx(request *QueryStatisticsOrgoverviewRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryStatisticsOrgoverviewResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryStatisticsOrgoverviewResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.asset.statistics.orgoverview.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询机构趋势看板数据
+ * Summary: 查询机构趋势看板数据
+ */
+func (client *Client) QueryStatisticsOrgtrend(request *QueryStatisticsOrgtrendRequest) (_result *QueryStatisticsOrgtrendResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryStatisticsOrgtrendResponse{}
+	_body, _err := client.QueryStatisticsOrgtrendEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询机构趋势看板数据
+ * Summary: 查询机构趋势看板数据
+ */
+func (client *Client) QueryStatisticsOrgtrendEx(request *QueryStatisticsOrgtrendRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryStatisticsOrgtrendResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryStatisticsOrgtrendResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.asset.statistics.orgtrend.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 机构券转化情况
+ * Summary: 机构券转化情况
+ */
+func (client *Client) QueryStatisticsOrgconversion(request *QueryStatisticsOrgconversionRequest) (_result *QueryStatisticsOrgconversionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryStatisticsOrgconversionResponse{}
+	_body, _err := client.QueryStatisticsOrgconversionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 机构券转化情况
+ * Summary: 机构券转化情况
+ */
+func (client *Client) QueryStatisticsOrgconversionEx(request *QueryStatisticsOrgconversionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryStatisticsOrgconversionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryStatisticsOrgconversionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.asset.statistics.orgconversion.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 大额交易情况统计
+ * Summary: 大额交易情况统计
+ */
+func (client *Client) QueryStatisticsOrgtraderange(request *QueryStatisticsOrgtraderangeRequest) (_result *QueryStatisticsOrgtraderangeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryStatisticsOrgtraderangeResponse{}
+	_body, _err := client.QueryStatisticsOrgtraderangeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 大额交易情况统计
+ * Summary: 大额交易情况统计
+ */
+func (client *Client) QueryStatisticsOrgtraderangeEx(request *QueryStatisticsOrgtraderangeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryStatisticsOrgtraderangeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryStatisticsOrgtraderangeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.asset.statistics.orgtraderange.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
