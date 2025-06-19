@@ -110,6 +110,55 @@ export class ChatMessageInfo extends $tea.Model {
   }
 }
 
+// 消费行业数据
+export class IndustryData extends $tea.Model {
+  // 行业
+  industry: string;
+  // 区域
+  province: string;
+  // 日期
+  tradeDate: string;
+  // 线上线下 1:线下，0:线上，-1:全部
+  ofpType: string;
+  // 消费规模指数(销售金额)
+  tradeScale: string;
+  // 交易活跃指数(次数)
+  tradeActivity: string;
+  // 消费价值指数(金额/次数)
+  tradeValue: string;
+  // 交易覆盖指数(去重人数)
+  tradeCoverage: string;
+  static names(): { [key: string]: string } {
+    return {
+      industry: 'industry',
+      province: 'province',
+      tradeDate: 'trade_date',
+      ofpType: 'ofp_type',
+      tradeScale: 'trade_scale',
+      tradeActivity: 'trade_activity',
+      tradeValue: 'trade_value',
+      tradeCoverage: 'trade_coverage',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      industry: 'string',
+      province: 'string',
+      tradeDate: 'string',
+      ofpType: 'string',
+      tradeScale: 'string',
+      tradeActivity: 'string',
+      tradeValue: 'string',
+      tradeCoverage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // agent会话信息
 export class ChatConversationInfo extends $tea.Model {
   // 会话ID
@@ -971,6 +1020,144 @@ export class QueryIndexresearchBrandindexResponse extends $tea.Model {
       resultMsg: 'string',
       pageInfo: PageInfo,
       indexData: { 'type': 'array', 'itemType': IndexData },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIndexresearchConsumeindustryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 行业
+  industry?: string;
+  // 是否线上线下 1:线下，0:线上，-1:全部
+  ofpType?: string;
+  // 开始时间
+  startTime?: string;
+  // 结束时间
+  endTime?: string;
+  // 分页信息
+  pageInfo: PageInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      industry: 'industry',
+      ofpType: 'ofp_type',
+      startTime: 'start_time',
+      endTime: 'end_time',
+      pageInfo: 'page_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      industry: 'string',
+      ofpType: 'string',
+      startTime: 'string',
+      endTime: 'string',
+      pageInfo: PageInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIndexresearchConsumeindustryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 分页信息
+  pageInfo?: PageInfo;
+  // 消费行业数据
+  industryData?: IndustryData[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      pageInfo: 'page_info',
+      industryData: 'industry_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      pageInfo: PageInfo,
+      industryData: { 'type': 'array', 'itemType': IndustryData },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIndexresearchIndustryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 行业
+  industry?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      industry: 'industry',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      industry: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIndexresearchIndustryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 行业列表数据
+  industryData?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      industryData: 'industry_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      industryData: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -2135,7 +2322,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.40",
+          sdk_version: "1.0.41",
           _prod_code: "COLLABINV",
           _prod_channel: "default",
         };
@@ -2352,6 +2539,44 @@ export default class Client {
   async queryIndexresearchBrandindexEx(request: QueryIndexresearchBrandindexRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIndexresearchBrandindexResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryIndexresearchBrandindexResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.indexresearch.brandindex.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIndexresearchBrandindexResponse({}));
+  }
+
+  /**
+   * Description: 消费行业报告查询
+   * Summary: 消费行业报告查询
+   */
+  async queryIndexresearchConsumeindustry(request: QueryIndexresearchConsumeindustryRequest): Promise<QueryIndexresearchConsumeindustryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIndexresearchConsumeindustryEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 消费行业报告查询
+   * Summary: 消费行业报告查询
+   */
+  async queryIndexresearchConsumeindustryEx(request: QueryIndexresearchConsumeindustryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIndexresearchConsumeindustryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIndexresearchConsumeindustryResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.indexresearch.consumeindustry.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIndexresearchConsumeindustryResponse({}));
+  }
+
+  /**
+   * Description: 消费行业报告行业查询
+   * Summary: 消费行业报告行业查询
+   */
+  async queryIndexresearchIndustry(request: QueryIndexresearchIndustryRequest): Promise<QueryIndexresearchIndustryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIndexresearchIndustryEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 消费行业报告行业查询
+   * Summary: 消费行业报告行业查询
+   */
+  async queryIndexresearchIndustryEx(request: QueryIndexresearchIndustryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIndexresearchIndustryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIndexresearchIndustryResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.indexresearch.industry.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIndexresearchIndustryResponse({}));
   }
 
   /**
