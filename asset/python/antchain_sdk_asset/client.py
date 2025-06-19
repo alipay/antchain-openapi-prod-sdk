@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.13',
+                    'sdk_version': '1.0.21',
                     '_prod_code': 'ASSET',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.13',
+                    'sdk_version': '1.0.21',
                     '_prod_code': 'ASSET',
                     '_prod_channel': 'default'
                 }
@@ -443,6 +443,62 @@ class Client:
             await self.do_request_async('1.0', 'antdigital.asset.supplier.payment.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def callback_orgoperation_repay(
+        self,
+        request: asset_models.CallbackOrgoperationRepayRequest,
+    ) -> asset_models.CallbackOrgoperationRepayResponse:
+        """
+        Description: 机构权益运营还款回调
+        Summary: 机构权益运营还款回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_orgoperation_repay_ex(request, headers, runtime)
+
+    async def callback_orgoperation_repay_async(
+        self,
+        request: asset_models.CallbackOrgoperationRepayRequest,
+    ) -> asset_models.CallbackOrgoperationRepayResponse:
+        """
+        Description: 机构权益运营还款回调
+        Summary: 机构权益运营还款回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_orgoperation_repay_ex_async(request, headers, runtime)
+
+    def callback_orgoperation_repay_ex(
+        self,
+        request: asset_models.CallbackOrgoperationRepayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> asset_models.CallbackOrgoperationRepayResponse:
+        """
+        Description: 机构权益运营还款回调
+        Summary: 机构权益运营还款回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            asset_models.CallbackOrgoperationRepayResponse(),
+            self.do_request('1.0', 'antdigital.asset.orgoperation.repay.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_orgoperation_repay_ex_async(
+        self,
+        request: asset_models.CallbackOrgoperationRepayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> asset_models.CallbackOrgoperationRepayResponse:
+        """
+        Description: 机构权益运营还款回调
+        Summary: 机构权益运营还款回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            asset_models.CallbackOrgoperationRepayResponse(),
+            await self.do_request_async('1.0', 'antdigital.asset.orgoperation.repay.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_statistics_budget(
         self,
         request: asset_models.QueryStatisticsBudgetRequest,
@@ -609,4 +665,228 @@ class Client:
         return TeaCore.from_map(
             asset_models.QueryStatisticsConversionmetricsResponse(),
             await self.do_request_async('1.0', 'antdigital.asset.statistics.conversionmetrics.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_statistics_orgoverview(
+        self,
+        request: asset_models.QueryStatisticsOrgoverviewRequest,
+    ) -> asset_models.QueryStatisticsOrgoverviewResponse:
+        """
+        Description: 查询机构总览数据
+        Summary: 查询机构总览数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_statistics_orgoverview_ex(request, headers, runtime)
+
+    async def query_statistics_orgoverview_async(
+        self,
+        request: asset_models.QueryStatisticsOrgoverviewRequest,
+    ) -> asset_models.QueryStatisticsOrgoverviewResponse:
+        """
+        Description: 查询机构总览数据
+        Summary: 查询机构总览数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_statistics_orgoverview_ex_async(request, headers, runtime)
+
+    def query_statistics_orgoverview_ex(
+        self,
+        request: asset_models.QueryStatisticsOrgoverviewRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> asset_models.QueryStatisticsOrgoverviewResponse:
+        """
+        Description: 查询机构总览数据
+        Summary: 查询机构总览数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            asset_models.QueryStatisticsOrgoverviewResponse(),
+            self.do_request('1.0', 'antdigital.asset.statistics.orgoverview.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_statistics_orgoverview_ex_async(
+        self,
+        request: asset_models.QueryStatisticsOrgoverviewRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> asset_models.QueryStatisticsOrgoverviewResponse:
+        """
+        Description: 查询机构总览数据
+        Summary: 查询机构总览数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            asset_models.QueryStatisticsOrgoverviewResponse(),
+            await self.do_request_async('1.0', 'antdigital.asset.statistics.orgoverview.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_statistics_orgtrend(
+        self,
+        request: asset_models.QueryStatisticsOrgtrendRequest,
+    ) -> asset_models.QueryStatisticsOrgtrendResponse:
+        """
+        Description: 查询机构趋势看板数据
+        Summary: 查询机构趋势看板数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_statistics_orgtrend_ex(request, headers, runtime)
+
+    async def query_statistics_orgtrend_async(
+        self,
+        request: asset_models.QueryStatisticsOrgtrendRequest,
+    ) -> asset_models.QueryStatisticsOrgtrendResponse:
+        """
+        Description: 查询机构趋势看板数据
+        Summary: 查询机构趋势看板数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_statistics_orgtrend_ex_async(request, headers, runtime)
+
+    def query_statistics_orgtrend_ex(
+        self,
+        request: asset_models.QueryStatisticsOrgtrendRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> asset_models.QueryStatisticsOrgtrendResponse:
+        """
+        Description: 查询机构趋势看板数据
+        Summary: 查询机构趋势看板数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            asset_models.QueryStatisticsOrgtrendResponse(),
+            self.do_request('1.0', 'antdigital.asset.statistics.orgtrend.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_statistics_orgtrend_ex_async(
+        self,
+        request: asset_models.QueryStatisticsOrgtrendRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> asset_models.QueryStatisticsOrgtrendResponse:
+        """
+        Description: 查询机构趋势看板数据
+        Summary: 查询机构趋势看板数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            asset_models.QueryStatisticsOrgtrendResponse(),
+            await self.do_request_async('1.0', 'antdigital.asset.statistics.orgtrend.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_statistics_orgconversion(
+        self,
+        request: asset_models.QueryStatisticsOrgconversionRequest,
+    ) -> asset_models.QueryStatisticsOrgconversionResponse:
+        """
+        Description: 机构券转化情况
+        Summary: 机构券转化情况
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_statistics_orgconversion_ex(request, headers, runtime)
+
+    async def query_statistics_orgconversion_async(
+        self,
+        request: asset_models.QueryStatisticsOrgconversionRequest,
+    ) -> asset_models.QueryStatisticsOrgconversionResponse:
+        """
+        Description: 机构券转化情况
+        Summary: 机构券转化情况
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_statistics_orgconversion_ex_async(request, headers, runtime)
+
+    def query_statistics_orgconversion_ex(
+        self,
+        request: asset_models.QueryStatisticsOrgconversionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> asset_models.QueryStatisticsOrgconversionResponse:
+        """
+        Description: 机构券转化情况
+        Summary: 机构券转化情况
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            asset_models.QueryStatisticsOrgconversionResponse(),
+            self.do_request('1.0', 'antdigital.asset.statistics.orgconversion.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_statistics_orgconversion_ex_async(
+        self,
+        request: asset_models.QueryStatisticsOrgconversionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> asset_models.QueryStatisticsOrgconversionResponse:
+        """
+        Description: 机构券转化情况
+        Summary: 机构券转化情况
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            asset_models.QueryStatisticsOrgconversionResponse(),
+            await self.do_request_async('1.0', 'antdigital.asset.statistics.orgconversion.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_statistics_orgtraderange(
+        self,
+        request: asset_models.QueryStatisticsOrgtraderangeRequest,
+    ) -> asset_models.QueryStatisticsOrgtraderangeResponse:
+        """
+        Description: 大额交易情况统计
+        Summary: 大额交易情况统计
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_statistics_orgtraderange_ex(request, headers, runtime)
+
+    async def query_statistics_orgtraderange_async(
+        self,
+        request: asset_models.QueryStatisticsOrgtraderangeRequest,
+    ) -> asset_models.QueryStatisticsOrgtraderangeResponse:
+        """
+        Description: 大额交易情况统计
+        Summary: 大额交易情况统计
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_statistics_orgtraderange_ex_async(request, headers, runtime)
+
+    def query_statistics_orgtraderange_ex(
+        self,
+        request: asset_models.QueryStatisticsOrgtraderangeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> asset_models.QueryStatisticsOrgtraderangeResponse:
+        """
+        Description: 大额交易情况统计
+        Summary: 大额交易情况统计
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            asset_models.QueryStatisticsOrgtraderangeResponse(),
+            self.do_request('1.0', 'antdigital.asset.statistics.orgtraderange.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_statistics_orgtraderange_ex_async(
+        self,
+        request: asset_models.QueryStatisticsOrgtraderangeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> asset_models.QueryStatisticsOrgtraderangeResponse:
+        """
+        Description: 大额交易情况统计
+        Summary: 大额交易情况统计
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            asset_models.QueryStatisticsOrgtraderangeResponse(),
+            await self.do_request_async('1.0', 'antdigital.asset.statistics.orgtraderange.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
