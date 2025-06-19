@@ -188,6 +188,74 @@ func (s *ChatMessageInfo) SetCreateDate(v string) *ChatMessageInfo {
 	return s
 }
 
+// 消费行业数据
+type IndustryData struct {
+	// 行业
+	Industry *string `json:"industry,omitempty" xml:"industry,omitempty" require:"true"`
+	// 区域
+	Province *string `json:"province,omitempty" xml:"province,omitempty" require:"true"`
+	// 日期
+	TradeDate *string `json:"trade_date,omitempty" xml:"trade_date,omitempty" require:"true"`
+	// 线上线下 1:线下，0:线上，-1:全部
+	OfpType *string `json:"ofp_type,omitempty" xml:"ofp_type,omitempty" require:"true"`
+	// 消费规模指数(销售金额)
+	TradeScale *string `json:"trade_scale,omitempty" xml:"trade_scale,omitempty" require:"true"`
+	// 交易活跃指数(次数)
+	TradeActivity *string `json:"trade_activity,omitempty" xml:"trade_activity,omitempty" require:"true"`
+	// 消费价值指数(金额/次数)
+	TradeValue *string `json:"trade_value,omitempty" xml:"trade_value,omitempty" require:"true"`
+	// 交易覆盖指数(去重人数)
+	TradeCoverage *string `json:"trade_coverage,omitempty" xml:"trade_coverage,omitempty" require:"true"`
+}
+
+func (s IndustryData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IndustryData) GoString() string {
+	return s.String()
+}
+
+func (s *IndustryData) SetIndustry(v string) *IndustryData {
+	s.Industry = &v
+	return s
+}
+
+func (s *IndustryData) SetProvince(v string) *IndustryData {
+	s.Province = &v
+	return s
+}
+
+func (s *IndustryData) SetTradeDate(v string) *IndustryData {
+	s.TradeDate = &v
+	return s
+}
+
+func (s *IndustryData) SetOfpType(v string) *IndustryData {
+	s.OfpType = &v
+	return s
+}
+
+func (s *IndustryData) SetTradeScale(v string) *IndustryData {
+	s.TradeScale = &v
+	return s
+}
+
+func (s *IndustryData) SetTradeActivity(v string) *IndustryData {
+	s.TradeActivity = &v
+	return s
+}
+
+func (s *IndustryData) SetTradeValue(v string) *IndustryData {
+	s.TradeValue = &v
+	return s
+}
+
+func (s *IndustryData) SetTradeCoverage(v string) *IndustryData {
+	s.TradeCoverage = &v
+	return s
+}
+
 // agent会话信息
 type ChatConversationInfo struct {
 	// 会话ID
@@ -1317,6 +1385,181 @@ func (s *QueryIndexresearchBrandindexResponse) SetPageInfo(v *PageInfo) *QueryIn
 
 func (s *QueryIndexresearchBrandindexResponse) SetIndexData(v []*IndexData) *QueryIndexresearchBrandindexResponse {
 	s.IndexData = v
+	return s
+}
+
+type QueryIndexresearchConsumeindustryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 行业
+	Industry *string `json:"industry,omitempty" xml:"industry,omitempty"`
+	// 是否线上线下 1:线下，0:线上，-1:全部
+	OfpType *string `json:"ofp_type,omitempty" xml:"ofp_type,omitempty"`
+	// 开始时间
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty"`
+	// 结束时间
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty"`
+	// 分页信息
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty" require:"true"`
+}
+
+func (s QueryIndexresearchConsumeindustryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIndexresearchConsumeindustryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIndexresearchConsumeindustryRequest) SetAuthToken(v string) *QueryIndexresearchConsumeindustryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIndexresearchConsumeindustryRequest) SetProductInstanceId(v string) *QueryIndexresearchConsumeindustryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIndexresearchConsumeindustryRequest) SetIndustry(v string) *QueryIndexresearchConsumeindustryRequest {
+	s.Industry = &v
+	return s
+}
+
+func (s *QueryIndexresearchConsumeindustryRequest) SetOfpType(v string) *QueryIndexresearchConsumeindustryRequest {
+	s.OfpType = &v
+	return s
+}
+
+func (s *QueryIndexresearchConsumeindustryRequest) SetStartTime(v string) *QueryIndexresearchConsumeindustryRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *QueryIndexresearchConsumeindustryRequest) SetEndTime(v string) *QueryIndexresearchConsumeindustryRequest {
+	s.EndTime = &v
+	return s
+}
+
+func (s *QueryIndexresearchConsumeindustryRequest) SetPageInfo(v *PageInfo) *QueryIndexresearchConsumeindustryRequest {
+	s.PageInfo = v
+	return s
+}
+
+type QueryIndexresearchConsumeindustryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 分页信息
+	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty"`
+	// 消费行业数据
+	IndustryData []*IndustryData `json:"industry_data,omitempty" xml:"industry_data,omitempty" type:"Repeated"`
+}
+
+func (s QueryIndexresearchConsumeindustryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIndexresearchConsumeindustryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIndexresearchConsumeindustryResponse) SetReqMsgId(v string) *QueryIndexresearchConsumeindustryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIndexresearchConsumeindustryResponse) SetResultCode(v string) *QueryIndexresearchConsumeindustryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIndexresearchConsumeindustryResponse) SetResultMsg(v string) *QueryIndexresearchConsumeindustryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIndexresearchConsumeindustryResponse) SetPageInfo(v *PageInfo) *QueryIndexresearchConsumeindustryResponse {
+	s.PageInfo = v
+	return s
+}
+
+func (s *QueryIndexresearchConsumeindustryResponse) SetIndustryData(v []*IndustryData) *QueryIndexresearchConsumeindustryResponse {
+	s.IndustryData = v
+	return s
+}
+
+type QueryIndexresearchIndustryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 行业
+	Industry *string `json:"industry,omitempty" xml:"industry,omitempty"`
+}
+
+func (s QueryIndexresearchIndustryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIndexresearchIndustryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIndexresearchIndustryRequest) SetAuthToken(v string) *QueryIndexresearchIndustryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIndexresearchIndustryRequest) SetProductInstanceId(v string) *QueryIndexresearchIndustryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIndexresearchIndustryRequest) SetIndustry(v string) *QueryIndexresearchIndustryRequest {
+	s.Industry = &v
+	return s
+}
+
+type QueryIndexresearchIndustryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 行业列表数据
+	IndustryData []*string `json:"industry_data,omitempty" xml:"industry_data,omitempty" type:"Repeated"`
+}
+
+func (s QueryIndexresearchIndustryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIndexresearchIndustryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIndexresearchIndustryResponse) SetReqMsgId(v string) *QueryIndexresearchIndustryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIndexresearchIndustryResponse) SetResultCode(v string) *QueryIndexresearchIndustryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIndexresearchIndustryResponse) SetResultMsg(v string) *QueryIndexresearchIndustryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIndexresearchIndustryResponse) SetIndustryData(v []*string) *QueryIndexresearchIndustryResponse {
+	s.IndustryData = v
 	return s
 }
 
@@ -2829,7 +3072,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.40"),
+				"sdk_version":      tea.String("1.0.41"),
 				"_prod_code":       tea.String("COLLABINV"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -3186,6 +3429,74 @@ func (client *Client) QueryIndexresearchBrandindexEx(request *QueryIndexresearch
 	}
 	_result = &QueryIndexresearchBrandindexResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.indexresearch.brandindex.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 消费行业报告查询
+ * Summary: 消费行业报告查询
+ */
+func (client *Client) QueryIndexresearchConsumeindustry(request *QueryIndexresearchConsumeindustryRequest) (_result *QueryIndexresearchConsumeindustryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIndexresearchConsumeindustryResponse{}
+	_body, _err := client.QueryIndexresearchConsumeindustryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 消费行业报告查询
+ * Summary: 消费行业报告查询
+ */
+func (client *Client) QueryIndexresearchConsumeindustryEx(request *QueryIndexresearchConsumeindustryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIndexresearchConsumeindustryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIndexresearchConsumeindustryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.indexresearch.consumeindustry.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 消费行业报告行业查询
+ * Summary: 消费行业报告行业查询
+ */
+func (client *Client) QueryIndexresearchIndustry(request *QueryIndexresearchIndustryRequest) (_result *QueryIndexresearchIndustryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIndexresearchIndustryResponse{}
+	_body, _err := client.QueryIndexresearchIndustryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 消费行业报告行业查询
+ * Summary: 消费行业报告行业查询
+ */
+func (client *Client) QueryIndexresearchIndustryEx(request *QueryIndexresearchIndustryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIndexresearchIndustryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIndexresearchIndustryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.indexresearch.industry.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
