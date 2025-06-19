@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.13"),
+                    new TeaPair("sdk_version", "1.0.21"),
                     new TeaPair("_prod_code", "ASSET"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -242,6 +242,25 @@ public class Client {
     }
 
     /**
+     * Description: 机构权益运营还款回调
+     * Summary: 机构权益运营还款回调
+     */
+    public CallbackOrgoperationRepayResponse callbackOrgoperationRepay(CallbackOrgoperationRepayRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackOrgoperationRepayEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 机构权益运营还款回调
+     * Summary: 机构权益运营还款回调
+     */
+    public CallbackOrgoperationRepayResponse callbackOrgoperationRepayEx(CallbackOrgoperationRepayRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.asset.orgoperation.repay.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackOrgoperationRepayResponse());
+    }
+
+    /**
      * Description: 查询数据统计预算金额
      * Summary: 查询数据统计预算金额
      */
@@ -296,5 +315,81 @@ public class Client {
     public QueryStatisticsConversionmetricsResponse queryStatisticsConversionmetricsEx(QueryStatisticsConversionmetricsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.asset.statistics.conversionmetrics.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryStatisticsConversionmetricsResponse());
+    }
+
+    /**
+     * Description: 查询机构总览数据
+     * Summary: 查询机构总览数据
+     */
+    public QueryStatisticsOrgoverviewResponse queryStatisticsOrgoverview(QueryStatisticsOrgoverviewRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryStatisticsOrgoverviewEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询机构总览数据
+     * Summary: 查询机构总览数据
+     */
+    public QueryStatisticsOrgoverviewResponse queryStatisticsOrgoverviewEx(QueryStatisticsOrgoverviewRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.asset.statistics.orgoverview.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryStatisticsOrgoverviewResponse());
+    }
+
+    /**
+     * Description: 查询机构趋势看板数据
+     * Summary: 查询机构趋势看板数据
+     */
+    public QueryStatisticsOrgtrendResponse queryStatisticsOrgtrend(QueryStatisticsOrgtrendRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryStatisticsOrgtrendEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询机构趋势看板数据
+     * Summary: 查询机构趋势看板数据
+     */
+    public QueryStatisticsOrgtrendResponse queryStatisticsOrgtrendEx(QueryStatisticsOrgtrendRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.asset.statistics.orgtrend.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryStatisticsOrgtrendResponse());
+    }
+
+    /**
+     * Description: 机构券转化情况
+     * Summary: 机构券转化情况
+     */
+    public QueryStatisticsOrgconversionResponse queryStatisticsOrgconversion(QueryStatisticsOrgconversionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryStatisticsOrgconversionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 机构券转化情况
+     * Summary: 机构券转化情况
+     */
+    public QueryStatisticsOrgconversionResponse queryStatisticsOrgconversionEx(QueryStatisticsOrgconversionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.asset.statistics.orgconversion.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryStatisticsOrgconversionResponse());
+    }
+
+    /**
+     * Description: 大额交易情况统计
+     * Summary: 大额交易情况统计
+     */
+    public QueryStatisticsOrgtraderangeResponse queryStatisticsOrgtraderange(QueryStatisticsOrgtraderangeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryStatisticsOrgtraderangeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 大额交易情况统计
+     * Summary: 大额交易情况统计
+     */
+    public QueryStatisticsOrgtraderangeResponse queryStatisticsOrgtraderangeEx(QueryStatisticsOrgtraderangeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.asset.statistics.orgtraderange.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryStatisticsOrgtraderangeResponse());
     }
 }
