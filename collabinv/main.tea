@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.40',
+    sdk_version = '1.0.41',
     _prod_code = 'COLLABINV',
     _prod_channel = 'default'
   };
@@ -171,6 +171,26 @@ model ChatMessageInfo {
   answer?: string(name='answer', example='恢复内容'),
   // 创建时间
   createDate: string(name='create_date', example='2025-04-24 17:54:23'),
+}
+
+// 消费行业数据
+model IndustryData {
+  // 行业
+  industry: string(name='industry', example='餐饮美食'),
+  // 区域
+  province: string(name='province', example='北京'),
+  // 日期
+  tradeDate: string(name='trade_date', example='202506'),
+  // 线上线下 1:线下，0:线上，-1:全部
+  ofpType: string(name='ofp_type', example='-1'),
+  // 消费规模指数(销售金额)
+  tradeScale: string(name='trade_scale', example='1'),
+  // 交易活跃指数(次数)
+  tradeActivity: string(name='trade_activity', example='1'),
+  // 消费价值指数(金额/次数)
+  tradeValue: string(name='trade_value', example='1'),
+  // 交易覆盖指数(去重人数)
+  tradeCoverage: string(name='trade_coverage', example='1'),
 }
 
 // agent会话信息
@@ -660,6 +680,92 @@ async function queryIndexresearchBrandindex(request: QueryIndexresearchBrandinde
 async function queryIndexresearchBrandindexEx(request: QueryIndexresearchBrandindexRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIndexresearchBrandindexResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.zkcollabinv.indexresearch.brandindex.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIndexresearchConsumeindustryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 行业
+  industry?: string(name='industry'),
+  // 是否线上线下 1:线下，0:线上，-1:全部
+  ofpType?: string(name='ofp_type'),
+  // 开始时间
+  startTime?: string(name='start_time'),
+  // 结束时间
+  endTime?: string(name='end_time'),
+  // 分页信息
+  pageInfo: PageInfo(name='page_info'),
+}
+
+model QueryIndexresearchConsumeindustryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 分页信息
+  pageInfo?: PageInfo(name='page_info'),
+  // 消费行业数据
+  industryData?: [ IndustryData ](name='industry_data'),
+}
+
+/**
+ * Description: 消费行业报告查询
+ * Summary: 消费行业报告查询
+ */
+async function queryIndexresearchConsumeindustry(request: QueryIndexresearchConsumeindustryRequest): QueryIndexresearchConsumeindustryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIndexresearchConsumeindustryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 消费行业报告查询
+ * Summary: 消费行业报告查询
+ */
+async function queryIndexresearchConsumeindustryEx(request: QueryIndexresearchConsumeindustryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIndexresearchConsumeindustryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.indexresearch.consumeindustry.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIndexresearchIndustryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 行业
+  industry?: string(name='industry'),
+}
+
+model QueryIndexresearchIndustryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 行业列表数据
+  industryData?: [ string ](name='industry_data'),
+}
+
+/**
+ * Description: 消费行业报告行业查询
+ * Summary: 消费行业报告行业查询
+ */
+async function queryIndexresearchIndustry(request: QueryIndexresearchIndustryRequest): QueryIndexresearchIndustryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIndexresearchIndustryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 消费行业报告行业查询
+ * Summary: 消费行业报告行业查询
+ */
+async function queryIndexresearchIndustryEx(request: QueryIndexresearchIndustryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIndexresearchIndustryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.indexresearch.industry.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryLocationInternalRequest = {
