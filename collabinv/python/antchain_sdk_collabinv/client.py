@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.40',
+                    'sdk_version': '1.0.41',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.40',
+                    'sdk_version': '1.0.41',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -777,6 +777,118 @@ class Client:
         return TeaCore.from_map(
             collabinv_models.QueryIndexresearchBrandindexResponse(),
             await self.do_request_async('1.0', 'antchain.zkcollabinv.indexresearch.brandindex.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_indexresearch_consumeindustry(
+        self,
+        request: collabinv_models.QueryIndexresearchConsumeindustryRequest,
+    ) -> collabinv_models.QueryIndexresearchConsumeindustryResponse:
+        """
+        Description: 消费行业报告查询
+        Summary: 消费行业报告查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_indexresearch_consumeindustry_ex(request, headers, runtime)
+
+    async def query_indexresearch_consumeindustry_async(
+        self,
+        request: collabinv_models.QueryIndexresearchConsumeindustryRequest,
+    ) -> collabinv_models.QueryIndexresearchConsumeindustryResponse:
+        """
+        Description: 消费行业报告查询
+        Summary: 消费行业报告查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_indexresearch_consumeindustry_ex_async(request, headers, runtime)
+
+    def query_indexresearch_consumeindustry_ex(
+        self,
+        request: collabinv_models.QueryIndexresearchConsumeindustryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.QueryIndexresearchConsumeindustryResponse:
+        """
+        Description: 消费行业报告查询
+        Summary: 消费行业报告查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.QueryIndexresearchConsumeindustryResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.indexresearch.consumeindustry.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_indexresearch_consumeindustry_ex_async(
+        self,
+        request: collabinv_models.QueryIndexresearchConsumeindustryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.QueryIndexresearchConsumeindustryResponse:
+        """
+        Description: 消费行业报告查询
+        Summary: 消费行业报告查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.QueryIndexresearchConsumeindustryResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.indexresearch.consumeindustry.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_indexresearch_industry(
+        self,
+        request: collabinv_models.QueryIndexresearchIndustryRequest,
+    ) -> collabinv_models.QueryIndexresearchIndustryResponse:
+        """
+        Description: 消费行业报告行业查询
+        Summary: 消费行业报告行业查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_indexresearch_industry_ex(request, headers, runtime)
+
+    async def query_indexresearch_industry_async(
+        self,
+        request: collabinv_models.QueryIndexresearchIndustryRequest,
+    ) -> collabinv_models.QueryIndexresearchIndustryResponse:
+        """
+        Description: 消费行业报告行业查询
+        Summary: 消费行业报告行业查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_indexresearch_industry_ex_async(request, headers, runtime)
+
+    def query_indexresearch_industry_ex(
+        self,
+        request: collabinv_models.QueryIndexresearchIndustryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.QueryIndexresearchIndustryResponse:
+        """
+        Description: 消费行业报告行业查询
+        Summary: 消费行业报告行业查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.QueryIndexresearchIndustryResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.indexresearch.industry.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_indexresearch_industry_ex_async(
+        self,
+        request: collabinv_models.QueryIndexresearchIndustryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.QueryIndexresearchIndustryResponse:
+        """
+        Description: 消费行业报告行业查询
+        Summary: 消费行业报告行业查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.QueryIndexresearchIndustryResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.indexresearch.industry.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_location_internal(

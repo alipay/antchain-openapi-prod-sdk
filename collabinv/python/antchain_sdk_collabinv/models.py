@@ -204,6 +204,90 @@ class ChatMessageInfo(TeaModel):
         return self
 
 
+class IndustryData(TeaModel):
+    def __init__(
+        self,
+        industry: str = None,
+        province: str = None,
+        trade_date: str = None,
+        ofp_type: str = None,
+        trade_scale: str = None,
+        trade_activity: str = None,
+        trade_value: str = None,
+        trade_coverage: str = None,
+    ):
+        # 行业
+        self.industry = industry
+        # 区域
+        self.province = province
+        # 日期
+        self.trade_date = trade_date
+        # 线上线下 1:线下，0:线上，-1:全部
+        self.ofp_type = ofp_type
+        # 消费规模指数(销售金额)
+        self.trade_scale = trade_scale
+        # 交易活跃指数(次数)
+        self.trade_activity = trade_activity
+        # 消费价值指数(金额/次数)
+        self.trade_value = trade_value
+        # 交易覆盖指数(去重人数)
+        self.trade_coverage = trade_coverage
+
+    def validate(self):
+        self.validate_required(self.industry, 'industry')
+        self.validate_required(self.province, 'province')
+        self.validate_required(self.trade_date, 'trade_date')
+        self.validate_required(self.ofp_type, 'ofp_type')
+        self.validate_required(self.trade_scale, 'trade_scale')
+        self.validate_required(self.trade_activity, 'trade_activity')
+        self.validate_required(self.trade_value, 'trade_value')
+        self.validate_required(self.trade_coverage, 'trade_coverage')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.industry is not None:
+            result['industry'] = self.industry
+        if self.province is not None:
+            result['province'] = self.province
+        if self.trade_date is not None:
+            result['trade_date'] = self.trade_date
+        if self.ofp_type is not None:
+            result['ofp_type'] = self.ofp_type
+        if self.trade_scale is not None:
+            result['trade_scale'] = self.trade_scale
+        if self.trade_activity is not None:
+            result['trade_activity'] = self.trade_activity
+        if self.trade_value is not None:
+            result['trade_value'] = self.trade_value
+        if self.trade_coverage is not None:
+            result['trade_coverage'] = self.trade_coverage
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('industry') is not None:
+            self.industry = m.get('industry')
+        if m.get('province') is not None:
+            self.province = m.get('province')
+        if m.get('trade_date') is not None:
+            self.trade_date = m.get('trade_date')
+        if m.get('ofp_type') is not None:
+            self.ofp_type = m.get('ofp_type')
+        if m.get('trade_scale') is not None:
+            self.trade_scale = m.get('trade_scale')
+        if m.get('trade_activity') is not None:
+            self.trade_activity = m.get('trade_activity')
+        if m.get('trade_value') is not None:
+            self.trade_value = m.get('trade_value')
+        if m.get('trade_coverage') is not None:
+            self.trade_coverage = m.get('trade_coverage')
+        return self
+
+
 class ChatConversationInfo(TeaModel):
     def __init__(
         self,
@@ -1650,6 +1734,235 @@ class QueryIndexresearchBrandindexResponse(TeaModel):
             for k in m.get('index_data'):
                 temp_model = IndexData()
                 self.index_data.append(temp_model.from_map(k))
+        return self
+
+
+class QueryIndexresearchConsumeindustryRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        industry: str = None,
+        ofp_type: str = None,
+        start_time: str = None,
+        end_time: str = None,
+        page_info: PageInfo = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 行业
+        self.industry = industry
+        # 是否线上线下 1:线下，0:线上，-1:全部
+        self.ofp_type = ofp_type
+        # 开始时间
+        self.start_time = start_time
+        # 结束时间
+        self.end_time = end_time
+        # 分页信息
+        self.page_info = page_info
+
+    def validate(self):
+        self.validate_required(self.page_info, 'page_info')
+        if self.page_info:
+            self.page_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.industry is not None:
+            result['industry'] = self.industry
+        if self.ofp_type is not None:
+            result['ofp_type'] = self.ofp_type
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        if self.page_info is not None:
+            result['page_info'] = self.page_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('industry') is not None:
+            self.industry = m.get('industry')
+        if m.get('ofp_type') is not None:
+            self.ofp_type = m.get('ofp_type')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        if m.get('page_info') is not None:
+            temp_model = PageInfo()
+            self.page_info = temp_model.from_map(m['page_info'])
+        return self
+
+
+class QueryIndexresearchConsumeindustryResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        page_info: PageInfo = None,
+        industry_data: List[IndustryData] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 分页信息
+        self.page_info = page_info
+        # 消费行业数据
+        self.industry_data = industry_data
+
+    def validate(self):
+        if self.page_info:
+            self.page_info.validate()
+        if self.industry_data:
+            for k in self.industry_data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.page_info is not None:
+            result['page_info'] = self.page_info.to_map()
+        result['industry_data'] = []
+        if self.industry_data is not None:
+            for k in self.industry_data:
+                result['industry_data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('page_info') is not None:
+            temp_model = PageInfo()
+            self.page_info = temp_model.from_map(m['page_info'])
+        self.industry_data = []
+        if m.get('industry_data') is not None:
+            for k in m.get('industry_data'):
+                temp_model = IndustryData()
+                self.industry_data.append(temp_model.from_map(k))
+        return self
+
+
+class QueryIndexresearchIndustryRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        industry: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 行业
+        self.industry = industry
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.industry is not None:
+            result['industry'] = self.industry
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('industry') is not None:
+            self.industry = m.get('industry')
+        return self
+
+
+class QueryIndexresearchIndustryResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        industry_data: List[str] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 行业列表数据
+        self.industry_data = industry_data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.industry_data is not None:
+            result['industry_data'] = self.industry_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('industry_data') is not None:
+            self.industry_data = m.get('industry_data')
         return self
 
 
