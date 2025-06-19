@@ -106,6 +106,72 @@ export class SubMetricData extends $tea.Model {
   }
 }
 
+// 交易区间数据
+export class TradeRangeData extends $tea.Model {
+  // 区间开始
+  start: string;
+  // 区间结束
+  end: string;
+  // 区间内统计值
+  value: number;
+  // 百分比
+  rate: string;
+  static names(): { [key: string]: string } {
+    return {
+      start: 'start',
+      end: 'end',
+      value: 'value',
+      rate: 'rate',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      start: 'string',
+      end: 'string',
+      value: 'number',
+      rate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 机构趋势数据
+export class OrgTrendData extends $tea.Model {
+  // 日期
+  date: string;
+  // 还款金额
+  repaymentAmt: string;
+  // 预算金额
+  budgetAmt: string;
+  // 交易金额
+  tradeAmt: string;
+  static names(): { [key: string]: string } {
+    return {
+      date: 'date',
+      repaymentAmt: 'repayment_amt',
+      budgetAmt: 'budget_amt',
+      tradeAmt: 'trade_amt',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      date: 'string',
+      repaymentAmt: 'string',
+      budgetAmt: 'string',
+      tradeAmt: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 查询数据统计指标结果
 export class MetricData extends $tea.Model {
   // 租户指标: OPERATING_INCOME, REPAY_AMOUNT, REPAY_NUMBER, REPAY_USER_NUMBER, REPAY_AVG_AMOUNT, ALI_DST_AMT
@@ -127,6 +193,60 @@ export class MetricData extends $tea.Model {
       type: 'string',
       total: 'string',
       subList: { 'type': 'array', 'itemType': SubMetricData },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 转化统计数据
+export class ConversionData extends $tea.Model {
+  // 渠道
+  channel: string;
+  // 投放人数
+  sendCnt: number;
+  // 核销人数
+  useCnt: number;
+  // 核销率
+  useRate: string;
+  static names(): { [key: string]: string } {
+    return {
+      channel: 'channel',
+      sendCnt: 'send_cnt',
+      useCnt: 'use_cnt',
+      useRate: 'use_rate',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      channel: 'string',
+      sendCnt: 'number',
+      useCnt: 'number',
+      useRate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 还款回调结果数据
+export class RepayCallBackResData extends $tea.Model {
+  // 状态
+  status: string;
+  static names(): { [key: string]: string } {
+    return {
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      status: 'string',
     };
   }
 
@@ -164,6 +284,87 @@ export class PaymentRecord extends $tea.Model {
       supplierName: 'string',
       paymentDate: 'string',
       requestUniqueId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 机构总览数据
+export class OrgOverviewData extends $tea.Model {
+  // 预算总金额
+  totalBudgetAmt: string;
+  // 花呗预算金额
+  huabeiBudgetAmt: string;
+  // 借呗预算金额
+  jiebeiBudgetAmt: string;
+  // 小微预算金额
+  xiaoweiBudgetAmt: string;
+  // 服务费预算金额
+  serviceBudgetAmt: string;
+  // 总回款金额
+  totalRepaymentAmt: string;
+  // 花呗回款金额
+  huabeiRepaymentAmt: string;
+  // 借呗回款金额
+  jiebeiRepaymentAmt: string;
+  // 小微回款金额
+  xiaoweiRepaymentAmt: string;
+  // 总交易金额
+  totalTradeAmt: string;
+  // 花呗交易金额
+  huabeiTradeAmt: string;
+  // 借呗交易金额
+  jiebeiTradeAmt: string;
+  // 小微交易金额
+  xiaoweiTradeAmt: string;
+  // 内部补贴金额
+  internalSubsidyAmt: string;
+  // 净回款额
+  totalNetRepaymentAmt: string;
+  // 活动roi
+  activityRoi: string;
+  static names(): { [key: string]: string } {
+    return {
+      totalBudgetAmt: 'total_budget_amt',
+      huabeiBudgetAmt: 'huabei_budget_amt',
+      jiebeiBudgetAmt: 'jiebei_budget_amt',
+      xiaoweiBudgetAmt: 'xiaowei_budget_amt',
+      serviceBudgetAmt: 'service_budget_amt',
+      totalRepaymentAmt: 'total_repayment_amt',
+      huabeiRepaymentAmt: 'huabei_repayment_amt',
+      jiebeiRepaymentAmt: 'jiebei_repayment_amt',
+      xiaoweiRepaymentAmt: 'xiaowei_repayment_amt',
+      totalTradeAmt: 'total_trade_amt',
+      huabeiTradeAmt: 'huabei_trade_amt',
+      jiebeiTradeAmt: 'jiebei_trade_amt',
+      xiaoweiTradeAmt: 'xiaowei_trade_amt',
+      internalSubsidyAmt: 'internal_subsidy_amt',
+      totalNetRepaymentAmt: 'total_net_repayment_amt',
+      activityRoi: 'activity_roi',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      totalBudgetAmt: 'string',
+      huabeiBudgetAmt: 'string',
+      jiebeiBudgetAmt: 'string',
+      xiaoweiBudgetAmt: 'string',
+      serviceBudgetAmt: 'string',
+      totalRepaymentAmt: 'string',
+      huabeiRepaymentAmt: 'string',
+      jiebeiRepaymentAmt: 'string',
+      xiaoweiRepaymentAmt: 'string',
+      totalTradeAmt: 'string',
+      huabeiTradeAmt: 'string',
+      jiebeiTradeAmt: 'string',
+      xiaoweiTradeAmt: 'string',
+      internalSubsidyAmt: 'string',
+      totalNetRepaymentAmt: 'string',
+      activityRoi: 'string',
     };
   }
 
@@ -425,6 +626,81 @@ export class AddSupplierPaymentResponse extends $tea.Model {
   }
 }
 
+export class CallbackOrgoperationRepayRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 还款编号
+  repayRecordNo: string;
+  // 状态
+  status: string;
+  // 扩展属性
+  extInfo?: string;
+  // 请求唯一id，最长32字符
+  requestUniqueId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      repayRecordNo: 'repay_record_no',
+      status: 'status',
+      extInfo: 'ext_info',
+      requestUniqueId: 'request_unique_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      repayRecordNo: 'string',
+      status: 'string',
+      extInfo: 'string',
+      requestUniqueId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackOrgoperationRepayResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 还款回调处理状态
+  data?: RepayCallBackResData;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: RepayCallBackResData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryStatisticsBudgetRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -637,6 +913,290 @@ export class QueryStatisticsConversionmetricsResponse extends $tea.Model {
   }
 }
 
+export class QueryStatisticsOrgoverviewRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 开始时间
+  startDate: string;
+  // 结束日期
+  endDate: string;
+  // 租户
+  tenantId: string;
+  // 请求唯一id
+  requestUniqueId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      startDate: 'start_date',
+      endDate: 'end_date',
+      tenantId: 'tenant_id',
+      requestUniqueId: 'request_unique_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      startDate: 'string',
+      endDate: 'string',
+      tenantId: 'string',
+      requestUniqueId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryStatisticsOrgoverviewResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 机构总览数据
+  data?: OrgOverviewData;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: OrgOverviewData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryStatisticsOrgtrendRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 开始日期
+  startDate: string;
+  // 结束日期
+  endDate: string;
+  // 租户id
+  tenantId: string;
+  // 请求唯一标识
+  requestUniqueId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      startDate: 'start_date',
+      endDate: 'end_date',
+      tenantId: 'tenant_id',
+      requestUniqueId: 'request_unique_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      startDate: 'string',
+      endDate: 'string',
+      tenantId: 'string',
+      requestUniqueId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryStatisticsOrgtrendResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 机构趋势数据
+  data?: OrgTrendData[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': OrgTrendData },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryStatisticsOrgconversionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 开始日期
+  startDate: string;
+  // 结束日期
+  endDate: string;
+  // 租户id
+  tenantId: string;
+  // 请求唯一标识
+  requestUniqueId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      startDate: 'start_date',
+      endDate: 'end_date',
+      tenantId: 'tenant_id',
+      requestUniqueId: 'request_unique_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      startDate: 'string',
+      endDate: 'string',
+      tenantId: 'string',
+      requestUniqueId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryStatisticsOrgconversionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 转化数据
+  data?: ConversionData[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': ConversionData },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryStatisticsOrgtraderangeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 开始日期
+  startDate: string;
+  // 结束日期
+  endDate: string;
+  // 租户id
+  tenantId: string;
+  // 请求唯一标识
+  requestUniqueId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      startDate: 'start_date',
+      endDate: 'end_date',
+      tenantId: 'tenant_id',
+      requestUniqueId: 'request_unique_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      startDate: 'string',
+      endDate: 'string',
+      tenantId: 'string',
+      requestUniqueId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryStatisticsOrgtraderangeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 交易区间统计
+  data?: TradeRangeData[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': TradeRangeData },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -750,7 +1310,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.13",
+          sdk_version: "1.0.21",
           _prod_code: "ASSET",
           _prod_channel: "default",
         };
@@ -856,6 +1416,25 @@ export default class Client {
   }
 
   /**
+   * Description: 机构权益运营还款回调
+   * Summary: 机构权益运营还款回调
+   */
+  async callbackOrgoperationRepay(request: CallbackOrgoperationRepayRequest): Promise<CallbackOrgoperationRepayResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackOrgoperationRepayEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 机构权益运营还款回调
+   * Summary: 机构权益运营还款回调
+   */
+  async callbackOrgoperationRepayEx(request: CallbackOrgoperationRepayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackOrgoperationRepayResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackOrgoperationRepayResponse>(await this.doRequest("1.0", "antdigital.asset.orgoperation.repay.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackOrgoperationRepayResponse({}));
+  }
+
+  /**
    * Description: 查询数据统计预算金额
    * Summary: 查询数据统计预算金额
    */
@@ -910,6 +1489,82 @@ export default class Client {
   async queryStatisticsConversionmetricsEx(request: QueryStatisticsConversionmetricsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryStatisticsConversionmetricsResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryStatisticsConversionmetricsResponse>(await this.doRequest("1.0", "antdigital.asset.statistics.conversionmetrics.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryStatisticsConversionmetricsResponse({}));
+  }
+
+  /**
+   * Description: 查询机构总览数据
+   * Summary: 查询机构总览数据
+   */
+  async queryStatisticsOrgoverview(request: QueryStatisticsOrgoverviewRequest): Promise<QueryStatisticsOrgoverviewResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryStatisticsOrgoverviewEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询机构总览数据
+   * Summary: 查询机构总览数据
+   */
+  async queryStatisticsOrgoverviewEx(request: QueryStatisticsOrgoverviewRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryStatisticsOrgoverviewResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryStatisticsOrgoverviewResponse>(await this.doRequest("1.0", "antdigital.asset.statistics.orgoverview.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryStatisticsOrgoverviewResponse({}));
+  }
+
+  /**
+   * Description: 查询机构趋势看板数据
+   * Summary: 查询机构趋势看板数据
+   */
+  async queryStatisticsOrgtrend(request: QueryStatisticsOrgtrendRequest): Promise<QueryStatisticsOrgtrendResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryStatisticsOrgtrendEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询机构趋势看板数据
+   * Summary: 查询机构趋势看板数据
+   */
+  async queryStatisticsOrgtrendEx(request: QueryStatisticsOrgtrendRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryStatisticsOrgtrendResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryStatisticsOrgtrendResponse>(await this.doRequest("1.0", "antdigital.asset.statistics.orgtrend.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryStatisticsOrgtrendResponse({}));
+  }
+
+  /**
+   * Description: 机构券转化情况
+   * Summary: 机构券转化情况
+   */
+  async queryStatisticsOrgconversion(request: QueryStatisticsOrgconversionRequest): Promise<QueryStatisticsOrgconversionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryStatisticsOrgconversionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 机构券转化情况
+   * Summary: 机构券转化情况
+   */
+  async queryStatisticsOrgconversionEx(request: QueryStatisticsOrgconversionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryStatisticsOrgconversionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryStatisticsOrgconversionResponse>(await this.doRequest("1.0", "antdigital.asset.statistics.orgconversion.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryStatisticsOrgconversionResponse({}));
+  }
+
+  /**
+   * Description: 大额交易情况统计
+   * Summary: 大额交易情况统计
+   */
+  async queryStatisticsOrgtraderange(request: QueryStatisticsOrgtraderangeRequest): Promise<QueryStatisticsOrgtraderangeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryStatisticsOrgtraderangeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 大额交易情况统计
+   * Summary: 大额交易情况统计
+   */
+  async queryStatisticsOrgtraderangeEx(request: QueryStatisticsOrgtraderangeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryStatisticsOrgtraderangeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryStatisticsOrgtraderangeResponse>(await this.doRequest("1.0", "antdigital.asset.statistics.orgtraderange.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryStatisticsOrgtraderangeResponse({}));
   }
 
 }
