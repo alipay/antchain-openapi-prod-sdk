@@ -137,7 +137,7 @@ namespace AntChain.SDK.ASSET
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.13"},
+                        {"sdk_version", "1.0.21"},
                         {"_prod_code", "ASSET"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ASSET
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.13"},
+                        {"sdk_version", "1.0.21"},
                         {"_prod_code", "ASSET"},
                         {"_prod_channel", "default"},
                     };
@@ -448,6 +448,48 @@ namespace AntChain.SDK.ASSET
         }
 
         /**
+         * Description: 机构权益运营还款回调
+         * Summary: 机构权益运营还款回调
+         */
+        public CallbackOrgoperationRepayResponse CallbackOrgoperationRepay(CallbackOrgoperationRepayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackOrgoperationRepayEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 机构权益运营还款回调
+         * Summary: 机构权益运营还款回调
+         */
+        public async Task<CallbackOrgoperationRepayResponse> CallbackOrgoperationRepayAsync(CallbackOrgoperationRepayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackOrgoperationRepayExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 机构权益运营还款回调
+         * Summary: 机构权益运营还款回调
+         */
+        public CallbackOrgoperationRepayResponse CallbackOrgoperationRepayEx(CallbackOrgoperationRepayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackOrgoperationRepayResponse>(DoRequest("1.0", "antdigital.asset.orgoperation.repay.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 机构权益运营还款回调
+         * Summary: 机构权益运营还款回调
+         */
+        public async Task<CallbackOrgoperationRepayResponse> CallbackOrgoperationRepayExAsync(CallbackOrgoperationRepayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackOrgoperationRepayResponse>(await DoRequestAsync("1.0", "antdigital.asset.orgoperation.repay.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 查询数据统计预算金额
          * Summary: 查询数据统计预算金额
          */
@@ -571,6 +613,174 @@ namespace AntChain.SDK.ASSET
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryStatisticsConversionmetricsResponse>(await DoRequestAsync("1.0", "antdigital.asset.statistics.conversionmetrics.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询机构总览数据
+         * Summary: 查询机构总览数据
+         */
+        public QueryStatisticsOrgoverviewResponse QueryStatisticsOrgoverview(QueryStatisticsOrgoverviewRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryStatisticsOrgoverviewEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询机构总览数据
+         * Summary: 查询机构总览数据
+         */
+        public async Task<QueryStatisticsOrgoverviewResponse> QueryStatisticsOrgoverviewAsync(QueryStatisticsOrgoverviewRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryStatisticsOrgoverviewExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询机构总览数据
+         * Summary: 查询机构总览数据
+         */
+        public QueryStatisticsOrgoverviewResponse QueryStatisticsOrgoverviewEx(QueryStatisticsOrgoverviewRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryStatisticsOrgoverviewResponse>(DoRequest("1.0", "antdigital.asset.statistics.orgoverview.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询机构总览数据
+         * Summary: 查询机构总览数据
+         */
+        public async Task<QueryStatisticsOrgoverviewResponse> QueryStatisticsOrgoverviewExAsync(QueryStatisticsOrgoverviewRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryStatisticsOrgoverviewResponse>(await DoRequestAsync("1.0", "antdigital.asset.statistics.orgoverview.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询机构趋势看板数据
+         * Summary: 查询机构趋势看板数据
+         */
+        public QueryStatisticsOrgtrendResponse QueryStatisticsOrgtrend(QueryStatisticsOrgtrendRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryStatisticsOrgtrendEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询机构趋势看板数据
+         * Summary: 查询机构趋势看板数据
+         */
+        public async Task<QueryStatisticsOrgtrendResponse> QueryStatisticsOrgtrendAsync(QueryStatisticsOrgtrendRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryStatisticsOrgtrendExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询机构趋势看板数据
+         * Summary: 查询机构趋势看板数据
+         */
+        public QueryStatisticsOrgtrendResponse QueryStatisticsOrgtrendEx(QueryStatisticsOrgtrendRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryStatisticsOrgtrendResponse>(DoRequest("1.0", "antdigital.asset.statistics.orgtrend.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询机构趋势看板数据
+         * Summary: 查询机构趋势看板数据
+         */
+        public async Task<QueryStatisticsOrgtrendResponse> QueryStatisticsOrgtrendExAsync(QueryStatisticsOrgtrendRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryStatisticsOrgtrendResponse>(await DoRequestAsync("1.0", "antdigital.asset.statistics.orgtrend.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 机构券转化情况
+         * Summary: 机构券转化情况
+         */
+        public QueryStatisticsOrgconversionResponse QueryStatisticsOrgconversion(QueryStatisticsOrgconversionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryStatisticsOrgconversionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 机构券转化情况
+         * Summary: 机构券转化情况
+         */
+        public async Task<QueryStatisticsOrgconversionResponse> QueryStatisticsOrgconversionAsync(QueryStatisticsOrgconversionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryStatisticsOrgconversionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 机构券转化情况
+         * Summary: 机构券转化情况
+         */
+        public QueryStatisticsOrgconversionResponse QueryStatisticsOrgconversionEx(QueryStatisticsOrgconversionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryStatisticsOrgconversionResponse>(DoRequest("1.0", "antdigital.asset.statistics.orgconversion.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 机构券转化情况
+         * Summary: 机构券转化情况
+         */
+        public async Task<QueryStatisticsOrgconversionResponse> QueryStatisticsOrgconversionExAsync(QueryStatisticsOrgconversionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryStatisticsOrgconversionResponse>(await DoRequestAsync("1.0", "antdigital.asset.statistics.orgconversion.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大额交易情况统计
+         * Summary: 大额交易情况统计
+         */
+        public QueryStatisticsOrgtraderangeResponse QueryStatisticsOrgtraderange(QueryStatisticsOrgtraderangeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryStatisticsOrgtraderangeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大额交易情况统计
+         * Summary: 大额交易情况统计
+         */
+        public async Task<QueryStatisticsOrgtraderangeResponse> QueryStatisticsOrgtraderangeAsync(QueryStatisticsOrgtraderangeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryStatisticsOrgtraderangeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大额交易情况统计
+         * Summary: 大额交易情况统计
+         */
+        public QueryStatisticsOrgtraderangeResponse QueryStatisticsOrgtraderangeEx(QueryStatisticsOrgtraderangeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryStatisticsOrgtraderangeResponse>(DoRequest("1.0", "antdigital.asset.statistics.orgtraderange.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大额交易情况统计
+         * Summary: 大额交易情况统计
+         */
+        public async Task<QueryStatisticsOrgtraderangeResponse> QueryStatisticsOrgtraderangeExAsync(QueryStatisticsOrgtraderangeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryStatisticsOrgtraderangeResponse>(await DoRequestAsync("1.0", "antdigital.asset.statistics.orgtraderange.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
