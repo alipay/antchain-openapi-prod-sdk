@@ -157,6 +157,8 @@ use AntChain\RISKPLUS\Models\OperateRbbCreditRequest;
 use AntChain\RISKPLUS\Models\OperateRbbCreditResponse;
 use AntChain\RISKPLUS\Models\PullRegtechNewsRequest;
 use AntChain\RISKPLUS\Models\PullRegtechNewsResponse;
+use AntChain\RISKPLUS\Models\PushDubbridgeInstallmentSupplementRequest;
+use AntChain\RISKPLUS\Models\PushDubbridgeInstallmentSupplementResponse;
 use AntChain\RISKPLUS\Models\PushQmpBackflowEventRequest;
 use AntChain\RISKPLUS\Models\PushQmpBackflowEventResponse;
 use AntChain\RISKPLUS\Models\PushQmpBackflowJsondataRequest;
@@ -205,6 +207,8 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerCommonagreementsignRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerCommonagreementsignResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeInstallmentCreditamtRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeInstallmentCreditamtResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeInstallmentTrialRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeInstallmentTrialResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeLoanUpgradestatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeLoanUpgradestatusResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeMarketingCouponlistRequest;
@@ -429,6 +433,8 @@ use AntChain\RISKPLUS\Models\UploadDubbridgeFileRequest;
 use AntChain\RISKPLUS\Models\UploadDubbridgeFileResponse;
 use AntChain\RISKPLUS\Models\UploadRbbFileAmapRequest;
 use AntChain\RISKPLUS\Models\UploadRbbFileAmapResponse;
+use AntChain\RISKPLUS\Models\UploadRfcAiboundFileRequest;
+use AntChain\RISKPLUS\Models\UploadRfcAiboundFileResponse;
 use AntChain\RISKPLUS\Models\UploadUmktOfflinedecisionRequest;
 use AntChain\RISKPLUS\Models\UploadUmktOfflinedecisionResponse;
 use AntChain\RISKPLUS\Models\UploadUmktOfflineImportrecordRequest;
@@ -588,7 +594,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.23.10',
+                    'sdk_version'      => '1.24.0',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3131,6 +3137,72 @@ class Client
     }
 
     /**
+     * Description: 天枢系统支用后补充材料推送-分期付
+     * Summary: 天枢系统支用后补充材料推送-分期付.
+     *
+     * @param PushDubbridgeInstallmentSupplementRequest $request
+     *
+     * @return PushDubbridgeInstallmentSupplementResponse
+     */
+    public function pushDubbridgeInstallmentSupplement($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushDubbridgeInstallmentSupplementEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统支用后补充材料推送-分期付
+     * Summary: 天枢系统支用后补充材料推送-分期付.
+     *
+     * @param PushDubbridgeInstallmentSupplementRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return PushDubbridgeInstallmentSupplementResponse
+     */
+    public function pushDubbridgeInstallmentSupplementEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushDubbridgeInstallmentSupplementResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.installment.supplement.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统分期试算
+     * Summary: 天枢系统分期试算.
+     *
+     * @param QueryDubbridgeInstallmentTrialRequest $request
+     *
+     * @return QueryDubbridgeInstallmentTrialResponse
+     */
+    public function queryDubbridgeInstallmentTrial($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeInstallmentTrialEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统分期试算
+     * Summary: 天枢系统分期试算.
+     *
+     * @param QueryDubbridgeInstallmentTrialRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryDubbridgeInstallmentTrialResponse
+     */
+    public function queryDubbridgeInstallmentTrialEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeInstallmentTrialResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.installment.trial.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 四要素认证首先调用此接口
      * Summary: 芝麻四要素接口.
      *
@@ -4439,6 +4511,58 @@ class Client
         Utils::validateModel($request);
 
         return ReceiveRfcParamsFileResponse::fromMap($this->doRequest('1.0', 'riskplus.rfc.params.file.receive', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: rfc外呼名单文件上传接口
+     * Summary: rfc外呼名单上传接口.
+     *
+     * @param UploadRfcAiboundFileRequest $request
+     *
+     * @return UploadRfcAiboundFileResponse
+     */
+    public function uploadRfcAiboundFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadRfcAiboundFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: rfc外呼名单文件上传接口
+     * Summary: rfc外呼名单上传接口.
+     *
+     * @param UploadRfcAiboundFileRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return UploadRfcAiboundFileResponse
+     */
+    public function uploadRfcAiboundFileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'riskplus.rfc.aibound.file.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadRfcAiboundFileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return UploadRfcAiboundFileResponse::fromMap($this->doRequest('1.0', 'riskplus.rfc.aibound.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
