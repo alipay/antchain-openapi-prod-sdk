@@ -77,70 +77,6 @@ export class Config extends $tea.Model {
   }
 }
 
-export class FeedbackReportDataRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  // 广告主账号ID
-  accountId: string;
-  // 报表类型级别
-  level: string;
-  // 回传数据明细，类型json array
-  feedbackData: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      accountId: 'account_id',
-      level: 'level',
-      feedbackData: 'feedback_data',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      accountId: 'string',
-      level: 'string',
-      feedbackData: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class FeedbackReportDataResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 是否成功
-  success?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      success: 'success',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      success: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 export class ConvertAdDataRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -305,14 +241,18 @@ export class ClickAdDataRequest extends $tea.Model {
   accountId: number;
   // 渠道，支持TENCENT
   channel: string;
-  // 点击明细json string
+  // 曝光/点击明细json string,曝光数据{\"impression_id\":\"dfhufhuifah\",\"impression_time\":1586437361}
+  // 点击数据{\"click_id\":\"dfhufaffhuifah\,"\"click_time\":1586437361}
   data: string;
+  // 点击-CLICK，曝光-IMPRESSION
+  dataType: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       accountId: 'account_id',
       channel: 'channel',
       data: 'data',
+      dataType: 'data_type',
     };
   }
 
@@ -322,6 +262,7 @@ export class ClickAdDataRequest extends $tea.Model {
       accountId: 'number',
       channel: 'string',
       data: 'string',
+      dataType: 'string',
     };
   }
 
@@ -395,6 +336,70 @@ export class ReportAdDataRequest extends $tea.Model {
 }
 
 export class ReportAdDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class FeedbackReportDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 广告主账号ID
+  accountId: string;
+  // 报表类型级别
+  level: string;
+  // 回传数据明细，类型json array
+  feedbackData: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      accountId: 'account_id',
+      level: 'level',
+      feedbackData: 'feedback_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      accountId: 'string',
+      level: 'string',
+      feedbackData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class FeedbackReportDataResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -539,7 +544,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "3.0.2",
+          sdk_version: "3.0.4",
           _prod_code: "MORSERTA",
           _prod_channel: "default",
         };
@@ -588,25 +593,6 @@ export default class Client {
   }
 
   /**
-   * Description: RTA广告主数据回传
-   * Summary: RTA广告主数据回传
-   */
-  async feedbackReportData(request: FeedbackReportDataRequest): Promise<FeedbackReportDataResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.feedbackReportDataEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: RTA广告主数据回传
-   * Summary: RTA广告主数据回传
-   */
-  async feedbackReportDataEx(request: FeedbackReportDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<FeedbackReportDataResponse> {
-    Util.validateModel(request);
-    return $tea.cast<FeedbackReportDataResponse>(await this.doRequest("1.0", "antcloud.morserta.report.data.feedback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new FeedbackReportDataResponse({}));
-  }
-
-  /**
    * Description: 转化数据回传接口
    * Summary: 转化数据回传接口
    */
@@ -626,8 +612,8 @@ export default class Client {
   }
 
   /**
-   * Description: 点击数据回传接口
-   * Summary: 点击数据回传接口
+   * Description: 曝光/点击数据回传接口
+   * Summary: 曝光/点击数据回传接口
    */
   async clickAdData(request: ClickAdDataRequest): Promise<ClickAdDataResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -636,8 +622,8 @@ export default class Client {
   }
 
   /**
-   * Description: 点击数据回传接口
-   * Summary: 点击数据回传接口
+   * Description: 曝光/点击数据回传接口
+   * Summary: 曝光/点击数据回传接口
    */
   async clickAdDataEx(request: ClickAdDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ClickAdDataResponse> {
     Util.validateModel(request);
@@ -661,6 +647,25 @@ export default class Client {
   async reportAdDataEx(request: ReportAdDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReportAdDataResponse> {
     Util.validateModel(request);
     return $tea.cast<ReportAdDataResponse>(await this.doRequest("1.0", "antcloud.morserta.ad.data.report", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReportAdDataResponse({}));
+  }
+
+  /**
+   * Description: RTA广告主数据回传
+   * Summary: RTA广告主数据回传
+   */
+  async feedbackReportData(request: FeedbackReportDataRequest): Promise<FeedbackReportDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.feedbackReportDataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: RTA广告主数据回传
+   * Summary: RTA广告主数据回传
+   */
+  async feedbackReportDataEx(request: FeedbackReportDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<FeedbackReportDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<FeedbackReportDataResponse>(await this.doRequest("1.0", "antcloud.morserta.report.data.feedback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new FeedbackReportDataResponse({}));
   }
 
 }
