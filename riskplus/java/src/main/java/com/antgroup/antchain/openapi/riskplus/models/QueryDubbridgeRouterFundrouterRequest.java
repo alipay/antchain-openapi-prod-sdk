@@ -11,26 +11,52 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 订单号
+    @NameInMap("order_no")
+    public String orderNo;
+
     // 1：现金贷（默认）
     // 2：分期付
     @NameInMap("prod_type")
     public String prodType;
 
-    // 身份证号
-    @NameInMap("card_no")
-    public String cardNo;
+    // 资产方用户唯一标识
+    @NameInMap("open_id")
+    public String openId;
 
     // 手机号
     @NameInMap("mobile")
     public String mobile;
 
+    // 资产方购物订单号，如二轮车/摩托车订单号；购物场景时传递
+    @NameInMap("biz_order_no")
+    public String bizOrderNo;
+
+    // 身份证号
+    @NameInMap("card_no")
+    public String cardNo;
+
     // 姓名
     @NameInMap("custom_name")
     public String customName;
 
-    // 合作方产品编号
-    @NameInMap("prod_no")
-    public String prodNo;
+    // 默认：0
+    // 0：明文
+    // 1：md5
+    @NameInMap("mobile_type")
+    public String mobileType;
+
+    // 默认：0
+    // 0：明文
+    // 1：md5
+    @NameInMap("card_no_type")
+    public String cardNoType;
+
+    // 默认：0
+    // 0：明文
+    // 1：md5
+    @NameInMap("custom_name_type")
+    public String customNameType;
 
     // 渠道类型
     @NameInMap("channel_type")
@@ -39,6 +65,14 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
     // 客户类型
     @NameInMap("custom_type")
     public String customType;
+
+    // 合作方产品编号
+    @NameInMap("prod_no")
+    public String prodNo;
+
+    // 授信过期的资金方编码
+    @NameInMap("expired_platform_no")
+    public String expiredPlatformNo;
 
     // 导流平台
     @NameInMap("traffic_platform")
@@ -60,10 +94,6 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
     @NameInMap("click_id")
     public String clickId;
 
-    // 订单号
-    @NameInMap("order_no")
-    public String orderNo;
-
     // 风险字段
     @NameInMap("risk_data")
     public String riskData;
@@ -71,28 +101,6 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
     // 扩展字段
     @NameInMap("ext_info")
     public String extInfo;
-
-    // 默认：0
-    // 0：明文
-    // 1：md5
-    @NameInMap("mobile_type")
-    public String mobileType;
-
-    // 默认：0
-    // 0：明文
-    // 1：md5
-    @NameInMap("card_no_type")
-    public String cardNoType;
-
-    // 默认：0
-    // 0：明文
-    // 1：md5
-    @NameInMap("custom_name_type")
-    public String customNameType;
-
-    // 资产方用户唯一标识
-    @NameInMap("open_id")
-    public String openId;
 
     public static QueryDubbridgeRouterFundrouterRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeRouterFundrouterRequest self = new QueryDubbridgeRouterFundrouterRequest();
@@ -115,6 +123,14 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
         return this.productInstanceId;
     }
 
+    public QueryDubbridgeRouterFundrouterRequest setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+        return this;
+    }
+    public String getOrderNo() {
+        return this.orderNo;
+    }
+
     public QueryDubbridgeRouterFundrouterRequest setProdType(String prodType) {
         this.prodType = prodType;
         return this;
@@ -123,12 +139,12 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
         return this.prodType;
     }
 
-    public QueryDubbridgeRouterFundrouterRequest setCardNo(String cardNo) {
-        this.cardNo = cardNo;
+    public QueryDubbridgeRouterFundrouterRequest setOpenId(String openId) {
+        this.openId = openId;
         return this;
     }
-    public String getCardNo() {
-        return this.cardNo;
+    public String getOpenId() {
+        return this.openId;
     }
 
     public QueryDubbridgeRouterFundrouterRequest setMobile(String mobile) {
@@ -139,6 +155,22 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
         return this.mobile;
     }
 
+    public QueryDubbridgeRouterFundrouterRequest setBizOrderNo(String bizOrderNo) {
+        this.bizOrderNo = bizOrderNo;
+        return this;
+    }
+    public String getBizOrderNo() {
+        return this.bizOrderNo;
+    }
+
+    public QueryDubbridgeRouterFundrouterRequest setCardNo(String cardNo) {
+        this.cardNo = cardNo;
+        return this;
+    }
+    public String getCardNo() {
+        return this.cardNo;
+    }
+
     public QueryDubbridgeRouterFundrouterRequest setCustomName(String customName) {
         this.customName = customName;
         return this;
@@ -147,12 +179,28 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
         return this.customName;
     }
 
-    public QueryDubbridgeRouterFundrouterRequest setProdNo(String prodNo) {
-        this.prodNo = prodNo;
+    public QueryDubbridgeRouterFundrouterRequest setMobileType(String mobileType) {
+        this.mobileType = mobileType;
         return this;
     }
-    public String getProdNo() {
-        return this.prodNo;
+    public String getMobileType() {
+        return this.mobileType;
+    }
+
+    public QueryDubbridgeRouterFundrouterRequest setCardNoType(String cardNoType) {
+        this.cardNoType = cardNoType;
+        return this;
+    }
+    public String getCardNoType() {
+        return this.cardNoType;
+    }
+
+    public QueryDubbridgeRouterFundrouterRequest setCustomNameType(String customNameType) {
+        this.customNameType = customNameType;
+        return this;
+    }
+    public String getCustomNameType() {
+        return this.customNameType;
     }
 
     public QueryDubbridgeRouterFundrouterRequest setChannelType(String channelType) {
@@ -169,6 +217,22 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
     }
     public String getCustomType() {
         return this.customType;
+    }
+
+    public QueryDubbridgeRouterFundrouterRequest setProdNo(String prodNo) {
+        this.prodNo = prodNo;
+        return this;
+    }
+    public String getProdNo() {
+        return this.prodNo;
+    }
+
+    public QueryDubbridgeRouterFundrouterRequest setExpiredPlatformNo(String expiredPlatformNo) {
+        this.expiredPlatformNo = expiredPlatformNo;
+        return this;
+    }
+    public String getExpiredPlatformNo() {
+        return this.expiredPlatformNo;
     }
 
     public QueryDubbridgeRouterFundrouterRequest setTrafficPlatform(String trafficPlatform) {
@@ -211,14 +275,6 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
         return this.clickId;
     }
 
-    public QueryDubbridgeRouterFundrouterRequest setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
-        return this;
-    }
-    public String getOrderNo() {
-        return this.orderNo;
-    }
-
     public QueryDubbridgeRouterFundrouterRequest setRiskData(String riskData) {
         this.riskData = riskData;
         return this;
@@ -233,38 +289,6 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
     }
     public String getExtInfo() {
         return this.extInfo;
-    }
-
-    public QueryDubbridgeRouterFundrouterRequest setMobileType(String mobileType) {
-        this.mobileType = mobileType;
-        return this;
-    }
-    public String getMobileType() {
-        return this.mobileType;
-    }
-
-    public QueryDubbridgeRouterFundrouterRequest setCardNoType(String cardNoType) {
-        this.cardNoType = cardNoType;
-        return this;
-    }
-    public String getCardNoType() {
-        return this.cardNoType;
-    }
-
-    public QueryDubbridgeRouterFundrouterRequest setCustomNameType(String customNameType) {
-        this.customNameType = customNameType;
-        return this;
-    }
-    public String getCustomNameType() {
-        return this.customNameType;
-    }
-
-    public QueryDubbridgeRouterFundrouterRequest setOpenId(String openId) {
-        this.openId = openId;
-        return this;
-    }
-    public String getOpenId() {
-        return this.openId;
     }
 
 }
