@@ -18,10 +18,16 @@ public class ClickAdDataRequest extends TeaModel {
     @Validation(required = true)
     public String channel;
 
-    // 点击明细json string
+    // 曝光/点击明细json string,曝光数据{\"impression_id\":\"dfhufhuifah\",\"impression_time\":1586437361}
+    // 点击数据{\"click_id\":\"dfhufaffhuifah\,"\"click_time\":1586437361}
     @NameInMap("data")
     @Validation(required = true)
     public String data;
+
+    // 点击-CLICK，曝光-IMPRESSION
+    @NameInMap("data_type")
+    @Validation(required = true)
+    public String dataType;
 
     public static ClickAdDataRequest build(java.util.Map<String, ?> map) throws Exception {
         ClickAdDataRequest self = new ClickAdDataRequest();
@@ -58,6 +64,14 @@ public class ClickAdDataRequest extends TeaModel {
     }
     public String getData() {
         return this.data;
+    }
+
+    public ClickAdDataRequest setDataType(String dataType) {
+        this.dataType = dataType;
+        return this;
+    }
+    public String getDataType() {
+        return this.dataType;
     }
 
 }
