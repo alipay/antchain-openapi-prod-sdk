@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.23.10',
+    sdk_version = '1.24.0',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -244,6 +244,30 @@ model BackflowEventRecordProperty {
   key: string(name='key', example='mobile'),
   // 属性value，统一为字符串
   value: string(name='value', example='18941147005'),
+}
+
+// 月供
+model TermDetail {
+  // 期数
+  term: string(name='term', example='1'),
+  // 期供金额
+  termAmount: long(name='term_amount', example='1999.98'),
+  // 当期本金
+  termPrincipal: long(name='term_principal', example='1999.98'),
+  // 当期利息（分期产生的利息/手续费）
+  termFee: long(name='term_fee', example='1999.98'),
+  // 应还款日期
+  settleDate: string(name='settle_date', example='yyyy-MM-dd'),
+  // 罚息
+  penalty?: long(name='penalty', example='1999.98'),
+  // 担保费
+  guaranteeFee?: long(name='guarantee_fee', example='1999.98'),
+  // 违约金
+  liquidatedDamages?: long(name='liquidated_damages', example='1999.98'),
+  // 服务费
+  serverFee?: long(name='server_fee', example='1999.98'),
+  // 减免金额
+  deductAmount?: long(name='deduct_amount', example='1999.98'),
 }
 
 // 营销盾批量查询单条结果
@@ -445,6 +469,14 @@ model RuleDetail {
   name: string(name='name', example='出现次数'),
   // 规则细节值
   value: string(name='value', example='19'),
+}
+
+// 补充信息
+model Additional {
+  // 骑手标识；1-骑手
+  deliveryman?: string(name='deliveryman', example='1'),
+  // 关键词
+  keyWord?: string(name='key_word', example='xxxx'),
 }
 
 // 天枢系统专用RepayResult结构体
@@ -1372,6 +1404,20 @@ model RiskStormLabelResp {
   labelName: string(name='label_name', example='注销'),
 }
 
+// 补充材料
+model SupplementFile {
+  // 材料类型：
+  // 301-行驶证正本
+  // 302-行驶证副本
+  // 303-车辆产证（摩托车二手车）
+  // 
+  fileType: string(name='file_type', example='xxx'),
+  // 材料url
+  fileUrl: string(name='file_url', example='xxx'),
+  // 材料名称/描述
+  fileDesc: string(name='file_desc', example='xxx'),
+}
+
 // 芝麻四要素认证接口
 model ZhimaIdentifyResp {
   // 唯一ID，接口正常的话有此字段
@@ -1660,6 +1706,36 @@ model CustomerBankCardInfo {
   acctBankCard?: string(name='acct_bank_card', example='Y/N'),
 }
 
+// 期数费用
+model InstallmentTrial {
+  // 总期数
+  totalPeriod: string(name='total_period', example='12'),
+  // 分期应还总金额
+  totalAmount: long(name='total_amount', example='1999.98'),
+  // 总利息（分期产生的利息/手续费）
+  totalFee: long(name='total_fee', example='1999.98'),
+  // 期费率，精确到小数点后四位0.1250，表示年利率为12.5%
+  feeRate: long(name='fee_rate', example='0.1250'),
+  // 年利率，精确到小数点后四位0.1250，表示年利率为12.5%
+  yearRate: long(name='year_rate', example='0.1250'),
+  // 月供列表
+  termDetailList: [ TermDetail ](name='term_detail_list', example=''),
+  // 是否最优标识
+  optimal?: boolean(name='optimal', example='true, false'),
+  // 总罚息
+  totalPenalty?: long(name='total_penalty', example='1999.98'),
+  // 总担保费
+  totalGuaranteeFee?: long(name='total_guarantee_fee', example='1999.98'),
+  // 总违约金
+  totalLiquidatedDamages?: long(name='total_liquidated_damages', example='1999.98'),
+  // 总服务费
+  totalServerFee?: long(name='total_server_fee', example='1999.98'),
+  // 费率折扣，0.95：九五折；0：免息；1/null：不打折
+  discount?: long(name='discount', example='0.95'),
+  // 总减免金额
+  totalDeductAmount?: long(name='total_deduct_amount', example='1999.98'),
+}
+
 // 营销盾离线圈客执行批次信息
 model UmktOfflineDecisionTaskExecBatchInfo {
   // 执行批次
@@ -1768,6 +1844,24 @@ model DefinInnerChannelNotifyResult {
   requestId: string(name='request_id', example='aaaa'),
   // 业务响应Json
   bizResponse: string(name='biz_response', example='{\"a\":\"b\"}'),
+}
+
+// 门店信息
+model StoreInfo {
+  // 门店ID
+  storeId: string(name='store_id', example='xxxx'),
+  // 蚂蚁数科入驻账号
+  loginTenant: string(name='login_tenant', example='xxxx'),
+  // 收款账号
+  payeeBankCard: string(name='payee_bank_card', example='xxxx'),
+  // 收款人
+  payeeName: string(name='payee_name', example='xxx'),
+  // 门店名称
+  storeName: string(name='store_name', example='xxxx'),
+  // 销售ID
+  salesman?: string(name='salesman', example='xxxx'),
+  // 销售设备编号
+  device?: string(name='device', example='xxxx'),
 }
 
 // 批量决策单主体查询结果
@@ -1983,6 +2077,42 @@ model ShortUrlInfo {
 model CustomRelationStatus {
   // 是否联登
   regFlag?: boolean(name='reg_flag', example='true, false'),
+}
+
+// 订单车辆信息
+model VehicleInfo {
+  // 流量方购物订单号
+  bizOrderNo?: string(name='biz_order_no', example='xxxx'),
+  // 订单[分期]金额，单位：元
+  tradeAmount?: string(name='trade_amount', example='199.88'),
+  // 首付金额，单位：元
+  downPayment?: string(name='down_payment', example='199.00'),
+  // 新车指导价，单位：元
+  guidePrice?: string(name='guide_price', example='199.88'),
+  // 售价，单位：元
+  sellingPrice?: string(name='selling_price', example='1999.98'),
+  // 车驾号/SN码，车辆唯一标识
+  sn?: string(name='sn', example='xxx'),
+  // SKU ID
+  sku?: string(name='sku', example='xxxx'),
+  // 品牌
+  brand?: string(name='brand', example='xxxx'),
+  // 车型
+  model?: string(name='model', example='xxxx'),
+  // 年款，yyyy
+  modelYear?: string(name='model_year', example='yyyy'),
+  // 颜色
+  color?: string(name='color', example='xxxx'),
+  // 续航里程
+  range?: string(name='range', example='1024'),
+  // 配件信息
+  parts?: string(name='parts', example='xxxx'),
+  // 公里数，Odometer
+  odo?: string(name='odo', example='xxxx'),
+  // 首次上牌时间
+  firstRegDate?: string(name='first_reg_date', example='xxxx'),
+  // 过户次数，Ownership Transfer Records
+  otr?: string(name='otr', example='xxxx'),
 }
 
 // 企管盾票税决策服务
@@ -3662,37 +3792,21 @@ model QueryDubbridgeRouterFundrouterRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  orderNo?: string(name='order_no'),
   // 1：现金贷（默认）
   // 2：分期付
   prodType?: string(name='prod_type'),
-  // 身份证号
-  cardNo?: string(name='card_no'),
+  // 资产方用户唯一标识
+  openId?: string(name='open_id'),
   // 手机号
   mobile?: string(name='mobile'),
+  // 资产方购物订单号，如二轮车/摩托车订单号；购物场景时传递
+  bizOrderNo?: string(name='biz_order_no'),
+  // 身份证号
+  cardNo?: string(name='card_no'),
   // 姓名
   customName?: string(name='custom_name'),
-  // 合作方产品编号
-  prodNo?: string(name='prod_no'),
-  // 渠道类型
-  channelType?: string(name='channel_type'),
-  // 客户类型
-  customType?: string(name='custom_type'),
-  // 导流平台
-  trafficPlatform?: string(name='traffic_platform'),
-  // 流量名称
-  trafficSourceName?: string(name='traffic_source_name'),
-  // 广告位标志
-  trafficAdId?: string(name='traffic_ad_id'),
-  // 预留
-  trafficMktId?: string(name='traffic_mkt_id'),
-  // 预留
-  clickId?: string(name='click_id'),
-  // 订单号
-  orderNo?: string(name='order_no'),
-  // 风险字段
-  riskData?: string(name='risk_data'),
-  // 扩展字段
-  extInfo?: string(name='ext_info'),
   // 默认：0
   // 0：明文
   // 1：md5
@@ -3705,8 +3819,28 @@ model QueryDubbridgeRouterFundrouterRequest = {
   // 0：明文
   // 1：md5
   customNameType?: string(name='custom_name_type'),
-  // 资产方用户唯一标识
-  openId?: string(name='open_id'),
+  // 渠道类型
+  channelType?: string(name='channel_type'),
+  // 客户类型
+  customType?: string(name='custom_type'),
+  // 合作方产品编号
+  prodNo?: string(name='prod_no'),
+  // 授信过期的资金方编码
+  expiredPlatformNo?: string(name='expired_platform_no'),
+  // 导流平台
+  trafficPlatform?: string(name='traffic_platform'),
+  // 流量名称
+  trafficSourceName?: string(name='traffic_source_name'),
+  // 广告位标志
+  trafficAdId?: string(name='traffic_ad_id'),
+  // 预留
+  trafficMktId?: string(name='traffic_mkt_id'),
+  // 预留
+  clickId?: string(name='click_id'),
+  // 风险字段
+  riskData?: string(name='risk_data'),
+  // 扩展字段
+  extInfo?: string(name='ext_info'),
 }
 
 model QueryDubbridgeRouterFundrouterResponse = {
@@ -6021,6 +6155,115 @@ async function cancelDubbridgeInstallmentOrderEx(request: CancelDubbridgeInstall
   return doRequest('1.0' ,'riskplus.dubbridge.installment.order.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model PushDubbridgeInstallmentSupplementRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号：request请求单号，每次请求唯一，如uuid
+  orderNo: string(name='order_no'),
+  // 业务类型：1-现金贷；2-分期付
+  // 
+  prodType: string(name='prod_type'),
+  // 资产方用户唯一标识
+  openId: string(name='open_id'),
+  // 资产方购物订单号，如二轮车/摩托车订单号
+  bizOrderNo: string(name='biz_order_no'),
+  // 材料场景：2-支用前、3-支用后
+  fileScene: string(name='file_scene'),
+  // 材料列表
+  fileList?: [ SupplementFile ](name='file_list'),
+  // 门店信息
+  storeInfo?: StoreInfo(name='store_info'),
+  // 订单车辆信息
+  vehicleInfo?: VehicleInfo(name='vehicle_info'),
+  // 补充信息
+  additional?: Additional(name='additional'),
+}
+
+model PushDubbridgeInstallmentSupplementResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 天枢系统支用后补充材料推送-分期付
+ * Summary: 天枢系统支用后补充材料推送-分期付
+ */
+async function pushDubbridgeInstallmentSupplement(request: PushDubbridgeInstallmentSupplementRequest): PushDubbridgeInstallmentSupplementResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushDubbridgeInstallmentSupplementEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统支用后补充材料推送-分期付
+ * Summary: 天枢系统支用后补充材料推送-分期付
+ */
+async function pushDubbridgeInstallmentSupplementEx(request: PushDubbridgeInstallmentSupplementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushDubbridgeInstallmentSupplementResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.installment.supplement.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeInstallmentTrialRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  orderNo: string(name='order_no'),
+  // 业务类型，1：现金贷；2：分期付
+  prodType: string(name='prod_type'),
+  // 资产方购物订单号
+  bizOrderNo: string(name='biz_order_no'),
+  // 天枢客户号
+  customerNo?: string(name='customer_no'),
+  // 资产方用户唯一标识
+  openId: string(name='open_id'),
+  // 资金方编码
+  fundCode: string(name='fund_code'),
+  // 订单交易金额
+  tradeAmount: string(name='trade_amount'),
+  // 优惠券id
+  couponId?: string(name='coupon_id'),
+}
+
+model QueryDubbridgeInstallmentTrialResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授信额度
+  creditAmount?: string(name='credit_amount'),
+  // 可用额度
+  restAmount?: string(name='rest_amount'),
+  // 期数费用列表
+  installmentList?: [ InstallmentTrial ](name='installment_list'),
+}
+
+/**
+ * Description: 天枢系统分期试算
+ * Summary: 天枢系统分期试算
+ */
+async function queryDubbridgeInstallmentTrial(request: QueryDubbridgeInstallmentTrialRequest): QueryDubbridgeInstallmentTrialResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeInstallmentTrialEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统分期试算
+ * Summary: 天枢系统分期试算
+ */
+async function queryDubbridgeInstallmentTrialEx(request: QueryDubbridgeInstallmentTrialRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeInstallmentTrialResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.installment.trial.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model VerifyFinserviceZhimaIdentifyRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -7921,6 +8164,70 @@ async function receiveRfcParamsFileEx(request: ReceiveRfcParamsFileRequest, head
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.rfc.params.file.receive', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadRfcAiboundFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件ID
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 参数，jsonString
+  params: string(name='params'),
+  // 外呼为 AI_BOUND 
+  type: string(name='type'),
+}
+
+model UploadRfcAiboundFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文件上传响应参数
+  content?: string(name='content'),
+}
+
+/**
+ * Description: rfc外呼名单文件上传接口
+ * Summary: rfc外呼名单上传接口
+ */
+async function uploadRfcAiboundFile(request: UploadRfcAiboundFileRequest): UploadRfcAiboundFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadRfcAiboundFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: rfc外呼名单文件上传接口
+ * Summary: rfc外呼名单上传接口
+ */
+async function uploadRfcAiboundFileEx(request: UploadRfcAiboundFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadRfcAiboundFileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'riskplus.rfc.aibound.file.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadRfcAiboundFileResponse = new UploadRfcAiboundFileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadRfcAiboundFileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rfc.aibound.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryRbbGenericInvokeRequest = {
