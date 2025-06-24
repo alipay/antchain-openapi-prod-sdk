@@ -137,7 +137,7 @@ namespace AntChain.SDK.MORSERTA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "3.0.2"},
+                        {"sdk_version", "3.0.4"},
                         {"_prod_code", "MORSERTA"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MORSERTA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "3.0.2"},
+                        {"sdk_version", "3.0.4"},
                         {"_prod_code", "MORSERTA"},
                         {"_prod_channel", "default"},
                     };
@@ -322,48 +322,6 @@ namespace AntChain.SDK.MORSERTA
         }
 
         /**
-         * Description: RTA广告主数据回传
-         * Summary: RTA广告主数据回传
-         */
-        public FeedbackReportDataResponse FeedbackReportData(FeedbackReportDataRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return FeedbackReportDataEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: RTA广告主数据回传
-         * Summary: RTA广告主数据回传
-         */
-        public async Task<FeedbackReportDataResponse> FeedbackReportDataAsync(FeedbackReportDataRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await FeedbackReportDataExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: RTA广告主数据回传
-         * Summary: RTA广告主数据回传
-         */
-        public FeedbackReportDataResponse FeedbackReportDataEx(FeedbackReportDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<FeedbackReportDataResponse>(DoRequest("1.0", "antcloud.morserta.report.data.feedback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: RTA广告主数据回传
-         * Summary: RTA广告主数据回传
-         */
-        public async Task<FeedbackReportDataResponse> FeedbackReportDataExAsync(FeedbackReportDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<FeedbackReportDataResponse>(await DoRequestAsync("1.0", "antcloud.morserta.report.data.feedback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
          * Description: 转化数据回传接口
          * Summary: 转化数据回传接口
          */
@@ -406,8 +364,8 @@ namespace AntChain.SDK.MORSERTA
         }
 
         /**
-         * Description: 点击数据回传接口
-         * Summary: 点击数据回传接口
+         * Description: 曝光/点击数据回传接口
+         * Summary: 曝光/点击数据回传接口
          */
         public ClickAdDataResponse ClickAdData(ClickAdDataRequest request)
         {
@@ -417,8 +375,8 @@ namespace AntChain.SDK.MORSERTA
         }
 
         /**
-         * Description: 点击数据回传接口
-         * Summary: 点击数据回传接口
+         * Description: 曝光/点击数据回传接口
+         * Summary: 曝光/点击数据回传接口
          */
         public async Task<ClickAdDataResponse> ClickAdDataAsync(ClickAdDataRequest request)
         {
@@ -428,8 +386,8 @@ namespace AntChain.SDK.MORSERTA
         }
 
         /**
-         * Description: 点击数据回传接口
-         * Summary: 点击数据回传接口
+         * Description: 曝光/点击数据回传接口
+         * Summary: 曝光/点击数据回传接口
          */
         public ClickAdDataResponse ClickAdDataEx(ClickAdDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -438,8 +396,8 @@ namespace AntChain.SDK.MORSERTA
         }
 
         /**
-         * Description: 点击数据回传接口
-         * Summary: 点击数据回传接口
+         * Description: 曝光/点击数据回传接口
+         * Summary: 曝光/点击数据回传接口
          */
         public async Task<ClickAdDataResponse> ClickAdDataExAsync(ClickAdDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -487,6 +445,48 @@ namespace AntChain.SDK.MORSERTA
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ReportAdDataResponse>(await DoRequestAsync("1.0", "antcloud.morserta.ad.data.report", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: RTA广告主数据回传
+         * Summary: RTA广告主数据回传
+         */
+        public FeedbackReportDataResponse FeedbackReportData(FeedbackReportDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return FeedbackReportDataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: RTA广告主数据回传
+         * Summary: RTA广告主数据回传
+         */
+        public async Task<FeedbackReportDataResponse> FeedbackReportDataAsync(FeedbackReportDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await FeedbackReportDataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: RTA广告主数据回传
+         * Summary: RTA广告主数据回传
+         */
+        public FeedbackReportDataResponse FeedbackReportDataEx(FeedbackReportDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FeedbackReportDataResponse>(DoRequest("1.0", "antcloud.morserta.report.data.feedback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: RTA广告主数据回传
+         * Summary: RTA广告主数据回传
+         */
+        public async Task<FeedbackReportDataResponse> FeedbackReportDataExAsync(FeedbackReportDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<FeedbackReportDataResponse>(await DoRequestAsync("1.0", "antcloud.morserta.report.data.feedback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
