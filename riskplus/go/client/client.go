@@ -413,6 +413,88 @@ func (s *BackflowEventRecordProperty) SetValue(v string) *BackflowEventRecordPro
 	return s
 }
 
+// 月供
+type TermDetail struct {
+	// 期数
+	Term *string `json:"term,omitempty" xml:"term,omitempty" require:"true"`
+	// 期供金额
+	TermAmount *int64 `json:"term_amount,omitempty" xml:"term_amount,omitempty" require:"true"`
+	// 当期本金
+	TermPrincipal *int64 `json:"term_principal,omitempty" xml:"term_principal,omitempty" require:"true"`
+	// 当期利息（分期产生的利息/手续费）
+	TermFee *int64 `json:"term_fee,omitempty" xml:"term_fee,omitempty" require:"true"`
+	// 应还款日期
+	SettleDate *string `json:"settle_date,omitempty" xml:"settle_date,omitempty" require:"true"`
+	// 罚息
+	Penalty *int64 `json:"penalty,omitempty" xml:"penalty,omitempty"`
+	// 担保费
+	GuaranteeFee *int64 `json:"guarantee_fee,omitempty" xml:"guarantee_fee,omitempty"`
+	// 违约金
+	LiquidatedDamages *int64 `json:"liquidated_damages,omitempty" xml:"liquidated_damages,omitempty"`
+	// 服务费
+	ServerFee *int64 `json:"server_fee,omitempty" xml:"server_fee,omitempty"`
+	// 减免金额
+	DeductAmount *int64 `json:"deduct_amount,omitempty" xml:"deduct_amount,omitempty"`
+}
+
+func (s TermDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TermDetail) GoString() string {
+	return s.String()
+}
+
+func (s *TermDetail) SetTerm(v string) *TermDetail {
+	s.Term = &v
+	return s
+}
+
+func (s *TermDetail) SetTermAmount(v int64) *TermDetail {
+	s.TermAmount = &v
+	return s
+}
+
+func (s *TermDetail) SetTermPrincipal(v int64) *TermDetail {
+	s.TermPrincipal = &v
+	return s
+}
+
+func (s *TermDetail) SetTermFee(v int64) *TermDetail {
+	s.TermFee = &v
+	return s
+}
+
+func (s *TermDetail) SetSettleDate(v string) *TermDetail {
+	s.SettleDate = &v
+	return s
+}
+
+func (s *TermDetail) SetPenalty(v int64) *TermDetail {
+	s.Penalty = &v
+	return s
+}
+
+func (s *TermDetail) SetGuaranteeFee(v int64) *TermDetail {
+	s.GuaranteeFee = &v
+	return s
+}
+
+func (s *TermDetail) SetLiquidatedDamages(v int64) *TermDetail {
+	s.LiquidatedDamages = &v
+	return s
+}
+
+func (s *TermDetail) SetServerFee(v int64) *TermDetail {
+	s.ServerFee = &v
+	return s
+}
+
+func (s *TermDetail) SetDeductAmount(v int64) *TermDetail {
+	s.DeductAmount = &v
+	return s
+}
+
 // 营销盾批量查询单条结果
 type BaseCustomerUmktInfoModel struct {
 	// 用户凭证
@@ -1007,6 +1089,32 @@ func (s *RuleDetail) SetName(v string) *RuleDetail {
 
 func (s *RuleDetail) SetValue(v string) *RuleDetail {
 	s.Value = &v
+	return s
+}
+
+// 补充信息
+type Additional struct {
+	// 骑手标识；1-骑手
+	Deliveryman *string `json:"deliveryman,omitempty" xml:"deliveryman,omitempty"`
+	// 关键词
+	KeyWord *string `json:"key_word,omitempty" xml:"key_word,omitempty"`
+}
+
+func (s Additional) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Additional) GoString() string {
+	return s.String()
+}
+
+func (s *Additional) SetDeliveryman(v string) *Additional {
+	s.Deliveryman = &v
+	return s
+}
+
+func (s *Additional) SetKeyWord(v string) *Additional {
+	s.KeyWord = &v
 	return s
 }
 
@@ -4100,6 +4208,43 @@ func (s *RiskStormLabelResp) SetLabelName(v string) *RiskStormLabelResp {
 	return s
 }
 
+// 补充材料
+type SupplementFile struct {
+	// 材料类型：
+	// 301-行驶证正本
+	// 302-行驶证副本
+	// 303-车辆产证（摩托车二手车）
+	//
+	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
+	// 材料url
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+	// 材料名称/描述
+	FileDesc *string `json:"file_desc,omitempty" xml:"file_desc,omitempty" require:"true"`
+}
+
+func (s SupplementFile) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SupplementFile) GoString() string {
+	return s.String()
+}
+
+func (s *SupplementFile) SetFileType(v string) *SupplementFile {
+	s.FileType = &v
+	return s
+}
+
+func (s *SupplementFile) SetFileUrl(v string) *SupplementFile {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *SupplementFile) SetFileDesc(v string) *SupplementFile {
+	s.FileDesc = &v
+	return s
+}
+
 // 芝麻四要素认证接口
 type ZhimaIdentifyResp struct {
 	// 唯一ID，接口正常的话有此字段
@@ -5068,6 +5213,109 @@ func (s *CustomerBankCardInfo) SetAcctBankCard(v string) *CustomerBankCardInfo {
 	return s
 }
 
+// 期数费用
+type InstallmentTrial struct {
+	// 总期数
+	TotalPeriod *string `json:"total_period,omitempty" xml:"total_period,omitempty" require:"true"`
+	// 分期应还总金额
+	TotalAmount *int64 `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
+	// 总利息（分期产生的利息/手续费）
+	TotalFee *int64 `json:"total_fee,omitempty" xml:"total_fee,omitempty" require:"true"`
+	// 期费率，精确到小数点后四位0.1250，表示年利率为12.5%
+	FeeRate *int64 `json:"fee_rate,omitempty" xml:"fee_rate,omitempty" require:"true"`
+	// 年利率，精确到小数点后四位0.1250，表示年利率为12.5%
+	YearRate *int64 `json:"year_rate,omitempty" xml:"year_rate,omitempty" require:"true"`
+	// 月供列表
+	TermDetailList []*TermDetail `json:"term_detail_list,omitempty" xml:"term_detail_list,omitempty" require:"true" type:"Repeated"`
+	// 是否最优标识
+	Optimal *bool `json:"optimal,omitempty" xml:"optimal,omitempty"`
+	// 总罚息
+	TotalPenalty *int64 `json:"total_penalty,omitempty" xml:"total_penalty,omitempty"`
+	// 总担保费
+	TotalGuaranteeFee *int64 `json:"total_guarantee_fee,omitempty" xml:"total_guarantee_fee,omitempty"`
+	// 总违约金
+	TotalLiquidatedDamages *int64 `json:"total_liquidated_damages,omitempty" xml:"total_liquidated_damages,omitempty"`
+	// 总服务费
+	TotalServerFee *int64 `json:"total_server_fee,omitempty" xml:"total_server_fee,omitempty"`
+	// 费率折扣，0.95：九五折；0：免息；1/null：不打折
+	Discount *int64 `json:"discount,omitempty" xml:"discount,omitempty"`
+	// 总减免金额
+	TotalDeductAmount *int64 `json:"total_deduct_amount,omitempty" xml:"total_deduct_amount,omitempty"`
+}
+
+func (s InstallmentTrial) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InstallmentTrial) GoString() string {
+	return s.String()
+}
+
+func (s *InstallmentTrial) SetTotalPeriod(v string) *InstallmentTrial {
+	s.TotalPeriod = &v
+	return s
+}
+
+func (s *InstallmentTrial) SetTotalAmount(v int64) *InstallmentTrial {
+	s.TotalAmount = &v
+	return s
+}
+
+func (s *InstallmentTrial) SetTotalFee(v int64) *InstallmentTrial {
+	s.TotalFee = &v
+	return s
+}
+
+func (s *InstallmentTrial) SetFeeRate(v int64) *InstallmentTrial {
+	s.FeeRate = &v
+	return s
+}
+
+func (s *InstallmentTrial) SetYearRate(v int64) *InstallmentTrial {
+	s.YearRate = &v
+	return s
+}
+
+func (s *InstallmentTrial) SetTermDetailList(v []*TermDetail) *InstallmentTrial {
+	s.TermDetailList = v
+	return s
+}
+
+func (s *InstallmentTrial) SetOptimal(v bool) *InstallmentTrial {
+	s.Optimal = &v
+	return s
+}
+
+func (s *InstallmentTrial) SetTotalPenalty(v int64) *InstallmentTrial {
+	s.TotalPenalty = &v
+	return s
+}
+
+func (s *InstallmentTrial) SetTotalGuaranteeFee(v int64) *InstallmentTrial {
+	s.TotalGuaranteeFee = &v
+	return s
+}
+
+func (s *InstallmentTrial) SetTotalLiquidatedDamages(v int64) *InstallmentTrial {
+	s.TotalLiquidatedDamages = &v
+	return s
+}
+
+func (s *InstallmentTrial) SetTotalServerFee(v int64) *InstallmentTrial {
+	s.TotalServerFee = &v
+	return s
+}
+
+func (s *InstallmentTrial) SetDiscount(v int64) *InstallmentTrial {
+	s.Discount = &v
+	return s
+}
+
+func (s *InstallmentTrial) SetTotalDeductAmount(v int64) *InstallmentTrial {
+	s.TotalDeductAmount = &v
+	return s
+}
+
 // 营销盾离线圈客执行批次信息
 type UmktOfflineDecisionTaskExecBatchInfo struct {
 	// 执行批次
@@ -5431,6 +5679,67 @@ func (s *DefinInnerChannelNotifyResult) SetRequestId(v string) *DefinInnerChanne
 
 func (s *DefinInnerChannelNotifyResult) SetBizResponse(v string) *DefinInnerChannelNotifyResult {
 	s.BizResponse = &v
+	return s
+}
+
+// 门店信息
+type StoreInfo struct {
+	// 门店ID
+	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
+	// 蚂蚁数科入驻账号
+	LoginTenant *string `json:"login_tenant,omitempty" xml:"login_tenant,omitempty" require:"true"`
+	// 收款账号
+	PayeeBankCard *string `json:"payee_bank_card,omitempty" xml:"payee_bank_card,omitempty" require:"true"`
+	// 收款人
+	PayeeName *string `json:"payee_name,omitempty" xml:"payee_name,omitempty" require:"true"`
+	// 门店名称
+	StoreName *string `json:"store_name,omitempty" xml:"store_name,omitempty" require:"true"`
+	// 销售ID
+	Salesman *string `json:"salesman,omitempty" xml:"salesman,omitempty"`
+	// 销售设备编号
+	Device *string `json:"device,omitempty" xml:"device,omitempty"`
+}
+
+func (s StoreInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StoreInfo) GoString() string {
+	return s.String()
+}
+
+func (s *StoreInfo) SetStoreId(v string) *StoreInfo {
+	s.StoreId = &v
+	return s
+}
+
+func (s *StoreInfo) SetLoginTenant(v string) *StoreInfo {
+	s.LoginTenant = &v
+	return s
+}
+
+func (s *StoreInfo) SetPayeeBankCard(v string) *StoreInfo {
+	s.PayeeBankCard = &v
+	return s
+}
+
+func (s *StoreInfo) SetPayeeName(v string) *StoreInfo {
+	s.PayeeName = &v
+	return s
+}
+
+func (s *StoreInfo) SetStoreName(v string) *StoreInfo {
+	s.StoreName = &v
+	return s
+}
+
+func (s *StoreInfo) SetSalesman(v string) *StoreInfo {
+	s.Salesman = &v
+	return s
+}
+
+func (s *StoreInfo) SetDevice(v string) *StoreInfo {
+	s.Device = &v
 	return s
 }
 
@@ -6158,6 +6467,130 @@ func (s CustomRelationStatus) GoString() string {
 
 func (s *CustomRelationStatus) SetRegFlag(v bool) *CustomRelationStatus {
 	s.RegFlag = &v
+	return s
+}
+
+// 订单车辆信息
+type VehicleInfo struct {
+	// 流量方购物订单号
+	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty"`
+	// 订单[分期]金额，单位：元
+	TradeAmount *string `json:"trade_amount,omitempty" xml:"trade_amount,omitempty"`
+	// 首付金额，单位：元
+	DownPayment *string `json:"down_payment,omitempty" xml:"down_payment,omitempty"`
+	// 新车指导价，单位：元
+	GuidePrice *string `json:"guide_price,omitempty" xml:"guide_price,omitempty"`
+	// 售价，单位：元
+	SellingPrice *string `json:"selling_price,omitempty" xml:"selling_price,omitempty"`
+	// 车驾号/SN码，车辆唯一标识
+	Sn *string `json:"sn,omitempty" xml:"sn,omitempty"`
+	// SKU ID
+	Sku *string `json:"sku,omitempty" xml:"sku,omitempty"`
+	// 品牌
+	Brand *string `json:"brand,omitempty" xml:"brand,omitempty"`
+	// 车型
+	Model *string `json:"model,omitempty" xml:"model,omitempty"`
+	// 年款，yyyy
+	ModelYear *string `json:"model_year,omitempty" xml:"model_year,omitempty"`
+	// 颜色
+	Color *string `json:"color,omitempty" xml:"color,omitempty"`
+	// 续航里程
+	Range *string `json:"range,omitempty" xml:"range,omitempty"`
+	// 配件信息
+	Parts *string `json:"parts,omitempty" xml:"parts,omitempty"`
+	// 公里数，Odometer
+	Odo *string `json:"odo,omitempty" xml:"odo,omitempty"`
+	// 首次上牌时间
+	FirstRegDate *string `json:"first_reg_date,omitempty" xml:"first_reg_date,omitempty"`
+	// 过户次数，Ownership Transfer Records
+	Otr *string `json:"otr,omitempty" xml:"otr,omitempty"`
+}
+
+func (s VehicleInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VehicleInfo) GoString() string {
+	return s.String()
+}
+
+func (s *VehicleInfo) SetBizOrderNo(v string) *VehicleInfo {
+	s.BizOrderNo = &v
+	return s
+}
+
+func (s *VehicleInfo) SetTradeAmount(v string) *VehicleInfo {
+	s.TradeAmount = &v
+	return s
+}
+
+func (s *VehicleInfo) SetDownPayment(v string) *VehicleInfo {
+	s.DownPayment = &v
+	return s
+}
+
+func (s *VehicleInfo) SetGuidePrice(v string) *VehicleInfo {
+	s.GuidePrice = &v
+	return s
+}
+
+func (s *VehicleInfo) SetSellingPrice(v string) *VehicleInfo {
+	s.SellingPrice = &v
+	return s
+}
+
+func (s *VehicleInfo) SetSn(v string) *VehicleInfo {
+	s.Sn = &v
+	return s
+}
+
+func (s *VehicleInfo) SetSku(v string) *VehicleInfo {
+	s.Sku = &v
+	return s
+}
+
+func (s *VehicleInfo) SetBrand(v string) *VehicleInfo {
+	s.Brand = &v
+	return s
+}
+
+func (s *VehicleInfo) SetModel(v string) *VehicleInfo {
+	s.Model = &v
+	return s
+}
+
+func (s *VehicleInfo) SetModelYear(v string) *VehicleInfo {
+	s.ModelYear = &v
+	return s
+}
+
+func (s *VehicleInfo) SetColor(v string) *VehicleInfo {
+	s.Color = &v
+	return s
+}
+
+func (s *VehicleInfo) SetRange(v string) *VehicleInfo {
+	s.Range = &v
+	return s
+}
+
+func (s *VehicleInfo) SetParts(v string) *VehicleInfo {
+	s.Parts = &v
+	return s
+}
+
+func (s *VehicleInfo) SetOdo(v string) *VehicleInfo {
+	s.Odo = &v
+	return s
+}
+
+func (s *VehicleInfo) SetFirstRegDate(v string) *VehicleInfo {
+	s.FirstRegDate = &v
+	return s
+}
+
+func (s *VehicleInfo) SetOtr(v string) *VehicleInfo {
+	s.Otr = &v
 	return s
 }
 
@@ -10059,37 +10492,21 @@ type QueryDubbridgeRouterFundrouterRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
 	// 1：现金贷（默认）
 	// 2：分期付
 	ProdType *string `json:"prod_type,omitempty" xml:"prod_type,omitempty"`
-	// 身份证号
-	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty"`
+	// 资产方用户唯一标识
+	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty"`
 	// 手机号
 	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 资产方购物订单号，如二轮车/摩托车订单号；购物场景时传递
+	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty"`
+	// 身份证号
+	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty"`
 	// 姓名
 	CustomName *string `json:"custom_name,omitempty" xml:"custom_name,omitempty"`
-	// 合作方产品编号
-	ProdNo *string `json:"prod_no,omitempty" xml:"prod_no,omitempty"`
-	// 渠道类型
-	ChannelType *string `json:"channel_type,omitempty" xml:"channel_type,omitempty"`
-	// 客户类型
-	CustomType *string `json:"custom_type,omitempty" xml:"custom_type,omitempty"`
-	// 导流平台
-	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty"`
-	// 流量名称
-	TrafficSourceName *string `json:"traffic_source_name,omitempty" xml:"traffic_source_name,omitempty"`
-	// 广告位标志
-	TrafficAdId *string `json:"traffic_ad_id,omitempty" xml:"traffic_ad_id,omitempty"`
-	// 预留
-	TrafficMktId *string `json:"traffic_mkt_id,omitempty" xml:"traffic_mkt_id,omitempty"`
-	// 预留
-	ClickId *string `json:"click_id,omitempty" xml:"click_id,omitempty"`
-	// 订单号
-	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
-	// 风险字段
-	RiskData *string `json:"risk_data,omitempty" xml:"risk_data,omitempty"`
-	// 扩展字段
-	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 	// 默认：0
 	// 0：明文
 	// 1：md5
@@ -10102,8 +10519,28 @@ type QueryDubbridgeRouterFundrouterRequest struct {
 	// 0：明文
 	// 1：md5
 	CustomNameType *string `json:"custom_name_type,omitempty" xml:"custom_name_type,omitempty"`
-	// 资产方用户唯一标识
-	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty"`
+	// 渠道类型
+	ChannelType *string `json:"channel_type,omitempty" xml:"channel_type,omitempty"`
+	// 客户类型
+	CustomType *string `json:"custom_type,omitempty" xml:"custom_type,omitempty"`
+	// 合作方产品编号
+	ProdNo *string `json:"prod_no,omitempty" xml:"prod_no,omitempty"`
+	// 授信过期的资金方编码
+	ExpiredPlatformNo *string `json:"expired_platform_no,omitempty" xml:"expired_platform_no,omitempty"`
+	// 导流平台
+	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty"`
+	// 流量名称
+	TrafficSourceName *string `json:"traffic_source_name,omitempty" xml:"traffic_source_name,omitempty"`
+	// 广告位标志
+	TrafficAdId *string `json:"traffic_ad_id,omitempty" xml:"traffic_ad_id,omitempty"`
+	// 预留
+	TrafficMktId *string `json:"traffic_mkt_id,omitempty" xml:"traffic_mkt_id,omitempty"`
+	// 预留
+	ClickId *string `json:"click_id,omitempty" xml:"click_id,omitempty"`
+	// 风险字段
+	RiskData *string `json:"risk_data,omitempty" xml:"risk_data,omitempty"`
+	// 扩展字段
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
 
 func (s QueryDubbridgeRouterFundrouterRequest) String() string {
@@ -10124,13 +10561,18 @@ func (s *QueryDubbridgeRouterFundrouterRequest) SetProductInstanceId(v string) *
 	return s
 }
 
+func (s *QueryDubbridgeRouterFundrouterRequest) SetOrderNo(v string) *QueryDubbridgeRouterFundrouterRequest {
+	s.OrderNo = &v
+	return s
+}
+
 func (s *QueryDubbridgeRouterFundrouterRequest) SetProdType(v string) *QueryDubbridgeRouterFundrouterRequest {
 	s.ProdType = &v
 	return s
 }
 
-func (s *QueryDubbridgeRouterFundrouterRequest) SetCardNo(v string) *QueryDubbridgeRouterFundrouterRequest {
-	s.CardNo = &v
+func (s *QueryDubbridgeRouterFundrouterRequest) SetOpenId(v string) *QueryDubbridgeRouterFundrouterRequest {
+	s.OpenId = &v
 	return s
 }
 
@@ -10139,13 +10581,33 @@ func (s *QueryDubbridgeRouterFundrouterRequest) SetMobile(v string) *QueryDubbri
 	return s
 }
 
+func (s *QueryDubbridgeRouterFundrouterRequest) SetBizOrderNo(v string) *QueryDubbridgeRouterFundrouterRequest {
+	s.BizOrderNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterFundrouterRequest) SetCardNo(v string) *QueryDubbridgeRouterFundrouterRequest {
+	s.CardNo = &v
+	return s
+}
+
 func (s *QueryDubbridgeRouterFundrouterRequest) SetCustomName(v string) *QueryDubbridgeRouterFundrouterRequest {
 	s.CustomName = &v
 	return s
 }
 
-func (s *QueryDubbridgeRouterFundrouterRequest) SetProdNo(v string) *QueryDubbridgeRouterFundrouterRequest {
-	s.ProdNo = &v
+func (s *QueryDubbridgeRouterFundrouterRequest) SetMobileType(v string) *QueryDubbridgeRouterFundrouterRequest {
+	s.MobileType = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterFundrouterRequest) SetCardNoType(v string) *QueryDubbridgeRouterFundrouterRequest {
+	s.CardNoType = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterFundrouterRequest) SetCustomNameType(v string) *QueryDubbridgeRouterFundrouterRequest {
+	s.CustomNameType = &v
 	return s
 }
 
@@ -10156,6 +10618,16 @@ func (s *QueryDubbridgeRouterFundrouterRequest) SetChannelType(v string) *QueryD
 
 func (s *QueryDubbridgeRouterFundrouterRequest) SetCustomType(v string) *QueryDubbridgeRouterFundrouterRequest {
 	s.CustomType = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterFundrouterRequest) SetProdNo(v string) *QueryDubbridgeRouterFundrouterRequest {
+	s.ProdNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterFundrouterRequest) SetExpiredPlatformNo(v string) *QueryDubbridgeRouterFundrouterRequest {
+	s.ExpiredPlatformNo = &v
 	return s
 }
 
@@ -10184,11 +10656,6 @@ func (s *QueryDubbridgeRouterFundrouterRequest) SetClickId(v string) *QueryDubbr
 	return s
 }
 
-func (s *QueryDubbridgeRouterFundrouterRequest) SetOrderNo(v string) *QueryDubbridgeRouterFundrouterRequest {
-	s.OrderNo = &v
-	return s
-}
-
 func (s *QueryDubbridgeRouterFundrouterRequest) SetRiskData(v string) *QueryDubbridgeRouterFundrouterRequest {
 	s.RiskData = &v
 	return s
@@ -10196,26 +10663,6 @@ func (s *QueryDubbridgeRouterFundrouterRequest) SetRiskData(v string) *QueryDubb
 
 func (s *QueryDubbridgeRouterFundrouterRequest) SetExtInfo(v string) *QueryDubbridgeRouterFundrouterRequest {
 	s.ExtInfo = &v
-	return s
-}
-
-func (s *QueryDubbridgeRouterFundrouterRequest) SetMobileType(v string) *QueryDubbridgeRouterFundrouterRequest {
-	s.MobileType = &v
-	return s
-}
-
-func (s *QueryDubbridgeRouterFundrouterRequest) SetCardNoType(v string) *QueryDubbridgeRouterFundrouterRequest {
-	s.CardNoType = &v
-	return s
-}
-
-func (s *QueryDubbridgeRouterFundrouterRequest) SetCustomNameType(v string) *QueryDubbridgeRouterFundrouterRequest {
-	s.CustomNameType = &v
-	return s
-}
-
-func (s *QueryDubbridgeRouterFundrouterRequest) SetOpenId(v string) *QueryDubbridgeRouterFundrouterRequest {
-	s.OpenId = &v
 	return s
 }
 
@@ -15345,6 +15792,259 @@ func (s *CancelDubbridgeInstallmentOrderResponse) SetCancelResult(v string) *Can
 	return s
 }
 
+type PushDubbridgeInstallmentSupplementRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号：request请求单号，每次请求唯一，如uuid
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 业务类型：1-现金贷；2-分期付
+	//
+	ProdType *string `json:"prod_type,omitempty" xml:"prod_type,omitempty" require:"true"`
+	// 资产方用户唯一标识
+	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty" require:"true"`
+	// 资产方购物订单号，如二轮车/摩托车订单号
+	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty" require:"true"`
+	// 材料场景：2-支用前、3-支用后
+	FileScene *string `json:"file_scene,omitempty" xml:"file_scene,omitempty" require:"true"`
+	// 材料列表
+	FileList []*SupplementFile `json:"file_list,omitempty" xml:"file_list,omitempty" type:"Repeated"`
+	// 门店信息
+	StoreInfo *StoreInfo `json:"store_info,omitempty" xml:"store_info,omitempty"`
+	// 订单车辆信息
+	VehicleInfo *VehicleInfo `json:"vehicle_info,omitempty" xml:"vehicle_info,omitempty"`
+	// 补充信息
+	Additional *Additional `json:"additional,omitempty" xml:"additional,omitempty"`
+}
+
+func (s PushDubbridgeInstallmentSupplementRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushDubbridgeInstallmentSupplementRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushDubbridgeInstallmentSupplementRequest) SetAuthToken(v string) *PushDubbridgeInstallmentSupplementRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushDubbridgeInstallmentSupplementRequest) SetProductInstanceId(v string) *PushDubbridgeInstallmentSupplementRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushDubbridgeInstallmentSupplementRequest) SetOrderNo(v string) *PushDubbridgeInstallmentSupplementRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *PushDubbridgeInstallmentSupplementRequest) SetProdType(v string) *PushDubbridgeInstallmentSupplementRequest {
+	s.ProdType = &v
+	return s
+}
+
+func (s *PushDubbridgeInstallmentSupplementRequest) SetOpenId(v string) *PushDubbridgeInstallmentSupplementRequest {
+	s.OpenId = &v
+	return s
+}
+
+func (s *PushDubbridgeInstallmentSupplementRequest) SetBizOrderNo(v string) *PushDubbridgeInstallmentSupplementRequest {
+	s.BizOrderNo = &v
+	return s
+}
+
+func (s *PushDubbridgeInstallmentSupplementRequest) SetFileScene(v string) *PushDubbridgeInstallmentSupplementRequest {
+	s.FileScene = &v
+	return s
+}
+
+func (s *PushDubbridgeInstallmentSupplementRequest) SetFileList(v []*SupplementFile) *PushDubbridgeInstallmentSupplementRequest {
+	s.FileList = v
+	return s
+}
+
+func (s *PushDubbridgeInstallmentSupplementRequest) SetStoreInfo(v *StoreInfo) *PushDubbridgeInstallmentSupplementRequest {
+	s.StoreInfo = v
+	return s
+}
+
+func (s *PushDubbridgeInstallmentSupplementRequest) SetVehicleInfo(v *VehicleInfo) *PushDubbridgeInstallmentSupplementRequest {
+	s.VehicleInfo = v
+	return s
+}
+
+func (s *PushDubbridgeInstallmentSupplementRequest) SetAdditional(v *Additional) *PushDubbridgeInstallmentSupplementRequest {
+	s.Additional = v
+	return s
+}
+
+type PushDubbridgeInstallmentSupplementResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s PushDubbridgeInstallmentSupplementResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushDubbridgeInstallmentSupplementResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushDubbridgeInstallmentSupplementResponse) SetReqMsgId(v string) *PushDubbridgeInstallmentSupplementResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushDubbridgeInstallmentSupplementResponse) SetResultCode(v string) *PushDubbridgeInstallmentSupplementResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushDubbridgeInstallmentSupplementResponse) SetResultMsg(v string) *PushDubbridgeInstallmentSupplementResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryDubbridgeInstallmentTrialRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 业务类型，1：现金贷；2：分期付
+	ProdType *string `json:"prod_type,omitempty" xml:"prod_type,omitempty" require:"true"`
+	// 资产方购物订单号
+	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty" require:"true"`
+	// 天枢客户号
+	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty"`
+	// 资产方用户唯一标识
+	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty" require:"true"`
+	// 资金方编码
+	FundCode *string `json:"fund_code,omitempty" xml:"fund_code,omitempty" require:"true"`
+	// 订单交易金额
+	TradeAmount *string `json:"trade_amount,omitempty" xml:"trade_amount,omitempty" require:"true"`
+	// 优惠券id
+	CouponId *string `json:"coupon_id,omitempty" xml:"coupon_id,omitempty"`
+}
+
+func (s QueryDubbridgeInstallmentTrialRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeInstallmentTrialRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeInstallmentTrialRequest) SetAuthToken(v string) *QueryDubbridgeInstallmentTrialRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentTrialRequest) SetProductInstanceId(v string) *QueryDubbridgeInstallmentTrialRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentTrialRequest) SetOrderNo(v string) *QueryDubbridgeInstallmentTrialRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentTrialRequest) SetProdType(v string) *QueryDubbridgeInstallmentTrialRequest {
+	s.ProdType = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentTrialRequest) SetBizOrderNo(v string) *QueryDubbridgeInstallmentTrialRequest {
+	s.BizOrderNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentTrialRequest) SetCustomerNo(v string) *QueryDubbridgeInstallmentTrialRequest {
+	s.CustomerNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentTrialRequest) SetOpenId(v string) *QueryDubbridgeInstallmentTrialRequest {
+	s.OpenId = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentTrialRequest) SetFundCode(v string) *QueryDubbridgeInstallmentTrialRequest {
+	s.FundCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentTrialRequest) SetTradeAmount(v string) *QueryDubbridgeInstallmentTrialRequest {
+	s.TradeAmount = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentTrialRequest) SetCouponId(v string) *QueryDubbridgeInstallmentTrialRequest {
+	s.CouponId = &v
+	return s
+}
+
+type QueryDubbridgeInstallmentTrialResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 授信额度
+	CreditAmount *string `json:"credit_amount,omitempty" xml:"credit_amount,omitempty"`
+	// 可用额度
+	RestAmount *string `json:"rest_amount,omitempty" xml:"rest_amount,omitempty"`
+	// 期数费用列表
+	InstallmentList []*InstallmentTrial `json:"installment_list,omitempty" xml:"installment_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryDubbridgeInstallmentTrialResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeInstallmentTrialResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeInstallmentTrialResponse) SetReqMsgId(v string) *QueryDubbridgeInstallmentTrialResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentTrialResponse) SetResultCode(v string) *QueryDubbridgeInstallmentTrialResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentTrialResponse) SetResultMsg(v string) *QueryDubbridgeInstallmentTrialResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentTrialResponse) SetCreditAmount(v string) *QueryDubbridgeInstallmentTrialResponse {
+	s.CreditAmount = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentTrialResponse) SetRestAmount(v string) *QueryDubbridgeInstallmentTrialResponse {
+	s.RestAmount = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentTrialResponse) SetInstallmentList(v []*InstallmentTrial) *QueryDubbridgeInstallmentTrialResponse {
+	s.InstallmentList = v
+	return s
+}
+
 type VerifyFinserviceZhimaIdentifyRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -19405,6 +20105,104 @@ func (s *ReceiveRfcParamsFileResponse) SetResultMsg(v string) *ReceiveRfcParamsF
 }
 
 func (s *ReceiveRfcParamsFileResponse) SetContent(v string) *ReceiveRfcParamsFileResponse {
+	s.Content = &v
+	return s
+}
+
+type UploadRfcAiboundFileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 文件ID
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 参数，jsonString
+	Params *string `json:"params,omitempty" xml:"params,omitempty" require:"true"`
+	// 外呼为 AI_BOUND
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+}
+
+func (s UploadRfcAiboundFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadRfcAiboundFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadRfcAiboundFileRequest) SetAuthToken(v string) *UploadRfcAiboundFileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadRfcAiboundFileRequest) SetProductInstanceId(v string) *UploadRfcAiboundFileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadRfcAiboundFileRequest) SetFileObject(v io.Reader) *UploadRfcAiboundFileRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *UploadRfcAiboundFileRequest) SetFileObjectName(v string) *UploadRfcAiboundFileRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *UploadRfcAiboundFileRequest) SetFileId(v string) *UploadRfcAiboundFileRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *UploadRfcAiboundFileRequest) SetParams(v string) *UploadRfcAiboundFileRequest {
+	s.Params = &v
+	return s
+}
+
+func (s *UploadRfcAiboundFileRequest) SetType(v string) *UploadRfcAiboundFileRequest {
+	s.Type = &v
+	return s
+}
+
+type UploadRfcAiboundFileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文件上传响应参数
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+}
+
+func (s UploadRfcAiboundFileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadRfcAiboundFileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadRfcAiboundFileResponse) SetReqMsgId(v string) *UploadRfcAiboundFileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadRfcAiboundFileResponse) SetResultCode(v string) *UploadRfcAiboundFileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadRfcAiboundFileResponse) SetResultMsg(v string) *UploadRfcAiboundFileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadRfcAiboundFileResponse) SetContent(v string) *UploadRfcAiboundFileResponse {
 	s.Content = &v
 	return s
 }
@@ -30076,7 +30874,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.23.10"),
+				"sdk_version":      tea.String("1.24.0"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -32715,6 +33513,74 @@ func (client *Client) CancelDubbridgeInstallmentOrderEx(request *CancelDubbridge
 }
 
 /**
+ * Description: 天枢系统支用后补充材料推送-分期付
+ * Summary: 天枢系统支用后补充材料推送-分期付
+ */
+func (client *Client) PushDubbridgeInstallmentSupplement(request *PushDubbridgeInstallmentSupplementRequest) (_result *PushDubbridgeInstallmentSupplementResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushDubbridgeInstallmentSupplementResponse{}
+	_body, _err := client.PushDubbridgeInstallmentSupplementEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统支用后补充材料推送-分期付
+ * Summary: 天枢系统支用后补充材料推送-分期付
+ */
+func (client *Client) PushDubbridgeInstallmentSupplementEx(request *PushDubbridgeInstallmentSupplementRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushDubbridgeInstallmentSupplementResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushDubbridgeInstallmentSupplementResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.installment.supplement.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统分期试算
+ * Summary: 天枢系统分期试算
+ */
+func (client *Client) QueryDubbridgeInstallmentTrial(request *QueryDubbridgeInstallmentTrialRequest) (_result *QueryDubbridgeInstallmentTrialResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeInstallmentTrialResponse{}
+	_body, _err := client.QueryDubbridgeInstallmentTrialEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统分期试算
+ * Summary: 天枢系统分期试算
+ */
+func (client *Client) QueryDubbridgeInstallmentTrialEx(request *QueryDubbridgeInstallmentTrialRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeInstallmentTrialResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeInstallmentTrialResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.installment.trial.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 四要素认证首先调用此接口
  * Summary: 芝麻四要素接口
  */
@@ -34089,6 +34955,70 @@ func (client *Client) ReceiveRfcParamsFileEx(request *ReceiveRfcParamsFileReques
 	}
 	_result = &ReceiveRfcParamsFileResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rfc.params.file.receive"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: rfc外呼名单文件上传接口
+ * Summary: rfc外呼名单上传接口
+ */
+func (client *Client) UploadRfcAiboundFile(request *UploadRfcAiboundFileRequest) (_result *UploadRfcAiboundFileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadRfcAiboundFileResponse{}
+	_body, _err := client.UploadRfcAiboundFileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: rfc外呼名单文件上传接口
+ * Summary: rfc外呼名单上传接口
+ */
+func (client *Client) UploadRfcAiboundFileEx(request *UploadRfcAiboundFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadRfcAiboundFileResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("riskplus.rfc.aibound.file.upload"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			uploadRfcAiboundFileResponse := &UploadRfcAiboundFileResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = uploadRfcAiboundFileResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadRfcAiboundFileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rfc.aibound.file.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
