@@ -165,7 +165,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '3.0.2',
+                    'sdk_version'      => '3.0.4',
                     '_prod_code'       => 'MORSERTA',
                     '_prod_channel'    => 'default',
                 ];
@@ -214,39 +214,6 @@ class Client
     }
 
     /**
-     * Description: RTA广告主数据回传
-     * Summary: RTA广告主数据回传.
-     *
-     * @param FeedbackReportDataRequest $request
-     *
-     * @return FeedbackReportDataResponse
-     */
-    public function feedbackReportData($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->feedbackReportDataEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: RTA广告主数据回传
-     * Summary: RTA广告主数据回传.
-     *
-     * @param FeedbackReportDataRequest $request
-     * @param string[]                  $headers
-     * @param RuntimeOptions            $runtime
-     *
-     * @return FeedbackReportDataResponse
-     */
-    public function feedbackReportDataEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return FeedbackReportDataResponse::fromMap($this->doRequest('1.0', 'antcloud.morserta.report.data.feedback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 转化数据回传接口
      * Summary: 转化数据回传接口.
      *
@@ -280,8 +247,8 @@ class Client
     }
 
     /**
-     * Description: 点击数据回传接口
-     * Summary: 点击数据回传接口.
+     * Description: 曝光/点击数据回传接口
+     * Summary: 曝光/点击数据回传接口.
      *
      * @param ClickAdDataRequest $request
      *
@@ -296,8 +263,8 @@ class Client
     }
 
     /**
-     * Description: 点击数据回传接口
-     * Summary: 点击数据回传接口.
+     * Description: 曝光/点击数据回传接口
+     * Summary: 曝光/点击数据回传接口.
      *
      * @param ClickAdDataRequest $request
      * @param string[]           $headers
@@ -343,5 +310,38 @@ class Client
         Utils::validateModel($request);
 
         return ReportAdDataResponse::fromMap($this->doRequest('1.0', 'antcloud.morserta.ad.data.report', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: RTA广告主数据回传
+     * Summary: RTA广告主数据回传.
+     *
+     * @param FeedbackReportDataRequest $request
+     *
+     * @return FeedbackReportDataResponse
+     */
+    public function feedbackReportData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->feedbackReportDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: RTA广告主数据回传
+     * Summary: RTA广告主数据回传.
+     *
+     * @param FeedbackReportDataRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return FeedbackReportDataResponse
+     */
+    public function feedbackReportDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return FeedbackReportDataResponse::fromMap($this->doRequest('1.0', 'antcloud.morserta.report.data.feedback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

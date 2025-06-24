@@ -26,16 +26,24 @@ class ClickAdDataRequest extends Model
      */
     public $channel;
 
-    // 点击明细json string
+    // 曝光/点击明细json string,曝光数据{\"impression_id\":\"dfhufhuifah\",\"impression_time\":1586437361}
+    // 点击数据{\"click_id\":\"dfhufaffhuifah\,"\"click_time\":1586437361}
     /**
      * @var string
      */
     public $data;
+
+    // 点击-CLICK，曝光-IMPRESSION
+    /**
+     * @var string
+     */
+    public $dataType;
     protected $_name = [
         'authToken' => 'auth_token',
         'accountId' => 'account_id',
         'channel'   => 'channel',
         'data'      => 'data',
+        'dataType'  => 'data_type',
     ];
 
     public function validate()
@@ -43,6 +51,7 @@ class ClickAdDataRequest extends Model
         Model::validateRequired('accountId', $this->accountId, true);
         Model::validateRequired('channel', $this->channel, true);
         Model::validateRequired('data', $this->data, true);
+        Model::validateRequired('dataType', $this->dataType, true);
     }
 
     public function toMap()
@@ -59,6 +68,9 @@ class ClickAdDataRequest extends Model
         }
         if (null !== $this->data) {
             $res['data'] = $this->data;
+        }
+        if (null !== $this->dataType) {
+            $res['data_type'] = $this->dataType;
         }
 
         return $res;
@@ -83,6 +95,9 @@ class ClickAdDataRequest extends Model
         }
         if (isset($map['data'])) {
             $model->data = $map['data'];
+        }
+        if (isset($map['data_type'])) {
+            $model->dataType = $map['data_type'];
         }
 
         return $model;
