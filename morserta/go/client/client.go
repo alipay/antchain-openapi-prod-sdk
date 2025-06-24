@@ -148,84 +148,6 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-type FeedbackReportDataRequest struct {
-	// OAuth模式下的授权token
-	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 广告主账号ID
-	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-	// 报表类型级别
-	Level *string `json:"level,omitempty" xml:"level,omitempty" require:"true"`
-	// 回传数据明细，类型json array
-	FeedbackData *string `json:"feedback_data,omitempty" xml:"feedback_data,omitempty" require:"true"`
-}
-
-func (s FeedbackReportDataRequest) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FeedbackReportDataRequest) GoString() string {
-	return s.String()
-}
-
-func (s *FeedbackReportDataRequest) SetAuthToken(v string) *FeedbackReportDataRequest {
-	s.AuthToken = &v
-	return s
-}
-
-func (s *FeedbackReportDataRequest) SetAccountId(v string) *FeedbackReportDataRequest {
-	s.AccountId = &v
-	return s
-}
-
-func (s *FeedbackReportDataRequest) SetLevel(v string) *FeedbackReportDataRequest {
-	s.Level = &v
-	return s
-}
-
-func (s *FeedbackReportDataRequest) SetFeedbackData(v string) *FeedbackReportDataRequest {
-	s.FeedbackData = &v
-	return s
-}
-
-type FeedbackReportDataResponse struct {
-	// 请求唯一ID，用于链路跟踪和问题排查
-	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
-	// 结果码，一般OK表示调用成功
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
-	// 异常信息的文本描述
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 是否成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-}
-
-func (s FeedbackReportDataResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FeedbackReportDataResponse) GoString() string {
-	return s.String()
-}
-
-func (s *FeedbackReportDataResponse) SetReqMsgId(v string) *FeedbackReportDataResponse {
-	s.ReqMsgId = &v
-	return s
-}
-
-func (s *FeedbackReportDataResponse) SetResultCode(v string) *FeedbackReportDataResponse {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *FeedbackReportDataResponse) SetResultMsg(v string) *FeedbackReportDataResponse {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *FeedbackReportDataResponse) SetSuccess(v bool) *FeedbackReportDataResponse {
-	s.Success = &v
-	return s
-}
-
 type ConvertAdDataRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -470,8 +392,11 @@ type ClickAdDataRequest struct {
 	AccountId *int64 `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
 	// 渠道，支持TENCENT
 	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
-	// 点击明细json string
+	// 曝光/点击明细json string,曝光数据{\"impression_id\":\"dfhufhuifah\",\"impression_time\":1586437361}
+	// 点击数据{\"click_id\":\"dfhufaffhuifah\,"\"click_time\":1586437361}
 	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+	// 点击-CLICK，曝光-IMPRESSION
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
 }
 
 func (s ClickAdDataRequest) String() string {
@@ -499,6 +424,11 @@ func (s *ClickAdDataRequest) SetChannel(v string) *ClickAdDataRequest {
 
 func (s *ClickAdDataRequest) SetData(v string) *ClickAdDataRequest {
 	s.Data = &v
+	return s
+}
+
+func (s *ClickAdDataRequest) SetDataType(v string) *ClickAdDataRequest {
+	s.DataType = &v
 	return s
 }
 
@@ -615,6 +545,84 @@ func (s *ReportAdDataResponse) SetResultMsg(v string) *ReportAdDataResponse {
 }
 
 func (s *ReportAdDataResponse) SetSuccess(v bool) *ReportAdDataResponse {
+	s.Success = &v
+	return s
+}
+
+type FeedbackReportDataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 广告主账号ID
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 报表类型级别
+	Level *string `json:"level,omitempty" xml:"level,omitempty" require:"true"`
+	// 回传数据明细，类型json array
+	FeedbackData *string `json:"feedback_data,omitempty" xml:"feedback_data,omitempty" require:"true"`
+}
+
+func (s FeedbackReportDataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FeedbackReportDataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *FeedbackReportDataRequest) SetAuthToken(v string) *FeedbackReportDataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *FeedbackReportDataRequest) SetAccountId(v string) *FeedbackReportDataRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *FeedbackReportDataRequest) SetLevel(v string) *FeedbackReportDataRequest {
+	s.Level = &v
+	return s
+}
+
+func (s *FeedbackReportDataRequest) SetFeedbackData(v string) *FeedbackReportDataRequest {
+	s.FeedbackData = &v
+	return s
+}
+
+type FeedbackReportDataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s FeedbackReportDataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FeedbackReportDataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *FeedbackReportDataResponse) SetReqMsgId(v string) *FeedbackReportDataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *FeedbackReportDataResponse) SetResultCode(v string) *FeedbackReportDataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *FeedbackReportDataResponse) SetResultMsg(v string) *FeedbackReportDataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *FeedbackReportDataResponse) SetSuccess(v bool) *FeedbackReportDataResponse {
 	s.Success = &v
 	return s
 }
@@ -741,7 +749,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("3.0.2"),
+				"sdk_version":      tea.String("3.0.4"),
 				"_prod_code":       tea.String("MORSERTA"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -800,40 +808,6 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 }
 
 /**
- * Description: RTA广告主数据回传
- * Summary: RTA广告主数据回传
- */
-func (client *Client) FeedbackReportData(request *FeedbackReportDataRequest) (_result *FeedbackReportDataResponse, _err error) {
-	runtime := &util.RuntimeOptions{}
-	headers := make(map[string]*string)
-	_result = &FeedbackReportDataResponse{}
-	_body, _err := client.FeedbackReportDataEx(request, headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = _body
-	return _result, _err
-}
-
-/**
- * Description: RTA广告主数据回传
- * Summary: RTA广告主数据回传
- */
-func (client *Client) FeedbackReportDataEx(request *FeedbackReportDataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *FeedbackReportDataResponse, _err error) {
-	_err = util.ValidateModel(request)
-	if _err != nil {
-		return _result, _err
-	}
-	_result = &FeedbackReportDataResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.morserta.report.data.feedback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
-	if _err != nil {
-		return _result, _err
-	}
-	_err = tea.Convert(_body, &_result)
-	return _result, _err
-}
-
-/**
  * Description: 转化数据回传接口
  * Summary: 转化数据回传接口
  */
@@ -868,8 +842,8 @@ func (client *Client) ConvertAdDataEx(request *ConvertAdDataRequest, headers map
 }
 
 /**
- * Description: 点击数据回传接口
- * Summary: 点击数据回传接口
+ * Description: 曝光/点击数据回传接口
+ * Summary: 曝光/点击数据回传接口
  */
 func (client *Client) ClickAdData(request *ClickAdDataRequest) (_result *ClickAdDataResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -884,8 +858,8 @@ func (client *Client) ClickAdData(request *ClickAdDataRequest) (_result *ClickAd
 }
 
 /**
- * Description: 点击数据回传接口
- * Summary: 点击数据回传接口
+ * Description: 曝光/点击数据回传接口
+ * Summary: 曝光/点击数据回传接口
  */
 func (client *Client) ClickAdDataEx(request *ClickAdDataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ClickAdDataResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -928,6 +902,40 @@ func (client *Client) ReportAdDataEx(request *ReportAdDataRequest, headers map[s
 	}
 	_result = &ReportAdDataResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.morserta.ad.data.report"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: RTA广告主数据回传
+ * Summary: RTA广告主数据回传
+ */
+func (client *Client) FeedbackReportData(request *FeedbackReportDataRequest) (_result *FeedbackReportDataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &FeedbackReportDataResponse{}
+	_body, _err := client.FeedbackReportDataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: RTA广告主数据回传
+ * Summary: RTA广告主数据回传
+ */
+func (client *Client) FeedbackReportDataEx(request *FeedbackReportDataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *FeedbackReportDataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &FeedbackReportDataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.morserta.report.data.feedback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
