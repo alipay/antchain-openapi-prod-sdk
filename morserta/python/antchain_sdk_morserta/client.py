@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.0.2',
+                    'sdk_version': '3.0.4',
                     '_prod_code': 'MORSERTA',
                     '_prod_channel': 'default'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.0.2',
+                    'sdk_version': '3.0.4',
                     '_prod_code': 'MORSERTA',
                     '_prod_channel': 'default'
                 }
@@ -272,62 +272,6 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
-
-    def feedback_report_data(
-        self,
-        request: morserta_models.FeedbackReportDataRequest,
-    ) -> morserta_models.FeedbackReportDataResponse:
-        """
-        Description: RTA广告主数据回传
-        Summary: RTA广告主数据回传
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.feedback_report_data_ex(request, headers, runtime)
-
-    async def feedback_report_data_async(
-        self,
-        request: morserta_models.FeedbackReportDataRequest,
-    ) -> morserta_models.FeedbackReportDataResponse:
-        """
-        Description: RTA广告主数据回传
-        Summary: RTA广告主数据回传
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.feedback_report_data_ex_async(request, headers, runtime)
-
-    def feedback_report_data_ex(
-        self,
-        request: morserta_models.FeedbackReportDataRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> morserta_models.FeedbackReportDataResponse:
-        """
-        Description: RTA广告主数据回传
-        Summary: RTA广告主数据回传
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            morserta_models.FeedbackReportDataResponse(),
-            self.do_request('1.0', 'antcloud.morserta.report.data.feedback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def feedback_report_data_ex_async(
-        self,
-        request: morserta_models.FeedbackReportDataRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> morserta_models.FeedbackReportDataResponse:
-        """
-        Description: RTA广告主数据回传
-        Summary: RTA广告主数据回传
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            morserta_models.FeedbackReportDataResponse(),
-            await self.do_request_async('1.0', 'antcloud.morserta.report.data.feedback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
 
     def convert_ad_data(
         self,
@@ -390,8 +334,8 @@ class Client:
         request: morserta_models.ClickAdDataRequest,
     ) -> morserta_models.ClickAdDataResponse:
         """
-        Description: 点击数据回传接口
-        Summary: 点击数据回传接口
+        Description: 曝光/点击数据回传接口
+        Summary: 曝光/点击数据回传接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -402,8 +346,8 @@ class Client:
         request: morserta_models.ClickAdDataRequest,
     ) -> morserta_models.ClickAdDataResponse:
         """
-        Description: 点击数据回传接口
-        Summary: 点击数据回传接口
+        Description: 曝光/点击数据回传接口
+        Summary: 曝光/点击数据回传接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -416,8 +360,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> morserta_models.ClickAdDataResponse:
         """
-        Description: 点击数据回传接口
-        Summary: 点击数据回传接口
+        Description: 曝光/点击数据回传接口
+        Summary: 曝光/点击数据回传接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -432,8 +376,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> morserta_models.ClickAdDataResponse:
         """
-        Description: 点击数据回传接口
-        Summary: 点击数据回传接口
+        Description: 曝光/点击数据回传接口
+        Summary: 曝光/点击数据回传接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -495,4 +439,60 @@ class Client:
         return TeaCore.from_map(
             morserta_models.ReportAdDataResponse(),
             await self.do_request_async('1.0', 'antcloud.morserta.ad.data.report', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def feedback_report_data(
+        self,
+        request: morserta_models.FeedbackReportDataRequest,
+    ) -> morserta_models.FeedbackReportDataResponse:
+        """
+        Description: RTA广告主数据回传
+        Summary: RTA广告主数据回传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.feedback_report_data_ex(request, headers, runtime)
+
+    async def feedback_report_data_async(
+        self,
+        request: morserta_models.FeedbackReportDataRequest,
+    ) -> morserta_models.FeedbackReportDataResponse:
+        """
+        Description: RTA广告主数据回传
+        Summary: RTA广告主数据回传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.feedback_report_data_ex_async(request, headers, runtime)
+
+    def feedback_report_data_ex(
+        self,
+        request: morserta_models.FeedbackReportDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> morserta_models.FeedbackReportDataResponse:
+        """
+        Description: RTA广告主数据回传
+        Summary: RTA广告主数据回传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            morserta_models.FeedbackReportDataResponse(),
+            self.do_request('1.0', 'antcloud.morserta.report.data.feedback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def feedback_report_data_ex_async(
+        self,
+        request: morserta_models.FeedbackReportDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> morserta_models.FeedbackReportDataResponse:
+        """
+        Description: RTA广告主数据回传
+        Summary: RTA广告主数据回传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            morserta_models.FeedbackReportDataResponse(),
+            await self.do_request_async('1.0', 'antcloud.morserta.report.data.feedback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

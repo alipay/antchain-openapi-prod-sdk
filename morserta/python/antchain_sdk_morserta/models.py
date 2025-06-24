@@ -153,106 +153,6 @@ class Config(TeaModel):
         return self
 
 
-class FeedbackReportDataRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        account_id: str = None,
-        level: str = None,
-        feedback_data: str = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        # 广告主账号ID
-        self.account_id = account_id
-        # 报表类型级别
-        self.level = level
-        # 回传数据明细，类型json array
-        self.feedback_data = feedback_data
-
-    def validate(self):
-        self.validate_required(self.account_id, 'account_id')
-        self.validate_required(self.level, 'level')
-        self.validate_required(self.feedback_data, 'feedback_data')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.account_id is not None:
-            result['account_id'] = self.account_id
-        if self.level is not None:
-            result['level'] = self.level
-        if self.feedback_data is not None:
-            result['feedback_data'] = self.feedback_data
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('account_id') is not None:
-            self.account_id = m.get('account_id')
-        if m.get('level') is not None:
-            self.level = m.get('level')
-        if m.get('feedback_data') is not None:
-            self.feedback_data = m.get('feedback_data')
-        return self
-
-
-class FeedbackReportDataResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        success: bool = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # 是否成功
-        self.success = success
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.success is not None:
-            result['success'] = self.success
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('success') is not None:
-            self.success = m.get('success')
-        return self
-
-
 class ConvertAdDataRequest(TeaModel):
     def __init__(
         self,
@@ -521,6 +421,7 @@ class ClickAdDataRequest(TeaModel):
         account_id: int = None,
         channel: str = None,
         data: str = None,
+        data_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -528,13 +429,17 @@ class ClickAdDataRequest(TeaModel):
         self.account_id = account_id
         # 渠道，支持TENCENT
         self.channel = channel
-        # 点击明细json string
+        # 曝光/点击明细json string,曝光数据{\"impression_id\":\"dfhufhuifah\",\"impression_time\":1586437361}
+        # 点击数据{\"click_id\":\"dfhufaffhuifah\,"\"click_time\":1586437361}
         self.data = data
+        # 点击-CLICK，曝光-IMPRESSION
+        self.data_type = data_type
 
     def validate(self):
         self.validate_required(self.account_id, 'account_id')
         self.validate_required(self.channel, 'channel')
         self.validate_required(self.data, 'data')
+        self.validate_required(self.data_type, 'data_type')
 
     def to_map(self):
         _map = super().to_map()
@@ -550,6 +455,8 @@ class ClickAdDataRequest(TeaModel):
             result['channel'] = self.channel
         if self.data is not None:
             result['data'] = self.data
+        if self.data_type is not None:
+            result['data_type'] = self.data_type
         return result
 
     def from_map(self, m: dict = None):
@@ -562,6 +469,8 @@ class ClickAdDataRequest(TeaModel):
             self.channel = m.get('channel')
         if m.get('data') is not None:
             self.data = m.get('data')
+        if m.get('data_type') is not None:
+            self.data_type = m.get('data_type')
         return self
 
 
@@ -666,6 +575,106 @@ class ReportAdDataRequest(TeaModel):
 
 
 class ReportAdDataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class FeedbackReportDataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        account_id: str = None,
+        level: str = None,
+        feedback_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 广告主账号ID
+        self.account_id = account_id
+        # 报表类型级别
+        self.level = level
+        # 回传数据明细，类型json array
+        self.feedback_data = feedback_data
+
+    def validate(self):
+        self.validate_required(self.account_id, 'account_id')
+        self.validate_required(self.level, 'level')
+        self.validate_required(self.feedback_data, 'feedback_data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        if self.level is not None:
+            result['level'] = self.level
+        if self.feedback_data is not None:
+            result['feedback_data'] = self.feedback_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        if m.get('level') is not None:
+            self.level = m.get('level')
+        if m.get('feedback_data') is not None:
+            self.feedback_data = m.get('feedback_data')
+        return self
+
+
+class FeedbackReportDataResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
