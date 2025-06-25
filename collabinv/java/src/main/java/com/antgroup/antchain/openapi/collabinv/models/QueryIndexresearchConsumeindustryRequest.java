@@ -32,6 +32,10 @@ public class QueryIndexresearchConsumeindustryRequest extends TeaModel {
     @Validation(required = true)
     public PageInfo pageInfo;
 
+    // 字段排序方式
+    @NameInMap("sort")
+    public java.util.List<String> sort;
+
     public static QueryIndexresearchConsumeindustryRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryIndexresearchConsumeindustryRequest self = new QueryIndexresearchConsumeindustryRequest();
         return TeaModel.build(map, self);
@@ -91,6 +95,14 @@ public class QueryIndexresearchConsumeindustryRequest extends TeaModel {
     }
     public PageInfo getPageInfo() {
         return this.pageInfo;
+    }
+
+    public QueryIndexresearchConsumeindustryRequest setSort(java.util.List<String> sort) {
+        this.sort = sort;
+        return this;
+    }
+    public java.util.List<String> getSort() {
+        return this.sort;
     }
 
 }
