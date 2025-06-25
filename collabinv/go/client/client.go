@@ -1402,6 +1402,8 @@ type QueryIndexresearchConsumeindustryRequest struct {
 	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty"`
 	// 分页信息
 	PageInfo *PageInfo `json:"page_info,omitempty" xml:"page_info,omitempty" require:"true"`
+	// 字段排序方式
+	Sort []*string `json:"sort,omitempty" xml:"sort,omitempty" type:"Repeated"`
 }
 
 func (s QueryIndexresearchConsumeindustryRequest) String() string {
@@ -1444,6 +1446,11 @@ func (s *QueryIndexresearchConsumeindustryRequest) SetEndTime(v string) *QueryIn
 
 func (s *QueryIndexresearchConsumeindustryRequest) SetPageInfo(v *PageInfo) *QueryIndexresearchConsumeindustryRequest {
 	s.PageInfo = v
+	return s
+}
+
+func (s *QueryIndexresearchConsumeindustryRequest) SetSort(v []*string) *QueryIndexresearchConsumeindustryRequest {
+	s.Sort = v
 	return s
 }
 
@@ -3072,7 +3079,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.41"),
+				"sdk_version":      tea.String("1.0.43"),
 				"_prod_code":       tea.String("COLLABINV"),
 				"_prod_channel":    tea.String("default"),
 			}
