@@ -43,6 +43,11 @@ namespace AntChain.SDK.COLLABINV.Models
         [Validation(Required=true)]
         public PageInfo PageInfo { get; set; }
 
+        // 字段排序方式
+        [NameInMap("sort")]
+        [Validation(Required=false)]
+        public List<string> Sort { get; set; }
+
     }
 
 }
