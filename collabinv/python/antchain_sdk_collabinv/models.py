@@ -1747,6 +1747,7 @@ class QueryIndexresearchConsumeindustryRequest(TeaModel):
         start_time: str = None,
         end_time: str = None,
         page_info: PageInfo = None,
+        sort: List[str] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1761,6 +1762,8 @@ class QueryIndexresearchConsumeindustryRequest(TeaModel):
         self.end_time = end_time
         # 分页信息
         self.page_info = page_info
+        # 字段排序方式
+        self.sort = sort
 
     def validate(self):
         self.validate_required(self.page_info, 'page_info')
@@ -1787,6 +1790,8 @@ class QueryIndexresearchConsumeindustryRequest(TeaModel):
             result['end_time'] = self.end_time
         if self.page_info is not None:
             result['page_info'] = self.page_info.to_map()
+        if self.sort is not None:
+            result['sort'] = self.sort
         return result
 
     def from_map(self, m: dict = None):
@@ -1806,6 +1811,8 @@ class QueryIndexresearchConsumeindustryRequest(TeaModel):
         if m.get('page_info') is not None:
             temp_model = PageInfo()
             self.page_info = temp_model.from_map(m['page_info'])
+        if m.get('sort') is not None:
+            self.sort = m.get('sort')
         return self
 
 
