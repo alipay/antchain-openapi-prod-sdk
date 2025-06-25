@@ -48,6 +48,12 @@ class QueryIndexresearchConsumeindustryRequest extends Model
      * @var PageInfo
      */
     public $pageInfo;
+
+    // 字段排序方式
+    /**
+     * @var string[]
+     */
+    public $sort;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +62,7 @@ class QueryIndexresearchConsumeindustryRequest extends Model
         'startTime'         => 'start_time',
         'endTime'           => 'end_time',
         'pageInfo'          => 'page_info',
+        'sort'              => 'sort',
     ];
 
     public function validate()
@@ -86,6 +93,9 @@ class QueryIndexresearchConsumeindustryRequest extends Model
         }
         if (null !== $this->pageInfo) {
             $res['page_info'] = null !== $this->pageInfo ? $this->pageInfo->toMap() : null;
+        }
+        if (null !== $this->sort) {
+            $res['sort'] = $this->sort;
         }
 
         return $res;
@@ -119,6 +129,11 @@ class QueryIndexresearchConsumeindustryRequest extends Model
         }
         if (isset($map['page_info'])) {
             $model->pageInfo = PageInfo::fromMap($map['page_info']);
+        }
+        if (isset($map['sort'])) {
+            if (!empty($map['sort'])) {
+                $model->sort = $map['sort'];
+            }
         }
 
         return $model;
