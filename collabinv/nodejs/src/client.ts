@@ -1042,6 +1042,8 @@ export class QueryIndexresearchConsumeindustryRequest extends $tea.Model {
   endTime?: string;
   // 分页信息
   pageInfo: PageInfo;
+  // 字段排序方式
+  sort?: string[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1051,6 +1053,7 @@ export class QueryIndexresearchConsumeindustryRequest extends $tea.Model {
       startTime: 'start_time',
       endTime: 'end_time',
       pageInfo: 'page_info',
+      sort: 'sort',
     };
   }
 
@@ -1063,6 +1066,7 @@ export class QueryIndexresearchConsumeindustryRequest extends $tea.Model {
       startTime: 'string',
       endTime: 'string',
       pageInfo: PageInfo,
+      sort: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -2322,7 +2326,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.41",
+          sdk_version: "1.0.43",
           _prod_code: "COLLABINV",
           _prod_channel: "default",
         };
