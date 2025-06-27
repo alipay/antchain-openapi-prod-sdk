@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.20.2',
+                    'sdk_version': '1.21.0',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.20.2',
+                    'sdk_version': '1.21.0',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -3181,6 +3181,62 @@ class Client:
         return TeaCore.from_map(
             realperson_models.QueryEducationBackgroundResponse(),
             await self.do_request_async('1.0', 'di.realperson.education.background.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_bank_livenessfour(
+        self,
+        request: realperson_models.QueryBankLivenessfourRequest,
+    ) -> realperson_models.QueryBankLivenessfourResponse:
+        """
+        Description: 个人银行卡状态验证 V4.0
+        Summary: 个人银行卡状态验证 V4.0
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_bank_livenessfour_ex(request, headers, runtime)
+
+    async def query_bank_livenessfour_async(
+        self,
+        request: realperson_models.QueryBankLivenessfourRequest,
+    ) -> realperson_models.QueryBankLivenessfourResponse:
+        """
+        Description: 个人银行卡状态验证 V4.0
+        Summary: 个人银行卡状态验证 V4.0
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_bank_livenessfour_ex_async(request, headers, runtime)
+
+    def query_bank_livenessfour_ex(
+        self,
+        request: realperson_models.QueryBankLivenessfourRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryBankLivenessfourResponse:
+        """
+        Description: 个人银行卡状态验证 V4.0
+        Summary: 个人银行卡状态验证 V4.0
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryBankLivenessfourResponse(),
+            self.do_request('1.0', 'di.realperson.bank.livenessfour.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_bank_livenessfour_ex_async(
+        self,
+        request: realperson_models.QueryBankLivenessfourRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryBankLivenessfourResponse:
+        """
+        Description: 个人银行卡状态验证 V4.0
+        Summary: 个人银行卡状态验证 V4.0
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryBankLivenessfourResponse(),
+            await self.do_request_async('1.0', 'di.realperson.bank.livenessfour.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
