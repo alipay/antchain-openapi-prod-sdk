@@ -6472,6 +6472,135 @@ func (s *QueryEducationBackgroundResponse) SetExternInfo(v string) *QueryEducati
 	return s
 }
 
+type QueryBankLivenessfourRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 加密方式
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty" require:"true"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 银行编码
+	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty" require:"true"`
+	// bank_card_type
+	// 1：借记卡+贷记卡（默认）；
+	// 2：借记卡
+	// 3：贷记卡
+	BankCardType *string `json:"bank_card_type,omitempty" xml:"bank_card_type,omitempty"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryBankLivenessfourRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBankLivenessfourRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBankLivenessfourRequest) SetAuthToken(v string) *QueryBankLivenessfourRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourRequest) SetProductInstanceId(v string) *QueryBankLivenessfourRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourRequest) SetOuterOrderNo(v string) *QueryBankLivenessfourRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourRequest) SetEncryptType(v string) *QueryBankLivenessfourRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourRequest) SetCertNo(v string) *QueryBankLivenessfourRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourRequest) SetBankCode(v string) *QueryBankLivenessfourRequest {
+	s.BankCode = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourRequest) SetBankCardType(v string) *QueryBankLivenessfourRequest {
+	s.BankCardType = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourRequest) SetCertName(v string) *QueryBankLivenessfourRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourRequest) SetMobile(v string) *QueryBankLivenessfourRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourRequest) SetExternParam(v string) *QueryBankLivenessfourRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryBankLivenessfourResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 银行活跃度详情，可解析为JSONArray。
+	LivenessInfo *string `json:"liveness_info,omitempty" xml:"liveness_info,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryBankLivenessfourResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBankLivenessfourResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBankLivenessfourResponse) SetReqMsgId(v string) *QueryBankLivenessfourResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourResponse) SetResultCode(v string) *QueryBankLivenessfourResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourResponse) SetResultMsg(v string) *QueryBankLivenessfourResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourResponse) SetLivenessInfo(v string) *QueryBankLivenessfourResponse {
+	s.LivenessInfo = &v
+	return s
+}
+
+func (s *QueryBankLivenessfourResponse) SetExternInfo(v string) *QueryBankLivenessfourResponse {
+	s.ExternInfo = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -6714,7 +6843,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.20.2"),
+				"sdk_version":      tea.String("1.21.0"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -8555,6 +8684,40 @@ func (client *Client) QueryEducationBackgroundEx(request *QueryEducationBackgrou
 	}
 	_result = &QueryEducationBackgroundResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.education.background.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人银行卡状态验证 V4.0
+ * Summary: 个人银行卡状态验证 V4.0
+ */
+func (client *Client) QueryBankLivenessfour(request *QueryBankLivenessfourRequest) (_result *QueryBankLivenessfourResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBankLivenessfourResponse{}
+	_body, _err := client.QueryBankLivenessfourEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人银行卡状态验证 V4.0
+ * Summary: 个人银行卡状态验证 V4.0
+ */
+func (client *Client) QueryBankLivenessfourEx(request *QueryBankLivenessfourRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBankLivenessfourResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBankLivenessfourResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.bank.livenessfour.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
