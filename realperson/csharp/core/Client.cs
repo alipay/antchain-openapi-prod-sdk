@@ -137,7 +137,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.20.2"},
+                        {"sdk_version", "1.21.0"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.20.2"},
+                        {"sdk_version", "1.21.0"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2563,6 +2563,48 @@ namespace AntChain.SDK.REALPERSON
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryEducationBackgroundResponse>(await DoRequestAsync("1.0", "di.realperson.education.background.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人银行卡状态验证 V4.0
+         * Summary: 个人银行卡状态验证 V4.0
+         */
+        public QueryBankLivenessfourResponse QueryBankLivenessfour(QueryBankLivenessfourRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryBankLivenessfourEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人银行卡状态验证 V4.0
+         * Summary: 个人银行卡状态验证 V4.0
+         */
+        public async Task<QueryBankLivenessfourResponse> QueryBankLivenessfourAsync(QueryBankLivenessfourRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryBankLivenessfourExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人银行卡状态验证 V4.0
+         * Summary: 个人银行卡状态验证 V4.0
+         */
+        public QueryBankLivenessfourResponse QueryBankLivenessfourEx(QueryBankLivenessfourRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBankLivenessfourResponse>(DoRequest("1.0", "di.realperson.bank.livenessfour.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人银行卡状态验证 V4.0
+         * Summary: 个人银行卡状态验证 V4.0
+         */
+        public async Task<QueryBankLivenessfourResponse> QueryBankLivenessfourExAsync(QueryBankLivenessfourRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBankLivenessfourResponse>(await DoRequestAsync("1.0", "di.realperson.bank.livenessfour.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
