@@ -69,6 +69,8 @@ use AntChain\REALPERSON\Models\InitFacevrfZimRequest;
 use AntChain\REALPERSON\Models\InitFacevrfZimResponse;
 use AntChain\REALPERSON\Models\QueryAlipayverifyServerRequest;
 use AntChain\REALPERSON\Models\QueryAlipayverifyServerResponse;
+use AntChain\REALPERSON\Models\QueryBankLivenessfourRequest;
+use AntChain\REALPERSON\Models\QueryBankLivenessfourResponse;
 use AntChain\REALPERSON\Models\QueryBankLivenessplusRequest;
 use AntChain\REALPERSON\Models\QueryBankLivenessplusResponse;
 use AntChain\REALPERSON\Models\QueryBankLivenessRequest;
@@ -260,7 +262,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.20.2',
+                    'sdk_version'      => '1.21.0',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2013,6 +2015,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryEducationBackgroundResponse::fromMap($this->doRequest('1.0', 'di.realperson.education.background.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人银行卡状态验证 V4.0
+     * Summary: 个人银行卡状态验证 V4.0.
+     *
+     * @param QueryBankLivenessfourRequest $request
+     *
+     * @return QueryBankLivenessfourResponse
+     */
+    public function queryBankLivenessfour($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBankLivenessfourEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人银行卡状态验证 V4.0
+     * Summary: 个人银行卡状态验证 V4.0.
+     *
+     * @param QueryBankLivenessfourRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryBankLivenessfourResponse
+     */
+    public function queryBankLivenessfourEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBankLivenessfourResponse::fromMap($this->doRequest('1.0', 'di.realperson.bank.livenessfour.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
