@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.27"},
+                        {"sdk_version", "1.12.28"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.27"},
+                        {"sdk_version", "1.12.28"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1243,6 +1243,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<OperateAiotnextbsOpenapiResponse>(await DoRequestAsync("1.0", "blockchain.bot.aiotnextbs.openapi.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiotnext-节能项目设置照明模式
+         * Summary: aiotnext-节能项目设置照明模式
+         */
+        public SetEnergyprojectLightmodeResponse SetEnergyprojectLightmode(SetEnergyprojectLightmodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SetEnergyprojectLightmodeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiotnext-节能项目设置照明模式
+         * Summary: aiotnext-节能项目设置照明模式
+         */
+        public async Task<SetEnergyprojectLightmodeResponse> SetEnergyprojectLightmodeAsync(SetEnergyprojectLightmodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SetEnergyprojectLightmodeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: aiotnext-节能项目设置照明模式
+         * Summary: aiotnext-节能项目设置照明模式
+         */
+        public SetEnergyprojectLightmodeResponse SetEnergyprojectLightmodeEx(SetEnergyprojectLightmodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SetEnergyprojectLightmodeResponse>(DoRequest("1.0", "blockchain.bot.energyproject.lightmode.set", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aiotnext-节能项目设置照明模式
+         * Summary: aiotnext-节能项目设置照明模式
+         */
+        public async Task<SetEnergyprojectLightmodeResponse> SetEnergyprojectLightmodeExAsync(SetEnergyprojectLightmodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SetEnergyprojectLightmodeResponse>(await DoRequestAsync("1.0", "blockchain.bot.energyproject.lightmode.set", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
