@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.27',
+    sdk_version = '1.12.28',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -3970,6 +3970,48 @@ async function operateAiotnextbsOpenapi(request: OperateAiotnextbsOpenapiRequest
 async function operateAiotnextbsOpenapiEx(request: OperateAiotnextbsOpenapiRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateAiotnextbsOpenapiResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.aiotnextbs.openapi.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SetEnergyprojectLightmodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 节能项目编码
+  energyProjectCode: string(name='energy_project_code'),
+  // 照明项目编码
+  lightProjectCode?: string(name='light_project_code'),
+  // 运行模式。workday：工作日模式；holiday：节假日模式
+  runMode: string(name='run_mode'),
+}
+
+model SetEnergyprojectLightmodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: aiotnext-节能项目设置照明模式
+ * Summary: aiotnext-节能项目设置照明模式
+ */
+async function setEnergyprojectLightmode(request: SetEnergyprojectLightmodeRequest): SetEnergyprojectLightmodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return setEnergyprojectLightmodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: aiotnext-节能项目设置照明模式
+ * Summary: aiotnext-节能项目设置照明模式
+ */
+async function setEnergyprojectLightmodeEx(request: SetEnergyprojectLightmodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SetEnergyprojectLightmodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.energyproject.lightmode.set', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model FinishTraceConfigRequest = {
