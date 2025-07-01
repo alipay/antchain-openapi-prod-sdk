@@ -485,6 +485,8 @@ use AntChain\BOT\Models\SetDevicelistPropertyRequest;
 use AntChain\BOT\Models\SetDevicelistPropertyResponse;
 use AntChain\BOT\Models\SetDevicePropertyRequest;
 use AntChain\BOT\Models\SetDevicePropertyResponse;
+use AntChain\BOT\Models\SetEnergyprojectLightmodeRequest;
+use AntChain\BOT\Models\SetEnergyprojectLightmodeResponse;
 use AntChain\BOT\Models\StartEvidenceQueryRequest;
 use AntChain\BOT\Models\StartEvidenceQueryResponse;
 use AntChain\BOT\Models\StartEvidenceStoreRequest;
@@ -708,7 +710,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.27',
+                    'sdk_version'      => '1.12.28',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1480,6 +1482,39 @@ class Client
         Utils::validateModel($request);
 
         return OperateAiotnextbsOpenapiResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.aiotnextbs.openapi.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aiotnext-节能项目设置照明模式
+     * Summary: aiotnext-节能项目设置照明模式.
+     *
+     * @param SetEnergyprojectLightmodeRequest $request
+     *
+     * @return SetEnergyprojectLightmodeResponse
+     */
+    public function setEnergyprojectLightmode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->setEnergyprojectLightmodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aiotnext-节能项目设置照明模式
+     * Summary: aiotnext-节能项目设置照明模式.
+     *
+     * @param SetEnergyprojectLightmodeRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return SetEnergyprojectLightmodeResponse
+     */
+    public function setEnergyprojectLightmodeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SetEnergyprojectLightmodeResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.energyproject.lightmode.set', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
