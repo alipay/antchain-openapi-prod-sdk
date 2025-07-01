@@ -8523,6 +8523,73 @@ export class OperateAiotnextbsOpenapiResponse extends $tea.Model {
   }
 }
 
+export class SetEnergyprojectLightmodeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 节能项目编码
+  energyProjectCode: string;
+  // 照明项目编码
+  lightProjectCode?: string;
+  // 运行模式。workday：工作日模式；holiday：节假日模式
+  runMode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      energyProjectCode: 'energy_project_code',
+      lightProjectCode: 'light_project_code',
+      runMode: 'run_mode',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      energyProjectCode: 'string',
+      lightProjectCode: 'string',
+      runMode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SetEnergyprojectLightmodeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 操作是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class FinishTraceConfigRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -28229,7 +28296,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.27",
+          sdk_version: "1.12.28",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -28693,6 +28760,25 @@ export default class Client {
   async operateAiotnextbsOpenapiEx(request: OperateAiotnextbsOpenapiRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateAiotnextbsOpenapiResponse> {
     Util.validateModel(request);
     return $tea.cast<OperateAiotnextbsOpenapiResponse>(await this.doRequest("1.0", "blockchain.bot.aiotnextbs.openapi.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateAiotnextbsOpenapiResponse({}));
+  }
+
+  /**
+   * Description: aiotnext-节能项目设置照明模式
+   * Summary: aiotnext-节能项目设置照明模式
+   */
+  async setEnergyprojectLightmode(request: SetEnergyprojectLightmodeRequest): Promise<SetEnergyprojectLightmodeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.setEnergyprojectLightmodeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: aiotnext-节能项目设置照明模式
+   * Summary: aiotnext-节能项目设置照明模式
+   */
+  async setEnergyprojectLightmodeEx(request: SetEnergyprojectLightmodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SetEnergyprojectLightmodeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SetEnergyprojectLightmodeResponse>(await this.doRequest("1.0", "blockchain.bot.energyproject.lightmode.set", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SetEnergyprojectLightmodeResponse({}));
   }
 
   /**
