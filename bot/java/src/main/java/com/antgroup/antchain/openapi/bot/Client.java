@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.27"),
+                    new TeaPair("sdk_version", "1.12.28"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -600,6 +600,25 @@ public class Client {
     public OperateAiotnextbsOpenapiResponse operateAiotnextbsOpenapiEx(OperateAiotnextbsOpenapiRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.aiotnextbs.openapi.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateAiotnextbsOpenapiResponse());
+    }
+
+    /**
+     * Description: aiotnext-节能项目设置照明模式
+     * Summary: aiotnext-节能项目设置照明模式
+     */
+    public SetEnergyprojectLightmodeResponse setEnergyprojectLightmode(SetEnergyprojectLightmodeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.setEnergyprojectLightmodeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aiotnext-节能项目设置照明模式
+     * Summary: aiotnext-节能项目设置照明模式
+     */
+    public SetEnergyprojectLightmodeResponse setEnergyprojectLightmodeEx(SetEnergyprojectLightmodeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.energyproject.lightmode.set", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SetEnergyprojectLightmodeResponse());
     }
 
     /**
