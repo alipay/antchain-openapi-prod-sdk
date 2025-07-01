@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.27',
+                    'sdk_version': '1.12.28',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.27',
+                    'sdk_version': '1.12.28',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -1505,6 +1505,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.OperateAiotnextbsOpenapiResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.aiotnextbs.openapi.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def set_energyproject_lightmode(
+        self,
+        request: bot_models.SetEnergyprojectLightmodeRequest,
+    ) -> bot_models.SetEnergyprojectLightmodeResponse:
+        """
+        Description: aiotnext-节能项目设置照明模式
+        Summary: aiotnext-节能项目设置照明模式
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.set_energyproject_lightmode_ex(request, headers, runtime)
+
+    async def set_energyproject_lightmode_async(
+        self,
+        request: bot_models.SetEnergyprojectLightmodeRequest,
+    ) -> bot_models.SetEnergyprojectLightmodeResponse:
+        """
+        Description: aiotnext-节能项目设置照明模式
+        Summary: aiotnext-节能项目设置照明模式
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.set_energyproject_lightmode_ex_async(request, headers, runtime)
+
+    def set_energyproject_lightmode_ex(
+        self,
+        request: bot_models.SetEnergyprojectLightmodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SetEnergyprojectLightmodeResponse:
+        """
+        Description: aiotnext-节能项目设置照明模式
+        Summary: aiotnext-节能项目设置照明模式
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SetEnergyprojectLightmodeResponse(),
+            self.do_request('1.0', 'blockchain.bot.energyproject.lightmode.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def set_energyproject_lightmode_ex_async(
+        self,
+        request: bot_models.SetEnergyprojectLightmodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SetEnergyprojectLightmodeResponse:
+        """
+        Description: aiotnext-节能项目设置照明模式
+        Summary: aiotnext-节能项目设置照明模式
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SetEnergyprojectLightmodeResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.energyproject.lightmode.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def finish_trace_config(
