@@ -11125,6 +11125,90 @@ func (s *OperateAiotnextbsOpenapiResponse) SetResult(v string) *OperateAiotnextb
 	return s
 }
 
+type SetEnergyprojectLightmodeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 节能项目编码
+	EnergyProjectCode *string `json:"energy_project_code,omitempty" xml:"energy_project_code,omitempty" require:"true"`
+	// 照明项目编码
+	LightProjectCode *string `json:"light_project_code,omitempty" xml:"light_project_code,omitempty"`
+	// 运行模式。workday：工作日模式；holiday：节假日模式
+	RunMode *string `json:"run_mode,omitempty" xml:"run_mode,omitempty" require:"true"`
+}
+
+func (s SetEnergyprojectLightmodeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SetEnergyprojectLightmodeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SetEnergyprojectLightmodeRequest) SetAuthToken(v string) *SetEnergyprojectLightmodeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SetEnergyprojectLightmodeRequest) SetProductInstanceId(v string) *SetEnergyprojectLightmodeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SetEnergyprojectLightmodeRequest) SetEnergyProjectCode(v string) *SetEnergyprojectLightmodeRequest {
+	s.EnergyProjectCode = &v
+	return s
+}
+
+func (s *SetEnergyprojectLightmodeRequest) SetLightProjectCode(v string) *SetEnergyprojectLightmodeRequest {
+	s.LightProjectCode = &v
+	return s
+}
+
+func (s *SetEnergyprojectLightmodeRequest) SetRunMode(v string) *SetEnergyprojectLightmodeRequest {
+	s.RunMode = &v
+	return s
+}
+
+type SetEnergyprojectLightmodeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s SetEnergyprojectLightmodeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SetEnergyprojectLightmodeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SetEnergyprojectLightmodeResponse) SetReqMsgId(v string) *SetEnergyprojectLightmodeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SetEnergyprojectLightmodeResponse) SetResultCode(v string) *SetEnergyprojectLightmodeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SetEnergyprojectLightmodeResponse) SetResultMsg(v string) *SetEnergyprojectLightmodeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SetEnergyprojectLightmodeResponse) SetSuccess(v bool) *SetEnergyprojectLightmodeResponse {
+	s.Success = &v
+	return s
+}
+
 type FinishTraceConfigRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -36810,7 +36894,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.27"),
+				"sdk_version":      tea.String("1.12.28"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -37609,6 +37693,40 @@ func (client *Client) OperateAiotnextbsOpenapiEx(request *OperateAiotnextbsOpena
 	}
 	_result = &OperateAiotnextbsOpenapiResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.aiotnextbs.openapi.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aiotnext-节能项目设置照明模式
+ * Summary: aiotnext-节能项目设置照明模式
+ */
+func (client *Client) SetEnergyprojectLightmode(request *SetEnergyprojectLightmodeRequest) (_result *SetEnergyprojectLightmodeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SetEnergyprojectLightmodeResponse{}
+	_body, _err := client.SetEnergyprojectLightmodeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aiotnext-节能项目设置照明模式
+ * Summary: aiotnext-节能项目设置照明模式
+ */
+func (client *Client) SetEnergyprojectLightmodeEx(request *SetEnergyprojectLightmodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SetEnergyprojectLightmodeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SetEnergyprojectLightmodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.energyproject.lightmode.set"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
