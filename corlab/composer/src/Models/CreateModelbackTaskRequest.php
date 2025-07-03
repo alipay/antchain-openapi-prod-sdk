@@ -77,6 +77,7 @@ class CreateModelbackTaskRequest extends Model
     {
         Model::validateRequired('fileId', $this->fileId, true);
         Model::validateRequired('productCodes', $this->productCodes, true);
+        Model::validateRequired('sampleFileName', $this->sampleFileName, true);
         Model::validateRequired('keyType', $this->keyType, true);
         Model::validateRequired('uniqueCode', $this->uniqueCode, true);
     }

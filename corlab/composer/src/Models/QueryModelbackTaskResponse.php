@@ -49,6 +49,18 @@ class QueryModelbackTaskResponse extends Model
      * @var string
      */
     public $finishTime;
+
+    // 异步任务失败后，响应客户任务失败原因错误码，任务正常值为空
+    /**
+     * @var string
+     */
+    public $errorCode;
+
+    // 异步任务失败后，响应客户错误失败原因，任务正常值为空
+    /**
+     * @var string
+     */
+    public $errorMsg;
     protected $_name = [
         'reqMsgId'       => 'req_msg_id',
         'resultCode'     => 'result_code',
@@ -57,6 +69,8 @@ class QueryModelbackTaskResponse extends Model
         'status'         => 'status',
         'resultContexts' => 'result_contexts',
         'finishTime'     => 'finish_time',
+        'errorCode'      => 'error_code',
+        'errorMsg'       => 'error_msg',
     ];
 
     public function validate()
@@ -92,6 +106,12 @@ class QueryModelbackTaskResponse extends Model
         }
         if (null !== $this->finishTime) {
             $res['finish_time'] = $this->finishTime;
+        }
+        if (null !== $this->errorCode) {
+            $res['error_code'] = $this->errorCode;
+        }
+        if (null !== $this->errorMsg) {
+            $res['error_msg'] = $this->errorMsg;
         }
 
         return $res;
@@ -131,6 +151,12 @@ class QueryModelbackTaskResponse extends Model
         }
         if (isset($map['finish_time'])) {
             $model->finishTime = $map['finish_time'];
+        }
+        if (isset($map['error_code'])) {
+            $model->errorCode = $map['error_code'];
+        }
+        if (isset($map['error_msg'])) {
+            $model->errorMsg = $map['error_msg'];
         }
 
         return $model;
