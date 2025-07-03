@@ -35,6 +35,7 @@ public class CreateModelbackTaskRequest extends TeaModel {
 
     // 样本记录名，不传为file_id
     @NameInMap("sample_file_name")
+    @Validation(required = true)
     public String sampleFileName;
 
     // 目前只支持MD5,SHA_256两种加密方式

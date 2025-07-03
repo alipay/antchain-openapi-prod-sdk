@@ -32,6 +32,14 @@ public class QueryModelbackTaskResponse extends TeaModel {
     @NameInMap("finish_time")
     public String finishTime;
 
+    // 异步任务失败后，响应客户任务失败原因错误码，任务正常值为空
+    @NameInMap("error_code")
+    public String errorCode;
+
+    // 异步任务失败后，响应客户错误失败原因，任务正常值为空
+    @NameInMap("error_msg")
+    public String errorMsg;
+
     public static QueryModelbackTaskResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryModelbackTaskResponse self = new QueryModelbackTaskResponse();
         return TeaModel.build(map, self);
@@ -91,6 +99,22 @@ public class QueryModelbackTaskResponse extends TeaModel {
     }
     public String getFinishTime() {
         return this.finishTime;
+    }
+
+    public QueryModelbackTaskResponse setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+        return this;
+    }
+    public String getErrorCode() {
+        return this.errorCode;
+    }
+
+    public QueryModelbackTaskResponse setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+        return this;
+    }
+    public String getErrorMsg() {
+        return this.errorMsg;
     }
 
 }

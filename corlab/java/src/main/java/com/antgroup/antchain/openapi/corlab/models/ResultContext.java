@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class ResultContext extends TeaModel {
     // 产品码
+    /**
+     * <strong>example:</strong>
+     * <p>aft_v4</p>
+     */
     @NameInMap("product_code")
     public String productCode;
 
     // 结果文件名
+    /**
+     * <strong>example:</strong>
+     * <p>结果文件名</p>
+     */
     @NameInMap("file_name")
     public String fileName;
 
     // 结果文件下载地址
+    /**
+     * <strong>example:</strong>
+     * <p>oss://xxxxx/xxxx</p>
+     */
     @NameInMap("file_url")
     public String fileUrl;
 

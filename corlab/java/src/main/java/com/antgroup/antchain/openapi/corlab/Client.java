@@ -32,7 +32,9 @@ public class Client {
     public Number _maxRequests;
     public Number _maxRequestsPerHost;
     /**
-     * Init client with Config
+     * <b>description</b> :
+     * <p>Init client with Config</p>
+     * 
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
@@ -64,7 +66,9 @@ public class Client {
     }
 
     /**
-     * Encapsulate the request and invoke the network
+     * <b>description</b> :
+     * <p>Encapsulate the request and invoke the network</p>
+     * 
      * @param action api name
      * @param protocol http or https
      * @param method e.g. GET
@@ -122,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.16"),
+                    new TeaPair("sdk_version", "1.0.18"),
                     new TeaPair("_prod_code", "CORLAB"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -185,8 +189,9 @@ public class Client {
     }
 
     /**
-     * Description: 单次模型预测
-     * Summary: 模型预测
+     * <b>description</b> :
+     * <p>Description: 单次模型预测
+     * Summary: 模型预测</p>
      */
     public RecognizeModelResponse recognizeModel(RecognizeModelRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -195,8 +200,9 @@ public class Client {
     }
 
     /**
-     * Description: 单次模型预测
-     * Summary: 模型预测
+     * <b>description</b> :
+     * <p>Description: 单次模型预测
+     * Summary: 模型预测</p>
      */
     public RecognizeModelResponse recognizeModelEx(RecognizeModelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -204,8 +210,9 @@ public class Client {
     }
 
     /**
-     * Description: 模型投产任务新增
-     * Summary: 模型投产任务新增
+     * <b>description</b> :
+     * <p>Description: 模型投产任务新增
+     * Summary: 模型投产任务新增</p>
      */
     public AddModelTaskResponse addModelTask(AddModelTaskRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -214,8 +221,9 @@ public class Client {
     }
 
     /**
-     * Description: 模型投产任务新增
-     * Summary: 模型投产任务新增
+     * <b>description</b> :
+     * <p>Description: 模型投产任务新增
+     * Summary: 模型投产任务新增</p>
      */
     public AddModelTaskResponse addModelTaskEx(AddModelTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -223,8 +231,9 @@ public class Client {
     }
 
     /**
-     * Description: corlab模型回溯任务创建
-     * Summary: corlab模型回溯任务创建
+     * <b>description</b> :
+     * <p>Description: corlab模型回溯任务创建
+     * Summary: corlab模型回溯任务创建</p>
      */
     public CreateModelbackTaskResponse createModelbackTask(CreateModelbackTaskRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -233,8 +242,9 @@ public class Client {
     }
 
     /**
-     * Description: corlab模型回溯任务创建
-     * Summary: corlab模型回溯任务创建
+     * <b>description</b> :
+     * <p>Description: corlab模型回溯任务创建
+     * Summary: corlab模型回溯任务创建</p>
      */
     public CreateModelbackTaskResponse createModelbackTaskEx(CreateModelbackTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
@@ -264,8 +274,9 @@ public class Client {
     }
 
     /**
-     * Description: corlab模型回溯任务查询
-     * Summary: corlab模型回溯任务查询
+     * <b>description</b> :
+     * <p>Description: corlab模型回溯任务查询
+     * Summary: corlab模型回溯任务查询</p>
      */
     public QueryModelbackTaskResponse queryModelbackTask(QueryModelbackTaskRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -274,8 +285,9 @@ public class Client {
     }
 
     /**
-     * Description: corlab模型回溯任务查询
-     * Summary: corlab模型回溯任务查询
+     * <b>description</b> :
+     * <p>Description: corlab模型回溯任务查询
+     * Summary: corlab模型回溯任务查询</p>
      */
     public QueryModelbackTaskResponse queryModelbackTaskEx(QueryModelbackTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -283,8 +295,9 @@ public class Client {
     }
 
     /**
-     * Description: corlab产品以及产品模版查询
-     * Summary: corlab产品以及产品模版查询
+     * <b>description</b> :
+     * <p>Description: corlab产品以及产品模版查询
+     * Summary: corlab产品以及产品模版查询</p>
      */
     public QueryModelbackProductResponse queryModelbackProduct(QueryModelbackProductRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -293,8 +306,9 @@ public class Client {
     }
 
     /**
-     * Description: corlab产品以及产品模版查询
-     * Summary: corlab产品以及产品模版查询
+     * <b>description</b> :
+     * <p>Description: corlab产品以及产品模版查询
+     * Summary: corlab产品以及产品模版查询</p>
      */
     public QueryModelbackProductResponse queryModelbackProductEx(QueryModelbackProductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -302,8 +316,9 @@ public class Client {
     }
 
     /**
-     * Description: 创建HTTP PUT提交的文件上传
-     * Summary: 文件上传创建
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
      */
     public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -312,8 +327,9 @@ public class Client {
     }
 
     /**
-     * Description: 创建HTTP PUT提交的文件上传
-     * Summary: 文件上传创建
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
      */
     public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

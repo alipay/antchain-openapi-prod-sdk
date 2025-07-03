@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class ProductContext extends TeaModel {
     // 产品code
+    /**
+     * <strong>example:</strong>
+     * <p>aft_v4</p>
+     */
     @NameInMap("product_code")
     @Validation(required = true)
     public String productCode;
 
     // 模版code
+    /**
+     * <strong>example:</strong>
+     * <p>tb-default</p>
+     */
     @NameInMap("template_code")
     @Validation(required = true)
     public String templateCode;
@@ -20,6 +28,10 @@ public class ProductContext extends TeaModel {
     public java.util.List<TemplateContext> templateContext;
 
     // 产品模型结果字段
+    /**
+     * <strong>example:</strong>
+     * <p>[&quot;aft_v3_score&quot;,&quot;aft_v4_score&quot;]</p>
+     */
     @NameInMap("score_fields")
     @Validation(required = true)
     public java.util.List<String> scoreFields;
