@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class UpdateScopeValue extends TeaModel {
     // CN-HANGZHOU-FINANCE
+    /**
+     * <strong>example:</strong>
+     * <p>CN-HANGZHOU-FINANCE</p>
+     */
     @NameInMap("region")
     @Validation(required = true)
     public String region;
@@ -15,11 +19,19 @@ public class UpdateScopeValue extends TeaModel {
     public Long limit;
 
     // 生效与否
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("enabled")
     @Validation(required = true)
     public Boolean enabled;
 
     // 时间单位
+    /**
+     * <strong>example:</strong>
+     * <p>SECOND</p>
+     */
     @NameInMap("time_duration")
     @Validation(required = true)
     public String timeDuration;

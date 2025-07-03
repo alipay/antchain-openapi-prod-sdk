@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class ProductInfo extends TeaModel {
     // 产品码
+    /**
+     * <strong>example:</strong>
+     * <p>YUNQING</p>
+     */
     @NameInMap("prod_code")
     @Validation(required = true)
     public String prodCode;
 
     // sdk版本号
+    /**
+     * <strong>example:</strong>
+     * <p>1.1.3</p>
+     */
     @NameInMap("sdk_version")
     @Validation(required = true)
     public String sdkVersion;

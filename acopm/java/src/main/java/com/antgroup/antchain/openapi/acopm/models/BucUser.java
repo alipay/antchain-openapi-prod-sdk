@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class BucUser extends TeaModel {
     // 工号
+    /**
+     * <strong>example:</strong>
+     * <p>387745</p>
+     */
     @NameInMap("emp_id")
     @Validation(required = true)
     public String empId;
 
     // 域账号
+    /**
+     * <strong>example:</strong>
+     * <p>zhangsan.zs</p>
+     */
     @NameInMap("email_prefix")
     @Validation(required = true)
     public String emailPrefix;
 
     // 花名
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("nick_name")
     public String nickName;
 

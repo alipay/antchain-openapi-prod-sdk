@@ -5,36 +5,64 @@ import com.aliyun.tea.*;
 
 public class MultiSdkItem extends TeaModel {
     // 任务id
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("task_unique_id")
     @Validation(required = true)
     public String taskUniqueId;
 
     // 产品码
+    /**
+     * <strong>example:</strong>
+     * <p>ABC</p>
+     */
     @NameInMap("prod_code")
     @Validation(required = true)
     public String prodCode;
 
     // sdk版本
+    /**
+     * <strong>example:</strong>
+     * <p>1.0.0</p>
+     */
     @NameInMap("saassdk_version")
     @Validation(required = true)
     public String saassdkVersion;
 
     // sdk语言
+    /**
+     * <strong>example:</strong>
+     * <p>python</p>
+     */
     @NameInMap("lang")
     @Validation(required = true)
     public String lang;
 
     // 发布仓库
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://maven">http://maven</a></p>
+     */
     @NameInMap("repo")
     @Validation(required = true)
     public String repo;
 
     // 发布地址
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://maven">http://maven</a></p>
+     */
     @NameInMap("address")
     @Validation(required = true)
     public String address;
 
     // 开始时间
+    /**
+     * <strong>example:</strong>
+     * <p>开始时间</p>
+     */
     @NameInMap("start_tme")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String startTme;
@@ -45,20 +73,36 @@ public class MultiSdkItem extends TeaModel {
     public Long cost;
 
     // 结束时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("end_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String endTime;
 
     // 打包状态
+    /**
+     * <strong>example:</strong>
+     * <p>RUNNING</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 查看链接
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("preview_link")
     public String previewLink;
 
     // 依赖
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("dependency")
     public String dependency;
 

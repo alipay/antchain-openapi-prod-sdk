@@ -5,24 +5,44 @@ import com.aliyun.tea.*;
 
 public class RateLimitDetail extends TeaModel {
     // apiName
+    /**
+     * <strong>example:</strong>
+     * <p>apiName</p>
+     */
     @NameInMap("api_name")
     @Validation(required = true)
     public String apiName;
 
     // provider_id
+    /**
+     * <strong>example:</strong>
+     * <p>0000000123</p>
+     */
     @NameInMap("provider_id")
     @Validation(required = true)
     public String providerId;
 
     // 租户ID
+    /**
+     * <strong>example:</strong>
+     * <p>AJHKJHJKD</p>
+     */
     @NameInMap("tenant_id")
     public String tenantId;
 
     // 已使用量
+    /**
+     * <strong>example:</strong>
+     * <p>500</p>
+     */
     @NameInMap("used")
     public Long used;
 
     // effectScope
+    /**
+     * <strong>example:</strong>
+     * <p>effectScope</p>
+     */
     @NameInMap("effect_scope")
     public RateLimitEffectScopeDTO effectScope;
 

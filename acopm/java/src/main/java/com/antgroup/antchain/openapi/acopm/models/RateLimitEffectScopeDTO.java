@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class RateLimitEffectScopeDTO extends TeaModel {
     // RateLimitEffectScopeValueDTO list
+    /**
+     * <strong>example:</strong>
+     * <p>RateLimitEffectScopeValueDTO</p>
+     */
     @NameInMap("values")
     @Validation(required = true)
     public java.util.List<RateLimitEffectScopeValueDTO> values;

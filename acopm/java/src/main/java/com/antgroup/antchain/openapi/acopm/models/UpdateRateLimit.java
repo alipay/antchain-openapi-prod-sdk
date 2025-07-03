@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class UpdateRateLimit extends TeaModel {
     // api_name
+    /**
+     * <strong>example:</strong>
+     * <p>api_name</p>
+     */
     @NameInMap("api_name")
     @Validation(required = true)
     public String apiName;
 
     // provider_id
+    /**
+     * <strong>example:</strong>
+     * <p>provider_id</p>
+     */
     @NameInMap("provider_id")
     @Validation(required = true)
     public String providerId;

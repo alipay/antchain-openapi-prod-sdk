@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class RateLimitEffectScopeValueDTO extends TeaModel {
     // region
+    /**
+     * <strong>example:</strong>
+     * <p>region</p>
+     */
     @NameInMap("region")
     @Validation(required = true)
     public String region;
 
     // enabled
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("enabled")
     @Validation(required = true)
     public Boolean enabled;
@@ -20,6 +28,10 @@ public class RateLimitEffectScopeValueDTO extends TeaModel {
     public Long limit;
 
     // timeDuration
+    /**
+     * <strong>example:</strong>
+     * <p>timeDuration</p>
+     */
     @NameInMap("time_duration")
     @Validation(required = true)
     public String timeDuration;

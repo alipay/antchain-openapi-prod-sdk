@@ -5,31 +5,55 @@ import com.aliyun.tea.*;
 
 public class ApiInfoModel extends TeaModel {
     // API名称
+    /**
+     * <strong>example:</strong>
+     * <p>demo.abc.abc.query</p>
+     */
     @NameInMap("api_name")
     @Validation(required = true)
     public String apiName;
 
     // 网关产品码
+    /**
+     * <strong>example:</strong>
+     * <p>demo</p>
+     */
     @NameInMap("prod_code")
     @Validation(required = true)
     public String prodCode;
 
     // 是否是内部接口 0对外 1对内
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("internal")
     @Validation(required = true)
     public Long internal;
 
     // API版本号
+    /**
+     * <strong>example:</strong>
+     * <p>1.0</p>
+     */
     @NameInMap("api_version")
     @Validation(required = true)
     public String apiVersion;
 
     // API描述
+    /**
+     * <strong>example:</strong>
+     * <p>测试用接口</p>
+     */
     @NameInMap("api_desc")
     @Validation(required = true)
     public String apiDesc;
 
     // api所属网关产品id
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("provider_id")
     @Validation(required = true)
     public String providerId;

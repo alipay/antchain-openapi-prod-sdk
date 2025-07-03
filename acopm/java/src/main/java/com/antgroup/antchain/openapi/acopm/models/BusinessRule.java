@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class BusinessRule extends TeaModel {
     // 规则类型（BUSINESS/INSTANCE/TENANT_WHITELIST）
+    /**
+     * <strong>example:</strong>
+     * <p>BUSINESS</p>
+     */
     @NameInMap("rule_type")
     @Validation(required = true)
     public String ruleType;

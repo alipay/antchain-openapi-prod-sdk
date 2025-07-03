@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class BusinessRuleItem extends TeaModel {
     // 规则表达式
+    /**
+     * <strong>example:</strong>
+     * <p>jexl表达式，参考：<a href="https://commons.apache.org/proper/commons-jexl/">https://commons.apache.org/proper/commons-jexl/</a></p>
+     */
     @NameInMap("condition")
     @Validation(required = true)
     public String condition;
 
     // 规则值
+    /**
+     * <strong>example:</strong>
+     * <p>/</p>
+     */
     @NameInMap("value")
     @Validation(required = true)
     public String value;
