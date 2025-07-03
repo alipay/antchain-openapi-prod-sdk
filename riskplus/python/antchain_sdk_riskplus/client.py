@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.24.0',
+                    'sdk_version': '1.24.2',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.24.0',
+                    'sdk_version': '1.24.2',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -274,6 +274,118 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def receive_benefithub_risk_pay(
+        self,
+        request: riskplus_models.ReceiveBenefithubRiskPayRequest,
+    ) -> riskplus_models.ReceiveBenefithubRiskPayResponse:
+        """
+        Description: 支付成功、退款成功、续费扣款、超时关单、签约、解约，渠道方回调结果使用
+        Summary: 权益流量业务支付签约相关通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.receive_benefithub_risk_pay_ex(request, headers, runtime)
+
+    async def receive_benefithub_risk_pay_async(
+        self,
+        request: riskplus_models.ReceiveBenefithubRiskPayRequest,
+    ) -> riskplus_models.ReceiveBenefithubRiskPayResponse:
+        """
+        Description: 支付成功、退款成功、续费扣款、超时关单、签约、解约，渠道方回调结果使用
+        Summary: 权益流量业务支付签约相关通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.receive_benefithub_risk_pay_ex_async(request, headers, runtime)
+
+    def receive_benefithub_risk_pay_ex(
+        self,
+        request: riskplus_models.ReceiveBenefithubRiskPayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ReceiveBenefithubRiskPayResponse:
+        """
+        Description: 支付成功、退款成功、续费扣款、超时关单、签约、解约，渠道方回调结果使用
+        Summary: 权益流量业务支付签约相关通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ReceiveBenefithubRiskPayResponse(),
+            self.do_request('1.0', 'riskplus.benefithub.risk.pay.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def receive_benefithub_risk_pay_ex_async(
+        self,
+        request: riskplus_models.ReceiveBenefithubRiskPayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ReceiveBenefithubRiskPayResponse:
+        """
+        Description: 支付成功、退款成功、续费扣款、超时关单、签约、解约，渠道方回调结果使用
+        Summary: 权益流量业务支付签约相关通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ReceiveBenefithubRiskPayResponse(),
+            await self.do_request_async('1.0', 'riskplus.benefithub.risk.pay.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_benefithub_risk_login(
+        self,
+        request: riskplus_models.NotifyBenefithubRiskLoginRequest,
+    ) -> riskplus_models.NotifyBenefithubRiskLoginResponse:
+        """
+        Description: 渠道、平台方，联合登陆推送登陆通知信息
+        Summary: 渠道/平台方推送的用户登陆信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_benefithub_risk_login_ex(request, headers, runtime)
+
+    async def notify_benefithub_risk_login_async(
+        self,
+        request: riskplus_models.NotifyBenefithubRiskLoginRequest,
+    ) -> riskplus_models.NotifyBenefithubRiskLoginResponse:
+        """
+        Description: 渠道、平台方，联合登陆推送登陆通知信息
+        Summary: 渠道/平台方推送的用户登陆信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_benefithub_risk_login_ex_async(request, headers, runtime)
+
+    def notify_benefithub_risk_login_ex(
+        self,
+        request: riskplus_models.NotifyBenefithubRiskLoginRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.NotifyBenefithubRiskLoginResponse:
+        """
+        Description: 渠道、平台方，联合登陆推送登陆通知信息
+        Summary: 渠道/平台方推送的用户登陆信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.NotifyBenefithubRiskLoginResponse(),
+            self.do_request('1.0', 'riskplus.benefithub.risk.login.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_benefithub_risk_login_ex_async(
+        self,
+        request: riskplus_models.NotifyBenefithubRiskLoginRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.NotifyBenefithubRiskLoginResponse:
+        """
+        Description: 渠道、平台方，联合登陆推送登陆通知信息
+        Summary: 渠道/平台方推送的用户登陆信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.NotifyBenefithubRiskLoginResponse(),
+            await self.do_request_async('1.0', 'riskplus.benefithub.risk.login.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def batchquery_creditshield_product_info(
         self,
@@ -6429,6 +6541,98 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.BatchqueryQmpRtMixedmarketingResponse(),
             await self.do_request_async('1.0', 'riskplus.qmp.rt.mixedmarketing.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_qmp_offlinehostplan(
+        self,
+        request: riskplus_models.UploadQmpOfflinehostplanRequest,
+    ) -> riskplus_models.UploadQmpOfflinehostplanResponse:
+        """
+        Description: qmp离线托管文件导入
+        Summary: qmp离线托管文件导入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_qmp_offlinehostplan_ex(request, headers, runtime)
+
+    async def upload_qmp_offlinehostplan_async(
+        self,
+        request: riskplus_models.UploadQmpOfflinehostplanRequest,
+    ) -> riskplus_models.UploadQmpOfflinehostplanResponse:
+        """
+        Description: qmp离线托管文件导入
+        Summary: qmp离线托管文件导入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_qmp_offlinehostplan_ex_async(request, headers, runtime)
+
+    def upload_qmp_offlinehostplan_ex(
+        self,
+        request: riskplus_models.UploadQmpOfflinehostplanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.UploadQmpOfflinehostplanResponse:
+        """
+        Description: qmp离线托管文件导入
+        Summary: qmp离线托管文件导入
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.qmp.offlinehostplan.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_qmp_offlinehostplan_response = riskplus_models.UploadQmpOfflinehostplanResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_qmp_offlinehostplan_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.UploadQmpOfflinehostplanResponse(),
+            self.do_request('1.0', 'riskplus.qmp.offlinehostplan.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_qmp_offlinehostplan_ex_async(
+        self,
+        request: riskplus_models.UploadQmpOfflinehostplanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.UploadQmpOfflinehostplanResponse:
+        """
+        Description: qmp离线托管文件导入
+        Summary: qmp离线托管文件导入
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.qmp.offlinehostplan.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_qmp_offlinehostplan_response = riskplus_models.UploadQmpOfflinehostplanResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_qmp_offlinehostplan_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.UploadQmpOfflinehostplanResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.offlinehostplan.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def sync_rdaas_tax_authinfo(

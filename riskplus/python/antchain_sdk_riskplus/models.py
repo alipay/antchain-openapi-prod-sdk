@@ -9160,6 +9160,225 @@ class XNameValuePair(TeaModel):
         return self
 
 
+class ReceiveBenefithubRiskPayRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        platform_code: str = None,
+        product_code: str = None,
+        user_unique_id: str = None,
+        result_type: str = None,
+        callback_result: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 业务分配的平台code，8位纯大写字母code
+        self.platform_code = platform_code
+        # 产品code
+        self.product_code = product_code
+        # 平台code、用户唯一ID 组合出全局唯一id
+        self.user_unique_id = user_unique_id
+        # 类型：订单支付结果类、订单退款类、续费扣款类、签约成功、解约成功、订单超时类型
+        # 具体如下：
+        # ODRDER_PAYMENT-订单支付结果类通知、ORDER_REFUND-订单退款、RENEWAL_DEDUCTION-续费扣款、CONTRACT_SIGNED-签约成功、CONTRACT_TERMINATED-解约成功、
+        # ORDER_TIMEOUT-订单超时类型
+        self.result_type = result_type
+        # 回调结果，json数据
+        # 各个平台返回的支付结果、支付退款、续费结果通知、签约、解约、订单、超时关单
+        self.callback_result = callback_result
+
+    def validate(self):
+        self.validate_required(self.platform_code, 'platform_code')
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.user_unique_id, 'user_unique_id')
+        self.validate_required(self.result_type, 'result_type')
+        self.validate_required(self.callback_result, 'callback_result')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.platform_code is not None:
+            result['platform_code'] = self.platform_code
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.user_unique_id is not None:
+            result['user_unique_id'] = self.user_unique_id
+        if self.result_type is not None:
+            result['result_type'] = self.result_type
+        if self.callback_result is not None:
+            result['callback_result'] = self.callback_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('platform_code') is not None:
+            self.platform_code = m.get('platform_code')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('user_unique_id') is not None:
+            self.user_unique_id = m.get('user_unique_id')
+        if m.get('result_type') is not None:
+            self.result_type = m.get('result_type')
+        if m.get('callback_result') is not None:
+            self.callback_result = m.get('callback_result')
+        return self
+
+
+class ReceiveBenefithubRiskPayResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class NotifyBenefithubRiskLoginRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        platform_code: str = None,
+        user_unique_id: str = None,
+        mobile: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 平台码
+        # 注：不同平台的平台码都是固定好的，如果传入的平台码有误会抛出平台码错误的信息
+        self.platform_code = platform_code
+        # 用户id
+        self.user_unique_id = user_unique_id
+        # 渠道、平台方推送的手机号
+        self.mobile = mobile
+
+    def validate(self):
+        self.validate_required(self.platform_code, 'platform_code')
+        self.validate_required(self.user_unique_id, 'user_unique_id')
+        self.validate_required(self.mobile, 'mobile')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.platform_code is not None:
+            result['platform_code'] = self.platform_code
+        if self.user_unique_id is not None:
+            result['user_unique_id'] = self.user_unique_id
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('platform_code') is not None:
+            self.platform_code = m.get('platform_code')
+        if m.get('user_unique_id') is not None:
+            self.user_unique_id = m.get('user_unique_id')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        return self
+
+
+class NotifyBenefithubRiskLoginResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
 class BatchqueryCreditshieldProductInfoRequest(TeaModel):
     def __init__(
         self,
@@ -23983,6 +24202,140 @@ class BatchqueryQmpRtMixedmarketingResponse(TeaModel):
             for k in m.get('query_results'):
                 temp_model = CustomerRpspInfosModel()
                 self.query_results.append(temp_model.from_map(k))
+        return self
+
+
+class UploadQmpOfflinehostplanRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+        file_template: str = None,
+        plan_code: str = None,
+        relation_type: str = None,
+        properties: str = None,
+        need_to_refactor: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 文件上传后的fileId
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+        # MOBILE/MOBILE_MD5/OAID/IDFA/IMEI选择其中一种
+        self.file_template = file_template
+        # plancode，托管计划编码
+        self.plan_code = plan_code
+        # OFFLINE_DECISION/OFFLINE_DECISION_ACTION,默认OFFLINE_DECISION_ACTION
+        self.relation_type = relation_type
+        # properties的header,其他的为ext_info,
+        self.properties = properties
+        # 默认为false
+        self.need_to_refactor = need_to_refactor
+
+    def validate(self):
+        self.validate_required(self.file_id, 'file_id')
+        self.validate_required(self.file_template, 'file_template')
+        self.validate_required(self.plan_code, 'plan_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.file_template is not None:
+            result['file_template'] = self.file_template
+        if self.plan_code is not None:
+            result['plan_code'] = self.plan_code
+        if self.relation_type is not None:
+            result['relation_type'] = self.relation_type
+        if self.properties is not None:
+            result['properties'] = self.properties
+        if self.need_to_refactor is not None:
+            result['need_to_refactor'] = self.need_to_refactor
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('file_template') is not None:
+            self.file_template = m.get('file_template')
+        if m.get('plan_code') is not None:
+            self.plan_code = m.get('plan_code')
+        if m.get('relation_type') is not None:
+            self.relation_type = m.get('relation_type')
+        if m.get('properties') is not None:
+            self.properties = m.get('properties')
+        if m.get('need_to_refactor') is not None:
+            self.need_to_refactor = m.get('need_to_refactor')
+        return self
+
+
+class UploadQmpOfflinehostplanResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 
