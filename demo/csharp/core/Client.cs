@@ -137,7 +137,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.31"},
+                        {"sdk_version", "1.1.39"},
                         {"_prod_code", "DEMO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.31"},
+                        {"sdk_version", "1.1.39"},
                         {"_prod_code", "DEMO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1543,6 +1543,342 @@ namespace AntChain.SDK.DEMO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryTestTimeTestaResponse>(await DoRequestAsync("1.0", "demo.test.time.testa.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: oas 测试使用
+         * Summary: oas 测试使用
+         */
+        public QueryOasRestResponse QueryOasRest(QueryOasRestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryOasRestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: oas 测试使用
+         * Summary: oas 测试使用
+         */
+        public async Task<QueryOasRestResponse> QueryOasRestAsync(QueryOasRestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryOasRestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: oas 测试使用
+         * Summary: oas 测试使用
+         */
+        public QueryOasRestResponse QueryOasRestEx(QueryOasRestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOasRestResponse>(DoRequest("1.0", "demo.oas.rest.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: oas 测试使用
+         * Summary: oas 测试使用
+         */
+        public async Task<QueryOasRestResponse> QueryOasRestExAsync(QueryOasRestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOasRestResponse>(await DoRequestAsync("1.0", "demo.oas.rest.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 自动化contenttype兼容测试
+         * Summary: 自动化contenttype兼容测试
+         */
+        public QueryTestContentTypeResponse QueryTestContentType(QueryTestContentTypeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTestContentTypeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 自动化contenttype兼容测试
+         * Summary: 自动化contenttype兼容测试
+         */
+        public async Task<QueryTestContentTypeResponse> QueryTestContentTypeAsync(QueryTestContentTypeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTestContentTypeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 自动化contenttype兼容测试
+         * Summary: 自动化contenttype兼容测试
+         */
+        public QueryTestContentTypeResponse QueryTestContentTypeEx(QueryTestContentTypeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTestContentTypeResponse>(DoRequest("1.0", "demo.test.content.type.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 自动化contenttype兼容测试
+         * Summary: 自动化contenttype兼容测试
+         */
+        public async Task<QueryTestContentTypeResponse> QueryTestContentTypeExAsync(QueryTestContentTypeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTestContentTypeResponse>(await DoRequestAsync("1.0", "demo.test.content.type.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 自动化测试contentType
+         * Summary: 自动化测试contentType
+         */
+        public QueryTestContentTypeoneResponse QueryTestContentTypeone(QueryTestContentTypeoneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTestContentTypeoneEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 自动化测试contentType
+         * Summary: 自动化测试contentType
+         */
+        public async Task<QueryTestContentTypeoneResponse> QueryTestContentTypeoneAsync(QueryTestContentTypeoneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTestContentTypeoneExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 自动化测试contentType
+         * Summary: 自动化测试contentType
+         */
+        public QueryTestContentTypeoneResponse QueryTestContentTypeoneEx(QueryTestContentTypeoneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTestContentTypeoneResponse>(DoRequest("1.0", "demo.test.content.typeone.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 自动化测试contentType
+         * Summary: 自动化测试contentType
+         */
+        public async Task<QueryTestContentTypeoneResponse> QueryTestContentTypeoneExAsync(QueryTestContentTypeoneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTestContentTypeoneResponse>(await DoRequestAsync("1.0", "demo.test.content.typeone.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 自动化contenttype兼容测试
+         * Summary: 自动化contenttype兼容测试
+         */
+        public QueryTestContentTypetwoResponse QueryTestContentTypetwo(QueryTestContentTypetwoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTestContentTypetwoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 自动化contenttype兼容测试
+         * Summary: 自动化contenttype兼容测试
+         */
+        public async Task<QueryTestContentTypetwoResponse> QueryTestContentTypetwoAsync(QueryTestContentTypetwoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTestContentTypetwoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 自动化contenttype兼容测试
+         * Summary: 自动化contenttype兼容测试
+         */
+        public QueryTestContentTypetwoResponse QueryTestContentTypetwoEx(QueryTestContentTypetwoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTestContentTypetwoResponse>(DoRequest("1.0", "demo.test.content.typetwo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 自动化contenttype兼容测试
+         * Summary: 自动化contenttype兼容测试
+         */
+        public async Task<QueryTestContentTypetwoResponse> QueryTestContentTypetwoExAsync(QueryTestContentTypetwoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTestContentTypetwoResponse>(await DoRequestAsync("1.0", "demo.test.content.typetwo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 自动化contenttype兼容测试
+         * Summary: 自动化contenttype兼容测试
+         */
+        public QueryTestContentTypethreeResponse QueryTestContentTypethree(QueryTestContentTypethreeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTestContentTypethreeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 自动化contenttype兼容测试
+         * Summary: 自动化contenttype兼容测试
+         */
+        public async Task<QueryTestContentTypethreeResponse> QueryTestContentTypethreeAsync(QueryTestContentTypethreeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTestContentTypethreeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 自动化contenttype兼容测试
+         * Summary: 自动化contenttype兼容测试
+         */
+        public QueryTestContentTypethreeResponse QueryTestContentTypethreeEx(QueryTestContentTypethreeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTestContentTypethreeResponse>(DoRequest("1.0", "demo.test.content.typethree.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 自动化contenttype兼容测试
+         * Summary: 自动化contenttype兼容测试
+         */
+        public async Task<QueryTestContentTypethreeResponse> QueryTestContentTypethreeExAsync(QueryTestContentTypethreeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTestContentTypethreeResponse>(await DoRequestAsync("1.0", "demo.test.content.typethree.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 自动化contenttype兼容测试
+         * Summary: 自动化contenttype兼容测试
+         */
+        public QueryTestContentTypefourResponse QueryTestContentTypefour(QueryTestContentTypefourRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTestContentTypefourEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 自动化contenttype兼容测试
+         * Summary: 自动化contenttype兼容测试
+         */
+        public async Task<QueryTestContentTypefourResponse> QueryTestContentTypefourAsync(QueryTestContentTypefourRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTestContentTypefourExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 自动化contenttype兼容测试
+         * Summary: 自动化contenttype兼容测试
+         */
+        public QueryTestContentTypefourResponse QueryTestContentTypefourEx(QueryTestContentTypefourRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTestContentTypefourResponse>(DoRequest("1.0", "demo.test.content.typefour.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 自动化contenttype兼容测试
+         * Summary: 自动化contenttype兼容测试
+         */
+        public async Task<QueryTestContentTypefourResponse> QueryTestContentTypefourExAsync(QueryTestContentTypefourRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTestContentTypefourResponse>(await DoRequestAsync("1.0", "demo.test.content.typefour.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 自动化contenttype兼容测试
+         * Summary: 自动化contenttype兼容测试
+         */
+        public QueryTestContentTypefiveResponse QueryTestContentTypefive(QueryTestContentTypefiveRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTestContentTypefiveEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 自动化contenttype兼容测试
+         * Summary: 自动化contenttype兼容测试
+         */
+        public async Task<QueryTestContentTypefiveResponse> QueryTestContentTypefiveAsync(QueryTestContentTypefiveRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTestContentTypefiveExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 自动化contenttype兼容测试
+         * Summary: 自动化contenttype兼容测试
+         */
+        public QueryTestContentTypefiveResponse QueryTestContentTypefiveEx(QueryTestContentTypefiveRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTestContentTypefiveResponse>(DoRequest("1.0", "demo.test.content.typefive.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 自动化contenttype兼容测试
+         * Summary: 自动化contenttype兼容测试
+         */
+        public async Task<QueryTestContentTypefiveResponse> QueryTestContentTypefiveExAsync(QueryTestContentTypefiveRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTestContentTypefiveResponse>(await DoRequestAsync("1.0", "demo.test.content.typefive.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 金融场景风险分析
+         * Summary: 金融场景风险分析
+         */
+        public QueryAgentFinancialRiskResponse QueryAgentFinancialRisk(QueryAgentFinancialRiskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAgentFinancialRiskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 金融场景风险分析
+         * Summary: 金融场景风险分析
+         */
+        public async Task<QueryAgentFinancialRiskResponse> QueryAgentFinancialRiskAsync(QueryAgentFinancialRiskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAgentFinancialRiskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 金融场景风险分析
+         * Summary: 金融场景风险分析
+         */
+        public QueryAgentFinancialRiskResponse QueryAgentFinancialRiskEx(QueryAgentFinancialRiskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAgentFinancialRiskResponse>(DoRequest("1.0", "demo.agent.financial.risk.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 金融场景风险分析
+         * Summary: 金融场景风险分析
+         */
+        public async Task<QueryAgentFinancialRiskResponse> QueryAgentFinancialRiskExAsync(QueryAgentFinancialRiskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAgentFinancialRiskResponse>(await DoRequestAsync("1.0", "demo.agent.financial.risk.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

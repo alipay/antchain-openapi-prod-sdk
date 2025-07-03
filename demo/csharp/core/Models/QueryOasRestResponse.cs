@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DEMO.Models
 {
-    public class QueryGatewayMyResponse : TeaModel {
+    public class QueryOasRestResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // SUCCESS le
-        [NameInMap("success")]
+        // 描述信息
+        [NameInMap("info")]
         [Validation(Required=false)]
-        public string Success { get; set; }
+        public string Info { get; set; }
 
     }
 
