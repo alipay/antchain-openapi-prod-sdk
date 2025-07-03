@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "ACOPM",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-acopm:0.0.1",
-    "go": "github.com/antchain-openapi-sdk-go/acopm/client:v1.3.39",
+    "java": "com.antgroup.antchain.openapi:openapi-acopm:1.3.44",
+    "go": "github.com/antchain-openapi-sdk-go/acopm/client:v1.3.44",
     "csharp": "AntChain.SDK.ACOPM:1.3.39",
-    "ts": "@antchain/acopm:1.3.39",
-    "php": "antchain/acopm:1.3.39",
-    "python": "antchain_sdk_acopm:1.3.39"
+    "ts": "@antchain/acopm:1.3.44",
+    "php": "antchain/acopm:1.3.44",
+    "python": "antchain_sdk_acopm:1.3.44"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

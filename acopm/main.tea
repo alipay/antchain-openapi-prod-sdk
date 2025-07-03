@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.39',
+    sdk_version = '1.3.44',
     _prod_code = 'ACOPM',
     _prod_channel = 'undefined'
   };
@@ -1470,5 +1470,78 @@ async function updateInstanceTenant(request: UpdateInstanceTenantRequest): Updat
 async function updateInstanceTenantEx(request: UpdateInstanceTenantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateInstanceTenantResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.acopm.instance.tenant.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackMultiSdkRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 	
+  // 回调JSON报文
+  body?: string(name='body'),
+}
+
+model CallbackMultiSdkResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 个人工作台-阿里云Tea多语言SDK生成回调
+ * Summary: 阿里云Tea多语言SDK生成回调
+ */
+async function callbackMultiSdk(request: CallbackMultiSdkRequest): CallbackMultiSdkResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackMultiSdkEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人工作台-阿里云Tea多语言SDK生成回调
+ * Summary: 阿里云Tea多语言SDK生成回调
+ */
+async function callbackMultiSdkEx(request: CallbackMultiSdkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackMultiSdkResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.multi.sdk.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ResetProductRedisRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 要刷新的产品码类型
+  products: [ string ](name='products'),
+}
+
+model ResetProductRedisResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 产品码redis刷新
+ * Summary: 产品码redis刷新
+ */
+async function resetProductRedis(request: ResetProductRedisRequest): ResetProductRedisResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return resetProductRedisEx(request, headers, runtime);
+}
+
+/**
+ * Description: 产品码redis刷新
+ * Summary: 产品码redis刷新
+ */
+async function resetProductRedisEx(request: ResetProductRedisRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ResetProductRedisResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.product.redis.reset', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
