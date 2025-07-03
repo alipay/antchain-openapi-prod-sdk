@@ -2813,6 +2813,128 @@ func (s *UpdateInstanceTenantResponse) SetResultMsg(v string) *UpdateInstanceTen
 	return s
 }
 
+type CallbackMultiSdkRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	//
+	// 回调JSON报文
+	Body *string `json:"body,omitempty" xml:"body,omitempty"`
+}
+
+func (s CallbackMultiSdkRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackMultiSdkRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackMultiSdkRequest) SetAuthToken(v string) *CallbackMultiSdkRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackMultiSdkRequest) SetBody(v string) *CallbackMultiSdkRequest {
+	s.Body = &v
+	return s
+}
+
+type CallbackMultiSdkResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CallbackMultiSdkResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackMultiSdkResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackMultiSdkResponse) SetReqMsgId(v string) *CallbackMultiSdkResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackMultiSdkResponse) SetResultCode(v string) *CallbackMultiSdkResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackMultiSdkResponse) SetResultMsg(v string) *CallbackMultiSdkResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type ResetProductRedisRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 要刷新的产品码类型
+	Products []*string `json:"products,omitempty" xml:"products,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ResetProductRedisRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResetProductRedisRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ResetProductRedisRequest) SetAuthToken(v string) *ResetProductRedisRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ResetProductRedisRequest) SetProducts(v []*string) *ResetProductRedisRequest {
+	s.Products = v
+	return s
+}
+
+type ResetProductRedisResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s ResetProductRedisResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResetProductRedisResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ResetProductRedisResponse) SetReqMsgId(v string) *ResetProductRedisResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ResetProductRedisResponse) SetResultCode(v string) *ResetProductRedisResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ResetProductRedisResponse) SetResultMsg(v string) *ResetProductRedisResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ResetProductRedisResponse) SetMsg(v string) *ResetProductRedisResponse {
+	s.Msg = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2935,7 +3057,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.39"),
+				"sdk_version":      tea.String("1.3.44"),
 				"_prod_code":       tea.String("ACOPM"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -3972,6 +4094,74 @@ func (client *Client) UpdateInstanceTenantEx(request *UpdateInstanceTenantReques
 	}
 	_result = &UpdateInstanceTenantResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acopm.instance.tenant.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台-阿里云Tea多语言SDK生成回调
+ * Summary: 阿里云Tea多语言SDK生成回调
+ */
+func (client *Client) CallbackMultiSdk(request *CallbackMultiSdkRequest) (_result *CallbackMultiSdkResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackMultiSdkResponse{}
+	_body, _err := client.CallbackMultiSdkEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台-阿里云Tea多语言SDK生成回调
+ * Summary: 阿里云Tea多语言SDK生成回调
+ */
+func (client *Client) CallbackMultiSdkEx(request *CallbackMultiSdkRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackMultiSdkResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackMultiSdkResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acopm.multi.sdk.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 产品码redis刷新
+ * Summary: 产品码redis刷新
+ */
+func (client *Client) ResetProductRedis(request *ResetProductRedisRequest) (_result *ResetProductRedisResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ResetProductRedisResponse{}
+	_body, _err := client.ResetProductRedisEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 产品码redis刷新
+ * Summary: 产品码redis刷新
+ */
+func (client *Client) ResetProductRedisEx(request *ResetProductRedisRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ResetProductRedisResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ResetProductRedisResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.acopm.product.redis.reset"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
