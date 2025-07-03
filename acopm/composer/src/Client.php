@@ -57,6 +57,8 @@ use AntChain\ACOPM\Models\QuerySdkApiRequest;
 use AntChain\ACOPM\Models\QuerySdkApiResponse;
 use AntChain\ACOPM\Models\QueryTenantRatelimitRequest;
 use AntChain\ACOPM\Models\QueryTenantRatelimitResponse;
+use AntChain\ACOPM\Models\ResetProductRedisRequest;
+use AntChain\ACOPM\Models\ResetProductRedisResponse;
 use AntChain\ACOPM\Models\UpdateApiRatelimitRequest;
 use AntChain\ACOPM\Models\UpdateApiRatelimitResponse;
 use AntChain\ACOPM\Models\UpdateApisStatusRequest;
@@ -216,7 +218,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.39',
+                    'sdk_version'      => '1.3.44',
                     '_prod_code'       => 'ACOPM',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1219,5 +1221,71 @@ class Client
         Utils::validateModel($request);
 
         return UpdateInstanceTenantResponse::fromMap($this->doRequest('1.0', 'antcloud.acopm.instance.tenant.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人工作台-阿里云Tea多语言SDK生成回调
+     * Summary: 阿里云Tea多语言SDK生成回调.
+     *
+     * @param \AntChain\ACOPM\Models\CallbackMultiSdkRequest $request
+     *
+     * @return \AntChain\ACOPM\Models\CallbackMultiSdkResponse
+     */
+    public function callbackMultiSdk($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackMultiSdkEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台-阿里云Tea多语言SDK生成回调
+     * Summary: 阿里云Tea多语言SDK生成回调.
+     *
+     * @param \AntChain\ACOPM\Models\CallbackMultiSdkRequest $request
+     * @param string[]                                       $headers
+     * @param RuntimeOptions                                 $runtime
+     *
+     * @return \AntChain\ACOPM\Models\CallbackMultiSdkResponse
+     */
+    public function callbackMultiSdkEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackMultiSdkResponse::fromMap($this->doRequest('1.0', 'antcloud.acopm.multi.sdk.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 产品码redis刷新
+     * Summary: 产品码redis刷新.
+     *
+     * @param ResetProductRedisRequest $request
+     *
+     * @return ResetProductRedisResponse
+     */
+    public function resetProductRedis($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->resetProductRedisEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 产品码redis刷新
+     * Summary: 产品码redis刷新.
+     *
+     * @param ResetProductRedisRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return ResetProductRedisResponse
+     */
+    public function resetProductRedisEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ResetProductRedisResponse::fromMap($this->doRequest('1.0', 'antcloud.acopm.product.redis.reset', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
