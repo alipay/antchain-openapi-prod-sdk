@@ -604,6 +604,39 @@ func (s *SCRealEstateQueryInvokerRequest) SetBody(v *SCRealEstateQueryBody) *SCR
 	return s
 }
 
+// 风险评估因子明细
+type RiskFactorDetail struct {
+	// 风险评估因子类型
+	FactorType *string `json:"factor_type,omitempty" xml:"factor_type,omitempty"`
+	// 分数
+	Score *int64 `json:"score,omitempty" xml:"score,omitempty"`
+	// 风险事件
+	Evidence []*string `json:"evidence,omitempty" xml:"evidence,omitempty" type:"Repeated"`
+}
+
+func (s RiskFactorDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RiskFactorDetail) GoString() string {
+	return s.String()
+}
+
+func (s *RiskFactorDetail) SetFactorType(v string) *RiskFactorDetail {
+	s.FactorType = &v
+	return s
+}
+
+func (s *RiskFactorDetail) SetScore(v int64) *RiskFactorDetail {
+	s.Score = &v
+	return s
+}
+
+func (s *RiskFactorDetail) SetEvidence(v []*string) *RiskFactorDetail {
+	s.Evidence = v
+	return s
+}
+
 // 用于上海非金迭代的测试使用
 type ShangHaiTest struct {
 	// string
@@ -660,6 +693,53 @@ func (s *InitPack) SetOperator(v string) *InitPack {
 
 func (s *InitPack) SetCount(v int64) *InitPack {
 	s.Count = &v
+	return s
+}
+
+// 交易明细信息
+type TransactionDetails struct {
+	// 金额
+	Amount *int64 `json:"amount,omitempty" xml:"amount,omitempty"`
+	// 币种
+	Currency *string `json:"currency,omitempty" xml:"currency,omitempty"`
+	// 渠道
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty"`
+	// 地址
+	Location *string `json:"location,omitempty" xml:"location,omitempty"`
+	// 时间
+	Time *string `json:"time,omitempty" xml:"time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s TransactionDetails) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransactionDetails) GoString() string {
+	return s.String()
+}
+
+func (s *TransactionDetails) SetAmount(v int64) *TransactionDetails {
+	s.Amount = &v
+	return s
+}
+
+func (s *TransactionDetails) SetCurrency(v string) *TransactionDetails {
+	s.Currency = &v
+	return s
+}
+
+func (s *TransactionDetails) SetChannel(v string) *TransactionDetails {
+	s.Channel = &v
+	return s
+}
+
+func (s *TransactionDetails) SetLocation(v string) *TransactionDetails {
+	s.Location = &v
+	return s
+}
+
+func (s *TransactionDetails) SetTime(v string) *TransactionDetails {
+	s.Time = &v
 	return s
 }
 
@@ -1016,6 +1096,53 @@ func (s *SCRealEstateQueryResponseBody) SetRequestId(v string) *SCRealEstateQuer
 
 func (s *SCRealEstateQueryResponseBody) SetPayload(v *SCRealEstateQueryResponsePayload) *SCRealEstateQueryResponseBody {
 	s.Payload = v
+	return s
+}
+
+// 用户基础信息
+type UserProfile struct {
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 用户身份证号
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 年龄
+	Age *int64 `json:"age,omitempty" xml:"age,omitempty"`
+	// 信用评分
+	CreditScore *int64 `json:"credit_score,omitempty" xml:"credit_score,omitempty"`
+}
+
+func (s UserProfile) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UserProfile) GoString() string {
+	return s.String()
+}
+
+func (s *UserProfile) SetUserId(v string) *UserProfile {
+	s.UserId = &v
+	return s
+}
+
+func (s *UserProfile) SetIdNumber(v string) *UserProfile {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *UserProfile) SetMobile(v string) *UserProfile {
+	s.Mobile = &v
+	return s
+}
+
+func (s *UserProfile) SetAge(v int64) *UserProfile {
+	s.Age = &v
+	return s
+}
+
+func (s *UserProfile) SetCreditScore(v int64) *UserProfile {
+	s.CreditScore = &v
 	return s
 }
 
@@ -1489,6 +1616,8 @@ type QueryGatewayMyResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// SUCCESS le
+	Success *string `json:"success,omitempty" xml:"success,omitempty"`
 }
 
 func (s QueryGatewayMyResponse) String() string {
@@ -1511,6 +1640,11 @@ func (s *QueryGatewayMyResponse) SetResultCode(v string) *QueryGatewayMyResponse
 
 func (s *QueryGatewayMyResponse) SetResultMsg(v string) *QueryGatewayMyResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryGatewayMyResponse) SetSuccess(v string) *QueryGatewayMyResponse {
+	s.Success = &v
 	return s
 }
 
@@ -3299,6 +3433,671 @@ func (s *QueryTestTimeTestaResponse) SetResultMsg(v string) *QueryTestTimeTestaR
 	return s
 }
 
+type QueryOasRestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// id信息
+	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" require:"true"`
+}
+
+func (s QueryOasRestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryOasRestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryOasRestRequest) SetAuthToken(v string) *QueryOasRestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryOasRestRequest) SetProductInstanceId(v string) *QueryOasRestRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryOasRestRequest) SetIdentityId(v string) *QueryOasRestRequest {
+	s.IdentityId = &v
+	return s
+}
+
+type QueryOasRestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 描述信息
+	Info *string `json:"info,omitempty" xml:"info,omitempty"`
+}
+
+func (s QueryOasRestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryOasRestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryOasRestResponse) SetReqMsgId(v string) *QueryOasRestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryOasRestResponse) SetResultCode(v string) *QueryOasRestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryOasRestResponse) SetResultMsg(v string) *QueryOasRestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryOasRestResponse) SetInfo(v string) *QueryOasRestResponse {
+	s.Info = &v
+	return s
+}
+
+type QueryTestContentTypeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询输入
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryTestContentTypeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestContentTypeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestContentTypeRequest) SetAuthToken(v string) *QueryTestContentTypeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTestContentTypeRequest) SetProductInstanceId(v string) *QueryTestContentTypeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTestContentTypeRequest) SetData(v string) *QueryTestContentTypeRequest {
+	s.Data = &v
+	return s
+}
+
+type QueryTestContentTypeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态码
+	Statucode *string `json:"statucode,omitempty" xml:"statucode,omitempty"`
+	// 查询返回结果
+	QueryResult *string `json:"query_result,omitempty" xml:"query_result,omitempty"`
+}
+
+func (s QueryTestContentTypeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestContentTypeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestContentTypeResponse) SetReqMsgId(v string) *QueryTestContentTypeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTestContentTypeResponse) SetResultCode(v string) *QueryTestContentTypeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTestContentTypeResponse) SetResultMsg(v string) *QueryTestContentTypeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTestContentTypeResponse) SetStatucode(v string) *QueryTestContentTypeResponse {
+	s.Statucode = &v
+	return s
+}
+
+func (s *QueryTestContentTypeResponse) SetQueryResult(v string) *QueryTestContentTypeResponse {
+	s.QueryResult = &v
+	return s
+}
+
+type QueryTestContentTypeoneRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询输入
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s QueryTestContentTypeoneRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestContentTypeoneRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestContentTypeoneRequest) SetAuthToken(v string) *QueryTestContentTypeoneRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTestContentTypeoneRequest) SetProductInstanceId(v string) *QueryTestContentTypeoneRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTestContentTypeoneRequest) SetData(v string) *QueryTestContentTypeoneRequest {
+	s.Data = &v
+	return s
+}
+
+type QueryTestContentTypeoneResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询结果
+	QueryResult *string `json:"query_result,omitempty" xml:"query_result,omitempty"`
+	// 结果码
+	Statucode *string `json:"statucode,omitempty" xml:"statucode,omitempty"`
+}
+
+func (s QueryTestContentTypeoneResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestContentTypeoneResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestContentTypeoneResponse) SetReqMsgId(v string) *QueryTestContentTypeoneResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTestContentTypeoneResponse) SetResultCode(v string) *QueryTestContentTypeoneResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTestContentTypeoneResponse) SetResultMsg(v string) *QueryTestContentTypeoneResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTestContentTypeoneResponse) SetQueryResult(v string) *QueryTestContentTypeoneResponse {
+	s.QueryResult = &v
+	return s
+}
+
+func (s *QueryTestContentTypeoneResponse) SetStatucode(v string) *QueryTestContentTypeoneResponse {
+	s.Statucode = &v
+	return s
+}
+
+type QueryTestContentTypetwoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询输入
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s QueryTestContentTypetwoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestContentTypetwoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestContentTypetwoRequest) SetAuthToken(v string) *QueryTestContentTypetwoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTestContentTypetwoRequest) SetProductInstanceId(v string) *QueryTestContentTypetwoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTestContentTypetwoRequest) SetData(v string) *QueryTestContentTypetwoRequest {
+	s.Data = &v
+	return s
+}
+
+type QueryTestContentTypetwoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询返回结果
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// 状态码
+	Statucode *string `json:"statucode,omitempty" xml:"statucode,omitempty"`
+}
+
+func (s QueryTestContentTypetwoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestContentTypetwoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestContentTypetwoResponse) SetReqMsgId(v string) *QueryTestContentTypetwoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTestContentTypetwoResponse) SetResultCode(v string) *QueryTestContentTypetwoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTestContentTypetwoResponse) SetResultMsg(v string) *QueryTestContentTypetwoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTestContentTypetwoResponse) SetData(v string) *QueryTestContentTypetwoResponse {
+	s.Data = &v
+	return s
+}
+
+func (s *QueryTestContentTypetwoResponse) SetStatucode(v string) *QueryTestContentTypetwoResponse {
+	s.Statucode = &v
+	return s
+}
+
+type QueryTestContentTypethreeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询输入
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s QueryTestContentTypethreeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestContentTypethreeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestContentTypethreeRequest) SetAuthToken(v string) *QueryTestContentTypethreeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTestContentTypethreeRequest) SetProductInstanceId(v string) *QueryTestContentTypethreeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTestContentTypethreeRequest) SetData(v string) *QueryTestContentTypethreeRequest {
+	s.Data = &v
+	return s
+}
+
+type QueryTestContentTypethreeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询返回结果
+	QueryResult *string `json:"query_result,omitempty" xml:"query_result,omitempty"`
+	// 结果码
+	Statucode *string `json:"statucode,omitempty" xml:"statucode,omitempty"`
+}
+
+func (s QueryTestContentTypethreeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestContentTypethreeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestContentTypethreeResponse) SetReqMsgId(v string) *QueryTestContentTypethreeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTestContentTypethreeResponse) SetResultCode(v string) *QueryTestContentTypethreeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTestContentTypethreeResponse) SetResultMsg(v string) *QueryTestContentTypethreeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTestContentTypethreeResponse) SetQueryResult(v string) *QueryTestContentTypethreeResponse {
+	s.QueryResult = &v
+	return s
+}
+
+func (s *QueryTestContentTypethreeResponse) SetStatucode(v string) *QueryTestContentTypethreeResponse {
+	s.Statucode = &v
+	return s
+}
+
+type QueryTestContentTypefourRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询输入
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s QueryTestContentTypefourRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestContentTypefourRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestContentTypefourRequest) SetAuthToken(v string) *QueryTestContentTypefourRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTestContentTypefourRequest) SetProductInstanceId(v string) *QueryTestContentTypefourRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTestContentTypefourRequest) SetData(v string) *QueryTestContentTypefourRequest {
+	s.Data = &v
+	return s
+}
+
+type QueryTestContentTypefourResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询返回结果
+	QueryResult *string `json:"query_result,omitempty" xml:"query_result,omitempty"`
+	// 结果码
+	Statucode *string `json:"statucode,omitempty" xml:"statucode,omitempty"`
+}
+
+func (s QueryTestContentTypefourResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestContentTypefourResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestContentTypefourResponse) SetReqMsgId(v string) *QueryTestContentTypefourResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTestContentTypefourResponse) SetResultCode(v string) *QueryTestContentTypefourResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTestContentTypefourResponse) SetResultMsg(v string) *QueryTestContentTypefourResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTestContentTypefourResponse) SetQueryResult(v string) *QueryTestContentTypefourResponse {
+	s.QueryResult = &v
+	return s
+}
+
+func (s *QueryTestContentTypefourResponse) SetStatucode(v string) *QueryTestContentTypefourResponse {
+	s.Statucode = &v
+	return s
+}
+
+type QueryTestContentTypefiveRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询入参
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s QueryTestContentTypefiveRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestContentTypefiveRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestContentTypefiveRequest) SetAuthToken(v string) *QueryTestContentTypefiveRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTestContentTypefiveRequest) SetProductInstanceId(v string) *QueryTestContentTypefiveRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTestContentTypefiveRequest) SetData(v string) *QueryTestContentTypefiveRequest {
+	s.Data = &v
+	return s
+}
+
+type QueryTestContentTypefiveResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果码
+	Statucode *string `json:"statucode,omitempty" xml:"statucode,omitempty"`
+	// 查询结果
+	QueryResult *string `json:"query_result,omitempty" xml:"query_result,omitempty"`
+}
+
+func (s QueryTestContentTypefiveResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTestContentTypefiveResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTestContentTypefiveResponse) SetReqMsgId(v string) *QueryTestContentTypefiveResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTestContentTypefiveResponse) SetResultCode(v string) *QueryTestContentTypefiveResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTestContentTypefiveResponse) SetResultMsg(v string) *QueryTestContentTypefiveResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTestContentTypefiveResponse) SetStatucode(v string) *QueryTestContentTypefiveResponse {
+	s.Statucode = &v
+	return s
+}
+
+func (s *QueryTestContentTypefiveResponse) SetQueryResult(v string) *QueryTestContentTypefiveResponse {
+	s.QueryResult = &v
+	return s
+}
+
+type QueryAgentFinancialRiskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户基础信息
+	UserProfile *UserProfile `json:"user_profile,omitempty" xml:"user_profile,omitempty"`
+	// 交易明细信息
+	TransactionDetails *TransactionDetails `json:"transaction_details,omitempty" xml:"transaction_details,omitempty"`
+	// 风险评估因子列表
+	RiskFactors []*RiskFactorDetail `json:"risk_factors,omitempty" xml:"risk_factors,omitempty" type:"Repeated"`
+	// 业务上下文信息
+	BusinessContext *NameValuePair `json:"business_context,omitempty" xml:"business_context,omitempty"`
+	// 风险等级标识（LOW/MEDIUM/HIGH/URGENT）
+	RiskLevel *string `json:"risk_level,omitempty" xml:"risk_level,omitempty"`
+	// 接口超时时间（毫秒）
+	Timeout *int64 `json:"timeout,omitempty" xml:"timeout,omitempty" maximum:"60000" minimum:"0"`
+}
+
+func (s QueryAgentFinancialRiskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAgentFinancialRiskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAgentFinancialRiskRequest) SetAuthToken(v string) *QueryAgentFinancialRiskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAgentFinancialRiskRequest) SetProductInstanceId(v string) *QueryAgentFinancialRiskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAgentFinancialRiskRequest) SetUserProfile(v *UserProfile) *QueryAgentFinancialRiskRequest {
+	s.UserProfile = v
+	return s
+}
+
+func (s *QueryAgentFinancialRiskRequest) SetTransactionDetails(v *TransactionDetails) *QueryAgentFinancialRiskRequest {
+	s.TransactionDetails = v
+	return s
+}
+
+func (s *QueryAgentFinancialRiskRequest) SetRiskFactors(v []*RiskFactorDetail) *QueryAgentFinancialRiskRequest {
+	s.RiskFactors = v
+	return s
+}
+
+func (s *QueryAgentFinancialRiskRequest) SetBusinessContext(v *NameValuePair) *QueryAgentFinancialRiskRequest {
+	s.BusinessContext = v
+	return s
+}
+
+func (s *QueryAgentFinancialRiskRequest) SetRiskLevel(v string) *QueryAgentFinancialRiskRequest {
+	s.RiskLevel = &v
+	return s
+}
+
+func (s *QueryAgentFinancialRiskRequest) SetTimeout(v int64) *QueryAgentFinancialRiskRequest {
+	s.Timeout = &v
+	return s
+}
+
+type QueryAgentFinancialRiskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 风险等级
+	RiskLevel *string `json:"risk_level,omitempty" xml:"risk_level,omitempty"`
+	// 风险建议动作
+	SuggestedAction *string `json:"suggested_action,omitempty" xml:"suggested_action,omitempty"`
+	// 风险分
+	RiskScore *int64 `json:"risk_score,omitempty" xml:"risk_score,omitempty"`
+	// 风险因子列表
+	Riskfactors *RiskFactorDetail `json:"riskfactors,omitempty" xml:"riskfactors,omitempty"`
+	// 处置建议
+	Recommendations *string `json:"recommendations,omitempty" xml:"recommendations,omitempty"`
+}
+
+func (s QueryAgentFinancialRiskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAgentFinancialRiskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAgentFinancialRiskResponse) SetReqMsgId(v string) *QueryAgentFinancialRiskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAgentFinancialRiskResponse) SetResultCode(v string) *QueryAgentFinancialRiskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAgentFinancialRiskResponse) SetResultMsg(v string) *QueryAgentFinancialRiskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAgentFinancialRiskResponse) SetRiskLevel(v string) *QueryAgentFinancialRiskResponse {
+	s.RiskLevel = &v
+	return s
+}
+
+func (s *QueryAgentFinancialRiskResponse) SetSuggestedAction(v string) *QueryAgentFinancialRiskResponse {
+	s.SuggestedAction = &v
+	return s
+}
+
+func (s *QueryAgentFinancialRiskResponse) SetRiskScore(v int64) *QueryAgentFinancialRiskResponse {
+	s.RiskScore = &v
+	return s
+}
+
+func (s *QueryAgentFinancialRiskResponse) SetRiskfactors(v *RiskFactorDetail) *QueryAgentFinancialRiskResponse {
+	s.Riskfactors = v
+	return s
+}
+
+func (s *QueryAgentFinancialRiskResponse) SetRecommendations(v string) *QueryAgentFinancialRiskResponse {
+	s.Recommendations = &v
+	return s
+}
+
 type QueryStreamTestmethodRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4626,7 +5425,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.31"),
+				"sdk_version":      tea.String("1.1.39"),
 				"_prod_code":       tea.String("DEMO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5659,6 +6458,278 @@ func (client *Client) QueryTestTimeTestaEx(request *QueryTestTimeTestaRequest, h
 	}
 	_result = &QueryTestTimeTestaResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.test.time.testa.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: oas 测试使用
+ * Summary: oas 测试使用
+ */
+func (client *Client) QueryOasRest(request *QueryOasRestRequest) (_result *QueryOasRestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryOasRestResponse{}
+	_body, _err := client.QueryOasRestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: oas 测试使用
+ * Summary: oas 测试使用
+ */
+func (client *Client) QueryOasRestEx(request *QueryOasRestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryOasRestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryOasRestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.oas.rest.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 自动化contenttype兼容测试
+ * Summary: 自动化contenttype兼容测试
+ */
+func (client *Client) QueryTestContentType(request *QueryTestContentTypeRequest) (_result *QueryTestContentTypeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTestContentTypeResponse{}
+	_body, _err := client.QueryTestContentTypeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 自动化contenttype兼容测试
+ * Summary: 自动化contenttype兼容测试
+ */
+func (client *Client) QueryTestContentTypeEx(request *QueryTestContentTypeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTestContentTypeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTestContentTypeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.test.content.type.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 自动化测试contentType
+ * Summary: 自动化测试contentType
+ */
+func (client *Client) QueryTestContentTypeone(request *QueryTestContentTypeoneRequest) (_result *QueryTestContentTypeoneResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTestContentTypeoneResponse{}
+	_body, _err := client.QueryTestContentTypeoneEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 自动化测试contentType
+ * Summary: 自动化测试contentType
+ */
+func (client *Client) QueryTestContentTypeoneEx(request *QueryTestContentTypeoneRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTestContentTypeoneResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTestContentTypeoneResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.test.content.typeone.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 自动化contenttype兼容测试
+ * Summary: 自动化contenttype兼容测试
+ */
+func (client *Client) QueryTestContentTypetwo(request *QueryTestContentTypetwoRequest) (_result *QueryTestContentTypetwoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTestContentTypetwoResponse{}
+	_body, _err := client.QueryTestContentTypetwoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 自动化contenttype兼容测试
+ * Summary: 自动化contenttype兼容测试
+ */
+func (client *Client) QueryTestContentTypetwoEx(request *QueryTestContentTypetwoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTestContentTypetwoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTestContentTypetwoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.test.content.typetwo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 自动化contenttype兼容测试
+ * Summary: 自动化contenttype兼容测试
+ */
+func (client *Client) QueryTestContentTypethree(request *QueryTestContentTypethreeRequest) (_result *QueryTestContentTypethreeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTestContentTypethreeResponse{}
+	_body, _err := client.QueryTestContentTypethreeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 自动化contenttype兼容测试
+ * Summary: 自动化contenttype兼容测试
+ */
+func (client *Client) QueryTestContentTypethreeEx(request *QueryTestContentTypethreeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTestContentTypethreeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTestContentTypethreeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.test.content.typethree.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 自动化contenttype兼容测试
+ * Summary: 自动化contenttype兼容测试
+ */
+func (client *Client) QueryTestContentTypefour(request *QueryTestContentTypefourRequest) (_result *QueryTestContentTypefourResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTestContentTypefourResponse{}
+	_body, _err := client.QueryTestContentTypefourEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 自动化contenttype兼容测试
+ * Summary: 自动化contenttype兼容测试
+ */
+func (client *Client) QueryTestContentTypefourEx(request *QueryTestContentTypefourRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTestContentTypefourResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTestContentTypefourResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.test.content.typefour.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 自动化contenttype兼容测试
+ * Summary: 自动化contenttype兼容测试
+ */
+func (client *Client) QueryTestContentTypefive(request *QueryTestContentTypefiveRequest) (_result *QueryTestContentTypefiveResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTestContentTypefiveResponse{}
+	_body, _err := client.QueryTestContentTypefiveEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 自动化contenttype兼容测试
+ * Summary: 自动化contenttype兼容测试
+ */
+func (client *Client) QueryTestContentTypefiveEx(request *QueryTestContentTypefiveRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTestContentTypefiveResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTestContentTypefiveResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.test.content.typefive.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 金融场景风险分析
+ * Summary: 金融场景风险分析
+ */
+func (client *Client) QueryAgentFinancialRisk(request *QueryAgentFinancialRiskRequest) (_result *QueryAgentFinancialRiskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAgentFinancialRiskResponse{}
+	_body, _err := client.QueryAgentFinancialRiskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 金融场景风险分析
+ * Summary: 金融场景风险分析
+ */
+func (client *Client) QueryAgentFinancialRiskEx(request *QueryAgentFinancialRiskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAgentFinancialRiskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAgentFinancialRiskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.agent.financial.risk.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
