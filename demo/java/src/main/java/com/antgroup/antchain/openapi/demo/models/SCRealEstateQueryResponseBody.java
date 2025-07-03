@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class SCRealEstateQueryResponseBody extends TeaModel {
     // cost
+    /**
+     * <strong>example:</strong>
+     * <p>1234</p>
+     */
     @NameInMap("cost")
     @Validation(required = true)
     public Long cost;
 
     // response_status
+    /**
+     * <strong>example:</strong>
+     * <p>response_status</p>
+     */
     @NameInMap("response_status")
     @Validation(required = true)
     public String responseStatus;
 
     // response_code
+    /**
+     * <strong>example:</strong>
+     * <p>200</p>
+     */
     @NameInMap("response_code")
     @Validation(required = true)
     public String responseCode;
 
     // request_id
+    /**
+     * <strong>example:</strong>
+     * <p>request_id</p>
+     */
     @NameInMap("request_id")
     @Validation(required = true)
     public String requestId;

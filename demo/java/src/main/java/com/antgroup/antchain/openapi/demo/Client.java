@@ -32,7 +32,9 @@ public class Client {
     public Number _maxRequests;
     public Number _maxRequestsPerHost;
     /**
-     * Init client with Config
+     * <b>description</b> :
+     * <p>Init client with Config</p>
+     * 
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
@@ -64,7 +66,9 @@ public class Client {
     }
 
     /**
-     * Encapsulate the request and invoke the network
+     * <b>description</b> :
+     * <p>Encapsulate the request and invoke the network</p>
+     * 
      * @param action api name
      * @param protocol http or https
      * @param method e.g. GET
@@ -122,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.31"),
+                    new TeaPair("sdk_version", "1.1.39"),
                     new TeaPair("_prod_code", "DEMO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -185,8 +189,9 @@ public class Client {
     }
 
     /**
-     * Description: Demo接口，返回当前服务器当前状态1
-     * Summary: 检查服务状态
+     * <b>description</b> :
+     * <p>Description: Demo接口，返回当前服务器当前状态1
+     * Summary: 检查服务状态</p>
      */
     public StatusGatewayCheckResponse statusGatewayCheck(StatusGatewayCheckRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -195,8 +200,9 @@ public class Client {
     }
 
     /**
-     * Description: Demo接口，返回当前服务器当前状态1
-     * Summary: 检查服务状态
+     * <b>description</b> :
+     * <p>Description: Demo接口，返回当前服务器当前状态1
+     * Summary: 检查服务状态</p>
      */
     public StatusGatewayCheckResponse statusGatewayCheckEx(StatusGatewayCheckRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -204,8 +210,9 @@ public class Client {
     }
 
     /**
-     * Description: Demo接口，返回当前输入的值
-     * Summary: 返回输入值1
+     * <b>description</b> :
+     * <p>Description: Demo接口，返回当前输入的值
+     * Summary: 返回输入值1</p>
      */
     public EchoGatewayCheckResponse echoGatewayCheck(EchoGatewayCheckRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -214,8 +221,9 @@ public class Client {
     }
 
     /**
-     * Description: Demo接口，返回当前输入的值
-     * Summary: 返回输入值1
+     * <b>description</b> :
+     * <p>Description: Demo接口，返回当前输入的值
+     * Summary: 返回输入值1</p>
      */
     public EchoGatewayCheckResponse echoGatewayCheckEx(EchoGatewayCheckRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
@@ -245,8 +253,9 @@ public class Client {
     }
 
     /**
-     * Description: aaa
-     * Summary: 测试demo
+     * <b>description</b> :
+     * <p>Description: aaa
+     * Summary: 测试demo</p>
      */
     public QueryGatewayMyResponse queryGatewayMy(QueryGatewayMyRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -255,8 +264,9 @@ public class Client {
     }
 
     /**
-     * Description: aaa
-     * Summary: 测试demo
+     * <b>description</b> :
+     * <p>Description: aaa
+     * Summary: 测试demo</p>
      */
     public QueryGatewayMyResponse queryGatewayMyEx(QueryGatewayMyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -264,8 +274,9 @@ public class Client {
     }
 
     /**
-     * Description: 超时测试
-     * Summary: 超时
+     * <b>description</b> :
+     * <p>Description: 超时测试
+     * Summary: 超时</p>
      */
     public QueryGatewayCheckEchotimeoutResponse queryGatewayCheckEchotimeout(QueryGatewayCheckEchotimeoutRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -274,8 +285,9 @@ public class Client {
     }
 
     /**
-     * Description: 超时测试
-     * Summary: 超时
+     * <b>description</b> :
+     * <p>Description: 超时测试
+     * Summary: 超时</p>
      */
     public QueryGatewayCheckEchotimeoutResponse queryGatewayCheckEchotimeoutEx(QueryGatewayCheckEchotimeoutRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -283,8 +295,9 @@ public class Client {
     }
 
     /**
-     * Description: 10  测测aa
-     * Summary: 10s
+     * <b>description</b> :
+     * <p>Description: 10  测测aa
+     * Summary: 10s</p>
      */
     public QueryGatewayCheckEchotenResponse queryGatewayCheckEchoten(QueryGatewayCheckEchotenRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -293,8 +306,9 @@ public class Client {
     }
 
     /**
-     * Description: 10  测测aa
-     * Summary: 10s
+     * <b>description</b> :
+     * <p>Description: 10  测测aa
+     * Summary: 10s</p>
      */
     public QueryGatewayCheckEchotenResponse queryGatewayCheckEchotenEx(QueryGatewayCheckEchotenRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -302,8 +316,9 @@ public class Client {
     }
 
     /**
-     * Description: 简介简介简介s
-     * Summary: 简介简介
+     * <b>description</b> :
+     * <p>Description: 简介简介简介s
+     * Summary: 简介简介</p>
      */
     public QueryAdAsdAsdResponse queryAdAsdAsd(QueryAdAsdAsdRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -312,8 +327,9 @@ public class Client {
     }
 
     /**
-     * Description: 简介简介简介s
-     * Summary: 简介简介
+     * <b>description</b> :
+     * <p>Description: 简介简介简介s
+     * Summary: 简介简介</p>
      */
     public QueryAdAsdAsdResponse queryAdAsdAsdEx(QueryAdAsdAsdRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -321,8 +337,9 @@ public class Client {
     }
 
     /**
-     * Description: 根据入参组合返回结果，Fr 自动化连通性测试。
-     * Summary: road.init（Fr AutoT）
+     * <b>description</b> :
+     * <p>Description: 根据入参组合返回结果，Fr 自动化连通性测试。
+     * Summary: road.init（Fr AutoT）</p>
      */
     public InitGatewayRoadResponse initGatewayRoad(InitGatewayRoadRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -331,8 +348,9 @@ public class Client {
     }
 
     /**
-     * Description: 根据入参组合返回结果，Fr 自动化连通性测试。
-     * Summary: road.init（Fr AutoT）
+     * <b>description</b> :
+     * <p>Description: 根据入参组合返回结果，Fr 自动化连通性测试。
+     * Summary: road.init（Fr AutoT）</p>
      */
     public InitGatewayRoadResponse initGatewayRoadEx(InitGatewayRoadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -340,8 +358,9 @@ public class Client {
     }
 
     /**
-     * Description: 近端网关测试接口
-     * Summary: 近端网关测试接口（勿删）
+     * <b>description</b> :
+     * <p>Description: 近端网关测试接口
+     * Summary: 近端网关测试接口（勿删）</p>
      */
     public QueryGatewayEmbedResponse queryGatewayEmbed(QueryGatewayEmbedRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -350,8 +369,9 @@ public class Client {
     }
 
     /**
-     * Description: 近端网关测试接口
-     * Summary: 近端网关测试接口（勿删）
+     * <b>description</b> :
+     * <p>Description: 近端网关测试接口
+     * Summary: 近端网关测试接口（勿删）</p>
      */
     public QueryGatewayEmbedResponse queryGatewayEmbedEx(QueryGatewayEmbedRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -359,8 +379,9 @@ public class Client {
     }
 
     /**
-     * Description: 更新入参后返回结果，Fr 自动化连通性测试。
-     * Summary: road.upd（Fr AutoT）
+     * <b>description</b> :
+     * <p>Description: 更新入参后返回结果，Fr 自动化连通性测试。
+     * Summary: road.upd（Fr AutoT）</p>
      */
     public UpdateGatewayRoadResponse updateGatewayRoad(UpdateGatewayRoadRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -369,8 +390,9 @@ public class Client {
     }
 
     /**
-     * Description: 更新入参后返回结果，Fr 自动化连通性测试。
-     * Summary: road.upd（Fr AutoT）
+     * <b>description</b> :
+     * <p>Description: 更新入参后返回结果，Fr 自动化连通性测试。
+     * Summary: road.upd（Fr AutoT）</p>
      */
     public UpdateGatewayRoadResponse updateGatewayRoadEx(UpdateGatewayRoadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -378,8 +400,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询并返回结果，Fr 自动化连通性测试。
-     * Summary: road.query（Fr AutoT）
+     * <b>description</b> :
+     * <p>Description: 查询并返回结果，Fr 自动化连通性测试。
+     * Summary: road.query（Fr AutoT）</p>
      */
     public QueryGatewayRoadResponse queryGatewayRoad(QueryGatewayRoadRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -388,8 +411,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询并返回结果，Fr 自动化连通性测试。
-     * Summary: road.query（Fr AutoT）
+     * <b>description</b> :
+     * <p>Description: 查询并返回结果，Fr 自动化连通性测试。
+     * Summary: road.query（Fr AutoT）</p>
      */
     public QueryGatewayRoadResponse queryGatewayRoadEx(QueryGatewayRoadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -397,8 +421,9 @@ public class Client {
     }
 
     /**
-     * Description: 执行计算后返回，Fr 自动化连通性测试。
-     * Summary: road.exec（Fr AutoT）
+     * <b>description</b> :
+     * <p>Description: 执行计算后返回，Fr 自动化连通性测试。
+     * Summary: road.exec（Fr AutoT）</p>
      */
     public ExecGatewayRoadResponse execGatewayRoad(ExecGatewayRoadRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -407,8 +432,9 @@ public class Client {
     }
 
     /**
-     * Description: 执行计算后返回，Fr 自动化连通性测试。
-     * Summary: road.exec（Fr AutoT）
+     * <b>description</b> :
+     * <p>Description: 执行计算后返回，Fr 自动化连通性测试。
+     * Summary: road.exec（Fr AutoT）</p>
      */
     public ExecGatewayRoadResponse execGatewayRoadEx(ExecGatewayRoadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -416,8 +442,9 @@ public class Client {
     }
 
     /**
-     * Description: 压测接口3
-     * Summary: 压测接口3
+     * <b>description</b> :
+     * <p>Description: 压测接口3
+     * Summary: 压测接口3</p>
      */
     public QueryLoadtestTimeThreeResponse queryLoadtestTimeThree(QueryLoadtestTimeThreeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -426,8 +453,9 @@ public class Client {
     }
 
     /**
-     * Description: 压测接口3
-     * Summary: 压测接口3
+     * <b>description</b> :
+     * <p>Description: 压测接口3
+     * Summary: 压测接口3</p>
      */
     public QueryLoadtestTimeThreeResponse queryLoadtestTimeThreeEx(QueryLoadtestTimeThreeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -435,8 +463,9 @@ public class Client {
     }
 
     /**
-     * Description: test
-     * Summary: 自动化测试工程使用，勿删勿改
+     * <b>description</b> :
+     * <p>Description: test
+     * Summary: 自动化测试工程使用，勿删勿改</p>
      */
     public QueryInstanceidRuleResponse queryInstanceidRule(QueryInstanceidRuleRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -445,8 +474,9 @@ public class Client {
     }
 
     /**
-     * Description: test
-     * Summary: 自动化测试工程使用，勿删勿改
+     * <b>description</b> :
+     * <p>Description: test
+     * Summary: 自动化测试工程使用，勿删勿改</p>
      */
     public QueryInstanceidRuleResponse queryInstanceidRuleEx(QueryInstanceidRuleRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -454,8 +484,9 @@ public class Client {
     }
 
     /**
-     * Description: 设置下游耗时
-     * Summary: 超时（加密）
+     * <b>description</b> :
+     * <p>Description: 设置下游耗时
+     * Summary: 超时（加密）</p>
      */
     public QueryGatewayCheckEchotimeoutokResponse queryGatewayCheckEchotimeoutok(QueryGatewayCheckEchotimeoutokRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -464,8 +495,9 @@ public class Client {
     }
 
     /**
-     * Description: 设置下游耗时
-     * Summary: 超时（加密）
+     * <b>description</b> :
+     * <p>Description: 设置下游耗时
+     * Summary: 超时（加密）</p>
      */
     public QueryGatewayCheckEchotimeoutokResponse queryGatewayCheckEchotimeoutokEx(QueryGatewayCheckEchotimeoutokRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -473,8 +505,9 @@ public class Client {
     }
 
     /**
-     * Description: 双百&门户&网关，停服决策测试使用
-     * Summary: 商业化规则测试
+     * <b>description</b> :
+     * <p>Description: 双百&amp;门户&amp;网关，停服决策测试使用
+     * Summary: 商业化规则测试</p>
      */
     public MatchBusinessAndInstanceResponse matchBusinessAndInstance(MatchBusinessAndInstanceRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -483,8 +516,9 @@ public class Client {
     }
 
     /**
-     * Description: 双百&门户&网关，停服决策测试使用
-     * Summary: 商业化规则测试
+     * <b>description</b> :
+     * <p>Description: 双百&amp;门户&amp;网关，停服决策测试使用
+     * Summary: 商业化规则测试</p>
      */
     public MatchBusinessAndInstanceResponse matchBusinessAndInstanceEx(MatchBusinessAndInstanceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -492,8 +526,9 @@ public class Client {
     }
 
     /**
-     * Description: 流失查询测试
-     * Summary: 流失查询测试
+     * <b>description</b> :
+     * <p>Description: 流失查询测试
+     * Summary: 流失查询测试</p>
      */
     public QueryStreamTestResponse queryStreamTest(QueryStreamTestRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -502,8 +537,9 @@ public class Client {
     }
 
     /**
-     * Description: 流失查询测试
-     * Summary: 流失查询测试
+     * <b>description</b> :
+     * <p>Description: 流失查询测试
+     * Summary: 流失查询测试</p>
      */
     public QueryStreamTestResponse queryStreamTestEx(QueryStreamTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -511,8 +547,9 @@ public class Client {
     }
 
     /**
-     * Description: 网关性能优化测试
-     * Summary: 性能优化测试
+     * <b>description</b> :
+     * <p>Description: 网关性能优化测试
+     * Summary: 性能优化测试</p>
      */
     public QueryTestCatcheLimitResponse queryTestCatcheLimit(QueryTestCatcheLimitRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -521,8 +558,9 @@ public class Client {
     }
 
     /**
-     * Description: 网关性能优化测试
-     * Summary: 性能优化测试
+     * <b>description</b> :
+     * <p>Description: 网关性能优化测试
+     * Summary: 性能优化测试</p>
      */
     public QueryTestCatcheLimitResponse queryTestCatcheLimitEx(QueryTestCatcheLimitRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -530,8 +568,9 @@ public class Client {
     }
 
     /**
-     * Description: 测试使用
-     * Summary: 测试使用
+     * <b>description</b> :
+     * <p>Description: 测试使用
+     * Summary: 测试使用</p>
      */
     public QueryTestForLimitResponse queryTestForLimit(QueryTestForLimitRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -540,8 +579,9 @@ public class Client {
     }
 
     /**
-     * Description: 测试使用
-     * Summary: 测试使用
+     * <b>description</b> :
+     * <p>Description: 测试使用
+     * Summary: 测试使用</p>
      */
     public QueryTestForLimitResponse queryTestForLimitEx(QueryTestForLimitRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -549,8 +589,9 @@ public class Client {
     }
 
     /**
-     * Description: test
-     * Summary: test
+     * <b>description</b> :
+     * <p>Description: test
+     * Summary: test</p>
      */
     public QueryTestTestTestResponse queryTestTestTest(QueryTestTestTestRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -559,8 +600,9 @@ public class Client {
     }
 
     /**
-     * Description: test
-     * Summary: test
+     * <b>description</b> :
+     * <p>Description: test
+     * Summary: test</p>
      */
     public QueryTestTestTestResponse queryTestTestTestEx(QueryTestTestTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -568,8 +610,9 @@ public class Client {
     }
 
     /**
-     * Description: a
-     * Summary: abcde
+     * <b>description</b> :
+     * <p>Description: a
+     * Summary: abcde</p>
      */
     public QueryABCResponse queryABC(QueryABCRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -578,8 +621,9 @@ public class Client {
     }
 
     /**
-     * Description: a
-     * Summary: abcde
+     * <b>description</b> :
+     * <p>Description: a
+     * Summary: abcde</p>
      */
     public QueryABCResponse queryABCEx(QueryABCRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -587,8 +631,9 @@ public class Client {
     }
 
     /**
-     * Description: 近端接口测试
-     * Summary: 近端接口测试
+     * <b>description</b> :
+     * <p>Description: 近端接口测试
+     * Summary: 近端接口测试</p>
      */
     public QueryTestEmbedUserResponse queryTestEmbedUser(QueryTestEmbedUserRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -597,8 +642,9 @@ public class Client {
     }
 
     /**
-     * Description: 近端接口测试
-     * Summary: 近端接口测试
+     * <b>description</b> :
+     * <p>Description: 近端接口测试
+     * Summary: 近端接口测试</p>
      */
     public QueryTestEmbedUserResponse queryTestEmbedUserEx(QueryTestEmbedUserRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -606,8 +652,9 @@ public class Client {
     }
 
     /**
-     * Description: sss
-     * Summary: sss
+     * <b>description</b> :
+     * <p>Description: sss
+     * Summary: sss</p>
      */
     public QueryAasSaSaResponse queryAasSaSa(QueryAasSaSaRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -616,8 +663,9 @@ public class Client {
     }
 
     /**
-     * Description: sss
-     * Summary: sss
+     * <b>description</b> :
+     * <p>Description: sss
+     * Summary: sss</p>
      */
     public QueryAasSaSaResponse queryAasSaSaEx(QueryAasSaSaRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -625,8 +673,9 @@ public class Client {
     }
 
     /**
-     * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
-     * Summary: 自动化测试需要，【请勿做任何改动！】
+     * <b>description</b> :
+     * <p>Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+     * Summary: 自动化测试需要，【请勿做任何改动！】</p>
      */
     public QueryApiWhiteListResponse queryApiWhiteList(QueryApiWhiteListRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -635,8 +684,9 @@ public class Client {
     }
 
     /**
-     * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
-     * Summary: 自动化测试需要，【请勿做任何改动！】
+     * <b>description</b> :
+     * <p>Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+     * Summary: 自动化测试需要，【请勿做任何改动！】</p>
      */
     public QueryApiWhiteListResponse queryApiWhiteListEx(QueryApiWhiteListRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -644,8 +694,9 @@ public class Client {
     }
 
     /**
-     * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
-     * Summary: 自动化测试需要，【请勿做任何改动！】
+     * <b>description</b> :
+     * <p>Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+     * Summary: 自动化测试需要，【请勿做任何改动！】</p>
      */
     public QueryApiBlackListResponse queryApiBlackList(QueryApiBlackListRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -654,8 +705,9 @@ public class Client {
     }
 
     /**
-     * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
-     * Summary: 自动化测试需要，【请勿做任何改动！】
+     * <b>description</b> :
+     * <p>Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+     * Summary: 自动化测试需要，【请勿做任何改动！】</p>
      */
     public QueryApiBlackListResponse queryApiBlackListEx(QueryApiBlackListRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -663,8 +715,9 @@ public class Client {
     }
 
     /**
-     * Description: ip访问白名单测试
-     * Summary: 【自动化】ip访问白名单测试
+     * <b>description</b> :
+     * <p>Description: ip访问白名单测试
+     * Summary: 【自动化】ip访问白名单测试</p>
      */
     public QueryIpWhiteListResponse queryIpWhiteList(QueryIpWhiteListRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -673,8 +726,9 @@ public class Client {
     }
 
     /**
-     * Description: ip访问白名单测试
-     * Summary: 【自动化】ip访问白名单测试
+     * <b>description</b> :
+     * <p>Description: ip访问白名单测试
+     * Summary: 【自动化】ip访问白名单测试</p>
      */
     public QueryIpWhiteListResponse queryIpWhiteListEx(QueryIpWhiteListRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -682,8 +736,9 @@ public class Client {
     }
 
     /**
-     * Description: ip访问白名单测试
-     * Summary: 【自动化】ip访问黑名单测试
+     * <b>description</b> :
+     * <p>Description: ip访问白名单测试
+     * Summary: 【自动化】ip访问黑名单测试</p>
      */
     public QueryIpBlackListResponse queryIpBlackList(QueryIpBlackListRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -692,8 +747,9 @@ public class Client {
     }
 
     /**
-     * Description: ip访问白名单测试
-     * Summary: 【自动化】ip访问黑名单测试
+     * <b>description</b> :
+     * <p>Description: ip访问白名单测试
+     * Summary: 【自动化】ip访问黑名单测试</p>
      */
     public QueryIpBlackListResponse queryIpBlackListEx(QueryIpBlackListRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -701,8 +757,9 @@ public class Client {
     }
 
     /**
-     * Description: 重试策略
-     * Summary: 【自动化】重试策略
+     * <b>description</b> :
+     * <p>Description: 重试策略
+     * Summary: 【自动化】重试策略</p>
      */
     public QueryIpRetryResponse queryIpRetry(QueryIpRetryRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -711,8 +768,9 @@ public class Client {
     }
 
     /**
-     * Description: 重试策略
-     * Summary: 【自动化】重试策略
+     * <b>description</b> :
+     * <p>Description: 重试策略
+     * Summary: 【自动化】重试策略</p>
      */
     public QueryIpRetryResponse queryIpRetryEx(QueryIpRetryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -720,8 +778,9 @@ public class Client {
     }
 
     /**
-     * Description: 个人工作台二期测试
-     * Summary: 个人工作台二期测试
+     * <b>description</b> :
+     * <p>Description: 个人工作台二期测试
+     * Summary: 个人工作台二期测试</p>
      */
     public QueryTestTimeTestaResponse queryTestTimeTesta(QueryTestTimeTestaRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -730,8 +789,9 @@ public class Client {
     }
 
     /**
-     * Description: 个人工作台二期测试
-     * Summary: 个人工作台二期测试
+     * <b>description</b> :
+     * <p>Description: 个人工作台二期测试
+     * Summary: 个人工作台二期测试</p>
      */
     public QueryTestTimeTestaResponse queryTestTimeTestaEx(QueryTestTimeTestaRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -739,8 +799,177 @@ public class Client {
     }
 
     /**
-     * Description: 流式处理
-     * Summary: 流式处理
+     * <b>description</b> :
+     * <p>Description: oas 测试使用
+     * Summary: oas 测试使用</p>
+     */
+    public QueryOasRestResponse queryOasRest(QueryOasRestRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryOasRestEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: oas 测试使用
+     * Summary: oas 测试使用</p>
+     */
+    public QueryOasRestResponse queryOasRestEx(QueryOasRestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.oas.rest.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryOasRestResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试</p>
+     */
+    public QueryTestContentTypeResponse queryTestContentType(QueryTestContentTypeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTestContentTypeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试</p>
+     */
+    public QueryTestContentTypeResponse queryTestContentTypeEx(QueryTestContentTypeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.content.type.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestContentTypeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化测试contentType
+     * Summary: 自动化测试contentType</p>
+     */
+    public QueryTestContentTypeoneResponse queryTestContentTypeone(QueryTestContentTypeoneRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTestContentTypeoneEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化测试contentType
+     * Summary: 自动化测试contentType</p>
+     */
+    public QueryTestContentTypeoneResponse queryTestContentTypeoneEx(QueryTestContentTypeoneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.content.typeone.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestContentTypeoneResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试</p>
+     */
+    public QueryTestContentTypetwoResponse queryTestContentTypetwo(QueryTestContentTypetwoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTestContentTypetwoEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试</p>
+     */
+    public QueryTestContentTypetwoResponse queryTestContentTypetwoEx(QueryTestContentTypetwoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.content.typetwo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestContentTypetwoResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试</p>
+     */
+    public QueryTestContentTypethreeResponse queryTestContentTypethree(QueryTestContentTypethreeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTestContentTypethreeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试</p>
+     */
+    public QueryTestContentTypethreeResponse queryTestContentTypethreeEx(QueryTestContentTypethreeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.content.typethree.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestContentTypethreeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试</p>
+     */
+    public QueryTestContentTypefourResponse queryTestContentTypefour(QueryTestContentTypefourRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTestContentTypefourEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试</p>
+     */
+    public QueryTestContentTypefourResponse queryTestContentTypefourEx(QueryTestContentTypefourRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.content.typefour.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestContentTypefourResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试</p>
+     */
+    public QueryTestContentTypefiveResponse queryTestContentTypefive(QueryTestContentTypefiveRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTestContentTypefiveEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试</p>
+     */
+    public QueryTestContentTypefiveResponse queryTestContentTypefiveEx(QueryTestContentTypefiveRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.test.content.typefive.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTestContentTypefiveResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 金融场景风险分析
+     * Summary: 金融场景风险分析</p>
+     */
+    public QueryAgentFinancialRiskResponse queryAgentFinancialRisk(QueryAgentFinancialRiskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAgentFinancialRiskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 金融场景风险分析
+     * Summary: 金融场景风险分析</p>
+     */
+    public QueryAgentFinancialRiskResponse queryAgentFinancialRiskEx(QueryAgentFinancialRiskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "demo.agent.financial.risk.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAgentFinancialRiskResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 流式处理
+     * Summary: 流式处理</p>
      */
     public QueryStreamTestmethodResponse queryStreamTestmethod(QueryStreamTestmethodRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -749,8 +978,9 @@ public class Client {
     }
 
     /**
-     * Description: 流式处理
-     * Summary: 流式处理
+     * <b>description</b> :
+     * <p>Description: 流式处理
+     * Summary: 流式处理</p>
      */
     public QueryStreamTestmethodResponse queryStreamTestmethodEx(QueryStreamTestmethodRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -758,8 +988,9 @@ public class Client {
     }
 
     /**
-     * Description: 模拟下游超时情况
-     * Summary: 流式超时测试接口
+     * <b>description</b> :
+     * <p>Description: 模拟下游超时情况
+     * Summary: 流式超时测试接口</p>
      */
     public QueryStreamTimeoutResponse queryStreamTimeout(QueryStreamTimeoutRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -768,8 +999,9 @@ public class Client {
     }
 
     /**
-     * Description: 模拟下游超时情况
-     * Summary: 流式超时测试接口
+     * <b>description</b> :
+     * <p>Description: 模拟下游超时情况
+     * Summary: 流式超时测试接口</p>
      */
     public QueryStreamTimeoutResponse queryStreamTimeoutEx(QueryStreamTimeoutRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -777,8 +1009,9 @@ public class Client {
     }
 
     /**
-     * Description: 模拟下游返回非json的情况
-     * Summary: 流式下游返回非json
+     * <b>description</b> :
+     * <p>Description: 模拟下游返回非json的情况
+     * Summary: 流式下游返回非json</p>
      */
     public QueryStreamNonjsonResponse queryStreamNonjson(QueryStreamNonjsonRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -787,8 +1020,9 @@ public class Client {
     }
 
     /**
-     * Description: 模拟下游返回非json的情况
-     * Summary: 流式下游返回非json
+     * <b>description</b> :
+     * <p>Description: 模拟下游返回非json的情况
+     * Summary: 流式下游返回非json</p>
      */
     public QueryStreamNonjsonResponse queryStreamNonjsonEx(QueryStreamNonjsonRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -796,8 +1030,9 @@ public class Client {
     }
 
     /**
-     * Description: 流式出参包含特殊字符
-     * Summary: 流式出参包含特殊字符
+     * <b>description</b> :
+     * <p>Description: 流式出参包含特殊字符
+     * Summary: 流式出参包含特殊字符</p>
      */
     public QueryStreamSpecialCharactersResponse queryStreamSpecialCharacters(QueryStreamSpecialCharactersRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -806,8 +1041,9 @@ public class Client {
     }
 
     /**
-     * Description: 流式出参包含特殊字符
-     * Summary: 流式出参包含特殊字符
+     * <b>description</b> :
+     * <p>Description: 流式出参包含特殊字符
+     * Summary: 流式出参包含特殊字符</p>
      */
     public QueryStreamSpecialCharactersResponse queryStreamSpecialCharactersEx(QueryStreamSpecialCharactersRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -815,8 +1051,9 @@ public class Client {
     }
 
     /**
-     * Description: 非流式返回
-     * Summary: 非流式返回
+     * <b>description</b> :
+     * <p>Description: 非流式返回
+     * Summary: 非流式返回</p>
      */
     public QueryStreamNonstreamResponse queryStreamNonstream(QueryStreamNonstreamRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -825,8 +1062,9 @@ public class Client {
     }
 
     /**
-     * Description: 非流式返回
-     * Summary: 非流式返回
+     * <b>description</b> :
+     * <p>Description: 非流式返回
+     * Summary: 非流式返回</p>
      */
     public QueryStreamNonstreamResponse queryStreamNonstreamEx(QueryStreamNonstreamRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -834,8 +1072,9 @@ public class Client {
     }
 
     /**
-     * Description: 压测接口1
-     * Summary: 压测接口1
+     * <b>description</b> :
+     * <p>Description: 压测接口1
+     * Summary: 压测接口1</p>
      */
     public QueryLoadtestTimeOneResponse queryLoadtestTimeOne(QueryLoadtestTimeOneRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -844,8 +1083,9 @@ public class Client {
     }
 
     /**
-     * Description: 压测接口1
-     * Summary: 压测接口1
+     * <b>description</b> :
+     * <p>Description: 压测接口1
+     * Summary: 压测接口1</p>
      */
     public QueryLoadtestTimeOneResponse queryLoadtestTimeOneEx(QueryLoadtestTimeOneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -853,8 +1093,9 @@ public class Client {
     }
 
     /**
-     * Description: 压测接口2
-     * Summary: 压测接口2
+     * <b>description</b> :
+     * <p>Description: 压测接口2
+     * Summary: 压测接口2</p>
      */
     public QueryLoadtestTimeTwoResponse queryLoadtestTimeTwo(QueryLoadtestTimeTwoRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -863,8 +1104,9 @@ public class Client {
     }
 
     /**
-     * Description: 压测接口2
-     * Summary: 压测接口2
+     * <b>description</b> :
+     * <p>Description: 压测接口2
+     * Summary: 压测接口2</p>
      */
     public QueryLoadtestTimeTwoResponse queryLoadtestTimeTwoEx(QueryLoadtestTimeTwoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -872,8 +1114,9 @@ public class Client {
     }
 
     /**
-     * Description: 压测接口4，用于压测
-     * Summary: 压测接口4
+     * <b>description</b> :
+     * <p>Description: 压测接口4，用于压测
+     * Summary: 压测接口4</p>
      */
     public QueryLoadtestTimeFourResponse queryLoadtestTimeFour(QueryLoadtestTimeFourRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -882,8 +1125,9 @@ public class Client {
     }
 
     /**
-     * Description: 压测接口4，用于压测
-     * Summary: 压测接口4
+     * <b>description</b> :
+     * <p>Description: 压测接口4，用于压测
+     * Summary: 压测接口4</p>
      */
     public QueryLoadtestTimeFourResponse queryLoadtestTimeFourEx(QueryLoadtestTimeFourRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -891,8 +1135,9 @@ public class Client {
     }
 
     /**
-     * Description: 压测接口5，用于压测
-     * Summary: 压测接口5
+     * <b>description</b> :
+     * <p>Description: 压测接口5，用于压测
+     * Summary: 压测接口5</p>
      */
     public QueryLoadtestTimeFiveResponse queryLoadtestTimeFive(QueryLoadtestTimeFiveRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -901,8 +1146,9 @@ public class Client {
     }
 
     /**
-     * Description: 压测接口5，用于压测
-     * Summary: 压测接口5
+     * <b>description</b> :
+     * <p>Description: 压测接口5，用于压测
+     * Summary: 压测接口5</p>
      */
     public QueryLoadtestTimeFiveResponse queryLoadtestTimeFiveEx(QueryLoadtestTimeFiveRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -910,8 +1156,9 @@ public class Client {
     }
 
     /**
-     * Description: 大模型护栏多轮对话提问检测 测试
-     * Summary: 大模型护栏多轮对话提问检测
+     * <b>description</b> :
+     * <p>Description: 大模型护栏多轮对话提问检测 测试
+     * Summary: 大模型护栏多轮对话提问检测</p>
      */
     public CheckAicoguardcoreAicoguardrailsQuestionResponse checkAicoguardcoreAicoguardrailsQuestion(CheckAicoguardcoreAicoguardrailsQuestionRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -920,8 +1167,9 @@ public class Client {
     }
 
     /**
-     * Description: 大模型护栏多轮对话提问检测 测试
-     * Summary: 大模型护栏多轮对话提问检测
+     * <b>description</b> :
+     * <p>Description: 大模型护栏多轮对话提问检测 测试
+     * Summary: 大模型护栏多轮对话提问检测</p>
      */
     public CheckAicoguardcoreAicoguardrailsQuestionResponse checkAicoguardcoreAicoguardrailsQuestionEx(CheckAicoguardcoreAicoguardrailsQuestionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -929,8 +1177,9 @@ public class Client {
     }
 
     /**
-     * Description: 个人工作台二期测试
-     * Summary: 个人工作台二期测试
+     * <b>description</b> :
+     * <p>Description: 个人工作台二期测试
+     * Summary: 个人工作台二期测试</p>
      */
     public QueryTestTimeMenhuResponse queryTestTimeMenhu(QueryTestTimeMenhuRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -939,8 +1188,9 @@ public class Client {
     }
 
     /**
-     * Description: 个人工作台二期测试
-     * Summary: 个人工作台二期测试
+     * <b>description</b> :
+     * <p>Description: 个人工作台二期测试
+     * Summary: 个人工作台二期测试</p>
      */
     public QueryTestTimeMenhuResponse queryTestTimeMenhuEx(QueryTestTimeMenhuRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -948,8 +1198,9 @@ public class Client {
     }
 
     /**
-     * Description: 自动化测试创建test，请勿修改、删除
-     * Summary: 自动化测试创建test1
+     * <b>description</b> :
+     * <p>Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test1</p>
      */
     public BindAaaBbbCccResponse bindAaaBbbCcc(BindAaaBbbCccRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -958,8 +1209,9 @@ public class Client {
     }
 
     /**
-     * Description: 自动化测试创建test，请勿修改、删除
-     * Summary: 自动化测试创建test1
+     * <b>description</b> :
+     * <p>Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test1</p>
      */
     public BindAaaBbbCccResponse bindAaaBbbCccEx(BindAaaBbbCccRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -967,8 +1219,9 @@ public class Client {
     }
 
     /**
-     * Description: 自动化测试创建111
-     * Summary: 自动化测试创建（勿动）
+     * <b>description</b> :
+     * <p>Description: 自动化测试创建111
+     * Summary: 自动化测试创建（勿动）</p>
      */
     public QueryAaaBbbCccResponse queryAaaBbbCcc(QueryAaaBbbCccRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -977,8 +1230,9 @@ public class Client {
     }
 
     /**
-     * Description: 自动化测试创建111
-     * Summary: 自动化测试创建（勿动）
+     * <b>description</b> :
+     * <p>Description: 自动化测试创建111
+     * Summary: 自动化测试创建（勿动）</p>
      */
     public QueryAaaBbbCccResponse queryAaaBbbCccEx(QueryAaaBbbCccRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -986,8 +1240,9 @@ public class Client {
     }
 
     /**
-     * Description: 自动化测试创建,用于测试API的修改
-     * Summary: 自动化测试创建,用于测试API的修改勿动
+     * <b>description</b> :
+     * <p>Description: 自动化测试创建,用于测试API的修改
+     * Summary: 自动化测试创建,用于测试API的修改勿动</p>
      */
     public QueryAbcAbcAbcResponse queryAbcAbcAbc(QueryAbcAbcAbcRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -996,8 +1251,9 @@ public class Client {
     }
 
     /**
-     * Description: 自动化测试创建,用于测试API的修改
-     * Summary: 自动化测试创建,用于测试API的修改勿动
+     * <b>description</b> :
+     * <p>Description: 自动化测试创建,用于测试API的修改
+     * Summary: 自动化测试创建,用于测试API的修改勿动</p>
      */
     public QueryAbcAbcAbcResponse queryAbcAbcAbcEx(QueryAbcAbcAbcRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1005,8 +1261,9 @@ public class Client {
     }
 
     /**
-     * Description: 123
-     * Summary: 测试用api
+     * <b>description</b> :
+     * <p>Description: 123
+     * Summary: 测试用api</p>
      */
     public BindAaaBbbCcdResponse bindAaaBbbCcd(BindAaaBbbCcdRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1015,8 +1272,9 @@ public class Client {
     }
 
     /**
-     * Description: 123
-     * Summary: 测试用api
+     * <b>description</b> :
+     * <p>Description: 123
+     * Summary: 测试用api</p>
      */
     public BindAaaBbbCcdResponse bindAaaBbbCcdEx(BindAaaBbbCcdRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1024,8 +1282,9 @@ public class Client {
     }
 
     /**
-     * Description: 创建HTTP PUT提交的文件上传
-     * Summary: 文件上传创建
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
      */
     public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1034,8 +1293,9 @@ public class Client {
     }
 
     /**
-     * Description: 创建HTTP PUT提交的文件上传
-     * Summary: 文件上传创建
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
      */
     public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class Host extends TeaModel {
     // test_2e1ae924805f
+    /**
+     * <strong>example:</strong>
+     * <p>test_2e1ae924805f</p>
+     */
     @NameInMap("system_name")
     @Validation(required = true)
     public String systemName;
 
     // 地址
+    /**
+     * <strong>example:</strong>
+     * <p>test_941f18a4013b</p>
+     */
     @NameInMap("address")
     @Validation(required = true)
     public String address;

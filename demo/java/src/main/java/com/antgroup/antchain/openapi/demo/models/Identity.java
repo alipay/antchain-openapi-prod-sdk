@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class Identity extends TeaModel {
     // ak
+    /**
+     * <strong>example:</strong>
+     * <p>test_0efe42463f8f</p>
+     */
     @NameInMap("ak")
     @Validation(required = true)
     public String ak;

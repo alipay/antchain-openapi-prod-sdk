@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class SCRealEstateQueryResponsePayload extends TeaModel {
     // code
+    /**
+     * <strong>example:</strong>
+     * <p>200</p>
+     */
     @NameInMap("code")
     @Validation(required = true)
     public String code;
@@ -15,11 +19,19 @@ public class SCRealEstateQueryResponsePayload extends TeaModel {
     public java.util.List<SCRealEstateQueryResponseData> data;
 
     // uuid
+    /**
+     * <strong>example:</strong>
+     * <p>uuid</p>
+     */
     @NameInMap("uuid")
     @Validation(required = true)
     public String uuid;
 
     // ret_msg
+    /**
+     * <strong>example:</strong>
+     * <p>ret_msg</p>
+     */
     @NameInMap("ret_msg")
     @Validation(required = true)
     public String retMsg;

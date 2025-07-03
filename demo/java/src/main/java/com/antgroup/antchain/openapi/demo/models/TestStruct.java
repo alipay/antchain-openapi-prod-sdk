@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class TestStruct extends TeaModel {
     // x
+    /**
+     * <strong>example:</strong>
+     * <p>x</p>
+     */
     @NameInMap("x")
     @Validation(required = true)
     public String x;
 
     // y
+    /**
+     * <strong>example:</strong>
+     * <p>y</p>
+     */
     @NameInMap("y")
     @Validation(required = true)
     public DemoClass y;

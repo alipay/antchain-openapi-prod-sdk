@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class AnotherClass extends TeaModel {
     // 测试字段
+    /**
+     * <strong>example:</strong>
+     * <p>some string</p>
+     */
     @NameInMap("bar")
     @Validation(required = true)
     public String bar;

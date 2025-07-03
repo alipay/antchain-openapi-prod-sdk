@@ -5,51 +5,91 @@ import com.aliyun.tea.*;
 
 public class SCRealEstateQueryResponseData extends TeaModel {
     // area_code
+    /**
+     * <strong>example:</strong>
+     * <p>510108</p>
+     */
     @NameInMap("area_code")
     @Validation(required = true)
     public String areaCode;
 
     // area_name
+    /**
+     * <strong>example:</strong>
+     * <p>area_name</p>
+     */
     @NameInMap("area_name")
     @Validation(required = true)
     public String areaName;
 
     // bdcdyh
+    /**
+     * <strong>example:</strong>
+     * <p>bdcdyh</p>
+     */
     @NameInMap("bdcdyh")
     @Validation(required = true)
     public String bdcdyh;
 
     // bdcqzh
+    /**
+     * <strong>example:</strong>
+     * <p>bdcqzh</p>
+     */
     @NameInMap("bdcqzh")
     @Validation(required = true)
     public String bdcqzh;
 
     // djsj
+    /**
+     * <strong>example:</strong>
+     * <p>djsj</p>
+     */
     @NameInMap("djsj")
     @Validation(required = true)
     public String djsj;
 
     // fwyt1
+    /**
+     * <strong>example:</strong>
+     * <p>fwyt1</p>
+     */
     @NameInMap("fwyt1")
     @Validation(required = true)
     public String fwyt1;
 
     // gyqk
+    /**
+     * <strong>example:</strong>
+     * <p>gyqk</p>
+     */
     @NameInMap("gyqk")
     @Validation(required = true)
     public String gyqk;
 
     // qllx
+    /**
+     * <strong>example:</strong>
+     * <p>qllx</p>
+     */
     @NameInMap("qllx")
     @Validation(required = true)
     public String qllx;
 
     // qlrmc
+    /**
+     * <strong>example:</strong>
+     * <p>qlrmc</p>
+     */
     @NameInMap("qlrmc")
     @Validation(required = true)
     public String qlrmc;
 
     // scjzmj
+    /**
+     * <strong>example:</strong>
+     * <p>scjzmj</p>
+     */
     @NameInMap("scjzmj")
     @Validation(required = true)
     public String scjzmj;

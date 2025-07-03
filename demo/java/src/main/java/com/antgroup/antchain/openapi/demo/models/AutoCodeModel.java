@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class AutoCodeModel extends TeaModel {
     // 111
+    /**
+     * <strong>example:</strong>
+     * <p>111</p>
+     */
     @NameInMap("model_string_param")
     @Validation(required = true)
     public String modelStringParam;
 
     // 111
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("model_date_param")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String modelDateParam;
 
     // 111
+    /**
+     * <strong>example:</strong>
+     * <p>111</p>
+     */
     @NameInMap("model_array_param")
     @Validation(required = true)
     public java.util.List<String> modelArrayParam;

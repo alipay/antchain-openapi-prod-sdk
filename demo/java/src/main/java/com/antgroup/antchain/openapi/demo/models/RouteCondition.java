@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class RouteCondition extends TeaModel {
     // 渠道编号
+    /**
+     * <strong>example:</strong>
+     * <p>HZZKZTKJ</p>
+     */
     @NameInMap("channel_id")
     @Validation(required = true)
     public String channelId;

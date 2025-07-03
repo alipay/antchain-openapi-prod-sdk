@@ -5,26 +5,46 @@ import com.aliyun.tea.*;
 
 public class NumberTest extends TeaModel {
     // 1
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("parameter_1")
     @Validation(required = true, maximum = 5, minimum = 1)
     public Long parameter1;
 
     // 2
+    /**
+     * <strong>example:</strong>
+     * <p>2</p>
+     */
     @NameInMap("parameter_2")
     @Validation(required = true, maximum = 5, minimum = 1)
     public Long parameter2;
 
     // 3
+    /**
+     * <strong>example:</strong>
+     * <p>3</p>
+     */
     @NameInMap("parameter_3")
     @Validation(required = true, maximum = 5, minimum = 1)
     public Long parameter3;
 
     // 4
+    /**
+     * <strong>example:</strong>
+     * <p>4</p>
+     */
     @NameInMap("parameter_4")
     @Validation(required = true, maximum = 5, minimum = 1)
     public Long parameter4;
 
     // 5
+    /**
+     * <strong>example:</strong>
+     * <p>5</p>
+     */
     @NameInMap("parameter_5")
     @Validation(required = true)
     public DemoClass parameter5;

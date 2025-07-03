@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class QueryMap extends TeaModel {
     // 键值
+    /**
+     * <strong>example:</strong>
+     * <p>BUSINESS_CODE</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;

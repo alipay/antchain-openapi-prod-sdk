@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class TestObject extends TeaModel {
     // 主键
+    /**
+     * <strong>example:</strong>
+     * <p>12</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public Long id;
 
     // 名称
+    /**
+     * <strong>example:</strong>
+     * <p>小蜜</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;

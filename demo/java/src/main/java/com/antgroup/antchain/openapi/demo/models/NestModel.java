@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class NestModel extends TeaModel {
     // aaaa
+    /**
+     * <strong>example:</strong>
+     * <p>aaa</p>
+     */
     @NameInMap("a")
     @Validation(required = true)
     public String a;

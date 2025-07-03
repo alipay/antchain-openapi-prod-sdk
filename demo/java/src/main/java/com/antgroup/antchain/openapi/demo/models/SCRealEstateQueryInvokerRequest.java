@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class SCRealEstateQueryInvokerRequest extends TeaModel {
     // header
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;header&quot;: {}</p>
+     */
     @NameInMap("header")
     @Validation(required = true)
     public Header header;
 
     // body
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;body&quot;:{}</p>
+     */
     @NameInMap("body")
     @Validation(required = true)
     public SCRealEstateQueryBody body;

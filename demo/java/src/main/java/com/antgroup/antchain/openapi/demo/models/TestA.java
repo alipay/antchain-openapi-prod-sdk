@@ -5,51 +5,91 @@ import com.aliyun.tea.*;
 
 public class TestA extends TeaModel {
     // 1
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("parameter_1")
     @Validation(required = true)
     public String parameter1;
 
     // 2
+    /**
+     * <strong>example:</strong>
+     * <p>2</p>
+     */
     @NameInMap("parameter_2")
     @Validation(required = true)
     public String parameter2;
 
     // 3
+    /**
+     * <strong>example:</strong>
+     * <p>3</p>
+     */
     @NameInMap("parameter_3")
     @Validation(required = true)
     public String parameter3;
 
     // 4
+    /**
+     * <strong>example:</strong>
+     * <p>4</p>
+     */
     @NameInMap("parameter_4")
     @Validation(required = true)
     public String parameter4;
 
     // 5
+    /**
+     * <strong>example:</strong>
+     * <p>5</p>
+     */
     @NameInMap("parameter_5")
     @Validation(required = true)
     public String parameter5;
 
     // 6
+    /**
+     * <strong>example:</strong>
+     * <p>6</p>
+     */
     @NameInMap("parameter_6")
     @Validation(required = true)
     public String parameter6;
 
     // 7
+    /**
+     * <strong>example:</strong>
+     * <p>7</p>
+     */
     @NameInMap("parameter_7")
     @Validation(required = true)
     public String parameter7;
 
     // 8
+    /**
+     * <strong>example:</strong>
+     * <p>8</p>
+     */
     @NameInMap("parameter_8")
     @Validation(required = true)
     public String parameter8;
 
     // 9
+    /**
+     * <strong>example:</strong>
+     * <p>9</p>
+     */
     @NameInMap("parameter_9")
     @Validation(required = true)
     public String parameter9;
 
     // 10
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("parameter_10")
     @Validation(required = true)
     public String parameter10;

@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class ShangHaiTest extends TeaModel {
     // string
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("param_1")
     public String param1;
 
     // number
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("param_2")
     public Long param2;
 

@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class SCRealEstateQueryRequestBody extends TeaModel {
     // cmd
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;cmd&quot;: {       &quot;cmdCode&quot;: &quot;SC-RealEstate-Query&quot;,       &quot;version&quot;: &quot;test_d19bd9d59915&quot;     }</p>
+     */
     @NameInMap("cmd")
     @Validation(required = true)
     public Cmd cmd;
 
     // 路由信息
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;routeCondition&quot;: {       &quot;channelId&quot;: &quot;HZZKZTKJ&quot;     }</p>
+     */
     @NameInMap("route_condition")
     @Validation(required = true)
     public RouteCondition routeCondition;
 
     // requestId
+    /**
+     * <strong>example:</strong>
+     * <p>test_8c964bb7781a</p>
+     */
     @NameInMap("request_id")
     @Validation(required = true)
     public String requestId;
 
     // payload
+    /**
+     * <strong>example:</strong>
+     * <p>{ &quot;xm&quot;: &quot;张三&quot;,   &quot;sfz&quot;: &quot;51382219970820817X&quot;}</p>
+     */
     @NameInMap("payload")
     @Validation(required = true)
     public SCRealEstateQueryRequestPayload payload;

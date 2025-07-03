@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class DemoTestx extends TeaModel {
     // ability_id
+    /**
+     * <strong>example:</strong>
+     * <p>8000</p>
+     */
     @NameInMap("ability_id")
     @Validation(required = true)
     public String abilityId;

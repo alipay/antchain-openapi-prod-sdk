@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class FaceImage extends TeaModel {
     // 123
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("content")
     public String content;
 
     // 213
+    /**
+     * <strong>example:</strong>
+     * <p>13</p>
+     */
     @NameInMap("rect")
     public String rect;
 

@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class TestClass extends TeaModel {
     // 1
+    /**
+     * <strong>example:</strong>
+     * <p>testclass</p>
+     */
     @NameInMap("test")
     @Validation(required = true)
     public String test;
 
     // 2
+    /**
+     * <strong>example:</strong>
+     * <p>testclass</p>
+     */
     @NameInMap("demo")
     @Validation(required = true)
     public String demo;
 
     // 3
+    /**
+     * <strong>example:</strong>
+     * <p>id2</p>
+     */
     @NameInMap("demo1")
     @Validation(required = true)
     public String demo1;
 
     // 22
+    /**
+     * <strong>example:</strong>
+     * <p>12</p>
+     */
     @NameInMap("demo2")
     @Validation(required = true)
     public String demo2;

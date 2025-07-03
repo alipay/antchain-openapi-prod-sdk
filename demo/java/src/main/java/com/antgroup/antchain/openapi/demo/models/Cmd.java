@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class Cmd extends TeaModel {
     // cmd编码
+    /**
+     * <strong>example:</strong>
+     * <p>SC-RealEstate-Query</p>
+     */
     @NameInMap("cmd_code")
     @Validation(required = true)
     public String cmdCode;
 
     // 版本号
+    /**
+     * <strong>example:</strong>
+     * <p>test_d19bd9d59915</p>
+     */
     @NameInMap("version")
     @Validation(required = true)
     public String version;

@@ -5,15 +5,29 @@ import com.aliyun.tea.*;
 
 public class GroupAClass extends TeaModel {
     // -
+    /**
+     * <strong>example:</strong>
+     * <ul>
+     * <li></li>
+     * </ul>
+     */
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
     // 防伪码类型
+    /**
+     * <strong>example:</strong>
+     * <p>103001</p>
+     */
     @NameInMap("code_type")
     @Validation(required = true)
     public String codeType;
 
     // 防伪码码值
+    /**
+     * <strong>example:</strong>
+     * <p>600011111</p>
+     */
     @NameInMap("code")
     @Validation(required = true)
     public String code;

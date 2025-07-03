@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class SCRealEstateQueryRequestPayload extends TeaModel {
     // xm
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("xm")
     @Validation(required = true)
     public String xm;
 
     // sfz
+    /**
+     * <strong>example:</strong>
+     * <p>51382219970820817X</p>
+     */
     @NameInMap("sfz")
     @Validation(required = true)
     public String sfz;

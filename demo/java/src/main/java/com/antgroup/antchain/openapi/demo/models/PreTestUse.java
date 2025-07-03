@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class PreTestUse extends TeaModel {
     // 1
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("param_1")
     @Validation(required = true)
     public String param1;
 
     // 11
+    /**
+     * <strong>example:</strong>
+     * <p>11</p>
+     */
     @NameInMap("param_2")
     @Validation(required = true)
     public Long param2;
 
     // boolean
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("param_3")
     @Validation(required = true)
     public Boolean param3;

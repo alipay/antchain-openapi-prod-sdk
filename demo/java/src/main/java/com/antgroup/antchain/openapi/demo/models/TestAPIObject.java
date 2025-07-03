@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class TestAPIObject extends TeaModel {
     // test
+    /**
+     * <strong>example:</strong>
+     * <p>21</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public Long id;
