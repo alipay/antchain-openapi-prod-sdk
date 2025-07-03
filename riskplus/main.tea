@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.24.0',
+    sdk_version = '1.24.2',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -2358,6 +2358,95 @@ model XNameValuePair {
   name: string(name='name', example='key'),
   // 键值
   value: string(name='value', example='value'),
+}
+
+model ReceiveBenefithubRiskPayRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务分配的平台code，8位纯大写字母code
+  platformCode: string(name='platform_code'),
+  // 产品code
+  productCode: string(name='product_code'),
+  // 平台code、用户唯一ID 组合出全局唯一id
+  userUniqueId: string(name='user_unique_id'),
+  // 类型：订单支付结果类、订单退款类、续费扣款类、签约成功、解约成功、订单超时类型
+  // 具体如下：
+  // ODRDER_PAYMENT-订单支付结果类通知、ORDER_REFUND-订单退款、RENEWAL_DEDUCTION-续费扣款、CONTRACT_SIGNED-签约成功、CONTRACT_TERMINATED-解约成功、
+  // ORDER_TIMEOUT-订单超时类型
+  resultType: string(name='result_type'),
+  // 回调结果，json数据
+  // 各个平台返回的支付结果、支付退款、续费结果通知、签约、解约、订单、超时关单
+  callbackResult: string(name='callback_result'),
+}
+
+model ReceiveBenefithubRiskPayResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 支付成功、退款成功、续费扣款、超时关单、签约、解约，渠道方回调结果使用
+ * Summary: 权益流量业务支付签约相关通知
+ */
+async function receiveBenefithubRiskPay(request: ReceiveBenefithubRiskPayRequest): ReceiveBenefithubRiskPayResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return receiveBenefithubRiskPayEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支付成功、退款成功、续费扣款、超时关单、签约、解约，渠道方回调结果使用
+ * Summary: 权益流量业务支付签约相关通知
+ */
+async function receiveBenefithubRiskPayEx(request: ReceiveBenefithubRiskPayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReceiveBenefithubRiskPayResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.benefithub.risk.pay.receive', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyBenefithubRiskLoginRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 平台码
+  // 注：不同平台的平台码都是固定好的，如果传入的平台码有误会抛出平台码错误的信息
+  platformCode: string(name='platform_code'),
+  // 用户id
+  userUniqueId: string(name='user_unique_id'),
+  // 渠道、平台方推送的手机号
+  mobile: string(name='mobile'),
+}
+
+model NotifyBenefithubRiskLoginResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 渠道、平台方，联合登陆推送登陆通知信息
+ * Summary: 渠道/平台方推送的用户登陆信息
+ */
+async function notifyBenefithubRiskLogin(request: NotifyBenefithubRiskLoginRequest): NotifyBenefithubRiskLoginResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyBenefithubRiskLoginEx(request, headers, runtime);
+}
+
+/**
+ * Description: 渠道、平台方，联合登陆推送登陆通知信息
+ * Summary: 渠道/平台方推送的用户登陆信息
+ */
+async function notifyBenefithubRiskLoginEx(request: NotifyBenefithubRiskLoginRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyBenefithubRiskLoginResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.benefithub.risk.login.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model BatchqueryCreditshieldProductInfoRequest = {
@@ -7803,6 +7892,74 @@ async function batchqueryQmpRtMixedmarketing(request: BatchqueryQmpRtMixedmarket
 async function batchqueryQmpRtMixedmarketingEx(request: BatchqueryQmpRtMixedmarketingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryQmpRtMixedmarketingResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.qmp.rt.mixedmarketing.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadQmpOfflinehostplanRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件上传后的fileId
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // MOBILE/MOBILE_MD5/OAID/IDFA/IMEI选择其中一种
+  fileTemplate: string(name='file_template'),
+  // plancode，托管计划编码
+  planCode: string(name='plan_code'),
+  // OFFLINE_DECISION/OFFLINE_DECISION_ACTION,默认OFFLINE_DECISION_ACTION
+  relationType?: string(name='relation_type'),
+  // properties的header,其他的为ext_info,
+  properties?: string(name='properties'),
+  // 默认为false
+  needToRefactor?: boolean(name='need_to_refactor'),
+}
+
+model UploadQmpOfflinehostplanResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: qmp离线托管文件导入
+ * Summary: qmp离线托管文件导入
+ */
+async function uploadQmpOfflinehostplan(request: UploadQmpOfflinehostplanRequest): UploadQmpOfflinehostplanResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadQmpOfflinehostplanEx(request, headers, runtime);
+}
+
+/**
+ * Description: qmp离线托管文件导入
+ * Summary: qmp离线托管文件导入
+ */
+async function uploadQmpOfflinehostplanEx(request: UploadQmpOfflinehostplanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadQmpOfflinehostplanResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'riskplus.qmp.offlinehostplan.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadQmpOfflinehostplanResponse = new UploadQmpOfflinehostplanResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadQmpOfflinehostplanResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.qmp.offlinehostplan.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model SyncRdaasTaxAuthinfoRequest = {
