@@ -43,11 +43,17 @@ class QueryAntchainAtoWithholdActivepayRequest extends Model
      */
     public $payType;
 
-    // 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
+    // 无用字段，无需关注
     /**
      * @var string
      */
     public $payChannel;
+
+    // 多期支付的期数，当使用多期合并支付类型时必传。
+    /**
+     * @var int
+     */
+    public $multiPeriodNum;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +62,7 @@ class QueryAntchainAtoWithholdActivepayRequest extends Model
         'tradeNo'           => 'trade_no',
         'payType'           => 'pay_type',
         'payChannel'        => 'pay_channel',
+        'multiPeriodNum'    => 'multi_period_num',
     ];
 
     public function validate()
@@ -68,6 +75,7 @@ class QueryAntchainAtoWithholdActivepayRequest extends Model
         Model::validateMinLength('orderId', $this->orderId, 1);
         Model::validateMinLength('payType', $this->payType, 1);
         Model::validateMinimum('periodNum', $this->periodNum, 1);
+        Model::validateMinimum('multiPeriodNum', $this->multiPeriodNum, 1);
     }
 
     public function toMap()
@@ -93,6 +101,9 @@ class QueryAntchainAtoWithholdActivepayRequest extends Model
         }
         if (null !== $this->payChannel) {
             $res['pay_channel'] = $this->payChannel;
+        }
+        if (null !== $this->multiPeriodNum) {
+            $res['multi_period_num'] = $this->multiPeriodNum;
         }
 
         return $res;
@@ -126,6 +137,9 @@ class QueryAntchainAtoWithholdActivepayRequest extends Model
         }
         if (isset($map['pay_channel'])) {
             $model->payChannel = $map['pay_channel'];
+        }
+        if (isset($map['multi_period_num'])) {
+            $model->multiPeriodNum = $map['multi_period_num'];
         }
 
         return $model;

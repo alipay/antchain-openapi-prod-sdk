@@ -78,6 +78,30 @@ class ActivePayOrder extends Model
      * @var string
      */
     public $gmtPay;
+
+    // 支付单据创建时间
+    /**
+     * @example 2018-10-10T10:10:00Z
+     *
+     * @var string
+     */
+    public $gmtCreate;
+
+    // 多期合并支付明细
+    /**
+     * @example
+     *
+     * @var SingleTermDetail[]
+     */
+    public $multiPayDetail;
+
+    // 多期支付的期数
+    /**
+     * @example 1
+     *
+     * @var int
+     */
+    public $multiPeriodNum;
     protected $_name = [
         'tradeNo'          => 'trade_no',
         'tradeStatus'      => 'trade_status',
@@ -87,6 +111,9 @@ class ActivePayOrder extends Model
         'paidAmount'       => 'paid_amount',
         'receiptAmount'    => 'receipt_amount',
         'gmtPay'           => 'gmt_pay',
+        'gmtCreate'        => 'gmt_create',
+        'multiPayDetail'   => 'multi_pay_detail',
+        'multiPeriodNum'   => 'multi_period_num',
     ];
 
     public function validate()
@@ -103,6 +130,7 @@ class ActivePayOrder extends Model
         Model::validateMinimum('paidAmount', $this->paidAmount, 1);
         Model::validateMinimum('receiptAmount', $this->receiptAmount, 1);
         Model::validatePattern('gmtPay', $this->gmtPay, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validatePattern('gmtCreate', $this->gmtCreate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -131,6 +159,21 @@ class ActivePayOrder extends Model
         }
         if (null !== $this->gmtPay) {
             $res['gmt_pay'] = $this->gmtPay;
+        }
+        if (null !== $this->gmtCreate) {
+            $res['gmt_create'] = $this->gmtCreate;
+        }
+        if (null !== $this->multiPayDetail) {
+            $res['multi_pay_detail'] = [];
+            if (null !== $this->multiPayDetail && \is_array($this->multiPayDetail)) {
+                $n = 0;
+                foreach ($this->multiPayDetail as $item) {
+                    $res['multi_pay_detail'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->multiPeriodNum) {
+            $res['multi_period_num'] = $this->multiPeriodNum;
         }
 
         return $res;
@@ -167,6 +210,21 @@ class ActivePayOrder extends Model
         }
         if (isset($map['gmt_pay'])) {
             $model->gmtPay = $map['gmt_pay'];
+        }
+        if (isset($map['gmt_create'])) {
+            $model->gmtCreate = $map['gmt_create'];
+        }
+        if (isset($map['multi_pay_detail'])) {
+            if (!empty($map['multi_pay_detail'])) {
+                $model->multiPayDetail = [];
+                $n                     = 0;
+                foreach ($map['multi_pay_detail'] as $item) {
+                    $model->multiPayDetail[$n++] = null !== $item ? SingleTermDetail::fromMap($item) : $item;
+                }
+            }
+        }
+        if (isset($map['multi_period_num'])) {
+            $model->multiPeriodNum = $map['multi_period_num'];
         }
 
         return $model;

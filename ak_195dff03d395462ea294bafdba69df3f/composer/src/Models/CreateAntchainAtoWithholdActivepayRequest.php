@@ -44,13 +44,14 @@ class CreateAntchainAtoWithholdActivepayRequest extends Model
     public $payChannel;
 
     // 支付金额，单位为分
+    // 当支付类型非PERFORMANCE或为空必填
     /**
      * @var int
      */
     public $payAmount;
 
     // 经营分账标识Y/N
-    // 当pay_type=BUYOUT、PENALTY必填。
+    // 当pay_type=BUYOUT、PENALTY、MULTI_PAY必填。
     /**
      * @var string
      */
@@ -62,6 +63,13 @@ class CreateAntchainAtoWithholdActivepayRequest extends Model
      * @var OperationDivideTransInModel[]
      */
     public $operationDivideTransInList;
+
+    // 单期支付明细列表
+    // 当pay_type=MULTI_PAY必填。
+    /**
+     * @var SingleTermDetail[]
+     */
+    public $multiPayDetail;
     protected $_name = [
         'authToken'                  => 'auth_token',
         'productInstanceId'          => 'product_instance_id',
@@ -72,6 +80,7 @@ class CreateAntchainAtoWithholdActivepayRequest extends Model
         'payAmount'                  => 'pay_amount',
         'operationDivideFlag'        => 'operation_divide_flag',
         'operationDivideTransInList' => 'operation_divide_trans_in_list',
+        'multiPayDetail'             => 'multi_pay_detail',
     ];
 
     public function validate()
@@ -124,6 +133,15 @@ class CreateAntchainAtoWithholdActivepayRequest extends Model
                 }
             }
         }
+        if (null !== $this->multiPayDetail) {
+            $res['multi_pay_detail'] = [];
+            if (null !== $this->multiPayDetail && \is_array($this->multiPayDetail)) {
+                $n = 0;
+                foreach ($this->multiPayDetail as $item) {
+                    $res['multi_pay_detail'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
 
         return $res;
     }
@@ -166,6 +184,15 @@ class CreateAntchainAtoWithholdActivepayRequest extends Model
                 $n                                 = 0;
                 foreach ($map['operation_divide_trans_in_list'] as $item) {
                     $model->operationDivideTransInList[$n++] = null !== $item ? OperationDivideTransInModel::fromMap($item) : $item;
+                }
+            }
+        }
+        if (isset($map['multi_pay_detail'])) {
+            if (!empty($map['multi_pay_detail'])) {
+                $model->multiPayDetail = [];
+                $n                     = 0;
+                foreach ($map['multi_pay_detail'] as $item) {
+                    $model->multiPayDetail[$n++] = null !== $item ? SingleTermDetail::fromMap($item) : $item;
                 }
             }
         }

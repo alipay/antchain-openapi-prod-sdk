@@ -6,7 +6,7 @@ namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateAntchainAtoWithholdActivepayResponse extends Model
+class CreateAntchainAtoInnerTemplateResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,32 +26,16 @@ class CreateAntchainAtoWithholdActivepayResponse extends Model
      */
     public $resultMsg;
 
-    // 支付宝支付订单号，用于拉起主动支付页面
+    // 魔法库模板code
     /**
      * @var string
      */
-    public $tradeNo;
-
-    // 单据支付字符串
-    // app场景：返回签名字符串
-    // h5场景：返回支付链接
-    /**
-     * @var string
-     */
-    public $orderStr;
-
-    // 多期支付的期数，当发起多期合并支付时返回。
-    /**
-     * @var int
-     */
-    public $multiPeriodNum;
+    public $templateCode;
     protected $_name = [
-        'reqMsgId'       => 'req_msg_id',
-        'resultCode'     => 'result_code',
-        'resultMsg'      => 'result_msg',
-        'tradeNo'        => 'trade_no',
-        'orderStr'       => 'order_str',
-        'multiPeriodNum' => 'multi_period_num',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'templateCode' => 'template_code',
     ];
 
     public function validate()
@@ -70,14 +54,8 @@ class CreateAntchainAtoWithholdActivepayResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->tradeNo) {
-            $res['trade_no'] = $this->tradeNo;
-        }
-        if (null !== $this->orderStr) {
-            $res['order_str'] = $this->orderStr;
-        }
-        if (null !== $this->multiPeriodNum) {
-            $res['multi_period_num'] = $this->multiPeriodNum;
+        if (null !== $this->templateCode) {
+            $res['template_code'] = $this->templateCode;
         }
 
         return $res;
@@ -86,7 +64,7 @@ class CreateAntchainAtoWithholdActivepayResponse extends Model
     /**
      * @param array $map
      *
-     * @return CreateAntchainAtoWithholdActivepayResponse
+     * @return CreateAntchainAtoInnerTemplateResponse
      */
     public static function fromMap($map = [])
     {
@@ -100,14 +78,8 @@ class CreateAntchainAtoWithholdActivepayResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['trade_no'])) {
-            $model->tradeNo = $map['trade_no'];
-        }
-        if (isset($map['order_str'])) {
-            $model->orderStr = $map['order_str'];
-        }
-        if (isset($map['multi_period_num'])) {
-            $model->multiPeriodNum = $map['multi_period_num'];
+        if (isset($map['template_code'])) {
+            $model->templateCode = $map['template_code'];
         }
 
         return $model;

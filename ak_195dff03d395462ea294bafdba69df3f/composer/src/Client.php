@@ -11,10 +11,14 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AddAntchainAtoInnerTemplateRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AddAntchainAtoInnerTemplateResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AddAntchainAtoMerchantexpandDividerelationRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AddAntchainAtoMerchantexpandDividerelationResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AddAntchainAtoTradeFinanceprecheckRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AddAntchainAtoTradeFinanceprecheckResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AllAntchainAtoInnerTemplateRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AllAntchainAtoInnerTemplateResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AllAntchainAtoSignTemplateRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AllAntchainAtoSignTemplateResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ApplyAntchainAtoFundCreditutilizationRequest;
@@ -35,10 +39,14 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoWithhol
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoWithholdActivepayResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoWithholdPlanRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoWithholdPlanResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CloneAntchainAtoInnerTemplateRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CloneAntchainAtoInnerTemplateResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ConfirmAntchainAtoFundCompensateRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ConfirmAntchainAtoFundCompensateResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ConfirmAntchainAtoWithholdSignasyncunsignRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ConfirmAntchainAtoWithholdSignasyncunsignResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoInnerTemplateRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoInnerTemplateResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoRealpersonFacevrfRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoRealpersonFacevrfResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoWithholdActivepayRequest;
@@ -49,6 +57,10 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoWithhol
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoWithholdSignResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\DeleteAntchainAtoInnerTemplateRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\DeleteAntchainAtoInnerTemplateResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\DetailAntchainAtoInnerTemplateRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\DetailAntchainAtoInnerTemplateResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundCompensatesignurlRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundCompensatesignurlResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundFlowRequest;
@@ -77,16 +89,28 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeReque
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeUserperformanceRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeUserperformanceResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ListAntchainAtoInnerTemplateRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ListAntchainAtoInnerTemplateResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\NotifyAntchainAtoFundFlowRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\NotifyAntchainAtoFundFlowResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\PauseAntchainAtoTradeUserpromiseRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\PauseAntchainAtoTradeUserpromiseResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\PreviewAntchainAtoInnerTemplateRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\PreviewAntchainAtoInnerTemplateResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\PublishAntchainAtoInnerTemplateRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\PublishAntchainAtoInnerTemplateResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundAssetpackageRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundAssetpackageResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCompensateaccountRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCompensateaccountResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCreditRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCreditResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoInnerTemplateelementlinkRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoInnerTemplateelementlinkResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoInnerTemplateimageRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoInnerTemplateimageResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoInnerTemplateRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoInnerTemplateResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoMerchantexpandDividerelationRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoMerchantexpandDividerelationResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoMerchantexpandMerchantRequest;
@@ -107,6 +131,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RefuseAntchainAtoFundFlo
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RefuseAntchainAtoFundFlowResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RegisterAntchainAtoMerchantexpandMerchantRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RegisterAntchainAtoMerchantexpandMerchantResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RepayAntchainAtoFundPlanRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RepayAntchainAtoFundPlanResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RepayAntchainAtoWithholdPlanRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RepayAntchainAtoWithholdPlanResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ReplaceAntchainAtoTradeUserpromiseRequest;
@@ -115,6 +141,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ResumeAntchainAtoTradeUs
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ResumeAntchainAtoTradeUserpromiseResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RetryAntchainAtoWithholdPlanRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RetryAntchainAtoWithholdPlanResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SaveAntchainAtoInnerTemplateRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SaveAntchainAtoInnerTemplateResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoFrontSignRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoFrontSignResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoSignFlowRequest;
@@ -129,6 +157,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinan
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinanceprecheckresultResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundMerchantpromiseRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundMerchantpromiseResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoInnerTemplateRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoInnerTemplateResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeFinanceloanapplyRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeFinanceloanapplyResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeIndirectorderRequest;
@@ -141,6 +171,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\TransferAntchainAtoTrade
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\TransferAntchainAtoTradeFinanceResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UnbindAntchainAtoWithholdSignRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UnbindAntchainAtoWithholdSignResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UpdateAntchainAtoInnerTemplateRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UpdateAntchainAtoInnerTemplateResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UpdateAntchainAtoMerchantexpandMerchantRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UpdateAntchainAtoMerchantexpandMerchantResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UpdateAntchainAtoTradeOrderRequest;
@@ -306,7 +338,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.5.0',
+                    'sdk_version'      => '1.5.1',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -1071,8 +1103,8 @@ class Client
     }
 
     /**
-     * Description: 代扣主动支付创建
-     * Summary: 代扣主动支付创建.
+     * Description: 主动支付创建
+     * Summary: 主动支付创建.
      *
      * @param CreateAntchainAtoWithholdActivepayRequest $request
      *
@@ -1087,8 +1119,8 @@ class Client
     }
 
     /**
-     * Description: 代扣主动支付创建
-     * Summary: 代扣主动支付创建.
+     * Description: 主动支付创建
+     * Summary: 主动支付创建.
      *
      * @param CreateAntchainAtoWithholdActivepayRequest $request
      * @param string[]                                  $headers
@@ -1104,8 +1136,8 @@ class Client
     }
 
     /**
-     * Description: 代扣主动支付查询
-     * Summary: 代扣主动支付查询.
+     * Description: 主动支付查询
+     * Summary: 主动支付查询.
      *
      * @param QueryAntchainAtoWithholdActivepayRequest $request
      *
@@ -1120,8 +1152,8 @@ class Client
     }
 
     /**
-     * Description: 代扣主动支付查询
-     * Summary: 代扣主动支付查询.
+     * Description: 主动支付查询
+     * Summary: 主动支付查询.
      *
      * @param QueryAntchainAtoWithholdActivepayRequest $request
      * @param string[]                                 $headers
@@ -1137,8 +1169,8 @@ class Client
     }
 
     /**
-     * Description: 代扣主动支付取消
-     * Summary: 代扣主动支付取消.
+     * Description: 主动支付取消
+     * Summary: 主动支付取消.
      *
      * @param CancelAntchainAtoWithholdActivepayRequest $request
      *
@@ -1153,8 +1185,8 @@ class Client
     }
 
     /**
-     * Description: 代扣主动支付取消
-     * Summary: 代扣主动支付取消.
+     * Description: 主动支付取消
+     * Summary: 主动支付取消.
      *
      * @param CancelAntchainAtoWithholdActivepayRequest $request
      * @param string[]                                  $headers
@@ -1717,6 +1749,303 @@ class Client
     }
 
     /**
+     * Description: 内部接口，根据租户查询合同模板列表
+     * Summary: 查询模板列表.
+     *
+     * @param AllAntchainAtoInnerTemplateRequest $request
+     *
+     * @return AllAntchainAtoInnerTemplateResponse
+     */
+    public function allAntchainAtoInnerTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->allAntchainAtoInnerTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 内部接口，根据租户查询合同模板列表
+     * Summary: 查询模板列表.
+     *
+     * @param AllAntchainAtoInnerTemplateRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return AllAntchainAtoInnerTemplateResponse
+     */
+    public function allAntchainAtoInnerTemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AllAntchainAtoInnerTemplateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.template.all', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 内部接口，根据模板code查询合同模板版本列表
+     * Summary: 查询魔法库某一模板版本列表.
+     *
+     * @param ListAntchainAtoInnerTemplateRequest $request
+     *
+     * @return ListAntchainAtoInnerTemplateResponse
+     */
+    public function listAntchainAtoInnerTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listAntchainAtoInnerTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 内部接口，根据模板code查询合同模板版本列表
+     * Summary: 查询魔法库某一模板版本列表.
+     *
+     * @param ListAntchainAtoInnerTemplateRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return ListAntchainAtoInnerTemplateResponse
+     */
+    public function listAntchainAtoInnerTemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListAntchainAtoInnerTemplateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.template.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 内部接口，根据模板code查询指定版本的模板详情
+     * Summary: 查询魔法库模板详情.
+     *
+     * @param DetailAntchainAtoInnerTemplateRequest $request
+     *
+     * @return DetailAntchainAtoInnerTemplateResponse
+     */
+    public function detailAntchainAtoInnerTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailAntchainAtoInnerTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 内部接口，根据模板code查询指定版本的模板详情
+     * Summary: 查询魔法库模板详情.
+     *
+     * @param DetailAntchainAtoInnerTemplateRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return DetailAntchainAtoInnerTemplateResponse
+     */
+    public function detailAntchainAtoInnerTemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailAntchainAtoInnerTemplateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.template.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 内部接口，创建魔法库模板
+     * Summary: 创建模板
+     *
+     * @param CreateAntchainAtoInnerTemplateRequest $request
+     *
+     * @return CreateAntchainAtoInnerTemplateResponse
+     */
+    public function createAntchainAtoInnerTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntchainAtoInnerTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 内部接口，创建魔法库模板
+     * Summary: 创建模板
+     *
+     * @param CreateAntchainAtoInnerTemplateRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return CreateAntchainAtoInnerTemplateResponse
+     */
+    public function createAntchainAtoInnerTemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntchainAtoInnerTemplateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.template.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 内部接口，保存魔法库模板
+     * Summary: 保存魔法库模板
+     *
+     * @param SaveAntchainAtoInnerTemplateRequest $request
+     *
+     * @return SaveAntchainAtoInnerTemplateResponse
+     */
+    public function saveAntchainAtoInnerTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveAntchainAtoInnerTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 内部接口，保存魔法库模板
+     * Summary: 保存魔法库模板
+     *
+     * @param SaveAntchainAtoInnerTemplateRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return SaveAntchainAtoInnerTemplateResponse
+     */
+    public function saveAntchainAtoInnerTemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveAntchainAtoInnerTemplateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.template.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 内部接口，发布魔法库模板
+     * Summary: 发布魔法库模板
+     *
+     * @param PublishAntchainAtoInnerTemplateRequest $request
+     *
+     * @return PublishAntchainAtoInnerTemplateResponse
+     */
+    public function publishAntchainAtoInnerTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->publishAntchainAtoInnerTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 内部接口，发布魔法库模板
+     * Summary: 发布魔法库模板
+     *
+     * @param PublishAntchainAtoInnerTemplateRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return PublishAntchainAtoInnerTemplateResponse
+     */
+    public function publishAntchainAtoInnerTemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PublishAntchainAtoInnerTemplateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.template.publish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 内部接口，根据code预览对应魔法库模板
+     * Summary: 预览魔法库模板
+     *
+     * @param PreviewAntchainAtoInnerTemplateRequest $request
+     *
+     * @return PreviewAntchainAtoInnerTemplateResponse
+     */
+    public function previewAntchainAtoInnerTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->previewAntchainAtoInnerTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 内部接口，根据code预览对应魔法库模板
+     * Summary: 预览魔法库模板
+     *
+     * @param PreviewAntchainAtoInnerTemplateRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return PreviewAntchainAtoInnerTemplateResponse
+     */
+    public function previewAntchainAtoInnerTemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PreviewAntchainAtoInnerTemplateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.template.preview', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 内部接口，根据code删除对应魔法库模板
+     * Summary: 删除魔法库模板
+     *
+     * @param DeleteAntchainAtoInnerTemplateRequest $request
+     *
+     * @return DeleteAntchainAtoInnerTemplateResponse
+     */
+    public function deleteAntchainAtoInnerTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteAntchainAtoInnerTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 内部接口，根据code删除对应魔法库模板
+     * Summary: 删除魔法库模板
+     *
+     * @param DeleteAntchainAtoInnerTemplateRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return DeleteAntchainAtoInnerTemplateResponse
+     */
+    public function deleteAntchainAtoInnerTemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteAntchainAtoInnerTemplateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.template.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 内部接口，复制一个魔法库模板
+     * Summary: 复制魔法库模板
+     *
+     * @param CloneAntchainAtoInnerTemplateRequest $request
+     *
+     * @return CloneAntchainAtoInnerTemplateResponse
+     */
+    public function cloneAntchainAtoInnerTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cloneAntchainAtoInnerTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 内部接口，复制一个魔法库模板
+     * Summary: 复制魔法库模板
+     *
+     * @param CloneAntchainAtoInnerTemplateRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return CloneAntchainAtoInnerTemplateResponse
+     */
+    public function cloneAntchainAtoInnerTemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CloneAntchainAtoInnerTemplateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.template.clone', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
      * Summary: 资方合同文件已上传确认接口.
      *
@@ -1747,6 +2076,39 @@ class Client
         Utils::validateModel($request);
 
         return NotifyAntchainAtoFundFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.flow.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取模板的图片列表
+     * Summary: 获取模板的图片列表.
+     *
+     * @param QueryAntchainAtoInnerTemplateimageRequest $request
+     *
+     * @return QueryAntchainAtoInnerTemplateimageResponse
+     */
+    public function queryAntchainAtoInnerTemplateimage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAtoInnerTemplateimageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取模板的图片列表
+     * Summary: 获取模板的图片列表.
+     *
+     * @param QueryAntchainAtoInnerTemplateimageRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return QueryAntchainAtoInnerTemplateimageResponse
+     */
+    public function queryAntchainAtoInnerTemplateimageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAtoInnerTemplateimageResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.templateimage.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1915,6 +2277,72 @@ class Client
     }
 
     /**
+     * Description: 同步已发布的模板
+     * Summary: 同步已发布的模板
+     *
+     * @param SyncAntchainAtoInnerTemplateRequest $request
+     *
+     * @return SyncAntchainAtoInnerTemplateResponse
+     */
+    public function syncAntchainAtoInnerTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAntchainAtoInnerTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 同步已发布的模板
+     * Summary: 同步已发布的模板
+     *
+     * @param SyncAntchainAtoInnerTemplateRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return SyncAntchainAtoInnerTemplateResponse
+     */
+    public function syncAntchainAtoInnerTemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAntchainAtoInnerTemplateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.template.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新魔法库模板基本信息
+     * Summary: 更新魔法库模板基本信息.
+     *
+     * @param UpdateAntchainAtoInnerTemplateRequest $request
+     *
+     * @return UpdateAntchainAtoInnerTemplateResponse
+     */
+    public function updateAntchainAtoInnerTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateAntchainAtoInnerTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新魔法库模板基本信息
+     * Summary: 更新魔法库模板基本信息.
+     *
+     * @param UpdateAntchainAtoInnerTemplateRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return UpdateAntchainAtoInnerTemplateResponse
+     */
+    public function updateAntchainAtoInnerTemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateAntchainAtoInnerTemplateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.template.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 商户合同模板上传接口
      * Summary: 商户合同模板上传.
      *
@@ -1964,6 +2392,72 @@ class Client
         Utils::validateModel($request);
 
         return UploadAntchainAtoSignTemplateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.template.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过模板code更新模板的基本信息，比如模板名称等
+     * Summary: 查询模板的基本信息.
+     *
+     * @param QueryAntchainAtoInnerTemplateRequest $request
+     *
+     * @return QueryAntchainAtoInnerTemplateResponse
+     */
+    public function queryAntchainAtoInnerTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAtoInnerTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过模板code更新模板的基本信息，比如模板名称等
+     * Summary: 查询模板的基本信息.
+     *
+     * @param QueryAntchainAtoInnerTemplateRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryAntchainAtoInnerTemplateResponse
+     */
+    public function queryAntchainAtoInnerTemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAtoInnerTemplateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.template.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取模板关联的元素列表信息，包括组件信息
+     * Summary: 获取模板关联的元素列表信息.
+     *
+     * @param QueryAntchainAtoInnerTemplateelementlinkRequest $request
+     *
+     * @return QueryAntchainAtoInnerTemplateelementlinkResponse
+     */
+    public function queryAntchainAtoInnerTemplateelementlink($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAtoInnerTemplateelementlinkEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取模板关联的元素列表信息，包括组件信息
+     * Summary: 获取模板关联的元素列表信息.
+     *
+     * @param QueryAntchainAtoInnerTemplateelementlinkRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return QueryAntchainAtoInnerTemplateelementlinkResponse
+     */
+    public function queryAntchainAtoInnerTemplateelementlinkEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAtoInnerTemplateelementlinkResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.templateelementlink.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -2693,6 +3187,39 @@ class Client
     }
 
     /**
+     * Description: 合同模板制作根据已有模板新增合同模板文件
+     * Summary: 根据已有模板新增合同模板文件.
+     *
+     * @param AddAntchainAtoInnerTemplateRequest $request
+     *
+     * @return AddAntchainAtoInnerTemplateResponse
+     */
+    public function addAntchainAtoInnerTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addAntchainAtoInnerTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 合同模板制作根据已有模板新增合同模板文件
+     * Summary: 根据已有模板新增合同模板文件.
+     *
+     * @param AddAntchainAtoInnerTemplateRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return AddAntchainAtoInnerTemplateResponse
+     */
+    public function addAntchainAtoInnerTemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddAntchainAtoInnerTemplateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.template.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: ● 本接口获取用信授权
      * ● 本接口返回成功后，仅代表用信申请成功；不代表订单融资发起申请成功，融资申请结果通过异步消息通知
      * Summary: 用信申请接口.
@@ -2758,6 +3285,41 @@ class Client
         Utils::validateModel($request);
 
         return QueryAntchainAtoFundAssetpackageResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.assetpackage.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 调用说明：
+     * 1. 当商户通过其他方式还款后，通过次接口同步信息，同步完成后会将扣款进行取消
+     * Summary: 商户履约其他方式还款（单期取消）.
+     *
+     * @param RepayAntchainAtoFundPlanRequest $request
+     *
+     * @return RepayAntchainAtoFundPlanResponse
+     */
+    public function repayAntchainAtoFundPlan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->repayAntchainAtoFundPlanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 调用说明：
+     * 1. 当商户通过其他方式还款后，通过次接口同步信息，同步完成后会将扣款进行取消
+     * Summary: 商户履约其他方式还款（单期取消）.
+     *
+     * @param RepayAntchainAtoFundPlanRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return RepayAntchainAtoFundPlanResponse
+     */
+    public function repayAntchainAtoFundPlanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RepayAntchainAtoFundPlanResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.plan.repay', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
