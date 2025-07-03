@@ -7,6 +7,10 @@ public class OverdueInfoResponse extends TeaModel {
     // 逾期标识
     // true：逾期
     // false：未逾期
+    /**
+     * <strong>example:</strong>
+     * <p>true</p>
+     */
     @NameInMap("over_due_flag")
     @Validation(required = true)
     public Boolean overDueFlag;
@@ -62,6 +66,10 @@ public class OverdueInfoResponse extends TeaModel {
     public String settleDate;
 
     // 借款唯一编号
+    /**
+     * <strong>example:</strong>
+     * <p>R2022xxxxxx</p>
+     */
     @NameInMap("receipt_no")
     @Validation(required = true)
     public String receiptNo;
@@ -87,6 +95,10 @@ public class OverdueInfoResponse extends TeaModel {
     public String loanTime;
 
     // 结清标志
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("settle_flag")
     @Validation(required = true)
     public Boolean settleFlag;

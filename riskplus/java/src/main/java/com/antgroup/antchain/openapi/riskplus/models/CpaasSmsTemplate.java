@@ -5,30 +5,58 @@ import com.aliyun.tea.*;
 
 public class CpaasSmsTemplate extends TeaModel {
     // 模板类型
+    /**
+     * <strong>example:</strong>
+     * <p>SMS_NOTIFICATION</p>
+     */
     @NameInMap("template_type")
     public String templateType;
 
     // 模板名称
+    /**
+     * <strong>example:</strong>
+     * <p>扩展码测试</p>
+     */
     @NameInMap("template_name")
     public String templateName;
 
     // 模板内容
+    /**
+     * <strong>example:</strong>
+     * <p>扩展码测试</p>
+     */
     @NameInMap("template_content")
     public String templateContent;
 
     // 审批状态
+    /**
+     * <strong>example:</strong>
+     * <p>APPROVED</p>
+     */
     @NameInMap("status")
     public String status;
 
     // 模版code
+    /**
+     * <strong>example:</strong>
+     * <p>SMS_2306XXXX</p>
+     */
     @NameInMap("template_code")
     public String templateCode;
 
     // 审核未通过原因
+    /**
+     * <strong>example:</strong>
+     * <p>失败原因</p>
+     */
     @NameInMap("fail_reason")
     public String failReason;
 
     // 短信创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>短信创建时间</p>
+     */
     @NameInMap("create_time")
     public String createTime;
 

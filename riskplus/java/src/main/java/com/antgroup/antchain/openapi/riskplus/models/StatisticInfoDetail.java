@@ -5,22 +5,42 @@ import com.aliyun.tea.*;
 
 public class StatisticInfoDetail extends TeaModel {
     // actionDriverCode类型
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("action_driver_code")
     public Long actionDriverCode;
 
     // 成功数
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("success_count")
     public Long successCount;
 
     // 失败数
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("fail_count")
     public Long failCount;
 
     // 待触达的手机号数
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("waiting_sub_task_count")
     public Long waitingSubTaskCount;
 
     // 已收到的回执数
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("total_count")
     public Long totalCount;
 

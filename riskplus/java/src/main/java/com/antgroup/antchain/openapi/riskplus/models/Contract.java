@@ -5,31 +5,55 @@ import com.aliyun.tea.*;
 
 public class Contract extends TeaModel {
     // 关联编号
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("relation_no")
     @Validation(required = true)
     public String relationNo;
 
     // 合同编号
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("contract_no")
     @Validation(required = true)
     public String contractNo;
 
     // 合同名称
+    /**
+     * <strong>example:</strong>
+     * <p>用信合同</p>
+     */
     @NameInMap("contract_name")
     @Validation(required = true)
     public String contractName;
 
     // 合同类型
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("contract_type")
     @Validation(required = true)
     public String contractType;
 
     // 客户编号
+    /**
+     * <strong>example:</strong>
+     * <p>PCM123xxxx</p>
+     */
     @NameInMap("custom_no")
     @Validation(required = true)
     public String customNo;
 
     // 合同存放目录
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://11111">https://11111</a></p>
+     */
     @NameInMap("save_path")
     @Validation(required = true)
     public String savePath;
@@ -40,11 +64,19 @@ public class Contract extends TeaModel {
     public Long contractAmount;
 
     // 用信合同编号
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("disburse_contract_no")
     @Validation(required = true)
     public String disburseContractNo;
 
     // 授信合同编号
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("credit_contract_no")
     @Validation(required = true)
     public String creditContractNo;

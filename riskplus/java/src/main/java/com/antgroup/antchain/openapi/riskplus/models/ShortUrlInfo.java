@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class ShortUrlInfo extends TeaModel {
     // 支持卡片短信的手机号
+    /**
+     * <strong>example:</strong>
+     * <p>15012345678</p>
+     */
     @NameInMap("mobile")
     @Validation(required = true)
     public String mobile;
 
     // 解析生成的短链
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://www.alipay.com/F49v0ifM">https://www.alipay.com/F49v0ifM</a></p>
+     */
     @NameInMap("short_url")
     @Validation(required = true)
     public String shortUrl;

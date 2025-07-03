@@ -5,42 +5,82 @@ import com.aliyun.tea.*;
 
 public class RtopCompanyRiskInfo extends TeaModel {
     // 区域类型
+    /**
+     * <strong>example:</strong>
+     * <p>place_type</p>
+     */
     @NameInMap("place_type")
     public String placeType;
 
     // 区域
+    /**
+     * <strong>example:</strong>
+     * <p>天津市</p>
+     */
     @NameInMap("place_name")
     public String placeName;
 
     // 企业唯一id
+    /**
+     * <strong>example:</strong>
+     * <p>mct_one_id</p>
+     */
     @NameInMap("mct_one_id")
     public String mctOneId;
 
     // 企业统一社会信用代码
+    /**
+     * <strong>example:</strong>
+     * <p>uc_code</p>
+     */
     @NameInMap("uc_code")
     public String ucCode;
 
     // 工商注册号
+    /**
+     * <strong>example:</strong>
+     * <p>reg_no</p>
+     */
     @NameInMap("reg_no")
     public String regNo;
 
     // 组织机构代码
+    /**
+     * <strong>example:</strong>
+     * <p>org_code</p>
+     */
     @NameInMap("org_code")
     public String orgCode;
 
     // 企业名
+    /**
+     * <strong>example:</strong>
+     * <p>org_name</p>
+     */
     @NameInMap("org_name")
     public String orgName;
 
     // 风险评分
+    /**
+     * <strong>example:</strong>
+     * <p>risk_score</p>
+     */
     @NameInMap("risk_score")
     public String riskScore;
 
     // 风险变化程度排序，根据分值波动大小，标签变更次数排序
+    /**
+     * <strong>example:</strong>
+     * <p>risk_shift_rank</p>
+     */
     @NameInMap("risk_shift_rank")
     public String riskShiftRank;
 
     // 风险定性
+    /**
+     * <strong>example:</strong>
+     * <p>risk_type</p>
+     */
     @NameInMap("risk_type")
     public String riskType;
 
@@ -49,10 +89,18 @@ public class RtopCompanyRiskInfo extends TeaModel {
     public java.util.List<String> riskTagsId;
 
     // 线索
+    /**
+     * <strong>example:</strong>
+     * <p>tags_clue</p>
+     */
     @NameInMap("tags_clue")
     public String tagsClue;
 
     // 风险线索明细
+    /**
+     * <strong>example:</strong>
+     * <p>tags_clue_detail</p>
+     */
     @NameInMap("tags_clue_detail")
     public String tagsClueDetail;
 

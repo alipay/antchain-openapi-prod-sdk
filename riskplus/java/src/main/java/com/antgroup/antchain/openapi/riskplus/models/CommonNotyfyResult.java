@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class CommonNotyfyResult extends TeaModel {
     // 请求id
+    /**
+     * <strong>example:</strong>
+     * <p>123AA</p>
+     */
     @NameInMap("request_id")
     @Validation(required = true)
     public String requestId;
 
     // 业务响应Json
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;a&quot;:&quot;b&quot;} </p>
+     */
     @NameInMap("biz_response")
     @Validation(required = true)
     public String bizResponse;

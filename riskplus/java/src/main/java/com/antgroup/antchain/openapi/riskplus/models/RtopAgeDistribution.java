@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class RtopAgeDistribution extends TeaModel {
     // 年龄
+    /**
+     * <strong>example:</strong>
+     * <p>above20</p>
+     */
     @NameInMap("age")
     @Validation(required = true)
     public String age;
 
     // 统计值
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("count")
     @Validation(required = true)
     public Integer count;

@@ -5,26 +5,50 @@ import com.aliyun.tea.*;
 
 public class LiveInfo extends TeaModel {
     // 居住省份
+    /**
+     * <strong>example:</strong>
+     * <p>居住省份</p>
+     */
     @NameInMap("live_province")
     public String liveProvince;
 
     // 居住城市
+    /**
+     * <strong>example:</strong>
+     * <p>居住城市</p>
+     */
     @NameInMap("live_city")
     public String liveCity;
 
     // 居住区域
+    /**
+     * <strong>example:</strong>
+     * <p>居住区域</p>
+     */
     @NameInMap("live_area")
     public String liveArea;
 
     // 居住街道
+    /**
+     * <strong>example:</strong>
+     * <p>居住街道</p>
+     */
     @NameInMap("live_street")
     public String liveStreet;
 
     // 居住详细地址
+    /**
+     * <strong>example:</strong>
+     * <p>居住详细地址</p>
+     */
     @NameInMap("live_address")
     public String liveAddress;
 
     // 居住年限
+    /**
+     * <strong>example:</strong>
+     * <p>居住年限</p>
+     */
     @NameInMap("live_years")
     public Long liveYears;
 

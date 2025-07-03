@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class SceneInfos extends TeaModel {
     // 决策结果
+    /**
+     * <strong>example:</strong>
+     * <p>accept</p>
+     */
     @NameInMap("decision")
     @Validation(required = true)
     public String decision;
 
     // 场景code
+    /**
+     * <strong>example:</strong>
+     * <p>ANFAPP</p>
+     */
     @NameInMap("scene_code")
     @Validation(required = true)
     public String sceneCode;

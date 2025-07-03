@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class RtopLevelDistribution extends TeaModel {
     // 统计值
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("count")
     @Validation(required = true)
     public Integer count;
 
     // 等级
+    /**
+     * <strong>example:</strong>
+     * <p>EX_HIGH_RISK</p>
+     */
     @NameInMap("level")
     @Validation(required = true)
     public String level;

@@ -5,22 +5,42 @@ import com.aliyun.tea.*;
 
 public class ServiceContext extends TeaModel {
     // 客户端IP
+    /**
+     * <strong>example:</strong>
+     * <p>10.214.138.14</p>
+     */
     @NameInMap("client_ip")
     public String clientIp;
 
     // 客户端UMID
+    /**
+     * <strong>example:</strong>
+     * <p>WV1bz5927da956db072d3001792dcc67e</p>
+     */
     @NameInMap("client_pcidguid")
     public String clientPcidguid;
 
     // 服务器名
+    /**
+     * <strong>example:</strong>
+     * <p>server</p>
+     */
     @NameInMap("server_name")
     public String serverName;
 
     // 会话ID
+    /**
+     * <strong>example:</strong>
+     * <p>RZ1 2cz9oSg1GTGtGp9CwYtBbZMcD8DmobilecashierRZ12</p>
+     */
     @NameInMap("session_id")
     public String sessionId;
 
     // 用户ID
+    /**
+     * <strong>example:</strong>
+     * <p>2088522384403582</p>
+     */
     @NameInMap("user_id")
     public String userId;
 

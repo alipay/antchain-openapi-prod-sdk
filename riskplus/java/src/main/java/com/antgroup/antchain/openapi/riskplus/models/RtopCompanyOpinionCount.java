@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class RtopCompanyOpinionCount extends TeaModel {
     // 企业名称
+    /**
+     * <strong>example:</strong>
+     * <p>福州北辰智创投资中心</p>
+     */
     @NameInMap("company_name")
     @Validation(required = true)
     public String companyName;
 
     // 企业对应的舆情数量
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("count")
     @Validation(required = true)
     public Integer count;

@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class BatchQueryResult extends TeaModel {
     // 查询主体
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("query_key")
     @Validation(required = true)
     public String queryKey;
 
     // 单用户决策结果
+    /**
+     * <strong>example:</strong>
+     * <p>accept</p>
+     */
     @NameInMap("decision")
     @Validation(required = true)
     public String decision;

@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class SecurityDataQueryStruct extends TeaModel {
     // 请求数据参数
+    /**
+     * <strong>example:</strong>
+     * <p>{}</p>
+     */
     @NameInMap("params")
     @Validation(required = true)
     public String params;
 
     // 请求数据类型
+    /**
+     * <strong>example:</strong>
+     * <p>IP</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public String type;
 
     // 请求数据版本
+    /**
+     * <strong>example:</strong>
+     * <p>1.0</p>
+     */
     @NameInMap("version")
     @Validation(required = true)
     public String version;

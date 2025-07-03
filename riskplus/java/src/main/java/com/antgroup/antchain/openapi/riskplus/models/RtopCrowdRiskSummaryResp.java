@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class RtopCrowdRiskSummaryResp extends TeaModel {
     // 活跃市
+    /**
+     * <strong>example:</strong>
+     * <p>杭州市</p>
+     */
     @NameInMap("active_city")
     public String activeCity;
 
     // 活跃县
+    /**
+     * <strong>example:</strong>
+     * <p>西湖区</p>
+     */
     @NameInMap("active_county")
     public String activeCounty;
 
     // 活跃省
+    /**
+     * <strong>example:</strong>
+     * <p>浙江省</p>
+     */
     @NameInMap("active_province")
     public String activeProvince;
 
@@ -21,49 +33,93 @@ public class RtopCrowdRiskSummaryResp extends TeaModel {
     public java.util.List<String> clueTags;
 
     // 企业ID
+    /**
+     * <strong>example:</strong>
+     * <p>123456789</p>
+     */
     @NameInMap("company_id")
     @Validation(required = true)
     public String companyId;
 
     // 企业名称
+    /**
+     * <strong>example:</strong>
+     * <p>XXXXX有限公司</p>
+     */
     @NameInMap("company_name")
     @Validation(required = true)
     public String companyName;
 
     // 风险等级
+    /**
+     * <strong>example:</strong>
+     * <p>EX_HIGH_RISK</p>
+     */
     @NameInMap("crowd_risk_level")
     public String crowdRiskLevel;
 
     // 涉众风险分数
+    /**
+     * <strong>example:</strong>
+     * <p>80</p>
+     */
     @NameInMap("crowd_risk_score")
     public Long crowdRiskScore;
 
     // 涉众风险类型
+    /**
+     * <strong>example:</strong>
+     * <p>MLM</p>
+     */
     @NameInMap("crowd_risk_type")
     public String crowdRiskType;
 
     // 发现时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-07-15</p>
+     */
     @NameInMap("detected_time")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String detectedTime;
 
     // 影响金额
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("money_involved")
     public Long moneyInvolved;
 
     // 影响人数
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("people_involved")
     public Long peopleInvolved;
 
     // 注册市
+    /**
+     * <strong>example:</strong>
+     * <p>杭州市</p>
+     */
     @NameInMap("registered_city")
     public String registeredCity;
 
     // 注册县
+    /**
+     * <strong>example:</strong>
+     * <p>西湖区</p>
+     */
     @NameInMap("registered_county")
     public String registeredCounty;
 
     // 注册省
+    /**
+     * <strong>example:</strong>
+     * <p>浙江省</p>
+     */
     @NameInMap("registered_province")
     public String registeredProvince;
 

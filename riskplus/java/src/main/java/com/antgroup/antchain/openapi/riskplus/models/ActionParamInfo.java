@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class ActionParamInfo extends TeaModel {
     // 触达媒介类型
+    /**
+     * <strong>example:</strong>
+     * <p>ROBOT_CALL</p>
+     */
     @NameInMap("content_type")
     @Validation(required = true)
     public String contentType;
 
     // 触达媒介参数列表
+    /**
+     * <strong>example:</strong>
+     * <p>[&quot;a&quot;,&quot;b&quot;]</p>
+     */
     @NameInMap("action_param")
     @Validation(required = true)
     public java.util.List<String> actionParam;

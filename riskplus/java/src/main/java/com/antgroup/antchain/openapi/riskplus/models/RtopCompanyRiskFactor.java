@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class RtopCompanyRiskFactor extends TeaModel {
     // 维度名称
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("name")
     public String name;
 

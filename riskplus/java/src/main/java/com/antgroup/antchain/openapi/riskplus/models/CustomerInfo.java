@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class CustomerInfo extends TeaModel {
     // 查询的用户凭证列表
+    /**
+     * <strong>example:</strong>
+     * <p>15022321363</p>
+     */
     @NameInMap("customer_key")
     @Validation(required = true)
     public String customerKey;
 
     // 客户属性的额外信息
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;test_score&quot;: 22.0}</p>
+     */
     @NameInMap("properties")
     public String properties;
 

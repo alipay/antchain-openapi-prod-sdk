@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class RiskDetail extends TeaModel {
     // 反欺诈风险数据服务命中规则风险权重
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("rule_weight")
     @Validation(required = true)
     public String ruleWeight;
 
     // 反欺诈风险数据服务命中规则名称
+    /**
+     * <strong>example:</strong>
+     * <p>贷款车辆厂商指导价与实际不符</p>
+     */
     @NameInMap("rule_name")
     @Validation(required = true)
     public String ruleName;

@@ -5,93 +5,169 @@ import com.aliyun.tea.*;
 
 public class AICallbackMessage extends TeaModel {
     // 批次号
+    /**
+     * <strong>example:</strong>
+     * <p>5de2ccbf87914544afb57a77e39ec023</p>
+     */
     @NameInMap("batch_id")
     public String batchId;
 
     // 用户标签
+    /**
+     * <strong>example:</strong>
+     * <p>阿松大</p>
+     */
     @NameInMap("tag")
     @Validation(required = true)
     public String tag;
 
     // 外呼id
+    /**
+     * <strong>example:</strong>
+     * <p>CALLID</p>
+     */
     @NameInMap("call_id")
     @Validation(required = true)
     public String callId;
 
     // 外呼的话术模板Id
+    /**
+     * <strong>example:</strong>
+     * <p>7</p>
+     */
     @NameInMap("template_id")
     public Long templateId;
 
     // 外呼状态编码
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("status_code")
     @Validation(required = true)
     public Long statusCode;
 
     // 外呼状态描述
+    /**
+     * <strong>example:</strong>
+     * <p>已接听</p>
+     */
     @NameInMap("status_description")
     @Validation(required = true)
     public String statusDescription;
 
     // 导入时间
+    /**
+     * <strong>example:</strong>
+     * <p>2019-11-23 14:47:06</p>
+     */
     @NameInMap("import_time")
     @Validation(required = true)
     public String importTime;
 
     // 开始通话时间
+    /**
+     * <strong>example:</strong>
+     * <p>2019-11-23 14:47:06</p>
+     */
     @NameInMap("call_begin_time")
     @Validation(required = true)
     public String callBeginTime;
 
     // 振铃时长, 单位毫秒
+    /**
+     * <strong>example:</strong>
+     * <p>2000</p>
+     */
     @NameInMap("ring_time")
     @Validation(required = true)
     public Long ringTime;
 
     // 接通时间
+    /**
+     * <strong>example:</strong>
+     * <p>2019-01-09 14:14:19</p>
+     */
     @NameInMap("answer_time")
     @Validation(required = true)
     public String answerTime;
 
     // AI通话时长,单位s
+    /**
+     * <strong>example:</strong>
+     * <p>20</p>
+     */
     @NameInMap("speaking_duration")
     @Validation(required = true)
     public Long speakingDuration;
 
     // 挂断时间
+    /**
+     * <strong>example:</strong>
+     * <p>2019-01-09 14:14:19</p>
+     */
     @NameInMap("hangup_time")
     @Validation(required = true)
     public String hangupTime;
 
     // 对话轮次
+    /**
+     * <strong>example:</strong>
+     * <p>5</p>
+     */
     @NameInMap("speaking_turns")
     @Validation(required = true)
     public Long speakingTurns;
 
     // 意向标签
+    /**
+     * <strong>example:</strong>
+     * <p>C</p>
+     */
     @NameInMap("intent_tag")
     @Validation(required = true)
     public String intentTag;
 
     // 意向说明
+    /**
+     * <strong>example:</strong>
+     * <p>确认本人,未承诺还款</p>
+     */
     @NameInMap("intent_description")
     @Validation(required = true)
     public String intentDescription;
 
     // 个性标签
+    /**
+     * <strong>example:</strong>
+     * <p>a</p>
+     */
     @NameInMap("individual_tag")
     @Validation(required = true)
     public String individualTag;
 
     // 回复关键词
+    /**
+     * <strong>example:</strong>
+     * <p>利息</p>
+     */
     @NameInMap("keywords")
     @Validation(required = true)
     public String keywords;
 
     // 对话录音
+    /**
+     * <strong>example:</strong>
+     * <p>录音url</p>
+     */
     @NameInMap("chat_record")
     public String chatRecord;
 
     // 参数值
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;电话号码&quot;:&quot;13100000000&quot;}</p>
+     */
     @NameInMap("properties")
     @Validation(required = true)
     public String properties;

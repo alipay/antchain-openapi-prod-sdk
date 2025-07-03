@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class RtopDateDistribution extends TeaModel {
     // 统计值
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("count")
     @Validation(required = true)
     public Integer count;
 
     // 年龄
+    /**
+     * <strong>example:</strong>
+     * <p>2018-09-09</p>
+     */
     @NameInMap("date")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String date;

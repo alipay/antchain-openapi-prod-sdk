@@ -5,46 +5,82 @@ import com.aliyun.tea.*;
 
 public class EventResultSyncDetail extends TeaModel {
     // 事件唯一id（单个租户全局唯一）
+    /**
+     * <strong>example:</strong>
+     * <p>12345</p>
+     */
     @NameInMap("event_id")
     @Validation(required = true)
     public String eventId;
 
     // 营销计划id
+    /**
+     * <strong>example:</strong>
+     * <p>12345</p>
+     */
     @NameInMap("plan_id")
     @Validation(required = true)
     public String planId;
 
     // 消息id
+    /**
+     * <strong>example:</strong>
+     * <p>1122</p>
+     */
     @NameInMap("msg_id")
     @Validation(required = true)
     public String msgId;
 
     // 事件时间
+    /**
+     * <strong>example:</strong>
+     * <p>yyyy-MM-dd HH:mm:ss.SSS </p>
+     */
     @NameInMap("event_time")
     @Validation(required = true)
     public String eventTime;
 
     // 事件类型：1为富信贴尾
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("event_type")
     @Validation(required = true)
     public Long eventType;
 
     // 1为成功 2为失败
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("state")
     @Validation(required = true)
     public Long state;
 
     // 用户key类型
+    /**
+     * <strong>example:</strong>
+     * <p>MOBILE</p>
+     */
     @NameInMap("key_type")
     @Validation(required = true)
     public String keyType;
 
     // 手机号
+    /**
+     * <strong>example:</strong>
+     * <p>15012340000</p>
+     */
     @NameInMap("customer_key")
     @Validation(required = true)
     public String customerKey;
 
     // 扩展字段
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;operator&quot;:&quot;CMCC&quot;}</p>
+     */
     @NameInMap("ext_data")
     @Validation(required = true)
     public String extData;

@@ -9,11 +9,19 @@ public class DecisionFlow extends TeaModel {
     public OutParams decisionFlow;
 
     // 决策结果
+    /**
+     * <strong>example:</strong>
+     * <p>reject</p>
+     */
     @NameInMap("decision")
     @Validation(required = true)
     public String decision;
 
     // infocodes
+    /**
+     * <strong>example:</strong>
+     * <p>infocodes</p>
+     */
     @NameInMap("info_codes")
     public InfoCodes infoCodes;
 

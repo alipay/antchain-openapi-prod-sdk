@@ -5,54 +5,106 @@ import com.aliyun.tea.*;
 
 public class JobInfo extends TeaModel {
     // 职业
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("job_type")
     public String jobType;
 
     // 职务
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("work_position")
     public String workPosition;
 
     // 工作年限
+    /**
+     * <strong>example:</strong>
+     * <p>2</p>
+     */
     @NameInMap("job_life")
     public String jobLife;
 
     // 本单位工作年限
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("current_job_life")
     public Long currentJobLife;
 
     // 公司名称
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("company_name")
     public String companyName;
 
     // 公司行业类型
+    /**
+     * <strong>example:</strong>
+     * <p>xx</p>
+     */
     @NameInMap("company_industry_type")
     public String companyIndustryType;
 
     // 公司电话
+    /**
+     * <strong>example:</strong>
+     * <p>111</p>
+     */
     @NameInMap("company_tel")
     public String companyTel;
 
     // 公司省份
+    /**
+     * <strong>example:</strong>
+     * <p>浙江</p>
+     */
     @NameInMap("company_province")
     public String companyProvince;
 
     // 公司城市
+    /**
+     * <strong>example:</strong>
+     * <p>公司城市</p>
+     */
     @NameInMap("company_city")
     public String companyCity;
 
     // 公司区域
+    /**
+     * <strong>example:</strong>
+     * <p>公司区域</p>
+     */
     @NameInMap("company_area")
     public String companyArea;
 
     // 公司街道
+    /**
+     * <strong>example:</strong>
+     * <p>公司街道</p>
+     */
     @NameInMap("company_street")
     public String companyStreet;
 
     // 公司详细地址
+    /**
+     * <strong>example:</strong>
+     * <p>公司详细地址</p>
+     */
     @NameInMap("company_address")
     public String companyAddress;
 
     // 年收入
+    /**
+     * <strong>example:</strong>
+     * <p>年收入</p>
+     */
     @NameInMap("year_salary")
     public Long yearSalary;
 

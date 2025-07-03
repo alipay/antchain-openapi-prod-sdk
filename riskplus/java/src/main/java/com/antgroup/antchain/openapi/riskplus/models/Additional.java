@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class Additional extends TeaModel {
     // 骑手标识；1-骑手
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("deliveryman")
     public String deliveryman;
 
     // 关键词
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
     @NameInMap("key_word")
     public String keyWord;
 

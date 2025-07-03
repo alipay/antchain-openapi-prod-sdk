@@ -10,6 +10,10 @@ public class CustomerUmktInfoModel extends TeaModel {
     public BaseCustomerUmktInfoModel baseInfo;
 
     // 额外的营销分结果
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;f_01&quot;:&quot;95.0&quot;}</p>
+     */
     @NameInMap("umkt_out_put_info")
     public String umktOutPutInfo;
 

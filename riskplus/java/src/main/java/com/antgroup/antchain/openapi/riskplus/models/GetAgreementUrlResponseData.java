@@ -5,19 +5,35 @@ import com.aliyun.tea.*;
 
 public class GetAgreementUrlResponseData extends TeaModel {
     // 协议标题
+    /**
+     * <strong>example:</strong>
+     * <p>授信协议</p>
+     */
     @NameInMap("title")
     @Validation(required = true)
     public String title;
 
     // 协议地址
+    /**
+     * <strong>example:</strong>
+     * <p>http:xxxxxxxx</p>
+     */
     @NameInMap("agreement_url")
     public String agreementUrl;
 
     // 协议文件Base64
+    /**
+     * <strong>example:</strong>
+     * <p>111</p>
+     */
     @NameInMap("file_base64")
     public String fileBase64;
 
     // 协议图片文件base64集合
+    /**
+     * <strong>example:</strong>
+     * <p>111111</p>
+     */
     @NameInMap("pic_file_base64_list")
     public java.util.List<String> picFileBase64List;
 
@@ -26,16 +42,28 @@ public class GetAgreementUrlResponseData extends TeaModel {
     public java.util.List<String> picOssPathList;
 
     // 机构名称
+    /**
+     * <strong>example:</strong>
+     * <p>杭银</p>
+     */
     @NameInMap("organization_name")
     @Validation(required = true)
     public String organizationName;
 
     // 协议类型-code
+    /**
+     * <strong>example:</strong>
+     * <p>APPLY</p>
+     */
     @NameInMap("file_type")
     @Validation(required = true)
     public String fileType;
 
     // 协议类型-名称
+    /**
+     * <strong>example:</strong>
+     * <p>授信协议</p>
+     */
     @NameInMap("file_type_name")
     @Validation(required = true)
     public String fileTypeName;

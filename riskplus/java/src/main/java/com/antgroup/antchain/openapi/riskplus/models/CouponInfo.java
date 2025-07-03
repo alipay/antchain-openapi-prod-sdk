@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class CouponInfo extends TeaModel {
     // 优惠券Id
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("coupon_id")
     @Validation(required = true)
     public String couponId;
 
     // 优惠券名称
+    /**
+     * <strong>example:</strong>
+     * <p>折扣券</p>
+     */
     @NameInMap("coupon_name")
     @Validation(required = true)
     public String couponName;
@@ -18,6 +26,10 @@ public class CouponInfo extends TeaModel {
     // unUsed-未使用
     // Used-已使用
     // Expired-过期
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
@@ -25,11 +37,19 @@ public class CouponInfo extends TeaModel {
     // 使用场景
     // 01-提款使用
     // 02-还款使用
+    /**
+     * <strong>example:</strong>
+     * <p>01</p>
+     */
     @NameInMap("use_condition")
     @Validation(required = true)
     public String useCondition;
 
     // 优惠码
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("coupon_code")
     public String couponCode;
 
@@ -39,6 +59,10 @@ public class CouponInfo extends TeaModel {
     // 03-折扣优惠
     // 04-期数优惠
     // 05-固定利率
+    /**
+     * <strong>example:</strong>
+     * <p>03</p>
+     */
     @NameInMap("coupon_type")
     public String couponType;
 
@@ -48,42 +72,82 @@ public class CouponInfo extends TeaModel {
     // coupon_type=03 时为折扣值（如6 折）
     // coupon_type=04 时为减免期数
     // coupon_type=05 时为折扣值（如 8.88 为利率8.88%）
+    /**
+     * <strong>example:</strong>
+     * <p>01</p>
+     */
     @NameInMap("coupon_value")
     public String couponValue;
 
     // 当 coupon_type=01 时，才会有优惠金额
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("coupon_amount")
     public String couponAmount;
 
     // 过期时间yyyy-MM-dd HH:mm:ss
+    /**
+     * <strong>example:</strong>
+     * <p>yyyy-MM-dd HH:mm:ss</p>
+     */
     @NameInMap("expired_time")
     public String expiredTime;
 
     // 生效时间yyyy-MM-dd HH:mm:ss
+    /**
+     * <strong>example:</strong>
+     * <p>yyyy-MM-dd HH:mm:ss</p>
+     */
     @NameInMap("effective_time")
     public String effectiveTime;
 
     // 使用规则
+    /**
+     * <strong>example:</strong>
+     * <p>使用规则</p>
+     */
     @NameInMap("use_detail")
     public String useDetail;
 
     // 贷款最低金额
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("min_amount")
     public String minAmount;
 
     // 贷款最高金额
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("max_amount")
     public String maxAmount;
 
     // 最低贷款期数
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("min_period")
     public String minPeriod;
 
     // 最高贷款期数
+    /**
+     * <strong>example:</strong>
+     * <p>12</p>
+     */
     @NameInMap("max_period")
     public String maxPeriod;
 
     // 贷款最低期限天数
+    /**
+     * <strong>example:</strong>
+     * <p>30</p>
+     */
     @NameInMap("min_day")
     public String minDay;
 
@@ -95,12 +159,20 @@ public class CouponInfo extends TeaModel {
     // 5-到期一次性还本付息
     // 6-等本等费-总费率
     // 7-等额本息(长期)
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("repayment_method")
     public String repaymentMethod;
 
     // 是否有贷款期数要求
     // 0：否
     // 1：是
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("is_period_limit")
     public String isPeriodLimit;
 
@@ -109,22 +181,38 @@ public class CouponInfo extends TeaModel {
     // 02：不可提前还款
     // isPeriodLimit=1 && repayCondition=01 代表：有可提前还款锁期
     // isPeriodLimit=1 && repayCondition=02 代表：有不可提前还款锁期
+    /**
+     * <strong>example:</strong>
+     * <p>01</p>
+     */
     @NameInMap("repay_condition")
     public String repayCondition;
 
     // 还款场景
     // 01-到期还款
     // 02-即期还款
+    /**
+     * <strong>example:</strong>
+     * <p>01</p>
+     */
     @NameInMap("repay_ways")
     public String repayWays;
 
     // 优惠模板Id
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("coupon_model_no")
     public String couponModelNo;
 
     // 至到期:X年X月X日
     // 0：不是至到期券 
     // 1：是至到期券
+    /**
+     * <strong>example:</strong>
+     * <p>X年X月X日</p>
+     */
     @NameInMap("to_maturity")
     public String toMaturity;
 

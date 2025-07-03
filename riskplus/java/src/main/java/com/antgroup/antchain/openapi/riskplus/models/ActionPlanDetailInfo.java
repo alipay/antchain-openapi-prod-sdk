@@ -5,26 +5,46 @@ import com.aliyun.tea.*;
 
 public class ActionPlanDetailInfo extends TeaModel {
     // 场景策略id
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("scene_strategy_id")
     @Validation(required = true)
     public Long sceneStrategyId;
 
     // 场景策略名称
+    /**
+     * <strong>example:</strong>
+     * <p>蚂蚁营销</p>
+     */
     @NameInMap("scene_strategy_name")
     @Validation(required = true)
     public String sceneStrategyName;
 
     // 场景策略状态
+    /**
+     * <strong>example:</strong>
+     * <p>ONLINE</p>
+     */
     @NameInMap("scene_strategy_status")
     @Validation(required = true)
     public String sceneStrategyStatus;
 
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("gmt_create")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtCreate;
 
     // 修改时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("gmt_modified")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtModified;

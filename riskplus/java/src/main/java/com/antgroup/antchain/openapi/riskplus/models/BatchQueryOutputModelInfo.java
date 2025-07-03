@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class BatchQueryOutputModelInfo extends TeaModel {
     // 变量名称
+    /**
+     * <strong>example:</strong>
+     * <p>aft_v3</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 变量值
+    /**
+     * <strong>example:</strong>
+     * <p>4.0</p>
+     */
     @NameInMap("value")
     @Validation(required = true)
     public String value;
 
     // 变量值类型
+    /**
+     * <strong>example:</strong>
+     * <p>Double</p>
+     */
     @NameInMap("value_type")
     @Validation(required = true)
     public String valueType;

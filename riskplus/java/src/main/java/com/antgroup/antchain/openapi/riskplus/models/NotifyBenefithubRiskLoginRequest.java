@@ -1,0 +1,75 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.riskplus.models;
+
+import com.aliyun.tea.*;
+
+public class NotifyBenefithubRiskLoginRequest extends TeaModel {
+    // OAuth模式下的授权token
+    @NameInMap("auth_token")
+    public String authToken;
+
+    @NameInMap("product_instance_id")
+    public String productInstanceId;
+
+    // 平台码
+    // 注：不同平台的平台码都是固定好的，如果传入的平台码有误会抛出平台码错误的信息
+    @NameInMap("platform_code")
+    @Validation(required = true)
+    public String platformCode;
+
+    // 用户id
+    @NameInMap("user_unique_id")
+    @Validation(required = true)
+    public String userUniqueId;
+
+    // 渠道、平台方推送的手机号
+    @NameInMap("mobile")
+    @Validation(required = true)
+    public String mobile;
+
+    public static NotifyBenefithubRiskLoginRequest build(java.util.Map<String, ?> map) throws Exception {
+        NotifyBenefithubRiskLoginRequest self = new NotifyBenefithubRiskLoginRequest();
+        return TeaModel.build(map, self);
+    }
+
+    public NotifyBenefithubRiskLoginRequest setAuthToken(String authToken) {
+        this.authToken = authToken;
+        return this;
+    }
+    public String getAuthToken() {
+        return this.authToken;
+    }
+
+    public NotifyBenefithubRiskLoginRequest setProductInstanceId(String productInstanceId) {
+        this.productInstanceId = productInstanceId;
+        return this;
+    }
+    public String getProductInstanceId() {
+        return this.productInstanceId;
+    }
+
+    public NotifyBenefithubRiskLoginRequest setPlatformCode(String platformCode) {
+        this.platformCode = platformCode;
+        return this;
+    }
+    public String getPlatformCode() {
+        return this.platformCode;
+    }
+
+    public NotifyBenefithubRiskLoginRequest setUserUniqueId(String userUniqueId) {
+        this.userUniqueId = userUniqueId;
+        return this;
+    }
+    public String getUserUniqueId() {
+        return this.userUniqueId;
+    }
+
+    public NotifyBenefithubRiskLoginRequest setMobile(String mobile) {
+        this.mobile = mobile;
+        return this;
+    }
+    public String getMobile() {
+        return this.mobile;
+    }
+
+}

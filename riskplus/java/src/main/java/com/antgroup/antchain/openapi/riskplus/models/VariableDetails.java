@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class VariableDetails extends TeaModel {
     // 输出变量名称
+    /**
+     * <strong>example:</strong>
+     * <p>yidun_aft_v3</p>
+     */
     @NameInMap("variable_name")
     @Validation(required = true)
     public String variableName;
 
     // 输出变量值
+    /**
+     * <strong>example:</strong>
+     * <p>66.6</p>
+     */
     @NameInMap("variable_value")
     @Validation(required = true)
     public String variableValue;
 
     // 输出变量值类型
+    /**
+     * <strong>example:</strong>
+     * <p>Double</p>
+     */
     @NameInMap("variable_type")
     @Validation(required = true)
     public String variableType;

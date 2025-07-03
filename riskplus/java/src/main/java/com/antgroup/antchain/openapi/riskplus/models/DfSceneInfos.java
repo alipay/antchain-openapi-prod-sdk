@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class DfSceneInfos extends TeaModel {
     // scene_code
+    /**
+     * <strong>example:</strong>
+     * <p>场景code</p>
+     */
     @NameInMap("scene_code")
     @Validation(required = true)
     public String sceneCode;
 
     // 拒绝
+    /**
+     * <strong>example:</strong>
+     * <p>reject</p>
+     */
     @NameInMap("scene_decision")
     @Validation(required = true)
     public String sceneDecision;
 
     // decision_flow
+    /**
+     * <strong>example:</strong>
+     * <p>decision_flow</p>
+     */
     @NameInMap("decision_flow")
     @Validation(required = true)
     public DecisionFlow decisionFlow;

@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class CustomStatus extends TeaModel {
     // 是否进行过授信申请
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("apply_flag")
     public Boolean applyFlag;
 
     // 0:通过； 1:拒绝； 2:处理中；
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("status")
     public String status;
 
     // 拒绝原因
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxxxxx</p>
+     */
     @NameInMap("msg")
     public String msg;
 

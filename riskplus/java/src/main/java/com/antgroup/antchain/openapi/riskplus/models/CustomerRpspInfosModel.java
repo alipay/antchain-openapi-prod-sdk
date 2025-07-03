@@ -10,6 +10,10 @@ public class CustomerRpspInfosModel extends TeaModel {
     public java.util.List<RpspInfoModel> rpspResults;
 
     // 用户凭证
+    /**
+     * <strong>example:</strong>
+     * <p>8002c3d97e7d4d20a0647c75dfab1efe</p>
+     */
     @NameInMap("customer_key")
     @Validation(required = true)
     public String customerKey;

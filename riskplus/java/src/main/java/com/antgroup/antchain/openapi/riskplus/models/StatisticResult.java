@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class StatisticResult extends TeaModel {
     // 有效任务总数量
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("valid_count")
     @Validation(required = true)
     public Long validCount;
 
     // 各类actionDriverCode的统计结果集合
+    /**
+     * <strong>example:</strong>
+     * <p>List<StatisticInfoDetail> </p>
+     */
     @NameInMap("statistic_info_detail_list")
     @Validation(required = true)
     public java.util.List<StatisticInfoDetail> statisticInfoDetailList;

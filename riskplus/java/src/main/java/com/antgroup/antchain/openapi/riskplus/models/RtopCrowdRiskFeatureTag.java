@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class RtopCrowdRiskFeatureTag extends TeaModel {
     // 标签描述
+    /**
+     * <strong>example:</strong>
+     * <p>XXX公司法人发生变更</p>
+     */
     @NameInMap("tag_explanation")
     @Validation(required = true)
     public String tagExplanation;
 
     // 标签名称
+    /**
+     * <strong>example:</strong>
+     * <p>法人变更</p>
+     */
     @NameInMap("tag_name")
     @Validation(required = true)
     public String tagName;

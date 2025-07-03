@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class QueryInfo extends TeaModel {
     // key
+    /**
+     * <strong>example:</strong>
+     * <p>key</p>
+     */
     @NameInMap("key")
     public String key;
 
     // value
+    /**
+     * <strong>example:</strong>
+     * <p>value</p>
+     */
     @NameInMap("value")
     public String value;
 

@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class DubheFileInfo extends TeaModel {
     // 文件访问路径
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://aa.bb.png?expiredtime=xx">https://aa.bb.png?expiredtime=xx</a></p>
+     */
     @NameInMap("file_path")
     @Validation(required = true)
     public String filePath;

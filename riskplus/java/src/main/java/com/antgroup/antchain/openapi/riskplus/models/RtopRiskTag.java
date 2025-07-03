@@ -5,32 +5,60 @@ import com.aliyun.tea.*;
 
 public class RtopRiskTag extends TeaModel {
     // 标签ID
+    /**
+     * <strong>example:</strong>
+     * <p>CMN00010</p>
+     */
     @NameInMap("tag_id")
     @Validation(required = true)
     public String tagId;
 
     // 标签名称
+    /**
+     * <strong>example:</strong>
+     * <p>网站失联</p>
+     */
     @NameInMap("tag_name")
     @Validation(required = true)
     public String tagName;
 
     // 标签类型
+    /**
+     * <strong>example:</strong>
+     * <p>CMN</p>
+     */
     @NameInMap("tag_type")
     public String tagType;
 
     // 标签文本
+    /**
+     * <strong>example:</strong>
+     * <p>网站失联</p>
+     */
     @NameInMap("tag_text")
     public String tagText;
 
     // 线索概览
+    /**
+     * <strong>example:</strong>
+     * <p>企业已列入经营异常名录</p>
+     */
     @NameInMap("tag_clue")
     public String tagClue;
 
     // 线索明细类型
+    /**
+     * <strong>example:</strong>
+     * <p>01</p>
+     */
     @NameInMap("clue_detail_type")
     public String clueDetailType;
 
     // 线索明细
+    /**
+     * <strong>example:</strong>
+     * <p>通过登记的住所或者经营场所无法联系</p>
+     */
     @NameInMap("tag_clue_detail")
     public String tagClueDetail;
 

@@ -5,46 +5,82 @@ import com.aliyun.tea.*;
 
 public class RiskLabelFilterConfigInfo extends TeaModel {
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("gmt_create")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtCreate;
 
     // 修改时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("gmt_modified")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtModified;
 
     // id
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public Long id;
 
     // 是否为基本筛选标签
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("is_base")
     @Validation(required = true)
     public Long isBase;
 
     // 标记删除
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("is_delete")
     @Validation(required = true)
     public Long isDelete;
 
     // 操作人员ID
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("operator_id")
     @Validation(required = true)
     public String operatorId;
 
     // 地区名
+    /**
+     * <strong>example:</strong>
+     * <p>place_name</p>
+     */
     @NameInMap("place_name")
     @Validation(required = true)
     public String placeName;
 
     // 地区类型
+    /**
+     * <strong>example:</strong>
+     * <p>place_type</p>
+     */
     @NameInMap("place_type")
     @Validation(required = true)
     public String placeType;
 
     // 标签ID
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("tag_id")
     @Validation(required = true)
     public String tagId;

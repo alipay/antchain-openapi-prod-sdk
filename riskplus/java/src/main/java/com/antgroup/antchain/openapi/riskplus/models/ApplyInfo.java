@@ -5,34 +5,66 @@ import com.aliyun.tea.*;
 
 public class ApplyInfo extends TeaModel {
     // 授信编号
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxx</p>
+     */
     @NameInMap("apply_no")
     public String applyNo;
 
     // 资金方编号
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxx</p>
+     */
     @NameInMap("fund_code")
     public String fundCode;
 
     // 资金方名称
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxx</p>
+     */
     @NameInMap("fund_name")
     public String fundName;
 
     // 贷款利率
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxx</p>
+     */
     @NameInMap("rate_value")
     public Long rateValue;
 
     // 贷款日利率
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxx</p>
+     */
     @NameInMap("rate_value_day")
     public Long rateValueDay;
 
     // 年天数
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxx</p>
+     */
     @NameInMap("days_num_year")
     public Long daysNumYear;
 
     // 总授信额度
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxx</p>
+     */
     @NameInMap("total_amount")
     public Long totalAmount;
 
     // 可用额度
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxx</p>
+     */
     @NameInMap("balance_amount")
     public Long balanceAmount;
 

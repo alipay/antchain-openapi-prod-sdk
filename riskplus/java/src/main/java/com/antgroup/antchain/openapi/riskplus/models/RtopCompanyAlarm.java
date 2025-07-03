@@ -5,26 +5,46 @@ import com.aliyun.tea.*;
 
 public class RtopCompanyAlarm extends TeaModel {
     // 企业ID
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("company_id")
     @Validation(required = true)
     public String companyId;
 
     // 预警类型
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("alarm_type")
     @Validation(required = true)
     public String alarmType;
 
     // 预警序号
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("alarm_idx")
     @Validation(required = true)
     public String alarmIdx;
 
     // 预警日期
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("alarm_date")
     @Validation(required = true)
     public String alarmDate;
 
     // 预警标识，是否需要预警
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("alarm_flag")
     @Validation(required = true)
     public String alarmFlag;

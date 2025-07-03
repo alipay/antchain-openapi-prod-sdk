@@ -5,31 +5,55 @@ import com.aliyun.tea.*;
 
 public class RtopRiskyCompany extends TeaModel {
     // 企业ID
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("company_id")
     @Validation(required = true)
     public String companyId;
 
     // 异动分数
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("change_score")
     @Validation(required = true)
     public String changeScore;
 
     // 异动程度
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("change_level")
     @Validation(required = true)
     public String changeLevel;
 
     // 新增企业的时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("new_added_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String newAddedTime;
 
     // 总公司注册地
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("head_register_place")
     @Validation(required = true)
     public String headRegisterPlace;
 
     // 数据的时间
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("data_time")
     @Validation(required = true)
     public String dataTime;

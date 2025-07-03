@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class RuntimeResult extends TeaModel {
     // 上传成功
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("code")
     @Validation(required = true)
     public Long code;
 
     // true代表上传成功，false代表上传失败
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("success")
     @Validation(required = true)
     public Boolean success;
 
     // 上文件传成功
+    /**
+     * <strong>example:</strong>
+     * <p>OK</p>
+     */
     @NameInMap("resultmsg")
     @Validation(required = true)
     public String resultmsg;
 
     // 文件上传结果
+    /**
+     * <strong>example:</strong>
+     * <p>[fileInfoReceive api success!]</p>
+     */
     @NameInMap("data")
     @Validation(required = true)
     public String data;

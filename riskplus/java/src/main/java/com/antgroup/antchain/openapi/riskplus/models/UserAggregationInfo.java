@@ -15,19 +15,35 @@ public class UserAggregationInfo extends TeaModel {
     // 7: 授信冻结
     // 8: 可重新授信
     // 9: 授信拒绝
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 总额度
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("credit_amount")
     public Long creditAmount;
 
     // 可用额度
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("available_amount")
     public Long availableAmount;
 
     // 待还总金额
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("should_pay_amount")
     public Long shouldPayAmount;
 
@@ -40,10 +56,18 @@ public class UserAggregationInfo extends TeaModel {
     public Long nextPeriodAmount;
 
     // 下一期还款时间yyyy-MM-dd
+    /**
+     * <strong>example:</strong>
+     * <p>yyyy-MM-dd</p>
+     */
     @NameInMap("next_period_repay_time")
     public String nextPeriodRepayTime;
 
     // 下次可授信时间yyyy-MM-dd
+    /**
+     * <strong>example:</strong>
+     * <p>yyyy-MM-dd</p>
+     */
     @NameInMap("next_apply_time")
     public String nextApplyTime;
 

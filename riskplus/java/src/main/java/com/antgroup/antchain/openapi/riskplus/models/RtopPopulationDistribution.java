@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class RtopPopulationDistribution extends TeaModel {
     // 市
+    /**
+     * <strong>example:</strong>
+     * <p>杭州市</p>
+     */
     @NameInMap("city")
     @Validation(required = true)
     public String city;
 
     // 统计值
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("count")
     @Validation(required = true)
     public Integer count;

@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class GwFundRouterResult extends TeaModel {
     // 资金方代码
+    /**
+     * <strong>example:</strong>
+     * <p>D2024082100001</p>
+     */
     @NameInMap("fund_code")
     @Validation(required = true)
     public String fundCode;
 
     // 资金方简称
+    /**
+     * <strong>example:</strong>
+     * <p>杭银消金</p>
+     */
     @NameInMap("abbre_fund_name")
     @Validation(required = true)
     public String abbreFundName;

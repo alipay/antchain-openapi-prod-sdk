@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class DefinInnerChannelNotifyResult extends TeaModel {
     // 请求编号
+    /**
+     * <strong>example:</strong>
+     * <p>aaaa</p>
+     */
     @NameInMap("request_id")
     @Validation(required = true)
     public String requestId;
 
     // 业务响应Json
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;a&quot;:&quot;b&quot;}</p>
+     */
     @NameInMap("biz_response")
     @Validation(required = true)
     public String bizResponse;

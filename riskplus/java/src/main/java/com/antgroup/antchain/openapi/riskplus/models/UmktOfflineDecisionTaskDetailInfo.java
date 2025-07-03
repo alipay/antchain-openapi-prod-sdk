@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class UmktOfflineDecisionTaskDetailInfo extends TeaModel {
     // 任务id
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("task_id")
     @Validation(required = true)
     public Long taskId;
@@ -15,11 +19,19 @@ public class UmktOfflineDecisionTaskDetailInfo extends TeaModel {
     public Long decisionPlanId;
 
     // 圈客结果状态
+    /**
+     * <strong>example:</strong>
+     * <p>D</p>
+     */
     @NameInMap("decision_result_status")
     @Validation(required = true)
     public String decisionResultStatus;
 
     // 圈客结果状态描述
+    /**
+     * <strong>example:</strong>
+     * <p>已完成</p>
+     */
     @NameInMap("status_remark")
     @Validation(required = true)
     public String statusRemark;

@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class CustomerDetail extends TeaModel {
     // 用户标识
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;186123456789&quot;</p>
+     */
     @NameInMap("customer_key")
     @Validation(required = true)
     public String customerKey;
 
     // 渠道参数
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;{&quot;name&quot;:&quot;苹果&quot;,&quot;code&quot;:&quot;5643&quot;,&quot;num&quot;:&quot;5&quot;}&quot;</p>
+     */
     @NameInMap("channel_params")
     @Validation(required = true)
     public String channelParams;
 
     // 用户透传字段
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;[{&quot;name&quot;:&quot;zhangshan&quot;}]&quot;</p>
+     */
     @NameInMap("ext_info")
     @Validation(required = true)
     public String extInfo;

@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class OfflineDecisionPlanDetail extends TeaModel {
     // 圈客计划ID
+    /**
+     * <strong>example:</strong>
+     * <p>1032</p>
+     */
     @NameInMap("decision_plan_id")
     @Validation(required = true)
     public String decisionPlanId;
 
     // 离线圈客执行任务状态
+    /**
+     * <strong>example:</strong>
+     * <p>ECN</p>
+     */
     @NameInMap("decision_result_status")
     @Validation(required = true)
     public String decisionResultStatus;

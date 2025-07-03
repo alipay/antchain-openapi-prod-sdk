@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class RuleDetail extends TeaModel {
     // 规则细节名称
+    /**
+     * <strong>example:</strong>
+     * <p>出现次数</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 规则细节值
+    /**
+     * <strong>example:</strong>
+     * <p>19</p>
+     */
     @NameInMap("value")
     @Validation(required = true)
     public String value;

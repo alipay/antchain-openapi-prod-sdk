@@ -5,22 +5,38 @@ import com.aliyun.tea.*;
 
 public class RpspInfoModel extends TeaModel {
     // 流量分层计划code
+    /**
+     * <strong>example:</strong>
+     * <p>planCode1</p>
+     */
     @NameInMap("plan_code")
     @Validation(required = true)
     public String planCode;
 
     // 场景策略Id
+    /**
+     * <strong>example:</strong>
+     * <p>15000</p>
+     */
     @NameInMap("scene_strategy_id")
     @Validation(required = true)
     public Long sceneStrategyId;
 
     // 客群分层结果
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("rpsp_result")
     @Validation(required = true)
     public String rpspResult;
 
     // 	
     // json 结构的营销额外输出信息
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;f_01&quot;:&quot;95.0&quot;}</p>
+     */
     @NameInMap("rpsp_out_put_info")
     @Validation(required = true)
     public String rpspOutPutInfo;

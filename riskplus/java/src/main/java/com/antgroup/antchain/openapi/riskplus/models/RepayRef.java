@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class RepayRef extends TeaModel {
     // 客户编码
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("custom_no")
     @Validation(required = true)
     public String customNo;
 
     // 当前期数
+    /**
+     * <strong>example:</strong>
+     * <p>xx</p>
+     */
     @NameInMap("period")
     @Validation(required = true)
     public String period;
 
     // 应还总额
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("need_amount")
     @Validation(required = true)
     public Long needAmount;
@@ -100,21 +112,37 @@ public class RepayRef extends TeaModel {
     public Long remainCorpus;
 
     // 借据编号
+    /**
+     * <strong>example:</strong>
+     * <p>xx</p>
+     */
     @NameInMap("receipt_no")
     @Validation(required = true)
     public String receiptNo;
 
     // 还款状态1：已还清 2 未还 3 部分还款
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 应还日期
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("settle_date")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String settleDate;
 
     // 还款日期
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("trade_date")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String tradeDate;

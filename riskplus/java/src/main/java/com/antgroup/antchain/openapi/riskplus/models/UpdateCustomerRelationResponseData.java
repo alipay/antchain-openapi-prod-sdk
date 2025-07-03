@@ -5,27 +5,51 @@ import com.aliyun.tea.*;
 
 public class UpdateCustomerRelationResponseData extends TeaModel {
     // id
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("id")
     public Long id;
 
     // 渠道编码
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("channel_code")
     public String channelCode;
 
     // 渠道id
+    /**
+     * <strong>example:</strong>
+     * <p>123AA</p>
+     */
     @NameInMap("channel_no")
     public String channelNo;
 
     // 客户号
+    /**
+     * <strong>example:</strong>
+     * <p>PCM123</p>
+     */
     @NameInMap("customer_no")
     public String customerNo;
 
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("create_time")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String createTime;
 
     // 更新时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("update_time")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String updateTime;

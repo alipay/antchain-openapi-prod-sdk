@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class CustomReceiptStatus extends TeaModel {
     // 是否结清
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("receipt_flag")
     public Boolean receiptFlag;
 

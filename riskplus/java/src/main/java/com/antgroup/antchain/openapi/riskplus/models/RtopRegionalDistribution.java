@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class RtopRegionalDistribution extends TeaModel {
     // 统计值
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("count")
     @Validation(required = true)
     public Long count;
 
     // 地区
+    /**
+     * <strong>example:</strong>
+     * <p>​西湖区</p>
+     */
     @NameInMap("place")
     @Validation(required = true)
     public String place;

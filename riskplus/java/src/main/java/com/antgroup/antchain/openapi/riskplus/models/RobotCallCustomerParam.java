@@ -5,15 +5,27 @@ import com.aliyun.tea.*;
 
 public class RobotCallCustomerParam extends TeaModel {
     // 手机号/手机号md5
+    /**
+     * <strong>example:</strong>
+     * <p>12345</p>
+     */
     @NameInMap("customer_key")
     @Validation(required = true)
     public String customerKey;
 
     // 用户维度透传字段
+    /**
+     * <strong>example:</strong>
+     * <p>12345</p>
+     */
     @NameInMap("customer_out_info")
     public String customerOutInfo;
 
     // 外呼话术变量字段
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;key1&quot;:&quot;v1&quot;}</p>
+     */
     @NameInMap("properties")
     public String properties;
 

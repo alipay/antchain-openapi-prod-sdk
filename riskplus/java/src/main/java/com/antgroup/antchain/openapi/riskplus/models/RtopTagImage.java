@@ -10,6 +10,10 @@ public class RtopTagImage extends TeaModel {
     public Long id;
 
     // 图片
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("image")
     public String image;
 

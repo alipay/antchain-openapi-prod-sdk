@@ -9,16 +9,28 @@ public class SupplementFile extends TeaModel {
     // 302-行驶证副本
     // 303-车辆产证（摩托车二手车）
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("file_type")
     @Validation(required = true)
     public String fileType;
 
     // 材料url
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("file_url")
     @Validation(required = true)
     public String fileUrl;
 
     // 材料名称/描述
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("file_desc")
     @Validation(required = true)
     public String fileDesc;

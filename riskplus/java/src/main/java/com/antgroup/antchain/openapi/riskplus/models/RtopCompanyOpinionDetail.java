@@ -5,30 +5,54 @@ import com.aliyun.tea.*;
 
 public class RtopCompanyOpinionDetail extends TeaModel {
     // 具体的舆情内容
+    /**
+     * <strong>example:</strong>
+     * <p>行业整体趋势仍向好,白酒2Q18营收增速略回落,大众品龙头竞争力强化</p>
+     */
     @NameInMap("doc_content")
     @Validation(required = true)
     public String docContent;
 
     // 舆情的id
+    /**
+     * <strong>example:</strong>
+     * <p>1843266597720304871</p>
+     */
     @NameInMap("doc_id")
     @Validation(required = true)
     public String docId;
 
     // 舆情的标题
+    /**
+     * <strong>example:</strong>
+     * <p>扫IC网获金证引擎战略投资;产业+互联网+金融;推进电子产业资源整合_搜狐科技_搜狐网</p>
+     */
     @NameInMap("doc_title")
     @Validation(required = true)
     public String docTitle;
 
     // 舆情的url
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://istock.jrj.com.cn/article,yanbao,30483668.html">http://istock.jrj.com.cn/article,yanbao,30483668.html</a></p>
+     */
     @NameInMap("doc_url")
     @Validation(required = true)
     public String docUrl;
 
     // 情感得分
+    /**
+     * <strong>example:</strong>
+     * <p>2.80</p>
+     */
     @NameInMap("emotion_score")
     public String emotionScore;
 
     // 实体相关度得分
+    /**
+     * <strong>example:</strong>
+     * <p>0.71</p>
+     */
     @NameInMap("entity_relevancy_score")
     public String entityRelevancyScore;
 
@@ -37,24 +61,44 @@ public class RtopCompanyOpinionDetail extends TeaModel {
     public String hitKeywords;
 
     // 媒体影响力得分
+    /**
+     * <strong>example:</strong>
+     * <p>6.90</p>
+     */
     @NameInMap("media_influence_score")
     public String mediaInfluenceScore;
 
     // 来源媒体
+    /**
+     * <strong>example:</strong>
+     * <p>东方媒体</p>
+     */
     @NameInMap("media_name")
     @Validation(required = true)
     public String mediaName;
 
     // 媒体传播得分
+    /**
+     * <strong>example:</strong>
+     * <p>0.60</p>
+     */
     @NameInMap("media_propagation_score")
     public String mediaPropagationScore;
 
     // 舆情的发布时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-07-15</p>
+     */
     @NameInMap("publish_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String publishTime;
 
     // 相似文章数
+    /**
+     * <strong>example:</strong>
+     * <p>2</p>
+     */
     @NameInMap("similar_docs")
     public Integer similarDocs;
 

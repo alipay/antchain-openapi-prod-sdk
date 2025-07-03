@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class UmktInfoModel extends TeaModel {
     // 场景策略id
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("scene_strategy_id")
     @Validation(required = true)
     public Long sceneStrategyId;
 
     // 实时营销结果
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("umkt_result")
     @Validation(required = true)
     public Long umktResult;
 
     // json 结构的营销额外输出信息
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;f_01&quot;:&quot;95.0&quot;}</p>
+     */
     @NameInMap("umkt_out_put_info")
     @Validation(required = true)
     public String umktOutPutInfo;

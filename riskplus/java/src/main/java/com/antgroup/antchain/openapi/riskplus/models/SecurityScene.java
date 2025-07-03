@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class SecurityScene extends TeaModel {
     // 接入渠道
+    /**
+     * <strong>example:</strong>
+     * <p>web</p>
+     */
     @NameInMap("access_channel")
     public String accessChannel;
 
@@ -13,22 +17,42 @@ public class SecurityScene extends TeaModel {
     public String ctuParams;
 
     // 产品名称
+    /**
+     * <strong>example:</strong>
+     * <p>mobile_cashier</p>
+     */
     @NameInMap("product_name")
     public String productName;
 
     // 产品节点
+    /**
+     * <strong>example:</strong>
+     * <p>code</p>
+     */
     @NameInMap("product_node")
     public String productNode;
 
     // 扩展参数
+    /**
+     * <strong>example:</strong>
+     * <p>1234</p>
+     */
     @NameInMap("security_scene_params")
     public String securitySceneParams;
 
     // 系统名称
+    /**
+     * <strong>example:</strong>
+     * <p>mobilecashier</p>
+     */
     @NameInMap("system_name")
     public String systemName;
 
     // 总金额
+    /**
+     * <strong>example:</strong>
+     * <p>10.0</p>
+     */
     @NameInMap("total_fee")
     public String totalFee;
 

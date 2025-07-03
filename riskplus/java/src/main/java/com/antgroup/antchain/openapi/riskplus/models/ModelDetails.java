@@ -5,12 +5,20 @@ import com.aliyun.tea.*;
 
 public class ModelDetails extends TeaModel {
     // 风险场景编码
+    /**
+     * <strong>example:</strong>
+     * <p>scene_code</p>
+     */
     @NameInMap("scene_code")
     @Validation(required = true)
     public String sceneCode;
 
     // 该风险场景的风险分值
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>90</p>
+     */
     @NameInMap("score")
     @Validation(required = true)
     public String score;

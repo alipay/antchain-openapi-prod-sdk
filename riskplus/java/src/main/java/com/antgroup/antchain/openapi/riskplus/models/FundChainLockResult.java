@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class FundChainLockResult extends TeaModel {
     // 店铺名称
+    /**
+     * <strong>example:</strong>
+     * <p>某店铺</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 店铺id
+    /**
+     * <strong>example:</strong>
+     * <p>2022091300001</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public String id;
@@ -17,6 +25,10 @@ public class FundChainLockResult extends TeaModel {
     // 0:成功
     // 1:失败
     // 2:处理中
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;

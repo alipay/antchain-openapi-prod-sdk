@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class InfoCodes extends TeaModel {
     // infocode
+    /**
+     * <strong>example:</strong>
+     * <p>infocode</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;

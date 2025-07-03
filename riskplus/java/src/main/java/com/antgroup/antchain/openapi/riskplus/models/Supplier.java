@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class Supplier extends TeaModel {
     // 供应商id
+    /**
+     * <strong>example:</strong>
+     * <p>111</p>
+     */
     @NameInMap("supplier_id")
     @Validation(required = true)
     public String supplierId;
 
     // 供应商名字
+    /**
+     * <strong>example:</strong>
+     * <p>ANTCLOUD</p>
+     */
     @NameInMap("supplier_name")
     @Validation(required = true)
     public String supplierName;

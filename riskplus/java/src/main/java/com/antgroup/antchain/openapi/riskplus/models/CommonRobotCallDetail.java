@@ -5,74 +5,134 @@ import com.aliyun.tea.*;
 
 public class CommonRobotCallDetail extends TeaModel {
     // 客户请求时的透传字段
+    /**
+     * <strong>example:</strong>
+     * <p>请求透传字段</p>
+     */
     @NameInMap("ext_info")
     @Validation(required = true)
     public String extInfo;
 
     // 成功触达：OK；未触达：AI_ROBOT_CALL_REQUEST_NOT_EXIST
+    /**
+     * <strong>example:</strong>
+     * <p>OK</p>
+     */
     @NameInMap("result_code")
     @Validation(required = true)
     public String resultCode;
 
     // 外呼号码
+    /**
+     * <strong>example:</strong>
+     * <p>130XXXXXX</p>
+     */
     @NameInMap("customer_key")
     @Validation(required = true)
     public String customerKey;
 
     // 呼叫次数
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("current_call_times")
     @Validation(required = true)
     public Long currentCallTimes;
 
     // 号码模版
+    /**
+     * <strong>example:</strong>
+     * <p>MOBILE/MOBILE/CUSTOMER_ENCRY</p>
+     */
     @NameInMap("key_template")
     @Validation(required = true)
     public String keyTemplate;
 
     // 导入号码时返回的批次号
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("batch_id")
     @Validation(required = true)
     public String batchId;
 
     // 2001:批量-预测外呼，2002:批量-AI外呼-不转人工，2003:批量-AI外呼-接通转人工，2004: 批量-AI外呼-智能转人工,2005:批量-语音通知
+    /**
+     * <strong>example:</strong>
+     * <p>2001</p>
+     */
     @NameInMap("call_type")
     @Validation(required = true)
     public Long callType;
 
     // 用户自定义标签
+    /**
+     * <strong>example:</strong>
+     * <p>tag</p>
+     */
     @NameInMap("tag")
     public String tag;
 
     // 外呼id
+    /**
+     * <strong>example:</strong>
+     * <p>9b2eb6b8</p>
+     */
     @NameInMap("call_id")
     @Validation(required = true)
     public String callId;
 
     // 外呼任务编号
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("task_id")
     @Validation(required = true)
     public Long taskId;
 
     // AI话术ID
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("template_id")
     public Long templateId;
 
     // 外呼状态编码
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("status_code")
     @Validation(required = true)
     public Long statusCode;
 
     // 外呼状态描述
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("status_description")
     @Validation(required = true)
     public String statusDescription;
 
     // 转人工状态编码
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("transfer_status_code")
     @Validation(required = true)
     public Long transferStatusCode;
 
     // 转人工状态
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("transfer_status")
     @Validation(required = true)
     public String transferStatus;
@@ -82,123 +142,227 @@ public class CommonRobotCallDetail extends TeaModel {
     public Long agentId;
 
     // 坐席在贵司业务系统唯一标识，用于查询对应agentId；可以为空。
+    /**
+     * <strong>example:</strong>
+     * <p>a</p>
+     */
     @NameInMap("agent_tag")
     public String agentTag;
 
     // 坐席分机号
+    /**
+     * <strong>example:</strong>
+     * <p>a</p>
+     */
     @NameInMap("agent_extension")
     public String agentExtension;
 
     // 导入时间
+    /**
+     * <strong>example:</strong>
+     * <p>2019-01-09 14:14:19</p>
+     */
     @NameInMap("import_time")
     @Validation(required = true)
     public String importTime;
 
     // 开始通话时间
+    /**
+     * <strong>example:</strong>
+     * <p>2019-01-09 14:14:19</p>
+     */
     @NameInMap("call_begin_time")
     @Validation(required = true)
     public String callBeginTime;
 
     // 振铃时长，单位ms
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("ring_time")
     @Validation(required = true)
     public Long ringTime;
 
     // 接通时间
+    /**
+     * <strong>example:</strong>
+     * <p>2019-01-09 14:14:19</p>
+     */
     @NameInMap("answer_time")
     public String answerTime;
 
     // 通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("speaking_time")
     @Validation(required = true)
     public String speakingTime;
 
     // 通话时长，单位：秒
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("speaking_duration")
     @Validation(required = true)
     public Long speakingDuration;
 
     // 挂断时间
+    /**
+     * <strong>example:</strong>
+     * <p>2019-01-09 14:14:19</p>
+     */
     @NameInMap("hangup_time")
     @Validation(required = true)
     public String hangupTime;
 
     // 对话轮次
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("speaking_turns")
     @Validation(required = true)
     public Long speakingTurns;
 
     // 人工通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("agent_speaking_time")
     @Validation(required = true)
     public String agentSpeakingTime;
 
     // 人工通话时长，单位：秒
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("agent_speaking_duration")
     @Validation(required = true)
     public Long agentSpeakingDuration;
 
     // 意向标签
+    /**
+     * <strong>example:</strong>
+     * <p>C</p>
+     */
     @NameInMap("intent_tag")
     @Validation(required = true)
     public String intentTag;
 
     // 意向说明
+    /**
+     * <strong>example:</strong>
+     * <p>确认本人,未承诺还款</p>
+     */
     @NameInMap("intent_description")
     @Validation(required = true)
     public String intentDescription;
 
     // 个性标签
+    /**
+     * <strong>example:</strong>
+     * <p>投诉,非本人</p>
+     */
     @NameInMap("individual_tag")
     public String individualTag;
 
     // 回复关键词
+    /**
+     * <strong>example:</strong>
+     * <p>链接,利息</p>
+     */
     @NameInMap("keywords")
     public String keywords;
 
     // 挂机方式，AI挂机1，坐席挂机2，客户挂机3
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("hungup_type")
     @Validation(required = true)
     public Long hungupType;
 
     // 挂机短信，可选值：1、2
     // 1:发送，2:不发送
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("sms")
     @Validation(required = true)
     public String sms;
 
     // 对话录音，URL，可以为空
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("chat_record")
     public String chatRecord;
 
     // 聊天记录，可以为空
+    /**
+     * <strong>example:</strong>
+     * <p>{}</p>
+     */
     @NameInMap("chats")
     public String chats;
 
     // 可选值：0、1
     // 0:不添加，1:添加
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("add_wx")
     public Long addWx;
 
     // 加微进度，可选值：已申请、加微成功
+    /**
+     * <strong>example:</strong>
+     * <p>已申请</p>
+     */
     @NameInMap("add_wx_status")
     public String addWxStatus;
 
     // 是否接通重呼，可选值：0、1
     // 0正常外呼，1接通重呼
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("answer_recall")
     @Validation(required = true)
     public Long answerRecall;
 
     // 导入号码时的参数值
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;电话号码&quot;:&quot;13100000000&quot;}</p>
+     */
     @NameInMap("properties")
     public String properties;
 
     // 导入号码时的业务参数值，原样返回
+    /**
+     * <strong>example:</strong>
+     * <p>a</p>
+     */
     @NameInMap("biz_properties")
     public String bizProperties;
 
     // 拦截原因：当状态为已拦截时，可选值：黑名单拦截，灰名单拦截，异常号码拦截
+    /**
+     * <strong>example:</strong>
+     * <p>黑名单拦截</p>
+     */
     @NameInMap("intercept_reason")
     public String interceptReason;
 

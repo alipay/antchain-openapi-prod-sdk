@@ -5,29 +5,53 @@ import com.aliyun.tea.*;
 
 public class RdaasTaxDecsionServiceIndicator extends TeaModel {
     // 决策指标id
+    /**
+     * <strong>example:</strong>
+     * <p>决策指标id</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public String id;
 
     // 决策服务id
+    /**
+     * <strong>example:</strong>
+     * <p>700002</p>
+     */
     @NameInMap("service_id")
     @Validation(required = true)
     public String serviceId;
 
     // 属性名
+    /**
+     * <strong>example:</strong>
+     * <p>weight</p>
+     */
     @NameInMap("property_name")
     @Validation(required = true)
     public String propertyName;
 
     // 属性值或指标值
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("property_value")
     public String propertyValue;
 
     // 决策租户
+    /**
+     * <strong>example:</strong>
+     * <p>DEFAULT</p>
+     */
     @NameInMap("decision_tenant")
     public String decisionTenant;
 
     // 创建时间，格式:yyyy-MM-dd HH:mm:ss
+    /**
+     * <strong>example:</strong>
+     * <p>创建时间，格式:yyyy-MM-dd HH:mm:ss</p>
+     */
     @NameInMap("create_time")
     public String createTime;
 

@@ -5,15 +5,27 @@ import com.aliyun.tea.*;
 
 public class RiskData extends TeaModel {
     // 联系人信息列表
+    /**
+     * <strong>example:</strong>
+     * <p>[{}]</p>
+     */
     @NameInMap("contacts")
     @Validation(required = true)
     public java.util.List<Contact> contacts;
 
     // 人脸对比分
+    /**
+     * <strong>example:</strong>
+     * <p>x</p>
+     */
     @NameInMap("face_point")
     public String facePoint;
 
     // 活体供应商
+    /**
+     * <strong>example:</strong>
+     * <p>活体供应商</p>
+     */
     @NameInMap("face_source")
     public String faceSource;
 

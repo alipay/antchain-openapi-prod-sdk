@@ -7,6 +7,10 @@ public class PlatformRepayTypeInfo extends TeaModel {
     // 1：等额本息
     // 2：等额本金
     // 3：按期付息到期还本（先息后本）
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("repay_type")
     @Validation(required = true)
     public String repayType;

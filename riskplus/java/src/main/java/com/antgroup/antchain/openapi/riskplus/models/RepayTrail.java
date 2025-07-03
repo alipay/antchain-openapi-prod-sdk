@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class RepayTrail extends TeaModel {
     // 期数
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("period")
     @Validation(required = true)
     public String period;
@@ -40,21 +44,37 @@ public class RepayTrail extends TeaModel {
     public Long remainPrincipal;
 
     // 还款时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("repay_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String repayTime;
 
     // 计息开始时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("start_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String startTime;
 
     // 计息结束时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("end_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String endTime;
 
     // 试算编号
+    /**
+     * <strong>example:</strong>
+     * <p>ss</p>
+     */
     @NameInMap("trial_no")
     @Validation(required = true)
     public String trialNo;

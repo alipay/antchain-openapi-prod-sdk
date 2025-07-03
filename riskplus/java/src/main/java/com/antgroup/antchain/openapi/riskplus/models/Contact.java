@@ -12,16 +12,28 @@ public class Contact extends TeaModel {
     // 5姐妹
     // 6朋友
     // 7其他
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("kind")
     @Validation(required = true)
     public String kind;
 
     // 联系人姓名
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 联系人手机号
+    /**
+     * <strong>example:</strong>
+     * <p>12345</p>
+     */
     @NameInMap("mobile")
     @Validation(required = true)
     public String mobile;

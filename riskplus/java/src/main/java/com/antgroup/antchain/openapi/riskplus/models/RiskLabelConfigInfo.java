@@ -5,66 +5,118 @@ import com.aliyun.tea.*;
 
 public class RiskLabelConfigInfo extends TeaModel {
     // id
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public Long id;
 
     // 线索ID
+    /**
+     * <strong>example:</strong>
+     * <p>124</p>
+     */
     @NameInMap("tag_id")
     @Validation(required = true)
     public String tagId;
 
     // 标签文本
+    /**
+     * <strong>example:</strong>
+     * <p>233444</p>
+     */
     @NameInMap("tag_text")
     @Validation(required = true)
     public String tagText;
 
     // 风险维度
+    /**
+     * <strong>example:</strong>
+     * <p>风险维度</p>
+     */
     @NameInMap("risk_dimension_type")
     @Validation(required = true)
     public String riskDimensionType;
 
     // 线索类型
+    /**
+     * <strong>example:</strong>
+     * <p>列表</p>
+     */
     @NameInMap("risk_detail_type")
     @Validation(required = true)
     public String riskDetailType;
 
     // 趋势图表名
+    /**
+     * <strong>example:</strong>
+     * <p>XX趋势图</p>
+     */
     @NameInMap("tag_trend_chart_name")
     @Validation(required = true)
     public String tagTrendChartName;
 
     // 线索列表表头，英文逗号分隔
+    /**
+     * <strong>example:</strong>
+     * <p>日期</p>
+     */
     @NameInMap("tag_list_headers")
     @Validation(required = true)
     public String tagListHeaders;
 
     // 标签列表，排序字段
+    /**
+     * <strong>example:</strong>
+     * <p>日期</p>
+     */
     @NameInMap("tag_list_order_column")
     @Validation(required = true)
     public String tagListOrderColumn;
 
     // 标签列表排序方式
+    /**
+     * <strong>example:</strong>
+     * <p>顺序</p>
+     */
     @NameInMap("tag_list_order_type")
     @Validation(required = true)
     public String tagListOrderType;
 
     // 标记删除
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("is_delete")
     @Validation(required = true)
     public Long isDelete;
 
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("gmt_create")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtCreate;
 
     // 修改时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("gmt_modified")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtModified;
 
     // 操作人ID
+    /**
+     * <strong>example:</strong>
+     * <p>1233</p>
+     */
     @NameInMap("operator_id")
     @Validation(required = true)
     public String operatorId;

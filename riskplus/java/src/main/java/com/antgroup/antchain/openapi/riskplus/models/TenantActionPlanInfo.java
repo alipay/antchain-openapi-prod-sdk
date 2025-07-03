@@ -5,31 +5,55 @@ import com.aliyun.tea.*;
 
 public class TenantActionPlanInfo extends TeaModel {
     // 场景策略id
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("scene_strategy_id")
     @Validation(required = true)
     public Long sceneStrategyId;
 
     // 营销名称
+    /**
+     * <strong>example:</strong>
+     * <p>蚂蚁营销</p>
+     */
     @NameInMap("scene_strategy_name")
     @Validation(required = true)
     public String sceneStrategyName;
 
     // 营销状态
+    /**
+     * <strong>example:</strong>
+     * <p>PASS</p>
+     */
     @NameInMap("scene_strategy_status")
     @Validation(required = true)
     public String sceneStrategyStatus;
 
     // 渠道id
+    /**
+     * <strong>example:</strong>
+     * <p>3</p>
+     */
     @NameInMap("action_driver_code")
     @Validation(required = true)
     public Long actionDriverCode;
 
     // 渠道类型
+    /**
+     * <strong>example:</strong>
+     * <p>ROBOT_CALL</p>
+     */
     @NameInMap("channel_code")
     @Validation(required = true)
     public String channelCode;
 
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("gmt_create")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtCreate;
@@ -44,6 +68,10 @@ public class TenantActionPlanInfo extends TeaModel {
     public java.util.List<String> actionParamInfo;
 
     // 参数查询是否完成
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("is_param_query_done")
     public Boolean isParamQueryDone;
 

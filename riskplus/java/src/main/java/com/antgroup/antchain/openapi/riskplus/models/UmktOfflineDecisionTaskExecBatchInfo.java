@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class UmktOfflineDecisionTaskExecBatchInfo extends TeaModel {
     // 执行批次
+    /**
+     * <strong>example:</strong>
+     * <p>202501011930</p>
+     */
     @NameInMap("exec_batch")
     @Validation(required = true)
     public String execBatch;

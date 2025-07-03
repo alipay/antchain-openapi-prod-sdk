@@ -5,20 +5,36 @@ import com.aliyun.tea.*;
 
 public class UserClassifyInfo extends TeaModel {
     // 版本号
+    /**
+     * <strong>example:</strong>
+     * <p>V1</p>
+     */
     @NameInMap("version")
     @Validation(required = true)
     public String version;
 
     // 流量分层
+    /**
+     * <strong>example:</strong>
+     * <p>A: &lt;6% B: 6%<del>12% C:12%</del>18% D:18%<del>24% E:24%</del>36% F:&gt;36% R:不分发（黑名单类）</p>
+     */
     @NameInMap("rate_classify")
     @Validation(required = true)
     public String rateClassify;
 
     // 流量扩展分层1
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("classify_ext1")
     public String classifyExt1;
 
     // 流量扩展分层2
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("classify_ext2")
     public String classifyExt2;
 

@@ -5,46 +5,82 @@ import com.aliyun.tea.*;
 
 public class RepayInfos extends TeaModel {
     // 期次
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("period")
     @Validation(required = true)
     public Long period;
 
     // 实还总额
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("amount")
     @Validation(required = true)
     public Long amount;
 
     // 实还本金
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("principal")
     @Validation(required = true)
     public Long principal;
 
     // 实还利息
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("interest")
     @Validation(required = true)
     public Long interest;
 
     // 实还通道手续费
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("channel_amt")
     @Validation(required = true)
     public Long channelAmt;
 
     // 实还手续费
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("fee")
     @Validation(required = true)
     public Long fee;
 
     // 实收罚息
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("punish")
     @Validation(required = true)
     public Long punish;
 
     // 担保费
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("guarantee_fee")
     @Validation(required = true)
     public Long guaranteeFee;
 
     // 违约金
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("liquidated_damages")
     @Validation(required = true)
     public Long liquidatedDamages;

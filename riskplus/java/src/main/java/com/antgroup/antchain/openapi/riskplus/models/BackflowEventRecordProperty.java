@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class BackflowEventRecordProperty extends TeaModel {
     // 属性code
+    /**
+     * <strong>example:</strong>
+     * <p>mobile</p>
+     */
     @NameInMap("key")
     @Validation(required = true)
     public String key;
 
     // 属性value，统一为字符串
+    /**
+     * <strong>example:</strong>
+     * <p>18941147005</p>
+     */
     @NameInMap("value")
     @Validation(required = true)
     public String value;

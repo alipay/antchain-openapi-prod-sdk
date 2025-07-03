@@ -5,47 +5,87 @@ import com.aliyun.tea.*;
 
 public class TermDetail extends TeaModel {
     // 期数
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("term")
     @Validation(required = true)
     public String term;
 
     // 期供金额
+    /**
+     * <strong>example:</strong>
+     * <p>1999.98</p>
+     */
     @NameInMap("term_amount")
     @Validation(required = true)
     public Long termAmount;
 
     // 当期本金
+    /**
+     * <strong>example:</strong>
+     * <p>1999.98</p>
+     */
     @NameInMap("term_principal")
     @Validation(required = true)
     public Long termPrincipal;
 
     // 当期利息（分期产生的利息/手续费）
+    /**
+     * <strong>example:</strong>
+     * <p>1999.98</p>
+     */
     @NameInMap("term_fee")
     @Validation(required = true)
     public Long termFee;
 
     // 应还款日期
+    /**
+     * <strong>example:</strong>
+     * <p>yyyy-MM-dd</p>
+     */
     @NameInMap("settle_date")
     @Validation(required = true)
     public String settleDate;
 
     // 罚息
+    /**
+     * <strong>example:</strong>
+     * <p>1999.98</p>
+     */
     @NameInMap("penalty")
     public Long penalty;
 
     // 担保费
+    /**
+     * <strong>example:</strong>
+     * <p>1999.98</p>
+     */
     @NameInMap("guarantee_fee")
     public Long guaranteeFee;
 
     // 违约金
+    /**
+     * <strong>example:</strong>
+     * <p>1999.98</p>
+     */
     @NameInMap("liquidated_damages")
     public Long liquidatedDamages;
 
     // 服务费
+    /**
+     * <strong>example:</strong>
+     * <p>1999.98</p>
+     */
     @NameInMap("server_fee")
     public Long serverFee;
 
     // 减免金额
+    /**
+     * <strong>example:</strong>
+     * <p>1999.98</p>
+     */
     @NameInMap("deduct_amount")
     public Long deductAmount;
 

@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class SecurityResultInfos extends TeaModel {
     // 反欺诈风险数据服务风险建议决策
+    /**
+     * <strong>example:</strong>
+     * <p>reject</p>
+     */
     @NameInMap("decision")
     @Validation(required = true)
     public String decision;
 
     // 反欺诈风险数据服务风险分
+    /**
+     * <strong>example:</strong>
+     * <p>100.0</p>
+     */
     @NameInMap("risk_score")
     @Validation(required = true)
     public Long riskScore;
 
     // 反欺诈风险数据服务场景码
+    /**
+     * <strong>example:</strong>
+     * <p>EC_TEST</p>
+     */
     @NameInMap("scene_code")
     @Validation(required = true)
     public String sceneCode;

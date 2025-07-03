@@ -5,35 +5,63 @@ import com.aliyun.tea.*;
 
 public class StoreInfo extends TeaModel {
     // 门店ID
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
     @NameInMap("store_id")
     @Validation(required = true)
     public String storeId;
 
     // 蚂蚁数科入驻账号
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
     @NameInMap("login_tenant")
     @Validation(required = true)
     public String loginTenant;
 
     // 收款账号
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
     @NameInMap("payee_bank_card")
     @Validation(required = true)
     public String payeeBankCard;
 
     // 收款人
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("payee_name")
     @Validation(required = true)
     public String payeeName;
 
     // 门店名称
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
     @NameInMap("store_name")
     @Validation(required = true)
     public String storeName;
 
     // 销售ID
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
     @NameInMap("salesman")
     public String salesman;
 
     // 销售设备编号
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
     @NameInMap("device")
     public String device;
 

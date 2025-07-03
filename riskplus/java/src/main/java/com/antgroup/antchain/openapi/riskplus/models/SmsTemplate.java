@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class SmsTemplate extends TeaModel {
     // 场景策略ID
+    /**
+     * <strong>example:</strong>
+     * <p>5617</p>
+     */
     @NameInMap("scene_strategy_id")
     @Validation(required = true)
     public String sceneStrategyId;
 
     // 计划名称
+    /**
+     * <strong>example:</strong>
+     * <p>测试计划名称</p>
+     */
     @NameInMap("scene_strategy_name")
     @Validation(required = true)
     public String sceneStrategyName;
 
     // 模板内容
+    /**
+     * <strong>example:</strong>
+     * <p>测试模版内容</p>
+     */
     @NameInMap("template_content")
     @Validation(required = true)
     public String templateContent;

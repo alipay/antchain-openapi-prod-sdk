@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class OutParams extends TeaModel {
     // 输出参数
+    /**
+     * <strong>example:</strong>
+     * <p>rate</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 参数描述
+    /**
+     * <strong>example:</strong>
+     * <p>率利</p>
+     */
     @NameInMap("desc")
     @Validation(required = true)
     public String desc;
 
     // 参数值
+    /**
+     * <strong>example:</strong>
+     * <p>accept</p>
+     */
     @NameInMap("value")
     @Validation(required = true)
     public String value;

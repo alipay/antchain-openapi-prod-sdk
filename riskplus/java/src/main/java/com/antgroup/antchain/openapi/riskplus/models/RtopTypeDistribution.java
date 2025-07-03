@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class RtopTypeDistribution extends TeaModel {
     // 统计值
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("count")
     @Validation(required = true)
     public Integer count;
 
     // 当前类型下的等级分布
+    /**
+     * <strong>example:</strong>
+     * <p>undefined</p>
+     */
     @NameInMap("levelDistribution")
     @Validation(required = true)
     public java.util.List<RtopLevelDistribution> levelDistribution;
 
     // 类型
+    /**
+     * <strong>example:</strong>
+     * <p>MLM</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public String type;

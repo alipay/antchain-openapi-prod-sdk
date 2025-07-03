@@ -5,71 +5,131 @@ import com.aliyun.tea.*;
 
 public class PersonalInfo extends TeaModel {
     // 客户姓名
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("custom_name")
     @Validation(required = true)
     public String customName;
 
     // 身份证号码(18位)
+    /**
+     * <strong>example:</strong>
+     * <p>1234555</p>
+     */
     @NameInMap("card_no")
     @Validation(required = true)
     public String cardNo;
 
     // 1-身份证
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("id_type")
     @Validation(required = true)
     public String idType;
 
     // 证件开始日期(格式：YYYY-MM-DD)
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>YYYY-MM-DD</p>
+     */
     @NameInMap("cert_sign_date")
     @Validation(required = true)
     public String certSignDate;
 
     // 格式：YYYY-MM-DD，身份证有效期为长期的送: 9999-12-31
+    /**
+     * <strong>example:</strong>
+     * <p>YYYY-MM-DD</p>
+     */
     @NameInMap("cert_validate")
     @Validation(required = true)
     public String certValidate;
 
     // 证件地址
+    /**
+     * <strong>example:</strong>
+     * <p>浙江</p>
+     */
     @NameInMap("cert_adr")
     @Validation(required = true)
     public String certAdr;
 
     // 手机号
+    /**
+     * <strong>example:</strong>
+     * <p>12344</p>
+     */
     @NameInMap("mobile")
     @Validation(required = true)
     public String mobile;
 
     // 学历
+    /**
+     * <strong>example:</strong>
+     * <p>本科</p>
+     */
     @NameInMap("education")
     public String education;
 
     // 所在省份 汉字
+    /**
+     * <strong>example:</strong>
+     * <p>浙江</p>
+     */
     @NameInMap("province")
     public String province;
 
     // 所在城市 汉字
+    /**
+     * <strong>example:</strong>
+     * <p>杭州</p>
+     */
     @NameInMap("city")
     public String city;
 
     // 地区名称 汉字
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("area")
     public String area;
 
     // 详细地址
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("address")
     public String address;
 
     // 性别M-男
     // F-女
+    /**
+     * <strong>example:</strong>
+     * <p>M</p>
+     */
     @NameInMap("sex")
     public String sex;
 
     // 民族
+    /**
+     * <strong>example:</strong>
+     * <p>汉</p>
+     */
     @NameInMap("nation")
     public String nation;
 
     // 婚姻状态：00-未婚，01-已婚，02-离婚，03-丧偶，99-未知
+    /**
+     * <strong>example:</strong>
+     * <p>00</p>
+     */
     @NameInMap("marital_status")
     public String maritalStatus;
 

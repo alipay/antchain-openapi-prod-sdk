@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class CustomRelationStatus extends TeaModel {
     // 是否联登
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("reg_flag")
     public Boolean regFlag;
 

@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class CreditAmount extends TeaModel {
     // 授信额度
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("credit_amount")
     @Validation(required = true)
     public Long creditAmount;
 
     // 授信余额
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("rest_amount")
     @Validation(required = true)
     public Long restAmount;
@@ -25,6 +33,10 @@ public class CreditAmount extends TeaModel {
     public String expireDate;
 
     // 利率单位(1:年，2：月，3：日)
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("rate_unit")
     @Validation(required = true)
     public String rateUnit;
@@ -37,21 +49,37 @@ public class CreditAmount extends TeaModel {
     public Long rateValue;
 
     // 还款方式1等额本息2等额本金3先息后本4一次性利随本清5只还本金6等本等息
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("repay_way")
     @Validation(required = true)
     public String repayWay;
 
     // 状态0-正常 1-冻结 2-终止
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 发放日期（兼容字段）
+    /**
+     * <strong>example:</strong>
+     * <p>yyyy-MM-dd</p>
+     */
     @NameInMap("pay_date_sup")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String payDateSup;
 
     // 到期日期（兼容字段）
+    /**
+     * <strong>example:</strong>
+     * <p>yyyy-MM-dd</p>
+     */
     @NameInMap("expire_date_sup")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String expireDateSup;

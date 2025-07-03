@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class BaseCustomerUmktInfoModel extends TeaModel {
     // 用户凭证
+    /**
+     * <strong>example:</strong>
+     * <p>15011111605</p>
+     */
     @NameInMap("customer_key")
     public String customerKey;
 
     // 输入模板
+    /**
+     * <strong>example:</strong>
+     * <p>MOBILE</p>
+     */
     @NameInMap("query_template")
     public String queryTemplate;
 
     // 实时营销结果
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("umkt_result")
     public Long umktResult;
 

@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class RiskInfo extends TeaModel {
     // 反欺诈风险数据服务风险组描述
+    /**
+     * <strong>example:</strong>
+     * <p>贷款车辆存在异常关联记录</p>
+     */
     @NameInMap("risk_group_desc")
     @Validation(required = true)
     public String riskGroupDesc;
 
     // 反欺诈风险数据服务风险组名
+    /**
+     * <strong>example:</strong>
+     * <p>存在异常关联</p>
+     */
     @NameInMap("risk_group")
     @Validation(required = true)
     public String riskGroup;
 
     // 反欺诈风险数据服务风险组类别
+    /**
+     * <strong>example:</strong>
+     * <p>车辆风险</p>
+     */
     @NameInMap("risk_group_category")
     @Validation(required = true)
     public String riskGroupCategory;

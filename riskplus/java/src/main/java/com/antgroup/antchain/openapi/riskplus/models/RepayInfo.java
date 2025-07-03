@@ -6,6 +6,10 @@ import com.aliyun.tea.*;
 public class RepayInfo extends TeaModel {
     // true：逾期
     // false：未逾期
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("overdue_flag")
     @Validation(required = true)
     public Boolean overdueFlag;

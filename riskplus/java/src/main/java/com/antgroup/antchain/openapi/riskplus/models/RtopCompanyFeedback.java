@@ -10,21 +10,37 @@ public class RtopCompanyFeedback extends TeaModel {
     public Long id;
 
     // 企业ID
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("company_id")
     @Validation(required = true)
     public String companyId;
 
     // 反馈原因
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("feedback_reason")
     @Validation(required = true)
     public String feedbackReason;
 
     // 反馈原因详情
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("feedback_reason_detail")
     @Validation(required = true)
     public String feedbackReasonDetail;
 
     // 评论
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("comment")
     @Validation(required = true)
     public String comment;

@@ -9,11 +9,19 @@ public class RtopCrowdRiskFeatureResp extends TeaModel {
     public java.util.List<RtopCrowdRiskFeatureTag> clueTags;
 
     // 特征名称
+    /**
+     * <strong>example:</strong>
+     * <p>工商风险维度</p>
+     */
     @NameInMap("feature_name")
     @Validation(required = true)
     public String featureName;
 
     // 特征​分数
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("score")
     @Validation(required = true)
     public Integer score;

@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class EventInfo extends TeaModel {
     // 事件编码
+    /**
+     * <strong>example:</strong>
+     * <p>face_attack_strategy</p>
+     */
     @NameInMap("event_code")
     @Validation(required = true)
     public String eventCode;
 
     // 事件产生时间
+    /**
+     * <strong>example:</strong>
+     * <p>1686215967914</p>
+     */
     @NameInMap("gmt_occur")
     @Validation(required = true)
     public String gmtOccur;
