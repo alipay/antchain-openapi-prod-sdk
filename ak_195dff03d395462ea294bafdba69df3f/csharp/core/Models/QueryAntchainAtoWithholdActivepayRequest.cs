@@ -38,10 +38,15 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false, MaxLength=64)]
         public string PayType { get; set; }
 
-        // 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
+        // 无用字段，无需关注
         [NameInMap("pay_channel")]
         [Validation(Required=false, MaxLength=64)]
         public string PayChannel { get; set; }
+
+        // 多期支付的期数，当使用多期合并支付类型时必传。
+        [NameInMap("multi_period_num")]
+        [Validation(Required=false)]
+        public long? MultiPeriodNum { get; set; }
 
     }
 

@@ -57,6 +57,21 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string GmtPay { get; set; }
 
+        // 支付单据创建时间
+        [NameInMap("gmt_create")]
+        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string GmtCreate { get; set; }
+
+        // 多期合并支付明细
+        [NameInMap("multi_pay_detail")]
+        [Validation(Required=false)]
+        public List<SingleTermDetail> MultiPayDetail { get; set; }
+
+        // 多期支付的期数
+        [NameInMap("multi_period_num")]
+        [Validation(Required=false)]
+        public long? MultiPeriodNum { get; set; }
+
     }
 
 }

@@ -39,12 +39,13 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         public string PayChannel { get; set; }
 
         // 支付金额，单位为分
+        // 当支付类型非PERFORMANCE或为空必填
         [NameInMap("pay_amount")]
         [Validation(Required=false)]
         public long? PayAmount { get; set; }
 
         // 经营分账标识Y/N
-        // 当pay_type=BUYOUT、PENALTY必填。
+        // 当pay_type=BUYOUT、PENALTY、MULTI_PAY必填。
         [NameInMap("operation_divide_flag")]
         [Validation(Required=false, MaxLength=1)]
         public string OperationDivideFlag { get; set; }
@@ -54,6 +55,12 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [NameInMap("operation_divide_trans_in_list")]
         [Validation(Required=false)]
         public List<OperationDivideTransInModel> OperationDivideTransInList { get; set; }
+
+        // 单期支付明细列表
+        // 当pay_type=MULTI_PAY必填。
+        [NameInMap("multi_pay_detail")]
+        [Validation(Required=false)]
+        public List<SingleTermDetail> MultiPayDetail { get; set; }
 
     }
 
