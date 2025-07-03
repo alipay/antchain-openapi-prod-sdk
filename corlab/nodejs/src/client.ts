@@ -383,7 +383,7 @@ export class CreateModelbackTaskRequest extends $tea.Model {
   // 创建任务时回溯的产品
   productCodes: string[];
   // 样本记录名，不传为file_id
-  sampleFileName?: string;
+  sampleFileName: string;
   // 目前只支持MD5,SHA_256两种加密方式
   keyType: string;
   // 客户方唯一code
@@ -499,6 +499,10 @@ export class QueryModelbackTaskResponse extends $tea.Model {
   resultContexts?: ResultContext[];
   // 任务完成时间
   finishTime?: string;
+  // 异步任务失败后，响应客户任务失败原因错误码，任务正常值为空
+  errorCode?: string;
+  // 异步任务失败后，响应客户错误失败原因，任务正常值为空
+  errorMsg?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -508,6 +512,8 @@ export class QueryModelbackTaskResponse extends $tea.Model {
       status: 'status',
       resultContexts: 'result_contexts',
       finishTime: 'finish_time',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
     };
   }
 
@@ -520,6 +526,8 @@ export class QueryModelbackTaskResponse extends $tea.Model {
       status: 'string',
       resultContexts: { 'type': 'array', 'itemType': ResultContext },
       finishTime: 'string',
+      errorCode: 'string',
+      errorMsg: 'string',
     };
   }
 
@@ -788,7 +796,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.16",
+          sdk_version: "1.0.18",
           _prod_code: "CORLAB",
           _prod_channel: "default",
         };
