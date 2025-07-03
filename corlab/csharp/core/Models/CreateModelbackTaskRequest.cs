@@ -44,7 +44,7 @@ namespace AntChain.SDK.CORLAB.Models
 
         // 样本记录名，不传为file_id
         [NameInMap("sample_file_name")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string SampleFileName { get; set; }
 
         // 目前只支持MD5,SHA_256两种加密方式

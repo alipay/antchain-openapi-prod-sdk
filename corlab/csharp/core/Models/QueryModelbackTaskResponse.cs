@@ -44,6 +44,16 @@ namespace AntChain.SDK.CORLAB.Models
         [Validation(Required=false)]
         public string FinishTime { get; set; }
 
+        // 异步任务失败后，响应客户任务失败原因错误码，任务正常值为空
+        [NameInMap("error_code")]
+        [Validation(Required=false)]
+        public string ErrorCode { get; set; }
+
+        // 异步任务失败后，响应客户错误失败原因，任务正常值为空
+        [NameInMap("error_msg")]
+        [Validation(Required=false)]
+        public string ErrorMsg { get; set; }
+
     }
 
 }
