@@ -37,6 +37,8 @@ use AntChain\DEMO\Models\QueryABCRequest;
 use AntChain\DEMO\Models\QueryABCResponse;
 use AntChain\DEMO\Models\QueryAdAsdAsdRequest;
 use AntChain\DEMO\Models\QueryAdAsdAsdResponse;
+use AntChain\DEMO\Models\QueryAgentFinancialRiskRequest;
+use AntChain\DEMO\Models\QueryAgentFinancialRiskResponse;
 use AntChain\DEMO\Models\QueryApiBlackListRequest;
 use AntChain\DEMO\Models\QueryApiBlackListResponse;
 use AntChain\DEMO\Models\QueryApiWhiteListRequest;
@@ -71,6 +73,8 @@ use AntChain\DEMO\Models\QueryLoadtestTimeThreeRequest;
 use AntChain\DEMO\Models\QueryLoadtestTimeThreeResponse;
 use AntChain\DEMO\Models\QueryLoadtestTimeTwoRequest;
 use AntChain\DEMO\Models\QueryLoadtestTimeTwoResponse;
+use AntChain\DEMO\Models\QueryOasRestRequest;
+use AntChain\DEMO\Models\QueryOasRestResponse;
 use AntChain\DEMO\Models\QueryStreamNonjsonRequest;
 use AntChain\DEMO\Models\QueryStreamNonjsonResponse;
 use AntChain\DEMO\Models\QueryStreamNonstreamRequest;
@@ -85,6 +89,18 @@ use AntChain\DEMO\Models\QueryStreamTimeoutRequest;
 use AntChain\DEMO\Models\QueryStreamTimeoutResponse;
 use AntChain\DEMO\Models\QueryTestCatcheLimitRequest;
 use AntChain\DEMO\Models\QueryTestCatcheLimitResponse;
+use AntChain\DEMO\Models\QueryTestContentTypefiveRequest;
+use AntChain\DEMO\Models\QueryTestContentTypefiveResponse;
+use AntChain\DEMO\Models\QueryTestContentTypefourRequest;
+use AntChain\DEMO\Models\QueryTestContentTypefourResponse;
+use AntChain\DEMO\Models\QueryTestContentTypeoneRequest;
+use AntChain\DEMO\Models\QueryTestContentTypeoneResponse;
+use AntChain\DEMO\Models\QueryTestContentTypeRequest;
+use AntChain\DEMO\Models\QueryTestContentTypeResponse;
+use AntChain\DEMO\Models\QueryTestContentTypethreeRequest;
+use AntChain\DEMO\Models\QueryTestContentTypethreeResponse;
+use AntChain\DEMO\Models\QueryTestContentTypetwoRequest;
+use AntChain\DEMO\Models\QueryTestContentTypetwoResponse;
 use AntChain\DEMO\Models\QueryTestEmbedUserRequest;
 use AntChain\DEMO\Models\QueryTestEmbedUserResponse;
 use AntChain\DEMO\Models\QueryTestForLimitRequest;
@@ -246,7 +262,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.31',
+                    'sdk_version'      => '1.1.39',
                     '_prod_code'       => 'DEMO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1235,6 +1251,270 @@ class Client
         Utils::validateModel($request);
 
         return QueryTestTimeTestaResponse::fromMap($this->doRequest('1.0', 'demo.test.time.testa.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: oas 测试使用
+     * Summary: oas 测试使用.
+     *
+     * @param QueryOasRestRequest $request
+     *
+     * @return QueryOasRestResponse
+     */
+    public function queryOasRest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryOasRestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: oas 测试使用
+     * Summary: oas 测试使用.
+     *
+     * @param QueryOasRestRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return QueryOasRestResponse
+     */
+    public function queryOasRestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryOasRestResponse::fromMap($this->doRequest('1.0', 'demo.oas.rest.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试.
+     *
+     * @param QueryTestContentTypeRequest $request
+     *
+     * @return QueryTestContentTypeResponse
+     */
+    public function queryTestContentType($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTestContentTypeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试.
+     *
+     * @param QueryTestContentTypeRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryTestContentTypeResponse
+     */
+    public function queryTestContentTypeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTestContentTypeResponse::fromMap($this->doRequest('1.0', 'demo.test.content.type.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动化测试contentType
+     * Summary: 自动化测试contentType.
+     *
+     * @param QueryTestContentTypeoneRequest $request
+     *
+     * @return QueryTestContentTypeoneResponse
+     */
+    public function queryTestContentTypeone($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTestContentTypeoneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化测试contentType
+     * Summary: 自动化测试contentType.
+     *
+     * @param QueryTestContentTypeoneRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryTestContentTypeoneResponse
+     */
+    public function queryTestContentTypeoneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTestContentTypeoneResponse::fromMap($this->doRequest('1.0', 'demo.test.content.typeone.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试.
+     *
+     * @param QueryTestContentTypetwoRequest $request
+     *
+     * @return QueryTestContentTypetwoResponse
+     */
+    public function queryTestContentTypetwo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTestContentTypetwoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试.
+     *
+     * @param QueryTestContentTypetwoRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryTestContentTypetwoResponse
+     */
+    public function queryTestContentTypetwoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTestContentTypetwoResponse::fromMap($this->doRequest('1.0', 'demo.test.content.typetwo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试.
+     *
+     * @param QueryTestContentTypethreeRequest $request
+     *
+     * @return QueryTestContentTypethreeResponse
+     */
+    public function queryTestContentTypethree($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTestContentTypethreeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试.
+     *
+     * @param QueryTestContentTypethreeRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryTestContentTypethreeResponse
+     */
+    public function queryTestContentTypethreeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTestContentTypethreeResponse::fromMap($this->doRequest('1.0', 'demo.test.content.typethree.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试.
+     *
+     * @param QueryTestContentTypefourRequest $request
+     *
+     * @return QueryTestContentTypefourResponse
+     */
+    public function queryTestContentTypefour($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTestContentTypefourEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试.
+     *
+     * @param QueryTestContentTypefourRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryTestContentTypefourResponse
+     */
+    public function queryTestContentTypefourEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTestContentTypefourResponse::fromMap($this->doRequest('1.0', 'demo.test.content.typefour.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试.
+     *
+     * @param QueryTestContentTypefiveRequest $request
+     *
+     * @return QueryTestContentTypefiveResponse
+     */
+    public function queryTestContentTypefive($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTestContentTypefiveEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化contenttype兼容测试
+     * Summary: 自动化contenttype兼容测试.
+     *
+     * @param QueryTestContentTypefiveRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryTestContentTypefiveResponse
+     */
+    public function queryTestContentTypefiveEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTestContentTypefiveResponse::fromMap($this->doRequest('1.0', 'demo.test.content.typefive.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 金融场景风险分析
+     * Summary: 金融场景风险分析.
+     *
+     * @param QueryAgentFinancialRiskRequest $request
+     *
+     * @return QueryAgentFinancialRiskResponse
+     */
+    public function queryAgentFinancialRisk($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAgentFinancialRiskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 金融场景风险分析
+     * Summary: 金融场景风险分析.
+     *
+     * @param QueryAgentFinancialRiskRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryAgentFinancialRiskResponse
+     */
+    public function queryAgentFinancialRiskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAgentFinancialRiskResponse::fromMap($this->doRequest('1.0', 'demo.agent.financial.risk.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

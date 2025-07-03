@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryGatewayMyResponse extends Model
+class QueryTestContentTypeResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,23 @@ class QueryGatewayMyResponse extends Model
      */
     public $resultMsg;
 
-    // SUCCESS le
+    // 状态码
     /**
      * @var string
      */
-    public $success;
+    public $statucode;
+
+    // 查询返回结果
+    /**
+     * @var string
+     */
+    public $queryResult;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'success'    => 'success',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'statucode'   => 'statucode',
+        'queryResult' => 'query_result',
     ];
 
     public function validate()
@@ -54,8 +61,11 @@ class QueryGatewayMyResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
+        if (null !== $this->statucode) {
+            $res['statucode'] = $this->statucode;
+        }
+        if (null !== $this->queryResult) {
+            $res['query_result'] = $this->queryResult;
         }
 
         return $res;
@@ -64,7 +74,7 @@ class QueryGatewayMyResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryGatewayMyResponse
+     * @return QueryTestContentTypeResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +88,11 @@ class QueryGatewayMyResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['success'])) {
-            $model->success = $map['success'];
+        if (isset($map['statucode'])) {
+            $model->statucode = $map['statucode'];
+        }
+        if (isset($map['query_result'])) {
+            $model->queryResult = $map['query_result'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryGatewayMyResponse extends Model
+class QueryOasRestResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class QueryGatewayMyResponse extends Model
      */
     public $resultMsg;
 
-    // SUCCESS le
+    // 描述信息
     /**
      * @var string
      */
-    public $success;
+    public $info;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'success'    => 'success',
+        'info'       => 'info',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class QueryGatewayMyResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
+        if (null !== $this->info) {
+            $res['info'] = $this->info;
         }
 
         return $res;
@@ -64,7 +64,7 @@ class QueryGatewayMyResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryGatewayMyResponse
+     * @return QueryOasRestResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +78,8 @@ class QueryGatewayMyResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['success'])) {
-            $model->success = $map['success'];
+        if (isset($map['info'])) {
+            $model->info = $map['info'];
         }
 
         return $model;
