@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.31',
+                    'sdk_version': '1.1.39',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.31',
+                    'sdk_version': '1.1.39',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -1877,6 +1877,454 @@ class Client:
         return TeaCore.from_map(
             demo_models.QueryTestTimeTestaResponse(),
             await self.do_request_async('1.0', 'demo.test.time.testa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_oas_rest(
+        self,
+        request: demo_models.QueryOasRestRequest,
+    ) -> demo_models.QueryOasRestResponse:
+        """
+        Description: oas 测试使用
+        Summary: oas 测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_oas_rest_ex(request, headers, runtime)
+
+    async def query_oas_rest_async(
+        self,
+        request: demo_models.QueryOasRestRequest,
+    ) -> demo_models.QueryOasRestResponse:
+        """
+        Description: oas 测试使用
+        Summary: oas 测试使用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_oas_rest_ex_async(request, headers, runtime)
+
+    def query_oas_rest_ex(
+        self,
+        request: demo_models.QueryOasRestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryOasRestResponse:
+        """
+        Description: oas 测试使用
+        Summary: oas 测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryOasRestResponse(),
+            self.do_request('1.0', 'demo.oas.rest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_oas_rest_ex_async(
+        self,
+        request: demo_models.QueryOasRestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryOasRestResponse:
+        """
+        Description: oas 测试使用
+        Summary: oas 测试使用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryOasRestResponse(),
+            await self.do_request_async('1.0', 'demo.oas.rest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_test_content_type(
+        self,
+        request: demo_models.QueryTestContentTypeRequest,
+    ) -> demo_models.QueryTestContentTypeResponse:
+        """
+        Description: 自动化contenttype兼容测试
+        Summary: 自动化contenttype兼容测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_test_content_type_ex(request, headers, runtime)
+
+    async def query_test_content_type_async(
+        self,
+        request: demo_models.QueryTestContentTypeRequest,
+    ) -> demo_models.QueryTestContentTypeResponse:
+        """
+        Description: 自动化contenttype兼容测试
+        Summary: 自动化contenttype兼容测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_test_content_type_ex_async(request, headers, runtime)
+
+    def query_test_content_type_ex(
+        self,
+        request: demo_models.QueryTestContentTypeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryTestContentTypeResponse:
+        """
+        Description: 自动化contenttype兼容测试
+        Summary: 自动化contenttype兼容测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryTestContentTypeResponse(),
+            self.do_request('1.0', 'demo.test.content.type.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_test_content_type_ex_async(
+        self,
+        request: demo_models.QueryTestContentTypeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryTestContentTypeResponse:
+        """
+        Description: 自动化contenttype兼容测试
+        Summary: 自动化contenttype兼容测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryTestContentTypeResponse(),
+            await self.do_request_async('1.0', 'demo.test.content.type.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_test_content_typeone(
+        self,
+        request: demo_models.QueryTestContentTypeoneRequest,
+    ) -> demo_models.QueryTestContentTypeoneResponse:
+        """
+        Description: 自动化测试contentType
+        Summary: 自动化测试contentType
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_test_content_typeone_ex(request, headers, runtime)
+
+    async def query_test_content_typeone_async(
+        self,
+        request: demo_models.QueryTestContentTypeoneRequest,
+    ) -> demo_models.QueryTestContentTypeoneResponse:
+        """
+        Description: 自动化测试contentType
+        Summary: 自动化测试contentType
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_test_content_typeone_ex_async(request, headers, runtime)
+
+    def query_test_content_typeone_ex(
+        self,
+        request: demo_models.QueryTestContentTypeoneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryTestContentTypeoneResponse:
+        """
+        Description: 自动化测试contentType
+        Summary: 自动化测试contentType
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryTestContentTypeoneResponse(),
+            self.do_request('1.0', 'demo.test.content.typeone.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_test_content_typeone_ex_async(
+        self,
+        request: demo_models.QueryTestContentTypeoneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryTestContentTypeoneResponse:
+        """
+        Description: 自动化测试contentType
+        Summary: 自动化测试contentType
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryTestContentTypeoneResponse(),
+            await self.do_request_async('1.0', 'demo.test.content.typeone.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_test_content_typetwo(
+        self,
+        request: demo_models.QueryTestContentTypetwoRequest,
+    ) -> demo_models.QueryTestContentTypetwoResponse:
+        """
+        Description: 自动化contenttype兼容测试
+        Summary: 自动化contenttype兼容测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_test_content_typetwo_ex(request, headers, runtime)
+
+    async def query_test_content_typetwo_async(
+        self,
+        request: demo_models.QueryTestContentTypetwoRequest,
+    ) -> demo_models.QueryTestContentTypetwoResponse:
+        """
+        Description: 自动化contenttype兼容测试
+        Summary: 自动化contenttype兼容测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_test_content_typetwo_ex_async(request, headers, runtime)
+
+    def query_test_content_typetwo_ex(
+        self,
+        request: demo_models.QueryTestContentTypetwoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryTestContentTypetwoResponse:
+        """
+        Description: 自动化contenttype兼容测试
+        Summary: 自动化contenttype兼容测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryTestContentTypetwoResponse(),
+            self.do_request('1.0', 'demo.test.content.typetwo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_test_content_typetwo_ex_async(
+        self,
+        request: demo_models.QueryTestContentTypetwoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryTestContentTypetwoResponse:
+        """
+        Description: 自动化contenttype兼容测试
+        Summary: 自动化contenttype兼容测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryTestContentTypetwoResponse(),
+            await self.do_request_async('1.0', 'demo.test.content.typetwo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_test_content_typethree(
+        self,
+        request: demo_models.QueryTestContentTypethreeRequest,
+    ) -> demo_models.QueryTestContentTypethreeResponse:
+        """
+        Description: 自动化contenttype兼容测试
+        Summary: 自动化contenttype兼容测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_test_content_typethree_ex(request, headers, runtime)
+
+    async def query_test_content_typethree_async(
+        self,
+        request: demo_models.QueryTestContentTypethreeRequest,
+    ) -> demo_models.QueryTestContentTypethreeResponse:
+        """
+        Description: 自动化contenttype兼容测试
+        Summary: 自动化contenttype兼容测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_test_content_typethree_ex_async(request, headers, runtime)
+
+    def query_test_content_typethree_ex(
+        self,
+        request: demo_models.QueryTestContentTypethreeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryTestContentTypethreeResponse:
+        """
+        Description: 自动化contenttype兼容测试
+        Summary: 自动化contenttype兼容测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryTestContentTypethreeResponse(),
+            self.do_request('1.0', 'demo.test.content.typethree.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_test_content_typethree_ex_async(
+        self,
+        request: demo_models.QueryTestContentTypethreeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryTestContentTypethreeResponse:
+        """
+        Description: 自动化contenttype兼容测试
+        Summary: 自动化contenttype兼容测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryTestContentTypethreeResponse(),
+            await self.do_request_async('1.0', 'demo.test.content.typethree.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_test_content_typefour(
+        self,
+        request: demo_models.QueryTestContentTypefourRequest,
+    ) -> demo_models.QueryTestContentTypefourResponse:
+        """
+        Description: 自动化contenttype兼容测试
+        Summary: 自动化contenttype兼容测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_test_content_typefour_ex(request, headers, runtime)
+
+    async def query_test_content_typefour_async(
+        self,
+        request: demo_models.QueryTestContentTypefourRequest,
+    ) -> demo_models.QueryTestContentTypefourResponse:
+        """
+        Description: 自动化contenttype兼容测试
+        Summary: 自动化contenttype兼容测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_test_content_typefour_ex_async(request, headers, runtime)
+
+    def query_test_content_typefour_ex(
+        self,
+        request: demo_models.QueryTestContentTypefourRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryTestContentTypefourResponse:
+        """
+        Description: 自动化contenttype兼容测试
+        Summary: 自动化contenttype兼容测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryTestContentTypefourResponse(),
+            self.do_request('1.0', 'demo.test.content.typefour.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_test_content_typefour_ex_async(
+        self,
+        request: demo_models.QueryTestContentTypefourRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryTestContentTypefourResponse:
+        """
+        Description: 自动化contenttype兼容测试
+        Summary: 自动化contenttype兼容测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryTestContentTypefourResponse(),
+            await self.do_request_async('1.0', 'demo.test.content.typefour.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_test_content_typefive(
+        self,
+        request: demo_models.QueryTestContentTypefiveRequest,
+    ) -> demo_models.QueryTestContentTypefiveResponse:
+        """
+        Description: 自动化contenttype兼容测试
+        Summary: 自动化contenttype兼容测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_test_content_typefive_ex(request, headers, runtime)
+
+    async def query_test_content_typefive_async(
+        self,
+        request: demo_models.QueryTestContentTypefiveRequest,
+    ) -> demo_models.QueryTestContentTypefiveResponse:
+        """
+        Description: 自动化contenttype兼容测试
+        Summary: 自动化contenttype兼容测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_test_content_typefive_ex_async(request, headers, runtime)
+
+    def query_test_content_typefive_ex(
+        self,
+        request: demo_models.QueryTestContentTypefiveRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryTestContentTypefiveResponse:
+        """
+        Description: 自动化contenttype兼容测试
+        Summary: 自动化contenttype兼容测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryTestContentTypefiveResponse(),
+            self.do_request('1.0', 'demo.test.content.typefive.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_test_content_typefive_ex_async(
+        self,
+        request: demo_models.QueryTestContentTypefiveRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryTestContentTypefiveResponse:
+        """
+        Description: 自动化contenttype兼容测试
+        Summary: 自动化contenttype兼容测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryTestContentTypefiveResponse(),
+            await self.do_request_async('1.0', 'demo.test.content.typefive.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_agent_financial_risk(
+        self,
+        request: demo_models.QueryAgentFinancialRiskRequest,
+    ) -> demo_models.QueryAgentFinancialRiskResponse:
+        """
+        Description: 金融场景风险分析
+        Summary: 金融场景风险分析
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_agent_financial_risk_ex(request, headers, runtime)
+
+    async def query_agent_financial_risk_async(
+        self,
+        request: demo_models.QueryAgentFinancialRiskRequest,
+    ) -> demo_models.QueryAgentFinancialRiskResponse:
+        """
+        Description: 金融场景风险分析
+        Summary: 金融场景风险分析
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_agent_financial_risk_ex_async(request, headers, runtime)
+
+    def query_agent_financial_risk_ex(
+        self,
+        request: demo_models.QueryAgentFinancialRiskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryAgentFinancialRiskResponse:
+        """
+        Description: 金融场景风险分析
+        Summary: 金融场景风险分析
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryAgentFinancialRiskResponse(),
+            self.do_request('1.0', 'demo.agent.financial.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_agent_financial_risk_ex_async(
+        self,
+        request: demo_models.QueryAgentFinancialRiskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryAgentFinancialRiskResponse:
+        """
+        Description: 金融场景风险分析
+        Summary: 金融场景风险分析
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryAgentFinancialRiskResponse(),
+            await self.do_request_async('1.0', 'demo.agent.financial.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_stream_testmethod(
