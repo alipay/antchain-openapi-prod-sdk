@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.39',
+                    'sdk_version': '1.3.44',
                     '_prod_code': 'ACOPM',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.39',
+                    'sdk_version': '1.3.44',
                     '_prod_code': 'ACOPM',
                     '_prod_channel': 'undefined'
                 }
@@ -1897,4 +1897,116 @@ class Client:
         return TeaCore.from_map(
             acopm_models.UpdateInstanceTenantResponse(),
             await self.do_request_async('1.0', 'antcloud.acopm.instance.tenant.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_multi_sdk(
+        self,
+        request: acopm_models.CallbackMultiSdkRequest,
+    ) -> acopm_models.CallbackMultiSdkResponse:
+        """
+        Description: 个人工作台-阿里云Tea多语言SDK生成回调
+        Summary: 阿里云Tea多语言SDK生成回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_multi_sdk_ex(request, headers, runtime)
+
+    async def callback_multi_sdk_async(
+        self,
+        request: acopm_models.CallbackMultiSdkRequest,
+    ) -> acopm_models.CallbackMultiSdkResponse:
+        """
+        Description: 个人工作台-阿里云Tea多语言SDK生成回调
+        Summary: 阿里云Tea多语言SDK生成回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_multi_sdk_ex_async(request, headers, runtime)
+
+    def callback_multi_sdk_ex(
+        self,
+        request: acopm_models.CallbackMultiSdkRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acopm_models.CallbackMultiSdkResponse:
+        """
+        Description: 个人工作台-阿里云Tea多语言SDK生成回调
+        Summary: 阿里云Tea多语言SDK生成回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acopm_models.CallbackMultiSdkResponse(),
+            self.do_request('1.0', 'antcloud.acopm.multi.sdk.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_multi_sdk_ex_async(
+        self,
+        request: acopm_models.CallbackMultiSdkRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acopm_models.CallbackMultiSdkResponse:
+        """
+        Description: 个人工作台-阿里云Tea多语言SDK生成回调
+        Summary: 阿里云Tea多语言SDK生成回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acopm_models.CallbackMultiSdkResponse(),
+            await self.do_request_async('1.0', 'antcloud.acopm.multi.sdk.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def reset_product_redis(
+        self,
+        request: acopm_models.ResetProductRedisRequest,
+    ) -> acopm_models.ResetProductRedisResponse:
+        """
+        Description: 产品码redis刷新
+        Summary: 产品码redis刷新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.reset_product_redis_ex(request, headers, runtime)
+
+    async def reset_product_redis_async(
+        self,
+        request: acopm_models.ResetProductRedisRequest,
+    ) -> acopm_models.ResetProductRedisResponse:
+        """
+        Description: 产品码redis刷新
+        Summary: 产品码redis刷新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.reset_product_redis_ex_async(request, headers, runtime)
+
+    def reset_product_redis_ex(
+        self,
+        request: acopm_models.ResetProductRedisRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acopm_models.ResetProductRedisResponse:
+        """
+        Description: 产品码redis刷新
+        Summary: 产品码redis刷新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acopm_models.ResetProductRedisResponse(),
+            self.do_request('1.0', 'antcloud.acopm.product.redis.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def reset_product_redis_ex_async(
+        self,
+        request: acopm_models.ResetProductRedisRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acopm_models.ResetProductRedisResponse:
+        """
+        Description: 产品码redis刷新
+        Summary: 产品码redis刷新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acopm_models.ResetProductRedisResponse(),
+            await self.do_request_async('1.0', 'antcloud.acopm.product.redis.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
