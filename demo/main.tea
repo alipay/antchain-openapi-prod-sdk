@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.31',
+    sdk_version = '1.1.39',
     _prod_code = 'DEMO',
     _prod_channel = 'undefined'
   };
@@ -299,6 +299,16 @@ model SCRealEstateQueryInvokerRequest {
   body: SCRealEstateQueryBody(name='body', example='"body":{}'),
 }
 
+// 风险评估因子明细
+model RiskFactorDetail {
+  // 风险评估因子类型
+  factorType?: string(name='factor_type', example='BLACKLIST'),
+  // 分数
+  score?: long(name='score', example='85'),
+  // 风险事件
+  evidence?: [ string ](name='evidence', example='["关联账户被冻结", "高频异常交易"]'),
+}
+
 // 用于上海非金迭代的测试使用
 model ShangHaiTest {
   // string
@@ -315,6 +325,20 @@ model InitPack {
   operator: string(name='operator', example='wanyi'),
   // 请求编号
   count: long(name='count', example='1'),
+}
+
+// 交易明细信息
+model TransactionDetails {
+  // 金额
+  amount?: long(name='amount', example='85000.00'),
+  // 币种
+  currency?: string(name='currency', example='CNY'),
+  // 渠道
+  channel?: string(name='channel', example='ATM'),
+  // 地址
+  location?: string(name='location', example='上海分行'),
+  // 时间
+  time?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='time', example='2018-10-10T10:10:00Z'),
 }
 
 // 数字类型
@@ -423,6 +447,20 @@ model SCRealEstateQueryResponseBody {
   requestId: string(name='request_id', example='request_id'),
   // payload
   payload: SCRealEstateQueryResponsePayload(name='payload', example=''),
+}
+
+// 用户基础信息
+model UserProfile {
+  // 用户ID
+  userId?: string(name='user_id', example='1234567890'),
+  // 用户身份证号
+  idNumber?: string(name='id_number', example='110101199003072516'),
+  // 手机号
+  mobile?: string(name='mobile', example='13800138000'),
+  // 年龄
+  age?: long(name='age', example='32'),
+  // 信用评分
+  creditScore?: long(name='credit_score', example='720'),
 }
 
 // Map<String,Object> 集合
@@ -622,6 +660,8 @@ model QueryGatewayMyResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // SUCCESS le
+  success?: string(name='success'),
 }
 
 /**
@@ -1601,6 +1641,340 @@ async function queryTestTimeTesta(request: QueryTestTimeTestaRequest): QueryTest
 async function queryTestTimeTestaEx(request: QueryTestTimeTestaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTestTimeTestaResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.test.time.testa.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryOasRestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // id信息
+  identityId: string(name='identity_id'),
+}
+
+model QueryOasRestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 描述信息
+  info?: string(name='info'),
+}
+
+/**
+ * Description: oas 测试使用
+ * Summary: oas 测试使用
+ */
+async function queryOasRest(request: QueryOasRestRequest): QueryOasRestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryOasRestEx(request, headers, runtime);
+}
+
+/**
+ * Description: oas 测试使用
+ * Summary: oas 测试使用
+ */
+async function queryOasRestEx(request: QueryOasRestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryOasRestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.oas.rest.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTestContentTypeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询输入
+  data?: string(name='data'),
+}
+
+model QueryTestContentTypeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态码
+  statucode?: string(name='statucode'),
+  // 查询返回结果
+  queryResult?: string(name='query_result'),
+}
+
+/**
+ * Description: 自动化contenttype兼容测试
+ * Summary: 自动化contenttype兼容测试
+ */
+async function queryTestContentType(request: QueryTestContentTypeRequest): QueryTestContentTypeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTestContentTypeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 自动化contenttype兼容测试
+ * Summary: 自动化contenttype兼容测试
+ */
+async function queryTestContentTypeEx(request: QueryTestContentTypeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTestContentTypeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.test.content.type.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTestContentTypeoneRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询输入
+  data: string(name='data'),
+}
+
+model QueryTestContentTypeoneResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询结果
+  queryResult?: string(name='query_result'),
+  // 结果码
+  statucode?: string(name='statucode'),
+}
+
+/**
+ * Description: 自动化测试contentType
+ * Summary: 自动化测试contentType
+ */
+async function queryTestContentTypeone(request: QueryTestContentTypeoneRequest): QueryTestContentTypeoneResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTestContentTypeoneEx(request, headers, runtime);
+}
+
+/**
+ * Description: 自动化测试contentType
+ * Summary: 自动化测试contentType
+ */
+async function queryTestContentTypeoneEx(request: QueryTestContentTypeoneRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTestContentTypeoneResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.test.content.typeone.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTestContentTypetwoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询输入
+  data: string(name='data'),
+}
+
+model QueryTestContentTypetwoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询返回结果
+  data?: string(name='data'),
+  // 状态码
+  statucode?: string(name='statucode'),
+}
+
+/**
+ * Description: 自动化contenttype兼容测试
+ * Summary: 自动化contenttype兼容测试
+ */
+async function queryTestContentTypetwo(request: QueryTestContentTypetwoRequest): QueryTestContentTypetwoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTestContentTypetwoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 自动化contenttype兼容测试
+ * Summary: 自动化contenttype兼容测试
+ */
+async function queryTestContentTypetwoEx(request: QueryTestContentTypetwoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTestContentTypetwoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.test.content.typetwo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTestContentTypethreeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询输入
+  data: string(name='data'),
+}
+
+model QueryTestContentTypethreeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询返回结果
+  queryResult?: string(name='query_result'),
+  // 结果码
+  statucode?: string(name='statucode'),
+}
+
+/**
+ * Description: 自动化contenttype兼容测试
+ * Summary: 自动化contenttype兼容测试
+ */
+async function queryTestContentTypethree(request: QueryTestContentTypethreeRequest): QueryTestContentTypethreeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTestContentTypethreeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 自动化contenttype兼容测试
+ * Summary: 自动化contenttype兼容测试
+ */
+async function queryTestContentTypethreeEx(request: QueryTestContentTypethreeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTestContentTypethreeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.test.content.typethree.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTestContentTypefourRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询输入
+  data: string(name='data'),
+}
+
+model QueryTestContentTypefourResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询返回结果
+  queryResult?: string(name='query_result'),
+  // 结果码
+  statucode?: string(name='statucode'),
+}
+
+/**
+ * Description: 自动化contenttype兼容测试
+ * Summary: 自动化contenttype兼容测试
+ */
+async function queryTestContentTypefour(request: QueryTestContentTypefourRequest): QueryTestContentTypefourResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTestContentTypefourEx(request, headers, runtime);
+}
+
+/**
+ * Description: 自动化contenttype兼容测试
+ * Summary: 自动化contenttype兼容测试
+ */
+async function queryTestContentTypefourEx(request: QueryTestContentTypefourRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTestContentTypefourResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.test.content.typefour.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTestContentTypefiveRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询入参
+  data: string(name='data'),
+}
+
+model QueryTestContentTypefiveResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果码
+  statucode?: string(name='statucode'),
+  // 查询结果
+  queryResult?: string(name='query_result'),
+}
+
+/**
+ * Description: 自动化contenttype兼容测试
+ * Summary: 自动化contenttype兼容测试
+ */
+async function queryTestContentTypefive(request: QueryTestContentTypefiveRequest): QueryTestContentTypefiveResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTestContentTypefiveEx(request, headers, runtime);
+}
+
+/**
+ * Description: 自动化contenttype兼容测试
+ * Summary: 自动化contenttype兼容测试
+ */
+async function queryTestContentTypefiveEx(request: QueryTestContentTypefiveRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTestContentTypefiveResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.test.content.typefive.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAgentFinancialRiskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户基础信息
+  userProfile?: UserProfile(name='user_profile'),
+  // 交易明细信息
+  transactionDetails?: TransactionDetails(name='transaction_details'),
+  // 风险评估因子列表
+  riskFactors?: [ RiskFactorDetail ](name='risk_factors'),
+  // 业务上下文信息
+  businessContext?: NameValuePair(name='business_context'),
+  // 风险等级标识（LOW/MEDIUM/HIGH/URGENT）
+  riskLevel?: string(name='risk_level'),
+  // 接口超时时间（毫秒）
+  timeout?: long(maximum=60000, minimum=0, name='timeout'),
+}
+
+model QueryAgentFinancialRiskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 风险等级
+  riskLevel?: string(name='risk_level'),
+  // 风险建议动作
+  suggestedAction?: string(name='suggested_action'),
+  // 风险分
+  riskScore?: long(name='risk_score'),
+  // 风险因子列表
+  riskfactors?: RiskFactorDetail(name='riskfactors'),
+  // 处置建议
+  recommendations?: string(name='recommendations'),
+}
+
+/**
+ * Description: 金融场景风险分析
+ * Summary: 金融场景风险分析
+ */
+async function queryAgentFinancialRisk(request: QueryAgentFinancialRiskRequest): QueryAgentFinancialRiskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAgentFinancialRiskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 金融场景风险分析
+ * Summary: 金融场景风险分析
+ */
+async function queryAgentFinancialRiskEx(request: QueryAgentFinancialRiskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAgentFinancialRiskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.agent.financial.risk.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryStreamTestmethodRequest = {
