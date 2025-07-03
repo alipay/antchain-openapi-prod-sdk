@@ -539,7 +539,7 @@ type CreateModelbackTaskRequest struct {
 	// 创建任务时回溯的产品
 	ProductCodes []*string `json:"product_codes,omitempty" xml:"product_codes,omitempty" require:"true" type:"Repeated"`
 	// 样本记录名，不传为file_id
-	SampleFileName *string `json:"sample_file_name,omitempty" xml:"sample_file_name,omitempty"`
+	SampleFileName *string `json:"sample_file_name,omitempty" xml:"sample_file_name,omitempty" require:"true"`
 	// 目前只支持MD5,SHA_256两种加密方式
 	KeyType *string `json:"key_type,omitempty" xml:"key_type,omitempty" require:"true"`
 	// 客户方唯一code
@@ -691,6 +691,10 @@ type QueryModelbackTaskResponse struct {
 	ResultContexts []*ResultContext `json:"result_contexts,omitempty" xml:"result_contexts,omitempty" type:"Repeated"`
 	// 任务完成时间
 	FinishTime *string `json:"finish_time,omitempty" xml:"finish_time,omitempty"`
+	// 异步任务失败后，响应客户任务失败原因错误码，任务正常值为空
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 异步任务失败后，响应客户错误失败原因，任务正常值为空
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
 }
 
 func (s QueryModelbackTaskResponse) String() string {
@@ -733,6 +737,16 @@ func (s *QueryModelbackTaskResponse) SetResultContexts(v []*ResultContext) *Quer
 
 func (s *QueryModelbackTaskResponse) SetFinishTime(v string) *QueryModelbackTaskResponse {
 	s.FinishTime = &v
+	return s
+}
+
+func (s *QueryModelbackTaskResponse) SetErrorCode(v string) *QueryModelbackTaskResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *QueryModelbackTaskResponse) SetErrorMsg(v string) *QueryModelbackTaskResponse {
+	s.ErrorMsg = &v
 	return s
 }
 
@@ -1048,7 +1062,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.16"),
+				"sdk_version":      tea.String("1.0.18"),
 				"_prod_code":       tea.String("CORLAB"),
 				"_prod_channel":    tea.String("default"),
 			}
