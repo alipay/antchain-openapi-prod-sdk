@@ -5515,6 +5515,145 @@ export class XNameValuePair extends $tea.Model {
   }
 }
 
+export class ReceiveBenefithubRiskPayRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务分配的平台code，8位纯大写字母code
+  platformCode: string;
+  // 产品code
+  productCode: string;
+  // 平台code、用户唯一ID 组合出全局唯一id
+  userUniqueId: string;
+  // 类型：订单支付结果类、订单退款类、续费扣款类、签约成功、解约成功、订单超时类型
+  // 具体如下：
+  // ODRDER_PAYMENT-订单支付结果类通知、ORDER_REFUND-订单退款、RENEWAL_DEDUCTION-续费扣款、CONTRACT_SIGNED-签约成功、CONTRACT_TERMINATED-解约成功、
+  // ORDER_TIMEOUT-订单超时类型
+  resultType: string;
+  // 回调结果，json数据
+  // 各个平台返回的支付结果、支付退款、续费结果通知、签约、解约、订单、超时关单
+  callbackResult: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      platformCode: 'platform_code',
+      productCode: 'product_code',
+      userUniqueId: 'user_unique_id',
+      resultType: 'result_type',
+      callbackResult: 'callback_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      platformCode: 'string',
+      productCode: 'string',
+      userUniqueId: 'string',
+      resultType: 'string',
+      callbackResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReceiveBenefithubRiskPayResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyBenefithubRiskLoginRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 平台码
+  // 注：不同平台的平台码都是固定好的，如果传入的平台码有误会抛出平台码错误的信息
+  platformCode: string;
+  // 用户id
+  userUniqueId: string;
+  // 渠道、平台方推送的手机号
+  mobile: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      platformCode: 'platform_code',
+      userUniqueId: 'user_unique_id',
+      mobile: 'mobile',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      platformCode: 'string',
+      userUniqueId: 'string',
+      mobile: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyBenefithubRiskLoginResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class BatchqueryCreditshieldProductInfoRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -14408,6 +14547,87 @@ export class BatchqueryQmpRtMixedmarketingResponse extends $tea.Model {
   }
 }
 
+export class UploadQmpOfflinehostplanRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 文件上传后的fileId
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  // MOBILE/MOBILE_MD5/OAID/IDFA/IMEI选择其中一种
+  fileTemplate: string;
+  // plancode，托管计划编码
+  planCode: string;
+  // OFFLINE_DECISION/OFFLINE_DECISION_ACTION,默认OFFLINE_DECISION_ACTION
+  relationType?: string;
+  // properties的header,其他的为ext_info,
+  properties?: string;
+  // 默认为false
+  needToRefactor?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      fileTemplate: 'file_template',
+      planCode: 'plan_code',
+      relationType: 'relation_type',
+      properties: 'properties',
+      needToRefactor: 'need_to_refactor',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      fileTemplate: 'string',
+      planCode: 'string',
+      relationType: 'string',
+      properties: 'string',
+      needToRefactor: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadQmpOfflinehostplanResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class SyncRdaasTaxAuthinfoRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -23122,7 +23342,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.24.0",
+          sdk_version: "1.24.2",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -23168,6 +23388,44 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: 支付成功、退款成功、续费扣款、超时关单、签约、解约，渠道方回调结果使用
+   * Summary: 权益流量业务支付签约相关通知
+   */
+  async receiveBenefithubRiskPay(request: ReceiveBenefithubRiskPayRequest): Promise<ReceiveBenefithubRiskPayResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.receiveBenefithubRiskPayEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 支付成功、退款成功、续费扣款、超时关单、签约、解约，渠道方回调结果使用
+   * Summary: 权益流量业务支付签约相关通知
+   */
+  async receiveBenefithubRiskPayEx(request: ReceiveBenefithubRiskPayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReceiveBenefithubRiskPayResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ReceiveBenefithubRiskPayResponse>(await this.doRequest("1.0", "riskplus.benefithub.risk.pay.receive", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReceiveBenefithubRiskPayResponse({}));
+  }
+
+  /**
+   * Description: 渠道、平台方，联合登陆推送登陆通知信息
+   * Summary: 渠道/平台方推送的用户登陆信息
+   */
+  async notifyBenefithubRiskLogin(request: NotifyBenefithubRiskLoginRequest): Promise<NotifyBenefithubRiskLoginResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.notifyBenefithubRiskLoginEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 渠道、平台方，联合登陆推送登陆通知信息
+   * Summary: 渠道/平台方推送的用户登陆信息
+   */
+  async notifyBenefithubRiskLoginEx(request: NotifyBenefithubRiskLoginRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyBenefithubRiskLoginResponse> {
+    Util.validateModel(request);
+    return $tea.cast<NotifyBenefithubRiskLoginResponse>(await this.doRequest("1.0", "riskplus.benefithub.risk.login.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyBenefithubRiskLoginResponse({}));
   }
 
   /**
@@ -25286,6 +25544,47 @@ export default class Client {
   async batchqueryQmpRtMixedmarketingEx(request: BatchqueryQmpRtMixedmarketingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryQmpRtMixedmarketingResponse> {
     Util.validateModel(request);
     return $tea.cast<BatchqueryQmpRtMixedmarketingResponse>(await this.doRequest("1.0", "riskplus.qmp.rt.mixedmarketing.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryQmpRtMixedmarketingResponse({}));
+  }
+
+  /**
+   * Description: qmp离线托管文件导入
+   * Summary: qmp离线托管文件导入
+   */
+  async uploadQmpOfflinehostplan(request: UploadQmpOfflinehostplanRequest): Promise<UploadQmpOfflinehostplanResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadQmpOfflinehostplanEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: qmp离线托管文件导入
+   * Summary: qmp离线托管文件导入
+   */
+  async uploadQmpOfflinehostplanEx(request: UploadQmpOfflinehostplanRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadQmpOfflinehostplanResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "riskplus.qmp.offlinehostplan.upload",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let uploadQmpOfflinehostplanResponse = new UploadQmpOfflinehostplanResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return uploadQmpOfflinehostplanResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<UploadQmpOfflinehostplanResponse>(await this.doRequest("1.0", "riskplus.qmp.offlinehostplan.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadQmpOfflinehostplanResponse({}));
   }
 
   /**
