@@ -7405,6 +7405,179 @@ func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
 	return s
 }
 
+type ReceiveBenefithubRiskPayRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务分配的平台code，8位纯大写字母code
+	PlatformCode *string `json:"platform_code,omitempty" xml:"platform_code,omitempty" require:"true"`
+	// 产品code
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 平台code、用户唯一ID 组合出全局唯一id
+	UserUniqueId *string `json:"user_unique_id,omitempty" xml:"user_unique_id,omitempty" require:"true"`
+	// 类型：订单支付结果类、订单退款类、续费扣款类、签约成功、解约成功、订单超时类型
+	// 具体如下：
+	// ODRDER_PAYMENT-订单支付结果类通知、ORDER_REFUND-订单退款、RENEWAL_DEDUCTION-续费扣款、CONTRACT_SIGNED-签约成功、CONTRACT_TERMINATED-解约成功、
+	// ORDER_TIMEOUT-订单超时类型
+	ResultType *string `json:"result_type,omitempty" xml:"result_type,omitempty" require:"true"`
+	// 回调结果，json数据
+	// 各个平台返回的支付结果、支付退款、续费结果通知、签约、解约、订单、超时关单
+	CallbackResult *string `json:"callback_result,omitempty" xml:"callback_result,omitempty" require:"true"`
+}
+
+func (s ReceiveBenefithubRiskPayRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiveBenefithubRiskPayRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiveBenefithubRiskPayRequest) SetAuthToken(v string) *ReceiveBenefithubRiskPayRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ReceiveBenefithubRiskPayRequest) SetProductInstanceId(v string) *ReceiveBenefithubRiskPayRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ReceiveBenefithubRiskPayRequest) SetPlatformCode(v string) *ReceiveBenefithubRiskPayRequest {
+	s.PlatformCode = &v
+	return s
+}
+
+func (s *ReceiveBenefithubRiskPayRequest) SetProductCode(v string) *ReceiveBenefithubRiskPayRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *ReceiveBenefithubRiskPayRequest) SetUserUniqueId(v string) *ReceiveBenefithubRiskPayRequest {
+	s.UserUniqueId = &v
+	return s
+}
+
+func (s *ReceiveBenefithubRiskPayRequest) SetResultType(v string) *ReceiveBenefithubRiskPayRequest {
+	s.ResultType = &v
+	return s
+}
+
+func (s *ReceiveBenefithubRiskPayRequest) SetCallbackResult(v string) *ReceiveBenefithubRiskPayRequest {
+	s.CallbackResult = &v
+	return s
+}
+
+type ReceiveBenefithubRiskPayResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ReceiveBenefithubRiskPayResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiveBenefithubRiskPayResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiveBenefithubRiskPayResponse) SetReqMsgId(v string) *ReceiveBenefithubRiskPayResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ReceiveBenefithubRiskPayResponse) SetResultCode(v string) *ReceiveBenefithubRiskPayResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ReceiveBenefithubRiskPayResponse) SetResultMsg(v string) *ReceiveBenefithubRiskPayResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type NotifyBenefithubRiskLoginRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 平台码
+	// 注：不同平台的平台码都是固定好的，如果传入的平台码有误会抛出平台码错误的信息
+	PlatformCode *string `json:"platform_code,omitempty" xml:"platform_code,omitempty" require:"true"`
+	// 用户id
+	UserUniqueId *string `json:"user_unique_id,omitempty" xml:"user_unique_id,omitempty" require:"true"`
+	// 渠道、平台方推送的手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+}
+
+func (s NotifyBenefithubRiskLoginRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyBenefithubRiskLoginRequest) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyBenefithubRiskLoginRequest) SetAuthToken(v string) *NotifyBenefithubRiskLoginRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskLoginRequest) SetProductInstanceId(v string) *NotifyBenefithubRiskLoginRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskLoginRequest) SetPlatformCode(v string) *NotifyBenefithubRiskLoginRequest {
+	s.PlatformCode = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskLoginRequest) SetUserUniqueId(v string) *NotifyBenefithubRiskLoginRequest {
+	s.UserUniqueId = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskLoginRequest) SetMobile(v string) *NotifyBenefithubRiskLoginRequest {
+	s.Mobile = &v
+	return s
+}
+
+type NotifyBenefithubRiskLoginResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s NotifyBenefithubRiskLoginResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyBenefithubRiskLoginResponse) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyBenefithubRiskLoginResponse) SetReqMsgId(v string) *NotifyBenefithubRiskLoginResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskLoginResponse) SetResultCode(v string) *NotifyBenefithubRiskLoginResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskLoginResponse) SetResultMsg(v string) *NotifyBenefithubRiskLoginResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type BatchqueryCreditshieldProductInfoRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -19352,6 +19525,118 @@ func (s *BatchqueryQmpRtMixedmarketingResponse) SetQueryResults(v []*CustomerRps
 	return s
 }
 
+type UploadQmpOfflinehostplanRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 文件上传后的fileId
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// MOBILE/MOBILE_MD5/OAID/IDFA/IMEI选择其中一种
+	FileTemplate *string `json:"file_template,omitempty" xml:"file_template,omitempty" require:"true"`
+	// plancode，托管计划编码
+	PlanCode *string `json:"plan_code,omitempty" xml:"plan_code,omitempty" require:"true"`
+	// OFFLINE_DECISION/OFFLINE_DECISION_ACTION,默认OFFLINE_DECISION_ACTION
+	RelationType *string `json:"relation_type,omitempty" xml:"relation_type,omitempty"`
+	// properties的header,其他的为ext_info,
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+	// 默认为false
+	NeedToRefactor *bool `json:"need_to_refactor,omitempty" xml:"need_to_refactor,omitempty"`
+}
+
+func (s UploadQmpOfflinehostplanRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadQmpOfflinehostplanRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadQmpOfflinehostplanRequest) SetAuthToken(v string) *UploadQmpOfflinehostplanRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadQmpOfflinehostplanRequest) SetProductInstanceId(v string) *UploadQmpOfflinehostplanRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadQmpOfflinehostplanRequest) SetFileObject(v io.Reader) *UploadQmpOfflinehostplanRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *UploadQmpOfflinehostplanRequest) SetFileObjectName(v string) *UploadQmpOfflinehostplanRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *UploadQmpOfflinehostplanRequest) SetFileId(v string) *UploadQmpOfflinehostplanRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *UploadQmpOfflinehostplanRequest) SetFileTemplate(v string) *UploadQmpOfflinehostplanRequest {
+	s.FileTemplate = &v
+	return s
+}
+
+func (s *UploadQmpOfflinehostplanRequest) SetPlanCode(v string) *UploadQmpOfflinehostplanRequest {
+	s.PlanCode = &v
+	return s
+}
+
+func (s *UploadQmpOfflinehostplanRequest) SetRelationType(v string) *UploadQmpOfflinehostplanRequest {
+	s.RelationType = &v
+	return s
+}
+
+func (s *UploadQmpOfflinehostplanRequest) SetProperties(v string) *UploadQmpOfflinehostplanRequest {
+	s.Properties = &v
+	return s
+}
+
+func (s *UploadQmpOfflinehostplanRequest) SetNeedToRefactor(v bool) *UploadQmpOfflinehostplanRequest {
+	s.NeedToRefactor = &v
+	return s
+}
+
+type UploadQmpOfflinehostplanResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UploadQmpOfflinehostplanResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadQmpOfflinehostplanResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadQmpOfflinehostplanResponse) SetReqMsgId(v string) *UploadQmpOfflinehostplanResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadQmpOfflinehostplanResponse) SetResultCode(v string) *UploadQmpOfflinehostplanResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadQmpOfflinehostplanResponse) SetResultMsg(v string) *UploadQmpOfflinehostplanResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type SyncRdaasTaxAuthinfoRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -30874,7 +31159,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.24.0"),
+				"sdk_version":      tea.String("1.24.2"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -30930,6 +31215,74 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 支付成功、退款成功、续费扣款、超时关单、签约、解约，渠道方回调结果使用
+ * Summary: 权益流量业务支付签约相关通知
+ */
+func (client *Client) ReceiveBenefithubRiskPay(request *ReceiveBenefithubRiskPayRequest) (_result *ReceiveBenefithubRiskPayResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ReceiveBenefithubRiskPayResponse{}
+	_body, _err := client.ReceiveBenefithubRiskPayEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 支付成功、退款成功、续费扣款、超时关单、签约、解约，渠道方回调结果使用
+ * Summary: 权益流量业务支付签约相关通知
+ */
+func (client *Client) ReceiveBenefithubRiskPayEx(request *ReceiveBenefithubRiskPayRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ReceiveBenefithubRiskPayResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ReceiveBenefithubRiskPayResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.benefithub.risk.pay.receive"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 渠道、平台方，联合登陆推送登陆通知信息
+ * Summary: 渠道/平台方推送的用户登陆信息
+ */
+func (client *Client) NotifyBenefithubRiskLogin(request *NotifyBenefithubRiskLoginRequest) (_result *NotifyBenefithubRiskLoginResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &NotifyBenefithubRiskLoginResponse{}
+	_body, _err := client.NotifyBenefithubRiskLoginEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 渠道、平台方，联合登陆推送登陆通知信息
+ * Summary: 渠道/平台方推送的用户登陆信息
+ */
+func (client *Client) NotifyBenefithubRiskLoginEx(request *NotifyBenefithubRiskLoginRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyBenefithubRiskLoginResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &NotifyBenefithubRiskLoginResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.benefithub.risk.login.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
@@ -34687,6 +35040,70 @@ func (client *Client) BatchqueryQmpRtMixedmarketingEx(request *BatchqueryQmpRtMi
 	}
 	_result = &BatchqueryQmpRtMixedmarketingResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.qmp.rt.mixedmarketing.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: qmp离线托管文件导入
+ * Summary: qmp离线托管文件导入
+ */
+func (client *Client) UploadQmpOfflinehostplan(request *UploadQmpOfflinehostplanRequest) (_result *UploadQmpOfflinehostplanResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadQmpOfflinehostplanResponse{}
+	_body, _err := client.UploadQmpOfflinehostplanEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: qmp离线托管文件导入
+ * Summary: qmp离线托管文件导入
+ */
+func (client *Client) UploadQmpOfflinehostplanEx(request *UploadQmpOfflinehostplanRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadQmpOfflinehostplanResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("riskplus.qmp.offlinehostplan.upload"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			uploadQmpOfflinehostplanResponse := &UploadQmpOfflinehostplanResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = uploadQmpOfflinehostplanResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadQmpOfflinehostplanResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.qmp.offlinehostplan.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
