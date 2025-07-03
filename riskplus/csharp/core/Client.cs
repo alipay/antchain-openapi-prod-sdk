@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.24.0"},
+                        {"sdk_version", "1.24.2"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.24.0"},
+                        {"sdk_version", "1.24.2"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -319,6 +319,90 @@ namespace AntChain.SDK.RISKPLUS
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: 支付成功、退款成功、续费扣款、超时关单、签约、解约，渠道方回调结果使用
+         * Summary: 权益流量业务支付签约相关通知
+         */
+        public ReceiveBenefithubRiskPayResponse ReceiveBenefithubRiskPay(ReceiveBenefithubRiskPayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ReceiveBenefithubRiskPayEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支付成功、退款成功、续费扣款、超时关单、签约、解约，渠道方回调结果使用
+         * Summary: 权益流量业务支付签约相关通知
+         */
+        public async Task<ReceiveBenefithubRiskPayResponse> ReceiveBenefithubRiskPayAsync(ReceiveBenefithubRiskPayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ReceiveBenefithubRiskPayExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 支付成功、退款成功、续费扣款、超时关单、签约、解约，渠道方回调结果使用
+         * Summary: 权益流量业务支付签约相关通知
+         */
+        public ReceiveBenefithubRiskPayResponse ReceiveBenefithubRiskPayEx(ReceiveBenefithubRiskPayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReceiveBenefithubRiskPayResponse>(DoRequest("1.0", "riskplus.benefithub.risk.pay.receive", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 支付成功、退款成功、续费扣款、超时关单、签约、解约，渠道方回调结果使用
+         * Summary: 权益流量业务支付签约相关通知
+         */
+        public async Task<ReceiveBenefithubRiskPayResponse> ReceiveBenefithubRiskPayExAsync(ReceiveBenefithubRiskPayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReceiveBenefithubRiskPayResponse>(await DoRequestAsync("1.0", "riskplus.benefithub.risk.pay.receive", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 渠道、平台方，联合登陆推送登陆通知信息
+         * Summary: 渠道/平台方推送的用户登陆信息
+         */
+        public NotifyBenefithubRiskLoginResponse NotifyBenefithubRiskLogin(NotifyBenefithubRiskLoginRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return NotifyBenefithubRiskLoginEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 渠道、平台方，联合登陆推送登陆通知信息
+         * Summary: 渠道/平台方推送的用户登陆信息
+         */
+        public async Task<NotifyBenefithubRiskLoginResponse> NotifyBenefithubRiskLoginAsync(NotifyBenefithubRiskLoginRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await NotifyBenefithubRiskLoginExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 渠道、平台方，联合登陆推送登陆通知信息
+         * Summary: 渠道/平台方推送的用户登陆信息
+         */
+        public NotifyBenefithubRiskLoginResponse NotifyBenefithubRiskLoginEx(NotifyBenefithubRiskLoginRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyBenefithubRiskLoginResponse>(DoRequest("1.0", "riskplus.benefithub.risk.login.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 渠道、平台方，联合登陆推送登陆通知信息
+         * Summary: 渠道/平台方推送的用户登陆信息
+         */
+        public async Task<NotifyBenefithubRiskLoginResponse> NotifyBenefithubRiskLoginExAsync(NotifyBenefithubRiskLoginRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyBenefithubRiskLoginResponse>(await DoRequestAsync("1.0", "riskplus.benefithub.risk.login.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -4999,6 +5083,96 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BatchqueryQmpRtMixedmarketingResponse>(await DoRequestAsync("1.0", "riskplus.qmp.rt.mixedmarketing.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: qmp离线托管文件导入
+         * Summary: qmp离线托管文件导入
+         */
+        public UploadQmpOfflinehostplanResponse UploadQmpOfflinehostplan(UploadQmpOfflinehostplanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadQmpOfflinehostplanEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: qmp离线托管文件导入
+         * Summary: qmp离线托管文件导入
+         */
+        public async Task<UploadQmpOfflinehostplanResponse> UploadQmpOfflinehostplanAsync(UploadQmpOfflinehostplanRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadQmpOfflinehostplanExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: qmp离线托管文件导入
+         * Summary: qmp离线托管文件导入
+         */
+        public UploadQmpOfflinehostplanResponse UploadQmpOfflinehostplanEx(UploadQmpOfflinehostplanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "riskplus.qmp.offlinehostplan.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadQmpOfflinehostplanResponse uploadQmpOfflinehostplanResponse = new UploadQmpOfflinehostplanResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadQmpOfflinehostplanResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadQmpOfflinehostplanResponse>(DoRequest("1.0", "riskplus.qmp.offlinehostplan.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: qmp离线托管文件导入
+         * Summary: qmp离线托管文件导入
+         */
+        public async Task<UploadQmpOfflinehostplanResponse> UploadQmpOfflinehostplanExAsync(UploadQmpOfflinehostplanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "riskplus.qmp.offlinehostplan.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadQmpOfflinehostplanResponse uploadQmpOfflinehostplanResponse = new UploadQmpOfflinehostplanResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadQmpOfflinehostplanResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadQmpOfflinehostplanResponse>(await DoRequestAsync("1.0", "riskplus.qmp.offlinehostplan.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
