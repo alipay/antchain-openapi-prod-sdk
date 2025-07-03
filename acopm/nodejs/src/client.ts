@@ -2285,6 +2285,115 @@ export class UpdateInstanceTenantResponse extends $tea.Model {
   }
 }
 
+export class CallbackMultiSdkRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 	
+  // 回调JSON报文
+  body?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      body: 'body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      body: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackMultiSdkResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResetProductRedisRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 要刷新的产品码类型
+  products: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      products: 'products',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      products: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResetProductRedisResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -2398,7 +2507,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.39",
+          sdk_version: "1.3.44",
           _prod_code: "ACOPM",
           _prod_channel: "undefined",
         };
@@ -2995,6 +3104,44 @@ export default class Client {
   async updateInstanceTenantEx(request: UpdateInstanceTenantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateInstanceTenantResponse> {
     Util.validateModel(request);
     return $tea.cast<UpdateInstanceTenantResponse>(await this.doRequest("1.0", "antcloud.acopm.instance.tenant.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateInstanceTenantResponse({}));
+  }
+
+  /**
+   * Description: 个人工作台-阿里云Tea多语言SDK生成回调
+   * Summary: 阿里云Tea多语言SDK生成回调
+   */
+  async callbackMultiSdk(request: CallbackMultiSdkRequest): Promise<CallbackMultiSdkResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackMultiSdkEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人工作台-阿里云Tea多语言SDK生成回调
+   * Summary: 阿里云Tea多语言SDK生成回调
+   */
+  async callbackMultiSdkEx(request: CallbackMultiSdkRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackMultiSdkResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackMultiSdkResponse>(await this.doRequest("1.0", "antcloud.acopm.multi.sdk.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackMultiSdkResponse({}));
+  }
+
+  /**
+   * Description: 产品码redis刷新
+   * Summary: 产品码redis刷新
+   */
+  async resetProductRedis(request: ResetProductRedisRequest): Promise<ResetProductRedisResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.resetProductRedisEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 产品码redis刷新
+   * Summary: 产品码redis刷新
+   */
+  async resetProductRedisEx(request: ResetProductRedisRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ResetProductRedisResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ResetProductRedisResponse>(await this.doRequest("1.0", "antcloud.acopm.product.redis.reset", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ResetProductRedisResponse({}));
   }
 
 }
