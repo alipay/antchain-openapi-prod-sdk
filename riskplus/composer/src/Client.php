@@ -145,6 +145,8 @@ use AntChain\RISKPLUS\Models\ListRtopCrowdriskRequest;
 use AntChain\RISKPLUS\Models\ListRtopCrowdriskResponse;
 use AntChain\RISKPLUS\Models\ListRtopStarCompanyRequest;
 use AntChain\RISKPLUS\Models\ListRtopStarCompanyResponse;
+use AntChain\RISKPLUS\Models\NotifyBenefithubRiskLoginRequest;
+use AntChain\RISKPLUS\Models\NotifyBenefithubRiskLoginResponse;
 use AntChain\RISKPLUS\Models\NotifyDubbridgeCallbackRequest;
 use AntChain\RISKPLUS\Models\NotifyDubbridgeCallbackResponse;
 use AntChain\RISKPLUS\Models\NotifyDubbridgeDefininnerchannelRequest;
@@ -373,6 +375,8 @@ use AntChain\RISKPLUS\Models\QueryUmktScenestrategyTestRequest;
 use AntChain\RISKPLUS\Models\QueryUmktScenestrategyTestResponse;
 use AntChain\RISKPLUS\Models\QueryUmktTenantActionplaninfoRequest;
 use AntChain\RISKPLUS\Models\QueryUmktTenantActionplaninfoResponse;
+use AntChain\RISKPLUS\Models\ReceiveBenefithubRiskPayRequest;
+use AntChain\RISKPLUS\Models\ReceiveBenefithubRiskPayResponse;
 use AntChain\RISKPLUS\Models\ReceiveMdipParamsFileRequest;
 use AntChain\RISKPLUS\Models\ReceiveMdipParamsFileResponse;
 use AntChain\RISKPLUS\Models\ReceiveMdipParamsRbbfileRequest;
@@ -431,6 +435,8 @@ use AntChain\RISKPLUS\Models\UpdateDubheCustomerInfoRequest;
 use AntChain\RISKPLUS\Models\UpdateDubheCustomerInfoResponse;
 use AntChain\RISKPLUS\Models\UploadDubbridgeFileRequest;
 use AntChain\RISKPLUS\Models\UploadDubbridgeFileResponse;
+use AntChain\RISKPLUS\Models\UploadQmpOfflinehostplanRequest;
+use AntChain\RISKPLUS\Models\UploadQmpOfflinehostplanResponse;
 use AntChain\RISKPLUS\Models\UploadRbbFileAmapRequest;
 use AntChain\RISKPLUS\Models\UploadRbbFileAmapResponse;
 use AntChain\RISKPLUS\Models\UploadRfcAiboundFileRequest;
@@ -594,7 +600,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.24.0',
+                    'sdk_version'      => '1.24.2',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -640,6 +646,72 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 支付成功、退款成功、续费扣款、超时关单、签约、解约，渠道方回调结果使用
+     * Summary: 权益流量业务支付签约相关通知.
+     *
+     * @param ReceiveBenefithubRiskPayRequest $request
+     *
+     * @return ReceiveBenefithubRiskPayResponse
+     */
+    public function receiveBenefithubRiskPay($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->receiveBenefithubRiskPayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支付成功、退款成功、续费扣款、超时关单、签约、解约，渠道方回调结果使用
+     * Summary: 权益流量业务支付签约相关通知.
+     *
+     * @param ReceiveBenefithubRiskPayRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return ReceiveBenefithubRiskPayResponse
+     */
+    public function receiveBenefithubRiskPayEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ReceiveBenefithubRiskPayResponse::fromMap($this->doRequest('1.0', 'riskplus.benefithub.risk.pay.receive', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 渠道、平台方，联合登陆推送登陆通知信息
+     * Summary: 渠道/平台方推送的用户登陆信息.
+     *
+     * @param NotifyBenefithubRiskLoginRequest $request
+     *
+     * @return NotifyBenefithubRiskLoginResponse
+     */
+    public function notifyBenefithubRiskLogin($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyBenefithubRiskLoginEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 渠道、平台方，联合登陆推送登陆通知信息
+     * Summary: 渠道/平台方推送的用户登陆信息.
+     *
+     * @param NotifyBenefithubRiskLoginRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return NotifyBenefithubRiskLoginResponse
+     */
+    public function notifyBenefithubRiskLoginEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyBenefithubRiskLoginResponse::fromMap($this->doRequest('1.0', 'riskplus.benefithub.risk.login.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -4261,6 +4333,58 @@ class Client
         Utils::validateModel($request);
 
         return BatchqueryQmpRtMixedmarketingResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.rt.mixedmarketing.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: qmp离线托管文件导入
+     * Summary: qmp离线托管文件导入.
+     *
+     * @param UploadQmpOfflinehostplanRequest $request
+     *
+     * @return UploadQmpOfflinehostplanResponse
+     */
+    public function uploadQmpOfflinehostplan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadQmpOfflinehostplanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: qmp离线托管文件导入
+     * Summary: qmp离线托管文件导入.
+     *
+     * @param UploadQmpOfflinehostplanRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return UploadQmpOfflinehostplanResponse
+     */
+    public function uploadQmpOfflinehostplanEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'riskplus.qmp.offlinehostplan.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadQmpOfflinehostplanResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return UploadQmpOfflinehostplanResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.offlinehostplan.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
