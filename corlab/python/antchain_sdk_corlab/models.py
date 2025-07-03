@@ -666,6 +666,7 @@ class CreateModelbackTaskRequest(TeaModel):
     def validate(self):
         self.validate_required(self.file_id, 'file_id')
         self.validate_required(self.product_codes, 'product_codes')
+        self.validate_required(self.sample_file_name, 'sample_file_name')
         self.validate_required(self.key_type, 'key_type')
         self.validate_required(self.unique_code, 'unique_code')
 
@@ -825,6 +826,8 @@ class QueryModelbackTaskResponse(TeaModel):
         status: str = None,
         result_contexts: List[ResultContext] = None,
         finish_time: str = None,
+        error_code: str = None,
+        error_msg: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -840,6 +843,10 @@ class QueryModelbackTaskResponse(TeaModel):
         self.result_contexts = result_contexts
         # 任务完成时间
         self.finish_time = finish_time
+        # 异步任务失败后，响应客户任务失败原因错误码，任务正常值为空
+        self.error_code = error_code
+        # 异步任务失败后，响应客户错误失败原因，任务正常值为空
+        self.error_msg = error_msg
 
     def validate(self):
         if self.result_contexts:
@@ -869,6 +876,10 @@ class QueryModelbackTaskResponse(TeaModel):
                 result['result_contexts'].append(k.to_map() if k else None)
         if self.finish_time is not None:
             result['finish_time'] = self.finish_time
+        if self.error_code is not None:
+            result['error_code'] = self.error_code
+        if self.error_msg is not None:
+            result['error_msg'] = self.error_msg
         return result
 
     def from_map(self, m: dict = None):
@@ -890,6 +901,10 @@ class QueryModelbackTaskResponse(TeaModel):
                 self.result_contexts.append(temp_model.from_map(k))
         if m.get('finish_time') is not None:
             self.finish_time = m.get('finish_time')
+        if m.get('error_code') is not None:
+            self.error_code = m.get('error_code')
+        if m.get('error_msg') is not None:
+            self.error_msg = m.get('error_msg')
         return self
 
 
