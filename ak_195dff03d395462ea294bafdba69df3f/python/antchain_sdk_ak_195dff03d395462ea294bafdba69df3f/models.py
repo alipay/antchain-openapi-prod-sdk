@@ -190,6 +190,46 @@ class FileInfo(TeaModel):
         return self
 
 
+class SingleTermDetail(TeaModel):
+    def __init__(
+        self,
+        period_num: int = None,
+        pay_amount: int = None,
+    ):
+        # 期数
+        self.period_num = period_num
+        # 支付金额
+        self.pay_amount = pay_amount
+
+    def validate(self):
+        self.validate_required(self.period_num, 'period_num')
+        if self.period_num is not None:
+            self.validate_minimum(self.period_num, 'period_num', 1)
+        self.validate_required(self.pay_amount, 'pay_amount')
+        if self.pay_amount is not None:
+            self.validate_minimum(self.pay_amount, 'pay_amount', 1)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.period_num is not None:
+            result['period_num'] = self.period_num
+        if self.pay_amount is not None:
+            result['pay_amount'] = self.pay_amount
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('period_num') is not None:
+            self.period_num = m.get('period_num')
+        if m.get('pay_amount') is not None:
+            self.pay_amount = m.get('pay_amount')
+        return self
+
+
 class SiteInfo(TeaModel):
     def __init__(
         self,
@@ -696,6 +736,9 @@ class ActivePayOrder(TeaModel):
         paid_amount: int = None,
         receipt_amount: int = None,
         gmt_pay: str = None,
+        gmt_create: str = None,
+        multi_pay_detail: List[SingleTermDetail] = None,
+        multi_period_num: int = None,
     ):
         # 支付宝支付订单号，用于拉起主动支付页面
         self.trade_no = trade_no
@@ -720,6 +763,12 @@ class ActivePayOrder(TeaModel):
         # 交易支付时间
         # 付款成功的状态必填
         self.gmt_pay = gmt_pay
+        # 支付单据创建时间
+        self.gmt_create = gmt_create
+        # 多期合并支付明细
+        self.multi_pay_detail = multi_pay_detail
+        # 多期支付的期数
+        self.multi_period_num = multi_period_num
 
     def validate(self):
         self.validate_required(self.trade_no, 'trade_no')
@@ -736,6 +785,12 @@ class ActivePayOrder(TeaModel):
             self.validate_minimum(self.receipt_amount, 'receipt_amount', 1)
         if self.gmt_pay is not None:
             self.validate_pattern(self.gmt_pay, 'gmt_pay', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.gmt_create is not None:
+            self.validate_pattern(self.gmt_create, 'gmt_create', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.multi_pay_detail:
+            for k in self.multi_pay_detail:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -759,6 +814,14 @@ class ActivePayOrder(TeaModel):
             result['receipt_amount'] = self.receipt_amount
         if self.gmt_pay is not None:
             result['gmt_pay'] = self.gmt_pay
+        if self.gmt_create is not None:
+            result['gmt_create'] = self.gmt_create
+        result['multi_pay_detail'] = []
+        if self.multi_pay_detail is not None:
+            for k in self.multi_pay_detail:
+                result['multi_pay_detail'].append(k.to_map() if k else None)
+        if self.multi_period_num is not None:
+            result['multi_period_num'] = self.multi_period_num
         return result
 
     def from_map(self, m: dict = None):
@@ -779,6 +842,15 @@ class ActivePayOrder(TeaModel):
             self.receipt_amount = m.get('receipt_amount')
         if m.get('gmt_pay') is not None:
             self.gmt_pay = m.get('gmt_pay')
+        if m.get('gmt_create') is not None:
+            self.gmt_create = m.get('gmt_create')
+        self.multi_pay_detail = []
+        if m.get('multi_pay_detail') is not None:
+            for k in m.get('multi_pay_detail'):
+                temp_model = SingleTermDetail()
+                self.multi_pay_detail.append(temp_model.from_map(k))
+        if m.get('multi_period_num') is not None:
+            self.multi_period_num = m.get('multi_period_num')
         return self
 
 
@@ -877,6 +949,42 @@ class ApplicationInfo(TeaModel):
             for k in m.get('site_info'):
                 temp_model = SiteInfo()
                 self.site_info.append(temp_model.from_map(k))
+        return self
+
+
+class PageQuery(TeaModel):
+    def __init__(
+        self,
+        page_size: int = None,
+        page_index: int = None,
+    ):
+        # 页大小
+        self.page_size = page_size
+        # 当前页
+        self.page_index = page_index
+
+    def validate(self):
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.page_index, 'page_index')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.page_index is not None:
+            result['page_index'] = self.page_index
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('page_index') is not None:
+            self.page_index = m.get('page_index')
         return self
 
 
@@ -4192,6 +4300,7 @@ class CreateAntchainAtoWithholdActivepayRequest(TeaModel):
         pay_amount: int = None,
         operation_divide_flag: str = None,
         operation_divide_trans_in_list: List[OperationDivideTransInModel] = None,
+        multi_pay_detail: List[SingleTermDetail] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4205,13 +4314,17 @@ class CreateAntchainAtoWithholdActivepayRequest(TeaModel):
         # 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
         self.pay_channel = pay_channel
         # 支付金额，单位为分
+        # 当支付类型非PERFORMANCE或为空必填
         self.pay_amount = pay_amount
         # 经营分账标识Y/N
-        # 当pay_type=BUYOUT、PENALTY必填。
+        # 当pay_type=BUYOUT、PENALTY、MULTI_PAY必填。
         self.operation_divide_flag = operation_divide_flag
         # 当operation_divide_flag=Y 必填
         # 经营分账收入列表，最多10条，分账比例与正常限制一致。
         self.operation_divide_trans_in_list = operation_divide_trans_in_list
+        # 单期支付明细列表
+        # 当pay_type=MULTI_PAY必填。
+        self.multi_pay_detail = multi_pay_detail
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -4229,6 +4342,10 @@ class CreateAntchainAtoWithholdActivepayRequest(TeaModel):
             self.validate_max_length(self.operation_divide_flag, 'operation_divide_flag', 1)
         if self.operation_divide_trans_in_list:
             for k in self.operation_divide_trans_in_list:
+                if k:
+                    k.validate()
+        if self.multi_pay_detail:
+            for k in self.multi_pay_detail:
                 if k:
                     k.validate()
 
@@ -4258,6 +4375,10 @@ class CreateAntchainAtoWithholdActivepayRequest(TeaModel):
         if self.operation_divide_trans_in_list is not None:
             for k in self.operation_divide_trans_in_list:
                 result['operation_divide_trans_in_list'].append(k.to_map() if k else None)
+        result['multi_pay_detail'] = []
+        if self.multi_pay_detail is not None:
+            for k in self.multi_pay_detail:
+                result['multi_pay_detail'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -4283,6 +4404,11 @@ class CreateAntchainAtoWithholdActivepayRequest(TeaModel):
             for k in m.get('operation_divide_trans_in_list'):
                 temp_model = OperationDivideTransInModel()
                 self.operation_divide_trans_in_list.append(temp_model.from_map(k))
+        self.multi_pay_detail = []
+        if m.get('multi_pay_detail') is not None:
+            for k in m.get('multi_pay_detail'):
+                temp_model = SingleTermDetail()
+                self.multi_pay_detail.append(temp_model.from_map(k))
         return self
 
 
@@ -4294,6 +4420,7 @@ class CreateAntchainAtoWithholdActivepayResponse(TeaModel):
         result_msg: str = None,
         trade_no: str = None,
         order_str: str = None,
+        multi_period_num: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -4303,8 +4430,12 @@ class CreateAntchainAtoWithholdActivepayResponse(TeaModel):
         self.result_msg = result_msg
         # 支付宝支付订单号，用于拉起主动支付页面
         self.trade_no = trade_no
-        # 签名字符串，用于APP支付场景，客户端唤起支付宝收银台使用。
+        # 单据支付字符串
+        # app场景：返回签名字符串
+        # h5场景：返回支付链接
         self.order_str = order_str
+        # 多期支付的期数，当发起多期合并支付时返回。
+        self.multi_period_num = multi_period_num
 
     def validate(self):
         pass
@@ -4325,6 +4456,8 @@ class CreateAntchainAtoWithholdActivepayResponse(TeaModel):
             result['trade_no'] = self.trade_no
         if self.order_str is not None:
             result['order_str'] = self.order_str
+        if self.multi_period_num is not None:
+            result['multi_period_num'] = self.multi_period_num
         return result
 
     def from_map(self, m: dict = None):
@@ -4339,6 +4472,8 @@ class CreateAntchainAtoWithholdActivepayResponse(TeaModel):
             self.trade_no = m.get('trade_no')
         if m.get('order_str') is not None:
             self.order_str = m.get('order_str')
+        if m.get('multi_period_num') is not None:
+            self.multi_period_num = m.get('multi_period_num')
         return self
 
 
@@ -4352,6 +4487,7 @@ class QueryAntchainAtoWithholdActivepayRequest(TeaModel):
         trade_no: str = None,
         pay_type: str = None,
         pay_channel: str = None,
+        multi_period_num: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4364,8 +4500,10 @@ class QueryAntchainAtoWithholdActivepayRequest(TeaModel):
         self.trade_no = trade_no
         # 支付类型
         self.pay_type = pay_type
-        # 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
+        # 无用字段，无需关注
         self.pay_channel = pay_channel
+        # 多期支付的期数，当使用多期合并支付类型时必传。
+        self.multi_period_num = multi_period_num
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -4379,6 +4517,8 @@ class QueryAntchainAtoWithholdActivepayRequest(TeaModel):
             self.validate_max_length(self.pay_type, 'pay_type', 64)
         if self.pay_channel is not None:
             self.validate_max_length(self.pay_channel, 'pay_channel', 64)
+        if self.multi_period_num is not None:
+            self.validate_minimum(self.multi_period_num, 'multi_period_num', 1)
 
     def to_map(self):
         _map = super().to_map()
@@ -4400,6 +4540,8 @@ class QueryAntchainAtoWithholdActivepayRequest(TeaModel):
             result['pay_type'] = self.pay_type
         if self.pay_channel is not None:
             result['pay_channel'] = self.pay_channel
+        if self.multi_period_num is not None:
+            result['multi_period_num'] = self.multi_period_num
         return result
 
     def from_map(self, m: dict = None):
@@ -4418,6 +4560,8 @@ class QueryAntchainAtoWithholdActivepayRequest(TeaModel):
             self.pay_type = m.get('pay_type')
         if m.get('pay_channel') is not None:
             self.pay_channel = m.get('pay_channel')
+        if m.get('multi_period_num') is not None:
+            self.multi_period_num = m.get('multi_period_num')
         return self
 
 
@@ -6616,6 +6760,999 @@ class UpdateAntchainAtoTradeUserpromiseResponse(TeaModel):
         return self
 
 
+class AllAntchainAtoInnerTemplateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        page_info: PageQuery = None,
+        tenant_id: str = None,
+        template_code: str = None,
+        template_name: str = None,
+        template_code_prod: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 分页查询结构体
+        self.page_info = page_info
+        # 商户对应租户ID
+        self.tenant_id = tenant_id
+        # 魔法库模板code
+        self.template_code = template_code
+        # 魔法库模板文件名称
+        self.template_name = template_name
+        # 线上模板ID
+        self.template_code_prod = template_code_prod
+
+    def validate(self):
+        self.validate_required(self.page_info, 'page_info')
+        if self.page_info:
+            self.page_info.validate()
+        self.validate_required(self.tenant_id, 'tenant_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.page_info is not None:
+            result['page_info'] = self.page_info.to_map()
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
+        if self.template_name is not None:
+            result['template_name'] = self.template_name
+        if self.template_code_prod is not None:
+            result['template_code_prod'] = self.template_code_prod
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('page_info') is not None:
+            temp_model = PageQuery()
+            self.page_info = temp_model.from_map(m['page_info'])
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
+        if m.get('template_name') is not None:
+            self.template_name = m.get('template_name')
+        if m.get('template_code_prod') is not None:
+            self.template_code_prod = m.get('template_code_prod')
+        return self
+
+
+class AllAntchainAtoInnerTemplateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        template_list: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 模板列表数据
+        self.template_list = template_list
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.template_list is not None:
+            result['template_list'] = self.template_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('template_list') is not None:
+            self.template_list = m.get('template_list')
+        return self
+
+
+class ListAntchainAtoInnerTemplateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        page_info: PageQuery = None,
+        tenant_id: str = None,
+        template_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 分页查询
+        self.page_info = page_info
+        # 商户对应租户ID
+        self.tenant_id = tenant_id
+        # 魔法库模板code
+        self.template_code = template_code
+
+    def validate(self):
+        self.validate_required(self.page_info, 'page_info')
+        if self.page_info:
+            self.page_info.validate()
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.template_code, 'template_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.page_info is not None:
+            result['page_info'] = self.page_info.to_map()
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('page_info') is not None:
+            temp_model = PageQuery()
+            self.page_info = temp_model.from_map(m['page_info'])
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
+        return self
+
+
+class ListAntchainAtoInnerTemplateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        template_list: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 模板列表数据
+        self.template_list = template_list
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.template_list is not None:
+            result['template_list'] = self.template_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('template_list') is not None:
+            self.template_list = m.get('template_list')
+        return self
+
+
+class DetailAntchainAtoInnerTemplateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        template_code: str = None,
+        template_version: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 
+        # 商户对应租户ID
+        self.tenant_id = tenant_id
+        # 魔法库模板code
+        self.template_code = template_code
+        # 魔法库模板版本
+        self.template_version = template_version
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.template_code, 'template_code')
+        self.validate_required(self.template_version, 'template_version')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
+        if self.template_version is not None:
+            result['template_version'] = self.template_version
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
+        if m.get('template_version') is not None:
+            self.template_version = m.get('template_version')
+        return self
+
+
+class DetailAntchainAtoInnerTemplateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        template_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 模板详情信息
+        self.template_info = template_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.template_info is not None:
+            result['template_info'] = self.template_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('template_info') is not None:
+            self.template_info = m.get('template_info')
+        return self
+
+
+class CreateAntchainAtoInnerTemplateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        template_name: str = None,
+        file_key: str = None,
+        file_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 
+        # 商户对应租户ID
+        self.tenant_id = tenant_id
+        # 创建的模板名称
+        self.template_name = template_name
+        # 文件oss存储的key
+        self.file_key = file_key
+        # 模板文件的名称
+        self.file_name = file_name
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.template_name, 'template_name')
+        if self.template_name is not None:
+            self.validate_max_length(self.template_name, 'template_name', 32)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.template_name is not None:
+            result['template_name'] = self.template_name
+        if self.file_key is not None:
+            result['file_key'] = self.file_key
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('template_name') is not None:
+            self.template_name = m.get('template_name')
+        if m.get('file_key') is not None:
+            self.file_key = m.get('file_key')
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
+        return self
+
+
+class CreateAntchainAtoInnerTemplateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        template_code: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 魔法库模板code
+        self.template_code = template_code
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
+        return self
+
+
+class SaveAntchainAtoInnerTemplateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        template_code: str = None,
+        template_version: str = None,
+        preview_address: str = None,
+        template_element_list: str = None,
+        file_key: str = None,
+        confirm: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 商户对应租户ID
+        self.tenant_id = tenant_id
+        # 魔法库模板code
+        self.template_code = template_code
+        # 魔法库模板版本
+        self.template_version = template_version
+        # 文件预览地址
+        self.preview_address = preview_address
+        # 创建模板的元素列表
+        self.template_element_list = template_element_list
+        # 文件oss存储的key
+        self.file_key = file_key
+        # 是否确认保存。点击”保存“按钮传false、点击”下一步“按钮传true
+        self.confirm = confirm
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.template_code, 'template_code')
+        self.validate_required(self.template_version, 'template_version')
+        self.validate_required(self.preview_address, 'preview_address')
+        self.validate_required(self.file_key, 'file_key')
+        self.validate_required(self.confirm, 'confirm')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
+        if self.template_version is not None:
+            result['template_version'] = self.template_version
+        if self.preview_address is not None:
+            result['preview_address'] = self.preview_address
+        if self.template_element_list is not None:
+            result['template_element_list'] = self.template_element_list
+        if self.file_key is not None:
+            result['file_key'] = self.file_key
+        if self.confirm is not None:
+            result['confirm'] = self.confirm
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
+        if m.get('template_version') is not None:
+            self.template_version = m.get('template_version')
+        if m.get('preview_address') is not None:
+            self.preview_address = m.get('preview_address')
+        if m.get('template_element_list') is not None:
+            self.template_element_list = m.get('template_element_list')
+        if m.get('file_key') is not None:
+            self.file_key = m.get('file_key')
+        if m.get('confirm') is not None:
+            self.confirm = m.get('confirm')
+        return self
+
+
+class SaveAntchainAtoInnerTemplateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class PublishAntchainAtoInnerTemplateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        template_code: str = None,
+        template_version_id: str = None,
+        template_version: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 商户对应租户ID
+        self.tenant_id = tenant_id
+        # 魔法库模板code
+        self.template_code = template_code
+        # 魔法库版本id
+        self.template_version_id = template_version_id
+        # 合同模板制作版本id
+        self.template_version = template_version
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.template_code, 'template_code')
+        self.validate_required(self.template_version_id, 'template_version_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
+        if self.template_version_id is not None:
+            result['template_version_id'] = self.template_version_id
+        if self.template_version is not None:
+            result['template_version'] = self.template_version
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
+        if m.get('template_version_id') is not None:
+            self.template_version_id = m.get('template_version_id')
+        if m.get('template_version') is not None:
+            self.template_version = m.get('template_version')
+        return self
+
+
+class PublishAntchainAtoInnerTemplateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class PreviewAntchainAtoInnerTemplateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        file_key: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 商户对应租户ID
+        self.tenant_id = tenant_id
+        # 文件oss存储的key
+        self.file_key = file_key
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.file_key, 'file_key')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.file_key is not None:
+            result['file_key'] = self.file_key
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('file_key') is not None:
+            self.file_key = m.get('file_key')
+        return self
+
+
+class PreviewAntchainAtoInnerTemplateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 预览接口返回
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
+class DeleteAntchainAtoInnerTemplateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        template_code: str = None,
+        template_version: str = None,
+        template_version_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 商户对应租户ID
+        self.tenant_id = tenant_id
+        # 魔法库模板code
+        self.template_code = template_code
+        # 魔法库模板版本
+        self.template_version = template_version
+        # 魔法库模板版本id
+        self.template_version_id = template_version_id
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.template_code, 'template_code')
+        self.validate_required(self.template_version, 'template_version')
+        self.validate_required(self.template_version_id, 'template_version_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
+        if self.template_version is not None:
+            result['template_version'] = self.template_version
+        if self.template_version_id is not None:
+            result['template_version_id'] = self.template_version_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
+        if m.get('template_version') is not None:
+            self.template_version = m.get('template_version')
+        if m.get('template_version_id') is not None:
+            self.template_version_id = m.get('template_version_id')
+        return self
+
+
+class DeleteAntchainAtoInnerTemplateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class CloneAntchainAtoInnerTemplateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        template_code: str = None,
+        voucher_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 商户对应租户ID
+        self.tenant_id = tenant_id
+        # 模板code
+        self.template_code = template_code
+        # 魔法库对应模板的模板复制id
+        self.voucher_id = voucher_id
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.template_code, 'template_code')
+        self.validate_required(self.voucher_id, 'voucher_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
+        if self.voucher_id is not None:
+            result['voucher_id'] = self.voucher_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
+        if m.get('voucher_id') is not None:
+            self.voucher_id = m.get('voucher_id')
+        return self
+
+
+class CloneAntchainAtoInnerTemplateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
 class NotifyAntchainAtoFundFlowRequest(TeaModel):
     def __init__(
         self,
@@ -6727,6 +7864,123 @@ class NotifyAntchainAtoFundFlowResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryAntchainAtoInnerTemplateimageRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        page_info: PageQuery = None,
+        template_code: str = None,
+        template_version: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 商户对应租户ID
+        self.tenant_id = tenant_id
+        # 分页查询结构体
+        self.page_info = page_info
+        # 魔法库模板code
+        self.template_code = template_code
+        # 魔法库模板版本
+        self.template_version = template_version
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.page_info, 'page_info')
+        if self.page_info:
+            self.page_info.validate()
+        self.validate_required(self.template_code, 'template_code')
+        self.validate_required(self.template_version, 'template_version')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.page_info is not None:
+            result['page_info'] = self.page_info.to_map()
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
+        if self.template_version is not None:
+            result['template_version'] = self.template_version
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('page_info') is not None:
+            temp_model = PageQuery()
+            self.page_info = temp_model.from_map(m['page_info'])
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
+        if m.get('template_version') is not None:
+            self.template_version = m.get('template_version')
+        return self
+
+
+class QueryAntchainAtoInnerTemplateimageResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 模板图片列表
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
         return self
 
 
@@ -7254,6 +8508,240 @@ class QueryAntchainAtoMerchantexpandMerchantResponse(TeaModel):
         return self
 
 
+class SyncAntchainAtoInnerTemplateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        source_template_code: str = None,
+        target_template_name: str = None,
+        scene: str = None,
+        source_template_version: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 商户对应租户ID
+        self.tenant_id = tenant_id
+        # 来源魔法库模板code
+        self.source_template_code = source_template_code
+        # 目标魔法库模板名称
+        self.target_template_name = target_template_name
+        # 模板同步的场景，值参考：CREATE_TEMPLATE、SYNC_PROD
+        self.scene = scene
+        # 魔法库来源模板版本
+        self.source_template_version = source_template_version
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.source_template_code, 'source_template_code')
+        self.validate_required(self.scene, 'scene')
+        self.validate_required(self.source_template_version, 'source_template_version')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.source_template_code is not None:
+            result['source_template_code'] = self.source_template_code
+        if self.target_template_name is not None:
+            result['target_template_name'] = self.target_template_name
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.source_template_version is not None:
+            result['source_template_version'] = self.source_template_version
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('source_template_code') is not None:
+            self.source_template_code = m.get('source_template_code')
+        if m.get('target_template_name') is not None:
+            self.target_template_name = m.get('target_template_name')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('source_template_version') is not None:
+            self.source_template_version = m.get('source_template_version')
+        return self
+
+
+class SyncAntchainAtoInnerTemplateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        target_template_code: str = None,
+        valid_result: bool = None,
+        valid_field_detail: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 同步后的新模板code
+        self.target_template_code = target_template_code
+        # 模板同步上线时(强管控字段)校验结果
+        self.valid_result = valid_result
+        # 校验结果明细JSONStr
+        self.valid_field_detail = valid_field_detail
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.target_template_code is not None:
+            result['target_template_code'] = self.target_template_code
+        if self.valid_result is not None:
+            result['valid_result'] = self.valid_result
+        if self.valid_field_detail is not None:
+            result['valid_field_detail'] = self.valid_field_detail
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('target_template_code') is not None:
+            self.target_template_code = m.get('target_template_code')
+        if m.get('valid_result') is not None:
+            self.valid_result = m.get('valid_result')
+        if m.get('valid_field_detail') is not None:
+            self.valid_field_detail = m.get('valid_field_detail')
+        return self
+
+
+class UpdateAntchainAtoInnerTemplateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        template_name: str = None,
+        template_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 商户对应租户ID
+        self.tenant_id = tenant_id
+        # 模板名称
+        self.template_name = template_name
+        # 模板code
+        self.template_code = template_code
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.template_name, 'template_name')
+        self.validate_required(self.template_code, 'template_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.template_name is not None:
+            result['template_name'] = self.template_name
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('template_name') is not None:
+            self.template_name = m.get('template_name')
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
+        return self
+
+
+class UpdateAntchainAtoInnerTemplateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
 class UploadAntchainAtoSignTemplateRequest(TeaModel):
     def __init__(
         self,
@@ -7413,6 +8901,210 @@ class UploadAntchainAtoSignTemplateResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('template_id') is not None:
             self.template_id = m.get('template_id')
+        return self
+
+
+class QueryAntchainAtoInnerTemplateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        template_code: str = None,
+        tenant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 模板code
+        self.template_code = template_code
+        # 租户8位id
+        self.tenant_id = tenant_id
+
+    def validate(self):
+        self.validate_required(self.template_code, 'template_code')
+        self.validate_required(self.tenant_id, 'tenant_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class QueryAntchainAtoInnerTemplateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 模板的基本信息，json格式
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
+class QueryAntchainAtoInnerTemplateelementlinkRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        template_code: str = None,
+        template_version: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户id
+        self.tenant_id = tenant_id
+        # 模板code
+        self.template_code = template_code
+        # 模板版本
+        self.template_version = template_version
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.template_code, 'template_code')
+        self.validate_required(self.template_version, 'template_version')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
+        if self.template_version is not None:
+            result['template_version'] = self.template_version
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
+        if m.get('template_version') is not None:
+            self.template_version = m.get('template_version')
+        return self
+
+
+class QueryAntchainAtoInnerTemplateelementlinkResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 模板元素列表，json格式
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
         return self
 
 
@@ -9960,6 +11652,97 @@ class QueryAntchainAtoMerchantexpandDividerelationResponse(TeaModel):
         return self
 
 
+class AddAntchainAtoInnerTemplateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        template_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户id
+        self.tenant_id = tenant_id
+        # 合同模板code
+        self.template_code = template_code
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.template_code, 'template_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
+        return self
+
+
+class AddAntchainAtoInnerTemplateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
 class ApplyAntchainAtoFundCreditutilizationRequest(TeaModel):
     def __init__(
         self,
@@ -10304,6 +12087,141 @@ class QueryAntchainAtoFundAssetpackageResponse(TeaModel):
             for k in m.get('order_list'):
                 temp_model = AssetPackageOrderInfo()
                 self.order_list.append(temp_model.from_map(k))
+        return self
+
+
+class RepayAntchainAtoFundPlanRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        merchant_id: str = None,
+        fund_id: str = None,
+        term_index: int = None,
+        amount: int = None,
+        payment_description: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 订单id 长度不可超过50
+        self.order_id = order_id
+        # 订单所属商户的社会信用代码
+        self.merchant_id = merchant_id
+        # 融资单的资方社会信用代码
+        self.fund_id = fund_id
+        # 商户履约的期数
+        self.term_index = term_index
+        # 还款金额
+        self.amount = amount
+        # 支付描述
+        self.payment_description = payment_description
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        if self.order_id is not None:
+            self.validate_max_length(self.order_id, 'order_id', 50)
+        self.validate_required(self.merchant_id, 'merchant_id')
+        if self.merchant_id is not None:
+            self.validate_max_length(self.merchant_id, 'merchant_id', 64)
+        self.validate_required(self.fund_id, 'fund_id')
+        if self.fund_id is not None:
+            self.validate_max_length(self.fund_id, 'fund_id', 64)
+        self.validate_required(self.term_index, 'term_index')
+        if self.term_index is not None:
+            self.validate_minimum(self.term_index, 'term_index', 1)
+        self.validate_required(self.amount, 'amount')
+        if self.amount is not None:
+            self.validate_minimum(self.amount, 'amount', 0)
+        self.validate_required(self.payment_description, 'payment_description')
+        if self.payment_description is not None:
+            self.validate_max_length(self.payment_description, 'payment_description', 64)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
+        if self.term_index is not None:
+            result['term_index'] = self.term_index
+        if self.amount is not None:
+            result['amount'] = self.amount
+        if self.payment_description is not None:
+            result['payment_description'] = self.payment_description
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
+        if m.get('term_index') is not None:
+            self.term_index = m.get('term_index')
+        if m.get('amount') is not None:
+            self.amount = m.get('amount')
+        if m.get('payment_description') is not None:
+            self.payment_description = m.get('payment_description')
+        return self
+
+
+class RepayAntchainAtoFundPlanResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 

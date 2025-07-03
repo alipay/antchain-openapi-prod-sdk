@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.0',
+                    'sdk_version': '1.5.1',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.5.0',
+                    'sdk_version': '1.5.1',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -1500,8 +1500,8 @@ class Client:
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdActivepayRequest,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdActivepayResponse:
         """
-        Description: 代扣主动支付创建
-        Summary: 代扣主动支付创建
+        Description: 主动支付创建
+        Summary: 主动支付创建
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1512,8 +1512,8 @@ class Client:
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdActivepayRequest,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdActivepayResponse:
         """
-        Description: 代扣主动支付创建
-        Summary: 代扣主动支付创建
+        Description: 主动支付创建
+        Summary: 主动支付创建
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1526,8 +1526,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdActivepayResponse:
         """
-        Description: 代扣主动支付创建
-        Summary: 代扣主动支付创建
+        Description: 主动支付创建
+        Summary: 主动支付创建
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1542,8 +1542,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdActivepayResponse:
         """
-        Description: 代扣主动支付创建
-        Summary: 代扣主动支付创建
+        Description: 主动支付创建
+        Summary: 主动支付创建
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1556,8 +1556,8 @@ class Client:
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdActivepayRequest,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdActivepayResponse:
         """
-        Description: 代扣主动支付查询
-        Summary: 代扣主动支付查询
+        Description: 主动支付查询
+        Summary: 主动支付查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1568,8 +1568,8 @@ class Client:
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdActivepayRequest,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdActivepayResponse:
         """
-        Description: 代扣主动支付查询
-        Summary: 代扣主动支付查询
+        Description: 主动支付查询
+        Summary: 主动支付查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1582,8 +1582,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdActivepayResponse:
         """
-        Description: 代扣主动支付查询
-        Summary: 代扣主动支付查询
+        Description: 主动支付查询
+        Summary: 主动支付查询
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1598,8 +1598,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdActivepayResponse:
         """
-        Description: 代扣主动支付查询
-        Summary: 代扣主动支付查询
+        Description: 主动支付查询
+        Summary: 主动支付查询
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1612,8 +1612,8 @@ class Client:
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoWithholdActivepayRequest,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoWithholdActivepayResponse:
         """
-        Description: 代扣主动支付取消
-        Summary: 代扣主动支付取消
+        Description: 主动支付取消
+        Summary: 主动支付取消
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1624,8 +1624,8 @@ class Client:
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoWithholdActivepayRequest,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoWithholdActivepayResponse:
         """
-        Description: 代扣主动支付取消
-        Summary: 代扣主动支付取消
+        Description: 主动支付取消
+        Summary: 主动支付取消
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1638,8 +1638,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoWithholdActivepayResponse:
         """
-        Description: 代扣主动支付取消
-        Summary: 代扣主动支付取消
+        Description: 主动支付取消
+        Summary: 主动支付取消
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1654,8 +1654,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoWithholdActivepayResponse:
         """
-        Description: 代扣主动支付取消
-        Summary: 代扣主动支付取消
+        Description: 主动支付取消
+        Summary: 主动支付取消
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2595,6 +2595,510 @@ class Client:
             await self.do_request_async('1.0', 'antchain.ato.trade.userpromise.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def all_antchain_ato_inner_template(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AllAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AllAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，根据租户查询合同模板列表
+        Summary: 查询模板列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.all_antchain_ato_inner_template_ex(request, headers, runtime)
+
+    async def all_antchain_ato_inner_template_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AllAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AllAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，根据租户查询合同模板列表
+        Summary: 查询模板列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.all_antchain_ato_inner_template_ex_async(request, headers, runtime)
+
+    def all_antchain_ato_inner_template_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AllAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AllAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，根据租户查询合同模板列表
+        Summary: 查询模板列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AllAntchainAtoInnerTemplateResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.template.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def all_antchain_ato_inner_template_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AllAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AllAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，根据租户查询合同模板列表
+        Summary: 查询模板列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AllAntchainAtoInnerTemplateResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.template.all', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_antchain_ato_inner_template(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ListAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ListAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，根据模板code查询合同模板版本列表
+        Summary: 查询魔法库某一模板版本列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_antchain_ato_inner_template_ex(request, headers, runtime)
+
+    async def list_antchain_ato_inner_template_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ListAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ListAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，根据模板code查询合同模板版本列表
+        Summary: 查询魔法库某一模板版本列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_antchain_ato_inner_template_ex_async(request, headers, runtime)
+
+    def list_antchain_ato_inner_template_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ListAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ListAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，根据模板code查询合同模板版本列表
+        Summary: 查询魔法库某一模板版本列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ListAntchainAtoInnerTemplateResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.template.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_antchain_ato_inner_template_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ListAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ListAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，根据模板code查询合同模板版本列表
+        Summary: 查询魔法库某一模板版本列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ListAntchainAtoInnerTemplateResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.template.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_antchain_ato_inner_template(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.DetailAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.DetailAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，根据模板code查询指定版本的模板详情
+        Summary: 查询魔法库模板详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_antchain_ato_inner_template_ex(request, headers, runtime)
+
+    async def detail_antchain_ato_inner_template_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.DetailAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.DetailAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，根据模板code查询指定版本的模板详情
+        Summary: 查询魔法库模板详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_antchain_ato_inner_template_ex_async(request, headers, runtime)
+
+    def detail_antchain_ato_inner_template_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.DetailAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.DetailAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，根据模板code查询指定版本的模板详情
+        Summary: 查询魔法库模板详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.DetailAntchainAtoInnerTemplateResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.template.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_antchain_ato_inner_template_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.DetailAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.DetailAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，根据模板code查询指定版本的模板详情
+        Summary: 查询魔法库模板详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.DetailAntchainAtoInnerTemplateResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.template.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_antchain_ato_inner_template(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，创建魔法库模板
+        Summary: 创建模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_antchain_ato_inner_template_ex(request, headers, runtime)
+
+    async def create_antchain_ato_inner_template_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，创建魔法库模板
+        Summary: 创建模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_antchain_ato_inner_template_ex_async(request, headers, runtime)
+
+    def create_antchain_ato_inner_template_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，创建魔法库模板
+        Summary: 创建模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoInnerTemplateResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.template.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_antchain_ato_inner_template_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，创建魔法库模板
+        Summary: 创建模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoInnerTemplateResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.template.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def save_antchain_ato_inner_template(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SaveAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SaveAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，保存魔法库模板
+        Summary: 保存魔法库模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.save_antchain_ato_inner_template_ex(request, headers, runtime)
+
+    async def save_antchain_ato_inner_template_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SaveAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SaveAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，保存魔法库模板
+        Summary: 保存魔法库模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.save_antchain_ato_inner_template_ex_async(request, headers, runtime)
+
+    def save_antchain_ato_inner_template_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SaveAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SaveAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，保存魔法库模板
+        Summary: 保存魔法库模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SaveAntchainAtoInnerTemplateResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.template.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def save_antchain_ato_inner_template_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SaveAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SaveAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，保存魔法库模板
+        Summary: 保存魔法库模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SaveAntchainAtoInnerTemplateResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.template.save', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def publish_antchain_ato_inner_template(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.PublishAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.PublishAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，发布魔法库模板
+        Summary: 发布魔法库模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.publish_antchain_ato_inner_template_ex(request, headers, runtime)
+
+    async def publish_antchain_ato_inner_template_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.PublishAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.PublishAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，发布魔法库模板
+        Summary: 发布魔法库模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.publish_antchain_ato_inner_template_ex_async(request, headers, runtime)
+
+    def publish_antchain_ato_inner_template_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.PublishAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.PublishAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，发布魔法库模板
+        Summary: 发布魔法库模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.PublishAntchainAtoInnerTemplateResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.template.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def publish_antchain_ato_inner_template_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.PublishAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.PublishAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，发布魔法库模板
+        Summary: 发布魔法库模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.PublishAntchainAtoInnerTemplateResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.template.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def preview_antchain_ato_inner_template(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.PreviewAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.PreviewAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，根据code预览对应魔法库模板
+        Summary: 预览魔法库模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.preview_antchain_ato_inner_template_ex(request, headers, runtime)
+
+    async def preview_antchain_ato_inner_template_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.PreviewAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.PreviewAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，根据code预览对应魔法库模板
+        Summary: 预览魔法库模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.preview_antchain_ato_inner_template_ex_async(request, headers, runtime)
+
+    def preview_antchain_ato_inner_template_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.PreviewAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.PreviewAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，根据code预览对应魔法库模板
+        Summary: 预览魔法库模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.PreviewAntchainAtoInnerTemplateResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.template.preview', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def preview_antchain_ato_inner_template_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.PreviewAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.PreviewAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，根据code预览对应魔法库模板
+        Summary: 预览魔法库模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.PreviewAntchainAtoInnerTemplateResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.template.preview', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_antchain_ato_inner_template(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.DeleteAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.DeleteAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，根据code删除对应魔法库模板
+        Summary: 删除魔法库模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_antchain_ato_inner_template_ex(request, headers, runtime)
+
+    async def delete_antchain_ato_inner_template_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.DeleteAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.DeleteAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，根据code删除对应魔法库模板
+        Summary: 删除魔法库模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_antchain_ato_inner_template_ex_async(request, headers, runtime)
+
+    def delete_antchain_ato_inner_template_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.DeleteAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.DeleteAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，根据code删除对应魔法库模板
+        Summary: 删除魔法库模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.DeleteAntchainAtoInnerTemplateResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.template.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_antchain_ato_inner_template_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.DeleteAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.DeleteAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，根据code删除对应魔法库模板
+        Summary: 删除魔法库模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.DeleteAntchainAtoInnerTemplateResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.template.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def clone_antchain_ato_inner_template(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CloneAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CloneAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，复制一个魔法库模板
+        Summary: 复制魔法库模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.clone_antchain_ato_inner_template_ex(request, headers, runtime)
+
+    async def clone_antchain_ato_inner_template_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CloneAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CloneAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，复制一个魔法库模板
+        Summary: 复制魔法库模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.clone_antchain_ato_inner_template_ex_async(request, headers, runtime)
+
+    def clone_antchain_ato_inner_template_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CloneAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CloneAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，复制一个魔法库模板
+        Summary: 复制魔法库模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CloneAntchainAtoInnerTemplateResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.template.clone', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def clone_antchain_ato_inner_template_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CloneAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CloneAntchainAtoInnerTemplateResponse:
+        """
+        Description: 内部接口，复制一个魔法库模板
+        Summary: 复制魔法库模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CloneAntchainAtoInnerTemplateResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.template.clone', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def notify_antchain_ato_fund_flow(
         self,
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.NotifyAntchainAtoFundFlowRequest,
@@ -2649,6 +3153,62 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.NotifyAntchainAtoFundFlowResponse(),
             await self.do_request_async('1.0', 'antchain.ato.fund.flow.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_ato_inner_templateimage(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateimageRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateimageResponse:
+        """
+        Description: 获取模板的图片列表
+        Summary: 获取模板的图片列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_ato_inner_templateimage_ex(request, headers, runtime)
+
+    async def query_antchain_ato_inner_templateimage_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateimageRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateimageResponse:
+        """
+        Description: 获取模板的图片列表
+        Summary: 获取模板的图片列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_ato_inner_templateimage_ex_async(request, headers, runtime)
+
+    def query_antchain_ato_inner_templateimage_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateimageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateimageResponse:
+        """
+        Description: 获取模板的图片列表
+        Summary: 获取模板的图片列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateimageResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.templateimage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_ato_inner_templateimage_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateimageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateimageResponse:
+        """
+        Description: 获取模板的图片列表
+        Summary: 获取模板的图片列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateimageResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.templateimage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def sync_antchain_ato_front_indirectorder(
@@ -2931,6 +3491,118 @@ class Client:
             await self.do_request_async('1.0', 'antchain.ato.merchantexpand.merchant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def sync_antchain_ato_inner_template(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoInnerTemplateResponse:
+        """
+        Description: 同步已发布的模板
+        Summary: 同步已发布的模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_antchain_ato_inner_template_ex(request, headers, runtime)
+
+    async def sync_antchain_ato_inner_template_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoInnerTemplateResponse:
+        """
+        Description: 同步已发布的模板
+        Summary: 同步已发布的模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_antchain_ato_inner_template_ex_async(request, headers, runtime)
+
+    def sync_antchain_ato_inner_template_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoInnerTemplateResponse:
+        """
+        Description: 同步已发布的模板
+        Summary: 同步已发布的模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoInnerTemplateResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.template.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_antchain_ato_inner_template_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoInnerTemplateResponse:
+        """
+        Description: 同步已发布的模板
+        Summary: 同步已发布的模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoInnerTemplateResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.template.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_antchain_ato_inner_template(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoInnerTemplateResponse:
+        """
+        Description: 更新魔法库模板基本信息
+        Summary: 更新魔法库模板基本信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_antchain_ato_inner_template_ex(request, headers, runtime)
+
+    async def update_antchain_ato_inner_template_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoInnerTemplateResponse:
+        """
+        Description: 更新魔法库模板基本信息
+        Summary: 更新魔法库模板基本信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_antchain_ato_inner_template_ex_async(request, headers, runtime)
+
+    def update_antchain_ato_inner_template_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoInnerTemplateResponse:
+        """
+        Description: 更新魔法库模板基本信息
+        Summary: 更新魔法库模板基本信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoInnerTemplateResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.template.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_antchain_ato_inner_template_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoInnerTemplateResponse:
+        """
+        Description: 更新魔法库模板基本信息
+        Summary: 更新魔法库模板基本信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoInnerTemplateResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.template.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def upload_antchain_ato_sign_template(
         self,
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignTemplateRequest,
@@ -3021,6 +3693,118 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignTemplateResponse(),
             await self.do_request_async('1.0', 'antchain.ato.sign.template.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_ato_inner_template(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateResponse:
+        """
+        Description: 通过模板code更新模板的基本信息，比如模板名称等
+        Summary: 查询模板的基本信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_ato_inner_template_ex(request, headers, runtime)
+
+    async def query_antchain_ato_inner_template_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateResponse:
+        """
+        Description: 通过模板code更新模板的基本信息，比如模板名称等
+        Summary: 查询模板的基本信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_ato_inner_template_ex_async(request, headers, runtime)
+
+    def query_antchain_ato_inner_template_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateResponse:
+        """
+        Description: 通过模板code更新模板的基本信息，比如模板名称等
+        Summary: 查询模板的基本信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.template.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_ato_inner_template_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateResponse:
+        """
+        Description: 通过模板code更新模板的基本信息，比如模板名称等
+        Summary: 查询模板的基本信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.template.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_ato_inner_templateelementlink(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateelementlinkRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateelementlinkResponse:
+        """
+        Description: 获取模板关联的元素列表信息，包括组件信息
+        Summary: 获取模板关联的元素列表信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_ato_inner_templateelementlink_ex(request, headers, runtime)
+
+    async def query_antchain_ato_inner_templateelementlink_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateelementlinkRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateelementlinkResponse:
+        """
+        Description: 获取模板关联的元素列表信息，包括组件信息
+        Summary: 获取模板关联的元素列表信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_ato_inner_templateelementlink_ex_async(request, headers, runtime)
+
+    def query_antchain_ato_inner_templateelementlink_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateelementlinkRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateelementlinkResponse:
+        """
+        Description: 获取模板关联的元素列表信息，包括组件信息
+        Summary: 获取模板关联的元素列表信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateelementlinkResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.templateelementlink.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_ato_inner_templateelementlink_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateelementlinkRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateelementlinkResponse:
+        """
+        Description: 获取模板关联的元素列表信息，包括组件信息
+        Summary: 获取模板关联的元素列表信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoInnerTemplateelementlinkResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.templateelementlink.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def upload_antchain_ato_fund_credit(
@@ -4255,6 +5039,62 @@ class Client:
             await self.do_request_async('1.0', 'antchain.ato.merchantexpand.dividerelation.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def add_antchain_ato_inner_template(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AddAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AddAntchainAtoInnerTemplateResponse:
+        """
+        Description: 合同模板制作根据已有模板新增合同模板文件
+        Summary: 根据已有模板新增合同模板文件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_antchain_ato_inner_template_ex(request, headers, runtime)
+
+    async def add_antchain_ato_inner_template_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AddAntchainAtoInnerTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AddAntchainAtoInnerTemplateResponse:
+        """
+        Description: 合同模板制作根据已有模板新增合同模板文件
+        Summary: 根据已有模板新增合同模板文件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_antchain_ato_inner_template_ex_async(request, headers, runtime)
+
+    def add_antchain_ato_inner_template_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AddAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AddAntchainAtoInnerTemplateResponse:
+        """
+        Description: 合同模板制作根据已有模板新增合同模板文件
+        Summary: 根据已有模板新增合同模板文件
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AddAntchainAtoInnerTemplateResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.template.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_antchain_ato_inner_template_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AddAntchainAtoInnerTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AddAntchainAtoInnerTemplateResponse:
+        """
+        Description: 合同模板制作根据已有模板新增合同模板文件
+        Summary: 根据已有模板新增合同模板文件
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AddAntchainAtoInnerTemplateResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.template.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def apply_antchain_ato_fund_creditutilization(
         self,
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoFundCreditutilizationRequest,
@@ -4369,6 +5209,66 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundAssetpackageResponse(),
             await self.do_request_async('1.0', 'antchain.ato.fund.assetpackage.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def repay_antchain_ato_fund_plan(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoFundPlanRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoFundPlanResponse:
+        """
+        Description: 调用说明：
+        1. 当商户通过其他方式还款后，通过次接口同步信息，同步完成后会将扣款进行取消
+        Summary: 商户履约其他方式还款（单期取消）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.repay_antchain_ato_fund_plan_ex(request, headers, runtime)
+
+    async def repay_antchain_ato_fund_plan_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoFundPlanRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoFundPlanResponse:
+        """
+        Description: 调用说明：
+        1. 当商户通过其他方式还款后，通过次接口同步信息，同步完成后会将扣款进行取消
+        Summary: 商户履约其他方式还款（单期取消）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.repay_antchain_ato_fund_plan_ex_async(request, headers, runtime)
+
+    def repay_antchain_ato_fund_plan_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoFundPlanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoFundPlanResponse:
+        """
+        Description: 调用说明：
+        1. 当商户通过其他方式还款后，通过次接口同步信息，同步完成后会将扣款进行取消
+        Summary: 商户履约其他方式还款（单期取消）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoFundPlanResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.plan.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def repay_antchain_ato_fund_plan_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoFundPlanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoFundPlanResponse:
+        """
+        Description: 调用说明：
+        1. 当商户通过其他方式还款后，通过次接口同步信息，同步完成后会将扣款进行取消
+        Summary: 商户履约其他方式还款（单期取消）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoFundPlanResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.plan.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_antchain_ato_fund_compensatesignurl(
