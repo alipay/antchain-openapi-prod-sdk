@@ -5,17 +5,29 @@ import com.aliyun.tea.*;
 
 public class OperationDivideTransInModel extends TeaModel {
     // 分账收入方支付宝用户id, 支付宝2088id
+    /**
+     * <strong>example:</strong>
+     * <p>2088****1</p>
+     */
     @NameInMap("trans_in_user_id")
     @Validation(required = true, maxLength = 64, minLength = 1)
     public String transInUserId;
 
     // 分账金额，单位为分
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("divide_amount")
     @Validation(required = true, minimum = 1)
     public Long divideAmount;
 
     // 分账描述
+    /**
+     * <strong>example:</strong>
+     * <p>分账给经营商</p>
+     */
     @NameInMap("desc")
     @Validation(maxLength = 64, minLength = 1)
     public String desc;

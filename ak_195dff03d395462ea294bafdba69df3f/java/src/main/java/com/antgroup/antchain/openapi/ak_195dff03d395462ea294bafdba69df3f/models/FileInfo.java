@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class FileInfo extends TeaModel {
     // 文件名称
+    /**
+     * <strong>example:</strong>
+     * <p>asasd.jpg</p>
+     */
     @NameInMap("file_name")
     @Validation(required = true)
     public String fileName;
 
     // 文件key
+    /**
+     * <strong>example:</strong>
+     * <p>adadqweqw12sads1</p>
+     */
     @NameInMap("file_key")
     @Validation(required = true)
     public String fileKey;

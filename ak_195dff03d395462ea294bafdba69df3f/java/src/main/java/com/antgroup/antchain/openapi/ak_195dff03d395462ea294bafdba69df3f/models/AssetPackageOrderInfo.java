@@ -5,28 +5,52 @@ import com.aliyun.tea.*;
 
 public class AssetPackageOrderInfo extends TeaModel {
     // 订单id
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("order_id")
     @Validation(required = true)
     public String orderId;
 
     // 订单状态
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 出包原因
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("out_reason")
     public String outReason;
 
     // 订单用信额度
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("order_credit_line")
     public Long orderCreditLine;
 
     // 商户应还款金额
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("order_merchant_repayment_money")
     public Long orderMerchantRepaymentMoney;
 
     // 订单分账起始账期
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("divide_start_term_index")
     public Long divideStartTermIndex;
 

@@ -30,10 +30,14 @@ public class QueryAntchainAtoWithholdActivepayRequest extends TeaModel {
     @Validation(maxLength = 64, minLength = 1)
     public String payType;
 
-    // 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
+    // 无用字段，无需关注
     @NameInMap("pay_channel")
     @Validation(maxLength = 64)
     public String payChannel;
+
+    // 多期支付的期数，当使用多期合并支付类型时必传。
+    @NameInMap("multi_period_num")
+    public Long multiPeriodNum;
 
     public static QueryAntchainAtoWithholdActivepayRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAntchainAtoWithholdActivepayRequest self = new QueryAntchainAtoWithholdActivepayRequest();
@@ -94,6 +98,14 @@ public class QueryAntchainAtoWithholdActivepayRequest extends TeaModel {
     }
     public String getPayChannel() {
         return this.payChannel;
+    }
+
+    public QueryAntchainAtoWithholdActivepayRequest setMultiPeriodNum(Long multiPeriodNum) {
+        this.multiPeriodNum = multiPeriodNum;
+        return this;
+    }
+    public Long getMultiPeriodNum() {
+        return this.multiPeriodNum;
     }
 
 }

@@ -31,11 +31,12 @@ public class CreateAntchainAtoWithholdActivepayRequest extends TeaModel {
     public String payChannel;
 
     // 支付金额，单位为分
+    // 当支付类型非PERFORMANCE或为空必填
     @NameInMap("pay_amount")
     public Long payAmount;
 
     // 经营分账标识Y/N
-    // 当pay_type=BUYOUT、PENALTY必填。
+    // 当pay_type=BUYOUT、PENALTY、MULTI_PAY必填。
     @NameInMap("operation_divide_flag")
     @Validation(maxLength = 1, minLength = 1)
     public String operationDivideFlag;
@@ -44,6 +45,11 @@ public class CreateAntchainAtoWithholdActivepayRequest extends TeaModel {
     // 经营分账收入列表，最多10条，分账比例与正常限制一致。
     @NameInMap("operation_divide_trans_in_list")
     public java.util.List<OperationDivideTransInModel> operationDivideTransInList;
+
+    // 单期支付明细列表
+    // 当pay_type=MULTI_PAY必填。
+    @NameInMap("multi_pay_detail")
+    public java.util.List<SingleTermDetail> multiPayDetail;
 
     public static CreateAntchainAtoWithholdActivepayRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateAntchainAtoWithholdActivepayRequest self = new CreateAntchainAtoWithholdActivepayRequest();
@@ -120,6 +126,14 @@ public class CreateAntchainAtoWithholdActivepayRequest extends TeaModel {
     }
     public java.util.List<OperationDivideTransInModel> getOperationDivideTransInList() {
         return this.operationDivideTransInList;
+    }
+
+    public CreateAntchainAtoWithholdActivepayRequest setMultiPayDetail(java.util.List<SingleTermDetail> multiPayDetail) {
+        this.multiPayDetail = multiPayDetail;
+        return this;
+    }
+    public java.util.List<SingleTermDetail> getMultiPayDetail() {
+        return this.multiPayDetail;
     }
 
 }

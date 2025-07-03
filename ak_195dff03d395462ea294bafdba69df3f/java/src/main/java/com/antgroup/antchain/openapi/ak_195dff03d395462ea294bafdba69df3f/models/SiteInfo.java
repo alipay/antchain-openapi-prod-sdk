@@ -5,19 +5,35 @@ import com.aliyun.tea.*;
 
 public class SiteInfo extends TeaModel {
     // 小程序id
+    /**
+     * <strong>example:</strong>
+     * <p>123456789</p>
+     */
     @NameInMap("tiny_app_id")
     public String tinyAppId;
 
     // 站点名称
+    /**
+     * <strong>example:</strong>
+     * <p>站点名称</p>
+     */
     @NameInMap("site_name")
     public String siteName;
 
     // 
     // 截图照片
+    /**
+     * <strong>example:</strong>
+     * <p>c6c0c7a1-b9d5-4e5d-b9d4-9eed39f00e65.jpg</p>
+     */
     @NameInMap("screenshot_file")
     public FileInfo screenshotFile;
 
     // 站点地址
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://open.alipay.com">https://open.alipay.com</a></p>
+     */
     @NameInMap("site_url")
     public String siteUrl;
 
@@ -29,6 +45,10 @@ public class SiteInfo extends TeaModel {
     // 其他: 05
     // 支付宝小程序: 06
     // 手机网站/H5: 07
+    /**
+     * <strong>example:</strong>
+     * <p>02</p>
+     */
     @NameInMap("site_type")
     public String siteType;
 

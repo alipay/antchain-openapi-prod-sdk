@@ -20,9 +20,15 @@ public class CreateAntchainAtoWithholdActivepayResponse extends TeaModel {
     @NameInMap("trade_no")
     public String tradeNo;
 
-    // 签名字符串，用于APP支付场景，客户端唤起支付宝收银台使用。
+    // 单据支付字符串
+    // app场景：返回签名字符串
+    // h5场景：返回支付链接
     @NameInMap("order_str")
     public String orderStr;
+
+    // 多期支付的期数，当发起多期合并支付时返回。
+    @NameInMap("multi_period_num")
+    public Long multiPeriodNum;
 
     public static CreateAntchainAtoWithholdActivepayResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateAntchainAtoWithholdActivepayResponse self = new CreateAntchainAtoWithholdActivepayResponse();
@@ -67,6 +73,14 @@ public class CreateAntchainAtoWithholdActivepayResponse extends TeaModel {
     }
     public String getOrderStr() {
         return this.orderStr;
+    }
+
+    public CreateAntchainAtoWithholdActivepayResponse setMultiPeriodNum(Long multiPeriodNum) {
+        this.multiPeriodNum = multiPeriodNum;
+        return this;
+    }
+    public Long getMultiPeriodNum() {
+        return this.multiPeriodNum;
     }
 
 }

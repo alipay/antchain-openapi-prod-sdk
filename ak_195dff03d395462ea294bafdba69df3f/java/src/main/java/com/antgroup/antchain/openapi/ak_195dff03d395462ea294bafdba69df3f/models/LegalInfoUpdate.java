@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class LegalInfoUpdate extends TeaModel {
     // 法人名称
+    /**
+     * <strong>example:</strong>
+     * <p>法人名称</p>
+     */
     @NameInMap("legal_name")
     public String legalName;
 
     // 法人证件号
+    /**
+     * <strong>example:</strong>
+     * <p>法人证件号</p>
+     */
     @NameInMap("legal_cert_no")
     public String legalCertNo;
 

@@ -10,65 +10,117 @@ public class CompanyInfo extends TeaModel {
     public FileInfo businessLicenseFile;
 
     // 业务类型 枚举
+    /**
+     * <strong>example:</strong>
+     * <p>业务类型</p>
+     */
     @NameInMap("product_main_class")
     @Validation(required = true)
     public String productMainClass;
 
     // 公司名称
+    /**
+     * <strong>example:</strong>
+     * <p>xx公司</p>
+     */
     @NameInMap("company_name")
     @Validation(required = true)
     public String companyName;
 
     // 公司别名
+    /**
+     * <strong>example:</strong>
+     * <p>公司别名</p>
+     */
     @NameInMap("company_alias_name")
     @Validation(required = true)
     public String companyAliasName;
 
     // 公司数科租户id
+    /**
+     * <strong>example:</strong>
+     * <p>ASSDDDAS</p>
+     */
     @NameInMap("tenant_id")
     public String tenantId;
 
     // 统一社会信用代码
+    /**
+     * <strong>example:</strong>
+     * <p>9121asd231231231231</p>
+     */
     @NameInMap("merchant_id")
     @Validation(required = true)
     public String merchantId;
 
     // 商户类型： 01：企业；07：个体工商户
     // 默认不填为01
+    /**
+     * <strong>example:</strong>
+     * <p>01</p>
+     */
     @NameInMap("merchant_type")
     public String merchantType;
 
     // 公司联系电话
+    /**
+     * <strong>example:</strong>
+     * <p>1231xx2322</p>
+     */
     @NameInMap("company_mobile")
     @Validation(required = true)
     public String companyMobile;
 
     // 公司联系地址
+    /**
+     * <strong>example:</strong>
+     * <p>xx市xx区</p>
+     */
     @NameInMap("company_address")
     @Validation(required = true)
     public String companyAddress;
 
     // 联系人姓名
+    /**
+     * <strong>example:</strong>
+     * <p>李xx</p>
+     */
     @NameInMap("contact_name")
     @Validation(required = true)
     public String contactName;
 
     // 联系人手机号码
+    /**
+     * <strong>example:</strong>
+     * <p>132xx2312312</p>
+     */
     @NameInMap("contact_mobile")
     @Validation(required = true)
     public String contactMobile;
 
     // 绑定企业支付宝账号
+    /**
+     * <strong>example:</strong>
+     * <p>绑定企业支付宝账号</p>
+     */
     @NameInMap("bind_alipay_no")
     @Validation(required = true)
     public String bindAlipayNo;
 
     // 结算企业支付宝账号
+    /**
+     * <strong>example:</strong>
+     * <p>结算企业支付宝账号</p>
+     */
     @NameInMap("settle_alipay_no")
     @Validation(required = true)
     public String settleAlipayNo;
 
     // 绑定支付宝uid
+    /**
+     * <strong>example:</strong>
+     * <p>绑定支付宝uid</p>
+     */
     @NameInMap("bind_alipay_uid")
     @Validation(required = true)
     public String bindAlipayUid;
