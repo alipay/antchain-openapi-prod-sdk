@@ -6336,7 +6336,7 @@ export class ContractQueryDetailReq extends $tea.Model {
 
 // 车辆基本信息
 export class CarInfo extends $tea.Model {
-  // 车辆信息
+  // 车牌号
   licenseNo: string;
   // 车架号
   vin: string;
@@ -6966,6 +6966,43 @@ export class OCUserData extends $tea.Model {
   }
 }
 
+// 车五项信息
+export class CarItemsInfo extends $tea.Model {
+  // 品牌名称
+  brandName?: string;
+  // 车架号
+  vin?: string;
+  // 发动机号
+  engineNo?: string;
+  // 注册日期
+  registerDate?: string;
+  // 车辆型号
+  modelCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      brandName: 'brand_name',
+      vin: 'vin',
+      engineNo: 'engine_no',
+      registerDate: 'register_date',
+      modelCode: 'model_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      brandName: 'string',
+      vin: 'string',
+      engineNo: 'string',
+      registerDate: 'string',
+      modelCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 用户身份信息
 export class UserMetaInfo extends $tea.Model {
   // 用户身份信息类型
@@ -6983,6 +7020,88 @@ export class UserMetaInfo extends $tea.Model {
     return {
       type: 'string',
       data: { 'type': 'array', 'itemType': KeyValuePair },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 车辆业务价格
+export class CarBusinessPrice extends $tea.Model {
+  // 品牌id
+  brandId: string;
+  // 品牌名称
+  brandName: string;
+  // 车系ID
+  // 
+  carSeriesId: string;
+  // 车系名称
+  carSeries: string;
+  // 车型ID
+  carId: string;
+  // 车型名称
+  carName: string;
+  // 年款
+  carYear: string;
+  // 城市code
+  cityCode: string;
+  // 城市名称
+  cityName: string;
+  //   车系指导价（范围值） 单位到分
+  seriesGuidePrice: string;
+  // 车型指导价（具体值）单位到分
+  officialPrice: number;
+  // 车主成交价（具体值）单位到分
+  fullPrice: number;
+  // 车主裸车价（具体值）单位到分
+  nakedPrice: number;
+  // 购置税（具体值）单位到分
+  purchaseTax: number;
+  // 车船税（具体值）单位到分
+  vehicleVesselTax: number;
+  // 商业险（具体值）单位到分
+  businessInsurance: number;
+  static names(): { [key: string]: string } {
+    return {
+      brandId: 'brand_id',
+      brandName: 'brand_name',
+      carSeriesId: 'car_series_id',
+      carSeries: 'car_series',
+      carId: 'car_id',
+      carName: 'car_name',
+      carYear: 'car_year',
+      cityCode: 'city_code',
+      cityName: 'city_name',
+      seriesGuidePrice: 'series_guide_price',
+      officialPrice: 'official_price',
+      fullPrice: 'full_price',
+      nakedPrice: 'naked_price',
+      purchaseTax: 'purchase_tax',
+      vehicleVesselTax: 'vehicle_vessel_tax',
+      businessInsurance: 'business_insurance',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      brandId: 'string',
+      brandName: 'string',
+      carSeriesId: 'string',
+      carSeries: 'string',
+      carId: 'string',
+      carName: 'string',
+      carYear: 'string',
+      cityCode: 'string',
+      cityName: 'string',
+      seriesGuidePrice: 'string',
+      officialPrice: 'number',
+      fullPrice: 'number',
+      nakedPrice: 'number',
+      purchaseTax: 'number',
+      vehicleVesselTax: 'number',
+      businessInsurance: 'number',
     };
   }
 
@@ -39710,6 +39829,8 @@ export class SubmitAuthNewcarRequest extends $tea.Model {
   finaicalPlan?: string;
   // 预计购买时间
   purcharseTime?: string;
+  // xxxx
+  carSeriesId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -39719,6 +39840,7 @@ export class SubmitAuthNewcarRequest extends $tea.Model {
       carSeries: 'car_series',
       finaicalPlan: 'finaical_plan',
       purcharseTime: 'purcharse_time',
+      carSeriesId: 'car_series_id',
     };
   }
 
@@ -39731,6 +39853,7 @@ export class SubmitAuthNewcarRequest extends $tea.Model {
       carSeries: 'string',
       finaicalPlan: 'string',
       purcharseTime: 'string',
+      carSeriesId: 'string',
     };
   }
 
@@ -39902,6 +40025,164 @@ export class RegisterAuthCarownerResponse extends $tea.Model {
       resultMsg: 'string',
       pushSuccess: 'boolean',
       token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuthCaritemsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 唯一场景码
+  sceneCode: string;
+  // 来源码
+  sourceCode: string;
+  // 唯一用户标识
+  userId?: string;
+  // 车牌号
+  licenseNo: string;
+  // 车型
+  modelCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneCode: 'scene_code',
+      sourceCode: 'source_code',
+      userId: 'user_id',
+      licenseNo: 'license_no',
+      modelCode: 'model_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneCode: 'string',
+      sourceCode: 'string',
+      userId: 'string',
+      licenseNo: 'string',
+      modelCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuthCaritemsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 车五项信息
+  carItemsInfo?: CarItemsInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      carItemsInfo: 'car_items_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      carItemsInfo: CarItemsInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuthCarpriceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 车型id
+  carId?: string;
+  // 车系id
+  seriesId?: string;
+  // 城市code
+  cityCode?: string;
+  // 页码
+  pageNum: number;
+  // 每页大小
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      carId: 'car_id',
+      seriesId: 'series_id',
+      cityCode: 'city_code',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      carId: 'string',
+      seriesId: 'string',
+      cityCode: 'string',
+      pageNum: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuthCarpriceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 总页数
+  totalPages?: number;
+  // 当前页码
+  pageNum?: number;
+  // 车辆业务价格
+  data?: CarBusinessPrice[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      totalPages: 'total_pages',
+      pageNum: 'page_num',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      totalPages: 'number',
+      pageNum: 'number',
+      data: { 'type': 'array', 'itemType': CarBusinessPrice },
     };
   }
 
@@ -54788,7 +55069,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.51",
+          sdk_version: "1.28.53",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
@@ -62935,6 +63216,44 @@ export default class Client {
   async registerAuthCarownerEx(request: RegisterAuthCarownerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RegisterAuthCarownerResponse> {
     Util.validateModel(request);
     return $tea.cast<RegisterAuthCarownerResponse>(await this.doRequest("1.0", "baas.auth.carowner.register", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RegisterAuthCarownerResponse({}));
+  }
+
+  /**
+   * Description: 车五项查询
+   * Summary: 车五项查询
+   */
+  async queryAuthCaritems(request: QueryAuthCaritemsRequest): Promise<QueryAuthCaritemsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAuthCaritemsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 车五项查询
+   * Summary: 车五项查询
+   */
+  async queryAuthCaritemsEx(request: QueryAuthCaritemsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAuthCaritemsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAuthCaritemsResponse>(await this.doRequest("1.0", "baas.auth.caritems.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAuthCaritemsResponse({}));
+  }
+
+  /**
+   * Description: 车辆价格查询
+   * Summary: 车辆价格查询
+   */
+  async queryAuthCarprice(request: QueryAuthCarpriceRequest): Promise<QueryAuthCarpriceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAuthCarpriceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 车辆价格查询
+   * Summary: 车辆价格查询
+   */
+  async queryAuthCarpriceEx(request: QueryAuthCarpriceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAuthCarpriceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAuthCarpriceResponse>(await this.doRequest("1.0", "baas.auth.carprice.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAuthCarpriceResponse({}));
   }
 
   /**
