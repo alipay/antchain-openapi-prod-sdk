@@ -5,61 +5,109 @@ import com.aliyun.tea.*;
 
 public class TransactionInfo extends TeaModel {
     // 交易时间戳
+    /**
+     * <strong>example:</strong>
+     * <p>timestamp</p>
+     */
     @NameInMap("timestamp")
     @Validation(required = true)
     public Long timestamp;
 
     // 交易hash
+    /**
+     * <strong>example:</strong>
+     * <p>hash</p>
+     */
     @NameInMap("hash")
     @Validation(required = true)
     public String hash;
 
     // 交易块高
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("height")
     @Validation(required = true)
     public Long height;
 
     // 交易所在块高
+    /**
+     * <strong>example:</strong>
+     * <p>hash</p>
+     */
     @NameInMap("blockhash")
     @Validation(required = true)
     public String blockhash;
 
     // 交易来源
+    /**
+     * <strong>example:</strong>
+     * <p>hash</p>
+     */
     @NameInMap("from")
     @Validation(required = true)
     public String from;
 
     // 交易地址
+    /**
+     * <strong>example:</strong>
+     * <p>hash</p>
+     */
     @NameInMap("to")
     @Validation(required = true)
     public String to;
 
     // 交易类型
+    /**
+     * <strong>example:</strong>
+     * <p>11</p>
+     */
     @NameInMap("txtype")
     @Validation(required = true)
     public Long txtype;
 
     // 转账额度
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("value")
     @Validation(required = true)
     public Long value;
 
     // logs
+    /**
+     * <strong>example:</strong>
+     * <p>logs</p>
+     */
     @NameInMap("logs")
     @Validation(required = true)
     public String logs;
 
     // 燃料消耗
+    /**
+     * <strong>example:</strong>
+     * <p>11</p>
+     */
     @NameInMap("gasused")
     @Validation(required = true)
     public Long gasused;
 
     // result
+    /**
+     * <strong>example:</strong>
+     * <p>result</p>
+     */
     @NameInMap("result")
     @Validation(required = true)
     public String result;
 
     // 拓展json字段
+    /**
+     * <strong>example:</strong>
+     * <p>json</p>
+     */
     @NameInMap("json")
     @Validation(required = true)
     public String json;

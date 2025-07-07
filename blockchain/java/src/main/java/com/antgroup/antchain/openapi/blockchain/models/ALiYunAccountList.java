@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class ALiYunAccountList extends TeaModel {
     // pagination
+    /**
+     * <strong>example:</strong>
+     * <p>pagination</p>
+     */
     @NameInMap("pagination")
     public ALiYunPagination pagination;
 
     // accounts
+    /**
+     * <strong>example:</strong>
+     * <p>accounts</p>
+     */
     @NameInMap("accounts")
     public java.util.List<ALiYunAccount> accounts;
 
     // 联盟管理员
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("consortium_admin")
     public Boolean consortiumAdmin;
 

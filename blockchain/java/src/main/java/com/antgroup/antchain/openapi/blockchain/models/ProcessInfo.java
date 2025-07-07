@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class ProcessInfo extends TeaModel {
     // 当前处理节点
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("current_node")
     @Validation(required = true)
     public Long currentNode;
 
     // 扩展信息
+    /**
+     * <strong>example:</strong>
+     * <p>68f955a58591e80b94e6ed755722abab4d665936a59bbe6482dd0be9aad21d9a</p>
+     */
     @NameInMap("extension_info")
     public String extensionInfo;
 
@@ -19,21 +27,37 @@ public class ProcessInfo extends TeaModel {
     public java.util.List<NodeDetail> nodes;
 
     // 流程ID
+    /**
+     * <strong>example:</strong>
+     * <p>68f955a58591e80b94e6ed755722abab4d665936a59bbe6482dd0be9aad21d9a</p>
+     */
     @NameInMap("process_id")
     @Validation(required = true)
     public String processId;
 
     // 流程状态
+    /**
+     * <strong>example:</strong>
+     * <p>processing</p>
+     */
     @NameInMap("process_status")
     @Validation(required = true)
     public String processStatus;
 
     // 流程节点总数
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("total_count")
     @Validation(required = true)
     public Long totalCount;
 
     // 数据对象ID
+    /**
+     * <strong>example:</strong>
+     * <p>did:test:0000:3fc223617da9a17a4d7792ef0c3f57bd176eca8408f2f4cb1df42939220829d2</p>
+     */
     @NameInMap("data_id")
     @Validation(required = true)
     public String dataId;

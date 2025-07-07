@@ -5,20 +5,36 @@ import com.aliyun.tea.*;
 
 public class DisServicesInfo extends TeaModel {
     // did doc service扩展字段
+    /**
+     * <strong>example:</strong>
+     * <p>{}</p>
+     */
     @NameInMap("extesion")
     public String extesion;
 
     // did doc service id
+    /**
+     * <strong>example:</strong>
+     * <p>didauth-1</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public String id;
 
     // 服务endpoint
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://auth.mydid.agent.com">http://auth.mydid.agent.com</a></p>
+     */
     @NameInMap("service_endpoint")
     @Validation(required = true)
     public String serviceEndpoint;
 
     // service type
+    /**
+     * <strong>example:</strong>
+     * <p>DidAuthService</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public String type;
@@ -27,6 +43,10 @@ public class DisServicesInfo extends TeaModel {
     // CONFLICT
     // VALID
     // INVALID
+    /**
+     * <strong>example:</strong>
+     * <p>描述</p>
+     */
     @NameInMap("desc")
     public String desc;
 

@@ -5,34 +5,66 @@ import com.aliyun.tea.*;
 
 public class ChainPurpose extends TeaModel {
     // 用途id
+    /**
+     * <strong>example:</strong>
+     * <p>4356</p>
+     */
     @NameInMap("id")
     public String id;
 
     // 用途key
+    /**
+     * <strong>example:</strong>
+     * <p>3uhhf</p>
+     */
     @NameInMap("key")
     public String key;
 
     // 用途内容
+    /**
+     * <strong>example:</strong>
+     * <p>用途内容</p>
+     */
     @NameInMap("name")
     public String name;
 
     // 用途申报时间
+    /**
+     * <strong>example:</strong>
+     * <p>22-01-01</p>
+     */
     @NameInMap("time")
     public String time;
 
     // 用途申报状态
+    /**
+     * <strong>example:</strong>
+     * <p>用途申报状态</p>
+     */
     @NameInMap("status")
     public String status;
 
     // 简短描述开关
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("item")
     public Boolean item;
 
     // 详细描述开关
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("extend")
     public Boolean extend;
 
     // 用途申报简短描述
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;&quot;</p>
+     */
     @NameInMap("purpose_item")
     public String purposeItem;
 

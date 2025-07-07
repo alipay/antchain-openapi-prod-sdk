@@ -5,30 +5,58 @@ import com.aliyun.tea.*;
 
 public class ALiYunContractProject extends TeaModel {
     // consortium_id
+    /**
+     * <strong>example:</strong>
+     * <p>consortium_id</p>
+     */
     @NameInMap("consortium_id")
     public String consortiumId;
 
     // create_time
+    /**
+     * <strong>example:</strong>
+     * <p>123123123</p>
+     */
     @NameInMap("create_time")
     public Long createTime;
 
     // project_description
+    /**
+     * <strong>example:</strong>
+     * <p>project_description</p>
+     */
     @NameInMap("project_description")
     public String projectDescription;
 
     // project_id
+    /**
+     * <strong>example:</strong>
+     * <p>project_id</p>
+     */
     @NameInMap("project_id")
     public String projectId;
 
     // project_name
+    /**
+     * <strong>example:</strong>
+     * <p>project_name</p>
+     */
     @NameInMap("project_name")
     public String projectName;
 
     // project_version
+    /**
+     * <strong>example:</strong>
+     * <p>project_version</p>
+     */
     @NameInMap("project_version")
     public String projectVersion;
 
     // update_time
+    /**
+     * <strong>example:</strong>
+     * <p>update_time</p>
+     */
     @NameInMap("update_time")
     public Long updateTime;
 

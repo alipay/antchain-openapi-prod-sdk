@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class InstanceRecordInfo extends TeaModel {
     // 应用标识
+    /**
+     * <strong>example:</strong>
+     * <p>app20230725115808679d4f</p>
+     */
     @NameInMap("application")
     public String application;
 
     // 执行结果
+    /**
+     * <strong>example:</strong>
+     * <p>INIT</p>
+     */
     @NameInMap("status")
     public String status;
 
     // 操作时间
+    /**
+     * <strong>example:</strong>
+     * <p>1690166971465</p>
+     */
     @NameInMap("operating_time")
     public String operatingTime;
 

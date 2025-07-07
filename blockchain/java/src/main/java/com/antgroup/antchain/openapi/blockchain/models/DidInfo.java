@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class DidInfo extends TeaModel {
     // 分布式数字身份id
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("did")
     @Validation(required = true)
     public String did;
 
     // 分布式数字身份对应的用户名称
+    /**
+     * <strong>example:</strong>
+     * <p>蚂蚁金服</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;

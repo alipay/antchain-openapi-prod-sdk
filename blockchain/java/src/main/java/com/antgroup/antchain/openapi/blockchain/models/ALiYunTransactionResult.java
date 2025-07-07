@@ -5,26 +5,50 @@ import com.aliyun.tea.*;
 
 public class ALiYunTransactionResult extends TeaModel {
     // block_hash
+    /**
+     * <strong>example:</strong>
+     * <p>block_hash</p>
+     */
     @NameInMap("block_hash")
     public String blockHash;
 
     // block_height
+    /**
+     * <strong>example:</strong>
+     * <p>123131</p>
+     */
     @NameInMap("block_height")
     public Long blockHeight;
 
     // block_version
+    /**
+     * <strong>example:</strong>
+     * <p>block_version</p>
+     */
     @NameInMap("block_version")
     public String blockVersion;
 
     // create_time
+    /**
+     * <strong>example:</strong>
+     * <p>213213</p>
+     */
     @NameInMap("create_time")
     public Long createTime;
 
     // hash
+    /**
+     * <strong>example:</strong>
+     * <p>hash</p>
+     */
     @NameInMap("hash")
     public String hash;
 
     // Transaction
+    /**
+     * <strong>example:</strong>
+     * <p>Transaction</p>
+     */
     @NameInMap("transaction")
     public ALiYunTransaction transaction;
 

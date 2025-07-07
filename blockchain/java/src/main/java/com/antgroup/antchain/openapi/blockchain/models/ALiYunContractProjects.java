@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class ALiYunContractProjects extends TeaModel {
     // pagination
+    /**
+     * <strong>example:</strong>
+     * <p>pagination</p>
+     */
     @NameInMap("pagination")
     public ALiYunPagination pagination;
 
     // contract_projects
+    /**
+     * <strong>example:</strong>
+     * <p>contract_projects</p>
+     */
     @NameInMap("contract_projects")
     public java.util.List<ALiYunContractProject> contractProjects;
 

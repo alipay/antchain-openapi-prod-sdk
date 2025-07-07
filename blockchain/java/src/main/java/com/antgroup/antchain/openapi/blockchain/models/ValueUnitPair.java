@@ -10,6 +10,10 @@ public class ValueUnitPair extends TeaModel {
     public Long value;
 
     // 单位
+    /**
+     * <strong>example:</strong>
+     * <p>d</p>
+     */
     @NameInMap("unit")
     @Validation(required = true)
     public String unit;

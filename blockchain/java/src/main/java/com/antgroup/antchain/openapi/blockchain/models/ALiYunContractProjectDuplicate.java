@@ -5,30 +5,58 @@ import com.aliyun.tea.*;
 
 public class ALiYunContractProjectDuplicate extends TeaModel {
     // id
+    /**
+     * <strong>example:</strong>
+     * <p>id</p>
+     */
     @NameInMap("id")
     public String id;
 
     // consortium_id
+    /**
+     * <strong>example:</strong>
+     * <p>consortium_id</p>
+     */
     @NameInMap("consortium_id")
     public String consortiumId;
 
     // gmt_create
+    /**
+     * <strong>example:</strong>
+     * <p>21312312312</p>
+     */
     @NameInMap("gmt_create")
     public Long gmtCreate;
 
     // gmt_modified
+    /**
+     * <strong>example:</strong>
+     * <p>123123212</p>
+     */
     @NameInMap("gmt_modified")
     public Long gmtModified;
 
     // name
+    /**
+     * <strong>example:</strong>
+     * <p>name</p>
+     */
     @NameInMap("name")
     public String name;
 
     // version
+    /**
+     * <strong>example:</strong>
+     * <p>version</p>
+     */
     @NameInMap("version")
     public String version;
 
     // description
+    /**
+     * <strong>example:</strong>
+     * <p>description</p>
+     */
     @NameInMap("description")
     public String description;
 

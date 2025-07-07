@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class ChoiceTappInfo extends TeaModel {
     // 选择的tapp的名字
+    /**
+     * <strong>example:</strong>
+     * <p>erpDataReader-1</p>
+     */
     @NameInMap("tapp_name")
     @Validation(required = true)
     public String tappName;
@@ -14,6 +18,10 @@ public class ChoiceTappInfo extends TeaModel {
     public Long tappVersion;
 
     // 该tapp将被声明在did doc中的id
+    /**
+     * <strong>example:</strong>
+     * <p>erpDataReader-1</p>
+     */
     @NameInMap("service_id")
     @Validation(required = true)
     public String serviceId;

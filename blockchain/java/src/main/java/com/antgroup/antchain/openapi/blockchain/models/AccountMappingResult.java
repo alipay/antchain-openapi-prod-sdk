@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class AccountMappingResult extends TeaModel {
     // 该账户在链上的唯一标示
+    /**
+     * <strong>example:</strong>
+     * <p>1234:1234:123</p>
+     */
     @NameInMap("baccount")
     @Validation(required = true)
     public String baccount;
 
     // 当前账户映射结果描述语句
+    /**
+     * <strong>example:</strong>
+     * <p>成功</p>
+     */
     @NameInMap("message")
     @Validation(required = true)
     public String message;
 
     // 状态描述符
+    /**
+     * <strong>example:</strong>
+     * <p>success</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 自有系统中该账户唯一标示
+    /**
+     * <strong>example:</strong>
+     * <p>1234</p>
+     */
     @NameInMap("uid")
     @Validation(required = true)
     public String uid;

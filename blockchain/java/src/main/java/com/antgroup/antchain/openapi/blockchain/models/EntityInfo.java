@@ -10,6 +10,10 @@ public class EntityInfo extends TeaModel {
     public Long type;
 
     // 具体号码
+    /**
+     * <strong>example:</strong>
+     * <p>18701507222</p>
+     */
     @NameInMap("value")
     @Validation(required = true)
     public String value;

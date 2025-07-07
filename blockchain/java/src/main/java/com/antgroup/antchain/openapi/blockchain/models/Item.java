@@ -5,26 +5,46 @@ import com.aliyun.tea.*;
 
 public class Item extends TeaModel {
     // 溯源项的具体内容
+    /**
+     * <strong>example:</strong>
+     * <p>枭洒保税所有海关可用严禁修改</p>
+     */
     @NameInMap("desc")
     @Validation(required = true)
     public String desc;
 
     // 扩展信息 ，json格式
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;{&quot;isUrl&quot;,true,&quot;usrid&quot;:&quot;123231&quot;}&quot;</p>
+     */
     @NameInMap("ext_info")
     @Validation(required = true)
     public String extInfo;
 
     // 溯源项的键值
+    /**
+     * <strong>example:</strong>
+     * <p>itemName</p>
+     */
     @NameInMap("key")
     @Validation(required = true)
     public String key;
 
     // 溯源项的中文标题 
+    /**
+     * <strong>example:</strong>
+     * <p>品名</p>
+     */
     @NameInMap("title")
     @Validation(required = true)
     public String title;
 
     // 内容类型 
+    /**
+     * <strong>example:</strong>
+     * <p>text, image, region, link, longtext</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public String type;

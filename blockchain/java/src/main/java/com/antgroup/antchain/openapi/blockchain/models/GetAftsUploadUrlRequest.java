@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class GetAftsUploadUrlRequest extends TeaModel {
     // 问件类型
+    /**
+     * <strong>example:</strong>
+     * <p>csv</p>
+     */
     @NameInMap("file_type")
     @Validation(required = true)
     public String fileType;

@@ -5,22 +5,42 @@ import com.aliyun.tea.*;
 
 public class ALiYunChainRest extends TeaModel {
     // access_id
+    /**
+     * <strong>example:</strong>
+     * <p>access_id</p>
+     */
     @NameInMap("access_id")
     public String accessId;
 
     // create_time
+    /**
+     * <strong>example:</strong>
+     * <p>123123123</p>
+     */
     @NameInMap("create_time")
     public Long createTime;
 
     // rest
+    /**
+     * <strong>example:</strong>
+     * <p>rest</p>
+     */
     @NameInMap("rest")
     public String rest;
 
     // update_time
+    /**
+     * <strong>example:</strong>
+     * <p>123123123</p>
+     */
     @NameInMap("update_time")
     public Long updateTime;
 
     // REST开通结果
+    /**
+     * <strong>example:</strong>
+     * <p>OK</p>
+     */
     @NameInMap("result")
     public String result;
 

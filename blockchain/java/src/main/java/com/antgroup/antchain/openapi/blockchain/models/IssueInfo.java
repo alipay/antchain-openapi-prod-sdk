@@ -5,39 +5,75 @@ import com.aliyun.tea.*;
 
 public class IssueInfo extends TeaModel {
     // 信用流转批次号
+    /**
+     * <strong>example:</strong>
+     * <p>001abc</p>
+     */
     @NameInMap("batch_id")
     public String batchId;
 
     // 合同编号
+    /**
+     * <strong>example:</strong>
+     * <p>8888888</p>
+     */
     @NameInMap("contract_id")
     public String contractId;
 
     // 信用凭证额度
+    /**
+     * <strong>example:</strong>
+     * <p>1898.98</p>
+     */
     @NameInMap("credit_limit")
     public String creditLimit;
 
     // 失败原因信息
+    /**
+     * <strong>example:</strong>
+     * <p>发行额度不足</p>
+     */
     @NameInMap("err_msg")
     public String errMsg;
 
     // 信用凭证到期时间
+    /**
+     * <strong>example:</strong>
+     * <p>20191212</p>
+     */
     @NameInMap("expire_date")
     public String expireDate;
 
     // 信用凭证发起时间
+    /**
+     * <strong>example:</strong>
+     * <p>20190101</p>
+     */
     @NameInMap("issue_date")
     public String issueDate;
 
     // 信用流转凭证
+    /**
+     * <strong>example:</strong>
+     * <p>002abc</p>
+     */
     @NameInMap("issue_id")
     public String issueId;
 
     // 发行结果状态 
     // -1:发行失败状态， 0:未完成状态， 1:已发行状态
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("status")
     public Long status;
 
     // 发行信用流转的运单号
+    /**
+     * <strong>example:</strong>
+     * <p>003abc</p>
+     */
     @NameInMap("waybill_id")
     public String waybillId;
 

@@ -10,21 +10,37 @@ public class PageTaskListDTO extends TeaModel {
     public java.util.List<TaskListInfoDTO> content;
 
     // 总记录条目
+    /**
+     * <strong>example:</strong>
+     * <p>6</p>
+     */
     @NameInMap("total_elements")
     @Validation(required = true)
     public Long totalElements;
 
     // 记录总页数
+    /**
+     * <strong>example:</strong>
+     * <p>20</p>
+     */
     @NameInMap("total_pages")
     @Validation(required = true)
     public Long totalPages;
 
     // 页码
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("number")
     @Validation(required = true)
     public Long number;
 
     // 每页记录条目
+    /**
+     * <strong>example:</strong>
+     * <p>6</p>
+     */
     @NameInMap("size")
     @Validation(required = true)
     public Long size;

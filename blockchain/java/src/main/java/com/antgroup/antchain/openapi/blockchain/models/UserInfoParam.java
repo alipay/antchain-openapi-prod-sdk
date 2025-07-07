@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class UserInfoParam extends TeaModel {
     // 用户手机号信息
+    /**
+     * <strong>example:</strong>
+     * <p>13222222222</p>
+     */
     @NameInMap("phone")
     @Validation(required = true)
     public String phone;
 
     // 用户账号信息
+    /**
+     * <strong>example:</strong>
+     * <p>13222222222</p>
+     */
     @NameInMap("user_account")
     @Validation(required = true)
     public String userAccount;
 
     // 用户名称
+    /**
+     * <strong>example:</strong>
+     * <p>wangerxiao</p>
+     */
     @NameInMap("user_name")
     @Validation(required = true)
     public String userName;

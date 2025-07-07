@@ -5,18 +5,34 @@ import com.aliyun.tea.*;
 
 public class NodeInfo extends TeaModel {
     // 链的区块高度
+    /**
+     * <strong>example:</strong>
+     * <p>10000</p>
+     */
     @NameInMap("blockheight")
     public Long blockheight;
 
     // 节点名称
+    /**
+     * <strong>example:</strong>
+     * <p>名字</p>
+     */
     @NameInMap("nodename")
     public String nodename;
 
     // 节点健康状况
+    /**
+     * <strong>example:</strong>
+     * <p>true</p>
+     */
     @NameInMap("status")
     public Boolean status;
 
     // 节点版本
+    /**
+     * <strong>example:</strong>
+     * <p>0.10</p>
+     */
     @NameInMap("version")
     public String version;
 

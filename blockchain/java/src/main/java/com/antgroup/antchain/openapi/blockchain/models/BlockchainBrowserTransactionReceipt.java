@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class BlockchainBrowserTransactionReceipt extends TeaModel {
     // data
+    /**
+     * <strong>example:</strong>
+     * <p>data</p>
+     */
     @NameInMap("data")
     @Validation(required = true)
     public String data;
 
     // gas_used
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("gas_used")
     @Validation(required = true)
     public Long gasUsed;
 
     // logs
+    /**
+     * <strong>example:</strong>
+     * <p>awdawd</p>
+     */
     @NameInMap("logs")
     @Validation(required = true)
     public java.util.List<String> logs;
 
     // result
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("result")
     @Validation(required = true)
     public Long result;

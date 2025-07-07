@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class Curve extends TeaModel {
     // 分布以day为单位的日期
+    /**
+     * <strong>example:</strong>
+     * <p>2021-03-19</p>
+     */
     @NameInMap("date")
     @Validation(required = true)
     public String date;
 
     // 以day为单位的一天凭证颁发的数据量统计。
+    /**
+     * <strong>example:</strong>
+     * <p>1001</p>
+     */
     @NameInMap("value")
     @Validation(required = true)
     public String value;

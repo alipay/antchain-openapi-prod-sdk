@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class DepositMetaDataItem extends TeaModel {
     // 结构化存证时该item的描述
+    /**
+     * <strong>example:</strong>
+     * <p>货物个数</p>
+     */
     @NameInMap("desc")
     @Validation(required = true)
     public String desc;
 
     // 结构化存证该数据字段的唯一索引
+    /**
+     * <strong>example:</strong>
+     * <p>item_id</p>
+     */
     @NameInMap("key")
     @Validation(required = true)
     public String key;
@@ -21,11 +29,19 @@ public class DepositMetaDataItem extends TeaModel {
     // 3 image url
     // 4 vedio url
     // 5 map url
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public Long type;
 
     // 结构化数据存证时，该item的值
+    /**
+     * <strong>example:</strong>
+     * <p>10个</p>
+     */
     @NameInMap("value")
     @Validation(required = true)
     public String value;

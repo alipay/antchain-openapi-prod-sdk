@@ -5,26 +5,50 @@ import com.aliyun.tea.*;
 
 public class CheckPointStructBody extends TeaModel {
     // 高度
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("height")
     public String height;
 
     // 序号
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("index")
     public String index;
 
     // 类型
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;Block&quot;</p>
+     */
     @NameInMap("type")
     public String type;
 
     // last_error
+    /**
+     * <strong>example:</strong>
+     * <p>“”</p>
+     */
     @NameInMap("last_error")
     public String lastError;
 
     // 错误统计
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("error_count")
     public String errorCount;
 
     // 统计
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("total_count")
     public String totalCount;
 

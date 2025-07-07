@@ -5,18 +5,34 @@ import com.aliyun.tea.*;
 
 public class ALiYunTransactionReceipt extends TeaModel {
     // data
+    /**
+     * <strong>example:</strong>
+     * <p>data</p>
+     */
     @NameInMap("data")
     public String data;
 
     // gas_used
+    /**
+     * <strong>example:</strong>
+     * <p>gas_used</p>
+     */
     @NameInMap("gas_used")
     public String gasUsed;
 
     // result
+    /**
+     * <strong>example:</strong>
+     * <p>result</p>
+     */
     @NameInMap("result")
     public Long result;
 
     // logs
+    /**
+     * <strong>example:</strong>
+     * <p>logs</p>
+     */
     @NameInMap("logs")
     public java.util.List<String> logs;
 

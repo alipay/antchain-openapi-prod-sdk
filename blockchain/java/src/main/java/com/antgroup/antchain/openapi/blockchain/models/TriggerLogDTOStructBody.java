@@ -5,22 +5,42 @@ import com.aliyun.tea.*;
 
 public class TriggerLogDTOStructBody extends TeaModel {
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;&quot;</p>
+     */
     @NameInMap("create_time")
     public String createTime;
 
     // 修改时间
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;&quot;</p>
+     */
     @NameInMap("modify_time")
     public String modifyTime;
 
     // 状态
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;&quot;</p>
+     */
     @NameInMap("status")
     public String status;
 
     // uuid
+    /**
+     * <strong>example:</strong>
+     * <p>“”</p>
+     */
     @NameInMap("uuid")
     public String uuid;
 
     // 位置
+    /**
+     * <strong>example:</strong>
+     * <p>{}</p>
+     */
     @NameInMap("position")
     public PositionStructBody position;
 

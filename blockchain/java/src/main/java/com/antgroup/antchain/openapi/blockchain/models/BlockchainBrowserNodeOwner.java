@@ -5,51 +5,91 @@ import com.aliyun.tea.*;
 
 public class BlockchainBrowserNodeOwner extends TeaModel {
     // node_id
+    /**
+     * <strong>example:</strong>
+     * <p>node_id</p>
+     */
     @NameInMap("node_id")
     @Validation(required = true)
     public String nodeId;
 
     // node_ip
+    /**
+     * <strong>example:</strong>
+     * <p>node_ip</p>
+     */
     @NameInMap("node_ip")
     @Validation(required = true)
     public String nodeIp;
 
     // node_name
+    /**
+     * <strong>example:</strong>
+     * <p>node_name</p>
+     */
     @NameInMap("node_name")
     @Validation(required = true)
     public String nodeName;
 
     // node_owner
+    /**
+     * <strong>example:</strong>
+     * <p>node_owner</p>
+     */
     @NameInMap("node_owner")
     @Validation(required = true)
     public String nodeOwner;
 
     // node_port
+    /**
+     * <strong>example:</strong>
+     * <p>node_port</p>
+     */
     @NameInMap("node_port")
     @Validation(required = true)
     public String nodePort;
 
     // node_source
+    /**
+     * <strong>example:</strong>
+     * <p>node_source</p>
+     */
     @NameInMap("node_source")
     @Validation(required = true)
     public String nodeSource;
 
     // node_state
+    /**
+     * <strong>example:</strong>
+     * <p>node_state</p>
+     */
     @NameInMap("node_state")
     @Validation(required = true)
     public String nodeState;
 
     // node_type
+    /**
+     * <strong>example:</strong>
+     * <p>node_type</p>
+     */
     @NameInMap("node_type")
     @Validation(required = true)
     public String nodeType;
 
     // 节点已使用的存储空间
+    /**
+     * <strong>example:</strong>
+     * <p>50</p>
+     */
     @NameInMap("node_disk_used")
     @Validation(required = true)
     public String nodeDiskUsed;
 
     // 节点的总存储空间
+    /**
+     * <strong>example:</strong>
+     * <p>1024</p>
+     */
     @NameInMap("node_disk_total")
     @Validation(required = true)
     public String nodeDiskTotal;

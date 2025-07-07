@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class AgreementConfigInfoDTO extends TeaModel {
     // 协议名称
+    /**
+     * <strong>example:</strong>
+     * <p>testAgreementName</p>
+     */
     @NameInMap("agreement_name")
     @Validation(required = true)
     public String agreementName;
 
     // 协议链接
+    /**
+     * <strong>example:</strong>
+     * <p>testAgreementUrl</p>
+     */
     @NameInMap("agreement_url")
     @Validation(required = true)
     public String agreementUrl;
 
     // 协议描述
+    /**
+     * <strong>example:</strong>
+     * <p>testAgreementDesc</p>
+     */
     @NameInMap("agreement_desc")
     @Validation(required = true)
     public String agreementDesc;
 
     // 协议版本
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("version")
     public Long version;
 

@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class DidZKPInfo extends TeaModel {
     // 需要生成证明的路径
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;$./path&quot;</p>
+     */
     @NameInMap("path")
     @Validation(required = true)
     public String path;
 
     // 生成ZKP证明的公共信息
+    /**
+     * <strong>example:</strong>
+     * <p>json array string</p>
+     */
     @NameInMap("public_inputs")
     @Validation(required = true)
     public String publicInputs;
 
     // zkp方法
+    /**
+     * <strong>example:</strong>
+     * <p>more,less,contain</p>
+     */
     @NameInMap("zkp_type")
     @Validation(required = true)
     public String zkpType;

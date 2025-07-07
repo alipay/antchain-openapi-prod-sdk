@@ -5,38 +5,74 @@ import com.aliyun.tea.*;
 
 public class ALiYunNotaryBlockchain extends TeaModel {
     // name
+    /**
+     * <strong>example:</strong>
+     * <p>name</p>
+     */
     @NameInMap("name")
     public String name;
 
     // bizid
+    /**
+     * <strong>example:</strong>
+     * <p>bizid</p>
+     */
     @NameInMap("bizid")
     public String bizid;
 
     // chain_type
+    /**
+     * <strong>example:</strong>
+     * <p>chain_type</p>
+     */
     @NameInMap("chain_type")
     public String chainType;
 
     // node_num
+    /**
+     * <strong>example:</strong>
+     * <p>node_num</p>
+     */
     @NameInMap("node_num")
     public Long nodeNum;
 
     // member_status
+    /**
+     * <strong>example:</strong>
+     * <p>member_status</p>
+     */
     @NameInMap("member_status")
     public String memberStatus;
 
     // block_height
+    /**
+     * <strong>example:</strong>
+     * <p>block_height</p>
+     */
     @NameInMap("block_height")
     public Long blockHeight;
 
     // transactions
+    /**
+     * <strong>example:</strong>
+     * <p>transactions</p>
+     */
     @NameInMap("transactions")
     public Long transactions;
 
     // network
+    /**
+     * <strong>example:</strong>
+     * <p>network</p>
+     */
     @NameInMap("network")
     public String network;
 
     // version
+    /**
+     * <strong>example:</strong>
+     * <p>version</p>
+     */
     @NameInMap("version")
     public String version;
 

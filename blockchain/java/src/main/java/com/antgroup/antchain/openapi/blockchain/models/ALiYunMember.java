@@ -5,22 +5,42 @@ import com.aliyun.tea.*;
 
 public class ALiYunMember extends TeaModel {
     // 加入时间
+    /**
+     * <strong>example:</strong>
+     * <p>11231231231</p>
+     */
     @NameInMap("join_time")
     public Long joinTime;
 
     // 成员id
+    /**
+     * <strong>example:</strong>
+     * <p>成员id</p>
+     */
     @NameInMap("member_id")
     public String memberId;
 
     // 成员名称
+    /**
+     * <strong>example:</strong>
+     * <p>成员名称</p>
+     */
     @NameInMap("member_name")
     public String memberName;
 
     // 角色
+    /**
+     * <strong>example:</strong>
+     * <p>角色</p>
+     */
     @NameInMap("role")
     public String role;
 
     // 状态
+    /**
+     * <strong>example:</strong>
+     * <p>状态</p>
+     */
     @NameInMap("status")
     public String status;
 

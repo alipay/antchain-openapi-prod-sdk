@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class ContractTypeListResp extends TeaModel {
     // 名称
+    /**
+     * <strong>example:</strong>
+     * <p>存证合约</p>
+     */
     @NameInMap("name")
     public String name;
 
     // 值
+    /**
+     * <strong>example:</strong>
+     * <p>DEPOSITE</p>
+     */
     @NameInMap("value")
     public String value;
 

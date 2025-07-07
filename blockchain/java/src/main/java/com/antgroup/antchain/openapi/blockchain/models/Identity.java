@@ -5,45 +5,85 @@ import com.aliyun.tea.*;
 
 public class Identity extends TeaModel {
     // 经办人姓名，企业认证必选
+    /**
+     * <strong>example:</strong>
+     * <p>小明</p>
+     */
     @NameInMap("agent")
     public String agent;
 
     // 经办人身份证
+    /**
+     * <strong>example:</strong>
+     * <p>123123123123</p>
+     */
     @NameInMap("agent_id")
     public String agentId;
 
     // 用户名称
+    /**
+     * <strong>example:</strong>
+     * <p>小王</p>
+     */
     @NameInMap("cert_name")
     @Validation(required = true)
     public String certName;
 
     // 证件号
+    /**
+     * <strong>example:</strong>
+     * <p>12332112312312</p>
+     */
     @NameInMap("cert_no")
     @Validation(required = true)
     public String certNo;
 
     // 证件类型，个人只支持身份证IDENTITY_CARD，企业支持UNIFIED_SOCIAL_CREDIT_CODE（统一社会信用代码）和ENTERPRISE_REGISTERED_NUMBER（企业工商注册号
+    /**
+     * <strong>example:</strong>
+     * <p>IDENTITY_CARD</p>
+     */
     @NameInMap("cert_type")
     @Validation(required = true)
     public String certType;
 
     // 法人姓名，企业认证必选
+    /**
+     * <strong>example:</strong>
+     * <p>小李</p>
+     */
     @NameInMap("legal_person")
     public String legalPerson;
 
     // 法人身份证,  企业认证必选
+    /**
+     * <strong>example:</strong>
+     * <p>123123321123</p>
+     */
     @NameInMap("legal_person_id")
     public String legalPersonId;
 
     // 用户手机号码
+    /**
+     * <strong>example:</strong>
+     * <p>1231231231</p>
+     */
     @NameInMap("mobile_no")
     public String mobileNo;
 
     // 扩展属性
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;key&quot;:&quot;value&quot;}</p>
+     */
     @NameInMap("properties")
     public String properties;
 
     // 用户类型，PERSON或者ENTERPRISE
+    /**
+     * <strong>example:</strong>
+     * <p>PERSON</p>
+     */
     @NameInMap("user_type")
     @Validation(required = true)
     public String userType;

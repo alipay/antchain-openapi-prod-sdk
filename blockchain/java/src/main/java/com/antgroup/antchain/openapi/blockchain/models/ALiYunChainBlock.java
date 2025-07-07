@@ -5,38 +5,74 @@ import com.aliyun.tea.*;
 
 public class ALiYunChainBlock extends TeaModel {
     // ant_chain_id
+    /**
+     * <strong>example:</strong>
+     * <p>ant_chain_id</p>
+     */
     @NameInMap("ant_chain_id")
     public String antChainId;
 
     // block_hash
+    /**
+     * <strong>example:</strong>
+     * <p>block_hash</p>
+     */
     @NameInMap("block_hash")
     public String blockHash;
 
     // create_time
+    /**
+     * <strong>example:</strong>
+     * <p>create_time</p>
+     */
     @NameInMap("create_time")
     public Long createTime;
 
     // height
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("height")
     public Long height;
 
     // previous_hash
+    /**
+     * <strong>example:</strong>
+     * <p>previous_hash</p>
+     */
     @NameInMap("previous_hash")
     public String previousHash;
 
     // root_tx_hash
+    /**
+     * <strong>example:</strong>
+     * <p>root_tx_hash</p>
+     */
     @NameInMap("root_tx_hash")
     public String rootTxHash;
 
     // transaction_size
+    /**
+     * <strong>example:</strong>
+     * <p>3</p>
+     */
     @NameInMap("transaction_size")
     public Long transactionSize;
 
     // trans_summary_list
+    /**
+     * <strong>example:</strong>
+     * <p>trans_summary_list</p>
+     */
     @NameInMap("trans_summary_list")
     public java.util.List<ALiYunTransactionSummary> transSummaryList;
 
     // Version
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("version")
     public Long version;
 

@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class ALiYunChainResouceForSale extends TeaModel {
     // region_id
+    /**
+     * <strong>example:</strong>
+     * <p>region_id</p>
+     */
     @NameInMap("region_id")
     public String regionId;
 
     // type_list
+    /**
+     * <strong>example:</strong>
+     * <p>type_list</p>
+     */
     @NameInMap("type_list")
     public java.util.List<String> typeList;
 

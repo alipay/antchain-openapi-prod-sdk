@@ -4,28 +4,48 @@ package com.antgroup.antchain.openapi.blockchain.models;
 import com.aliyun.tea.*;
 
 public class CarInfo extends TeaModel {
-    // 车辆信息
+    // 车牌号
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("license_no")
     @Validation(required = true)
     public String licenseNo;
 
     // 车架号
+    /**
+     * <strong>example:</strong>
+     * <p>xx</p>
+     */
     @NameInMap("vin")
     @Validation(required = true)
     public String vin;
 
     // 发动机号
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("engine_no")
     @Validation(required = true)
     public String engineNo;
 
     // 
     // 注册日期
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
     @NameInMap("register_date")
     @Validation(required = true)
     public String registerDate;
 
     // 车型
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("model_code")
     @Validation(required = true)
     public String modelCode;

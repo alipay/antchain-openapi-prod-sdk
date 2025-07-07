@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class DidDetail extends TeaModel {
     // 控制者的did描述符
+    /**
+     * <strong>example:</strong>
+     * <p>did:mychain:xxxx</p>
+     */
     @NameInMap("controller")
     @Validation(required = true)
     public String controller;
 
     // did描述符
+    /**
+     * <strong>example:</strong>
+     * <p>did:mychain:xxxxx</p>
+     */
     @NameInMap("did")
     @Validation(required = true)
     public String did;
 
     // did doc
+    /**
+     * <strong>example:</strong>
+     * <p>json字段</p>
+     */
     @NameInMap("did_doc")
     @Validation(required = true)
     public String didDoc;

@@ -5,15 +5,27 @@ import com.aliyun.tea.*;
 
 public class ContracPageReq extends TeaModel {
     // 合约服务类别
+    /**
+     * <strong>example:</strong>
+     * <p>存证合约</p>
+     */
     @NameInMap("type")
     public String type;
 
     // 页码
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("num")
     @Validation(required = true)
     public Long num;
 
     // 页大小
+    /**
+     * <strong>example:</strong>
+     * <p>200</p>
+     */
     @NameInMap("size")
     @Validation(required = true)
     public Long size;

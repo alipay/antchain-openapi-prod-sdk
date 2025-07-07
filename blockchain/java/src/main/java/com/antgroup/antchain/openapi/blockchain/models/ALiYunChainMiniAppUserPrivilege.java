@@ -5,22 +5,42 @@ import com.aliyun.tea.*;
 
 public class ALiYunChainMiniAppUserPrivilege extends TeaModel {
     // ant_chain_id
+    /**
+     * <strong>example:</strong>
+     * <p>ant_chain_id</p>
+     */
     @NameInMap("ant_chain_id")
     public String antChainId;
 
     // q_r_code_type
+    /**
+     * <strong>example:</strong>
+     * <p>q_r_code_type</p>
+     */
     @NameInMap("q_r_code_type")
     public String qRCodeType;
 
     // authorization_type
+    /**
+     * <strong>example:</strong>
+     * <p>authorization_type</p>
+     */
     @NameInMap("authorization_type")
     public String authorizationType;
 
     // pagination
+    /**
+     * <strong>example:</strong>
+     * <p>pagination</p>
+     */
     @NameInMap("pagination")
     public ALiYunPagination pagination;
 
     // ALiYunChainMiniAppAuthorizedUser
+    /**
+     * <strong>example:</strong>
+     * <p>ALiYunChainMiniAppAuthorizedUser</p>
+     */
     @NameInMap("authorized_user_list")
     public java.util.List<ALiYunChainMiniAppAuthorizedUser> authorizedUserList;
 

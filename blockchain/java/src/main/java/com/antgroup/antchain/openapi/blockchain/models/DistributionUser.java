@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class DistributionUser extends TeaModel {
     // 用户创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-01-02 20:00:00</p>
+     */
     @NameInMap("create_time")
     @Validation(required = true)
     public String createTime;
 
     // 用户手机号
+    /**
+     * <strong>example:</strong>
+     * <p>13000005555</p>
+     */
     @NameInMap("mobile")
     @Validation(required = true)
     public String mobile;
 
     // 用户唯一标识
+    /**
+     * <strong>example:</strong>
+     * <p>000:111:222:333</p>
+     */
     @NameInMap("user_id")
     @Validation(required = true)
     public String userId;

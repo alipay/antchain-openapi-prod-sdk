@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class MiniAppBrowserAuthType extends TeaModel {
     // 授权类型
+    /**
+     * <strong>example:</strong>
+     * <p>DISABLED, ALL_USER, SPECIFIC_USER</p>
+     */
     @NameInMap("auth_type")
     @Validation(required = true)
     public String authType;

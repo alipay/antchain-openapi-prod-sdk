@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class ExchangeAccountMap extends TeaModel {
     // 用户联系方式
+    /**
+     * <strong>example:</strong>
+     * <p>13473121212</p>
+     */
     @NameInMap("phone")
     @Validation(required = true)
     public String phone;
 
     // 用户账户
+    /**
+     * <strong>example:</strong>
+     * <p>testAccount</p>
+     */
     @NameInMap("user_account")
     @Validation(required = true)
     public String userAccount;
 
     // 用户名称
+    /**
+     * <strong>example:</strong>
+     * <p>小明</p>
+     */
     @NameInMap("user_name")
     @Validation(required = true)
     public String userName;

@@ -5,33 +5,61 @@ import com.aliyun.tea.*;
 
 public class CarUserInfo extends TeaModel {
     // 唯一标识用户的id
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxx</p>
+     */
     @NameInMap("user_id")
     @Validation(required = true)
     public String userId;
 
     // 手机号
+    /**
+     * <strong>example:</strong>
+     * <p>138xxxxxxx</p>
+     */
     @NameInMap("phone_num")
     @Validation(required = true)
     public String phoneNum;
 
     // 城市编码
+    /**
+     * <strong>example:</strong>
+     * <p>110000</p>
+     */
     @NameInMap("city_code")
     @Validation(required = true)
     public String cityCode;
 
     // 姓名
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("user_cert_name")
     public String userCertName;
 
     // 证件号码
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxx</p>
+     */
     @NameInMap("user_cert_no")
     public String userCertNo;
 
     // 性别
+    /**
+     * <strong>example:</strong>
+     * <p>girl</p>
+     */
     @NameInMap("user_gender")
     public String userGender;
 
     // 昵称
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxx</p>
+     */
     @NameInMap("nick")
     public String nick;
 

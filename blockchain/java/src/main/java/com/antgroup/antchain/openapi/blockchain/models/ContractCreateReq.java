@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class ContractCreateReq extends TeaModel {
     // 链ID
+    /**
+     * <strong>example:</strong>
+     * <p>284f75bc-8069-443f-9d46-4576bb15f210</p>
+     */
     @NameInMap("chain_id")
     @Validation(required = true)
     public String chainId;
 
     // 合约模板标识
+    /**
+     * <strong>example:</strong>
+     * <p>cme2023072511571851e2f3</p>
+     */
     @NameInMap("template_id")
     @Validation(required = true)
     public String templateId;
 
     // 合约名称
+    /**
+     * <strong>example:</strong>
+     * <p>资产合约</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;

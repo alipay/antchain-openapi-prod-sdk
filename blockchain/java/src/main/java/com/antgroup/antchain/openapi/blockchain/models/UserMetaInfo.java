@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class UserMetaInfo extends TeaModel {
     // 用户身份信息类型
+    /**
+     * <strong>example:</strong>
+     * <p>TwoMeta</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public String type;

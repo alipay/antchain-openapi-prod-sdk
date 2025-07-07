@@ -5,26 +5,50 @@ import com.aliyun.tea.*;
 
 public class ALiYunChainExecuteOrder extends TeaModel {
     // user_request_id
+    /**
+     * <strong>example:</strong>
+     * <p>user_request_id</p>
+     */
     @NameInMap("user_request_id")
     public String userRequestId;
 
     // data
+    /**
+     * <strong>example:</strong>
+     * <p>data</p>
+     */
     @NameInMap("data")
     public String data;
 
     // success
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("success")
     public Boolean success;
 
     // code
+    /**
+     * <strong>example:</strong>
+     * <p>code</p>
+     */
     @NameInMap("code")
     public String code;
 
     // message
+    /**
+     * <strong>example:</strong>
+     * <p>message</p>
+     */
     @NameInMap("message")
     public String message;
 
     // synchro
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("synchro")
     public Boolean synchro;
 

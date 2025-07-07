@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class ApplicationGetSkResp extends TeaModel {
     // 应用秘钥
+    /**
+     * <strong>example:</strong>
+     * <hr>
+     */
     @NameInMap("sk")
     public String sk;
 

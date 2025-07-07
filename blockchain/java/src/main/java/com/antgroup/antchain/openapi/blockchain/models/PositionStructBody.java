@@ -5,22 +5,42 @@ import com.aliyun.tea.*;
 
 public class PositionStructBody extends TeaModel {
     // 错误计数
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;1&quot;</p>
+     */
     @NameInMap("error_count")
     public String errorCount;
 
     // 高度
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;10&quot;</p>
+     */
     @NameInMap("height")
     public String height;
 
     // 序号
+    /**
+     * <strong>example:</strong>
+     * <p>“1”</p>
+     */
     @NameInMap("index")
     public String index;
 
     // 最后一个错误
+    /**
+     * <strong>example:</strong>
+     * <p>“”</p>
+     */
     @NameInMap("last_error")
     public String lastError;
 
     // 类型
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;&quot;</p>
+     */
     @NameInMap("type")
     public String type;
 

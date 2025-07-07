@@ -5,45 +5,85 @@ import com.aliyun.tea.*;
 
 public class IdentityParam extends TeaModel {
     // 经办人姓名
+    /**
+     * <strong>example:</strong>
+     * <p>张某某</p>
+     */
     @NameInMap("agent")
     public String agent;
 
     // 经办人身份证号
+    /**
+     * <strong>example:</strong>
+     * <p>130406200101012832</p>
+     */
     @NameInMap("agent_id")
     public String agentId;
 
     // 用户的姓名
+    /**
+     * <strong>example:</strong>
+     * <p>李明</p>
+     */
     @NameInMap("cert_name")
     @Validation(required = true)
     public String certName;
 
     // 用户的身份证号
+    /**
+     * <strong>example:</strong>
+     * <p>410204200101013716</p>
+     */
     @NameInMap("cert_no")
     @Validation(required = true)
     public String certNo;
 
     // 用户证件类型，目前只支持IDENTITY_CARD
+    /**
+     * <strong>example:</strong>
+     * <p>IDENTITY_CARD</p>
+     */
     @NameInMap("cert_type")
     @Validation(required = true)
     public String certType;
 
     // 法人姓名，企业认证必选
+    /**
+     * <strong>example:</strong>
+     * <p>张某某</p>
+     */
     @NameInMap("legal_person")
     public String legalPerson;
 
     // 法人身份证，企业认证必选
+    /**
+     * <strong>example:</strong>
+     * <p>130406200101010634</p>
+     */
     @NameInMap("legal_person_id")
     public String legalPersonId;
 
     // 手机号码
+    /**
+     * <strong>example:</strong>
+     * <p>18322331111</p>
+     */
     @NameInMap("mobile_no")
     public String mobileNo;
 
     // 扩展属性字段
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;key&quot;:&quot;value&quot;}</p>
+     */
     @NameInMap("properties")
     public String properties;
 
     // 用户类型，默认为PERSON
+    /**
+     * <strong>example:</strong>
+     * <p>PERSON,ENTERPRISE</p>
+     */
     @NameInMap("user_type")
     public String userType;
 

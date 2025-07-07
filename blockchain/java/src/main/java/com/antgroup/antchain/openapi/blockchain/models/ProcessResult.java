@@ -5,41 +5,77 @@ import com.aliyun.tea.*;
 
 public class ProcessResult extends TeaModel {
     // 申请权限的扩展参数
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("extension")
     public String extension;
 
     // 申请权限原因
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("message")
     public String message;
 
     // 下一个处理节点ID
+    /**
+     * <strong>example:</strong>
+     * <p>did:test:0000:3fc223617da9a17a4d7792ef0c3f57bd176eca8408f2f4cb1df42939220829d2</p>
+     */
     @NameInMap("next")
     public String next;
 
     // 流程ID
+    /**
+     * <strong>example:</strong>
+     * <p>68f955a58591e80b94e6ed755722abab4d665936a59bbe6482dd0be9aad21d9a</p>
+     */
     @NameInMap("process_id")
     @Validation(required = true)
     public String processId;
 
     // 流程状态
+    /**
+     * <strong>example:</strong>
+     * <p>processing</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 数据对象ID
+    /**
+     * <strong>example:</strong>
+     * <p>did:test:0000:3fc223617da9a17a4d7792ef0c3f57bd176eca8408f2f4cb1df42939220829d2</p>
+     */
     @NameInMap("data_id")
     @Validation(required = true)
     public String dataId;
 
     // 交易HASH
+    /**
+     * <strong>example:</strong>
+     * <p>AQEETAAAAEEAAAAETbYFwqfIiyqFWt2Tasr2f4</p>
+     */
     @NameInMap("tx_hash")
     public String txHash;
 
     // 区块高度
+    /**
+     * <strong>example:</strong>
+     * <p>1256</p>
+     */
     @NameInMap("block_number")
     public Long blockNumber;
 
     // 授权凭证
+    /**
+     * <strong>example:</strong>
+     * <p>JSON格式</p>
+     */
     @NameInMap("authority_cert")
     public String authorityCert;
 

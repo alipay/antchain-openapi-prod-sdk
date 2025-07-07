@@ -5,42 +5,82 @@ import com.aliyun.tea.*;
 
 public class ALiYunChainInfo extends TeaModel {
     // abnormal_nodes
+    /**
+     * <strong>example:</strong>
+     * <p>4</p>
+     */
     @NameInMap("abnormal_nodes")
     public Long abnormalNodes;
 
     // ant_chain_id
+    /**
+     * <strong>example:</strong>
+     * <p>ant_chain_id</p>
+     */
     @NameInMap("ant_chain_id")
     public String antChainId;
 
     // block_height
+    /**
+     * <strong>example:</strong>
+     * <p>2131</p>
+     */
     @NameInMap("block_height")
     public Long blockHeight;
 
     // create_time
+    /**
+     * <strong>example:</strong>
+     * <p>123131212312</p>
+     */
     @NameInMap("create_time")
     public Long createTime;
 
     // is_role
+    /**
+     * <strong>example:</strong>
+     * <p>true</p>
+     */
     @NameInMap("is_role")
     public Boolean isRole;
 
     // node_number
+    /**
+     * <strong>example:</strong>
+     * <p>4</p>
+     */
     @NameInMap("node_number")
     public Long nodeNumber;
 
     // normal
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("normal")
     public Boolean normal;
 
     // transaction_sum
+    /**
+     * <strong>example:</strong>
+     * <p>312312</p>
+     */
     @NameInMap("transaction_sum")
     public Long transactionSum;
 
     // Version
+    /**
+     * <strong>example:</strong>
+     * <p>Version</p>
+     */
     @NameInMap("version")
     public String version;
 
     // node_infos
+    /**
+     * <strong>example:</strong>
+     * <p>node_infos</p>
+     */
     @NameInMap("node_infos")
     public java.util.List<ALiYunChainNodeInfo> nodeInfos;
 

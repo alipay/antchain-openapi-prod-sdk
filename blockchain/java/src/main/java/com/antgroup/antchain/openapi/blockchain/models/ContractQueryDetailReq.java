@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class ContractQueryDetailReq extends TeaModel {
     // 服务ID
+    /**
+     * <strong>example:</strong>
+     * <p>cme20230724104931af3a4d</p>
+     */
     @NameInMap("service_id")
     @Validation(required = true, maxLength = 64, minLength = 1)
     public String serviceId;

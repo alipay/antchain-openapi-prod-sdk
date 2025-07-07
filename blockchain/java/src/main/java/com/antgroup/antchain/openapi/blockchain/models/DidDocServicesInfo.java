@@ -5,22 +5,38 @@ import com.aliyun.tea.*;
 
 public class DidDocServicesInfo extends TeaModel {
     // 服务的扩展字段
+    /**
+     * <strong>example:</strong>
+     * <p>json string</p>
+     */
     @NameInMap("extension")
     public String extension;
 
     // 服务ID，必须保证该服务ID在did doc中是唯一的。对于保留类型服务：
     // DidAuthService， 有且只能有一个，并且id必须为didauth-1；
     // VerifiableClaimRepository， 有且只有一个，并且id必须为vcrepository-1;
+    /**
+     * <strong>example:</strong>
+     * <p>service-id1</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public String id;
 
     // 服务的可访问地址
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://example.com">http://example.com</a></p>
+     */
     @NameInMap("service_endpoint")
     @Validation(required = true)
     public String serviceEndpoint;
 
     // 服务类型，必须是已经注册的服务类型，或者是默认保留的服务类型
+    /**
+     * <strong>example:</strong>
+     * <p>KYBServiceType</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public String type;

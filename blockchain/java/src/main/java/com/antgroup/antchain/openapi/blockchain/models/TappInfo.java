@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class TappInfo extends TeaModel {
     // C3S可信计算TAPP应用标识
+    /**
+     * <strong>example:</strong>
+     * <p>fafafafaf</p>
+     */
     @NameInMap("taap_id")
     @Validation(required = true)
     public String taapId;
 
     // C3S可信计算TAPP版本
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("tapp_version")
     @Validation(required = true)
     public Long tappVersion;

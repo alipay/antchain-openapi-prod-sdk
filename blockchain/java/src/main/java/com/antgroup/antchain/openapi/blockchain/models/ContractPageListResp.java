@@ -5,18 +5,34 @@ import com.aliyun.tea.*;
 
 public class ContractPageListResp extends TeaModel {
     // 服务ID
+    /**
+     * <strong>example:</strong>
+     * <p>cme20230724104931af3a4d</p>
+     */
     @NameInMap("service_id")
     public String serviceId;
 
     // 合约名称
+    /**
+     * <strong>example:</strong>
+     * <p>资产合约</p>
+     */
     @NameInMap("name")
     public String name;
 
     // 合约类型
+    /**
+     * <strong>example:</strong>
+     * <p>存证合约</p>
+     */
     @NameInMap("type")
     public String type;
 
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>1690166971465</p>
+     */
     @NameInMap("create_time")
     public Long createTime;
 

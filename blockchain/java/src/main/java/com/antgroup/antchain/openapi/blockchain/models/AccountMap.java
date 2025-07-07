@@ -5,20 +5,36 @@ import com.aliyun.tea.*;
 
 public class AccountMap extends TeaModel {
     // 要映射的链对应的唯一id
+    /**
+     * <strong>example:</strong>
+     * <p>12345</p>
+     */
     @NameInMap("bizid")
     @Validation(required = true)
     public String bizid;
 
     // 0: 身份证；1：手机；2: 电子邮箱；3: 企业营业执照号
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("entity_info_type")
     public Long entityInfoType;
 
     // 对应entity_info_type的具体值
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>18701207322</p>
+     */
     @NameInMap("entity_info_value")
     public String entityInfoValue;
 
     // 账户对应实体的全名
+    /**
+     * <strong>example:</strong>
+     * <p>huihui.liu</p>
+     */
     @NameInMap("full_name")
     public String fullName;
 
@@ -28,14 +44,26 @@ public class AccountMap extends TeaModel {
     public Long status;
 
     // 希望映射后在链上的账户名
+    /**
+     * <strong>example:</strong>
+     * <p>huihui_online</p>
+     */
     @NameInMap("target_name")
     public String targetName;
 
     // 该账户对应实体的类型：0， 个人； 1， 企业
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("type")
     public Long type;
 
     // 自有系统中该账户的唯一标示
+    /**
+     * <strong>example:</strong>
+     * <p>huihui</p>
+     */
     @NameInMap("uid")
     @Validation(required = true)
     public String uid;

@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class ALiYunDeleteResource extends TeaModel {
     // data
+    /**
+     * <strong>example:</strong>
+     * <p>data</p>
+     */
     @NameInMap("data")
     public Boolean data;
 
     // success
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("success")
     public Boolean success;
 

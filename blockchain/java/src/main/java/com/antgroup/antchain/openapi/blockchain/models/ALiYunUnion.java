@@ -5,26 +5,50 @@ import com.aliyun.tea.*;
 
 public class ALiYunUnion extends TeaModel {
     // 联盟内链的集合
+    /**
+     * <strong>example:</strong>
+     * <p>联盟内链的集合</p>
+     */
     @NameInMap("ant_chains")
     public java.util.List<ALiYunAntChain> antChains;
 
     // 联盟信息
+    /**
+     * <strong>example:</strong>
+     * <p>联盟信息</p>
+     */
     @NameInMap("ant_consortiums")
     public java.util.List<ALiYunAntConsortium> antConsortiums;
 
     // 联盟Id
+    /**
+     * <strong>example:</strong>
+     * <p>联盟Id</p>
+     */
     @NameInMap("consortium_id")
     public String consortiumId;
 
     // 联盟成员信息
+    /**
+     * <strong>example:</strong>
+     * <p>联盟成员信息</p>
+     */
     @NameInMap("members")
     public java.util.List<ALiYunMember> members;
 
     // 阿里云分页属性
+    /**
+     * <strong>example:</strong>
+     * <p>阿里云分页属性</p>
+     */
     @NameInMap("pagination")
     public ALiYunPagination pagination;
 
     // is_exist
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("is_exist")
     public Boolean isExist;
 

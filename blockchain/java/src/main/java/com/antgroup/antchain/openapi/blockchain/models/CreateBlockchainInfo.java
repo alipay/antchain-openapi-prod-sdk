@@ -5,31 +5,55 @@ import com.aliyun.tea.*;
 
 public class CreateBlockchainInfo extends TeaModel {
     // 链id
+    /**
+     * <strong>example:</strong>
+     * <p>141a48c42f1e47b085a4502dab442553</p>
+     */
     @NameInMap("bizid")
     @Validation(required = true)
     public String bizid;
 
     // 链的状态
+    /**
+     * <strong>example:</strong>
+     * <p>NOMAL</p>
+     */
     @NameInMap("blockchain_status")
     @Validation(required = true)
     public String blockchainStatus;
 
     // 链的类型
+    /**
+     * <strong>example:</strong>
+     * <p>PROD、TEST</p>
+     */
     @NameInMap("blockchain_type")
     @Validation(required = true)
     public String blockchainType;
 
     // 链的名称
+    /**
+     * <strong>example:</strong>
+     * <p>区块链</p>
+     */
     @NameInMap("blockchain_name")
     @Validation(required = true)
     public String blockchainName;
 
     // 节点数量
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("blockchan_node_num")
     @Validation(required = true)
     public Long blockchanNodeNum;
 
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>1609731134000</p>
+     */
     @NameInMap("blockchain_create_time")
     @Validation(required = true)
     public Long blockchainCreateTime;

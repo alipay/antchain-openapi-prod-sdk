@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class CertInstanceDetail extends TeaModel {
     // 主键
+    /**
+     * <strong>example:</strong>
+     * <p>xx</p>
+     */
     @NameInMap("biz_id")
     @Validation(required = true)
     public String bizId;
 
     // 实例名称
+    /**
+     * <strong>example:</strong>
+     * <p>xx</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 版发者
+    /**
+     * <strong>example:</strong>
+     * <p>xx</p>
+     */
     @NameInMap("issuer")
     @Validation(required = true)
     public String issuer;
 
     // 实例内容
+    /**
+     * <strong>example:</strong>
+     * <p>xx</p>
+     */
     @NameInMap("claim_content")
     @Validation(required = true)
     public String claimContent;
@@ -30,16 +46,28 @@ public class CertInstanceDetail extends TeaModel {
     public Long status;
 
     // 审核建议
+    /**
+     * <strong>example:</strong>
+     * <p>xx</p>
+     */
     @NameInMap("verify_comment")
     @Validation(required = true)
     public String verifyComment;
 
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>1701227612000</p>
+     */
     @NameInMap("gmt_create")
     @Validation(required = true)
     public String gmtCreate;
 
     // 修改时间
+    /**
+     * <strong>example:</strong>
+     * <p>1701227612000</p>
+     */
     @NameInMap("gmt_modified")
     @Validation(required = true)
     public String gmtModified;

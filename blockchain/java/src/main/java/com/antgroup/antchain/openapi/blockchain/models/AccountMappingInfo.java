@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class AccountMappingInfo extends TeaModel {
     // 链上账户id
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxxxx</p>
+     */
     @NameInMap("bc_account")
     @Validation(required = true)
     public String bcAccount;
 
     // 账户绑定状态，1为未绑定，2为绑定成功
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("binding_status")
     @Validation(required = true)
     public Long bindingStatus;
 
     // 1是激活状态，2是冻结状态
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public Long status;
 
     // 账户唯一标示
+    /**
+     * <strong>example:</strong>
+     * <p>userid</p>
+     */
     @NameInMap("uid")
     @Validation(required = true)
     public String uid;

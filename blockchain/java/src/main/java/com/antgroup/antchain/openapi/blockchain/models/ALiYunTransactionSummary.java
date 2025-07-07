@@ -5,50 +5,98 @@ import com.aliyun.tea.*;
 
 public class ALiYunTransactionSummary extends TeaModel {
     // alias
+    /**
+     * <strong>example:</strong>
+     * <p>alias</p>
+     */
     @NameInMap("alias")
     public String alias;
 
     // hash
+    /**
+     * <strong>example:</strong>
+     * <p>hash</p>
+     */
     @NameInMap("hash")
     public String hash;
 
     // trans_type_v6
+    /**
+     * <strong>example:</strong>
+     * <p>trans_type_v6</p>
+     */
     @NameInMap("trans_type_v6")
     public String transTypeV6;
 
     // trans_type_v10
+    /**
+     * <strong>example:</strong>
+     * <p>trans_type_v10</p>
+     */
     @NameInMap("trans_type_v10")
     public String transTypeV10;
 
     // category
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("category")
     public Long category;
 
     // height
+    /**
+     * <strong>example:</strong>
+     * <p>2131231</p>
+     */
     @NameInMap("height")
     public Long height;
 
     // block_hash
+    /**
+     * <strong>example:</strong>
+     * <p>block_hash</p>
+     */
     @NameInMap("block_hash")
     public String blockHash;
 
     // create_time
+    /**
+     * <strong>example:</strong>
+     * <p>123123123</p>
+     */
     @NameInMap("create_time")
     public Long createTime;
 
     // reference_count
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("reference_count")
     public Long referenceCount;
 
     // from
+    /**
+     * <strong>example:</strong>
+     * <p>from</p>
+     */
     @NameInMap("from")
     public String from;
 
     // to
+    /**
+     * <strong>example:</strong>
+     * <p>to</p>
+     */
     @NameInMap("to")
     public String to;
 
     // gas_used
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("gas_used")
     public Long gasUsed;
 

@@ -5,26 +5,50 @@ import com.aliyun.tea.*;
 
 public class ALiYunChainAccount extends TeaModel {
     // account_private_key
+    /**
+     * <strong>example:</strong>
+     * <p>account_private_key</p>
+     */
     @NameInMap("account_private_key")
     public String accountPrivateKey;
 
     // account_public_key
+    /**
+     * <strong>example:</strong>
+     * <p>account_public_key</p>
+     */
     @NameInMap("account_public_key")
     public String accountPublicKey;
 
     // account_recover_private_key
+    /**
+     * <strong>example:</strong>
+     * <p>account_recover_private_key</p>
+     */
     @NameInMap("account_recover_private_key")
     public String accountRecoverPrivateKey;
 
     // account_recover_public_key
+    /**
+     * <strong>example:</strong>
+     * <p>account_recover_public_key</p>
+     */
     @NameInMap("account_recover_public_key")
     public String accountRecoverPublicKey;
 
     // ant_chain_id
+    /**
+     * <strong>example:</strong>
+     * <p>ant_chain_id</p>
+     */
     @NameInMap("ant_chain_id")
     public String antChainId;
 
     // account
+    /**
+     * <strong>example:</strong>
+     * <p>account</p>
+     */
     @NameInMap("account")
     public String account;
 

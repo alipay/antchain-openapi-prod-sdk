@@ -9,6 +9,10 @@ public class ContractPageResp extends TeaModel {
     public java.util.List<ContractPageListResp> list;
 
     // 总数
+    /**
+     * <strong>example:</strong>
+     * <p>200</p>
+     */
     @NameInMap("total")
     public Long total;
 

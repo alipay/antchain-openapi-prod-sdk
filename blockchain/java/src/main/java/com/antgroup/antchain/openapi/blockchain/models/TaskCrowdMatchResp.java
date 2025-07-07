@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class TaskCrowdMatchResp extends TeaModel {
     // 任务ID
+    /**
+     * <strong>example:</strong>
+     * <p>NQYwDb1w5</p>
+     */
     @NameInMap("task_id")
     @Validation(required = true)
     public String taskId;

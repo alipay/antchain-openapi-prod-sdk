@@ -5,34 +5,66 @@ import com.aliyun.tea.*;
 
 public class ContractDetailResp extends TeaModel {
     // 合约服务ID
+    /**
+     * <strong>example:</strong>
+     * <p>cme20230724104931af3a4d</p>
+     */
     @NameInMap("service_id")
     public String serviceId;
 
     // 合约服务名称
+    /**
+     * <strong>example:</strong>
+     * <p>存证合约</p>
+     */
     @NameInMap("name")
     public String name;
 
     // 创建人
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("creator")
     public String creator;
 
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>1690166971465</p>
+     */
     @NameInMap("create_time")
     public Long createTime;
 
     // 订购产品
+    /**
+     * <strong>example:</strong>
+     * <p>存证合约服务</p>
+     */
     @NameInMap("ordering_products")
     public String orderingProducts;
 
     // 关联区块链id
+    /**
+     * <strong>example:</strong>
+     * <p>284f75bc-8069-443f-9d46-4576bb15f210</p>
+     */
     @NameInMap("chan_id")
     public String chanId;
 
     // 合约状态
+    /**
+     * <strong>example:</strong>
+     * <p>DEPLOYED</p>
+     */
     @NameInMap("contract_status")
     public String contractStatus;
 
     // 合约部署进度当前状态
+    /**
+     * <strong>example:</strong>
+     * <p>SERVICE_START</p>
+     */
     @NameInMap("status")
     public String status;
 

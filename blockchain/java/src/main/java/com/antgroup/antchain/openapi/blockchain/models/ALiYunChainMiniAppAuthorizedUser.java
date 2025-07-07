@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class ALiYunChainMiniAppAuthorizedUser extends TeaModel {
     // phone
+    /**
+     * <strong>example:</strong>
+     * <p>phone</p>
+     */
     @NameInMap("phone")
     public String phone;
 
     // gmt_authorized
+    /**
+     * <strong>example:</strong>
+     * <p>gmt_authorized</p>
+     */
     @NameInMap("gmt_authorized")
     public String gmtAuthorized;
 
     // 记录id
+    /**
+     * <strong>example:</strong>
+     * <p>112</p>
+     */
     @NameInMap("user_id")
     public Long userId;
 

@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class ALiYunHandleBabelMns extends TeaModel {
     // message
+    /**
+     * <strong>example:</strong>
+     * <p>message</p>
+     */
     @NameInMap("message")
     public String message;
 
     // request_id
+    /**
+     * <strong>example:</strong>
+     * <p>request_id</p>
+     */
     @NameInMap("request_id")
     public String requestId;
 
     // success
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("success")
     public Boolean success;
 

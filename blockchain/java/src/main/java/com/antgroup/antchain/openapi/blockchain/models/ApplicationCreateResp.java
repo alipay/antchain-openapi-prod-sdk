@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class ApplicationCreateResp extends TeaModel {
     // 应用标识
+    /**
+     * <strong>example:</strong>
+     * <p>app20230725115808679d4f</p>
+     */
     @NameInMap("application_id")
     public String applicationId;
 

@@ -5,18 +5,34 @@ import com.aliyun.tea.*;
 
 public class ALiYunChainResouceType extends TeaModel {
     // type_id
+    /**
+     * <strong>example:</strong>
+     * <p>type_id</p>
+     */
     @NameInMap("type_id")
     public Long typeId;
 
     // cpu
+    /**
+     * <strong>example:</strong>
+     * <p>24</p>
+     */
     @NameInMap("cpu")
     public Long cpu;
 
     // memory
+    /**
+     * <strong>example:</strong>
+     * <p>24</p>
+     */
     @NameInMap("memory")
     public Long memory;
 
     // disk
+    /**
+     * <strong>example:</strong>
+     * <p>500</p>
+     */
     @NameInMap("disk")
     public Long disk;
 

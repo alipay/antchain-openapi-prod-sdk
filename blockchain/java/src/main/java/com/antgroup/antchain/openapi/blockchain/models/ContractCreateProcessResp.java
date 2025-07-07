@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class ContractCreateProcessResp extends TeaModel {
     // 当前进度信息
+    /**
+     * <strong>example:</strong>
+     * <p>SERVICE_START</p>
+     */
     @NameInMap("status")
     public String status;
 

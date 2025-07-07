@@ -34,6 +34,10 @@ public class SubmitAuthNewcarRequest extends TeaModel {
     @NameInMap("purcharse_time")
     public String purcharseTime;
 
+    // xxxx
+    @NameInMap("car_series_id")
+    public String carSeriesId;
+
     public static SubmitAuthNewcarRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitAuthNewcarRequest self = new SubmitAuthNewcarRequest();
         return TeaModel.build(map, self);
@@ -93,6 +97,14 @@ public class SubmitAuthNewcarRequest extends TeaModel {
     }
     public String getPurcharseTime() {
         return this.purcharseTime;
+    }
+
+    public SubmitAuthNewcarRequest setCarSeriesId(String carSeriesId) {
+        this.carSeriesId = carSeriesId;
+        return this;
+    }
+    public String getCarSeriesId() {
+        return this.carSeriesId;
     }
 
 }

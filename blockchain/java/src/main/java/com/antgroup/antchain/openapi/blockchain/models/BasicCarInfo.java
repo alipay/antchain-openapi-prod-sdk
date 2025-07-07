@@ -5,36 +5,64 @@ import com.aliyun.tea.*;
 
 public class BasicCarInfo extends TeaModel {
     // 车牌号码
+    /**
+     * <strong>example:</strong>
+     * <p>京Axxxxx</p>
+     */
     @NameInMap("license_no")
     @Validation(required = true)
     public String licenseNo;
 
     // 车架号
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxx</p>
+     */
     @NameInMap("vin")
     @Validation(required = true)
     public String vin;
 
     // 发动机号
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxx</p>
+     */
     @NameInMap("engine_no")
     @Validation(required = true)
     public String engineNo;
 
     // 初登日期
+    /**
+     * <strong>example:</strong>
+     * <p>2021-12-21</p>
+     */
     @NameInMap("register_date")
     @Validation(required = true)
     public String registerDate;
 
     // 车辆型号
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxx</p>
+     */
     @NameInMap("model_code")
     @Validation(required = true)
     public String modelCode;
 
     // 营运性质
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxx</p>
+     */
     @NameInMap("use_nature_code")
     @Validation(required = true)
     public String useNatureCode;
 
     // 是否抵押
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("mortgage")
     public Boolean mortgage;
 

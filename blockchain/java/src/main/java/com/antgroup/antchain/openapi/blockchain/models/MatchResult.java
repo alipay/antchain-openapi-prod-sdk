@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class MatchResult extends TeaModel {
     // 是否匹配
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("match")
     @Validation(required = true)
     public Boolean match;

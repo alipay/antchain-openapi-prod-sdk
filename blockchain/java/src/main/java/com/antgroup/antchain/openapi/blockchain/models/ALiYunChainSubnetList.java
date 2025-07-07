@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class ALiYunChainSubnetList extends TeaModel {
     // ant_chain_id
+    /**
+     * <strong>example:</strong>
+     * <p>S210304150059</p>
+     */
     @NameInMap("ant_chain_id")
     public String antChainId;
 
     // 子链名称
+    /**
+     * <strong>example:</strong>
+     * <p>子链名称</p>
+     */
     @NameInMap("blockchain_name")
     public String blockchainName;
 
     // 联盟管理员
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("consortium_admin")
     public Boolean consortiumAdmin;
 

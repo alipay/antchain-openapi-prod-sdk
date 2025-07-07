@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class Result extends TeaModel {
     // 联盟id
+    /**
+     * <strong>example:</strong>
+     * <p>00001</p>
+     */
     @NameInMap("consortium_id")
     @Validation(required = true)
     public String consortiumId;

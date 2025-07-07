@@ -5,22 +5,42 @@ import com.aliyun.tea.*;
 
 public class ALiYunChainStatics extends TeaModel {
     // alias
+    /**
+     * <strong>example:</strong>
+     * <p>alias</p>
+     */
     @NameInMap("alias")
     public String alias;
 
     // Dt
+    /**
+     * <strong>example:</strong>
+     * <p>Dt</p>
+     */
     @NameInMap("dt")
     public Long dt;
 
     // trans_count
+    /**
+     * <strong>example:</strong>
+     * <p>21323</p>
+     */
     @NameInMap("trans_count")
     public Long transCount;
 
     // last_sum_block_height
+    /**
+     * <strong>example:</strong>
+     * <p>1231</p>
+     */
     @NameInMap("last_sum_block_height")
     public Long lastSumBlockHeight;
 
     // creat_time
+    /**
+     * <strong>example:</strong>
+     * <p>creat_time</p>
+     */
     @NameInMap("creat_time")
     public Long creatTime;
 

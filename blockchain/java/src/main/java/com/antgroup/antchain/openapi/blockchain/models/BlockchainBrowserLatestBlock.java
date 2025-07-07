@@ -5,46 +5,82 @@ import com.aliyun.tea.*;
 
 public class BlockchainBrowserLatestBlock extends TeaModel {
     // bizid
+    /**
+     * <strong>example:</strong>
+     * <p>bizid</p>
+     */
     @NameInMap("bizid")
     @Validation(required = true)
     public String bizid;
 
     // block_hash
+    /**
+     * <strong>example:</strong>
+     * <p>block_hash</p>
+     */
     @NameInMap("block_hash")
     @Validation(required = true)
     public String blockHash;
 
     // create_time
+    /**
+     * <strong>example:</strong>
+     * <p>1604564398000</p>
+     */
     @NameInMap("create_time")
     @Validation(required = true)
     public Long createTime;
 
     // height
+    /**
+     * <strong>example:</strong>
+     * <p>6812497</p>
+     */
     @NameInMap("height")
     @Validation(required = true)
     public Long height;
 
     // previous_hash
+    /**
+     * <strong>example:</strong>
+     * <p>f6d51d362abc1b31e42dbd88d5ce0660cb96b8d0c0a4293cd29ffa042f61c784</p>
+     */
     @NameInMap("previous_hash")
     @Validation(required = true)
     public String previousHash;
 
     // root_tx_hash
+    /**
+     * <strong>example:</strong>
+     * <p>da9a42027ab141c8396b7fc78d74c94264da71f6361ac468385bed3fbc5408b4</p>
+     */
     @NameInMap("root_tx_hash")
     @Validation(required = true)
     public String rootTxHash;
 
     // size
+    /**
+     * <strong>example:</strong>
+     * <p>1024</p>
+     */
     @NameInMap("size")
     @Validation(required = true)
     public Long size;
 
     // transaction_size
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("transaction_size")
     @Validation(required = true)
     public Long transactionSize;
 
     // version
+    /**
+     * <strong>example:</strong>
+     * <p>258</p>
+     */
     @NameInMap("version")
     @Validation(required = true)
     public Long version;

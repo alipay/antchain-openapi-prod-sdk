@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class CarOwnerUserInfo extends TeaModel {
     // 用户id
+    /**
+     * <strong>example:</strong>
+     * <p>XX</p>
+     */
     @NameInMap("user_id")
     @Validation(required = true)
     public String userId;
 
     // 手机号
+    /**
+     * <strong>example:</strong>
+     * <p>XXX</p>
+     */
     @NameInMap("phone_num")
     @Validation(required = true)
     public String phoneNum;

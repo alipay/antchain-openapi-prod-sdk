@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class ALiYunChainDownload extends TeaModel {
     // private_key
+    /**
+     * <strong>example:</strong>
+     * <p>private_key</p>
+     */
     @NameInMap("private_key")
     public String privateKey;
 
     // download_path
+    /**
+     * <strong>example:</strong>
+     * <p>download_path</p>
+     */
     @NameInMap("download_path")
     public ALiYunDownloadPath downloadPath;
 

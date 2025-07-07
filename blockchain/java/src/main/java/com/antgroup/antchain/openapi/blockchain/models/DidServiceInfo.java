@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class DidServiceInfo extends TeaModel {
     // 服务的end point info
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://xxxxxx">http://xxxxxx</a></p>
+     */
     @NameInMap("end_point")
     @Validation(required = true)
     public String endPoint;
 
     // 扩展字段信息
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;item1&quot;:&quot;&quot;}</p>
+     */
     @NameInMap("extension_info")
     @Validation(required = true)
     public String extensionInfo;

@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class UpdateDidService extends TeaModel {
     // 待更新did之前的版本号
+    /**
+     * <strong>example:</strong>
+     * <p>2</p>
+     */
     @NameInMap("previous_version")
     @Validation(required = true)
     public Long previousVersion;
 
     // did doc中的service id
+    /**
+     * <strong>example:</strong>
+     * <p>service#1</p>
+     */
     @NameInMap("service_id")
     @Validation(required = true)
     public String serviceId;
@@ -20,6 +28,10 @@ public class UpdateDidService extends TeaModel {
     public DidServiceInfo serviceInfo;
 
     // 服务类型
+    /**
+     * <strong>example:</strong>
+     * <p>auth</p>
+     */
     @NameInMap("service_type")
     @Validation(required = true)
     public String serviceType;

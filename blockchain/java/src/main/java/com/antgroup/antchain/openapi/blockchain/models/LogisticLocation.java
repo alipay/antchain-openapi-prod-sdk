@@ -5,24 +5,44 @@ import com.aliyun.tea.*;
 
 public class LogisticLocation extends TeaModel {
     // 结构化地址信息,规则遵循：国家、省份、城市、区县、城镇、乡村、街道、门牌号码、屋邨、大厦
+    /**
+     * <strong>example:</strong>
+     * <p>北京市朝阳区阜通东大街6号</p>
+     */
     @NameInMap("address")
     public String address;
 
     // 行政区划代码
+    /**
+     * <strong>example:</strong>
+     * <p>110000</p>
+     */
     @NameInMap("city_code")
     public String cityCode;
 
     // 纬度
+    /**
+     * <strong>example:</strong>
+     * <p>39.916527</p>
+     */
     @NameInMap("lat")
     @Validation(required = true)
     public String lat;
 
     // 经度
+    /**
+     * <strong>example:</strong>
+     * <p>116.397128</p>
+     */
     @NameInMap("lon")
     @Validation(required = true)
     public String lon;
 
     // 轨迹时间戳
+    /**
+     * <strong>example:</strong>
+     * <p>1566221266000</p>
+     */
     @NameInMap("track_time")
     @Validation(required = true)
     public Long trackTime;

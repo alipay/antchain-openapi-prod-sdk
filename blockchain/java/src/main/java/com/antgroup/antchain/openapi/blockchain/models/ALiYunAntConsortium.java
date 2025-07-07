@@ -5,38 +5,74 @@ import com.aliyun.tea.*;
 
 public class ALiYunAntConsortium extends TeaModel {
     // 链的数量
+    /**
+     * <strong>example:</strong>
+     * <p>2</p>
+     */
     @NameInMap("chain_num")
     public Long chainNum;
 
     // 成员数量
+    /**
+     * <strong>example:</strong>
+     * <p>5</p>
+     */
     @NameInMap("member_num")
     public Long memberNum;
 
     // 时间戳
+    /**
+     * <strong>example:</strong>
+     * <p>时间戳</p>
+     */
     @NameInMap("create_time")
     public Long createTime;
 
     // 角色
+    /**
+     * <strong>example:</strong>
+     * <p>角色</p>
+     */
     @NameInMap("role")
     public String role;
 
     // 联盟id
+    /**
+     * <strong>example:</strong>
+     * <p>联盟id</p>
+     */
     @NameInMap("consortium_id")
     public String consortiumId;
 
     // 状态值
+    /**
+     * <strong>example:</strong>
+     * <p>状态值</p>
+     */
     @NameInMap("status")
     public String status;
 
     // 联盟名称
+    /**
+     * <strong>example:</strong>
+     * <p>联盟名称</p>
+     */
     @NameInMap("consortium_name")
     public String consortiumName;
 
     // 联盟描述
+    /**
+     * <strong>example:</strong>
+     * <p>联盟描述</p>
+     */
     @NameInMap("consortium_description")
     public String consortiumDescription;
 
     // 是否为空联盟
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("is_empty_consortium")
     public Boolean isEmptyConsortium;
 

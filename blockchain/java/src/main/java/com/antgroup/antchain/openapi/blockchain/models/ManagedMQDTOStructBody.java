@@ -5,19 +5,35 @@ import com.aliyun.tea.*;
 
 public class ManagedMQDTOStructBody extends TeaModel {
     // id
+    /**
+     * <strong>example:</strong>
+     * <p>5</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public String id;
 
     // 实例
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;MQ_INST_1287126353308684_BXYEnC3u&quot;</p>
+     */
     @NameInMap("instance")
     public String instance;
 
     // 主题
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;tfx4lb3m0qh3emact73tln8t8qkygb65&quot;</p>
+     */
     @NameInMap("topic")
     public String topic;
 
     // 类型
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;basic&quot;</p>
+     */
     @NameInMap("type")
     public String type;
 

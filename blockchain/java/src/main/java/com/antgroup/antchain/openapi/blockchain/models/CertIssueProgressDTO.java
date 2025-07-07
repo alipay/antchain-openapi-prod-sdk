@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class CertIssueProgressDTO extends TeaModel {
     // 证书实例id
+    /**
+     * <strong>example:</strong>
+     * <p>b99e641b2d6d45ac90600fd958e8bc3a</p>
+     */
     @NameInMap("biz_id")
     @Validation(required = true)
     public String bizId;
 
     // 存证ID，如果颁发失败，此值为null
+    /**
+     * <strong>example:</strong>
+     * <p>vc:mychain:xxxxxx</p>
+     */
     @NameInMap("vc_id")
     @Validation(required = true)
     public String vcId;
@@ -20,41 +28,73 @@ public class CertIssueProgressDTO extends TeaModel {
     // 可重试 0
     // 执行中（初始状态） 1
     // 已成功完成 2
+    /**
+     * <strong>example:</strong>
+     * <p>2</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public Long status;
 
     // is_error=true时的错误描述
+    /**
+     * <strong>example:</strong>
+     * <p>标题格式不正确</p>
+     */
     @NameInMap("error_message")
     @Validation(required = true)
     public String errorMessage;
 
     // 证书的字段标题列表
+    /**
+     * <strong>example:</strong>
+     * <p>[身份证号,姓名,证书字段1]</p>
+     */
     @NameInMap("titles")
     @Validation(required = true)
     public java.util.List<String> titles;
 
     // 颁发进度百分比
+    /**
+     * <strong>example:</strong>
+     * <p>0-100</p>
+     */
     @NameInMap("progress_percent")
     @Validation(required = true)
     public Long progressPercent;
 
     // 当前批次数据总行数（不含标题）
+    /**
+     * <strong>example:</strong>
+     * <p>0-5000</p>
+     */
     @NameInMap("total_num")
     @Validation(required = true)
     public String totalNum;
 
     // 颁发证书当前执行的阶段，VERIFY：校验文件中，ISSUE：颁发中
+    /**
+     * <strong>example:</strong>
+     * <p>VERIFY、ISSUE</p>
+     */
     @NameInMap("cur_task_type")
     @Validation(required = true)
     public String curTaskType;
 
     // 颁发开始的时间戳
+    /**
+     * <strong>example:</strong>
+     * <p>18123123123123</p>
+     */
     @NameInMap("start_time_millis")
     @Validation(required = true)
     public Long startTimeMillis;
 
     // 颁发结束的时间戳
+    /**
+     * <strong>example:</strong>
+     * <p>182371293192831</p>
+     */
     @NameInMap("end_time_millis")
     @Validation(required = true)
     public Long endTimeMillis;

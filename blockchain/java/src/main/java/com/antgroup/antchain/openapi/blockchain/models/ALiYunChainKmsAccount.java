@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class ALiYunChainKmsAccount extends TeaModel {
     // 账户公钥
+    /**
+     * <strong>example:</strong>
+     * <p>1234567890</p>
+     */
     @NameInMap("pub_key")
     public String pubKey;
 
     // 托管秘钥ID
+    /**
+     * <strong>example:</strong>
+     * <p>1234567890</p>
+     */
     @NameInMap("my_kms_key_id")
     public String myKmsKeyId;
 

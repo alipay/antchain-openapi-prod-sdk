@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class ALiYunCertificateApplications extends TeaModel {
     // pagination
+    /**
+     * <strong>example:</strong>
+     * <p>pagination</p>
+     */
     @NameInMap("pagination")
     public ALiYunPagination pagination;
 
     // certificate_application
+    /**
+     * <strong>example:</strong>
+     * <p>certificate_application</p>
+     */
     @NameInMap("certificate_applications")
     public java.util.List<ALiYunCertificateApplication> certificateApplications;
 

@@ -5,56 +5,100 @@ import com.aliyun.tea.*;
 
 public class BlockchainBrowserTransactionContract extends TeaModel {
     // data
+    /**
+     * <strong>example:</strong>
+     * <p>asdfasdfsadfsdafasd</p>
+     */
     @NameInMap("data")
     @Validation(required = true)
     public String data;
 
     // from
+    /**
+     * <strong>example:</strong>
+     * <p>eeb0aa76449922c8ec718b97ec5da4c493d46d66a1f446fdce2ba29263efd612</p>
+     */
     @NameInMap("from")
     @Validation(required = true)
     public String from;
 
     // to
+    /**
+     * <strong>example:</strong>
+     * <p>eeb0aa76449922c8ec718b97ec5da4c493d46d66a1f446fdce2ba29263efd612</p>
+     */
     @NameInMap("to")
     @Validation(required = true)
     public String to;
 
     // gas
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("gas")
     @Validation(required = true)
     public Long gas;
 
     // hash
+    /**
+     * <strong>example:</strong>
+     * <p>65a0a7aa9b6f739faddd8e993eadecf85340cdeda6e20417e013e052f30afd3c</p>
+     */
     @NameInMap("hash")
     @Validation(required = true)
     public String hash;
 
     // nonce
+    /**
+     * <strong>example:</strong>
+     * <p>395460146568219584</p>
+     */
     @NameInMap("nonce")
     @Validation(required = true)
     public String nonce;
 
     // period
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("period")
     @Validation(required = true)
     public Long period;
 
     // signature_list
+    /**
+     * <strong>example:</strong>
+     * <p>signature_list</p>
+     */
     @NameInMap("signature_list")
     @Validation(required = true)
     public java.util.List<String> signatureList;
 
     // timestamp
+    /**
+     * <strong>example:</strong>
+     * <p>1604565299516</p>
+     */
     @NameInMap("timestamp")
     @Validation(required = true)
     public Long timestamp;
 
     // transaction_type
+    /**
+     * <strong>example:</strong>
+     * <p>TX_DEPOSIT_DATA</p>
+     */
     @NameInMap("transaction_type")
     @Validation(required = true)
     public String transactionType;
 
     // value
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("value")
     @Validation(required = true)
     public Long value;

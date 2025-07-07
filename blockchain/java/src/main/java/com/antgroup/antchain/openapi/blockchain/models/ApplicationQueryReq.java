@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class ApplicationQueryReq extends TeaModel {
     // 应用程序ID
+    /**
+     * <strong>example:</strong>
+     * <p>app20230725115808679d4f</p>
+     */
     @NameInMap("application_id")
     @Validation(required = true, maxLength = 64, minLength = 1)
     public String applicationId;

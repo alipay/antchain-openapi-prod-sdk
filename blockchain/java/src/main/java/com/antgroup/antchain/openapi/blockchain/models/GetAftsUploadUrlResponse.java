@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class GetAftsUploadUrlResponse extends TeaModel {
     // 11121312
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("mass_token")
     @Validation(required = true)
     public String massToken;
 
     // 上传文件地址
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://uploadExcamp.com">http://uploadExcamp.com</a></p>
+     */
     @NameInMap("upload_url")
     @Validation(required = true)
     public String uploadUrl;

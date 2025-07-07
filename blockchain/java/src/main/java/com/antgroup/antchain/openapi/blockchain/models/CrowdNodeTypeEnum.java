@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class CrowdNodeTypeEnum extends TeaModel {
     // 组合节点
+    /**
+     * <strong>example:</strong>
+     * <p>xx</p>
+     */
     @NameInMap("group")
     public String group;
 
     // 条件节点
+    /**
+     * <strong>example:</strong>
+     * <p>xx</p>
+     */
     @NameInMap("condition")
     public String condition;
 

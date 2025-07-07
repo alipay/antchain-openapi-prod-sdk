@@ -10,11 +10,19 @@ public class VcTransmitPayload extends TeaModel {
     public java.util.List<VcTransmitTargetStruct> targetVerifier;
 
     // 要传输的vc_id
+    /**
+     * <strong>example:</strong>
+     * <p>vc:mychain:xxxxx</p>
+     */
     @NameInMap("vc_id")
     @Validation(required = true)
     public String vcId;
 
     // vc原文，如果vc原文出现在传输接口，那么VC仓库不会从本地查找，而是直接将传输的VC上链
+    /**
+     * <strong>example:</strong>
+     * <p>json string</p>
+     */
     @NameInMap("vc_content")
     public String vcContent;
 

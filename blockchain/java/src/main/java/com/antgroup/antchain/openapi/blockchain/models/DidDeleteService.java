@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class DidDeleteService extends TeaModel {
     // 修改前did doc版本
+    /**
+     * <strong>example:</strong>
+     * <p>2</p>
+     */
     @NameInMap("previous_version")
     @Validation(required = true)
     public Long previousVersion;
 
     // 指定服务的id
+    /**
+     * <strong>example:</strong>
+     * <p>service#2</p>
+     */
     @NameInMap("service_id")
     @Validation(required = true)
     public String serviceId;

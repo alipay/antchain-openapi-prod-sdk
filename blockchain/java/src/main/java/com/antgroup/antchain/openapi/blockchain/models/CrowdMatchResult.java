@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class CrowdMatchResult extends TeaModel {
     // 人群匹配结果
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("match")
     @Validation(required = true)
     public Boolean match;

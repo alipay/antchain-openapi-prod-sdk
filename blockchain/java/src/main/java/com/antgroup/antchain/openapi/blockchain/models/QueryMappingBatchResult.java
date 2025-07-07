@@ -10,11 +10,19 @@ public class QueryMappingBatchResult extends TeaModel {
     public java.util.List<AccountMappingInfo> accounts;
 
     // 该商户下总共映射账户的数量
+    /**
+     * <strong>example:</strong>
+     * <p>200</p>
+     */
     @NameInMap("total_num")
     @Validation(required = true)
     public Long totalNum;
 
     // 该商户下账户信息的总页数
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("total_page")
     @Validation(required = true)
     public Long totalPage;

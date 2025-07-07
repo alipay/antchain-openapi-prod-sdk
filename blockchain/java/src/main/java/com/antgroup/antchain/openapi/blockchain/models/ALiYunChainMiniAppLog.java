@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class ALiYunChainMiniAppLog extends TeaModel {
     // access_count
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("access_count")
     public Long accessCount;
 
     // access_alipay_account_count
+    /**
+     * <strong>example:</strong>
+     * <p>1000</p>
+     */
     @NameInMap("access_alipay_account_count")
     public Long accessAlipayAccountCount;
 

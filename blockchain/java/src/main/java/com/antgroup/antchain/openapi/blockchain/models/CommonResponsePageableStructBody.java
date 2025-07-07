@@ -5,18 +5,34 @@ import com.aliyun.tea.*;
 
 public class CommonResponsePageableStructBody extends TeaModel {
     // 页面规格
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("page_size")
     public String pageSize;
 
     // 当前页码
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("current")
     public String current;
 
     // 总条数
+    /**
+     * <strong>example:</strong>
+     * <p>total</p>
+     */
     @NameInMap("total")
     public String total;
 
     // 失败日志数组
+    /**
+     * <strong>example:</strong>
+     * <p>{}</p>
+     */
     @NameInMap("list")
     public java.util.List<TriggerLogDTOStructBody> list;
 

@@ -5,38 +5,70 @@ import com.aliyun.tea.*;
 
 public class DataModel extends TeaModel {
     // 业务系统唯一标示
+    /**
+     * <strong>example:</strong>
+     * <p>3fc223617da9a17a4d7792ef0c3f57bd176ec</p>
+     */
     @NameInMap("biz_uid")
     public String bizUid;
 
     // 空间ID
+    /**
+     * <strong>example:</strong>
+     * <p>space1</p>
+     */
     @NameInMap("space_id")
     @Validation(required = true)
     public String spaceId;
 
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>1595574776000</p>
+     */
     @NameInMap("create_time")
     @Validation(required = true)
     public Long createTime;
 
     // 数据模型描述
+    /**
+     * <strong>example:</strong>
+     * <p>这是一个描述信息</p>
+     */
     @NameInMap("description")
     public String description;
 
     // 模型字段详细信息
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;organization&quot;:&quot;test&quot;,&quot;company&quot;:&quot;test&quot;}</p>
+     */
     @NameInMap("field_detail")
     @Validation(required = true)
     public String fieldDetail;
 
     // 数据模型业务ID
+    /**
+     * <strong>example:</strong>
+     * <p>model_company_data</p>
+     */
     @NameInMap("model_biz_id")
     public String modelBizId;
 
     // 数据模型ID
+    /**
+     * <strong>example:</strong>
+     * <p>DATA_MODEL_123</p>
+     */
     @NameInMap("model_id")
     @Validation(required = true)
     public String modelId;
 
     // 数据模型名称
+    /**
+     * <strong>example:</strong>
+     * <p>税务信息模型</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
@@ -47,11 +79,19 @@ public class DataModel extends TeaModel {
     public Participant submitter;
 
     // 更新时间
+    /**
+     * <strong>example:</strong>
+     * <p>1595574776000</p>
+     */
     @NameInMap("update_time")
     @Validation(required = true)
     public Long updateTime;
 
     // 状态
+    /**
+     * <strong>example:</strong>
+     * <p>ACTIVE</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;

@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class AccountInfo extends TeaModel {
     // 版通数量
+    /**
+     * <strong>example:</strong>
+     * <p>1000</p>
+     */
     @NameInMap("ep_amount")
     @Validation(required = true)
     public Long epAmount;
 
     // 版通代码
+    /**
+     * <strong>example:</strong>
+     * <p>000111</p>
+     */
     @NameInMap("ep_code")
     @Validation(required = true)
     public String epCode;

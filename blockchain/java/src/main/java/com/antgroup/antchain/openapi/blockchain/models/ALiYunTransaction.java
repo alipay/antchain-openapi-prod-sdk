@@ -5,50 +5,98 @@ import com.aliyun.tea.*;
 
 public class ALiYunTransaction extends TeaModel {
     // tx_type
+    /**
+     * <strong>example:</strong>
+     * <p>tx_type</p>
+     */
     @NameInMap("tx_type")
     public String txType;
 
     // data
+    /**
+     * <strong>example:</strong>
+     * <p>data</p>
+     */
     @NameInMap("data")
     public String data;
 
     // hash
+    /**
+     * <strong>example:</strong>
+     * <p>hash</p>
+     */
     @NameInMap("hash")
     public String hash;
 
     // from
+    /**
+     * <strong>example:</strong>
+     * <p>from</p>
+     */
     @NameInMap("from")
     public String from;
 
     // to
+    /**
+     * <strong>example:</strong>
+     * <p>to</p>
+     */
     @NameInMap("to")
     public String to;
 
     // timestamp
+    /**
+     * <strong>example:</strong>
+     * <p>1231231</p>
+     */
     @NameInMap("timestamp")
     public Long timestamp;
 
     // period
+    /**
+     * <strong>example:</strong>
+     * <p>12312312</p>
+     */
     @NameInMap("period")
     public Long period;
 
     // nonce
+    /**
+     * <strong>example:</strong>
+     * <p>nonce</p>
+     */
     @NameInMap("nonce")
     public String nonce;
 
     // gas
+    /**
+     * <strong>example:</strong>
+     * <p>gas</p>
+     */
     @NameInMap("gas")
     public String gas;
 
     // value
+    /**
+     * <strong>example:</strong>
+     * <p>value</p>
+     */
     @NameInMap("value")
     public String value;
 
     // signatures
+    /**
+     * <strong>example:</strong>
+     * <p>signatures</p>
+     */
     @NameInMap("signatures")
     public java.util.List<String> signatures;
 
     // extentions
+    /**
+     * <strong>example:</strong>
+     * <p>extentions</p>
+     */
     @NameInMap("extentions")
     public java.util.List<String> extentions;
 

@@ -5,20 +5,36 @@ import com.aliyun.tea.*;
 
 public class VcTransmitResult extends TeaModel {
     // 成功或者失败
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("is_success")
     @Validation(required = true)
     public Boolean isSuccess;
 
     // 失败信息
+    /**
+     * <strong>example:</strong>
+     * <p>失败信息</p>
+     */
     @NameInMap("message")
     public String message;
 
     // 验证verifier did
+    /**
+     * <strong>example:</strong>
+     * <p>did:mychian:xxxxx</p>
+     */
     @NameInMap("target_verifier")
     @Validation(required = true)
     public String targetVerifier;
 
     // 交易hash
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxx</p>
+     */
     @NameInMap("tx_hash")
     public String txHash;
 

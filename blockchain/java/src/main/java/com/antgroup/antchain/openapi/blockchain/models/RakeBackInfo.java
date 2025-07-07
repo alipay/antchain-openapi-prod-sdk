@@ -5,26 +5,46 @@ import com.aliyun.tea.*;
 
 public class RakeBackInfo extends TeaModel {
     // 推广层级
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("level")
     @Validation(required = true)
     public Long level;
 
     // 上级推广订单id
+    /**
+     * <strong>example:</strong>
+     * <p>test id</p>
+     */
     @NameInMap("parent_id")
     @Validation(required = true)
     public String parentId;
 
     // 推广人id
+    /**
+     * <strong>example:</strong>
+     * <p>test id</p>
+     */
     @NameInMap("promoter_id")
     @Validation(required = true)
     public String promoterId;
 
     // 返佣额度
+    /**
+     * <strong>example:</strong>
+     * <p>10.5</p>
+     */
     @NameInMap("quota")
     @Validation(required = true)
     public String quota;
 
     // 返佣比例 10表示10%
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("rate")
     @Validation(required = true)
     public String rate;

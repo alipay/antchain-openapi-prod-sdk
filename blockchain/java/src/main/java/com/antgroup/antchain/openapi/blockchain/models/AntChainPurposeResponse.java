@@ -5,26 +5,50 @@ import com.aliyun.tea.*;
 
 public class AntChainPurposeResponse extends TeaModel {
     // 用户申报用途状态
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("status")
     public String status;
 
     // 已申报的用途，比如供应链金融
+    /**
+     * <strong>example:</strong>
+     * <p>已申报的用途，比如供应链金融</p>
+     */
     @NameInMap("purpose")
     public String purpose;
 
     // 申报时间
+    /**
+     * <strong>example:</strong>
+     * <p>21-1-1</p>
+     */
     @NameInMap("create_time")
     public String createTime;
 
     // 简短说明用途
+    /**
+     * <strong>example:</strong>
+     * <p>简短说明用途</p>
+     */
     @NameInMap("chain_purpose_item")
     public String chainPurposeItem;
 
     // 用途详情
+    /**
+     * <strong>example:</strong>
+     * <p>用途详情</p>
+     */
     @NameInMap("chain_purpose_extend")
     public String chainPurposeExtend;
 
     // 申请用途列表
+    /**
+     * <strong>example:</strong>
+     * <p>[]</p>
+     */
     @NameInMap("record_list")
     public java.util.List<ChainPurpose> recordList;
 

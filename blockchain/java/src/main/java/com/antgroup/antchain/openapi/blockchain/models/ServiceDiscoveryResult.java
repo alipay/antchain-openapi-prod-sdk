@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class ServiceDiscoveryResult extends TeaModel {
     // 提供该服务能力的did
+    /**
+     * <strong>example:</strong>
+     * <p>did:mychain:...</p>
+     */
     @NameInMap("did")
     @Validation(required = true)
     public String did;

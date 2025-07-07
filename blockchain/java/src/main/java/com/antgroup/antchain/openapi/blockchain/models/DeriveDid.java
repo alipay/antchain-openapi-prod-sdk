@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class DeriveDid extends TeaModel {
     // 派生的子did
+    /**
+     * <strong>example:</strong>
+     * <p>did:mychain:xxxx</p>
+     */
     @NameInMap("childdid")
     @Validation(required = true)
     public String childdid;
 
     // 子did 的did doc
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("childdiddoc")
     @Validation(required = true)
     public String childdiddoc;
 
     // 用户输入用于派生子did的派生码
+    /**
+     * <strong>example:</strong>
+     * <p>asdfghj</p>
+     */
     @NameInMap("code")
     @Validation(required = true)
     public String code;

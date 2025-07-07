@@ -5,18 +5,34 @@ import com.aliyun.tea.*;
 
 public class ALiYunChainMiniAppCodeCreate extends TeaModel {
     // ant_chain_id
+    /**
+     * <strong>example:</strong>
+     * <p>ant_chain_id</p>
+     */
     @NameInMap("ant_chain_id")
     public String antChainId;
 
     // transaction_hash
+    /**
+     * <strong>example:</strong>
+     * <p>transaction_hash</p>
+     */
     @NameInMap("transaction_hash")
     public String transactionHash;
 
     // base64_q_r_code_p_n_g
+    /**
+     * <strong>example:</strong>
+     * <p>base64_q_r_code_p_n_g</p>
+     */
     @NameInMap("base64_q_r_code_p_n_g")
     public String base64QRCodePNG;
 
     // q_r_code_content
+    /**
+     * <strong>example:</strong>
+     * <p>q_r_code_content</p>
+     */
     @NameInMap("q_r_code_content")
     public String qRCodeContent;
 

@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class ALiYunChainSubnetCheck extends TeaModel {
     // 检查结果
+    /**
+     * <strong>example:</strong>
+     * <p>OK</p>
+     */
     @NameInMap("check_result")
     public String checkResult;
 
@@ -17,6 +21,10 @@ public class ALiYunChainSubnetCheck extends TeaModel {
     public java.util.List<ALiYunChainNodeInfo> chainNodeInfoList;
 
     // 联盟管理员
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("consortium_admin")
     public Boolean consortiumAdmin;
 

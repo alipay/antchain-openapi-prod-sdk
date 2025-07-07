@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class AccountWholesaleParam extends TeaModel {
     // 批发数量
+    /**
+     * <strong>example:</strong>
+     * <p>1000</p>
+     */
     @NameInMap("ep_amount")
     @Validation(required = true)
     public Long epAmount;
 
     // 用户账户
+    /**
+     * <strong>example:</strong>
+     * <p>testAccount</p>
+     */
     @NameInMap("user_account")
     @Validation(required = true)
     public String userAccount;

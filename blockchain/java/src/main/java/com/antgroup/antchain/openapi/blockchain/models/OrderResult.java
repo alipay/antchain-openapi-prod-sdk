@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class OrderResult extends TeaModel {
     // 事例id
+    /**
+     * <strong>example:</strong>
+     * <p>事例id</p>
+     */
     @NameInMap("instance_id")
     @Validation(required = true)
     public String instanceId;
 
     // 是否成功
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("success")
     @Validation(required = true)
     public Boolean success;

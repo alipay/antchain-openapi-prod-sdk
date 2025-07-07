@@ -5,36 +5,64 @@ import com.aliyun.tea.*;
 
 public class TaskListInfoDTO extends TeaModel {
     // 任务名称
+    /**
+     * <strong>example:</strong>
+     * <p>普通任务</p>
+     */
     @NameInMap("task_name")
     @Validation(required = true)
     public String taskName;
 
     // 任务ID
+    /**
+     * <strong>example:</strong>
+     * <p>qdQxqU5gz</p>
+     */
     @NameInMap("task_id")
     @Validation(required = true)
     public String taskId;
 
     // appId
+    /**
+     * <strong>example:</strong>
+     * <p>2021004121633301</p>
+     */
     @NameInMap("app_id")
     @Validation(required = true)
     public String appId;
 
     // 自有ID
+    /**
+     * <strong>example:</strong>
+     * <p>ybl1112</p>
+     */
     @NameInMap("survey_id")
     @Validation(required = true)
     public String surveyId;
 
     // 租户ID
+    /**
+     * <strong>example:</strong>
+     * <p>RIVUFSJG</p>
+     */
     @NameInMap("tenant_id")
     @Validation(required = true)
     public String tenantId;
 
     // 租户名称
+    /**
+     * <strong>example:</strong>
+     * <p>李强</p>
+     */
     @NameInMap("tenant_name")
     @Validation(required = true)
     public String tenantName;
 
     // 操作员
+    /**
+     * <strong>example:</strong>
+     * <p><a href="mailto:eipzps@alitest.comtest">eipzps@alitest.comtest</a></p>
+     */
     @NameInMap("operator")
     @Validation(required = true)
     public String operator;
@@ -55,26 +83,46 @@ public class TaskListInfoDTO extends TeaModel {
     public Long screenNum;
 
     // 样本总金额
+    /**
+     * <strong>example:</strong>
+     * <p>10.00</p>
+     */
     @NameInMap("sample_total_amount")
     @Validation(required = true)
     public String sampleTotalAmount;
 
     // 全额红包总金额
+    /**
+     * <strong>example:</strong>
+     * <p>20.00</p>
+     */
     @NameInMap("red_packet_total_amount")
     @Validation(required = true)
     public String redPacketTotalAmount;
 
     // 该任务总金额
+    /**
+     * <strong>example:</strong>
+     * <p>30.00</p>
+     */
     @NameInMap("task_total_amount")
     @Validation(required = true)
     public String taskTotalAmount;
 
     // 全额红包金额
+    /**
+     * <strong>example:</strong>
+     * <p>1.00</p>
+     */
     @NameInMap("full_red_packet_amount")
     @Validation(required = true)
     public String fullRedPacketAmount;
 
     // 甄别红包金额
+    /**
+     * <strong>example:</strong>
+     * <p>0.05</p>
+     */
     @NameInMap("examine_red_packet_amount")
     @Validation(required = true)
     public String examineRedPacketAmount;
@@ -84,52 +132,96 @@ public class TaskListInfoDTO extends TeaModel {
     public Long issuedNum;
 
     // 产品下单code类型（1-资源包 2-后付费）
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("product_code_type")
     @Validation(required = true)
     public String productCodeType;
 
     // 审核理由
+    /**
+     * <strong>example:</strong>
+     * <p>拒绝,图片不合适</p>
+     */
     @NameInMap("review_content")
     public String reviewContent;
 
     // 任务状态：0-已删、1-已完成、2-审核未通过、3-暂停、4-投放中、5-暂停中未重启、6、投放中未暂停、7-投放中未调整、8-投放中未完成、9-待投放、10-草稿任务
+    /**
+     * <strong>example:</strong>
+     * <p>9</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // ap状态，1:启用，0：审批中
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("ap_status")
     @Validation(required = true)
     public String apStatus;
 
     // 奖励渠道（0-手动发支付宝余额 1-海豚红包 2-问卷自带）
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("prize_channel")
     @Validation(required = true)
     public Long prizeChannel;
 
     // 奖励渠道为问卷自带时，全额红包信息
+    /**
+     * <strong>example:</strong>
+     * <p>1-5元红包</p>
+     */
     @NameInMap("full_red_packet_text_info")
     public String fullRedPacketTextInfo;
 
     // 修改时间
+    /**
+     * <strong>example:</strong>
+     * <p>2023-12-22 10:34:11</p>
+     */
     @NameInMap("gmt_modified")
     @Validation(required = true)
     public String gmtModified;
 
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2023-12-22 10:11:33</p>
+     */
     @NameInMap("gmt_create")
     @Validation(required = true)
     public String gmtCreate;
 
     // 投放时间
+    /**
+     * <strong>example:</strong>
+     * <p>2023-12-23 10:11:22</p>
+     */
     @NameInMap("gmt_online")
     public String gmtOnline;
 
     // 最近暂停/完成时间
+    /**
+     * <strong>example:</strong>
+     * <p>2022-12-22 09:11:11</p>
+     */
     @NameInMap("gmt_pause_or_complete")
     public String gmtPauseOrComplete;
 
     // 最近一轮用时（h）
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("last_round_time")
     public Long lastRoundTime;
 

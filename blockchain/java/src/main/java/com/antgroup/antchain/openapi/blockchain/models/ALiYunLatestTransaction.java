@@ -5,26 +5,50 @@ import com.aliyun.tea.*;
 
 public class ALiYunLatestTransaction extends TeaModel {
     // hash
+    /**
+     * <strong>example:</strong>
+     * <p>hash</p>
+     */
     @NameInMap("hash")
     public String hash;
 
     // transaction_v10_type
+    /**
+     * <strong>example:</strong>
+     * <p>transaction_v10_type</p>
+     */
     @NameInMap("transaction_v10_type")
     public String transactionV10Type;
 
     // trans_type_v6
+    /**
+     * <strong>example:</strong>
+     * <p>trans_type_v6</p>
+     */
     @NameInMap("trans_type_v6")
     public String transTypeV6;
 
     // from
+    /**
+     * <strong>example:</strong>
+     * <p>from</p>
+     */
     @NameInMap("from")
     public String from;
 
     // to
+    /**
+     * <strong>example:</strong>
+     * <p>to</p>
+     */
     @NameInMap("to")
     public String to;
 
     // create_time
+    /**
+     * <strong>example:</strong>
+     * <p>1231231231</p>
+     */
     @NameInMap("create_time")
     public Long createTime;
 

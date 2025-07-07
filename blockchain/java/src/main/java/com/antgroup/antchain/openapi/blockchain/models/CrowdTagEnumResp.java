@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class CrowdTagEnumResp extends TeaModel {
     // 人群标签code
+    /**
+     * <strong>example:</strong>
+     * <p>P0010GC6</p>
+     */
     @NameInMap("crowd_tag")
     @Validation(required = true)
     public String crowdTag;

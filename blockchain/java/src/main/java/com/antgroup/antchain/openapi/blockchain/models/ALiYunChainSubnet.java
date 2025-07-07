@@ -5,50 +5,98 @@ import com.aliyun.tea.*;
 
 public class ALiYunChainSubnet extends TeaModel {
     // 子链id
+    /**
+     * <strong>example:</strong>
+     * <p>S210304150059</p>
+     */
     @NameInMap("ant_chain_id")
     public String antChainId;
 
     // 子链名称
+    /**
+     * <strong>example:</strong>
+     * <p>name</p>
+     */
     @NameInMap("name")
     public String name;
 
     // 子链节点数
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("node_sum")
     public Long nodeSum;
 
     // 子链监控状态
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("monitor")
     public Boolean monitor;
 
     // 子链的块高
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("block_height")
     public String blockHeight;
 
     // 子链的业务总数
+    /**
+     * <strong>example:</strong>
+     * <p>1000</p>
+     */
     @NameInMap("transaction_sum")
     public Long transactionSum;
 
     // 子链的创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>1000821213123</p>
+     */
     @NameInMap("create_time")
     public Long createTime;
 
     // 子链的状态
+    /**
+     * <strong>example:</strong>
+     * <p>STOP/CREATE</p>
+     */
     @NameInMap("status")
     public String status;
 
     // 子链的权限
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("consortium_member")
     public Boolean consortiumMember;
 
     // 主链id
+    /**
+     * <strong>example:</strong>
+     * <p>2e7e22c42bb8419bbf99b7f56aa2f17f</p>
+     */
     @NameInMap("main_chain_id")
     public String mainChainId;
 
     // rest申请状态
+    /**
+     * <strong>example:</strong>
+     * <p>OK</p>
+     */
     @NameInMap("rest")
     public String rest;
 
     // 子链序号
+    /**
+     * <strong>example:</strong>
+     * <p>0000000000000002000000000000000000000000</p>
+     */
     @NameInMap("group_id")
     public String groupId;
 

@@ -5,26 +5,50 @@ import com.aliyun.tea.*;
 
 public class InstanceProgressInfo extends TeaModel {
     // 操作人
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("operator")
     public String operator;
 
     // 操作时间
+    /**
+     * <strong>example:</strong>
+     * <p>1690166971465</p>
+     */
     @NameInMap("time")
     public Long time;
 
     // 合约部署进度类型
+    /**
+     * <strong>example:</strong>
+     * <p>SERVICE_START</p>
+     */
     @NameInMap("type")
     public String type;
 
     // 部署状态
+    /**
+     * <strong>example:</strong>
+     * <p>INIT</p>
+     */
     @NameInMap("status")
     public String status;
 
     // 合约部署进度名称
+    /**
+     * <strong>example:</strong>
+     * <p>部署合约服务</p>
+     */
     @NameInMap("type_name")
     public String typeName;
 
     // 额外参数
+    /**
+     * <strong>example:</strong>
+     * <p>{json}</p>
+     */
     @NameInMap("data")
     public String data;
 

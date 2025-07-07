@@ -5,15 +5,27 @@ import com.aliyun.tea.*;
 
 public class VcTransmitTargetStruct extends TeaModel {
     // 目标did的公钥
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
     @NameInMap("public_key")
     public String publicKey;
 
     // 传输vc使用的区块链id
+    /**
+     * <strong>example:</strong>
+     * <p>bizid</p>
+     */
     @NameInMap("vc_channel")
     @Validation(maxLength = 32, minLength = 8)
     public String vcChannel;
 
     // 验证者did
+    /**
+     * <strong>example:</strong>
+     * <p>did:mychain:xxxx</p>
+     */
     @NameInMap("verifier_did")
     @Validation(required = true)
     public String verifierDid;

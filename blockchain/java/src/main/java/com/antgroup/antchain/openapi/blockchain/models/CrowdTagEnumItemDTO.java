@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class CrowdTagEnumItemDTO extends TeaModel {
     // 枚举名称
+    /**
+     * <strong>example:</strong>
+     * <p>性别</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 枚举值
+    /**
+     * <strong>example:</strong>
+     * <p>F</p>
+     */
     @NameInMap("val")
     @Validation(required = true)
     public String val;

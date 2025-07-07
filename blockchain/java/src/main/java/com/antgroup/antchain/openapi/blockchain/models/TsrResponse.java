@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class TsrResponse extends TeaModel {
     // hash后的信息
+    /**
+     * <strong>example:</strong>
+     * <p>AAAAA </p>
+     */
     @NameInMap("hashed_message")
     @Validation(required = true)
     public String hashedMessage;
 
     // 哈希算法
+    /**
+     * <strong>example:</strong>
+     * <p>321</p>
+     */
     @NameInMap("hash_algorithm")
     @Validation(required = true)
     public String hashAlgorithm;
 
     // 时间
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("ts")
     @Validation(required = true)
     public String ts;

@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class UpdateVCStatus extends TeaModel {
     // valid or invalid
+    /**
+     * <strong>example:</strong>
+     * <p>valid</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 可验证声明id
+    /**
+     * <strong>example:</strong>
+     * <p>vc:mychain:xxxx</p>
+     */
     @NameInMap("vc_id")
     @Validation(required = true)
     public String vcId;

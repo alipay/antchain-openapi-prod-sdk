@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class PublicKey extends TeaModel {
     // 公钥颁发者ID
+    /**
+     * <strong>example:</strong>
+     * <p>did:test:0000:3fc223617da9a17a4d7792ef0c3f57bd176eca8408f2f4cb1df42939220829d2</p>
+     */
     @NameInMap("issuer_id")
     @Validation(required = true, maxLength = 100)
     public String issuerId;
 
     // 公钥内容
+    /**
+     * <strong>example:</strong>
+     * <p>AQEETAAAAEEAAAAETbYFwqfIiyqFWt2Tasr2f4+wjKcEXsFupLxM6WZohB702fTTsuw88bp7LKBskdWhDiZvpeIShOzZopg95psaFw==</p>
+     */
     @NameInMap("public_key_content")
     @Validation(required = true)
     public String publicKeyContent;
 
     // 公钥接受者ID
+    /**
+     * <strong>example:</strong>
+     * <p>did:test:0000:3fc223617da9a17a4d7792ef0c3f57bd176eca8408f2f4cb1df42939220829d2</p>
+     */
     @NameInMap("recipient_id")
     @Validation(required = true, maxLength = 100)
     public String recipientId;

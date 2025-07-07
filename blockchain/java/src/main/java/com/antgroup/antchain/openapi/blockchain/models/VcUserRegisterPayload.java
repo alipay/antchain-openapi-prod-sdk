@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class VcUserRegisterPayload extends TeaModel {
     // 用户did对应的授权公钥
+    /**
+     * <strong>example:</strong>
+     * <p>用户did对应的授权公钥</p>
+     */
     @NameInMap("public_key")
     public String publicKey;
 
     // 业务区块连的bizid
+    /**
+     * <strong>example:</strong>
+     * <p>业务区块连的bizid</p>
+     */
     @NameInMap("vc_channel")
     @Validation(maxLength = 32, minLength = 8)
     public String vcChannel;

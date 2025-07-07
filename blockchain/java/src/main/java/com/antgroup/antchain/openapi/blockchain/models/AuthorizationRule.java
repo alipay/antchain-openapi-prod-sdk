@@ -5,26 +5,46 @@ import com.aliyun.tea.*;
 
 public class AuthorizationRule extends TeaModel {
     // 规则来源
+    /**
+     * <strong>example:</strong>
+     * <p>DID</p>
+     */
     @NameInMap("source")
     @Validation(required = true)
     public String source;
 
     // 规则索引
+    /**
+     * <strong>example:</strong>
+     * <p>serviceType</p>
+     */
     @NameInMap("index")
     @Validation(required = true)
     public String index;
 
     // 规则类型
+    /**
+     * <strong>example:</strong>
+     * <p>DEFAULT</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public String type;
 
     // 规则表达式
+    /**
+     * <strong>example:</strong>
+     * <p>EQUALS</p>
+     */
     @NameInMap("expression")
     @Validation(required = true)
     public String expression;
 
     // 规则内容
+    /**
+     * <strong>example:</strong>
+     * <p>content</p>
+     */
     @NameInMap("content")
     @Validation(required = true)
     public String content;

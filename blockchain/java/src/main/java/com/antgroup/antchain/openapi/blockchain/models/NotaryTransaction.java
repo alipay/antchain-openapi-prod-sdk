@@ -6,16 +6,28 @@ import com.aliyun.tea.*;
 public class NotaryTransaction extends TeaModel {
     // 如果存证类型为text, 则为存证内容
     // 如果存证类型为file,则为存证文件临时下载地址
+    /**
+     * <strong>example:</strong>
+     * <p>content</p>
+     */
     @NameInMap("content")
     @Validation(required = true)
     public String content;
 
     // 链上存证哈希
+    /**
+     * <strong>example:</strong>
+     * <p>04181b49ee5d7eb0099a289ac8a45df6afb5aa2679c5284444698a9790099269</p>
+     */
     @NameInMap("transaction_hash")
     @Validation(required = true)
     public String transactionHash;
 
     // 存证类型
+    /**
+     * <strong>example:</strong>
+     * <p>text,file</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public String type;

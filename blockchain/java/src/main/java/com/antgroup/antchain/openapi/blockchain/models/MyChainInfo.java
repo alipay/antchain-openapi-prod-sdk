@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class MyChainInfo extends TeaModel {
     // 链id
+    /**
+     * <strong>example:</strong>
+     * <p>xxxid</p>
+     */
     @NameInMap("biz_id")
     @Validation(required = true)
     public String bizId;
 
     // 授权租户id
+    /**
+     * <strong>example:</strong>
+     * <p>tenantID</p>
+     */
     @NameInMap("tenant")
     @Validation(required = true)
     public String tenant;

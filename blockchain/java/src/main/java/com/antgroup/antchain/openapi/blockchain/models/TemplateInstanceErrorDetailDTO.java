@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class TemplateInstanceErrorDetailDTO extends TeaModel {
     // 当前错误类型的错误行数
+    /**
+     * <strong>example:</strong>
+     * <p>1-5000</p>
+     */
     @NameInMap("error_num")
     @Validation(required = true)
     public Long errorNum;
 
     // 出错数据抽样
+    /**
+     * <strong>example:</strong>
+     * <p>[“xxx“, “xxxx“]</p>
+     */
     @NameInMap("samples")
     @Validation(required = true)
     public java.util.List<String> samples;
 
     // 出错列，从0开始
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("error_column_index")
     @Validation(required = true)
     public Long errorColumnIndex;
 
     // 当前错误类型的描述
+    /**
+     * <strong>example:</strong>
+     * <p>身份证号格式不正确</p>
+     */
     @NameInMap("error_description")
     @Validation(required = true)
     public String errorDescription;

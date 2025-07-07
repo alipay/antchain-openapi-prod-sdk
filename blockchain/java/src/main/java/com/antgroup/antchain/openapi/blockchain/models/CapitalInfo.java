@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class CapitalInfo extends TeaModel {
     // 记录流水额度
+    /**
+     * <strong>example:</strong>
+     * <p>15.9</p>
+     */
     @NameInMap("balance_log")
     @Validation(required = true)
     public String balanceLog;
 
     // 商户id
+    /**
+     * <strong>example:</strong>
+     * <p>testid</p>
+     */
     @NameInMap("shop_id")
     @Validation(required = true)
     public String shopId;
 
     // 记录时间
+    /**
+     * <strong>example:</strong>
+     * <p>12.2</p>
+     */
     @NameInMap("time_log")
     @Validation(required = true)
     public Long timeLog;
 
     // 链上地址
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("tx_hash")
     @Validation(required = true)
     public String txHash;

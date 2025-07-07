@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class UserBizKeyInfo extends TeaModel {
     // 拥有该密钥的用户列表
+    /**
+     * <strong>example:</strong>
+     * <p>CZKZJVCN</p>
+     */
     @NameInMap("granted_user")
     @Validation(required = true)
     public java.util.List<String> grantedUser;
 
     // 密钥名称
+    /**
+     * <strong>example:</strong>
+     * <p>subunion_a_key</p>
+     */
     @NameInMap("key_name")
     @Validation(required = true)
     public String keyName;

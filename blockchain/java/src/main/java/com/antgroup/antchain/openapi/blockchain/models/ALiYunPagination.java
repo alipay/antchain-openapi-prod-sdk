@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class ALiYunPagination extends TeaModel {
     // 分页大小
+    /**
+     * <strong>example:</strong>
+     * <p>20</p>
+     */
     @NameInMap("page_size")
     public Long pageSize;
 
     // 分页编号
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("page_number")
     public Long pageNumber;
 
     // 总数大小
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("total_count")
     public Long totalCount;
 

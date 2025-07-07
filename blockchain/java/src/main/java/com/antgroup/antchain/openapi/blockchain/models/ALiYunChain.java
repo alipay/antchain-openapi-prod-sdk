@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class ALiYunChain extends TeaModel {
     // notary_blockchain
+    /**
+     * <strong>example:</strong>
+     * <p>notary_blockchain</p>
+     */
     @NameInMap("notary_blockchain")
     public ALiYunNotaryBlockchain notaryBlockchain;
 
     // contract_blockchain
+    /**
+     * <strong>example:</strong>
+     * <p>contract_blockchain</p>
+     */
     @NameInMap("contract_blockchain")
     public ALiYunContractBlockchain contractBlockchain;
 
     // old_contract_blockchain
+    /**
+     * <strong>example:</strong>
+     * <p>old_contract_blockchain</p>
+     */
     @NameInMap("old_contract_blockchain")
     public ALiYunOldContractBlockchain oldContractBlockchain;
 

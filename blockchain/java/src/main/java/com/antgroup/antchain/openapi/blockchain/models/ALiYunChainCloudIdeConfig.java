@@ -5,30 +5,58 @@ import com.aliyun.tea.*;
 
 public class ALiYunChainCloudIdeConfig extends TeaModel {
     // bizid
+    /**
+     * <strong>example:</strong>
+     * <p>bizid</p>
+     */
     @NameInMap("bizid")
     public String bizid;
 
     // name
+    /**
+     * <strong>example:</strong>
+     * <p>name</p>
+     */
     @NameInMap("name")
     public String name;
 
     // trial_account
+    /**
+     * <strong>example:</strong>
+     * <p>trial_account</p>
+     */
     @NameInMap("trial_account")
     public String trialAccount;
 
     // trial_account_private_key
+    /**
+     * <strong>example:</strong>
+     * <p>trial_account_private_key</p>
+     */
     @NameInMap("trial_account_private_key")
     public String trialAccountPrivateKey;
 
     // ant_chain_id
+    /**
+     * <strong>example:</strong>
+     * <p>ant_chain_id</p>
+     */
     @NameInMap("ant_chain_id")
     public String antChainId;
 
     // ant_chain_name
+    /**
+     * <strong>example:</strong>
+     * <p>ant_chain_name</p>
+     */
     @NameInMap("ant_chain_name")
     public String antChainName;
 
     // version
+    /**
+     * <strong>example:</strong>
+     * <p>version</p>
+     */
     @NameInMap("version")
     public String version;
 

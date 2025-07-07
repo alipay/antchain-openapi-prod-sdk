@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class OCUserData extends TeaModel {
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10 10:10:00</p>
+     */
     @NameInMap("create_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String createTime;
 
     // 手机号
+    /**
+     * <strong>example:</strong>
+     * <p>186xxxxx</p>
+     */
     @NameInMap("phone_number")
     @Validation(required = true)
     public String phoneNumber;
 
     // 用户姓名
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxxxx</p>
+     */
     @NameInMap("user_name")
     @Validation(required = true)
     public String userName;

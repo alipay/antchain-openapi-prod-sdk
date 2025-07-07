@@ -5,23 +5,43 @@ import com.aliyun.tea.*;
 
 public class DiscreteValue extends TeaModel {
     // 排序id
+    /**
+     * <strong>example:</strong>
+     * <p>12</p>
+     */
     @NameInMap("sort_id")
     public Long sortId;
 
     // 字段描述
+    /**
+     * <strong>example:</strong>
+     * <p>联盟名称</p>
+     */
     @NameInMap("text")
     @Validation(required = true)
     public String text;
 
     // 提示信息
+    /**
+     * <strong>example:</strong>
+     * <p>提示信息</p>
+     */
     @NameInMap("tips")
     public String tips;
 
     // 单位信息
+    /**
+     * <strong>example:</strong>
+     * <p>单位信息</p>
+     */
     @NameInMap("unit")
     public String unit;
 
     // 值内容
+    /**
+     * <strong>example:</strong>
+     * <p>值内容</p>
+     */
     @NameInMap("value")
     @Validation(required = true)
     public String value;

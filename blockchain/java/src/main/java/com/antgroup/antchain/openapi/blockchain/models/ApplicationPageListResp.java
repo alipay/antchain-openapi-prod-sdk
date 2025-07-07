@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class ApplicationPageListResp extends TeaModel {
     // 应用标识
+    /**
+     * <strong>example:</strong>
+     * <p>app20230725115808679d4f</p>
+     */
     @NameInMap("application_id")
     public String applicationId;
 
     // 链ID
+    /**
+     * <strong>example:</strong>
+     * <p>284f75bc-8069-443f-9d46-4576bb15f210</p>
+     */
     @NameInMap("access_key")
     public String accessKey;
 

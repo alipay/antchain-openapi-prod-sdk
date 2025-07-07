@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class ContractCreateResp extends TeaModel {
     // 合约标识
+    /**
+     * <strong>example:</strong>
+     * <p>cme20230724104931af3a4d</p>
+     */
     @NameInMap("service_id")
     public String serviceId;
 

@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class ALiYunChainMiniAppTransaction extends TeaModel {
     // authorized
+    /**
+     * <strong>example:</strong>
+     * <p>true,false</p>
+     */
     @NameInMap("authorized")
     public Boolean authorized;
 
     // transaction_response
+    /**
+     * <strong>example:</strong>
+     * <p>transaction_response</p>
+     */
     @NameInMap("transaction_response")
     public String transactionResponse;
 
     // transaction_receipt
+    /**
+     * <strong>example:</strong>
+     * <p>transaction_receipt</p>
+     */
     @NameInMap("transaction_receipt")
     public String transactionReceipt;
 

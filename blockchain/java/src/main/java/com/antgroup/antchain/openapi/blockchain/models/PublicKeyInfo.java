@@ -5,30 +5,54 @@ import com.aliyun.tea.*;
 
 public class PublicKeyInfo extends TeaModel {
     // 公钥id
+    /**
+     * <strong>example:</strong>
+     * <p>key-1</p>
+     */
     @NameInMap("key_id")
     @Validation(required = true)
     public String keyId;
 
     // 公钥内容
+    /**
+     * <strong>example:</strong>
+     * <p>7ceb38181822437c82909506a87aa456</p>
+     */
     @NameInMap("public_key")
     @Validation(required = true)
     public String publicKey;
 
     // 算法类型
+    /**
+     * <strong>example:</strong>
+     * <p>Secp256k1VerificationKey2018</p>
+     */
     @NameInMap("sign_type")
     @Validation(required = true)
     public String signType;
 
     // 过期时间戳（毫秒）
+    /**
+     * <strong>example:</strong>
+     * <p>18600000000</p>
+     */
     @NameInMap("expire")
     public Long expire;
 
     // 公钥状态，0:不可用 1:可用
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public Long status;
 
     // 创建者的did
+    /**
+     * <strong>example:</strong>
+     * <p>did:xxxx:xxxxxxxx</p>
+     */
     @NameInMap("controller")
     public String controller;
 

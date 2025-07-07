@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class DidAddDoc extends TeaModel {
     // did doc content
+    /**
+     * <strong>example:</strong>
+     * <p>json string</p>
+     */
     @NameInMap("doc")
     @Validation(required = true)
     public String doc;

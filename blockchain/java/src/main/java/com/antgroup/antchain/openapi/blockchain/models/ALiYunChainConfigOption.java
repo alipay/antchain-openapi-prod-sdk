@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class ALiYunChainConfigOption extends TeaModel {
     // config_option
+    /**
+     * <strong>example:</strong>
+     * <p>config_option</p>
+     */
     @NameInMap("config_option")
     public String configOption;
 
     // show_name
+    /**
+     * <strong>example:</strong>
+     * <p>show_name</p>
+     */
     @NameInMap("show_name")
     public String showName;
 
     // enable
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("enable")
     public Boolean enable;
 

@@ -5,18 +5,34 @@ import com.aliyun.tea.*;
 
 public class ALiYunDownloadPath extends TeaModel {
     // client_crt_url
+    /**
+     * <strong>example:</strong>
+     * <p>client_crt_url</p>
+     */
     @NameInMap("client_crt_url")
     public String clientCrtUrl;
 
     // trust_ca_url
+    /**
+     * <strong>example:</strong>
+     * <p>trust_ca_url</p>
+     */
     @NameInMap("trust_ca_url")
     public String trustCaUrl;
 
     // ca_crt_url
+    /**
+     * <strong>example:</strong>
+     * <p>ca_crt_url</p>
+     */
     @NameInMap("ca_crt_url")
     public String caCrtUrl;
 
     // sdk_url
+    /**
+     * <strong>example:</strong>
+     * <p>sdk_url</p>
+     */
     @NameInMap("sdk_url")
     public String sdkUrl;
 

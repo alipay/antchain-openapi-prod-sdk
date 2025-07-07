@@ -5,24 +5,44 @@ import com.aliyun.tea.*;
 
 public class AuthorizationDetail extends TeaModel {
     // 授权凭证ID
+    /**
+     * <strong>example:</strong>
+     * <p>vc:private:0000:7bd647663cec087bc424941ad35cb588e96f38c2dcb512442410596c02e8ef681595560495530110</p>
+     */
     @NameInMap("authority_cert_id")
     @Validation(required = true)
     public String authorityCertId;
 
     // 授权ID
+    /**
+     * <strong>example:</strong>
+     * <p>8c777cf9a71b660233215b6337dca78d66e10f25feca50a2761c09df7d4d0506</p>
+     */
     @NameInMap("authorization_id")
     public String authorizationId;
 
     // 区块号
+    /**
+     * <strong>example:</strong>
+     * <p>1324</p>
+     */
     @NameInMap("block_num")
     @Validation(required = true)
     public Long blockNum;
 
     // 过期时间
+    /**
+     * <strong>example:</strong>
+     * <p>1592810480442</p>
+     */
     @NameInMap("expire")
     public Long expire;
 
     // 授权时间
+    /**
+     * <strong>example:</strong>
+     * <p>1595574776000</p>
+     */
     @NameInMap("issuance_time")
     @Validation(required = true)
     public Long issuanceTime;
@@ -38,6 +58,10 @@ public class AuthorizationDetail extends TeaModel {
     public Participant subject;
 
     // 哈希
+    /**
+     * <strong>example:</strong>
+     * <p>d4dbde485203ed445b59fa7cf7976ecc56cf7494cca2d0185c1cac130463ac91</p>
+     */
     @NameInMap("tx_hash")
     @Validation(required = true)
     public String txHash;
