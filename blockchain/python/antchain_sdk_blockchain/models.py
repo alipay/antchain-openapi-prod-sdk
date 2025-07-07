@@ -10278,7 +10278,7 @@ class CarInfo(TeaModel):
         register_date: str = None,
         model_code: str = None,
     ):
-        # 车辆信息
+        # 车牌号
         self.license_no = license_no
         # 车架号
         self.vin = vin
@@ -11315,6 +11315,62 @@ class OCUserData(TeaModel):
         return self
 
 
+class CarItemsInfo(TeaModel):
+    def __init__(
+        self,
+        brand_name: str = None,
+        vin: str = None,
+        engine_no: str = None,
+        register_date: str = None,
+        model_code: str = None,
+    ):
+        # 品牌名称
+        self.brand_name = brand_name
+        # 车架号
+        self.vin = vin
+        # 发动机号
+        self.engine_no = engine_no
+        # 注册日期
+        self.register_date = register_date
+        # 车辆型号
+        self.model_code = model_code
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.brand_name is not None:
+            result['brand_name'] = self.brand_name
+        if self.vin is not None:
+            result['vin'] = self.vin
+        if self.engine_no is not None:
+            result['engine_no'] = self.engine_no
+        if self.register_date is not None:
+            result['register_date'] = self.register_date
+        if self.model_code is not None:
+            result['model_code'] = self.model_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('brand_name') is not None:
+            self.brand_name = m.get('brand_name')
+        if m.get('vin') is not None:
+            self.vin = m.get('vin')
+        if m.get('engine_no') is not None:
+            self.engine_no = m.get('engine_no')
+        if m.get('register_date') is not None:
+            self.register_date = m.get('register_date')
+        if m.get('model_code') is not None:
+            self.model_code = m.get('model_code')
+        return self
+
+
 class UserMetaInfo(TeaModel):
     def __init__(
         self,
@@ -11357,6 +11413,155 @@ class UserMetaInfo(TeaModel):
             for k in m.get('data'):
                 temp_model = KeyValuePair()
                 self.data.append(temp_model.from_map(k))
+        return self
+
+
+class CarBusinessPrice(TeaModel):
+    def __init__(
+        self,
+        brand_id: str = None,
+        brand_name: str = None,
+        car_series_id: str = None,
+        car_series: str = None,
+        car_id: str = None,
+        car_name: str = None,
+        car_year: str = None,
+        city_code: str = None,
+        city_name: str = None,
+        series_guide_price: str = None,
+        official_price: int = None,
+        full_price: int = None,
+        naked_price: int = None,
+        purchase_tax: int = None,
+        vehicle_vessel_tax: int = None,
+        business_insurance: int = None,
+    ):
+        # 品牌id
+        self.brand_id = brand_id
+        # 品牌名称
+        self.brand_name = brand_name
+        # 车系ID
+        # 
+        self.car_series_id = car_series_id
+        # 车系名称
+        self.car_series = car_series
+        # 车型ID
+        self.car_id = car_id
+        # 车型名称
+        self.car_name = car_name
+        # 年款
+        self.car_year = car_year
+        # 城市code
+        self.city_code = city_code
+        # 城市名称
+        self.city_name = city_name
+        # 车系指导价（范围值） 单位到分
+        self.series_guide_price = series_guide_price
+        # 车型指导价（具体值）单位到分
+        self.official_price = official_price
+        # 车主成交价（具体值）单位到分
+        self.full_price = full_price
+        # 车主裸车价（具体值）单位到分
+        self.naked_price = naked_price
+        # 购置税（具体值）单位到分
+        self.purchase_tax = purchase_tax
+        # 车船税（具体值）单位到分
+        self.vehicle_vessel_tax = vehicle_vessel_tax
+        # 商业险（具体值）单位到分
+        self.business_insurance = business_insurance
+
+    def validate(self):
+        self.validate_required(self.brand_id, 'brand_id')
+        self.validate_required(self.brand_name, 'brand_name')
+        self.validate_required(self.car_series_id, 'car_series_id')
+        self.validate_required(self.car_series, 'car_series')
+        self.validate_required(self.car_id, 'car_id')
+        self.validate_required(self.car_name, 'car_name')
+        self.validate_required(self.car_year, 'car_year')
+        self.validate_required(self.city_code, 'city_code')
+        self.validate_required(self.city_name, 'city_name')
+        self.validate_required(self.series_guide_price, 'series_guide_price')
+        self.validate_required(self.official_price, 'official_price')
+        self.validate_required(self.full_price, 'full_price')
+        self.validate_required(self.naked_price, 'naked_price')
+        self.validate_required(self.purchase_tax, 'purchase_tax')
+        self.validate_required(self.vehicle_vessel_tax, 'vehicle_vessel_tax')
+        self.validate_required(self.business_insurance, 'business_insurance')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.brand_id is not None:
+            result['brand_id'] = self.brand_id
+        if self.brand_name is not None:
+            result['brand_name'] = self.brand_name
+        if self.car_series_id is not None:
+            result['car_series_id'] = self.car_series_id
+        if self.car_series is not None:
+            result['car_series'] = self.car_series
+        if self.car_id is not None:
+            result['car_id'] = self.car_id
+        if self.car_name is not None:
+            result['car_name'] = self.car_name
+        if self.car_year is not None:
+            result['car_year'] = self.car_year
+        if self.city_code is not None:
+            result['city_code'] = self.city_code
+        if self.city_name is not None:
+            result['city_name'] = self.city_name
+        if self.series_guide_price is not None:
+            result['series_guide_price'] = self.series_guide_price
+        if self.official_price is not None:
+            result['official_price'] = self.official_price
+        if self.full_price is not None:
+            result['full_price'] = self.full_price
+        if self.naked_price is not None:
+            result['naked_price'] = self.naked_price
+        if self.purchase_tax is not None:
+            result['purchase_tax'] = self.purchase_tax
+        if self.vehicle_vessel_tax is not None:
+            result['vehicle_vessel_tax'] = self.vehicle_vessel_tax
+        if self.business_insurance is not None:
+            result['business_insurance'] = self.business_insurance
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('brand_id') is not None:
+            self.brand_id = m.get('brand_id')
+        if m.get('brand_name') is not None:
+            self.brand_name = m.get('brand_name')
+        if m.get('car_series_id') is not None:
+            self.car_series_id = m.get('car_series_id')
+        if m.get('car_series') is not None:
+            self.car_series = m.get('car_series')
+        if m.get('car_id') is not None:
+            self.car_id = m.get('car_id')
+        if m.get('car_name') is not None:
+            self.car_name = m.get('car_name')
+        if m.get('car_year') is not None:
+            self.car_year = m.get('car_year')
+        if m.get('city_code') is not None:
+            self.city_code = m.get('city_code')
+        if m.get('city_name') is not None:
+            self.city_name = m.get('city_name')
+        if m.get('series_guide_price') is not None:
+            self.series_guide_price = m.get('series_guide_price')
+        if m.get('official_price') is not None:
+            self.official_price = m.get('official_price')
+        if m.get('full_price') is not None:
+            self.full_price = m.get('full_price')
+        if m.get('naked_price') is not None:
+            self.naked_price = m.get('naked_price')
+        if m.get('purchase_tax') is not None:
+            self.purchase_tax = m.get('purchase_tax')
+        if m.get('vehicle_vessel_tax') is not None:
+            self.vehicle_vessel_tax = m.get('vehicle_vessel_tax')
+        if m.get('business_insurance') is not None:
+            self.business_insurance = m.get('business_insurance')
         return self
 
 
@@ -64575,6 +64780,7 @@ class SubmitAuthNewcarRequest(TeaModel):
         car_series: str = None,
         finaical_plan: str = None,
         purcharse_time: str = None,
+        car_series_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -64589,6 +64795,8 @@ class SubmitAuthNewcarRequest(TeaModel):
         self.finaical_plan = finaical_plan
         # 预计购买时间
         self.purcharse_time = purcharse_time
+        # xxxx
+        self.car_series_id = car_series_id
 
     def validate(self):
         self.validate_required(self.scene_code, 'scene_code')
@@ -64617,6 +64825,8 @@ class SubmitAuthNewcarRequest(TeaModel):
             result['finaical_plan'] = self.finaical_plan
         if self.purcharse_time is not None:
             result['purcharse_time'] = self.purcharse_time
+        if self.car_series_id is not None:
+            result['car_series_id'] = self.car_series_id
         return result
 
     def from_map(self, m: dict = None):
@@ -64636,6 +64846,8 @@ class SubmitAuthNewcarRequest(TeaModel):
             self.finaical_plan = m.get('finaical_plan')
         if m.get('purcharse_time') is not None:
             self.purcharse_time = m.get('purcharse_time')
+        if m.get('car_series_id') is not None:
+            self.car_series_id = m.get('car_series_id')
         return self
 
 
@@ -64914,6 +65126,269 @@ class RegisterAuthCarownerResponse(TeaModel):
             self.push_success = m.get('push_success')
         if m.get('token') is not None:
             self.token = m.get('token')
+        return self
+
+
+class QueryAuthCaritemsRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_code: str = None,
+        source_code: str = None,
+        user_id: str = None,
+        license_no: str = None,
+        model_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 唯一场景码
+        self.scene_code = scene_code
+        # 来源码
+        self.source_code = source_code
+        # 唯一用户标识
+        self.user_id = user_id
+        # 车牌号
+        self.license_no = license_no
+        # 车型
+        self.model_code = model_code
+
+    def validate(self):
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.source_code, 'source_code')
+        self.validate_required(self.license_no, 'license_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.source_code is not None:
+            result['source_code'] = self.source_code
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.license_no is not None:
+            result['license_no'] = self.license_no
+        if self.model_code is not None:
+            result['model_code'] = self.model_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('source_code') is not None:
+            self.source_code = m.get('source_code')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('license_no') is not None:
+            self.license_no = m.get('license_no')
+        if m.get('model_code') is not None:
+            self.model_code = m.get('model_code')
+        return self
+
+
+class QueryAuthCaritemsResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        car_items_info: CarItemsInfo = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 车五项信息
+        self.car_items_info = car_items_info
+
+    def validate(self):
+        if self.car_items_info:
+            self.car_items_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.car_items_info is not None:
+            result['car_items_info'] = self.car_items_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('car_items_info') is not None:
+            temp_model = CarItemsInfo()
+            self.car_items_info = temp_model.from_map(m['car_items_info'])
+        return self
+
+
+class QueryAuthCarpriceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        car_id: str = None,
+        series_id: str = None,
+        city_code: str = None,
+        page_num: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 车型id
+        self.car_id = car_id
+        # 车系id
+        self.series_id = series_id
+        # 城市code
+        self.city_code = city_code
+        # 页码
+        self.page_num = page_num
+        # 每页大小
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.page_num, 'page_num')
+        self.validate_required(self.page_size, 'page_size')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.car_id is not None:
+            result['car_id'] = self.car_id
+        if self.series_id is not None:
+            result['series_id'] = self.series_id
+        if self.city_code is not None:
+            result['city_code'] = self.city_code
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('car_id') is not None:
+            self.car_id = m.get('car_id')
+        if m.get('series_id') is not None:
+            self.series_id = m.get('series_id')
+        if m.get('city_code') is not None:
+            self.city_code = m.get('city_code')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class QueryAuthCarpriceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        total_pages: int = None,
+        page_num: int = None,
+        data: List[CarBusinessPrice] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 总页数
+        self.total_pages = total_pages
+        # 当前页码
+        self.page_num = page_num
+        # 车辆业务价格
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.total_pages is not None:
+            result['total_pages'] = self.total_pages
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('total_pages') is not None:
+            self.total_pages = m.get('total_pages')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = CarBusinessPrice()
+                self.data.append(temp_model.from_map(k))
         return self
 
 

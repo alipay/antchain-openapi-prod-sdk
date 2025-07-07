@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.51',
+                    'sdk_version': '1.28.53',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.51',
+                    'sdk_version': '1.28.53',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -24073,6 +24073,118 @@ class Client:
         return TeaCore.from_map(
             blockchain_models.RegisterAuthCarownerResponse(),
             await self.do_request_async('1.0', 'baas.auth.carowner.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_auth_caritems(
+        self,
+        request: blockchain_models.QueryAuthCaritemsRequest,
+    ) -> blockchain_models.QueryAuthCaritemsResponse:
+        """
+        Description: 车五项查询
+        Summary: 车五项查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_auth_caritems_ex(request, headers, runtime)
+
+    async def query_auth_caritems_async(
+        self,
+        request: blockchain_models.QueryAuthCaritemsRequest,
+    ) -> blockchain_models.QueryAuthCaritemsResponse:
+        """
+        Description: 车五项查询
+        Summary: 车五项查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_auth_caritems_ex_async(request, headers, runtime)
+
+    def query_auth_caritems_ex(
+        self,
+        request: blockchain_models.QueryAuthCaritemsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthCaritemsResponse:
+        """
+        Description: 车五项查询
+        Summary: 车五项查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthCaritemsResponse(),
+            self.do_request('1.0', 'baas.auth.caritems.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_auth_caritems_ex_async(
+        self,
+        request: blockchain_models.QueryAuthCaritemsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthCaritemsResponse:
+        """
+        Description: 车五项查询
+        Summary: 车五项查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthCaritemsResponse(),
+            await self.do_request_async('1.0', 'baas.auth.caritems.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_auth_carprice(
+        self,
+        request: blockchain_models.QueryAuthCarpriceRequest,
+    ) -> blockchain_models.QueryAuthCarpriceResponse:
+        """
+        Description: 车辆价格查询
+        Summary: 车辆价格查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_auth_carprice_ex(request, headers, runtime)
+
+    async def query_auth_carprice_async(
+        self,
+        request: blockchain_models.QueryAuthCarpriceRequest,
+    ) -> blockchain_models.QueryAuthCarpriceResponse:
+        """
+        Description: 车辆价格查询
+        Summary: 车辆价格查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_auth_carprice_ex_async(request, headers, runtime)
+
+    def query_auth_carprice_ex(
+        self,
+        request: blockchain_models.QueryAuthCarpriceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthCarpriceResponse:
+        """
+        Description: 车辆价格查询
+        Summary: 车辆价格查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthCarpriceResponse(),
+            self.do_request('1.0', 'baas.auth.carprice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_auth_carprice_ex_async(
+        self,
+        request: blockchain_models.QueryAuthCarpriceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthCarpriceResponse:
+        """
+        Description: 车辆价格查询
+        Summary: 车辆价格查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthCarpriceResponse(),
+            await self.do_request_async('1.0', 'baas.auth.carprice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_did_corporate_agentcreate(
