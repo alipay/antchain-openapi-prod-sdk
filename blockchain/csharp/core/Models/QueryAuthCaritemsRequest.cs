@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BLOCKCHAIN.Models
 {
-    public class SubmitAuthNewcarRequest : TeaModel {
+    public class QueryAuthCaritemsRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,35 +18,30 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 场景码
+        // 唯一场景码
         [NameInMap("scene_code")]
         [Validation(Required=true)]
         public string SceneCode { get; set; }
 
-        // 用户信息
-        [NameInMap("user_info")]
+        // 来源码
+        [NameInMap("source_code")]
         [Validation(Required=true)]
-        public CarUserInfo UserInfo { get; set; }
+        public string SourceCode { get; set; }
 
-        // 车系
-        [NameInMap("car_series")]
+        // 唯一用户标识
+        [NameInMap("user_id")]
+        [Validation(Required=false)]
+        public string UserId { get; set; }
+
+        // 车牌号
+        [NameInMap("license_no")]
         [Validation(Required=true)]
-        public string CarSeries { get; set; }
+        public string LicenseNo { get; set; }
 
-        // 金融方案
-        [NameInMap("finaical_plan")]
+        // 车型
+        [NameInMap("model_code")]
         [Validation(Required=false)]
-        public string FinaicalPlan { get; set; }
-
-        // 预计购买时间
-        [NameInMap("purcharse_time")]
-        [Validation(Required=false)]
-        public string PurcharseTime { get; set; }
-
-        // xxxx
-        [NameInMap("car_series_id")]
-        [Validation(Required=false)]
-        public string CarSeriesId { get; set; }
+        public string ModelCode { get; set; }
 
     }
 
