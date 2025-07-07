@@ -603,6 +603,10 @@ use AntChain\BLOCKCHAIN\Models\QueryApiDwhTransactionRequest;
 use AntChain\BLOCKCHAIN\Models\QueryApiDwhTransactionResponse;
 use AntChain\BLOCKCHAIN\Models\QueryApiMiniappbrowserAuthtypeRequest;
 use AntChain\BLOCKCHAIN\Models\QueryApiMiniappbrowserAuthtypeResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAuthCaritemsRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAuthCaritemsResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAuthCarpriceRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAuthCarpriceResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthCertClaimRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthCertClaimResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthCertDetailurlRequest;
@@ -1398,7 +1402,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.28.51',
+                    'sdk_version'      => '1.28.53',
                     '_prod_code'       => 'BLOCKCHAIN',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -15461,6 +15465,72 @@ class Client
         Utils::validateModel($request);
 
         return RegisterAuthCarownerResponse::fromMap($this->doRequest('1.0', 'baas.auth.carowner.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 车五项查询
+     * Summary: 车五项查询.
+     *
+     * @param QueryAuthCaritemsRequest $request
+     *
+     * @return QueryAuthCaritemsResponse
+     */
+    public function queryAuthCaritems($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuthCaritemsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 车五项查询
+     * Summary: 车五项查询.
+     *
+     * @param QueryAuthCaritemsRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryAuthCaritemsResponse
+     */
+    public function queryAuthCaritemsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuthCaritemsResponse::fromMap($this->doRequest('1.0', 'baas.auth.caritems.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 车辆价格查询
+     * Summary: 车辆价格查询.
+     *
+     * @param QueryAuthCarpriceRequest $request
+     *
+     * @return QueryAuthCarpriceResponse
+     */
+    public function queryAuthCarprice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuthCarpriceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 车辆价格查询
+     * Summary: 车辆价格查询.
+     *
+     * @param QueryAuthCarpriceRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryAuthCarpriceResponse
+     */
+    public function queryAuthCarpriceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuthCarpriceResponse::fromMap($this->doRequest('1.0', 'baas.auth.carprice.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

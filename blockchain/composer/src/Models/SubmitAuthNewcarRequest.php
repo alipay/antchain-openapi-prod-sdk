@@ -48,6 +48,12 @@ class SubmitAuthNewcarRequest extends Model
      * @var string
      */
     public $purcharseTime;
+
+    // xxxx
+    /**
+     * @var string
+     */
+    public $carSeriesId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +62,7 @@ class SubmitAuthNewcarRequest extends Model
         'carSeries'         => 'car_series',
         'finaicalPlan'      => 'finaical_plan',
         'purcharseTime'     => 'purcharse_time',
+        'carSeriesId'       => 'car_series_id',
     ];
 
     public function validate()
@@ -89,6 +96,9 @@ class SubmitAuthNewcarRequest extends Model
         if (null !== $this->purcharseTime) {
             $res['purcharse_time'] = $this->purcharseTime;
         }
+        if (null !== $this->carSeriesId) {
+            $res['car_series_id'] = $this->carSeriesId;
+        }
 
         return $res;
     }
@@ -121,6 +131,9 @@ class SubmitAuthNewcarRequest extends Model
         }
         if (isset($map['purcharse_time'])) {
             $model->purcharseTime = $map['purcharse_time'];
+        }
+        if (isset($map['car_series_id'])) {
+            $model->carSeriesId = $map['car_series_id'];
         }
 
         return $model;

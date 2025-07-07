@@ -6,19 +6,19 @@ namespace AntChain\BLOCKCHAIN\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CarInfo extends Model
+class CarItemsInfo extends Model
 {
-    // 车牌号
+    // 品牌名称
     /**
-     * @example xxx
+     * @example XXX
      *
      * @var string
      */
-    public $licenseNo;
+    public $brandName;
 
     // 车架号
     /**
-     * @example xx
+     * @example XXX
      *
      * @var string
      */
@@ -26,30 +26,29 @@ class CarInfo extends Model
 
     // 发动机号
     /**
-     * @example xxx
+     * @example XXX
      *
      * @var string
      */
     public $engineNo;
 
-    //
     // 注册日期
     /**
-     * @example xxxx
+     * @example XXX
      *
      * @var string
      */
     public $registerDate;
 
-    // 车型
+    // 车辆型号
     /**
-     * @example xxx
+     * @example XXX
      *
      * @var string
      */
     public $modelCode;
     protected $_name = [
-        'licenseNo'    => 'license_no',
+        'brandName'    => 'brand_name',
         'vin'          => 'vin',
         'engineNo'     => 'engine_no',
         'registerDate' => 'register_date',
@@ -58,18 +57,13 @@ class CarInfo extends Model
 
     public function validate()
     {
-        Model::validateRequired('licenseNo', $this->licenseNo, true);
-        Model::validateRequired('vin', $this->vin, true);
-        Model::validateRequired('engineNo', $this->engineNo, true);
-        Model::validateRequired('registerDate', $this->registerDate, true);
-        Model::validateRequired('modelCode', $this->modelCode, true);
     }
 
     public function toMap()
     {
         $res = [];
-        if (null !== $this->licenseNo) {
-            $res['license_no'] = $this->licenseNo;
+        if (null !== $this->brandName) {
+            $res['brand_name'] = $this->brandName;
         }
         if (null !== $this->vin) {
             $res['vin'] = $this->vin;
@@ -90,13 +84,13 @@ class CarInfo extends Model
     /**
      * @param array $map
      *
-     * @return CarInfo
+     * @return CarItemsInfo
      */
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['license_no'])) {
-            $model->licenseNo = $map['license_no'];
+        if (isset($map['brand_name'])) {
+            $model->brandName = $map['brand_name'];
         }
         if (isset($map['vin'])) {
             $model->vin = $map['vin'];
