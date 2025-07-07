@@ -851,19 +851,15 @@ export class RuleDetail extends $tea.Model {
 export class Additional extends $tea.Model {
   // 骑手标识；1-骑手
   deliveryman?: string;
-  // 关键词
-  keyWord?: string;
   static names(): { [key: string]: string } {
     return {
       deliveryman: 'deliveryman',
-      keyWord: 'key_word',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       deliveryman: 'string',
-      keyWord: 'string',
     };
   }
 
@@ -3164,12 +3160,15 @@ export class SupplementFile extends $tea.Model {
   // 材料url
   fileUrl: string;
   // 材料名称/描述
-  fileDesc: string;
+  fileDesc?: string;
+  // 材料后缀，如png/jpg/jpeg
+  fileSuffix?: string;
   static names(): { [key: string]: string } {
     return {
       fileType: 'file_type',
       fileUrl: 'file_url',
       fileDesc: 'file_desc',
+      fileSuffix: 'file_suffix',
     };
   }
 
@@ -3178,6 +3177,7 @@ export class SupplementFile extends $tea.Model {
       fileType: 'string',
       fileUrl: 'string',
       fileDesc: 'string',
+      fileSuffix: 'string',
     };
   }
 
@@ -4245,41 +4245,119 @@ export class DefinInnerChannelNotifyResult extends $tea.Model {
 
 // 门店信息
 export class StoreInfo extends $tea.Model {
+  // 品牌
+  storeBrand: string;
   // 门店ID
   storeId: string;
-  // 蚂蚁数科入驻账号
-  loginTenant: string;
-  // 收款账号
-  payeeBankCard: string;
-  // 收款人
-  payeeName: string;
   // 门店名称
   storeName: string;
-  // 销售ID
-  salesman?: string;
-  // 销售设备编号
-  device?: string;
+  // 统一社会信用代码
+  usci: string;
+  // 门店-省，浙江省
+  province: string;
+  // 门店-市，杭州市
+  city: string;
+  // 门店-区，滨江区
+  district: string;
+  // 门店-详细地址，
+  // 望江路万达广场一层001号
+  address: string;
+  // 营业执照-开始时间，yyyy-MM-dd
+  storeStartDate: string;
+  // 营业执照-结束时间，yyyy-MM-dd，长期上送：9999-12-31
+  storeEndDate: string;
+  // 门店类型，
+  // 个体、企业、其他
+  storeType: string;
+  // 法人-姓名
+  legalPersonName: string;
+  // 法人-身份证号
+  legalPersonIdCard: string;
+  // 法人-手机号
+  legalPersonMobile: string;
+  // 法人-身份证有效期，，身份证反面格式：如yyyy.MM.dd-长期
+  effectiveDate: string;
+  // 对公-开户行名称
+  bankName?: string;
+  // 对公-支行名称
+  branchName?: string;
+  // 对公-联行号
+  cnapsCode?: string;
+  // 对公-银行账户名称
+  accountName?: string;
+  // 对公-银行账户号
+  accountNumber?: string;
+  // 对公-开户行所在省，浙江
+  bankProvince?: string;
+  // 对公-开户行所在市，杭州
+  bankCity?: string;
+  // 对私-银行卡号
+  payeeBankCard?: string;
+  // 对私-银行名称
+  payeeBankName?: string;
+  // 蚂蚁数科入驻账号
+  loginTenant?: string;
+  // 入驻时间
+  loginDate?: string;
   static names(): { [key: string]: string } {
     return {
+      storeBrand: 'store_brand',
       storeId: 'store_id',
-      loginTenant: 'login_tenant',
-      payeeBankCard: 'payee_bank_card',
-      payeeName: 'payee_name',
       storeName: 'store_name',
-      salesman: 'salesman',
-      device: 'device',
+      usci: 'usci',
+      province: 'province',
+      city: 'city',
+      district: 'district',
+      address: 'address',
+      storeStartDate: 'store_start_date',
+      storeEndDate: 'store_end_date',
+      storeType: 'store_type',
+      legalPersonName: 'legal_person_name',
+      legalPersonIdCard: 'legal_person_id_card',
+      legalPersonMobile: 'legal_person_mobile',
+      effectiveDate: 'effective_date',
+      bankName: 'bank_name',
+      branchName: 'branch_name',
+      cnapsCode: 'cnaps_code',
+      accountName: 'account_name',
+      accountNumber: 'account_number',
+      bankProvince: 'bank_province',
+      bankCity: 'bank_city',
+      payeeBankCard: 'payee_bank_card',
+      payeeBankName: 'payee_bank_name',
+      loginTenant: 'login_tenant',
+      loginDate: 'login_date',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
+      storeBrand: 'string',
       storeId: 'string',
-      loginTenant: 'string',
-      payeeBankCard: 'string',
-      payeeName: 'string',
       storeName: 'string',
-      salesman: 'string',
-      device: 'string',
+      usci: 'string',
+      province: 'string',
+      city: 'string',
+      district: 'string',
+      address: 'string',
+      storeStartDate: 'string',
+      storeEndDate: 'string',
+      storeType: 'string',
+      legalPersonName: 'string',
+      legalPersonIdCard: 'string',
+      legalPersonMobile: 'string',
+      effectiveDate: 'string',
+      bankName: 'string',
+      branchName: 'string',
+      cnapsCode: 'string',
+      accountName: 'string',
+      accountNumber: 'string',
+      bankProvince: 'string',
+      bankCity: 'string',
+      payeeBankCard: 'string',
+      payeeBankName: 'string',
+      loginTenant: 'string',
+      loginDate: 'string',
     };
   }
 
@@ -4799,55 +4877,67 @@ export class CustomRelationStatus extends $tea.Model {
 // 订单车辆信息
 export class VehicleInfo extends $tea.Model {
   // 流量方购物订单号
-  bizOrderNo?: string;
+  bizOrderNo: string;
   // 订单[分期]金额，单位：元
-  tradeAmount?: string;
+  tradeAmount: string;
+  // 订单分期金额，单位：元
+  installmentAmount?: string;
   // 首付金额，单位：元
   downPayment?: string;
-  // 新车指导价，单位：元
-  guidePrice?: string;
-  // 售价，单位：元
-  sellingPrice?: string;
-  // 车驾号/SN码，车辆唯一标识
+  // pad设备提供
+  wifiMac?: string;
+  // SN码/中控号(授信后放款前)
   sn?: string;
+  // 车驾号(授信后放款前)
+  frameNo?: string;
   // SKU ID
-  sku?: string;
+  sku: string;
+  // 颜色
+  color?: string;
+  // 车型关键词
+  modelKeyword?: string;
+  // 续航里程
+  range?: string;
+  // 新车指导价，单位：元
+  guidePrice: string;
+  // 售价，单位：元
+  sellingPrice: string;
   // 品牌
   brand?: string;
   // 车型
   model?: string;
   // 年款，yyyy
   modelYear?: string;
-  // 颜色
-  color?: string;
-  // 续航里程
-  range?: string;
-  // 配件信息
-  parts?: string;
   // 公里数，Odometer
   odo?: string;
   // 首次上牌时间
   firstRegDate?: string;
   // 过户次数，Ownership Transfer Records
   otr?: string;
+  // 配件信息
+  parts?: string;
   static names(): { [key: string]: string } {
     return {
       bizOrderNo: 'biz_order_no',
       tradeAmount: 'trade_amount',
+      installmentAmount: 'installment_amount',
       downPayment: 'down_payment',
+      wifiMac: 'wifi_mac',
+      sn: 'sn',
+      frameNo: 'frame_no',
+      sku: 'sku',
+      color: 'color',
+      modelKeyword: 'model_keyword',
+      range: 'range',
       guidePrice: 'guide_price',
       sellingPrice: 'selling_price',
-      sn: 'sn',
-      sku: 'sku',
       brand: 'brand',
       model: 'model',
       modelYear: 'model_year',
-      color: 'color',
-      range: 'range',
-      parts: 'parts',
       odo: 'odo',
       firstRegDate: 'first_reg_date',
       otr: 'otr',
+      parts: 'parts',
     };
   }
 
@@ -4855,20 +4945,24 @@ export class VehicleInfo extends $tea.Model {
     return {
       bizOrderNo: 'string',
       tradeAmount: 'string',
+      installmentAmount: 'string',
       downPayment: 'string',
+      wifiMac: 'string',
+      sn: 'string',
+      frameNo: 'string',
+      sku: 'string',
+      color: 'string',
+      modelKeyword: 'string',
+      range: 'string',
       guidePrice: 'string',
       sellingPrice: 'string',
-      sn: 'string',
-      sku: 'string',
       brand: 'string',
       model: 'string',
       modelYear: 'string',
-      color: 'string',
-      range: 'string',
-      parts: 'string',
       odo: 'string',
       firstRegDate: 'string',
       otr: 'string',
+      parts: 'string',
     };
   }
 
@@ -5601,6 +5695,8 @@ export class NotifyBenefithubRiskLoginRequest extends $tea.Model {
   userUniqueId: string;
   // 渠道、平台方推送的手机号
   mobile: string;
+  // 产品code必填，后续多产品时可以区分
+  productCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5608,6 +5704,7 @@ export class NotifyBenefithubRiskLoginRequest extends $tea.Model {
       platformCode: 'platform_code',
       userUniqueId: 'user_unique_id',
       mobile: 'mobile',
+      productCode: 'product_code',
     };
   }
 
@@ -5618,6 +5715,7 @@ export class NotifyBenefithubRiskLoginRequest extends $tea.Model {
       platformCode: 'string',
       userUniqueId: 'string',
       mobile: 'string',
+      productCode: 'string',
     };
   }
 
@@ -5633,11 +5731,14 @@ export class NotifyBenefithubRiskLoginResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // h5跳转链接
+  h5Url?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      h5Url: 'h5_url',
     };
   }
 
@@ -5646,6 +5747,7 @@ export class NotifyBenefithubRiskLoginResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      h5Url: 'string',
     };
   }
 
@@ -5693,6 +5795,75 @@ export class BatchqueryCreditshieldProductInfoResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 查询结果是否成功
+  success?: boolean;
+  // 查询结果
+  queryResults?: QueryResult[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      queryResults: 'query_results',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      queryResults: { 'type': 'array', 'itemType': QueryResult },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryProductAmcCallbackRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 查询编码 
+  // 1.支付宝交易流水查询
+  // 2.审批回调
+  queryCode: string;
+  // 查询信息集合
+  queryInfos?: QueryInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      queryCode: 'query_code',
+      queryInfos: 'query_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      queryCode: 'string',
+      queryInfos: { 'type': 'array', 'itemType': QueryInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryProductAmcCallbackResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 接口请求是否成功
   success?: boolean;
   // 查询结果
   queryResults?: QueryResult[];
@@ -11675,7 +11846,7 @@ export class QueryDubbridgeInstallmentCreditamtRequest extends $tea.Model {
   // 项目编号
   projectCode: string;
   // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
-  tradeAmount: string;
+  tradeAmount?: string;
   // 身份证号
   cardNo?: string;
   // 客户姓名
@@ -11902,7 +12073,7 @@ export class PushDubbridgeInstallmentSupplementRequest extends $tea.Model {
   // 资产方购物订单号，如二轮车/摩托车订单号
   bizOrderNo: string;
   // 材料场景：2-支用前、3-支用后
-  fileScene: string;
+  fileScene?: string;
   // 材料列表
   fileList?: SupplementFile[];
   // 门店信息
@@ -23342,7 +23513,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.24.2",
+          sdk_version: "1.24.3",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -23445,6 +23616,25 @@ export default class Client {
   async batchqueryCreditshieldProductInfoEx(request: BatchqueryCreditshieldProductInfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryCreditshieldProductInfoResponse> {
     Util.validateModel(request);
     return $tea.cast<BatchqueryCreditshieldProductInfoResponse>(await this.doRequest("1.0", "riskplus.creditshield.product.info.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryCreditshieldProductInfoResponse({}));
+  }
+
+  /**
+   * Description: 信护盾amc机构回调通用接口
+   * Summary: 信护盾amc机构回调通用接口
+   */
+  async queryProductAmcCallback(request: QueryProductAmcCallbackRequest): Promise<QueryProductAmcCallbackResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryProductAmcCallbackEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 信护盾amc机构回调通用接口
+   * Summary: 信护盾amc机构回调通用接口
+   */
+  async queryProductAmcCallbackEx(request: QueryProductAmcCallbackRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryProductAmcCallbackResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryProductAmcCallbackResponse>(await this.doRequest("1.0", "riskplus.product.amc.callback.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryProductAmcCallbackResponse({}));
   }
 
   /**
