@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.24.2',
+    sdk_version = '1.24.3',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -475,8 +475,6 @@ model RuleDetail {
 model Additional {
   // 骑手标识；1-骑手
   deliveryman?: string(name='deliveryman', example='1'),
-  // 关键词
-  keyWord?: string(name='key_word', example='xxxx'),
 }
 
 // 天枢系统专用RepayResult结构体
@@ -1415,7 +1413,9 @@ model SupplementFile {
   // 材料url
   fileUrl: string(name='file_url', example='xxx'),
   // 材料名称/描述
-  fileDesc: string(name='file_desc', example='xxx'),
+  fileDesc?: string(name='file_desc', example='xxx'),
+  // 材料后缀，如png/jpg/jpeg
+  fileSuffix?: string(name='file_suffix', example='png'),
 }
 
 // 芝麻四要素认证接口
@@ -1848,20 +1848,60 @@ model DefinInnerChannelNotifyResult {
 
 // 门店信息
 model StoreInfo {
+  // 品牌
+  storeBrand: string(name='store_brand', example='xxx'),
   // 门店ID
   storeId: string(name='store_id', example='xxxx'),
-  // 蚂蚁数科入驻账号
-  loginTenant: string(name='login_tenant', example='xxxx'),
-  // 收款账号
-  payeeBankCard: string(name='payee_bank_card', example='xxxx'),
-  // 收款人
-  payeeName: string(name='payee_name', example='xxx'),
   // 门店名称
   storeName: string(name='store_name', example='xxxx'),
-  // 销售ID
-  salesman?: string(name='salesman', example='xxxx'),
-  // 销售设备编号
-  device?: string(name='device', example='xxxx'),
+  // 统一社会信用代码
+  usci: string(name='usci', example='xxx'),
+  // 门店-省，浙江省
+  province: string(name='province', example='浙江省'),
+  // 门店-市，杭州市
+  city: string(name='city', example='杭州市'),
+  // 门店-区，滨江区
+  district: string(name='district', example='滨江区'),
+  // 门店-详细地址，
+  // 望江路万达广场一层001号
+  address: string(name='address', example='望江路万达广场一层001号'),
+  // 营业执照-开始时间，yyyy-MM-dd
+  storeStartDate: string(name='store_start_date', example='yyyy-MM-dd'),
+  // 营业执照-结束时间，yyyy-MM-dd，长期上送：9999-12-31
+  storeEndDate: string(name='store_end_date', example='yyyy-MM-dd'),
+  // 门店类型，
+  // 个体、企业、其他
+  storeType: string(name='store_type', example='个体'),
+  // 法人-姓名
+  legalPersonName: string(name='legal_person_name', example='xxx'),
+  // 法人-身份证号
+  legalPersonIdCard: string(name='legal_person_id_card', example='xxx'),
+  // 法人-手机号
+  legalPersonMobile: string(name='legal_person_mobile', example='xxx'),
+  // 法人-身份证有效期，，身份证反面格式：如yyyy.MM.dd-长期
+  effectiveDate: string(name='effective_date', example='yyyy.MM.dd-长期'),
+  // 对公-开户行名称
+  bankName?: string(name='bank_name', example='xxx'),
+  // 对公-支行名称
+  branchName?: string(name='branch_name', example='xxx'),
+  // 对公-联行号
+  cnapsCode?: string(name='cnaps_code', example='xxx'),
+  // 对公-银行账户名称
+  accountName?: string(name='account_name', example='xxx'),
+  // 对公-银行账户号
+  accountNumber?: string(name='account_number', example='xxx'),
+  // 对公-开户行所在省，浙江
+  bankProvince?: string(name='bank_province', example='浙江'),
+  // 对公-开户行所在市，杭州
+  bankCity?: string(name='bank_city', example='杭州'),
+  // 对私-银行卡号
+  payeeBankCard?: string(name='payee_bank_card', example='xxxx'),
+  // 对私-银行名称
+  payeeBankName?: string(name='payee_bank_name', example='xxx'),
+  // 蚂蚁数科入驻账号
+  loginTenant?: string(name='login_tenant', example='xxxx'),
+  // 入驻时间
+  loginDate?: string(name='login_date', example='yyyy-MM-dd'),
 }
 
 // 批量决策单主体查询结果
@@ -2082,37 +2122,45 @@ model CustomRelationStatus {
 // 订单车辆信息
 model VehicleInfo {
   // 流量方购物订单号
-  bizOrderNo?: string(name='biz_order_no', example='xxxx'),
+  bizOrderNo: string(name='biz_order_no', example='xxxx'),
   // 订单[分期]金额，单位：元
-  tradeAmount?: string(name='trade_amount', example='199.88'),
+  tradeAmount: string(name='trade_amount', example='199.88'),
+  // 订单分期金额，单位：元
+  installmentAmount?: string(name='installment_amount', example='188.88'),
   // 首付金额，单位：元
   downPayment?: string(name='down_payment', example='199.00'),
-  // 新车指导价，单位：元
-  guidePrice?: string(name='guide_price', example='199.88'),
-  // 售价，单位：元
-  sellingPrice?: string(name='selling_price', example='1999.98'),
-  // 车驾号/SN码，车辆唯一标识
+  // pad设备提供
+  wifiMac?: string(name='wifi_mac', example='xxx'),
+  // SN码/中控号(授信后放款前)
   sn?: string(name='sn', example='xxx'),
+  // 车驾号(授信后放款前)
+  frameNo?: string(name='frame_no', example='xxx'),
   // SKU ID
-  sku?: string(name='sku', example='xxxx'),
+  sku: string(name='sku', example='xxxx'),
+  // 颜色
+  color?: string(name='color', example='xxxx'),
+  // 车型关键词
+  modelKeyword?: string(name='model_keyword', example='xxx'),
+  // 续航里程
+  range?: string(name='range', example='1024'),
+  // 新车指导价，单位：元
+  guidePrice: string(name='guide_price', example='199.88'),
+  // 售价，单位：元
+  sellingPrice: string(name='selling_price', example='1999.98'),
   // 品牌
   brand?: string(name='brand', example='xxxx'),
   // 车型
   model?: string(name='model', example='xxxx'),
   // 年款，yyyy
   modelYear?: string(name='model_year', example='yyyy'),
-  // 颜色
-  color?: string(name='color', example='xxxx'),
-  // 续航里程
-  range?: string(name='range', example='1024'),
-  // 配件信息
-  parts?: string(name='parts', example='xxxx'),
   // 公里数，Odometer
   odo?: string(name='odo', example='xxxx'),
   // 首次上牌时间
   firstRegDate?: string(name='first_reg_date', example='xxxx'),
   // 过户次数，Ownership Transfer Records
   otr?: string(name='otr', example='xxxx'),
+  // 配件信息
+  parts?: string(name='parts', example='xxxx'),
 }
 
 // 企管盾票税决策服务
@@ -2419,6 +2467,8 @@ model NotifyBenefithubRiskLoginRequest = {
   userUniqueId: string(name='user_unique_id'),
   // 渠道、平台方推送的手机号
   mobile: string(name='mobile'),
+  // 产品code必填，后续多产品时可以区分
+  productCode?: string(name='product_code'),
 }
 
 model NotifyBenefithubRiskLoginResponse = {
@@ -2428,6 +2478,8 @@ model NotifyBenefithubRiskLoginResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // h5跳转链接
+  h5Url?: string(name='h5_url'),
 }
 
 /**
@@ -2489,6 +2541,50 @@ async function batchqueryCreditshieldProductInfo(request: BatchqueryCreditshield
 async function batchqueryCreditshieldProductInfoEx(request: BatchqueryCreditshieldProductInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryCreditshieldProductInfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.creditshield.product.info.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryProductAmcCallbackRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询编码 
+  // 1.支付宝交易流水查询
+  // 2.审批回调
+  queryCode: string(name='query_code'),
+  // 查询信息集合
+  queryInfos?: [ QueryInfo ](name='query_infos'),
+}
+
+model QueryProductAmcCallbackResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口请求是否成功
+  success?: boolean(name='success'),
+  // 查询结果
+  queryResults?: [ QueryResult ](name='query_results'),
+}
+
+/**
+ * Description: 信护盾amc机构回调通用接口
+ * Summary: 信护盾amc机构回调通用接口
+ */
+async function queryProductAmcCallback(request: QueryProductAmcCallbackRequest): QueryProductAmcCallbackResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryProductAmcCallbackEx(request, headers, runtime);
+}
+
+/**
+ * Description: 信护盾amc机构回调通用接口
+ * Summary: 信护盾amc机构回调通用接口
+ */
+async function queryProductAmcCallbackEx(request: QueryProductAmcCallbackRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryProductAmcCallbackResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.product.amc.callback.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QuerySecurityPolicyRequest = {
@@ -6123,7 +6219,7 @@ model QueryDubbridgeInstallmentCreditamtRequest = {
   // 项目编号
   projectCode: string(name='project_code'),
   // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
-  tradeAmount: string(name='trade_amount'),
+  tradeAmount?: string(name='trade_amount'),
   // 身份证号
   cardNo?: string(name='card_no'),
   // 客户姓名
@@ -6258,7 +6354,7 @@ model PushDubbridgeInstallmentSupplementRequest = {
   // 资产方购物订单号，如二轮车/摩托车订单号
   bizOrderNo: string(name='biz_order_no'),
   // 材料场景：2-支用前、3-支用后
-  fileScene: string(name='file_scene'),
+  fileScene?: string(name='file_scene'),
   // 材料列表
   fileList?: [ SupplementFile ](name='file_list'),
   // 门店信息
