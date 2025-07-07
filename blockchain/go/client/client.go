@@ -8216,7 +8216,7 @@ func (s *ContractQueryDetailReq) SetServiceId(v string) *ContractQueryDetailReq 
 
 // 车辆基本信息
 type CarInfo struct {
-	// 车辆信息
+	// 车牌号
 	LicenseNo *string `json:"license_no,omitempty" xml:"license_no,omitempty" require:"true"`
 	// 车架号
 	Vin *string `json:"vin,omitempty" xml:"vin,omitempty" require:"true"`
@@ -9053,6 +9053,53 @@ func (s *OCUserData) SetUserName(v string) *OCUserData {
 	return s
 }
 
+// 车五项信息
+type CarItemsInfo struct {
+	// 品牌名称
+	BrandName *string `json:"brand_name,omitempty" xml:"brand_name,omitempty"`
+	// 车架号
+	Vin *string `json:"vin,omitempty" xml:"vin,omitempty"`
+	// 发动机号
+	EngineNo *string `json:"engine_no,omitempty" xml:"engine_no,omitempty"`
+	// 注册日期
+	RegisterDate *string `json:"register_date,omitempty" xml:"register_date,omitempty"`
+	// 车辆型号
+	ModelCode *string `json:"model_code,omitempty" xml:"model_code,omitempty"`
+}
+
+func (s CarItemsInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarItemsInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CarItemsInfo) SetBrandName(v string) *CarItemsInfo {
+	s.BrandName = &v
+	return s
+}
+
+func (s *CarItemsInfo) SetVin(v string) *CarItemsInfo {
+	s.Vin = &v
+	return s
+}
+
+func (s *CarItemsInfo) SetEngineNo(v string) *CarItemsInfo {
+	s.EngineNo = &v
+	return s
+}
+
+func (s *CarItemsInfo) SetRegisterDate(v string) *CarItemsInfo {
+	s.RegisterDate = &v
+	return s
+}
+
+func (s *CarItemsInfo) SetModelCode(v string) *CarItemsInfo {
+	s.ModelCode = &v
+	return s
+}
+
 // 用户身份信息
 type UserMetaInfo struct {
 	// 用户身份信息类型
@@ -9076,6 +9123,131 @@ func (s *UserMetaInfo) SetType(v string) *UserMetaInfo {
 
 func (s *UserMetaInfo) SetData(v []*KeyValuePair) *UserMetaInfo {
 	s.Data = v
+	return s
+}
+
+// 车辆业务价格
+type CarBusinessPrice struct {
+	// 品牌id
+	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty" require:"true"`
+	// 品牌名称
+	BrandName *string `json:"brand_name,omitempty" xml:"brand_name,omitempty" require:"true"`
+	// 车系ID
+	//
+	CarSeriesId *string `json:"car_series_id,omitempty" xml:"car_series_id,omitempty" require:"true"`
+	// 车系名称
+	CarSeries *string `json:"car_series,omitempty" xml:"car_series,omitempty" require:"true"`
+	// 车型ID
+	CarId *string `json:"car_id,omitempty" xml:"car_id,omitempty" require:"true"`
+	// 车型名称
+	CarName *string `json:"car_name,omitempty" xml:"car_name,omitempty" require:"true"`
+	// 年款
+	CarYear *string `json:"car_year,omitempty" xml:"car_year,omitempty" require:"true"`
+	// 城市code
+	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty" require:"true"`
+	// 城市名称
+	CityName *string `json:"city_name,omitempty" xml:"city_name,omitempty" require:"true"`
+	//   车系指导价（范围值） 单位到分
+	SeriesGuidePrice *string `json:"series_guide_price,omitempty" xml:"series_guide_price,omitempty" require:"true"`
+	// 车型指导价（具体值）单位到分
+	OfficialPrice *int64 `json:"official_price,omitempty" xml:"official_price,omitempty" require:"true"`
+	// 车主成交价（具体值）单位到分
+	FullPrice *int64 `json:"full_price,omitempty" xml:"full_price,omitempty" require:"true"`
+	// 车主裸车价（具体值）单位到分
+	NakedPrice *int64 `json:"naked_price,omitempty" xml:"naked_price,omitempty" require:"true"`
+	// 购置税（具体值）单位到分
+	PurchaseTax *int64 `json:"purchase_tax,omitempty" xml:"purchase_tax,omitempty" require:"true"`
+	// 车船税（具体值）单位到分
+	VehicleVesselTax *int64 `json:"vehicle_vessel_tax,omitempty" xml:"vehicle_vessel_tax,omitempty" require:"true"`
+	// 商业险（具体值）单位到分
+	BusinessInsurance *int64 `json:"business_insurance,omitempty" xml:"business_insurance,omitempty" require:"true"`
+}
+
+func (s CarBusinessPrice) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarBusinessPrice) GoString() string {
+	return s.String()
+}
+
+func (s *CarBusinessPrice) SetBrandId(v string) *CarBusinessPrice {
+	s.BrandId = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetBrandName(v string) *CarBusinessPrice {
+	s.BrandName = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetCarSeriesId(v string) *CarBusinessPrice {
+	s.CarSeriesId = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetCarSeries(v string) *CarBusinessPrice {
+	s.CarSeries = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetCarId(v string) *CarBusinessPrice {
+	s.CarId = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetCarName(v string) *CarBusinessPrice {
+	s.CarName = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetCarYear(v string) *CarBusinessPrice {
+	s.CarYear = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetCityCode(v string) *CarBusinessPrice {
+	s.CityCode = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetCityName(v string) *CarBusinessPrice {
+	s.CityName = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetSeriesGuidePrice(v string) *CarBusinessPrice {
+	s.SeriesGuidePrice = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetOfficialPrice(v int64) *CarBusinessPrice {
+	s.OfficialPrice = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetFullPrice(v int64) *CarBusinessPrice {
+	s.FullPrice = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetNakedPrice(v int64) *CarBusinessPrice {
+	s.NakedPrice = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetPurchaseTax(v int64) *CarBusinessPrice {
+	s.PurchaseTax = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetVehicleVesselTax(v int64) *CarBusinessPrice {
+	s.VehicleVesselTax = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetBusinessInsurance(v int64) *CarBusinessPrice {
+	s.BusinessInsurance = &v
 	return s
 }
 
@@ -51578,6 +51750,8 @@ type SubmitAuthNewcarRequest struct {
 	FinaicalPlan *string `json:"finaical_plan,omitempty" xml:"finaical_plan,omitempty"`
 	// 预计购买时间
 	PurcharseTime *string `json:"purcharse_time,omitempty" xml:"purcharse_time,omitempty"`
+	// xxxx
+	CarSeriesId *string `json:"car_series_id,omitempty" xml:"car_series_id,omitempty"`
 }
 
 func (s SubmitAuthNewcarRequest) String() string {
@@ -51620,6 +51794,11 @@ func (s *SubmitAuthNewcarRequest) SetFinaicalPlan(v string) *SubmitAuthNewcarReq
 
 func (s *SubmitAuthNewcarRequest) SetPurcharseTime(v string) *SubmitAuthNewcarRequest {
 	s.PurcharseTime = &v
+	return s
+}
+
+func (s *SubmitAuthNewcarRequest) SetCarSeriesId(v string) *SubmitAuthNewcarRequest {
+	s.CarSeriesId = &v
 	return s
 }
 
@@ -51835,6 +52014,216 @@ func (s *RegisterAuthCarownerResponse) SetPushSuccess(v bool) *RegisterAuthCarow
 
 func (s *RegisterAuthCarownerResponse) SetToken(v string) *RegisterAuthCarownerResponse {
 	s.Token = &v
+	return s
+}
+
+type QueryAuthCaritemsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 唯一场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 来源码
+	SourceCode *string `json:"source_code,omitempty" xml:"source_code,omitempty" require:"true"`
+	// 唯一用户标识
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 车牌号
+	LicenseNo *string `json:"license_no,omitempty" xml:"license_no,omitempty" require:"true"`
+	// 车型
+	ModelCode *string `json:"model_code,omitempty" xml:"model_code,omitempty"`
+}
+
+func (s QueryAuthCaritemsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthCaritemsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthCaritemsRequest) SetAuthToken(v string) *QueryAuthCaritemsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAuthCaritemsRequest) SetProductInstanceId(v string) *QueryAuthCaritemsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAuthCaritemsRequest) SetSceneCode(v string) *QueryAuthCaritemsRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *QueryAuthCaritemsRequest) SetSourceCode(v string) *QueryAuthCaritemsRequest {
+	s.SourceCode = &v
+	return s
+}
+
+func (s *QueryAuthCaritemsRequest) SetUserId(v string) *QueryAuthCaritemsRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryAuthCaritemsRequest) SetLicenseNo(v string) *QueryAuthCaritemsRequest {
+	s.LicenseNo = &v
+	return s
+}
+
+func (s *QueryAuthCaritemsRequest) SetModelCode(v string) *QueryAuthCaritemsRequest {
+	s.ModelCode = &v
+	return s
+}
+
+type QueryAuthCaritemsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 车五项信息
+	CarItemsInfo *CarItemsInfo `json:"car_items_info,omitempty" xml:"car_items_info,omitempty"`
+}
+
+func (s QueryAuthCaritemsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthCaritemsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthCaritemsResponse) SetReqMsgId(v string) *QueryAuthCaritemsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAuthCaritemsResponse) SetResultCode(v string) *QueryAuthCaritemsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAuthCaritemsResponse) SetResultMsg(v string) *QueryAuthCaritemsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAuthCaritemsResponse) SetCarItemsInfo(v *CarItemsInfo) *QueryAuthCaritemsResponse {
+	s.CarItemsInfo = v
+	return s
+}
+
+type QueryAuthCarpriceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 车型id
+	CarId *string `json:"car_id,omitempty" xml:"car_id,omitempty"`
+	// 车系id
+	SeriesId *string `json:"series_id,omitempty" xml:"series_id,omitempty"`
+	// 城市code
+	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
+	// 每页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s QueryAuthCarpriceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthCarpriceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthCarpriceRequest) SetAuthToken(v string) *QueryAuthCarpriceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAuthCarpriceRequest) SetProductInstanceId(v string) *QueryAuthCarpriceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAuthCarpriceRequest) SetCarId(v string) *QueryAuthCarpriceRequest {
+	s.CarId = &v
+	return s
+}
+
+func (s *QueryAuthCarpriceRequest) SetSeriesId(v string) *QueryAuthCarpriceRequest {
+	s.SeriesId = &v
+	return s
+}
+
+func (s *QueryAuthCarpriceRequest) SetCityCode(v string) *QueryAuthCarpriceRequest {
+	s.CityCode = &v
+	return s
+}
+
+func (s *QueryAuthCarpriceRequest) SetPageNum(v int64) *QueryAuthCarpriceRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryAuthCarpriceRequest) SetPageSize(v int64) *QueryAuthCarpriceRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryAuthCarpriceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总页数
+	TotalPages *int64 `json:"total_pages,omitempty" xml:"total_pages,omitempty"`
+	// 当前页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 车辆业务价格
+	Data []*CarBusinessPrice `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryAuthCarpriceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthCarpriceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthCarpriceResponse) SetReqMsgId(v string) *QueryAuthCarpriceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAuthCarpriceResponse) SetResultCode(v string) *QueryAuthCarpriceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAuthCarpriceResponse) SetResultMsg(v string) *QueryAuthCarpriceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAuthCarpriceResponse) SetTotalPages(v int64) *QueryAuthCarpriceResponse {
+	s.TotalPages = &v
+	return s
+}
+
+func (s *QueryAuthCarpriceResponse) SetPageNum(v int64) *QueryAuthCarpriceResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryAuthCarpriceResponse) SetData(v []*CarBusinessPrice) *QueryAuthCarpriceResponse {
+	s.Data = v
 	return s
 }
 
@@ -71136,7 +71525,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.51"),
+				"sdk_version":      tea.String("1.28.53"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -85649,6 +86038,74 @@ func (client *Client) RegisterAuthCarownerEx(request *RegisterAuthCarownerReques
 	}
 	_result = &RegisterAuthCarownerResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.carowner.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 车五项查询
+ * Summary: 车五项查询
+ */
+func (client *Client) QueryAuthCaritems(request *QueryAuthCaritemsRequest) (_result *QueryAuthCaritemsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAuthCaritemsResponse{}
+	_body, _err := client.QueryAuthCaritemsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 车五项查询
+ * Summary: 车五项查询
+ */
+func (client *Client) QueryAuthCaritemsEx(request *QueryAuthCaritemsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAuthCaritemsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAuthCaritemsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.caritems.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 车辆价格查询
+ * Summary: 车辆价格查询
+ */
+func (client *Client) QueryAuthCarprice(request *QueryAuthCarpriceRequest) (_result *QueryAuthCarpriceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAuthCarpriceResponse{}
+	_body, _err := client.QueryAuthCarpriceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 车辆价格查询
+ * Summary: 车辆价格查询
+ */
+func (client *Client) QueryAuthCarpriceEx(request *QueryAuthCarpriceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAuthCarpriceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAuthCarpriceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.carprice.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
