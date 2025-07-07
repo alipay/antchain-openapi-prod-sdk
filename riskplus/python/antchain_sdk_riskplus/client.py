@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.24.2',
+                    'sdk_version': '1.24.3',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.24.2',
+                    'sdk_version': '1.24.3',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -441,6 +441,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.BatchqueryCreditshieldProductInfoResponse(),
             await self.do_request_async('1.0', 'riskplus.creditshield.product.info.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_product_amc_callback(
+        self,
+        request: riskplus_models.QueryProductAmcCallbackRequest,
+    ) -> riskplus_models.QueryProductAmcCallbackResponse:
+        """
+        Description: 信护盾amc机构回调通用接口
+        Summary: 信护盾amc机构回调通用接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_product_amc_callback_ex(request, headers, runtime)
+
+    async def query_product_amc_callback_async(
+        self,
+        request: riskplus_models.QueryProductAmcCallbackRequest,
+    ) -> riskplus_models.QueryProductAmcCallbackResponse:
+        """
+        Description: 信护盾amc机构回调通用接口
+        Summary: 信护盾amc机构回调通用接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_product_amc_callback_ex_async(request, headers, runtime)
+
+    def query_product_amc_callback_ex(
+        self,
+        request: riskplus_models.QueryProductAmcCallbackRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryProductAmcCallbackResponse:
+        """
+        Description: 信护盾amc机构回调通用接口
+        Summary: 信护盾amc机构回调通用接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryProductAmcCallbackResponse(),
+            self.do_request('1.0', 'riskplus.product.amc.callback.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_product_amc_callback_ex_async(
+        self,
+        request: riskplus_models.QueryProductAmcCallbackRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryProductAmcCallbackResponse:
+        """
+        Description: 信护盾amc机构回调通用接口
+        Summary: 信护盾amc机构回调通用接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryProductAmcCallbackResponse(),
+            await self.do_request_async('1.0', 'riskplus.product.amc.callback.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_security_policy(

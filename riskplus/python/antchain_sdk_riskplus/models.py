@@ -1335,12 +1335,9 @@ class Additional(TeaModel):
     def __init__(
         self,
         deliveryman: str = None,
-        key_word: str = None,
     ):
         # 骑手标识；1-骑手
         self.deliveryman = deliveryman
-        # 关键词
-        self.key_word = key_word
 
     def validate(self):
         pass
@@ -1353,16 +1350,12 @@ class Additional(TeaModel):
         result = dict()
         if self.deliveryman is not None:
             result['deliveryman'] = self.deliveryman
-        if self.key_word is not None:
-            result['key_word'] = self.key_word
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('deliveryman') is not None:
             self.deliveryman = m.get('deliveryman')
-        if m.get('key_word') is not None:
-            self.key_word = m.get('key_word')
         return self
 
 
@@ -5210,6 +5203,7 @@ class SupplementFile(TeaModel):
         file_type: str = None,
         file_url: str = None,
         file_desc: str = None,
+        file_suffix: str = None,
     ):
         # 材料类型：
         # 301-行驶证正本
@@ -5221,11 +5215,12 @@ class SupplementFile(TeaModel):
         self.file_url = file_url
         # 材料名称/描述
         self.file_desc = file_desc
+        # 材料后缀，如png/jpg/jpeg
+        self.file_suffix = file_suffix
 
     def validate(self):
         self.validate_required(self.file_type, 'file_type')
         self.validate_required(self.file_url, 'file_url')
-        self.validate_required(self.file_desc, 'file_desc')
 
     def to_map(self):
         _map = super().to_map()
@@ -5239,6 +5234,8 @@ class SupplementFile(TeaModel):
             result['file_url'] = self.file_url
         if self.file_desc is not None:
             result['file_desc'] = self.file_desc
+        if self.file_suffix is not None:
+            result['file_suffix'] = self.file_suffix
         return result
 
     def from_map(self, m: dict = None):
@@ -5249,6 +5246,8 @@ class SupplementFile(TeaModel):
             self.file_url = m.get('file_url')
         if m.get('file_desc') is not None:
             self.file_desc = m.get('file_desc')
+        if m.get('file_suffix') is not None:
+            self.file_suffix = m.get('file_suffix')
         return self
 
 
@@ -7039,35 +7038,104 @@ class DefinInnerChannelNotifyResult(TeaModel):
 class StoreInfo(TeaModel):
     def __init__(
         self,
+        store_brand: str = None,
         store_id: str = None,
-        login_tenant: str = None,
-        payee_bank_card: str = None,
-        payee_name: str = None,
         store_name: str = None,
-        salesman: str = None,
-        device: str = None,
+        usci: str = None,
+        province: str = None,
+        city: str = None,
+        district: str = None,
+        address: str = None,
+        store_start_date: str = None,
+        store_end_date: str = None,
+        store_type: str = None,
+        legal_person_name: str = None,
+        legal_person_id_card: str = None,
+        legal_person_mobile: str = None,
+        effective_date: str = None,
+        bank_name: str = None,
+        branch_name: str = None,
+        cnaps_code: str = None,
+        account_name: str = None,
+        account_number: str = None,
+        bank_province: str = None,
+        bank_city: str = None,
+        payee_bank_card: str = None,
+        payee_bank_name: str = None,
+        login_tenant: str = None,
+        login_date: str = None,
     ):
+        # 品牌
+        self.store_brand = store_brand
         # 门店ID
         self.store_id = store_id
-        # 蚂蚁数科入驻账号
-        self.login_tenant = login_tenant
-        # 收款账号
-        self.payee_bank_card = payee_bank_card
-        # 收款人
-        self.payee_name = payee_name
         # 门店名称
         self.store_name = store_name
-        # 销售ID
-        self.salesman = salesman
-        # 销售设备编号
-        self.device = device
+        # 统一社会信用代码
+        self.usci = usci
+        # 门店-省，浙江省
+        self.province = province
+        # 门店-市，杭州市
+        self.city = city
+        # 门店-区，滨江区
+        self.district = district
+        # 门店-详细地址，
+        # 望江路万达广场一层001号
+        self.address = address
+        # 营业执照-开始时间，yyyy-MM-dd
+        self.store_start_date = store_start_date
+        # 营业执照-结束时间，yyyy-MM-dd，长期上送：9999-12-31
+        self.store_end_date = store_end_date
+        # 门店类型，
+        # 个体、企业、其他
+        self.store_type = store_type
+        # 法人-姓名
+        self.legal_person_name = legal_person_name
+        # 法人-身份证号
+        self.legal_person_id_card = legal_person_id_card
+        # 法人-手机号
+        self.legal_person_mobile = legal_person_mobile
+        # 法人-身份证有效期，，身份证反面格式：如yyyy.MM.dd-长期
+        self.effective_date = effective_date
+        # 对公-开户行名称
+        self.bank_name = bank_name
+        # 对公-支行名称
+        self.branch_name = branch_name
+        # 对公-联行号
+        self.cnaps_code = cnaps_code
+        # 对公-银行账户名称
+        self.account_name = account_name
+        # 对公-银行账户号
+        self.account_number = account_number
+        # 对公-开户行所在省，浙江
+        self.bank_province = bank_province
+        # 对公-开户行所在市，杭州
+        self.bank_city = bank_city
+        # 对私-银行卡号
+        self.payee_bank_card = payee_bank_card
+        # 对私-银行名称
+        self.payee_bank_name = payee_bank_name
+        # 蚂蚁数科入驻账号
+        self.login_tenant = login_tenant
+        # 入驻时间
+        self.login_date = login_date
 
     def validate(self):
+        self.validate_required(self.store_brand, 'store_brand')
         self.validate_required(self.store_id, 'store_id')
-        self.validate_required(self.login_tenant, 'login_tenant')
-        self.validate_required(self.payee_bank_card, 'payee_bank_card')
-        self.validate_required(self.payee_name, 'payee_name')
         self.validate_required(self.store_name, 'store_name')
+        self.validate_required(self.usci, 'usci')
+        self.validate_required(self.province, 'province')
+        self.validate_required(self.city, 'city')
+        self.validate_required(self.district, 'district')
+        self.validate_required(self.address, 'address')
+        self.validate_required(self.store_start_date, 'store_start_date')
+        self.validate_required(self.store_end_date, 'store_end_date')
+        self.validate_required(self.store_type, 'store_type')
+        self.validate_required(self.legal_person_name, 'legal_person_name')
+        self.validate_required(self.legal_person_id_card, 'legal_person_id_card')
+        self.validate_required(self.legal_person_mobile, 'legal_person_mobile')
+        self.validate_required(self.effective_date, 'effective_date')
 
     def to_map(self):
         _map = super().to_map()
@@ -7075,38 +7143,114 @@ class StoreInfo(TeaModel):
             return _map
 
         result = dict()
+        if self.store_brand is not None:
+            result['store_brand'] = self.store_brand
         if self.store_id is not None:
             result['store_id'] = self.store_id
-        if self.login_tenant is not None:
-            result['login_tenant'] = self.login_tenant
-        if self.payee_bank_card is not None:
-            result['payee_bank_card'] = self.payee_bank_card
-        if self.payee_name is not None:
-            result['payee_name'] = self.payee_name
         if self.store_name is not None:
             result['store_name'] = self.store_name
-        if self.salesman is not None:
-            result['salesman'] = self.salesman
-        if self.device is not None:
-            result['device'] = self.device
+        if self.usci is not None:
+            result['usci'] = self.usci
+        if self.province is not None:
+            result['province'] = self.province
+        if self.city is not None:
+            result['city'] = self.city
+        if self.district is not None:
+            result['district'] = self.district
+        if self.address is not None:
+            result['address'] = self.address
+        if self.store_start_date is not None:
+            result['store_start_date'] = self.store_start_date
+        if self.store_end_date is not None:
+            result['store_end_date'] = self.store_end_date
+        if self.store_type is not None:
+            result['store_type'] = self.store_type
+        if self.legal_person_name is not None:
+            result['legal_person_name'] = self.legal_person_name
+        if self.legal_person_id_card is not None:
+            result['legal_person_id_card'] = self.legal_person_id_card
+        if self.legal_person_mobile is not None:
+            result['legal_person_mobile'] = self.legal_person_mobile
+        if self.effective_date is not None:
+            result['effective_date'] = self.effective_date
+        if self.bank_name is not None:
+            result['bank_name'] = self.bank_name
+        if self.branch_name is not None:
+            result['branch_name'] = self.branch_name
+        if self.cnaps_code is not None:
+            result['cnaps_code'] = self.cnaps_code
+        if self.account_name is not None:
+            result['account_name'] = self.account_name
+        if self.account_number is not None:
+            result['account_number'] = self.account_number
+        if self.bank_province is not None:
+            result['bank_province'] = self.bank_province
+        if self.bank_city is not None:
+            result['bank_city'] = self.bank_city
+        if self.payee_bank_card is not None:
+            result['payee_bank_card'] = self.payee_bank_card
+        if self.payee_bank_name is not None:
+            result['payee_bank_name'] = self.payee_bank_name
+        if self.login_tenant is not None:
+            result['login_tenant'] = self.login_tenant
+        if self.login_date is not None:
+            result['login_date'] = self.login_date
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
+        if m.get('store_brand') is not None:
+            self.store_brand = m.get('store_brand')
         if m.get('store_id') is not None:
             self.store_id = m.get('store_id')
-        if m.get('login_tenant') is not None:
-            self.login_tenant = m.get('login_tenant')
-        if m.get('payee_bank_card') is not None:
-            self.payee_bank_card = m.get('payee_bank_card')
-        if m.get('payee_name') is not None:
-            self.payee_name = m.get('payee_name')
         if m.get('store_name') is not None:
             self.store_name = m.get('store_name')
-        if m.get('salesman') is not None:
-            self.salesman = m.get('salesman')
-        if m.get('device') is not None:
-            self.device = m.get('device')
+        if m.get('usci') is not None:
+            self.usci = m.get('usci')
+        if m.get('province') is not None:
+            self.province = m.get('province')
+        if m.get('city') is not None:
+            self.city = m.get('city')
+        if m.get('district') is not None:
+            self.district = m.get('district')
+        if m.get('address') is not None:
+            self.address = m.get('address')
+        if m.get('store_start_date') is not None:
+            self.store_start_date = m.get('store_start_date')
+        if m.get('store_end_date') is not None:
+            self.store_end_date = m.get('store_end_date')
+        if m.get('store_type') is not None:
+            self.store_type = m.get('store_type')
+        if m.get('legal_person_name') is not None:
+            self.legal_person_name = m.get('legal_person_name')
+        if m.get('legal_person_id_card') is not None:
+            self.legal_person_id_card = m.get('legal_person_id_card')
+        if m.get('legal_person_mobile') is not None:
+            self.legal_person_mobile = m.get('legal_person_mobile')
+        if m.get('effective_date') is not None:
+            self.effective_date = m.get('effective_date')
+        if m.get('bank_name') is not None:
+            self.bank_name = m.get('bank_name')
+        if m.get('branch_name') is not None:
+            self.branch_name = m.get('branch_name')
+        if m.get('cnaps_code') is not None:
+            self.cnaps_code = m.get('cnaps_code')
+        if m.get('account_name') is not None:
+            self.account_name = m.get('account_name')
+        if m.get('account_number') is not None:
+            self.account_number = m.get('account_number')
+        if m.get('bank_province') is not None:
+            self.bank_province = m.get('bank_province')
+        if m.get('bank_city') is not None:
+            self.bank_city = m.get('bank_city')
+        if m.get('payee_bank_card') is not None:
+            self.payee_bank_card = m.get('payee_bank_card')
+        if m.get('payee_bank_name') is not None:
+            self.payee_bank_name = m.get('payee_bank_name')
+        if m.get('login_tenant') is not None:
+            self.login_tenant = m.get('login_tenant')
+        if m.get('login_date') is not None:
+            self.login_date = m.get('login_date')
         return self
 
 
@@ -7987,56 +8131,72 @@ class VehicleInfo(TeaModel):
         self,
         biz_order_no: str = None,
         trade_amount: str = None,
+        installment_amount: str = None,
         down_payment: str = None,
+        wifi_mac: str = None,
+        sn: str = None,
+        frame_no: str = None,
+        sku: str = None,
+        color: str = None,
+        model_keyword: str = None,
+        range: str = None,
         guide_price: str = None,
         selling_price: str = None,
-        sn: str = None,
-        sku: str = None,
         brand: str = None,
         model: str = None,
         model_year: str = None,
-        color: str = None,
-        range: str = None,
-        parts: str = None,
         odo: str = None,
         first_reg_date: str = None,
         otr: str = None,
+        parts: str = None,
     ):
         # 流量方购物订单号
         self.biz_order_no = biz_order_no
         # 订单[分期]金额，单位：元
         self.trade_amount = trade_amount
+        # 订单分期金额，单位：元
+        self.installment_amount = installment_amount
         # 首付金额，单位：元
         self.down_payment = down_payment
+        # pad设备提供
+        self.wifi_mac = wifi_mac
+        # SN码/中控号(授信后放款前)
+        self.sn = sn
+        # 车驾号(授信后放款前)
+        self.frame_no = frame_no
+        # SKU ID
+        self.sku = sku
+        # 颜色
+        self.color = color
+        # 车型关键词
+        self.model_keyword = model_keyword
+        # 续航里程
+        self.range = range
         # 新车指导价，单位：元
         self.guide_price = guide_price
         # 售价，单位：元
         self.selling_price = selling_price
-        # 车驾号/SN码，车辆唯一标识
-        self.sn = sn
-        # SKU ID
-        self.sku = sku
         # 品牌
         self.brand = brand
         # 车型
         self.model = model
         # 年款，yyyy
         self.model_year = model_year
-        # 颜色
-        self.color = color
-        # 续航里程
-        self.range = range
-        # 配件信息
-        self.parts = parts
         # 公里数，Odometer
         self.odo = odo
         # 首次上牌时间
         self.first_reg_date = first_reg_date
         # 过户次数，Ownership Transfer Records
         self.otr = otr
+        # 配件信息
+        self.parts = parts
 
     def validate(self):
-        pass
+        self.validate_required(self.biz_order_no, 'biz_order_no')
+        self.validate_required(self.trade_amount, 'trade_amount')
+        self.validate_required(self.sku, 'sku')
+        self.validate_required(self.guide_price, 'guide_price')
+        self.validate_required(self.selling_price, 'selling_price')
 
     def to_map(self):
         _map = super().to_map()
@@ -8048,34 +8208,42 @@ class VehicleInfo(TeaModel):
             result['biz_order_no'] = self.biz_order_no
         if self.trade_amount is not None:
             result['trade_amount'] = self.trade_amount
+        if self.installment_amount is not None:
+            result['installment_amount'] = self.installment_amount
         if self.down_payment is not None:
             result['down_payment'] = self.down_payment
+        if self.wifi_mac is not None:
+            result['wifi_mac'] = self.wifi_mac
+        if self.sn is not None:
+            result['sn'] = self.sn
+        if self.frame_no is not None:
+            result['frame_no'] = self.frame_no
+        if self.sku is not None:
+            result['sku'] = self.sku
+        if self.color is not None:
+            result['color'] = self.color
+        if self.model_keyword is not None:
+            result['model_keyword'] = self.model_keyword
+        if self.range is not None:
+            result['range'] = self.range
         if self.guide_price is not None:
             result['guide_price'] = self.guide_price
         if self.selling_price is not None:
             result['selling_price'] = self.selling_price
-        if self.sn is not None:
-            result['sn'] = self.sn
-        if self.sku is not None:
-            result['sku'] = self.sku
         if self.brand is not None:
             result['brand'] = self.brand
         if self.model is not None:
             result['model'] = self.model
         if self.model_year is not None:
             result['model_year'] = self.model_year
-        if self.color is not None:
-            result['color'] = self.color
-        if self.range is not None:
-            result['range'] = self.range
-        if self.parts is not None:
-            result['parts'] = self.parts
         if self.odo is not None:
             result['odo'] = self.odo
         if self.first_reg_date is not None:
             result['first_reg_date'] = self.first_reg_date
         if self.otr is not None:
             result['otr'] = self.otr
+        if self.parts is not None:
+            result['parts'] = self.parts
         return result
 
     def from_map(self, m: dict = None):
@@ -8084,34 +8252,42 @@ class VehicleInfo(TeaModel):
             self.biz_order_no = m.get('biz_order_no')
         if m.get('trade_amount') is not None:
             self.trade_amount = m.get('trade_amount')
+        if m.get('installment_amount') is not None:
+            self.installment_amount = m.get('installment_amount')
         if m.get('down_payment') is not None:
             self.down_payment = m.get('down_payment')
+        if m.get('wifi_mac') is not None:
+            self.wifi_mac = m.get('wifi_mac')
+        if m.get('sn') is not None:
+            self.sn = m.get('sn')
+        if m.get('frame_no') is not None:
+            self.frame_no = m.get('frame_no')
+        if m.get('sku') is not None:
+            self.sku = m.get('sku')
+        if m.get('color') is not None:
+            self.color = m.get('color')
+        if m.get('model_keyword') is not None:
+            self.model_keyword = m.get('model_keyword')
+        if m.get('range') is not None:
+            self.range = m.get('range')
         if m.get('guide_price') is not None:
             self.guide_price = m.get('guide_price')
         if m.get('selling_price') is not None:
             self.selling_price = m.get('selling_price')
-        if m.get('sn') is not None:
-            self.sn = m.get('sn')
-        if m.get('sku') is not None:
-            self.sku = m.get('sku')
         if m.get('brand') is not None:
             self.brand = m.get('brand')
         if m.get('model') is not None:
             self.model = m.get('model')
         if m.get('model_year') is not None:
             self.model_year = m.get('model_year')
-        if m.get('color') is not None:
-            self.color = m.get('color')
-        if m.get('range') is not None:
-            self.range = m.get('range')
-        if m.get('parts') is not None:
-            self.parts = m.get('parts')
         if m.get('odo') is not None:
             self.odo = m.get('odo')
         if m.get('first_reg_date') is not None:
             self.first_reg_date = m.get('first_reg_date')
         if m.get('otr') is not None:
             self.otr = m.get('otr')
+        if m.get('parts') is not None:
+            self.parts = m.get('parts')
         return self
 
 
@@ -9287,6 +9463,7 @@ class NotifyBenefithubRiskLoginRequest(TeaModel):
         platform_code: str = None,
         user_unique_id: str = None,
         mobile: str = None,
+        product_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -9298,6 +9475,8 @@ class NotifyBenefithubRiskLoginRequest(TeaModel):
         self.user_unique_id = user_unique_id
         # 渠道、平台方推送的手机号
         self.mobile = mobile
+        # 产品code必填，后续多产品时可以区分
+        self.product_code = product_code
 
     def validate(self):
         self.validate_required(self.platform_code, 'platform_code')
@@ -9320,6 +9499,8 @@ class NotifyBenefithubRiskLoginRequest(TeaModel):
             result['user_unique_id'] = self.user_unique_id
         if self.mobile is not None:
             result['mobile'] = self.mobile
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
         return result
 
     def from_map(self, m: dict = None):
@@ -9334,6 +9515,8 @@ class NotifyBenefithubRiskLoginRequest(TeaModel):
             self.user_unique_id = m.get('user_unique_id')
         if m.get('mobile') is not None:
             self.mobile = m.get('mobile')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
         return self
 
 
@@ -9343,6 +9526,7 @@ class NotifyBenefithubRiskLoginResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        h_5url: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -9350,6 +9534,8 @@ class NotifyBenefithubRiskLoginResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # h5跳转链接
+        self.h_5url = h_5url
 
     def validate(self):
         pass
@@ -9366,6 +9552,8 @@ class NotifyBenefithubRiskLoginResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.h_5url is not None:
+            result['h5_url'] = self.h_5url
         return result
 
     def from_map(self, m: dict = None):
@@ -9376,6 +9564,8 @@ class NotifyBenefithubRiskLoginResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('h5_url') is not None:
+            self.h_5url = m.get('h5_url')
         return self
 
 
@@ -9452,6 +9642,129 @@ class BatchqueryCreditshieldProductInfoResponse(TeaModel):
         # 异常信息的文本描述
         self.result_msg = result_msg
         # 查询结果是否成功
+        self.success = success
+        # 查询结果
+        self.query_results = query_results
+
+    def validate(self):
+        if self.query_results:
+            for k in self.query_results:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        result['query_results'] = []
+        if self.query_results is not None:
+            for k in self.query_results:
+                result['query_results'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        self.query_results = []
+        if m.get('query_results') is not None:
+            for k in m.get('query_results'):
+                temp_model = QueryResult()
+                self.query_results.append(temp_model.from_map(k))
+        return self
+
+
+class QueryProductAmcCallbackRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        query_code: str = None,
+        query_infos: List[QueryInfo] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 查询编码
+        # 1.支付宝交易流水查询
+        # 2.审批回调
+        self.query_code = query_code
+        # 查询信息集合
+        self.query_infos = query_infos
+
+    def validate(self):
+        self.validate_required(self.query_code, 'query_code')
+        if self.query_infos:
+            for k in self.query_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.query_code is not None:
+            result['query_code'] = self.query_code
+        result['query_infos'] = []
+        if self.query_infos is not None:
+            for k in self.query_infos:
+                result['query_infos'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('query_code') is not None:
+            self.query_code = m.get('query_code')
+        self.query_infos = []
+        if m.get('query_infos') is not None:
+            for k in m.get('query_infos'):
+                temp_model = QueryInfo()
+                self.query_infos.append(temp_model.from_map(k))
+        return self
+
+
+class QueryProductAmcCallbackResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        query_results: List[QueryResult] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 接口请求是否成功
         self.success = success
         # 查询结果
         self.query_results = query_results
@@ -19432,7 +19745,6 @@ class QueryDubbridgeInstallmentCreditamtRequest(TeaModel):
         self.validate_required(self.open_id, 'open_id')
         self.validate_required(self.mobile, 'mobile')
         self.validate_required(self.project_code, 'project_code')
-        self.validate_required(self.trade_amount, 'trade_amount')
 
     def to_map(self):
         _map = super().to_map()
@@ -19791,7 +20103,6 @@ class PushDubbridgeInstallmentSupplementRequest(TeaModel):
         self.validate_required(self.prod_type, 'prod_type')
         self.validate_required(self.open_id, 'open_id')
         self.validate_required(self.biz_order_no, 'biz_order_no')
-        self.validate_required(self.file_scene, 'file_scene')
         if self.file_list:
             for k in self.file_list:
                 if k:
