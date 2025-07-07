@@ -1096,8 +1096,6 @@ func (s *RuleDetail) SetValue(v string) *RuleDetail {
 type Additional struct {
 	// 骑手标识；1-骑手
 	Deliveryman *string `json:"deliveryman,omitempty" xml:"deliveryman,omitempty"`
-	// 关键词
-	KeyWord *string `json:"key_word,omitempty" xml:"key_word,omitempty"`
 }
 
 func (s Additional) String() string {
@@ -1110,11 +1108,6 @@ func (s Additional) GoString() string {
 
 func (s *Additional) SetDeliveryman(v string) *Additional {
 	s.Deliveryman = &v
-	return s
-}
-
-func (s *Additional) SetKeyWord(v string) *Additional {
-	s.KeyWord = &v
 	return s
 }
 
@@ -4219,7 +4212,9 @@ type SupplementFile struct {
 	// 材料url
 	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
 	// 材料名称/描述
-	FileDesc *string `json:"file_desc,omitempty" xml:"file_desc,omitempty" require:"true"`
+	FileDesc *string `json:"file_desc,omitempty" xml:"file_desc,omitempty"`
+	// 材料后缀，如png/jpg/jpeg
+	FileSuffix *string `json:"file_suffix,omitempty" xml:"file_suffix,omitempty"`
 }
 
 func (s SupplementFile) String() string {
@@ -4242,6 +4237,11 @@ func (s *SupplementFile) SetFileUrl(v string) *SupplementFile {
 
 func (s *SupplementFile) SetFileDesc(v string) *SupplementFile {
 	s.FileDesc = &v
+	return s
+}
+
+func (s *SupplementFile) SetFileSuffix(v string) *SupplementFile {
+	s.FileSuffix = &v
 	return s
 }
 
@@ -5684,20 +5684,60 @@ func (s *DefinInnerChannelNotifyResult) SetBizResponse(v string) *DefinInnerChan
 
 // 门店信息
 type StoreInfo struct {
+	// 品牌
+	StoreBrand *string `json:"store_brand,omitempty" xml:"store_brand,omitempty" require:"true"`
 	// 门店ID
 	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
-	// 蚂蚁数科入驻账号
-	LoginTenant *string `json:"login_tenant,omitempty" xml:"login_tenant,omitempty" require:"true"`
-	// 收款账号
-	PayeeBankCard *string `json:"payee_bank_card,omitempty" xml:"payee_bank_card,omitempty" require:"true"`
-	// 收款人
-	PayeeName *string `json:"payee_name,omitempty" xml:"payee_name,omitempty" require:"true"`
 	// 门店名称
 	StoreName *string `json:"store_name,omitempty" xml:"store_name,omitempty" require:"true"`
-	// 销售ID
-	Salesman *string `json:"salesman,omitempty" xml:"salesman,omitempty"`
-	// 销售设备编号
-	Device *string `json:"device,omitempty" xml:"device,omitempty"`
+	// 统一社会信用代码
+	Usci *string `json:"usci,omitempty" xml:"usci,omitempty" require:"true"`
+	// 门店-省，浙江省
+	Province *string `json:"province,omitempty" xml:"province,omitempty" require:"true"`
+	// 门店-市，杭州市
+	City *string `json:"city,omitempty" xml:"city,omitempty" require:"true"`
+	// 门店-区，滨江区
+	District *string `json:"district,omitempty" xml:"district,omitempty" require:"true"`
+	// 门店-详细地址，
+	// 望江路万达广场一层001号
+	Address *string `json:"address,omitempty" xml:"address,omitempty" require:"true"`
+	// 营业执照-开始时间，yyyy-MM-dd
+	StoreStartDate *string `json:"store_start_date,omitempty" xml:"store_start_date,omitempty" require:"true"`
+	// 营业执照-结束时间，yyyy-MM-dd，长期上送：9999-12-31
+	StoreEndDate *string `json:"store_end_date,omitempty" xml:"store_end_date,omitempty" require:"true"`
+	// 门店类型，
+	// 个体、企业、其他
+	StoreType *string `json:"store_type,omitempty" xml:"store_type,omitempty" require:"true"`
+	// 法人-姓名
+	LegalPersonName *string `json:"legal_person_name,omitempty" xml:"legal_person_name,omitempty" require:"true"`
+	// 法人-身份证号
+	LegalPersonIdCard *string `json:"legal_person_id_card,omitempty" xml:"legal_person_id_card,omitempty" require:"true"`
+	// 法人-手机号
+	LegalPersonMobile *string `json:"legal_person_mobile,omitempty" xml:"legal_person_mobile,omitempty" require:"true"`
+	// 法人-身份证有效期，，身份证反面格式：如yyyy.MM.dd-长期
+	EffectiveDate *string `json:"effective_date,omitempty" xml:"effective_date,omitempty" require:"true"`
+	// 对公-开户行名称
+	BankName *string `json:"bank_name,omitempty" xml:"bank_name,omitempty"`
+	// 对公-支行名称
+	BranchName *string `json:"branch_name,omitempty" xml:"branch_name,omitempty"`
+	// 对公-联行号
+	CnapsCode *string `json:"cnaps_code,omitempty" xml:"cnaps_code,omitempty"`
+	// 对公-银行账户名称
+	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty"`
+	// 对公-银行账户号
+	AccountNumber *string `json:"account_number,omitempty" xml:"account_number,omitempty"`
+	// 对公-开户行所在省，浙江
+	BankProvince *string `json:"bank_province,omitempty" xml:"bank_province,omitempty"`
+	// 对公-开户行所在市，杭州
+	BankCity *string `json:"bank_city,omitempty" xml:"bank_city,omitempty"`
+	// 对私-银行卡号
+	PayeeBankCard *string `json:"payee_bank_card,omitempty" xml:"payee_bank_card,omitempty"`
+	// 对私-银行名称
+	PayeeBankName *string `json:"payee_bank_name,omitempty" xml:"payee_bank_name,omitempty"`
+	// 蚂蚁数科入驻账号
+	LoginTenant *string `json:"login_tenant,omitempty" xml:"login_tenant,omitempty"`
+	// 入驻时间
+	LoginDate *string `json:"login_date,omitempty" xml:"login_date,omitempty"`
 }
 
 func (s StoreInfo) String() string {
@@ -5708,23 +5748,13 @@ func (s StoreInfo) GoString() string {
 	return s.String()
 }
 
+func (s *StoreInfo) SetStoreBrand(v string) *StoreInfo {
+	s.StoreBrand = &v
+	return s
+}
+
 func (s *StoreInfo) SetStoreId(v string) *StoreInfo {
 	s.StoreId = &v
-	return s
-}
-
-func (s *StoreInfo) SetLoginTenant(v string) *StoreInfo {
-	s.LoginTenant = &v
-	return s
-}
-
-func (s *StoreInfo) SetPayeeBankCard(v string) *StoreInfo {
-	s.PayeeBankCard = &v
-	return s
-}
-
-func (s *StoreInfo) SetPayeeName(v string) *StoreInfo {
-	s.PayeeName = &v
 	return s
 }
 
@@ -5733,13 +5763,118 @@ func (s *StoreInfo) SetStoreName(v string) *StoreInfo {
 	return s
 }
 
-func (s *StoreInfo) SetSalesman(v string) *StoreInfo {
-	s.Salesman = &v
+func (s *StoreInfo) SetUsci(v string) *StoreInfo {
+	s.Usci = &v
 	return s
 }
 
-func (s *StoreInfo) SetDevice(v string) *StoreInfo {
-	s.Device = &v
+func (s *StoreInfo) SetProvince(v string) *StoreInfo {
+	s.Province = &v
+	return s
+}
+
+func (s *StoreInfo) SetCity(v string) *StoreInfo {
+	s.City = &v
+	return s
+}
+
+func (s *StoreInfo) SetDistrict(v string) *StoreInfo {
+	s.District = &v
+	return s
+}
+
+func (s *StoreInfo) SetAddress(v string) *StoreInfo {
+	s.Address = &v
+	return s
+}
+
+func (s *StoreInfo) SetStoreStartDate(v string) *StoreInfo {
+	s.StoreStartDate = &v
+	return s
+}
+
+func (s *StoreInfo) SetStoreEndDate(v string) *StoreInfo {
+	s.StoreEndDate = &v
+	return s
+}
+
+func (s *StoreInfo) SetStoreType(v string) *StoreInfo {
+	s.StoreType = &v
+	return s
+}
+
+func (s *StoreInfo) SetLegalPersonName(v string) *StoreInfo {
+	s.LegalPersonName = &v
+	return s
+}
+
+func (s *StoreInfo) SetLegalPersonIdCard(v string) *StoreInfo {
+	s.LegalPersonIdCard = &v
+	return s
+}
+
+func (s *StoreInfo) SetLegalPersonMobile(v string) *StoreInfo {
+	s.LegalPersonMobile = &v
+	return s
+}
+
+func (s *StoreInfo) SetEffectiveDate(v string) *StoreInfo {
+	s.EffectiveDate = &v
+	return s
+}
+
+func (s *StoreInfo) SetBankName(v string) *StoreInfo {
+	s.BankName = &v
+	return s
+}
+
+func (s *StoreInfo) SetBranchName(v string) *StoreInfo {
+	s.BranchName = &v
+	return s
+}
+
+func (s *StoreInfo) SetCnapsCode(v string) *StoreInfo {
+	s.CnapsCode = &v
+	return s
+}
+
+func (s *StoreInfo) SetAccountName(v string) *StoreInfo {
+	s.AccountName = &v
+	return s
+}
+
+func (s *StoreInfo) SetAccountNumber(v string) *StoreInfo {
+	s.AccountNumber = &v
+	return s
+}
+
+func (s *StoreInfo) SetBankProvince(v string) *StoreInfo {
+	s.BankProvince = &v
+	return s
+}
+
+func (s *StoreInfo) SetBankCity(v string) *StoreInfo {
+	s.BankCity = &v
+	return s
+}
+
+func (s *StoreInfo) SetPayeeBankCard(v string) *StoreInfo {
+	s.PayeeBankCard = &v
+	return s
+}
+
+func (s *StoreInfo) SetPayeeBankName(v string) *StoreInfo {
+	s.PayeeBankName = &v
+	return s
+}
+
+func (s *StoreInfo) SetLoginTenant(v string) *StoreInfo {
+	s.LoginTenant = &v
+	return s
+}
+
+func (s *StoreInfo) SetLoginDate(v string) *StoreInfo {
+	s.LoginDate = &v
 	return s
 }
 
@@ -6473,37 +6608,45 @@ func (s *CustomRelationStatus) SetRegFlag(v bool) *CustomRelationStatus {
 // 订单车辆信息
 type VehicleInfo struct {
 	// 流量方购物订单号
-	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty"`
+	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty" require:"true"`
 	// 订单[分期]金额，单位：元
-	TradeAmount *string `json:"trade_amount,omitempty" xml:"trade_amount,omitempty"`
+	TradeAmount *string `json:"trade_amount,omitempty" xml:"trade_amount,omitempty" require:"true"`
+	// 订单分期金额，单位：元
+	InstallmentAmount *string `json:"installment_amount,omitempty" xml:"installment_amount,omitempty"`
 	// 首付金额，单位：元
 	DownPayment *string `json:"down_payment,omitempty" xml:"down_payment,omitempty"`
-	// 新车指导价，单位：元
-	GuidePrice *string `json:"guide_price,omitempty" xml:"guide_price,omitempty"`
-	// 售价，单位：元
-	SellingPrice *string `json:"selling_price,omitempty" xml:"selling_price,omitempty"`
-	// 车驾号/SN码，车辆唯一标识
+	// pad设备提供
+	WifiMac *string `json:"wifi_mac,omitempty" xml:"wifi_mac,omitempty"`
+	// SN码/中控号(授信后放款前)
 	Sn *string `json:"sn,omitempty" xml:"sn,omitempty"`
+	// 车驾号(授信后放款前)
+	FrameNo *string `json:"frame_no,omitempty" xml:"frame_no,omitempty"`
 	// SKU ID
-	Sku *string `json:"sku,omitempty" xml:"sku,omitempty"`
+	Sku *string `json:"sku,omitempty" xml:"sku,omitempty" require:"true"`
+	// 颜色
+	Color *string `json:"color,omitempty" xml:"color,omitempty"`
+	// 车型关键词
+	ModelKeyword *string `json:"model_keyword,omitempty" xml:"model_keyword,omitempty"`
+	// 续航里程
+	Range *string `json:"range,omitempty" xml:"range,omitempty"`
+	// 新车指导价，单位：元
+	GuidePrice *string `json:"guide_price,omitempty" xml:"guide_price,omitempty" require:"true"`
+	// 售价，单位：元
+	SellingPrice *string `json:"selling_price,omitempty" xml:"selling_price,omitempty" require:"true"`
 	// 品牌
 	Brand *string `json:"brand,omitempty" xml:"brand,omitempty"`
 	// 车型
 	Model *string `json:"model,omitempty" xml:"model,omitempty"`
 	// 年款，yyyy
 	ModelYear *string `json:"model_year,omitempty" xml:"model_year,omitempty"`
-	// 颜色
-	Color *string `json:"color,omitempty" xml:"color,omitempty"`
-	// 续航里程
-	Range *string `json:"range,omitempty" xml:"range,omitempty"`
-	// 配件信息
-	Parts *string `json:"parts,omitempty" xml:"parts,omitempty"`
 	// 公里数，Odometer
 	Odo *string `json:"odo,omitempty" xml:"odo,omitempty"`
 	// 首次上牌时间
 	FirstRegDate *string `json:"first_reg_date,omitempty" xml:"first_reg_date,omitempty"`
 	// 过户次数，Ownership Transfer Records
 	Otr *string `json:"otr,omitempty" xml:"otr,omitempty"`
+	// 配件信息
+	Parts *string `json:"parts,omitempty" xml:"parts,omitempty"`
 }
 
 func (s VehicleInfo) String() string {
@@ -6524,8 +6667,48 @@ func (s *VehicleInfo) SetTradeAmount(v string) *VehicleInfo {
 	return s
 }
 
+func (s *VehicleInfo) SetInstallmentAmount(v string) *VehicleInfo {
+	s.InstallmentAmount = &v
+	return s
+}
+
 func (s *VehicleInfo) SetDownPayment(v string) *VehicleInfo {
 	s.DownPayment = &v
+	return s
+}
+
+func (s *VehicleInfo) SetWifiMac(v string) *VehicleInfo {
+	s.WifiMac = &v
+	return s
+}
+
+func (s *VehicleInfo) SetSn(v string) *VehicleInfo {
+	s.Sn = &v
+	return s
+}
+
+func (s *VehicleInfo) SetFrameNo(v string) *VehicleInfo {
+	s.FrameNo = &v
+	return s
+}
+
+func (s *VehicleInfo) SetSku(v string) *VehicleInfo {
+	s.Sku = &v
+	return s
+}
+
+func (s *VehicleInfo) SetColor(v string) *VehicleInfo {
+	s.Color = &v
+	return s
+}
+
+func (s *VehicleInfo) SetModelKeyword(v string) *VehicleInfo {
+	s.ModelKeyword = &v
+	return s
+}
+
+func (s *VehicleInfo) SetRange(v string) *VehicleInfo {
+	s.Range = &v
 	return s
 }
 
@@ -6536,16 +6719,6 @@ func (s *VehicleInfo) SetGuidePrice(v string) *VehicleInfo {
 
 func (s *VehicleInfo) SetSellingPrice(v string) *VehicleInfo {
 	s.SellingPrice = &v
-	return s
-}
-
-func (s *VehicleInfo) SetSn(v string) *VehicleInfo {
-	s.Sn = &v
-	return s
-}
-
-func (s *VehicleInfo) SetSku(v string) *VehicleInfo {
-	s.Sku = &v
 	return s
 }
 
@@ -6564,21 +6737,6 @@ func (s *VehicleInfo) SetModelYear(v string) *VehicleInfo {
 	return s
 }
 
-func (s *VehicleInfo) SetColor(v string) *VehicleInfo {
-	s.Color = &v
-	return s
-}
-
-func (s *VehicleInfo) SetRange(v string) *VehicleInfo {
-	s.Range = &v
-	return s
-}
-
-func (s *VehicleInfo) SetParts(v string) *VehicleInfo {
-	s.Parts = &v
-	return s
-}
-
 func (s *VehicleInfo) SetOdo(v string) *VehicleInfo {
 	s.Odo = &v
 	return s
@@ -6591,6 +6749,11 @@ func (s *VehicleInfo) SetFirstRegDate(v string) *VehicleInfo {
 
 func (s *VehicleInfo) SetOtr(v string) *VehicleInfo {
 	s.Otr = &v
+	return s
+}
+
+func (s *VehicleInfo) SetParts(v string) *VehicleInfo {
+	s.Parts = &v
 	return s
 }
 
@@ -7511,6 +7674,8 @@ type NotifyBenefithubRiskLoginRequest struct {
 	UserUniqueId *string `json:"user_unique_id,omitempty" xml:"user_unique_id,omitempty" require:"true"`
 	// 渠道、平台方推送的手机号
 	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 产品code必填，后续多产品时可以区分
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
 }
 
 func (s NotifyBenefithubRiskLoginRequest) String() string {
@@ -7546,6 +7711,11 @@ func (s *NotifyBenefithubRiskLoginRequest) SetMobile(v string) *NotifyBenefithub
 	return s
 }
 
+func (s *NotifyBenefithubRiskLoginRequest) SetProductCode(v string) *NotifyBenefithubRiskLoginRequest {
+	s.ProductCode = &v
+	return s
+}
+
 type NotifyBenefithubRiskLoginResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -7553,6 +7723,8 @@ type NotifyBenefithubRiskLoginResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// h5跳转链接
+	H5Url *string `json:"h5_url,omitempty" xml:"h5_url,omitempty"`
 }
 
 func (s NotifyBenefithubRiskLoginResponse) String() string {
@@ -7575,6 +7747,11 @@ func (s *NotifyBenefithubRiskLoginResponse) SetResultCode(v string) *NotifyBenef
 
 func (s *NotifyBenefithubRiskLoginResponse) SetResultMsg(v string) *NotifyBenefithubRiskLoginResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskLoginResponse) SetH5Url(v string) *NotifyBenefithubRiskLoginResponse {
+	s.H5Url = &v
 	return s
 }
 
@@ -7658,6 +7835,92 @@ func (s *BatchqueryCreditshieldProductInfoResponse) SetSuccess(v bool) *Batchque
 }
 
 func (s *BatchqueryCreditshieldProductInfoResponse) SetQueryResults(v []*QueryResult) *BatchqueryCreditshieldProductInfoResponse {
+	s.QueryResults = v
+	return s
+}
+
+type QueryProductAmcCallbackRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询编码
+	// 1.支付宝交易流水查询
+	// 2.审批回调
+	QueryCode *string `json:"query_code,omitempty" xml:"query_code,omitempty" require:"true"`
+	// 查询信息集合
+	QueryInfos []*QueryInfo `json:"query_infos,omitempty" xml:"query_infos,omitempty" type:"Repeated"`
+}
+
+func (s QueryProductAmcCallbackRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryProductAmcCallbackRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryProductAmcCallbackRequest) SetAuthToken(v string) *QueryProductAmcCallbackRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryProductAmcCallbackRequest) SetProductInstanceId(v string) *QueryProductAmcCallbackRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryProductAmcCallbackRequest) SetQueryCode(v string) *QueryProductAmcCallbackRequest {
+	s.QueryCode = &v
+	return s
+}
+
+func (s *QueryProductAmcCallbackRequest) SetQueryInfos(v []*QueryInfo) *QueryProductAmcCallbackRequest {
+	s.QueryInfos = v
+	return s
+}
+
+type QueryProductAmcCallbackResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 接口请求是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 查询结果
+	QueryResults []*QueryResult `json:"query_results,omitempty" xml:"query_results,omitempty" type:"Repeated"`
+}
+
+func (s QueryProductAmcCallbackResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryProductAmcCallbackResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryProductAmcCallbackResponse) SetReqMsgId(v string) *QueryProductAmcCallbackResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryProductAmcCallbackResponse) SetResultCode(v string) *QueryProductAmcCallbackResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryProductAmcCallbackResponse) SetResultMsg(v string) *QueryProductAmcCallbackResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryProductAmcCallbackResponse) SetSuccess(v bool) *QueryProductAmcCallbackResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryProductAmcCallbackResponse) SetQueryResults(v []*QueryResult) *QueryProductAmcCallbackResponse {
 	s.QueryResults = v
 	return s
 }
@@ -15655,7 +15918,7 @@ type QueryDubbridgeInstallmentCreditamtRequest struct {
 	// 项目编号
 	ProjectCode *string `json:"project_code,omitempty" xml:"project_code,omitempty" require:"true"`
 	// 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
-	TradeAmount *string `json:"trade_amount,omitempty" xml:"trade_amount,omitempty" require:"true"`
+	TradeAmount *string `json:"trade_amount,omitempty" xml:"trade_amount,omitempty"`
 	// 身份证号
 	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty"`
 	// 客户姓名
@@ -15979,7 +16242,7 @@ type PushDubbridgeInstallmentSupplementRequest struct {
 	// 资产方购物订单号，如二轮车/摩托车订单号
 	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty" require:"true"`
 	// 材料场景：2-支用前、3-支用后
-	FileScene *string `json:"file_scene,omitempty" xml:"file_scene,omitempty" require:"true"`
+	FileScene *string `json:"file_scene,omitempty" xml:"file_scene,omitempty"`
 	// 材料列表
 	FileList []*SupplementFile `json:"file_list,omitempty" xml:"file_list,omitempty" type:"Repeated"`
 	// 门店信息
@@ -31159,7 +31422,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.24.2"),
+				"sdk_version":      tea.String("1.24.3"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -31312,6 +31575,40 @@ func (client *Client) BatchqueryCreditshieldProductInfoEx(request *BatchqueryCre
 	}
 	_result = &BatchqueryCreditshieldProductInfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.creditshield.product.info.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 信护盾amc机构回调通用接口
+ * Summary: 信护盾amc机构回调通用接口
+ */
+func (client *Client) QueryProductAmcCallback(request *QueryProductAmcCallbackRequest) (_result *QueryProductAmcCallbackResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryProductAmcCallbackResponse{}
+	_body, _err := client.QueryProductAmcCallbackEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 信护盾amc机构回调通用接口
+ * Summary: 信护盾amc机构回调通用接口
+ */
+func (client *Client) QueryProductAmcCallbackEx(request *QueryProductAmcCallbackRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryProductAmcCallbackResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryProductAmcCallbackResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.product.amc.callback.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
