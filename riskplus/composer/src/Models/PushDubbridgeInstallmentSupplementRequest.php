@@ -93,7 +93,6 @@ class PushDubbridgeInstallmentSupplementRequest extends Model
         Model::validateRequired('prodType', $this->prodType, true);
         Model::validateRequired('openId', $this->openId, true);
         Model::validateRequired('bizOrderNo', $this->bizOrderNo, true);
-        Model::validateRequired('fileScene', $this->fileScene, true);
     }
 
     public function toMap()

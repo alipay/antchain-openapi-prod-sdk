@@ -35,17 +35,25 @@ class SupplementFile extends Model
      * @var string
      */
     public $fileDesc;
+
+    // 材料后缀，如png/jpg/jpeg
+    /**
+     * @example png
+     *
+     * @var string
+     */
+    public $fileSuffix;
     protected $_name = [
-        'fileType' => 'file_type',
-        'fileUrl'  => 'file_url',
-        'fileDesc' => 'file_desc',
+        'fileType'   => 'file_type',
+        'fileUrl'    => 'file_url',
+        'fileDesc'   => 'file_desc',
+        'fileSuffix' => 'file_suffix',
     ];
 
     public function validate()
     {
         Model::validateRequired('fileType', $this->fileType, true);
         Model::validateRequired('fileUrl', $this->fileUrl, true);
-        Model::validateRequired('fileDesc', $this->fileDesc, true);
     }
 
     public function toMap()
@@ -59,6 +67,9 @@ class SupplementFile extends Model
         }
         if (null !== $this->fileDesc) {
             $res['file_desc'] = $this->fileDesc;
+        }
+        if (null !== $this->fileSuffix) {
+            $res['file_suffix'] = $this->fileSuffix;
         }
 
         return $res;
@@ -80,6 +91,9 @@ class SupplementFile extends Model
         }
         if (isset($map['file_desc'])) {
             $model->fileDesc = $map['file_desc'];
+        }
+        if (isset($map['file_suffix'])) {
+            $model->fileSuffix = $map['file_suffix'];
         }
 
         return $model;

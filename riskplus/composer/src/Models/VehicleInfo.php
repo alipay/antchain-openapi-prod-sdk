@@ -24,6 +24,14 @@ class VehicleInfo extends Model
      */
     public $tradeAmount;
 
+    // 订单分期金额，单位：元
+    /**
+     * @example 188.88
+     *
+     * @var string
+     */
+    public $installmentAmount;
+
     // 首付金额，单位：元
     /**
      * @example 199.00
@@ -31,6 +39,62 @@ class VehicleInfo extends Model
      * @var string
      */
     public $downPayment;
+
+    // pad设备提供
+    /**
+     * @example xxx
+     *
+     * @var string
+     */
+    public $wifiMac;
+
+    // SN码/中控号(授信后放款前)
+    /**
+     * @example xxx
+     *
+     * @var string
+     */
+    public $sn;
+
+    // 车驾号(授信后放款前)
+    /**
+     * @example xxx
+     *
+     * @var string
+     */
+    public $frameNo;
+
+    // SKU ID
+    /**
+     * @example xxxx
+     *
+     * @var string
+     */
+    public $sku;
+
+    // 颜色
+    /**
+     * @example xxxx
+     *
+     * @var string
+     */
+    public $color;
+
+    // 车型关键词
+    /**
+     * @example xxx
+     *
+     * @var string
+     */
+    public $modelKeyword;
+
+    // 续航里程
+    /**
+     * @example 1024
+     *
+     * @var string
+     */
+    public $range;
 
     // 新车指导价，单位：元
     /**
@@ -47,22 +111,6 @@ class VehicleInfo extends Model
      * @var string
      */
     public $sellingPrice;
-
-    // 车驾号/SN码，车辆唯一标识
-    /**
-     * @example xxx
-     *
-     * @var string
-     */
-    public $sn;
-
-    // SKU ID
-    /**
-     * @example xxxx
-     *
-     * @var string
-     */
-    public $sku;
 
     // 品牌
     /**
@@ -88,30 +136,6 @@ class VehicleInfo extends Model
      */
     public $modelYear;
 
-    // 颜色
-    /**
-     * @example xxxx
-     *
-     * @var string
-     */
-    public $color;
-
-    // 续航里程
-    /**
-     * @example 1024
-     *
-     * @var string
-     */
-    public $range;
-
-    // 配件信息
-    /**
-     * @example xxxx
-     *
-     * @var string
-     */
-    public $parts;
-
     // 公里数，Odometer
     /**
      * @example xxxx
@@ -135,27 +159,44 @@ class VehicleInfo extends Model
      * @var string
      */
     public $otr;
+
+    // 配件信息
+    /**
+     * @example xxxx
+     *
+     * @var string
+     */
+    public $parts;
     protected $_name = [
-        'bizOrderNo'   => 'biz_order_no',
-        'tradeAmount'  => 'trade_amount',
-        'downPayment'  => 'down_payment',
-        'guidePrice'   => 'guide_price',
-        'sellingPrice' => 'selling_price',
-        'sn'           => 'sn',
-        'sku'          => 'sku',
-        'brand'        => 'brand',
-        'model'        => 'model',
-        'modelYear'    => 'model_year',
-        'color'        => 'color',
-        'range'        => 'range',
-        'parts'        => 'parts',
-        'odo'          => 'odo',
-        'firstRegDate' => 'first_reg_date',
-        'otr'          => 'otr',
+        'bizOrderNo'        => 'biz_order_no',
+        'tradeAmount'       => 'trade_amount',
+        'installmentAmount' => 'installment_amount',
+        'downPayment'       => 'down_payment',
+        'wifiMac'           => 'wifi_mac',
+        'sn'                => 'sn',
+        'frameNo'           => 'frame_no',
+        'sku'               => 'sku',
+        'color'             => 'color',
+        'modelKeyword'      => 'model_keyword',
+        'range'             => 'range',
+        'guidePrice'        => 'guide_price',
+        'sellingPrice'      => 'selling_price',
+        'brand'             => 'brand',
+        'model'             => 'model',
+        'modelYear'         => 'model_year',
+        'odo'               => 'odo',
+        'firstRegDate'      => 'first_reg_date',
+        'otr'               => 'otr',
+        'parts'             => 'parts',
     ];
 
     public function validate()
     {
+        Model::validateRequired('bizOrderNo', $this->bizOrderNo, true);
+        Model::validateRequired('tradeAmount', $this->tradeAmount, true);
+        Model::validateRequired('sku', $this->sku, true);
+        Model::validateRequired('guidePrice', $this->guidePrice, true);
+        Model::validateRequired('sellingPrice', $this->sellingPrice, true);
     }
 
     public function toMap()
@@ -167,20 +208,38 @@ class VehicleInfo extends Model
         if (null !== $this->tradeAmount) {
             $res['trade_amount'] = $this->tradeAmount;
         }
+        if (null !== $this->installmentAmount) {
+            $res['installment_amount'] = $this->installmentAmount;
+        }
         if (null !== $this->downPayment) {
             $res['down_payment'] = $this->downPayment;
+        }
+        if (null !== $this->wifiMac) {
+            $res['wifi_mac'] = $this->wifiMac;
+        }
+        if (null !== $this->sn) {
+            $res['sn'] = $this->sn;
+        }
+        if (null !== $this->frameNo) {
+            $res['frame_no'] = $this->frameNo;
+        }
+        if (null !== $this->sku) {
+            $res['sku'] = $this->sku;
+        }
+        if (null !== $this->color) {
+            $res['color'] = $this->color;
+        }
+        if (null !== $this->modelKeyword) {
+            $res['model_keyword'] = $this->modelKeyword;
+        }
+        if (null !== $this->range) {
+            $res['range'] = $this->range;
         }
         if (null !== $this->guidePrice) {
             $res['guide_price'] = $this->guidePrice;
         }
         if (null !== $this->sellingPrice) {
             $res['selling_price'] = $this->sellingPrice;
-        }
-        if (null !== $this->sn) {
-            $res['sn'] = $this->sn;
-        }
-        if (null !== $this->sku) {
-            $res['sku'] = $this->sku;
         }
         if (null !== $this->brand) {
             $res['brand'] = $this->brand;
@@ -191,15 +250,6 @@ class VehicleInfo extends Model
         if (null !== $this->modelYear) {
             $res['model_year'] = $this->modelYear;
         }
-        if (null !== $this->color) {
-            $res['color'] = $this->color;
-        }
-        if (null !== $this->range) {
-            $res['range'] = $this->range;
-        }
-        if (null !== $this->parts) {
-            $res['parts'] = $this->parts;
-        }
         if (null !== $this->odo) {
             $res['odo'] = $this->odo;
         }
@@ -208,6 +258,9 @@ class VehicleInfo extends Model
         }
         if (null !== $this->otr) {
             $res['otr'] = $this->otr;
+        }
+        if (null !== $this->parts) {
+            $res['parts'] = $this->parts;
         }
 
         return $res;
@@ -227,20 +280,38 @@ class VehicleInfo extends Model
         if (isset($map['trade_amount'])) {
             $model->tradeAmount = $map['trade_amount'];
         }
+        if (isset($map['installment_amount'])) {
+            $model->installmentAmount = $map['installment_amount'];
+        }
         if (isset($map['down_payment'])) {
             $model->downPayment = $map['down_payment'];
+        }
+        if (isset($map['wifi_mac'])) {
+            $model->wifiMac = $map['wifi_mac'];
+        }
+        if (isset($map['sn'])) {
+            $model->sn = $map['sn'];
+        }
+        if (isset($map['frame_no'])) {
+            $model->frameNo = $map['frame_no'];
+        }
+        if (isset($map['sku'])) {
+            $model->sku = $map['sku'];
+        }
+        if (isset($map['color'])) {
+            $model->color = $map['color'];
+        }
+        if (isset($map['model_keyword'])) {
+            $model->modelKeyword = $map['model_keyword'];
+        }
+        if (isset($map['range'])) {
+            $model->range = $map['range'];
         }
         if (isset($map['guide_price'])) {
             $model->guidePrice = $map['guide_price'];
         }
         if (isset($map['selling_price'])) {
             $model->sellingPrice = $map['selling_price'];
-        }
-        if (isset($map['sn'])) {
-            $model->sn = $map['sn'];
-        }
-        if (isset($map['sku'])) {
-            $model->sku = $map['sku'];
         }
         if (isset($map['brand'])) {
             $model->brand = $map['brand'];
@@ -251,15 +322,6 @@ class VehicleInfo extends Model
         if (isset($map['model_year'])) {
             $model->modelYear = $map['model_year'];
         }
-        if (isset($map['color'])) {
-            $model->color = $map['color'];
-        }
-        if (isset($map['range'])) {
-            $model->range = $map['range'];
-        }
-        if (isset($map['parts'])) {
-            $model->parts = $map['parts'];
-        }
         if (isset($map['odo'])) {
             $model->odo = $map['odo'];
         }
@@ -268,6 +330,9 @@ class VehicleInfo extends Model
         }
         if (isset($map['otr'])) {
             $model->otr = $map['otr'];
+        }
+        if (isset($map['parts'])) {
+            $model->parts = $map['parts'];
         }
 
         return $model;

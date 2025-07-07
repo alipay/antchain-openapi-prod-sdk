@@ -15,17 +15,8 @@ class Additional extends Model
      * @var string
      */
     public $deliveryman;
-
-    // 关键词
-    /**
-     * @example xxxx
-     *
-     * @var string
-     */
-    public $keyWord;
     protected $_name = [
         'deliveryman' => 'deliveryman',
-        'keyWord'     => 'key_word',
     ];
 
     public function validate()
@@ -37,9 +28,6 @@ class Additional extends Model
         $res = [];
         if (null !== $this->deliveryman) {
             $res['deliveryman'] = $this->deliveryman;
-        }
-        if (null !== $this->keyWord) {
-            $res['key_word'] = $this->keyWord;
         }
 
         return $res;
@@ -55,9 +43,6 @@ class Additional extends Model
         $model = new self();
         if (isset($map['deliveryman'])) {
             $model->deliveryman = $map['deliveryman'];
-        }
-        if (isset($map['key_word'])) {
-            $model->keyWord = $map['key_word'];
         }
 
         return $model;

@@ -121,7 +121,6 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
         Model::validateRequired('openId', $this->openId, true);
         Model::validateRequired('mobile', $this->mobile, true);
         Model::validateRequired('projectCode', $this->projectCode, true);
-        Model::validateRequired('tradeAmount', $this->tradeAmount, true);
     }
 
     public function toMap()

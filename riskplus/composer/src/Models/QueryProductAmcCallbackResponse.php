@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class NotifyBenefithubRiskLoginResponse extends Model
+class QueryProductAmcCallbackResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,23 @@ class NotifyBenefithubRiskLoginResponse extends Model
      */
     public $resultMsg;
 
-    // h5跳转链接
+    // 接口请求是否成功
     /**
-     * @var string
+     * @var bool
      */
-    public $h5Url;
+    public $success;
+
+    // 查询结果
+    /**
+     * @var QueryResult[]
+     */
+    public $queryResults;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'h5Url'      => 'h5_url',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'success'      => 'success',
+        'queryResults' => 'query_results',
     ];
 
     public function validate()
@@ -54,8 +61,17 @@ class NotifyBenefithubRiskLoginResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->h5Url) {
-            $res['h5_url'] = $this->h5Url;
+        if (null !== $this->success) {
+            $res['success'] = $this->success;
+        }
+        if (null !== $this->queryResults) {
+            $res['query_results'] = [];
+            if (null !== $this->queryResults && \is_array($this->queryResults)) {
+                $n = 0;
+                foreach ($this->queryResults as $item) {
+                    $res['query_results'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -64,7 +80,7 @@ class NotifyBenefithubRiskLoginResponse extends Model
     /**
      * @param array $map
      *
-     * @return NotifyBenefithubRiskLoginResponse
+     * @return QueryProductAmcCallbackResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +94,17 @@ class NotifyBenefithubRiskLoginResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['h5_url'])) {
-            $model->h5Url = $map['h5_url'];
+        if (isset($map['success'])) {
+            $model->success = $map['success'];
+        }
+        if (isset($map['query_results'])) {
+            if (!empty($map['query_results'])) {
+                $model->queryResults = [];
+                $n                   = 0;
+                foreach ($map['query_results'] as $item) {
+                    $model->queryResults[$n++] = null !== $item ? QueryResult::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

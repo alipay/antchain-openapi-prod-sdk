@@ -271,6 +271,8 @@ use AntChain\RISKPLUS\Models\QueryMdipDataservicePocRequest;
 use AntChain\RISKPLUS\Models\QueryMdipDataservicePocResponse;
 use AntChain\RISKPLUS\Models\QueryMdipDataserviceRequest;
 use AntChain\RISKPLUS\Models\QueryMdipDataserviceResponse;
+use AntChain\RISKPLUS\Models\QueryProductAmcCallbackRequest;
+use AntChain\RISKPLUS\Models\QueryProductAmcCallbackResponse;
 use AntChain\RISKPLUS\Models\QueryQmpCardsmsSupportRequest;
 use AntChain\RISKPLUS\Models\QueryQmpCardsmsSupportResponse;
 use AntChain\RISKPLUS\Models\QueryQmpCpaassmsTemplateRequest;
@@ -600,7 +602,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.24.2',
+                    'sdk_version'      => '1.24.3',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -745,6 +747,39 @@ class Client
         Utils::validateModel($request);
 
         return BatchqueryCreditshieldProductInfoResponse::fromMap($this->doRequest('1.0', 'riskplus.creditshield.product.info.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 信护盾amc机构回调通用接口
+     * Summary: 信护盾amc机构回调通用接口.
+     *
+     * @param QueryProductAmcCallbackRequest $request
+     *
+     * @return QueryProductAmcCallbackResponse
+     */
+    public function queryProductAmcCallback($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryProductAmcCallbackEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 信护盾amc机构回调通用接口
+     * Summary: 信护盾amc机构回调通用接口.
+     *
+     * @param QueryProductAmcCallbackRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryProductAmcCallbackResponse
+     */
+    public function queryProductAmcCallbackEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryProductAmcCallbackResponse::fromMap($this->doRequest('1.0', 'riskplus.product.amc.callback.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

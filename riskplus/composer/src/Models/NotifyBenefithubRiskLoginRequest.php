@@ -37,12 +37,19 @@ class NotifyBenefithubRiskLoginRequest extends Model
      * @var string
      */
     public $mobile;
+
+    // 产品code必填，后续多产品时可以区分
+    /**
+     * @var string
+     */
+    public $productCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'platformCode'      => 'platform_code',
         'userUniqueId'      => 'user_unique_id',
         'mobile'            => 'mobile',
+        'productCode'       => 'product_code',
     ];
 
     public function validate()
@@ -70,6 +77,9 @@ class NotifyBenefithubRiskLoginRequest extends Model
         if (null !== $this->mobile) {
             $res['mobile'] = $this->mobile;
         }
+        if (null !== $this->productCode) {
+            $res['product_code'] = $this->productCode;
+        }
 
         return $res;
     }
@@ -96,6 +106,9 @@ class NotifyBenefithubRiskLoginRequest extends Model
         }
         if (isset($map['mobile'])) {
             $model->mobile = $map['mobile'];
+        }
+        if (isset($map['product_code'])) {
+            $model->productCode = $map['product_code'];
         }
 
         return $model;
