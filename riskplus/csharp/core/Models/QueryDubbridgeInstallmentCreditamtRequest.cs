@@ -45,7 +45,7 @@ namespace AntChain.SDK.RISKPLUS.Models
 
         // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
         [NameInMap("trade_amount")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string TradeAmount { get; set; }
 
         // 身份证号

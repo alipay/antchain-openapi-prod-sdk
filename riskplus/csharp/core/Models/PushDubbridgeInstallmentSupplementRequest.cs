@@ -41,7 +41,7 @@ namespace AntChain.SDK.RISKPLUS.Models
 
         // 材料场景：2-支用前、3-支用后
         [NameInMap("file_scene")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string FileScene { get; set; }
 
         // 材料列表

@@ -26,8 +26,13 @@ namespace AntChain.SDK.RISKPLUS.Models
 
         // 材料名称/描述
         [NameInMap("file_desc")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string FileDesc { get; set; }
+
+        // 材料后缀，如png/jpg/jpeg
+        [NameInMap("file_suffix")]
+        [Validation(Required=false)]
+        public string FileSuffix { get; set; }
 
     }
 

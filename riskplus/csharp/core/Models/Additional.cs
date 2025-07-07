@@ -15,11 +15,6 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string Deliveryman { get; set; }
 
-        // 关键词
-        [NameInMap("key_word")]
-        [Validation(Required=false)]
-        public string KeyWord { get; set; }
-
     }
 
 }

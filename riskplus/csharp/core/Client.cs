@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.24.2"},
+                        {"sdk_version", "1.24.3"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.24.2"},
+                        {"sdk_version", "1.24.3"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -445,6 +445,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BatchqueryCreditshieldProductInfoResponse>(await DoRequestAsync("1.0", "riskplus.creditshield.product.info.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 信护盾amc机构回调通用接口
+         * Summary: 信护盾amc机构回调通用接口
+         */
+        public QueryProductAmcCallbackResponse QueryProductAmcCallback(QueryProductAmcCallbackRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryProductAmcCallbackEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 信护盾amc机构回调通用接口
+         * Summary: 信护盾amc机构回调通用接口
+         */
+        public async Task<QueryProductAmcCallbackResponse> QueryProductAmcCallbackAsync(QueryProductAmcCallbackRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryProductAmcCallbackExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 信护盾amc机构回调通用接口
+         * Summary: 信护盾amc机构回调通用接口
+         */
+        public QueryProductAmcCallbackResponse QueryProductAmcCallbackEx(QueryProductAmcCallbackRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryProductAmcCallbackResponse>(DoRequest("1.0", "riskplus.product.amc.callback.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 信护盾amc机构回调通用接口
+         * Summary: 信护盾amc机构回调通用接口
+         */
+        public async Task<QueryProductAmcCallbackResponse> QueryProductAmcCallbackExAsync(QueryProductAmcCallbackRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryProductAmcCallbackResponse>(await DoRequestAsync("1.0", "riskplus.product.amc.callback.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

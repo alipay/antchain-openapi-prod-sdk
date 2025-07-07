@@ -12,38 +12,68 @@ namespace AntChain.SDK.RISKPLUS.Models
     public class VehicleInfo : TeaModel {
         // 流量方购物订单号
         [NameInMap("biz_order_no")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string BizOrderNo { get; set; }
 
         // 订单[分期]金额，单位：元
         [NameInMap("trade_amount")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string TradeAmount { get; set; }
+
+        // 订单分期金额，单位：元
+        [NameInMap("installment_amount")]
+        [Validation(Required=false)]
+        public string InstallmentAmount { get; set; }
 
         // 首付金额，单位：元
         [NameInMap("down_payment")]
         [Validation(Required=false)]
         public string DownPayment { get; set; }
 
-        // 新车指导价，单位：元
-        [NameInMap("guide_price")]
+        // pad设备提供
+        [NameInMap("wifi_mac")]
         [Validation(Required=false)]
-        public string GuidePrice { get; set; }
+        public string WifiMac { get; set; }
 
-        // 售价，单位：元
-        [NameInMap("selling_price")]
-        [Validation(Required=false)]
-        public string SellingPrice { get; set; }
-
-        // 车驾号/SN码，车辆唯一标识
+        // SN码/中控号(授信后放款前)
         [NameInMap("sn")]
         [Validation(Required=false)]
         public string Sn { get; set; }
 
+        // 车驾号(授信后放款前)
+        [NameInMap("frame_no")]
+        [Validation(Required=false)]
+        public string FrameNo { get; set; }
+
         // SKU ID
         [NameInMap("sku")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string Sku { get; set; }
+
+        // 颜色
+        [NameInMap("color")]
+        [Validation(Required=false)]
+        public string Color { get; set; }
+
+        // 车型关键词
+        [NameInMap("model_keyword")]
+        [Validation(Required=false)]
+        public string ModelKeyword { get; set; }
+
+        // 续航里程
+        [NameInMap("range")]
+        [Validation(Required=false)]
+        public string Range { get; set; }
+
+        // 新车指导价，单位：元
+        [NameInMap("guide_price")]
+        [Validation(Required=true)]
+        public string GuidePrice { get; set; }
+
+        // 售价，单位：元
+        [NameInMap("selling_price")]
+        [Validation(Required=true)]
+        public string SellingPrice { get; set; }
 
         // 品牌
         [NameInMap("brand")]
@@ -60,21 +90,6 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ModelYear { get; set; }
 
-        // 颜色
-        [NameInMap("color")]
-        [Validation(Required=false)]
-        public string Color { get; set; }
-
-        // 续航里程
-        [NameInMap("range")]
-        [Validation(Required=false)]
-        public string Range { get; set; }
-
-        // 配件信息
-        [NameInMap("parts")]
-        [Validation(Required=false)]
-        public string Parts { get; set; }
-
         // 公里数，Odometer
         [NameInMap("odo")]
         [Validation(Required=false)]
@@ -89,6 +104,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [NameInMap("otr")]
         [Validation(Required=false)]
         public string Otr { get; set; }
+
+        // 配件信息
+        [NameInMap("parts")]
+        [Validation(Required=false)]
+        public string Parts { get; set; }
 
     }
 

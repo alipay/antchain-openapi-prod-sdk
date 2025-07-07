@@ -34,6 +34,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string Mobile { get; set; }
 
+        // 产品code必填，后续多产品时可以区分
+        [NameInMap("product_code")]
+        [Validation(Required=false)]
+        public string ProductCode { get; set; }
+
     }
 
 }
