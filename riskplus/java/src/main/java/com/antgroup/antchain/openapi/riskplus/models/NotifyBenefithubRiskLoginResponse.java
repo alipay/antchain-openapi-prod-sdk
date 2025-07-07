@@ -16,6 +16,10 @@ public class NotifyBenefithubRiskLoginResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // h5跳转链接
+    @NameInMap("h5_url")
+    public String h5Url;
+
     public static NotifyBenefithubRiskLoginResponse build(java.util.Map<String, ?> map) throws Exception {
         NotifyBenefithubRiskLoginResponse self = new NotifyBenefithubRiskLoginResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class NotifyBenefithubRiskLoginResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public NotifyBenefithubRiskLoginResponse setH5Url(String h5Url) {
+        this.h5Url = h5Url;
+        return this;
+    }
+    public String getH5Url() {
+        return this.h5Url;
     }
 
 }

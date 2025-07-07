@@ -34,7 +34,6 @@ public class PushDubbridgeInstallmentSupplementRequest extends TeaModel {
 
     // 材料场景：2-支用前、3-支用后
     @NameInMap("file_scene")
-    @Validation(required = true)
     public String fileScene;
 
     // 材料列表

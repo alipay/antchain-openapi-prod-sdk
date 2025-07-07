@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.24.2"),
+                    new TeaPair("sdk_version", "1.24.3"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -249,6 +249,27 @@ public class Client {
     public BatchqueryCreditshieldProductInfoResponse batchqueryCreditshieldProductInfoEx(BatchqueryCreditshieldProductInfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.creditshield.product.info.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryCreditshieldProductInfoResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 信护盾amc机构回调通用接口
+     * Summary: 信护盾amc机构回调通用接口</p>
+     */
+    public QueryProductAmcCallbackResponse queryProductAmcCallback(QueryProductAmcCallbackRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryProductAmcCallbackEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 信护盾amc机构回调通用接口
+     * Summary: 信护盾amc机构回调通用接口</p>
+     */
+    public QueryProductAmcCallbackResponse queryProductAmcCallbackEx(QueryProductAmcCallbackRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.product.amc.callback.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryProductAmcCallbackResponse());
     }
 
     /**

@@ -12,14 +12,6 @@ public class Additional extends TeaModel {
     @NameInMap("deliveryman")
     public String deliveryman;
 
-    // 关键词
-    /**
-     * <strong>example:</strong>
-     * <p>xxxx</p>
-     */
-    @NameInMap("key_word")
-    public String keyWord;
-
     public static Additional build(java.util.Map<String, ?> map) throws Exception {
         Additional self = new Additional();
         return TeaModel.build(map, self);
@@ -31,14 +23,6 @@ public class Additional extends TeaModel {
     }
     public String getDeliveryman() {
         return this.deliveryman;
-    }
-
-    public Additional setKeyWord(String keyWord) {
-        this.keyWord = keyWord;
-        return this;
-    }
-    public String getKeyWord() {
-        return this.keyWord;
     }
 
 }

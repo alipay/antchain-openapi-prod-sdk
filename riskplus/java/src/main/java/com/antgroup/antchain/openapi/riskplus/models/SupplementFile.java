@@ -32,8 +32,15 @@ public class SupplementFile extends TeaModel {
      * <p>xxx</p>
      */
     @NameInMap("file_desc")
-    @Validation(required = true)
     public String fileDesc;
+
+    // 材料后缀，如png/jpg/jpeg
+    /**
+     * <strong>example:</strong>
+     * <p>png</p>
+     */
+    @NameInMap("file_suffix")
+    public String fileSuffix;
 
     public static SupplementFile build(java.util.Map<String, ?> map) throws Exception {
         SupplementFile self = new SupplementFile();
@@ -62,6 +69,14 @@ public class SupplementFile extends TeaModel {
     }
     public String getFileDesc() {
         return this.fileDesc;
+    }
+
+    public SupplementFile setFileSuffix(String fileSuffix) {
+        this.fileSuffix = fileSuffix;
+        return this;
+    }
+    public String getFileSuffix() {
+        return this.fileSuffix;
     }
 
 }

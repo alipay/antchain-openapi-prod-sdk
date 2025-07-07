@@ -27,6 +27,10 @@ public class NotifyBenefithubRiskLoginRequest extends TeaModel {
     @Validation(required = true)
     public String mobile;
 
+    // 产品code必填，后续多产品时可以区分
+    @NameInMap("product_code")
+    public String productCode;
+
     public static NotifyBenefithubRiskLoginRequest build(java.util.Map<String, ?> map) throws Exception {
         NotifyBenefithubRiskLoginRequest self = new NotifyBenefithubRiskLoginRequest();
         return TeaModel.build(map, self);
@@ -70,6 +74,14 @@ public class NotifyBenefithubRiskLoginRequest extends TeaModel {
     }
     public String getMobile() {
         return this.mobile;
+    }
+
+    public NotifyBenefithubRiskLoginRequest setProductCode(String productCode) {
+        this.productCode = productCode;
+        return this;
+    }
+    public String getProductCode() {
+        return this.productCode;
     }
 
 }
