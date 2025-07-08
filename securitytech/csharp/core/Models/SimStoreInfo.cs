@@ -20,6 +20,16 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=true)]
         public string StoreName { get; set; }
 
+        // 是否签约 true已签约/false未签约
+        [NameInMap("is_sign")]
+        [Validation(Required=true)]
+        public bool? IsSign { get; set; }
+
+        // 支付宝H5签约链接 未签约时非空
+        [NameInMap("sign_url")]
+        [Validation(Required=false)]
+        public string SignUrl { get; set; }
+
     }
 
 }

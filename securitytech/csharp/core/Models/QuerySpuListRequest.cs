@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.SECURITYTECH.Models
 {
-    public class CreateSimOrderRequest : TeaModel {
+    public class QuerySpuListRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -23,30 +23,20 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=true)]
         public string DeviceId { get; set; }
 
-        // sku id
-        [NameInMap("sku_id")]
+        // 请求的页数
+        [NameInMap("page_no")]
         [Validation(Required=true)]
-        public string SkuId { get; set; }
+        public long? PageNo { get; set; }
 
-        // 车辆sn号
-        [NameInMap("sn")]
-        [Validation(Required=false)]
-        public string Sn { get; set; }
-
-        // 颜色
-        [NameInMap("color")]
+        // 单页项数
+        [NameInMap("page_size")]
         [Validation(Required=true)]
-        public string Color { get; set; }
+        public long? PageSize { get; set; }
 
         // 登录态token
         [NameInMap("token")]
         [Validation(Required=true)]
         public string Token { get; set; }
-
-        // 扩展信息
-        [NameInMap("extra_info")]
-        [Validation(Required=false)]
-        public string ExtraInfo { get; set; }
 
     }
 

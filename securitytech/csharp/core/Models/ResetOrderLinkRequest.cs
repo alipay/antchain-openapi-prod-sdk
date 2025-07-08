@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.SECURITYTECH.Models
 {
-    public class CreateSimOrderRequest : TeaModel {
+    public class ResetOrderLinkRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -23,30 +23,15 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=true)]
         public string DeviceId { get; set; }
 
-        // sku id
-        [NameInMap("sku_id")]
+        // 订单号
+        [NameInMap("order_id")]
         [Validation(Required=true)]
-        public string SkuId { get; set; }
-
-        // 车辆sn号
-        [NameInMap("sn")]
-        [Validation(Required=false)]
-        public string Sn { get; set; }
-
-        // 颜色
-        [NameInMap("color")]
-        [Validation(Required=true)]
-        public string Color { get; set; }
+        public string OrderId { get; set; }
 
         // 登录态token
         [NameInMap("token")]
         [Validation(Required=true)]
         public string Token { get; set; }
-
-        // 扩展信息
-        [NameInMap("extra_info")]
-        [Validation(Required=false)]
-        public string ExtraInfo { get; set; }
 
     }
 

@@ -25,6 +25,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public string Sn { get; set; }
 
+        // 用户手机号
+        [NameInMap("mobile_no")]
+        [Validation(Required=false)]
+        public string MobileNo { get; set; }
+
         // 订单时间，格式yyyy-MM-dd HH:mm:ss
         [NameInMap("order_time")]
         [Validation(Required=true)]
@@ -79,6 +84,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [NameInMap("images")]
         [Validation(Required=false)]
         public string Images { get; set; }
+
+        // 拓展字段，json格式
+        [NameInMap("extra_info")]
+        [Validation(Required=false)]
+        public string ExtraInfo { get; set; }
 
     }
 

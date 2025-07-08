@@ -23,6 +23,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=true)]
         public string DeviceId { get; set; }
 
+        // SPU ID
+        [NameInMap("spu_id")]
+        [Validation(Required=false)]
+        public string SpuId { get; set; }
+
         // 请求的页数
         [NameInMap("page_no")]
         [Validation(Required=true)]

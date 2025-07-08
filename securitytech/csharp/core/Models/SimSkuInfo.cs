@@ -65,6 +65,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=true)]
         public string StoreId { get; set; }
 
+        // 车型描述
+        [NameInMap("sku_description")]
+        [Validation(Required=false)]
+        public string SkuDescription { get; set; }
+
     }
 
 }

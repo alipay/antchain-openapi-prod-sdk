@@ -137,7 +137,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.13"},
+                        {"sdk_version", "1.4.18"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.13"},
+                        {"sdk_version", "1.4.18"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1121,6 +1121,174 @@ namespace AntChain.SDK.SECURITYTECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadSimQrcodeResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.sim.qrcode.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询spu列表
+         * Summary: 两轮车一体机列举车辆SPU
+         */
+        public QuerySpuListResponse QuerySpuList(QuerySpuListRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QuerySpuListEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询spu列表
+         * Summary: 两轮车一体机列举车辆SPU
+         */
+        public async Task<QuerySpuListResponse> QuerySpuListAsync(QuerySpuListRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QuerySpuListExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询spu列表
+         * Summary: 两轮车一体机列举车辆SPU
+         */
+        public QuerySpuListResponse QuerySpuListEx(QuerySpuListRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerySpuListResponse>(DoRequest("1.0", "antsecuritytech.gateway.spu.list.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询spu列表
+         * Summary: 两轮车一体机列举车辆SPU
+         */
+        public async Task<QuerySpuListResponse> QuerySpuListExAsync(QuerySpuListRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QuerySpuListResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.spu.list.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 两轮车一体机轮询门店签约结果
+         * Summary: 两轮车一体机轮询门店签约结果
+         */
+        public QueryLoginSignResponse QueryLoginSign(QueryLoginSignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryLoginSignEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 两轮车一体机轮询门店签约结果
+         * Summary: 两轮车一体机轮询门店签约结果
+         */
+        public async Task<QueryLoginSignResponse> QueryLoginSignAsync(QueryLoginSignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryLoginSignExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 两轮车一体机轮询门店签约结果
+         * Summary: 两轮车一体机轮询门店签约结果
+         */
+        public QueryLoginSignResponse QueryLoginSignEx(QueryLoginSignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryLoginSignResponse>(DoRequest("1.0", "antsecuritytech.gateway.login.sign.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 两轮车一体机轮询门店签约结果
+         * Summary: 两轮车一体机轮询门店签约结果
+         */
+        public async Task<QueryLoginSignResponse> QueryLoginSignExAsync(QueryLoginSignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryLoginSignResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.login.sign.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 刷新订单链接
+         * Summary: 刷新订单链接
+         */
+        public ResetOrderLinkResponse ResetOrderLink(ResetOrderLinkRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ResetOrderLinkEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 刷新订单链接
+         * Summary: 刷新订单链接
+         */
+        public async Task<ResetOrderLinkResponse> ResetOrderLinkAsync(ResetOrderLinkRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ResetOrderLinkExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 刷新订单链接
+         * Summary: 刷新订单链接
+         */
+        public ResetOrderLinkResponse ResetOrderLinkEx(ResetOrderLinkRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResetOrderLinkResponse>(DoRequest("1.0", "antsecuritytech.gateway.order.link.reset", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 刷新订单链接
+         * Summary: 刷新订单链接
+         */
+        public async Task<ResetOrderLinkResponse> ResetOrderLinkExAsync(ResetOrderLinkRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResetOrderLinkResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.order.link.reset", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 一体机风控信息上传接口
+         * Summary: 一体机风控信息上传接口
+         */
+        public UploadSimRiskdataResponse UploadSimRiskdata(UploadSimRiskdataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadSimRiskdataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 一体机风控信息上传接口
+         * Summary: 一体机风控信息上传接口
+         */
+        public async Task<UploadSimRiskdataResponse> UploadSimRiskdataAsync(UploadSimRiskdataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadSimRiskdataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 一体机风控信息上传接口
+         * Summary: 一体机风控信息上传接口
+         */
+        public UploadSimRiskdataResponse UploadSimRiskdataEx(UploadSimRiskdataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadSimRiskdataResponse>(DoRequest("1.0", "antsecuritytech.gateway.sim.riskdata.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 一体机风控信息上传接口
+         * Summary: 一体机风控信息上传接口
+         */
+        public async Task<UploadSimRiskdataResponse> UploadSimRiskdataExAsync(UploadSimRiskdataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadSimRiskdataResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.sim.riskdata.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
