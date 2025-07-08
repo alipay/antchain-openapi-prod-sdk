@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.13',
+    sdk_version = '1.4.18',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -173,6 +173,14 @@ model RiskData {
 model ResponseHead {
   // 请求唯一标识
   requestId: string(name='request_id', example='91440300892305861T'),
+}
+
+// spu图片信息
+model SpuPictureInfo {
+  // spu主图url
+  mainPic: string(name='main_pic', example=' '),
+  // spu详情图片url
+  detailPic?: [ string ](name='detail_pic', example=''),
 }
 
 // 业务参数
@@ -385,6 +393,8 @@ model SimOrderInfo {
   salesId: string(name='sales_id', example=' '),
   // 车辆SN号
   sn?: string(name='sn', example=' '),
+  // 用户手机号
+  mobileNo?: string(name='mobile_no', example='17796897555'),
   // 订单时间，格式yyyy-MM-dd HH:mm:ss
   orderTime: string(name='order_time', example='2025-01-01 00:00:00'),
   // 支付类型，枚举值FULL（全额付款）, INSTALLMENT（分期付款）
@@ -410,6 +420,8 @@ model SimOrderInfo {
   accessories?: string(name='accessories', example=' '),
   // 图片json
   images?: string(name='images', example=' '),
+  // 拓展字段，json格式
+  extraInfo?: string(name='extra_info', example='{}'),
 }
 
 // 二轮车一体机车辆SKU
@@ -436,6 +448,8 @@ model SimSkuInfo {
   images: string(name='images', example='{}'),
   // 门店id
   storeId: string(name='store_id', example=' '),
+  // 车型描述
+  skuDescription?: string(name='sku_description', example=' '),
 }
 
 // eKYT可信签约查询数据
@@ -508,6 +522,16 @@ model RiskQueryData {
   riskLabels: [ string ](name='risk_labels', example='.'),
 }
 
+// 两轮车一体机车辆SPU
+model SimSpuInfo {
+  // SPU ID
+  spuId: string(name='spu_id', example=' '),
+  // spu名称
+  spuName: string(name='spu_name', example=' '),
+  // spu图片信息
+  spuPictureInfo: SpuPictureInfo(name='spu_picture_info', example=' '),
+}
+
 // KeyValue对属性
 model KeyValueMap {
   // key-value中的key
@@ -566,6 +590,10 @@ model SimStoreInfo {
   storeId: string(name='store_id', example=' '),
   // 门店名称
   storeName: string(name='store_name', example=' '),
+  // 是否签约 true已签约/false未签约
+  isSign: boolean(name='is_sign', example='true, false'),
+  // 支付宝H5签约链接 未签约时非空
+  signUrl?: string(name='sign_url', example=' '),
 }
 
 // 司机签约信息列表
@@ -1224,6 +1252,8 @@ model ListSimSkuRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 设备编号
   deviceId: string(name='device_id'),
+  // SPU ID
+  spuId?: string(name='spu_id'),
   // 请求的页数
   pageNo: long(name='page_no'),
   // 单页项数
@@ -1278,6 +1308,8 @@ model CreateSimOrderRequest = {
   color: string(name='color'),
   // 登录态token
   token: string(name='token'),
+  // 扩展信息
+  extraInfo?: string(name='extra_info'),
 }
 
 model CreateSimOrderResponse = {
@@ -1574,6 +1606,192 @@ async function uploadSimQrcode(request: UploadSimQrcodeRequest): UploadSimQrcode
 async function uploadSimQrcodeEx(request: UploadSimQrcodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadSimQrcodeResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.sim.qrcode.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySpuListRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备编号
+  deviceId: string(name='device_id'),
+  // 请求的页数
+  pageNo: long(name='page_no'),
+  // 单页项数
+  pageSize: long(name='page_size'),
+  // 登录态token
+  token: string(name='token'),
+}
+
+model QuerySpuListResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // SPU信息
+  spuInfoList?: [ SimSpuInfo ](name='spu_info_list'),
+  // 分页参数
+  paginator?: Paginator(name='paginator'),
+}
+
+/**
+ * Description: 查询spu列表
+ * Summary: 两轮车一体机列举车辆SPU
+ */
+async function querySpuList(request: QuerySpuListRequest): QuerySpuListResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySpuListEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询spu列表
+ * Summary: 两轮车一体机列举车辆SPU
+ */
+async function querySpuListEx(request: QuerySpuListRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySpuListResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.spu.list.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryLoginSignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备编号
+  deviceId: string(name='device_id'),
+  // 登录态token
+  token: string(name='token'),
+}
+
+model QueryLoginSignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 门店签约信息
+  storeInfo?: SimStoreInfo(name='store_info'),
+}
+
+/**
+ * Description: 两轮车一体机轮询门店签约结果
+ * Summary: 两轮车一体机轮询门店签约结果
+ */
+async function queryLoginSign(request: QueryLoginSignRequest): QueryLoginSignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryLoginSignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 两轮车一体机轮询门店签约结果
+ * Summary: 两轮车一体机轮询门店签约结果
+ */
+async function queryLoginSignEx(request: QueryLoginSignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLoginSignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.login.sign.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ResetOrderLinkRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备编号
+  deviceId: string(name='device_id'),
+  // 订单号
+  orderId: string(name='order_id'),
+  // 登录态token
+  token: string(name='token'),
+}
+
+model ResetOrderLinkResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 小程序地址
+  miniappLink?: string(name='miniapp_link'),
+}
+
+/**
+ * Description: 刷新订单链接
+ * Summary: 刷新订单链接
+ */
+async function resetOrderLink(request: ResetOrderLinkRequest): ResetOrderLinkResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return resetOrderLinkEx(request, headers, runtime);
+}
+
+/**
+ * Description: 刷新订单链接
+ * Summary: 刷新订单链接
+ */
+async function resetOrderLinkEx(request: ResetOrderLinkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ResetOrderLinkResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.order.link.reset', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadSimRiskdataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备ID
+  deviceId: string(name='device_id'),
+  // 登录态token
+  token: string(name='token'),
+  // 上报类型
+  uploadType: string(name='upload_type'),
+  // 智能中控id
+  tuid?: string(name='tuid'),
+  // 中控照片，base64后的图象数据
+  tuidPhoto?: string(name='tuid_photo'),
+  // 车架号
+  frameNo?: string(name='frame_no'),
+  // 车架号照片，base64后的图象数据
+  frameNoPhoto?: string(name='frame_no_photo'),
+  // 人车合影（销售+用户），base64后的图象数据
+  groupPhoto?: string(name='group_photo'),
+  // 单据照片（发票/收据），base64后的图象数据
+  billPhoto?: string(name='bill_photo'),
+  // 上牌照片，base64后的图象数据
+  licensePlatePhoto?: string(name='license_plate_photo'),
+  // 订单ID
+  orderId: string(name='order_id'),
+}
+
+model UploadSimRiskdataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // json字符串，扩展预留
+  extraInfo?: string(name='extra_info'),
+}
+
+/**
+ * Description: 一体机风控信息上传接口
+ * Summary: 一体机风控信息上传接口
+ */
+async function uploadSimRiskdata(request: UploadSimRiskdataRequest): UploadSimRiskdataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadSimRiskdataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 一体机风控信息上传接口
+ * Summary: 一体机风控信息上传接口
+ */
+async function uploadSimRiskdataEx(request: UploadSimRiskdataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadSimRiskdataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.sim.riskdata.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateBssecpicRequest = {
