@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.13',
+                    'sdk_version': '1.4.18',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.13',
+                    'sdk_version': '1.4.18',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -1341,6 +1341,230 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.UploadSimQrcodeResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.sim.qrcode.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_spu_list(
+        self,
+        request: securitytech_models.QuerySpuListRequest,
+    ) -> securitytech_models.QuerySpuListResponse:
+        """
+        Description: 查询spu列表
+        Summary: 两轮车一体机列举车辆SPU
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_spu_list_ex(request, headers, runtime)
+
+    async def query_spu_list_async(
+        self,
+        request: securitytech_models.QuerySpuListRequest,
+    ) -> securitytech_models.QuerySpuListResponse:
+        """
+        Description: 查询spu列表
+        Summary: 两轮车一体机列举车辆SPU
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_spu_list_ex_async(request, headers, runtime)
+
+    def query_spu_list_ex(
+        self,
+        request: securitytech_models.QuerySpuListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QuerySpuListResponse:
+        """
+        Description: 查询spu列表
+        Summary: 两轮车一体机列举车辆SPU
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QuerySpuListResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.spu.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_spu_list_ex_async(
+        self,
+        request: securitytech_models.QuerySpuListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QuerySpuListResponse:
+        """
+        Description: 查询spu列表
+        Summary: 两轮车一体机列举车辆SPU
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QuerySpuListResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.spu.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_login_sign(
+        self,
+        request: securitytech_models.QueryLoginSignRequest,
+    ) -> securitytech_models.QueryLoginSignResponse:
+        """
+        Description: 两轮车一体机轮询门店签约结果
+        Summary: 两轮车一体机轮询门店签约结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_login_sign_ex(request, headers, runtime)
+
+    async def query_login_sign_async(
+        self,
+        request: securitytech_models.QueryLoginSignRequest,
+    ) -> securitytech_models.QueryLoginSignResponse:
+        """
+        Description: 两轮车一体机轮询门店签约结果
+        Summary: 两轮车一体机轮询门店签约结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_login_sign_ex_async(request, headers, runtime)
+
+    def query_login_sign_ex(
+        self,
+        request: securitytech_models.QueryLoginSignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryLoginSignResponse:
+        """
+        Description: 两轮车一体机轮询门店签约结果
+        Summary: 两轮车一体机轮询门店签约结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryLoginSignResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.login.sign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_login_sign_ex_async(
+        self,
+        request: securitytech_models.QueryLoginSignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryLoginSignResponse:
+        """
+        Description: 两轮车一体机轮询门店签约结果
+        Summary: 两轮车一体机轮询门店签约结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryLoginSignResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.login.sign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def reset_order_link(
+        self,
+        request: securitytech_models.ResetOrderLinkRequest,
+    ) -> securitytech_models.ResetOrderLinkResponse:
+        """
+        Description: 刷新订单链接
+        Summary: 刷新订单链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.reset_order_link_ex(request, headers, runtime)
+
+    async def reset_order_link_async(
+        self,
+        request: securitytech_models.ResetOrderLinkRequest,
+    ) -> securitytech_models.ResetOrderLinkResponse:
+        """
+        Description: 刷新订单链接
+        Summary: 刷新订单链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.reset_order_link_ex_async(request, headers, runtime)
+
+    def reset_order_link_ex(
+        self,
+        request: securitytech_models.ResetOrderLinkRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ResetOrderLinkResponse:
+        """
+        Description: 刷新订单链接
+        Summary: 刷新订单链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ResetOrderLinkResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.order.link.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def reset_order_link_ex_async(
+        self,
+        request: securitytech_models.ResetOrderLinkRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ResetOrderLinkResponse:
+        """
+        Description: 刷新订单链接
+        Summary: 刷新订单链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ResetOrderLinkResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.order.link.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_sim_riskdata(
+        self,
+        request: securitytech_models.UploadSimRiskdataRequest,
+    ) -> securitytech_models.UploadSimRiskdataResponse:
+        """
+        Description: 一体机风控信息上传接口
+        Summary: 一体机风控信息上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_sim_riskdata_ex(request, headers, runtime)
+
+    async def upload_sim_riskdata_async(
+        self,
+        request: securitytech_models.UploadSimRiskdataRequest,
+    ) -> securitytech_models.UploadSimRiskdataResponse:
+        """
+        Description: 一体机风控信息上传接口
+        Summary: 一体机风控信息上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_sim_riskdata_ex_async(request, headers, runtime)
+
+    def upload_sim_riskdata_ex(
+        self,
+        request: securitytech_models.UploadSimRiskdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.UploadSimRiskdataResponse:
+        """
+        Description: 一体机风控信息上传接口
+        Summary: 一体机风控信息上传接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.UploadSimRiskdataResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.sim.riskdata.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_sim_riskdata_ex_async(
+        self,
+        request: securitytech_models.UploadSimRiskdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.UploadSimRiskdataResponse:
+        """
+        Description: 一体机风控信息上传接口
+        Summary: 一体机风控信息上传接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.UploadSimRiskdataResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.sim.riskdata.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_bssecpic(
