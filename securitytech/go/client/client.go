@@ -193,6 +193,32 @@ func (s *ResponseHead) SetRequestId(v string) *ResponseHead {
 	return s
 }
 
+// spu图片信息
+type SpuPictureInfo struct {
+	// spu主图url
+	MainPic *string `json:"main_pic,omitempty" xml:"main_pic,omitempty" require:"true"`
+	// spu详情图片url
+	DetailPic []*string `json:"detail_pic,omitempty" xml:"detail_pic,omitempty" type:"Repeated"`
+}
+
+func (s SpuPictureInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SpuPictureInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SpuPictureInfo) SetMainPic(v string) *SpuPictureInfo {
+	s.MainPic = &v
+	return s
+}
+
+func (s *SpuPictureInfo) SetDetailPic(v []*string) *SpuPictureInfo {
+	s.DetailPic = v
+	return s
+}
+
 // 业务参数
 type BizParam struct {
 	// 参数类型枚举，mobile、cert、biz_license
@@ -864,6 +890,8 @@ type SimOrderInfo struct {
 	SalesId *string `json:"sales_id,omitempty" xml:"sales_id,omitempty" require:"true"`
 	// 车辆SN号
 	Sn *string `json:"sn,omitempty" xml:"sn,omitempty"`
+	// 用户手机号
+	MobileNo *string `json:"mobile_no,omitempty" xml:"mobile_no,omitempty"`
 	// 订单时间，格式yyyy-MM-dd HH:mm:ss
 	OrderTime *string `json:"order_time,omitempty" xml:"order_time,omitempty" require:"true"`
 	// 支付类型，枚举值FULL（全额付款）, INSTALLMENT（分期付款）
@@ -889,6 +917,8 @@ type SimOrderInfo struct {
 	Accessories *string `json:"accessories,omitempty" xml:"accessories,omitempty"`
 	// 图片json
 	Images *string `json:"images,omitempty" xml:"images,omitempty"`
+	// 拓展字段，json格式
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
 }
 
 func (s SimOrderInfo) String() string {
@@ -911,6 +941,11 @@ func (s *SimOrderInfo) SetSalesId(v string) *SimOrderInfo {
 
 func (s *SimOrderInfo) SetSn(v string) *SimOrderInfo {
 	s.Sn = &v
+	return s
+}
+
+func (s *SimOrderInfo) SetMobileNo(v string) *SimOrderInfo {
+	s.MobileNo = &v
 	return s
 }
 
@@ -964,6 +999,11 @@ func (s *SimOrderInfo) SetImages(v string) *SimOrderInfo {
 	return s
 }
 
+func (s *SimOrderInfo) SetExtraInfo(v string) *SimOrderInfo {
+	s.ExtraInfo = &v
+	return s
+}
+
 // 二轮车一体机车辆SKU
 type SimSkuInfo struct {
 	// sku对外id
@@ -988,6 +1028,8 @@ type SimSkuInfo struct {
 	Images *string `json:"images,omitempty" xml:"images,omitempty" require:"true"`
 	// 门店id
 	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
+	// 车型描述
+	SkuDescription *string `json:"sku_description,omitempty" xml:"sku_description,omitempty"`
 }
 
 func (s SimSkuInfo) String() string {
@@ -1050,6 +1092,11 @@ func (s *SimSkuInfo) SetImages(v string) *SimSkuInfo {
 
 func (s *SimSkuInfo) SetStoreId(v string) *SimSkuInfo {
 	s.StoreId = &v
+	return s
+}
+
+func (s *SimSkuInfo) SetSkuDescription(v string) *SimSkuInfo {
+	s.SkuDescription = &v
 	return s
 }
 
@@ -1288,6 +1335,39 @@ func (s *RiskQueryData) SetRiskLabels(v []*string) *RiskQueryData {
 	return s
 }
 
+// 两轮车一体机车辆SPU
+type SimSpuInfo struct {
+	// SPU ID
+	SpuId *string `json:"spu_id,omitempty" xml:"spu_id,omitempty" require:"true"`
+	// spu名称
+	SpuName *string `json:"spu_name,omitempty" xml:"spu_name,omitempty" require:"true"`
+	// spu图片信息
+	SpuPictureInfo *SpuPictureInfo `json:"spu_picture_info,omitempty" xml:"spu_picture_info,omitempty" require:"true"`
+}
+
+func (s SimSpuInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SimSpuInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SimSpuInfo) SetSpuId(v string) *SimSpuInfo {
+	s.SpuId = &v
+	return s
+}
+
+func (s *SimSpuInfo) SetSpuName(v string) *SimSpuInfo {
+	s.SpuName = &v
+	return s
+}
+
+func (s *SimSpuInfo) SetSpuPictureInfo(v *SpuPictureInfo) *SimSpuInfo {
+	s.SpuPictureInfo = v
+	return s
+}
+
 // KeyValue对属性
 type KeyValueMap struct {
 	// key-value中的key
@@ -1466,6 +1546,10 @@ type SimStoreInfo struct {
 	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
 	// 门店名称
 	StoreName *string `json:"store_name,omitempty" xml:"store_name,omitempty" require:"true"`
+	// 是否签约 true已签约/false未签约
+	IsSign *bool `json:"is_sign,omitempty" xml:"is_sign,omitempty" require:"true"`
+	// 支付宝H5签约链接 未签约时非空
+	SignUrl *string `json:"sign_url,omitempty" xml:"sign_url,omitempty"`
 }
 
 func (s SimStoreInfo) String() string {
@@ -1483,6 +1567,16 @@ func (s *SimStoreInfo) SetStoreId(v string) *SimStoreInfo {
 
 func (s *SimStoreInfo) SetStoreName(v string) *SimStoreInfo {
 	s.StoreName = &v
+	return s
+}
+
+func (s *SimStoreInfo) SetIsSign(v bool) *SimStoreInfo {
+	s.IsSign = &v
+	return s
+}
+
+func (s *SimStoreInfo) SetSignUrl(v string) *SimStoreInfo {
+	s.SignUrl = &v
 	return s
 }
 
@@ -2973,6 +3067,8 @@ type ListSimSkuRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 设备编号
 	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// SPU ID
+	SpuId *string `json:"spu_id,omitempty" xml:"spu_id,omitempty"`
 	// 请求的页数
 	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty" require:"true"`
 	// 单页项数
@@ -3001,6 +3097,11 @@ func (s *ListSimSkuRequest) SetProductInstanceId(v string) *ListSimSkuRequest {
 
 func (s *ListSimSkuRequest) SetDeviceId(v string) *ListSimSkuRequest {
 	s.DeviceId = &v
+	return s
+}
+
+func (s *ListSimSkuRequest) SetSpuId(v string) *ListSimSkuRequest {
+	s.SpuId = &v
 	return s
 }
 
@@ -3079,6 +3180,8 @@ type CreateSimOrderRequest struct {
 	Color *string `json:"color,omitempty" xml:"color,omitempty" require:"true"`
 	// 登录态token
 	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+	// 扩展信息
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
 }
 
 func (s CreateSimOrderRequest) String() string {
@@ -3121,6 +3224,11 @@ func (s *CreateSimOrderRequest) SetColor(v string) *CreateSimOrderRequest {
 
 func (s *CreateSimOrderRequest) SetToken(v string) *CreateSimOrderRequest {
 	s.Token = &v
+	return s
+}
+
+func (s *CreateSimOrderRequest) SetExtraInfo(v string) *CreateSimOrderRequest {
+	s.ExtraInfo = &v
 	return s
 }
 
@@ -3712,6 +3820,405 @@ func (s *UploadSimQrcodeResponse) SetParsedContent(v string) *UploadSimQrcodeRes
 }
 
 func (s *UploadSimQrcodeResponse) SetExtraInfo(v string) *UploadSimQrcodeResponse {
+	s.ExtraInfo = &v
+	return s
+}
+
+type QuerySpuListRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备编号
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 请求的页数
+	PageNo *int64 `json:"page_no,omitempty" xml:"page_no,omitempty" require:"true"`
+	// 单页项数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 登录态token
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+}
+
+func (s QuerySpuListRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySpuListRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySpuListRequest) SetAuthToken(v string) *QuerySpuListRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySpuListRequest) SetProductInstanceId(v string) *QuerySpuListRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerySpuListRequest) SetDeviceId(v string) *QuerySpuListRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *QuerySpuListRequest) SetPageNo(v int64) *QuerySpuListRequest {
+	s.PageNo = &v
+	return s
+}
+
+func (s *QuerySpuListRequest) SetPageSize(v int64) *QuerySpuListRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QuerySpuListRequest) SetToken(v string) *QuerySpuListRequest {
+	s.Token = &v
+	return s
+}
+
+type QuerySpuListResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// SPU信息
+	SpuInfoList []*SimSpuInfo `json:"spu_info_list,omitempty" xml:"spu_info_list,omitempty" type:"Repeated"`
+	// 分页参数
+	Paginator *Paginator `json:"paginator,omitempty" xml:"paginator,omitempty"`
+}
+
+func (s QuerySpuListResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySpuListResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySpuListResponse) SetReqMsgId(v string) *QuerySpuListResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySpuListResponse) SetResultCode(v string) *QuerySpuListResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySpuListResponse) SetResultMsg(v string) *QuerySpuListResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySpuListResponse) SetSpuInfoList(v []*SimSpuInfo) *QuerySpuListResponse {
+	s.SpuInfoList = v
+	return s
+}
+
+func (s *QuerySpuListResponse) SetPaginator(v *Paginator) *QuerySpuListResponse {
+	s.Paginator = v
+	return s
+}
+
+type QueryLoginSignRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备编号
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 登录态token
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+}
+
+func (s QueryLoginSignRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLoginSignRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLoginSignRequest) SetAuthToken(v string) *QueryLoginSignRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryLoginSignRequest) SetProductInstanceId(v string) *QueryLoginSignRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryLoginSignRequest) SetDeviceId(v string) *QueryLoginSignRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *QueryLoginSignRequest) SetToken(v string) *QueryLoginSignRequest {
+	s.Token = &v
+	return s
+}
+
+type QueryLoginSignResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 门店签约信息
+	StoreInfo *SimStoreInfo `json:"store_info,omitempty" xml:"store_info,omitempty"`
+}
+
+func (s QueryLoginSignResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryLoginSignResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryLoginSignResponse) SetReqMsgId(v string) *QueryLoginSignResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryLoginSignResponse) SetResultCode(v string) *QueryLoginSignResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryLoginSignResponse) SetResultMsg(v string) *QueryLoginSignResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryLoginSignResponse) SetStoreInfo(v *SimStoreInfo) *QueryLoginSignResponse {
+	s.StoreInfo = v
+	return s
+}
+
+type ResetOrderLinkRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备编号
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 订单号
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 登录态token
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+}
+
+func (s ResetOrderLinkRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResetOrderLinkRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ResetOrderLinkRequest) SetAuthToken(v string) *ResetOrderLinkRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ResetOrderLinkRequest) SetProductInstanceId(v string) *ResetOrderLinkRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ResetOrderLinkRequest) SetDeviceId(v string) *ResetOrderLinkRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *ResetOrderLinkRequest) SetOrderId(v string) *ResetOrderLinkRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *ResetOrderLinkRequest) SetToken(v string) *ResetOrderLinkRequest {
+	s.Token = &v
+	return s
+}
+
+type ResetOrderLinkResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 小程序地址
+	MiniappLink *string `json:"miniapp_link,omitempty" xml:"miniapp_link,omitempty"`
+}
+
+func (s ResetOrderLinkResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResetOrderLinkResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ResetOrderLinkResponse) SetReqMsgId(v string) *ResetOrderLinkResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ResetOrderLinkResponse) SetResultCode(v string) *ResetOrderLinkResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ResetOrderLinkResponse) SetResultMsg(v string) *ResetOrderLinkResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ResetOrderLinkResponse) SetMiniappLink(v string) *ResetOrderLinkResponse {
+	s.MiniappLink = &v
+	return s
+}
+
+type UploadSimRiskdataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备ID
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 登录态token
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+	// 上报类型
+	UploadType *string `json:"upload_type,omitempty" xml:"upload_type,omitempty" require:"true"`
+	// 智能中控id
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// 中控照片，base64后的图象数据
+	TuidPhoto *string `json:"tuid_photo,omitempty" xml:"tuid_photo,omitempty"`
+	// 车架号
+	FrameNo *string `json:"frame_no,omitempty" xml:"frame_no,omitempty"`
+	// 车架号照片，base64后的图象数据
+	FrameNoPhoto *string `json:"frame_no_photo,omitempty" xml:"frame_no_photo,omitempty"`
+	// 人车合影（销售+用户），base64后的图象数据
+	GroupPhoto *string `json:"group_photo,omitempty" xml:"group_photo,omitempty"`
+	// 单据照片（发票/收据），base64后的图象数据
+	BillPhoto *string `json:"bill_photo,omitempty" xml:"bill_photo,omitempty"`
+	// 上牌照片，base64后的图象数据
+	LicensePlatePhoto *string `json:"license_plate_photo,omitempty" xml:"license_plate_photo,omitempty"`
+	// 订单ID
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+}
+
+func (s UploadSimRiskdataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadSimRiskdataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadSimRiskdataRequest) SetAuthToken(v string) *UploadSimRiskdataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadSimRiskdataRequest) SetProductInstanceId(v string) *UploadSimRiskdataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadSimRiskdataRequest) SetDeviceId(v string) *UploadSimRiskdataRequest {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *UploadSimRiskdataRequest) SetToken(v string) *UploadSimRiskdataRequest {
+	s.Token = &v
+	return s
+}
+
+func (s *UploadSimRiskdataRequest) SetUploadType(v string) *UploadSimRiskdataRequest {
+	s.UploadType = &v
+	return s
+}
+
+func (s *UploadSimRiskdataRequest) SetTuid(v string) *UploadSimRiskdataRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *UploadSimRiskdataRequest) SetTuidPhoto(v string) *UploadSimRiskdataRequest {
+	s.TuidPhoto = &v
+	return s
+}
+
+func (s *UploadSimRiskdataRequest) SetFrameNo(v string) *UploadSimRiskdataRequest {
+	s.FrameNo = &v
+	return s
+}
+
+func (s *UploadSimRiskdataRequest) SetFrameNoPhoto(v string) *UploadSimRiskdataRequest {
+	s.FrameNoPhoto = &v
+	return s
+}
+
+func (s *UploadSimRiskdataRequest) SetGroupPhoto(v string) *UploadSimRiskdataRequest {
+	s.GroupPhoto = &v
+	return s
+}
+
+func (s *UploadSimRiskdataRequest) SetBillPhoto(v string) *UploadSimRiskdataRequest {
+	s.BillPhoto = &v
+	return s
+}
+
+func (s *UploadSimRiskdataRequest) SetLicensePlatePhoto(v string) *UploadSimRiskdataRequest {
+	s.LicensePlatePhoto = &v
+	return s
+}
+
+func (s *UploadSimRiskdataRequest) SetOrderId(v string) *UploadSimRiskdataRequest {
+	s.OrderId = &v
+	return s
+}
+
+type UploadSimRiskdataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// json字符串，扩展预留
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s UploadSimRiskdataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadSimRiskdataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadSimRiskdataResponse) SetReqMsgId(v string) *UploadSimRiskdataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadSimRiskdataResponse) SetResultCode(v string) *UploadSimRiskdataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadSimRiskdataResponse) SetResultMsg(v string) *UploadSimRiskdataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadSimRiskdataResponse) SetExtraInfo(v string) *UploadSimRiskdataResponse {
 	s.ExtraInfo = &v
 	return s
 }
@@ -8145,7 +8652,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.13"),
+				"sdk_version":      tea.String("1.4.18"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -8844,6 +9351,142 @@ func (client *Client) UploadSimQrcodeEx(request *UploadSimQrcodeRequest, headers
 	}
 	_result = &UploadSimQrcodeResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.sim.qrcode.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询spu列表
+ * Summary: 两轮车一体机列举车辆SPU
+ */
+func (client *Client) QuerySpuList(request *QuerySpuListRequest) (_result *QuerySpuListResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySpuListResponse{}
+	_body, _err := client.QuerySpuListEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询spu列表
+ * Summary: 两轮车一体机列举车辆SPU
+ */
+func (client *Client) QuerySpuListEx(request *QuerySpuListRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySpuListResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySpuListResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.spu.list.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 两轮车一体机轮询门店签约结果
+ * Summary: 两轮车一体机轮询门店签约结果
+ */
+func (client *Client) QueryLoginSign(request *QueryLoginSignRequest) (_result *QueryLoginSignResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryLoginSignResponse{}
+	_body, _err := client.QueryLoginSignEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 两轮车一体机轮询门店签约结果
+ * Summary: 两轮车一体机轮询门店签约结果
+ */
+func (client *Client) QueryLoginSignEx(request *QueryLoginSignRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryLoginSignResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryLoginSignResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.login.sign.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 刷新订单链接
+ * Summary: 刷新订单链接
+ */
+func (client *Client) ResetOrderLink(request *ResetOrderLinkRequest) (_result *ResetOrderLinkResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ResetOrderLinkResponse{}
+	_body, _err := client.ResetOrderLinkEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 刷新订单链接
+ * Summary: 刷新订单链接
+ */
+func (client *Client) ResetOrderLinkEx(request *ResetOrderLinkRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ResetOrderLinkResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ResetOrderLinkResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.order.link.reset"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 一体机风控信息上传接口
+ * Summary: 一体机风控信息上传接口
+ */
+func (client *Client) UploadSimRiskdata(request *UploadSimRiskdataRequest) (_result *UploadSimRiskdataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadSimRiskdataResponse{}
+	_body, _err := client.UploadSimRiskdataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 一体机风控信息上传接口
+ * Summary: 一体机风控信息上传接口
+ */
+func (client *Client) UploadSimRiskdataEx(request *UploadSimRiskdataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadSimRiskdataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadSimRiskdataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.sim.riskdata.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
