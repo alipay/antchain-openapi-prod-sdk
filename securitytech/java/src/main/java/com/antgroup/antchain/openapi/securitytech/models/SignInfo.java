@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class SignInfo extends TeaModel {
     // 司机证件号
+    /**
+     * <strong>example:</strong>
+     * <p>310681200001017789</p>
+     */
     @NameInMap("employee_cert_no")
     @Validation(required = true)
     public String employeeCertNo;
 
     // 灵工卡号
+    /**
+     * <strong>example:</strong>
+     * <p>111222190002309999</p>
+     */
     @NameInMap("employee_card_no")
     @Validation(required = true)
     public String employeeCardNo;
 
     // 借贷专户ID，用于后续资金相关操作
+    /**
+     * <strong>example:</strong>
+     * <p>111222190002309999</p>
+     */
     @NameInMap("account_book_id")
     @Validation(required = true)
     public String accountBookId;
@@ -22,29 +34,53 @@ public class SignInfo extends TeaModel {
     // 签约状态，枚举值
     // ● SIGNED：已签约【灵工卡状态正常，可入金出金】
     // ● TERMINATED：已解约【不可入金出金】
+    /**
+     * <strong>example:</strong>
+     * <p>SIGNED</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 签约时间 "yyyy-MM-dd HH:mm:ss"
+    /**
+     * <strong>example:</strong>
+     * <p>2000-10-10 00:00:00</p>
+     */
     @NameInMap("sign_time")
     public String signTime;
 
     // 解约时间 "yyyy-MM-dd HH:mm:ss"
+    /**
+     * <strong>example:</strong>
+     * <p>2000-10-10 00:00:00</p>
+     */
     @NameInMap("terminate_time")
     public String terminateTime;
 
     // 签约协议生效时间
+    /**
+     * <strong>example:</strong>
+     * <p>2000-10-10 00:00:00</p>
+     */
     @NameInMap("effect_time")
     @Validation(required = true)
     public String effectTime;
 
     // 签约协议解约时间
+    /**
+     * <strong>example:</strong>
+     * <p>2000-10-10 00:00:00</p>
+     */
     @NameInMap("expire_time")
     @Validation(required = true)
     public String expireTime;
 
     // 月租金额：单位为元
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("payment_amount")
     @Validation(required = true)
     public String paymentAmount;

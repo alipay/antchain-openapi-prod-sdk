@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class TrustSignInitData extends TeaModel {
     // 请求唯一标识Id
+    /**
+     * <strong>example:</strong>
+     * <p>111111111111111</p>
+     */
     @NameInMap("request_id")
     @Validation(required = true)
     public String requestId;
 
     // 签约秘钥
+    /**
+     * <strong>example:</strong>
+     * <p>g9y47yjs</p>
+     */
     @NameInMap("sign_unique_id")
     @Validation(required = true)
     public String signUniqueId;

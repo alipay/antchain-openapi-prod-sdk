@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class ClassMethodConfig extends TeaModel {
     // 加固类名
+    /**
+     * <strong>example:</strong>
+     * <p>class_name</p>
+     */
     @NameInMap("class_name")
     @Validation(required = true)
     public String className;
 
     // 方法集合，使用英文逗号分隔
+    /**
+     * <strong>example:</strong>
+     * <p>methods</p>
+     */
     @NameInMap("methods")
     @Validation(required = true)
     public String methods;

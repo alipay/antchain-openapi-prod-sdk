@@ -10,6 +10,10 @@ public class IifaaEkytResponse extends TeaModel {
     public ResponseHead head;
 
     // 业务响应结果
+    /**
+     * <strong>example:</strong>
+     * <p>126dncnceicncwuiooo</p>
+     */
     @NameInMap("biz_res")
     @Validation(required = true)
     public String bizRes;

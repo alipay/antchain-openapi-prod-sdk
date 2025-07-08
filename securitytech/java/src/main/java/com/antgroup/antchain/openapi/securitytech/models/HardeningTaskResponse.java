@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class HardeningTaskResponse extends TeaModel {
     // 加固任务的 ID，后续用来轮询调用
+    /**
+     * <strong>example:</strong>
+     * <p>task_id</p>
+     */
     @NameInMap("task_id")
     @Validation(required = true)
     public String taskId;
@@ -15,6 +19,10 @@ public class HardeningTaskResponse extends TeaModel {
     public Long status;
 
     // 加固后 APK/ABB 的 MD5
+    /**
+     * <strong>example:</strong>
+     * <p>after_md_five</p>
+     */
     @NameInMap("after_md_five")
     @Validation(required = true)
     public String afterMdFive;

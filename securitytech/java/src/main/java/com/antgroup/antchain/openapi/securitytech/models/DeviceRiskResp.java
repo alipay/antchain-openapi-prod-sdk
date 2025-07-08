@@ -5,31 +5,55 @@ import com.aliyun.tea.*;
 
 public class DeviceRiskResp extends TeaModel {
     // apdid
+    /**
+     * <strong>example:</strong>
+     * <p>.</p>
+     */
     @NameInMap("apdid")
     @Validation(required = true)
     public String apdid;
 
     // apdid_token
+    /**
+     * <strong>example:</strong>
+     * <p>.</p>
+     */
     @NameInMap("apdid_token")
     @Validation(required = true)
     public String apdidToken;
 
     // risk_level
+    /**
+     * <strong>example:</strong>
+     * <p>.</p>
+     */
     @NameInMap("risk_level")
     @Validation(required = true)
     public Long riskLevel;
 
     // risk_desc
+    /**
+     * <strong>example:</strong>
+     * <p>.</p>
+     */
     @NameInMap("risk_desc")
     @Validation(required = true)
     public String riskDesc;
 
     // sug_action
+    /**
+     * <strong>example:</strong>
+     * <p>.</p>
+     */
     @NameInMap("sug_action")
     @Validation(required = true)
     public String sugAction;
 
     // risk_labels
+    /**
+     * <strong>example:</strong>
+     * <p>.</p>
+     */
     @NameInMap("risk_labels")
     @Validation(required = true)
     public java.util.List<String> riskLabels;

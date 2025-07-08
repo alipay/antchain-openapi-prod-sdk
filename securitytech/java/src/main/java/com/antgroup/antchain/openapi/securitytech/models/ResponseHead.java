@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class ResponseHead extends TeaModel {
     // 请求唯一标识
+    /**
+     * <strong>example:</strong>
+     * <p>91440300892305861T</p>
+     */
     @NameInMap("request_id")
     @Validation(required = true)
     public String requestId;

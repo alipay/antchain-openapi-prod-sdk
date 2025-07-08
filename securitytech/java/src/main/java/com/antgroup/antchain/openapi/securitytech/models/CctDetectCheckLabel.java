@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class CctDetectCheckLabel extends TeaModel {
     // label
+    /**
+     * <strong>example:</strong>
+     * <p>label</p>
+     */
     @NameInMap("label")
     @Validation(required = true)
     public String label;
 
     // rate
+    /**
+     * <strong>example:</strong>
+     * <p>rate</p>
+     */
     @NameInMap("rate")
     @Validation(required = true)
     public Long rate;
@@ -20,6 +28,10 @@ public class CctDetectCheckLabel extends TeaModel {
     public java.util.List<CctSubCheckLabel> subLabels;
 
     // details
+    /**
+     * <strong>example:</strong>
+     * <p>details</p>
+     */
     @NameInMap("details")
     @Validation(required = true)
     public String details;

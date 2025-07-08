@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class RiskQueryData extends TeaModel {
     // 风险评分
+    /**
+     * <strong>example:</strong>
+     * <p>.</p>
+     */
     @NameInMap("risk_score")
     @Validation(required = true)
     public String riskScore;
 
     // 风险标签
+    /**
+     * <strong>example:</strong>
+     * <p>.</p>
+     */
     @NameInMap("risk_labels")
     @Validation(required = true)
     public java.util.List<String> riskLabels;

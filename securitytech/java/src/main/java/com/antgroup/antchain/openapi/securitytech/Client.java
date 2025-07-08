@@ -32,7 +32,9 @@ public class Client {
     public Number _maxRequests;
     public Number _maxRequestsPerHost;
     /**
-     * Init client with Config
+     * <b>description</b> :
+     * <p>Init client with Config</p>
+     * 
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
@@ -64,7 +66,9 @@ public class Client {
     }
 
     /**
-     * Encapsulate the request and invoke the network
+     * <b>description</b> :
+     * <p>Encapsulate the request and invoke the network</p>
+     * 
      * @param action api name
      * @param protocol http or https
      * @param method e.g. GET
@@ -122,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.4.13"),
+                    new TeaPair("sdk_version", "1.4.18"),
                     new TeaPair("_prod_code", "SECURITYTECH"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -185,8 +189,9 @@ public class Client {
     }
 
     /**
-     * Description: 安全科技网关通用运行接口
-     * Summary: 安全科技网关通用运行接口
+     * <b>description</b> :
+     * <p>Description: 安全科技网关通用运行接口
+     * Summary: 安全科技网关通用运行接口</p>
      */
     public RunGeneralResponse runGeneral(RunGeneralRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -195,8 +200,9 @@ public class Client {
     }
 
     /**
-     * Description: 安全科技网关通用运行接口
-     * Summary: 安全科技网关通用运行接口
+     * <b>description</b> :
+     * <p>Description: 安全科技网关通用运行接口
+     * Summary: 安全科技网关通用运行接口</p>
      */
     public RunGeneralResponse runGeneralEx(RunGeneralRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -204,9 +210,10 @@ public class Client {
     }
 
     /**
-     * Description: 租赁住房保险产品，开放接口
-    调用方：上海远点网络科技有限公司
-     * Summary: 租赁住房保险产品，接口开放给租房平台
+     * <b>description</b> :
+     * <p>Description: 租赁住房保险产品，开放接口
+     * 调用方：上海远点网络科技有限公司
+     * Summary: 租赁住房保险产品，接口开放给租房平台</p>
      */
     public ExecEkytInsureResponse execEkytInsure(ExecEkytInsureRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -215,9 +222,10 @@ public class Client {
     }
 
     /**
-     * Description: 租赁住房保险产品，开放接口
-    调用方：上海远点网络科技有限公司
-     * Summary: 租赁住房保险产品，接口开放给租房平台
+     * <b>description</b> :
+     * <p>Description: 租赁住房保险产品，开放接口
+     * 调用方：上海远点网络科技有限公司
+     * Summary: 租赁住房保险产品，接口开放给租房平台</p>
      */
     public ExecEkytInsureResponse execEkytInsureEx(ExecEkytInsureRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -225,8 +233,9 @@ public class Client {
     }
 
     /**
-     * Description: 获取EKYT平台入驻的车队信息列表
-     * Summary: 获取EKYT平台入驻的车队信息列表
+     * <b>description</b> :
+     * <p>Description: 获取EKYT平台入驻的车队信息列表
+     * Summary: 获取EKYT平台入驻的车队信息列表</p>
      */
     public ListDcpResponse listDcp(ListDcpRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -235,8 +244,9 @@ public class Client {
     }
 
     /**
-     * Description: 获取EKYT平台入驻的车队信息列表
-     * Summary: 获取EKYT平台入驻的车队信息列表
+     * <b>description</b> :
+     * <p>Description: 获取EKYT平台入驻的车队信息列表
+     * Summary: 获取EKYT平台入驻的车队信息列表</p>
      */
     public ListDcpResponse listDcpEx(ListDcpRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -244,8 +254,9 @@ public class Client {
     }
 
     /**
-     * Description: 获取EKYT平台入驻的司机灵工卡信息列表
-     * Summary: 获取EKYT平台入驻的司机灵工卡信息列表
+     * <b>description</b> :
+     * <p>Description: 获取EKYT平台入驻的司机灵工卡信息列表
+     * Summary: 获取EKYT平台入驻的司机灵工卡信息列表</p>
      */
     public ListDcpAccountbookResponse listDcpAccountbook(ListDcpAccountbookRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -254,8 +265,9 @@ public class Client {
     }
 
     /**
-     * Description: 获取EKYT平台入驻的司机灵工卡信息列表
-     * Summary: 获取EKYT平台入驻的司机灵工卡信息列表
+     * <b>description</b> :
+     * <p>Description: 获取EKYT平台入驻的司机灵工卡信息列表
+     * Summary: 获取EKYT平台入驻的司机灵工卡信息列表</p>
      */
     public ListDcpAccountbookResponse listDcpAccountbookEx(ListDcpAccountbookRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -263,8 +275,9 @@ public class Client {
     }
 
     /**
-     * Description: 企业ETC入驻车辆查询
-     * Summary: 企业ETC入驻车辆查询
+     * <b>description</b> :
+     * <p>Description: 企业ETC入驻车辆查询
+     * Summary: 企业ETC入驻车辆查询</p>
      */
     public QueryEtcVehicleResponse queryEtcVehicle(QueryEtcVehicleRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -273,8 +286,9 @@ public class Client {
     }
 
     /**
-     * Description: 企业ETC入驻车辆查询
-     * Summary: 企业ETC入驻车辆查询
+     * <b>description</b> :
+     * <p>Description: 企业ETC入驻车辆查询
+     * Summary: 企业ETC入驻车辆查询</p>
      */
     public QueryEtcVehicleResponse queryEtcVehicleEx(QueryEtcVehicleRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -282,8 +296,9 @@ public class Client {
     }
 
     /**
-     * Description: 企业ETC运单上传
-     * Summary: 企业ETC运单上传
+     * <b>description</b> :
+     * <p>Description: 企业ETC运单上传
+     * Summary: 企业ETC运单上传</p>
      */
     public UploadEtcWaybillResponse uploadEtcWaybill(UploadEtcWaybillRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -292,8 +307,9 @@ public class Client {
     }
 
     /**
-     * Description: 企业ETC运单上传
-     * Summary: 企业ETC运单上传
+     * <b>description</b> :
+     * <p>Description: 企业ETC运单上传
+     * Summary: 企业ETC运单上传</p>
      */
     public UploadEtcWaybillResponse uploadEtcWaybillEx(UploadEtcWaybillRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -301,8 +317,9 @@ public class Client {
     }
 
     /**
-     * Description: 企业ETC车辆行程查询
-     * Summary: 企业ETC车辆行程查询
+     * <b>description</b> :
+     * <p>Description: 企业ETC车辆行程查询
+     * Summary: 企业ETC车辆行程查询</p>
      */
     public QueryEtcTripResponse queryEtcTrip(QueryEtcTripRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -311,8 +328,9 @@ public class Client {
     }
 
     /**
-     * Description: 企业ETC车辆行程查询
-     * Summary: 企业ETC车辆行程查询
+     * <b>description</b> :
+     * <p>Description: 企业ETC车辆行程查询
+     * Summary: 企业ETC车辆行程查询</p>
      */
     public QueryEtcTripResponse queryEtcTripEx(QueryEtcTripRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -320,8 +338,9 @@ public class Client {
     }
 
     /**
-     * Description: 两轮车一体机获取授权登录地址
-     * Summary: 两轮车一体机获取授权登录地址
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机获取授权登录地址
+     * Summary: 两轮车一体机获取授权登录地址</p>
      */
     public InitSimLoginResponse initSimLogin(InitSimLoginRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -330,8 +349,9 @@ public class Client {
     }
 
     /**
-     * Description: 两轮车一体机获取授权登录地址
-     * Summary: 两轮车一体机获取授权登录地址
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机获取授权登录地址
+     * Summary: 两轮车一体机获取授权登录地址</p>
      */
     public InitSimLoginResponse initSimLoginEx(InitSimLoginRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -339,8 +359,9 @@ public class Client {
     }
 
     /**
-     * Description: 两轮车一体机查询登录结果
-     * Summary: 两轮车一体机查询登录结果
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机查询登录结果
+     * Summary: 两轮车一体机查询登录结果</p>
      */
     public QuerySimLoginResponse querySimLogin(QuerySimLoginRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -349,8 +370,9 @@ public class Client {
     }
 
     /**
-     * Description: 两轮车一体机查询登录结果
-     * Summary: 两轮车一体机查询登录结果
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机查询登录结果
+     * Summary: 两轮车一体机查询登录结果</p>
      */
     public QuerySimLoginResponse querySimLoginEx(QuerySimLoginRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -358,8 +380,9 @@ public class Client {
     }
 
     /**
-     * Description: 两轮车一体机获取营销活动
-     * Summary: 两轮车一体机获取营销活动
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机获取营销活动
+     * Summary: 两轮车一体机获取营销活动</p>
      */
     public ListSimCampaignResponse listSimCampaign(ListSimCampaignRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -368,8 +391,9 @@ public class Client {
     }
 
     /**
-     * Description: 两轮车一体机获取营销活动
-     * Summary: 两轮车一体机获取营销活动
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机获取营销活动
+     * Summary: 两轮车一体机获取营销活动</p>
      */
     public ListSimCampaignResponse listSimCampaignEx(ListSimCampaignRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -377,8 +401,9 @@ public class Client {
     }
 
     /**
-     * Description: 两轮车一体机查询车辆SKU
-     * Summary: 两轮车一体机查询车辆SKU
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机查询车辆SKU
+     * Summary: 两轮车一体机查询车辆SKU</p>
      */
     public QuerySimSkuResponse querySimSku(QuerySimSkuRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -387,8 +412,9 @@ public class Client {
     }
 
     /**
-     * Description: 两轮车一体机查询车辆SKU
-     * Summary: 两轮车一体机查询车辆SKU
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机查询车辆SKU
+     * Summary: 两轮车一体机查询车辆SKU</p>
      */
     public QuerySimSkuResponse querySimSkuEx(QuerySimSkuRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -396,8 +422,9 @@ public class Client {
     }
 
     /**
-     * Description: 两轮车一体机列举车辆SKU
-     * Summary: 两轮车一体机列举车辆SKU
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机列举车辆SKU
+     * Summary: 两轮车一体机列举车辆SKU</p>
      */
     public ListSimSkuResponse listSimSku(ListSimSkuRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -406,8 +433,9 @@ public class Client {
     }
 
     /**
-     * Description: 两轮车一体机列举车辆SKU
-     * Summary: 两轮车一体机列举车辆SKU
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机列举车辆SKU
+     * Summary: 两轮车一体机列举车辆SKU</p>
      */
     public ListSimSkuResponse listSimSkuEx(ListSimSkuRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -415,8 +443,9 @@ public class Client {
     }
 
     /**
-     * Description: 两轮车一体机创建订单信息
-     * Summary: 两轮车一体机创建订单信息
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机创建订单信息
+     * Summary: 两轮车一体机创建订单信息</p>
      */
     public CreateSimOrderResponse createSimOrder(CreateSimOrderRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -425,8 +454,9 @@ public class Client {
     }
 
     /**
-     * Description: 两轮车一体机创建订单信息
-     * Summary: 两轮车一体机创建订单信息
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机创建订单信息
+     * Summary: 两轮车一体机创建订单信息</p>
      */
     public CreateSimOrderResponse createSimOrderEx(CreateSimOrderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -434,8 +464,9 @@ public class Client {
     }
 
     /**
-     * Description: 两轮车一体机查询订单信息
-     * Summary: 两轮车一体机查询订单信息
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机查询订单信息
+     * Summary: 两轮车一体机查询订单信息</p>
      */
     public QuerySimOrderResponse querySimOrder(QuerySimOrderRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -444,8 +475,9 @@ public class Client {
     }
 
     /**
-     * Description: 两轮车一体机查询订单信息
-     * Summary: 两轮车一体机查询订单信息
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机查询订单信息
+     * Summary: 两轮车一体机查询订单信息</p>
      */
     public QuerySimOrderResponse querySimOrderEx(QuerySimOrderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -453,8 +485,9 @@ public class Client {
     }
 
     /**
-     * Description: 两轮车一体机列举订单信息
-     * Summary: 两轮车一体机列举订单信息
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机列举订单信息
+     * Summary: 两轮车一体机列举订单信息</p>
      */
     public ListSimOrderResponse listSimOrder(ListSimOrderRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -463,8 +496,9 @@ public class Client {
     }
 
     /**
-     * Description: 两轮车一体机列举订单信息
-     * Summary: 两轮车一体机列举订单信息
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机列举订单信息
+     * Summary: 两轮车一体机列举订单信息</p>
      */
     public ListSimOrderResponse listSimOrderEx(ListSimOrderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -472,8 +506,9 @@ public class Client {
     }
 
     /**
-     * Description: 两轮车一体机取消订单信息
-     * Summary: 两轮车一体机取消订单信息
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机取消订单信息
+     * Summary: 两轮车一体机取消订单信息</p>
      */
     public CancelSimOrderResponse cancelSimOrder(CancelSimOrderRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -482,8 +517,9 @@ public class Client {
     }
 
     /**
-     * Description: 两轮车一体机取消订单信息
-     * Summary: 两轮车一体机取消订单信息
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机取消订单信息
+     * Summary: 两轮车一体机取消订单信息</p>
      */
     public CancelSimOrderResponse cancelSimOrderEx(CancelSimOrderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -491,8 +527,9 @@ public class Client {
     }
 
     /**
-     * Description: 两轮车一体机拉取车辆SKU
-     * Summary: 两轮车一体机拉取车辆SKU
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机拉取车辆SKU
+     * Summary: 两轮车一体机拉取车辆SKU</p>
      */
     public PullSimSkuResponse pullSimSku(PullSimSkuRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -501,8 +538,9 @@ public class Client {
     }
 
     /**
-     * Description: 两轮车一体机拉取车辆SKU
-     * Summary: 两轮车一体机拉取车辆SKU
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机拉取车辆SKU
+     * Summary: 两轮车一体机拉取车辆SKU</p>
      */
     public PullSimSkuResponse pullSimSkuEx(PullSimSkuRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -510,8 +548,9 @@ public class Client {
     }
 
     /**
-     * Description: 一体机购车订单支付确认请求
-     * Summary: 一体机购车订单支付确认请求
+     * <b>description</b> :
+     * <p>Description: 一体机购车订单支付确认请求
+     * Summary: 一体机购车订单支付确认请求</p>
      */
     public ConfirmSimOrderResponse confirmSimOrder(ConfirmSimOrderRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -520,8 +559,9 @@ public class Client {
     }
 
     /**
-     * Description: 一体机购车订单支付确认请求
-     * Summary: 一体机购车订单支付确认请求
+     * <b>description</b> :
+     * <p>Description: 一体机购车订单支付确认请求
+     * Summary: 一体机购车订单支付确认请求</p>
      */
     public ConfirmSimOrderResponse confirmSimOrderEx(ConfirmSimOrderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -529,8 +569,9 @@ public class Client {
     }
 
     /**
-     * Description: 门店一体机车辆码上传解析接口
-     * Summary: 门店一体机车辆码上传解析接口
+     * <b>description</b> :
+     * <p>Description: 门店一体机车辆码上传解析接口
+     * Summary: 门店一体机车辆码上传解析接口</p>
      */
     public UploadSimQrcodeResponse uploadSimQrcode(UploadSimQrcodeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -539,8 +580,9 @@ public class Client {
     }
 
     /**
-     * Description: 门店一体机车辆码上传解析接口
-     * Summary: 门店一体机车辆码上传解析接口
+     * <b>description</b> :
+     * <p>Description: 门店一体机车辆码上传解析接口
+     * Summary: 门店一体机车辆码上传解析接口</p>
      */
     public UploadSimQrcodeResponse uploadSimQrcodeEx(UploadSimQrcodeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -548,8 +590,93 @@ public class Client {
     }
 
     /**
-     * Description: 蓝盾安全图片生成
-     * Summary: 蓝盾安全图片生成
+     * <b>description</b> :
+     * <p>Description: 查询spu列表
+     * Summary: 两轮车一体机列举车辆SPU</p>
+     */
+    public QuerySpuListResponse querySpuList(QuerySpuListRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.querySpuListEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询spu列表
+     * Summary: 两轮车一体机列举车辆SPU</p>
+     */
+    public QuerySpuListResponse querySpuListEx(QuerySpuListRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.spu.list.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySpuListResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机轮询门店签约结果
+     * Summary: 两轮车一体机轮询门店签约结果</p>
+     */
+    public QueryLoginSignResponse queryLoginSign(QueryLoginSignRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryLoginSignEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 两轮车一体机轮询门店签约结果
+     * Summary: 两轮车一体机轮询门店签约结果</p>
+     */
+    public QueryLoginSignResponse queryLoginSignEx(QueryLoginSignRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.login.sign.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryLoginSignResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 刷新订单链接
+     * Summary: 刷新订单链接</p>
+     */
+    public ResetOrderLinkResponse resetOrderLink(ResetOrderLinkRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.resetOrderLinkEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 刷新订单链接
+     * Summary: 刷新订单链接</p>
+     */
+    public ResetOrderLinkResponse resetOrderLinkEx(ResetOrderLinkRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.order.link.reset", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ResetOrderLinkResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 一体机风控信息上传接口
+     * Summary: 一体机风控信息上传接口</p>
+     */
+    public UploadSimRiskdataResponse uploadSimRiskdata(UploadSimRiskdataRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadSimRiskdataEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 一体机风控信息上传接口
+     * Summary: 一体机风控信息上传接口</p>
+     */
+    public UploadSimRiskdataResponse uploadSimRiskdataEx(UploadSimRiskdataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.sim.riskdata.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadSimRiskdataResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 蓝盾安全图片生成
+     * Summary: 蓝盾安全图片生成</p>
      */
     public CreateBssecpicResponse createBssecpic(CreateBssecpicRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -558,8 +685,9 @@ public class Client {
     }
 
     /**
-     * Description: 蓝盾安全图片生成
-     * Summary: 蓝盾安全图片生成
+     * <b>description</b> :
+     * <p>Description: 蓝盾安全图片生成
+     * Summary: 蓝盾安全图片生成</p>
      */
     public CreateBssecpicResponse createBssecpicEx(CreateBssecpicRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -567,8 +695,9 @@ public class Client {
     }
 
     /**
-     * Description: 蓝盾安全图片生成
-     * Summary: 蓝盾安全图片生成
+     * <b>description</b> :
+     * <p>Description: 蓝盾安全图片生成
+     * Summary: 蓝盾安全图片生成</p>
      */
     public CreateBlueshieldSecuritypictureResponse createBlueshieldSecuritypicture(CreateBlueshieldSecuritypictureRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -577,8 +706,9 @@ public class Client {
     }
 
     /**
-     * Description: 蓝盾安全图片生成
-     * Summary: 蓝盾安全图片生成
+     * <b>description</b> :
+     * <p>Description: 蓝盾安全图片生成
+     * Summary: 蓝盾安全图片生成</p>
      */
     public CreateBlueshieldSecuritypictureResponse createBlueshieldSecuritypictureEx(CreateBlueshieldSecuritypictureRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -586,8 +716,9 @@ public class Client {
     }
 
     /**
-     * Description: 终端安全人脸盾Native查询
-     * Summary: 人脸盾Native查询
+     * <b>description</b> :
+     * <p>Description: 终端安全人脸盾Native查询
+     * Summary: 人脸盾Native查询</p>
      */
     public QueryFaceshieldNativeResponse queryFaceshieldNative(QueryFaceshieldNativeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -596,8 +727,9 @@ public class Client {
     }
 
     /**
-     * Description: 终端安全人脸盾Native查询
-     * Summary: 人脸盾Native查询
+     * <b>description</b> :
+     * <p>Description: 终端安全人脸盾Native查询
+     * Summary: 人脸盾Native查询</p>
      */
     public QueryFaceshieldNativeResponse queryFaceshieldNativeEx(QueryFaceshieldNativeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -605,8 +737,9 @@ public class Client {
     }
 
     /**
-     * Description: 终端安全人脸盾Web查询
-     * Summary: 人脸盾Web查询
+     * <b>description</b> :
+     * <p>Description: 终端安全人脸盾Web查询
+     * Summary: 人脸盾Web查询</p>
      */
     public QueryFaceshieldWebResponse queryFaceshieldWeb(QueryFaceshieldWebRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -615,8 +748,9 @@ public class Client {
     }
 
     /**
-     * Description: 终端安全人脸盾Web查询
-     * Summary: 人脸盾Web查询
+     * <b>description</b> :
+     * <p>Description: 终端安全人脸盾Web查询
+     * Summary: 人脸盾Web查询</p>
      */
     public QueryFaceshieldWebResponse queryFaceshieldWebEx(QueryFaceshieldWebRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -624,8 +758,9 @@ public class Client {
     }
 
     /**
-     * Description: 设备激活
-     * Summary: 可信设备认证设备初始化，设备激活
+     * <b>description</b> :
+     * <p>Description: 设备激活
+     * Summary: 可信设备认证设备初始化，设备激活</p>
      */
     public InitIifaaDeviceResponse initIifaaDevice(InitIifaaDeviceRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -634,8 +769,9 @@ public class Client {
     }
 
     /**
-     * Description: 设备激活
-     * Summary: 可信设备认证设备初始化，设备激活
+     * <b>description</b> :
+     * <p>Description: 设备激活
+     * Summary: 可信设备认证设备初始化，设备激活</p>
      */
     public InitIifaaDeviceResponse initIifaaDeviceEx(InitIifaaDeviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -643,8 +779,9 @@ public class Client {
     }
 
     /**
-     * Description: 可信设备认证风险咨询，获取预认证数据
-     * Summary: 可信设备认证风险咨询，获取预认证数据
+     * <b>description</b> :
+     * <p>Description: 可信设备认证风险咨询，获取预认证数据
+     * Summary: 可信设备认证风险咨询，获取预认证数据</p>
      */
     public RecognizeIifaaDeviceResponse recognizeIifaaDevice(RecognizeIifaaDeviceRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -653,8 +790,9 @@ public class Client {
     }
 
     /**
-     * Description: 可信设备认证风险咨询，获取预认证数据
-     * Summary: 可信设备认证风险咨询，获取预认证数据
+     * <b>description</b> :
+     * <p>Description: 可信设备认证风险咨询，获取预认证数据
+     * Summary: 可信设备认证风险咨询，获取预认证数据</p>
      */
     public RecognizeIifaaDeviceResponse recognizeIifaaDeviceEx(RecognizeIifaaDeviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -662,8 +800,9 @@ public class Client {
     }
 
     /**
-     * Description: 可信设备认证，设备验证
-     * Summary: 可信设备认证，设备验证
+     * <b>description</b> :
+     * <p>Description: 可信设备认证，设备验证
+     * Summary: 可信设备认证，设备验证</p>
      */
     public VerifyIifaaDeviceResponse verifyIifaaDevice(VerifyIifaaDeviceRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -672,8 +811,9 @@ public class Client {
     }
 
     /**
-     * Description: 可信设备认证，设备验证
-     * Summary: 可信设备认证，设备验证
+     * <b>description</b> :
+     * <p>Description: 可信设备认证，设备验证
+     * Summary: 可信设备认证，设备验证</p>
      */
     public VerifyIifaaDeviceResponse verifyIifaaDeviceEx(VerifyIifaaDeviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -681,8 +821,9 @@ public class Client {
     }
 
     /**
-     * Description: 可信设备认证，产商注册
-     * Summary: 可信设备认证，产商注册
+     * <b>description</b> :
+     * <p>Description: 可信设备认证，产商注册
+     * Summary: 可信设备认证，产商注册</p>
      */
     public RegisterIifaaCorpResponse registerIifaaCorp(RegisterIifaaCorpRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -691,8 +832,9 @@ public class Client {
     }
 
     /**
-     * Description: 可信设备认证，产商注册
-     * Summary: 可信设备认证，产商注册
+     * <b>description</b> :
+     * <p>Description: 可信设备认证，产商注册
+     * Summary: 可信设备认证，产商注册</p>
      */
     public RegisterIifaaCorpResponse registerIifaaCorpEx(RegisterIifaaCorpRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -700,8 +842,9 @@ public class Client {
     }
 
     /**
-     * Description: 可信设备认证，擦除设备信息
-     * Summary: 可信设备认证，擦除设备信息
+     * <b>description</b> :
+     * <p>Description: 可信设备认证，擦除设备信息
+     * Summary: 可信设备认证，擦除设备信息</p>
      */
     public DeprecateIifaaDeviceResponse deprecateIifaaDevice(DeprecateIifaaDeviceRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -710,8 +853,9 @@ public class Client {
     }
 
     /**
-     * Description: 可信设备认证，擦除设备信息
-     * Summary: 可信设备认证，擦除设备信息
+     * <b>description</b> :
+     * <p>Description: 可信设备认证，擦除设备信息
+     * Summary: 可信设备认证，擦除设备信息</p>
      */
     public DeprecateIifaaDeviceResponse deprecateIifaaDeviceEx(DeprecateIifaaDeviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -719,8 +863,9 @@ public class Client {
     }
 
     /**
-     * Description: 巡检商业化
-     * Summary: 巡检商业化
+     * <b>description</b> :
+     * <p>Description: 巡检商业化
+     * Summary: 巡检商业化</p>
      */
     public RunXhunterSpiResponse runXhunterSpi(RunXhunterSpiRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -729,8 +874,9 @@ public class Client {
     }
 
     /**
-     * Description: 巡检商业化
-     * Summary: 巡检商业化
+     * <b>description</b> :
+     * <p>Description: 巡检商业化
+     * Summary: 巡检商业化</p>
      */
     public RunXhunterSpiResponse runXhunterSpiEx(RunXhunterSpiRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -738,8 +884,9 @@ public class Client {
     }
 
     /**
-     * Description: 租凭住房保险产品，接口开放给租房平台
-     * Summary: 租凭住房保险产品，接口开放给租房平台
+     * <b>description</b> :
+     * <p>Description: 租凭住房保险产品，接口开放给租房平台
+     * Summary: 租凭住房保险产品，接口开放给租房平台</p>
      */
     public ExecIifaaInsureResponse execIifaaInsure(ExecIifaaInsureRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -748,8 +895,9 @@ public class Client {
     }
 
     /**
-     * Description: 租凭住房保险产品，接口开放给租房平台
-     * Summary: 租凭住房保险产品，接口开放给租房平台
+     * <b>description</b> :
+     * <p>Description: 租凭住房保险产品，接口开放给租房平台
+     * Summary: 租凭住房保险产品，接口开放给租房平台</p>
      */
     public ExecIifaaInsureResponse execIifaaInsureEx(ExecIifaaInsureRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -757,8 +905,9 @@ public class Client {
     }
 
     /**
-     * Description: 内容安全图片同步检测
-     * Summary: 内容安全图片同步检测
+     * <b>description</b> :
+     * <p>Description: 内容安全图片同步检测
+     * Summary: 内容安全图片同步检测</p>
      */
     public QueryCctPictureResponse queryCctPicture(QueryCctPictureRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -767,8 +916,9 @@ public class Client {
     }
 
     /**
-     * Description: 内容安全图片同步检测
-     * Summary: 内容安全图片同步检测
+     * <b>description</b> :
+     * <p>Description: 内容安全图片同步检测
+     * Summary: 内容安全图片同步检测</p>
      */
     public QueryCctPictureResponse queryCctPictureEx(QueryCctPictureRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -776,8 +926,9 @@ public class Client {
     }
 
     /**
-     * Description: 内容安全主站同步检测
-     * Summary: 内容安全主站同步检测
+     * <b>description</b> :
+     * <p>Description: 内容安全主站同步检测
+     * Summary: 内容安全主站同步检测</p>
      */
     public RecognizeCctAnalyzeResponse recognizeCctAnalyze(RecognizeCctAnalyzeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -786,8 +937,9 @@ public class Client {
     }
 
     /**
-     * Description: 内容安全主站同步检测
-     * Summary: 内容安全主站同步检测
+     * <b>description</b> :
+     * <p>Description: 内容安全主站同步检测
+     * Summary: 内容安全主站同步检测</p>
      */
     public RecognizeCctAnalyzeResponse recognizeCctAnalyzeEx(RecognizeCctAnalyzeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -795,8 +947,9 @@ public class Client {
     }
 
     /**
-     * Description: RAAS数据服务统一接口
-     * Summary: RAAS数据服务统一接口
+     * <b>description</b> :
+     * <p>Description: RAAS数据服务统一接口
+     * Summary: RAAS数据服务统一接口</p>
      */
     public QueryRiskGeneralResponse queryRiskGeneral(QueryRiskGeneralRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -805,8 +958,9 @@ public class Client {
     }
 
     /**
-     * Description: RAAS数据服务统一接口
-     * Summary: RAAS数据服务统一接口
+     * <b>description</b> :
+     * <p>Description: RAAS数据服务统一接口
+     * Summary: RAAS数据服务统一接口</p>
      */
     public QueryRiskGeneralResponse queryRiskGeneralEx(QueryRiskGeneralRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -814,8 +968,9 @@ public class Client {
     }
 
     /**
-     * Description: 设备指纹查询
-     * Summary: 设备指纹查询
+     * <b>description</b> :
+     * <p>Description: 设备指纹查询
+     * Summary: 设备指纹查询</p>
      */
     public QueryDeviceriskFingerResponse queryDeviceriskFinger(QueryDeviceriskFingerRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -824,8 +979,9 @@ public class Client {
     }
 
     /**
-     * Description: 设备指纹查询
-     * Summary: 设备指纹查询
+     * <b>description</b> :
+     * <p>Description: 设备指纹查询
+     * Summary: 设备指纹查询</p>
      */
     public QueryDeviceriskFingerResponse queryDeviceriskFingerEx(QueryDeviceriskFingerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -833,8 +989,9 @@ public class Client {
     }
 
     /**
-     * Description: 风险标签查询
-     * Summary: 风险标签查询
+     * <b>description</b> :
+     * <p>Description: 风险标签查询
+     * Summary: 风险标签查询</p>
      */
     public QueryDeviceriskRisklabelResponse queryDeviceriskRisklabel(QueryDeviceriskRisklabelRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -843,8 +1000,9 @@ public class Client {
     }
 
     /**
-     * Description: 风险标签查询
-     * Summary: 风险标签查询
+     * <b>description</b> :
+     * <p>Description: 风险标签查询
+     * Summary: 风险标签查询</p>
      */
     public QueryDeviceriskRisklabelResponse queryDeviceriskRisklabelEx(QueryDeviceriskRisklabelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -852,8 +1010,9 @@ public class Client {
     }
 
     /**
-     * Description: 设备风险查询
-     * Summary: 设备风险查询
+     * <b>description</b> :
+     * <p>Description: 设备风险查询
+     * Summary: 设备风险查询</p>
      */
     public QueryDeviceriskDeviceriskResponse queryDeviceriskDevicerisk(QueryDeviceriskDeviceriskRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -862,8 +1021,9 @@ public class Client {
     }
 
     /**
-     * Description: 设备风险查询
-     * Summary: 设备风险查询
+     * <b>description</b> :
+     * <p>Description: 设备风险查询
+     * Summary: 设备风险查询</p>
      */
     public QueryDeviceriskDeviceriskResponse queryDeviceriskDeviceriskEx(QueryDeviceriskDeviceriskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -871,8 +1031,9 @@ public class Client {
     }
 
     /**
-     * Description: 设备信息上报
-     * Summary: 设备信息上报
+     * <b>description</b> :
+     * <p>Description: 设备信息上报
+     * Summary: 设备信息上报</p>
      */
     public SubmitDeviceriskReportResponse submitDeviceriskReport(SubmitDeviceriskReportRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -881,8 +1042,9 @@ public class Client {
     }
 
     /**
-     * Description: 设备信息上报
-     * Summary: 设备信息上报
+     * <b>description</b> :
+     * <p>Description: 设备信息上报
+     * Summary: 设备信息上报</p>
      */
     public SubmitDeviceriskReportResponse submitDeviceriskReportEx(SubmitDeviceriskReportRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -890,8 +1052,9 @@ public class Client {
     }
 
     /**
-     * Description: eKYT风险评估服务-出行场景司机
-     * Summary: eKYT风险评估服务-出行场景司机
+     * <b>description</b> :
+     * <p>Description: eKYT风险评估服务-出行场景司机
+     * Summary: eKYT风险评估服务-出行场景司机</p>
      */
     public QueryEkytDriverResponse queryEkytDriver(QueryEkytDriverRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -900,8 +1063,9 @@ public class Client {
     }
 
     /**
-     * Description: eKYT风险评估服务-出行场景司机
-     * Summary: eKYT风险评估服务-出行场景司机
+     * <b>description</b> :
+     * <p>Description: eKYT风险评估服务-出行场景司机
+     * Summary: eKYT风险评估服务-出行场景司机</p>
      */
     public QueryEkytDriverResponse queryEkytDriverEx(QueryEkytDriverRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -909,8 +1073,9 @@ public class Client {
     }
 
     /**
-     * Description: 申请设备设备密钥
-     * Summary: 申请设备设备密钥
+     * <b>description</b> :
+     * <p>Description: 申请设备设备密钥
+     * Summary: 申请设备设备密钥</p>
      */
     public ApplyIifaaDevicekeyResponse applyIifaaDevicekey(ApplyIifaaDevicekeyRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -919,8 +1084,9 @@ public class Client {
     }
 
     /**
-     * Description: 申请设备设备密钥
-     * Summary: 申请设备设备密钥
+     * <b>description</b> :
+     * <p>Description: 申请设备设备密钥
+     * Summary: 申请设备设备密钥</p>
      */
     public ApplyIifaaDevicekeyResponse applyIifaaDevicekeyEx(ApplyIifaaDevicekeyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -928,8 +1094,9 @@ public class Client {
     }
 
     /**
-     * Description: 设备风险咨询
-     * Summary: 设备风险咨询
+     * <b>description</b> :
+     * <p>Description: 设备风险咨询
+     * Summary: 设备风险咨询</p>
      */
     public QueryDeviceplusRiskqueryResponse queryDeviceplusRiskquery(QueryDeviceplusRiskqueryRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -938,8 +1105,9 @@ public class Client {
     }
 
     /**
-     * Description: 设备风险咨询
-     * Summary: 设备风险咨询
+     * <b>description</b> :
+     * <p>Description: 设备风险咨询
+     * Summary: 设备风险咨询</p>
      */
     public QueryDeviceplusRiskqueryResponse queryDeviceplusRiskqueryEx(QueryDeviceplusRiskqueryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -947,8 +1115,9 @@ public class Client {
     }
 
     /**
-     * Description: 设备风险咨询mpaas
-     * Summary: 设备风险咨询mpaas
+     * <b>description</b> :
+     * <p>Description: 设备风险咨询mpaas
+     * Summary: 设备风险咨询mpaas</p>
      */
     public QueryDeviceplusMpaasResponse queryDeviceplusMpaas(QueryDeviceplusMpaasRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -957,8 +1126,9 @@ public class Client {
     }
 
     /**
-     * Description: 设备风险咨询mpaas
-     * Summary: 设备风险咨询mpaas
+     * <b>description</b> :
+     * <p>Description: 设备风险咨询mpaas
+     * Summary: 设备风险咨询mpaas</p>
      */
     public QueryDeviceplusMpaasResponse queryDeviceplusMpaasEx(QueryDeviceplusMpaasRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -966,8 +1136,9 @@ public class Client {
     }
 
     /**
-     * Description: 终端安全-Android应用加固-启动加固任务(包月)
-     * Summary: 启动加固任务(包月)
+     * <b>description</b> :
+     * <p>Description: 终端安全-Android应用加固-启动加固任务(包月)
+     * Summary: 启动加固任务(包月)</p>
      */
     public SubmitAshieldPeriodhardeningtaskResponse submitAshieldPeriodhardeningtask(SubmitAshieldPeriodhardeningtaskRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -976,8 +1147,9 @@ public class Client {
     }
 
     /**
-     * Description: 终端安全-Android应用加固-启动加固任务(包月)
-     * Summary: 启动加固任务(包月)
+     * <b>description</b> :
+     * <p>Description: 终端安全-Android应用加固-启动加固任务(包月)
+     * Summary: 启动加固任务(包月)</p>
      */
     public SubmitAshieldPeriodhardeningtaskResponse submitAshieldPeriodhardeningtaskEx(SubmitAshieldPeriodhardeningtaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -985,8 +1157,9 @@ public class Client {
     }
 
     /**
-     * Description: 终端安全-Android应用加固-获取上传文件的临时URL
-     * Summary: 获取上传文件的临时URL
+     * <b>description</b> :
+     * <p>Description: 终端安全-Android应用加固-获取上传文件的临时URL
+     * Summary: 获取上传文件的临时URL</p>
      */
     public GetAshieldFiletokenResponse getAshieldFiletoken(GetAshieldFiletokenRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -995,8 +1168,9 @@ public class Client {
     }
 
     /**
-     * Description: 终端安全-Android应用加固-获取上传文件的临时URL
-     * Summary: 获取上传文件的临时URL
+     * <b>description</b> :
+     * <p>Description: 终端安全-Android应用加固-获取上传文件的临时URL
+     * Summary: 获取上传文件的临时URL</p>
      */
     public GetAshieldFiletokenResponse getAshieldFiletokenEx(GetAshieldFiletokenRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1004,8 +1178,9 @@ public class Client {
     }
 
     /**
-     * Description: 终端安全-Android应用加固-启动加固任务
-     * Summary: 启动加固任务(按次计费)
+     * <b>description</b> :
+     * <p>Description: 终端安全-Android应用加固-启动加固任务
+     * Summary: 启动加固任务(按次计费)</p>
      */
     public SubmitAshieldHardeningtaskResponse submitAshieldHardeningtask(SubmitAshieldHardeningtaskRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1014,8 +1189,9 @@ public class Client {
     }
 
     /**
-     * Description: 终端安全-Android应用加固-启动加固任务
-     * Summary: 启动加固任务(按次计费)
+     * <b>description</b> :
+     * <p>Description: 终端安全-Android应用加固-启动加固任务
+     * Summary: 启动加固任务(按次计费)</p>
      */
     public SubmitAshieldHardeningtaskResponse submitAshieldHardeningtaskEx(SubmitAshieldHardeningtaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1023,8 +1199,9 @@ public class Client {
     }
 
     /**
-     * Description: 终端安全-Android应用加固-查询加固任务进度
-     * Summary: 查询加固任务进度
+     * <b>description</b> :
+     * <p>Description: 终端安全-Android应用加固-查询加固任务进度
+     * Summary: 查询加固任务进度</p>
      */
     public GetAshieldHardeningtaskprocessResponse getAshieldHardeningtaskprocess(GetAshieldHardeningtaskprocessRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1033,8 +1210,9 @@ public class Client {
     }
 
     /**
-     * Description: 终端安全-Android应用加固-查询加固任务进度
-     * Summary: 查询加固任务进度
+     * <b>description</b> :
+     * <p>Description: 终端安全-Android应用加固-查询加固任务进度
+     * Summary: 查询加固任务进度</p>
      */
     public GetAshieldHardeningtaskprocessResponse getAshieldHardeningtaskprocessEx(GetAshieldHardeningtaskprocessRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1042,8 +1220,9 @@ public class Client {
     }
 
     /**
-     * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
-     * Summary: 查询加固后的产物下载链接
+     * <b>description</b> :
+     * <p>Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+     * Summary: 查询加固后的产物下载链接</p>
      */
     public GetAshieldHardeningresultResponse getAshieldHardeningresult(GetAshieldHardeningresultRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1052,8 +1231,9 @@ public class Client {
     }
 
     /**
-     * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
-     * Summary: 查询加固后的产物下载链接
+     * <b>description</b> :
+     * <p>Description: 终端安全-Android应用加固-查询加固后的产物下载链接
+     * Summary: 查询加固后的产物下载链接</p>
      */
     public GetAshieldHardeningresultResponse getAshieldHardeningresultEx(GetAshieldHardeningresultRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1061,8 +1241,9 @@ public class Client {
     }
 
     /**
-     * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
-     * Summary: 查询加固后的日志下载链接
+     * <b>description</b> :
+     * <p>Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+     * Summary: 查询加固后的日志下载链接</p>
      */
     public GetAshieldHardeninglogResponse getAshieldHardeninglog(GetAshieldHardeninglogRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1071,8 +1252,9 @@ public class Client {
     }
 
     /**
-     * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
-     * Summary: 查询加固后的日志下载链接
+     * <b>description</b> :
+     * <p>Description: 终端安全-Android应用加固-查询加固后的日志下载链接
+     * Summary: 查询加固后的日志下载链接</p>
      */
     public GetAshieldHardeninglogResponse getAshieldHardeninglogEx(GetAshieldHardeninglogRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1080,8 +1262,9 @@ public class Client {
     }
 
     /**
-     * Description: eKYT可信签约初始化
-     * Summary: eKYT可信签约-初始化
+     * <b>description</b> :
+     * <p>Description: eKYT可信签约初始化
+     * Summary: eKYT可信签约-初始化</p>
      */
     public InitEkytTrustsignResponse initEkytTrustsign(InitEkytTrustsignRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1090,8 +1273,9 @@ public class Client {
     }
 
     /**
-     * Description: eKYT可信签约初始化
-     * Summary: eKYT可信签约-初始化
+     * <b>description</b> :
+     * <p>Description: eKYT可信签约初始化
+     * Summary: eKYT可信签约-初始化</p>
      */
     public InitEkytTrustsignResponse initEkytTrustsignEx(InitEkytTrustsignRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1099,8 +1283,9 @@ public class Client {
     }
 
     /**
-     * Description: eKYT可信签约签约单查询
-     * Summary: eKYT可信签约-签约单查询
+     * <b>description</b> :
+     * <p>Description: eKYT可信签约签约单查询
+     * Summary: eKYT可信签约-签约单查询</p>
      */
     public QueryEkytTrustsignResponse queryEkytTrustsign(QueryEkytTrustsignRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1109,8 +1294,9 @@ public class Client {
     }
 
     /**
-     * Description: eKYT可信签约签约单查询
-     * Summary: eKYT可信签约-签约单查询
+     * <b>description</b> :
+     * <p>Description: eKYT可信签约签约单查询
+     * Summary: eKYT可信签约-签约单查询</p>
      */
     public QueryEkytTrustsignResponse queryEkytTrustsignEx(QueryEkytTrustsignRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1118,8 +1304,9 @@ public class Client {
     }
 
     /**
-     * Description: eKYT人脸核身初始化
-     * Summary: eKYT人脸核身-初始化
+     * <b>description</b> :
+     * <p>Description: eKYT人脸核身初始化
+     * Summary: eKYT人脸核身-初始化</p>
      */
     public InitEkytFaceverifyResponse initEkytFaceverify(InitEkytFaceverifyRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1128,8 +1315,9 @@ public class Client {
     }
 
     /**
-     * Description: eKYT人脸核身初始化
-     * Summary: eKYT人脸核身-初始化
+     * <b>description</b> :
+     * <p>Description: eKYT人脸核身初始化
+     * Summary: eKYT人脸核身-初始化</p>
      */
     public InitEkytFaceverifyResponse initEkytFaceverifyEx(InitEkytFaceverifyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1137,8 +1325,9 @@ public class Client {
     }
 
     /**
-     * Description: eKYT人脸核身结果查询
-     * Summary: eKYT人脸核身-结果查询
+     * <b>description</b> :
+     * <p>Description: eKYT人脸核身结果查询
+     * Summary: eKYT人脸核身-结果查询</p>
      */
     public QueryEkytFaceverifyResponse queryEkytFaceverify(QueryEkytFaceverifyRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1147,8 +1336,9 @@ public class Client {
     }
 
     /**
-     * Description: eKYT人脸核身结果查询
-     * Summary: eKYT人脸核身-结果查询
+     * <b>description</b> :
+     * <p>Description: eKYT人脸核身结果查询
+     * Summary: eKYT人脸核身-结果查询</p>
      */
     public QueryEkytFaceverifyResponse queryEkytFaceverifyEx(QueryEkytFaceverifyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1156,8 +1346,9 @@ public class Client {
     }
 
     /**
-     * Description: 友活来了创建任务api
-     * Summary: 友活来了创建任务api
+     * <b>description</b> :
+     * <p>Description: 友活来了创建任务api
+     * Summary: 友活来了创建任务api</p>
      */
     public ImportYhllResponse importYhll(ImportYhllRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1166,8 +1357,9 @@ public class Client {
     }
 
     /**
-     * Description: 友活来了创建任务api
-     * Summary: 友活来了创建任务api
+     * <b>description</b> :
+     * <p>Description: 友活来了创建任务api
+     * Summary: 友活来了创建任务api</p>
      */
     public ImportYhllResponse importYhllEx(ImportYhllRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1175,8 +1367,9 @@ public class Client {
     }
 
     /**
-     * Description: 友活来了任务查询api
-     * Summary: 友活来了任务查询api
+     * <b>description</b> :
+     * <p>Description: 友活来了任务查询api
+     * Summary: 友活来了任务查询api</p>
      */
     public QueryYhllResponse queryYhll(QueryYhllRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1185,8 +1378,9 @@ public class Client {
     }
 
     /**
-     * Description: 友活来了任务查询api
-     * Summary: 友活来了任务查询api
+     * <b>description</b> :
+     * <p>Description: 友活来了任务查询api
+     * Summary: 友活来了任务查询api</p>
      */
     public QueryYhllResponse queryYhllEx(QueryYhllRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1194,8 +1388,9 @@ public class Client {
     }
 
     /**
-     * Description: 天鉴ask接口
-     * Summary: 天鉴ask接口
+     * <b>description</b> :
+     * <p>Description: 天鉴ask接口
+     * Summary: 天鉴ask接口</p>
      */
     public QueryGuardAskResponse queryGuardAsk(QueryGuardAskRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1204,8 +1399,9 @@ public class Client {
     }
 
     /**
-     * Description: 天鉴ask接口
-     * Summary: 天鉴ask接口
+     * <b>description</b> :
+     * <p>Description: 天鉴ask接口
+     * Summary: 天鉴ask接口</p>
      */
     public QueryGuardAskResponse queryGuardAskEx(QueryGuardAskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1213,8 +1409,9 @@ public class Client {
     }
 
     /**
-     * Description: 天鉴answer接口
-     * Summary: 天鉴answer接口
+     * <b>description</b> :
+     * <p>Description: 天鉴answer接口
+     * Summary: 天鉴answer接口</p>
      */
     public QueryGuardAnswerResponse queryGuardAnswer(QueryGuardAnswerRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1223,8 +1420,9 @@ public class Client {
     }
 
     /**
-     * Description: 天鉴answer接口
-     * Summary: 天鉴answer接口
+     * <b>description</b> :
+     * <p>Description: 天鉴answer接口
+     * Summary: 天鉴answer接口</p>
      */
     public QueryGuardAnswerResponse queryGuardAnswerEx(QueryGuardAnswerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1232,8 +1430,9 @@ public class Client {
     }
 
     /**
-     * Description: 开放给设备产商，删除数字钥匙
-     * Summary: 删除数字钥匙
+     * <b>description</b> :
+     * <p>Description: 开放给设备产商，删除数字钥匙
+     * Summary: 删除数字钥匙</p>
      */
     public DeleteIifaaDigitalkeyResponse deleteIifaaDigitalkey(DeleteIifaaDigitalkeyRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1242,8 +1441,9 @@ public class Client {
     }
 
     /**
-     * Description: 开放给设备产商，删除数字钥匙
-     * Summary: 删除数字钥匙
+     * <b>description</b> :
+     * <p>Description: 开放给设备产商，删除数字钥匙
+     * Summary: 删除数字钥匙</p>
      */
     public DeleteIifaaDigitalkeyResponse deleteIifaaDigitalkeyEx(DeleteIifaaDigitalkeyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1251,8 +1451,9 @@ public class Client {
     }
 
     /**
-     * Description: 光鉴智能凭证
-     * Summary: 光鉴智能凭证
+     * <b>description</b> :
+     * <p>Description: 光鉴智能凭证
+     * Summary: 光鉴智能凭证</p>
      */
     public CheckOpticalIdentifyResponse checkOpticalIdentify(CheckOpticalIdentifyRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1261,8 +1462,9 @@ public class Client {
     }
 
     /**
-     * Description: 光鉴智能凭证
-     * Summary: 光鉴智能凭证
+     * <b>description</b> :
+     * <p>Description: 光鉴智能凭证
+     * Summary: 光鉴智能凭证</p>
      */
     public CheckOpticalIdentifyResponse checkOpticalIdentifyEx(CheckOpticalIdentifyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

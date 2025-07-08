@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class FaceVerifyResultData extends TeaModel {
     // 请求唯一标识Id
+    /**
+     * <strong>example:</strong>
+     * <p>111111111111111</p>
+     */
     @NameInMap("request_id")
     @Validation(required = true)
     public String requestId;
 
     // 认证是否通过
+    /**
+     * <strong>example:</strong>
+     * <p>T、F 或 null</p>
+     */
     @NameInMap("passed")
     @Validation(required = true)
     public String passed;
 
     // faceOcclusion:面部遮挡信息；true为有面部遮挡，false为无面部遮挡
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;{&quot;faceOcclusion&quot;:false}&quot;</p>
+     */
     @NameInMap("material_info")
     @Validation(required = true)
     public String materialInfo;

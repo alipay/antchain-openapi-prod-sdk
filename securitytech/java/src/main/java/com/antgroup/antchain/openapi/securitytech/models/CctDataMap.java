@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class CctDataMap extends TeaModel {
     // text
+    /**
+     * <strong>example:</strong>
+     * <p>text</p>
+     */
     @NameInMap("text")
     public java.util.List<String> text;
 
     // PICTURE
+    /**
+     * <strong>example:</strong>
+     * <p>PICTURE</p>
+     */
     @NameInMap("picture")
     public java.util.List<String> picture;
 

@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class RiskModel extends TeaModel {
     // 标签名称
+    /**
+     * <strong>example:</strong>
+     * <p>ekyt_risk_tag_100</p>
+     */
     @NameInMap("model_name")
     @Validation(required = true)
     public String modelName;
 
     // 风险值
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("model_value")
     @Validation(required = true)
     public String modelValue;
 
     // 风险标签描述
+    /**
+     * <strong>example:</strong>
+     * <p>中风险</p>
+     */
     @NameInMap("model_comment")
     @Validation(required = true)
     public String modelComment;

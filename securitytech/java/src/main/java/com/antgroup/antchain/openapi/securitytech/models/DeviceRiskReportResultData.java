@@ -5,51 +5,91 @@ import com.aliyun.tea.*;
 
 public class DeviceRiskReportResultData extends TeaModel {
     // webrtc_url
+    /**
+     * <strong>example:</strong>
+     * <p>webrtc_url</p>
+     */
     @NameInMap("webrtc_url")
     @Validation(required = true)
     public String webrtcUrl;
 
     // a_dynamic_swi
+    /**
+     * <strong>example:</strong>
+     * <p>a_dynamic_swi</p>
+     */
     @NameInMap("a_dynamic_swi")
     @Validation(required = true)
     public String aDynamicSwi;
 
     // dynamic_interval
+    /**
+     * <strong>example:</strong>
+     * <p>dynamic_interval</p>
+     */
     @NameInMap("dynamic_interval")
     @Validation(required = true)
     public String dynamicInterval;
 
     // color
+    /**
+     * <strong>example:</strong>
+     * <p>color</p>
+     */
     @NameInMap("color")
     @Validation(required = true)
     public String color;
 
     // os
+    /**
+     * <strong>example:</strong>
+     * <p>os</p>
+     */
     @NameInMap("os")
     @Validation(required = true)
     public String os;
 
     // dynamic_cmd
+    /**
+     * <strong>example:</strong>
+     * <p>dynamic_cmd</p>
+     */
     @NameInMap("dynamic_cmd")
     @Validation(required = true)
     public String dynamicCmd;
 
     // time_interval
+    /**
+     * <strong>example:</strong>
+     * <p>time_interval</p>
+     */
     @NameInMap("time_interval")
     @Validation(required = true)
     public String timeInterval;
 
     // dynamic_trace
+    /**
+     * <strong>example:</strong>
+     * <p>dynamic_trace</p>
+     */
     @NameInMap("dynamic_trace")
     @Validation(required = true)
     public String dynamicTrace;
 
     // dynamic_num
+    /**
+     * <strong>example:</strong>
+     * <p>dynamic_num</p>
+     */
     @NameInMap("dynamic_num")
     @Validation(required = true)
     public String dynamicNum;
 
     // result_type
+    /**
+     * <strong>example:</strong>
+     * <p>result_type</p>
+     */
     @NameInMap("result_type")
     @Validation(required = true)
     public String resultType;

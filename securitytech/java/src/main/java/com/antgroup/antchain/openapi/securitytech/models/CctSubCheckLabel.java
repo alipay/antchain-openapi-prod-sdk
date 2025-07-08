@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class CctSubCheckLabel extends TeaModel {
     // sub_label
+    /**
+     * <strong>example:</strong>
+     * <p>sub_label</p>
+     */
     @NameInMap("sub_label")
     @Validation(required = true)
     public String subLabel;

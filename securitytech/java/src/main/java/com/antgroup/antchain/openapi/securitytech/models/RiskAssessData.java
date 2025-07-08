@@ -10,6 +10,10 @@ public class RiskAssessData extends TeaModel {
     public ResponseHead head;
 
     // 风险评估结果
+    /**
+     * <strong>example:</strong>
+     * <p>A238EE36A9E096A97BF49C568EE7D0F4543043E21CE1A9831303EFDD</p>
+     */
     @NameInMap("risk_result")
     @Validation(required = true)
     public String riskResult;

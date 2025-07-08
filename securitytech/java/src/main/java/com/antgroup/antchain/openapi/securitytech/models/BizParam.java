@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class BizParam extends TeaModel {
     // 参数类型枚举，mobile、cert、biz_license
+    /**
+     * <strong>example:</strong>
+     * <p>·</p>
+     */
     @NameInMap("param_key")
     @Validation(required = true)
     public String paramKey;
 
     // 值，如加密后的手机号
+    /**
+     * <strong>example:</strong>
+     * <p>·</p>
+     */
     @NameInMap("param_value")
     @Validation(required = true)
     public String paramValue;

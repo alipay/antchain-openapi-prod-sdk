@@ -5,26 +5,46 @@ import com.aliyun.tea.*;
 
 public class TrustSignQueryData extends TeaModel {
     // 请求唯一标识Id
+    /**
+     * <strong>example:</strong>
+     * <p>111111111111111</p>
+     */
     @NameInMap("request_id")
     @Validation(required = true)
     public String requestId;
 
     // 订单状态
+    /**
+     * <strong>example:</strong>
+     * <p>SUCCESS</p>
+     */
     @NameInMap("order_status")
     @Validation(required = true)
     public String orderStatus;
 
     // 签约方案码
+    /**
+     * <strong>example:</strong>
+     * <p>011fda32a0046d0e8a8be6b94b367fb3</p>
+     */
     @NameInMap("solution_code")
     @Validation(required = true)
     public String solutionCode;
 
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2024-03-20</p>
+     */
     @NameInMap("gmt_create")
     @Validation(required = true)
     public String gmtCreate;
 
     // 修改时间
+    /**
+     * <strong>example:</strong>
+     * <p>2024-03-20</p>
+     */
     @NameInMap("gmt_modified")
     @Validation(required = true)
     public String gmtModified;

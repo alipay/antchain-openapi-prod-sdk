@@ -10,6 +10,10 @@ public class RiskResult extends TeaModel {
     public java.util.List<RiskData> riskData;
 
     // 解决方案编码
+    /**
+     * <strong>example:</strong>
+     * <p>·</p>
+     */
     @NameInMap("solution_code")
     @Validation(required = true)
     public String solutionCode;

@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class KeyValueMap extends TeaModel {
     // key-value中的key
+    /**
+     * <strong>example:</strong>
+     * <p>key</p>
+     */
     @NameInMap("key")
     @Validation(maxLength = 100, minLength = 1)
     public String key;
 
     // key-value中的value
+    /**
+     * <strong>example:</strong>
+     * <p>value</p>
+     */
     @NameInMap("value")
     @Validation(maxLength = 1000, minLength = 1)
     public String value;

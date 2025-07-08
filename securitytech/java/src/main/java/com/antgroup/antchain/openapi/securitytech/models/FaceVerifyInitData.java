@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class FaceVerifyInitData extends TeaModel {
     // 请求唯一标识Id
+    /**
+     * <strong>example:</strong>
+     * <p>111111111111111</p>
+     */
     @NameInMap("request_id")
     @Validation(required = true)
     public String requestId;
 
     // 可信实人认证的唯一标识
+    /**
+     * <strong>example:</strong>
+     * <p>cwek23dw24geor89230hf2rw</p>
+     */
     @NameInMap("certify_id")
     @Validation(required = true)
     public String certifyId;
 
     // 认证流程入口 URL
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://picker">https://picker</a>...</p>
+     */
     @NameInMap("certify_url")
     @Validation(required = true)
     public String certifyUrl;

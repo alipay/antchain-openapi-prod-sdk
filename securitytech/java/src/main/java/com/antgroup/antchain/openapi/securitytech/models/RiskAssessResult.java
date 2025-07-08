@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class RiskAssessResult extends TeaModel {
     // 风险评估结果
+    /**
+     * <strong>example:</strong>
+     * <p>中风险</p>
+     */
     @NameInMap("risk_value")
     @Validation(required = true)
     public String riskValue;
 
     // 风险评估分数
+    /**
+     * <strong>example:</strong>
+     * <p>90</p>
+     */
     @NameInMap("risk_score")
     @Validation(required = true)
     public String riskScore;

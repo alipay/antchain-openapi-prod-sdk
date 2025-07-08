@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.securitytech.models;
 
 import com.aliyun.tea.*;
 
-public class ListSimSkuRequest extends TeaModel {
+public class QuerySpuListRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -15,10 +15,6 @@ public class ListSimSkuRequest extends TeaModel {
     @NameInMap("device_id")
     @Validation(required = true)
     public String deviceId;
-
-    // SPU ID
-    @NameInMap("spu_id")
-    public String spuId;
 
     // 请求的页数
     @NameInMap("page_no")
@@ -35,12 +31,12 @@ public class ListSimSkuRequest extends TeaModel {
     @Validation(required = true)
     public String token;
 
-    public static ListSimSkuRequest build(java.util.Map<String, ?> map) throws Exception {
-        ListSimSkuRequest self = new ListSimSkuRequest();
+    public static QuerySpuListRequest build(java.util.Map<String, ?> map) throws Exception {
+        QuerySpuListRequest self = new QuerySpuListRequest();
         return TeaModel.build(map, self);
     }
 
-    public ListSimSkuRequest setAuthToken(String authToken) {
+    public QuerySpuListRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -48,7 +44,7 @@ public class ListSimSkuRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ListSimSkuRequest setProductInstanceId(String productInstanceId) {
+    public QuerySpuListRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -56,7 +52,7 @@ public class ListSimSkuRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public ListSimSkuRequest setDeviceId(String deviceId) {
+    public QuerySpuListRequest setDeviceId(String deviceId) {
         this.deviceId = deviceId;
         return this;
     }
@@ -64,15 +60,7 @@ public class ListSimSkuRequest extends TeaModel {
         return this.deviceId;
     }
 
-    public ListSimSkuRequest setSpuId(String spuId) {
-        this.spuId = spuId;
-        return this;
-    }
-    public String getSpuId() {
-        return this.spuId;
-    }
-
-    public ListSimSkuRequest setPageNo(Long pageNo) {
+    public QuerySpuListRequest setPageNo(Long pageNo) {
         this.pageNo = pageNo;
         return this;
     }
@@ -80,7 +68,7 @@ public class ListSimSkuRequest extends TeaModel {
         return this.pageNo;
     }
 
-    public ListSimSkuRequest setPageSize(Long pageSize) {
+    public QuerySpuListRequest setPageSize(Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -88,7 +76,7 @@ public class ListSimSkuRequest extends TeaModel {
         return this.pageSize;
     }
 
-    public ListSimSkuRequest setToken(String token) {
+    public QuerySpuListRequest setToken(String token) {
         this.token = token;
         return this;
     }

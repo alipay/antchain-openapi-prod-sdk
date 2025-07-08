@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class RiskData extends TeaModel {
     // 模型/标签编号
+    /**
+     * <strong>example:</strong>
+     * <p>·</p>
+     */
     @NameInMap("result_key")
     @Validation(required = true)
     public String resultKey;
 
     // 模型分/标签值
+    /**
+     * <strong>example:</strong>
+     * <p>·</p>
+     */
     @NameInMap("result_value")
     @Validation(required = true)
     public String resultValue;

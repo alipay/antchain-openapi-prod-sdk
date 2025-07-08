@@ -5,31 +5,55 @@ import com.aliyun.tea.*;
 
 public class FileTokenForUpload extends TeaModel {
     // .
+    /**
+     * <strong>example:</strong>
+     * <p>.</p>
+     */
     @NameInMap("access_id")
     @Validation(required = true)
     public String accessId;
 
     // dir
+    /**
+     * <strong>example:</strong>
+     * <p>dir</p>
+     */
     @NameInMap("dir")
     @Validation(required = true)
     public String dir;
 
     // expire
+    /**
+     * <strong>example:</strong>
+     * <p>expire</p>
+     */
     @NameInMap("expire")
     @Validation(required = true)
     public String expire;
 
     // host
+    /**
+     * <strong>example:</strong>
+     * <p>host</p>
+     */
     @NameInMap("host")
     @Validation(required = true)
     public String host;
 
     // policy
+    /**
+     * <strong>example:</strong>
+     * <p>policy</p>
+     */
     @NameInMap("policy")
     @Validation(required = true)
     public String policy;
 
     // signature
+    /**
+     * <strong>example:</strong>
+     * <p>signature</p>
+     */
     @NameInMap("signature")
     @Validation(required = true)
     public String signature;

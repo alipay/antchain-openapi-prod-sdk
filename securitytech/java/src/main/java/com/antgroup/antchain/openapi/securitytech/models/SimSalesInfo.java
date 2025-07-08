@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class SimSalesInfo extends TeaModel {
     // 销售对外业务id
+    /**
+     * <strong>example:</strong>
+     * 
+     */
     @NameInMap("sales_id")
     @Validation(required = true)
     public String salesId;

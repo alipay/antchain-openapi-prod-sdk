@@ -5,36 +5,64 @@ import com.aliyun.tea.*;
 
 public class RuntimeProtectConfig extends TeaModel {
     // 重打包,签名校验,AndroidManifest防篡改,签名文件保护,0为检测到风险退出,1不处理
+    /**
+     * <strong>example:</strong>
+     * <p>.</p>
+     */
     @NameInMap("anti_signature")
     @Validation(required = true)
     public Long antiSignature;
 
     // 防调试,0为检测到风险退出,1不处理
+    /**
+     * <strong>example:</strong>
+     * <p>.</p>
+     */
     @NameInMap("anti_debug")
     @Validation(required = true)
     public Long antiDebug;
 
     // 防hook,0为检测到风险退出,1不处理
+    /**
+     * <strong>example:</strong>
+     * <p>.</p>
+     */
     @NameInMap("anti_hook")
     @Validation(required = true)
     public Long antiHook;
 
     // 防注入,防内存dump,防内存数据修改,读取,0为检测到风险退出,1不处理
+    /**
+     * <strong>example:</strong>
+     * <p>.</p>
+     */
     @NameInMap("anti_inject")
     @Validation(required = true)
     public Long antiInject;
 
     // 模拟器检查,0为检测到风险退出,1不处理
+    /**
+     * <strong>example:</strong>
+     * <p>.</p>
+     */
     @NameInMap("anti_emulator")
     @Validation(required = true)
     public Long antiEmulator;
 
     // 防root,0为检测到风险退出,1不处理
+    /**
+     * <strong>example:</strong>
+     * <p>.</p>
+     */
     @NameInMap("anti_root")
     @Validation(required = true)
     public Long antiRoot;
 
     // 防多开软件运行,0为检测到风险退出,1不处理
+    /**
+     * <strong>example:</strong>
+     * <p>.</p>
+     */
     @NameInMap("anti_multi_app")
     @Validation(required = true)
     public Long antiMultiApp;

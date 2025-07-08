@@ -35,6 +35,10 @@ public class CreateSimOrderRequest extends TeaModel {
     @Validation(required = true)
     public String token;
 
+    // 扩展信息
+    @NameInMap("extra_info")
+    public String extraInfo;
+
     public static CreateSimOrderRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateSimOrderRequest self = new CreateSimOrderRequest();
         return TeaModel.build(map, self);
@@ -94,6 +98,14 @@ public class CreateSimOrderRequest extends TeaModel {
     }
     public String getToken() {
         return this.token;
+    }
+
+    public CreateSimOrderRequest setExtraInfo(String extraInfo) {
+        this.extraInfo = extraInfo;
+        return this;
+    }
+    public String getExtraInfo() {
+        return this.extraInfo;
     }
 
 }

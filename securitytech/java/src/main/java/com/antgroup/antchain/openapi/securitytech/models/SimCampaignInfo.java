@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class SimCampaignInfo extends TeaModel {
     // 营销活动id
+    /**
+     * <strong>example:</strong>
+     * 
+     */
     @NameInMap("campaign_id")
     @Validation(required = true)
     public String campaignId;
 
     // 营销活动名
+    /**
+     * <strong>example:</strong>
+     * 
+     */
     @NameInMap("campaign_name")
     @Validation(required = true)
     public String campaignName;
 
     // 营销图片
+    /**
+     * <strong>example:</strong>
+     * 
+     */
     @NameInMap("image_url")
     @Validation(required = true)
     public String imageUrl;
 
     // 营销活动内容
+    /**
+     * <strong>example:</strong>
+     * <p>{}</p>
+     */
     @NameInMap("content")
     @Validation(required = true)
     public String content;

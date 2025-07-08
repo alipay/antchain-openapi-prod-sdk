@@ -5,27 +5,47 @@ import com.aliyun.tea.*;
 
 public class EtcVehicleInfo extends TeaModel {
     // 车辆id
+    /**
+     * <strong>example:</strong>
+     * <p>2039029939</p>
+     */
     @NameInMap("vehicle_id")
     @Validation(required = true)
     public String vehicleId;
 
     // etc申请单号
+    /**
+     * <strong>example:</strong>
+     * <p>20212424231413243</p>
+     */
     @NameInMap("order_id")
     @Validation(required = true)
     public String orderId;
 
     // etc平台扣款协议号
+    /**
+     * <strong>example:</strong>
+     * <p>20211232213232</p>
+     */
     @NameInMap("biz_agreement_no")
     @Validation(required = true)
     public String bizAgreementNo;
 
     // etc申请单状态
     // ORDER_CREATE:订单创建;ORDER_SYNCED:订单已同步;SUCCESS_ACTIVATE:订单已激活;UNMOUNTING:注销中;UNMOUNTED:已注销;
+    /**
+     * <strong>example:</strong>
+     * <p>ORDER_CREATE</p>
+     */
     @NameInMap("order_status")
     @Validation(required = true)
     public String orderStatus;
 
     // 用户ETC设备OBU号，当order_status为SUCCESS_ACTIVATE及以后状态时，必选
+    /**
+     * <strong>example:</strong>
+     * <p>32432def</p>
+     */
     @NameInMap("device_no")
     public String deviceNo;
 
@@ -33,28 +53,52 @@ public class EtcVehicleInfo extends TeaModel {
     // 待签约: WAIT_SIGN
     // 已签约: SIGNED
     // 已解约: UNSIGN
+    /**
+     * <strong>example:</strong>
+     * <p>WAIT_SIGN</p>
+     */
     @NameInMap("deduct_sign_status")
     public String deductSignStatus;
 
     // 设备首次激活时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("first_actived_time")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String firstActivedTime;
 
     // 合约到期时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("service_exp")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String serviceExp;
 
     // etc设备状态，USABLE-设备激活可用（可上高速正常使用）PENDING-设备激活挂起（限制消费） UNUSABLE-设备异常不可用
+    /**
+     * <strong>example:</strong>
+     * <p>USABLE</p>
+     */
     @NameInMap("device_status")
     public String deviceStatus;
 
     // 设备状态明细，能清楚说明etc设备此时状态（/卡签注销/卡签挂失/已过户/维修中/黑名单/卡过期/欠费/标签脱落/设备报警/正常/ETC停用等）
+    /**
+     * <strong>example:</strong>
+     * <p>卡签挂起</p>
+     */
     @NameInMap("device_status_detail")
     public String deviceStatusDetail;
 
     // 设备状态触发的具体时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("device_biz_time")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String deviceBizTime;
