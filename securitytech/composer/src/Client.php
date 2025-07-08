@@ -93,6 +93,8 @@ use AntChain\SECURITYTECH\Models\QueryGuardAnswerRequest;
 use AntChain\SECURITYTECH\Models\QueryGuardAnswerResponse;
 use AntChain\SECURITYTECH\Models\QueryGuardAskRequest;
 use AntChain\SECURITYTECH\Models\QueryGuardAskResponse;
+use AntChain\SECURITYTECH\Models\QueryLoginSignRequest;
+use AntChain\SECURITYTECH\Models\QueryLoginSignResponse;
 use AntChain\SECURITYTECH\Models\QueryRiskGeneralRequest;
 use AntChain\SECURITYTECH\Models\QueryRiskGeneralResponse;
 use AntChain\SECURITYTECH\Models\QuerySimLoginRequest;
@@ -101,6 +103,8 @@ use AntChain\SECURITYTECH\Models\QuerySimOrderRequest;
 use AntChain\SECURITYTECH\Models\QuerySimOrderResponse;
 use AntChain\SECURITYTECH\Models\QuerySimSkuRequest;
 use AntChain\SECURITYTECH\Models\QuerySimSkuResponse;
+use AntChain\SECURITYTECH\Models\QuerySpuListRequest;
+use AntChain\SECURITYTECH\Models\QuerySpuListResponse;
 use AntChain\SECURITYTECH\Models\QueryYhllRequest;
 use AntChain\SECURITYTECH\Models\QueryYhllResponse;
 use AntChain\SECURITYTECH\Models\RecognizeCctAnalyzeRequest;
@@ -109,6 +113,8 @@ use AntChain\SECURITYTECH\Models\RecognizeIifaaDeviceRequest;
 use AntChain\SECURITYTECH\Models\RecognizeIifaaDeviceResponse;
 use AntChain\SECURITYTECH\Models\RegisterIifaaCorpRequest;
 use AntChain\SECURITYTECH\Models\RegisterIifaaCorpResponse;
+use AntChain\SECURITYTECH\Models\ResetOrderLinkRequest;
+use AntChain\SECURITYTECH\Models\ResetOrderLinkResponse;
 use AntChain\SECURITYTECH\Models\RunGeneralRequest;
 use AntChain\SECURITYTECH\Models\RunGeneralResponse;
 use AntChain\SECURITYTECH\Models\RunXhunterSpiRequest;
@@ -123,6 +129,8 @@ use AntChain\SECURITYTECH\Models\UploadEtcWaybillRequest;
 use AntChain\SECURITYTECH\Models\UploadEtcWaybillResponse;
 use AntChain\SECURITYTECH\Models\UploadSimQrcodeRequest;
 use AntChain\SECURITYTECH\Models\UploadSimQrcodeResponse;
+use AntChain\SECURITYTECH\Models\UploadSimRiskdataRequest;
+use AntChain\SECURITYTECH\Models\UploadSimRiskdataResponse;
 use AntChain\SECURITYTECH\Models\VerifyIifaaDeviceRequest;
 use AntChain\SECURITYTECH\Models\VerifyIifaaDeviceResponse;
 use AntChain\Util\UtilClient;
@@ -272,7 +280,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.4.13',
+                    'sdk_version'      => '1.4.18',
                     '_prod_code'       => 'SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -947,6 +955,138 @@ class Client
         Utils::validateModel($request);
 
         return UploadSimQrcodeResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.sim.qrcode.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询spu列表
+     * Summary: 两轮车一体机列举车辆SPU.
+     *
+     * @param QuerySpuListRequest $request
+     *
+     * @return QuerySpuListResponse
+     */
+    public function querySpuList($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySpuListEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询spu列表
+     * Summary: 两轮车一体机列举车辆SPU.
+     *
+     * @param QuerySpuListRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return QuerySpuListResponse
+     */
+    public function querySpuListEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySpuListResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.spu.list.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 两轮车一体机轮询门店签约结果
+     * Summary: 两轮车一体机轮询门店签约结果.
+     *
+     * @param QueryLoginSignRequest $request
+     *
+     * @return QueryLoginSignResponse
+     */
+    public function queryLoginSign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryLoginSignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 两轮车一体机轮询门店签约结果
+     * Summary: 两轮车一体机轮询门店签约结果.
+     *
+     * @param QueryLoginSignRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryLoginSignResponse
+     */
+    public function queryLoginSignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryLoginSignResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.login.sign.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 刷新订单链接
+     * Summary: 刷新订单链接.
+     *
+     * @param ResetOrderLinkRequest $request
+     *
+     * @return ResetOrderLinkResponse
+     */
+    public function resetOrderLink($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->resetOrderLinkEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 刷新订单链接
+     * Summary: 刷新订单链接.
+     *
+     * @param ResetOrderLinkRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return ResetOrderLinkResponse
+     */
+    public function resetOrderLinkEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ResetOrderLinkResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.order.link.reset', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 一体机风控信息上传接口
+     * Summary: 一体机风控信息上传接口.
+     *
+     * @param UploadSimRiskdataRequest $request
+     *
+     * @return UploadSimRiskdataResponse
+     */
+    public function uploadSimRiskdata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadSimRiskdataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 一体机风控信息上传接口
+     * Summary: 一体机风控信息上传接口.
+     *
+     * @param UploadSimRiskdataRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return UploadSimRiskdataResponse
+     */
+    public function uploadSimRiskdataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadSimRiskdataResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.sim.riskdata.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

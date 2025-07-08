@@ -32,6 +32,14 @@ class SimOrderInfo extends Model
      */
     public $sn;
 
+    // 用户手机号
+    /**
+     * @example 17796897555
+     *
+     * @var string
+     */
+    public $mobileNo;
+
     // 订单时间，格式yyyy-MM-dd HH:mm:ss
     /**
      * @example 2025-01-01 00:00:00
@@ -116,10 +124,19 @@ class SimOrderInfo extends Model
      * @var string
      */
     public $images;
+
+    // 拓展字段，json格式
+    /**
+     * @example {}
+     *
+     * @var string
+     */
+    public $extraInfo;
     protected $_name = [
         'orderId'      => 'order_id',
         'salesId'      => 'sales_id',
         'sn'           => 'sn',
+        'mobileNo'     => 'mobile_no',
         'orderTime'    => 'order_time',
         'paymentType'  => 'payment_type',
         'paymentTime'  => 'payment_time',
@@ -130,6 +147,7 @@ class SimOrderInfo extends Model
         'color'        => 'color',
         'accessories'  => 'accessories',
         'images'       => 'images',
+        'extraInfo'    => 'extra_info',
     ];
 
     public function validate()
@@ -151,6 +169,9 @@ class SimOrderInfo extends Model
         }
         if (null !== $this->sn) {
             $res['sn'] = $this->sn;
+        }
+        if (null !== $this->mobileNo) {
+            $res['mobile_no'] = $this->mobileNo;
         }
         if (null !== $this->orderTime) {
             $res['order_time'] = $this->orderTime;
@@ -182,6 +203,9 @@ class SimOrderInfo extends Model
         if (null !== $this->images) {
             $res['images'] = $this->images;
         }
+        if (null !== $this->extraInfo) {
+            $res['extra_info'] = $this->extraInfo;
+        }
 
         return $res;
     }
@@ -202,6 +226,9 @@ class SimOrderInfo extends Model
         }
         if (isset($map['sn'])) {
             $model->sn = $map['sn'];
+        }
+        if (isset($map['mobile_no'])) {
+            $model->mobileNo = $map['mobile_no'];
         }
         if (isset($map['order_time'])) {
             $model->orderTime = $map['order_time'];
@@ -232,6 +259,9 @@ class SimOrderInfo extends Model
         }
         if (isset($map['images'])) {
             $model->images = $map['images'];
+        }
+        if (isset($map['extra_info'])) {
+            $model->extraInfo = $map['extra_info'];
         }
 
         return $model;

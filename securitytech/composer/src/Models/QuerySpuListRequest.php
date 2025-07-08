@@ -6,7 +6,7 @@ namespace AntChain\SECURITYTECH\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ListSimSkuRequest extends Model
+class QuerySpuListRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -24,12 +24,6 @@ class ListSimSkuRequest extends Model
      * @var string
      */
     public $deviceId;
-
-    // SPU ID
-    /**
-     * @var string
-     */
-    public $spuId;
 
     // 请求的页数
     /**
@@ -52,7 +46,6 @@ class ListSimSkuRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'deviceId'          => 'device_id',
-        'spuId'             => 'spu_id',
         'pageNo'            => 'page_no',
         'pageSize'          => 'page_size',
         'token'             => 'token',
@@ -78,9 +71,6 @@ class ListSimSkuRequest extends Model
         if (null !== $this->deviceId) {
             $res['device_id'] = $this->deviceId;
         }
-        if (null !== $this->spuId) {
-            $res['spu_id'] = $this->spuId;
-        }
         if (null !== $this->pageNo) {
             $res['page_no'] = $this->pageNo;
         }
@@ -97,7 +87,7 @@ class ListSimSkuRequest extends Model
     /**
      * @param array $map
      *
-     * @return ListSimSkuRequest
+     * @return QuerySpuListRequest
      */
     public static function fromMap($map = [])
     {
@@ -110,9 +100,6 @@ class ListSimSkuRequest extends Model
         }
         if (isset($map['device_id'])) {
             $model->deviceId = $map['device_id'];
-        }
-        if (isset($map['spu_id'])) {
-            $model->spuId = $map['spu_id'];
         }
         if (isset($map['page_no'])) {
             $model->pageNo = $map['page_no'];

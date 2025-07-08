@@ -48,6 +48,12 @@ class CreateSimOrderRequest extends Model
      * @var string
      */
     public $token;
+
+    // 扩展信息
+    /**
+     * @var string
+     */
+    public $extraInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +62,7 @@ class CreateSimOrderRequest extends Model
         'sn'                => 'sn',
         'color'             => 'color',
         'token'             => 'token',
+        'extraInfo'         => 'extra_info',
     ];
 
     public function validate()
@@ -90,6 +97,9 @@ class CreateSimOrderRequest extends Model
         if (null !== $this->token) {
             $res['token'] = $this->token;
         }
+        if (null !== $this->extraInfo) {
+            $res['extra_info'] = $this->extraInfo;
+        }
 
         return $res;
     }
@@ -122,6 +132,9 @@ class CreateSimOrderRequest extends Model
         }
         if (isset($map['token'])) {
             $model->token = $map['token'];
+        }
+        if (isset($map['extra_info'])) {
+            $model->extraInfo = $map['extra_info'];
         }
 
         return $model;

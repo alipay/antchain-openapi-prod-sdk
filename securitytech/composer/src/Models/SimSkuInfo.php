@@ -95,18 +95,27 @@ class SimSkuInfo extends Model
      * @var string
      */
     public $storeId;
+
+    // 车型描述
+    /**
+     * @example
+     *
+     * @var string
+     */
+    public $skuDescription;
     protected $_name = [
-        'skuId'        => 'sku_id',
-        'skuName'      => 'sku_name',
-        'price'        => 'price',
-        'storePrice'   => 'store_price',
-        'vehicleModel' => 'vehicle_model',
-        'rangeKm'      => 'range_km',
-        'keywords'     => 'keywords',
-        'colors'       => 'colors',
-        'accessories'  => 'accessories',
-        'images'       => 'images',
-        'storeId'      => 'store_id',
+        'skuId'          => 'sku_id',
+        'skuName'        => 'sku_name',
+        'price'          => 'price',
+        'storePrice'     => 'store_price',
+        'vehicleModel'   => 'vehicle_model',
+        'rangeKm'        => 'range_km',
+        'keywords'       => 'keywords',
+        'colors'         => 'colors',
+        'accessories'    => 'accessories',
+        'images'         => 'images',
+        'storeId'        => 'store_id',
+        'skuDescription' => 'sku_description',
     ];
 
     public function validate()
@@ -160,6 +169,9 @@ class SimSkuInfo extends Model
         if (null !== $this->storeId) {
             $res['store_id'] = $this->storeId;
         }
+        if (null !== $this->skuDescription) {
+            $res['sku_description'] = $this->skuDescription;
+        }
 
         return $res;
     }
@@ -204,6 +216,9 @@ class SimSkuInfo extends Model
         }
         if (isset($map['store_id'])) {
             $model->storeId = $map['store_id'];
+        }
+        if (isset($map['sku_description'])) {
+            $model->skuDescription = $map['sku_description'];
         }
 
         return $model;
