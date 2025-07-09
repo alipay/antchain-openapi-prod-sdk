@@ -5,18 +5,34 @@ import com.aliyun.tea.*;
 
 public class AudioMeta extends TeaModel {
     // 采样率
+    /**
+     * <strong>example:</strong>
+     * <p>16000</p>
+     */
     @NameInMap("sample_freq")
     public Long sampleFreq;
 
     // 音频道数
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("channels_num")
     public Long channelsNum;
 
     // 音频数据采样点所占位数
+    /**
+     * <strong>example:</strong>
+     * <p>16</p>
+     */
     @NameInMap("bits")
     public Long bits;
 
     // 语音信道分离标识
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("channel")
     public Long channel;
 
