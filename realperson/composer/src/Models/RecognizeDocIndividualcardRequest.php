@@ -5,6 +5,7 @@
 namespace AntChain\REALPERSON\Models;
 
 use AlibabaCloud\Tea\Model;
+use GuzzleHttp\Psr7\Stream;
 
 class RecognizeDocIndividualcardRequest extends Model
 {
@@ -32,7 +33,7 @@ class RecognizeDocIndividualcardRequest extends Model
      */
     public $ocrType;
 
-    // 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；URL（暂不支持）
+    // 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；FILE(文件)、URL（暂不支持）
     /**
      * @var string
      */
@@ -43,6 +44,26 @@ class RecognizeDocIndividualcardRequest extends Model
      * @var string
      */
     public $dataContent;
+
+    // 证件图片
+    /**
+     * @description 待上传文件
+     *
+     * @var Stream
+     */
+    public $fileObject;
+
+    /**
+     * @description 待上传文件名
+     *
+     * @var string
+     */
+    public $fileObjectName;
+
+    /**
+     * @var string
+     */
+    public $fileId;
 
     // 入参data_content是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
     /**
@@ -98,6 +119,7 @@ class RecognizeDocIndividualcardRequest extends Model
         'ocrType'           => 'ocr_type',
         'dataType'          => 'data_type',
         'dataContent'       => 'data_content',
+        'fileId'            => 'file_id',
         'reqEncType'        => 'req_enc_type',
         'respEncType'       => 'resp_enc_type',
         'encToken'          => 'enc_token',
@@ -112,7 +134,6 @@ class RecognizeDocIndividualcardRequest extends Model
         Model::validateRequired('outOrderNo', $this->outOrderNo, true);
         Model::validateRequired('ocrType', $this->ocrType, true);
         Model::validateRequired('dataType', $this->dataType, true);
-        Model::validateRequired('dataContent', $this->dataContent, true);
     }
 
     public function toMap()
@@ -135,6 +156,15 @@ class RecognizeDocIndividualcardRequest extends Model
         }
         if (null !== $this->dataContent) {
             $res['data_content'] = $this->dataContent;
+        }
+        if (null !== $this->fileObject) {
+            $res['fileObject'] = $this->fileObject;
+        }
+        if (null !== $this->fileObjectName) {
+            $res['fileObjectName'] = $this->fileObjectName;
+        }
+        if (null !== $this->fileId) {
+            $res['file_id'] = $this->fileId;
         }
         if (null !== $this->reqEncType) {
             $res['req_enc_type'] = $this->reqEncType;
@@ -186,6 +216,15 @@ class RecognizeDocIndividualcardRequest extends Model
         }
         if (isset($map['data_content'])) {
             $model->dataContent = $map['data_content'];
+        }
+        if (isset($map['fileObject'])) {
+            $model->fileObject = $map['fileObject'];
+        }
+        if (isset($map['fileObjectName'])) {
+            $model->fileObjectName = $map['fileObjectName'];
+        }
+        if (isset($map['file_id'])) {
+            $model->fileId = $map['file_id'];
         }
         if (isset($map['req_enc_type'])) {
             $model->reqEncType = $map['req_enc_type'];

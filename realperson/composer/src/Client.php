@@ -89,6 +89,8 @@ use AntChain\REALPERSON\Models\QueryEducationBackgroundRequest;
 use AntChain\REALPERSON\Models\QueryEducationBackgroundResponse;
 use AntChain\REALPERSON\Models\QueryEducationInfoRequest;
 use AntChain\REALPERSON\Models\QueryEducationInfoResponse;
+use AntChain\REALPERSON\Models\QueryFaceverifyServermaterialRequest;
+use AntChain\REALPERSON\Models\QueryFaceverifyServermaterialResponse;
 use AntChain\REALPERSON\Models\QueryFaceverifyServerRequest;
 use AntChain\REALPERSON\Models\QueryFaceverifyServerResponse;
 use AntChain\REALPERSON\Models\QueryFacevrfServerRequest;
@@ -262,7 +264,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.21.0',
+                    'sdk_version'      => '1.21.3',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -951,6 +953,25 @@ class Client
      */
     public function recognizeDocIndividualcardEx($request, $headers, $runtime)
     {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'di.realperson.doc.individualcard.recognize',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new RecognizeDocIndividualcardResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
         Utils::validateModel($request);
 
         return RecognizeDocIndividualcardResponse::fromMap($this->doRequest('1.0', 'di.realperson.doc.individualcard.recognize', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
@@ -2048,6 +2069,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryBankLivenessfourResponse::fromMap($this->doRequest('1.0', 'di.realperson.bank.livenessfour.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询认证的材料信息
+     * Summary: 认证材料查询.
+     *
+     * @param QueryFaceverifyServermaterialRequest $request
+     *
+     * @return QueryFaceverifyServermaterialResponse
+     */
+    public function queryFaceverifyServermaterial($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryFaceverifyServermaterialEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询认证的材料信息
+     * Summary: 认证材料查询.
+     *
+     * @param QueryFaceverifyServermaterialRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryFaceverifyServermaterialResponse
+     */
+    public function queryFaceverifyServermaterialEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryFaceverifyServermaterialResponse::fromMap($this->doRequest('1.0', 'di.realperson.faceverify.servermaterial.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
