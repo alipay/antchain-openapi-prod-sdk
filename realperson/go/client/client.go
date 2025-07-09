@@ -2506,10 +2506,16 @@ type RecognizeDocIndividualcardRequest struct {
 	OutOrderNo *string `json:"out_order_no,omitempty" xml:"out_order_no,omitempty" require:"true"`
 	// 待识别的卡类型。取值约束：ID_CARD（身份证）;EEP_TO_ML_CARD（港澳来往大陆通行证）;BANK_CARD（银行卡）
 	OcrType *string `json:"ocr_type,omitempty" xml:"ocr_type,omitempty" require:"true"`
-	// 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；URL（暂不支持）
+	// 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；FILE(文件)、URL（暂不支持）
 	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
 	// 传入的图片的具体内容，需要与data_type的选择保持一致。
-	DataContent *string `json:"data_content,omitempty" xml:"data_content,omitempty" require:"true"`
+	DataContent *string `json:"data_content,omitempty" xml:"data_content,omitempty"`
+	// 证件图片
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
 	// 入参data_content是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
 	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
 	// 出参ocr_info是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
@@ -2567,6 +2573,21 @@ func (s *RecognizeDocIndividualcardRequest) SetDataType(v string) *RecognizeDocI
 
 func (s *RecognizeDocIndividualcardRequest) SetDataContent(v string) *RecognizeDocIndividualcardRequest {
 	s.DataContent = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetFileObject(v io.Reader) *RecognizeDocIndividualcardRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetFileObjectName(v string) *RecognizeDocIndividualcardRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *RecognizeDocIndividualcardRequest) SetFileId(v string) *RecognizeDocIndividualcardRequest {
+	s.FileId = &v
 	return s
 }
 
@@ -6601,6 +6622,97 @@ func (s *QueryBankLivenessfourResponse) SetExternInfo(v string) *QueryBankLivene
 	return s
 }
 
+type QueryFaceverifyServermaterialRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 实人认证唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty" require:"true"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 场景ID
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+	// 预留扩展业务参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryFaceverifyServermaterialRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFaceverifyServermaterialRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFaceverifyServermaterialRequest) SetAuthToken(v string) *QueryFaceverifyServermaterialRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryFaceverifyServermaterialRequest) SetProductInstanceId(v string) *QueryFaceverifyServermaterialRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryFaceverifyServermaterialRequest) SetCertifyId(v string) *QueryFaceverifyServermaterialRequest {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *QueryFaceverifyServermaterialRequest) SetOuterOrderNo(v string) *QueryFaceverifyServermaterialRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryFaceverifyServermaterialRequest) SetSceneId(v string) *QueryFaceverifyServermaterialRequest {
+	s.SceneId = &v
+	return s
+}
+
+func (s *QueryFaceverifyServermaterialRequest) SetExternParam(v string) *QueryFaceverifyServermaterialRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryFaceverifyServermaterialResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 认证主体附件信息
+	MaterialInfo *string `json:"material_info,omitempty" xml:"material_info,omitempty"`
+}
+
+func (s QueryFaceverifyServermaterialResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFaceverifyServermaterialResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFaceverifyServermaterialResponse) SetReqMsgId(v string) *QueryFaceverifyServermaterialResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryFaceverifyServermaterialResponse) SetResultCode(v string) *QueryFaceverifyServermaterialResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryFaceverifyServermaterialResponse) SetResultMsg(v string) *QueryFaceverifyServermaterialResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryFaceverifyServermaterialResponse) SetMaterialInfo(v string) *QueryFaceverifyServermaterialResponse {
+	s.MaterialInfo = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -6843,7 +6955,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.21.0"),
+				"sdk_version":      tea.String("1.21.3"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -7564,6 +7676,36 @@ func (client *Client) RecognizeDocIndividualcard(request *RecognizeDocIndividual
  * Summary: 卡证OCR
  */
 func (client *Client) RecognizeDocIndividualcardEx(request *RecognizeDocIndividualcardRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RecognizeDocIndividualcardResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("di.realperson.doc.individualcard.recognize"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			recognizeDocIndividualcardResponse := &RecognizeDocIndividualcardResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = recognizeDocIndividualcardResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
@@ -8718,6 +8860,40 @@ func (client *Client) QueryBankLivenessfourEx(request *QueryBankLivenessfourRequ
 	}
 	_result = &QueryBankLivenessfourResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.bank.livenessfour.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询认证的材料信息
+ * Summary: 认证材料查询
+ */
+func (client *Client) QueryFaceverifyServermaterial(request *QueryFaceverifyServermaterialRequest) (_result *QueryFaceverifyServermaterialResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryFaceverifyServermaterialResponse{}
+	_body, _err := client.QueryFaceverifyServermaterialEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询认证的材料信息
+ * Summary: 认证材料查询
+ */
+func (client *Client) QueryFaceverifyServermaterialEx(request *QueryFaceverifyServermaterialRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryFaceverifyServermaterialResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryFaceverifyServermaterialResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.faceverify.servermaterial.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
