@@ -5,24 +5,44 @@ import com.aliyun.tea.*;
 
 public class AvatarBubbleInfo extends TeaModel {
     // 气泡标题
+    /**
+     * <strong>example:</strong>
+     * <p>点我</p>
+     */
     @NameInMap("title")
     @Validation(required = true)
     public String title;
 
     // 气泡类型
+    /**
+     * <strong>example:</strong>
+     * <p>KNOWLEDGE,LINK,TEL,OUT_BIZ_ID</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public String type;
 
     // 知识点id
+    /**
+     * <strong>example:</strong>
+     * <p>72300001</p>
+     */
     @NameInMap("know_id")
     public String knowId;
 
     // 电话号码
+    /**
+     * <strong>example:</strong>
+     * <p>13260088903</p>
+     */
     @NameInMap("tel")
     public String tel;
 
     // 外部链接
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://www.123.com">www.123.com</a></p>
+     */
     @NameInMap("link")
     public String link;
 

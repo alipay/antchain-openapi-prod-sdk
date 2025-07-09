@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class AvatarLibraryInfo extends TeaModel {
     // 知识点数量
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("question_count")
     @Validation(required = true)
     public Long questionCount;
 
     // 知识库id
+    /**
+     * <strong>example:</strong>
+     * <p>73423001</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public Long id;
 
     // 知识库名称
+    /**
+     * <strong>example:</strong>
+     * <p>知识库</p>
+     */
     @NameInMap("title")
     @Validation(required = true)
     public String title;

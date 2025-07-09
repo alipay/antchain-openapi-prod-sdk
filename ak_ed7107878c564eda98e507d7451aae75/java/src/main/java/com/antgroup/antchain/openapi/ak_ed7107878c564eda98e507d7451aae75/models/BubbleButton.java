@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class BubbleButton extends TeaModel {
     // 按钮文案
+    /**
+     * <strong>example:</strong>
+     * <p>你好</p>
+     */
     @NameInMap("title")
     @Validation(required = true)
     public String title;
 
     // 行动点执行动作值
+    /**
+     * <strong>example:</strong>
+     * <p>70001</p>
+     */
     @NameInMap("value")
     @Validation(required = true)
     public String value;
 
     // 行动点执行动作类型
+    /**
+     * <strong>example:</strong>
+     * <p>OUT_BIZ_ID</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public String type;

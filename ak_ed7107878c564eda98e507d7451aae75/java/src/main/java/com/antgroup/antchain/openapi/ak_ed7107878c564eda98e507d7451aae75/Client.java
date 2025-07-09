@@ -32,7 +32,9 @@ public class Client {
     public Number _maxRequests;
     public Number _maxRequestsPerHost;
     /**
-     * Init client with Config
+     * <b>description</b> :
+     * <p>Init client with Config</p>
+     * 
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
@@ -64,7 +66,9 @@ public class Client {
     }
 
     /**
-     * Encapsulate the request and invoke the network
+     * <b>description</b> :
+     * <p>Encapsulate the request and invoke the network</p>
+     * 
      * @param action api name
      * @param protocol http or https
      * @param method e.g. GET
@@ -122,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.8"),
+                    new TeaPair("sdk_version", "1.1.9"),
                     new TeaPair("_prod_code", "ak_ed7107878c564eda98e507d7451aae75"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -185,8 +189,9 @@ public class Client {
     }
 
     /**
-     * Description: 数字人角色列表查询接口
-     * Summary: 数字人角色列表查询接口
+     * <b>description</b> :
+     * <p>Description: 数字人角色列表查询接口
+     * Summary: 数字人角色列表查询接口</p>
      */
     public ListUniversalsaasDigitalhumanHumanResponse listUniversalsaasDigitalhumanHuman(ListUniversalsaasDigitalhumanHumanRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -195,8 +200,9 @@ public class Client {
     }
 
     /**
-     * Description: 数字人角色列表查询接口
-     * Summary: 数字人角色列表查询接口
+     * <b>description</b> :
+     * <p>Description: 数字人角色列表查询接口
+     * Summary: 数字人角色列表查询接口</p>
      */
     public ListUniversalsaasDigitalhumanHumanResponse listUniversalsaasDigitalhumanHumanEx(ListUniversalsaasDigitalhumanHumanRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -204,8 +210,9 @@ public class Client {
     }
 
     /**
-     * Description: 知识库列表查询接口
-     * Summary: 知识库列表查询接口
+     * <b>description</b> :
+     * <p>Description: 知识库列表查询接口
+     * Summary: 知识库列表查询接口</p>
      */
     public ListUniversalsaasDigitalhumanLibraryResponse listUniversalsaasDigitalhumanLibrary(ListUniversalsaasDigitalhumanLibraryRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -214,8 +221,9 @@ public class Client {
     }
 
     /**
-     * Description: 知识库列表查询接口
-     * Summary: 知识库列表查询接口
+     * <b>description</b> :
+     * <p>Description: 知识库列表查询接口
+     * Summary: 知识库列表查询接口</p>
      */
     public ListUniversalsaasDigitalhumanLibraryResponse listUniversalsaasDigitalhumanLibraryEx(ListUniversalsaasDigitalhumanLibraryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -223,8 +231,9 @@ public class Client {
     }
 
     /**
-     * Description: 创建知识库接口
-     * Summary: 创建知识库接口
+     * <b>description</b> :
+     * <p>Description: 创建知识库接口
+     * Summary: 创建知识库接口</p>
      */
     public AddUniversalsaasDigitalhumanLibraryResponse addUniversalsaasDigitalhumanLibrary(AddUniversalsaasDigitalhumanLibraryRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -233,8 +242,9 @@ public class Client {
     }
 
     /**
-     * Description: 创建知识库接口
-     * Summary: 创建知识库接口
+     * <b>description</b> :
+     * <p>Description: 创建知识库接口
+     * Summary: 创建知识库接口</p>
      */
     public AddUniversalsaasDigitalhumanLibraryResponse addUniversalsaasDigitalhumanLibraryEx(AddUniversalsaasDigitalhumanLibraryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -242,8 +252,9 @@ public class Client {
     }
 
     /**
-     * Description: 编辑知识库接口
-     * Summary: 编辑知识库接口
+     * <b>description</b> :
+     * <p>Description: 编辑知识库接口
+     * Summary: 编辑知识库接口</p>
      */
     public UpdateUniversalsaasDigitalhumanLibraryResponse updateUniversalsaasDigitalhumanLibrary(UpdateUniversalsaasDigitalhumanLibraryRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -252,8 +263,9 @@ public class Client {
     }
 
     /**
-     * Description: 编辑知识库接口
-     * Summary: 编辑知识库接口
+     * <b>description</b> :
+     * <p>Description: 编辑知识库接口
+     * Summary: 编辑知识库接口</p>
      */
     public UpdateUniversalsaasDigitalhumanLibraryResponse updateUniversalsaasDigitalhumanLibraryEx(UpdateUniversalsaasDigitalhumanLibraryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -261,8 +273,9 @@ public class Client {
     }
 
     /**
-     * Description: 删除知识库接口
-     * Summary: 删除知识库接口
+     * <b>description</b> :
+     * <p>Description: 删除知识库接口
+     * Summary: 删除知识库接口</p>
      */
     public DeleteUniversalsaasDigitalhumanLibraryResponse deleteUniversalsaasDigitalhumanLibrary(DeleteUniversalsaasDigitalhumanLibraryRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -271,8 +284,9 @@ public class Client {
     }
 
     /**
-     * Description: 删除知识库接口
-     * Summary: 删除知识库接口
+     * <b>description</b> :
+     * <p>Description: 删除知识库接口
+     * Summary: 删除知识库接口</p>
      */
     public DeleteUniversalsaasDigitalhumanLibraryResponse deleteUniversalsaasDigitalhumanLibraryEx(DeleteUniversalsaasDigitalhumanLibraryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -280,8 +294,9 @@ public class Client {
     }
 
     /**
-     * Description: 新增知识点接口
-     * Summary: 新增知识点接口
+     * <b>description</b> :
+     * <p>Description: 新增知识点接口
+     * Summary: 新增知识点接口</p>
      */
     public AddUniversalsaasDigitalhumanKnowledgeResponse addUniversalsaasDigitalhumanKnowledge(AddUniversalsaasDigitalhumanKnowledgeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -290,8 +305,9 @@ public class Client {
     }
 
     /**
-     * Description: 新增知识点接口
-     * Summary: 新增知识点接口
+     * <b>description</b> :
+     * <p>Description: 新增知识点接口
+     * Summary: 新增知识点接口</p>
      */
     public AddUniversalsaasDigitalhumanKnowledgeResponse addUniversalsaasDigitalhumanKnowledgeEx(AddUniversalsaasDigitalhumanKnowledgeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -299,8 +315,9 @@ public class Client {
     }
 
     /**
-     * Description: 编辑知识点接口
-     * Summary: 编辑知识点接口
+     * <b>description</b> :
+     * <p>Description: 编辑知识点接口
+     * Summary: 编辑知识点接口</p>
      */
     public UpdateUniversalsaasDigitalhumanKnowledgeResponse updateUniversalsaasDigitalhumanKnowledge(UpdateUniversalsaasDigitalhumanKnowledgeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -309,8 +326,9 @@ public class Client {
     }
 
     /**
-     * Description: 编辑知识点接口
-     * Summary: 编辑知识点接口
+     * <b>description</b> :
+     * <p>Description: 编辑知识点接口
+     * Summary: 编辑知识点接口</p>
      */
     public UpdateUniversalsaasDigitalhumanKnowledgeResponse updateUniversalsaasDigitalhumanKnowledgeEx(UpdateUniversalsaasDigitalhumanKnowledgeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -318,8 +336,9 @@ public class Client {
     }
 
     /**
-     * Description: 发布知识点接口
-     * Summary: 发布知识点接口
+     * <b>description</b> :
+     * <p>Description: 发布知识点接口
+     * Summary: 发布知识点接口</p>
      */
     public OnlineUniversalsaasDigitalhumanKnowledgeResponse onlineUniversalsaasDigitalhumanKnowledge(OnlineUniversalsaasDigitalhumanKnowledgeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -328,8 +347,9 @@ public class Client {
     }
 
     /**
-     * Description: 发布知识点接口
-     * Summary: 发布知识点接口
+     * <b>description</b> :
+     * <p>Description: 发布知识点接口
+     * Summary: 发布知识点接口</p>
      */
     public OnlineUniversalsaasDigitalhumanKnowledgeResponse onlineUniversalsaasDigitalhumanKnowledgeEx(OnlineUniversalsaasDigitalhumanKnowledgeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -337,8 +357,9 @@ public class Client {
     }
 
     /**
-     * Description: 下线知识点接口
-     * Summary: 下线知识点接口
+     * <b>description</b> :
+     * <p>Description: 下线知识点接口
+     * Summary: 下线知识点接口</p>
      */
     public OfflineUniversalsaasDigitalhumanKnowledgeResponse offlineUniversalsaasDigitalhumanKnowledge(OfflineUniversalsaasDigitalhumanKnowledgeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -347,8 +368,9 @@ public class Client {
     }
 
     /**
-     * Description: 下线知识点接口
-     * Summary: 下线知识点接口
+     * <b>description</b> :
+     * <p>Description: 下线知识点接口
+     * Summary: 下线知识点接口</p>
      */
     public OfflineUniversalsaasDigitalhumanKnowledgeResponse offlineUniversalsaasDigitalhumanKnowledgeEx(OfflineUniversalsaasDigitalhumanKnowledgeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -356,8 +378,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询大模型对话列表接口
-     * Summary: 查询大模型对话列表接口
+     * <b>description</b> :
+     * <p>Description: 查询大模型对话列表接口
+     * Summary: 查询大模型对话列表接口</p>
      */
     public ListUniversalsaasDigitalhumanLlmChatResponse listUniversalsaasDigitalhumanLlmChat(ListUniversalsaasDigitalhumanLlmChatRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -366,8 +389,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询大模型对话列表接口
-     * Summary: 查询大模型对话列表接口
+     * <b>description</b> :
+     * <p>Description: 查询大模型对话列表接口
+     * Summary: 查询大模型对话列表接口</p>
      */
     public ListUniversalsaasDigitalhumanLlmChatResponse listUniversalsaasDigitalhumanLlmChatEx(ListUniversalsaasDigitalhumanLlmChatRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -375,8 +399,9 @@ public class Client {
     }
 
     /**
-     * Description: 新增交互配置接口
-     * Summary: 新增交互配置接口
+     * <b>description</b> :
+     * <p>Description: 新增交互配置接口
+     * Summary: 新增交互配置接口</p>
      */
     public AddUniversalsaasDigitalhumanChatSettingResponse addUniversalsaasDigitalhumanChatSetting(AddUniversalsaasDigitalhumanChatSettingRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -385,8 +410,9 @@ public class Client {
     }
 
     /**
-     * Description: 新增交互配置接口
-     * Summary: 新增交互配置接口
+     * <b>description</b> :
+     * <p>Description: 新增交互配置接口
+     * Summary: 新增交互配置接口</p>
      */
     public AddUniversalsaasDigitalhumanChatSettingResponse addUniversalsaasDigitalhumanChatSettingEx(AddUniversalsaasDigitalhumanChatSettingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -394,8 +420,9 @@ public class Client {
     }
 
     /**
-     * Description: 编辑交互配置接口
-     * Summary: 编辑交互配置接口
+     * <b>description</b> :
+     * <p>Description: 编辑交互配置接口
+     * Summary: 编辑交互配置接口</p>
      */
     public SetUniversalsaasDigitalhumanChatSettingResponse setUniversalsaasDigitalhumanChatSetting(SetUniversalsaasDigitalhumanChatSettingRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -404,8 +431,9 @@ public class Client {
     }
 
     /**
-     * Description: 编辑交互配置接口
-     * Summary: 编辑交互配置接口
+     * <b>description</b> :
+     * <p>Description: 编辑交互配置接口
+     * Summary: 编辑交互配置接口</p>
      */
     public SetUniversalsaasDigitalhumanChatSettingResponse setUniversalsaasDigitalhumanChatSettingEx(SetUniversalsaasDigitalhumanChatSettingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -413,8 +441,9 @@ public class Client {
     }
 
     /**
-     * Description: 删除交互配置接口
-     * Summary: 删除交互配置接口
+     * <b>description</b> :
+     * <p>Description: 删除交互配置接口
+     * Summary: 删除交互配置接口</p>
      */
     public DeleteUniversalsaasDigitalhumanChatSettingResponse deleteUniversalsaasDigitalhumanChatSetting(DeleteUniversalsaasDigitalhumanChatSettingRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -423,8 +452,9 @@ public class Client {
     }
 
     /**
-     * Description: 删除交互配置接口
-     * Summary: 删除交互配置接口
+     * <b>description</b> :
+     * <p>Description: 删除交互配置接口
+     * Summary: 删除交互配置接口</p>
      */
     public DeleteUniversalsaasDigitalhumanChatSettingResponse deleteUniversalsaasDigitalhumanChatSettingEx(DeleteUniversalsaasDigitalhumanChatSettingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -432,8 +462,9 @@ public class Client {
     }
 
     /**
-     * Description: 发布交互配置接口
-     * Summary: 发布交互配置接口
+     * <b>description</b> :
+     * <p>Description: 发布交互配置接口
+     * Summary: 发布交互配置接口</p>
      */
     public OnlineUniversalsaasDigitalhumanChatSettingResponse onlineUniversalsaasDigitalhumanChatSetting(OnlineUniversalsaasDigitalhumanChatSettingRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -442,8 +473,9 @@ public class Client {
     }
 
     /**
-     * Description: 发布交互配置接口
-     * Summary: 发布交互配置接口
+     * <b>description</b> :
+     * <p>Description: 发布交互配置接口
+     * Summary: 发布交互配置接口</p>
      */
     public OnlineUniversalsaasDigitalhumanChatSettingResponse onlineUniversalsaasDigitalhumanChatSettingEx(OnlineUniversalsaasDigitalhumanChatSettingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -451,8 +483,9 @@ public class Client {
     }
 
     /**
-     * Description: 下线交互配置接口
-     * Summary: 下线交互配置接口
+     * <b>description</b> :
+     * <p>Description: 下线交互配置接口
+     * Summary: 下线交互配置接口</p>
      */
     public OfflineUniversalsaasDigitalhumanChatSettingResponse offlineUniversalsaasDigitalhumanChatSetting(OfflineUniversalsaasDigitalhumanChatSettingRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -461,8 +494,9 @@ public class Client {
     }
 
     /**
-     * Description: 下线交互配置接口
-     * Summary: 下线交互配置接口
+     * <b>description</b> :
+     * <p>Description: 下线交互配置接口
+     * Summary: 下线交互配置接口</p>
      */
     public OfflineUniversalsaasDigitalhumanChatSettingResponse offlineUniversalsaasDigitalhumanChatSettingEx(OfflineUniversalsaasDigitalhumanChatSettingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -470,8 +504,9 @@ public class Client {
     }
 
     /**
-     * Description: 数字人形象列表接口
-     * Summary: 数字人形象列表接口
+     * <b>description</b> :
+     * <p>Description: 数字人形象列表接口
+     * Summary: 数字人形象列表接口</p>
      */
     public ListUniversalsaasDigitalhumanModelResponse listUniversalsaasDigitalhumanModel(ListUniversalsaasDigitalhumanModelRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -480,8 +515,9 @@ public class Client {
     }
 
     /**
-     * Description: 数字人形象列表接口
-     * Summary: 数字人形象列表接口
+     * <b>description</b> :
+     * <p>Description: 数字人形象列表接口
+     * Summary: 数字人形象列表接口</p>
      */
     public ListUniversalsaasDigitalhumanModelResponse listUniversalsaasDigitalhumanModelEx(ListUniversalsaasDigitalhumanModelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -489,8 +525,9 @@ public class Client {
     }
 
     /**
-     * Description: 数字人平台音色列表
-     * Summary: 数字人平台音色列表
+     * <b>description</b> :
+     * <p>Description: 数字人平台音色列表
+     * Summary: 数字人平台音色列表</p>
      */
     public ListUniversalsaasDigitalhumanVoiceResponse listUniversalsaasDigitalhumanVoice(ListUniversalsaasDigitalhumanVoiceRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -499,8 +536,9 @@ public class Client {
     }
 
     /**
-     * Description: 数字人平台音色列表
-     * Summary: 数字人平台音色列表
+     * <b>description</b> :
+     * <p>Description: 数字人平台音色列表
+     * Summary: 数字人平台音色列表</p>
      */
     public ListUniversalsaasDigitalhumanVoiceResponse listUniversalsaasDigitalhumanVoiceEx(ListUniversalsaasDigitalhumanVoiceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -508,8 +546,9 @@ public class Client {
     }
 
     /**
-     * Description: 数字人平台音色试听接口
-     * Summary: 数字人平台音色试听接口
+     * <b>description</b> :
+     * <p>Description: 数字人平台音色试听接口
+     * Summary: 数字人平台音色试听接口</p>
      */
     public PreviewUniversalsaasDigitalhumanVoiceResponse previewUniversalsaasDigitalhumanVoice(PreviewUniversalsaasDigitalhumanVoiceRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -518,8 +557,9 @@ public class Client {
     }
 
     /**
-     * Description: 数字人平台音色试听接口
-     * Summary: 数字人平台音色试听接口
+     * <b>description</b> :
+     * <p>Description: 数字人平台音色试听接口
+     * Summary: 数字人平台音色试听接口</p>
      */
     public PreviewUniversalsaasDigitalhumanVoiceResponse previewUniversalsaasDigitalhumanVoiceEx(PreviewUniversalsaasDigitalhumanVoiceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -527,8 +567,9 @@ public class Client {
     }
 
     /**
-     * Description: 数字人平台角色创建与更新接口
-     * Summary: 数字人平台角色创建与更新接口
+     * <b>description</b> :
+     * <p>Description: 数字人平台角色创建与更新接口
+     * Summary: 数字人平台角色创建与更新接口</p>
      */
     public UpdateUniversalsaasDigitalhumanHumanResponse updateUniversalsaasDigitalhumanHuman(UpdateUniversalsaasDigitalhumanHumanRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -537,8 +578,9 @@ public class Client {
     }
 
     /**
-     * Description: 数字人平台角色创建与更新接口
-     * Summary: 数字人平台角色创建与更新接口
+     * <b>description</b> :
+     * <p>Description: 数字人平台角色创建与更新接口
+     * Summary: 数字人平台角色创建与更新接口</p>
      */
     public UpdateUniversalsaasDigitalhumanHumanResponse updateUniversalsaasDigitalhumanHumanEx(UpdateUniversalsaasDigitalhumanHumanRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -546,8 +588,9 @@ public class Client {
     }
 
     /**
-     * Description: 删除数字人角色接口
-     * Summary: 删除数字人角色接口
+     * <b>description</b> :
+     * <p>Description: 删除数字人角色接口
+     * Summary: 删除数字人角色接口</p>
      */
     public DeleteUniversalsaasDigitalhumanHumanResponse deleteUniversalsaasDigitalhumanHuman(DeleteUniversalsaasDigitalhumanHumanRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -556,8 +599,9 @@ public class Client {
     }
 
     /**
-     * Description: 删除数字人角色接口
-     * Summary: 删除数字人角色接口
+     * <b>description</b> :
+     * <p>Description: 删除数字人角色接口
+     * Summary: 删除数字人角色接口</p>
      */
     public DeleteUniversalsaasDigitalhumanHumanResponse deleteUniversalsaasDigitalhumanHumanEx(DeleteUniversalsaasDigitalhumanHumanRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -565,8 +609,9 @@ public class Client {
     }
 
     /**
-     * Description: 删除知识点接口
-     * Summary: 删除知识点接口
+     * <b>description</b> :
+     * <p>Description: 删除知识点接口
+     * Summary: 删除知识点接口</p>
      */
     public DeleteUniversalsaasDigitalhumanKnowledgeResponse deleteUniversalsaasDigitalhumanKnowledge(DeleteUniversalsaasDigitalhumanKnowledgeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -575,8 +620,9 @@ public class Client {
     }
 
     /**
-     * Description: 删除知识点接口
-     * Summary: 删除知识点接口
+     * <b>description</b> :
+     * <p>Description: 删除知识点接口
+     * Summary: 删除知识点接口</p>
      */
     public DeleteUniversalsaasDigitalhumanKnowledgeResponse deleteUniversalsaasDigitalhumanKnowledgeEx(DeleteUniversalsaasDigitalhumanKnowledgeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -584,8 +630,9 @@ public class Client {
     }
 
     /**
-     * Description: 创建批量导入任务
-     * Summary: 创建批量导入任务
+     * <b>description</b> :
+     * <p>Description: 创建批量导入任务
+     * Summary: 创建批量导入任务</p>
      */
     public CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse createUniversalsaasDigitalhumanKnowledgeImporttask(CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -594,8 +641,9 @@ public class Client {
     }
 
     /**
-     * Description: 创建批量导入任务
-     * Summary: 创建批量导入任务
+     * <b>description</b> :
+     * <p>Description: 创建批量导入任务
+     * Summary: 创建批量导入任务</p>
      */
     public CreateUniversalsaasDigitalhumanKnowledgeImporttaskResponse createUniversalsaasDigitalhumanKnowledgeImporttaskEx(CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
@@ -625,8 +673,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询批量导入任务
-     * Summary: 查询批量导入任务
+     * <b>description</b> :
+     * <p>Description: 查询批量导入任务
+     * Summary: 查询批量导入任务</p>
      */
     public QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse queryUniversalsaasDigitalhumanKnowledgeImporttask(QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -635,8 +684,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询批量导入任务
-     * Summary: 查询批量导入任务
+     * <b>description</b> :
+     * <p>Description: 查询批量导入任务
+     * Summary: 查询批量导入任务</p>
      */
     public QueryUniversalsaasDigitalhumanKnowledgeImporttaskResponse queryUniversalsaasDigitalhumanKnowledgeImporttaskEx(QueryUniversalsaasDigitalhumanKnowledgeImporttaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -644,8 +694,9 @@ public class Client {
     }
 
     /**
-     * Description: 知识点批量导出
-     * Summary: 知识点批量导出
+     * <b>description</b> :
+     * <p>Description: 知识点批量导出
+     * Summary: 知识点批量导出</p>
      */
     public ExportUniversalsaasDigitalhumanKnowledgeResponse exportUniversalsaasDigitalhumanKnowledge(ExportUniversalsaasDigitalhumanKnowledgeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -654,8 +705,9 @@ public class Client {
     }
 
     /**
-     * Description: 知识点批量导出
-     * Summary: 知识点批量导出
+     * <b>description</b> :
+     * <p>Description: 知识点批量导出
+     * Summary: 知识点批量导出</p>
      */
     public ExportUniversalsaasDigitalhumanKnowledgeResponse exportUniversalsaasDigitalhumanKnowledgeEx(ExportUniversalsaasDigitalhumanKnowledgeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -663,8 +715,9 @@ public class Client {
     }
 
     /**
-     * Description: 获取实时流列表接口
-     * Summary: 获取实时流列表接口
+     * <b>description</b> :
+     * <p>Description: 获取实时流列表接口
+     * Summary: 获取实时流列表接口</p>
      */
     public ListUniversalsaasDigitalhumanStreamResponse listUniversalsaasDigitalhumanStream(ListUniversalsaasDigitalhumanStreamRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -673,8 +726,9 @@ public class Client {
     }
 
     /**
-     * Description: 获取实时流列表接口
-     * Summary: 获取实时流列表接口
+     * <b>description</b> :
+     * <p>Description: 获取实时流列表接口
+     * Summary: 获取实时流列表接口</p>
      */
     public ListUniversalsaasDigitalhumanStreamResponse listUniversalsaasDigitalhumanStreamEx(ListUniversalsaasDigitalhumanStreamRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -682,8 +736,9 @@ public class Client {
     }
 
     /**
-     * Description: 关闭实时流接口
-     * Summary: 关闭实时流接口
+     * <b>description</b> :
+     * <p>Description: 关闭实时流接口
+     * Summary: 关闭实时流接口</p>
      */
     public StopUniversalsaasDigitalhumanStreamResponse stopUniversalsaasDigitalhumanStream(StopUniversalsaasDigitalhumanStreamRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -692,8 +747,9 @@ public class Client {
     }
 
     /**
-     * Description: 关闭实时流接口
-     * Summary: 关闭实时流接口
+     * <b>description</b> :
+     * <p>Description: 关闭实时流接口
+     * Summary: 关闭实时流接口</p>
      */
     public StopUniversalsaasDigitalhumanStreamResponse stopUniversalsaasDigitalhumanStreamEx(StopUniversalsaasDigitalhumanStreamRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -701,8 +757,198 @@ public class Client {
     }
 
     /**
-     * Description: 创建HTTP PUT提交的文件上传
-     * Summary: 文件上传创建
+     * <b>description</b> :
+     * <p>Description: 大模型对话配置明细
+     * Summary: 大模型对话配置明细</p>
+     */
+    public DetailUniversalsaasDigitalhumanLlmChatResponse detailUniversalsaasDigitalhumanLlmChat(DetailUniversalsaasDigitalhumanLlmChatRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailUniversalsaasDigitalhumanLlmChatEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 大模型对话配置明细
+     * Summary: 大模型对话配置明细</p>
+     */
+    public DetailUniversalsaasDigitalhumanLlmChatResponse detailUniversalsaasDigitalhumanLlmChatEx(DetailUniversalsaasDigitalhumanLlmChatRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.llm.chat.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailUniversalsaasDigitalhumanLlmChatResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 新增大模型对话配置
+     * Summary: 新增大模型对话配置</p>
+     */
+    public AddUniversalsaasDigitalhumanLlmChatResponse addUniversalsaasDigitalhumanLlmChat(AddUniversalsaasDigitalhumanLlmChatRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addUniversalsaasDigitalhumanLlmChatEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 新增大模型对话配置
+     * Summary: 新增大模型对话配置</p>
+     */
+    public AddUniversalsaasDigitalhumanLlmChatResponse addUniversalsaasDigitalhumanLlmChatEx(AddUniversalsaasDigitalhumanLlmChatRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.llm.chat.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddUniversalsaasDigitalhumanLlmChatResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 更新大模型对话配置
+     * Summary: 更新大模型对话配置</p>
+     */
+    public UpdateUniversalsaasDigitalhumanLlmChatResponse updateUniversalsaasDigitalhumanLlmChat(UpdateUniversalsaasDigitalhumanLlmChatRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateUniversalsaasDigitalhumanLlmChatEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 更新大模型对话配置
+     * Summary: 更新大模型对话配置</p>
+     */
+    public UpdateUniversalsaasDigitalhumanLlmChatResponse updateUniversalsaasDigitalhumanLlmChatEx(UpdateUniversalsaasDigitalhumanLlmChatRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.llm.chat.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateUniversalsaasDigitalhumanLlmChatResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 删除大模型对话配置
+     * Summary: 删除大模型对话配置</p>
+     */
+    public DeleteUniversalsaasDigitalhumanLlmChatResponse deleteUniversalsaasDigitalhumanLlmChat(DeleteUniversalsaasDigitalhumanLlmChatRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteUniversalsaasDigitalhumanLlmChatEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 删除大模型对话配置
+     * Summary: 删除大模型对话配置</p>
+     */
+    public DeleteUniversalsaasDigitalhumanLlmChatResponse deleteUniversalsaasDigitalhumanLlmChatEx(DeleteUniversalsaasDigitalhumanLlmChatRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.llm.chat.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteUniversalsaasDigitalhumanLlmChatResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 新增模型配置
+     * Summary: 新增模型配置</p>
+     */
+    public AddUniversalsaasDigitalhumanLlmModelResponse addUniversalsaasDigitalhumanLlmModel(AddUniversalsaasDigitalhumanLlmModelRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addUniversalsaasDigitalhumanLlmModelEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 新增模型配置
+     * Summary: 新增模型配置</p>
+     */
+    public AddUniversalsaasDigitalhumanLlmModelResponse addUniversalsaasDigitalhumanLlmModelEx(AddUniversalsaasDigitalhumanLlmModelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.llm.model.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddUniversalsaasDigitalhumanLlmModelResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 删除模型配置
+     * Summary: 删除模型配置</p>
+     */
+    public DeleteUniversalsaasDigitalhumanLlmModelResponse deleteUniversalsaasDigitalhumanLlmModel(DeleteUniversalsaasDigitalhumanLlmModelRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteUniversalsaasDigitalhumanLlmModelEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 删除模型配置
+     * Summary: 删除模型配置</p>
+     */
+    public DeleteUniversalsaasDigitalhumanLlmModelResponse deleteUniversalsaasDigitalhumanLlmModelEx(DeleteUniversalsaasDigitalhumanLlmModelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.llm.model.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteUniversalsaasDigitalhumanLlmModelResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 更新模型配置
+     * Summary: 更新模型配置</p>
+     */
+    public UpdateUniversalsaasDigitalhumanLlmModelResponse updateUniversalsaasDigitalhumanLlmModel(UpdateUniversalsaasDigitalhumanLlmModelRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateUniversalsaasDigitalhumanLlmModelEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 更新模型配置
+     * Summary: 更新模型配置</p>
+     */
+    public UpdateUniversalsaasDigitalhumanLlmModelResponse updateUniversalsaasDigitalhumanLlmModelEx(UpdateUniversalsaasDigitalhumanLlmModelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.llm.model.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateUniversalsaasDigitalhumanLlmModelResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 获取模型配置列表
+     * Summary: 获取模型配置列表</p>
+     */
+    public ListUniversalsaasDigitalhumanLlmModelResponse listUniversalsaasDigitalhumanLlmModel(ListUniversalsaasDigitalhumanLlmModelRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listUniversalsaasDigitalhumanLlmModelEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 获取模型配置列表
+     * Summary: 获取模型配置列表</p>
+     */
+    public ListUniversalsaasDigitalhumanLlmModelResponse listUniversalsaasDigitalhumanLlmModelEx(ListUniversalsaasDigitalhumanLlmModelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.llm.model.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListUniversalsaasDigitalhumanLlmModelResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询模型配置明细
+     * Summary: 查询模型配置明细</p>
+     */
+    public DetailUniversalsaasDigitalhumanLlmModelResponse detailUniversalsaasDigitalhumanLlmModel(DetailUniversalsaasDigitalhumanLlmModelRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailUniversalsaasDigitalhumanLlmModelEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询模型配置明细
+     * Summary: 查询模型配置明细</p>
+     */
+    public DetailUniversalsaasDigitalhumanLlmModelResponse detailUniversalsaasDigitalhumanLlmModelEx(DetailUniversalsaasDigitalhumanLlmModelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.llm.model.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailUniversalsaasDigitalhumanLlmModelResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
      */
     public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -711,8 +957,9 @@ public class Client {
     }
 
     /**
-     * Description: 创建HTTP PUT提交的文件上传
-     * Summary: 文件上传创建
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
      */
     public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

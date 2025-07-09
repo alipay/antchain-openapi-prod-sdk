@@ -5,19 +5,35 @@ import com.aliyun.tea.*;
 
 public class ImportTaskResult extends TeaModel {
     // 任务状态
+    /**
+     * <strong>example:</strong>
+     * <p>init/running/end/error</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 进度值
+    /**
+     * <strong>example:</strong>
+     * <p>99</p>
+     */
     @NameInMap("progress")
     public Long progress;
 
     // 错误日志
+    /**
+     * <strong>example:</strong>
+     * <p>错误日志</p>
+     */
     @NameInMap("error_message")
     public String errorMessage;
 
     // 导入日志文件url
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://www.123.com">www.123.com</a></p>
+     */
     @NameInMap("file_url")
     public String fileUrl;
 

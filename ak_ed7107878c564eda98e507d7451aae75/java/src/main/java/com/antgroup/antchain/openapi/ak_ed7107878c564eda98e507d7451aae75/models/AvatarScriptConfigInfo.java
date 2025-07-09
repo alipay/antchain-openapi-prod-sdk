@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class AvatarScriptConfigInfo extends TeaModel {
     // 唤醒词列表
+    /**
+     * <strong>example:</strong>
+     * <p>[&quot;你好&quot;]</p>
+     */
     @NameInMap("wake_words")
     public java.util.List<String> wakeWords;
 
     // 欢迎语列表
+    /**
+     * <strong>example:</strong>
+     * <p>[&quot;你好我是数字人&quot;]</p>
+     */
     @NameInMap("welcome_phrases")
     public java.util.List<String> welcomePhrases;
 
     // 兜底语列表
+    /**
+     * <strong>example:</strong>
+     * <p>[&quot;对不起&quot;]</p>
+     */
     @NameInMap("fallback_phrases")
     public java.util.List<String> fallbackPhrases;
 

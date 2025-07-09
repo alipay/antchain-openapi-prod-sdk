@@ -5,29 +5,53 @@ import com.aliyun.tea.*;
 
 public class AvatarVoiceInfo extends TeaModel {
     // 音色id
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("voice_id")
     @Validation(required = true)
     public String voiceId;
 
     // 音色编码
+    /**
+     * <strong>example:</strong>
+     * <p>269</p>
+     */
     @NameInMap("voice_code")
     @Validation(required = true)
     public String voiceCode;
 
     // 音色名
+    /**
+     * <strong>example:</strong>
+     * <p>小忆</p>
+     */
     @NameInMap("voice_name")
     @Validation(required = true)
     public String voiceName;
 
     // 预览图
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://www.123.com">www.123.com</a></p>
+     */
     @NameInMap("image")
     public String image;
 
     // 音色性别
+    /**
+     * <strong>example:</strong>
+     * <p>male</p>
+     */
     @NameInMap("gender")
     public String gender;
 
     // 音色类型
+    /**
+     * <strong>example:</strong>
+     * <p>克隆音色</p>
+     */
     @NameInMap("voice_type")
     public String voiceType;
 

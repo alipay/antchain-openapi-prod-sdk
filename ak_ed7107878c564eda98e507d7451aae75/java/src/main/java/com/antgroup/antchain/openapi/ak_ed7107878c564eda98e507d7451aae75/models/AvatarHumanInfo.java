@@ -5,42 +5,78 @@ import com.aliyun.tea.*;
 
 public class AvatarHumanInfo extends TeaModel {
     // 数字人角色id
+    /**
+     * <strong>example:</strong>
+     * <p>100001</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public Long id;
 
     // 数字人角色名
+    /**
+     * <strong>example:</strong>
+     * <p>小忆</p>
+     */
     @NameInMap("human_name")
     @Validation(required = true)
     public String humanName;
 
     // 数字人形象id
+    /**
+     * <strong>example:</strong>
+     * <p>1886</p>
+     */
     @NameInMap("model_id")
     @Validation(required = true)
     public Long modelId;
 
     // 数字人音色编码
+    /**
+     * <strong>example:</strong>
+     * <p>269</p>
+     */
     @NameInMap("voice_code")
     @Validation(required = true)
     public String voiceCode;
 
     // 数字人音色名
+    /**
+     * <strong>example:</strong>
+     * <p>小忆</p>
+     */
     @NameInMap("voice_name")
     public String voiceName;
 
     // 数字人音色预览图
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://www.123.com">www.123.com</a></p>
+     */
     @NameInMap("voice_image")
     public String voiceImage;
 
     // 语速
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("speech_rate")
     public Long speechRate;
 
     // 音调
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("pitch_rate")
     public String pitchRate;
 
     // 音量
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("volume")
     public String volume;
 

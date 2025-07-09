@@ -5,16 +5,34 @@ import com.aliyun.tea.*;
 
 public class AvatarComponentInfo extends TeaModel {
     // 组件标题
+    /**
+     * <strong>example:</strong>
+     * <ul>
+     * <li></li>
+     * </ul>
+     */
     @NameInMap("title")
     @Validation(required = true)
     public String title;
 
     // 组件编码
+    /**
+     * <strong>example:</strong>
+     * <ul>
+     * <li></li>
+     * </ul>
+     */
     @NameInMap("code")
     @Validation(required = true)
     public String code;
 
     // 组件值
+    /**
+     * <strong>example:</strong>
+     * <ul>
+     * <li></li>
+     * </ul>
+     */
     @NameInMap("value")
     @Validation(required = true)
     public String value;

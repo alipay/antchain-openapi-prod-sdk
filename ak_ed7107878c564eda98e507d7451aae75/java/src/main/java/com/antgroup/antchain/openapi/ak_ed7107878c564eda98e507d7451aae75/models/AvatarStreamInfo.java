@@ -5,25 +5,54 @@ import com.aliyun.tea.*;
 
 public class AvatarStreamInfo extends TeaModel {
     // 形象id
+    /**
+     * <strong>example:</strong>
+     * <p>1861</p>
+     */
     @NameInMap("model_id")
     public String modelId;
 
     // 音色编码
+    /**
+     * <strong>example:</strong>
+     * <p>269</p>
+     */
     @NameInMap("voice_code")
     public String voiceCode;
 
     // 背景信息
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://www.123.com">www.123.com</a></p>
+     */
     @NameInMap("background")
     public String background;
 
     // 流id
+    /**
+     * <strong>example:</strong>
+     * <p>live-avatar-6741_20250410104550</p>
+     */
     @NameInMap("stream_id")
     @Validation(required = true)
     public String streamId;
 
     // 设备sn号
+    /**
+     * <strong>example:</strong>
+     * <p>1234</p>
+     */
     @NameInMap("serial_number")
     public String serialNumber;
+
+    // 开播时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
+    @NameInMap("start_time")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String startTime;
 
     public static AvatarStreamInfo build(java.util.Map<String, ?> map) throws Exception {
         AvatarStreamInfo self = new AvatarStreamInfo();
@@ -68,6 +97,14 @@ public class AvatarStreamInfo extends TeaModel {
     }
     public String getSerialNumber() {
         return this.serialNumber;
+    }
+
+    public AvatarStreamInfo setStartTime(String startTime) {
+        this.startTime = startTime;
+        return this;
+    }
+    public String getStartTime() {
+        return this.startTime;
     }
 
 }
