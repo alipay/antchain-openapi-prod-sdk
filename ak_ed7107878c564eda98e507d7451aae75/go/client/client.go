@@ -264,6 +264,53 @@ func (s *AvatarLibraryInfo) SetHumanInfo(v *AvatarHumanInfo) *AvatarLibraryInfo 
 	return s
 }
 
+// 数字人平台模型配置信息
+type AvatarLlmModelInfo struct {
+	// 模型id
+	ModelId *string `json:"model_id,omitempty" xml:"model_id,omitempty" require:"true"`
+	// 模型名称
+	ModelName *string `json:"model_name,omitempty" xml:"model_name,omitempty" require:"true"`
+	// 模型编码
+	ModelCode *string `json:"model_code,omitempty" xml:"model_code,omitempty" require:"true"`
+	// 模型描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 模型图片url
+	ImageUrl *string `json:"image_url,omitempty" xml:"image_url,omitempty"`
+}
+
+func (s AvatarLlmModelInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AvatarLlmModelInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AvatarLlmModelInfo) SetModelId(v string) *AvatarLlmModelInfo {
+	s.ModelId = &v
+	return s
+}
+
+func (s *AvatarLlmModelInfo) SetModelName(v string) *AvatarLlmModelInfo {
+	s.ModelName = &v
+	return s
+}
+
+func (s *AvatarLlmModelInfo) SetModelCode(v string) *AvatarLlmModelInfo {
+	s.ModelCode = &v
+	return s
+}
+
+func (s *AvatarLlmModelInfo) SetDescription(v string) *AvatarLlmModelInfo {
+	s.Description = &v
+	return s
+}
+
+func (s *AvatarLlmModelInfo) SetImageUrl(v string) *AvatarLlmModelInfo {
+	s.ImageUrl = &v
+	return s
+}
+
 // 数字人平台--大模型对话配置信息
 type AvatarLlmChatInfo struct {
 	// 大模型对话配置编码
@@ -398,67 +445,6 @@ func (s *AvatarModelInfo) SetImage(v string) *AvatarModelInfo {
 	return s
 }
 
-// 数字人平台--音色信息
-type AvatarVoiceInfo struct {
-	// 音色id
-	VoiceId *string `json:"voice_id,omitempty" xml:"voice_id,omitempty" require:"true"`
-	// 音色编码
-	VoiceCode *string `json:"voice_code,omitempty" xml:"voice_code,omitempty" require:"true"`
-	// 音色名
-	VoiceName *string `json:"voice_name,omitempty" xml:"voice_name,omitempty" require:"true"`
-	// 预览图
-	Image *string `json:"image,omitempty" xml:"image,omitempty"`
-	// 音色性别
-	Gender *string `json:"gender,omitempty" xml:"gender,omitempty"`
-	// 音色类型
-	VoiceType *string `json:"voice_type,omitempty" xml:"voice_type,omitempty"`
-	// 音色试听链接列表
-	AuditionList []*string `json:"audition_list,omitempty" xml:"audition_list,omitempty" type:"Repeated"`
-}
-
-func (s AvatarVoiceInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AvatarVoiceInfo) GoString() string {
-	return s.String()
-}
-
-func (s *AvatarVoiceInfo) SetVoiceId(v string) *AvatarVoiceInfo {
-	s.VoiceId = &v
-	return s
-}
-
-func (s *AvatarVoiceInfo) SetVoiceCode(v string) *AvatarVoiceInfo {
-	s.VoiceCode = &v
-	return s
-}
-
-func (s *AvatarVoiceInfo) SetVoiceName(v string) *AvatarVoiceInfo {
-	s.VoiceName = &v
-	return s
-}
-
-func (s *AvatarVoiceInfo) SetImage(v string) *AvatarVoiceInfo {
-	s.Image = &v
-	return s
-}
-
-func (s *AvatarVoiceInfo) SetGender(v string) *AvatarVoiceInfo {
-	s.Gender = &v
-	return s
-}
-
-func (s *AvatarVoiceInfo) SetVoiceType(v string) *AvatarVoiceInfo {
-	s.VoiceType = &v
-	return s
-}
-
-func (s *AvatarVoiceInfo) SetAuditionList(v []*string) *AvatarVoiceInfo {
-	s.AuditionList = v
-	return s
-}
-
 // 数字人平台--气泡按钮信息
 type AvatarBubbleInfo struct {
 	// 气泡标题
@@ -518,6 +504,8 @@ type AvatarStreamInfo struct {
 	StreamId *string `json:"stream_id,omitempty" xml:"stream_id,omitempty" require:"true"`
 	// 设备sn号
 	SerialNumber *string `json:"serial_number,omitempty" xml:"serial_number,omitempty"`
+	// 开播时间
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
 
 func (s AvatarStreamInfo) String() string {
@@ -550,6 +538,11 @@ func (s *AvatarStreamInfo) SetStreamId(v string) *AvatarStreamInfo {
 
 func (s *AvatarStreamInfo) SetSerialNumber(v string) *AvatarStreamInfo {
 	s.SerialNumber = &v
+	return s
+}
+
+func (s *AvatarStreamInfo) SetStartTime(v string) *AvatarStreamInfo {
+	s.StartTime = &v
 	return s
 }
 
@@ -590,39 +583,6 @@ func (s *ImportTaskResult) SetErrorMessage(v string) *ImportTaskResult {
 
 func (s *ImportTaskResult) SetFileUrl(v string) *ImportTaskResult {
 	s.FileUrl = &v
-	return s
-}
-
-// 行动点配置
-type BubbleButton struct {
-	// 按钮文案
-	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
-	// 行动点执行动作值
-	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
-	// 行动点执行动作类型
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-}
-
-func (s BubbleButton) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BubbleButton) GoString() string {
-	return s.String()
-}
-
-func (s *BubbleButton) SetTitle(v string) *BubbleButton {
-	s.Title = &v
-	return s
-}
-
-func (s *BubbleButton) SetValue(v string) *BubbleButton {
-	s.Value = &v
-	return s
-}
-
-func (s *BubbleButton) SetType(v string) *BubbleButton {
-	s.Type = &v
 	return s
 }
 
@@ -696,6 +656,100 @@ func (s *AvatarScriptConfigInfo) SetWelcomePhrases(v []*string) *AvatarScriptCon
 
 func (s *AvatarScriptConfigInfo) SetFallbackPhrases(v []*string) *AvatarScriptConfigInfo {
 	s.FallbackPhrases = v
+	return s
+}
+
+// 数字人平台--音色信息
+type AvatarVoiceInfo struct {
+	// 音色id
+	VoiceId *string `json:"voice_id,omitempty" xml:"voice_id,omitempty" require:"true"`
+	// 音色编码
+	VoiceCode *string `json:"voice_code,omitempty" xml:"voice_code,omitempty" require:"true"`
+	// 音色名
+	VoiceName *string `json:"voice_name,omitempty" xml:"voice_name,omitempty" require:"true"`
+	// 预览图
+	Image *string `json:"image,omitempty" xml:"image,omitempty"`
+	// 音色性别
+	Gender *string `json:"gender,omitempty" xml:"gender,omitempty"`
+	// 音色类型
+	VoiceType *string `json:"voice_type,omitempty" xml:"voice_type,omitempty"`
+	// 音色试听链接列表
+	AuditionList []*string `json:"audition_list,omitempty" xml:"audition_list,omitempty" type:"Repeated"`
+}
+
+func (s AvatarVoiceInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AvatarVoiceInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AvatarVoiceInfo) SetVoiceId(v string) *AvatarVoiceInfo {
+	s.VoiceId = &v
+	return s
+}
+
+func (s *AvatarVoiceInfo) SetVoiceCode(v string) *AvatarVoiceInfo {
+	s.VoiceCode = &v
+	return s
+}
+
+func (s *AvatarVoiceInfo) SetVoiceName(v string) *AvatarVoiceInfo {
+	s.VoiceName = &v
+	return s
+}
+
+func (s *AvatarVoiceInfo) SetImage(v string) *AvatarVoiceInfo {
+	s.Image = &v
+	return s
+}
+
+func (s *AvatarVoiceInfo) SetGender(v string) *AvatarVoiceInfo {
+	s.Gender = &v
+	return s
+}
+
+func (s *AvatarVoiceInfo) SetVoiceType(v string) *AvatarVoiceInfo {
+	s.VoiceType = &v
+	return s
+}
+
+func (s *AvatarVoiceInfo) SetAuditionList(v []*string) *AvatarVoiceInfo {
+	s.AuditionList = v
+	return s
+}
+
+// 行动点配置
+type BubbleButton struct {
+	// 按钮文案
+	Title *string `json:"title,omitempty" xml:"title,omitempty" require:"true"`
+	// 行动点执行动作值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+	// 行动点执行动作类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+}
+
+func (s BubbleButton) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BubbleButton) GoString() string {
+	return s.String()
+}
+
+func (s *BubbleButton) SetTitle(v string) *BubbleButton {
+	s.Title = &v
+	return s
+}
+
+func (s *BubbleButton) SetValue(v string) *BubbleButton {
+	s.Value = &v
+	return s
+}
+
+func (s *BubbleButton) SetType(v string) *BubbleButton {
+	s.Type = &v
 	return s
 }
 
@@ -2970,6 +3024,748 @@ func (s *StopUniversalsaasDigitalhumanStreamResponse) SetResultMsg(v string) *St
 	return s
 }
 
+type DetailUniversalsaasDigitalhumanLlmChatRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户编码
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+	// 大模型对话配置编码
+	LlmChatCode *string `json:"llm_chat_code,omitempty" xml:"llm_chat_code,omitempty" require:"true"`
+}
+
+func (s DetailUniversalsaasDigitalhumanLlmChatRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailUniversalsaasDigitalhumanLlmChatRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailUniversalsaasDigitalhumanLlmChatRequest) SetAuthToken(v string) *DetailUniversalsaasDigitalhumanLlmChatRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailUniversalsaasDigitalhumanLlmChatRequest) SetProductInstanceId(v string) *DetailUniversalsaasDigitalhumanLlmChatRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailUniversalsaasDigitalhumanLlmChatRequest) SetTenantCode(v string) *DetailUniversalsaasDigitalhumanLlmChatRequest {
+	s.TenantCode = &v
+	return s
+}
+
+func (s *DetailUniversalsaasDigitalhumanLlmChatRequest) SetLlmChatCode(v string) *DetailUniversalsaasDigitalhumanLlmChatRequest {
+	s.LlmChatCode = &v
+	return s
+}
+
+type DetailUniversalsaasDigitalhumanLlmChatResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 大模型对话配置信息
+	Data *AvatarLlmChatInfo `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s DetailUniversalsaasDigitalhumanLlmChatResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailUniversalsaasDigitalhumanLlmChatResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailUniversalsaasDigitalhumanLlmChatResponse) SetReqMsgId(v string) *DetailUniversalsaasDigitalhumanLlmChatResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailUniversalsaasDigitalhumanLlmChatResponse) SetResultCode(v string) *DetailUniversalsaasDigitalhumanLlmChatResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailUniversalsaasDigitalhumanLlmChatResponse) SetResultMsg(v string) *DetailUniversalsaasDigitalhumanLlmChatResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailUniversalsaasDigitalhumanLlmChatResponse) SetData(v *AvatarLlmChatInfo) *DetailUniversalsaasDigitalhumanLlmChatResponse {
+	s.Data = v
+	return s
+}
+
+type AddUniversalsaasDigitalhumanLlmChatRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户编码
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+	// 大模型对话配置名称
+	LlmChatName *string `json:"llm_chat_name,omitempty" xml:"llm_chat_name,omitempty" require:"true"`
+	// 模型配置id
+	ModelId *string `json:"model_id,omitempty" xml:"model_id,omitempty" require:"true"`
+	// 大模型对话配置描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 大模型对话自定义配置明细
+	Config *string `json:"config,omitempty" xml:"config,omitempty"`
+}
+
+func (s AddUniversalsaasDigitalhumanLlmChatRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddUniversalsaasDigitalhumanLlmChatRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddUniversalsaasDigitalhumanLlmChatRequest) SetAuthToken(v string) *AddUniversalsaasDigitalhumanLlmChatRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddUniversalsaasDigitalhumanLlmChatRequest) SetProductInstanceId(v string) *AddUniversalsaasDigitalhumanLlmChatRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AddUniversalsaasDigitalhumanLlmChatRequest) SetTenantCode(v string) *AddUniversalsaasDigitalhumanLlmChatRequest {
+	s.TenantCode = &v
+	return s
+}
+
+func (s *AddUniversalsaasDigitalhumanLlmChatRequest) SetLlmChatName(v string) *AddUniversalsaasDigitalhumanLlmChatRequest {
+	s.LlmChatName = &v
+	return s
+}
+
+func (s *AddUniversalsaasDigitalhumanLlmChatRequest) SetModelId(v string) *AddUniversalsaasDigitalhumanLlmChatRequest {
+	s.ModelId = &v
+	return s
+}
+
+func (s *AddUniversalsaasDigitalhumanLlmChatRequest) SetDescription(v string) *AddUniversalsaasDigitalhumanLlmChatRequest {
+	s.Description = &v
+	return s
+}
+
+func (s *AddUniversalsaasDigitalhumanLlmChatRequest) SetConfig(v string) *AddUniversalsaasDigitalhumanLlmChatRequest {
+	s.Config = &v
+	return s
+}
+
+type AddUniversalsaasDigitalhumanLlmChatResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s AddUniversalsaasDigitalhumanLlmChatResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddUniversalsaasDigitalhumanLlmChatResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddUniversalsaasDigitalhumanLlmChatResponse) SetReqMsgId(v string) *AddUniversalsaasDigitalhumanLlmChatResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddUniversalsaasDigitalhumanLlmChatResponse) SetResultCode(v string) *AddUniversalsaasDigitalhumanLlmChatResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddUniversalsaasDigitalhumanLlmChatResponse) SetResultMsg(v string) *AddUniversalsaasDigitalhumanLlmChatResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type UpdateUniversalsaasDigitalhumanLlmChatRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户编码
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+	// 大模型对话配置编码
+	LlmChatCode *string `json:"llm_chat_code,omitempty" xml:"llm_chat_code,omitempty" require:"true"`
+	// 大模型对话配置名称
+	LlmChatName *string `json:"llm_chat_name,omitempty" xml:"llm_chat_name,omitempty"`
+	// 模型配置id
+	ModelId *string `json:"model_id,omitempty" xml:"model_id,omitempty"`
+	// 大模型对话配置名称
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 大模型对话自定义配置明细
+	Config *string `json:"config,omitempty" xml:"config,omitempty"`
+}
+
+func (s UpdateUniversalsaasDigitalhumanLlmChatRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateUniversalsaasDigitalhumanLlmChatRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmChatRequest) SetAuthToken(v string) *UpdateUniversalsaasDigitalhumanLlmChatRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmChatRequest) SetProductInstanceId(v string) *UpdateUniversalsaasDigitalhumanLlmChatRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmChatRequest) SetTenantCode(v string) *UpdateUniversalsaasDigitalhumanLlmChatRequest {
+	s.TenantCode = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmChatRequest) SetLlmChatCode(v string) *UpdateUniversalsaasDigitalhumanLlmChatRequest {
+	s.LlmChatCode = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmChatRequest) SetLlmChatName(v string) *UpdateUniversalsaasDigitalhumanLlmChatRequest {
+	s.LlmChatName = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmChatRequest) SetModelId(v string) *UpdateUniversalsaasDigitalhumanLlmChatRequest {
+	s.ModelId = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmChatRequest) SetDescription(v string) *UpdateUniversalsaasDigitalhumanLlmChatRequest {
+	s.Description = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmChatRequest) SetConfig(v string) *UpdateUniversalsaasDigitalhumanLlmChatRequest {
+	s.Config = &v
+	return s
+}
+
+type UpdateUniversalsaasDigitalhumanLlmChatResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateUniversalsaasDigitalhumanLlmChatResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateUniversalsaasDigitalhumanLlmChatResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmChatResponse) SetReqMsgId(v string) *UpdateUniversalsaasDigitalhumanLlmChatResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmChatResponse) SetResultCode(v string) *UpdateUniversalsaasDigitalhumanLlmChatResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmChatResponse) SetResultMsg(v string) *UpdateUniversalsaasDigitalhumanLlmChatResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type DeleteUniversalsaasDigitalhumanLlmChatRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户编码
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+	// 大模型对话配置编码
+	LlmChatCode *string `json:"llm_chat_code,omitempty" xml:"llm_chat_code,omitempty" require:"true"`
+}
+
+func (s DeleteUniversalsaasDigitalhumanLlmChatRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteUniversalsaasDigitalhumanLlmChatRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteUniversalsaasDigitalhumanLlmChatRequest) SetAuthToken(v string) *DeleteUniversalsaasDigitalhumanLlmChatRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteUniversalsaasDigitalhumanLlmChatRequest) SetProductInstanceId(v string) *DeleteUniversalsaasDigitalhumanLlmChatRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeleteUniversalsaasDigitalhumanLlmChatRequest) SetTenantCode(v string) *DeleteUniversalsaasDigitalhumanLlmChatRequest {
+	s.TenantCode = &v
+	return s
+}
+
+func (s *DeleteUniversalsaasDigitalhumanLlmChatRequest) SetLlmChatCode(v string) *DeleteUniversalsaasDigitalhumanLlmChatRequest {
+	s.LlmChatCode = &v
+	return s
+}
+
+type DeleteUniversalsaasDigitalhumanLlmChatResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s DeleteUniversalsaasDigitalhumanLlmChatResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteUniversalsaasDigitalhumanLlmChatResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteUniversalsaasDigitalhumanLlmChatResponse) SetReqMsgId(v string) *DeleteUniversalsaasDigitalhumanLlmChatResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteUniversalsaasDigitalhumanLlmChatResponse) SetResultCode(v string) *DeleteUniversalsaasDigitalhumanLlmChatResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteUniversalsaasDigitalhumanLlmChatResponse) SetResultMsg(v string) *DeleteUniversalsaasDigitalhumanLlmChatResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type AddUniversalsaasDigitalhumanLlmModelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户编码
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+	// 模型名称
+	ModelName *string `json:"model_name,omitempty" xml:"model_name,omitempty" require:"true"`
+	// 模型编码
+	ModelCode *string `json:"model_code,omitempty" xml:"model_code,omitempty" require:"true"`
+	// 模型图片url
+	ImageUrl *string `json:"image_url,omitempty" xml:"image_url,omitempty"`
+	// 模型描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+}
+
+func (s AddUniversalsaasDigitalhumanLlmModelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddUniversalsaasDigitalhumanLlmModelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddUniversalsaasDigitalhumanLlmModelRequest) SetAuthToken(v string) *AddUniversalsaasDigitalhumanLlmModelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddUniversalsaasDigitalhumanLlmModelRequest) SetProductInstanceId(v string) *AddUniversalsaasDigitalhumanLlmModelRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AddUniversalsaasDigitalhumanLlmModelRequest) SetTenantCode(v string) *AddUniversalsaasDigitalhumanLlmModelRequest {
+	s.TenantCode = &v
+	return s
+}
+
+func (s *AddUniversalsaasDigitalhumanLlmModelRequest) SetModelName(v string) *AddUniversalsaasDigitalhumanLlmModelRequest {
+	s.ModelName = &v
+	return s
+}
+
+func (s *AddUniversalsaasDigitalhumanLlmModelRequest) SetModelCode(v string) *AddUniversalsaasDigitalhumanLlmModelRequest {
+	s.ModelCode = &v
+	return s
+}
+
+func (s *AddUniversalsaasDigitalhumanLlmModelRequest) SetImageUrl(v string) *AddUniversalsaasDigitalhumanLlmModelRequest {
+	s.ImageUrl = &v
+	return s
+}
+
+func (s *AddUniversalsaasDigitalhumanLlmModelRequest) SetDescription(v string) *AddUniversalsaasDigitalhumanLlmModelRequest {
+	s.Description = &v
+	return s
+}
+
+type AddUniversalsaasDigitalhumanLlmModelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s AddUniversalsaasDigitalhumanLlmModelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddUniversalsaasDigitalhumanLlmModelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddUniversalsaasDigitalhumanLlmModelResponse) SetReqMsgId(v string) *AddUniversalsaasDigitalhumanLlmModelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddUniversalsaasDigitalhumanLlmModelResponse) SetResultCode(v string) *AddUniversalsaasDigitalhumanLlmModelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddUniversalsaasDigitalhumanLlmModelResponse) SetResultMsg(v string) *AddUniversalsaasDigitalhumanLlmModelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type DeleteUniversalsaasDigitalhumanLlmModelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 模型编码
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+	// 模型id
+	ModelId *string `json:"model_id,omitempty" xml:"model_id,omitempty" require:"true"`
+}
+
+func (s DeleteUniversalsaasDigitalhumanLlmModelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteUniversalsaasDigitalhumanLlmModelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteUniversalsaasDigitalhumanLlmModelRequest) SetAuthToken(v string) *DeleteUniversalsaasDigitalhumanLlmModelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteUniversalsaasDigitalhumanLlmModelRequest) SetProductInstanceId(v string) *DeleteUniversalsaasDigitalhumanLlmModelRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeleteUniversalsaasDigitalhumanLlmModelRequest) SetTenantCode(v string) *DeleteUniversalsaasDigitalhumanLlmModelRequest {
+	s.TenantCode = &v
+	return s
+}
+
+func (s *DeleteUniversalsaasDigitalhumanLlmModelRequest) SetModelId(v string) *DeleteUniversalsaasDigitalhumanLlmModelRequest {
+	s.ModelId = &v
+	return s
+}
+
+type DeleteUniversalsaasDigitalhumanLlmModelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s DeleteUniversalsaasDigitalhumanLlmModelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteUniversalsaasDigitalhumanLlmModelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteUniversalsaasDigitalhumanLlmModelResponse) SetReqMsgId(v string) *DeleteUniversalsaasDigitalhumanLlmModelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteUniversalsaasDigitalhumanLlmModelResponse) SetResultCode(v string) *DeleteUniversalsaasDigitalhumanLlmModelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteUniversalsaasDigitalhumanLlmModelResponse) SetResultMsg(v string) *DeleteUniversalsaasDigitalhumanLlmModelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type UpdateUniversalsaasDigitalhumanLlmModelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户编码
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+	// 模型id
+	ModelId *string `json:"model_id,omitempty" xml:"model_id,omitempty" require:"true"`
+	// 模型编码
+	ModelCode *string `json:"model_code,omitempty" xml:"model_code,omitempty"`
+	// 模型名称
+	ModelName *string `json:"model_name,omitempty" xml:"model_name,omitempty"`
+	// 模型描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// 模型图片url
+	ImageUrl *string `json:"image_url,omitempty" xml:"image_url,omitempty"`
+}
+
+func (s UpdateUniversalsaasDigitalhumanLlmModelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateUniversalsaasDigitalhumanLlmModelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmModelRequest) SetAuthToken(v string) *UpdateUniversalsaasDigitalhumanLlmModelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmModelRequest) SetProductInstanceId(v string) *UpdateUniversalsaasDigitalhumanLlmModelRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmModelRequest) SetTenantCode(v string) *UpdateUniversalsaasDigitalhumanLlmModelRequest {
+	s.TenantCode = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmModelRequest) SetModelId(v string) *UpdateUniversalsaasDigitalhumanLlmModelRequest {
+	s.ModelId = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmModelRequest) SetModelCode(v string) *UpdateUniversalsaasDigitalhumanLlmModelRequest {
+	s.ModelCode = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmModelRequest) SetModelName(v string) *UpdateUniversalsaasDigitalhumanLlmModelRequest {
+	s.ModelName = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmModelRequest) SetDescription(v string) *UpdateUniversalsaasDigitalhumanLlmModelRequest {
+	s.Description = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmModelRequest) SetImageUrl(v string) *UpdateUniversalsaasDigitalhumanLlmModelRequest {
+	s.ImageUrl = &v
+	return s
+}
+
+type UpdateUniversalsaasDigitalhumanLlmModelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateUniversalsaasDigitalhumanLlmModelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateUniversalsaasDigitalhumanLlmModelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmModelResponse) SetReqMsgId(v string) *UpdateUniversalsaasDigitalhumanLlmModelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmModelResponse) SetResultCode(v string) *UpdateUniversalsaasDigitalhumanLlmModelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateUniversalsaasDigitalhumanLlmModelResponse) SetResultMsg(v string) *UpdateUniversalsaasDigitalhumanLlmModelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type ListUniversalsaasDigitalhumanLlmModelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户编码
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+}
+
+func (s ListUniversalsaasDigitalhumanLlmModelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListUniversalsaasDigitalhumanLlmModelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListUniversalsaasDigitalhumanLlmModelRequest) SetAuthToken(v string) *ListUniversalsaasDigitalhumanLlmModelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanLlmModelRequest) SetProductInstanceId(v string) *ListUniversalsaasDigitalhumanLlmModelRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanLlmModelRequest) SetTenantCode(v string) *ListUniversalsaasDigitalhumanLlmModelRequest {
+	s.TenantCode = &v
+	return s
+}
+
+type ListUniversalsaasDigitalhumanLlmModelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 模型配置列表
+	ItemList []*AvatarLlmModelInfo `json:"item_list,omitempty" xml:"item_list,omitempty" type:"Repeated"`
+}
+
+func (s ListUniversalsaasDigitalhumanLlmModelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListUniversalsaasDigitalhumanLlmModelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListUniversalsaasDigitalhumanLlmModelResponse) SetReqMsgId(v string) *ListUniversalsaasDigitalhumanLlmModelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanLlmModelResponse) SetResultCode(v string) *ListUniversalsaasDigitalhumanLlmModelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanLlmModelResponse) SetResultMsg(v string) *ListUniversalsaasDigitalhumanLlmModelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListUniversalsaasDigitalhumanLlmModelResponse) SetItemList(v []*AvatarLlmModelInfo) *ListUniversalsaasDigitalhumanLlmModelResponse {
+	s.ItemList = v
+	return s
+}
+
+type DetailUniversalsaasDigitalhumanLlmModelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户编码
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+	// 模型id
+	ModelId *string `json:"model_id,omitempty" xml:"model_id,omitempty" require:"true"`
+}
+
+func (s DetailUniversalsaasDigitalhumanLlmModelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailUniversalsaasDigitalhumanLlmModelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailUniversalsaasDigitalhumanLlmModelRequest) SetAuthToken(v string) *DetailUniversalsaasDigitalhumanLlmModelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailUniversalsaasDigitalhumanLlmModelRequest) SetProductInstanceId(v string) *DetailUniversalsaasDigitalhumanLlmModelRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailUniversalsaasDigitalhumanLlmModelRequest) SetTenantCode(v string) *DetailUniversalsaasDigitalhumanLlmModelRequest {
+	s.TenantCode = &v
+	return s
+}
+
+func (s *DetailUniversalsaasDigitalhumanLlmModelRequest) SetModelId(v string) *DetailUniversalsaasDigitalhumanLlmModelRequest {
+	s.ModelId = &v
+	return s
+}
+
+type DetailUniversalsaasDigitalhumanLlmModelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 模型配置信明细
+	Data *AvatarLlmModelInfo `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s DetailUniversalsaasDigitalhumanLlmModelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailUniversalsaasDigitalhumanLlmModelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailUniversalsaasDigitalhumanLlmModelResponse) SetReqMsgId(v string) *DetailUniversalsaasDigitalhumanLlmModelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailUniversalsaasDigitalhumanLlmModelResponse) SetResultCode(v string) *DetailUniversalsaasDigitalhumanLlmModelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailUniversalsaasDigitalhumanLlmModelResponse) SetResultMsg(v string) *DetailUniversalsaasDigitalhumanLlmModelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailUniversalsaasDigitalhumanLlmModelResponse) SetData(v *AvatarLlmModelInfo) *DetailUniversalsaasDigitalhumanLlmModelResponse {
+	s.Data = v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -3212,7 +4008,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.8"),
+				"sdk_version":      tea.String("1.1.9"),
 				"_prod_code":       tea.String("ak_ed7107878c564eda98e507d7451aae75"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -4177,6 +4973,312 @@ func (client *Client) StopUniversalsaasDigitalhumanStreamEx(request *StopUnivers
 	}
 	_result = &StopUniversalsaasDigitalhumanStreamResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.stream.stop"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 大模型对话配置明细
+ * Summary: 大模型对话配置明细
+ */
+func (client *Client) DetailUniversalsaasDigitalhumanLlmChat(request *DetailUniversalsaasDigitalhumanLlmChatRequest) (_result *DetailUniversalsaasDigitalhumanLlmChatResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailUniversalsaasDigitalhumanLlmChatResponse{}
+	_body, _err := client.DetailUniversalsaasDigitalhumanLlmChatEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 大模型对话配置明细
+ * Summary: 大模型对话配置明细
+ */
+func (client *Client) DetailUniversalsaasDigitalhumanLlmChatEx(request *DetailUniversalsaasDigitalhumanLlmChatRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailUniversalsaasDigitalhumanLlmChatResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailUniversalsaasDigitalhumanLlmChatResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.llm.chat.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 新增大模型对话配置
+ * Summary: 新增大模型对话配置
+ */
+func (client *Client) AddUniversalsaasDigitalhumanLlmChat(request *AddUniversalsaasDigitalhumanLlmChatRequest) (_result *AddUniversalsaasDigitalhumanLlmChatResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddUniversalsaasDigitalhumanLlmChatResponse{}
+	_body, _err := client.AddUniversalsaasDigitalhumanLlmChatEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 新增大模型对话配置
+ * Summary: 新增大模型对话配置
+ */
+func (client *Client) AddUniversalsaasDigitalhumanLlmChatEx(request *AddUniversalsaasDigitalhumanLlmChatRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddUniversalsaasDigitalhumanLlmChatResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddUniversalsaasDigitalhumanLlmChatResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.llm.chat.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 更新大模型对话配置
+ * Summary: 更新大模型对话配置
+ */
+func (client *Client) UpdateUniversalsaasDigitalhumanLlmChat(request *UpdateUniversalsaasDigitalhumanLlmChatRequest) (_result *UpdateUniversalsaasDigitalhumanLlmChatResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateUniversalsaasDigitalhumanLlmChatResponse{}
+	_body, _err := client.UpdateUniversalsaasDigitalhumanLlmChatEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 更新大模型对话配置
+ * Summary: 更新大模型对话配置
+ */
+func (client *Client) UpdateUniversalsaasDigitalhumanLlmChatEx(request *UpdateUniversalsaasDigitalhumanLlmChatRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateUniversalsaasDigitalhumanLlmChatResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateUniversalsaasDigitalhumanLlmChatResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.llm.chat.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 删除大模型对话配置
+ * Summary: 删除大模型对话配置
+ */
+func (client *Client) DeleteUniversalsaasDigitalhumanLlmChat(request *DeleteUniversalsaasDigitalhumanLlmChatRequest) (_result *DeleteUniversalsaasDigitalhumanLlmChatResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteUniversalsaasDigitalhumanLlmChatResponse{}
+	_body, _err := client.DeleteUniversalsaasDigitalhumanLlmChatEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 删除大模型对话配置
+ * Summary: 删除大模型对话配置
+ */
+func (client *Client) DeleteUniversalsaasDigitalhumanLlmChatEx(request *DeleteUniversalsaasDigitalhumanLlmChatRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteUniversalsaasDigitalhumanLlmChatResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteUniversalsaasDigitalhumanLlmChatResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.llm.chat.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 新增模型配置
+ * Summary: 新增模型配置
+ */
+func (client *Client) AddUniversalsaasDigitalhumanLlmModel(request *AddUniversalsaasDigitalhumanLlmModelRequest) (_result *AddUniversalsaasDigitalhumanLlmModelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddUniversalsaasDigitalhumanLlmModelResponse{}
+	_body, _err := client.AddUniversalsaasDigitalhumanLlmModelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 新增模型配置
+ * Summary: 新增模型配置
+ */
+func (client *Client) AddUniversalsaasDigitalhumanLlmModelEx(request *AddUniversalsaasDigitalhumanLlmModelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddUniversalsaasDigitalhumanLlmModelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddUniversalsaasDigitalhumanLlmModelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.llm.model.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 删除模型配置
+ * Summary: 删除模型配置
+ */
+func (client *Client) DeleteUniversalsaasDigitalhumanLlmModel(request *DeleteUniversalsaasDigitalhumanLlmModelRequest) (_result *DeleteUniversalsaasDigitalhumanLlmModelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteUniversalsaasDigitalhumanLlmModelResponse{}
+	_body, _err := client.DeleteUniversalsaasDigitalhumanLlmModelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 删除模型配置
+ * Summary: 删除模型配置
+ */
+func (client *Client) DeleteUniversalsaasDigitalhumanLlmModelEx(request *DeleteUniversalsaasDigitalhumanLlmModelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteUniversalsaasDigitalhumanLlmModelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteUniversalsaasDigitalhumanLlmModelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.llm.model.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 更新模型配置
+ * Summary: 更新模型配置
+ */
+func (client *Client) UpdateUniversalsaasDigitalhumanLlmModel(request *UpdateUniversalsaasDigitalhumanLlmModelRequest) (_result *UpdateUniversalsaasDigitalhumanLlmModelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateUniversalsaasDigitalhumanLlmModelResponse{}
+	_body, _err := client.UpdateUniversalsaasDigitalhumanLlmModelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 更新模型配置
+ * Summary: 更新模型配置
+ */
+func (client *Client) UpdateUniversalsaasDigitalhumanLlmModelEx(request *UpdateUniversalsaasDigitalhumanLlmModelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateUniversalsaasDigitalhumanLlmModelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateUniversalsaasDigitalhumanLlmModelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.llm.model.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取模型配置列表
+ * Summary: 获取模型配置列表
+ */
+func (client *Client) ListUniversalsaasDigitalhumanLlmModel(request *ListUniversalsaasDigitalhumanLlmModelRequest) (_result *ListUniversalsaasDigitalhumanLlmModelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListUniversalsaasDigitalhumanLlmModelResponse{}
+	_body, _err := client.ListUniversalsaasDigitalhumanLlmModelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取模型配置列表
+ * Summary: 获取模型配置列表
+ */
+func (client *Client) ListUniversalsaasDigitalhumanLlmModelEx(request *ListUniversalsaasDigitalhumanLlmModelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListUniversalsaasDigitalhumanLlmModelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListUniversalsaasDigitalhumanLlmModelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.llm.model.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询模型配置明细
+ * Summary: 查询模型配置明细
+ */
+func (client *Client) DetailUniversalsaasDigitalhumanLlmModel(request *DetailUniversalsaasDigitalhumanLlmModelRequest) (_result *DetailUniversalsaasDigitalhumanLlmModelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailUniversalsaasDigitalhumanLlmModelResponse{}
+	_body, _err := client.DetailUniversalsaasDigitalhumanLlmModelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询模型配置明细
+ * Summary: 查询模型配置明细
+ */
+func (client *Client) DetailUniversalsaasDigitalhumanLlmModelEx(request *DetailUniversalsaasDigitalhumanLlmModelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailUniversalsaasDigitalhumanLlmModelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailUniversalsaasDigitalhumanLlmModelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.llm.model.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
