@@ -29,15 +29,34 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=true)]
         public string OcrType { get; set; }
 
-        // 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；URL（暂不支持）
+        // 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；FILE(文件)、URL（暂不支持）
         [NameInMap("data_type")]
         [Validation(Required=true)]
         public string DataType { get; set; }
 
         // 传入的图片的具体内容，需要与data_type的选择保持一致。
         [NameInMap("data_content")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string DataContent { get; set; }
+
+        // 证件图片
+        /// <summary>
+        /// 待上传文件
+        /// </summary>
+        [NameInMap("fileObject")]
+        [Validation(Required=false)]
+        public Stream FileObject { get; set; }
+
+        /// <summary>
+        /// 待上传文件名
+        /// </summary>
+        [NameInMap("fileObjectName")]
+        [Validation(Required=false)]
+        public string FileObjectName { get; set; }
+
+        [NameInMap("file_id")]
+        [Validation(Required=false)]
+        public string FileId { get; set; }
 
         // 入参data_content是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
         [NameInMap("req_enc_type")]

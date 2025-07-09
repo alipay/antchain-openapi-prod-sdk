@@ -137,7 +137,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.21.0"},
+                        {"sdk_version", "1.21.3"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.21.0"},
+                        {"sdk_version", "1.21.3"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1153,6 +1153,30 @@ namespace AntChain.SDK.REALPERSON
          */
         public RecognizeDocIndividualcardResponse RecognizeDocIndividualcardEx(RecognizeDocIndividualcardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "di.realperson.doc.individualcard.recognize",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    RecognizeDocIndividualcardResponse recognizeDocIndividualcardResponse = new RecognizeDocIndividualcardResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return recognizeDocIndividualcardResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<RecognizeDocIndividualcardResponse>(DoRequest("1.0", "di.realperson.doc.individualcard.recognize", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
@@ -1163,6 +1187,30 @@ namespace AntChain.SDK.REALPERSON
          */
         public async Task<RecognizeDocIndividualcardResponse> RecognizeDocIndividualcardExAsync(RecognizeDocIndividualcardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "di.realperson.doc.individualcard.recognize",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    RecognizeDocIndividualcardResponse recognizeDocIndividualcardResponse = new RecognizeDocIndividualcardResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return recognizeDocIndividualcardResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<RecognizeDocIndividualcardResponse>(await DoRequestAsync("1.0", "di.realperson.doc.individualcard.recognize", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
@@ -2605,6 +2653,48 @@ namespace AntChain.SDK.REALPERSON
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryBankLivenessfourResponse>(await DoRequestAsync("1.0", "di.realperson.bank.livenessfour.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询认证的材料信息
+         * Summary: 认证材料查询
+         */
+        public QueryFaceverifyServermaterialResponse QueryFaceverifyServermaterial(QueryFaceverifyServermaterialRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryFaceverifyServermaterialEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询认证的材料信息
+         * Summary: 认证材料查询
+         */
+        public async Task<QueryFaceverifyServermaterialResponse> QueryFaceverifyServermaterialAsync(QueryFaceverifyServermaterialRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryFaceverifyServermaterialExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询认证的材料信息
+         * Summary: 认证材料查询
+         */
+        public QueryFaceverifyServermaterialResponse QueryFaceverifyServermaterialEx(QueryFaceverifyServermaterialRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFaceverifyServermaterialResponse>(DoRequest("1.0", "di.realperson.faceverify.servermaterial.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询认证的材料信息
+         * Summary: 认证材料查询
+         */
+        public async Task<QueryFaceverifyServermaterialResponse> QueryFaceverifyServermaterialExAsync(QueryFaceverifyServermaterialRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFaceverifyServermaterialResponse>(await DoRequestAsync("1.0", "di.realperson.faceverify.servermaterial.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
