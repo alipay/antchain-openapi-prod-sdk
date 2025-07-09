@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.8',
+                    'sdk_version': '1.1.9',
                     '_prod_code': 'ak_ed7107878c564eda98e507d7451aae75',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.8',
+                    'sdk_version': '1.1.9',
                     '_prod_code': 'ak_ed7107878c564eda98e507d7451aae75',
                     '_prod_channel': 'saas'
                 }
@@ -1765,6 +1765,510 @@ class Client:
         return TeaCore.from_map(
             ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.StopUniversalsaasDigitalhumanStreamResponse(),
             await self.do_request_async('1.0', 'universalsaas.digitalhuman.stream.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_universalsaas_digitalhuman_llm_chat(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DetailUniversalsaasDigitalhumanLlmChatRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DetailUniversalsaasDigitalhumanLlmChatResponse:
+        """
+        Description: 大模型对话配置明细
+        Summary: 大模型对话配置明细
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_universalsaas_digitalhuman_llm_chat_ex(request, headers, runtime)
+
+    async def detail_universalsaas_digitalhuman_llm_chat_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DetailUniversalsaasDigitalhumanLlmChatRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DetailUniversalsaasDigitalhumanLlmChatResponse:
+        """
+        Description: 大模型对话配置明细
+        Summary: 大模型对话配置明细
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_universalsaas_digitalhuman_llm_chat_ex_async(request, headers, runtime)
+
+    def detail_universalsaas_digitalhuman_llm_chat_ex(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DetailUniversalsaasDigitalhumanLlmChatRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DetailUniversalsaasDigitalhumanLlmChatResponse:
+        """
+        Description: 大模型对话配置明细
+        Summary: 大模型对话配置明细
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DetailUniversalsaasDigitalhumanLlmChatResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.llm.chat.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_universalsaas_digitalhuman_llm_chat_ex_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DetailUniversalsaasDigitalhumanLlmChatRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DetailUniversalsaasDigitalhumanLlmChatResponse:
+        """
+        Description: 大模型对话配置明细
+        Summary: 大模型对话配置明细
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DetailUniversalsaasDigitalhumanLlmChatResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.llm.chat.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_universalsaas_digitalhuman_llm_chat(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.AddUniversalsaasDigitalhumanLlmChatRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.AddUniversalsaasDigitalhumanLlmChatResponse:
+        """
+        Description: 新增大模型对话配置
+        Summary: 新增大模型对话配置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_universalsaas_digitalhuman_llm_chat_ex(request, headers, runtime)
+
+    async def add_universalsaas_digitalhuman_llm_chat_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.AddUniversalsaasDigitalhumanLlmChatRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.AddUniversalsaasDigitalhumanLlmChatResponse:
+        """
+        Description: 新增大模型对话配置
+        Summary: 新增大模型对话配置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_universalsaas_digitalhuman_llm_chat_ex_async(request, headers, runtime)
+
+    def add_universalsaas_digitalhuman_llm_chat_ex(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.AddUniversalsaasDigitalhumanLlmChatRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.AddUniversalsaasDigitalhumanLlmChatResponse:
+        """
+        Description: 新增大模型对话配置
+        Summary: 新增大模型对话配置
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.AddUniversalsaasDigitalhumanLlmChatResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.llm.chat.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_universalsaas_digitalhuman_llm_chat_ex_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.AddUniversalsaasDigitalhumanLlmChatRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.AddUniversalsaasDigitalhumanLlmChatResponse:
+        """
+        Description: 新增大模型对话配置
+        Summary: 新增大模型对话配置
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.AddUniversalsaasDigitalhumanLlmChatResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.llm.chat.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_universalsaas_digitalhuman_llm_chat(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanLlmChatRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanLlmChatResponse:
+        """
+        Description: 更新大模型对话配置
+        Summary: 更新大模型对话配置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_universalsaas_digitalhuman_llm_chat_ex(request, headers, runtime)
+
+    async def update_universalsaas_digitalhuman_llm_chat_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanLlmChatRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanLlmChatResponse:
+        """
+        Description: 更新大模型对话配置
+        Summary: 更新大模型对话配置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_universalsaas_digitalhuman_llm_chat_ex_async(request, headers, runtime)
+
+    def update_universalsaas_digitalhuman_llm_chat_ex(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanLlmChatRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanLlmChatResponse:
+        """
+        Description: 更新大模型对话配置
+        Summary: 更新大模型对话配置
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanLlmChatResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.llm.chat.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_universalsaas_digitalhuman_llm_chat_ex_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanLlmChatRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanLlmChatResponse:
+        """
+        Description: 更新大模型对话配置
+        Summary: 更新大模型对话配置
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanLlmChatResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.llm.chat.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_universalsaas_digitalhuman_llm_chat(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanLlmChatRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanLlmChatResponse:
+        """
+        Description: 删除大模型对话配置
+        Summary: 删除大模型对话配置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_universalsaas_digitalhuman_llm_chat_ex(request, headers, runtime)
+
+    async def delete_universalsaas_digitalhuman_llm_chat_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanLlmChatRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanLlmChatResponse:
+        """
+        Description: 删除大模型对话配置
+        Summary: 删除大模型对话配置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_universalsaas_digitalhuman_llm_chat_ex_async(request, headers, runtime)
+
+    def delete_universalsaas_digitalhuman_llm_chat_ex(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanLlmChatRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanLlmChatResponse:
+        """
+        Description: 删除大模型对话配置
+        Summary: 删除大模型对话配置
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanLlmChatResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.llm.chat.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_universalsaas_digitalhuman_llm_chat_ex_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanLlmChatRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanLlmChatResponse:
+        """
+        Description: 删除大模型对话配置
+        Summary: 删除大模型对话配置
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanLlmChatResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.llm.chat.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_universalsaas_digitalhuman_llm_model(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.AddUniversalsaasDigitalhumanLlmModelRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.AddUniversalsaasDigitalhumanLlmModelResponse:
+        """
+        Description: 新增模型配置
+        Summary: 新增模型配置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_universalsaas_digitalhuman_llm_model_ex(request, headers, runtime)
+
+    async def add_universalsaas_digitalhuman_llm_model_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.AddUniversalsaasDigitalhumanLlmModelRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.AddUniversalsaasDigitalhumanLlmModelResponse:
+        """
+        Description: 新增模型配置
+        Summary: 新增模型配置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_universalsaas_digitalhuman_llm_model_ex_async(request, headers, runtime)
+
+    def add_universalsaas_digitalhuman_llm_model_ex(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.AddUniversalsaasDigitalhumanLlmModelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.AddUniversalsaasDigitalhumanLlmModelResponse:
+        """
+        Description: 新增模型配置
+        Summary: 新增模型配置
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.AddUniversalsaasDigitalhumanLlmModelResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.llm.model.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_universalsaas_digitalhuman_llm_model_ex_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.AddUniversalsaasDigitalhumanLlmModelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.AddUniversalsaasDigitalhumanLlmModelResponse:
+        """
+        Description: 新增模型配置
+        Summary: 新增模型配置
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.AddUniversalsaasDigitalhumanLlmModelResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.llm.model.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_universalsaas_digitalhuman_llm_model(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanLlmModelRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanLlmModelResponse:
+        """
+        Description: 删除模型配置
+        Summary: 删除模型配置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_universalsaas_digitalhuman_llm_model_ex(request, headers, runtime)
+
+    async def delete_universalsaas_digitalhuman_llm_model_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanLlmModelRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanLlmModelResponse:
+        """
+        Description: 删除模型配置
+        Summary: 删除模型配置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_universalsaas_digitalhuman_llm_model_ex_async(request, headers, runtime)
+
+    def delete_universalsaas_digitalhuman_llm_model_ex(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanLlmModelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanLlmModelResponse:
+        """
+        Description: 删除模型配置
+        Summary: 删除模型配置
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanLlmModelResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.llm.model.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_universalsaas_digitalhuman_llm_model_ex_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanLlmModelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanLlmModelResponse:
+        """
+        Description: 删除模型配置
+        Summary: 删除模型配置
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DeleteUniversalsaasDigitalhumanLlmModelResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.llm.model.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_universalsaas_digitalhuman_llm_model(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanLlmModelRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanLlmModelResponse:
+        """
+        Description: 更新模型配置
+        Summary: 更新模型配置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_universalsaas_digitalhuman_llm_model_ex(request, headers, runtime)
+
+    async def update_universalsaas_digitalhuman_llm_model_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanLlmModelRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanLlmModelResponse:
+        """
+        Description: 更新模型配置
+        Summary: 更新模型配置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_universalsaas_digitalhuman_llm_model_ex_async(request, headers, runtime)
+
+    def update_universalsaas_digitalhuman_llm_model_ex(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanLlmModelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanLlmModelResponse:
+        """
+        Description: 更新模型配置
+        Summary: 更新模型配置
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanLlmModelResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.llm.model.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_universalsaas_digitalhuman_llm_model_ex_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanLlmModelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanLlmModelResponse:
+        """
+        Description: 更新模型配置
+        Summary: 更新模型配置
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.UpdateUniversalsaasDigitalhumanLlmModelResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.llm.model.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_universalsaas_digitalhuman_llm_model(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanLlmModelRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanLlmModelResponse:
+        """
+        Description: 获取模型配置列表
+        Summary: 获取模型配置列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_universalsaas_digitalhuman_llm_model_ex(request, headers, runtime)
+
+    async def list_universalsaas_digitalhuman_llm_model_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanLlmModelRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanLlmModelResponse:
+        """
+        Description: 获取模型配置列表
+        Summary: 获取模型配置列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_universalsaas_digitalhuman_llm_model_ex_async(request, headers, runtime)
+
+    def list_universalsaas_digitalhuman_llm_model_ex(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanLlmModelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanLlmModelResponse:
+        """
+        Description: 获取模型配置列表
+        Summary: 获取模型配置列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanLlmModelResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.llm.model.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_universalsaas_digitalhuman_llm_model_ex_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanLlmModelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanLlmModelResponse:
+        """
+        Description: 获取模型配置列表
+        Summary: 获取模型配置列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.ListUniversalsaasDigitalhumanLlmModelResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.llm.model.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_universalsaas_digitalhuman_llm_model(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DetailUniversalsaasDigitalhumanLlmModelRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DetailUniversalsaasDigitalhumanLlmModelResponse:
+        """
+        Description: 查询模型配置明细
+        Summary: 查询模型配置明细
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_universalsaas_digitalhuman_llm_model_ex(request, headers, runtime)
+
+    async def detail_universalsaas_digitalhuman_llm_model_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DetailUniversalsaasDigitalhumanLlmModelRequest,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DetailUniversalsaasDigitalhumanLlmModelResponse:
+        """
+        Description: 查询模型配置明细
+        Summary: 查询模型配置明细
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_universalsaas_digitalhuman_llm_model_ex_async(request, headers, runtime)
+
+    def detail_universalsaas_digitalhuman_llm_model_ex(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DetailUniversalsaasDigitalhumanLlmModelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DetailUniversalsaasDigitalhumanLlmModelResponse:
+        """
+        Description: 查询模型配置明细
+        Summary: 查询模型配置明细
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DetailUniversalsaasDigitalhumanLlmModelResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.llm.model.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_universalsaas_digitalhuman_llm_model_ex_async(
+        self,
+        request: ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DetailUniversalsaasDigitalhumanLlmModelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DetailUniversalsaasDigitalhumanLlmModelResponse:
+        """
+        Description: 查询模型配置明细
+        Summary: 查询模型配置明细
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_ed_7107878c_564eda_98e_507d_7451aae_75_models.DetailUniversalsaasDigitalhumanLlmModelResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.llm.model.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

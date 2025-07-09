@@ -296,6 +296,64 @@ class AvatarLibraryInfo(TeaModel):
         return self
 
 
+class AvatarLlmModelInfo(TeaModel):
+    def __init__(
+        self,
+        model_id: str = None,
+        model_name: str = None,
+        model_code: str = None,
+        description: str = None,
+        image_url: str = None,
+    ):
+        # 模型id
+        self.model_id = model_id
+        # 模型名称
+        self.model_name = model_name
+        # 模型编码
+        self.model_code = model_code
+        # 模型描述
+        self.description = description
+        # 模型图片url
+        self.image_url = image_url
+
+    def validate(self):
+        self.validate_required(self.model_id, 'model_id')
+        self.validate_required(self.model_name, 'model_name')
+        self.validate_required(self.model_code, 'model_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.model_id is not None:
+            result['model_id'] = self.model_id
+        if self.model_name is not None:
+            result['model_name'] = self.model_name
+        if self.model_code is not None:
+            result['model_code'] = self.model_code
+        if self.description is not None:
+            result['description'] = self.description
+        if self.image_url is not None:
+            result['image_url'] = self.image_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('model_id') is not None:
+            self.model_id = m.get('model_id')
+        if m.get('model_name') is not None:
+            self.model_name = m.get('model_name')
+        if m.get('model_code') is not None:
+            self.model_code = m.get('model_code')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('image_url') is not None:
+            self.image_url = m.get('image_url')
+        return self
+
+
 class AvatarLlmChatInfo(TeaModel):
     def __init__(
         self,
@@ -466,78 +524,6 @@ class AvatarModelInfo(TeaModel):
         return self
 
 
-class AvatarVoiceInfo(TeaModel):
-    def __init__(
-        self,
-        voice_id: str = None,
-        voice_code: str = None,
-        voice_name: str = None,
-        image: str = None,
-        gender: str = None,
-        voice_type: str = None,
-        audition_list: List[str] = None,
-    ):
-        # 音色id
-        self.voice_id = voice_id
-        # 音色编码
-        self.voice_code = voice_code
-        # 音色名
-        self.voice_name = voice_name
-        # 预览图
-        self.image = image
-        # 音色性别
-        self.gender = gender
-        # 音色类型
-        self.voice_type = voice_type
-        # 音色试听链接列表
-        self.audition_list = audition_list
-
-    def validate(self):
-        self.validate_required(self.voice_id, 'voice_id')
-        self.validate_required(self.voice_code, 'voice_code')
-        self.validate_required(self.voice_name, 'voice_name')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.voice_id is not None:
-            result['voice_id'] = self.voice_id
-        if self.voice_code is not None:
-            result['voice_code'] = self.voice_code
-        if self.voice_name is not None:
-            result['voice_name'] = self.voice_name
-        if self.image is not None:
-            result['image'] = self.image
-        if self.gender is not None:
-            result['gender'] = self.gender
-        if self.voice_type is not None:
-            result['voice_type'] = self.voice_type
-        if self.audition_list is not None:
-            result['audition_list'] = self.audition_list
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('voice_id') is not None:
-            self.voice_id = m.get('voice_id')
-        if m.get('voice_code') is not None:
-            self.voice_code = m.get('voice_code')
-        if m.get('voice_name') is not None:
-            self.voice_name = m.get('voice_name')
-        if m.get('image') is not None:
-            self.image = m.get('image')
-        if m.get('gender') is not None:
-            self.gender = m.get('gender')
-        if m.get('voice_type') is not None:
-            self.voice_type = m.get('voice_type')
-        if m.get('audition_list') is not None:
-            self.audition_list = m.get('audition_list')
-        return self
-
-
 class AvatarBubbleInfo(TeaModel):
     def __init__(
         self,
@@ -603,6 +589,7 @@ class AvatarStreamInfo(TeaModel):
         background: str = None,
         stream_id: str = None,
         serial_number: str = None,
+        start_time: str = None,
     ):
         # 形象id
         self.model_id = model_id
@@ -614,9 +601,13 @@ class AvatarStreamInfo(TeaModel):
         self.stream_id = stream_id
         # 设备sn号
         self.serial_number = serial_number
+        # 开播时间
+        self.start_time = start_time
 
     def validate(self):
         self.validate_required(self.stream_id, 'stream_id')
+        if self.start_time is not None:
+            self.validate_pattern(self.start_time, 'start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
 
     def to_map(self):
         _map = super().to_map()
@@ -634,6 +625,8 @@ class AvatarStreamInfo(TeaModel):
             result['stream_id'] = self.stream_id
         if self.serial_number is not None:
             result['serial_number'] = self.serial_number
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
         return result
 
     def from_map(self, m: dict = None):
@@ -648,6 +641,8 @@ class AvatarStreamInfo(TeaModel):
             self.stream_id = m.get('stream_id')
         if m.get('serial_number') is not None:
             self.serial_number = m.get('serial_number')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
         return self
 
 
@@ -697,50 +692,6 @@ class ImportTaskResult(TeaModel):
             self.error_message = m.get('error_message')
         if m.get('file_url') is not None:
             self.file_url = m.get('file_url')
-        return self
-
-
-class BubbleButton(TeaModel):
-    def __init__(
-        self,
-        title: str = None,
-        value: str = None,
-        type: str = None,
-    ):
-        # 按钮文案
-        self.title = title
-        # 行动点执行动作值
-        self.value = value
-        # 行动点执行动作类型
-        self.type = type
-
-    def validate(self):
-        self.validate_required(self.title, 'title')
-        self.validate_required(self.value, 'value')
-        self.validate_required(self.type, 'type')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.title is not None:
-            result['title'] = self.title
-        if self.value is not None:
-            result['value'] = self.value
-        if self.type is not None:
-            result['type'] = self.type
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('title') is not None:
-            self.title = m.get('title')
-        if m.get('value') is not None:
-            self.value = m.get('value')
-        if m.get('type') is not None:
-            self.type = m.get('type')
         return self
 
 
@@ -835,6 +786,122 @@ class AvatarScriptConfigInfo(TeaModel):
             self.welcome_phrases = m.get('welcome_phrases')
         if m.get('fallback_phrases') is not None:
             self.fallback_phrases = m.get('fallback_phrases')
+        return self
+
+
+class AvatarVoiceInfo(TeaModel):
+    def __init__(
+        self,
+        voice_id: str = None,
+        voice_code: str = None,
+        voice_name: str = None,
+        image: str = None,
+        gender: str = None,
+        voice_type: str = None,
+        audition_list: List[str] = None,
+    ):
+        # 音色id
+        self.voice_id = voice_id
+        # 音色编码
+        self.voice_code = voice_code
+        # 音色名
+        self.voice_name = voice_name
+        # 预览图
+        self.image = image
+        # 音色性别
+        self.gender = gender
+        # 音色类型
+        self.voice_type = voice_type
+        # 音色试听链接列表
+        self.audition_list = audition_list
+
+    def validate(self):
+        self.validate_required(self.voice_id, 'voice_id')
+        self.validate_required(self.voice_code, 'voice_code')
+        self.validate_required(self.voice_name, 'voice_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.voice_id is not None:
+            result['voice_id'] = self.voice_id
+        if self.voice_code is not None:
+            result['voice_code'] = self.voice_code
+        if self.voice_name is not None:
+            result['voice_name'] = self.voice_name
+        if self.image is not None:
+            result['image'] = self.image
+        if self.gender is not None:
+            result['gender'] = self.gender
+        if self.voice_type is not None:
+            result['voice_type'] = self.voice_type
+        if self.audition_list is not None:
+            result['audition_list'] = self.audition_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('voice_id') is not None:
+            self.voice_id = m.get('voice_id')
+        if m.get('voice_code') is not None:
+            self.voice_code = m.get('voice_code')
+        if m.get('voice_name') is not None:
+            self.voice_name = m.get('voice_name')
+        if m.get('image') is not None:
+            self.image = m.get('image')
+        if m.get('gender') is not None:
+            self.gender = m.get('gender')
+        if m.get('voice_type') is not None:
+            self.voice_type = m.get('voice_type')
+        if m.get('audition_list') is not None:
+            self.audition_list = m.get('audition_list')
+        return self
+
+
+class BubbleButton(TeaModel):
+    def __init__(
+        self,
+        title: str = None,
+        value: str = None,
+        type: str = None,
+    ):
+        # 按钮文案
+        self.title = title
+        # 行动点执行动作值
+        self.value = value
+        # 行动点执行动作类型
+        self.type = type
+
+    def validate(self):
+        self.validate_required(self.title, 'title')
+        self.validate_required(self.value, 'value')
+        self.validate_required(self.type, 'type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.title is not None:
+            result['title'] = self.title
+        if self.value is not None:
+            result['value'] = self.value
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        if m.get('type') is not None:
+            self.type = m.get('type')
         return self
 
 
@@ -3775,6 +3842,950 @@ class StopUniversalsaasDigitalhumanStreamResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        return self
+
+
+class DetailUniversalsaasDigitalhumanLlmChatRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_code: str = None,
+        llm_chat_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户编码
+        self.tenant_code = tenant_code
+        # 大模型对话配置编码
+        self.llm_chat_code = llm_chat_code
+
+    def validate(self):
+        self.validate_required(self.tenant_code, 'tenant_code')
+        self.validate_required(self.llm_chat_code, 'llm_chat_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_code is not None:
+            result['tenant_code'] = self.tenant_code
+        if self.llm_chat_code is not None:
+            result['llm_chat_code'] = self.llm_chat_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_code') is not None:
+            self.tenant_code = m.get('tenant_code')
+        if m.get('llm_chat_code') is not None:
+            self.llm_chat_code = m.get('llm_chat_code')
+        return self
+
+
+class DetailUniversalsaasDigitalhumanLlmChatResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: AvatarLlmChatInfo = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 大模型对话配置信息
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            temp_model = AvatarLlmChatInfo()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class AddUniversalsaasDigitalhumanLlmChatRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_code: str = None,
+        llm_chat_name: str = None,
+        model_id: str = None,
+        description: str = None,
+        config: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户编码
+        self.tenant_code = tenant_code
+        # 大模型对话配置名称
+        self.llm_chat_name = llm_chat_name
+        # 模型配置id
+        self.model_id = model_id
+        # 大模型对话配置描述
+        self.description = description
+        # 大模型对话自定义配置明细
+        self.config = config
+
+    def validate(self):
+        self.validate_required(self.tenant_code, 'tenant_code')
+        self.validate_required(self.llm_chat_name, 'llm_chat_name')
+        self.validate_required(self.model_id, 'model_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_code is not None:
+            result['tenant_code'] = self.tenant_code
+        if self.llm_chat_name is not None:
+            result['llm_chat_name'] = self.llm_chat_name
+        if self.model_id is not None:
+            result['model_id'] = self.model_id
+        if self.description is not None:
+            result['description'] = self.description
+        if self.config is not None:
+            result['config'] = self.config
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_code') is not None:
+            self.tenant_code = m.get('tenant_code')
+        if m.get('llm_chat_name') is not None:
+            self.llm_chat_name = m.get('llm_chat_name')
+        if m.get('model_id') is not None:
+            self.model_id = m.get('model_id')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('config') is not None:
+            self.config = m.get('config')
+        return self
+
+
+class AddUniversalsaasDigitalhumanLlmChatResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class UpdateUniversalsaasDigitalhumanLlmChatRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_code: str = None,
+        llm_chat_code: str = None,
+        llm_chat_name: str = None,
+        model_id: str = None,
+        description: str = None,
+        config: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户编码
+        self.tenant_code = tenant_code
+        # 大模型对话配置编码
+        self.llm_chat_code = llm_chat_code
+        # 大模型对话配置名称
+        self.llm_chat_name = llm_chat_name
+        # 模型配置id
+        self.model_id = model_id
+        # 大模型对话配置名称
+        self.description = description
+        # 大模型对话自定义配置明细
+        self.config = config
+
+    def validate(self):
+        self.validate_required(self.tenant_code, 'tenant_code')
+        self.validate_required(self.llm_chat_code, 'llm_chat_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_code is not None:
+            result['tenant_code'] = self.tenant_code
+        if self.llm_chat_code is not None:
+            result['llm_chat_code'] = self.llm_chat_code
+        if self.llm_chat_name is not None:
+            result['llm_chat_name'] = self.llm_chat_name
+        if self.model_id is not None:
+            result['model_id'] = self.model_id
+        if self.description is not None:
+            result['description'] = self.description
+        if self.config is not None:
+            result['config'] = self.config
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_code') is not None:
+            self.tenant_code = m.get('tenant_code')
+        if m.get('llm_chat_code') is not None:
+            self.llm_chat_code = m.get('llm_chat_code')
+        if m.get('llm_chat_name') is not None:
+            self.llm_chat_name = m.get('llm_chat_name')
+        if m.get('model_id') is not None:
+            self.model_id = m.get('model_id')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('config') is not None:
+            self.config = m.get('config')
+        return self
+
+
+class UpdateUniversalsaasDigitalhumanLlmChatResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class DeleteUniversalsaasDigitalhumanLlmChatRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_code: str = None,
+        llm_chat_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户编码
+        self.tenant_code = tenant_code
+        # 大模型对话配置编码
+        self.llm_chat_code = llm_chat_code
+
+    def validate(self):
+        self.validate_required(self.tenant_code, 'tenant_code')
+        self.validate_required(self.llm_chat_code, 'llm_chat_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_code is not None:
+            result['tenant_code'] = self.tenant_code
+        if self.llm_chat_code is not None:
+            result['llm_chat_code'] = self.llm_chat_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_code') is not None:
+            self.tenant_code = m.get('tenant_code')
+        if m.get('llm_chat_code') is not None:
+            self.llm_chat_code = m.get('llm_chat_code')
+        return self
+
+
+class DeleteUniversalsaasDigitalhumanLlmChatResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class AddUniversalsaasDigitalhumanLlmModelRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_code: str = None,
+        model_name: str = None,
+        model_code: str = None,
+        image_url: str = None,
+        description: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户编码
+        self.tenant_code = tenant_code
+        # 模型名称
+        self.model_name = model_name
+        # 模型编码
+        self.model_code = model_code
+        # 模型图片url
+        self.image_url = image_url
+        # 模型描述
+        self.description = description
+
+    def validate(self):
+        self.validate_required(self.tenant_code, 'tenant_code')
+        self.validate_required(self.model_name, 'model_name')
+        self.validate_required(self.model_code, 'model_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_code is not None:
+            result['tenant_code'] = self.tenant_code
+        if self.model_name is not None:
+            result['model_name'] = self.model_name
+        if self.model_code is not None:
+            result['model_code'] = self.model_code
+        if self.image_url is not None:
+            result['image_url'] = self.image_url
+        if self.description is not None:
+            result['description'] = self.description
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_code') is not None:
+            self.tenant_code = m.get('tenant_code')
+        if m.get('model_name') is not None:
+            self.model_name = m.get('model_name')
+        if m.get('model_code') is not None:
+            self.model_code = m.get('model_code')
+        if m.get('image_url') is not None:
+            self.image_url = m.get('image_url')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        return self
+
+
+class AddUniversalsaasDigitalhumanLlmModelResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class DeleteUniversalsaasDigitalhumanLlmModelRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_code: str = None,
+        model_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 模型编码
+        self.tenant_code = tenant_code
+        # 模型id
+        self.model_id = model_id
+
+    def validate(self):
+        self.validate_required(self.tenant_code, 'tenant_code')
+        self.validate_required(self.model_id, 'model_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_code is not None:
+            result['tenant_code'] = self.tenant_code
+        if self.model_id is not None:
+            result['model_id'] = self.model_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_code') is not None:
+            self.tenant_code = m.get('tenant_code')
+        if m.get('model_id') is not None:
+            self.model_id = m.get('model_id')
+        return self
+
+
+class DeleteUniversalsaasDigitalhumanLlmModelResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class UpdateUniversalsaasDigitalhumanLlmModelRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_code: str = None,
+        model_id: str = None,
+        model_code: str = None,
+        model_name: str = None,
+        description: str = None,
+        image_url: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户编码
+        self.tenant_code = tenant_code
+        # 模型id
+        self.model_id = model_id
+        # 模型编码
+        self.model_code = model_code
+        # 模型名称
+        self.model_name = model_name
+        # 模型描述
+        self.description = description
+        # 模型图片url
+        self.image_url = image_url
+
+    def validate(self):
+        self.validate_required(self.tenant_code, 'tenant_code')
+        self.validate_required(self.model_id, 'model_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_code is not None:
+            result['tenant_code'] = self.tenant_code
+        if self.model_id is not None:
+            result['model_id'] = self.model_id
+        if self.model_code is not None:
+            result['model_code'] = self.model_code
+        if self.model_name is not None:
+            result['model_name'] = self.model_name
+        if self.description is not None:
+            result['description'] = self.description
+        if self.image_url is not None:
+            result['image_url'] = self.image_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_code') is not None:
+            self.tenant_code = m.get('tenant_code')
+        if m.get('model_id') is not None:
+            self.model_id = m.get('model_id')
+        if m.get('model_code') is not None:
+            self.model_code = m.get('model_code')
+        if m.get('model_name') is not None:
+            self.model_name = m.get('model_name')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('image_url') is not None:
+            self.image_url = m.get('image_url')
+        return self
+
+
+class UpdateUniversalsaasDigitalhumanLlmModelResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class ListUniversalsaasDigitalhumanLlmModelRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户编码
+        self.tenant_code = tenant_code
+
+    def validate(self):
+        self.validate_required(self.tenant_code, 'tenant_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_code is not None:
+            result['tenant_code'] = self.tenant_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_code') is not None:
+            self.tenant_code = m.get('tenant_code')
+        return self
+
+
+class ListUniversalsaasDigitalhumanLlmModelResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        item_list: List[AvatarLlmModelInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 模型配置列表
+        self.item_list = item_list
+
+    def validate(self):
+        if self.item_list:
+            for k in self.item_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['item_list'] = []
+        if self.item_list is not None:
+            for k in self.item_list:
+                result['item_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.item_list = []
+        if m.get('item_list') is not None:
+            for k in m.get('item_list'):
+                temp_model = AvatarLlmModelInfo()
+                self.item_list.append(temp_model.from_map(k))
+        return self
+
+
+class DetailUniversalsaasDigitalhumanLlmModelRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_code: str = None,
+        model_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户编码
+        self.tenant_code = tenant_code
+        # 模型id
+        self.model_id = model_id
+
+    def validate(self):
+        self.validate_required(self.tenant_code, 'tenant_code')
+        self.validate_required(self.model_id, 'model_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_code is not None:
+            result['tenant_code'] = self.tenant_code
+        if self.model_id is not None:
+            result['model_id'] = self.model_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_code') is not None:
+            self.tenant_code = m.get('tenant_code')
+        if m.get('model_id') is not None:
+            self.model_id = m.get('model_id')
+        return self
+
+
+class DetailUniversalsaasDigitalhumanLlmModelResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: AvatarLlmModelInfo = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 模型配置信明细
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            temp_model = AvatarLlmModelInfo()
+            self.data = temp_model.from_map(m['data'])
         return self
 
 
