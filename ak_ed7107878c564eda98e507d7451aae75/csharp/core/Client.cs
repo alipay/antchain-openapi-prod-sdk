@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_ed7107878c564eda98e507d7451aae75
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.8"},
+                        {"sdk_version", "1.1.9"},
                         {"_prod_code", "ak_ed7107878c564eda98e507d7451aae75"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_ed7107878c564eda98e507d7451aae75
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.8"},
+                        {"sdk_version", "1.1.9"},
                         {"_prod_code", "ak_ed7107878c564eda98e507d7451aae75"},
                         {"_prod_channel", "saas"},
                     };
@@ -1459,6 +1459,384 @@ namespace AntChain.SDK.Ak_ed7107878c564eda98e507d7451aae75
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<StopUniversalsaasDigitalhumanStreamResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.stream.stop", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大模型对话配置明细
+         * Summary: 大模型对话配置明细
+         */
+        public DetailUniversalsaasDigitalhumanLlmChatResponse DetailUniversalsaasDigitalhumanLlmChat(DetailUniversalsaasDigitalhumanLlmChatRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DetailUniversalsaasDigitalhumanLlmChatEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大模型对话配置明细
+         * Summary: 大模型对话配置明细
+         */
+        public async Task<DetailUniversalsaasDigitalhumanLlmChatResponse> DetailUniversalsaasDigitalhumanLlmChatAsync(DetailUniversalsaasDigitalhumanLlmChatRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DetailUniversalsaasDigitalhumanLlmChatExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 大模型对话配置明细
+         * Summary: 大模型对话配置明细
+         */
+        public DetailUniversalsaasDigitalhumanLlmChatResponse DetailUniversalsaasDigitalhumanLlmChatEx(DetailUniversalsaasDigitalhumanLlmChatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailUniversalsaasDigitalhumanLlmChatResponse>(DoRequest("1.0", "universalsaas.digitalhuman.llm.chat.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 大模型对话配置明细
+         * Summary: 大模型对话配置明细
+         */
+        public async Task<DetailUniversalsaasDigitalhumanLlmChatResponse> DetailUniversalsaasDigitalhumanLlmChatExAsync(DetailUniversalsaasDigitalhumanLlmChatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailUniversalsaasDigitalhumanLlmChatResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.llm.chat.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新增大模型对话配置
+         * Summary: 新增大模型对话配置
+         */
+        public AddUniversalsaasDigitalhumanLlmChatResponse AddUniversalsaasDigitalhumanLlmChat(AddUniversalsaasDigitalhumanLlmChatRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddUniversalsaasDigitalhumanLlmChatEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新增大模型对话配置
+         * Summary: 新增大模型对话配置
+         */
+        public async Task<AddUniversalsaasDigitalhumanLlmChatResponse> AddUniversalsaasDigitalhumanLlmChatAsync(AddUniversalsaasDigitalhumanLlmChatRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddUniversalsaasDigitalhumanLlmChatExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新增大模型对话配置
+         * Summary: 新增大模型对话配置
+         */
+        public AddUniversalsaasDigitalhumanLlmChatResponse AddUniversalsaasDigitalhumanLlmChatEx(AddUniversalsaasDigitalhumanLlmChatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddUniversalsaasDigitalhumanLlmChatResponse>(DoRequest("1.0", "universalsaas.digitalhuman.llm.chat.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新增大模型对话配置
+         * Summary: 新增大模型对话配置
+         */
+        public async Task<AddUniversalsaasDigitalhumanLlmChatResponse> AddUniversalsaasDigitalhumanLlmChatExAsync(AddUniversalsaasDigitalhumanLlmChatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddUniversalsaasDigitalhumanLlmChatResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.llm.chat.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新大模型对话配置
+         * Summary: 更新大模型对话配置
+         */
+        public UpdateUniversalsaasDigitalhumanLlmChatResponse UpdateUniversalsaasDigitalhumanLlmChat(UpdateUniversalsaasDigitalhumanLlmChatRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateUniversalsaasDigitalhumanLlmChatEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新大模型对话配置
+         * Summary: 更新大模型对话配置
+         */
+        public async Task<UpdateUniversalsaasDigitalhumanLlmChatResponse> UpdateUniversalsaasDigitalhumanLlmChatAsync(UpdateUniversalsaasDigitalhumanLlmChatRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateUniversalsaasDigitalhumanLlmChatExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新大模型对话配置
+         * Summary: 更新大模型对话配置
+         */
+        public UpdateUniversalsaasDigitalhumanLlmChatResponse UpdateUniversalsaasDigitalhumanLlmChatEx(UpdateUniversalsaasDigitalhumanLlmChatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateUniversalsaasDigitalhumanLlmChatResponse>(DoRequest("1.0", "universalsaas.digitalhuman.llm.chat.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新大模型对话配置
+         * Summary: 更新大模型对话配置
+         */
+        public async Task<UpdateUniversalsaasDigitalhumanLlmChatResponse> UpdateUniversalsaasDigitalhumanLlmChatExAsync(UpdateUniversalsaasDigitalhumanLlmChatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateUniversalsaasDigitalhumanLlmChatResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.llm.chat.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除大模型对话配置
+         * Summary: 删除大模型对话配置
+         */
+        public DeleteUniversalsaasDigitalhumanLlmChatResponse DeleteUniversalsaasDigitalhumanLlmChat(DeleteUniversalsaasDigitalhumanLlmChatRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteUniversalsaasDigitalhumanLlmChatEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除大模型对话配置
+         * Summary: 删除大模型对话配置
+         */
+        public async Task<DeleteUniversalsaasDigitalhumanLlmChatResponse> DeleteUniversalsaasDigitalhumanLlmChatAsync(DeleteUniversalsaasDigitalhumanLlmChatRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteUniversalsaasDigitalhumanLlmChatExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除大模型对话配置
+         * Summary: 删除大模型对话配置
+         */
+        public DeleteUniversalsaasDigitalhumanLlmChatResponse DeleteUniversalsaasDigitalhumanLlmChatEx(DeleteUniversalsaasDigitalhumanLlmChatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteUniversalsaasDigitalhumanLlmChatResponse>(DoRequest("1.0", "universalsaas.digitalhuman.llm.chat.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除大模型对话配置
+         * Summary: 删除大模型对话配置
+         */
+        public async Task<DeleteUniversalsaasDigitalhumanLlmChatResponse> DeleteUniversalsaasDigitalhumanLlmChatExAsync(DeleteUniversalsaasDigitalhumanLlmChatRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteUniversalsaasDigitalhumanLlmChatResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.llm.chat.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新增模型配置
+         * Summary: 新增模型配置
+         */
+        public AddUniversalsaasDigitalhumanLlmModelResponse AddUniversalsaasDigitalhumanLlmModel(AddUniversalsaasDigitalhumanLlmModelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddUniversalsaasDigitalhumanLlmModelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新增模型配置
+         * Summary: 新增模型配置
+         */
+        public async Task<AddUniversalsaasDigitalhumanLlmModelResponse> AddUniversalsaasDigitalhumanLlmModelAsync(AddUniversalsaasDigitalhumanLlmModelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddUniversalsaasDigitalhumanLlmModelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新增模型配置
+         * Summary: 新增模型配置
+         */
+        public AddUniversalsaasDigitalhumanLlmModelResponse AddUniversalsaasDigitalhumanLlmModelEx(AddUniversalsaasDigitalhumanLlmModelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddUniversalsaasDigitalhumanLlmModelResponse>(DoRequest("1.0", "universalsaas.digitalhuman.llm.model.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新增模型配置
+         * Summary: 新增模型配置
+         */
+        public async Task<AddUniversalsaasDigitalhumanLlmModelResponse> AddUniversalsaasDigitalhumanLlmModelExAsync(AddUniversalsaasDigitalhumanLlmModelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddUniversalsaasDigitalhumanLlmModelResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.llm.model.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除模型配置
+         * Summary: 删除模型配置
+         */
+        public DeleteUniversalsaasDigitalhumanLlmModelResponse DeleteUniversalsaasDigitalhumanLlmModel(DeleteUniversalsaasDigitalhumanLlmModelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteUniversalsaasDigitalhumanLlmModelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除模型配置
+         * Summary: 删除模型配置
+         */
+        public async Task<DeleteUniversalsaasDigitalhumanLlmModelResponse> DeleteUniversalsaasDigitalhumanLlmModelAsync(DeleteUniversalsaasDigitalhumanLlmModelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteUniversalsaasDigitalhumanLlmModelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除模型配置
+         * Summary: 删除模型配置
+         */
+        public DeleteUniversalsaasDigitalhumanLlmModelResponse DeleteUniversalsaasDigitalhumanLlmModelEx(DeleteUniversalsaasDigitalhumanLlmModelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteUniversalsaasDigitalhumanLlmModelResponse>(DoRequest("1.0", "universalsaas.digitalhuman.llm.model.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除模型配置
+         * Summary: 删除模型配置
+         */
+        public async Task<DeleteUniversalsaasDigitalhumanLlmModelResponse> DeleteUniversalsaasDigitalhumanLlmModelExAsync(DeleteUniversalsaasDigitalhumanLlmModelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteUniversalsaasDigitalhumanLlmModelResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.llm.model.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新模型配置
+         * Summary: 更新模型配置
+         */
+        public UpdateUniversalsaasDigitalhumanLlmModelResponse UpdateUniversalsaasDigitalhumanLlmModel(UpdateUniversalsaasDigitalhumanLlmModelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateUniversalsaasDigitalhumanLlmModelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新模型配置
+         * Summary: 更新模型配置
+         */
+        public async Task<UpdateUniversalsaasDigitalhumanLlmModelResponse> UpdateUniversalsaasDigitalhumanLlmModelAsync(UpdateUniversalsaasDigitalhumanLlmModelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateUniversalsaasDigitalhumanLlmModelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新模型配置
+         * Summary: 更新模型配置
+         */
+        public UpdateUniversalsaasDigitalhumanLlmModelResponse UpdateUniversalsaasDigitalhumanLlmModelEx(UpdateUniversalsaasDigitalhumanLlmModelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateUniversalsaasDigitalhumanLlmModelResponse>(DoRequest("1.0", "universalsaas.digitalhuman.llm.model.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新模型配置
+         * Summary: 更新模型配置
+         */
+        public async Task<UpdateUniversalsaasDigitalhumanLlmModelResponse> UpdateUniversalsaasDigitalhumanLlmModelExAsync(UpdateUniversalsaasDigitalhumanLlmModelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateUniversalsaasDigitalhumanLlmModelResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.llm.model.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取模型配置列表
+         * Summary: 获取模型配置列表
+         */
+        public ListUniversalsaasDigitalhumanLlmModelResponse ListUniversalsaasDigitalhumanLlmModel(ListUniversalsaasDigitalhumanLlmModelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListUniversalsaasDigitalhumanLlmModelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取模型配置列表
+         * Summary: 获取模型配置列表
+         */
+        public async Task<ListUniversalsaasDigitalhumanLlmModelResponse> ListUniversalsaasDigitalhumanLlmModelAsync(ListUniversalsaasDigitalhumanLlmModelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListUniversalsaasDigitalhumanLlmModelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取模型配置列表
+         * Summary: 获取模型配置列表
+         */
+        public ListUniversalsaasDigitalhumanLlmModelResponse ListUniversalsaasDigitalhumanLlmModelEx(ListUniversalsaasDigitalhumanLlmModelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListUniversalsaasDigitalhumanLlmModelResponse>(DoRequest("1.0", "universalsaas.digitalhuman.llm.model.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取模型配置列表
+         * Summary: 获取模型配置列表
+         */
+        public async Task<ListUniversalsaasDigitalhumanLlmModelResponse> ListUniversalsaasDigitalhumanLlmModelExAsync(ListUniversalsaasDigitalhumanLlmModelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListUniversalsaasDigitalhumanLlmModelResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.llm.model.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询模型配置明细
+         * Summary: 查询模型配置明细
+         */
+        public DetailUniversalsaasDigitalhumanLlmModelResponse DetailUniversalsaasDigitalhumanLlmModel(DetailUniversalsaasDigitalhumanLlmModelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DetailUniversalsaasDigitalhumanLlmModelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询模型配置明细
+         * Summary: 查询模型配置明细
+         */
+        public async Task<DetailUniversalsaasDigitalhumanLlmModelResponse> DetailUniversalsaasDigitalhumanLlmModelAsync(DetailUniversalsaasDigitalhumanLlmModelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DetailUniversalsaasDigitalhumanLlmModelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询模型配置明细
+         * Summary: 查询模型配置明细
+         */
+        public DetailUniversalsaasDigitalhumanLlmModelResponse DetailUniversalsaasDigitalhumanLlmModelEx(DetailUniversalsaasDigitalhumanLlmModelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailUniversalsaasDigitalhumanLlmModelResponse>(DoRequest("1.0", "universalsaas.digitalhuman.llm.model.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询模型配置明细
+         * Summary: 查询模型配置明细
+         */
+        public async Task<DetailUniversalsaasDigitalhumanLlmModelResponse> DetailUniversalsaasDigitalhumanLlmModelExAsync(DetailUniversalsaasDigitalhumanLlmModelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailUniversalsaasDigitalhumanLlmModelResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.llm.model.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

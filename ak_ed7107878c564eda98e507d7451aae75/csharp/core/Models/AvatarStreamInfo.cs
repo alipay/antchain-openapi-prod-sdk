@@ -35,6 +35,11 @@ namespace AntChain.SDK.Ak_ed7107878c564eda98e507d7451aae75.Models
         [Validation(Required=false)]
         public string SerialNumber { get; set; }
 
+        // 开播时间
+        [NameInMap("start_time")]
+        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string StartTime { get; set; }
+
     }
 
 }
