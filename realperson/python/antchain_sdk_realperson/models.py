@@ -2954,6 +2954,9 @@ class RecognizeDocIndividualcardRequest(TeaModel):
         ocr_type: str = None,
         data_type: str = None,
         data_content: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
         req_enc_type: str = None,
         resp_enc_type: str = None,
         enc_token: str = None,
@@ -2970,10 +2973,16 @@ class RecognizeDocIndividualcardRequest(TeaModel):
         self.out_order_no = out_order_no
         # 待识别的卡类型。取值约束：ID_CARD（身份证）;EEP_TO_ML_CARD（港澳来往大陆通行证）;BANK_CARD（银行卡）
         self.ocr_type = ocr_type
-        # 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；URL（暂不支持）
+        # 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；FILE(文件)、URL（暂不支持）
         self.data_type = data_type
         # 传入的图片的具体内容，需要与data_type的选择保持一致。
         self.data_content = data_content
+        # 证件图片
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
         # 入参data_content是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
         self.req_enc_type = req_enc_type
         # 出参ocr_info是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
@@ -2999,7 +3008,6 @@ class RecognizeDocIndividualcardRequest(TeaModel):
         self.validate_required(self.out_order_no, 'out_order_no')
         self.validate_required(self.ocr_type, 'ocr_type')
         self.validate_required(self.data_type, 'data_type')
-        self.validate_required(self.data_content, 'data_content')
 
     def to_map(self):
         _map = super().to_map()
@@ -3019,6 +3027,12 @@ class RecognizeDocIndividualcardRequest(TeaModel):
             result['data_type'] = self.data_type
         if self.data_content is not None:
             result['data_content'] = self.data_content
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
         if self.req_enc_type is not None:
             result['req_enc_type'] = self.req_enc_type
         if self.resp_enc_type is not None:
@@ -3049,6 +3063,12 @@ class RecognizeDocIndividualcardRequest(TeaModel):
             self.data_type = m.get('data_type')
         if m.get('data_content') is not None:
             self.data_content = m.get('data_content')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
         if m.get('req_enc_type') is not None:
             self.req_enc_type = m.get('req_enc_type')
         if m.get('resp_enc_type') is not None:
@@ -7789,6 +7809,119 @@ class QueryBankLivenessfourResponse(TeaModel):
             self.liveness_info = m.get('liveness_info')
         if m.get('extern_info') is not None:
             self.extern_info = m.get('extern_info')
+        return self
+
+
+class QueryFaceverifyServermaterialRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        certify_id: str = None,
+        outer_order_no: str = None,
+        scene_id: str = None,
+        extern_param: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 实人认证唯一标识
+        self.certify_id = certify_id
+        # 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+        self.outer_order_no = outer_order_no
+        # 场景ID
+        self.scene_id = scene_id
+        # 预留扩展业务参数
+        self.extern_param = extern_param
+
+    def validate(self):
+        self.validate_required(self.certify_id, 'certify_id')
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+        self.validate_required(self.scene_id, 'scene_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.certify_id is not None:
+            result['certify_id'] = self.certify_id
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        if self.scene_id is not None:
+            result['scene_id'] = self.scene_id
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('certify_id') is not None:
+            self.certify_id = m.get('certify_id')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        if m.get('scene_id') is not None:
+            self.scene_id = m.get('scene_id')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
+        return self
+
+
+class QueryFaceverifyServermaterialResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        material_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 认证主体附件信息
+        self.material_info = material_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.material_info is not None:
+            result['material_info'] = self.material_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('material_info') is not None:
+            self.material_info = m.get('material_info')
         return self
 
 

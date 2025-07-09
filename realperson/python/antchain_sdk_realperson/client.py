@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.21.0',
+                    'sdk_version': '1.21.3',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.21.0',
+                    'sdk_version': '1.21.3',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -1353,6 +1353,24 @@ class Client:
         Description: 卡证OCR
         Summary: 卡证OCR
         """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = realperson_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='di.realperson.doc.individualcard.recognize',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                recognize_doc_individualcard_response = realperson_models.RecognizeDocIndividualcardResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return recognize_doc_individualcard_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             realperson_models.RecognizeDocIndividualcardResponse(),
@@ -1369,6 +1387,24 @@ class Client:
         Description: 卡证OCR
         Summary: 卡证OCR
         """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = realperson_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='di.realperson.doc.individualcard.recognize',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                recognize_doc_individualcard_response = realperson_models.RecognizeDocIndividualcardResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return recognize_doc_individualcard_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             realperson_models.RecognizeDocIndividualcardResponse(),
@@ -3237,6 +3273,62 @@ class Client:
         return TeaCore.from_map(
             realperson_models.QueryBankLivenessfourResponse(),
             await self.do_request_async('1.0', 'di.realperson.bank.livenessfour.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_faceverify_servermaterial(
+        self,
+        request: realperson_models.QueryFaceverifyServermaterialRequest,
+    ) -> realperson_models.QueryFaceverifyServermaterialResponse:
+        """
+        Description: 查询认证的材料信息
+        Summary: 认证材料查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_faceverify_servermaterial_ex(request, headers, runtime)
+
+    async def query_faceverify_servermaterial_async(
+        self,
+        request: realperson_models.QueryFaceverifyServermaterialRequest,
+    ) -> realperson_models.QueryFaceverifyServermaterialResponse:
+        """
+        Description: 查询认证的材料信息
+        Summary: 认证材料查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_faceverify_servermaterial_ex_async(request, headers, runtime)
+
+    def query_faceverify_servermaterial_ex(
+        self,
+        request: realperson_models.QueryFaceverifyServermaterialRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryFaceverifyServermaterialResponse:
+        """
+        Description: 查询认证的材料信息
+        Summary: 认证材料查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryFaceverifyServermaterialResponse(),
+            self.do_request('1.0', 'di.realperson.faceverify.servermaterial.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_faceverify_servermaterial_ex_async(
+        self,
+        request: realperson_models.QueryFaceverifyServermaterialRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryFaceverifyServermaterialResponse:
+        """
+        Description: 查询认证的材料信息
+        Summary: 认证材料查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryFaceverifyServermaterialResponse(),
+            await self.do_request_async('1.0', 'di.realperson.faceverify.servermaterial.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
