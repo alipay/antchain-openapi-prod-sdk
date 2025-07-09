@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.8',
+    sdk_version = '1.1.9',
     _prod_code = 'ak_ed7107878c564eda98e507d7451aae75',
     _prod_channel = 'saas'
   };
@@ -195,6 +195,20 @@ model AvatarLibraryInfo {
   humanInfo: AvatarHumanInfo(name='human_info', example=''),
 }
 
+// 数字人平台模型配置信息
+model AvatarLlmModelInfo {
+  // 模型id
+  modelId: string(name='model_id', example='8810606430954027635'),
+  // 模型名称
+  modelName: string(name='model_name', example='百炼'),
+  // 模型编码
+  modelCode: string(name='model_code', example='bailian'),
+  // 模型描述
+  description?: string(name='description', example='描述'),
+  // 模型图片url
+  imageUrl?: string(name='image_url', example='www.123.com'),
+}
+
 // 数字人平台--大模型对话配置信息
 model AvatarLlmChatInfo {
   // 大模型对话配置编码
@@ -235,24 +249,6 @@ model AvatarModelInfo {
   image: string(name='image', example='www.123.com'),
 }
 
-// 数字人平台--音色信息
-model AvatarVoiceInfo {
-  // 音色id
-  voiceId: string(name='voice_id', example='1'),
-  // 音色编码
-  voiceCode: string(name='voice_code', example='269'),
-  // 音色名
-  voiceName: string(name='voice_name', example='小忆'),
-  // 预览图
-  image?: string(name='image', example='www.123.com'),
-  // 音色性别
-  gender?: string(name='gender', example='male'),
-  // 音色类型
-  voiceType?: string(name='voice_type', example='克隆音色'),
-  // 音色试听链接列表
-  auditionList?: [ string ](name='audition_list', example=''),
-}
-
 // 数字人平台--气泡按钮信息
 model AvatarBubbleInfo {
   // 气泡标题
@@ -279,6 +275,8 @@ model AvatarStreamInfo {
   streamId: string(name='stream_id', example='live-avatar-6741_20250410104550'),
   // 设备sn号
   serialNumber?: string(name='serial_number', example='1234'),
+  // 开播时间
+  startTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time', example='2018-10-10T10:10:00Z'),
 }
 
 // 知识点批量导入任务结果
@@ -291,16 +289,6 @@ model ImportTaskResult {
   errorMessage?: string(name='error_message', example='错误日志'),
   // 导入日志文件url
   fileUrl?: string(name='file_url', example='www.123.com'),
-}
-
-// 行动点配置
-model BubbleButton {
-  // 按钮文案
-  title: string(name='title', example='你好'),
-  // 行动点执行动作值
-  value: string(name='value', example='70001'),
-  // 行动点执行动作类型
-  type: string(name='type', example='OUT_BIZ_ID'),
 }
 
 // 数字人平台--交互配置信息
@@ -323,6 +311,34 @@ model AvatarScriptConfigInfo {
   welcomePhrases?: [ string ](name='welcome_phrases', example='["你好我是数字人"]'),
   // 兜底语列表
   fallbackPhrases?: [ string ](name='fallback_phrases', example='["对不起"]'),
+}
+
+// 数字人平台--音色信息
+model AvatarVoiceInfo {
+  // 音色id
+  voiceId: string(name='voice_id', example='1'),
+  // 音色编码
+  voiceCode: string(name='voice_code', example='269'),
+  // 音色名
+  voiceName: string(name='voice_name', example='小忆'),
+  // 预览图
+  image?: string(name='image', example='www.123.com'),
+  // 音色性别
+  gender?: string(name='gender', example='male'),
+  // 音色类型
+  voiceType?: string(name='voice_type', example='克隆音色'),
+  // 音色试听链接列表
+  auditionList?: [ string ](name='audition_list', example=''),
+}
+
+// 行动点配置
+model BubbleButton {
+  // 按钮文案
+  title: string(name='title', example='你好'),
+  // 行动点执行动作值
+  value: string(name='value', example='70001'),
+  // 行动点执行动作类型
+  type: string(name='type', example='OUT_BIZ_ID'),
 }
 
 // 键值对
@@ -1462,6 +1478,380 @@ async function stopUniversalsaasDigitalhumanStream(request: StopUniversalsaasDig
 async function stopUniversalsaasDigitalhumanStreamEx(request: StopUniversalsaasDigitalhumanStreamRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StopUniversalsaasDigitalhumanStreamResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'universalsaas.digitalhuman.stream.stop', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailUniversalsaasDigitalhumanLlmChatRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 大模型对话配置编码
+  llmChatCode: string(name='llm_chat_code'),
+}
+
+model DetailUniversalsaasDigitalhumanLlmChatResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 大模型对话配置信息
+  data?: AvatarLlmChatInfo(name='data'),
+}
+
+/**
+ * Description: 大模型对话配置明细
+ * Summary: 大模型对话配置明细
+ */
+async function detailUniversalsaasDigitalhumanLlmChat(request: DetailUniversalsaasDigitalhumanLlmChatRequest): DetailUniversalsaasDigitalhumanLlmChatResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailUniversalsaasDigitalhumanLlmChatEx(request, headers, runtime);
+}
+
+/**
+ * Description: 大模型对话配置明细
+ * Summary: 大模型对话配置明细
+ */
+async function detailUniversalsaasDigitalhumanLlmChatEx(request: DetailUniversalsaasDigitalhumanLlmChatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailUniversalsaasDigitalhumanLlmChatResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.llm.chat.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddUniversalsaasDigitalhumanLlmChatRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 大模型对话配置名称
+  llmChatName: string(name='llm_chat_name'),
+  // 模型配置id
+  modelId: string(name='model_id'),
+  // 大模型对话配置描述
+  description?: string(name='description'),
+  // 大模型对话自定义配置明细
+  config?: string(name='config'),
+}
+
+model AddUniversalsaasDigitalhumanLlmChatResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 新增大模型对话配置
+ * Summary: 新增大模型对话配置
+ */
+async function addUniversalsaasDigitalhumanLlmChat(request: AddUniversalsaasDigitalhumanLlmChatRequest): AddUniversalsaasDigitalhumanLlmChatResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addUniversalsaasDigitalhumanLlmChatEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新增大模型对话配置
+ * Summary: 新增大模型对话配置
+ */
+async function addUniversalsaasDigitalhumanLlmChatEx(request: AddUniversalsaasDigitalhumanLlmChatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddUniversalsaasDigitalhumanLlmChatResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.llm.chat.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateUniversalsaasDigitalhumanLlmChatRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 大模型对话配置编码
+  llmChatCode: string(name='llm_chat_code'),
+  // 大模型对话配置名称
+  llmChatName?: string(name='llm_chat_name'),
+  // 模型配置id
+  modelId?: string(name='model_id'),
+  // 大模型对话配置名称
+  description?: string(name='description'),
+  // 大模型对话自定义配置明细
+  config?: string(name='config'),
+}
+
+model UpdateUniversalsaasDigitalhumanLlmChatResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新大模型对话配置
+ * Summary: 更新大模型对话配置
+ */
+async function updateUniversalsaasDigitalhumanLlmChat(request: UpdateUniversalsaasDigitalhumanLlmChatRequest): UpdateUniversalsaasDigitalhumanLlmChatResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateUniversalsaasDigitalhumanLlmChatEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新大模型对话配置
+ * Summary: 更新大模型对话配置
+ */
+async function updateUniversalsaasDigitalhumanLlmChatEx(request: UpdateUniversalsaasDigitalhumanLlmChatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateUniversalsaasDigitalhumanLlmChatResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.llm.chat.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteUniversalsaasDigitalhumanLlmChatRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 大模型对话配置编码
+  llmChatCode: string(name='llm_chat_code'),
+}
+
+model DeleteUniversalsaasDigitalhumanLlmChatResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除大模型对话配置
+ * Summary: 删除大模型对话配置
+ */
+async function deleteUniversalsaasDigitalhumanLlmChat(request: DeleteUniversalsaasDigitalhumanLlmChatRequest): DeleteUniversalsaasDigitalhumanLlmChatResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteUniversalsaasDigitalhumanLlmChatEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除大模型对话配置
+ * Summary: 删除大模型对话配置
+ */
+async function deleteUniversalsaasDigitalhumanLlmChatEx(request: DeleteUniversalsaasDigitalhumanLlmChatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteUniversalsaasDigitalhumanLlmChatResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.llm.chat.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddUniversalsaasDigitalhumanLlmModelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 模型名称
+  modelName: string(name='model_name'),
+  // 模型编码
+  modelCode: string(name='model_code'),
+  // 模型图片url
+  imageUrl?: string(name='image_url'),
+  // 模型描述
+  description?: string(name='description'),
+}
+
+model AddUniversalsaasDigitalhumanLlmModelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 新增模型配置
+ * Summary: 新增模型配置
+ */
+async function addUniversalsaasDigitalhumanLlmModel(request: AddUniversalsaasDigitalhumanLlmModelRequest): AddUniversalsaasDigitalhumanLlmModelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addUniversalsaasDigitalhumanLlmModelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新增模型配置
+ * Summary: 新增模型配置
+ */
+async function addUniversalsaasDigitalhumanLlmModelEx(request: AddUniversalsaasDigitalhumanLlmModelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddUniversalsaasDigitalhumanLlmModelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.llm.model.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteUniversalsaasDigitalhumanLlmModelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 模型编码
+  tenantCode: string(name='tenant_code'),
+  // 模型id
+  modelId: string(name='model_id'),
+}
+
+model DeleteUniversalsaasDigitalhumanLlmModelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除模型配置
+ * Summary: 删除模型配置
+ */
+async function deleteUniversalsaasDigitalhumanLlmModel(request: DeleteUniversalsaasDigitalhumanLlmModelRequest): DeleteUniversalsaasDigitalhumanLlmModelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteUniversalsaasDigitalhumanLlmModelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除模型配置
+ * Summary: 删除模型配置
+ */
+async function deleteUniversalsaasDigitalhumanLlmModelEx(request: DeleteUniversalsaasDigitalhumanLlmModelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteUniversalsaasDigitalhumanLlmModelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.llm.model.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateUniversalsaasDigitalhumanLlmModelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 模型id
+  modelId: string(name='model_id'),
+  // 模型编码
+  modelCode?: string(name='model_code'),
+  // 模型名称
+  modelName?: string(name='model_name'),
+  // 模型描述
+  description?: string(name='description'),
+  // 模型图片url
+  imageUrl?: string(name='image_url'),
+}
+
+model UpdateUniversalsaasDigitalhumanLlmModelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新模型配置
+ * Summary: 更新模型配置
+ */
+async function updateUniversalsaasDigitalhumanLlmModel(request: UpdateUniversalsaasDigitalhumanLlmModelRequest): UpdateUniversalsaasDigitalhumanLlmModelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateUniversalsaasDigitalhumanLlmModelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新模型配置
+ * Summary: 更新模型配置
+ */
+async function updateUniversalsaasDigitalhumanLlmModelEx(request: UpdateUniversalsaasDigitalhumanLlmModelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateUniversalsaasDigitalhumanLlmModelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.llm.model.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListUniversalsaasDigitalhumanLlmModelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+}
+
+model ListUniversalsaasDigitalhumanLlmModelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 模型配置列表
+  itemList?: [ AvatarLlmModelInfo ](name='item_list'),
+}
+
+/**
+ * Description: 获取模型配置列表
+ * Summary: 获取模型配置列表
+ */
+async function listUniversalsaasDigitalhumanLlmModel(request: ListUniversalsaasDigitalhumanLlmModelRequest): ListUniversalsaasDigitalhumanLlmModelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listUniversalsaasDigitalhumanLlmModelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取模型配置列表
+ * Summary: 获取模型配置列表
+ */
+async function listUniversalsaasDigitalhumanLlmModelEx(request: ListUniversalsaasDigitalhumanLlmModelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListUniversalsaasDigitalhumanLlmModelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.llm.model.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailUniversalsaasDigitalhumanLlmModelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 模型id
+  modelId: string(name='model_id'),
+}
+
+model DetailUniversalsaasDigitalhumanLlmModelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 模型配置信明细
+  data?: AvatarLlmModelInfo(name='data'),
+}
+
+/**
+ * Description: 查询模型配置明细
+ * Summary: 查询模型配置明细
+ */
+async function detailUniversalsaasDigitalhumanLlmModel(request: DetailUniversalsaasDigitalhumanLlmModelRequest): DetailUniversalsaasDigitalhumanLlmModelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailUniversalsaasDigitalhumanLlmModelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询模型配置明细
+ * Summary: 查询模型配置明细
+ */
+async function detailUniversalsaasDigitalhumanLlmModelEx(request: DetailUniversalsaasDigitalhumanLlmModelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailUniversalsaasDigitalhumanLlmModelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.llm.model.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
