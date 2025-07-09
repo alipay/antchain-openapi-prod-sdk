@@ -1812,10 +1812,14 @@ export class RecognizeDocIndividualcardRequest extends $tea.Model {
   outOrderNo: string;
   // 待识别的卡类型。取值约束：ID_CARD（身份证）;EEP_TO_ML_CARD（港澳来往大陆通行证）;BANK_CARD（银行卡）
   ocrType: string;
-  // 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；URL（暂不支持）
+  // 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；FILE(文件)、URL（暂不支持）
   dataType: string;
   // 传入的图片的具体内容，需要与data_type的选择保持一致。
-  dataContent: string;
+  dataContent?: string;
+  // 证件图片
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId?: string;
   // 入参data_content是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
   reqEncType?: string;
   // 出参ocr_info是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
@@ -1844,6 +1848,9 @@ export class RecognizeDocIndividualcardRequest extends $tea.Model {
       ocrType: 'ocr_type',
       dataType: 'data_type',
       dataContent: 'data_content',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
       reqEncType: 'req_enc_type',
       respEncType: 'resp_enc_type',
       encToken: 'enc_token',
@@ -1862,6 +1869,9 @@ export class RecognizeDocIndividualcardRequest extends $tea.Model {
       ocrType: 'string',
       dataType: 'string',
       dataContent: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
       reqEncType: 'string',
       respEncType: 'string',
       encToken: 'string',
@@ -4790,6 +4800,77 @@ export class QueryBankLivenessfourResponse extends $tea.Model {
   }
 }
 
+export class QueryFaceverifyServermaterialRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 实人认证唯一标识
+  certifyId: string;
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+  outerOrderNo: string;
+  // 场景ID
+  sceneId: string;
+  // 预留扩展业务参数
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      certifyId: 'certify_id',
+      outerOrderNo: 'outer_order_no',
+      sceneId: 'scene_id',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      certifyId: 'string',
+      outerOrderNo: 'string',
+      sceneId: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFaceverifyServermaterialResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 认证主体附件信息
+  materialInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      materialInfo: 'material_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      materialInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -4991,7 +5072,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.21.0",
+          sdk_version: "1.21.3",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
@@ -5418,6 +5499,28 @@ export default class Client {
    * Summary: 卡证OCR
    */
   async recognizeDocIndividualcardEx(request: RecognizeDocIndividualcardRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RecognizeDocIndividualcardResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "di.realperson.doc.individualcard.recognize",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let recognizeDocIndividualcardResponse = new RecognizeDocIndividualcardResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return recognizeDocIndividualcardResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
     Util.validateModel(request);
     return $tea.cast<RecognizeDocIndividualcardResponse>(await this.doRequest("1.0", "di.realperson.doc.individualcard.recognize", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RecognizeDocIndividualcardResponse({}));
   }
@@ -6072,6 +6175,25 @@ export default class Client {
   async queryBankLivenessfourEx(request: QueryBankLivenessfourRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBankLivenessfourResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryBankLivenessfourResponse>(await this.doRequest("1.0", "di.realperson.bank.livenessfour.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBankLivenessfourResponse({}));
+  }
+
+  /**
+   * Description: 查询认证的材料信息
+   * Summary: 认证材料查询
+   */
+  async queryFaceverifyServermaterial(request: QueryFaceverifyServermaterialRequest): Promise<QueryFaceverifyServermaterialResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryFaceverifyServermaterialEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询认证的材料信息
+   * Summary: 认证材料查询
+   */
+  async queryFaceverifyServermaterialEx(request: QueryFaceverifyServermaterialRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFaceverifyServermaterialResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryFaceverifyServermaterialResponse>(await this.doRequest("1.0", "di.realperson.faceverify.servermaterial.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFaceverifyServermaterialResponse({}));
   }
 
   /**
