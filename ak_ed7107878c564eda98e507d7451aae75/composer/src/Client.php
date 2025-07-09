@@ -17,6 +17,10 @@ use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\AddUniversalsaasDigitalh
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\AddUniversalsaasDigitalhumanKnowledgeResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\AddUniversalsaasDigitalhumanLibraryRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\AddUniversalsaasDigitalhumanLibraryResponse;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\AddUniversalsaasDigitalhumanLlmChatRequest;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\AddUniversalsaasDigitalhumanLlmChatResponse;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\AddUniversalsaasDigitalhumanLlmModelRequest;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\AddUniversalsaasDigitalhumanLlmModelResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\CreateUniversalsaasDigitalhumanKnowledgeImporttaskRequest;
@@ -29,6 +33,14 @@ use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\DeleteUniversalsaasDigit
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\DeleteUniversalsaasDigitalhumanKnowledgeResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\DeleteUniversalsaasDigitalhumanLibraryRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\DeleteUniversalsaasDigitalhumanLibraryResponse;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\DeleteUniversalsaasDigitalhumanLlmChatRequest;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\DeleteUniversalsaasDigitalhumanLlmChatResponse;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\DeleteUniversalsaasDigitalhumanLlmModelRequest;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\DeleteUniversalsaasDigitalhumanLlmModelResponse;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\DetailUniversalsaasDigitalhumanLlmChatRequest;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\DetailUniversalsaasDigitalhumanLlmChatResponse;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\DetailUniversalsaasDigitalhumanLlmModelRequest;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\DetailUniversalsaasDigitalhumanLlmModelResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ExportUniversalsaasDigitalhumanKnowledgeRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ExportUniversalsaasDigitalhumanKnowledgeResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanHumanRequest;
@@ -37,6 +49,8 @@ use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigital
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanLibraryResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanLlmChatRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanLlmChatResponse;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanLlmModelRequest;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanLlmModelResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanModelRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanModelResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\ListUniversalsaasDigitalhumanStreamRequest;
@@ -65,6 +79,10 @@ use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\UpdateUniversalsaasDigit
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\UpdateUniversalsaasDigitalhumanKnowledgeResponse;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\UpdateUniversalsaasDigitalhumanLibraryRequest;
 use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\UpdateUniversalsaasDigitalhumanLibraryResponse;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\UpdateUniversalsaasDigitalhumanLlmChatRequest;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\UpdateUniversalsaasDigitalhumanLlmChatResponse;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\UpdateUniversalsaasDigitalhumanLlmModelRequest;
+use AntChain\Ak_ed7107878c564eda98e507d7451aae75\Models\UpdateUniversalsaasDigitalhumanLlmModelResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -212,7 +230,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.8',
+                    'sdk_version'      => '1.1.9',
                     '_prod_code'       => 'ak_ed7107878c564eda98e507d7451aae75',
                     '_prod_channel'    => 'saas',
                 ];
@@ -1135,6 +1153,303 @@ class Client
         Utils::validateModel($request);
 
         return StopUniversalsaasDigitalhumanStreamResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.stream.stop', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 大模型对话配置明细
+     * Summary: 大模型对话配置明细.
+     *
+     * @param DetailUniversalsaasDigitalhumanLlmChatRequest $request
+     *
+     * @return DetailUniversalsaasDigitalhumanLlmChatResponse
+     */
+    public function detailUniversalsaasDigitalhumanLlmChat($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailUniversalsaasDigitalhumanLlmChatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 大模型对话配置明细
+     * Summary: 大模型对话配置明细.
+     *
+     * @param DetailUniversalsaasDigitalhumanLlmChatRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return DetailUniversalsaasDigitalhumanLlmChatResponse
+     */
+    public function detailUniversalsaasDigitalhumanLlmChatEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailUniversalsaasDigitalhumanLlmChatResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.llm.chat.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新增大模型对话配置
+     * Summary: 新增大模型对话配置.
+     *
+     * @param AddUniversalsaasDigitalhumanLlmChatRequest $request
+     *
+     * @return AddUniversalsaasDigitalhumanLlmChatResponse
+     */
+    public function addUniversalsaasDigitalhumanLlmChat($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addUniversalsaasDigitalhumanLlmChatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新增大模型对话配置
+     * Summary: 新增大模型对话配置.
+     *
+     * @param AddUniversalsaasDigitalhumanLlmChatRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return AddUniversalsaasDigitalhumanLlmChatResponse
+     */
+    public function addUniversalsaasDigitalhumanLlmChatEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddUniversalsaasDigitalhumanLlmChatResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.llm.chat.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新大模型对话配置
+     * Summary: 更新大模型对话配置.
+     *
+     * @param UpdateUniversalsaasDigitalhumanLlmChatRequest $request
+     *
+     * @return UpdateUniversalsaasDigitalhumanLlmChatResponse
+     */
+    public function updateUniversalsaasDigitalhumanLlmChat($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateUniversalsaasDigitalhumanLlmChatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新大模型对话配置
+     * Summary: 更新大模型对话配置.
+     *
+     * @param UpdateUniversalsaasDigitalhumanLlmChatRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return UpdateUniversalsaasDigitalhumanLlmChatResponse
+     */
+    public function updateUniversalsaasDigitalhumanLlmChatEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateUniversalsaasDigitalhumanLlmChatResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.llm.chat.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除大模型对话配置
+     * Summary: 删除大模型对话配置.
+     *
+     * @param DeleteUniversalsaasDigitalhumanLlmChatRequest $request
+     *
+     * @return DeleteUniversalsaasDigitalhumanLlmChatResponse
+     */
+    public function deleteUniversalsaasDigitalhumanLlmChat($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteUniversalsaasDigitalhumanLlmChatEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除大模型对话配置
+     * Summary: 删除大模型对话配置.
+     *
+     * @param DeleteUniversalsaasDigitalhumanLlmChatRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return DeleteUniversalsaasDigitalhumanLlmChatResponse
+     */
+    public function deleteUniversalsaasDigitalhumanLlmChatEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteUniversalsaasDigitalhumanLlmChatResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.llm.chat.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新增模型配置
+     * Summary: 新增模型配置.
+     *
+     * @param AddUniversalsaasDigitalhumanLlmModelRequest $request
+     *
+     * @return AddUniversalsaasDigitalhumanLlmModelResponse
+     */
+    public function addUniversalsaasDigitalhumanLlmModel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addUniversalsaasDigitalhumanLlmModelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新增模型配置
+     * Summary: 新增模型配置.
+     *
+     * @param AddUniversalsaasDigitalhumanLlmModelRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return AddUniversalsaasDigitalhumanLlmModelResponse
+     */
+    public function addUniversalsaasDigitalhumanLlmModelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddUniversalsaasDigitalhumanLlmModelResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.llm.model.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除模型配置
+     * Summary: 删除模型配置.
+     *
+     * @param DeleteUniversalsaasDigitalhumanLlmModelRequest $request
+     *
+     * @return DeleteUniversalsaasDigitalhumanLlmModelResponse
+     */
+    public function deleteUniversalsaasDigitalhumanLlmModel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteUniversalsaasDigitalhumanLlmModelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除模型配置
+     * Summary: 删除模型配置.
+     *
+     * @param DeleteUniversalsaasDigitalhumanLlmModelRequest $request
+     * @param string[]                                       $headers
+     * @param RuntimeOptions                                 $runtime
+     *
+     * @return DeleteUniversalsaasDigitalhumanLlmModelResponse
+     */
+    public function deleteUniversalsaasDigitalhumanLlmModelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteUniversalsaasDigitalhumanLlmModelResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.llm.model.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新模型配置
+     * Summary: 更新模型配置.
+     *
+     * @param UpdateUniversalsaasDigitalhumanLlmModelRequest $request
+     *
+     * @return UpdateUniversalsaasDigitalhumanLlmModelResponse
+     */
+    public function updateUniversalsaasDigitalhumanLlmModel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateUniversalsaasDigitalhumanLlmModelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新模型配置
+     * Summary: 更新模型配置.
+     *
+     * @param UpdateUniversalsaasDigitalhumanLlmModelRequest $request
+     * @param string[]                                       $headers
+     * @param RuntimeOptions                                 $runtime
+     *
+     * @return UpdateUniversalsaasDigitalhumanLlmModelResponse
+     */
+    public function updateUniversalsaasDigitalhumanLlmModelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateUniversalsaasDigitalhumanLlmModelResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.llm.model.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取模型配置列表
+     * Summary: 获取模型配置列表.
+     *
+     * @param ListUniversalsaasDigitalhumanLlmModelRequest $request
+     *
+     * @return ListUniversalsaasDigitalhumanLlmModelResponse
+     */
+    public function listUniversalsaasDigitalhumanLlmModel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listUniversalsaasDigitalhumanLlmModelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取模型配置列表
+     * Summary: 获取模型配置列表.
+     *
+     * @param ListUniversalsaasDigitalhumanLlmModelRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return ListUniversalsaasDigitalhumanLlmModelResponse
+     */
+    public function listUniversalsaasDigitalhumanLlmModelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListUniversalsaasDigitalhumanLlmModelResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.llm.model.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询模型配置明细
+     * Summary: 查询模型配置明细.
+     *
+     * @param DetailUniversalsaasDigitalhumanLlmModelRequest $request
+     *
+     * @return DetailUniversalsaasDigitalhumanLlmModelResponse
+     */
+    public function detailUniversalsaasDigitalhumanLlmModel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailUniversalsaasDigitalhumanLlmModelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询模型配置明细
+     * Summary: 查询模型配置明细.
+     *
+     * @param DetailUniversalsaasDigitalhumanLlmModelRequest $request
+     * @param string[]                                       $headers
+     * @param RuntimeOptions                                 $runtime
+     *
+     * @return DetailUniversalsaasDigitalhumanLlmModelResponse
+     */
+    public function detailUniversalsaasDigitalhumanLlmModelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailUniversalsaasDigitalhumanLlmModelResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.llm.model.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

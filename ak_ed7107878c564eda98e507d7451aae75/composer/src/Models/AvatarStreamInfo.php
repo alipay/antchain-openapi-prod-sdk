@@ -47,17 +47,27 @@ class AvatarStreamInfo extends Model
      * @var string
      */
     public $serialNumber;
+
+    // 开播时间
+    /**
+     * @example 2018-10-10T10:10:00Z
+     *
+     * @var string
+     */
+    public $startTime;
     protected $_name = [
         'modelId'      => 'model_id',
         'voiceCode'    => 'voice_code',
         'background'   => 'background',
         'streamId'     => 'stream_id',
         'serialNumber' => 'serial_number',
+        'startTime'    => 'start_time',
     ];
 
     public function validate()
     {
         Model::validateRequired('streamId', $this->streamId, true);
+        Model::validatePattern('startTime', $this->startTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -77,6 +87,9 @@ class AvatarStreamInfo extends Model
         }
         if (null !== $this->serialNumber) {
             $res['serial_number'] = $this->serialNumber;
+        }
+        if (null !== $this->startTime) {
+            $res['start_time'] = $this->startTime;
         }
 
         return $res;
@@ -104,6 +117,9 @@ class AvatarStreamInfo extends Model
         }
         if (isset($map['serial_number'])) {
             $model->serialNumber = $map['serial_number'];
+        }
+        if (isset($map['start_time'])) {
+            $model->startTime = $map['start_time'];
         }
 
         return $model;
