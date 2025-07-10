@@ -1,0 +1,71 @@
+{
+  "scope": "antchain",
+  "name": "MDPAPI",
+  "version": "1.0.0",
+  "main": "./main.tea",
+  "maintainers": [
+    {
+      "name": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  ],
+  "releases": {
+    "java": "com.antgroup.antchain.openapi:openapi-mdpapi:1.1.0",
+    "go": "github.com/antchain-openapi-sdk-go/l4-mdpapi/client:v1.1.0",
+    "csharp": "AntChain.SDK.MDPAPI:1.1.0",
+    "ts": "@antchain/mdpapi:1.1.0",
+    "php": "antchain/mdpapi:1.1.0",
+    "python": "antchain_sdk_mdpapi:1.1.0"
+  },
+  "libraries": {
+    "Util": "darabonba:Util:*",
+    "RPCUtil": "alibabacloud:RPCUtil:*",
+    "AntchainUtil": "antchain:AntchainUtil:*"
+  },
+  "java": {
+    "package": "com.antgroup.antchain.openapi.mdpapi",
+    "packageInfo": {
+      "description": "Ant Chain MDPAPI SDK for Java",
+      "url": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "licenseNmae": "The Apache License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "developerId": "alipayproducts",
+      "developerName": "Ant Chain SDK",
+      "groupId": "com.antgroup.antchain.openapi",
+      "developerEmail": "alipaysdk@alipay.com"
+    }
+  },
+  "csharp": {
+    "className": "Client",
+    "namespace": "AntChain.SDK.MDPAPI",
+    "packageInfo": {
+      "name": "mdpapi",
+      "title": "antchain-mdpapi",
+      "description": "Ant Chain MDPAPI SDK Library for .NET",
+      "company": "Ant Chain, Inc"
+    }
+  },
+  "php": {
+    "package": "AntChain.MDPAPI",
+    "clientName": "Client",
+    "packageInfo": {
+      "name": "antchain/mdpapi",
+      "desc": "Ant Chain SDK Library for PHP",
+      "github": "https://github.com/alipay/antchain-openapi-sdk-php",
+      "files": {
+        "LICENSE": "../LICENSE"
+      }
+    }
+  },
+  "python": {
+    "package": "antchain_sdk_mdpapi",
+    "clientName": "client",
+    "packageInfo": {
+      "name": "antchain_mdpapi",
+      "desc": "Ant Chain MDPAPI SDK Library for Python",
+      "github": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "author": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  }
+}
