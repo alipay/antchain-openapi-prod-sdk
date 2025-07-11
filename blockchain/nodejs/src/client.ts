@@ -6968,33 +6968,33 @@ export class OCUserData extends $tea.Model {
 
 // 车五项信息
 export class CarItemsInfo extends $tea.Model {
-  // 品牌名称
-  brandName?: string;
   // 车架号
   vin?: string;
   // 发动机号
   engineNo?: string;
   // 注册日期
   registerDate?: string;
-  // 车辆型号
+  // 品牌车型
   modelCode?: string;
+  // 营运性质
+  useNatureCode?: string;
   static names(): { [key: string]: string } {
     return {
-      brandName: 'brand_name',
       vin: 'vin',
       engineNo: 'engine_no',
       registerDate: 'register_date',
       modelCode: 'model_code',
+      useNatureCode: 'use_nature_code',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      brandName: 'string',
       vin: 'string',
       engineNo: 'string',
       registerDate: 'string',
       modelCode: 'string',
+      useNatureCode: 'string',
     };
   }
 
@@ -55069,7 +55069,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.53",
+          sdk_version: "1.28.54",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
