@@ -5,32 +5,60 @@ import com.aliyun.tea.*;
 
 public class EntrustGuaranteeProduct extends TeaModel {
     // 保障失效时间
+    /**
+     * <strong>example:</strong>
+     * <p>1733711492119</p>
+     */
     @NameInMap("guarantee_expiry_date")
     @Validation(required = true)
     public Long guaranteeExpiryDate;
 
     // 保障生效时间
+    /**
+     * <strong>example:</strong>
+     * <p>1733711492119</p>
+     */
     @NameInMap("guarantee_effective_date")
     @Validation(required = true)
     public Long guaranteeEffectiveDate;
 
     // 保险等待期结束时间
+    /**
+     * <strong>example:</strong>
+     * <p>1733711492119</p>
+     */
     @NameInMap("waiting_period_dead_line")
     public Long waitingPeriodDeadLine;
 
     // 保单号
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxx</p>
+     */
     @NameInMap("policy_no")
     public String policyNo;
 
     // 平台定义产品码值
+    /**
+     * <strong>example:</strong>
+     * <p>平台定义产品码值</p>
+     */
     @NameInMap("guarantee_product_code")
     public String guaranteeProductCode;
 
     // 保险公司的产品code
+    /**
+     * <strong>example:</strong>
+     * <p>保险公司的产品code</p>
+     */
     @NameInMap("insurance_product_code")
     public String insuranceProductCode;
 
     // 保险公司的产品描述
+    /**
+     * <strong>example:</strong>
+     * <p>保险公司的产品描述</p>
+     */
     @NameInMap("insurance_product_name")
     public String insuranceProductName;
 

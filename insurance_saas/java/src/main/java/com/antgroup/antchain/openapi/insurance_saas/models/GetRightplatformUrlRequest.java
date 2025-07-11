@@ -1,0 +1,128 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.insurance_saas.models;
+
+import com.aliyun.tea.*;
+
+public class GetRightplatformUrlRequest extends TeaModel {
+    // OAuth模式下的授权token
+    @NameInMap("auth_token")
+    public String authToken;
+
+    // 权益申请编号
+    @NameInMap("right_apply_no")
+    @Validation(required = true)
+    public String rightApplyNo;
+
+    // 申请额度，最多保留小数点后两位
+    @NameInMap("apply_limit_amount")
+    @Validation(required = true)
+    public String applyLimitAmount;
+
+    // 数据授权方名称
+    @NameInMap("data_licensor")
+    @Validation(required = true)
+    public String dataLicensor;
+
+    // 回调场景方地址
+    @NameInMap("callback_url")
+    @Validation(required = true)
+    public String callbackUrl;
+
+    // 产品编码
+    @NameInMap("product_code")
+    @Validation(required = true)
+    public String productCode;
+
+    // 用户姓名 加密后传输
+    @NameInMap("tbr_name")
+    @Validation(required = true)
+    public String tbrName;
+
+    // 用户手机号，加密 && 脱敏传输
+    @NameInMap("tbr_phone")
+    @Validation(required = true)
+    public String tbrPhone;
+
+    // 身份证， 加密 && 脱敏传输
+    @NameInMap("tbr_id_card")
+    @Validation(required = true)
+    public String tbrIdCard;
+
+    public static GetRightplatformUrlRequest build(java.util.Map<String, ?> map) throws Exception {
+        GetRightplatformUrlRequest self = new GetRightplatformUrlRequest();
+        return TeaModel.build(map, self);
+    }
+
+    public GetRightplatformUrlRequest setAuthToken(String authToken) {
+        this.authToken = authToken;
+        return this;
+    }
+    public String getAuthToken() {
+        return this.authToken;
+    }
+
+    public GetRightplatformUrlRequest setRightApplyNo(String rightApplyNo) {
+        this.rightApplyNo = rightApplyNo;
+        return this;
+    }
+    public String getRightApplyNo() {
+        return this.rightApplyNo;
+    }
+
+    public GetRightplatformUrlRequest setApplyLimitAmount(String applyLimitAmount) {
+        this.applyLimitAmount = applyLimitAmount;
+        return this;
+    }
+    public String getApplyLimitAmount() {
+        return this.applyLimitAmount;
+    }
+
+    public GetRightplatformUrlRequest setDataLicensor(String dataLicensor) {
+        this.dataLicensor = dataLicensor;
+        return this;
+    }
+    public String getDataLicensor() {
+        return this.dataLicensor;
+    }
+
+    public GetRightplatformUrlRequest setCallbackUrl(String callbackUrl) {
+        this.callbackUrl = callbackUrl;
+        return this;
+    }
+    public String getCallbackUrl() {
+        return this.callbackUrl;
+    }
+
+    public GetRightplatformUrlRequest setProductCode(String productCode) {
+        this.productCode = productCode;
+        return this;
+    }
+    public String getProductCode() {
+        return this.productCode;
+    }
+
+    public GetRightplatformUrlRequest setTbrName(String tbrName) {
+        this.tbrName = tbrName;
+        return this;
+    }
+    public String getTbrName() {
+        return this.tbrName;
+    }
+
+    public GetRightplatformUrlRequest setTbrPhone(String tbrPhone) {
+        this.tbrPhone = tbrPhone;
+        return this;
+    }
+    public String getTbrPhone() {
+        return this.tbrPhone;
+    }
+
+    public GetRightplatformUrlRequest setTbrIdCard(String tbrIdCard) {
+        this.tbrIdCard = tbrIdCard;
+        return this;
+    }
+    public String getTbrIdCard() {
+        return this.tbrIdCard;
+    }
+
+}

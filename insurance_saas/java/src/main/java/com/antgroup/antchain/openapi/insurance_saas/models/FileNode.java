@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class FileNode extends TeaModel {
     // 可访问的文件链接
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://xxxx">http://xxxx</a></p>
+     */
     @NameInMap("url")
     @Validation(required = true)
     public String url;
 
     // 文件名
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxx.pdf</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
