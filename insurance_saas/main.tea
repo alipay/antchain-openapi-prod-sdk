@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.14',
+    sdk_version = '1.9.2',
     _prod_code = 'INSURANCE_SAAS',
     _prod_channel = 'undefined'
   };
@@ -1498,5 +1498,376 @@ async function getEmbedoemautoinsuranceUrl(request: GetEmbedoemautoinsuranceUrlR
 async function getEmbedoemautoinsuranceUrlEx(request: GetEmbedoemautoinsuranceUrlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetEmbedoemautoinsuranceUrlResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.insurance.embedoemautoinsurance.url.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetRightplatformUrlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 权益申请编号
+  rightApplyNo: string(name='right_apply_no'),
+  // 申请额度，最多保留小数点后两位
+  applyLimitAmount: string(name='apply_limit_amount'),
+  // 数据授权方名称
+  dataLicensor: string(name='data_licensor'),
+  // 回调场景方地址
+  callbackUrl: string(name='callback_url'),
+  // 产品编码
+  productCode: string(name='product_code'),
+  // 用户姓名 加密后传输
+  tbrName: string(name='tbr_name'),
+  // 用户手机号，加密 && 脱敏传输
+  tbrPhone: string(name='tbr_phone'),
+  // 身份证， 加密 && 脱敏传输
+  tbrIdCard: string(name='tbr_id_card'),
+}
+
+model GetRightplatformUrlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 权益申请编号
+  rightApplyNo?: string(name='right_apply_no'),
+  // 权益产品地址
+  rightUrl?: string(name='right_url'),
+  // 两轮车延保险产品id
+  // 
+  productId?: string(name='product_id'),
+}
+
+/**
+ * Description: 场景方获取权益链接 
+ * Summary: 场景方获取权益链接
+ */
+async function getRightplatformUrl(request: GetRightplatformUrlRequest): GetRightplatformUrlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getRightplatformUrlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 场景方获取权益链接 
+ * Summary: 场景方获取权益链接
+ */
+async function getRightplatformUrlEx(request: GetRightplatformUrlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetRightplatformUrlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.rightplatform.url.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateRightplatformApplyinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 申请权益编号
+  rightApplyNo: string(name='right_apply_no'),
+  // 申请额度
+  applyLimitAmount: string(name='apply_limit_amount'),
+  // 申请额度状态
+  applyStatus: string(name='apply_status'),
+  // 投保信息，json字符串
+  applyInfo: string(name='apply_info'),
+  // 产品编码
+  productCode: string(name='product_code'),
+}
+
+model UpdateRightplatformApplyinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 申请权益编号
+  rightApplyNo?: string(name='right_apply_no'),
+}
+
+/**
+ * Description: 更新申请额度状态&投保人信息
+ * Summary: 更新申请额度状态&投保人信息
+ */
+async function updateRightplatformApplyinfo(request: UpdateRightplatformApplyinfoRequest): UpdateRightplatformApplyinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateRightplatformApplyinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新申请额度状态&投保人信息
+ * Summary: 更新申请额度状态&投保人信息
+ */
+async function updateRightplatformApplyinfoEx(request: UpdateRightplatformApplyinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateRightplatformApplyinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.rightplatform.applyinfo.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyInterestScenesubjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 请求流水号，每次请求不一样
+  requestNo: string(name='request_no'),
+  // 权益流水号
+  interestNo: string(name='interest_no'),
+  // 产品编码
+  productCode: string(name='product_code'),
+  // 申请审批额度，单位元
+  applyLimitAmount: string(name='apply_limit_amount'),
+  // 申请额度审批状态
+  applyLimitStatus: string(name='apply_limit_status'),
+  // 权益标的信息,JSON字符串
+  interestSubjectInfo: string(name='interest_subject_info'),
+}
+
+model NotifyInterestScenesubjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // json字符串
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 场景方标的信息通知
+ * Summary: 场景方标的信息通知
+ */
+async function notifyInterestScenesubject(request: NotifyInterestScenesubjectRequest): NotifyInterestScenesubjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyInterestScenesubjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 场景方标的信息通知
+ * Summary: 场景方标的信息通知
+ */
+async function notifyInterestScenesubjectEx(request: NotifyInterestScenesubjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyInterestScenesubjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.interest.scenesubject.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryInterestSuppliersubjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 订单号
+  orderNo: string(name='order_no'),
+  // 权益流水号
+  interestNo: string(name='interest_no'),
+}
+
+model QueryInterestSuppliersubjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // json字符串
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 权益服务商标的信息查询
+ * Summary: 权益服务商标的信息查询
+ */
+async function queryInterestSuppliersubject(request: QueryInterestSuppliersubjectRequest): QueryInterestSuppliersubjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryInterestSuppliersubjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 权益服务商标的信息查询
+ * Summary: 权益服务商标的信息查询
+ */
+async function queryInterestSuppliersubjectEx(request: QueryInterestSuppliersubjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInterestSuppliersubjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.interest.suppliersubject.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyInterestSupplierpolicyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 请求流水号，每次推送需要唯一
+  requestNo: string(name='request_no'),
+  // 权益订单号
+  orderNo: string(name='order_no'),
+  // 保单信息 json字符串
+  policyInfo: string(name='policy_info'),
+}
+
+model NotifyInterestSupplierpolicyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // json字符串
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 权益服务商投保后通知保单信息
+ * Summary: 权益服务商投保后通知保单信息
+ */
+async function notifyInterestSupplierpolicy(request: NotifyInterestSupplierpolicyRequest): NotifyInterestSupplierpolicyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyInterestSupplierpolicyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 权益服务商投保后通知保单信息
+ * Summary: 权益服务商投保后通知保单信息
+ */
+async function notifyInterestSupplierpolicyEx(request: NotifyInterestSupplierpolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyInterestSupplierpolicyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.interest.supplierpolicy.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetInterestUrlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 权益申请编号，重新提交需要不一样
+  rightApplyNo: string(name='right_apply_no'),
+  // 	
+  // 申请额度，最多保留小数点后两位，单位元
+  applyLimitAmount: string(name='apply_limit_amount'),
+  // 	
+  // 数据授权方名称
+  dataLicensor: string(name='data_licensor'),
+  // 回调场景方地址
+  callbackUrl?: string(name='callback_url'),
+  // 权益产品编码，暂时固定
+  productCode: string(name='product_code'),
+  // 用户姓名 明文
+  tbrName: string(name='tbr_name'),
+  // 用户手机号，明文
+  tbrPhone: string(name='tbr_phone'),
+  // 用户身份证，明文
+  tbrIdCard: string(name='tbr_id_card'),
+}
+
+model GetInterestUrlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // json字符串
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 场景方获取权益链接
+ * Summary: 场景方获取权益链接
+ */
+async function getInterestUrl(request: GetInterestUrlRequest): GetInterestUrlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getInterestUrlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 场景方获取权益链接
+ * Summary: 场景方获取权益链接
+ */
+async function getInterestUrlEx(request: GetInterestUrlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetInterestUrlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.interest.url.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryInterestSceneorderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 请求流水号
+  requestNo: string(name='request_no'),
+  // 我方权益申请流水号
+  interestNo: string(name='interest_no'),
+  // 产品编码
+  productCode: string(name='product_code'),
+}
+
+model QueryInterestSceneorderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // json字符串
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 场景方订单信息查询
+ * Summary: 场景方订单信息查询
+ */
+async function queryInterestSceneorder(request: QueryInterestSceneorderRequest): QueryInterestSceneorderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryInterestSceneorderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 场景方订单信息查询
+ * Summary: 场景方订单信息查询
+ */
+async function queryInterestSceneorderEx(request: QueryInterestSceneorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInterestSceneorderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.interest.sceneorder.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyInterestSupplierorderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 请求流水号，每次唯一
+  requestNo: string(name='request_no'),
+  // 贵方订单号
+  orderNo: string(name='order_no'),
+  // 我方权益编号
+  interestNo: string(name='interest_no'),
+  // 用户授权状态
+  userPermitStatus: string(name='user_permit_status'),
+  // 权益订单状态
+  orderStatus: string(name='order_status'),
+  // 退款金额，单位元
+  refundAmount?: string(name='refund_amount'),
+  // 退款时间
+  refundTime?: string(name='refund_time'),
+}
+
+model NotifyInterestSupplierorderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // json字符串
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 权益服务商订单状态通知
+ * Summary: 权益服务商订单状态通知
+ */
+async function notifyInterestSupplierorder(request: NotifyInterestSupplierorderRequest): NotifyInterestSupplierorderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyInterestSupplierorderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 权益服务商订单状态通知
+ * Summary: 权益服务商订单状态通知
+ */
+async function notifyInterestSupplierorderEx(request: NotifyInterestSupplierorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyInterestSupplierorderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.interest.supplierorder.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
