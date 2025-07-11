@@ -10,11 +10,6 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
 {
     // 车五项信息
     public class CarItemsInfo : TeaModel {
-        // 品牌名称
-        [NameInMap("brand_name")]
-        [Validation(Required=false)]
-        public string BrandName { get; set; }
-
         // 车架号
         [NameInMap("vin")]
         [Validation(Required=false)]
@@ -30,10 +25,15 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string RegisterDate { get; set; }
 
-        // 车辆型号
+        // 品牌车型
         [NameInMap("model_code")]
         [Validation(Required=false)]
         public string ModelCode { get; set; }
+
+        // 营运性质
+        [NameInMap("use_nature_code")]
+        [Validation(Required=false)]
+        public string UseNatureCode { get; set; }
 
     }
 
