@@ -2352,6 +2352,601 @@ export class GetEmbedoemautoinsuranceUrlResponse extends $tea.Model {
   }
 }
 
+export class GetRightplatformUrlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 权益申请编号
+  rightApplyNo: string;
+  // 申请额度，最多保留小数点后两位
+  applyLimitAmount: string;
+  // 数据授权方名称
+  dataLicensor: string;
+  // 回调场景方地址
+  callbackUrl: string;
+  // 产品编码
+  productCode: string;
+  // 用户姓名 加密后传输
+  tbrName: string;
+  // 用户手机号，加密 && 脱敏传输
+  tbrPhone: string;
+  // 身份证， 加密 && 脱敏传输
+  tbrIdCard: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      rightApplyNo: 'right_apply_no',
+      applyLimitAmount: 'apply_limit_amount',
+      dataLicensor: 'data_licensor',
+      callbackUrl: 'callback_url',
+      productCode: 'product_code',
+      tbrName: 'tbr_name',
+      tbrPhone: 'tbr_phone',
+      tbrIdCard: 'tbr_id_card',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      rightApplyNo: 'string',
+      applyLimitAmount: 'string',
+      dataLicensor: 'string',
+      callbackUrl: 'string',
+      productCode: 'string',
+      tbrName: 'string',
+      tbrPhone: 'string',
+      tbrIdCard: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetRightplatformUrlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 权益申请编号
+  rightApplyNo?: string;
+  // 权益产品地址
+  rightUrl?: string;
+  // 两轮车延保险产品id
+  // 
+  productId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      rightApplyNo: 'right_apply_no',
+      rightUrl: 'right_url',
+      productId: 'product_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      rightApplyNo: 'string',
+      rightUrl: 'string',
+      productId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateRightplatformApplyinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 申请权益编号
+  rightApplyNo: string;
+  // 申请额度
+  applyLimitAmount: string;
+  // 申请额度状态
+  applyStatus: string;
+  // 投保信息，json字符串
+  applyInfo: string;
+  // 产品编码
+  productCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      rightApplyNo: 'right_apply_no',
+      applyLimitAmount: 'apply_limit_amount',
+      applyStatus: 'apply_status',
+      applyInfo: 'apply_info',
+      productCode: 'product_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      rightApplyNo: 'string',
+      applyLimitAmount: 'string',
+      applyStatus: 'string',
+      applyInfo: 'string',
+      productCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateRightplatformApplyinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 申请权益编号
+  rightApplyNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      rightApplyNo: 'right_apply_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      rightApplyNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyInterestScenesubjectRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 请求流水号，每次请求不一样
+  requestNo: string;
+  // 权益流水号
+  interestNo: string;
+  // 产品编码
+  productCode: string;
+  // 申请审批额度，单位元
+  applyLimitAmount: string;
+  // 申请额度审批状态
+  applyLimitStatus: string;
+  // 权益标的信息,JSON字符串
+  interestSubjectInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestNo: 'request_no',
+      interestNo: 'interest_no',
+      productCode: 'product_code',
+      applyLimitAmount: 'apply_limit_amount',
+      applyLimitStatus: 'apply_limit_status',
+      interestSubjectInfo: 'interest_subject_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestNo: 'string',
+      interestNo: 'string',
+      productCode: 'string',
+      applyLimitAmount: 'string',
+      applyLimitStatus: 'string',
+      interestSubjectInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyInterestScenesubjectResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // json字符串
+  bizResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizResult: 'biz_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInterestSuppliersubjectRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 订单号
+  orderNo: string;
+  // 权益流水号
+  interestNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      orderNo: 'order_no',
+      interestNo: 'interest_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      orderNo: 'string',
+      interestNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInterestSuppliersubjectResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // json字符串
+  bizResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizResult: 'biz_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyInterestSupplierpolicyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 请求流水号，每次推送需要唯一
+  requestNo: string;
+  // 权益订单号
+  orderNo: string;
+  // 保单信息 json字符串
+  policyInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestNo: 'request_no',
+      orderNo: 'order_no',
+      policyInfo: 'policy_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestNo: 'string',
+      orderNo: 'string',
+      policyInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyInterestSupplierpolicyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // json字符串
+  bizResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizResult: 'biz_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetInterestUrlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 权益申请编号，重新提交需要不一样
+  rightApplyNo: string;
+  // 	
+  // 申请额度，最多保留小数点后两位，单位元
+  applyLimitAmount: string;
+  // 	
+  // 数据授权方名称
+  dataLicensor: string;
+  // 回调场景方地址
+  callbackUrl?: string;
+  // 权益产品编码，暂时固定
+  productCode: string;
+  // 用户姓名 明文
+  tbrName: string;
+  // 用户手机号，明文
+  tbrPhone: string;
+  // 用户身份证，明文
+  tbrIdCard: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      rightApplyNo: 'right_apply_no',
+      applyLimitAmount: 'apply_limit_amount',
+      dataLicensor: 'data_licensor',
+      callbackUrl: 'callback_url',
+      productCode: 'product_code',
+      tbrName: 'tbr_name',
+      tbrPhone: 'tbr_phone',
+      tbrIdCard: 'tbr_id_card',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      rightApplyNo: 'string',
+      applyLimitAmount: 'string',
+      dataLicensor: 'string',
+      callbackUrl: 'string',
+      productCode: 'string',
+      tbrName: 'string',
+      tbrPhone: 'string',
+      tbrIdCard: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetInterestUrlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // json字符串
+  bizResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizResult: 'biz_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInterestSceneorderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 请求流水号
+  requestNo: string;
+  // 我方权益申请流水号
+  interestNo: string;
+  // 产品编码
+  productCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestNo: 'request_no',
+      interestNo: 'interest_no',
+      productCode: 'product_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestNo: 'string',
+      interestNo: 'string',
+      productCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInterestSceneorderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // json字符串
+  bizResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizResult: 'biz_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyInterestSupplierorderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 请求流水号，每次唯一
+  requestNo: string;
+  // 贵方订单号
+  orderNo: string;
+  // 我方权益编号
+  interestNo: string;
+  // 用户授权状态
+  userPermitStatus: string;
+  // 权益订单状态
+  orderStatus: string;
+  // 退款金额，单位元
+  refundAmount?: string;
+  // 退款时间
+  refundTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestNo: 'request_no',
+      orderNo: 'order_no',
+      interestNo: 'interest_no',
+      userPermitStatus: 'user_permit_status',
+      orderStatus: 'order_status',
+      refundAmount: 'refund_amount',
+      refundTime: 'refund_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestNo: 'string',
+      orderNo: 'string',
+      interestNo: 'string',
+      userPermitStatus: 'string',
+      orderStatus: 'string',
+      refundAmount: 'string',
+      refundTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyInterestSupplierorderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // json字符串
+  bizResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizResult: 'biz_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -2465,7 +3060,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.14",
+          sdk_version: "1.9.2",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
@@ -2967,6 +3562,158 @@ export default class Client {
   async getEmbedoemautoinsuranceUrlEx(request: GetEmbedoemautoinsuranceUrlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetEmbedoemautoinsuranceUrlResponse> {
     Util.validateModel(request);
     return $tea.cast<GetEmbedoemautoinsuranceUrlResponse>(await this.doRequest("1.0", "antcloud.insurance.embedoemautoinsurance.url.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetEmbedoemautoinsuranceUrlResponse({}));
+  }
+
+  /**
+   * Description: 场景方获取权益链接 
+   * Summary: 场景方获取权益链接
+   */
+  async getRightplatformUrl(request: GetRightplatformUrlRequest): Promise<GetRightplatformUrlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getRightplatformUrlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 场景方获取权益链接 
+   * Summary: 场景方获取权益链接
+   */
+  async getRightplatformUrlEx(request: GetRightplatformUrlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetRightplatformUrlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetRightplatformUrlResponse>(await this.doRequest("1.0", "antcloud.insurance.rightplatform.url.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetRightplatformUrlResponse({}));
+  }
+
+  /**
+   * Description: 更新申请额度状态&投保人信息
+   * Summary: 更新申请额度状态&投保人信息
+   */
+  async updateRightplatformApplyinfo(request: UpdateRightplatformApplyinfoRequest): Promise<UpdateRightplatformApplyinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateRightplatformApplyinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 更新申请额度状态&投保人信息
+   * Summary: 更新申请额度状态&投保人信息
+   */
+  async updateRightplatformApplyinfoEx(request: UpdateRightplatformApplyinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateRightplatformApplyinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateRightplatformApplyinfoResponse>(await this.doRequest("1.0", "antcloud.insurance.rightplatform.applyinfo.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateRightplatformApplyinfoResponse({}));
+  }
+
+  /**
+   * Description: 场景方标的信息通知
+   * Summary: 场景方标的信息通知
+   */
+  async notifyInterestScenesubject(request: NotifyInterestScenesubjectRequest): Promise<NotifyInterestScenesubjectResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.notifyInterestScenesubjectEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 场景方标的信息通知
+   * Summary: 场景方标的信息通知
+   */
+  async notifyInterestScenesubjectEx(request: NotifyInterestScenesubjectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyInterestScenesubjectResponse> {
+    Util.validateModel(request);
+    return $tea.cast<NotifyInterestScenesubjectResponse>(await this.doRequest("1.0", "antcloud.insurance.interest.scenesubject.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyInterestScenesubjectResponse({}));
+  }
+
+  /**
+   * Description: 权益服务商标的信息查询
+   * Summary: 权益服务商标的信息查询
+   */
+  async queryInterestSuppliersubject(request: QueryInterestSuppliersubjectRequest): Promise<QueryInterestSuppliersubjectResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryInterestSuppliersubjectEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 权益服务商标的信息查询
+   * Summary: 权益服务商标的信息查询
+   */
+  async queryInterestSuppliersubjectEx(request: QueryInterestSuppliersubjectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInterestSuppliersubjectResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryInterestSuppliersubjectResponse>(await this.doRequest("1.0", "antcloud.insurance.interest.suppliersubject.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryInterestSuppliersubjectResponse({}));
+  }
+
+  /**
+   * Description: 权益服务商投保后通知保单信息
+   * Summary: 权益服务商投保后通知保单信息
+   */
+  async notifyInterestSupplierpolicy(request: NotifyInterestSupplierpolicyRequest): Promise<NotifyInterestSupplierpolicyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.notifyInterestSupplierpolicyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 权益服务商投保后通知保单信息
+   * Summary: 权益服务商投保后通知保单信息
+   */
+  async notifyInterestSupplierpolicyEx(request: NotifyInterestSupplierpolicyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyInterestSupplierpolicyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<NotifyInterestSupplierpolicyResponse>(await this.doRequest("1.0", "antcloud.insurance.interest.supplierpolicy.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyInterestSupplierpolicyResponse({}));
+  }
+
+  /**
+   * Description: 场景方获取权益链接
+   * Summary: 场景方获取权益链接
+   */
+  async getInterestUrl(request: GetInterestUrlRequest): Promise<GetInterestUrlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getInterestUrlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 场景方获取权益链接
+   * Summary: 场景方获取权益链接
+   */
+  async getInterestUrlEx(request: GetInterestUrlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetInterestUrlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetInterestUrlResponse>(await this.doRequest("1.0", "antcloud.insurance.interest.url.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetInterestUrlResponse({}));
+  }
+
+  /**
+   * Description: 场景方订单信息查询
+   * Summary: 场景方订单信息查询
+   */
+  async queryInterestSceneorder(request: QueryInterestSceneorderRequest): Promise<QueryInterestSceneorderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryInterestSceneorderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 场景方订单信息查询
+   * Summary: 场景方订单信息查询
+   */
+  async queryInterestSceneorderEx(request: QueryInterestSceneorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInterestSceneorderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryInterestSceneorderResponse>(await this.doRequest("1.0", "antcloud.insurance.interest.sceneorder.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryInterestSceneorderResponse({}));
+  }
+
+  /**
+   * Description: 权益服务商订单状态通知
+   * Summary: 权益服务商订单状态通知
+   */
+  async notifyInterestSupplierorder(request: NotifyInterestSupplierorderRequest): Promise<NotifyInterestSupplierorderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.notifyInterestSupplierorderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 权益服务商订单状态通知
+   * Summary: 权益服务商订单状态通知
+   */
+  async notifyInterestSupplierorderEx(request: NotifyInterestSupplierorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyInterestSupplierorderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<NotifyInterestSupplierorderResponse>(await this.doRequest("1.0", "antcloud.insurance.interest.supplierorder.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyInterestSupplierorderResponse({}));
   }
 
 }
