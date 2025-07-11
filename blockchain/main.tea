@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.28.53',
+    sdk_version = '1.28.54',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -2816,16 +2816,16 @@ model OCUserData {
 
 // 车五项信息
 model CarItemsInfo {
-  // 品牌名称
-  brandName?: string(name='brand_name', example='XXX'),
   // 车架号
   vin?: string(name='vin', example='XXX'),
   // 发动机号
   engineNo?: string(name='engine_no', example='XXX'),
   // 注册日期
   registerDate?: string(name='register_date', example='XXX'),
-  // 车辆型号
+  // 品牌车型
   modelCode?: string(name='model_code', example='XXX'),
+  // 营运性质
+  useNatureCode?: string(name='use_nature_code', example='XXX'),
 }
 
 // 用户身份信息
