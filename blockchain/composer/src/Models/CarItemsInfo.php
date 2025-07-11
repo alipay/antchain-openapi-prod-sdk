@@ -8,14 +8,6 @@ use AlibabaCloud\Tea\Model;
 
 class CarItemsInfo extends Model
 {
-    // 品牌名称
-    /**
-     * @example XXX
-     *
-     * @var string
-     */
-    public $brandName;
-
     // 车架号
     /**
      * @example XXX
@@ -40,19 +32,27 @@ class CarItemsInfo extends Model
      */
     public $registerDate;
 
-    // 车辆型号
+    // 品牌车型
     /**
      * @example XXX
      *
      * @var string
      */
     public $modelCode;
+
+    // 营运性质
+    /**
+     * @example XXX
+     *
+     * @var string
+     */
+    public $useNatureCode;
     protected $_name = [
-        'brandName'    => 'brand_name',
-        'vin'          => 'vin',
-        'engineNo'     => 'engine_no',
-        'registerDate' => 'register_date',
-        'modelCode'    => 'model_code',
+        'vin'           => 'vin',
+        'engineNo'      => 'engine_no',
+        'registerDate'  => 'register_date',
+        'modelCode'     => 'model_code',
+        'useNatureCode' => 'use_nature_code',
     ];
 
     public function validate()
@@ -62,9 +62,6 @@ class CarItemsInfo extends Model
     public function toMap()
     {
         $res = [];
-        if (null !== $this->brandName) {
-            $res['brand_name'] = $this->brandName;
-        }
         if (null !== $this->vin) {
             $res['vin'] = $this->vin;
         }
@@ -76,6 +73,9 @@ class CarItemsInfo extends Model
         }
         if (null !== $this->modelCode) {
             $res['model_code'] = $this->modelCode;
+        }
+        if (null !== $this->useNatureCode) {
+            $res['use_nature_code'] = $this->useNatureCode;
         }
 
         return $res;
@@ -89,9 +89,6 @@ class CarItemsInfo extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['brand_name'])) {
-            $model->brandName = $map['brand_name'];
-        }
         if (isset($map['vin'])) {
             $model->vin = $map['vin'];
         }
@@ -103,6 +100,9 @@ class CarItemsInfo extends Model
         }
         if (isset($map['model_code'])) {
             $model->modelCode = $map['model_code'];
+        }
+        if (isset($map['use_nature_code'])) {
+            $model->useNatureCode = $map['use_nature_code'];
         }
 
         return $model;
