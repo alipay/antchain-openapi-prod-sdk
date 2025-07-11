@@ -31,8 +31,18 @@ use AntChain\INSURANCE_SAAS\Models\GetEmbedcardUrlRequest;
 use AntChain\INSURANCE_SAAS\Models\GetEmbedcardUrlResponse;
 use AntChain\INSURANCE_SAAS\Models\GetEmbedoemautoinsuranceUrlRequest;
 use AntChain\INSURANCE_SAAS\Models\GetEmbedoemautoinsuranceUrlResponse;
+use AntChain\INSURANCE_SAAS\Models\GetInterestUrlRequest;
+use AntChain\INSURANCE_SAAS\Models\GetInterestUrlResponse;
+use AntChain\INSURANCE_SAAS\Models\GetRightplatformUrlRequest;
+use AntChain\INSURANCE_SAAS\Models\GetRightplatformUrlResponse;
 use AntChain\INSURANCE_SAAS\Models\IssueEmbedcardPaysucRequest;
 use AntChain\INSURANCE_SAAS\Models\IssueEmbedcardPaysucResponse;
+use AntChain\INSURANCE_SAAS\Models\NotifyInterestScenesubjectRequest;
+use AntChain\INSURANCE_SAAS\Models\NotifyInterestScenesubjectResponse;
+use AntChain\INSURANCE_SAAS\Models\NotifyInterestSupplierorderRequest;
+use AntChain\INSURANCE_SAAS\Models\NotifyInterestSupplierorderResponse;
+use AntChain\INSURANCE_SAAS\Models\NotifyInterestSupplierpolicyRequest;
+use AntChain\INSURANCE_SAAS\Models\NotifyInterestSupplierpolicyResponse;
 use AntChain\INSURANCE_SAAS\Models\NotifyPolicyResultRequest;
 use AntChain\INSURANCE_SAAS\Models\NotifyPolicyResultResponse;
 use AntChain\INSURANCE_SAAS\Models\QueryDataDisasterRequest;
@@ -43,6 +53,10 @@ use AntChain\INSURANCE_SAAS\Models\QueryInquiryRequest;
 use AntChain\INSURANCE_SAAS\Models\QueryInquiryResponse;
 use AntChain\INSURANCE_SAAS\Models\QueryInsureResultRequest;
 use AntChain\INSURANCE_SAAS\Models\QueryInsureResultResponse;
+use AntChain\INSURANCE_SAAS\Models\QueryInterestSceneorderRequest;
+use AntChain\INSURANCE_SAAS\Models\QueryInterestSceneorderResponse;
+use AntChain\INSURANCE_SAAS\Models\QueryInterestSuppliersubjectRequest;
+use AntChain\INSURANCE_SAAS\Models\QueryInterestSuppliersubjectResponse;
 use AntChain\INSURANCE_SAAS\Models\QueryPolicyFileRequest;
 use AntChain\INSURANCE_SAAS\Models\QueryPolicyFileResponse;
 use AntChain\INSURANCE_SAAS\Models\QueryReverseCommissionRequest;
@@ -59,6 +73,8 @@ use AntChain\INSURANCE_SAAS\Models\SyncQuoteRequest;
 use AntChain\INSURANCE_SAAS\Models\SyncQuoteResponse;
 use AntChain\INSURANCE_SAAS\Models\UpdateClaimMaterialRequest;
 use AntChain\INSURANCE_SAAS\Models\UpdateClaimMaterialResponse;
+use AntChain\INSURANCE_SAAS\Models\UpdateRightplatformApplyinfoRequest;
+use AntChain\INSURANCE_SAAS\Models\UpdateRightplatformApplyinfoResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -206,7 +222,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.14',
+                    'sdk_version'      => '1.9.2',
                     '_prod_code'       => 'INSURANCE_SAAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1044,5 +1060,269 @@ class Client
         Utils::validateModel($request);
 
         return GetEmbedoemautoinsuranceUrlResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.embedoemautoinsurance.url.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 场景方获取权益链接
+     * Summary: 场景方获取权益链接.
+     *
+     * @param GetRightplatformUrlRequest $request
+     *
+     * @return GetRightplatformUrlResponse
+     */
+    public function getRightplatformUrl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getRightplatformUrlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 场景方获取权益链接
+     * Summary: 场景方获取权益链接.
+     *
+     * @param GetRightplatformUrlRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return GetRightplatformUrlResponse
+     */
+    public function getRightplatformUrlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetRightplatformUrlResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.rightplatform.url.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新申请额度状态&投保人信息
+     * Summary: 更新申请额度状态&投保人信息.
+     *
+     * @param UpdateRightplatformApplyinfoRequest $request
+     *
+     * @return UpdateRightplatformApplyinfoResponse
+     */
+    public function updateRightplatformApplyinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateRightplatformApplyinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新申请额度状态&投保人信息
+     * Summary: 更新申请额度状态&投保人信息.
+     *
+     * @param UpdateRightplatformApplyinfoRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return UpdateRightplatformApplyinfoResponse
+     */
+    public function updateRightplatformApplyinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateRightplatformApplyinfoResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.rightplatform.applyinfo.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 场景方标的信息通知
+     * Summary: 场景方标的信息通知.
+     *
+     * @param NotifyInterestScenesubjectRequest $request
+     *
+     * @return NotifyInterestScenesubjectResponse
+     */
+    public function notifyInterestScenesubject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyInterestScenesubjectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 场景方标的信息通知
+     * Summary: 场景方标的信息通知.
+     *
+     * @param NotifyInterestScenesubjectRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return NotifyInterestScenesubjectResponse
+     */
+    public function notifyInterestScenesubjectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyInterestScenesubjectResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.interest.scenesubject.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 权益服务商标的信息查询
+     * Summary: 权益服务商标的信息查询.
+     *
+     * @param QueryInterestSuppliersubjectRequest $request
+     *
+     * @return QueryInterestSuppliersubjectResponse
+     */
+    public function queryInterestSuppliersubject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInterestSuppliersubjectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 权益服务商标的信息查询
+     * Summary: 权益服务商标的信息查询.
+     *
+     * @param QueryInterestSuppliersubjectRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryInterestSuppliersubjectResponse
+     */
+    public function queryInterestSuppliersubjectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInterestSuppliersubjectResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.interest.suppliersubject.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 权益服务商投保后通知保单信息
+     * Summary: 权益服务商投保后通知保单信息.
+     *
+     * @param NotifyInterestSupplierpolicyRequest $request
+     *
+     * @return NotifyInterestSupplierpolicyResponse
+     */
+    public function notifyInterestSupplierpolicy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyInterestSupplierpolicyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 权益服务商投保后通知保单信息
+     * Summary: 权益服务商投保后通知保单信息.
+     *
+     * @param NotifyInterestSupplierpolicyRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return NotifyInterestSupplierpolicyResponse
+     */
+    public function notifyInterestSupplierpolicyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyInterestSupplierpolicyResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.interest.supplierpolicy.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 场景方获取权益链接
+     * Summary: 场景方获取权益链接.
+     *
+     * @param GetInterestUrlRequest $request
+     *
+     * @return GetInterestUrlResponse
+     */
+    public function getInterestUrl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getInterestUrlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 场景方获取权益链接
+     * Summary: 场景方获取权益链接.
+     *
+     * @param GetInterestUrlRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return GetInterestUrlResponse
+     */
+    public function getInterestUrlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetInterestUrlResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.interest.url.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 场景方订单信息查询
+     * Summary: 场景方订单信息查询.
+     *
+     * @param QueryInterestSceneorderRequest $request
+     *
+     * @return QueryInterestSceneorderResponse
+     */
+    public function queryInterestSceneorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInterestSceneorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 场景方订单信息查询
+     * Summary: 场景方订单信息查询.
+     *
+     * @param QueryInterestSceneorderRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryInterestSceneorderResponse
+     */
+    public function queryInterestSceneorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInterestSceneorderResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.interest.sceneorder.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 权益服务商订单状态通知
+     * Summary: 权益服务商订单状态通知.
+     *
+     * @param NotifyInterestSupplierorderRequest $request
+     *
+     * @return NotifyInterestSupplierorderResponse
+     */
+    public function notifyInterestSupplierorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyInterestSupplierorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 权益服务商订单状态通知
+     * Summary: 权益服务商订单状态通知.
+     *
+     * @param NotifyInterestSupplierorderRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return NotifyInterestSupplierorderResponse
+     */
+    public function notifyInterestSupplierorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyInterestSupplierorderResponse::fromMap($this->doRequest('1.0', 'antcloud.insurance.interest.supplierorder.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
