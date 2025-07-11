@@ -4,14 +4,6 @@ package com.antgroup.antchain.openapi.blockchain.models;
 import com.aliyun.tea.*;
 
 public class CarItemsInfo extends TeaModel {
-    // 品牌名称
-    /**
-     * <strong>example:</strong>
-     * <p>XXX</p>
-     */
-    @NameInMap("brand_name")
-    public String brandName;
-
     // 车架号
     /**
      * <strong>example:</strong>
@@ -36,7 +28,7 @@ public class CarItemsInfo extends TeaModel {
     @NameInMap("register_date")
     public String registerDate;
 
-    // 车辆型号
+    // 品牌车型
     /**
      * <strong>example:</strong>
      * <p>XXX</p>
@@ -44,17 +36,17 @@ public class CarItemsInfo extends TeaModel {
     @NameInMap("model_code")
     public String modelCode;
 
+    // 营运性质
+    /**
+     * <strong>example:</strong>
+     * <p>XXX</p>
+     */
+    @NameInMap("use_nature_code")
+    public String useNatureCode;
+
     public static CarItemsInfo build(java.util.Map<String, ?> map) throws Exception {
         CarItemsInfo self = new CarItemsInfo();
         return TeaModel.build(map, self);
-    }
-
-    public CarItemsInfo setBrandName(String brandName) {
-        this.brandName = brandName;
-        return this;
-    }
-    public String getBrandName() {
-        return this.brandName;
     }
 
     public CarItemsInfo setVin(String vin) {
@@ -87,6 +79,14 @@ public class CarItemsInfo extends TeaModel {
     }
     public String getModelCode() {
         return this.modelCode;
+    }
+
+    public CarItemsInfo setUseNatureCode(String useNatureCode) {
+        this.useNatureCode = useNatureCode;
+        return this;
+    }
+    public String getUseNatureCode() {
+        return this.useNatureCode;
     }
 
 }
