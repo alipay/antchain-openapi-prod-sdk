@@ -9055,16 +9055,16 @@ func (s *OCUserData) SetUserName(v string) *OCUserData {
 
 // 车五项信息
 type CarItemsInfo struct {
-	// 品牌名称
-	BrandName *string `json:"brand_name,omitempty" xml:"brand_name,omitempty"`
 	// 车架号
 	Vin *string `json:"vin,omitempty" xml:"vin,omitempty"`
 	// 发动机号
 	EngineNo *string `json:"engine_no,omitempty" xml:"engine_no,omitempty"`
 	// 注册日期
 	RegisterDate *string `json:"register_date,omitempty" xml:"register_date,omitempty"`
-	// 车辆型号
+	// 品牌车型
 	ModelCode *string `json:"model_code,omitempty" xml:"model_code,omitempty"`
+	// 营运性质
+	UseNatureCode *string `json:"use_nature_code,omitempty" xml:"use_nature_code,omitempty"`
 }
 
 func (s CarItemsInfo) String() string {
@@ -9073,11 +9073,6 @@ func (s CarItemsInfo) String() string {
 
 func (s CarItemsInfo) GoString() string {
 	return s.String()
-}
-
-func (s *CarItemsInfo) SetBrandName(v string) *CarItemsInfo {
-	s.BrandName = &v
-	return s
 }
 
 func (s *CarItemsInfo) SetVin(v string) *CarItemsInfo {
@@ -9097,6 +9092,11 @@ func (s *CarItemsInfo) SetRegisterDate(v string) *CarItemsInfo {
 
 func (s *CarItemsInfo) SetModelCode(v string) *CarItemsInfo {
 	s.ModelCode = &v
+	return s
+}
+
+func (s *CarItemsInfo) SetUseNatureCode(v string) *CarItemsInfo {
+	s.UseNatureCode = &v
 	return s
 }
 
@@ -71525,7 +71525,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.53"),
+				"sdk_version":      tea.String("1.28.54"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
