@@ -3237,6 +3237,773 @@ func (s *GetEmbedoemautoinsuranceUrlResponse) SetRequestNo(v string) *GetEmbedoe
 	return s
 }
 
+type GetRightplatformUrlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 权益申请编号
+	RightApplyNo *string `json:"right_apply_no,omitempty" xml:"right_apply_no,omitempty" require:"true"`
+	// 申请额度，最多保留小数点后两位
+	ApplyLimitAmount *string `json:"apply_limit_amount,omitempty" xml:"apply_limit_amount,omitempty" require:"true"`
+	// 数据授权方名称
+	DataLicensor *string `json:"data_licensor,omitempty" xml:"data_licensor,omitempty" require:"true"`
+	// 回调场景方地址
+	CallbackUrl *string `json:"callback_url,omitempty" xml:"callback_url,omitempty" require:"true"`
+	// 产品编码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 用户姓名 加密后传输
+	TbrName *string `json:"tbr_name,omitempty" xml:"tbr_name,omitempty" require:"true"`
+	// 用户手机号，加密 && 脱敏传输
+	TbrPhone *string `json:"tbr_phone,omitempty" xml:"tbr_phone,omitempty" require:"true"`
+	// 身份证， 加密 && 脱敏传输
+	TbrIdCard *string `json:"tbr_id_card,omitempty" xml:"tbr_id_card,omitempty" require:"true"`
+}
+
+func (s GetRightplatformUrlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetRightplatformUrlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetRightplatformUrlRequest) SetAuthToken(v string) *GetRightplatformUrlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetRightplatformUrlRequest) SetRightApplyNo(v string) *GetRightplatformUrlRequest {
+	s.RightApplyNo = &v
+	return s
+}
+
+func (s *GetRightplatformUrlRequest) SetApplyLimitAmount(v string) *GetRightplatformUrlRequest {
+	s.ApplyLimitAmount = &v
+	return s
+}
+
+func (s *GetRightplatformUrlRequest) SetDataLicensor(v string) *GetRightplatformUrlRequest {
+	s.DataLicensor = &v
+	return s
+}
+
+func (s *GetRightplatformUrlRequest) SetCallbackUrl(v string) *GetRightplatformUrlRequest {
+	s.CallbackUrl = &v
+	return s
+}
+
+func (s *GetRightplatformUrlRequest) SetProductCode(v string) *GetRightplatformUrlRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *GetRightplatformUrlRequest) SetTbrName(v string) *GetRightplatformUrlRequest {
+	s.TbrName = &v
+	return s
+}
+
+func (s *GetRightplatformUrlRequest) SetTbrPhone(v string) *GetRightplatformUrlRequest {
+	s.TbrPhone = &v
+	return s
+}
+
+func (s *GetRightplatformUrlRequest) SetTbrIdCard(v string) *GetRightplatformUrlRequest {
+	s.TbrIdCard = &v
+	return s
+}
+
+type GetRightplatformUrlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 权益申请编号
+	RightApplyNo *string `json:"right_apply_no,omitempty" xml:"right_apply_no,omitempty"`
+	// 权益产品地址
+	RightUrl *string `json:"right_url,omitempty" xml:"right_url,omitempty"`
+	// 两轮车延保险产品id
+	//
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty"`
+}
+
+func (s GetRightplatformUrlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetRightplatformUrlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetRightplatformUrlResponse) SetReqMsgId(v string) *GetRightplatformUrlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetRightplatformUrlResponse) SetResultCode(v string) *GetRightplatformUrlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetRightplatformUrlResponse) SetResultMsg(v string) *GetRightplatformUrlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetRightplatformUrlResponse) SetRightApplyNo(v string) *GetRightplatformUrlResponse {
+	s.RightApplyNo = &v
+	return s
+}
+
+func (s *GetRightplatformUrlResponse) SetRightUrl(v string) *GetRightplatformUrlResponse {
+	s.RightUrl = &v
+	return s
+}
+
+func (s *GetRightplatformUrlResponse) SetProductId(v string) *GetRightplatformUrlResponse {
+	s.ProductId = &v
+	return s
+}
+
+type UpdateRightplatformApplyinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 申请权益编号
+	RightApplyNo *string `json:"right_apply_no,omitempty" xml:"right_apply_no,omitempty" require:"true"`
+	// 申请额度
+	ApplyLimitAmount *string `json:"apply_limit_amount,omitempty" xml:"apply_limit_amount,omitempty" require:"true"`
+	// 申请额度状态
+	ApplyStatus *string `json:"apply_status,omitempty" xml:"apply_status,omitempty" require:"true"`
+	// 投保信息，json字符串
+	ApplyInfo *string `json:"apply_info,omitempty" xml:"apply_info,omitempty" require:"true"`
+	// 产品编码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+}
+
+func (s UpdateRightplatformApplyinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateRightplatformApplyinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateRightplatformApplyinfoRequest) SetAuthToken(v string) *UpdateRightplatformApplyinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateRightplatformApplyinfoRequest) SetRightApplyNo(v string) *UpdateRightplatformApplyinfoRequest {
+	s.RightApplyNo = &v
+	return s
+}
+
+func (s *UpdateRightplatformApplyinfoRequest) SetApplyLimitAmount(v string) *UpdateRightplatformApplyinfoRequest {
+	s.ApplyLimitAmount = &v
+	return s
+}
+
+func (s *UpdateRightplatformApplyinfoRequest) SetApplyStatus(v string) *UpdateRightplatformApplyinfoRequest {
+	s.ApplyStatus = &v
+	return s
+}
+
+func (s *UpdateRightplatformApplyinfoRequest) SetApplyInfo(v string) *UpdateRightplatformApplyinfoRequest {
+	s.ApplyInfo = &v
+	return s
+}
+
+func (s *UpdateRightplatformApplyinfoRequest) SetProductCode(v string) *UpdateRightplatformApplyinfoRequest {
+	s.ProductCode = &v
+	return s
+}
+
+type UpdateRightplatformApplyinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 申请权益编号
+	RightApplyNo *string `json:"right_apply_no,omitempty" xml:"right_apply_no,omitempty"`
+}
+
+func (s UpdateRightplatformApplyinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateRightplatformApplyinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateRightplatformApplyinfoResponse) SetReqMsgId(v string) *UpdateRightplatformApplyinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateRightplatformApplyinfoResponse) SetResultCode(v string) *UpdateRightplatformApplyinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateRightplatformApplyinfoResponse) SetResultMsg(v string) *UpdateRightplatformApplyinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdateRightplatformApplyinfoResponse) SetRightApplyNo(v string) *UpdateRightplatformApplyinfoResponse {
+	s.RightApplyNo = &v
+	return s
+}
+
+type NotifyInterestScenesubjectRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 请求流水号，每次请求不一样
+	RequestNo *string `json:"request_no,omitempty" xml:"request_no,omitempty" require:"true"`
+	// 权益流水号
+	InterestNo *string `json:"interest_no,omitempty" xml:"interest_no,omitempty" require:"true"`
+	// 产品编码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 申请审批额度，单位元
+	ApplyLimitAmount *string `json:"apply_limit_amount,omitempty" xml:"apply_limit_amount,omitempty" require:"true"`
+	// 申请额度审批状态
+	ApplyLimitStatus *string `json:"apply_limit_status,omitempty" xml:"apply_limit_status,omitempty" require:"true"`
+	// 权益标的信息,JSON字符串
+	InterestSubjectInfo *string `json:"interest_subject_info,omitempty" xml:"interest_subject_info,omitempty" require:"true"`
+}
+
+func (s NotifyInterestScenesubjectRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyInterestScenesubjectRequest) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyInterestScenesubjectRequest) SetAuthToken(v string) *NotifyInterestScenesubjectRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *NotifyInterestScenesubjectRequest) SetRequestNo(v string) *NotifyInterestScenesubjectRequest {
+	s.RequestNo = &v
+	return s
+}
+
+func (s *NotifyInterestScenesubjectRequest) SetInterestNo(v string) *NotifyInterestScenesubjectRequest {
+	s.InterestNo = &v
+	return s
+}
+
+func (s *NotifyInterestScenesubjectRequest) SetProductCode(v string) *NotifyInterestScenesubjectRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *NotifyInterestScenesubjectRequest) SetApplyLimitAmount(v string) *NotifyInterestScenesubjectRequest {
+	s.ApplyLimitAmount = &v
+	return s
+}
+
+func (s *NotifyInterestScenesubjectRequest) SetApplyLimitStatus(v string) *NotifyInterestScenesubjectRequest {
+	s.ApplyLimitStatus = &v
+	return s
+}
+
+func (s *NotifyInterestScenesubjectRequest) SetInterestSubjectInfo(v string) *NotifyInterestScenesubjectRequest {
+	s.InterestSubjectInfo = &v
+	return s
+}
+
+type NotifyInterestScenesubjectResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// json字符串
+	BizResult *string `json:"biz_result,omitempty" xml:"biz_result,omitempty"`
+}
+
+func (s NotifyInterestScenesubjectResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyInterestScenesubjectResponse) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyInterestScenesubjectResponse) SetReqMsgId(v string) *NotifyInterestScenesubjectResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *NotifyInterestScenesubjectResponse) SetResultCode(v string) *NotifyInterestScenesubjectResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *NotifyInterestScenesubjectResponse) SetResultMsg(v string) *NotifyInterestScenesubjectResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *NotifyInterestScenesubjectResponse) SetBizResult(v string) *NotifyInterestScenesubjectResponse {
+	s.BizResult = &v
+	return s
+}
+
+type QueryInterestSuppliersubjectRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 权益流水号
+	InterestNo *string `json:"interest_no,omitempty" xml:"interest_no,omitempty" require:"true"`
+}
+
+func (s QueryInterestSuppliersubjectRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryInterestSuppliersubjectRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryInterestSuppliersubjectRequest) SetAuthToken(v string) *QueryInterestSuppliersubjectRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryInterestSuppliersubjectRequest) SetOrderNo(v string) *QueryInterestSuppliersubjectRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryInterestSuppliersubjectRequest) SetInterestNo(v string) *QueryInterestSuppliersubjectRequest {
+	s.InterestNo = &v
+	return s
+}
+
+type QueryInterestSuppliersubjectResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// json字符串
+	BizResult *string `json:"biz_result,omitempty" xml:"biz_result,omitempty"`
+}
+
+func (s QueryInterestSuppliersubjectResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryInterestSuppliersubjectResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryInterestSuppliersubjectResponse) SetReqMsgId(v string) *QueryInterestSuppliersubjectResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryInterestSuppliersubjectResponse) SetResultCode(v string) *QueryInterestSuppliersubjectResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryInterestSuppliersubjectResponse) SetResultMsg(v string) *QueryInterestSuppliersubjectResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryInterestSuppliersubjectResponse) SetBizResult(v string) *QueryInterestSuppliersubjectResponse {
+	s.BizResult = &v
+	return s
+}
+
+type NotifyInterestSupplierpolicyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 请求流水号，每次推送需要唯一
+	RequestNo *string `json:"request_no,omitempty" xml:"request_no,omitempty" require:"true"`
+	// 权益订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 保单信息 json字符串
+	PolicyInfo *string `json:"policy_info,omitempty" xml:"policy_info,omitempty" require:"true"`
+}
+
+func (s NotifyInterestSupplierpolicyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyInterestSupplierpolicyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyInterestSupplierpolicyRequest) SetAuthToken(v string) *NotifyInterestSupplierpolicyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *NotifyInterestSupplierpolicyRequest) SetRequestNo(v string) *NotifyInterestSupplierpolicyRequest {
+	s.RequestNo = &v
+	return s
+}
+
+func (s *NotifyInterestSupplierpolicyRequest) SetOrderNo(v string) *NotifyInterestSupplierpolicyRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *NotifyInterestSupplierpolicyRequest) SetPolicyInfo(v string) *NotifyInterestSupplierpolicyRequest {
+	s.PolicyInfo = &v
+	return s
+}
+
+type NotifyInterestSupplierpolicyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// json字符串
+	BizResult *string `json:"biz_result,omitempty" xml:"biz_result,omitempty"`
+}
+
+func (s NotifyInterestSupplierpolicyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyInterestSupplierpolicyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyInterestSupplierpolicyResponse) SetReqMsgId(v string) *NotifyInterestSupplierpolicyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *NotifyInterestSupplierpolicyResponse) SetResultCode(v string) *NotifyInterestSupplierpolicyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *NotifyInterestSupplierpolicyResponse) SetResultMsg(v string) *NotifyInterestSupplierpolicyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *NotifyInterestSupplierpolicyResponse) SetBizResult(v string) *NotifyInterestSupplierpolicyResponse {
+	s.BizResult = &v
+	return s
+}
+
+type GetInterestUrlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 权益申请编号，重新提交需要不一样
+	RightApplyNo *string `json:"right_apply_no,omitempty" xml:"right_apply_no,omitempty" require:"true"`
+	//
+	// 申请额度，最多保留小数点后两位，单位元
+	ApplyLimitAmount *string `json:"apply_limit_amount,omitempty" xml:"apply_limit_amount,omitempty" require:"true"`
+	//
+	// 数据授权方名称
+	DataLicensor *string `json:"data_licensor,omitempty" xml:"data_licensor,omitempty" require:"true"`
+	// 回调场景方地址
+	CallbackUrl *string `json:"callback_url,omitempty" xml:"callback_url,omitempty"`
+	// 权益产品编码，暂时固定
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 用户姓名 明文
+	TbrName *string `json:"tbr_name,omitempty" xml:"tbr_name,omitempty" require:"true"`
+	// 用户手机号，明文
+	TbrPhone *string `json:"tbr_phone,omitempty" xml:"tbr_phone,omitempty" require:"true"`
+	// 用户身份证，明文
+	TbrIdCard *string `json:"tbr_id_card,omitempty" xml:"tbr_id_card,omitempty" require:"true"`
+}
+
+func (s GetInterestUrlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetInterestUrlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetInterestUrlRequest) SetAuthToken(v string) *GetInterestUrlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetInterestUrlRequest) SetRightApplyNo(v string) *GetInterestUrlRequest {
+	s.RightApplyNo = &v
+	return s
+}
+
+func (s *GetInterestUrlRequest) SetApplyLimitAmount(v string) *GetInterestUrlRequest {
+	s.ApplyLimitAmount = &v
+	return s
+}
+
+func (s *GetInterestUrlRequest) SetDataLicensor(v string) *GetInterestUrlRequest {
+	s.DataLicensor = &v
+	return s
+}
+
+func (s *GetInterestUrlRequest) SetCallbackUrl(v string) *GetInterestUrlRequest {
+	s.CallbackUrl = &v
+	return s
+}
+
+func (s *GetInterestUrlRequest) SetProductCode(v string) *GetInterestUrlRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *GetInterestUrlRequest) SetTbrName(v string) *GetInterestUrlRequest {
+	s.TbrName = &v
+	return s
+}
+
+func (s *GetInterestUrlRequest) SetTbrPhone(v string) *GetInterestUrlRequest {
+	s.TbrPhone = &v
+	return s
+}
+
+func (s *GetInterestUrlRequest) SetTbrIdCard(v string) *GetInterestUrlRequest {
+	s.TbrIdCard = &v
+	return s
+}
+
+type GetInterestUrlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// json字符串
+	BizResult *string `json:"biz_result,omitempty" xml:"biz_result,omitempty"`
+}
+
+func (s GetInterestUrlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetInterestUrlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetInterestUrlResponse) SetReqMsgId(v string) *GetInterestUrlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetInterestUrlResponse) SetResultCode(v string) *GetInterestUrlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetInterestUrlResponse) SetResultMsg(v string) *GetInterestUrlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetInterestUrlResponse) SetBizResult(v string) *GetInterestUrlResponse {
+	s.BizResult = &v
+	return s
+}
+
+type QueryInterestSceneorderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 请求流水号
+	RequestNo *string `json:"request_no,omitempty" xml:"request_no,omitempty" require:"true"`
+	// 我方权益申请流水号
+	InterestNo *string `json:"interest_no,omitempty" xml:"interest_no,omitempty" require:"true"`
+	// 产品编码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+}
+
+func (s QueryInterestSceneorderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryInterestSceneorderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryInterestSceneorderRequest) SetAuthToken(v string) *QueryInterestSceneorderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryInterestSceneorderRequest) SetRequestNo(v string) *QueryInterestSceneorderRequest {
+	s.RequestNo = &v
+	return s
+}
+
+func (s *QueryInterestSceneorderRequest) SetInterestNo(v string) *QueryInterestSceneorderRequest {
+	s.InterestNo = &v
+	return s
+}
+
+func (s *QueryInterestSceneorderRequest) SetProductCode(v string) *QueryInterestSceneorderRequest {
+	s.ProductCode = &v
+	return s
+}
+
+type QueryInterestSceneorderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// json字符串
+	BizResult *string `json:"biz_result,omitempty" xml:"biz_result,omitempty"`
+}
+
+func (s QueryInterestSceneorderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryInterestSceneorderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryInterestSceneorderResponse) SetReqMsgId(v string) *QueryInterestSceneorderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryInterestSceneorderResponse) SetResultCode(v string) *QueryInterestSceneorderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryInterestSceneorderResponse) SetResultMsg(v string) *QueryInterestSceneorderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryInterestSceneorderResponse) SetBizResult(v string) *QueryInterestSceneorderResponse {
+	s.BizResult = &v
+	return s
+}
+
+type NotifyInterestSupplierorderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 请求流水号，每次唯一
+	RequestNo *string `json:"request_no,omitempty" xml:"request_no,omitempty" require:"true"`
+	// 贵方订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 我方权益编号
+	InterestNo *string `json:"interest_no,omitempty" xml:"interest_no,omitempty" require:"true"`
+	// 用户授权状态
+	UserPermitStatus *string `json:"user_permit_status,omitempty" xml:"user_permit_status,omitempty" require:"true"`
+	// 权益订单状态
+	OrderStatus *string `json:"order_status,omitempty" xml:"order_status,omitempty" require:"true"`
+	// 退款金额，单位元
+	RefundAmount *string `json:"refund_amount,omitempty" xml:"refund_amount,omitempty"`
+	// 退款时间
+	RefundTime *string `json:"refund_time,omitempty" xml:"refund_time,omitempty"`
+}
+
+func (s NotifyInterestSupplierorderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyInterestSupplierorderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyInterestSupplierorderRequest) SetAuthToken(v string) *NotifyInterestSupplierorderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *NotifyInterestSupplierorderRequest) SetRequestNo(v string) *NotifyInterestSupplierorderRequest {
+	s.RequestNo = &v
+	return s
+}
+
+func (s *NotifyInterestSupplierorderRequest) SetOrderNo(v string) *NotifyInterestSupplierorderRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *NotifyInterestSupplierorderRequest) SetInterestNo(v string) *NotifyInterestSupplierorderRequest {
+	s.InterestNo = &v
+	return s
+}
+
+func (s *NotifyInterestSupplierorderRequest) SetUserPermitStatus(v string) *NotifyInterestSupplierorderRequest {
+	s.UserPermitStatus = &v
+	return s
+}
+
+func (s *NotifyInterestSupplierorderRequest) SetOrderStatus(v string) *NotifyInterestSupplierorderRequest {
+	s.OrderStatus = &v
+	return s
+}
+
+func (s *NotifyInterestSupplierorderRequest) SetRefundAmount(v string) *NotifyInterestSupplierorderRequest {
+	s.RefundAmount = &v
+	return s
+}
+
+func (s *NotifyInterestSupplierorderRequest) SetRefundTime(v string) *NotifyInterestSupplierorderRequest {
+	s.RefundTime = &v
+	return s
+}
+
+type NotifyInterestSupplierorderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// json字符串
+	BizResult *string `json:"biz_result,omitempty" xml:"biz_result,omitempty"`
+}
+
+func (s NotifyInterestSupplierorderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyInterestSupplierorderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyInterestSupplierorderResponse) SetReqMsgId(v string) *NotifyInterestSupplierorderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *NotifyInterestSupplierorderResponse) SetResultCode(v string) *NotifyInterestSupplierorderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *NotifyInterestSupplierorderResponse) SetResultMsg(v string) *NotifyInterestSupplierorderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *NotifyInterestSupplierorderResponse) SetBizResult(v string) *NotifyInterestSupplierorderResponse {
+	s.BizResult = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -3359,7 +4126,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.14"),
+				"sdk_version":      tea.String("1.9.2"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -4226,6 +4993,278 @@ func (client *Client) GetEmbedoemautoinsuranceUrlEx(request *GetEmbedoemautoinsu
 	}
 	_result = &GetEmbedoemautoinsuranceUrlResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.embedoemautoinsurance.url.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 场景方获取权益链接
+ * Summary: 场景方获取权益链接
+ */
+func (client *Client) GetRightplatformUrl(request *GetRightplatformUrlRequest) (_result *GetRightplatformUrlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetRightplatformUrlResponse{}
+	_body, _err := client.GetRightplatformUrlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 场景方获取权益链接
+ * Summary: 场景方获取权益链接
+ */
+func (client *Client) GetRightplatformUrlEx(request *GetRightplatformUrlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetRightplatformUrlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetRightplatformUrlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.rightplatform.url.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 更新申请额度状态&投保人信息
+ * Summary: 更新申请额度状态&投保人信息
+ */
+func (client *Client) UpdateRightplatformApplyinfo(request *UpdateRightplatformApplyinfoRequest) (_result *UpdateRightplatformApplyinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateRightplatformApplyinfoResponse{}
+	_body, _err := client.UpdateRightplatformApplyinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 更新申请额度状态&投保人信息
+ * Summary: 更新申请额度状态&投保人信息
+ */
+func (client *Client) UpdateRightplatformApplyinfoEx(request *UpdateRightplatformApplyinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateRightplatformApplyinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateRightplatformApplyinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.rightplatform.applyinfo.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 场景方标的信息通知
+ * Summary: 场景方标的信息通知
+ */
+func (client *Client) NotifyInterestScenesubject(request *NotifyInterestScenesubjectRequest) (_result *NotifyInterestScenesubjectResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &NotifyInterestScenesubjectResponse{}
+	_body, _err := client.NotifyInterestScenesubjectEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 场景方标的信息通知
+ * Summary: 场景方标的信息通知
+ */
+func (client *Client) NotifyInterestScenesubjectEx(request *NotifyInterestScenesubjectRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyInterestScenesubjectResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &NotifyInterestScenesubjectResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.interest.scenesubject.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 权益服务商标的信息查询
+ * Summary: 权益服务商标的信息查询
+ */
+func (client *Client) QueryInterestSuppliersubject(request *QueryInterestSuppliersubjectRequest) (_result *QueryInterestSuppliersubjectResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryInterestSuppliersubjectResponse{}
+	_body, _err := client.QueryInterestSuppliersubjectEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 权益服务商标的信息查询
+ * Summary: 权益服务商标的信息查询
+ */
+func (client *Client) QueryInterestSuppliersubjectEx(request *QueryInterestSuppliersubjectRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryInterestSuppliersubjectResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryInterestSuppliersubjectResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.interest.suppliersubject.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 权益服务商投保后通知保单信息
+ * Summary: 权益服务商投保后通知保单信息
+ */
+func (client *Client) NotifyInterestSupplierpolicy(request *NotifyInterestSupplierpolicyRequest) (_result *NotifyInterestSupplierpolicyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &NotifyInterestSupplierpolicyResponse{}
+	_body, _err := client.NotifyInterestSupplierpolicyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 权益服务商投保后通知保单信息
+ * Summary: 权益服务商投保后通知保单信息
+ */
+func (client *Client) NotifyInterestSupplierpolicyEx(request *NotifyInterestSupplierpolicyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyInterestSupplierpolicyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &NotifyInterestSupplierpolicyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.interest.supplierpolicy.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 场景方获取权益链接
+ * Summary: 场景方获取权益链接
+ */
+func (client *Client) GetInterestUrl(request *GetInterestUrlRequest) (_result *GetInterestUrlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetInterestUrlResponse{}
+	_body, _err := client.GetInterestUrlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 场景方获取权益链接
+ * Summary: 场景方获取权益链接
+ */
+func (client *Client) GetInterestUrlEx(request *GetInterestUrlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetInterestUrlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetInterestUrlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.interest.url.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 场景方订单信息查询
+ * Summary: 场景方订单信息查询
+ */
+func (client *Client) QueryInterestSceneorder(request *QueryInterestSceneorderRequest) (_result *QueryInterestSceneorderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryInterestSceneorderResponse{}
+	_body, _err := client.QueryInterestSceneorderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 场景方订单信息查询
+ * Summary: 场景方订单信息查询
+ */
+func (client *Client) QueryInterestSceneorderEx(request *QueryInterestSceneorderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryInterestSceneorderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryInterestSceneorderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.interest.sceneorder.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 权益服务商订单状态通知
+ * Summary: 权益服务商订单状态通知
+ */
+func (client *Client) NotifyInterestSupplierorder(request *NotifyInterestSupplierorderRequest) (_result *NotifyInterestSupplierorderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &NotifyInterestSupplierorderResponse{}
+	_body, _err := client.NotifyInterestSupplierorderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 权益服务商订单状态通知
+ * Summary: 权益服务商订单状态通知
+ */
+func (client *Client) NotifyInterestSupplierorderEx(request *NotifyInterestSupplierorderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyInterestSupplierorderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &NotifyInterestSupplierorderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.interest.supplierorder.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
