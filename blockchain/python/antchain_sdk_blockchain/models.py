@@ -11318,22 +11318,22 @@ class OCUserData(TeaModel):
 class CarItemsInfo(TeaModel):
     def __init__(
         self,
-        brand_name: str = None,
         vin: str = None,
         engine_no: str = None,
         register_date: str = None,
         model_code: str = None,
+        use_nature_code: str = None,
     ):
-        # 品牌名称
-        self.brand_name = brand_name
         # 车架号
         self.vin = vin
         # 发动机号
         self.engine_no = engine_no
         # 注册日期
         self.register_date = register_date
-        # 车辆型号
+        # 品牌车型
         self.model_code = model_code
+        # 营运性质
+        self.use_nature_code = use_nature_code
 
     def validate(self):
         pass
@@ -11344,8 +11344,6 @@ class CarItemsInfo(TeaModel):
             return _map
 
         result = dict()
-        if self.brand_name is not None:
-            result['brand_name'] = self.brand_name
         if self.vin is not None:
             result['vin'] = self.vin
         if self.engine_no is not None:
@@ -11354,12 +11352,12 @@ class CarItemsInfo(TeaModel):
             result['register_date'] = self.register_date
         if self.model_code is not None:
             result['model_code'] = self.model_code
+        if self.use_nature_code is not None:
+            result['use_nature_code'] = self.use_nature_code
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('brand_name') is not None:
-            self.brand_name = m.get('brand_name')
         if m.get('vin') is not None:
             self.vin = m.get('vin')
         if m.get('engine_no') is not None:
@@ -11368,6 +11366,8 @@ class CarItemsInfo(TeaModel):
             self.register_date = m.get('register_date')
         if m.get('model_code') is not None:
             self.model_code = m.get('model_code')
+        if m.get('use_nature_code') is not None:
+            self.use_nature_code = m.get('use_nature_code')
         return self
 
 
