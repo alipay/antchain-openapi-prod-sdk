@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.14',
+                    'sdk_version': '1.9.2',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.14',
+                    'sdk_version': '1.9.2',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -1617,4 +1617,452 @@ class Client:
         return TeaCore.from_map(
             insurance__saas_models.GetEmbedoemautoinsuranceUrlResponse(),
             await self.do_request_async('1.0', 'antcloud.insurance.embedoemautoinsurance.url.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_rightplatform_url(
+        self,
+        request: insurance__saas_models.GetRightplatformUrlRequest,
+    ) -> insurance__saas_models.GetRightplatformUrlResponse:
+        """
+        Description: 场景方获取权益链接
+        Summary: 场景方获取权益链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_rightplatform_url_ex(request, headers, runtime)
+
+    async def get_rightplatform_url_async(
+        self,
+        request: insurance__saas_models.GetRightplatformUrlRequest,
+    ) -> insurance__saas_models.GetRightplatformUrlResponse:
+        """
+        Description: 场景方获取权益链接
+        Summary: 场景方获取权益链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_rightplatform_url_ex_async(request, headers, runtime)
+
+    def get_rightplatform_url_ex(
+        self,
+        request: insurance__saas_models.GetRightplatformUrlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.GetRightplatformUrlResponse:
+        """
+        Description: 场景方获取权益链接
+        Summary: 场景方获取权益链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.GetRightplatformUrlResponse(),
+            self.do_request('1.0', 'antcloud.insurance.rightplatform.url.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_rightplatform_url_ex_async(
+        self,
+        request: insurance__saas_models.GetRightplatformUrlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.GetRightplatformUrlResponse:
+        """
+        Description: 场景方获取权益链接
+        Summary: 场景方获取权益链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.GetRightplatformUrlResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.rightplatform.url.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_rightplatform_applyinfo(
+        self,
+        request: insurance__saas_models.UpdateRightplatformApplyinfoRequest,
+    ) -> insurance__saas_models.UpdateRightplatformApplyinfoResponse:
+        """
+        Description: 更新申请额度状态&投保人信息
+        Summary: 更新申请额度状态&投保人信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_rightplatform_applyinfo_ex(request, headers, runtime)
+
+    async def update_rightplatform_applyinfo_async(
+        self,
+        request: insurance__saas_models.UpdateRightplatformApplyinfoRequest,
+    ) -> insurance__saas_models.UpdateRightplatformApplyinfoResponse:
+        """
+        Description: 更新申请额度状态&投保人信息
+        Summary: 更新申请额度状态&投保人信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_rightplatform_applyinfo_ex_async(request, headers, runtime)
+
+    def update_rightplatform_applyinfo_ex(
+        self,
+        request: insurance__saas_models.UpdateRightplatformApplyinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.UpdateRightplatformApplyinfoResponse:
+        """
+        Description: 更新申请额度状态&投保人信息
+        Summary: 更新申请额度状态&投保人信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.UpdateRightplatformApplyinfoResponse(),
+            self.do_request('1.0', 'antcloud.insurance.rightplatform.applyinfo.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_rightplatform_applyinfo_ex_async(
+        self,
+        request: insurance__saas_models.UpdateRightplatformApplyinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.UpdateRightplatformApplyinfoResponse:
+        """
+        Description: 更新申请额度状态&投保人信息
+        Summary: 更新申请额度状态&投保人信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.UpdateRightplatformApplyinfoResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.rightplatform.applyinfo.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_interest_scenesubject(
+        self,
+        request: insurance__saas_models.NotifyInterestScenesubjectRequest,
+    ) -> insurance__saas_models.NotifyInterestScenesubjectResponse:
+        """
+        Description: 场景方标的信息通知
+        Summary: 场景方标的信息通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_interest_scenesubject_ex(request, headers, runtime)
+
+    async def notify_interest_scenesubject_async(
+        self,
+        request: insurance__saas_models.NotifyInterestScenesubjectRequest,
+    ) -> insurance__saas_models.NotifyInterestScenesubjectResponse:
+        """
+        Description: 场景方标的信息通知
+        Summary: 场景方标的信息通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_interest_scenesubject_ex_async(request, headers, runtime)
+
+    def notify_interest_scenesubject_ex(
+        self,
+        request: insurance__saas_models.NotifyInterestScenesubjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.NotifyInterestScenesubjectResponse:
+        """
+        Description: 场景方标的信息通知
+        Summary: 场景方标的信息通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.NotifyInterestScenesubjectResponse(),
+            self.do_request('1.0', 'antcloud.insurance.interest.scenesubject.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_interest_scenesubject_ex_async(
+        self,
+        request: insurance__saas_models.NotifyInterestScenesubjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.NotifyInterestScenesubjectResponse:
+        """
+        Description: 场景方标的信息通知
+        Summary: 场景方标的信息通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.NotifyInterestScenesubjectResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.interest.scenesubject.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_interest_suppliersubject(
+        self,
+        request: insurance__saas_models.QueryInterestSuppliersubjectRequest,
+    ) -> insurance__saas_models.QueryInterestSuppliersubjectResponse:
+        """
+        Description: 权益服务商标的信息查询
+        Summary: 权益服务商标的信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_interest_suppliersubject_ex(request, headers, runtime)
+
+    async def query_interest_suppliersubject_async(
+        self,
+        request: insurance__saas_models.QueryInterestSuppliersubjectRequest,
+    ) -> insurance__saas_models.QueryInterestSuppliersubjectResponse:
+        """
+        Description: 权益服务商标的信息查询
+        Summary: 权益服务商标的信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_interest_suppliersubject_ex_async(request, headers, runtime)
+
+    def query_interest_suppliersubject_ex(
+        self,
+        request: insurance__saas_models.QueryInterestSuppliersubjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.QueryInterestSuppliersubjectResponse:
+        """
+        Description: 权益服务商标的信息查询
+        Summary: 权益服务商标的信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.QueryInterestSuppliersubjectResponse(),
+            self.do_request('1.0', 'antcloud.insurance.interest.suppliersubject.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_interest_suppliersubject_ex_async(
+        self,
+        request: insurance__saas_models.QueryInterestSuppliersubjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.QueryInterestSuppliersubjectResponse:
+        """
+        Description: 权益服务商标的信息查询
+        Summary: 权益服务商标的信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.QueryInterestSuppliersubjectResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.interest.suppliersubject.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_interest_supplierpolicy(
+        self,
+        request: insurance__saas_models.NotifyInterestSupplierpolicyRequest,
+    ) -> insurance__saas_models.NotifyInterestSupplierpolicyResponse:
+        """
+        Description: 权益服务商投保后通知保单信息
+        Summary: 权益服务商投保后通知保单信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_interest_supplierpolicy_ex(request, headers, runtime)
+
+    async def notify_interest_supplierpolicy_async(
+        self,
+        request: insurance__saas_models.NotifyInterestSupplierpolicyRequest,
+    ) -> insurance__saas_models.NotifyInterestSupplierpolicyResponse:
+        """
+        Description: 权益服务商投保后通知保单信息
+        Summary: 权益服务商投保后通知保单信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_interest_supplierpolicy_ex_async(request, headers, runtime)
+
+    def notify_interest_supplierpolicy_ex(
+        self,
+        request: insurance__saas_models.NotifyInterestSupplierpolicyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.NotifyInterestSupplierpolicyResponse:
+        """
+        Description: 权益服务商投保后通知保单信息
+        Summary: 权益服务商投保后通知保单信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.NotifyInterestSupplierpolicyResponse(),
+            self.do_request('1.0', 'antcloud.insurance.interest.supplierpolicy.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_interest_supplierpolicy_ex_async(
+        self,
+        request: insurance__saas_models.NotifyInterestSupplierpolicyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.NotifyInterestSupplierpolicyResponse:
+        """
+        Description: 权益服务商投保后通知保单信息
+        Summary: 权益服务商投保后通知保单信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.NotifyInterestSupplierpolicyResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.interest.supplierpolicy.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_interest_url(
+        self,
+        request: insurance__saas_models.GetInterestUrlRequest,
+    ) -> insurance__saas_models.GetInterestUrlResponse:
+        """
+        Description: 场景方获取权益链接
+        Summary: 场景方获取权益链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_interest_url_ex(request, headers, runtime)
+
+    async def get_interest_url_async(
+        self,
+        request: insurance__saas_models.GetInterestUrlRequest,
+    ) -> insurance__saas_models.GetInterestUrlResponse:
+        """
+        Description: 场景方获取权益链接
+        Summary: 场景方获取权益链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_interest_url_ex_async(request, headers, runtime)
+
+    def get_interest_url_ex(
+        self,
+        request: insurance__saas_models.GetInterestUrlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.GetInterestUrlResponse:
+        """
+        Description: 场景方获取权益链接
+        Summary: 场景方获取权益链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.GetInterestUrlResponse(),
+            self.do_request('1.0', 'antcloud.insurance.interest.url.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_interest_url_ex_async(
+        self,
+        request: insurance__saas_models.GetInterestUrlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.GetInterestUrlResponse:
+        """
+        Description: 场景方获取权益链接
+        Summary: 场景方获取权益链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.GetInterestUrlResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.interest.url.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_interest_sceneorder(
+        self,
+        request: insurance__saas_models.QueryInterestSceneorderRequest,
+    ) -> insurance__saas_models.QueryInterestSceneorderResponse:
+        """
+        Description: 场景方订单信息查询
+        Summary: 场景方订单信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_interest_sceneorder_ex(request, headers, runtime)
+
+    async def query_interest_sceneorder_async(
+        self,
+        request: insurance__saas_models.QueryInterestSceneorderRequest,
+    ) -> insurance__saas_models.QueryInterestSceneorderResponse:
+        """
+        Description: 场景方订单信息查询
+        Summary: 场景方订单信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_interest_sceneorder_ex_async(request, headers, runtime)
+
+    def query_interest_sceneorder_ex(
+        self,
+        request: insurance__saas_models.QueryInterestSceneorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.QueryInterestSceneorderResponse:
+        """
+        Description: 场景方订单信息查询
+        Summary: 场景方订单信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.QueryInterestSceneorderResponse(),
+            self.do_request('1.0', 'antcloud.insurance.interest.sceneorder.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_interest_sceneorder_ex_async(
+        self,
+        request: insurance__saas_models.QueryInterestSceneorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.QueryInterestSceneorderResponse:
+        """
+        Description: 场景方订单信息查询
+        Summary: 场景方订单信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.QueryInterestSceneorderResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.interest.sceneorder.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_interest_supplierorder(
+        self,
+        request: insurance__saas_models.NotifyInterestSupplierorderRequest,
+    ) -> insurance__saas_models.NotifyInterestSupplierorderResponse:
+        """
+        Description: 权益服务商订单状态通知
+        Summary: 权益服务商订单状态通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_interest_supplierorder_ex(request, headers, runtime)
+
+    async def notify_interest_supplierorder_async(
+        self,
+        request: insurance__saas_models.NotifyInterestSupplierorderRequest,
+    ) -> insurance__saas_models.NotifyInterestSupplierorderResponse:
+        """
+        Description: 权益服务商订单状态通知
+        Summary: 权益服务商订单状态通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_interest_supplierorder_ex_async(request, headers, runtime)
+
+    def notify_interest_supplierorder_ex(
+        self,
+        request: insurance__saas_models.NotifyInterestSupplierorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.NotifyInterestSupplierorderResponse:
+        """
+        Description: 权益服务商订单状态通知
+        Summary: 权益服务商订单状态通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.NotifyInterestSupplierorderResponse(),
+            self.do_request('1.0', 'antcloud.insurance.interest.supplierorder.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_interest_supplierorder_ex_async(
+        self,
+        request: insurance__saas_models.NotifyInterestSupplierorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.NotifyInterestSupplierorderResponse:
+        """
+        Description: 权益服务商订单状态通知
+        Summary: 权益服务商订单状态通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.NotifyInterestSupplierorderResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.interest.supplierorder.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
