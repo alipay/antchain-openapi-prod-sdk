@@ -7063,6 +7063,8 @@ export class CarBusinessPrice extends $tea.Model {
   vehicleVesselTax: number;
   // 商业险（具体值）单位到分
   businessInsurance: number;
+  // json 扩展字段
+  extraContent: string;
   static names(): { [key: string]: string } {
     return {
       brandId: 'brand_id',
@@ -7081,6 +7083,7 @@ export class CarBusinessPrice extends $tea.Model {
       purchaseTax: 'purchase_tax',
       vehicleVesselTax: 'vehicle_vessel_tax',
       businessInsurance: 'business_insurance',
+      extraContent: 'extra_content',
     };
   }
 
@@ -7102,6 +7105,7 @@ export class CarBusinessPrice extends $tea.Model {
       purchaseTax: 'number',
       vehicleVesselTax: 'number',
       businessInsurance: 'number',
+      extraContent: 'string',
     };
   }
 
@@ -55069,7 +55073,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.54",
+          sdk_version: "1.28.55",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
