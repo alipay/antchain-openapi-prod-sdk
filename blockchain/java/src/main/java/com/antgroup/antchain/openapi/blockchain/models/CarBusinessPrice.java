@@ -125,6 +125,15 @@ public class CarBusinessPrice extends TeaModel {
     @Validation(required = true)
     public Long businessInsurance;
 
+    // json 扩展字段
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
+    @NameInMap("extra_content")
+    @Validation(required = true)
+    public String extraContent;
+
     public static CarBusinessPrice build(java.util.Map<String, ?> map) throws Exception {
         CarBusinessPrice self = new CarBusinessPrice();
         return TeaModel.build(map, self);
@@ -256,6 +265,14 @@ public class CarBusinessPrice extends TeaModel {
     }
     public Long getBusinessInsurance() {
         return this.businessInsurance;
+    }
+
+    public CarBusinessPrice setExtraContent(String extraContent) {
+        this.extraContent = extraContent;
+        return this;
+    }
+    public String getExtraContent() {
+        return this.extraContent;
     }
 
 }
