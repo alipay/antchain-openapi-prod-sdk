@@ -9161,6 +9161,8 @@ type CarBusinessPrice struct {
 	VehicleVesselTax *int64 `json:"vehicle_vessel_tax,omitempty" xml:"vehicle_vessel_tax,omitempty" require:"true"`
 	// 商业险（具体值）单位到分
 	BusinessInsurance *int64 `json:"business_insurance,omitempty" xml:"business_insurance,omitempty" require:"true"`
+	// json 扩展字段
+	ExtraContent *string `json:"extra_content,omitempty" xml:"extra_content,omitempty" require:"true"`
 }
 
 func (s CarBusinessPrice) String() string {
@@ -9248,6 +9250,11 @@ func (s *CarBusinessPrice) SetVehicleVesselTax(v int64) *CarBusinessPrice {
 
 func (s *CarBusinessPrice) SetBusinessInsurance(v int64) *CarBusinessPrice {
 	s.BusinessInsurance = &v
+	return s
+}
+
+func (s *CarBusinessPrice) SetExtraContent(v string) *CarBusinessPrice {
+	s.ExtraContent = &v
 	return s
 }
 
@@ -71525,7 +71532,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.54"),
+				"sdk_version":      tea.String("1.28.55"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
