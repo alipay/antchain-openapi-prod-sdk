@@ -11435,6 +11435,7 @@ class CarBusinessPrice(TeaModel):
         purchase_tax: int = None,
         vehicle_vessel_tax: int = None,
         business_insurance: int = None,
+        extra_content: str = None,
     ):
         # 品牌id
         self.brand_id = brand_id
@@ -11469,6 +11470,8 @@ class CarBusinessPrice(TeaModel):
         self.vehicle_vessel_tax = vehicle_vessel_tax
         # 商业险（具体值）单位到分
         self.business_insurance = business_insurance
+        # json 扩展字段
+        self.extra_content = extra_content
 
     def validate(self):
         self.validate_required(self.brand_id, 'brand_id')
@@ -11487,6 +11490,7 @@ class CarBusinessPrice(TeaModel):
         self.validate_required(self.purchase_tax, 'purchase_tax')
         self.validate_required(self.vehicle_vessel_tax, 'vehicle_vessel_tax')
         self.validate_required(self.business_insurance, 'business_insurance')
+        self.validate_required(self.extra_content, 'extra_content')
 
     def to_map(self):
         _map = super().to_map()
@@ -11526,6 +11530,8 @@ class CarBusinessPrice(TeaModel):
             result['vehicle_vessel_tax'] = self.vehicle_vessel_tax
         if self.business_insurance is not None:
             result['business_insurance'] = self.business_insurance
+        if self.extra_content is not None:
+            result['extra_content'] = self.extra_content
         return result
 
     def from_map(self, m: dict = None):
@@ -11562,6 +11568,8 @@ class CarBusinessPrice(TeaModel):
             self.vehicle_vessel_tax = m.get('vehicle_vessel_tax')
         if m.get('business_insurance') is not None:
             self.business_insurance = m.get('business_insurance')
+        if m.get('extra_content') is not None:
+            self.extra_content = m.get('extra_content')
         return self
 
 
