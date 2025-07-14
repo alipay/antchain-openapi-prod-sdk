@@ -91,6 +91,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=true)]
         public long? BusinessInsurance { get; set; }
 
+        // json 扩展字段
+        [NameInMap("extra_content")]
+        [Validation(Required=true)]
+        public string ExtraContent { get; set; }
+
     }
 
 }
