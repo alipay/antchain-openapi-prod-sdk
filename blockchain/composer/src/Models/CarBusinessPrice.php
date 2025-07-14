@@ -136,6 +136,14 @@ class CarBusinessPrice extends Model
      * @var int
      */
     public $businessInsurance;
+
+    // json 扩展字段
+    /**
+     * @example xxx
+     *
+     * @var string
+     */
+    public $extraContent;
     protected $_name = [
         'brandId'           => 'brand_id',
         'brandName'         => 'brand_name',
@@ -153,6 +161,7 @@ class CarBusinessPrice extends Model
         'purchaseTax'       => 'purchase_tax',
         'vehicleVesselTax'  => 'vehicle_vessel_tax',
         'businessInsurance' => 'business_insurance',
+        'extraContent'      => 'extra_content',
     ];
 
     public function validate()
@@ -173,6 +182,7 @@ class CarBusinessPrice extends Model
         Model::validateRequired('purchaseTax', $this->purchaseTax, true);
         Model::validateRequired('vehicleVesselTax', $this->vehicleVesselTax, true);
         Model::validateRequired('businessInsurance', $this->businessInsurance, true);
+        Model::validateRequired('extraContent', $this->extraContent, true);
     }
 
     public function toMap()
@@ -225,6 +235,9 @@ class CarBusinessPrice extends Model
         }
         if (null !== $this->businessInsurance) {
             $res['business_insurance'] = $this->businessInsurance;
+        }
+        if (null !== $this->extraContent) {
+            $res['extra_content'] = $this->extraContent;
         }
 
         return $res;
@@ -285,6 +298,9 @@ class CarBusinessPrice extends Model
         }
         if (isset($map['business_insurance'])) {
             $model->businessInsurance = $map['business_insurance'];
+        }
+        if (isset($map['extra_content'])) {
+            $model->extraContent = $map['extra_content'];
         }
 
         return $model;
