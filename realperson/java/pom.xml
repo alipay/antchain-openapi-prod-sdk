@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-realperson</artifactId>
-  <version>1.21.3</version>
+  <version>1.21.4</version>
   <packaging>jar</packaging>
   <name>openapi-realperson</name>
   <description>Ant Chain REALPERSON SDK for Java
