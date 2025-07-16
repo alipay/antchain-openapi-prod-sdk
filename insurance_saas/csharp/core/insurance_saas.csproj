@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>AntChain.SDK.INSURANCE_SAAS</AssemblyName>
-    <Version>1.9.2</Version>
+    <Version>1.9.3</Version>
     <LangVersion>5</LangVersion>
     <Authors>Ant Chain, Inc</Authors>
     <Description>Ant Chain INSURANCE_SAAS SDK Library for .NET</Description>
