@@ -137,7 +137,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.43"},
+                        {"sdk_version", "1.8.45"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.43"},
+                        {"sdk_version", "1.8.45"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1915,6 +1915,48 @@ namespace AntChain.SDK.TAX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryIcmInvoicecontinuedResponse>(await DoRequestAsync("1.0", "blockchain.tax.icm.invoicecontinued.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 票税RPA授权埋点数据查询
+         * Summary: 票税RPA授权埋点数据查询
+         */
+        public QueryApiAuthweblogResponse QueryApiAuthweblog(QueryApiAuthweblogRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryApiAuthweblogEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 票税RPA授权埋点数据查询
+         * Summary: 票税RPA授权埋点数据查询
+         */
+        public async Task<QueryApiAuthweblogResponse> QueryApiAuthweblogAsync(QueryApiAuthweblogRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryApiAuthweblogExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 票税RPA授权埋点数据查询
+         * Summary: 票税RPA授权埋点数据查询
+         */
+        public QueryApiAuthweblogResponse QueryApiAuthweblogEx(QueryApiAuthweblogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryApiAuthweblogResponse>(DoRequest("1.0", "blockchain.tax.api.authweblog.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 票税RPA授权埋点数据查询
+         * Summary: 票税RPA授权埋点数据查询
+         */
+        public async Task<QueryApiAuthweblogResponse> QueryApiAuthweblogExAsync(QueryApiAuthweblogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryApiAuthweblogResponse>(await DoRequestAsync("1.0", "blockchain.tax.api.authweblog.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

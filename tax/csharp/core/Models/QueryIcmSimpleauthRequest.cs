@@ -48,6 +48,11 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=false)]
         public string BizContext { get; set; }
 
+        // 机构id
+        [NameInMap("institute_id")]
+        [Validation(Required=false)]
+        public string InstituteId { get; set; }
+
     }
 
 }
