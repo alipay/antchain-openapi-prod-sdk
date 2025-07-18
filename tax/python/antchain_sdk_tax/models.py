@@ -4388,6 +4388,7 @@ class QueryIcmSimpleauthRequest(TeaModel):
         auth_type: str = None,
         auth_code: str = None,
         biz_context: str = None,
+        institute_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4404,6 +4405,8 @@ class QueryIcmSimpleauthRequest(TeaModel):
         self.auth_code = auth_code
         # 如果有的话，作为透传字段
         self.biz_context = biz_context
+        # 机构id
+        self.institute_id = institute_id
 
     def validate(self):
         self.validate_required(self.inst_code, 'inst_code')
@@ -4434,6 +4437,8 @@ class QueryIcmSimpleauthRequest(TeaModel):
             result['auth_code'] = self.auth_code
         if self.biz_context is not None:
             result['biz_context'] = self.biz_context
+        if self.institute_id is not None:
+            result['institute_id'] = self.institute_id
         return result
 
     def from_map(self, m: dict = None):
@@ -4454,6 +4459,8 @@ class QueryIcmSimpleauthRequest(TeaModel):
             self.auth_code = m.get('auth_code')
         if m.get('biz_context') is not None:
             self.biz_context = m.get('biz_context')
+        if m.get('institute_id') is not None:
+            self.institute_id = m.get('institute_id')
         return self
 
 
@@ -4516,6 +4523,7 @@ class QueryApiSimpleauthasyncRequest(TeaModel):
         biz_request_id: str = None,
         auth_type: str = None,
         auth_code: str = None,
+        institute_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4531,6 +4539,8 @@ class QueryApiSimpleauthasyncRequest(TeaModel):
         # 行方生成的授权编号
         # 
         self.auth_code = auth_code
+        # 机构id
+        self.institute_id = institute_id
 
     def validate(self):
         self.validate_required(self.inst_code, 'inst_code')
@@ -4558,6 +4568,8 @@ class QueryApiSimpleauthasyncRequest(TeaModel):
             result['auth_type'] = self.auth_type
         if self.auth_code is not None:
             result['auth_code'] = self.auth_code
+        if self.institute_id is not None:
+            result['institute_id'] = self.institute_id
         return result
 
     def from_map(self, m: dict = None):
@@ -4576,6 +4588,8 @@ class QueryApiSimpleauthasyncRequest(TeaModel):
             self.auth_type = m.get('auth_type')
         if m.get('auth_code') is not None:
             self.auth_code = m.get('auth_code')
+        if m.get('institute_id') is not None:
+            self.institute_id = m.get('institute_id')
         return self
 
 
@@ -7203,6 +7217,104 @@ class QueryIcmInvoicecontinuedResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryApiAuthweblogRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        inst_code: str = None,
+        log_date: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户号
+        self.inst_code = inst_code
+        # 埋点日志日期（yyyyMMdd）
+        self.log_date = log_date
+
+    def validate(self):
+        self.validate_required(self.inst_code, 'inst_code')
+        self.validate_required(self.log_date, 'log_date')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.inst_code is not None:
+            result['inst_code'] = self.inst_code
+        if self.log_date is not None:
+            result['log_date'] = self.log_date
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('inst_code') is not None:
+            self.inst_code = m.get('inst_code')
+        if m.get('log_date') is not None:
+            self.log_date = m.get('log_date')
+        return self
+
+
+class QueryApiAuthweblogResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        file_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 文件地址
+        self.file_url = file_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.file_url is not None:
+            result['file_url'] = self.file_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('file_url') is not None:
+            self.file_url = m.get('file_url')
         return self
 
 

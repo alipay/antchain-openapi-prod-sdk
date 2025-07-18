@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.43',
+                    'sdk_version': '1.8.45',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.43',
+                    'sdk_version': '1.8.45',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -2401,6 +2401,62 @@ class Client:
         return TeaCore.from_map(
             tax_models.QueryIcmInvoicecontinuedResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.icm.invoicecontinued.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_api_authweblog(
+        self,
+        request: tax_models.QueryApiAuthweblogRequest,
+    ) -> tax_models.QueryApiAuthweblogResponse:
+        """
+        Description: 票税RPA授权埋点数据查询
+        Summary: 票税RPA授权埋点数据查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_api_authweblog_ex(request, headers, runtime)
+
+    async def query_api_authweblog_async(
+        self,
+        request: tax_models.QueryApiAuthweblogRequest,
+    ) -> tax_models.QueryApiAuthweblogResponse:
+        """
+        Description: 票税RPA授权埋点数据查询
+        Summary: 票税RPA授权埋点数据查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_api_authweblog_ex_async(request, headers, runtime)
+
+    def query_api_authweblog_ex(
+        self,
+        request: tax_models.QueryApiAuthweblogRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryApiAuthweblogResponse:
+        """
+        Description: 票税RPA授权埋点数据查询
+        Summary: 票税RPA授权埋点数据查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryApiAuthweblogResponse(),
+            self.do_request('1.0', 'blockchain.tax.api.authweblog.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_api_authweblog_ex_async(
+        self,
+        request: tax_models.QueryApiAuthweblogRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryApiAuthweblogResponse:
+        """
+        Description: 票税RPA授权埋点数据查询
+        Summary: 票税RPA授权埋点数据查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryApiAuthweblogResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.api.authweblog.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_pdata_personalincome(
