@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.24.4',
+                    'sdk_version': '1.24.7',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.24.4',
+                    'sdk_version': '1.24.7',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -443,60 +443,60 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.creditshield.product.info.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_product_amc_callback(
+    def query_creditshield_product_callback(
         self,
-        request: riskplus_models.QueryProductAmcCallbackRequest,
-    ) -> riskplus_models.QueryProductAmcCallbackResponse:
+        request: riskplus_models.QueryCreditshieldProductCallbackRequest,
+    ) -> riskplus_models.QueryCreditshieldProductCallbackResponse:
         """
         Description: 信护盾amc机构回调通用接口
         Summary: 信护盾amc机构回调通用接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_product_amc_callback_ex(request, headers, runtime)
+        return self.query_creditshield_product_callback_ex(request, headers, runtime)
 
-    async def query_product_amc_callback_async(
+    async def query_creditshield_product_callback_async(
         self,
-        request: riskplus_models.QueryProductAmcCallbackRequest,
-    ) -> riskplus_models.QueryProductAmcCallbackResponse:
+        request: riskplus_models.QueryCreditshieldProductCallbackRequest,
+    ) -> riskplus_models.QueryCreditshieldProductCallbackResponse:
         """
         Description: 信护盾amc机构回调通用接口
         Summary: 信护盾amc机构回调通用接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_product_amc_callback_ex_async(request, headers, runtime)
+        return await self.query_creditshield_product_callback_ex_async(request, headers, runtime)
 
-    def query_product_amc_callback_ex(
+    def query_creditshield_product_callback_ex(
         self,
-        request: riskplus_models.QueryProductAmcCallbackRequest,
+        request: riskplus_models.QueryCreditshieldProductCallbackRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryProductAmcCallbackResponse:
+    ) -> riskplus_models.QueryCreditshieldProductCallbackResponse:
         """
         Description: 信护盾amc机构回调通用接口
         Summary: 信护盾amc机构回调通用接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            riskplus_models.QueryProductAmcCallbackResponse(),
-            self.do_request('1.0', 'riskplus.product.amc.callback.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            riskplus_models.QueryCreditshieldProductCallbackResponse(),
+            self.do_request('1.0', 'riskplus.creditshield.product.callback.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_product_amc_callback_ex_async(
+    async def query_creditshield_product_callback_ex_async(
         self,
-        request: riskplus_models.QueryProductAmcCallbackRequest,
+        request: riskplus_models.QueryCreditshieldProductCallbackRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryProductAmcCallbackResponse:
+    ) -> riskplus_models.QueryCreditshieldProductCallbackResponse:
         """
         Description: 信护盾amc机构回调通用接口
         Summary: 信护盾amc机构回调通用接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            riskplus_models.QueryProductAmcCallbackResponse(),
-            await self.do_request_async('1.0', 'riskplus.product.amc.callback.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            riskplus_models.QueryCreditshieldProductCallbackResponse(),
+            await self.do_request_async('1.0', 'riskplus.creditshield.product.callback.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_security_policy(
@@ -6604,7 +6604,7 @@ class Client:
         request: riskplus_models.UploadQmpOfflinehostplanRequest,
     ) -> riskplus_models.UploadQmpOfflinehostplanResponse:
         """
-        Description: qmp离线托管文件导入
+        Description: 11
         Summary: qmp离线托管文件导入
         """
         runtime = util_models.RuntimeOptions()
@@ -6616,7 +6616,7 @@ class Client:
         request: riskplus_models.UploadQmpOfflinehostplanRequest,
     ) -> riskplus_models.UploadQmpOfflinehostplanResponse:
         """
-        Description: qmp离线托管文件导入
+        Description: 11
         Summary: qmp离线托管文件导入
         """
         runtime = util_models.RuntimeOptions()
@@ -6630,7 +6630,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> riskplus_models.UploadQmpOfflinehostplanResponse:
         """
-        Description: qmp离线托管文件导入
+        Description: 11
         Summary: qmp离线托管文件导入
         """
         if not UtilClient.is_unset(request.file_object):
@@ -6664,7 +6664,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> riskplus_models.UploadQmpOfflinehostplanResponse:
         """
-        Description: qmp离线托管文件导入
+        Description: 11
         Summary: qmp离线托管文件导入
         """
         if not UtilClient.is_unset(request.file_object):
@@ -7209,6 +7209,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.UploadRfcAiboundFileResponse(),
             await self.do_request_async('1.0', 'riskplus.rfc.aibound.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_rfc_odps_lindorm(
+        self,
+        request: riskplus_models.QueryRfcOdpsLindormRequest,
+    ) -> riskplus_models.QueryRfcOdpsLindormResponse:
+        """
+        Description: 提供给外部的数据服务接口内容获取
+        Summary: 提供给外部的数据服务接口内容获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_rfc_odps_lindorm_ex(request, headers, runtime)
+
+    async def query_rfc_odps_lindorm_async(
+        self,
+        request: riskplus_models.QueryRfcOdpsLindormRequest,
+    ) -> riskplus_models.QueryRfcOdpsLindormResponse:
+        """
+        Description: 提供给外部的数据服务接口内容获取
+        Summary: 提供给外部的数据服务接口内容获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_rfc_odps_lindorm_ex_async(request, headers, runtime)
+
+    def query_rfc_odps_lindorm_ex(
+        self,
+        request: riskplus_models.QueryRfcOdpsLindormRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRfcOdpsLindormResponse:
+        """
+        Description: 提供给外部的数据服务接口内容获取
+        Summary: 提供给外部的数据服务接口内容获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRfcOdpsLindormResponse(),
+            self.do_request('1.0', 'riskplus.rfc.odps.lindorm.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_rfc_odps_lindorm_ex_async(
+        self,
+        request: riskplus_models.QueryRfcOdpsLindormRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRfcOdpsLindormResponse:
+        """
+        Description: 提供给外部的数据服务接口内容获取
+        Summary: 提供给外部的数据服务接口内容获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRfcOdpsLindormResponse(),
+            await self.do_request_async('1.0', 'riskplus.rfc.odps.lindorm.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_rbb_generic_invoke(

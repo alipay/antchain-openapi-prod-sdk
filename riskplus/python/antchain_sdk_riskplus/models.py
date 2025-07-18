@@ -5612,6 +5612,8 @@ class ReceiptInfo(TeaModel):
         already_date: str = None,
         workflow_status: str = None,
         receipt_no: str = None,
+        loan_status: str = None,
+        prod_type: str = None,
     ):
         # 客户名
         self.custom_name = custom_name
@@ -5645,6 +5647,10 @@ class ReceiptInfo(TeaModel):
         self.workflow_status = workflow_status
         # 借据编号
         self.receipt_no = receipt_no
+        # 放款状态(0：放款成功 1：放款失败 2：放款异常 3：放款中）
+        self.loan_status = loan_status
+        # 业务类型 1：现金贷（默认）、2：分期付
+        self.prod_type = prod_type
 
     def validate(self):
         self.validate_required(self.custom_name, 'custom_name')
@@ -5706,6 +5712,10 @@ class ReceiptInfo(TeaModel):
             result['workflow_status'] = self.workflow_status
         if self.receipt_no is not None:
             result['receipt_no'] = self.receipt_no
+        if self.loan_status is not None:
+            result['loan_status'] = self.loan_status
+        if self.prod_type is not None:
+            result['prod_type'] = self.prod_type
         return result
 
     def from_map(self, m: dict = None):
@@ -5742,6 +5752,10 @@ class ReceiptInfo(TeaModel):
             self.workflow_status = m.get('workflow_status')
         if m.get('receipt_no') is not None:
             self.receipt_no = m.get('receipt_no')
+        if m.get('loan_status') is not None:
+            self.loan_status = m.get('loan_status')
+        if m.get('prod_type') is not None:
+            self.prod_type = m.get('prod_type')
         return self
 
 
@@ -9690,7 +9704,7 @@ class BatchqueryCreditshieldProductInfoResponse(TeaModel):
         return self
 
 
-class QueryProductAmcCallbackRequest(TeaModel):
+class QueryCreditshieldProductCallbackRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -9749,7 +9763,7 @@ class QueryProductAmcCallbackRequest(TeaModel):
         return self
 
 
-class QueryProductAmcCallbackResponse(TeaModel):
+class QueryCreditshieldProductCallbackResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -17495,14 +17509,13 @@ class QueryDubbridgeUsecreditStatusRequest(TeaModel):
         # 1：现金贷（默认）
         # 2：分期付
         self.prod_type = prod_type
-        # prod_type=1时，用信申请的订单号
+        # 天枢系统用信申请的订单号
         self.original_order_no = original_order_no
-        # 资产方购物订单号
+        # 购物订单号，如二轮车/摩托车订单号
         self.biz_order_no = biz_order_no
 
     def validate(self):
         self.validate_required(self.order_no, 'order_no')
-        self.validate_required(self.original_order_no, 'original_order_no')
 
     def to_map(self):
         _map = super().to_map()
@@ -24526,9 +24539,7 @@ class UploadQmpOfflinehostplanRequest(TeaModel):
         file_id: str = None,
         file_template: str = None,
         plan_code: str = None,
-        relation_type: str = None,
         properties: str = None,
-        need_to_refactor: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -24539,16 +24550,12 @@ class UploadQmpOfflinehostplanRequest(TeaModel):
         # 待上传文件名
         self.file_object_name = file_object_name
         self.file_id = file_id
-        # MOBILE/MOBILE_MD5/OAID/IDFA/IMEI选择其中一种
+        # MOBILE/MOBILE_MD5/OAID/IDFA/IMEI/CAID选择其中一种
         self.file_template = file_template
         # plancode，托管计划编码
         self.plan_code = plan_code
-        # OFFLINE_DECISION/OFFLINE_DECISION_ACTION,默认OFFLINE_DECISION_ACTION
-        self.relation_type = relation_type
         # properties的header,其他的为ext_info,
         self.properties = properties
-        # 默认为false
-        self.need_to_refactor = need_to_refactor
 
     def validate(self):
         self.validate_required(self.file_id, 'file_id')
@@ -24575,12 +24582,8 @@ class UploadQmpOfflinehostplanRequest(TeaModel):
             result['file_template'] = self.file_template
         if self.plan_code is not None:
             result['plan_code'] = self.plan_code
-        if self.relation_type is not None:
-            result['relation_type'] = self.relation_type
         if self.properties is not None:
             result['properties'] = self.properties
-        if self.need_to_refactor is not None:
-            result['need_to_refactor'] = self.need_to_refactor
         return result
 
     def from_map(self, m: dict = None):
@@ -24599,12 +24602,8 @@ class UploadQmpOfflinehostplanRequest(TeaModel):
             self.file_template = m.get('file_template')
         if m.get('plan_code') is not None:
             self.plan_code = m.get('plan_code')
-        if m.get('relation_type') is not None:
-            self.relation_type = m.get('relation_type')
         if m.get('properties') is not None:
             self.properties = m.get('properties')
-        if m.get('need_to_refactor') is not None:
-            self.need_to_refactor = m.get('need_to_refactor')
         return self
 
 
@@ -25690,6 +25689,126 @@ class UploadRfcAiboundFileResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('content') is not None:
             self.content = m.get('content')
+        return self
+
+
+class QueryRfcOdpsLindormRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_code: str = None,
+        key_id: str = None,
+        channel_code: str = None,
+        auth_code: str = None,
+        encrypt_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 服务编码
+        self.biz_code = biz_code
+        # 加密后的唯一id
+        self.key_id = key_id
+        # 渠道code
+        self.channel_code = channel_code
+        # 授权码
+        self.auth_code = auth_code
+        # 加密方式
+        self.encrypt_type = encrypt_type
+
+    def validate(self):
+        self.validate_required(self.biz_code, 'biz_code')
+        self.validate_required(self.key_id, 'key_id')
+        self.validate_required(self.channel_code, 'channel_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_code is not None:
+            result['biz_code'] = self.biz_code
+        if self.key_id is not None:
+            result['key_id'] = self.key_id
+        if self.channel_code is not None:
+            result['channel_code'] = self.channel_code
+        if self.auth_code is not None:
+            result['auth_code'] = self.auth_code
+        if self.encrypt_type is not None:
+            result['encrypt_type'] = self.encrypt_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_code') is not None:
+            self.biz_code = m.get('biz_code')
+        if m.get('key_id') is not None:
+            self.key_id = m.get('key_id')
+        if m.get('channel_code') is not None:
+            self.channel_code = m.get('channel_code')
+        if m.get('auth_code') is not None:
+            self.auth_code = m.get('auth_code')
+        if m.get('encrypt_type') is not None:
+            self.encrypt_type = m.get('encrypt_type')
+        return self
+
+
+class QueryRfcOdpsLindormResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        json_res: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 查询结果
+        self.json_res = json_res
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.json_res is not None:
+            result['json_res'] = self.json_res
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('json_res') is not None:
+            self.json_res = m.get('json_res')
         return self
 
 
