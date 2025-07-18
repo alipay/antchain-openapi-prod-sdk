@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.24.4',
+    sdk_version = '1.24.7',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -1536,6 +1536,10 @@ model ReceiptInfo {
   workflowStatus: string(name='workflow_status', example='0'),
   // 借据编号
   receiptNo: string(name='receipt_no', example='145785'),
+  // 放款状态(0：放款成功 1：放款失败 2：放款异常 3：放款中）
+  loanStatus?: string(name='loan_status', example='0'),
+  // 业务类型 1：现金贷（默认）、2：分期付
+  prodType?: string(name='prod_type', example='1'),
 }
 
 // 天枢系统专用RepayRef结构体
@@ -2543,7 +2547,7 @@ async function batchqueryCreditshieldProductInfoEx(request: BatchqueryCreditshie
   return doRequest('1.0' ,'riskplus.creditshield.product.info.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryProductAmcCallbackRequest = {
+model QueryCreditshieldProductCallbackRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -2555,7 +2559,7 @@ model QueryProductAmcCallbackRequest = {
   queryInfos?: [ QueryInfo ](name='query_infos'),
 }
 
-model QueryProductAmcCallbackResponse = {
+model QueryCreditshieldProductCallbackResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -2572,19 +2576,19 @@ model QueryProductAmcCallbackResponse = {
  * Description: 信护盾amc机构回调通用接口
  * Summary: 信护盾amc机构回调通用接口
  */
-async function queryProductAmcCallback(request: QueryProductAmcCallbackRequest): QueryProductAmcCallbackResponse {
+async function queryCreditshieldProductCallback(request: QueryCreditshieldProductCallbackRequest): QueryCreditshieldProductCallbackResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return queryProductAmcCallbackEx(request, headers, runtime);
+  return queryCreditshieldProductCallbackEx(request, headers, runtime);
 }
 
 /**
  * Description: 信护盾amc机构回调通用接口
  * Summary: 信护盾amc机构回调通用接口
  */
-async function queryProductAmcCallbackEx(request: QueryProductAmcCallbackRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryProductAmcCallbackResponse {
+async function queryCreditshieldProductCallbackEx(request: QueryCreditshieldProductCallbackRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCreditshieldProductCallbackResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'riskplus.product.amc.callback.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'riskplus.creditshield.product.callback.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QuerySecurityPolicyRequest = {
@@ -5389,9 +5393,9 @@ model QueryDubbridgeUsecreditStatusRequest = {
   // 1：现金贷（默认）
   // 2：分期付
   prodType?: string(name='prod_type'),
-  // prod_type=1时，用信申请的订单号
-  originalOrderNo: string(name='original_order_no'),
-  // 资产方购物订单号
+  // 天枢系统用信申请的订单号
+  originalOrderNo?: string(name='original_order_no'),
+  // 购物订单号，如二轮车/摩托车订单号
   bizOrderNo?: string(name='biz_order_no'),
 }
 
@@ -7998,16 +8002,12 @@ model UploadQmpOfflinehostplanRequest = {
   fileObject?: readable(description='待上传文件', ignore='true'),
   fileObjectName?: string(description='待上传文件名', ignore='true'),
   fileId: string(name='file_id'),
-  // MOBILE/MOBILE_MD5/OAID/IDFA/IMEI选择其中一种
+  // MOBILE/MOBILE_MD5/OAID/IDFA/IMEI/CAID选择其中一种
   fileTemplate: string(name='file_template'),
   // plancode，托管计划编码
   planCode: string(name='plan_code'),
-  // OFFLINE_DECISION/OFFLINE_DECISION_ACTION,默认OFFLINE_DECISION_ACTION
-  relationType?: string(name='relation_type'),
   // properties的header,其他的为ext_info,
   properties?: string(name='properties'),
-  // 默认为false
-  needToRefactor?: boolean(name='need_to_refactor'),
 }
 
 model UploadQmpOfflinehostplanResponse = {
@@ -8020,7 +8020,7 @@ model UploadQmpOfflinehostplanResponse = {
 }
 
 /**
- * Description: qmp离线托管文件导入
+ * Description: 11
  * Summary: qmp离线托管文件导入
  */
 async function uploadQmpOfflinehostplan(request: UploadQmpOfflinehostplanRequest): UploadQmpOfflinehostplanResponse {
@@ -8030,7 +8030,7 @@ async function uploadQmpOfflinehostplan(request: UploadQmpOfflinehostplanRequest
 }
 
 /**
- * Description: qmp离线托管文件导入
+ * Description: 11
  * Summary: qmp离线托管文件导入
  */
 async function uploadQmpOfflinehostplanEx(request: UploadQmpOfflinehostplanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadQmpOfflinehostplanResponse {
@@ -8481,6 +8481,52 @@ async function uploadRfcAiboundFileEx(request: UploadRfcAiboundFileRequest, head
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.rfc.aibound.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRfcOdpsLindormRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 服务编码
+  bizCode: string(name='biz_code'),
+  // 加密后的唯一id
+  keyId: string(name='key_id'),
+  // 渠道code
+  channelCode: string(name='channel_code'),
+  // 授权码
+  authCode?: string(name='auth_code'),
+  // 加密方式
+  encryptType?: string(name='encrypt_type'),
+}
+
+model QueryRfcOdpsLindormResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询结果
+  jsonRes?: string(name='json_res'),
+}
+
+/**
+ * Description: 提供给外部的数据服务接口内容获取
+ * Summary: 提供给外部的数据服务接口内容获取
+ */
+async function queryRfcOdpsLindorm(request: QueryRfcOdpsLindormRequest): QueryRfcOdpsLindormResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRfcOdpsLindormEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提供给外部的数据服务接口内容获取
+ * Summary: 提供给外部的数据服务接口内容获取
+ */
+async function queryRfcOdpsLindormEx(request: QueryRfcOdpsLindormRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRfcOdpsLindormResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rfc.odps.lindorm.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryRbbGenericInvokeRequest = {
