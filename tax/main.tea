@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.43',
+    sdk_version = '1.8.45',
     _prod_code = 'TAX',
     _prod_channel = 'undefined'
   };
@@ -1506,6 +1506,8 @@ model QueryIcmSimpleauthRequest = {
   authCode: string(name='auth_code'),
   // 如果有的话，作为透传字段
   bizContext?: string(name='biz_context'),
+  // 机构id
+  instituteId?: string(name='institute_id'),
 }
 
 model QueryIcmSimpleauthResponse = {
@@ -1553,6 +1555,8 @@ model QueryApiSimpleauthasyncRequest = {
   // 行方生成的授权编号
   // 
   authCode?: string(name='auth_code'),
+  // 机构id
+  instituteId?: string(name='institute_id'),
 }
 
 model QueryApiSimpleauthasyncResponse = {
@@ -2530,6 +2534,46 @@ async function queryIcmInvoicecontinued(request: QueryIcmInvoicecontinuedRequest
 async function queryIcmInvoicecontinuedEx(request: QueryIcmInvoicecontinuedRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIcmInvoicecontinuedResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.tax.icm.invoicecontinued.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApiAuthweblogRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户号
+  instCode: string(name='inst_code'),
+  // 埋点日志日期（yyyyMMdd）
+  logDate: string(name='log_date'),
+}
+
+model QueryApiAuthweblogResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文件地址
+  fileUrl?: string(name='file_url'),
+}
+
+/**
+ * Description: 票税RPA授权埋点数据查询
+ * Summary: 票税RPA授权埋点数据查询
+ */
+async function queryApiAuthweblog(request: QueryApiAuthweblogRequest): QueryApiAuthweblogResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApiAuthweblogEx(request, headers, runtime);
+}
+
+/**
+ * Description: 票税RPA授权埋点数据查询
+ * Summary: 票税RPA授权埋点数据查询
+ */
+async function queryApiAuthweblogEx(request: QueryApiAuthweblogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApiAuthweblogResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.api.authweblog.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryPdataPersonalincomeRequest = {
