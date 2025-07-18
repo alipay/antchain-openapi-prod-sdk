@@ -2670,6 +2670,8 @@ export class QueryIcmSimpleauthRequest extends $tea.Model {
   authCode: string;
   // 如果有的话，作为透传字段
   bizContext?: string;
+  // 机构id
+  instituteId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2680,6 +2682,7 @@ export class QueryIcmSimpleauthRequest extends $tea.Model {
       authType: 'auth_type',
       authCode: 'auth_code',
       bizContext: 'biz_context',
+      instituteId: 'institute_id',
     };
   }
 
@@ -2693,6 +2696,7 @@ export class QueryIcmSimpleauthRequest extends $tea.Model {
       authType: 'string',
       authCode: 'string',
       bizContext: 'string',
+      instituteId: 'string',
     };
   }
 
@@ -2748,6 +2752,8 @@ export class QueryApiSimpleauthasyncRequest extends $tea.Model {
   // 行方生成的授权编号
   // 
   authCode?: string;
+  // 机构id
+  instituteId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2757,6 +2763,7 @@ export class QueryApiSimpleauthasyncRequest extends $tea.Model {
       bizRequestId: 'biz_request_id',
       authType: 'auth_type',
       authCode: 'auth_code',
+      instituteId: 'institute_id',
     };
   }
 
@@ -2769,6 +2776,7 @@ export class QueryApiSimpleauthasyncRequest extends $tea.Model {
       bizRequestId: 'string',
       authType: 'string',
       authCode: 'string',
+      instituteId: 'string',
     };
   }
 
@@ -4367,6 +4375,69 @@ export class QueryIcmInvoicecontinuedResponse extends $tea.Model {
   }
 }
 
+export class QueryApiAuthweblogRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户号
+  instCode: string;
+  // 埋点日志日期（yyyyMMdd）
+  logDate: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      instCode: 'inst_code',
+      logDate: 'log_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      instCode: 'string',
+      logDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryApiAuthweblogResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 文件地址
+  fileUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      fileUrl: 'file_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      fileUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryPdataPersonalincomeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -5014,7 +5085,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.43",
+          sdk_version: "1.8.45",
           _prod_code: "TAX",
           _prod_channel: "undefined",
         };
@@ -5782,6 +5853,25 @@ export default class Client {
   async queryIcmInvoicecontinuedEx(request: QueryIcmInvoicecontinuedRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIcmInvoicecontinuedResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryIcmInvoicecontinuedResponse>(await this.doRequest("1.0", "blockchain.tax.icm.invoicecontinued.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIcmInvoicecontinuedResponse({}));
+  }
+
+  /**
+   * Description: 票税RPA授权埋点数据查询
+   * Summary: 票税RPA授权埋点数据查询
+   */
+  async queryApiAuthweblog(request: QueryApiAuthweblogRequest): Promise<QueryApiAuthweblogResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryApiAuthweblogEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 票税RPA授权埋点数据查询
+   * Summary: 票税RPA授权埋点数据查询
+   */
+  async queryApiAuthweblogEx(request: QueryApiAuthweblogRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryApiAuthweblogResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryApiAuthweblogResponse>(await this.doRequest("1.0", "blockchain.tax.api.authweblog.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryApiAuthweblogResponse({}));
   }
 
   /**
