@@ -3505,6 +3505,8 @@ type QueryIcmSimpleauthRequest struct {
 	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty" require:"true"`
 	// 如果有的话，作为透传字段
 	BizContext *string `json:"biz_context,omitempty" xml:"biz_context,omitempty"`
+	// 机构id
+	InstituteId *string `json:"institute_id,omitempty" xml:"institute_id,omitempty"`
 }
 
 func (s QueryIcmSimpleauthRequest) String() string {
@@ -3552,6 +3554,11 @@ func (s *QueryIcmSimpleauthRequest) SetAuthCode(v string) *QueryIcmSimpleauthReq
 
 func (s *QueryIcmSimpleauthRequest) SetBizContext(v string) *QueryIcmSimpleauthRequest {
 	s.BizContext = &v
+	return s
+}
+
+func (s *QueryIcmSimpleauthRequest) SetInstituteId(v string) *QueryIcmSimpleauthRequest {
+	s.InstituteId = &v
 	return s
 }
 
@@ -3609,6 +3616,8 @@ type QueryApiSimpleauthasyncRequest struct {
 	// 行方生成的授权编号
 	//
 	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty"`
+	// 机构id
+	InstituteId *string `json:"institute_id,omitempty" xml:"institute_id,omitempty"`
 }
 
 func (s QueryApiSimpleauthasyncRequest) String() string {
@@ -3651,6 +3660,11 @@ func (s *QueryApiSimpleauthasyncRequest) SetAuthType(v string) *QueryApiSimpleau
 
 func (s *QueryApiSimpleauthasyncRequest) SetAuthCode(v string) *QueryApiSimpleauthasyncRequest {
 	s.AuthCode = &v
+	return s
+}
+
+func (s *QueryApiSimpleauthasyncRequest) SetInstituteId(v string) *QueryApiSimpleauthasyncRequest {
+	s.InstituteId = &v
 	return s
 }
 
@@ -5778,6 +5792,83 @@ func (s *QueryIcmInvoicecontinuedResponse) SetResultMsg(v string) *QueryIcmInvoi
 	return s
 }
 
+type QueryApiAuthweblogRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户号
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
+	// 埋点日志日期（yyyyMMdd）
+	LogDate *string `json:"log_date,omitempty" xml:"log_date,omitempty" require:"true"`
+}
+
+func (s QueryApiAuthweblogRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApiAuthweblogRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApiAuthweblogRequest) SetAuthToken(v string) *QueryApiAuthweblogRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryApiAuthweblogRequest) SetProductInstanceId(v string) *QueryApiAuthweblogRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryApiAuthweblogRequest) SetInstCode(v string) *QueryApiAuthweblogRequest {
+	s.InstCode = &v
+	return s
+}
+
+func (s *QueryApiAuthweblogRequest) SetLogDate(v string) *QueryApiAuthweblogRequest {
+	s.LogDate = &v
+	return s
+}
+
+type QueryApiAuthweblogResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文件地址
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
+}
+
+func (s QueryApiAuthweblogResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApiAuthweblogResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApiAuthweblogResponse) SetReqMsgId(v string) *QueryApiAuthweblogResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryApiAuthweblogResponse) SetResultCode(v string) *QueryApiAuthweblogResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryApiAuthweblogResponse) SetResultMsg(v string) *QueryApiAuthweblogResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryApiAuthweblogResponse) SetFileUrl(v string) *QueryApiAuthweblogResponse {
+	s.FileUrl = &v
+	return s
+}
+
 type QueryPdataPersonalincomeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -6635,7 +6726,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.43"),
+				"sdk_version":      tea.String("1.8.45"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -7978,6 +8069,40 @@ func (client *Client) QueryIcmInvoicecontinuedEx(request *QueryIcmInvoicecontinu
 	}
 	_result = &QueryIcmInvoicecontinuedResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.icm.invoicecontinued.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 票税RPA授权埋点数据查询
+ * Summary: 票税RPA授权埋点数据查询
+ */
+func (client *Client) QueryApiAuthweblog(request *QueryApiAuthweblogRequest) (_result *QueryApiAuthweblogResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryApiAuthweblogResponse{}
+	_body, _err := client.QueryApiAuthweblogEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 票税RPA授权埋点数据查询
+ * Summary: 票税RPA授权埋点数据查询
+ */
+func (client *Client) QueryApiAuthweblogEx(request *QueryApiAuthweblogRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryApiAuthweblogResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryApiAuthweblogResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.authweblog.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
