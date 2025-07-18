@@ -54,6 +54,12 @@ class QueryIcmSimpleauthRequest extends Model
      * @var string
      */
     public $bizContext;
+
+    // 机构id
+    /**
+     * @var string
+     */
+    public $instituteId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -63,6 +69,7 @@ class QueryIcmSimpleauthRequest extends Model
         'authType'          => 'auth_type',
         'authCode'          => 'auth_code',
         'bizContext'        => 'biz_context',
+        'instituteId'       => 'institute_id',
     ];
 
     public function validate()
@@ -101,6 +108,9 @@ class QueryIcmSimpleauthRequest extends Model
         if (null !== $this->bizContext) {
             $res['biz_context'] = $this->bizContext;
         }
+        if (null !== $this->instituteId) {
+            $res['institute_id'] = $this->instituteId;
+        }
 
         return $res;
     }
@@ -136,6 +146,9 @@ class QueryIcmSimpleauthRequest extends Model
         }
         if (isset($map['biz_context'])) {
             $model->bizContext = $map['biz_context'];
+        }
+        if (isset($map['institute_id'])) {
+            $model->instituteId = $map['institute_id'];
         }
 
         return $model;

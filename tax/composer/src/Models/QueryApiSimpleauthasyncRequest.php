@@ -49,6 +49,12 @@ class QueryApiSimpleauthasyncRequest extends Model
      * @var string
      */
     public $authCode;
+
+    // 机构id
+    /**
+     * @var string
+     */
+    public $instituteId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -57,6 +63,7 @@ class QueryApiSimpleauthasyncRequest extends Model
         'bizRequestId'      => 'biz_request_id',
         'authType'          => 'auth_type',
         'authCode'          => 'auth_code',
+        'instituteId'       => 'institute_id',
     ];
 
     public function validate()
@@ -91,6 +98,9 @@ class QueryApiSimpleauthasyncRequest extends Model
         if (null !== $this->authCode) {
             $res['auth_code'] = $this->authCode;
         }
+        if (null !== $this->instituteId) {
+            $res['institute_id'] = $this->instituteId;
+        }
 
         return $res;
     }
@@ -123,6 +133,9 @@ class QueryApiSimpleauthasyncRequest extends Model
         }
         if (isset($map['auth_code'])) {
             $model->authCode = $map['auth_code'];
+        }
+        if (isset($map['institute_id'])) {
+            $model->instituteId = $map['institute_id'];
         }
 
         return $model;

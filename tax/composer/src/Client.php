@@ -59,6 +59,8 @@ use AntChain\TAX\Models\QueryApiAuthtemplateresultRequest;
 use AntChain\TAX\Models\QueryApiAuthtemplateresultResponse;
 use AntChain\TAX\Models\QueryApiAuthteplateRequest;
 use AntChain\TAX\Models\QueryApiAuthteplateResponse;
+use AntChain\TAX\Models\QueryApiAuthweblogRequest;
+use AntChain\TAX\Models\QueryApiAuthweblogResponse;
 use AntChain\TAX\Models\QueryApiDataprocessRequest;
 use AntChain\TAX\Models\QueryApiDataprocessResponse;
 use AntChain\TAX\Models\QueryApiHaiguanasyncRequest;
@@ -246,7 +248,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.43',
+                    'sdk_version'      => '1.8.45',
                     '_prod_code'       => 'TAX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1546,6 +1548,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryIcmInvoicecontinuedResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.icm.invoicecontinued.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 票税RPA授权埋点数据查询
+     * Summary: 票税RPA授权埋点数据查询.
+     *
+     * @param QueryApiAuthweblogRequest $request
+     *
+     * @return QueryApiAuthweblogResponse
+     */
+    public function queryApiAuthweblog($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApiAuthweblogEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 票税RPA授权埋点数据查询
+     * Summary: 票税RPA授权埋点数据查询.
+     *
+     * @param QueryApiAuthweblogRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryApiAuthweblogResponse
+     */
+    public function queryApiAuthweblogEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApiAuthweblogResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.authweblog.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
