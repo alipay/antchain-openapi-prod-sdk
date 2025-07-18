@@ -3433,6 +3433,10 @@ export class ReceiptInfo extends $tea.Model {
   workflowStatus: string;
   // 借据编号
   receiptNo: string;
+  // 放款状态(0：放款成功 1：放款失败 2：放款异常 3：放款中）
+  loanStatus?: string;
+  // 业务类型 1：现金贷（默认）、2：分期付
+  prodType?: string;
   static names(): { [key: string]: string } {
     return {
       customName: 'custom_name',
@@ -3451,6 +3455,8 @@ export class ReceiptInfo extends $tea.Model {
       alreadyDate: 'already_date',
       workflowStatus: 'workflow_status',
       receiptNo: 'receipt_no',
+      loanStatus: 'loan_status',
+      prodType: 'prod_type',
     };
   }
 
@@ -3472,6 +3478,8 @@ export class ReceiptInfo extends $tea.Model {
       alreadyDate: 'string',
       workflowStatus: 'string',
       receiptNo: 'string',
+      loanStatus: 'string',
+      prodType: 'string',
     };
   }
 
@@ -5823,7 +5831,7 @@ export class BatchqueryCreditshieldProductInfoResponse extends $tea.Model {
   }
 }
 
-export class QueryProductAmcCallbackRequest extends $tea.Model {
+export class QueryCreditshieldProductCallbackRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -5856,7 +5864,7 @@ export class QueryProductAmcCallbackRequest extends $tea.Model {
   }
 }
 
-export class QueryProductAmcCallbackResponse extends $tea.Model {
+export class QueryCreditshieldProductCallbackResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -10497,9 +10505,9 @@ export class QueryDubbridgeUsecreditStatusRequest extends $tea.Model {
   // 1：现金贷（默认）
   // 2：分期付
   prodType?: string;
-  // prod_type=1时，用信申请的订单号
-  originalOrderNo: string;
-  // 资产方购物订单号
+  // 天枢系统用信申请的订单号
+  originalOrderNo?: string;
+  // 购物订单号，如二轮车/摩托车订单号
   bizOrderNo?: string;
   static names(): { [key: string]: string } {
     return {
@@ -14726,16 +14734,12 @@ export class UploadQmpOfflinehostplanRequest extends $tea.Model {
   fileObject?: Readable;
   fileObjectName?: string;
   fileId: string;
-  // MOBILE/MOBILE_MD5/OAID/IDFA/IMEI选择其中一种
+  // MOBILE/MOBILE_MD5/OAID/IDFA/IMEI/CAID选择其中一种
   fileTemplate: string;
   // plancode，托管计划编码
   planCode: string;
-  // OFFLINE_DECISION/OFFLINE_DECISION_ACTION,默认OFFLINE_DECISION_ACTION
-  relationType?: string;
   // properties的header,其他的为ext_info,
   properties?: string;
-  // 默认为false
-  needToRefactor?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -14745,9 +14749,7 @@ export class UploadQmpOfflinehostplanRequest extends $tea.Model {
       fileId: 'file_id',
       fileTemplate: 'file_template',
       planCode: 'plan_code',
-      relationType: 'relation_type',
       properties: 'properties',
-      needToRefactor: 'need_to_refactor',
     };
   }
 
@@ -14760,9 +14762,7 @@ export class UploadQmpOfflinehostplanRequest extends $tea.Model {
       fileId: 'string',
       fileTemplate: 'string',
       planCode: 'string',
-      relationType: 'string',
       properties: 'string',
-      needToRefactor: 'boolean',
     };
   }
 
@@ -15428,6 +15428,81 @@ export class UploadRfcAiboundFileResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       content: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRfcOdpsLindormRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 服务编码
+  bizCode: string;
+  // 加密后的唯一id
+  keyId: string;
+  // 渠道code
+  channelCode: string;
+  // 授权码
+  authCode?: string;
+  // 加密方式
+  encryptType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizCode: 'biz_code',
+      keyId: 'key_id',
+      channelCode: 'channel_code',
+      authCode: 'auth_code',
+      encryptType: 'encrypt_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizCode: 'string',
+      keyId: 'string',
+      channelCode: 'string',
+      authCode: 'string',
+      encryptType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRfcOdpsLindormResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 查询结果
+  jsonRes?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      jsonRes: 'json_res',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      jsonRes: 'string',
     };
   }
 
@@ -23513,7 +23588,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.24.4",
+          sdk_version: "1.24.7",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -23622,19 +23697,19 @@ export default class Client {
    * Description: 信护盾amc机构回调通用接口
    * Summary: 信护盾amc机构回调通用接口
    */
-  async queryProductAmcCallback(request: QueryProductAmcCallbackRequest): Promise<QueryProductAmcCallbackResponse> {
+  async queryCreditshieldProductCallback(request: QueryCreditshieldProductCallbackRequest): Promise<QueryCreditshieldProductCallbackResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.queryProductAmcCallbackEx(request, headers, runtime);
+    return await this.queryCreditshieldProductCallbackEx(request, headers, runtime);
   }
 
   /**
    * Description: 信护盾amc机构回调通用接口
    * Summary: 信护盾amc机构回调通用接口
    */
-  async queryProductAmcCallbackEx(request: QueryProductAmcCallbackRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryProductAmcCallbackResponse> {
+  async queryCreditshieldProductCallbackEx(request: QueryCreditshieldProductCallbackRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCreditshieldProductCallbackResponse> {
     Util.validateModel(request);
-    return $tea.cast<QueryProductAmcCallbackResponse>(await this.doRequest("1.0", "riskplus.product.amc.callback.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryProductAmcCallbackResponse({}));
+    return $tea.cast<QueryCreditshieldProductCallbackResponse>(await this.doRequest("1.0", "riskplus.creditshield.product.callback.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCreditshieldProductCallbackResponse({}));
   }
 
   /**
@@ -25737,7 +25812,7 @@ export default class Client {
   }
 
   /**
-   * Description: qmp离线托管文件导入
+   * Description: 11
    * Summary: qmp离线托管文件导入
    */
   async uploadQmpOfflinehostplan(request: UploadQmpOfflinehostplanRequest): Promise<UploadQmpOfflinehostplanResponse> {
@@ -25747,7 +25822,7 @@ export default class Client {
   }
 
   /**
-   * Description: qmp离线托管文件导入
+   * Description: 11
    * Summary: qmp离线托管文件导入
    */
   async uploadQmpOfflinehostplanEx(request: UploadQmpOfflinehostplanRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadQmpOfflinehostplanResponse> {
@@ -25971,6 +26046,25 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<UploadRfcAiboundFileResponse>(await this.doRequest("1.0", "riskplus.rfc.aibound.file.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadRfcAiboundFileResponse({}));
+  }
+
+  /**
+   * Description: 提供给外部的数据服务接口内容获取
+   * Summary: 提供给外部的数据服务接口内容获取
+   */
+  async queryRfcOdpsLindorm(request: QueryRfcOdpsLindormRequest): Promise<QueryRfcOdpsLindormResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryRfcOdpsLindormEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 提供给外部的数据服务接口内容获取
+   * Summary: 提供给外部的数据服务接口内容获取
+   */
+  async queryRfcOdpsLindormEx(request: QueryRfcOdpsLindormRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRfcOdpsLindormResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryRfcOdpsLindormResponse>(await this.doRequest("1.0", "riskplus.rfc.odps.lindorm.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRfcOdpsLindormResponse({}));
   }
 
   /**
