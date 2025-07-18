@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class SelectOption extends TeaModel {
     // 选项名称
+    /**
+     * <strong>example:</strong>
+     * <p>选项名称</p>
+     */
     @NameInMap("lable")
     @Validation(required = true)
     public String lable;
 
     // 选项的值，一般是 id 之类的唯一标识符，给后端传这个
+    /**
+     * <strong>example:</strong>
+     * <p>zhangsan</p>
+     */
     @NameInMap("value")
     @Validation(required = true)
     public String value;

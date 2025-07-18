@@ -9,16 +9,28 @@ public class Logic extends TeaModel {
     //   notEqual = _notEqual_, // 不相等比较
     //   AND = _AND_, // 与逻辑
     //   OR = _OR_, // 或逻辑
+    /**
+     * <strong>example:</strong>
+     * <p>equal</p>
+     */
     @NameInMap("op")
     @Validation(required = true)
     public String op;
 
     //  只有 op 是 AND 或者 OR 才是可选，其他情况为必选
+    /**
+     * <strong>example:</strong>
+     * <p>sss</p>
+     */
     @NameInMap("key")
     @Validation(required = true)
     public String key;
 
     // 只有 op 是 AND 或者 OR 才是可选，其他情况为必选
+    /**
+     * <strong>example:</strong>
+     * <p>d d d</p>
+     */
     @NameInMap("value")
     @Validation(required = true)
     public String value;
@@ -36,6 +48,10 @@ public class Logic extends TeaModel {
     //             key: _username_,  // 表示：登录信息
     //             value: null
     //           }]}]
+    /**
+     * <strong>example:</strong>
+     * <p>[]</p>
+     */
     @NameInMap("children")
     @Validation(required = true)
     public String children;

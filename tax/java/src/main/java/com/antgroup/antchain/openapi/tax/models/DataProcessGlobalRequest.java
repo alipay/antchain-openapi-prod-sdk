@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class DataProcessGlobalRequest extends TeaModel {
     // 产品码
+    /**
+     * <strong>example:</strong>
+     * <p>SCIAZDR</p>
+     */
     @NameInMap("product_code")
     @Validation(required = true)
     public String productCode;
 
     // 租户类型
+    /**
+     * <strong>example:</strong>
+     * <p>SCIAZDR</p>
+     */
     @NameInMap("inst_code")
     @Validation(required = true)
     public String instCode;
 
     // 参数
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;aa&quot;:&quot;aa&quot;}</p>
+     */
     @NameInMap("param")
     @Validation(required = true)
     public String param;

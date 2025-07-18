@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class DistrictExtRequest extends TeaModel {
     // 地区编码
+    /**
+     * <strong>example:</strong>
+     * <p>340909</p>
+     */
     @NameInMap("city_code")
     public String cityCode;
 
     // 省或者直辖市代码
+    /**
+     * <strong>example:</strong>
+     * <p>340000</p>
+     */
     @NameInMap("prov_code")
     public String provCode;
 

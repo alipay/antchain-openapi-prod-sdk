@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class RiskEvaluationDistrictExtRequest extends TeaModel {
     // 地区编码
+    /**
+     * <strong>example:</strong>
+     * <p> 4301000</p>
+     */
     @NameInMap("city_code")
     @Validation(required = true)
     public String cityCode;
 
     // 省级编码
+    /**
+     * <strong>example:</strong>
+     * <p>510000</p>
+     */
     @NameInMap("prov_code")
     @Validation(required = true)
     public String provCode;

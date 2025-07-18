@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class MarriageCheckEvaluationFacade extends TeaModel {
     // 婚姻状况查验结果
+    /**
+     * <strong>example:</strong>
+     * <p>0:结婚 1:离婚 2:未匹配；-1:数据源查询异常；-2:核查中</p>
+     */
     @NameInMap("check_result")
     @Validation(required = true)
     public String checkResult;

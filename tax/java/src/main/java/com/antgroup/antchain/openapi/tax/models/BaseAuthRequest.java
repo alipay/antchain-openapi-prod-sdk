@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class BaseAuthRequest extends TeaModel {
     // 租户号
+    /**
+     * <strong>example:</strong>
+     * <p>OCRGDSFD</p>
+     */
     @NameInMap("inst_code")
     @Validation(required = true)
     public String instCode;
 
     // 授权类型
+    /**
+     * <strong>example:</strong>
+     * <p>19</p>
+     */
     @NameInMap("auth_type")
     @Validation(required = true)
     public String authType;
 
     // xdsadsfsdf
+    /**
+     * <strong>example:</strong>
+     * <p>订单号</p>
+     */
     @NameInMap("order_no")
     @Validation(required = true)
     public String orderNo;
 
     // 扩展信息
+    /**
+     * <strong>example:</strong>
+     * <p>扩展信息</p>
+     */
     @NameInMap("extend_info")
     @Validation(required = true)
     public StandardAuthExtendInfoRequest extendInfo;

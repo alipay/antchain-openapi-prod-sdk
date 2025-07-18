@@ -36,6 +36,10 @@ public class QueryApiSimpleauthasyncRequest extends TeaModel {
     @NameInMap("auth_code")
     public String authCode;
 
+    // 机构id
+    @NameInMap("institute_id")
+    public String instituteId;
+
     public static QueryApiSimpleauthasyncRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryApiSimpleauthasyncRequest self = new QueryApiSimpleauthasyncRequest();
         return TeaModel.build(map, self);
@@ -95,6 +99,14 @@ public class QueryApiSimpleauthasyncRequest extends TeaModel {
     }
     public String getAuthCode() {
         return this.authCode;
+    }
+
+    public QueryApiSimpleauthasyncRequest setInstituteId(String instituteId) {
+        this.instituteId = instituteId;
+        return this;
+    }
+    public String getInstituteId() {
+        return this.instituteId;
     }
 
 }

@@ -40,6 +40,10 @@ public class QueryIcmSimpleauthRequest extends TeaModel {
     @NameInMap("biz_context")
     public String bizContext;
 
+    // 机构id
+    @NameInMap("institute_id")
+    public String instituteId;
+
     public static QueryIcmSimpleauthRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryIcmSimpleauthRequest self = new QueryIcmSimpleauthRequest();
         return TeaModel.build(map, self);
@@ -107,6 +111,14 @@ public class QueryIcmSimpleauthRequest extends TeaModel {
     }
     public String getBizContext() {
         return this.bizContext;
+    }
+
+    public QueryIcmSimpleauthRequest setInstituteId(String instituteId) {
+        this.instituteId = instituteId;
+        return this;
+    }
+    public String getInstituteId() {
+        return this.instituteId;
     }
 
 }

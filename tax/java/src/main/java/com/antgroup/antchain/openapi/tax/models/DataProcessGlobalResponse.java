@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class DataProcessGlobalResponse extends TeaModel {
     // 处理结果数据
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;aa&quot;:&quot;aa&quot;}</p>
+     */
     @NameInMap("data")
     @Validation(required = true)
     public String data;

@@ -5,47 +5,87 @@ import com.aliyun.tea.*;
 
 public class InvoiceItem extends TeaModel {
     // 税收分类编码	
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("spbm")
     @Validation(required = true)
     public String spbm;
 
     // 项目名称, 如果为折扣行，商品名称须与被折扣行的商品名称相同，不能多行折扣。
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("mc")
     @Validation(required = true)
     public String mc;
 
     // 单位
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("jldw")
     public String jldw;
 
     // 数量
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("shul")
     public String shul;
 
     // 含税金额,2位小数
+    /**
+     * <strong>example:</strong>
+     * <p>10.11</p>
+     */
     @NameInMap("je")
     @Validation(required = true)
     public String je;
 
     // 税率,当fplx!=51or53时，必填,3位小数，例1%为0.010；
+    /**
+     * <strong>example:</strong>
+     * <p>0.01</p>
+     */
     @NameInMap("sl")
     public String sl;
 
     // 税额,当fplx!=51or53时，必填
+    /**
+     * <strong>example:</strong>
+     * <p>10.11</p>
+     */
     @NameInMap("se")
     public String se;
 
     // 明细序号,从1开始递增
+    /**
+     * <strong>example:</strong>
+     * <p>2</p>
+     */
     @NameInMap("mxxh")
     @Validation(required = true)
     public String mxxh;
 
     // 单价
+    /**
+     * <strong>example:</strong>
+     * <p>10.11</p>
+     */
     @NameInMap("dj")
     @Validation(required = true)
     public String dj;
 
     // 规格型号
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("ggxh")
     public String ggxh;
 

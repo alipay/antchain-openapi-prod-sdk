@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class Key extends TeaModel {
     // 名称（key的中文名称）
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("key")
     @Validation(required = true)
     public String key;
 
     // id
+    /**
+     * <strong>example:</strong>
+     * <p>123232423</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public String id;
@@ -21,46 +29,82 @@ public class Key extends TeaModel {
     // smsCode, // 手机验证码
     // qrcodeLogin, // 二维码登录
     // hiddenField,// 隐藏字段，页面上不显示，但是值会提交给后端
+    /**
+     * <strong>example:</strong>
+     * <p>cardSelect</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public String type;
 
     // 字段名称 例如：密码
+    /**
+     * <strong>example:</strong>
+     * <p>dd</p>
+     */
     @NameInMap("label")
     @Validation(required = true)
     public String label;
 
     // 输入框的值类型，字符串还是数字，默认 string/number/paassword
+    /**
+     * <strong>example:</strong>
+     * <p>number</p>
+     */
     @NameInMap("input_type")
     @Validation(required = true)
     public String inputType;
 
     // 字段的初始值，类型要和前端提交的类型保持一致，且是可被 JSON 序列化的
+    /**
+     * <strong>example:</strong>
+     * <p>ddd</p>
+     */
     @NameInMap("initial_value")
     @Validation(required = true)
     public String initialValue;
 
     // 占位符，比如”请输入密码“
+    /**
+     * <strong>example:</strong>
+     * <p>请输入密码</p>
+     */
     @NameInMap("placeholder")
     @Validation(required = true)
     public String placeholder;
 
     // 是否为禁用状态，true 表示禁用，默认 false
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("disabled")
     @Validation(required = true)
     public Boolean disabled;
 
     // 表示输入框是否为只读状态（只读和禁用都不能输入，但是样式不一样，所以要注意区分，不要同时声明 disabled 和 readOnly，否则以 disabled 优先）
+    /**
+     * <strong>example:</strong>
+     * <p>true</p>
+     */
     @NameInMap("read_only")
     @Validation(required = true)
     public String readOnly;
 
     // 这个字段的提示说明文案
+    /**
+     * <strong>example:</strong>
+     * <p>这个字段的提示说明文案，点击字段名称右侧的 icon 时显示</p>
+     */
     @NameInMap("tooltip")
     @Validation(required = true)
     public String tooltip;
 
     // 校验规则
+    /**
+     * <strong>example:</strong>
+     * <p>校验规则</p>
+     */
     @NameInMap("rules")
     @Validation(required = true)
     public java.util.List<Rule> rules;

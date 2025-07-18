@@ -5,19 +5,35 @@ import com.aliyun.tea.*;
 
 public class SocialIncomeEvaluationFacade extends TeaModel {
     // 查询结果
+    /**
+     * <strong>example:</strong>
+     * <p>00,01</p>
+     */
     @NameInMap("score_result")
     @Validation(required = true)
     public String scoreResult;
 
     // 收入评分
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("range_score")
     public String rangeScore;
 
     // 历史稳定性评估
+    /**
+     * <strong>example:</strong>
+     * <p>90</p>
+     */
     @NameInMap("history_score")
     public String historyScore;
 
     // 近期稳定性评估
+    /**
+     * <strong>example:</strong>
+     * <p>80</p>
+     */
     @NameInMap("stability_score")
     public String stabilityScore;
 

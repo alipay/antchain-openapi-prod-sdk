@@ -7,18 +7,30 @@ public class RiskEvaluationAgreementExtRequest extends TeaModel {
     // URL：文件地址
     // CONTENT:Base64的文件流
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>URL</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public String type;
 
     // 文件类型
     // PDF
+    /**
+     * <strong>example:</strong>
+     * <p>PDF</p>
+     */
     @NameInMap("file_type")
     public String fileType;
 
     // type为url是传入文件地址
     // type为CONTENT时传入Base64文件内容编码
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>ewronvdnfidonfsidfis</p>
+     */
     @NameInMap("content")
     @Validation(required = true)
     public String content;

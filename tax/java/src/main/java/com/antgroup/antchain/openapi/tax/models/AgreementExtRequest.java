@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class AgreementExtRequest extends TeaModel {
     // 证书类型
+    /**
+     * <strong>example:</strong>
+     * <p>证书类型</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public String type;
 
     // 是否盖章，true：是 false：否
+    /**
+     * <strong>example:</strong>
+     * <p>true</p>
+     */
     @NameInMap("is_seal")
     @Validation(required = true)
     public String isSeal;
 
     // 地址
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://sdsdfsd.com">http://sdsdfsd.com</a></p>
+     */
     @NameInMap("address")
     @Validation(required = true)
     public String address;

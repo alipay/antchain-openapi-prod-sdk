@@ -10,6 +10,10 @@ public class RiskEvaluationExtendInfoRequest extends TeaModel {
     public java.util.List<RiskEvaluationAgreementExtRequest> agreementList;
 
     // 地区请求
+    /**
+     * <strong>example:</strong>
+     * <p>地区请求</p>
+     */
     @NameInMap("district_ext")
     @Validation(required = true)
     public RiskEvaluationDistrictExtRequest districtExt;

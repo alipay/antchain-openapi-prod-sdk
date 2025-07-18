@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class AgreementFile extends TeaModel {
     // 授权文件名称
+    /**
+     * <strong>example:</strong>
+     * <p>1.pdf</p>
+     */
     @NameInMap("file_name")
     @Validation(required = true)
     public String fileName;
 
     // 授权文件内容
+    /**
+     * <strong>example:</strong>
+     * <p>JVBERi0xLjUKJYCBgoMKMSAwIG9iago8PC9GaWx0ZXIvRmxhdGVEZWNvZGUvRmlyc3QgMTQxL04gMjAvTGVuZ3==</p>
+     */
     @NameInMap("file_content_base64_string")
     @Validation(required = true)
     public String fileContentBase64String;

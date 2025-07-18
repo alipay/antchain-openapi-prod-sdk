@@ -32,7 +32,9 @@ public class Client {
     public Number _maxRequests;
     public Number _maxRequestsPerHost;
     /**
-     * Init client with Config
+     * <b>description</b> :
+     * <p>Init client with Config</p>
+     * 
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
@@ -64,7 +66,9 @@ public class Client {
     }
 
     /**
-     * Encapsulate the request and invoke the network
+     * <b>description</b> :
+     * <p>Encapsulate the request and invoke the network</p>
+     * 
      * @param action api name
      * @param protocol http or https
      * @param method e.g. GET
@@ -122,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.8.43"),
+                    new TeaPair("sdk_version", "1.8.45"),
                     new TeaPair("_prod_code", "TAX"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -185,8 +189,9 @@ public class Client {
     }
 
     /**
-     * Description: 目前仅用于广州区块链发票开通企业信息推送
-     * Summary: 区块链发票开通企业信息推送
+     * <b>description</b> :
+     * <p>Description: 目前仅用于广州区块链发票开通企业信息推送
+     * Summary: 区块链发票开通企业信息推送</p>
      */
     public AuthCorpResponse authCorp(AuthCorpRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -195,8 +200,9 @@ public class Client {
     }
 
     /**
-     * Description: 目前仅用于广州区块链发票开通企业信息推送
-     * Summary: 区块链发票开通企业信息推送
+     * <b>description</b> :
+     * <p>Description: 目前仅用于广州区块链发票开通企业信息推送
+     * Summary: 区块链发票开通企业信息推送</p>
      */
     public AuthCorpResponse authCorpEx(AuthCorpRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -204,8 +210,9 @@ public class Client {
     }
 
     /**
-     * Description: 目前用于浙江票据的计费推送，其他主站环境还是继续使用msg。
-     * Summary: 计费推送
+     * <b>description</b> :
+     * <p>Description: 目前用于浙江票据的计费推送，其他主站环境还是继续使用msg。
+     * Summary: 计费推送</p>
      */
     public PushChargeResponse pushCharge(PushChargeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -214,8 +221,9 @@ public class Client {
     }
 
     /**
-     * Description: 目前用于浙江票据的计费推送，其他主站环境还是继续使用msg。
-     * Summary: 计费推送
+     * <b>description</b> :
+     * <p>Description: 目前用于浙江票据的计费推送，其他主站环境还是继续使用msg。
+     * Summary: 计费推送</p>
      */
     public PushChargeResponse pushChargeEx(PushChargeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -223,8 +231,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询计收费授权情况
-     * Summary: 查询计收费授权情况
+     * <b>description</b> :
+     * <p>Description: 查询计收费授权情况
+     * Summary: 查询计收费授权情况</p>
      */
     public QueryChargeAuthResponse queryChargeAuth(QueryChargeAuthRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -233,8 +242,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询计收费授权情况
-     * Summary: 查询计收费授权情况
+     * <b>description</b> :
+     * <p>Description: 查询计收费授权情况
+     * Summary: 查询计收费授权情况</p>
      */
     public QueryChargeAuthResponse queryChargeAuthEx(QueryChargeAuthRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -242,8 +252,9 @@ public class Client {
     }
 
     /**
-     * Description: 目前仅用于广州区块链发票信息推送
-     * Summary:  区块链发票信息推送
+     * <b>description</b> :
+     * <p>Description: 目前仅用于广州区块链发票信息推送
+     * Summary:  区块链发票信息推送</p>
      */
     public PushIcmInvoiceResponse pushIcmInvoice(PushIcmInvoiceRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -252,8 +263,9 @@ public class Client {
     }
 
     /**
-     * Description: 目前仅用于广州区块链发票信息推送
-     * Summary:  区块链发票信息推送
+     * <b>description</b> :
+     * <p>Description: 目前仅用于广州区块链发票信息推送
+     * Summary:  区块链发票信息推送</p>
      */
     public PushIcmInvoiceResponse pushIcmInvoiceEx(PushIcmInvoiceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -261,8 +273,9 @@ public class Client {
     }
 
     /**
-     * Description: 区块链发票信息查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式进行通知
-     * Summary:  区块链发票信息查询
+     * <b>description</b> :
+     * <p>Description: 区块链发票信息查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式进行通知
+     * Summary:  区块链发票信息查询</p>
      */
     public QueryIcmInvoiceResponse queryIcmInvoice(QueryIcmInvoiceRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -271,8 +284,9 @@ public class Client {
     }
 
     /**
-     * Description: 区块链发票信息查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式进行通知
-     * Summary:  区块链发票信息查询
+     * <b>description</b> :
+     * <p>Description: 区块链发票信息查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式进行通知
+     * Summary:  区块链发票信息查询</p>
      */
     public QueryIcmInvoiceResponse queryIcmInvoiceEx(QueryIcmInvoiceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -280,8 +294,9 @@ public class Client {
     }
 
     /**
-     * Description: 标准发票推送
-     * Summary: 标准发票推送
+     * <b>description</b> :
+     * <p>Description: 标准发票推送
+     * Summary: 标准发票推送</p>
      */
     public PushIcmInvoiceinfoResponse pushIcmInvoiceinfo(PushIcmInvoiceinfoRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -290,8 +305,9 @@ public class Client {
     }
 
     /**
-     * Description: 标准发票推送
-     * Summary: 标准发票推送
+     * <b>description</b> :
+     * <p>Description: 标准发票推送
+     * Summary: 标准发票推送</p>
      */
     public PushIcmInvoiceinfoResponse pushIcmInvoiceinfoEx(PushIcmInvoiceinfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -299,8 +315,9 @@ public class Client {
     }
 
     /**
-     * Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
-     * Summary: 获取数据的上链信息描述
+     * <b>description</b> :
+     * <p>Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
+     * Summary: 获取数据的上链信息描述</p>
      */
     public DescribeIcmInvoiceResponse describeIcmInvoice(DescribeIcmInvoiceRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -309,8 +326,9 @@ public class Client {
     }
 
     /**
-     * Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
-     * Summary: 获取数据的上链信息描述
+     * <b>description</b> :
+     * <p>Description: 根据发票销方税号，发票代码和发票号码获取该张发票在链上的信息，比如快高，交易hash，交易时间
+     * Summary: 获取数据的上链信息描述</p>
      */
     public DescribeIcmInvoiceResponse describeIcmInvoiceEx(DescribeIcmInvoiceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -318,8 +336,9 @@ public class Client {
     }
 
     /**
-     * Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
-     * Summary: 区块链银行授权接口
+     * <b>description</b> :
+     * <p>Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
+     * Summary: 区块链银行授权接口</p>
      */
     public AuthIcmInvoiceResponse authIcmInvoice(AuthIcmInvoiceRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -328,8 +347,9 @@ public class Client {
     }
 
     /**
-     * Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
-     * Summary: 区块链银行授权接口
+     * <b>description</b> :
+     * <p>Description: 区块链银行接口-该接口为支持贷后授权接口，授权结果以同步方式返回
+     * Summary: 区块链银行授权接口</p>
      */
     public AuthIcmInvoiceResponse authIcmInvoiceEx(AuthIcmInvoiceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -337,8 +357,9 @@ public class Client {
     }
 
     /**
-     * Description: 个人数据使用授权
-     * Summary: 个人数据使用授权
+     * <b>description</b> :
+     * <p>Description: 个人数据使用授权
+     * Summary: 个人数据使用授权</p>
      */
     public AuthIcmRealpersonResponse authIcmRealperson(AuthIcmRealpersonRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -347,8 +368,9 @@ public class Client {
     }
 
     /**
-     * Description: 个人数据使用授权
-     * Summary: 个人数据使用授权
+     * <b>description</b> :
+     * <p>Description: 个人数据使用授权
+     * Summary: 个人数据使用授权</p>
      */
     public AuthIcmRealpersonResponse authIcmRealpersonEx(AuthIcmRealpersonRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -356,8 +378,9 @@ public class Client {
     }
 
     /**
-     * Description: 采集，不限制同步 异步
-     * Summary: 采集
+     * <b>description</b> :
+     * <p>Description: 采集，不限制同步 异步
+     * Summary: 采集</p>
      */
     public ExecIcmSyncgatheringResponse execIcmSyncgathering(ExecIcmSyncgatheringRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -366,8 +389,9 @@ public class Client {
     }
 
     /**
-     * Description: 采集，不限制同步 异步
-     * Summary: 采集
+     * <b>description</b> :
+     * <p>Description: 采集，不限制同步 异步
+     * Summary: 采集</p>
      */
     public ExecIcmSyncgatheringResponse execIcmSyncgatheringEx(ExecIcmSyncgatheringRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -375,8 +399,9 @@ public class Client {
     }
 
     /**
-     * Description: 获取授权模版和token
-     * Summary: 获取授权模版和token
+     * <b>description</b> :
+     * <p>Description: 获取授权模版和token
+     * Summary: 获取授权模版和token</p>
      */
     public QueryApiAuthteplateResponse queryApiAuthteplate(QueryApiAuthteplateRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -385,8 +410,9 @@ public class Client {
     }
 
     /**
-     * Description: 获取授权模版和token
-     * Summary: 获取授权模版和token
+     * <b>description</b> :
+     * <p>Description: 获取授权模版和token
+     * Summary: 获取授权模版和token</p>
      */
     public QueryApiAuthteplateResponse queryApiAuthteplateEx(QueryApiAuthteplateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -394,8 +420,9 @@ public class Client {
     }
 
     /**
-     * Description: 提交
-     * Summary: 提交
+     * <b>description</b> :
+     * <p>Description: 提交
+     * Summary: 提交</p>
      */
     public ExecApiAuthtemplateResponse execApiAuthtemplate(ExecApiAuthtemplateRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -404,8 +431,9 @@ public class Client {
     }
 
     /**
-     * Description: 提交
-     * Summary: 提交
+     * <b>description</b> :
+     * <p>Description: 提交
+     * Summary: 提交</p>
      */
     public ExecApiAuthtemplateResponse execApiAuthtemplateEx(ExecApiAuthtemplateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -413,8 +441,9 @@ public class Client {
     }
 
     /**
-     * Description: 获取要素信息
-     * Summary: 获取要素信息
+     * <b>description</b> :
+     * <p>Description: 获取要素信息
+     * Summary: 获取要素信息</p>
      */
     public QueryApiAuthtemplatedefineResponse queryApiAuthtemplatedefine(QueryApiAuthtemplatedefineRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -423,8 +452,9 @@ public class Client {
     }
 
     /**
-     * Description: 获取要素信息
-     * Summary: 获取要素信息
+     * <b>description</b> :
+     * <p>Description: 获取要素信息
+     * Summary: 获取要素信息</p>
      */
     public QueryApiAuthtemplatedefineResponse queryApiAuthtemplatedefineEx(QueryApiAuthtemplatedefineRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -432,8 +462,9 @@ public class Client {
     }
 
     /**
-     * Description: 获取授权结果
-     * Summary: 获取授权结果
+     * <b>description</b> :
+     * <p>Description: 获取授权结果
+     * Summary: 获取授权结果</p>
      */
     public QueryApiAuthtemplateresultResponse queryApiAuthtemplateresult(QueryApiAuthtemplateresultRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -442,8 +473,9 @@ public class Client {
     }
 
     /**
-     * Description: 获取授权结果
-     * Summary: 获取授权结果
+     * <b>description</b> :
+     * <p>Description: 获取授权结果
+     * Summary: 获取授权结果</p>
      */
     public QueryApiAuthtemplateresultResponse queryApiAuthtemplateresultEx(QueryApiAuthtemplateresultRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -451,8 +483,9 @@ public class Client {
     }
 
     /**
-     * Description: 授权接口
-     * Summary: 授权
+     * <b>description</b> :
+     * <p>Description: 授权接口
+     * Summary: 授权</p>
      */
     public AuthIcmEnterpriseResponse authIcmEnterprise(AuthIcmEnterpriseRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -461,8 +494,9 @@ public class Client {
     }
 
     /**
-     * Description: 授权接口
-     * Summary: 授权
+     * <b>description</b> :
+     * <p>Description: 授权接口
+     * Summary: 授权</p>
      */
     public AuthIcmEnterpriseResponse authIcmEnterpriseEx(AuthIcmEnterpriseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -470,8 +504,9 @@ public class Client {
     }
 
     /**
-     * Description: 该接口为支持授权链接的生成
-     * Summary: 可信授权链接获取接口
+     * <b>description</b> :
+     * <p>Description: 该接口为支持授权链接的生成
+     * Summary: 可信授权链接获取接口</p>
      */
     public CreateApiAuthurlResponse createApiAuthurl(CreateApiAuthurlRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -480,8 +515,9 @@ public class Client {
     }
 
     /**
-     * Description: 该接口为支持授权链接的生成
-     * Summary: 可信授权链接获取接口
+     * <b>description</b> :
+     * <p>Description: 该接口为支持授权链接的生成
+     * Summary: 可信授权链接获取接口</p>
      */
     public CreateApiAuthurlResponse createApiAuthurlEx(CreateApiAuthurlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -489,8 +525,9 @@ public class Client {
     }
 
     /**
-     * Description: 极简授权-判断该企业是否支持要素授权
-     * Summary: 极简授权-判断该企业是否支持要素授权
+     * <b>description</b> :
+     * <p>Description: 极简授权-判断该企业是否支持要素授权
+     * Summary: 极简授权-判断该企业是否支持要素授权</p>
      */
     public MatchIcmSimpleauthResponse matchIcmSimpleauth(MatchIcmSimpleauthRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -499,8 +536,9 @@ public class Client {
     }
 
     /**
-     * Description: 极简授权-判断该企业是否支持要素授权
-     * Summary: 极简授权-判断该企业是否支持要素授权
+     * <b>description</b> :
+     * <p>Description: 极简授权-判断该企业是否支持要素授权
+     * Summary: 极简授权-判断该企业是否支持要素授权</p>
      */
     public MatchIcmSimpleauthResponse matchIcmSimpleauthEx(MatchIcmSimpleauthRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -508,8 +546,9 @@ public class Client {
     }
 
     /**
-     * Description: 极简授权-获取数据，用于获取指标类的数据
-     * Summary: 极简授权-获取数据
+     * <b>description</b> :
+     * <p>Description: 极简授权-获取数据，用于获取指标类的数据
+     * Summary: 极简授权-获取数据</p>
      */
     public QueryIcmSimpleauthResponse queryIcmSimpleauth(QueryIcmSimpleauthRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -518,8 +557,9 @@ public class Client {
     }
 
     /**
-     * Description: 极简授权-获取数据，用于获取指标类的数据
-     * Summary: 极简授权-获取数据
+     * <b>description</b> :
+     * <p>Description: 极简授权-获取数据，用于获取指标类的数据
+     * Summary: 极简授权-获取数据</p>
      */
     public QueryIcmSimpleauthResponse queryIcmSimpleauthEx(QueryIcmSimpleauthRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -527,8 +567,9 @@ public class Client {
     }
 
     /**
-     * Description: 极简授权异步查询接口
-     * Summary: 极简授权-异步获取数据
+     * <b>description</b> :
+     * <p>Description: 极简授权异步查询接口
+     * Summary: 极简授权-异步获取数据</p>
      */
     public QueryApiSimpleauthasyncResponse queryApiSimpleauthasync(QueryApiSimpleauthasyncRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -537,8 +578,9 @@ public class Client {
     }
 
     /**
-     * Description: 极简授权异步查询接口
-     * Summary: 极简授权-异步获取数据
+     * <b>description</b> :
+     * <p>Description: 极简授权异步查询接口
+     * Summary: 极简授权-异步获取数据</p>
      */
     public QueryApiSimpleauthasyncResponse queryApiSimpleauthasyncEx(QueryApiSimpleauthasyncRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -546,8 +588,9 @@ public class Client {
     }
 
     /**
-     * Description: 授权接口
-     * Summary: 授权接口
+     * <b>description</b> :
+     * <p>Description: 授权接口
+     * Summary: 授权接口</p>
      */
     public AuthRiskEvaluationResponse authRiskEvaluation(AuthRiskEvaluationRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -556,8 +599,9 @@ public class Client {
     }
 
     /**
-     * Description: 授权接口
-     * Summary: 授权接口
+     * <b>description</b> :
+     * <p>Description: 授权接口
+     * Summary: 授权接口</p>
      */
     public AuthRiskEvaluationResponse authRiskEvaluationEx(AuthRiskEvaluationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -565,8 +609,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询
-     * Summary: 查询
+     * <b>description</b> :
+     * <p>Description: 查询
+     * Summary: 查询</p>
      */
     public QueryRiskEvaluationResponse queryRiskEvaluation(QueryRiskEvaluationRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -575,8 +620,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询
-     * Summary: 查询
+     * <b>description</b> :
+     * <p>Description: 查询
+     * Summary: 查询</p>
      */
     public QueryRiskEvaluationResponse queryRiskEvaluationEx(QueryRiskEvaluationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -584,8 +630,9 @@ public class Client {
     }
 
     /**
-     * Description: 极简授权-异步查询数据-轮询拉取结果
-     * Summary: 极简授权-异步查询数据-轮询拉取结果
+     * <b>description</b> :
+     * <p>Description: 极简授权-异步查询数据-轮询拉取结果
+     * Summary: 极简授权-异步查询数据-轮询拉取结果</p>
      */
     public PullApiSimpleauthasyncpollingResponse pullApiSimpleauthasyncpolling(PullApiSimpleauthasyncpollingRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -594,8 +641,9 @@ public class Client {
     }
 
     /**
-     * Description: 极简授权-异步查询数据-轮询拉取结果
-     * Summary: 极简授权-异步查询数据-轮询拉取结果
+     * <b>description</b> :
+     * <p>Description: 极简授权-异步查询数据-轮询拉取结果
+     * Summary: 极简授权-异步查询数据-轮询拉取结果</p>
      */
     public PullApiSimpleauthasyncpollingResponse pullApiSimpleauthasyncpollingEx(PullApiSimpleauthasyncpollingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -603,8 +651,9 @@ public class Client {
     }
 
     /**
-     * Description: 极简授权异步查询接口
-     * Summary: 极简授权-异步获取数据
+     * <b>description</b> :
+     * <p>Description: 极简授权异步查询接口
+     * Summary: 极简授权-异步获取数据</p>
      */
     public QueryApiSimpleauthstandardResponse queryApiSimpleauthstandard(QueryApiSimpleauthstandardRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -613,8 +662,9 @@ public class Client {
     }
 
     /**
-     * Description: 极简授权异步查询接口
-     * Summary: 极简授权-异步获取数据
+     * <b>description</b> :
+     * <p>Description: 极简授权异步查询接口
+     * Summary: 极简授权-异步获取数据</p>
      */
     public QueryApiSimpleauthstandardResponse queryApiSimpleauthstandardEx(QueryApiSimpleauthstandardRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -622,8 +672,9 @@ public class Client {
     }
 
     /**
-     * Description: 给对应的税号进行打标
-     * Summary: 要素授权打标接口
+     * <b>description</b> :
+     * <p>Description: 给对应的税号进行打标
+     * Summary: 要素授权打标接口</p>
      */
     public ExecApiSimpleauthmarkResponse execApiSimpleauthmark(ExecApiSimpleauthmarkRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -632,8 +683,9 @@ public class Client {
     }
 
     /**
-     * Description: 给对应的税号进行打标
-     * Summary: 要素授权打标接口
+     * <b>description</b> :
+     * <p>Description: 给对应的税号进行打标
+     * Summary: 要素授权打标接口</p>
      */
     public ExecApiSimpleauthmarkResponse execApiSimpleauthmarkEx(ExecApiSimpleauthmarkRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -641,8 +693,9 @@ public class Client {
     }
 
     /**
-     * Description: 提交打标结果，仅限内部使用
-     * Summary: 提交打标结果
+     * <b>description</b> :
+     * <p>Description: 提交打标结果，仅限内部使用
+     * Summary: 提交打标结果</p>
      */
     public SubmitApiSimpleauthmarkResponse submitApiSimpleauthmark(SubmitApiSimpleauthmarkRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -651,8 +704,9 @@ public class Client {
     }
 
     /**
-     * Description: 提交打标结果，仅限内部使用
-     * Summary: 提交打标结果
+     * <b>description</b> :
+     * <p>Description: 提交打标结果，仅限内部使用
+     * Summary: 提交打标结果</p>
      */
     public SubmitApiSimpleauthmarkResponse submitApiSimpleauthmarkEx(SubmitApiSimpleauthmarkRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -660,8 +714,9 @@ public class Client {
     }
 
     /**
-     * Description: blockchain.tax.api.simpleauthmark.exec
-     * Summary: 数据打标拉取接口
+     * <b>description</b> :
+     * <p>Description: blockchain.tax.api.simpleauthmark.exec
+     * Summary: 数据打标拉取接口</p>
      */
     public PullApiSimpleauthmarkResponse pullApiSimpleauthmark(PullApiSimpleauthmarkRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -670,8 +725,9 @@ public class Client {
     }
 
     /**
-     * Description: blockchain.tax.api.simpleauthmark.exec
-     * Summary: 数据打标拉取接口
+     * <b>description</b> :
+     * <p>Description: blockchain.tax.api.simpleauthmark.exec
+     * Summary: 数据打标拉取接口</p>
      */
     public PullApiSimpleauthmarkResponse pullApiSimpleauthmarkEx(PullApiSimpleauthmarkRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -679,8 +735,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询-同步返回提额数据
-     * Summary: 查询-同步提额数据返回
+     * <b>description</b> :
+     * <p>Description: 查询-同步返回提额数据
+     * Summary: 查询-同步提额数据返回</p>
      */
     public SyncRiskEvaluationResponse syncRiskEvaluation(SyncRiskEvaluationRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -689,8 +746,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询-同步返回提额数据
-     * Summary: 查询-同步提额数据返回
+     * <b>description</b> :
+     * <p>Description: 查询-同步返回提额数据
+     * Summary: 查询-同步提额数据返回</p>
      */
     public SyncRiskEvaluationResponse syncRiskEvaluationEx(SyncRiskEvaluationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -698,8 +756,9 @@ public class Client {
     }
 
     /**
-     * Description: 纳税人状态查询
-     * Summary: 纳税人状态查询
+     * <b>description</b> :
+     * <p>Description: 纳税人状态查询
+     * Summary: 纳税人状态查询</p>
      */
     public QuerySimpleauthIdentitystateResponse querySimpleauthIdentitystate(QuerySimpleauthIdentitystateRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -708,8 +767,9 @@ public class Client {
     }
 
     /**
-     * Description: 纳税人状态查询
-     * Summary: 纳税人状态查询
+     * <b>description</b> :
+     * <p>Description: 纳税人状态查询
+     * Summary: 纳税人状态查询</p>
      */
     public QuerySimpleauthIdentitystateResponse querySimpleauthIdentitystateEx(QuerySimpleauthIdentitystateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -717,8 +777,9 @@ public class Client {
     }
 
     /**
-     * Description: 海关-异步查询数据
-     * Summary: 海关-异步查询数据
+     * <b>description</b> :
+     * <p>Description: 海关-异步查询数据
+     * Summary: 海关-异步查询数据</p>
      */
     public QueryApiHaiguanasyncResponse queryApiHaiguanasync(QueryApiHaiguanasyncRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -727,8 +788,9 @@ public class Client {
     }
 
     /**
-     * Description: 海关-异步查询数据
-     * Summary: 海关-异步查询数据
+     * <b>description</b> :
+     * <p>Description: 海关-异步查询数据
+     * Summary: 海关-异步查询数据</p>
      */
     public QueryApiHaiguanasyncResponse queryApiHaiguanasyncEx(QueryApiHaiguanasyncRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -736,8 +798,9 @@ public class Client {
     }
 
     /**
-     * Description: 海关-异步查询数据-轮询拉取数据
-     * Summary: 海关-异步查询数据-轮询拉取数据
+     * <b>description</b> :
+     * <p>Description: 海关-异步查询数据-轮询拉取数据
+     * Summary: 海关-异步查询数据-轮询拉取数据</p>
      */
     public PullApiHaiguanasyncpollingResponse pullApiHaiguanasyncpolling(PullApiHaiguanasyncpollingRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -746,8 +809,9 @@ public class Client {
     }
 
     /**
-     * Description: 海关-异步查询数据-轮询拉取数据
-     * Summary: 海关-异步查询数据-轮询拉取数据
+     * <b>description</b> :
+     * <p>Description: 海关-异步查询数据-轮询拉取数据
+     * Summary: 海关-异步查询数据-轮询拉取数据</p>
      */
     public PullApiHaiguanasyncpollingResponse pullApiHaiguanasyncpollingEx(PullApiHaiguanasyncpollingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -755,8 +819,9 @@ public class Client {
     }
 
     /**
-     * Description: 提额资质评估授权并查询,支持省级查询
-     * Summary: 提额资质评估授权并查询
+     * <b>description</b> :
+     * <p>Description: 提额资质评估授权并查询,支持省级查询
+     * Summary: 提额资质评估授权并查询</p>
      */
     public StartRiskEvaluationResponse startRiskEvaluation(StartRiskEvaluationRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -765,8 +830,9 @@ public class Client {
     }
 
     /**
-     * Description: 提额资质评估授权并查询,支持省级查询
-     * Summary: 提额资质评估授权并查询
+     * <b>description</b> :
+     * <p>Description: 提额资质评估授权并查询,支持省级查询
+     * Summary: 提额资质评估授权并查询</p>
      */
     public StartRiskEvaluationResponse startRiskEvaluationEx(StartRiskEvaluationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -774,8 +840,9 @@ public class Client {
     }
 
     /**
-     * Description: 电力异步接口
-     * Summary: 电力异步接口
+     * <b>description</b> :
+     * <p>Description: 电力异步接口
+     * Summary: 电力异步接口</p>
      */
     public QueryEnterpriseElectronicasyncResponse queryEnterpriseElectronicasync(QueryEnterpriseElectronicasyncRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -784,8 +851,9 @@ public class Client {
     }
 
     /**
-     * Description: 电力异步接口
-     * Summary: 电力异步接口
+     * <b>description</b> :
+     * <p>Description: 电力异步接口
+     * Summary: 电力异步接口</p>
      */
     public QueryEnterpriseElectronicasyncResponse queryEnterpriseElectronicasyncEx(QueryEnterpriseElectronicasyncRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -793,8 +861,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询指定账户的数据
-     * Summary: 查询指定账户的数据
+     * <b>description</b> :
+     * <p>Description: 查询指定账户的数据
+     * Summary: 查询指定账户的数据</p>
      */
     public QueryApiDataprocessResponse queryApiDataprocess(QueryApiDataprocessRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -803,8 +872,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询指定账户的数据
-     * Summary: 查询指定账户的数据
+     * <b>description</b> :
+     * <p>Description: 查询指定账户的数据
+     * Summary: 查询指定账户的数据</p>
      */
     public QueryApiDataprocessResponse queryApiDataprocessEx(QueryApiDataprocessRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -812,8 +882,9 @@ public class Client {
     }
 
     /**
-     * Description: 校验当前目标查询数据初始化接口
-     * Summary: 校验当前目标查询数据初始化接口
+     * <b>description</b> :
+     * <p>Description: 校验当前目标查询数据初始化接口
+     * Summary: 校验当前目标查询数据初始化接口</p>
      */
     public InitApiDataprocessResponse initApiDataprocess(InitApiDataprocessRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -822,8 +893,9 @@ public class Client {
     }
 
     /**
-     * Description: 校验当前目标查询数据初始化接口
-     * Summary: 校验当前目标查询数据初始化接口
+     * <b>description</b> :
+     * <p>Description: 校验当前目标查询数据初始化接口
+     * Summary: 校验当前目标查询数据初始化接口</p>
      */
     public InitApiDataprocessResponse initApiDataprocessEx(InitApiDataprocessRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -831,8 +903,9 @@ public class Client {
     }
 
     /**
-     * Description: 数据流转目标客户是否可用接口
-     * Summary: 数据流转目标客户是否可用接口
+     * <b>description</b> :
+     * <p>Description: 数据流转目标客户是否可用接口
+     * Summary: 数据流转目标客户是否可用接口</p>
      */
     public JudgeApiDataprocessResponse judgeApiDataprocess(JudgeApiDataprocessRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -841,8 +914,9 @@ public class Client {
     }
 
     /**
-     * Description: 数据流转目标客户是否可用接口
-     * Summary: 数据流转目标客户是否可用接口
+     * <b>description</b> :
+     * <p>Description: 数据流转目标客户是否可用接口
+     * Summary: 数据流转目标客户是否可用接口</p>
      */
     public JudgeApiDataprocessResponse judgeApiDataprocessEx(JudgeApiDataprocessRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -850,8 +924,9 @@ public class Client {
     }
 
     /**
-     * Description: 初始化与查询合并统一执行接口
-     * Summary: 初始化与查询合并统一执行接口
+     * <b>description</b> :
+     * <p>Description: 初始化与查询合并统一执行接口
+     * Summary: 初始化与查询合并统一执行接口</p>
      */
     public ExecApiDataprocessResponse execApiDataprocess(ExecApiDataprocessRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -860,8 +935,9 @@ public class Client {
     }
 
     /**
-     * Description: 初始化与查询合并统一执行接口
-     * Summary: 初始化与查询合并统一执行接口
+     * <b>description</b> :
+     * <p>Description: 初始化与查询合并统一执行接口
+     * Summary: 初始化与查询合并统一执行接口</p>
      */
     public ExecApiDataprocessResponse execApiDataprocessEx(ExecApiDataprocessRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -869,8 +945,9 @@ public class Client {
     }
 
     /**
-     * Description: 数据流转通用执行接口
-     * Summary: 数据流转通用执行接口
+     * <b>description</b> :
+     * <p>Description: 数据流转通用执行接口
+     * Summary: 数据流转通用执行接口</p>
      */
     public RunApiDataprocessResponse runApiDataprocess(RunApiDataprocessRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -879,8 +956,9 @@ public class Client {
     }
 
     /**
-     * Description: 数据流转通用执行接口
-     * Summary: 数据流转通用执行接口
+     * <b>description</b> :
+     * <p>Description: 数据流转通用执行接口
+     * Summary: 数据流转通用执行接口</p>
      */
     public RunApiDataprocessResponse runApiDataprocessEx(RunApiDataprocessRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -888,8 +966,9 @@ public class Client {
     }
 
     /**
-     * Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
-     * Summary: 区块链发票信息持续取数查询
+     * <b>description</b> :
+     * <p>Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
+     * Summary: 区块链发票信息持续取数查询</p>
      */
     public QueryIcmInvoicecontinuedResponse queryIcmInvoicecontinued(QueryIcmInvoicecontinuedRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -898,8 +977,9 @@ public class Client {
     }
 
     /**
-     * Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
-     * Summary: 区块链发票信息持续取数查询
+     * <b>description</b> :
+     * <p>Description: 区块链发票信息持续取数查询接口-该接口为异步查询接口，查询结果通过回调调用方提供的callUrl方式或者配置的指定地址进行通知
+     * Summary: 区块链发票信息持续取数查询</p>
      */
     public QueryIcmInvoicecontinuedResponse queryIcmInvoicecontinuedEx(QueryIcmInvoicecontinuedRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -907,9 +987,31 @@ public class Client {
     }
 
     /**
-     * Description: 收入评估服务A
-    https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
-     * Summary: 收入评估服务A
+     * <b>description</b> :
+     * <p>Description: 票税RPA授权埋点数据查询
+     * Summary: 票税RPA授权埋点数据查询</p>
+     */
+    public QueryApiAuthweblogResponse queryApiAuthweblog(QueryApiAuthweblogRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryApiAuthweblogEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 票税RPA授权埋点数据查询
+     * Summary: 票税RPA授权埋点数据查询</p>
+     */
+    public QueryApiAuthweblogResponse queryApiAuthweblogEx(QueryApiAuthweblogRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.api.authweblog.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryApiAuthweblogResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 收入评估服务A
+     * <a href="https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg">https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg</a>
+     * Summary: 收入评估服务A</p>
      */
     public QueryPdataPersonalincomeResponse queryPdataPersonalincome(QueryPdataPersonalincomeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -918,9 +1020,10 @@ public class Client {
     }
 
     /**
-     * Description: 收入评估服务A
-    https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
-     * Summary: 收入评估服务A
+     * <b>description</b> :
+     * <p>Description: 收入评估服务A
+     * <a href="https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg">https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg</a>
+     * Summary: 收入评估服务A</p>
      */
     public QueryPdataPersonalincomeResponse queryPdataPersonalincomeEx(QueryPdataPersonalincomeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -928,8 +1031,9 @@ public class Client {
     }
 
     /**
-     * Description: 收入评估服务B
-     * Summary: 收入评估服务B
+     * <b>description</b> :
+     * <p>Description: 收入评估服务B
+     * Summary: 收入评估服务B</p>
      */
     public QueryPdataSocialincomeResponse queryPdataSocialincome(QueryPdataSocialincomeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -938,8 +1042,9 @@ public class Client {
     }
 
     /**
-     * Description: 收入评估服务B
-     * Summary: 收入评估服务B
+     * <b>description</b> :
+     * <p>Description: 收入评估服务B
+     * Summary: 收入评估服务B</p>
      */
     public QueryPdataSocialincomeResponse queryPdataSocialincomeEx(QueryPdataSocialincomeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -947,9 +1052,10 @@ public class Client {
     }
 
     /**
-     * Description: 婚姻状况查验服务
-    https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp
-     * Summary: 婚姻状况查验
+     * <b>description</b> :
+     * <p>Description: 婚姻状况查验服务
+     * <a href="https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp">https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp</a>
+     * Summary: 婚姻状况查验</p>
      */
     public CheckPdataMarriageResponse checkPdataMarriage(CheckPdataMarriageRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -958,9 +1064,10 @@ public class Client {
     }
 
     /**
-     * Description: 婚姻状况查验服务
-    https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp
-     * Summary: 婚姻状况查验
+     * <b>description</b> :
+     * <p>Description: 婚姻状况查验服务
+     * <a href="https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp">https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#FWoSp</a>
+     * Summary: 婚姻状况查验</p>
      */
     public CheckPdataMarriageResponse checkPdataMarriageEx(CheckPdataMarriageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -968,8 +1075,9 @@ public class Client {
     }
 
     /**
-     * Description: 断卡行动风险识别服务
-     * Summary: 断卡行动风险识别服务
+     * <b>description</b> :
+     * <p>Description: 断卡行动风险识别服务
+     * Summary: 断卡行动风险识别服务</p>
      */
     public QueryPdataRiskResponse queryPdataRisk(QueryPdataRiskRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -978,8 +1086,9 @@ public class Client {
     }
 
     /**
-     * Description: 断卡行动风险识别服务
-     * Summary: 断卡行动风险识别服务
+     * <b>description</b> :
+     * <p>Description: 断卡行动风险识别服务
+     * Summary: 断卡行动风险识别服务</p>
      */
     public QueryPdataRiskResponse queryPdataRiskEx(QueryPdataRiskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -987,8 +1096,9 @@ public class Client {
     }
 
     /**
-     * Description: 核保医疗查询
-     * Summary: 核保医疗查询
+     * <b>description</b> :
+     * <p>Description: 核保医疗查询
+     * Summary: 核保医疗查询</p>
      */
     public QueryPdataUnderwriteResponse queryPdataUnderwrite(QueryPdataUnderwriteRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -997,8 +1107,9 @@ public class Client {
     }
 
     /**
-     * Description: 核保医疗查询
-     * Summary: 核保医疗查询
+     * <b>description</b> :
+     * <p>Description: 核保医疗查询
+     * Summary: 核保医疗查询</p>
      */
     public QueryPdataUnderwriteResponse queryPdataUnderwriteEx(QueryPdataUnderwriteRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1006,8 +1117,9 @@ public class Client {
     }
 
     /**
-     * Description: 经济画像
-     * Summary: 财富洞察经济画像
+     * <b>description</b> :
+     * <p>Description: 经济画像
+     * Summary: 财富洞察经济画像</p>
      */
     public QueryPortraiteconomyResponse queryPortraiteconomy(QueryPortraiteconomyRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1016,8 +1128,9 @@ public class Client {
     }
 
     /**
-     * Description: 经济画像
-     * Summary: 财富洞察经济画像
+     * <b>description</b> :
+     * <p>Description: 经济画像
+     * Summary: 财富洞察经济画像</p>
      */
     public QueryPortraiteconomyResponse queryPortraiteconomyEx(QueryPortraiteconomyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

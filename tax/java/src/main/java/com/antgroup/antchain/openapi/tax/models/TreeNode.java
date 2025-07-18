@@ -10,21 +10,37 @@ public class TreeNode extends TeaModel {
     public Long id;
 
     // 父节点id，不存在为null
+    /**
+     * <strong>example:</strong>
+     * <p>父节点id，不存在为null</p>
+     */
     @NameInMap("parent_node_id")
     @Validation(required = true)
     public String parentNodeId;
 
     // 深度
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("depth")
     @Validation(required = true)
     public Long depth;
 
     // 是否叶子结点
+    /**
+     * <strong>example:</strong>
+     * <p>true：是，false：否</p>
+     */
     @NameInMap("is_leef_node")
     @Validation(required = true)
     public String isLeefNode;
 
     // 模版
+    /**
+     * <strong>example:</strong>
+     * <p>模版</p>
+     */
     @NameInMap("card")
     @Validation(required = true)
     public Card card;

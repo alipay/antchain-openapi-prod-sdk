@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class DataMarkFileResult extends TeaModel {
     // 返回数据再oss上的地址
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://invoice">http://invoice</a></p>
+     */
     @NameInMap("file_url")
     @Validation(required = true)
     public String fileUrl;
 
     // 秘钥
+    /**
+     * <strong>example:</strong>
+     * <p>秘钥</p>
+     */
     @NameInMap("secret")
     @Validation(required = true)
     public String secret;

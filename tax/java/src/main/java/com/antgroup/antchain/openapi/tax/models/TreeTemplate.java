@@ -10,16 +10,28 @@ public class TreeTemplate extends TeaModel {
     public TreeNode treeNode;
 
     // Id
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public String id;
 
     // 版本号
+    /**
+     * <strong>example:</strong>
+     * <p>1.0.8</p>
+     */
     @NameInMap("version")
     @Validation(required = true)
     public String version;
 
     // 向上兼容的最小版本号
+    /**
+     * <strong>example:</strong>
+     * <p>1.0.06</p>
+     */
     @NameInMap("compatible_min_version")
     @Validation(required = true)
     public String compatibleMinVersion;

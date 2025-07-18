@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class StandardRealPersonAuthRequest extends TeaModel {
     // 个人证件号
+    /**
+     * <strong>example:</strong>
+     * <p>个人证件号340902xxxx</p>
+     */
     @NameInMap("identity_id")
     @Validation(required = true)
     public String identityId;
 
     // 名字
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("identity_name")
     @Validation(required = true)
     public String identityName;

@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class Pair extends TeaModel {
     // left
+    /**
+     * <strong>example:</strong>
+     * <p>left</p>
+     */
     @NameInMap("left")
     @Validation(required = true)
     public String left;
 
     // right
+    /**
+     * <strong>example:</strong>
+     * <p>right</p>
+     */
     @NameInMap("right")
     @Validation(required = true)
     public Key right;
