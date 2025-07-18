@@ -4563,6 +4563,10 @@ type ReceiptInfo struct {
 	WorkflowStatus *string `json:"workflow_status,omitempty" xml:"workflow_status,omitempty" require:"true"`
 	// 借据编号
 	ReceiptNo *string `json:"receipt_no,omitempty" xml:"receipt_no,omitempty" require:"true"`
+	// 放款状态(0：放款成功 1：放款失败 2：放款异常 3：放款中）
+	LoanStatus *string `json:"loan_status,omitempty" xml:"loan_status,omitempty"`
+	// 业务类型 1：现金贷（默认）、2：分期付
+	ProdType *string `json:"prod_type,omitempty" xml:"prod_type,omitempty"`
 }
 
 func (s ReceiptInfo) String() string {
@@ -4650,6 +4654,16 @@ func (s *ReceiptInfo) SetWorkflowStatus(v string) *ReceiptInfo {
 
 func (s *ReceiptInfo) SetReceiptNo(v string) *ReceiptInfo {
 	s.ReceiptNo = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetLoanStatus(v string) *ReceiptInfo {
+	s.LoanStatus = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetProdType(v string) *ReceiptInfo {
+	s.ProdType = &v
 	return s
 }
 
@@ -7839,7 +7853,7 @@ func (s *BatchqueryCreditshieldProductInfoResponse) SetQueryResults(v []*QueryRe
 	return s
 }
 
-type QueryProductAmcCallbackRequest struct {
+type QueryCreditshieldProductCallbackRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -7851,35 +7865,35 @@ type QueryProductAmcCallbackRequest struct {
 	QueryInfos []*QueryInfo `json:"query_infos,omitempty" xml:"query_infos,omitempty" type:"Repeated"`
 }
 
-func (s QueryProductAmcCallbackRequest) String() string {
+func (s QueryCreditshieldProductCallbackRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryProductAmcCallbackRequest) GoString() string {
+func (s QueryCreditshieldProductCallbackRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryProductAmcCallbackRequest) SetAuthToken(v string) *QueryProductAmcCallbackRequest {
+func (s *QueryCreditshieldProductCallbackRequest) SetAuthToken(v string) *QueryCreditshieldProductCallbackRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryProductAmcCallbackRequest) SetProductInstanceId(v string) *QueryProductAmcCallbackRequest {
+func (s *QueryCreditshieldProductCallbackRequest) SetProductInstanceId(v string) *QueryCreditshieldProductCallbackRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryProductAmcCallbackRequest) SetQueryCode(v string) *QueryProductAmcCallbackRequest {
+func (s *QueryCreditshieldProductCallbackRequest) SetQueryCode(v string) *QueryCreditshieldProductCallbackRequest {
 	s.QueryCode = &v
 	return s
 }
 
-func (s *QueryProductAmcCallbackRequest) SetQueryInfos(v []*QueryInfo) *QueryProductAmcCallbackRequest {
+func (s *QueryCreditshieldProductCallbackRequest) SetQueryInfos(v []*QueryInfo) *QueryCreditshieldProductCallbackRequest {
 	s.QueryInfos = v
 	return s
 }
 
-type QueryProductAmcCallbackResponse struct {
+type QueryCreditshieldProductCallbackResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -7892,35 +7906,35 @@ type QueryProductAmcCallbackResponse struct {
 	QueryResults []*QueryResult `json:"query_results,omitempty" xml:"query_results,omitempty" type:"Repeated"`
 }
 
-func (s QueryProductAmcCallbackResponse) String() string {
+func (s QueryCreditshieldProductCallbackResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryProductAmcCallbackResponse) GoString() string {
+func (s QueryCreditshieldProductCallbackResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryProductAmcCallbackResponse) SetReqMsgId(v string) *QueryProductAmcCallbackResponse {
+func (s *QueryCreditshieldProductCallbackResponse) SetReqMsgId(v string) *QueryCreditshieldProductCallbackResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryProductAmcCallbackResponse) SetResultCode(v string) *QueryProductAmcCallbackResponse {
+func (s *QueryCreditshieldProductCallbackResponse) SetResultCode(v string) *QueryCreditshieldProductCallbackResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryProductAmcCallbackResponse) SetResultMsg(v string) *QueryProductAmcCallbackResponse {
+func (s *QueryCreditshieldProductCallbackResponse) SetResultMsg(v string) *QueryCreditshieldProductCallbackResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryProductAmcCallbackResponse) SetSuccess(v bool) *QueryProductAmcCallbackResponse {
+func (s *QueryCreditshieldProductCallbackResponse) SetSuccess(v bool) *QueryCreditshieldProductCallbackResponse {
 	s.Success = &v
 	return s
 }
 
-func (s *QueryProductAmcCallbackResponse) SetQueryResults(v []*QueryResult) *QueryProductAmcCallbackResponse {
+func (s *QueryCreditshieldProductCallbackResponse) SetQueryResults(v []*QueryResult) *QueryCreditshieldProductCallbackResponse {
 	s.QueryResults = v
 	return s
 }
@@ -14139,9 +14153,9 @@ type QueryDubbridgeUsecreditStatusRequest struct {
 	// 1：现金贷（默认）
 	// 2：分期付
 	ProdType *string `json:"prod_type,omitempty" xml:"prod_type,omitempty"`
-	// prod_type=1时，用信申请的订单号
-	OriginalOrderNo *string `json:"original_order_no,omitempty" xml:"original_order_no,omitempty" require:"true"`
-	// 资产方购物订单号
+	// 天枢系统用信申请的订单号
+	OriginalOrderNo *string `json:"original_order_no,omitempty" xml:"original_order_no,omitempty"`
+	// 购物订单号，如二轮车/摩托车订单号
 	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty"`
 }
 
@@ -19798,16 +19812,12 @@ type UploadQmpOfflinehostplanRequest struct {
 	// 待上传文件名
 	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
 	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
-	// MOBILE/MOBILE_MD5/OAID/IDFA/IMEI选择其中一种
+	// MOBILE/MOBILE_MD5/OAID/IDFA/IMEI/CAID选择其中一种
 	FileTemplate *string `json:"file_template,omitempty" xml:"file_template,omitempty" require:"true"`
 	// plancode，托管计划编码
 	PlanCode *string `json:"plan_code,omitempty" xml:"plan_code,omitempty" require:"true"`
-	// OFFLINE_DECISION/OFFLINE_DECISION_ACTION,默认OFFLINE_DECISION_ACTION
-	RelationType *string `json:"relation_type,omitempty" xml:"relation_type,omitempty"`
 	// properties的header,其他的为ext_info,
 	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
-	// 默认为false
-	NeedToRefactor *bool `json:"need_to_refactor,omitempty" xml:"need_to_refactor,omitempty"`
 }
 
 func (s UploadQmpOfflinehostplanRequest) String() string {
@@ -19853,18 +19863,8 @@ func (s *UploadQmpOfflinehostplanRequest) SetPlanCode(v string) *UploadQmpOfflin
 	return s
 }
 
-func (s *UploadQmpOfflinehostplanRequest) SetRelationType(v string) *UploadQmpOfflinehostplanRequest {
-	s.RelationType = &v
-	return s
-}
-
 func (s *UploadQmpOfflinehostplanRequest) SetProperties(v string) *UploadQmpOfflinehostplanRequest {
 	s.Properties = &v
-	return s
-}
-
-func (s *UploadQmpOfflinehostplanRequest) SetNeedToRefactor(v bool) *UploadQmpOfflinehostplanRequest {
-	s.NeedToRefactor = &v
 	return s
 }
 
@@ -20752,6 +20752,104 @@ func (s *UploadRfcAiboundFileResponse) SetResultMsg(v string) *UploadRfcAiboundF
 
 func (s *UploadRfcAiboundFileResponse) SetContent(v string) *UploadRfcAiboundFileResponse {
 	s.Content = &v
+	return s
+}
+
+type QueryRfcOdpsLindormRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 服务编码
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty" require:"true"`
+	// 加密后的唯一id
+	KeyId *string `json:"key_id,omitempty" xml:"key_id,omitempty" require:"true"`
+	// 渠道code
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
+	// 授权码
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty"`
+	// 加密方式
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
+}
+
+func (s QueryRfcOdpsLindormRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRfcOdpsLindormRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRfcOdpsLindormRequest) SetAuthToken(v string) *QueryRfcOdpsLindormRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryRfcOdpsLindormRequest) SetProductInstanceId(v string) *QueryRfcOdpsLindormRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryRfcOdpsLindormRequest) SetBizCode(v string) *QueryRfcOdpsLindormRequest {
+	s.BizCode = &v
+	return s
+}
+
+func (s *QueryRfcOdpsLindormRequest) SetKeyId(v string) *QueryRfcOdpsLindormRequest {
+	s.KeyId = &v
+	return s
+}
+
+func (s *QueryRfcOdpsLindormRequest) SetChannelCode(v string) *QueryRfcOdpsLindormRequest {
+	s.ChannelCode = &v
+	return s
+}
+
+func (s *QueryRfcOdpsLindormRequest) SetAuthCode(v string) *QueryRfcOdpsLindormRequest {
+	s.AuthCode = &v
+	return s
+}
+
+func (s *QueryRfcOdpsLindormRequest) SetEncryptType(v string) *QueryRfcOdpsLindormRequest {
+	s.EncryptType = &v
+	return s
+}
+
+type QueryRfcOdpsLindormResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询结果
+	JsonRes *string `json:"json_res,omitempty" xml:"json_res,omitempty"`
+}
+
+func (s QueryRfcOdpsLindormResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRfcOdpsLindormResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRfcOdpsLindormResponse) SetReqMsgId(v string) *QueryRfcOdpsLindormResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryRfcOdpsLindormResponse) SetResultCode(v string) *QueryRfcOdpsLindormResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryRfcOdpsLindormResponse) SetResultMsg(v string) *QueryRfcOdpsLindormResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryRfcOdpsLindormResponse) SetJsonRes(v string) *QueryRfcOdpsLindormResponse {
+	s.JsonRes = &v
 	return s
 }
 
@@ -31422,7 +31520,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.24.4"),
+				"sdk_version":      tea.String("1.24.7"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -31586,11 +31684,11 @@ func (client *Client) BatchqueryCreditshieldProductInfoEx(request *BatchqueryCre
  * Description: 信护盾amc机构回调通用接口
  * Summary: 信护盾amc机构回调通用接口
  */
-func (client *Client) QueryProductAmcCallback(request *QueryProductAmcCallbackRequest) (_result *QueryProductAmcCallbackResponse, _err error) {
+func (client *Client) QueryCreditshieldProductCallback(request *QueryCreditshieldProductCallbackRequest) (_result *QueryCreditshieldProductCallbackResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &QueryProductAmcCallbackResponse{}
-	_body, _err := client.QueryProductAmcCallbackEx(request, headers, runtime)
+	_result = &QueryCreditshieldProductCallbackResponse{}
+	_body, _err := client.QueryCreditshieldProductCallbackEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -31602,13 +31700,13 @@ func (client *Client) QueryProductAmcCallback(request *QueryProductAmcCallbackRe
  * Description: 信护盾amc机构回调通用接口
  * Summary: 信护盾amc机构回调通用接口
  */
-func (client *Client) QueryProductAmcCallbackEx(request *QueryProductAmcCallbackRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryProductAmcCallbackResponse, _err error) {
+func (client *Client) QueryCreditshieldProductCallbackEx(request *QueryCreditshieldProductCallbackRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCreditshieldProductCallbackResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryProductAmcCallbackResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.product.amc.callback.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &QueryCreditshieldProductCallbackResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.creditshield.product.callback.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -35345,7 +35443,7 @@ func (client *Client) BatchqueryQmpRtMixedmarketingEx(request *BatchqueryQmpRtMi
 }
 
 /**
- * Description: qmp离线托管文件导入
+ * Description: 11
  * Summary: qmp离线托管文件导入
  */
 func (client *Client) UploadQmpOfflinehostplan(request *UploadQmpOfflinehostplanRequest) (_result *UploadQmpOfflinehostplanResponse, _err error) {
@@ -35361,7 +35459,7 @@ func (client *Client) UploadQmpOfflinehostplan(request *UploadQmpOfflinehostplan
 }
 
 /**
- * Description: qmp离线托管文件导入
+ * Description: 11
  * Summary: qmp离线托管文件导入
  */
 func (client *Client) UploadQmpOfflinehostplanEx(request *UploadQmpOfflinehostplanRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadQmpOfflinehostplanResponse, _err error) {
@@ -35733,6 +35831,40 @@ func (client *Client) UploadRfcAiboundFileEx(request *UploadRfcAiboundFileReques
 	}
 	_result = &UploadRfcAiboundFileResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rfc.aibound.file.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 提供给外部的数据服务接口内容获取
+ * Summary: 提供给外部的数据服务接口内容获取
+ */
+func (client *Client) QueryRfcOdpsLindorm(request *QueryRfcOdpsLindormRequest) (_result *QueryRfcOdpsLindormResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryRfcOdpsLindormResponse{}
+	_body, _err := client.QueryRfcOdpsLindormEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 提供给外部的数据服务接口内容获取
+ * Summary: 提供给外部的数据服务接口内容获取
+ */
+func (client *Client) QueryRfcOdpsLindormEx(request *QueryRfcOdpsLindormRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryRfcOdpsLindormResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryRfcOdpsLindormResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rfc.odps.lindorm.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
