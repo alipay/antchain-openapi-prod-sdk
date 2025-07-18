@@ -40,7 +40,7 @@ class UploadQmpOfflinehostplanRequest extends Model
      */
     public $fileId;
 
-    // MOBILE/MOBILE_MD5/OAID/IDFA/IMEI选择其中一种
+    // MOBILE/MOBILE_MD5/OAID/IDFA/IMEI/CAID选择其中一种
     /**
      * @var string
      */
@@ -52,32 +52,18 @@ class UploadQmpOfflinehostplanRequest extends Model
      */
     public $planCode;
 
-    // OFFLINE_DECISION/OFFLINE_DECISION_ACTION,默认OFFLINE_DECISION_ACTION
-    /**
-     * @var string
-     */
-    public $relationType;
-
     // properties的header,其他的为ext_info,
     /**
      * @var string
      */
     public $properties;
-
-    // 默认为false
-    /**
-     * @var bool
-     */
-    public $needToRefactor;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'fileId'            => 'file_id',
         'fileTemplate'      => 'file_template',
         'planCode'          => 'plan_code',
-        'relationType'      => 'relation_type',
         'properties'        => 'properties',
-        'needToRefactor'    => 'need_to_refactor',
     ];
 
     public function validate()
@@ -111,14 +97,8 @@ class UploadQmpOfflinehostplanRequest extends Model
         if (null !== $this->planCode) {
             $res['plan_code'] = $this->planCode;
         }
-        if (null !== $this->relationType) {
-            $res['relation_type'] = $this->relationType;
-        }
         if (null !== $this->properties) {
             $res['properties'] = $this->properties;
-        }
-        if (null !== $this->needToRefactor) {
-            $res['need_to_refactor'] = $this->needToRefactor;
         }
 
         return $res;
@@ -153,14 +133,8 @@ class UploadQmpOfflinehostplanRequest extends Model
         if (isset($map['plan_code'])) {
             $model->planCode = $map['plan_code'];
         }
-        if (isset($map['relation_type'])) {
-            $model->relationType = $map['relation_type'];
-        }
         if (isset($map['properties'])) {
             $model->properties = $map['properties'];
-        }
-        if (isset($map['need_to_refactor'])) {
-            $model->needToRefactor = $map['need_to_refactor'];
         }
 
         return $model;

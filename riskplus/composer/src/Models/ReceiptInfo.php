@@ -135,6 +135,22 @@ class ReceiptInfo extends Model
      * @var string
      */
     public $receiptNo;
+
+    // 放款状态(0：放款成功 1：放款失败 2：放款异常 3：放款中）
+    /**
+     * @example 0
+     *
+     * @var string
+     */
+    public $loanStatus;
+
+    // 业务类型 1：现金贷（默认）、2：分期付
+    /**
+     * @example 1
+     *
+     * @var string
+     */
+    public $prodType;
     protected $_name = [
         'customName'     => 'custom_name',
         'cardNo'         => 'card_no',
@@ -152,6 +168,8 @@ class ReceiptInfo extends Model
         'alreadyDate'    => 'already_date',
         'workflowStatus' => 'workflow_status',
         'receiptNo'      => 'receipt_no',
+        'loanStatus'     => 'loan_status',
+        'prodType'       => 'prod_type',
     ];
 
     public function validate()
@@ -227,6 +245,12 @@ class ReceiptInfo extends Model
         if (null !== $this->receiptNo) {
             $res['receipt_no'] = $this->receiptNo;
         }
+        if (null !== $this->loanStatus) {
+            $res['loan_status'] = $this->loanStatus;
+        }
+        if (null !== $this->prodType) {
+            $res['prod_type'] = $this->prodType;
+        }
 
         return $res;
     }
@@ -286,6 +310,12 @@ class ReceiptInfo extends Model
         }
         if (isset($map['receipt_no'])) {
             $model->receiptNo = $map['receipt_no'];
+        }
+        if (isset($map['loan_status'])) {
+            $model->loanStatus = $map['loan_status'];
+        }
+        if (isset($map['prod_type'])) {
+            $model->prodType = $map['prod_type'];
         }
 
         return $model;

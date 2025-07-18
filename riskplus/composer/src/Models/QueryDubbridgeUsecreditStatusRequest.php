@@ -32,13 +32,13 @@ class QueryDubbridgeUsecreditStatusRequest extends Model
      */
     public $prodType;
 
-    // prod_type=1时，用信申请的订单号
+    // 天枢系统用信申请的订单号
     /**
      * @var string
      */
     public $originalOrderNo;
 
-    // 资产方购物订单号
+    // 购物订单号，如二轮车/摩托车订单号
     /**
      * @var string
      */
@@ -55,7 +55,6 @@ class QueryDubbridgeUsecreditStatusRequest extends Model
     public function validate()
     {
         Model::validateRequired('orderNo', $this->orderNo, true);
-        Model::validateRequired('originalOrderNo', $this->originalOrderNo, true);
     }
 
     public function toMap()

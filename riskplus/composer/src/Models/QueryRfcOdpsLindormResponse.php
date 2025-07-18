@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryProductAmcCallbackResponse extends Model
+class QueryRfcOdpsLindormResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,16 @@ class QueryProductAmcCallbackResponse extends Model
      */
     public $resultMsg;
 
-    // 接口请求是否成功
-    /**
-     * @var bool
-     */
-    public $success;
-
     // 查询结果
     /**
-     * @var QueryResult[]
+     * @var string
      */
-    public $queryResults;
+    public $jsonRes;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'success'      => 'success',
-        'queryResults' => 'query_results',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'jsonRes'    => 'json_res',
     ];
 
     public function validate()
@@ -61,17 +54,8 @@ class QueryProductAmcCallbackResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
-        }
-        if (null !== $this->queryResults) {
-            $res['query_results'] = [];
-            if (null !== $this->queryResults && \is_array($this->queryResults)) {
-                $n = 0;
-                foreach ($this->queryResults as $item) {
-                    $res['query_results'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+        if (null !== $this->jsonRes) {
+            $res['json_res'] = $this->jsonRes;
         }
 
         return $res;
@@ -80,7 +64,7 @@ class QueryProductAmcCallbackResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryProductAmcCallbackResponse
+     * @return QueryRfcOdpsLindormResponse
      */
     public static function fromMap($map = [])
     {
@@ -94,17 +78,8 @@ class QueryProductAmcCallbackResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['success'])) {
-            $model->success = $map['success'];
-        }
-        if (isset($map['query_results'])) {
-            if (!empty($map['query_results'])) {
-                $model->queryResults = [];
-                $n                   = 0;
-                foreach ($map['query_results'] as $item) {
-                    $model->queryResults[$n++] = null !== $item ? QueryResult::fromMap($item) : $item;
-                }
-            }
+        if (isset($map['json_res'])) {
+            $model->jsonRes = $map['json_res'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryProductAmcCallbackRequest extends Model
+class QueryCreditshieldProductCallbackRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -72,7 +72,7 @@ class QueryProductAmcCallbackRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryProductAmcCallbackRequest
+     * @return QueryCreditshieldProductCallbackRequest
      */
     public static function fromMap($map = [])
     {

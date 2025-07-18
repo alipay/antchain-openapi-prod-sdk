@@ -189,6 +189,8 @@ use AntChain\RISKPLUS\Models\QueryBatchSecurityPolicyRequest;
 use AntChain\RISKPLUS\Models\QueryBatchSecurityPolicyResponse;
 use AntChain\RISKPLUS\Models\QueryCreditshieldProductBatchRequest;
 use AntChain\RISKPLUS\Models\QueryCreditshieldProductBatchResponse;
+use AntChain\RISKPLUS\Models\QueryCreditshieldProductCallbackRequest;
+use AntChain\RISKPLUS\Models\QueryCreditshieldProductCallbackResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountStatusRequest;
@@ -271,8 +273,6 @@ use AntChain\RISKPLUS\Models\QueryMdipDataservicePocRequest;
 use AntChain\RISKPLUS\Models\QueryMdipDataservicePocResponse;
 use AntChain\RISKPLUS\Models\QueryMdipDataserviceRequest;
 use AntChain\RISKPLUS\Models\QueryMdipDataserviceResponse;
-use AntChain\RISKPLUS\Models\QueryProductAmcCallbackRequest;
-use AntChain\RISKPLUS\Models\QueryProductAmcCallbackResponse;
 use AntChain\RISKPLUS\Models\QueryQmpCardsmsSupportRequest;
 use AntChain\RISKPLUS\Models\QueryQmpCardsmsSupportResponse;
 use AntChain\RISKPLUS\Models\QueryQmpCpaassmsTemplateRequest;
@@ -305,6 +305,8 @@ use AntChain\RISKPLUS\Models\QueryRdaasTaxRpadecisionserviceRequest;
 use AntChain\RISKPLUS\Models\QueryRdaasTaxRpadecisionserviceResponse;
 use AntChain\RISKPLUS\Models\QueryRdaasTaxSimpleauthdecisionRequest;
 use AntChain\RISKPLUS\Models\QueryRdaasTaxSimpleauthdecisionResponse;
+use AntChain\RISKPLUS\Models\QueryRfcOdpsLindormRequest;
+use AntChain\RISKPLUS\Models\QueryRfcOdpsLindormResponse;
 use AntChain\RISKPLUS\Models\QueryRpaasOpenServiceRequest;
 use AntChain\RISKPLUS\Models\QueryRpaasOpenServiceResponse;
 use AntChain\RISKPLUS\Models\QueryRpgwSignUrlRequest;
@@ -602,7 +604,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.24.4',
+                    'sdk_version'      => '1.24.7',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -753,33 +755,33 @@ class Client
      * Description: 信护盾amc机构回调通用接口
      * Summary: 信护盾amc机构回调通用接口.
      *
-     * @param QueryProductAmcCallbackRequest $request
+     * @param QueryCreditshieldProductCallbackRequest $request
      *
-     * @return QueryProductAmcCallbackResponse
+     * @return QueryCreditshieldProductCallbackResponse
      */
-    public function queryProductAmcCallback($request)
+    public function queryCreditshieldProductCallback($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryProductAmcCallbackEx($request, $headers, $runtime);
+        return $this->queryCreditshieldProductCallbackEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 信护盾amc机构回调通用接口
      * Summary: 信护盾amc机构回调通用接口.
      *
-     * @param QueryProductAmcCallbackRequest $request
-     * @param string[]                       $headers
-     * @param RuntimeOptions                 $runtime
+     * @param QueryCreditshieldProductCallbackRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
      *
-     * @return QueryProductAmcCallbackResponse
+     * @return QueryCreditshieldProductCallbackResponse
      */
-    public function queryProductAmcCallbackEx($request, $headers, $runtime)
+    public function queryCreditshieldProductCallbackEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryProductAmcCallbackResponse::fromMap($this->doRequest('1.0', 'riskplus.product.amc.callback.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryCreditshieldProductCallbackResponse::fromMap($this->doRequest('1.0', 'riskplus.creditshield.product.callback.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -4371,7 +4373,7 @@ class Client
     }
 
     /**
-     * Description: qmp离线托管文件导入
+     * Description: 11
      * Summary: qmp离线托管文件导入.
      *
      * @param UploadQmpOfflinehostplanRequest $request
@@ -4387,7 +4389,7 @@ class Client
     }
 
     /**
-     * Description: qmp离线托管文件导入
+     * Description: 11
      * Summary: qmp离线托管文件导入.
      *
      * @param UploadQmpOfflinehostplanRequest $request
@@ -4722,6 +4724,39 @@ class Client
         Utils::validateModel($request);
 
         return UploadRfcAiboundFileResponse::fromMap($this->doRequest('1.0', 'riskplus.rfc.aibound.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提供给外部的数据服务接口内容获取
+     * Summary: 提供给外部的数据服务接口内容获取.
+     *
+     * @param QueryRfcOdpsLindormRequest $request
+     *
+     * @return QueryRfcOdpsLindormResponse
+     */
+    public function queryRfcOdpsLindorm($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRfcOdpsLindormEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提供给外部的数据服务接口内容获取
+     * Summary: 提供给外部的数据服务接口内容获取.
+     *
+     * @param QueryRfcOdpsLindormRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryRfcOdpsLindormResponse
+     */
+    public function queryRfcOdpsLindormEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRfcOdpsLindormResponse::fromMap($this->doRequest('1.0', 'riskplus.rfc.odps.lindorm.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
