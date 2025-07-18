@@ -21,12 +21,11 @@ public class QueryDubbridgeUsecreditStatusRequest extends TeaModel {
     @NameInMap("prod_type")
     public String prodType;
 
-    // prod_type=1时，用信申请的订单号
+    // 天枢系统用信申请的订单号
     @NameInMap("original_order_no")
-    @Validation(required = true)
     public String originalOrderNo;
 
-    // 资产方购物订单号
+    // 购物订单号，如二轮车/摩托车订单号
     @NameInMap("biz_order_no")
     public String bizOrderNo;
 

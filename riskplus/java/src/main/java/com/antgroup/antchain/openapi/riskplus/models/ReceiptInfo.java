@@ -148,6 +148,22 @@ public class ReceiptInfo extends TeaModel {
     @Validation(required = true)
     public String receiptNo;
 
+    // 放款状态(0：放款成功 1：放款失败 2：放款异常 3：放款中）
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
+    @NameInMap("loan_status")
+    public String loanStatus;
+
+    // 业务类型 1：现金贷（默认）、2：分期付
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
+    @NameInMap("prod_type")
+    public String prodType;
+
     public static ReceiptInfo build(java.util.Map<String, ?> map) throws Exception {
         ReceiptInfo self = new ReceiptInfo();
         return TeaModel.build(map, self);
@@ -279,6 +295,22 @@ public class ReceiptInfo extends TeaModel {
     }
     public String getReceiptNo() {
         return this.receiptNo;
+    }
+
+    public ReceiptInfo setLoanStatus(String loanStatus) {
+        this.loanStatus = loanStatus;
+        return this;
+    }
+    public String getLoanStatus() {
+        return this.loanStatus;
+    }
+
+    public ReceiptInfo setProdType(String prodType) {
+        this.prodType = prodType;
+        return this;
+    }
+    public String getProdType() {
+        return this.prodType;
     }
 
 }

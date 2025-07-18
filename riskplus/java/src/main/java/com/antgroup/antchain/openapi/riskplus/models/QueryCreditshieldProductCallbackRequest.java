@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.riskplus.models;
 
 import com.aliyun.tea.*;
 
-public class QueryProductAmcCallbackRequest extends TeaModel {
+public class QueryCreditshieldProductCallbackRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -22,12 +22,12 @@ public class QueryProductAmcCallbackRequest extends TeaModel {
     @NameInMap("query_infos")
     public java.util.List<QueryInfo> queryInfos;
 
-    public static QueryProductAmcCallbackRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryProductAmcCallbackRequest self = new QueryProductAmcCallbackRequest();
+    public static QueryCreditshieldProductCallbackRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryCreditshieldProductCallbackRequest self = new QueryCreditshieldProductCallbackRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryProductAmcCallbackRequest setAuthToken(String authToken) {
+    public QueryCreditshieldProductCallbackRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -35,7 +35,7 @@ public class QueryProductAmcCallbackRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryProductAmcCallbackRequest setProductInstanceId(String productInstanceId) {
+    public QueryCreditshieldProductCallbackRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -43,7 +43,7 @@ public class QueryProductAmcCallbackRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryProductAmcCallbackRequest setQueryCode(String queryCode) {
+    public QueryCreditshieldProductCallbackRequest setQueryCode(String queryCode) {
         this.queryCode = queryCode;
         return this;
     }
@@ -51,7 +51,7 @@ public class QueryProductAmcCallbackRequest extends TeaModel {
         return this.queryCode;
     }
 
-    public QueryProductAmcCallbackRequest setQueryInfos(java.util.List<QueryInfo> queryInfos) {
+    public QueryCreditshieldProductCallbackRequest setQueryInfos(java.util.List<QueryInfo> queryInfos) {
         this.queryInfos = queryInfos;
         return this;
     }

@@ -28,7 +28,7 @@ public class UploadQmpOfflinehostplanRequest extends TeaModel {
     @Validation(required = true)
     public String fileId;
 
-    // MOBILE/MOBILE_MD5/OAID/IDFA/IMEI选择其中一种
+    // MOBILE/MOBILE_MD5/OAID/IDFA/IMEI/CAID选择其中一种
     @NameInMap("file_template")
     @Validation(required = true)
     public String fileTemplate;
@@ -38,17 +38,9 @@ public class UploadQmpOfflinehostplanRequest extends TeaModel {
     @Validation(required = true)
     public String planCode;
 
-    // OFFLINE_DECISION/OFFLINE_DECISION_ACTION,默认OFFLINE_DECISION_ACTION
-    @NameInMap("relation_type")
-    public String relationType;
-
     // properties的header,其他的为ext_info,
     @NameInMap("properties")
     public String properties;
-
-    // 默认为false
-    @NameInMap("need_to_refactor")
-    public Boolean needToRefactor;
 
     public static UploadQmpOfflinehostplanRequest build(java.util.Map<String, ?> map) throws Exception {
         UploadQmpOfflinehostplanRequest self = new UploadQmpOfflinehostplanRequest();
@@ -111,28 +103,12 @@ public class UploadQmpOfflinehostplanRequest extends TeaModel {
         return this.planCode;
     }
 
-    public UploadQmpOfflinehostplanRequest setRelationType(String relationType) {
-        this.relationType = relationType;
-        return this;
-    }
-    public String getRelationType() {
-        return this.relationType;
-    }
-
     public UploadQmpOfflinehostplanRequest setProperties(String properties) {
         this.properties = properties;
         return this;
     }
     public String getProperties() {
         return this.properties;
-    }
-
-    public UploadQmpOfflinehostplanRequest setNeedToRefactor(Boolean needToRefactor) {
-        this.needToRefactor = needToRefactor;
-        return this;
-    }
-    public Boolean getNeedToRefactor() {
-        return this.needToRefactor;
     }
 
 }

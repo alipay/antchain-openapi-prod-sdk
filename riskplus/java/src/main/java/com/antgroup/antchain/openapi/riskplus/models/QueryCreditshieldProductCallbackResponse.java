@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.riskplus.models;
 
 import com.aliyun.tea.*;
 
-public class QueryProductAmcCallbackResponse extends TeaModel {
+public class QueryCreditshieldProductCallbackResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -24,12 +24,12 @@ public class QueryProductAmcCallbackResponse extends TeaModel {
     @NameInMap("query_results")
     public java.util.List<QueryResult> queryResults;
 
-    public static QueryProductAmcCallbackResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryProductAmcCallbackResponse self = new QueryProductAmcCallbackResponse();
+    public static QueryCreditshieldProductCallbackResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryCreditshieldProductCallbackResponse self = new QueryCreditshieldProductCallbackResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryProductAmcCallbackResponse setReqMsgId(String reqMsgId) {
+    public QueryCreditshieldProductCallbackResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +37,7 @@ public class QueryProductAmcCallbackResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryProductAmcCallbackResponse setResultCode(String resultCode) {
+    public QueryCreditshieldProductCallbackResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +45,7 @@ public class QueryProductAmcCallbackResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryProductAmcCallbackResponse setResultMsg(String resultMsg) {
+    public QueryCreditshieldProductCallbackResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,7 +53,7 @@ public class QueryProductAmcCallbackResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryProductAmcCallbackResponse setSuccess(Boolean success) {
+    public QueryCreditshieldProductCallbackResponse setSuccess(Boolean success) {
         this.success = success;
         return this;
     }
@@ -61,7 +61,7 @@ public class QueryProductAmcCallbackResponse extends TeaModel {
         return this.success;
     }
 
-    public QueryProductAmcCallbackResponse setQueryResults(java.util.List<QueryResult> queryResults) {
+    public QueryCreditshieldProductCallbackResponse setQueryResults(java.util.List<QueryResult> queryResults) {
         this.queryResults = queryResults;
         return this;
     }
