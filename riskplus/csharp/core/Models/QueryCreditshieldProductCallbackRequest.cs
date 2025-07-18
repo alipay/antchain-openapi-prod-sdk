@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class QueryProductAmcCallbackRequest : TeaModel {
+    public class QueryCreditshieldProductCallbackRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]

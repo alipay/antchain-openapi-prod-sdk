@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class QueryProductAmcCallbackResponse : TeaModel {
+    public class QueryRfcOdpsLindormResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,10 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 接口请求是否成功
-        [NameInMap("success")]
-        [Validation(Required=false)]
-        public bool? Success { get; set; }
-
         // 查询结果
-        [NameInMap("query_results")]
+        [NameInMap("json_res")]
         [Validation(Required=false)]
-        public List<QueryResult> QueryResults { get; set; }
+        public string JsonRes { get; set; }
 
     }
 

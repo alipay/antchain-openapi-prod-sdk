@@ -29,12 +29,12 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProdType { get; set; }
 
-        // prod_type=1时，用信申请的订单号
+        // 天枢系统用信申请的订单号
         [NameInMap("original_order_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string OriginalOrderNo { get; set; }
 
-        // 资产方购物订单号
+        // 购物订单号，如二轮车/摩托车订单号
         [NameInMap("biz_order_no")]
         [Validation(Required=false)]
         public string BizOrderNo { get; set; }

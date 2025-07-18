@@ -90,6 +90,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string ReceiptNo { get; set; }
 
+        // 放款状态(0：放款成功 1：放款失败 2：放款异常 3：放款中）
+        [NameInMap("loan_status")]
+        [Validation(Required=false)]
+        public string LoanStatus { get; set; }
+
+        // 业务类型 1：现金贷（默认）、2：分期付
+        [NameInMap("prod_type")]
+        [Validation(Required=false)]
+        public string ProdType { get; set; }
+
     }
 
 }
