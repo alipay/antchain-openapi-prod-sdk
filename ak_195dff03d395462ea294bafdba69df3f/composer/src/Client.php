@@ -163,6 +163,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeFina
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeFinanceloanapplyResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeIndirectorderRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeIndirectorderResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradePromoorderinfoRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradePromoorderinfoResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeUserpromisedelayRequest;
@@ -338,7 +340,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.0',
+                    'sdk_version'      => '1.6.1',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -3386,6 +3388,39 @@ class Client
         Utils::validateModel($request);
 
         return ConfirmAntchainAtoFundCompensateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.compensate.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 订单信息同步
+     * Summary: 订单信息同步.
+     *
+     * @param SyncAntchainAtoTradePromoorderinfoRequest $request
+     *
+     * @return SyncAntchainAtoTradePromoorderinfoResponse
+     */
+    public function syncAntchainAtoTradePromoorderinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAntchainAtoTradePromoorderinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 订单信息同步
+     * Summary: 订单信息同步.
+     *
+     * @param SyncAntchainAtoTradePromoorderinfoRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return SyncAntchainAtoTradePromoorderinfoResponse
+     */
+    public function syncAntchainAtoTradePromoorderinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAntchainAtoTradePromoorderinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.promoorderinfo.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -94,14 +94,6 @@ class ActivePayOrder extends Model
      * @var SingleTermDetail[]
      */
     public $multiPayDetail;
-
-    // 多期支付的期数
-    /**
-     * @example 1
-     *
-     * @var int
-     */
-    public $multiPeriodNum;
     protected $_name = [
         'tradeNo'          => 'trade_no',
         'tradeStatus'      => 'trade_status',
@@ -113,7 +105,6 @@ class ActivePayOrder extends Model
         'gmtPay'           => 'gmt_pay',
         'gmtCreate'        => 'gmt_create',
         'multiPayDetail'   => 'multi_pay_detail',
-        'multiPeriodNum'   => 'multi_period_num',
     ];
 
     public function validate()
@@ -172,9 +163,6 @@ class ActivePayOrder extends Model
                 }
             }
         }
-        if (null !== $this->multiPeriodNum) {
-            $res['multi_period_num'] = $this->multiPeriodNum;
-        }
 
         return $res;
     }
@@ -222,9 +210,6 @@ class ActivePayOrder extends Model
                     $model->multiPayDetail[$n++] = null !== $item ? SingleTermDetail::fromMap($item) : $item;
                 }
             }
-        }
-        if (isset($map['multi_period_num'])) {
-            $model->multiPeriodNum = $map['multi_period_num'];
         }
 
         return $model;

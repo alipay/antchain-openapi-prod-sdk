@@ -70,6 +70,13 @@ class CreateAntchainAtoWithholdActivepayRequest extends Model
      * @var SingleTermDetail[]
      */
     public $multiPayDetail;
+
+    // 支付申请号，用于区分在一笔订单同一支付类型的多笔支付请求。
+    // 当支付类型非MULTI_PAY或为空时必填
+    /**
+     * @var int
+     */
+    public $payApplyNo;
     protected $_name = [
         'authToken'                  => 'auth_token',
         'productInstanceId'          => 'product_instance_id',
@@ -81,6 +88,7 @@ class CreateAntchainAtoWithholdActivepayRequest extends Model
         'operationDivideFlag'        => 'operation_divide_flag',
         'operationDivideTransInList' => 'operation_divide_trans_in_list',
         'multiPayDetail'             => 'multi_pay_detail',
+        'payApplyNo'                 => 'pay_apply_no',
     ];
 
     public function validate()
@@ -92,9 +100,11 @@ class CreateAntchainAtoWithholdActivepayRequest extends Model
         Model::validateMaxLength('operationDivideFlag', $this->operationDivideFlag, 1);
         Model::validateMinimum('periodNum', $this->periodNum, 1);
         Model::validateMinimum('payAmount', $this->payAmount, 1);
+        Model::validateMinimum('payApplyNo', $this->payApplyNo, 1);
         Model::validateMinLength('payType', $this->payType, 1);
         Model::validateMinLength('payChannel', $this->payChannel, 1);
         Model::validateMinLength('operationDivideFlag', $this->operationDivideFlag, 1);
+        Model::validateMaximum('payApplyNo', $this->payApplyNo, 10);
     }
 
     public function toMap()
@@ -141,6 +151,9 @@ class CreateAntchainAtoWithholdActivepayRequest extends Model
                     $res['multi_pay_detail'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->payApplyNo) {
+            $res['pay_apply_no'] = $this->payApplyNo;
         }
 
         return $res;
@@ -195,6 +208,9 @@ class CreateAntchainAtoWithholdActivepayRequest extends Model
                     $model->multiPayDetail[$n++] = null !== $item ? SingleTermDetail::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['pay_apply_no'])) {
+            $model->payApplyNo = $map['pay_apply_no'];
         }
 
         return $model;

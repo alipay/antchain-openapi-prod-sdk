@@ -59,6 +59,12 @@ class CreateAntchainAtoWithholdRefundRequest extends Model
      * @var string
      */
     public $payType;
+
+    // 多期合并支付第几期
+    /**
+     * @var int
+     */
+    public $payApplyNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -68,6 +74,7 @@ class CreateAntchainAtoWithholdRefundRequest extends Model
         'refundMoney'       => 'refund_money',
         'refundReason'      => 'refund_reason',
         'payType'           => 'pay_type',
+        'payApplyNo'        => 'pay_apply_no',
     ];
 
     public function validate()
@@ -83,6 +90,7 @@ class CreateAntchainAtoWithholdRefundRequest extends Model
         Model::validateMinLength('refundRequestNo', $this->refundRequestNo, 1);
         Model::validateMinimum('periodNum', $this->periodNum, 1);
         Model::validateMinimum('refundMoney', $this->refundMoney, 1);
+        Model::validateMinimum('payApplyNo', $this->payApplyNo, 1);
     }
 
     public function toMap()
@@ -111,6 +119,9 @@ class CreateAntchainAtoWithholdRefundRequest extends Model
         }
         if (null !== $this->payType) {
             $res['pay_type'] = $this->payType;
+        }
+        if (null !== $this->payApplyNo) {
+            $res['pay_apply_no'] = $this->payApplyNo;
         }
 
         return $res;
@@ -147,6 +158,9 @@ class CreateAntchainAtoWithholdRefundRequest extends Model
         }
         if (isset($map['pay_type'])) {
             $model->payType = $map['pay_type'];
+        }
+        if (isset($map['pay_apply_no'])) {
+            $model->payApplyNo = $map['pay_apply_no'];
         }
 
         return $model;
