@@ -28,11 +28,6 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string KeyId { get; set; }
 
-        // 渠道code
-        [NameInMap("channel_code")]
-        [Validation(Required=true)]
-        public string ChannelCode { get; set; }
-
         // 授权码
         [NameInMap("auth_code")]
         [Validation(Required=false)]
