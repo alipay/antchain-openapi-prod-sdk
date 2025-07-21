@@ -45,6 +45,10 @@ public class CreateAntchainAtoWithholdRefundRequest extends TeaModel {
     @Validation(maxLength = 64)
     public String payType;
 
+    // 多期合并支付第几期
+    @NameInMap("pay_apply_no")
+    public Long payApplyNo;
+
     public static CreateAntchainAtoWithholdRefundRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateAntchainAtoWithholdRefundRequest self = new CreateAntchainAtoWithholdRefundRequest();
         return TeaModel.build(map, self);
@@ -112,6 +116,14 @@ public class CreateAntchainAtoWithholdRefundRequest extends TeaModel {
     }
     public String getPayType() {
         return this.payType;
+    }
+
+    public CreateAntchainAtoWithholdRefundRequest setPayApplyNo(Long payApplyNo) {
+        this.payApplyNo = payApplyNo;
+        return this;
+    }
+    public Long getPayApplyNo() {
+        return this.payApplyNo;
     }
 
 }

@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.0"),
+                    new TeaPair("sdk_version", "1.6.1"),
                     new TeaPair("_prod_code", "ak_195dff03d395462ea294bafdba69df3f"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -2129,6 +2129,27 @@ public class Client {
     public ConfirmAntchainAtoFundCompensateResponse confirmAntchainAtoFundCompensateEx(ConfirmAntchainAtoFundCompensateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.compensate.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmAntchainAtoFundCompensateResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 订单信息同步
+     * Summary: 订单信息同步</p>
+     */
+    public SyncAntchainAtoTradePromoorderinfoResponse syncAntchainAtoTradePromoorderinfo(SyncAntchainAtoTradePromoorderinfoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncAntchainAtoTradePromoorderinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 订单信息同步
+     * Summary: 订单信息同步</p>
+     */
+    public SyncAntchainAtoTradePromoorderinfoResponse syncAntchainAtoTradePromoorderinfoEx(SyncAntchainAtoTradePromoorderinfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.promoorderinfo.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncAntchainAtoTradePromoorderinfoResponse());
     }
 
     /**

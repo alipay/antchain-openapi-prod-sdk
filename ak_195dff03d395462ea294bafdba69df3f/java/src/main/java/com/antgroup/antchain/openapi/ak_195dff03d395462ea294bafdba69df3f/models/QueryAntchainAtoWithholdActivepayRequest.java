@@ -35,9 +35,10 @@ public class QueryAntchainAtoWithholdActivepayRequest extends TeaModel {
     @Validation(maxLength = 64)
     public String payChannel;
 
-    // 多期支付的期数，当使用多期合并支付类型时必传。
-    @NameInMap("multi_period_num")
-    public Long multiPeriodNum;
+    // 支付申请号，用于区分在一笔订单同一支付类型的多笔支付请求。
+    // 当支付类型非MULTI_PAY或为空时必填
+    @NameInMap("pay_apply_no")
+    public Long payApplyNo;
 
     public static QueryAntchainAtoWithholdActivepayRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAntchainAtoWithholdActivepayRequest self = new QueryAntchainAtoWithholdActivepayRequest();
@@ -100,12 +101,12 @@ public class QueryAntchainAtoWithholdActivepayRequest extends TeaModel {
         return this.payChannel;
     }
 
-    public QueryAntchainAtoWithholdActivepayRequest setMultiPeriodNum(Long multiPeriodNum) {
-        this.multiPeriodNum = multiPeriodNum;
+    public QueryAntchainAtoWithholdActivepayRequest setPayApplyNo(Long payApplyNo) {
+        this.payApplyNo = payApplyNo;
         return this;
     }
-    public Long getMultiPeriodNum() {
-        return this.multiPeriodNum;
+    public Long getPayApplyNo() {
+        return this.payApplyNo;
     }
 
 }

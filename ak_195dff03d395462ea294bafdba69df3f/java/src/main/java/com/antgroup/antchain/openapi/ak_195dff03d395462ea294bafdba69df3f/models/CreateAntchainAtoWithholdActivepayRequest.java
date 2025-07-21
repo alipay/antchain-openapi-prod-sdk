@@ -51,6 +51,12 @@ public class CreateAntchainAtoWithholdActivepayRequest extends TeaModel {
     @NameInMap("multi_pay_detail")
     public java.util.List<SingleTermDetail> multiPayDetail;
 
+    // 支付申请号，用于区分在一笔订单同一支付类型的多笔支付请求。
+    // 当支付类型非MULTI_PAY或为空时必填
+    @NameInMap("pay_apply_no")
+    @Validation(maximum = 10, minimum = 1)
+    public Long payApplyNo;
+
     public static CreateAntchainAtoWithholdActivepayRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateAntchainAtoWithholdActivepayRequest self = new CreateAntchainAtoWithholdActivepayRequest();
         return TeaModel.build(map, self);
@@ -134,6 +140,14 @@ public class CreateAntchainAtoWithholdActivepayRequest extends TeaModel {
     }
     public java.util.List<SingleTermDetail> getMultiPayDetail() {
         return this.multiPayDetail;
+    }
+
+    public CreateAntchainAtoWithholdActivepayRequest setPayApplyNo(Long payApplyNo) {
+        this.payApplyNo = payApplyNo;
+        return this;
+    }
+    public Long getPayApplyNo() {
+        return this.payApplyNo;
     }
 
 }

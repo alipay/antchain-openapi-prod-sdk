@@ -91,14 +91,6 @@ public class ActivePayOrder extends TeaModel {
     @NameInMap("multi_pay_detail")
     public java.util.List<SingleTermDetail> multiPayDetail;
 
-    // 多期支付的期数
-    /**
-     * <strong>example:</strong>
-     * <p>1</p>
-     */
-    @NameInMap("multi_period_num")
-    public Long multiPeriodNum;
-
     public static ActivePayOrder build(java.util.Map<String, ?> map) throws Exception {
         ActivePayOrder self = new ActivePayOrder();
         return TeaModel.build(map, self);
@@ -182,14 +174,6 @@ public class ActivePayOrder extends TeaModel {
     }
     public java.util.List<SingleTermDetail> getMultiPayDetail() {
         return this.multiPayDetail;
-    }
-
-    public ActivePayOrder setMultiPeriodNum(Long multiPeriodNum) {
-        this.multiPeriodNum = multiPeriodNum;
-        return this;
-    }
-    public Long getMultiPeriodNum() {
-        return this.multiPeriodNum;
     }
 
 }

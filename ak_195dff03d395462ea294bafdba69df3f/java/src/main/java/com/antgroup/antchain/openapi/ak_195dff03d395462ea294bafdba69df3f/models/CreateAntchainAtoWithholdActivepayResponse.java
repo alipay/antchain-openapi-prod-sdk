@@ -26,10 +26,6 @@ public class CreateAntchainAtoWithholdActivepayResponse extends TeaModel {
     @NameInMap("order_str")
     public String orderStr;
 
-    // 多期支付的期数，当发起多期合并支付时返回。
-    @NameInMap("multi_period_num")
-    public Long multiPeriodNum;
-
     public static CreateAntchainAtoWithholdActivepayResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateAntchainAtoWithholdActivepayResponse self = new CreateAntchainAtoWithholdActivepayResponse();
         return TeaModel.build(map, self);
@@ -73,14 +69,6 @@ public class CreateAntchainAtoWithholdActivepayResponse extends TeaModel {
     }
     public String getOrderStr() {
         return this.orderStr;
-    }
-
-    public CreateAntchainAtoWithholdActivepayResponse setMultiPeriodNum(Long multiPeriodNum) {
-        this.multiPeriodNum = multiPeriodNum;
-        return this;
-    }
-    public Long getMultiPeriodNum() {
-        return this.multiPeriodNum;
     }
 
 }
