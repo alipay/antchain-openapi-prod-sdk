@@ -25699,7 +25699,6 @@ class QueryRfcOdpsLindormRequest(TeaModel):
         product_instance_id: str = None,
         biz_code: str = None,
         key_id: str = None,
-        channel_code: str = None,
         auth_code: str = None,
         encrypt_type: str = None,
     ):
@@ -25710,8 +25709,6 @@ class QueryRfcOdpsLindormRequest(TeaModel):
         self.biz_code = biz_code
         # 加密后的唯一id
         self.key_id = key_id
-        # 渠道code
-        self.channel_code = channel_code
         # 授权码
         self.auth_code = auth_code
         # 加密方式
@@ -25720,7 +25717,6 @@ class QueryRfcOdpsLindormRequest(TeaModel):
     def validate(self):
         self.validate_required(self.biz_code, 'biz_code')
         self.validate_required(self.key_id, 'key_id')
-        self.validate_required(self.channel_code, 'channel_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -25736,8 +25732,6 @@ class QueryRfcOdpsLindormRequest(TeaModel):
             result['biz_code'] = self.biz_code
         if self.key_id is not None:
             result['key_id'] = self.key_id
-        if self.channel_code is not None:
-            result['channel_code'] = self.channel_code
         if self.auth_code is not None:
             result['auth_code'] = self.auth_code
         if self.encrypt_type is not None:
@@ -25754,8 +25748,6 @@ class QueryRfcOdpsLindormRequest(TeaModel):
             self.biz_code = m.get('biz_code')
         if m.get('key_id') is not None:
             self.key_id = m.get('key_id')
-        if m.get('channel_code') is not None:
-            self.channel_code = m.get('channel_code')
         if m.get('auth_code') is not None:
             self.auth_code = m.get('auth_code')
         if m.get('encrypt_type') is not None:
