@@ -31,12 +31,6 @@ class QueryRfcOdpsLindormRequest extends Model
      */
     public $keyId;
 
-    // 渠道code
-    /**
-     * @var string
-     */
-    public $channelCode;
-
     // 授权码
     /**
      * @var string
@@ -53,7 +47,6 @@ class QueryRfcOdpsLindormRequest extends Model
         'productInstanceId' => 'product_instance_id',
         'bizCode'           => 'biz_code',
         'keyId'             => 'key_id',
-        'channelCode'       => 'channel_code',
         'authCode'          => 'auth_code',
         'encryptType'       => 'encrypt_type',
     ];
@@ -62,7 +55,6 @@ class QueryRfcOdpsLindormRequest extends Model
     {
         Model::validateRequired('bizCode', $this->bizCode, true);
         Model::validateRequired('keyId', $this->keyId, true);
-        Model::validateRequired('channelCode', $this->channelCode, true);
     }
 
     public function toMap()
@@ -79,9 +71,6 @@ class QueryRfcOdpsLindormRequest extends Model
         }
         if (null !== $this->keyId) {
             $res['key_id'] = $this->keyId;
-        }
-        if (null !== $this->channelCode) {
-            $res['channel_code'] = $this->channelCode;
         }
         if (null !== $this->authCode) {
             $res['auth_code'] = $this->authCode;
@@ -112,9 +101,6 @@ class QueryRfcOdpsLindormRequest extends Model
         }
         if (isset($map['key_id'])) {
             $model->keyId = $map['key_id'];
-        }
-        if (isset($map['channel_code'])) {
-            $model->channelCode = $map['channel_code'];
         }
         if (isset($map['auth_code'])) {
             $model->authCode = $map['auth_code'];
