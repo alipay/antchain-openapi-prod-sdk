@@ -10422,6 +10422,7 @@ export class QueryCyclinginsuranceOrderdetailResponse extends $tea.Model {
   // workerPhone:上门师傅电话
   // batteryCode:电池码
   // batteryPackagingCode:电池外包装码
+  // batteryGroupCode:电池组码
   fulfillmentProcessInfo?: string;
   // 附件
   // installImages: 上门安装图片
@@ -10520,6 +10521,89 @@ export class CancelCyclinginsuranceServiceorderResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 订单取消是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyCyclinginsuranceMidchangeserviceorderauditRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求唯一Id
+  requestId: string;
+  // 来源场景
+  scene: string;
+  // 调用应用名
+  callerAppName: string;
+  // 外部业务id，用于幂等
+  bizId: string;
+  // 订单id
+  orderId: string;
+  // 账号id
+  accountId: string;
+  // 审核是否通过
+  success: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestId: 'request_id',
+      scene: 'scene',
+      callerAppName: 'caller_app_name',
+      bizId: 'biz_id',
+      orderId: 'order_id',
+      accountId: 'account_id',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestId: 'string',
+      scene: 'string',
+      callerAppName: 'string',
+      bizId: 'string',
+      orderId: 'string',
+      accountId: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyCyclinginsuranceMidchangeserviceorderauditResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
   success?: boolean;
   static names(): { [key: string]: string } {
     return {
@@ -11289,7 +11373,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.71",
+          sdk_version: "1.19.74",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
@@ -12855,6 +12939,25 @@ export default class Client {
   async cancelCyclinginsuranceServiceorderEx(request: CancelCyclinginsuranceServiceorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelCyclinginsuranceServiceorderResponse> {
     Util.validateModel(request);
     return $tea.cast<CancelCyclinginsuranceServiceorderResponse>(await this.doRequest("1.0", "blockchain.bccr.cyclinginsurance.serviceorder.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelCyclinginsuranceServiceorderResponse({}));
+  }
+
+  /**
+   * Description: 骑行保租中换电审核结果回调
+   * Summary: 骑行保租中换电审核结果回调
+   */
+  async notifyCyclinginsuranceMidchangeserviceorderaudit(request: NotifyCyclinginsuranceMidchangeserviceorderauditRequest): Promise<NotifyCyclinginsuranceMidchangeserviceorderauditResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.notifyCyclinginsuranceMidchangeserviceorderauditEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 骑行保租中换电审核结果回调
+   * Summary: 骑行保租中换电审核结果回调
+   */
+  async notifyCyclinginsuranceMidchangeserviceorderauditEx(request: NotifyCyclinginsuranceMidchangeserviceorderauditRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyCyclinginsuranceMidchangeserviceorderauditResponse> {
+    Util.validateModel(request);
+    return $tea.cast<NotifyCyclinginsuranceMidchangeserviceorderauditResponse>(await this.doRequest("1.0", "blockchain.bccr.cyclinginsurance.midchangeserviceorderaudit.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyCyclinginsuranceMidchangeserviceorderauditResponse({}));
   }
 
   /**
