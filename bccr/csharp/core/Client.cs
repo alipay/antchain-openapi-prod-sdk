@@ -137,7 +137,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.71"},
+                        {"sdk_version", "1.19.74"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.71"},
+                        {"sdk_version", "1.19.74"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3679,6 +3679,48 @@ namespace AntChain.SDK.BCCR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CancelCyclinginsuranceServiceorderResponse>(await DoRequestAsync("1.0", "blockchain.bccr.cyclinginsurance.serviceorder.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 骑行保租中换电审核结果回调
+         * Summary: 骑行保租中换电审核结果回调
+         */
+        public NotifyCyclinginsuranceMidchangeserviceorderauditResponse NotifyCyclinginsuranceMidchangeserviceorderaudit(NotifyCyclinginsuranceMidchangeserviceorderauditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return NotifyCyclinginsuranceMidchangeserviceorderauditEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 骑行保租中换电审核结果回调
+         * Summary: 骑行保租中换电审核结果回调
+         */
+        public async Task<NotifyCyclinginsuranceMidchangeserviceorderauditResponse> NotifyCyclinginsuranceMidchangeserviceorderauditAsync(NotifyCyclinginsuranceMidchangeserviceorderauditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await NotifyCyclinginsuranceMidchangeserviceorderauditExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 骑行保租中换电审核结果回调
+         * Summary: 骑行保租中换电审核结果回调
+         */
+        public NotifyCyclinginsuranceMidchangeserviceorderauditResponse NotifyCyclinginsuranceMidchangeserviceorderauditEx(NotifyCyclinginsuranceMidchangeserviceorderauditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyCyclinginsuranceMidchangeserviceorderauditResponse>(DoRequest("1.0", "blockchain.bccr.cyclinginsurance.midchangeserviceorderaudit.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 骑行保租中换电审核结果回调
+         * Summary: 骑行保租中换电审核结果回调
+         */
+        public async Task<NotifyCyclinginsuranceMidchangeserviceorderauditResponse> NotifyCyclinginsuranceMidchangeserviceorderauditExAsync(NotifyCyclinginsuranceMidchangeserviceorderauditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyCyclinginsuranceMidchangeserviceorderauditResponse>(await DoRequestAsync("1.0", "blockchain.bccr.cyclinginsurance.midchangeserviceorderaudit.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

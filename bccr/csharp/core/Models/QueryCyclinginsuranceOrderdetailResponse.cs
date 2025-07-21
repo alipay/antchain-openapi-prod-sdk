@@ -55,6 +55,7 @@ namespace AntChain.SDK.BCCR.Models
         // workerPhone:上门师傅电话
         // batteryCode:电池码
         // batteryPackagingCode:电池外包装码
+        // batteryGroupCode:电池组码
         [NameInMap("fulfillment_process_info")]
         [Validation(Required=false)]
         public string FulfillmentProcessInfo { get; set; }
