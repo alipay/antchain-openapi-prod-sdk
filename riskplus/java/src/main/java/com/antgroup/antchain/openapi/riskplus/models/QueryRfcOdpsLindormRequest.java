@@ -21,11 +21,6 @@ public class QueryRfcOdpsLindormRequest extends TeaModel {
     @Validation(required = true)
     public String keyId;
 
-    // 渠道code
-    @NameInMap("channel_code")
-    @Validation(required = true)
-    public String channelCode;
-
     // 授权码
     @NameInMap("auth_code")
     public String authCode;
@@ -69,14 +64,6 @@ public class QueryRfcOdpsLindormRequest extends TeaModel {
     }
     public String getKeyId() {
         return this.keyId;
-    }
-
-    public QueryRfcOdpsLindormRequest setChannelCode(String channelCode) {
-        this.channelCode = channelCode;
-        return this;
-    }
-    public String getChannelCode() {
-        return this.channelCode;
     }
 
     public QueryRfcOdpsLindormRequest setAuthCode(String authCode) {
