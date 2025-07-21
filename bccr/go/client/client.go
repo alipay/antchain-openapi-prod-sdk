@@ -14077,6 +14077,7 @@ type QueryCyclinginsuranceOrderdetailResponse struct {
 	// workerPhone:上门师傅电话
 	// batteryCode:电池码
 	// batteryPackagingCode:电池外包装码
+	// batteryGroupCode:电池组码
 	FulfillmentProcessInfo *string `json:"fulfillment_process_info,omitempty" xml:"fulfillment_process_info,omitempty"`
 	// 附件
 	// installImages: 上门安装图片
@@ -14246,6 +14247,118 @@ func (s *CancelCyclinginsuranceServiceorderResponse) SetResultMsg(v string) *Can
 }
 
 func (s *CancelCyclinginsuranceServiceorderResponse) SetSuccess(v bool) *CancelCyclinginsuranceServiceorderResponse {
+	s.Success = &v
+	return s
+}
+
+type NotifyCyclinginsuranceMidchangeserviceorderauditRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求唯一Id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 来源场景
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 调用应用名
+	CallerAppName *string `json:"caller_app_name,omitempty" xml:"caller_app_name,omitempty" require:"true"`
+	// 外部业务id，用于幂等
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 账号id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 审核是否通过
+	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+}
+
+func (s NotifyCyclinginsuranceMidchangeserviceorderauditRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyCyclinginsuranceMidchangeserviceorderauditRequest) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyCyclinginsuranceMidchangeserviceorderauditRequest) SetAuthToken(v string) *NotifyCyclinginsuranceMidchangeserviceorderauditRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *NotifyCyclinginsuranceMidchangeserviceorderauditRequest) SetProductInstanceId(v string) *NotifyCyclinginsuranceMidchangeserviceorderauditRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *NotifyCyclinginsuranceMidchangeserviceorderauditRequest) SetRequestId(v string) *NotifyCyclinginsuranceMidchangeserviceorderauditRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *NotifyCyclinginsuranceMidchangeserviceorderauditRequest) SetScene(v string) *NotifyCyclinginsuranceMidchangeserviceorderauditRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *NotifyCyclinginsuranceMidchangeserviceorderauditRequest) SetCallerAppName(v string) *NotifyCyclinginsuranceMidchangeserviceorderauditRequest {
+	s.CallerAppName = &v
+	return s
+}
+
+func (s *NotifyCyclinginsuranceMidchangeserviceorderauditRequest) SetBizId(v string) *NotifyCyclinginsuranceMidchangeserviceorderauditRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *NotifyCyclinginsuranceMidchangeserviceorderauditRequest) SetOrderId(v string) *NotifyCyclinginsuranceMidchangeserviceorderauditRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *NotifyCyclinginsuranceMidchangeserviceorderauditRequest) SetAccountId(v string) *NotifyCyclinginsuranceMidchangeserviceorderauditRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *NotifyCyclinginsuranceMidchangeserviceorderauditRequest) SetSuccess(v bool) *NotifyCyclinginsuranceMidchangeserviceorderauditRequest {
+	s.Success = &v
+	return s
+}
+
+type NotifyCyclinginsuranceMidchangeserviceorderauditResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s NotifyCyclinginsuranceMidchangeserviceorderauditResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyCyclinginsuranceMidchangeserviceorderauditResponse) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyCyclinginsuranceMidchangeserviceorderauditResponse) SetReqMsgId(v string) *NotifyCyclinginsuranceMidchangeserviceorderauditResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *NotifyCyclinginsuranceMidchangeserviceorderauditResponse) SetResultCode(v string) *NotifyCyclinginsuranceMidchangeserviceorderauditResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *NotifyCyclinginsuranceMidchangeserviceorderauditResponse) SetResultMsg(v string) *NotifyCyclinginsuranceMidchangeserviceorderauditResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *NotifyCyclinginsuranceMidchangeserviceorderauditResponse) SetSuccess(v bool) *NotifyCyclinginsuranceMidchangeserviceorderauditResponse {
 	s.Success = &v
 	return s
 }
@@ -15212,7 +15325,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.71"),
+				"sdk_version":      tea.String("1.19.74"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -17983,6 +18096,40 @@ func (client *Client) CancelCyclinginsuranceServiceorderEx(request *CancelCyclin
 	}
 	_result = &CancelCyclinginsuranceServiceorderResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.cyclinginsurance.serviceorder.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 骑行保租中换电审核结果回调
+ * Summary: 骑行保租中换电审核结果回调
+ */
+func (client *Client) NotifyCyclinginsuranceMidchangeserviceorderaudit(request *NotifyCyclinginsuranceMidchangeserviceorderauditRequest) (_result *NotifyCyclinginsuranceMidchangeserviceorderauditResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &NotifyCyclinginsuranceMidchangeserviceorderauditResponse{}
+	_body, _err := client.NotifyCyclinginsuranceMidchangeserviceorderauditEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 骑行保租中换电审核结果回调
+ * Summary: 骑行保租中换电审核结果回调
+ */
+func (client *Client) NotifyCyclinginsuranceMidchangeserviceorderauditEx(request *NotifyCyclinginsuranceMidchangeserviceorderauditRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyCyclinginsuranceMidchangeserviceorderauditResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &NotifyCyclinginsuranceMidchangeserviceorderauditResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.cyclinginsurance.midchangeserviceorderaudit.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
