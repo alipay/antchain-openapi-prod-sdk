@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.0',
+                    'sdk_version': '1.6.1',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.0',
+                    'sdk_version': '1.6.1',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -5381,6 +5381,62 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ConfirmAntchainAtoFundCompensateResponse(),
             await self.do_request_async('1.0', 'antchain.ato.fund.compensate.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_antchain_ato_trade_promoorderinfo(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradePromoorderinfoRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradePromoorderinfoResponse:
+        """
+        Description: 订单信息同步
+        Summary: 订单信息同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_antchain_ato_trade_promoorderinfo_ex(request, headers, runtime)
+
+    async def sync_antchain_ato_trade_promoorderinfo_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradePromoorderinfoRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradePromoorderinfoResponse:
+        """
+        Description: 订单信息同步
+        Summary: 订单信息同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_antchain_ato_trade_promoorderinfo_ex_async(request, headers, runtime)
+
+    def sync_antchain_ato_trade_promoorderinfo_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradePromoorderinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradePromoorderinfoResponse:
+        """
+        Description: 订单信息同步
+        Summary: 订单信息同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradePromoorderinfoResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.promoorderinfo.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_antchain_ato_trade_promoorderinfo_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradePromoorderinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradePromoorderinfoResponse:
+        """
+        Description: 订单信息同步
+        Summary: 订单信息同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradePromoorderinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.promoorderinfo.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

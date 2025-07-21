@@ -738,7 +738,6 @@ class ActivePayOrder(TeaModel):
         gmt_pay: str = None,
         gmt_create: str = None,
         multi_pay_detail: List[SingleTermDetail] = None,
-        multi_period_num: int = None,
     ):
         # 支付宝支付订单号，用于拉起主动支付页面
         self.trade_no = trade_no
@@ -767,8 +766,6 @@ class ActivePayOrder(TeaModel):
         self.gmt_create = gmt_create
         # 多期合并支付明细
         self.multi_pay_detail = multi_pay_detail
-        # 多期支付的期数
-        self.multi_period_num = multi_period_num
 
     def validate(self):
         self.validate_required(self.trade_no, 'trade_no')
@@ -820,8 +817,6 @@ class ActivePayOrder(TeaModel):
         if self.multi_pay_detail is not None:
             for k in self.multi_pay_detail:
                 result['multi_pay_detail'].append(k.to_map() if k else None)
-        if self.multi_period_num is not None:
-            result['multi_period_num'] = self.multi_period_num
         return result
 
     def from_map(self, m: dict = None):
@@ -849,8 +844,6 @@ class ActivePayOrder(TeaModel):
             for k in m.get('multi_pay_detail'):
                 temp_model = SingleTermDetail()
                 self.multi_pay_detail.append(temp_model.from_map(k))
-        if m.get('multi_period_num') is not None:
-            self.multi_period_num = m.get('multi_period_num')
         return self
 
 
@@ -4301,6 +4294,7 @@ class CreateAntchainAtoWithholdActivepayRequest(TeaModel):
         operation_divide_flag: str = None,
         operation_divide_trans_in_list: List[OperationDivideTransInModel] = None,
         multi_pay_detail: List[SingleTermDetail] = None,
+        pay_apply_no: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4325,6 +4319,9 @@ class CreateAntchainAtoWithholdActivepayRequest(TeaModel):
         # 单期支付明细列表
         # 当pay_type=MULTI_PAY必填。
         self.multi_pay_detail = multi_pay_detail
+        # 支付申请号，用于区分在一笔订单同一支付类型的多笔支付请求。
+        # 当支付类型非MULTI_PAY或为空时必填
+        self.pay_apply_no = pay_apply_no
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -4348,6 +4345,9 @@ class CreateAntchainAtoWithholdActivepayRequest(TeaModel):
             for k in self.multi_pay_detail:
                 if k:
                     k.validate()
+        if self.pay_apply_no is not None:
+            self.validate_maximum(self.pay_apply_no, 'pay_apply_no', 10)
+            self.validate_minimum(self.pay_apply_no, 'pay_apply_no', 1)
 
     def to_map(self):
         _map = super().to_map()
@@ -4379,6 +4379,8 @@ class CreateAntchainAtoWithholdActivepayRequest(TeaModel):
         if self.multi_pay_detail is not None:
             for k in self.multi_pay_detail:
                 result['multi_pay_detail'].append(k.to_map() if k else None)
+        if self.pay_apply_no is not None:
+            result['pay_apply_no'] = self.pay_apply_no
         return result
 
     def from_map(self, m: dict = None):
@@ -4409,6 +4411,8 @@ class CreateAntchainAtoWithholdActivepayRequest(TeaModel):
             for k in m.get('multi_pay_detail'):
                 temp_model = SingleTermDetail()
                 self.multi_pay_detail.append(temp_model.from_map(k))
+        if m.get('pay_apply_no') is not None:
+            self.pay_apply_no = m.get('pay_apply_no')
         return self
 
 
@@ -4420,7 +4424,6 @@ class CreateAntchainAtoWithholdActivepayResponse(TeaModel):
         result_msg: str = None,
         trade_no: str = None,
         order_str: str = None,
-        multi_period_num: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -4434,8 +4437,6 @@ class CreateAntchainAtoWithholdActivepayResponse(TeaModel):
         # app场景：返回签名字符串
         # h5场景：返回支付链接
         self.order_str = order_str
-        # 多期支付的期数，当发起多期合并支付时返回。
-        self.multi_period_num = multi_period_num
 
     def validate(self):
         pass
@@ -4456,8 +4457,6 @@ class CreateAntchainAtoWithholdActivepayResponse(TeaModel):
             result['trade_no'] = self.trade_no
         if self.order_str is not None:
             result['order_str'] = self.order_str
-        if self.multi_period_num is not None:
-            result['multi_period_num'] = self.multi_period_num
         return result
 
     def from_map(self, m: dict = None):
@@ -4472,8 +4471,6 @@ class CreateAntchainAtoWithholdActivepayResponse(TeaModel):
             self.trade_no = m.get('trade_no')
         if m.get('order_str') is not None:
             self.order_str = m.get('order_str')
-        if m.get('multi_period_num') is not None:
-            self.multi_period_num = m.get('multi_period_num')
         return self
 
 
@@ -4487,7 +4484,7 @@ class QueryAntchainAtoWithholdActivepayRequest(TeaModel):
         trade_no: str = None,
         pay_type: str = None,
         pay_channel: str = None,
-        multi_period_num: int = None,
+        pay_apply_no: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4502,8 +4499,9 @@ class QueryAntchainAtoWithholdActivepayRequest(TeaModel):
         self.pay_type = pay_type
         # 无用字段，无需关注
         self.pay_channel = pay_channel
-        # 多期支付的期数，当使用多期合并支付类型时必传。
-        self.multi_period_num = multi_period_num
+        # 支付申请号，用于区分在一笔订单同一支付类型的多笔支付请求。
+        # 当支付类型非MULTI_PAY或为空时必填
+        self.pay_apply_no = pay_apply_no
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -4517,8 +4515,8 @@ class QueryAntchainAtoWithholdActivepayRequest(TeaModel):
             self.validate_max_length(self.pay_type, 'pay_type', 64)
         if self.pay_channel is not None:
             self.validate_max_length(self.pay_channel, 'pay_channel', 64)
-        if self.multi_period_num is not None:
-            self.validate_minimum(self.multi_period_num, 'multi_period_num', 1)
+        if self.pay_apply_no is not None:
+            self.validate_minimum(self.pay_apply_no, 'pay_apply_no', 1)
 
     def to_map(self):
         _map = super().to_map()
@@ -4540,8 +4538,8 @@ class QueryAntchainAtoWithholdActivepayRequest(TeaModel):
             result['pay_type'] = self.pay_type
         if self.pay_channel is not None:
             result['pay_channel'] = self.pay_channel
-        if self.multi_period_num is not None:
-            result['multi_period_num'] = self.multi_period_num
+        if self.pay_apply_no is not None:
+            result['pay_apply_no'] = self.pay_apply_no
         return result
 
     def from_map(self, m: dict = None):
@@ -4560,8 +4558,8 @@ class QueryAntchainAtoWithholdActivepayRequest(TeaModel):
             self.pay_type = m.get('pay_type')
         if m.get('pay_channel') is not None:
             self.pay_channel = m.get('pay_channel')
-        if m.get('multi_period_num') is not None:
-            self.multi_period_num = m.get('multi_period_num')
+        if m.get('pay_apply_no') is not None:
+            self.pay_apply_no = m.get('pay_apply_no')
         return self
 
 
@@ -6307,6 +6305,7 @@ class CreateAntchainAtoWithholdRefundRequest(TeaModel):
         refund_money: int = None,
         refund_reason: str = None,
         pay_type: str = None,
+        pay_apply_no: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -6328,6 +6327,8 @@ class CreateAntchainAtoWithholdRefundRequest(TeaModel):
         # ORDER_PENALTY:违约金
         # PERFORMANCE:正常履约（默认）
         self.pay_type = pay_type
+        # 多期合并支付第几期
+        self.pay_apply_no = pay_apply_no
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -6345,6 +6346,8 @@ class CreateAntchainAtoWithholdRefundRequest(TeaModel):
             self.validate_max_length(self.refund_reason, 'refund_reason', 200)
         if self.pay_type is not None:
             self.validate_max_length(self.pay_type, 'pay_type', 64)
+        if self.pay_apply_no is not None:
+            self.validate_minimum(self.pay_apply_no, 'pay_apply_no', 1)
 
     def to_map(self):
         _map = super().to_map()
@@ -6368,6 +6371,8 @@ class CreateAntchainAtoWithholdRefundRequest(TeaModel):
             result['refund_reason'] = self.refund_reason
         if self.pay_type is not None:
             result['pay_type'] = self.pay_type
+        if self.pay_apply_no is not None:
+            result['pay_apply_no'] = self.pay_apply_no
         return result
 
     def from_map(self, m: dict = None):
@@ -6388,6 +6393,8 @@ class CreateAntchainAtoWithholdRefundRequest(TeaModel):
             self.refund_reason = m.get('refund_reason')
         if m.get('pay_type') is not None:
             self.pay_type = m.get('pay_type')
+        if m.get('pay_apply_no') is not None:
+            self.pay_apply_no = m.get('pay_apply_no')
         return self
 
 
@@ -6463,6 +6470,7 @@ class QueryAntchainAtoWithholdRefundRequest(TeaModel):
         period_num: int = None,
         refund_request_no: str = None,
         pay_type: str = None,
+        pay_apply_no: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -6479,6 +6487,8 @@ class QueryAntchainAtoWithholdRefundRequest(TeaModel):
         # ORDER_PENALTY:违约金
         # PERFORMANCE:正常履约（默认）
         self.pay_type = pay_type
+        # 第几次多期合并支付申请号
+        self.pay_apply_no = pay_apply_no
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -6491,6 +6501,8 @@ class QueryAntchainAtoWithholdRefundRequest(TeaModel):
             self.validate_max_length(self.refund_request_no, 'refund_request_no', 128)
         if self.pay_type is not None:
             self.validate_max_length(self.pay_type, 'pay_type', 64)
+        if self.pay_apply_no is not None:
+            self.validate_minimum(self.pay_apply_no, 'pay_apply_no', 1)
 
     def to_map(self):
         _map = super().to_map()
@@ -6510,6 +6522,8 @@ class QueryAntchainAtoWithholdRefundRequest(TeaModel):
             result['refund_request_no'] = self.refund_request_no
         if self.pay_type is not None:
             result['pay_type'] = self.pay_type
+        if self.pay_apply_no is not None:
+            result['pay_apply_no'] = self.pay_apply_no
         return result
 
     def from_map(self, m: dict = None):
@@ -6526,6 +6540,8 @@ class QueryAntchainAtoWithholdRefundRequest(TeaModel):
             self.refund_request_no = m.get('refund_request_no')
         if m.get('pay_type') is not None:
             self.pay_type = m.get('pay_type')
+        if m.get('pay_apply_no') is not None:
+            self.pay_apply_no = m.get('pay_apply_no')
         return self
 
 
@@ -12408,6 +12424,151 @@ class ConfirmAntchainAtoFundCompensateRequest(TeaModel):
 
 
 class ConfirmAntchainAtoFundCompensateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class SyncAntchainAtoTradePromoorderinfoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        merchant_id: str = None,
+        order_id: str = None,
+        promotion_id: str = None,
+        order_create_time: str = None,
+        buy_out_price: int = None,
+        order_promise_total_money: int = None,
+        merchant_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 商户社会信用代码
+        self.merchant_id = merchant_id
+        # 订单id
+        self.order_id = order_id
+        # 营销id
+        self.promotion_id = promotion_id
+        # 订单创建时间
+        self.order_create_time = order_create_time
+        # 买断价，单位为分
+        self.buy_out_price = buy_out_price
+        # 代扣履约总金额，单位为分
+        self.order_promise_total_money = order_promise_total_money
+        # 商户公司的名字
+        self.merchant_name = merchant_name
+
+    def validate(self):
+        self.validate_required(self.merchant_id, 'merchant_id')
+        if self.merchant_id is not None:
+            self.validate_max_length(self.merchant_id, 'merchant_id', 63)
+        self.validate_required(self.order_id, 'order_id')
+        if self.order_id is not None:
+            self.validate_max_length(self.order_id, 'order_id', 49)
+        self.validate_required(self.promotion_id, 'promotion_id')
+        if self.promotion_id is not None:
+            self.validate_max_length(self.promotion_id, 'promotion_id', 63)
+        self.validate_required(self.order_create_time, 'order_create_time')
+        if self.order_create_time is not None:
+            self.validate_max_length(self.order_create_time, 'order_create_time', 20)
+        self.validate_required(self.buy_out_price, 'buy_out_price')
+        if self.buy_out_price is not None:
+            self.validate_minimum(self.buy_out_price, 'buy_out_price', 0)
+        self.validate_required(self.order_promise_total_money, 'order_promise_total_money')
+        if self.order_promise_total_money is not None:
+            self.validate_minimum(self.order_promise_total_money, 'order_promise_total_money', 1)
+        self.validate_required(self.merchant_name, 'merchant_name')
+        if self.merchant_name is not None:
+            self.validate_max_length(self.merchant_name, 'merchant_name', 199)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.promotion_id is not None:
+            result['promotion_id'] = self.promotion_id
+        if self.order_create_time is not None:
+            result['order_create_time'] = self.order_create_time
+        if self.buy_out_price is not None:
+            result['buy_out_price'] = self.buy_out_price
+        if self.order_promise_total_money is not None:
+            result['order_promise_total_money'] = self.order_promise_total_money
+        if self.merchant_name is not None:
+            result['merchant_name'] = self.merchant_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('promotion_id') is not None:
+            self.promotion_id = m.get('promotion_id')
+        if m.get('order_create_time') is not None:
+            self.order_create_time = m.get('order_create_time')
+        if m.get('buy_out_price') is not None:
+            self.buy_out_price = m.get('buy_out_price')
+        if m.get('order_promise_total_money') is not None:
+            self.order_promise_total_money = m.get('order_promise_total_money')
+        if m.get('merchant_name') is not None:
+            self.merchant_name = m.get('merchant_name')
+        return self
+
+
+class SyncAntchainAtoTradePromoorderinfoResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
