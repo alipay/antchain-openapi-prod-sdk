@@ -17353,6 +17353,7 @@ class QueryCyclinginsuranceOrderdetailResponse(TeaModel):
         # workerPhone:上门师傅电话
         # batteryCode:电池码
         # batteryPackagingCode:电池外包装码
+        # batteryGroupCode:电池组码
         self.fulfillment_process_info = fulfillment_process_info
         # 附件
         # installImages: 上门安装图片
@@ -17514,6 +17515,144 @@ class CancelCyclinginsuranceServiceorderResponse(TeaModel):
         # 异常信息的文本描述
         self.result_msg = result_msg
         # 订单取消是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class NotifyCyclinginsuranceMidchangeserviceorderauditRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        request_id: str = None,
+        scene: str = None,
+        caller_app_name: str = None,
+        biz_id: str = None,
+        order_id: str = None,
+        account_id: str = None,
+        success: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求唯一Id
+        self.request_id = request_id
+        # 来源场景
+        self.scene = scene
+        # 调用应用名
+        self.caller_app_name = caller_app_name
+        # 外部业务id，用于幂等
+        self.biz_id = biz_id
+        # 订单id
+        self.order_id = order_id
+        # 账号id
+        self.account_id = account_id
+        # 审核是否通过
+        self.success = success
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.scene, 'scene')
+        self.validate_required(self.caller_app_name, 'caller_app_name')
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.account_id, 'account_id')
+        self.validate_required(self.success, 'success')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.caller_app_name is not None:
+            result['caller_app_name'] = self.caller_app_name
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('caller_app_name') is not None:
+            self.caller_app_name = m.get('caller_app_name')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class NotifyCyclinginsuranceMidchangeserviceorderauditResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否成功
         self.success = success
 
     def validate(self):

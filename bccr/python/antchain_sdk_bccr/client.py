@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.71',
+                    'sdk_version': '1.19.74',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.71',
+                    'sdk_version': '1.19.74',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -4753,6 +4753,62 @@ class Client:
         return TeaCore.from_map(
             bccr_models.CancelCyclinginsuranceServiceorderResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.cyclinginsurance.serviceorder.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_cyclinginsurance_midchangeserviceorderaudit(
+        self,
+        request: bccr_models.NotifyCyclinginsuranceMidchangeserviceorderauditRequest,
+    ) -> bccr_models.NotifyCyclinginsuranceMidchangeserviceorderauditResponse:
+        """
+        Description: 骑行保租中换电审核结果回调
+        Summary: 骑行保租中换电审核结果回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_cyclinginsurance_midchangeserviceorderaudit_ex(request, headers, runtime)
+
+    async def notify_cyclinginsurance_midchangeserviceorderaudit_async(
+        self,
+        request: bccr_models.NotifyCyclinginsuranceMidchangeserviceorderauditRequest,
+    ) -> bccr_models.NotifyCyclinginsuranceMidchangeserviceorderauditResponse:
+        """
+        Description: 骑行保租中换电审核结果回调
+        Summary: 骑行保租中换电审核结果回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_cyclinginsurance_midchangeserviceorderaudit_ex_async(request, headers, runtime)
+
+    def notify_cyclinginsurance_midchangeserviceorderaudit_ex(
+        self,
+        request: bccr_models.NotifyCyclinginsuranceMidchangeserviceorderauditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.NotifyCyclinginsuranceMidchangeserviceorderauditResponse:
+        """
+        Description: 骑行保租中换电审核结果回调
+        Summary: 骑行保租中换电审核结果回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.NotifyCyclinginsuranceMidchangeserviceorderauditResponse(),
+            self.do_request('1.0', 'blockchain.bccr.cyclinginsurance.midchangeserviceorderaudit.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_cyclinginsurance_midchangeserviceorderaudit_ex_async(
+        self,
+        request: bccr_models.NotifyCyclinginsuranceMidchangeserviceorderauditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.NotifyCyclinginsuranceMidchangeserviceorderauditResponse:
+        """
+        Description: 骑行保租中换电审核结果回调
+        Summary: 骑行保租中换电审核结果回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.NotifyCyclinginsuranceMidchangeserviceorderauditResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.cyclinginsurance.midchangeserviceorderaudit.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def add_content(
