@@ -61,6 +61,7 @@ class QueryCyclinginsuranceOrderdetailResponse extends Model
     // workerPhone:上门师傅电话
     // batteryCode:电池码
     // batteryPackagingCode:电池外包装码
+    // batteryGroupCode:电池组码
     /**
      * @var string
      */

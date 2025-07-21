@@ -91,6 +91,8 @@ use AntChain\BCCR\Models\ListMonitorProviderRequest;
 use AntChain\BCCR\Models\ListMonitorProviderResponse;
 use AntChain\BCCR\Models\ListNotaryRequest;
 use AntChain\BCCR\Models\ListNotaryResponse;
+use AntChain\BCCR\Models\NotifyCyclinginsuranceMidchangeserviceorderauditRequest;
+use AntChain\BCCR\Models\NotifyCyclinginsuranceMidchangeserviceorderauditResponse;
 use AntChain\BCCR\Models\OperateNotaryOrderRequest;
 use AntChain\BCCR\Models\OperateNotaryOrderResponse;
 use AntChain\BCCR\Models\PublishGoodRequest;
@@ -334,7 +336,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.19.71',
+                    'sdk_version'      => '1.19.74',
                     '_prod_code'       => 'BCCR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3020,6 +3022,39 @@ class Client
         Utils::validateModel($request);
 
         return CancelCyclinginsuranceServiceorderResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.cyclinginsurance.serviceorder.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 骑行保租中换电审核结果回调
+     * Summary: 骑行保租中换电审核结果回调.
+     *
+     * @param NotifyCyclinginsuranceMidchangeserviceorderauditRequest $request
+     *
+     * @return NotifyCyclinginsuranceMidchangeserviceorderauditResponse
+     */
+    public function notifyCyclinginsuranceMidchangeserviceorderaudit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyCyclinginsuranceMidchangeserviceorderauditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 骑行保租中换电审核结果回调
+     * Summary: 骑行保租中换电审核结果回调.
+     *
+     * @param NotifyCyclinginsuranceMidchangeserviceorderauditRequest $request
+     * @param string[]                                                $headers
+     * @param RuntimeOptions                                          $runtime
+     *
+     * @return NotifyCyclinginsuranceMidchangeserviceorderauditResponse
+     */
+    public function notifyCyclinginsuranceMidchangeserviceorderauditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyCyclinginsuranceMidchangeserviceorderauditResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.cyclinginsurance.midchangeserviceorderaudit.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
