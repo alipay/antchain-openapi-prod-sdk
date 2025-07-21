@@ -20763,8 +20763,6 @@ type QueryRfcOdpsLindormRequest struct {
 	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty" require:"true"`
 	// 加密后的唯一id
 	KeyId *string `json:"key_id,omitempty" xml:"key_id,omitempty" require:"true"`
-	// 渠道code
-	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
 	// 授权码
 	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty"`
 	// 加密方式
@@ -20796,11 +20794,6 @@ func (s *QueryRfcOdpsLindormRequest) SetBizCode(v string) *QueryRfcOdpsLindormRe
 
 func (s *QueryRfcOdpsLindormRequest) SetKeyId(v string) *QueryRfcOdpsLindormRequest {
 	s.KeyId = &v
-	return s
-}
-
-func (s *QueryRfcOdpsLindormRequest) SetChannelCode(v string) *QueryRfcOdpsLindormRequest {
-	s.ChannelCode = &v
 	return s
 }
 
@@ -31520,7 +31513,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.24.7"),
+				"sdk_version":      tea.String("1.24.9"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
