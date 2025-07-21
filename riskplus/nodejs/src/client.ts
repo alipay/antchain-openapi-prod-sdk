@@ -15444,8 +15444,6 @@ export class QueryRfcOdpsLindormRequest extends $tea.Model {
   bizCode: string;
   // 加密后的唯一id
   keyId: string;
-  // 渠道code
-  channelCode: string;
   // 授权码
   authCode?: string;
   // 加密方式
@@ -15456,7 +15454,6 @@ export class QueryRfcOdpsLindormRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       bizCode: 'biz_code',
       keyId: 'key_id',
-      channelCode: 'channel_code',
       authCode: 'auth_code',
       encryptType: 'encrypt_type',
     };
@@ -15468,7 +15465,6 @@ export class QueryRfcOdpsLindormRequest extends $tea.Model {
       productInstanceId: 'string',
       bizCode: 'string',
       keyId: 'string',
-      channelCode: 'string',
       authCode: 'string',
       encryptType: 'string',
     };
@@ -23588,7 +23584,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.24.7",
+          sdk_version: "1.24.9",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
