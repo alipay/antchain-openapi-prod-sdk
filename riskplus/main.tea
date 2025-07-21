@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.24.7',
+    sdk_version = '1.24.9',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -8491,8 +8491,6 @@ model QueryRfcOdpsLindormRequest = {
   bizCode: string(name='biz_code'),
   // 加密后的唯一id
   keyId: string(name='key_id'),
-  // 渠道code
-  channelCode: string(name='channel_code'),
   // 授权码
   authCode?: string(name='auth_code'),
   // 加密方式
