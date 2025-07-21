@@ -42,6 +42,11 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false, MaxLength=64)]
         public string PayType { get; set; }
 
+        // 第几次多期合并支付申请号
+        [NameInMap("pay_apply_no")]
+        [Validation(Required=false)]
+        public long? PayApplyNo { get; set; }
+
     }
 
 }

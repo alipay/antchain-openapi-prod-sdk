@@ -62,6 +62,12 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public List<SingleTermDetail> MultiPayDetail { get; set; }
 
+        // 支付申请号，用于区分在一笔订单同一支付类型的多笔支付请求。
+        // 当支付类型非MULTI_PAY或为空时必填
+        [NameInMap("pay_apply_no")]
+        [Validation(Required=false)]
+        public long? PayApplyNo { get; set; }
+
     }
 
 }

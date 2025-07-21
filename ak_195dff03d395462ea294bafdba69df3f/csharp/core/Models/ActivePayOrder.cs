@@ -67,11 +67,6 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public List<SingleTermDetail> MultiPayDetail { get; set; }
 
-        // 多期支付的期数
-        [NameInMap("multi_period_num")]
-        [Validation(Required=false)]
-        public long? MultiPeriodNum { get; set; }
-
     }
 
 }
