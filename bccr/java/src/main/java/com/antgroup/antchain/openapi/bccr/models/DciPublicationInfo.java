@@ -5,20 +5,36 @@ import com.aliyun.tea.*;
 
 public class DciPublicationInfo extends TeaModel {
     // 作品发表状态
+    /**
+     * <strong>example:</strong>
+     * <p>PUBLISHED</p>
+     */
     @NameInMap("publication_status")
     @Validation(required = true)
     public String publicationStatus;
 
     // 首次发表日期
+    /**
+     * <strong>example:</strong>
+     * <p>yyyy-MM-dd</p>
+     */
     @NameInMap("first_publication_date")
     @Validation(required = true)
     public String firstPublicationDate;
 
     // 首次发表地址
+    /**
+     * <strong>example:</strong>
+     * <p>杭州</p>
+     */
     @NameInMap("first_publication_place")
     public String firstPublicationPlace;
 
     // 首次发表地点地区编码
+    /**
+     * <strong>example:</strong>
+     * <p>110101</p>
+     */
     @NameInMap("first_publication_code")
     @Validation(required = true)
     public String firstPublicationCode;

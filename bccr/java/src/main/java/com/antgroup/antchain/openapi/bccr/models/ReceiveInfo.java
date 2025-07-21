@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class ReceiveInfo extends TeaModel {
     // 纸质公证书份数
+    /**
+     * <strong>example:</strong>
+     * <p>2</p>
+     */
     @NameInMap("copies")
     public Long copies;
 
     // 公证书类型
+    /**
+     * <strong>example:</strong>
+     * <p>PAPER:纸质公证书 E-PAPER:电子公证书 BOTH:纸质+电子公证书</p>
+     */
     @NameInMap("order_type")
     @Validation(required = true)
     public String orderType;

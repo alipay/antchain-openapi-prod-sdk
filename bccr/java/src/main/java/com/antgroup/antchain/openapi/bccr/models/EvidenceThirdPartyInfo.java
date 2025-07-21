@@ -5,31 +5,55 @@ import com.aliyun.tea.*;
 
 public class EvidenceThirdPartyInfo extends TeaModel {
     // 三方系统用户提交网址时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("submit_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String submitTime;
 
     // 三方系统地址
+    /**
+     * <strong>example:</strong>
+     * <p>三方系统地址</p>
+     */
     @NameInMap("system_url")
     @Validation(required = true)
     public String systemUrl;
 
     // 三方系统账号
+    /**
+     * <strong>example:</strong>
+     * <p>三方系统账号</p>
+     */
     @NameInMap("account")
     @Validation(required = true)
     public String account;
 
     // 三方系统名称
+    /**
+     * <strong>example:</strong>
+     * <p>三方系统名称</p>
+     */
     @NameInMap("system_name")
     @Validation(required = true)
     public String systemName;
 
     // 用户取证时登录的时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("login_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String loginTime;
 
     // 用户取证时登录的IP
+    /**
+     * <strong>example:</strong>
+     * <p>用户取证时登录的IP</p>
+     */
     @NameInMap("login_ip")
     @Validation(required = true)
     public String loginIp;

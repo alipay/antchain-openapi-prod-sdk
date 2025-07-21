@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class EvidenceWebUrlInfo extends TeaModel {
     // 取证网址
+    /**
+     * <strong>example:</strong>
+     * <p>取证网址</p>
+     */
     @NameInMap("web_url")
     @Validation(required = true)
     public String webUrl;
 
     // 取证名称
+    /**
+     * <strong>example:</strong>
+     * <p>取证名称</p>
+     */
     @NameInMap("title")
     public String title;
 

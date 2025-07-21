@@ -5,18 +5,34 @@ import com.aliyun.tea.*;
 
 public class VerifyUserData extends TeaModel {
     // 证件名称
+    /**
+     * <strong>example:</strong>
+     * <p>李四</p>
+     */
     @NameInMap("cert_name")
     public String certName;
 
     // 证件号码
+    /**
+     * <strong>example:</strong>
+     * <p>111111</p>
+     */
     @NameInMap("cert_no")
     public String certNo;
 
     // 证件类型
+    /**
+     * <strong>example:</strong>
+     * <p>IDENTITY_CARD</p>
+     */
     @NameInMap("cert_type")
     public String certType;
 
     // 登记人信息存证交易HASH
+    /**
+     * <strong>example:</strong>
+     * <p>0003fa8261d1cd6cb419264d516f9b586687e39a0dc31b2c74ff4948e8b951e61afd</p>
+     */
     @NameInMap("register_person_tx_hash")
     public String registerPersonTxHash;
 

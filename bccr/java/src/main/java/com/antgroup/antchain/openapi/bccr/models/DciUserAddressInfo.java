@@ -5,34 +5,66 @@ import com.aliyun.tea.*;
 
 public class DciUserAddressInfo extends TeaModel {
     // 所在国家
+    /**
+     * <strong>example:</strong>
+     * <p>所在国家</p>
+     */
     @NameInMap("country")
     public String country;
 
     // 所在省份
+    /**
+     * <strong>example:</strong>
+     * <p>所在省份</p>
+     */
     @NameInMap("province")
     public String province;
 
     // 所在城市
+    /**
+     * <strong>example:</strong>
+     * <p>所在城市</p>
+     */
     @NameInMap("city")
     public String city;
 
     // 识别出的地区
+    /**
+     * <strong>example:</strong>
+     * <p>识别出的地区</p>
+     */
     @NameInMap("district")
     public String district;
 
     // 识别出的街道
+    /**
+     * <strong>example:</strong>
+     * <p>识别出的街道</p>
+     */
     @NameInMap("town")
     public String town;
 
     // 识别出的路
+    /**
+     * <strong>example:</strong>
+     * <p>识别出的路</p>
+     */
     @NameInMap("road")
     public String road;
 
     // 识别出的路号牌
+    /**
+     * <strong>example:</strong>
+     * <p>识别出的路号牌</p>
+     */
     @NameInMap("road_no")
     public String roadNo;
 
     // 地址详情
+    /**
+     * <strong>example:</strong>
+     * <p>地址详情</p>
+     */
     @NameInMap("address_detail")
     public String addressDetail;
 

@@ -5,42 +5,78 @@ import com.aliyun.tea.*;
 
 public class NotaryInvoiceInfo extends TeaModel {
     // 开票类型
+    /**
+     * <strong>example:</strong>
+     * <p>PAPER纸质，ELECTRIC电子</p>
+     */
     @NameInMap("billing_type")
     @Validation(required = true)
     public String billingType;
 
     // 发票类型
+    /**
+     * <strong>example:</strong>
+     * <p>NORMAL增值税普通发票、SPECIAL增值税专用发票 个人只能开具普通发票</p>
+     */
     @NameInMap("invoice_type")
     @Validation(required = true)
     public String invoiceType;
 
     // 主体类型
+    /**
+     * <strong>example:</strong>
+     * <p>个人PERSON，机构ENTERPRISE</p>
+     */
     @NameInMap("subject_type")
     @Validation(required = true)
     public String subjectType;
 
     // 发票抬头
+    /**
+     * <strong>example:</strong>
+     * <p>姓名/单位名称</p>
+     */
     @NameInMap("invoice_name")
     @Validation(required = true)
     public String invoiceName;
 
     // 纳税人识别号
+    /**
+     * <strong>example:</strong>
+     * <p>发票抬头为机构时必填</p>
+     */
     @NameInMap("ratepayer_code")
     public String ratepayerCode;
 
     // 开户行
+    /**
+     * <strong>example:</strong>
+     * <p>发票抬头为机构时必填</p>
+     */
     @NameInMap("bank_type")
     public String bankType;
 
     // 开户行账号
+    /**
+     * <strong>example:</strong>
+     * <p>发票抬头为机构时必填</p>
+     */
     @NameInMap("bank_account")
     public String bankAccount;
 
     // 单位地址
+    /**
+     * <strong>example:</strong>
+     * <p>发票抬头为机构时必填</p>
+     */
     @NameInMap("unit_address")
     public String unitAddress;
 
     // 单位电话
+    /**
+     * <strong>example:</strong>
+     * <p>发票抬头为机构时必填</p>
+     */
     @NameInMap("unit_phone")
     public String unitPhone;
 

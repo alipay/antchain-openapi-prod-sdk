@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class SeriesDiagramErrorReason extends TeaModel {
     // 系列图单个图片所属页码
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("image_pdf_page_index")
     @Validation(required = true)
     public Long imagePdfPageIndex;
 
     // 错误原因英文
+    /**
+     * <strong>example:</strong>
+     * <p>错误原因英文</p>
+     */
     @NameInMap("error")
     @Validation(required = true)
     public String error;
 
     // 错误原因中文
+    /**
+     * <strong>example:</strong>
+     * <p>错误原因中文</p>
+     */
     @NameInMap("error_cn")
     @Validation(required = true)
     public String errorCn;

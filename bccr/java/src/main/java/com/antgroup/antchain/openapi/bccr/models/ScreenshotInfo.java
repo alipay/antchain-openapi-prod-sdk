@@ -5,35 +5,67 @@ import com.aliyun.tea.*;
 
 public class ScreenshotInfo extends TeaModel {
     // 全链路取证日志文件下载链接
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://xxxx">https://xxxx</a></p>
+     */
     @NameInMap("process_log_file")
     public String processLogFile;
 
     // 全链路取证日志文件哈希
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
     @NameInMap("process_log_file_hash")
     public String processLogFileHash;
 
     // 自清洁文件下载链接
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://xxxx">https://xxxx</a></p>
+     */
     @NameInMap("check_log_file")
     public String checkLogFile;
 
     // 自清洁文件哈希
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
     @NameInMap("check_log_file_hash")
     public String checkLogFileHash;
 
     // 网页截图文件下载链接
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://xxxx">https://xxxx</a></p>
+     */
     @NameInMap("screenshot_file")
     @Validation(required = true)
     public String screenshotFile;
 
     // 网页截图文件哈希
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
     @NameInMap("screenshot_file_hash")
     public String screenshotFileHash;
 
     // 日志打包文件hash
+    /**
+     * <strong>example:</strong>
+     * <p>0003fa8261d1cd6cb419264d516f9b586687e39a0dc31b2c74ff4948e8b951e61afd</p>
+     */
     @NameInMap("log_zip_file_hash")
     public String logZipFileHash;
 
     // 日志文件上链hash
+    /**
+     * <strong>example:</strong>
+     * <p>0003fa8261d1cd6cb419264d516f9b586687e39a0dc31b2c74ff4948e8b951e61afd</p>
+     */
     @NameInMap("log_zip_tx_hash")
     public String logZipTxHash;
 

@@ -5,26 +5,46 @@ import com.aliyun.tea.*;
 
 public class DayStatisticsInfo extends TeaModel {
     // 日期时间戳
+    /**
+     * <strong>example:</strong>
+     * <p>1661788800000</p>
+     */
     @NameInMap("date")
     @Validation(required = true)
     public Long date;
 
     // 日观看次数
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("day_views")
     @Validation(required = true)
     public String dayViews;
 
     // 日观看时长
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("day_view_duration")
     @Validation(required = true)
     public String dayViewDuration;
 
     // 日平均观看时长
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("day_average_view_duration")
     @Validation(required = true)
     public String dayAverageViewDuration;
 
     // 日预计收入
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("revenue")
     @Validation(required = true)
     public String revenue;

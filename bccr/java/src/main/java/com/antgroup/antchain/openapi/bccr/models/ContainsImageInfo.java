@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class ContainsImageInfo extends TeaModel {
     // 是否包含图片
+    /**
+     * <strong>example:</strong>
+     * <p>true</p>
+     */
     @NameInMap("contains_image")
     public Boolean containsImage;
 
     // 包含图片，处理后的图片副件
+    /**
+     * <strong>example:</strong>
+     * <p>图片链接</p>
+     */
     @NameInMap("resolved_file_url")
     public String resolvedFileUrl;
 

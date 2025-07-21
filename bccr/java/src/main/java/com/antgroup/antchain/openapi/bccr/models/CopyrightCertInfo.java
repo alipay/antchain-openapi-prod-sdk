@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class CopyrightCertInfo extends TeaModel {
     // 证件号码
+    /**
+     * <strong>example:</strong>
+     * <p>111111</p>
+     */
     @NameInMap("cert_no")
     @Validation(required = true)
     public String certNo;
 
     // 证件名称
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("cert_name")
     @Validation(required = true)
     public String certName;
 
     // 证件类型
+    /**
+     * <strong>example:</strong>
+     * <p>IDENTITY_CARD</p>
+     */
     @NameInMap("cert_type")
     @Validation(required = true)
     public String certType;

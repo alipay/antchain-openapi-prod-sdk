@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class EnterpriseLegalPersonInfo extends TeaModel {
     // 法人姓名
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("legal_person_cert_name")
     public String legalPersonCertName;
 
     // 法人证件类型
+    /**
+     * <strong>example:</strong>
+     * <p>IDENTITY_CARD</p>
+     */
     @NameInMap("legal_person_cert_type")
     public String legalPersonCertType;
 
     // 法人证件号
+    /**
+     * <strong>example:</strong>
+     * <p>341227199711226752</p>
+     */
     @NameInMap("legal_person_cert_no")
     public String legalPersonCertNo;
 

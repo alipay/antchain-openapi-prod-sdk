@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class NotaryInfo extends TeaModel {
     // 公证书编号
+    /**
+     * <strong>example:</strong>
+     * <p>公证书编号</p>
+     */
     @NameInMap("notarial_deed_no")
     @Validation(required = true)
     public String notarialDeedNo;
 
     // 电子公证书文件路径
+    /**
+     * <strong>example:</strong>
+     * <p>电子公证书文件路径</p>
+     */
     @NameInMap("notary_paper_path")
     @Validation(required = true)
     public String notaryPaperPath;
 
     // 公证书出证日期（yyyy-MM-dd）
+    /**
+     * <strong>example:</strong>
+     * <p>2022-10-17</p>
+     */
     @NameInMap("notary_time")
     @Validation(required = true)
     public String notaryTime;

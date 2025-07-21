@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class NotaryOrderRule extends TeaModel {
     // 公证出证支持公证书类型
+    /**
+     * <strong>example:</strong>
+     * <p>PAPER,E_PAPER,BOTH</p>
+     */
     @NameInMap("order_type")
     public String orderType;
 

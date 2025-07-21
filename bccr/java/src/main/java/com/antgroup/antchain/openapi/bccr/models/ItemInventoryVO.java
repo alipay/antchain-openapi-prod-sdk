@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class ItemInventoryVO extends TeaModel {
     // 库存数量
+    /**
+     * <strong>example:</strong>
+     * <p>1000</p>
+     */
     @NameInMap("stock")
     @Validation(required = true)
     public Long stock;
 
     // 生效时间
+    /**
+     * <strong>example:</strong>
+     * <p>2025-05-20 08:00:00</p>
+     */
     @NameInMap("gmt_valid")
     @Validation(required = true)
     public String gmtValid;
 
     // 失效时间
+    /**
+     * <strong>example:</strong>
+     * <p>2025-05-20 09:00:00</p>
+     */
     @NameInMap("gmt_invalid")
     @Validation(required = true)
     public String gmtInvalid;

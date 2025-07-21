@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class IsvWorkerInfoVOList extends TeaModel {
     // 服务商下工作人员信息列表
+    /**
+     * <strong>example:</strong>
+     * <p>  [{ &quot;workerAccountId&quot;: &quot;AC000100000000011000&quot;,&quot;workerName&quot;: &quot;testName&quot;  }]</p>
+     */
     @NameInMap("isv_worker_info_list")
     @Validation(required = true)
     public java.util.List<IsvWorkerInfoVO> isvWorkerInfoList;

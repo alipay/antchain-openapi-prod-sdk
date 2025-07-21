@@ -5,30 +5,58 @@ import com.aliyun.tea.*;
 
 public class GoodsInfo extends TeaModel {
     // 商品id
+    /**
+     * <strong>example:</strong>
+     * <p>111111</p>
+     */
     @NameInMap("goods_id")
     public String goodsId;
 
     // 商品名称
+    /**
+     * <strong>example:</strong>
+     * <p>测试商品</p>
+     */
     @NameInMap("goods_name")
     public String goodsName;
 
     // 商品状态
+    /**
+     * <strong>example:</strong>
+     * <p>UP</p>
+     */
     @NameInMap("goods_status")
     public String goodsStatus;
 
     // 商品分类
+    /**
+     * <strong>example:</strong>
+     * <p>分类</p>
+     */
     @NameInMap("classification")
     public String classification;
 
     // 售卖数量
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("total_sold_num")
     public Long totalSoldNum;
 
     // 售价（分）
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("standard_price_in_cent")
     public Long standardPriceInCent;
 
     // 商品标题
+    /**
+     * <strong>example:</strong>
+     * <p>测试标题</p>
+     */
     @NameInMap("title")
     public String title;
 

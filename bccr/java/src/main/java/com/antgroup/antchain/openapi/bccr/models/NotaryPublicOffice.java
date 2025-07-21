@@ -5,31 +5,55 @@ import com.aliyun.tea.*;
 
 public class NotaryPublicOffice extends TeaModel {
     // 公证处code
+    /**
+     * <strong>example:</strong>
+     * <p>LUJIANG</p>
+     */
     @NameInMap("code")
     @Validation(required = true)
     public String code;
 
     // 公证处名称
+    /**
+     * <strong>example:</strong>
+     * <p>鹭江公证处</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 公证处所在省（直辖市）
+    /**
+     * <strong>example:</strong>
+     * <p>福建</p>
+     */
     @NameInMap("province")
     @Validation(required = true)
     public String province;
 
     // 公证处所在市
+    /**
+     * <strong>example:</strong>
+     * <p>厦门</p>
+     */
     @NameInMap("city")
     @Validation(required = true)
     public String city;
 
     // 公证处完整名称
+    /**
+     * <strong>example:</strong>
+     * <p>厦门市鹭江公证处</p>
+     */
     @NameInMap("org_name")
     @Validation(required = true)
     public String orgName;
 
     // 公证处隶属
+    /**
+     * <strong>example:</strong>
+     * <p>EZCUN</p>
+     */
     @NameInMap("belong")
     @Validation(required = true)
     public String belong;
@@ -39,6 +63,10 @@ public class NotaryPublicOffice extends TeaModel {
     public NotaryOrderRule notaryOrderRule;
 
     // 是否允许出证
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("allow_certification")
     public Boolean allowCertification;
 

@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class SaleDigestData extends TeaModel {
     // 商品hash值
+    /**
+     * <strong>example:</strong>
+     * <p>hash</p>
+     */
     @NameInMap("hash")
     @Validation(required = true)
     public String hash;
 
     // 物料置信度
+    /**
+     * <strong>example:</strong>
+     * <p>0.8</p>
+     */
     @NameInMap("score")
     @Validation(required = true)
     public String score;

@@ -5,31 +5,55 @@ import com.aliyun.tea.*;
 
 public class BidReason extends TeaModel {
     // 事由类别ID
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("category_id")
     @Validation(required = true)
     public String categoryId;
 
     // 分类名称
+    /**
+     * <strong>example:</strong>
+     * <p>维权/合同纠纷</p>
+     */
     @NameInMap("category_name")
     @Validation(required = true)
     public String categoryName;
 
     // 描述
+    /**
+     * <strong>example:</strong>
+     * <p>这是一个描述</p>
+     */
     @NameInMap("desc")
     @Validation(required = true)
     public String desc;
 
     // 文件上传描述
+    /**
+     * <strong>example:</strong>
+     * <p>这是一个文件上传描述</p>
+     */
     @NameInMap("file_upload_desc")
     @Validation(required = true)
     public String fileUploadDesc;
 
     // 排序
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("rank")
     @Validation(required = true)
     public Long rank;
 
     // 是否必须上传证明文件
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("is_need_testify_file")
     @Validation(required = true)
     public Boolean isNeedTestifyFile;

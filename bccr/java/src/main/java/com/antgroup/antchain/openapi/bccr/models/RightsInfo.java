@@ -5,45 +5,81 @@ import com.aliyun.tea.*;
 
 public class RightsInfo extends TeaModel {
     // 作品创作完成时间
+    /**
+     * <strong>example:</strong>
+     * <p>1629364618790</p>
+     */
     @NameInMap("completed_time")
     @Validation(required = true)
     public Long completedTime;
 
     // 作品创作完成地点（最长128个字符）
+    /**
+     * <strong>example:</strong>
+     * <p>杭州</p>
+     */
     @NameInMap("completed_place")
     @Validation(required = true, maxLength = 128)
     public String completedPlace;
 
     // 是否发表
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("is_publish")
     @Validation(required = true)
     public Boolean isPublish;
 
     // 发表时间（如果isPublish为true则必填）
+    /**
+     * <strong>example:</strong>
+     * <p>1629969432519</p>
+     */
     @NameInMap("publish_time")
     public Long publishTime;
 
     // 发表地点（如果isPublish为true则必填，最长128个字符）
+    /**
+     * <strong>example:</strong>
+     * <p>杭州</p>
+     */
     @NameInMap("publish_place")
     @Validation(maxLength = 128)
     public String publishPlace;
 
     // 发表网址（如果isPublish为true则必填，最长1024个字符）
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://xxxx">https://xxxx</a></p>
+     */
     @NameInMap("publish_web")
     @Validation(maxLength = 1024)
     public String publishWeb;
 
     // 是否是作者
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("is_author")
     @Validation(required = true)
     public Boolean isAuthor;
 
     // 作者姓名（如果isAuthor为true则必填，最长32个字符）
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("author_cert_name")
     @Validation(maxLength = 32)
     public String authorCertName;
 
     // 作者身份证号（如果isAuthor为true则必填）
+    /**
+     * <strong>example:</strong>
+     * <p>111111</p>
+     */
     @NameInMap("author_cert_no")
     @Validation(maxLength = 30)
     public String authorCertNo;

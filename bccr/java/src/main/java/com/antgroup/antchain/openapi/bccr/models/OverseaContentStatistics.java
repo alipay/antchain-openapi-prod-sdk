@@ -5,26 +5,46 @@ import com.aliyun.tea.*;
 
 public class OverseaContentStatistics extends TeaModel {
     // 发布视频id
+    /**
+     * <strong>example:</strong>
+     * <p>84343147225530369</p>
+     */
     @NameInMap("content_id")
     @Validation(required = true)
     public String contentId;
 
     // 总观看次数
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("total_views")
     @Validation(required = true)
     public String totalViews;
 
     // 总观看时长
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("total_view_duration")
     @Validation(required = true)
     public String totalViewDuration;
 
     // 总平均观看时长
+    /**
+     * <strong>example:</strong>
+     * <p>20</p>
+     */
     @NameInMap("total_average_view_duration")
     @Validation(required = true)
     public String totalAverageViewDuration;
 
     // 总预计收入
+    /**
+     * <strong>example:</strong>
+     * <p>40</p>
+     */
     @NameInMap("total_revenue")
     @Validation(required = true)
     public String totalRevenue;

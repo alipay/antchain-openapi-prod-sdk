@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class AccountData extends TeaModel {
     // 账号id
+    /**
+     * <strong>example:</strong>
+     * <p>111111</p>
+     */
     @NameInMap("account_id")
     @Validation(required = true)
     public String accountId;
 
     // 账号名称
+    /**
+     * <strong>example:</strong>
+     * <p>小明</p>
+     */
     @NameInMap("account_name")
     @Validation(required = true)
     public String accountName;
 
     // 账号平台（支付宝，淘宝，微信，抖音等）
+    /**
+     * <strong>example:</strong>
+     * <p>WEIXIN</p>
+     */
     @NameInMap("account_platform")
     @Validation(required = true)
     public String accountPlatform;

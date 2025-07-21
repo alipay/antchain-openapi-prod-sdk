@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class ContentRiskData extends TeaModel {
     // 风险名称
+    /**
+     * <strong>example:</strong>
+     * <p>风险名称</p>
+     */
     @NameInMap("risk_name")
     @Validation(required = true)
     public String riskName;
 
     // 风险是否通过审查
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("risk_result")
     @Validation(required = true)
     public Boolean riskResult;

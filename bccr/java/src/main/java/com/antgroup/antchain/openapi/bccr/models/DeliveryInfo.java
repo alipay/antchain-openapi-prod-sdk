@@ -5,32 +5,60 @@ import com.aliyun.tea.*;
 
 public class DeliveryInfo extends TeaModel {
     // 收件人姓名
+    /**
+     * <strong>example:</strong>
+     * <p>这是一个姓名</p>
+     */
     @NameInMap("receive_name")
     @Validation(required = true)
     public String receiveName;
 
     // 联系电话
+    /**
+     * <strong>example:</strong>
+     * <p>13000000000</p>
+     */
     @NameInMap("contact")
     @Validation(required = true)
     public String contact;
 
     // 省（需要接收纸质文件时必填）
+    /**
+     * <strong>example:</strong>
+     * <p>浙江省</p>
+     */
     @NameInMap("province")
     public String province;
 
     // 市（需要接收纸质文件时必填）
+    /**
+     * <strong>example:</strong>
+     * <p>杭州市</p>
+     */
     @NameInMap("city")
     public String city;
 
     // 区（需要接收纸质文件时必填）
+    /**
+     * <strong>example:</strong>
+     * <p>西湖区</p>
+     */
     @NameInMap("area")
     public String area;
 
     // 详细地址（需要接收纸质文件时必填）
+    /**
+     * <strong>example:</strong>
+     * <p>黄龙时代广场</p>
+     */
     @NameInMap("address")
     public String address;
 
     // 电子邮箱（需要接收电子文件时必填）
+    /**
+     * <strong>example:</strong>
+     * <p><a href="mailto:xxx@xx.com">xxx@xx.com</a></p>
+     */
     @NameInMap("email")
     public String email;
 

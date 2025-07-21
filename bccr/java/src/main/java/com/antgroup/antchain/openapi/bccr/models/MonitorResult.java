@@ -6,12 +6,20 @@ import com.aliyun.tea.*;
 public class MonitorResult extends TeaModel {
     // 监测任务ID
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>111111111111111111</p>
+     */
     @NameInMap("monitor_task_id")
     @Validation(required = true)
     public String monitorTaskId;
 
     // 监测结果ID
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("monitor_result_id")
     @Validation(required = true)
     public String monitorResultId;
@@ -19,69 +27,129 @@ public class MonitorResult extends TeaModel {
     // 侵权网址
     // 
     // 
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://a.b.c">http://a.b.c</a></p>
+     */
     @NameInMap("infr_url")
     public String infrUrl;
 
     // 侵权主体
     // 
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>hhh</p>
+     */
     @NameInMap("infr_host")
     public String infrHost;
 
     // 侵权标题
     // 
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>biaoti</p>
+     */
     @NameInMap("infr_title")
     public String infrTitle;
 
     // 侵权内容上传时间
     // 
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>1592807928</p>
+     */
     @NameInMap("infr_time")
     public Long infrTime;
 
     // 侵权详情
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>details</p>
+     */
     @NameInMap("detail")
     public String detail;
 
     // 发布者
+    /**
+     * <strong>example:</strong>
+     * <p>111111</p>
+     */
     @NameInMap("poster")
     public String poster;
 
     // 侵权内容发布时间
+    /**
+     * <strong>example:</strong>
+     * <p>1626614711096</p>
+     */
     @NameInMap("post_date")
     public Long postDate;
 
     // 侵权内容发现时间
+    /**
+     * <strong>example:</strong>
+     * <p>1626614711096</p>
+     */
     @NameInMap("find_date")
     public Long findDate;
 
     // 观看数
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("view_count")
     public Long viewCount;
 
     // 点赞数
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("like_count")
     public Long likeCount;
 
     // 评论数
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("comment_count")
     public Long commentCount;
 
     // 转发数
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("repost_count")
     public Long repostCount;
 
     // 侵权文件下载链接
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://xxxx">https://xxxx</a></p>
+     */
     @NameInMap("download_url")
     public String downloadUrl;
 
     // 疑似侵权反馈时间
+    /**
+     * <strong>example:</strong>
+     * <p>1592807928</p>
+     */
     @NameInMap("infr_feedback_time")
     public Long infrFeedbackTime;
 
     // 个人主页链接
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://xxxx">https://xxxx</a></p>
+     */
     @NameInMap("poster_id_url")
     public String posterIdUrl;
 

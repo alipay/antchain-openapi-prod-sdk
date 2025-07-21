@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class IsvWorkerInfoVO extends TeaModel {
     // 工作人员账号id
+    /**
+     * <strong>example:</strong>
+     * <p>AC000100000000011000</p>
+     */
     @NameInMap("worker_account_id")
     @Validation(required = true)
     public String workerAccountId;
 
     // 工作人员姓名
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("worker_name")
     @Validation(required = true)
     public String workerName;

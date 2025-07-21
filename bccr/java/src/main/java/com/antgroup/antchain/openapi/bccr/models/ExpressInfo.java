@@ -5,31 +5,55 @@ import com.aliyun.tea.*;
 
 public class ExpressInfo extends TeaModel {
     // 材料类型
+    /**
+     * <strong>example:</strong>
+     * <p>PAPER纸质，ELECTRIC电子</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public String type;
 
     // 收件人姓名
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 收件人电话号码
+    /**
+     * <strong>example:</strong>
+     * <p>13000000000</p>
+     */
     @NameInMap("phone")
     @Validation(required = true)
     public String phone;
 
     // 邮箱地址
+    /**
+     * <strong>example:</strong>
+     * <p><a href="mailto:xxx@xx.com">xxx@xx.com</a></p>
+     */
     @NameInMap("email")
     @Validation(required = true)
     public String email;
 
     // 快递名称
+    /**
+     * <strong>example:</strong>
+     * <p>快递名称</p>
+     */
     @NameInMap("express_name")
     @Validation(required = true)
     public String expressName;
 
     // 快递单号
+    /**
+     * <strong>example:</strong>
+     * <p>快递单号</p>
+     */
     @NameInMap("tracking_number")
     @Validation(required = true)
     public String trackingNumber;

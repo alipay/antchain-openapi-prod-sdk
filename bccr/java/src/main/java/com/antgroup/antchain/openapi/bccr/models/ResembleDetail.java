@@ -5,15 +5,27 @@ import com.aliyun.tea.*;
 
 public class ResembleDetail extends TeaModel {
     // 相似分数
+    /**
+     * <strong>example:</strong>
+     * <p>0.99</p>
+     */
     @NameInMap("score")
     @Validation(required = true)
     public String score;
 
     // 长度
+    /**
+     * <strong>example:</strong>
+     * <p>02:59:59</p>
+     */
     @NameInMap("length")
     public String length;
 
     // 明细类型，例如VIDEO_SEGMENT表示视频区间相似
+    /**
+     * <strong>example:</strong>
+     * <p>VIDEO_SEGMENT</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public String type;

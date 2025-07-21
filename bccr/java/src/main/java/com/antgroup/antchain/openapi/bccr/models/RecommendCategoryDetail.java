@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class RecommendCategoryDetail extends TeaModel {
     // 推荐分类类型
+    /**
+     * <strong>example:</strong>
+     * <p>ART</p>
+     */
     @NameInMap("recommend_work_category")
     @Validation(required = true)
     public String recommendWorkCategory;
 
     // 作品类型相似度，保留2位小数
+    /**
+     * <strong>example:</strong>
+     * <p>0.95</p>
+     */
     @NameInMap("category_similar_ratio")
     @Validation(required = true)
     public String categorySimilarRatio;
 
     // 作品类型风险等级
+    /**
+     * <strong>example:</strong>
+     * <p>LOW</p>
+     */
     @NameInMap("category_risk_rank")
     public String categoryRiskRank;
 

@@ -5,19 +5,35 @@ import com.aliyun.tea.*;
 
 public class OfflineEvidenceWatermarkResult extends TeaModel {
     // 取证编号
+    /**
+     * <strong>example:</strong>
+     * <p>123456</p>
+     */
     @NameInMap("evidence_no")
     @Validation(required = true)
     public String evidenceNo;
 
     // 水印链接
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://www.baidu.com">https://www.baidu.com</a></p>
+     */
     @NameInMap("watermark_url")
     public String watermarkUrl;
 
     // 封面链接
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://www.baidu.com">https://www.baidu.com</a></p>
+     */
     @NameInMap("cover_url")
     public String coverUrl;
 
     // 失败原因
+    /**
+     * <strong>example:</strong>
+     * <p>失败原因</p>
+     */
     @NameInMap("fail_reason")
     public String failReason;
 

@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class NotaryFeeItem extends TeaModel {
     // 费用分项描述
+    /**
+     * <strong>example:</strong>
+     * <p>起步费用</p>
+     */
     @NameInMap("fee_item_desc")
     @Validation(required = true)
     public String feeItemDesc;
 
     // 费用分项金额(分)
+    /**
+     * <strong>example:</strong>
+     * <p>200000</p>
+     */
     @NameInMap("fee_item_amount_rmb_fen")
     @Validation(required = true)
     public Long feeItemAmountRmbFen;

@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class MonitorProviderCapability extends TeaModel {
     // 供应商id
+    /**
+     * <strong>example:</strong>
+     * <p>GOODEYE</p>
+     */
     @NameInMap("provider_id")
     @Validation(required = true)
     public String providerId;
 
     // 供应商名称
+    /**
+     * <strong>example:</strong>
+     * <p>千里眼</p>
+     */
     @NameInMap("provider_name")
     @Validation(required = true)
     public String providerName;
 
     // 供应商描述
+    /**
+     * <strong>example:</strong>
+     * <p>描述</p>
+     */
     @NameInMap("provider_description")
     @Validation(required = true)
     public String providerDescription;
 
     // 是否推荐供应商
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("is_provided")
     @Validation(required = true)
     public Boolean isProvided;

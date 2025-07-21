@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class OrderItem extends TeaModel {
     // 项目ID
+    /**
+     * <strong>example:</strong>
+     * <p>11111</p>
+     */
     @NameInMap("item_id")
     @Validation(required = true)
     public String itemId;
 
     // 项目类型（数登申请）
+    /**
+     * <strong>example:</strong>
+     * <p>数登申请</p>
+     */
     @NameInMap("item_type")
     @Validation(required = true)
     public String itemType;

@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class FeeDetail extends TeaModel {
     // 费用描述
+    /**
+     * <strong>example:</strong>
+     * <p>网页取证起步费用</p>
+     */
     @NameInMap("fee_desc")
     @Validation(required = true)
     public String feeDesc;
 
     // 费用
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
     @NameInMap("amount")
     @Validation(required = true)
     public String amount;

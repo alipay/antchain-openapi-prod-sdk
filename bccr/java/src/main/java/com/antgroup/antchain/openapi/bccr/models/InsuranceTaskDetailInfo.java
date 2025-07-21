@@ -5,61 +5,113 @@ import com.aliyun.tea.*;
 
 public class InsuranceTaskDetailInfo extends TeaModel {
     // 用户备注
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;&quot;</p>
+     */
     @NameInMap("user_memo")
     public String userMemo;
 
     // 上门人员姓名
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("door_to_door_worker_name")
     public String doorToDoorWorkerName;
 
     // 电池包装码
+    /**
+     * <strong>example:</strong>
+     * <p>ABC</p>
+     */
     @NameInMap("battery_packaging_code")
     public String batteryPackagingCode;
 
     // 电池码
+    /**
+     * <strong>example:</strong>
+     * <p>ABC</p>
+     */
     @NameInMap("battery_code")
     public String batteryCode;
 
     // 图片列表
+    /**
+     * <strong>example:</strong>
+     * <p>[&quot;image1&quot;, &quot;image2&quot;]</p>
+     */
     @NameInMap("install_images")
     public java.util.List<String> installImages;
 
     // 任务id
+    /**
+     * <strong>example:</strong>
+     * <p>12</p>
+     */
     @NameInMap("task_id")
     @Validation(required = true)
     public String taskId;
 
     // 任务状态
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;doorToDoorFinsh&quot; (已完成)</p>
+     */
     @NameInMap("task_status")
     @Validation(required = true)
     public String taskStatus;
 
     // 电池型号
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("battery_type")
     @Validation(required = true)
     public String batteryType;
 
     // 上门地址
+    /**
+     * <strong>example:</strong>
+     * <p>杭州市西湖区某小区</p>
+     */
     @NameInMap("service_address")
     @Validation(required = true)
     public String serviceAddress;
 
     // 租赁人姓名
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("battery_renter_name")
     @Validation(required = true)
     public String batteryRenterName;
 
     // 租赁人电话
+    /**
+     * <strong>example:</strong>
+     * <p>15666666666</p>
+     */
     @NameInMap("battery_renter_phone")
     @Validation(required = true)
     public String batteryRenterPhone;
 
     // 上门时间
+    /**
+     * <strong>example:</strong>
+     * <p>2025-05-16 11:00:00</p>
+     */
     @NameInMap("service_time")
     @Validation(required = true)
     public String serviceTime;
 
     // 任务所属服务商账号id
+    /**
+     * <strong>example:</strong>
+     * <p>AC000100000000011000</p>
+     */
     @NameInMap("isv_account_id")
     @Validation(required = true)
     public String isvAccountId;

@@ -7,28 +7,48 @@ public class MonitorTask extends TeaModel {
     // 内容表述
     // 
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>wert</p>
+     */
     @NameInMap("content_desc")
     public String contentDesc;
 
     // 监测任务标题
     // 
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>awe</p>
+     */
     @NameInMap("content_title")
     public String contentTitle;
 
     // 监测文件时长，主要用于视频监测、音频监测的时长记录
+    /**
+     * <strong>example:</strong>
+     * <p>200</p>
+     */
     @NameInMap("file_length_in_second")
     public Long fileLengthInSecond;
 
     // 监测关键字
     // 
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>111111111111111111</p>
+     */
     @NameInMap("keywords")
     @Validation(required = true)
     public java.util.List<String> keywords;
 
     // 监测任务ID
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>111111111111111111</p>
+     */
     @NameInMap("monitor_task_id")
     @Validation(required = true)
     public String monitorTaskId;
@@ -36,23 +56,39 @@ public class MonitorTask extends TeaModel {
     // 任务名称
     // 
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>111111111111111111</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 监测供应商id
+    /**
+     * <strong>example:</strong>
+     * <p>GOODEYE</p>
+     */
     @NameInMap("provider_id")
     public String providerId;
 
     // 监测结果数量
     // 
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("result_count")
     public Long resultCount;
 
     // 监测范围
     // 
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>111111111111111111</p>
+     */
     @NameInMap("scopes")
     @Validation(required = true)
     public java.util.List<String> scopes;
@@ -68,6 +104,10 @@ public class MonitorTask extends TeaModel {
     // FAILURE
     // 
     // DELETE
+    /**
+     * <strong>example:</strong>
+     * <p>WORKING</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
@@ -75,6 +115,10 @@ public class MonitorTask extends TeaModel {
     // 监测时长(天)
     // 
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("task_duration")
     @Validation(required = true)
     public Long taskDuration;
@@ -82,12 +126,20 @@ public class MonitorTask extends TeaModel {
     // 任务结束时间
     // 
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>1592807928</p>
+     */
     @NameInMap("task_end")
     public Long taskEnd;
 
     // 任务开始时间
     // 
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>1592807928</p>
+     */
     @NameInMap("task_start")
     public Long taskStart;
 
@@ -98,15 +150,27 @@ public class MonitorTask extends TeaModel {
     // TEXT
     // 
     // VIDEO
+    /**
+     * <strong>example:</strong>
+     * <p>IMAGE</p>
+     */
     @NameInMap("file_type")
     @Validation(required = true)
     public String fileType;
 
     // 文件大小
+    /**
+     * <strong>example:</strong>
+     * <p>111111</p>
+     */
     @NameInMap("file_size")
     public Long fileSize;
 
     // submitType是url就是url地址 submitType 是file就是oss fileId
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://xxxx">https://xxxx</a></p>
+     */
     @NameInMap("submit_content")
     @Validation(required = true)
     public String submitContent;
@@ -114,14 +178,26 @@ public class MonitorTask extends TeaModel {
     // 提交任务的类型:FILE/URL
     // 不填为FILE
     // FILE表示文件上传素材，URL表示上传URL
+    /**
+     * <strong>example:</strong>
+     * <p>FILE</p>
+     */
     @NameInMap("submit_type")
     public String submitType;
 
     // 当status为failure时的具体错误信息（中文描述）
+    /**
+     * <strong>example:</strong>
+     * <p>error</p>
+     */
     @NameInMap("failure_msg")
     public String failureMsg;
 
     // 当status为failure时的具体错误信息（错误枚举）
+    /**
+     * <strong>example:</strong>
+     * <p>SERVER_ERROR</p>
+     */
     @NameInMap("failure_code")
     public String failureCode;
 

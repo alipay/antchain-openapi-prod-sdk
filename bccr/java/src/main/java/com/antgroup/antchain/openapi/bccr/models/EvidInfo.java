@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class EvidInfo extends TeaModel {
     // 取证ID
+    /**
+     * <strong>example:</strong>
+     * <p>RS123</p>
+     */
     @NameInMap("evidence_id")
     @Validation(required = true)
     public String evidenceId;

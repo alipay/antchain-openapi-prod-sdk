@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class NotaryApplyInfo extends TeaModel {
     // 公证处ID
+    /**
+     * <strong>example:</strong>
+     * <p>公证处ID</p>
+     */
     @NameInMap("org_id")
     @Validation(required = true)
     public String orgId;
@@ -40,11 +44,19 @@ public class NotaryApplyInfo extends TeaModel {
     public java.util.List<String> testifyFileList;
 
     // 保全内容
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("preservation_content")
     @Validation(required = true)
     public String preservationContent;
 
     // 用户申办备注
+    /**
+     * <strong>example:</strong>
+     * <p>用户申办备注</p>
+     */
     @NameInMap("comments")
     public String comments;
 

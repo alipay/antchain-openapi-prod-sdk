@@ -5,15 +5,27 @@ import com.aliyun.tea.*;
 
 public class WorksInfo extends TeaModel {
     // 作品名称
+    /**
+     * <strong>example:</strong>
+     * <p>我的作品</p>
+     */
     @NameInMap("works_name")
     @Validation(required = true)
     public String worksName;
 
     // 作品类型
+    /**
+     * <strong>example:</strong>
+     * <p>视频</p>
+     */
     @NameInMap("works_type")
     public String worksType;
 
     // 作品类型英文标识
+    /**
+     * <strong>example:</strong>
+     * <p>MODEL</p>
+     */
     @NameInMap("works_type_en")
     public String worksTypeEn;
 

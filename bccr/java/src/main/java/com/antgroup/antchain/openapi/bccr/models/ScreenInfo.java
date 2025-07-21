@@ -5,66 +5,130 @@ import com.aliyun.tea.*;
 
 public class ScreenInfo extends TeaModel {
     // 全链路取证日志文件下载链接
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://xxxx">https://xxxx</a></p>
+     */
     @NameInMap("process_log_file")
     public String processLogFile;
 
     // 全链路取证日志文件哈希
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
     @NameInMap("process_log_file_hash")
     public String processLogFileHash;
 
     // 自清洁文件下载地址
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://xxxx">https://xxxx</a></p>
+     */
     @NameInMap("check_log_file")
     public String checkLogFile;
 
     // 自清洁文件哈希
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
     @NameInMap("check_log_file_hash")
     public String checkLogFileHash;
 
     // 网页截图文件下载链接
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://xxxx">https://xxxx</a></p>
+     */
     @NameInMap("web_screenshot_file")
     public String webScreenshotFile;
 
     // 网页截图文件哈希
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
     @NameInMap("web_screenshot_file_hash")
     public String webScreenshotFileHash;
 
     // 网页源码文件下载链接
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://xxxx">https://xxxx</a></p>
+     */
     @NameInMap("web_source_file")
     public String webSourceFile;
 
     // 网页源码文件哈希
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
     @NameInMap("web_source_file_hash")
     public String webSourceFileHash;
 
     // 视频源文件下载链接
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://xx">http://xx</a></p>
+     */
     @NameInMap("video_file")
     public String videoFile;
 
     // 视频源文件哈希
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
     @NameInMap("video_file_hash")
     public String videoFileHash;
 
     // 手机自清洁文件下载链接
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://xxxx">https://xxxx</a></p>
+     */
     @NameInMap("extend_device_check_file")
     public String extendDeviceCheckFile;
 
     // 手机自清洁文件哈希
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
     @NameInMap("extend_device_check_file_hash")
     public String extendDeviceCheckFileHash;
 
     // 手机操作日志下载链接
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://xxxx">https://xxxx</a></p>
+     */
     @NameInMap("extend_device_process_file")
     public String extendDeviceProcessFile;
 
     // 手机操作日志哈希
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
     @NameInMap("extend_device_process_file_hash")
     public String extendDeviceProcessFileHash;
 
     // 日志打包文件hash
+    /**
+     * <strong>example:</strong>
+     * <p>0003fa8261d1cd6cb419264d516f9b586687e39a0dc31b2c74ff4948e8b951e61afd</p>
+     */
     @NameInMap("log_zip_file_hash")
     public String logZipFileHash;
 
     // 日志打包文件上链hash
+    /**
+     * <strong>example:</strong>
+     * <p>0003fa8261d1cd6cb419264d516f9b586687e39a0dc31b2c74ff4948e8b951e61afd</p>
+     */
     @NameInMap("log_zip_tx_hash")
     public String logZipTxHash;
 

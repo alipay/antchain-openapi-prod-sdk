@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class RefuseInfo extends TeaModel {
     // 拒绝理由/终止备注
+    /**
+     * <strong>example:</strong>
+     * <p>拒绝理由/终止备注</p>
+     */
     @NameInMap("reason")
     @Validation(required = true)
     public String reason;
 
     // 不予办理决定书路径/终止决定书路径
+    /**
+     * <strong>example:</strong>
+     * <p>不予办理决定书路径/终止决定书路径</p>
+     */
     @NameInMap("notification_path")
     @Validation(required = true)
     public String notificationPath;

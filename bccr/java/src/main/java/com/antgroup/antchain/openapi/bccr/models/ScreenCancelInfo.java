@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class ScreenCancelInfo extends TeaModel {
     // 允许放弃时长（分钟）
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("cancel_in_min")
     @Validation(required = true)
     public Long cancelInMin;
 
     // 可用放弃次数
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("cancel_attempt_left")
     @Validation(required = true)
     public Long cancelAttemptLeft;

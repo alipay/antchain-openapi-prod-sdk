@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class SecurityData extends TeaModel {
     // 内容安全检查结果
+    /**
+     * <strong>example:</strong>
+     * <p>safe,risky</p>
+     */
     @NameInMap("result")
     @Validation(required = true)
     public String result;

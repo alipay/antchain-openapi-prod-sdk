@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class ProxyData extends TeaModel {
     // 金融云租户id
+    /**
+     * <strong>example:</strong>
+     * <p>2088XXXXXX</p>
+     */
     @NameInMap("tenant_id")
     @Validation(required = true)
     public String tenantId;
 
     // 租户名称
+    /**
+     * <strong>example:</strong>
+     * <p>FJKDNESX</p>
+     */
     @NameInMap("tenant_name")
     @Validation(required = true)
     public String tenantName;
 
     // 是否计量
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("if_measure")
     public Boolean ifMeasure;
 

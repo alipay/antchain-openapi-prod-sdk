@@ -5,23 +5,43 @@ import com.aliyun.tea.*;
 
 public class ResembleRiskData extends TeaModel {
     // 重复作品ID
+    /**
+     * <strong>example:</strong>
+     * <p>重复作品ID</p>
+     */
     @NameInMap("work_id")
     @Validation(required = true)
     public String workId;
 
     // 相似作品的名称
+    /**
+     * <strong>example:</strong>
+     * <p>相似作品的名称</p>
+     */
     @NameInMap("work_name")
     public String workName;
 
     // 相似作品的类型
+    /**
+     * <strong>example:</strong>
+     * <p>VIDEO</p>
+     */
     @NameInMap("work_type")
     public String workType;
 
     // 相似值
+    /**
+     * <strong>example:</strong>
+     * <p>相似值</p>
+     */
     @NameInMap("score")
     public String score;
 
     // 相似作品下载凭证
+    /**
+     * <strong>example:</strong>
+     * <p>相似作品下载凭证</p>
+     */
     @NameInMap("work_file_id")
     public String workFileId;
 

@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class VerifyEvidenceData extends TeaModel {
     // 操作日志交易HASH
+    /**
+     * <strong>example:</strong>
+     * <p>0003fa8261d1cd6cb419264d516f9b586687e39a0dc31b2c74ff4948e8b951e61afd</p>
+     */
     @NameInMap("process_log_tx_hash")
     public String processLogTxHash;
 
     // 自清洁日志交易HASH
+    /**
+     * <strong>example:</strong>
+     * <p>0003fa8261d1cd6cb419264d516f9b586687e39a0dc31b2c74ff4948e8b951e61afd</p>
+     */
     @NameInMap("check_log_tx_hash")
     public String checkLogTxHash;
 

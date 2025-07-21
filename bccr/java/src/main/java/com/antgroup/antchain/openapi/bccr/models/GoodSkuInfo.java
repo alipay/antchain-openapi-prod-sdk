@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class GoodSkuInfo extends TeaModel {
     // 授权规格序号
+    /**
+     * <strong>example:</strong>
+     * <p>001</p>
+     */
     @NameInMap("sku_num")
     @Validation(required = true)
     public String skuNum;
 
     // 授权规格价格(单位：分)
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("price")
     @Validation(required = true)
     public Long price;

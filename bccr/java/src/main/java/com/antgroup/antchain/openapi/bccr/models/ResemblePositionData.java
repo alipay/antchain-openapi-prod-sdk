@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class ResemblePositionData extends TeaModel {
     // 起始位置
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("start_position")
     @Validation(required = true)
     public Long startPosition;
 
     // 结束位置
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("end_position")
     @Validation(required = true)
     public Long endPosition;

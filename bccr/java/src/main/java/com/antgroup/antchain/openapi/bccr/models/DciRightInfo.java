@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class DciRightInfo extends TeaModel {
     // 作品权利范围
+    /**
+     * <strong>example:</strong>
+     * <p>PUBLICATION</p>
+     */
     @NameInMap("right_scope")
     @Validation(required = true)
     public String rightScope;
 
     // 权利取得方式
+    /**
+     * <strong>example:</strong>
+     * <p>ORIGINAL</p>
+     */
     @NameInMap("right_obtain_way")
     @Validation(required = true)
     public String rightObtainWay;
 
     // 权利归属方式
+    /**
+     * <strong>example:</strong>
+     * <p>PERSONAL</p>
+     */
     @NameInMap("ownership_way")
     @Validation(required = true)
     public String ownershipWay;

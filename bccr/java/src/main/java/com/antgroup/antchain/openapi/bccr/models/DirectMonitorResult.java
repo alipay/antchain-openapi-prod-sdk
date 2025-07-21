@@ -5,29 +5,53 @@ import com.aliyun.tea.*;
 
 public class DirectMonitorResult extends TeaModel {
     // 监测结果id
+    /**
+     * <strong>example:</strong>
+     * <p>xyz</p>
+     */
     @NameInMap("monitor_result_id")
     @Validation(required = true)
     public String monitorResultId;
 
     // 相似的资源链接
+    /**
+     * <strong>example:</strong>
+     * <p>xyz</p>
+     */
     @NameInMap("similar_resource_url")
     @Validation(required = true)
     public String similarResourceUrl;
 
     // 相似资源所在的网址链接
+    /**
+     * <strong>example:</strong>
+     * <p>xyz</p>
+     */
     @NameInMap("similar_web_url")
     @Validation(required = true)
     public String similarWebUrl;
 
     // 资源标题
+    /**
+     * <strong>example:</strong>
+     * <p>xyz</p>
+     */
     @NameInMap("title")
     public String title;
 
     // 资源作者
+    /**
+     * <strong>example:</strong>
+     * <p>xyz</p>
+     */
     @NameInMap("author")
     public String author;
 
     // 资源上传时间，格式yyyy-MM-dd HH:mm:ss
+    /**
+     * <strong>example:</strong>
+     * <p>2022-01-01 10:10:10</p>
+     */
     @NameInMap("upload_time")
     public String uploadTime;
 

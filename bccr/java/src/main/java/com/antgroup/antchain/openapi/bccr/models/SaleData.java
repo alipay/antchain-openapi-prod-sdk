@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class SaleData extends TeaModel {
     // 摘要数据
+    /**
+     * <strong>example:</strong>
+     * <p>摘要数据</p>
+     */
     @NameInMap("sale_digiest_data")
     @Validation(required = true)
     public SaleDigestData saleDigiestData;

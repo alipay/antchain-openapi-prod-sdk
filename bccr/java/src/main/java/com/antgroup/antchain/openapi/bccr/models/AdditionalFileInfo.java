@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class AdditionalFileInfo extends TeaModel {
     // 内容梗概文件fileId
+    /**
+     * <strong>example:</strong>
+     * <p>202212131900example001.png</p>
+     */
     @NameInMap("content_summary_file_id")
     public String contentSummaryFileId;
 
@@ -13,10 +17,18 @@ public class AdditionalFileInfo extends TeaModel {
     public java.util.List<String> ownershipFileIds;
 
     // 肖像权授权文件fileId
+    /**
+     * <strong>example:</strong>
+     * <p>202212131900example003.png</p>
+     */
     @NameInMap("portrait_auth_file_id")
     public String portraitAuthFileId;
 
     // 他人作品授权文件fileId
+    /**
+     * <strong>example:</strong>
+     * <p>202212131900example004.png</p>
+     */
     @NameInMap("others_work_auth_file_id")
     public String othersWorkAuthFileId;
 
@@ -25,6 +37,10 @@ public class AdditionalFileInfo extends TeaModel {
     public java.util.List<String> otherFileIdList;
 
     // 商用授权字体授权文件fileId
+    /**
+     * <strong>example:</strong>
+     * <p>202212131900example004.png </p>
+     */
     @NameInMap("font_authorize_file_id")
     public String fontAuthorizeFileId;
 

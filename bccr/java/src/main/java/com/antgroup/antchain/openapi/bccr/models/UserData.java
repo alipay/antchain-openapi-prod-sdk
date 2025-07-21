@@ -5,49 +5,89 @@ import com.aliyun.tea.*;
 
 public class UserData extends TeaModel {
     // 用户账号
+    /**
+     * <strong>example:</strong>
+     * <p>18654362713</p>
+     */
     @NameInMap("account")
     @Validation(required = true)
     public String account;
 
     // 账号类型
+    /**
+     * <strong>example:</strong>
+     * <p>COPYRIGHT</p>
+     */
     @NameInMap("account_type")
     @Validation(required = true)
     public String accountType;
 
     // 证件名称
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("cert_name")
     @Validation(required = true)
     public String certName;
 
     // 证件号码
+    /**
+     * <strong>example:</strong>
+     * <p>11111111111</p>
+     */
     @NameInMap("cert_no")
     @Validation(required = true)
     public String certNo;
 
     // 证件类型
+    /**
+     * <strong>example:</strong>
+     * <p>IDENTITY_CARD</p>
+     */
     @NameInMap("cert_type")
     @Validation(required = true)
     public String certType;
 
     // 联系方式
+    /**
+     * <strong>example:</strong>
+     * <p>186534672712</p>
+     */
     @NameInMap("contact_info")
     public String contactInfo;
 
     // 企业法人
+    /**
+     * <strong>example:</strong>
+     * <p>李四</p>
+     */
     @NameInMap("legal_person")
     public String legalPerson;
 
     // 注册时间
+    /**
+     * <strong>example:</strong>
+     * <p>1603162178000</p>
+     */
     @NameInMap("reg_time")
     @Validation(required = true)
     public Long regTime;
 
     // 账号状态
+    /**
+     * <strong>example:</strong>
+     * <p>SUCCESS</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 用户类型
+    /**
+     * <strong>example:</strong>
+     * <p>PERSON</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public String type;

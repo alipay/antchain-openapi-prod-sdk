@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class LabelRiskData extends TeaModel {
     // 识别出的标签名称
+    /**
+     * <strong>example:</strong>
+     * <p>识别出的标签名称</p>
+     */
     @NameInMap("label_name")
     @Validation(required = true)
     public String labelName;
 
     // 识别出的标签是否与用户选择的标签匹配
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("is_match")
     @Validation(required = true)
     public Boolean isMatch;
 
     // 识别出的标签匹配度
+    /**
+     * <strong>example:</strong>
+     * <p>识别出的标签匹配度</p>
+     */
     @NameInMap("match_value")
     @Validation(required = true)
     public String matchValue;

@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class DciExplanationInfo extends TeaModel {
     // 创作目的，描述作品创作的目的
+    /**
+     * <strong>example:</strong>
+     * <p>xx的创作目的</p>
+     */
     @NameInMap("creation_purpose")
     @Validation(required = true)
     public String creationPurpose;
 
     // 创作过程，具体的创作过程
+    /**
+     * <strong>example:</strong>
+     * <p>xx的创作过程</p>
+     */
     @NameInMap("creation_process")
     @Validation(required = true)
     public String creationProcess;
 
     // 阐述作品的独创性
+    /**
+     * <strong>example:</strong>
+     * <p>独创性说明</p>
+     */
     @NameInMap("originality")
     @Validation(required = true)
     public String originality;
 
     // 创作过程涉及到字体使用相关版权说明
+    /**
+     * <strong>example:</strong>
+     * <p>字体申明</p>
+     */
     @NameInMap("font_copyright")
     public String fontCopyright;
 

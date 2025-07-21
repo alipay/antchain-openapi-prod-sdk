@@ -9,94 +9,182 @@ public class OfflineRegisterResult extends TeaModel {
     public EvidenceFile evidenceFile;
 
     // 线下取证ID
+    /**
+     * <strong>example:</strong>
+     * <p>123456</p>
+     */
     @NameInMap("offline_evidence_id")
     @Validation(required = true)
     public String offlineEvidenceId;
 
     // 错误码
+    /**
+     * <strong>example:</strong>
+     * <p>NOTARY_OFFLINE_REGISTER_ERROR</p>
+     */
     @NameInMap("error_code")
     public String errorCode;
 
     // 错误信息
+    /**
+     * <strong>example:</strong>
+     * <p>公证处线下取证存证失败</p>
+     */
     @NameInMap("error_message")
     public String errorMessage;
 
     // 取证状态
+    /**
+     * <strong>example:</strong>
+     * <p>SUCCESS</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 取证时间
+    /**
+     * <strong>example:</strong>
+     * <p>1713770769000</p>
+     */
     @NameInMap("evidence_time")
     public Long evidenceTime;
 
     // 委托取证ID
+    /**
+     * <strong>example:</strong>
+     * <p>123456</p>
+     */
     @NameInMap("evidence_assignment_id")
     public String evidenceAssignmentId;
 
     // 取证用户ID
+    /**
+     * <strong>example:</strong>
+     * <p>123456</p>
+     */
     @NameInMap("evidence_user_id")
     public String evidenceUserId;
 
     // 取证名称
+    /**
+     * <strong>example:</strong>
+     * <p>取证名称</p>
+     */
     @NameInMap("evidence_name")
     public String evidenceName;
 
     // 公证处code
+    /**
+     * <strong>example:</strong>
+     * <p>LU_JIANG</p>
+     */
     @NameInMap("notary_office_code")
     public String notaryOfficeCode;
 
     // 公证处名称
+    /**
+     * <strong>example:</strong>
+     * <p>鹭江公证处</p>
+     */
     @NameInMap("notary_office_name")
     public String notaryOfficeName;
 
     // 经度
+    /**
+     * <strong>example:</strong>
+     * <p>23.35</p>
+     */
     @NameInMap("longitude")
     public String longitude;
 
     // 纬度
+    /**
+     * <strong>example:</strong>
+     * <p>23.35</p>
+     */
     @NameInMap("latitude")
     public String latitude;
 
     // 位置
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
     @NameInMap("location")
     public String location;
 
     // 取证开始时间
+    /**
+     * <strong>example:</strong>
+     * <p>1713770769000</p>
+     */
     @NameInMap("evidence_start_time")
     public Long evidenceStartTime;
 
     // 取证结束时间
+    /**
+     * <strong>example:</strong>
+     * <p>1713770769000</p>
+     */
     @NameInMap("evidence_end_time")
     public Long evidenceEndTime;
 
     // 取证类型
+    /**
+     * <strong>example:</strong>
+     * <p>OFFLINE_PICTURE</p>
+     */
     @NameInMap("evidence_type")
     @Validation(required = true)
     public String evidenceType;
 
     // 存证编号
+    /**
+     * <strong>example:</strong>
+     * <p>8240401000000013980</p>
+     */
     @NameInMap("certificate_no")
     public String certificateNo;
 
     // 	
     // 上链时间
+    /**
+     * <strong>example:</strong>
+     * <p>1713771170000</p>
+     */
     @NameInMap("certificate_time")
     public Long certificateTime;
 
     // 证据hash
+    /**
+     * <strong>example:</strong>
+     * <p>2ed3532c4438f82eef7cdf6a54e7ac11</p>
+     */
     @NameInMap("evidence_hash")
     public String evidenceHash;
 
     // 链上交易hash
+    /**
+     * <strong>example:</strong>
+     * <p>b251a2d54ea254165c9baf13e8366635b1c90d4a449a35fcdce7b332054c8aac</p>
+     */
     @NameInMap("evidence_tx_hash")
     public String evidenceTxHash;
 
     // 证书文件下载地址
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://www.baidu.com">https://www.baidu.com</a></p>
+     */
     @NameInMap("certificate_file_url")
     public String certificateFileUrl;
 
     // 备注
+    /**
+     * <strong>example:</strong>
+     * <p>备注</p>
+     */
     @NameInMap("memo")
     public String memo;
 

@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class MonitorProviderType extends TeaModel {
     // 监测文件类型
+    /**
+     * <strong>example:</strong>
+     * <p>txt</p>
+     */
     @NameInMap("file_type")
     @Validation(required = true)
     public String fileType;
 
     // 提交类型
+    /**
+     * <strong>example:</strong>
+     * <p>FILE</p>
+     */
     @NameInMap("submit_type")
     @Validation(required = true)
     public String submitType;
 
     // 文件格式
+    /**
+     * <strong>example:</strong>
+     * <p>jpg</p>
+     */
     @NameInMap("file_format")
     public String fileFormat;
 
