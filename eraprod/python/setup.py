@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_eraprod.
 
-Created on 12/06/2025
+Created on 23/07/2025
 
 @author: Ant Chain SDK
 """

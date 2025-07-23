@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2',
+                    'sdk_version': '1.1.0',
                     '_prod_code': 'ERAPROD',
                     '_prod_channel': 'default'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.2',
+                    'sdk_version': '1.1.0',
                     '_prod_code': 'ERAPROD',
                     '_prod_channel': 'default'
                 }
@@ -327,4 +327,60 @@ class Client:
         return TeaCore.from_map(
             eraprod_models.OperateAisProxyResponse(),
             await self.do_request_async('1.0', 'antdigital.eraprod.ais.proxy.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_agent_proxy(
+        self,
+        request: eraprod_models.OperateAgentProxyRequest,
+    ) -> eraprod_models.OperateAgentProxyResponse:
+        """
+        Description: 灵矽 Agent 代理
+        Summary: 灵矽 Agent 代理
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_agent_proxy_ex(request, headers, runtime)
+
+    async def operate_agent_proxy_async(
+        self,
+        request: eraprod_models.OperateAgentProxyRequest,
+    ) -> eraprod_models.OperateAgentProxyResponse:
+        """
+        Description: 灵矽 Agent 代理
+        Summary: 灵矽 Agent 代理
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_agent_proxy_ex_async(request, headers, runtime)
+
+    def operate_agent_proxy_ex(
+        self,
+        request: eraprod_models.OperateAgentProxyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> eraprod_models.OperateAgentProxyResponse:
+        """
+        Description: 灵矽 Agent 代理
+        Summary: 灵矽 Agent 代理
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            eraprod_models.OperateAgentProxyResponse(),
+            self.do_request('1.0', 'antdigital.eraprod.agent.proxy.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_agent_proxy_ex_async(
+        self,
+        request: eraprod_models.OperateAgentProxyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> eraprod_models.OperateAgentProxyResponse:
+        """
+        Description: 灵矽 Agent 代理
+        Summary: 灵矽 Agent 代理
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            eraprod_models.OperateAgentProxyResponse(),
+            await self.do_request_async('1.0', 'antdigital.eraprod.agent.proxy.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
