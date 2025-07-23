@@ -137,7 +137,7 @@ namespace AntChain.SDK.ERAPROD
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.2"},
+                        {"sdk_version", "1.1.0"},
                         {"_prod_code", "ERAPROD"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ERAPROD
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.2"},
+                        {"sdk_version", "1.1.0"},
                         {"_prod_code", "ERAPROD"},
                         {"_prod_channel", "default"},
                     };
@@ -361,6 +361,48 @@ namespace AntChain.SDK.ERAPROD
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<OperateAisProxyResponse>(await DoRequestAsync("1.0", "antdigital.eraprod.ais.proxy.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 灵矽 Agent 代理
+         * Summary: 灵矽 Agent 代理
+         */
+        public OperateAgentProxyResponse OperateAgentProxy(OperateAgentProxyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateAgentProxyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 灵矽 Agent 代理
+         * Summary: 灵矽 Agent 代理
+         */
+        public async Task<OperateAgentProxyResponse> OperateAgentProxyAsync(OperateAgentProxyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateAgentProxyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 灵矽 Agent 代理
+         * Summary: 灵矽 Agent 代理
+         */
+        public OperateAgentProxyResponse OperateAgentProxyEx(OperateAgentProxyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateAgentProxyResponse>(DoRequest("1.0", "antdigital.eraprod.agent.proxy.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 灵矽 Agent 代理
+         * Summary: 灵矽 Agent 代理
+         */
+        public async Task<OperateAgentProxyResponse> OperateAgentProxyExAsync(OperateAgentProxyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateAgentProxyResponse>(await DoRequestAsync("1.0", "antdigital.eraprod.agent.proxy.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
