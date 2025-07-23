@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\ERAPROD\Models\OperateAgentProxyRequest;
+use AntChain\ERAPROD\Models\OperateAgentProxyResponse;
 use AntChain\ERAPROD\Models\OperateAisProxyRequest;
 use AntChain\ERAPROD\Models\OperateAisProxyResponse;
 use AntChain\Util\UtilClient;
@@ -159,7 +161,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.2',
+                    'sdk_version'      => '1.1.0',
                     '_prod_code'       => 'ERAPROD',
                     '_prod_channel'    => 'default',
                 ];
@@ -238,5 +240,38 @@ class Client
         Utils::validateModel($request);
 
         return OperateAisProxyResponse::fromMap($this->doRequest('1.0', 'antdigital.eraprod.ais.proxy.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 灵矽 Agent 代理
+     * Summary: 灵矽 Agent 代理.
+     *
+     * @param OperateAgentProxyRequest $request
+     *
+     * @return OperateAgentProxyResponse
+     */
+    public function operateAgentProxy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateAgentProxyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 灵矽 Agent 代理
+     * Summary: 灵矽 Agent 代理.
+     *
+     * @param OperateAgentProxyRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return OperateAgentProxyResponse
+     */
+    public function operateAgentProxyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateAgentProxyResponse::fromMap($this->doRequest('1.0', 'antdigital.eraprod.agent.proxy.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
