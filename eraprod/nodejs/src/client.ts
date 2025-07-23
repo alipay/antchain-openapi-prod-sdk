@@ -140,6 +140,65 @@ export class OperateAisProxyResponse extends $tea.Model {
   }
 }
 
+export class OperateAgentProxyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // json 序列化后的请求入参
+  requestJson: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestJson: 'request_json',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestJson: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateAgentProxyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // json 序列化的回执结果
+  responseJson?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseJson: 'response_json',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseJson: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -253,7 +312,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.2",
+          sdk_version: "1.1.0",
           _prod_code: "ERAPROD",
           _prod_channel: "default",
         };
@@ -318,6 +377,25 @@ export default class Client {
   async operateAisProxyEx(request: OperateAisProxyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateAisProxyResponse> {
     Util.validateModel(request);
     return $tea.cast<OperateAisProxyResponse>(await this.doRequest("1.0", "antdigital.eraprod.ais.proxy.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateAisProxyResponse({}));
+  }
+
+  /**
+   * Description: 灵矽 Agent 代理
+   * Summary: 灵矽 Agent 代理
+   */
+  async operateAgentProxy(request: OperateAgentProxyRequest): Promise<OperateAgentProxyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.operateAgentProxyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 灵矽 Agent 代理
+   * Summary: 灵矽 Agent 代理
+   */
+  async operateAgentProxyEx(request: OperateAgentProxyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateAgentProxyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OperateAgentProxyResponse>(await this.doRequest("1.0", "antdigital.eraprod.agent.proxy.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateAgentProxyResponse({}));
   }
 
 }
