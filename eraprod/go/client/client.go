@@ -225,6 +225,76 @@ func (s *OperateAisProxyResponse) SetResultJson(v string) *OperateAisProxyRespon
 	return s
 }
 
+type OperateAgentProxyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// json 序列化后的请求入参
+	RequestJson *string `json:"request_json,omitempty" xml:"request_json,omitempty" require:"true"`
+}
+
+func (s OperateAgentProxyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateAgentProxyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateAgentProxyRequest) SetAuthToken(v string) *OperateAgentProxyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateAgentProxyRequest) SetProductInstanceId(v string) *OperateAgentProxyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateAgentProxyRequest) SetRequestJson(v string) *OperateAgentProxyRequest {
+	s.RequestJson = &v
+	return s
+}
+
+type OperateAgentProxyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// json 序列化的回执结果
+	ResponseJson *string `json:"response_json,omitempty" xml:"response_json,omitempty"`
+}
+
+func (s OperateAgentProxyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateAgentProxyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateAgentProxyResponse) SetReqMsgId(v string) *OperateAgentProxyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateAgentProxyResponse) SetResultCode(v string) *OperateAgentProxyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateAgentProxyResponse) SetResultMsg(v string) *OperateAgentProxyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateAgentProxyResponse) SetResponseJson(v string) *OperateAgentProxyResponse {
+	s.ResponseJson = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -347,7 +417,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.2"),
+				"sdk_version":      tea.String("1.1.0"),
 				"_prod_code":       tea.String("ERAPROD"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -432,6 +502,40 @@ func (client *Client) OperateAisProxyEx(request *OperateAisProxyRequest, headers
 	}
 	_result = &OperateAisProxyResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.eraprod.ais.proxy.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 灵矽 Agent 代理
+ * Summary: 灵矽 Agent 代理
+ */
+func (client *Client) OperateAgentProxy(request *OperateAgentProxyRequest) (_result *OperateAgentProxyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateAgentProxyResponse{}
+	_body, _err := client.OperateAgentProxyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 灵矽 Agent 代理
+ * Summary: 灵矽 Agent 代理
+ */
+func (client *Client) OperateAgentProxyEx(request *OperateAgentProxyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateAgentProxyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateAgentProxyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.eraprod.agent.proxy.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
