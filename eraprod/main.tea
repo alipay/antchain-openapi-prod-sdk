@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.2',
+    sdk_version = '1.1.0',
     _prod_code = 'ERAPROD',
     _prod_channel = 'default'
   };
@@ -199,5 +199,43 @@ async function operateAisProxy(request: OperateAisProxyRequest): OperateAisProxy
 async function operateAisProxyEx(request: OperateAisProxyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateAisProxyResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.eraprod.ais.proxy.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateAgentProxyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // json 序列化后的请求入参
+  requestJson: string(name='request_json'),
+}
+
+model OperateAgentProxyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // json 序列化的回执结果
+  responseJson?: string(name='response_json'),
+}
+
+/**
+ * Description: 灵矽 Agent 代理
+ * Summary: 灵矽 Agent 代理
+ */
+async function operateAgentProxy(request: OperateAgentProxyRequest): OperateAgentProxyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateAgentProxyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 灵矽 Agent 代理
+ * Summary: 灵矽 Agent 代理
+ */
+async function operateAgentProxyEx(request: OperateAgentProxyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateAgentProxyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.eraprod.agent.proxy.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
