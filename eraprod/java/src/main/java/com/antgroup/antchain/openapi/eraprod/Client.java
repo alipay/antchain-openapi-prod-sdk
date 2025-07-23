@@ -32,7 +32,9 @@ public class Client {
     public Number _maxRequests;
     public Number _maxRequestsPerHost;
     /**
-     * Init client with Config
+     * <b>description</b> :
+     * <p>Init client with Config</p>
+     * 
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
@@ -64,7 +66,9 @@ public class Client {
     }
 
     /**
-     * Encapsulate the request and invoke the network
+     * <b>description</b> :
+     * <p>Encapsulate the request and invoke the network</p>
+     * 
      * @param action api name
      * @param protocol http or https
      * @param method e.g. GET
@@ -122,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.2"),
+                    new TeaPair("sdk_version", "1.1.0"),
                     new TeaPair("_prod_code", "ERAPROD"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -185,8 +189,9 @@ public class Client {
     }
 
     /**
-     * Description: ais代理
-     * Summary: ais代理
+     * <b>description</b> :
+     * <p>Description: ais代理
+     * Summary: ais代理</p>
      */
     public OperateAisProxyResponse operateAisProxy(OperateAisProxyRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -195,11 +200,33 @@ public class Client {
     }
 
     /**
-     * Description: ais代理
-     * Summary: ais代理
+     * <b>description</b> :
+     * <p>Description: ais代理
+     * Summary: ais代理</p>
      */
     public OperateAisProxyResponse operateAisProxyEx(OperateAisProxyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.eraprod.ais.proxy.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateAisProxyResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 灵矽 Agent 代理
+     * Summary: 灵矽 Agent 代理</p>
+     */
+    public OperateAgentProxyResponse operateAgentProxy(OperateAgentProxyRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateAgentProxyEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 灵矽 Agent 代理
+     * Summary: 灵矽 Agent 代理</p>
+     */
+    public OperateAgentProxyResponse operateAgentProxyEx(OperateAgentProxyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.eraprod.agent.proxy.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateAgentProxyResponse());
     }
 }
