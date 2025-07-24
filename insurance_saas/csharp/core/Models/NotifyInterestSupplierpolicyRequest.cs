@@ -19,10 +19,10 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=true)]
         public string RequestNo { get; set; }
 
-        // 权益订单号
-        [NameInMap("order_no")]
+        // 我方权益申请流水号
+        [NameInMap("interest_no")]
         [Validation(Required=true)]
-        public string OrderNo { get; set; }
+        public string InterestNo { get; set; }
 
         // 保单信息 json字符串
         [NameInMap("policy_info")]

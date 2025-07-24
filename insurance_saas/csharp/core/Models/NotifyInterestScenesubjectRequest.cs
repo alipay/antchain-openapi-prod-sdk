@@ -41,7 +41,7 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
 
         // 权益标的信息,JSON字符串
         [NameInMap("interest_subject_info")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string InterestSubjectInfo { get; set; }
 
     }
