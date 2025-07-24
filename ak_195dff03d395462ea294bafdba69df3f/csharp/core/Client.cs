@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.1"},
+                        {"sdk_version", "1.6.2"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.1"},
+                        {"sdk_version", "1.6.2"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -4217,6 +4217,90 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ConfirmAntchainAtoFundCompensateResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.compensate.confirm", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 重试pending状态的代扣计划
+         * Summary: 重试pending状态的代扣计划
+         */
+        public RetryAntchainAtoWithholdPlanpendingResponse RetryAntchainAtoWithholdPlanpending(RetryAntchainAtoWithholdPlanpendingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RetryAntchainAtoWithholdPlanpendingEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 重试pending状态的代扣计划
+         * Summary: 重试pending状态的代扣计划
+         */
+        public async Task<RetryAntchainAtoWithholdPlanpendingResponse> RetryAntchainAtoWithholdPlanpendingAsync(RetryAntchainAtoWithholdPlanpendingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RetryAntchainAtoWithholdPlanpendingExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 重试pending状态的代扣计划
+         * Summary: 重试pending状态的代扣计划
+         */
+        public RetryAntchainAtoWithholdPlanpendingResponse RetryAntchainAtoWithholdPlanpendingEx(RetryAntchainAtoWithholdPlanpendingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RetryAntchainAtoWithholdPlanpendingResponse>(DoRequest("1.0", "antchain.ato.withhold.planpending.retry", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 重试pending状态的代扣计划
+         * Summary: 重试pending状态的代扣计划
+         */
+        public async Task<RetryAntchainAtoWithholdPlanpendingResponse> RetryAntchainAtoWithholdPlanpendingExAsync(RetryAntchainAtoWithholdPlanpendingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RetryAntchainAtoWithholdPlanpendingResponse>(await DoRequestAsync("1.0", "antchain.ato.withhold.planpending.retry", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分账pending重试
+         * Summary: 分账pending重试
+         */
+        public RetryAntchainAtoWithholdDividependingResponse RetryAntchainAtoWithholdDividepending(RetryAntchainAtoWithholdDividependingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RetryAntchainAtoWithholdDividependingEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分账pending重试
+         * Summary: 分账pending重试
+         */
+        public async Task<RetryAntchainAtoWithholdDividependingResponse> RetryAntchainAtoWithholdDividependingAsync(RetryAntchainAtoWithholdDividependingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RetryAntchainAtoWithholdDividependingExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分账pending重试
+         * Summary: 分账pending重试
+         */
+        public RetryAntchainAtoWithholdDividependingResponse RetryAntchainAtoWithholdDividependingEx(RetryAntchainAtoWithholdDividependingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RetryAntchainAtoWithholdDividependingResponse>(DoRequest("1.0", "antchain.ato.withhold.dividepending.retry", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分账pending重试
+         * Summary: 分账pending重试
+         */
+        public async Task<RetryAntchainAtoWithholdDividependingResponse> RetryAntchainAtoWithholdDividependingExAsync(RetryAntchainAtoWithholdDividependingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RetryAntchainAtoWithholdDividependingResponse>(await DoRequestAsync("1.0", "antchain.ato.withhold.dividepending.retry", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
