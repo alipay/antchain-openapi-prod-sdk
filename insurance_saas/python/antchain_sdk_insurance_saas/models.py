@@ -4263,7 +4263,6 @@ class NotifyInterestScenesubjectRequest(TeaModel):
         self.validate_required(self.product_code, 'product_code')
         self.validate_required(self.apply_limit_amount, 'apply_limit_amount')
         self.validate_required(self.apply_limit_status, 'apply_limit_status')
-        self.validate_required(self.interest_subject_info, 'interest_subject_info')
 
     def to_map(self):
         _map = super().to_map()
@@ -4452,21 +4451,21 @@ class NotifyInterestSupplierpolicyRequest(TeaModel):
         self,
         auth_token: str = None,
         request_no: str = None,
-        order_no: str = None,
+        interest_no: str = None,
         policy_info: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         # 请求流水号，每次推送需要唯一
         self.request_no = request_no
-        # 权益订单号
-        self.order_no = order_no
+        # 我方权益申请流水号
+        self.interest_no = interest_no
         # 保单信息 json字符串
         self.policy_info = policy_info
 
     def validate(self):
         self.validate_required(self.request_no, 'request_no')
-        self.validate_required(self.order_no, 'order_no')
+        self.validate_required(self.interest_no, 'interest_no')
         self.validate_required(self.policy_info, 'policy_info')
 
     def to_map(self):
@@ -4479,8 +4478,8 @@ class NotifyInterestSupplierpolicyRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.request_no is not None:
             result['request_no'] = self.request_no
-        if self.order_no is not None:
-            result['order_no'] = self.order_no
+        if self.interest_no is not None:
+            result['interest_no'] = self.interest_no
         if self.policy_info is not None:
             result['policy_info'] = self.policy_info
         return result
@@ -4491,8 +4490,8 @@ class NotifyInterestSupplierpolicyRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('request_no') is not None:
             self.request_no = m.get('request_no')
-        if m.get('order_no') is not None:
-            self.order_no = m.get('order_no')
+        if m.get('interest_no') is not None:
+            self.interest_no = m.get('interest_no')
         if m.get('policy_info') is not None:
             self.policy_info = m.get('policy_info')
         return self
