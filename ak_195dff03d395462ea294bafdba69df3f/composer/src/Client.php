@@ -139,6 +139,10 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ReplaceAntchainAtoTradeU
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ReplaceAntchainAtoTradeUserpromiseResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ResumeAntchainAtoTradeUserpromiseRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ResumeAntchainAtoTradeUserpromiseResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RetryAntchainAtoWithholdDividependingRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RetryAntchainAtoWithholdDividependingResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RetryAntchainAtoWithholdPlanpendingRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RetryAntchainAtoWithholdPlanpendingResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RetryAntchainAtoWithholdPlanRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RetryAntchainAtoWithholdPlanResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SaveAntchainAtoInnerTemplateRequest;
@@ -340,7 +344,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.6.1',
+                    'sdk_version'      => '1.6.2',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -3388,6 +3392,72 @@ class Client
         Utils::validateModel($request);
 
         return ConfirmAntchainAtoFundCompensateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.compensate.confirm', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 重试pending状态的代扣计划
+     * Summary: 重试pending状态的代扣计划.
+     *
+     * @param RetryAntchainAtoWithholdPlanpendingRequest $request
+     *
+     * @return RetryAntchainAtoWithholdPlanpendingResponse
+     */
+    public function retryAntchainAtoWithholdPlanpending($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->retryAntchainAtoWithholdPlanpendingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 重试pending状态的代扣计划
+     * Summary: 重试pending状态的代扣计划.
+     *
+     * @param RetryAntchainAtoWithholdPlanpendingRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return RetryAntchainAtoWithholdPlanpendingResponse
+     */
+    public function retryAntchainAtoWithholdPlanpendingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RetryAntchainAtoWithholdPlanpendingResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.planpending.retry', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分账pending重试
+     * Summary: 分账pending重试.
+     *
+     * @param RetryAntchainAtoWithholdDividependingRequest $request
+     *
+     * @return RetryAntchainAtoWithholdDividependingResponse
+     */
+    public function retryAntchainAtoWithholdDividepending($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->retryAntchainAtoWithholdDividependingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分账pending重试
+     * Summary: 分账pending重试.
+     *
+     * @param RetryAntchainAtoWithholdDividependingRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return RetryAntchainAtoWithholdDividependingResponse
+     */
+    public function retryAntchainAtoWithholdDividependingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RetryAntchainAtoWithholdDividependingResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.dividepending.retry', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
