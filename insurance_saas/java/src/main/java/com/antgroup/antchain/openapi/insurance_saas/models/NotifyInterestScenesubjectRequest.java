@@ -35,7 +35,6 @@ public class NotifyInterestScenesubjectRequest extends TeaModel {
 
     // 权益标的信息,JSON字符串
     @NameInMap("interest_subject_info")
-    @Validation(required = true)
     public String interestSubjectInfo;
 
     public static NotifyInterestScenesubjectRequest build(java.util.Map<String, ?> map) throws Exception {

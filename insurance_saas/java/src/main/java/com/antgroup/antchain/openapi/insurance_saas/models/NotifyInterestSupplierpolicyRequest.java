@@ -13,10 +13,10 @@ public class NotifyInterestSupplierpolicyRequest extends TeaModel {
     @Validation(required = true)
     public String requestNo;
 
-    // 权益订单号
-    @NameInMap("order_no")
+    // 我方权益申请流水号
+    @NameInMap("interest_no")
     @Validation(required = true)
-    public String orderNo;
+    public String interestNo;
 
     // 保单信息 json字符串
     @NameInMap("policy_info")
@@ -44,12 +44,12 @@ public class NotifyInterestSupplierpolicyRequest extends TeaModel {
         return this.requestNo;
     }
 
-    public NotifyInterestSupplierpolicyRequest setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
+    public NotifyInterestSupplierpolicyRequest setInterestNo(String interestNo) {
+        this.interestNo = interestNo;
         return this;
     }
-    public String getOrderNo() {
-        return this.orderNo;
+    public String getInterestNo() {
+        return this.interestNo;
     }
 
     public NotifyInterestSupplierpolicyRequest setPolicyInfo(String policyInfo) {
