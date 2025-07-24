@@ -66,7 +66,6 @@ class NotifyInterestScenesubjectRequest extends Model
         Model::validateRequired('productCode', $this->productCode, true);
         Model::validateRequired('applyLimitAmount', $this->applyLimitAmount, true);
         Model::validateRequired('applyLimitStatus', $this->applyLimitStatus, true);
-        Model::validateRequired('interestSubjectInfo', $this->interestSubjectInfo, true);
     }
 
     public function toMap()

@@ -20,11 +20,11 @@ class NotifyInterestSupplierpolicyRequest extends Model
      */
     public $requestNo;
 
-    // 权益订单号
+    // 我方权益申请流水号
     /**
      * @var string
      */
-    public $orderNo;
+    public $interestNo;
 
     // 保单信息 json字符串
     /**
@@ -34,14 +34,14 @@ class NotifyInterestSupplierpolicyRequest extends Model
     protected $_name = [
         'authToken'  => 'auth_token',
         'requestNo'  => 'request_no',
-        'orderNo'    => 'order_no',
+        'interestNo' => 'interest_no',
         'policyInfo' => 'policy_info',
     ];
 
     public function validate()
     {
         Model::validateRequired('requestNo', $this->requestNo, true);
-        Model::validateRequired('orderNo', $this->orderNo, true);
+        Model::validateRequired('interestNo', $this->interestNo, true);
         Model::validateRequired('policyInfo', $this->policyInfo, true);
     }
 
@@ -54,8 +54,8 @@ class NotifyInterestSupplierpolicyRequest extends Model
         if (null !== $this->requestNo) {
             $res['request_no'] = $this->requestNo;
         }
-        if (null !== $this->orderNo) {
-            $res['order_no'] = $this->orderNo;
+        if (null !== $this->interestNo) {
+            $res['interest_no'] = $this->interestNo;
         }
         if (null !== $this->policyInfo) {
             $res['policy_info'] = $this->policyInfo;
@@ -78,8 +78,8 @@ class NotifyInterestSupplierpolicyRequest extends Model
         if (isset($map['request_no'])) {
             $model->requestNo = $map['request_no'];
         }
-        if (isset($map['order_no'])) {
-            $model->orderNo = $map['order_no'];
+        if (isset($map['interest_no'])) {
+            $model->interestNo = $map['interest_no'];
         }
         if (isset($map['policy_info'])) {
             $model->policyInfo = $map['policy_info'];
