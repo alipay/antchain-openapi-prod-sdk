@@ -3471,7 +3471,7 @@ type NotifyInterestScenesubjectRequest struct {
 	// 申请额度审批状态
 	ApplyLimitStatus *string `json:"apply_limit_status,omitempty" xml:"apply_limit_status,omitempty" require:"true"`
 	// 权益标的信息,JSON字符串
-	InterestSubjectInfo *string `json:"interest_subject_info,omitempty" xml:"interest_subject_info,omitempty" require:"true"`
+	InterestSubjectInfo *string `json:"interest_subject_info,omitempty" xml:"interest_subject_info,omitempty"`
 }
 
 func (s NotifyInterestScenesubjectRequest) String() string {
@@ -3632,8 +3632,8 @@ type NotifyInterestSupplierpolicyRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 请求流水号，每次推送需要唯一
 	RequestNo *string `json:"request_no,omitempty" xml:"request_no,omitempty" require:"true"`
-	// 权益订单号
-	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 我方权益申请流水号
+	InterestNo *string `json:"interest_no,omitempty" xml:"interest_no,omitempty" require:"true"`
 	// 保单信息 json字符串
 	PolicyInfo *string `json:"policy_info,omitempty" xml:"policy_info,omitempty" require:"true"`
 }
@@ -3656,8 +3656,8 @@ func (s *NotifyInterestSupplierpolicyRequest) SetRequestNo(v string) *NotifyInte
 	return s
 }
 
-func (s *NotifyInterestSupplierpolicyRequest) SetOrderNo(v string) *NotifyInterestSupplierpolicyRequest {
-	s.OrderNo = &v
+func (s *NotifyInterestSupplierpolicyRequest) SetInterestNo(v string) *NotifyInterestSupplierpolicyRequest {
+	s.InterestNo = &v
 	return s
 }
 
@@ -4126,7 +4126,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.9.3"),
+				"sdk_version":      tea.String("1.9.4"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
