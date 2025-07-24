@@ -2531,7 +2531,7 @@ export class NotifyInterestScenesubjectRequest extends $tea.Model {
   // 申请额度审批状态
   applyLimitStatus: string;
   // 权益标的信息,JSON字符串
-  interestSubjectInfo: string;
+  interestSubjectInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2658,15 +2658,15 @@ export class NotifyInterestSupplierpolicyRequest extends $tea.Model {
   authToken?: string;
   // 请求流水号，每次推送需要唯一
   requestNo: string;
-  // 权益订单号
-  orderNo: string;
+  // 我方权益申请流水号
+  interestNo: string;
   // 保单信息 json字符串
   policyInfo: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       requestNo: 'request_no',
-      orderNo: 'order_no',
+      interestNo: 'interest_no',
       policyInfo: 'policy_info',
     };
   }
@@ -2675,7 +2675,7 @@ export class NotifyInterestSupplierpolicyRequest extends $tea.Model {
     return {
       authToken: 'string',
       requestNo: 'string',
-      orderNo: 'string',
+      interestNo: 'string',
       policyInfo: 'string',
     };
   }
@@ -3060,7 +3060,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.9.3",
+          sdk_version: "1.9.4",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
