@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.1',
+                    'sdk_version': '1.6.2',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.1',
+                    'sdk_version': '1.6.2',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -5381,6 +5381,118 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ConfirmAntchainAtoFundCompensateResponse(),
             await self.do_request_async('1.0', 'antchain.ato.fund.compensate.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def retry_antchain_ato_withhold_planpending(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RetryAntchainAtoWithholdPlanpendingRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RetryAntchainAtoWithholdPlanpendingResponse:
+        """
+        Description: 重试pending状态的代扣计划
+        Summary: 重试pending状态的代扣计划
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.retry_antchain_ato_withhold_planpending_ex(request, headers, runtime)
+
+    async def retry_antchain_ato_withhold_planpending_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RetryAntchainAtoWithholdPlanpendingRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RetryAntchainAtoWithholdPlanpendingResponse:
+        """
+        Description: 重试pending状态的代扣计划
+        Summary: 重试pending状态的代扣计划
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.retry_antchain_ato_withhold_planpending_ex_async(request, headers, runtime)
+
+    def retry_antchain_ato_withhold_planpending_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RetryAntchainAtoWithholdPlanpendingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RetryAntchainAtoWithholdPlanpendingResponse:
+        """
+        Description: 重试pending状态的代扣计划
+        Summary: 重试pending状态的代扣计划
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RetryAntchainAtoWithholdPlanpendingResponse(),
+            self.do_request('1.0', 'antchain.ato.withhold.planpending.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def retry_antchain_ato_withhold_planpending_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RetryAntchainAtoWithholdPlanpendingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RetryAntchainAtoWithholdPlanpendingResponse:
+        """
+        Description: 重试pending状态的代扣计划
+        Summary: 重试pending状态的代扣计划
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RetryAntchainAtoWithholdPlanpendingResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.withhold.planpending.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def retry_antchain_ato_withhold_dividepending(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RetryAntchainAtoWithholdDividependingRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RetryAntchainAtoWithholdDividependingResponse:
+        """
+        Description: 分账pending重试
+        Summary: 分账pending重试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.retry_antchain_ato_withhold_dividepending_ex(request, headers, runtime)
+
+    async def retry_antchain_ato_withhold_dividepending_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RetryAntchainAtoWithholdDividependingRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RetryAntchainAtoWithholdDividependingResponse:
+        """
+        Description: 分账pending重试
+        Summary: 分账pending重试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.retry_antchain_ato_withhold_dividepending_ex_async(request, headers, runtime)
+
+    def retry_antchain_ato_withhold_dividepending_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RetryAntchainAtoWithholdDividependingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RetryAntchainAtoWithholdDividependingResponse:
+        """
+        Description: 分账pending重试
+        Summary: 分账pending重试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RetryAntchainAtoWithholdDividependingResponse(),
+            self.do_request('1.0', 'antchain.ato.withhold.dividepending.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def retry_antchain_ato_withhold_dividepending_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RetryAntchainAtoWithholdDividependingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RetryAntchainAtoWithholdDividependingResponse:
+        """
+        Description: 分账pending重试
+        Summary: 分账pending重试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RetryAntchainAtoWithholdDividependingResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.withhold.dividepending.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def sync_antchain_ato_trade_promoorderinfo(
