@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.0',
+    sdk_version = '1.1.2',
     _prod_code = 'ERAPROD',
     _prod_channel = 'default'
   };
@@ -206,7 +206,7 @@ model OperateAgentProxyRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // json 序列化后的请求入参
-  requestJson: string(name='request_json'),
+  agentChatRequest: string(name='agent_chat_request'),
 }
 
 model OperateAgentProxyResponse = {
@@ -217,7 +217,7 @@ model OperateAgentProxyResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // json 序列化的回执结果
-  responseJson?: string(name='response_json'),
+  chatCompletionObject?: string(name='chat_completion_object'),
 }
 
 /**
