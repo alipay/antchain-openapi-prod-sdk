@@ -145,12 +145,12 @@ export class OperateAgentProxyRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // json 序列化后的请求入参
-  requestJson: string;
+  agentChatRequest: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      requestJson: 'request_json',
+      agentChatRequest: 'agent_chat_request',
     };
   }
 
@@ -158,7 +158,7 @@ export class OperateAgentProxyRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      requestJson: 'string',
+      agentChatRequest: 'string',
     };
   }
 
@@ -175,13 +175,13 @@ export class OperateAgentProxyResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // json 序列化的回执结果
-  responseJson?: string;
+  chatCompletionObject?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      responseJson: 'response_json',
+      chatCompletionObject: 'chat_completion_object',
     };
   }
 
@@ -190,7 +190,7 @@ export class OperateAgentProxyResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      responseJson: 'string',
+      chatCompletionObject: 'string',
     };
   }
 
@@ -312,7 +312,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.0",
+          sdk_version: "1.1.2",
           _prod_code: "ERAPROD",
           _prod_channel: "default",
         };
