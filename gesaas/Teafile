@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "GESAAS",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-gesaas:1.0.2",
-    "go": "github.com/antchain-openapi-sdk-go/gesaas/client:v1.0.2",
+    "java": "com.antgroup.antchain.openapi:openapi-gesaas:1.0.3",
+    "go": "github.com/antchain-openapi-sdk-go/gesaas/client:v1.0.3",
     "csharp": "AntChain.SDK.GESAAS:0.0.1",
-    "ts": "@antchain/gesaas:1.0.2",
-    "php": "antchain/gesaas:1.0.2",
-    "python": "antchain_sdk_gesaas:1.0.2"
+    "ts": "@antchain/gesaas:1.0.3",
+    "php": "antchain/gesaas:1.0.3",
+    "python": "antchain_sdk_gesaas:1.0.3"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
