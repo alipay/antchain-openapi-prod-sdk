@@ -12,9 +12,9 @@ public class OperateAgentProxyRequest extends TeaModel {
     public String productInstanceId;
 
     // json 序列化后的请求入参
-    @NameInMap("request_json")
+    @NameInMap("agent_chat_request")
     @Validation(required = true)
-    public String requestJson;
+    public String agentChatRequest;
 
     public static OperateAgentProxyRequest build(java.util.Map<String, ?> map) throws Exception {
         OperateAgentProxyRequest self = new OperateAgentProxyRequest();
@@ -37,12 +37,12 @@ public class OperateAgentProxyRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public OperateAgentProxyRequest setRequestJson(String requestJson) {
-        this.requestJson = requestJson;
+    public OperateAgentProxyRequest setAgentChatRequest(String agentChatRequest) {
+        this.agentChatRequest = agentChatRequest;
         return this;
     }
-    public String getRequestJson() {
-        return this.requestJson;
+    public String getAgentChatRequest() {
+        return this.agentChatRequest;
     }
 
 }

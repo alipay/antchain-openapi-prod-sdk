@@ -17,8 +17,8 @@ public class OperateAgentProxyResponse extends TeaModel {
     public String resultMsg;
 
     // json 序列化的回执结果
-    @NameInMap("response_json")
-    public String responseJson;
+    @NameInMap("chat_completion_object")
+    public String chatCompletionObject;
 
     public static OperateAgentProxyResponse build(java.util.Map<String, ?> map) throws Exception {
         OperateAgentProxyResponse self = new OperateAgentProxyResponse();
@@ -49,12 +49,12 @@ public class OperateAgentProxyResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public OperateAgentProxyResponse setResponseJson(String responseJson) {
-        this.responseJson = responseJson;
+    public OperateAgentProxyResponse setChatCompletionObject(String chatCompletionObject) {
+        this.chatCompletionObject = chatCompletionObject;
         return this;
     }
-    public String getResponseJson() {
-        return this.responseJson;
+    public String getChatCompletionObject() {
+        return this.chatCompletionObject;
     }
 
 }
