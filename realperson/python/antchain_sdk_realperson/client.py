@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 音频元数据
+            # 卡证OCR图片坐标
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.21.4',
+                    'sdk_version': '1.21.19',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 音频元数据
+            # 卡证OCR图片坐标
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.21.4',
+                    'sdk_version': '1.21.19',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -2769,6 +2769,24 @@ class Client:
         Description: 数科刷脸服务端初始化接口
         Summary: 数科刷脸服务端初始化接口
         """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = realperson_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='di.realperson.faceverify.server.create',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                create_faceverify_server_response = realperson_models.CreateFaceverifyServerResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return create_faceverify_server_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             realperson_models.CreateFaceverifyServerResponse(),
@@ -2785,6 +2803,24 @@ class Client:
         Description: 数科刷脸服务端初始化接口
         Summary: 数科刷脸服务端初始化接口
         """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = realperson_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='di.realperson.faceverify.server.create',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                create_faceverify_server_response = realperson_models.CreateFaceverifyServerResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return create_faceverify_server_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             realperson_models.CreateFaceverifyServerResponse(),
@@ -3329,6 +3365,190 @@ class Client:
         return TeaCore.from_map(
             realperson_models.QueryFaceverifyServermaterialResponse(),
             await self.do_request_async('1.0', 'di.realperson.faceverify.servermaterial.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def scalein_image(
+        self,
+        request: realperson_models.ScaleinImageRequest,
+    ) -> realperson_models.ScaleinImageResponse:
+        """
+        Description: 图片压缩接口
+        Summary: 图片压缩接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.scalein_image_ex(request, headers, runtime)
+
+    async def scalein_image_async(
+        self,
+        request: realperson_models.ScaleinImageRequest,
+    ) -> realperson_models.ScaleinImageResponse:
+        """
+        Description: 图片压缩接口
+        Summary: 图片压缩接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.scalein_image_ex_async(request, headers, runtime)
+
+    def scalein_image_ex(
+        self,
+        request: realperson_models.ScaleinImageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.ScaleinImageResponse:
+        """
+        Description: 图片压缩接口
+        Summary: 图片压缩接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = realperson_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='di.realperson.image.scalein',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                scalein_image_response = realperson_models.ScaleinImageResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return scalein_image_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.ScaleinImageResponse(),
+            self.do_request('1.0', 'di.realperson.image.scalein', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def scalein_image_ex_async(
+        self,
+        request: realperson_models.ScaleinImageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.ScaleinImageResponse:
+        """
+        Description: 图片压缩接口
+        Summary: 图片压缩接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = realperson_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='di.realperson.image.scalein',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                scalein_image_response = realperson_models.ScaleinImageResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return scalein_image_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.ScaleinImageResponse(),
+            await self.do_request_async('1.0', 'di.realperson.image.scalein', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def recognize_ocr_individualcard(
+        self,
+        request: realperson_models.RecognizeOcrIndividualcardRequest,
+    ) -> realperson_models.RecognizeOcrIndividualcardResponse:
+        """
+        Description: 要素卡证OCR
+        Summary: 要素卡证OCR
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.recognize_ocr_individualcard_ex(request, headers, runtime)
+
+    async def recognize_ocr_individualcard_async(
+        self,
+        request: realperson_models.RecognizeOcrIndividualcardRequest,
+    ) -> realperson_models.RecognizeOcrIndividualcardResponse:
+        """
+        Description: 要素卡证OCR
+        Summary: 要素卡证OCR
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.recognize_ocr_individualcard_ex_async(request, headers, runtime)
+
+    def recognize_ocr_individualcard_ex(
+        self,
+        request: realperson_models.RecognizeOcrIndividualcardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.RecognizeOcrIndividualcardResponse:
+        """
+        Description: 要素卡证OCR
+        Summary: 要素卡证OCR
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = realperson_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='di.realperson.ocr.individualcard.recognize',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                recognize_ocr_individualcard_response = realperson_models.RecognizeOcrIndividualcardResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return recognize_ocr_individualcard_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.RecognizeOcrIndividualcardResponse(),
+            self.do_request('1.0', 'di.realperson.ocr.individualcard.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def recognize_ocr_individualcard_ex_async(
+        self,
+        request: realperson_models.RecognizeOcrIndividualcardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.RecognizeOcrIndividualcardResponse:
+        """
+        Description: 要素卡证OCR
+        Summary: 要素卡证OCR
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = realperson_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='di.realperson.ocr.individualcard.recognize',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                recognize_ocr_individualcard_response = realperson_models.RecognizeOcrIndividualcardResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return recognize_ocr_individualcard_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.RecognizeOcrIndividualcardResponse(),
+            await self.do_request_async('1.0', 'di.realperson.ocr.individualcard.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

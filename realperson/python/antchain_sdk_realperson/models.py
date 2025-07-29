@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
-from typing import BinaryIO, List
+from typing import List, BinaryIO
 
 
 class Config(TeaModel):
@@ -154,6 +154,199 @@ class Config(TeaModel):
         return self
 
 
+class OcrLocation(TeaModel):
+    def __init__(
+        self,
+        top: str = None,
+        left: str = None,
+        width: str = None,
+        height: str = None,
+    ):
+        # 表示定位位置的长方形左上顶点的垂直坐标
+        self.top = top
+        # 表示定位位置的长方形左上顶点的水平坐标
+        self.left = left
+        # 表示定位位置的长方形的宽度
+        self.width = width
+        # 表示定位位置的长方形的高度
+        self.height = height
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.top is not None:
+            result['top'] = self.top
+        if self.left is not None:
+            result['left'] = self.left
+        if self.width is not None:
+            result['width'] = self.width
+        if self.height is not None:
+            result['height'] = self.height
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('top') is not None:
+            self.top = m.get('top')
+        if m.get('left') is not None:
+            self.left = m.get('left')
+        if m.get('width') is not None:
+            self.width = m.get('width')
+        if m.get('height') is not None:
+            self.height = m.get('height')
+        return self
+
+
+class CardQuality(TeaModel):
+    def __init__(
+        self,
+        is_clear: str = None,
+        is_clear_propobility: str = None,
+        is_complete: str = None,
+        is_complete_propobility: str = None,
+        is_no_cover: str = None,
+        is_no_cover_propobility: str = None,
+    ):
+        # 1-清晰
+        # 0-不清晰
+        # 
+        self.is_clear = is_clear
+        # 清晰度取值0-1，值越大表示图像质量越好，默认阈值0.5
+        self.is_clear_propobility = is_clear_propobility
+        # 1-边框/四角完整
+        # 0-边框/四角不完整
+        self.is_complete = is_complete
+        # 取值0-1，值越大表示图像质量越好，默认阈值0.5
+        self.is_complete_propobility = is_complete_propobility
+        # 1-头像、关键字段无遮挡/马赛克
+        # 0-头像、关键字段有遮挡/马赛克
+        self.is_no_cover = is_no_cover
+        # 有无遮挡propobility-取值0-1，值越大表示图像质量越好，默认阈值0.3
+        self.is_no_cover_propobility = is_no_cover_propobility
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.is_clear is not None:
+            result['is_clear'] = self.is_clear
+        if self.is_clear_propobility is not None:
+            result['is_clear_propobility'] = self.is_clear_propobility
+        if self.is_complete is not None:
+            result['is_complete'] = self.is_complete
+        if self.is_complete_propobility is not None:
+            result['is_complete_propobility'] = self.is_complete_propobility
+        if self.is_no_cover is not None:
+            result['is_no_cover'] = self.is_no_cover
+        if self.is_no_cover_propobility is not None:
+            result['is_no_cover_propobility'] = self.is_no_cover_propobility
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('is_clear') is not None:
+            self.is_clear = m.get('is_clear')
+        if m.get('is_clear_propobility') is not None:
+            self.is_clear_propobility = m.get('is_clear_propobility')
+        if m.get('is_complete') is not None:
+            self.is_complete = m.get('is_complete')
+        if m.get('is_complete_propobility') is not None:
+            self.is_complete_propobility = m.get('is_complete_propobility')
+        if m.get('is_no_cover') is not None:
+            self.is_no_cover = m.get('is_no_cover')
+        if m.get('is_no_cover_propobility') is not None:
+            self.is_no_cover_propobility = m.get('is_no_cover_propobility')
+        return self
+
+
+class RiskInfo(TeaModel):
+    def __init__(
+        self,
+        copy: str = None,
+        reshoot: str = None,
+        image_status: List[str] = None,
+        risk_type: List[str] = None,
+        card_quality: CardQuality = None,
+        idcard_number_type: str = None,
+    ):
+        # 是否为复印件（仅身份证、银行卡含该字段）。0：否，1：是
+        self.copy = copy
+        # 是否翻拍（仅身份证含该字段）。0：否，1：是
+        self.reshoot = reshoot
+        # normal-识别正常
+        # non_idcard-上传的图片中不包含身份证
+        # blurred-身份证模糊
+        # other_type_card-其他类型证照
+        # over_exposure-身份证关键字段反光或过曝
+        # over_dark-身份证欠曝（亮度过低）
+        # unknown-未知状态
+        self.image_status = image_status
+        # 输入参数 risk_info_type=true 时，则返回该字段，判断身份证是否存在风险，返回值：
+        # normal-正常身份证；
+        # copy-复印件；
+        # temporary-临时身份证；
+        # screen-翻拍；
+        # PS-被PS修改；
+        # unknown-其他未知情况
+        self.risk_type = risk_type
+        # 图片质量
+        self.card_quality = card_quality
+        # 证件一致性
+        self.idcard_number_type = idcard_number_type
+
+    def validate(self):
+        if self.card_quality:
+            self.card_quality.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.copy is not None:
+            result['copy'] = self.copy
+        if self.reshoot is not None:
+            result['reshoot'] = self.reshoot
+        if self.image_status is not None:
+            result['image_status'] = self.image_status
+        if self.risk_type is not None:
+            result['risk_type'] = self.risk_type
+        if self.card_quality is not None:
+            result['card_quality'] = self.card_quality.to_map()
+        if self.idcard_number_type is not None:
+            result['idcard_number_type'] = self.idcard_number_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('copy') is not None:
+            self.copy = m.get('copy')
+        if m.get('reshoot') is not None:
+            self.reshoot = m.get('reshoot')
+        if m.get('image_status') is not None:
+            self.image_status = m.get('image_status')
+        if m.get('risk_type') is not None:
+            self.risk_type = m.get('risk_type')
+        if m.get('card_quality') is not None:
+            temp_model = CardQuality()
+            self.card_quality = temp_model.from_map(m['card_quality'])
+        if m.get('idcard_number_type') is not None:
+            self.idcard_number_type = m.get('idcard_number_type')
+        return self
+
+
 class AudioMeta(TeaModel):
     def __init__(
         self,
@@ -242,6 +435,352 @@ class Audio(TeaModel):
             self.raw_data = m.get('raw_data')
         if m.get('audio_url') is not None:
             self.audio_url = m.get('audio_url')
+        return self
+
+
+class OcrInfo(TeaModel):
+    def __init__(
+        self,
+        side: str = None,
+        photo: str = None,
+        photo_location: OcrLocation = None,
+        card_image: str = None,
+        card_location: OcrLocation = None,
+        name: str = None,
+        sex: str = None,
+        nationality: str = None,
+        birth: str = None,
+        address: str = None,
+        num: str = None,
+        start_date: str = None,
+        end_date: str = None,
+        issue: str = None,
+        bank_card_type: str = None,
+        bank_name: str = None,
+        card_number: str = None,
+        valid_to_date: str = None,
+        title: str = None,
+        date_of_expiry: str = None,
+        change_num: str = None,
+        first_issue: str = None,
+        driver_class: str = None,
+        doc_num: str = None,
+        issue_time: str = None,
+        current_time: str = None,
+        bar_code: str = None,
+        points: str = None,
+        remark: str = None,
+        status: str = None,
+        vehicle: str = None,
+        model: str = None,
+        type: str = None,
+        useage: str = None,
+        eng_num: str = None,
+        plate: str = None,
+        inspec_record: str = None,
+        load: str = None,
+        curb_mass: str = None,
+        overall_dimension: str = None,
+        seating: str = None,
+        gross_mass: str = None,
+        fuel: str = None,
+        traction_mass: str = None,
+        chip_num: str = None,
+    ):
+        # 当识别到身份证是人像面时返回FACE，国徽面时返回BACK
+        self.side = side
+        # 当请求参数 return_photo = true时返回，头像切图的 base64 编码（无编码头，需自行处理）
+        # *当服务降级时，返回null
+        self.photo = photo
+        # {}	当请求参数 return_photo = true时返回，头像的位置信息（坐标0点为左上角）
+        # *当服务降级时，返回null
+        self.photo_location = photo_location
+        # 当请求参数 return_card = true时返回，身份证裁剪切图的 base64 编码（无编码头，需自行处理）
+        # *当服务降级时，返回null
+        self.card_image = card_image
+        # 当请求参数 return_card = true时返回，身份证裁剪切图的位置信息（坐标0点为左上角）
+        # *当服务降级时，返回null
+        self.card_location = card_location
+        # 姓名
+        self.name = name
+        # 性别
+        self.sex = sex
+        # 民族
+        self.nationality = nationality
+        # 出生日期（yyyyMMdd格式）
+        self.birth = birth
+        # 住址
+        self.address = address
+        # 身份证号
+        self.num = num
+        # 发证日期（yyyyMMdd格式）
+        self.start_date = start_date
+        # 到期日（yyyyMMdd格式）。
+        # 如果是长期身份证，该字段内容为“长期”（不含引号）。
+        self.end_date = end_date
+        # 签发机关
+        self.issue = issue
+        # 银行卡类型（CC（贷记卡），SCC（准贷记卡），DCC（存贷合一卡），DC（储蓄卡），PC（预付卡））
+        self.bank_card_type = bank_card_type
+        # 银行名，不能识别时为空
+        self.bank_name = bank_name
+        # 银行卡号
+        self.card_number = card_number
+        # 有效期至
+        self.valid_to_date = valid_to_date
+        # 证件类别
+        self.title = title
+        # 有效期限(yyyy.MM.dd-yyyy.MM.dd格式)
+        self.date_of_expiry = date_of_expiry
+        # 换证次数
+        self.change_num = change_num
+        # 初次领证日期
+        self.first_issue = first_issue
+        # 准驾车型
+        self.driver_class = driver_class
+        # 档案编号
+        self.doc_num = doc_num
+        # 电子驾驶证生成时间
+        self.issue_time = issue_time
+        # 当前时间
+        self.current_time = current_time
+        # 条形码编号
+        self.bar_code = bar_code
+        # 累计记分
+        self.points = points
+        # 记录
+        self.remark = remark
+        # 状态
+        self.status = status
+        # 车辆识别代号
+        self.vehicle = vehicle
+        # 品牌型号
+        self.model = model
+        # 车辆类型
+        self.type = type
+        # 使用性质
+        self.useage = useage
+        # 发动机号码
+        self.eng_num = eng_num
+        # 车牌号码
+        self.plate = plate
+        # 检验记录
+        self.inspec_record = inspec_record
+        # 核定载质量
+        self.load = load
+        # 整备质量
+        self.curb_mass = curb_mass
+        # 外廓尺寸
+        self.overall_dimension = overall_dimension
+        # 核定载人数
+        self.seating = seating
+        # 总质量
+        self.gross_mass = gross_mass
+        # 燃油类型
+        self.fuel = fuel
+        # 准牵引总质量
+        self.traction_mass = traction_mass
+        # 证芯编号
+        self.chip_num = chip_num
+
+    def validate(self):
+        if self.photo_location:
+            self.photo_location.validate()
+        if self.card_location:
+            self.card_location.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.side is not None:
+            result['side'] = self.side
+        if self.photo is not None:
+            result['photo'] = self.photo
+        if self.photo_location is not None:
+            result['photo_location'] = self.photo_location.to_map()
+        if self.card_image is not None:
+            result['card_image'] = self.card_image
+        if self.card_location is not None:
+            result['card_location'] = self.card_location.to_map()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.sex is not None:
+            result['sex'] = self.sex
+        if self.nationality is not None:
+            result['nationality'] = self.nationality
+        if self.birth is not None:
+            result['birth'] = self.birth
+        if self.address is not None:
+            result['address'] = self.address
+        if self.num is not None:
+            result['num'] = self.num
+        if self.start_date is not None:
+            result['start_date'] = self.start_date
+        if self.end_date is not None:
+            result['end_date'] = self.end_date
+        if self.issue is not None:
+            result['issue'] = self.issue
+        if self.bank_card_type is not None:
+            result['bank_card_type'] = self.bank_card_type
+        if self.bank_name is not None:
+            result['bank_name'] = self.bank_name
+        if self.card_number is not None:
+            result['card_number'] = self.card_number
+        if self.valid_to_date is not None:
+            result['valid_to_date'] = self.valid_to_date
+        if self.title is not None:
+            result['title'] = self.title
+        if self.date_of_expiry is not None:
+            result['date_of_expiry'] = self.date_of_expiry
+        if self.change_num is not None:
+            result['change_num'] = self.change_num
+        if self.first_issue is not None:
+            result['first_issue'] = self.first_issue
+        if self.driver_class is not None:
+            result['driver_class'] = self.driver_class
+        if self.doc_num is not None:
+            result['doc_num'] = self.doc_num
+        if self.issue_time is not None:
+            result['issue_time'] = self.issue_time
+        if self.current_time is not None:
+            result['current_time'] = self.current_time
+        if self.bar_code is not None:
+            result['bar_code'] = self.bar_code
+        if self.points is not None:
+            result['points'] = self.points
+        if self.remark is not None:
+            result['remark'] = self.remark
+        if self.status is not None:
+            result['status'] = self.status
+        if self.vehicle is not None:
+            result['vehicle'] = self.vehicle
+        if self.model is not None:
+            result['model'] = self.model
+        if self.type is not None:
+            result['type'] = self.type
+        if self.useage is not None:
+            result['useage'] = self.useage
+        if self.eng_num is not None:
+            result['eng_num'] = self.eng_num
+        if self.plate is not None:
+            result['plate'] = self.plate
+        if self.inspec_record is not None:
+            result['inspec_record'] = self.inspec_record
+        if self.load is not None:
+            result['load'] = self.load
+        if self.curb_mass is not None:
+            result['curb_mass'] = self.curb_mass
+        if self.overall_dimension is not None:
+            result['overall_dimension'] = self.overall_dimension
+        if self.seating is not None:
+            result['seating'] = self.seating
+        if self.gross_mass is not None:
+            result['gross_mass'] = self.gross_mass
+        if self.fuel is not None:
+            result['fuel'] = self.fuel
+        if self.traction_mass is not None:
+            result['traction_mass'] = self.traction_mass
+        if self.chip_num is not None:
+            result['chip_num'] = self.chip_num
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('side') is not None:
+            self.side = m.get('side')
+        if m.get('photo') is not None:
+            self.photo = m.get('photo')
+        if m.get('photo_location') is not None:
+            temp_model = OcrLocation()
+            self.photo_location = temp_model.from_map(m['photo_location'])
+        if m.get('card_image') is not None:
+            self.card_image = m.get('card_image')
+        if m.get('card_location') is not None:
+            temp_model = OcrLocation()
+            self.card_location = temp_model.from_map(m['card_location'])
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('sex') is not None:
+            self.sex = m.get('sex')
+        if m.get('nationality') is not None:
+            self.nationality = m.get('nationality')
+        if m.get('birth') is not None:
+            self.birth = m.get('birth')
+        if m.get('address') is not None:
+            self.address = m.get('address')
+        if m.get('num') is not None:
+            self.num = m.get('num')
+        if m.get('start_date') is not None:
+            self.start_date = m.get('start_date')
+        if m.get('end_date') is not None:
+            self.end_date = m.get('end_date')
+        if m.get('issue') is not None:
+            self.issue = m.get('issue')
+        if m.get('bank_card_type') is not None:
+            self.bank_card_type = m.get('bank_card_type')
+        if m.get('bank_name') is not None:
+            self.bank_name = m.get('bank_name')
+        if m.get('card_number') is not None:
+            self.card_number = m.get('card_number')
+        if m.get('valid_to_date') is not None:
+            self.valid_to_date = m.get('valid_to_date')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('date_of_expiry') is not None:
+            self.date_of_expiry = m.get('date_of_expiry')
+        if m.get('change_num') is not None:
+            self.change_num = m.get('change_num')
+        if m.get('first_issue') is not None:
+            self.first_issue = m.get('first_issue')
+        if m.get('driver_class') is not None:
+            self.driver_class = m.get('driver_class')
+        if m.get('doc_num') is not None:
+            self.doc_num = m.get('doc_num')
+        if m.get('issue_time') is not None:
+            self.issue_time = m.get('issue_time')
+        if m.get('current_time') is not None:
+            self.current_time = m.get('current_time')
+        if m.get('bar_code') is not None:
+            self.bar_code = m.get('bar_code')
+        if m.get('points') is not None:
+            self.points = m.get('points')
+        if m.get('remark') is not None:
+            self.remark = m.get('remark')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('vehicle') is not None:
+            self.vehicle = m.get('vehicle')
+        if m.get('model') is not None:
+            self.model = m.get('model')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('useage') is not None:
+            self.useage = m.get('useage')
+        if m.get('eng_num') is not None:
+            self.eng_num = m.get('eng_num')
+        if m.get('plate') is not None:
+            self.plate = m.get('plate')
+        if m.get('inspec_record') is not None:
+            self.inspec_record = m.get('inspec_record')
+        if m.get('load') is not None:
+            self.load = m.get('load')
+        if m.get('curb_mass') is not None:
+            self.curb_mass = m.get('curb_mass')
+        if m.get('overall_dimension') is not None:
+            self.overall_dimension = m.get('overall_dimension')
+        if m.get('seating') is not None:
+            self.seating = m.get('seating')
+        if m.get('gross_mass') is not None:
+            self.gross_mass = m.get('gross_mass')
+        if m.get('fuel') is not None:
+            self.fuel = m.get('fuel')
+        if m.get('traction_mass') is not None:
+            self.traction_mass = m.get('traction_mass')
+        if m.get('chip_num') is not None:
+            self.chip_num = m.get('chip_num')
         return self
 
 
@@ -6318,6 +6857,9 @@ class CreateFaceverifyServerRequest(TeaModel):
         user_mobile: str = None,
         callback_need_retry: str = None,
         model: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -6358,6 +6900,12 @@ class CreateFaceverifyServerRequest(TeaModel):
         self.callback_need_retry = callback_need_retry
         # 活体检测的类型
         self.model = model
+        # 图片文件
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
 
     def validate(self):
         self.validate_required(self.outer_order_no, 'outer_order_no')
@@ -6414,6 +6962,12 @@ class CreateFaceverifyServerRequest(TeaModel):
             result['callback_need_retry'] = self.callback_need_retry
         if self.model is not None:
             result['model'] = self.model
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
         return result
 
     def from_map(self, m: dict = None):
@@ -6458,6 +7012,12 @@ class CreateFaceverifyServerRequest(TeaModel):
             self.callback_need_retry = m.get('callback_need_retry')
         if m.get('model') is not None:
             self.model = m.get('model')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
         return self
 
 
@@ -7922,6 +8482,341 @@ class QueryFaceverifyServermaterialResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('material_info') is not None:
             self.material_info = m.get('material_info')
+        return self
+
+
+class ScaleinImageRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 图片
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+
+    def validate(self):
+        self.validate_required(self.file_id, 'file_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        return self
+
+
+class ScaleinImageResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        base_64: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 压缩后的图片base64
+        self.base_64 = base_64
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.base_64 is not None:
+            result['base64'] = self.base_64
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('base64') is not None:
+            self.base_64 = m.get('base64')
+        return self
+
+
+class RecognizeOcrIndividualcardRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        outer_order_no: str = None,
+        ocr_type: str = None,
+        data_type: str = None,
+        data_content: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+        req_enc_type: str = None,
+        resp_enc_type: str = None,
+        enc_token: str = None,
+        risk_info_type: str = None,
+        return_photo: str = None,
+        return_image: str = None,
+        extern_param: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 长度不超过32位的0-9A-Za-z字符串。 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+        self.outer_order_no = outer_order_no
+        # 待识别的卡类型。取值约束：ID_CARD（身份证）;EEP_TO_ML_CARD（港澳来往大陆通行证）;BANK_CARD（银行卡）
+        self.ocr_type = ocr_type
+        # 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；FILE(文件)、URL（暂不支持）
+        self.data_type = data_type
+        # 传入的图片的具体内容，需要与data_type的选择保持一致。
+        # 
+        self.data_content = data_content
+        # 证件图片
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+        # 入参data_content是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
+        self.req_enc_type = req_enc_type
+        # 出参ocr_info是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
+        self.resp_enc_type = resp_enc_type
+        # 经过公钥RSA加密的AES密钥，用于对出参ocr_info加密。当req_enc_type = 1或resp_enc_type = 1时必填。
+        self.enc_token = enc_token
+        # 是否启用防伪检测，如果启用，出参会输出riskInfo字段。不填默认不启用防伪。取值约束：0（不启用）；1（启用）
+        self.risk_info_type = risk_info_type
+        # 是否返回身份证头像照片 0：否 1：是 不填默认不返回。
+        self.return_photo = return_photo
+        # 是否返回身份证图片 0：否 1：是 不填默认不返回。
+        self.return_image = return_image
+        # 扩展信息JSON串。
+        self.extern_param = extern_param
+
+    def validate(self):
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+        self.validate_required(self.ocr_type, 'ocr_type')
+        self.validate_required(self.data_type, 'data_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        if self.ocr_type is not None:
+            result['ocr_type'] = self.ocr_type
+        if self.data_type is not None:
+            result['data_type'] = self.data_type
+        if self.data_content is not None:
+            result['data_content'] = self.data_content
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.req_enc_type is not None:
+            result['req_enc_type'] = self.req_enc_type
+        if self.resp_enc_type is not None:
+            result['resp_enc_type'] = self.resp_enc_type
+        if self.enc_token is not None:
+            result['enc_token'] = self.enc_token
+        if self.risk_info_type is not None:
+            result['risk_info_type'] = self.risk_info_type
+        if self.return_photo is not None:
+            result['return_photo'] = self.return_photo
+        if self.return_image is not None:
+            result['return_image'] = self.return_image
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        if m.get('ocr_type') is not None:
+            self.ocr_type = m.get('ocr_type')
+        if m.get('data_type') is not None:
+            self.data_type = m.get('data_type')
+        if m.get('data_content') is not None:
+            self.data_content = m.get('data_content')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('req_enc_type') is not None:
+            self.req_enc_type = m.get('req_enc_type')
+        if m.get('resp_enc_type') is not None:
+            self.resp_enc_type = m.get('resp_enc_type')
+        if m.get('enc_token') is not None:
+            self.enc_token = m.get('enc_token')
+        if m.get('risk_info_type') is not None:
+            self.risk_info_type = m.get('risk_info_type')
+        if m.get('return_photo') is not None:
+            self.return_photo = m.get('return_photo')
+        if m.get('return_image') is not None:
+            self.return_image = m.get('return_image')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
+        return self
+
+
+class RecognizeOcrIndividualcardResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        ret_code: str = None,
+        ret_code_sub: str = None,
+        ret_message_sub: str = None,
+        ocr_info: OcrInfo = None,
+        risk_info: RiskInfo = None,
+        ext_info: str = None,
+        ocr_info_encrypt: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回结果码
+        self.ret_code = ret_code
+        # 错误码
+        self.ret_code_sub = ret_code_sub
+        # 错误信息
+        self.ret_message_sub = ret_message_sub
+        # 识别结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
+        self.ocr_info = ocr_info
+        # 防伪结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。 如果不启用防伪，则不返回该字段。
+        self.risk_info = risk_info
+        # 扩展信息JSON串。
+        self.ext_info = ext_info
+        # 加密后的识别结果
+        self.ocr_info_encrypt = ocr_info_encrypt
+
+    def validate(self):
+        if self.ocr_info:
+            self.ocr_info.validate()
+        if self.risk_info:
+            self.risk_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.ret_code is not None:
+            result['ret_code'] = self.ret_code
+        if self.ret_code_sub is not None:
+            result['ret_code_sub'] = self.ret_code_sub
+        if self.ret_message_sub is not None:
+            result['ret_message_sub'] = self.ret_message_sub
+        if self.ocr_info is not None:
+            result['ocr_info'] = self.ocr_info.to_map()
+        if self.risk_info is not None:
+            result['risk_info'] = self.risk_info.to_map()
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        if self.ocr_info_encrypt is not None:
+            result['ocr_info_encrypt'] = self.ocr_info_encrypt
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('ret_code') is not None:
+            self.ret_code = m.get('ret_code')
+        if m.get('ret_code_sub') is not None:
+            self.ret_code_sub = m.get('ret_code_sub')
+        if m.get('ret_message_sub') is not None:
+            self.ret_message_sub = m.get('ret_message_sub')
+        if m.get('ocr_info') is not None:
+            temp_model = OcrInfo()
+            self.ocr_info = temp_model.from_map(m['ocr_info'])
+        if m.get('risk_info') is not None:
+            temp_model = RiskInfo()
+            self.risk_info = temp_model.from_map(m['risk_info'])
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        if m.get('ocr_info_encrypt') is not None:
+            self.ocr_info_encrypt = m.get('ocr_info_encrypt')
         return self
 
 
