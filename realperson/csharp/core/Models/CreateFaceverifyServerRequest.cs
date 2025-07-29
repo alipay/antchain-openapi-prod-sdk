@@ -108,6 +108,25 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string Model { get; set; }
 
+        // 图片文件
+        /// <summary>
+        /// 待上传文件
+        /// </summary>
+        [NameInMap("fileObject")]
+        [Validation(Required=false)]
+        public Stream FileObject { get; set; }
+
+        /// <summary>
+        /// 待上传文件名
+        /// </summary>
+        [NameInMap("fileObjectName")]
+        [Validation(Required=false)]
+        public string FileObjectName { get; set; }
+
+        [NameInMap("file_id")]
+        [Validation(Required=false)]
+        public string FileId { get; set; }
+
     }
 
 }
