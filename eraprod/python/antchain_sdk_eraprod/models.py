@@ -256,16 +256,16 @@ class OperateAgentProxyRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        request_json: str = None,
+        agent_chat_request: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # json 序列化后的请求入参
-        self.request_json = request_json
+        self.agent_chat_request = agent_chat_request
 
     def validate(self):
-        self.validate_required(self.request_json, 'request_json')
+        self.validate_required(self.agent_chat_request, 'agent_chat_request')
 
     def to_map(self):
         _map = super().to_map()
@@ -277,8 +277,8 @@ class OperateAgentProxyRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.request_json is not None:
-            result['request_json'] = self.request_json
+        if self.agent_chat_request is not None:
+            result['agent_chat_request'] = self.agent_chat_request
         return result
 
     def from_map(self, m: dict = None):
@@ -287,8 +287,8 @@ class OperateAgentProxyRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('request_json') is not None:
-            self.request_json = m.get('request_json')
+        if m.get('agent_chat_request') is not None:
+            self.agent_chat_request = m.get('agent_chat_request')
         return self
 
 
@@ -298,7 +298,7 @@ class OperateAgentProxyResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        response_json: str = None,
+        chat_completion_object: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -307,7 +307,7 @@ class OperateAgentProxyResponse(TeaModel):
         # 异常信息的文本描述
         self.result_msg = result_msg
         # json 序列化的回执结果
-        self.response_json = response_json
+        self.chat_completion_object = chat_completion_object
 
     def validate(self):
         pass
@@ -324,8 +324,8 @@ class OperateAgentProxyResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.response_json is not None:
-            result['response_json'] = self.response_json
+        if self.chat_completion_object is not None:
+            result['chat_completion_object'] = self.chat_completion_object
         return result
 
     def from_map(self, m: dict = None):
@@ -336,8 +336,8 @@ class OperateAgentProxyResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('response_json') is not None:
-            self.response_json = m.get('response_json')
+        if m.get('chat_completion_object') is not None:
+            self.chat_completion_object = m.get('chat_completion_object')
         return self
 
 
