@@ -5,6 +5,7 @@
 namespace AntChain\REALPERSON\Models;
 
 use AlibabaCloud\Tea\Model;
+use GuzzleHttp\Psr7\Stream;
 
 class CreateFaceverifyServerRequest extends Model
 {
@@ -126,6 +127,26 @@ class CreateFaceverifyServerRequest extends Model
      * @var string
      */
     public $model;
+
+    // 图片文件
+    /**
+     * @description 待上传文件
+     *
+     * @var Stream
+     */
+    public $fileObject;
+
+    /**
+     * @description 待上传文件名
+     *
+     * @var string
+     */
+    public $fileObjectName;
+
+    /**
+     * @var string
+     */
+    public $fileId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -147,6 +168,7 @@ class CreateFaceverifyServerRequest extends Model
         'userMobile'        => 'user_mobile',
         'callbackNeedRetry' => 'callback_need_retry',
         'model'             => 'model',
+        'fileId'            => 'file_id',
     ];
 
     public function validate()
@@ -223,6 +245,15 @@ class CreateFaceverifyServerRequest extends Model
         if (null !== $this->model) {
             $res['model'] = $this->model;
         }
+        if (null !== $this->fileObject) {
+            $res['fileObject'] = $this->fileObject;
+        }
+        if (null !== $this->fileObjectName) {
+            $res['fileObjectName'] = $this->fileObjectName;
+        }
+        if (null !== $this->fileId) {
+            $res['file_id'] = $this->fileId;
+        }
 
         return $res;
     }
@@ -294,6 +325,15 @@ class CreateFaceverifyServerRequest extends Model
         }
         if (isset($map['model'])) {
             $model->model = $map['model'];
+        }
+        if (isset($map['fileObject'])) {
+            $model->fileObject = $map['fileObject'];
+        }
+        if (isset($map['fileObjectName'])) {
+            $model->fileObjectName = $map['fileObjectName'];
+        }
+        if (isset($map['file_id'])) {
+            $model->fileId = $map['file_id'];
         }
 
         return $model;

@@ -113,6 +113,10 @@ use AntChain\REALPERSON\Models\QueryTscenterDeviceRequest;
 use AntChain\REALPERSON\Models\QueryTscenterDeviceResponse;
 use AntChain\REALPERSON\Models\RecognizeDocIndividualcardRequest;
 use AntChain\REALPERSON\Models\RecognizeDocIndividualcardResponse;
+use AntChain\REALPERSON\Models\RecognizeOcrIndividualcardRequest;
+use AntChain\REALPERSON\Models\RecognizeOcrIndividualcardResponse;
+use AntChain\REALPERSON\Models\ScaleinImageRequest;
+use AntChain\REALPERSON\Models\ScaleinImageResponse;
 use AntChain\REALPERSON\Models\VerifyFacevrfZimRequest;
 use AntChain\REALPERSON\Models\VerifyFacevrfZimResponse;
 use AntChain\REALPERSON\Models\VerifyVoiceprintServermodeRequest;
@@ -236,7 +240,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 音频元数据
+            // 卡证OCR图片坐标
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -264,7 +268,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.21.4',
+                    'sdk_version'      => '1.21.19',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1783,6 +1787,25 @@ class Client
      */
     public function createFaceverifyServerEx($request, $headers, $runtime)
     {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'di.realperson.faceverify.server.create',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new CreateFaceverifyServerResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
         Utils::validateModel($request);
 
         return CreateFaceverifyServerResponse::fromMap($this->doRequest('1.0', 'di.realperson.faceverify.server.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
@@ -2102,6 +2125,110 @@ class Client
         Utils::validateModel($request);
 
         return QueryFaceverifyServermaterialResponse::fromMap($this->doRequest('1.0', 'di.realperson.faceverify.servermaterial.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 图片压缩接口
+     * Summary: 图片压缩接口.
+     *
+     * @param ScaleinImageRequest $request
+     *
+     * @return ScaleinImageResponse
+     */
+    public function scaleinImage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->scaleinImageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 图片压缩接口
+     * Summary: 图片压缩接口.
+     *
+     * @param ScaleinImageRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return ScaleinImageResponse
+     */
+    public function scaleinImageEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'di.realperson.image.scalein',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new ScaleinImageResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return ScaleinImageResponse::fromMap($this->doRequest('1.0', 'di.realperson.image.scalein', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 要素卡证OCR
+     * Summary: 要素卡证OCR.
+     *
+     * @param RecognizeOcrIndividualcardRequest $request
+     *
+     * @return RecognizeOcrIndividualcardResponse
+     */
+    public function recognizeOcrIndividualcard($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->recognizeOcrIndividualcardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 要素卡证OCR
+     * Summary: 要素卡证OCR.
+     *
+     * @param RecognizeOcrIndividualcardRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return RecognizeOcrIndividualcardResponse
+     */
+    public function recognizeOcrIndividualcardEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'di.realperson.ocr.individualcard.recognize',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new RecognizeOcrIndividualcardResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return RecognizeOcrIndividualcardResponse::fromMap($this->doRequest('1.0', 'di.realperson.ocr.individualcard.recognize', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
