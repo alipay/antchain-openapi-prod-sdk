@@ -30,12 +30,12 @@ class OperateAgentProxyResponse extends Model
     /**
      * @var string
      */
-    public $responseJson;
+    public $chatCompletionObject;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'responseJson' => 'response_json',
+        'reqMsgId'             => 'req_msg_id',
+        'resultCode'           => 'result_code',
+        'resultMsg'            => 'result_msg',
+        'chatCompletionObject' => 'chat_completion_object',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class OperateAgentProxyResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->responseJson) {
-            $res['response_json'] = $this->responseJson;
+        if (null !== $this->chatCompletionObject) {
+            $res['chat_completion_object'] = $this->chatCompletionObject;
         }
 
         return $res;
@@ -78,8 +78,8 @@ class OperateAgentProxyResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['response_json'])) {
-            $model->responseJson = $map['response_json'];
+        if (isset($map['chat_completion_object'])) {
+            $model->chatCompletionObject = $map['chat_completion_object'];
         }
 
         return $model;

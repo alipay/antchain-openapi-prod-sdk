@@ -23,16 +23,16 @@ class OperateAgentProxyRequest extends Model
     /**
      * @var string
      */
-    public $requestJson;
+    public $agentChatRequest;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'requestJson'       => 'request_json',
+        'agentChatRequest'  => 'agent_chat_request',
     ];
 
     public function validate()
     {
-        Model::validateRequired('requestJson', $this->requestJson, true);
+        Model::validateRequired('agentChatRequest', $this->agentChatRequest, true);
     }
 
     public function toMap()
@@ -44,8 +44,8 @@ class OperateAgentProxyRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->requestJson) {
-            $res['request_json'] = $this->requestJson;
+        if (null !== $this->agentChatRequest) {
+            $res['agent_chat_request'] = $this->agentChatRequest;
         }
 
         return $res;
@@ -65,8 +65,8 @@ class OperateAgentProxyRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['request_json'])) {
-            $model->requestJson = $map['request_json'];
+        if (isset($map['agent_chat_request'])) {
+            $model->agentChatRequest = $map['agent_chat_request'];
         }
 
         return $model;
