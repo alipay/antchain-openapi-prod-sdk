@@ -19,9 +19,9 @@ namespace AntChain.SDK.ERAPROD.Models
         public string ProductInstanceId { get; set; }
 
         // json 序列化后的请求入参
-        [NameInMap("request_json")]
+        [NameInMap("agent_chat_request")]
         [Validation(Required=true)]
-        public string RequestJson { get; set; }
+        public string AgentChatRequest { get; set; }
 
     }
 

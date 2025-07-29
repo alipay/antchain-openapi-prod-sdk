@@ -25,9 +25,9 @@ namespace AntChain.SDK.ERAPROD.Models
         public string ResultMsg { get; set; }
 
         // json 序列化的回执结果
-        [NameInMap("response_json")]
+        [NameInMap("chat_completion_object")]
         [Validation(Required=false)]
-        public string ResponseJson { get; set; }
+        public string ChatCompletionObject { get; set; }
 
     }
 
