@@ -78,6 +78,137 @@ export class Config extends $tea.Model {
   }
 }
 
+// 卡证OCR图片坐标
+export class OcrLocation extends $tea.Model {
+  // 表示定位位置的长方形左上顶点的垂直坐标
+  top?: string;
+  // 表示定位位置的长方形左上顶点的水平坐标
+  left?: string;
+  // 表示定位位置的长方形的宽度
+  width?: string;
+  // 表示定位位置的长方形的高度
+  height?: string;
+  static names(): { [key: string]: string } {
+    return {
+      top: 'top',
+      left: 'left',
+      width: 'width',
+      height: 'height',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      top: 'string',
+      left: 'string',
+      width: 'string',
+      height: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 卡证OCR图片质量
+export class CardQuality extends $tea.Model {
+  // 1-清晰
+  // 0-不清晰
+  // 
+  isClear?: string;
+  // 清晰度取值0-1，值越大表示图像质量越好，默认阈值0.5
+  isClearPropobility?: string;
+  // 1-边框/四角完整
+  // 0-边框/四角不完整
+  isComplete?: string;
+  // 取值0-1，值越大表示图像质量越好，默认阈值0.5
+  isCompletePropobility?: string;
+  // 1-头像、关键字段无遮挡/马赛克
+  // 0-头像、关键字段有遮挡/马赛克
+  isNoCover?: string;
+  // 有无遮挡propobility-取值0-1，值越大表示图像质量越好，默认阈值0.3
+  isNoCoverPropobility?: string;
+  static names(): { [key: string]: string } {
+    return {
+      isClear: 'is_clear',
+      isClearPropobility: 'is_clear_propobility',
+      isComplete: 'is_complete',
+      isCompletePropobility: 'is_complete_propobility',
+      isNoCover: 'is_no_cover',
+      isNoCoverPropobility: 'is_no_cover_propobility',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      isClear: 'string',
+      isClearPropobility: 'string',
+      isComplete: 'string',
+      isCompletePropobility: 'string',
+      isNoCover: 'string',
+      isNoCoverPropobility: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 卡证OCR风险结果
+export class RiskInfo extends $tea.Model {
+  // 是否为复印件（仅身份证、银行卡含该字段）。0：否，1：是
+  copy?: string;
+  // 是否翻拍（仅身份证含该字段）。0：否，1：是
+  reshoot?: string;
+  // normal-识别正常
+  // non_idcard-上传的图片中不包含身份证
+  // blurred-身份证模糊
+  // other_type_card-其他类型证照
+  // over_exposure-身份证关键字段反光或过曝
+  // over_dark-身份证欠曝（亮度过低）
+  // unknown-未知状态
+  imageStatus?: string[];
+  // 输入参数 risk_info_type=true 时，则返回该字段，判断身份证是否存在风险，返回值：
+  // normal-正常身份证；
+  // copy-复印件；
+  // temporary-临时身份证；
+  // screen-翻拍；
+  // PS-被PS修改；
+  // unknown-其他未知情况
+  riskType?: string[];
+  // 图片质量
+  cardQuality?: CardQuality;
+  // 证件一致性
+  idcardNumberType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      copy: 'copy',
+      reshoot: 'reshoot',
+      imageStatus: 'image_status',
+      riskType: 'risk_type',
+      cardQuality: 'card_quality',
+      idcardNumberType: 'idcard_number_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      copy: 'string',
+      reshoot: 'string',
+      imageStatus: { 'type': 'array', 'itemType': 'string' },
+      riskType: { 'type': 'array', 'itemType': 'string' },
+      cardQuality: CardQuality,
+      idcardNumberType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 音频元数据
 export class AudioMeta extends $tea.Model {
   // 采样率
@@ -132,6 +263,208 @@ export class Audio extends $tea.Model {
       token: 'string',
       rawData: 'string',
       audioUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 卡证OCR识别结果
+export class OcrInfo extends $tea.Model {
+  // 当识别到身份证是人像面时返回FACE，国徽面时返回BACK
+  side?: string;
+  // 当请求参数 return_photo = true时返回，头像切图的 base64 编码（无编码头，需自行处理）
+  // *当服务降级时，返回null
+  photo?: string;
+  // {}	当请求参数 return_photo = true时返回，头像的位置信息（坐标0点为左上角）
+  // *当服务降级时，返回null
+  photoLocation?: OcrLocation;
+  // 当请求参数 return_card = true时返回，身份证裁剪切图的 base64 编码（无编码头，需自行处理）
+  // *当服务降级时，返回null
+  cardImage?: string;
+  // 当请求参数 return_card = true时返回，身份证裁剪切图的位置信息（坐标0点为左上角）
+  // *当服务降级时，返回null
+  cardLocation?: OcrLocation;
+  // 姓名
+  name?: string;
+  // 性别
+  sex?: string;
+  // 民族
+  nationality?: string;
+  // 出生日期（yyyyMMdd格式）
+  birth?: string;
+  // 住址
+  address?: string;
+  // 身份证号
+  num?: string;
+  // 发证日期（yyyyMMdd格式）
+  startDate?: string;
+  // 到期日（yyyyMMdd格式）。
+  // 如果是长期身份证，该字段内容为“长期”（不含引号）。
+  endDate?: string;
+  // 签发机关
+  issue?: string;
+  // 银行卡类型（CC（贷记卡），SCC（准贷记卡），DCC（存贷合一卡），DC（储蓄卡），PC（预付卡））
+  bankCardType?: string;
+  // 银行名，不能识别时为空
+  bankName?: string;
+  // 银行卡号
+  cardNumber?: string;
+  // 有效期至
+  validToDate?: string;
+  // 证件类别
+  title?: string;
+  // 有效期限(yyyy.MM.dd-yyyy.MM.dd格式)
+  dateOfExpiry?: string;
+  // 换证次数
+  changeNum?: string;
+  // 初次领证日期
+  firstIssue?: string;
+  // 准驾车型
+  driverClass?: string;
+  // 档案编号
+  docNum?: string;
+  // 电子驾驶证生成时间
+  issueTime?: string;
+  // 当前时间
+  currentTime?: string;
+  // 条形码编号
+  barCode?: string;
+  // 累计记分
+  points?: string;
+  // 记录
+  remark?: string;
+  // 状态
+  status?: string;
+  // 车辆识别代号
+  vehicle?: string;
+  // 品牌型号
+  model?: string;
+  // 车辆类型
+  type?: string;
+  // 使用性质
+  useage?: string;
+  // 发动机号码
+  engNum?: string;
+  // 车牌号码
+  plate?: string;
+  // 检验记录
+  inspecRecord?: string;
+  // 核定载质量
+  load?: string;
+  // 整备质量
+  curbMass?: string;
+  // 外廓尺寸
+  overallDimension?: string;
+  // 核定载人数
+  seating?: string;
+  // 总质量
+  grossMass?: string;
+  // 燃油类型
+  fuel?: string;
+  // 准牵引总质量
+  tractionMass?: string;
+  // 证芯编号
+  chipNum?: string;
+  static names(): { [key: string]: string } {
+    return {
+      side: 'side',
+      photo: 'photo',
+      photoLocation: 'photo_location',
+      cardImage: 'card_image',
+      cardLocation: 'card_location',
+      name: 'name',
+      sex: 'sex',
+      nationality: 'nationality',
+      birth: 'birth',
+      address: 'address',
+      num: 'num',
+      startDate: 'start_date',
+      endDate: 'end_date',
+      issue: 'issue',
+      bankCardType: 'bank_card_type',
+      bankName: 'bank_name',
+      cardNumber: 'card_number',
+      validToDate: 'valid_to_date',
+      title: 'title',
+      dateOfExpiry: 'date_of_expiry',
+      changeNum: 'change_num',
+      firstIssue: 'first_issue',
+      driverClass: 'driver_class',
+      docNum: 'doc_num',
+      issueTime: 'issue_time',
+      currentTime: 'current_time',
+      barCode: 'bar_code',
+      points: 'points',
+      remark: 'remark',
+      status: 'status',
+      vehicle: 'vehicle',
+      model: 'model',
+      type: 'type',
+      useage: 'useage',
+      engNum: 'eng_num',
+      plate: 'plate',
+      inspecRecord: 'inspec_record',
+      load: 'load',
+      curbMass: 'curb_mass',
+      overallDimension: 'overall_dimension',
+      seating: 'seating',
+      grossMass: 'gross_mass',
+      fuel: 'fuel',
+      tractionMass: 'traction_mass',
+      chipNum: 'chip_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      side: 'string',
+      photo: 'string',
+      photoLocation: OcrLocation,
+      cardImage: 'string',
+      cardLocation: OcrLocation,
+      name: 'string',
+      sex: 'string',
+      nationality: 'string',
+      birth: 'string',
+      address: 'string',
+      num: 'string',
+      startDate: 'string',
+      endDate: 'string',
+      issue: 'string',
+      bankCardType: 'string',
+      bankName: 'string',
+      cardNumber: 'string',
+      validToDate: 'string',
+      title: 'string',
+      dateOfExpiry: 'string',
+      changeNum: 'string',
+      firstIssue: 'string',
+      driverClass: 'string',
+      docNum: 'string',
+      issueTime: 'string',
+      currentTime: 'string',
+      barCode: 'string',
+      points: 'string',
+      remark: 'string',
+      status: 'string',
+      vehicle: 'string',
+      model: 'string',
+      type: 'string',
+      useage: 'string',
+      engNum: 'string',
+      plate: 'string',
+      inspecRecord: 'string',
+      load: 'string',
+      curbMass: 'string',
+      overallDimension: 'string',
+      seating: 'string',
+      grossMass: 'string',
+      fuel: 'string',
+      tractionMass: 'string',
+      chipNum: 'string',
     };
   }
 
@@ -3922,6 +4255,10 @@ export class CreateFaceverifyServerRequest extends $tea.Model {
   callbackNeedRetry?: string;
   // 活体检测的类型
   model?: string;
+  // 图片文件
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -3944,6 +4281,9 @@ export class CreateFaceverifyServerRequest extends $tea.Model {
       userMobile: 'user_mobile',
       callbackNeedRetry: 'callback_need_retry',
       model: 'model',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
     };
   }
 
@@ -3969,6 +4309,9 @@ export class CreateFaceverifyServerRequest extends $tea.Model {
       userMobile: 'string',
       callbackNeedRetry: 'string',
       model: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
     };
   }
 
@@ -4871,6 +5214,205 @@ export class QueryFaceverifyServermaterialResponse extends $tea.Model {
   }
 }
 
+export class ScaleinImageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 图片
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ScaleinImageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 压缩后的图片base64
+  base64?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      base64: 'base64',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      base64: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RecognizeOcrIndividualcardRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 长度不超过32位的0-9A-Za-z字符串。 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+  outerOrderNo: string;
+  // 待识别的卡类型。取值约束：ID_CARD（身份证）;EEP_TO_ML_CARD（港澳来往大陆通行证）;BANK_CARD（银行卡）
+  ocrType: string;
+  // 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；FILE(文件)、URL（暂不支持）
+  dataType: string;
+  // 传入的图片的具体内容，需要与data_type的选择保持一致。
+  // 
+  dataContent?: string;
+  // 证件图片
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId?: string;
+  // 入参data_content是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
+  reqEncType?: string;
+  // 出参ocr_info是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
+  respEncType?: string;
+  // 经过公钥RSA加密的AES密钥，用于对出参ocr_info加密。当req_enc_type = 1或resp_enc_type = 1时必填。
+  encToken?: string;
+  // 是否启用防伪检测，如果启用，出参会输出riskInfo字段。不填默认不启用防伪。取值约束：0（不启用）；1（启用）
+  riskInfoType?: string;
+  // 是否返回身份证头像照片 0：否 1：是 不填默认不返回。
+  returnPhoto?: string;
+  // 是否返回身份证图片 0：否 1：是 不填默认不返回。
+  returnImage?: string;
+  // 扩展信息JSON串。
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      ocrType: 'ocr_type',
+      dataType: 'data_type',
+      dataContent: 'data_content',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      reqEncType: 'req_enc_type',
+      respEncType: 'resp_enc_type',
+      encToken: 'enc_token',
+      riskInfoType: 'risk_info_type',
+      returnPhoto: 'return_photo',
+      returnImage: 'return_image',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      ocrType: 'string',
+      dataType: 'string',
+      dataContent: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      reqEncType: 'string',
+      respEncType: 'string',
+      encToken: 'string',
+      riskInfoType: 'string',
+      returnPhoto: 'string',
+      returnImage: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RecognizeOcrIndividualcardResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回结果码
+  retCode?: string;
+  // 错误码
+  retCodeSub?: string;
+  // 错误信息
+  retMessageSub?: string;
+  // 识别结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
+  ocrInfo?: OcrInfo;
+  // 防伪结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。 如果不启用防伪，则不返回该字段。
+  riskInfo?: RiskInfo;
+  // 扩展信息JSON串。
+  extInfo?: string;
+  // 加密后的识别结果
+  ocrInfoEncrypt?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      retCode: 'ret_code',
+      retCodeSub: 'ret_code_sub',
+      retMessageSub: 'ret_message_sub',
+      ocrInfo: 'ocr_info',
+      riskInfo: 'risk_info',
+      extInfo: 'ext_info',
+      ocrInfoEncrypt: 'ocr_info_encrypt',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      retCode: 'string',
+      retCodeSub: 'string',
+      retMessageSub: 'string',
+      ocrInfo: OcrInfo,
+      riskInfo: RiskInfo,
+      extInfo: 'string',
+      ocrInfoEncrypt: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -5072,7 +5614,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.21.4",
+          sdk_version: "1.21.19",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
@@ -5999,6 +6541,28 @@ export default class Client {
    * Summary: 数科刷脸服务端初始化接口
    */
   async createFaceverifyServerEx(request: CreateFaceverifyServerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateFaceverifyServerResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "di.realperson.faceverify.server.create",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let createFaceverifyServerResponse = new CreateFaceverifyServerResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return createFaceverifyServerResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
     Util.validateModel(request);
     return $tea.cast<CreateFaceverifyServerResponse>(await this.doRequest("1.0", "di.realperson.faceverify.server.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateFaceverifyServerResponse({}));
   }
@@ -6194,6 +6758,88 @@ export default class Client {
   async queryFaceverifyServermaterialEx(request: QueryFaceverifyServermaterialRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFaceverifyServermaterialResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryFaceverifyServermaterialResponse>(await this.doRequest("1.0", "di.realperson.faceverify.servermaterial.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFaceverifyServermaterialResponse({}));
+  }
+
+  /**
+   * Description: 图片压缩接口
+   * Summary: 图片压缩接口
+   */
+  async scaleinImage(request: ScaleinImageRequest): Promise<ScaleinImageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.scaleinImageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 图片压缩接口
+   * Summary: 图片压缩接口
+   */
+  async scaleinImageEx(request: ScaleinImageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ScaleinImageResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "di.realperson.image.scalein",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let scaleinImageResponse = new ScaleinImageResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return scaleinImageResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<ScaleinImageResponse>(await this.doRequest("1.0", "di.realperson.image.scalein", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ScaleinImageResponse({}));
+  }
+
+  /**
+   * Description: 要素卡证OCR
+   * Summary: 要素卡证OCR
+   */
+  async recognizeOcrIndividualcard(request: RecognizeOcrIndividualcardRequest): Promise<RecognizeOcrIndividualcardResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.recognizeOcrIndividualcardEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 要素卡证OCR
+   * Summary: 要素卡证OCR
+   */
+  async recognizeOcrIndividualcardEx(request: RecognizeOcrIndividualcardRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RecognizeOcrIndividualcardResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "di.realperson.ocr.individualcard.recognize",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let recognizeOcrIndividualcardResponse = new RecognizeOcrIndividualcardResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return recognizeOcrIndividualcardResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<RecognizeOcrIndividualcardResponse>(await this.doRequest("1.0", "di.realperson.ocr.individualcard.recognize", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RecognizeOcrIndividualcardResponse({}));
   }
 
   /**
