@@ -90,6 +90,22 @@ public class CreateFaceverifyServerRequest extends TeaModel {
     @NameInMap("model")
     public String model;
 
+    // 图片文件
+    /**
+     * <p>待上传文件</p>
+     */
+    @NameInMap("fileObject")
+    public java.io.InputStream fileObject;
+
+    /**
+     * <p>待上传文件名</p>
+     */
+    @NameInMap("fileObjectName")
+    public String fileObjectName;
+
+    @NameInMap("file_id")
+    public String fileId;
+
     public static CreateFaceverifyServerRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateFaceverifyServerRequest self = new CreateFaceverifyServerRequest();
         return TeaModel.build(map, self);
@@ -253,6 +269,30 @@ public class CreateFaceverifyServerRequest extends TeaModel {
     }
     public String getModel() {
         return this.model;
+    }
+
+    public CreateFaceverifyServerRequest setFileObject(java.io.InputStream fileObject) {
+        this.fileObject = fileObject;
+        return this;
+    }
+    public java.io.InputStream getFileObject() {
+        return this.fileObject;
+    }
+
+    public CreateFaceverifyServerRequest setFileObjectName(String fileObjectName) {
+        this.fileObjectName = fileObjectName;
+        return this;
+    }
+    public String getFileObjectName() {
+        return this.fileObjectName;
+    }
+
+    public CreateFaceverifyServerRequest setFileId(String fileId) {
+        this.fileId = fileId;
+        return this;
+    }
+    public String getFileId() {
+        return this.fileId;
     }
 
 }
