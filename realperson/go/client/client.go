@@ -149,6 +149,170 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 卡证OCR图片坐标
+type OcrLocation struct {
+	// 表示定位位置的长方形左上顶点的垂直坐标
+	Top *string `json:"top,omitempty" xml:"top,omitempty"`
+	// 表示定位位置的长方形左上顶点的水平坐标
+	Left *string `json:"left,omitempty" xml:"left,omitempty"`
+	// 表示定位位置的长方形的宽度
+	Width *string `json:"width,omitempty" xml:"width,omitempty"`
+	// 表示定位位置的长方形的高度
+	Height *string `json:"height,omitempty" xml:"height,omitempty"`
+}
+
+func (s OcrLocation) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OcrLocation) GoString() string {
+	return s.String()
+}
+
+func (s *OcrLocation) SetTop(v string) *OcrLocation {
+	s.Top = &v
+	return s
+}
+
+func (s *OcrLocation) SetLeft(v string) *OcrLocation {
+	s.Left = &v
+	return s
+}
+
+func (s *OcrLocation) SetWidth(v string) *OcrLocation {
+	s.Width = &v
+	return s
+}
+
+func (s *OcrLocation) SetHeight(v string) *OcrLocation {
+	s.Height = &v
+	return s
+}
+
+// 卡证OCR图片质量
+type CardQuality struct {
+	// 1-清晰
+	// 0-不清晰
+	//
+	IsClear *string `json:"is_clear,omitempty" xml:"is_clear,omitempty"`
+	// 清晰度取值0-1，值越大表示图像质量越好，默认阈值0.5
+	IsClearPropobility *string `json:"is_clear_propobility,omitempty" xml:"is_clear_propobility,omitempty"`
+	// 1-边框/四角完整
+	// 0-边框/四角不完整
+	IsComplete *string `json:"is_complete,omitempty" xml:"is_complete,omitempty"`
+	// 取值0-1，值越大表示图像质量越好，默认阈值0.5
+	IsCompletePropobility *string `json:"is_complete_propobility,omitempty" xml:"is_complete_propobility,omitempty"`
+	// 1-头像、关键字段无遮挡/马赛克
+	// 0-头像、关键字段有遮挡/马赛克
+	IsNoCover *string `json:"is_no_cover,omitempty" xml:"is_no_cover,omitempty"`
+	// 有无遮挡propobility-取值0-1，值越大表示图像质量越好，默认阈值0.3
+	IsNoCoverPropobility *string `json:"is_no_cover_propobility,omitempty" xml:"is_no_cover_propobility,omitempty"`
+}
+
+func (s CardQuality) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CardQuality) GoString() string {
+	return s.String()
+}
+
+func (s *CardQuality) SetIsClear(v string) *CardQuality {
+	s.IsClear = &v
+	return s
+}
+
+func (s *CardQuality) SetIsClearPropobility(v string) *CardQuality {
+	s.IsClearPropobility = &v
+	return s
+}
+
+func (s *CardQuality) SetIsComplete(v string) *CardQuality {
+	s.IsComplete = &v
+	return s
+}
+
+func (s *CardQuality) SetIsCompletePropobility(v string) *CardQuality {
+	s.IsCompletePropobility = &v
+	return s
+}
+
+func (s *CardQuality) SetIsNoCover(v string) *CardQuality {
+	s.IsNoCover = &v
+	return s
+}
+
+func (s *CardQuality) SetIsNoCoverPropobility(v string) *CardQuality {
+	s.IsNoCoverPropobility = &v
+	return s
+}
+
+// 卡证OCR风险结果
+type RiskInfo struct {
+	// 是否为复印件（仅身份证、银行卡含该字段）。0：否，1：是
+	Copy *string `json:"copy,omitempty" xml:"copy,omitempty"`
+	// 是否翻拍（仅身份证含该字段）。0：否，1：是
+	Reshoot *string `json:"reshoot,omitempty" xml:"reshoot,omitempty"`
+	// normal-识别正常
+	// non_idcard-上传的图片中不包含身份证
+	// blurred-身份证模糊
+	// other_type_card-其他类型证照
+	// over_exposure-身份证关键字段反光或过曝
+	// over_dark-身份证欠曝（亮度过低）
+	// unknown-未知状态
+	ImageStatus []*string `json:"image_status,omitempty" xml:"image_status,omitempty" type:"Repeated"`
+	// 输入参数 risk_info_type=true 时，则返回该字段，判断身份证是否存在风险，返回值：
+	// normal-正常身份证；
+	// copy-复印件；
+	// temporary-临时身份证；
+	// screen-翻拍；
+	// PS-被PS修改；
+	// unknown-其他未知情况
+	RiskType []*string `json:"risk_type,omitempty" xml:"risk_type,omitempty" type:"Repeated"`
+	// 图片质量
+	CardQuality *CardQuality `json:"card_quality,omitempty" xml:"card_quality,omitempty"`
+	// 证件一致性
+	IdcardNumberType *string `json:"idcard_number_type,omitempty" xml:"idcard_number_type,omitempty"`
+}
+
+func (s RiskInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RiskInfo) GoString() string {
+	return s.String()
+}
+
+func (s *RiskInfo) SetCopy(v string) *RiskInfo {
+	s.Copy = &v
+	return s
+}
+
+func (s *RiskInfo) SetReshoot(v string) *RiskInfo {
+	s.Reshoot = &v
+	return s
+}
+
+func (s *RiskInfo) SetImageStatus(v []*string) *RiskInfo {
+	s.ImageStatus = v
+	return s
+}
+
+func (s *RiskInfo) SetRiskType(v []*string) *RiskInfo {
+	s.RiskType = v
+	return s
+}
+
+func (s *RiskInfo) SetCardQuality(v *CardQuality) *RiskInfo {
+	s.CardQuality = v
+	return s
+}
+
+func (s *RiskInfo) SetIdcardNumberType(v string) *RiskInfo {
+	s.IdcardNumberType = &v
+	return s
+}
+
 // 音频元数据
 type AudioMeta struct {
 	// 采样率
@@ -219,6 +383,338 @@ func (s *Audio) SetRawData(v string) *Audio {
 
 func (s *Audio) SetAudioUrl(v string) *Audio {
 	s.AudioUrl = &v
+	return s
+}
+
+// 卡证OCR识别结果
+type OcrInfo struct {
+	// 当识别到身份证是人像面时返回FACE，国徽面时返回BACK
+	Side *string `json:"side,omitempty" xml:"side,omitempty"`
+	// 当请求参数 return_photo = true时返回，头像切图的 base64 编码（无编码头，需自行处理）
+	// *当服务降级时，返回null
+	Photo *string `json:"photo,omitempty" xml:"photo,omitempty"`
+	// {}	当请求参数 return_photo = true时返回，头像的位置信息（坐标0点为左上角）
+	// *当服务降级时，返回null
+	PhotoLocation *OcrLocation `json:"photo_location,omitempty" xml:"photo_location,omitempty"`
+	// 当请求参数 return_card = true时返回，身份证裁剪切图的 base64 编码（无编码头，需自行处理）
+	// *当服务降级时，返回null
+	CardImage *string `json:"card_image,omitempty" xml:"card_image,omitempty"`
+	// 当请求参数 return_card = true时返回，身份证裁剪切图的位置信息（坐标0点为左上角）
+	// *当服务降级时，返回null
+	CardLocation *OcrLocation `json:"card_location,omitempty" xml:"card_location,omitempty"`
+	// 姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 性别
+	Sex *string `json:"sex,omitempty" xml:"sex,omitempty"`
+	// 民族
+	Nationality *string `json:"nationality,omitempty" xml:"nationality,omitempty"`
+	// 出生日期（yyyyMMdd格式）
+	Birth *string `json:"birth,omitempty" xml:"birth,omitempty"`
+	// 住址
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
+	// 身份证号
+	Num *string `json:"num,omitempty" xml:"num,omitempty"`
+	// 发证日期（yyyyMMdd格式）
+	StartDate *string `json:"start_date,omitempty" xml:"start_date,omitempty"`
+	// 到期日（yyyyMMdd格式）。
+	// 如果是长期身份证，该字段内容为“长期”（不含引号）。
+	EndDate *string `json:"end_date,omitempty" xml:"end_date,omitempty"`
+	// 签发机关
+	Issue *string `json:"issue,omitempty" xml:"issue,omitempty"`
+	// 银行卡类型（CC（贷记卡），SCC（准贷记卡），DCC（存贷合一卡），DC（储蓄卡），PC（预付卡））
+	BankCardType *string `json:"bank_card_type,omitempty" xml:"bank_card_type,omitempty"`
+	// 银行名，不能识别时为空
+	BankName *string `json:"bank_name,omitempty" xml:"bank_name,omitempty"`
+	// 银行卡号
+	CardNumber *string `json:"card_number,omitempty" xml:"card_number,omitempty"`
+	// 有效期至
+	ValidToDate *string `json:"valid_to_date,omitempty" xml:"valid_to_date,omitempty"`
+	// 证件类别
+	Title *string `json:"title,omitempty" xml:"title,omitempty"`
+	// 有效期限(yyyy.MM.dd-yyyy.MM.dd格式)
+	DateOfExpiry *string `json:"date_of_expiry,omitempty" xml:"date_of_expiry,omitempty"`
+	// 换证次数
+	ChangeNum *string `json:"change_num,omitempty" xml:"change_num,omitempty"`
+	// 初次领证日期
+	FirstIssue *string `json:"first_issue,omitempty" xml:"first_issue,omitempty"`
+	// 准驾车型
+	DriverClass *string `json:"driver_class,omitempty" xml:"driver_class,omitempty"`
+	// 档案编号
+	DocNum *string `json:"doc_num,omitempty" xml:"doc_num,omitempty"`
+	// 电子驾驶证生成时间
+	IssueTime *string `json:"issue_time,omitempty" xml:"issue_time,omitempty"`
+	// 当前时间
+	CurrentTime *string `json:"current_time,omitempty" xml:"current_time,omitempty"`
+	// 条形码编号
+	BarCode *string `json:"bar_code,omitempty" xml:"bar_code,omitempty"`
+	// 累计记分
+	Points *string `json:"points,omitempty" xml:"points,omitempty"`
+	// 记录
+	Remark *string `json:"remark,omitempty" xml:"remark,omitempty"`
+	// 状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 车辆识别代号
+	Vehicle *string `json:"vehicle,omitempty" xml:"vehicle,omitempty"`
+	// 品牌型号
+	Model *string `json:"model,omitempty" xml:"model,omitempty"`
+	// 车辆类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 使用性质
+	Useage *string `json:"useage,omitempty" xml:"useage,omitempty"`
+	// 发动机号码
+	EngNum *string `json:"eng_num,omitempty" xml:"eng_num,omitempty"`
+	// 车牌号码
+	Plate *string `json:"plate,omitempty" xml:"plate,omitempty"`
+	// 检验记录
+	InspecRecord *string `json:"inspec_record,omitempty" xml:"inspec_record,omitempty"`
+	// 核定载质量
+	Load *string `json:"load,omitempty" xml:"load,omitempty"`
+	// 整备质量
+	CurbMass *string `json:"curb_mass,omitempty" xml:"curb_mass,omitempty"`
+	// 外廓尺寸
+	OverallDimension *string `json:"overall_dimension,omitempty" xml:"overall_dimension,omitempty"`
+	// 核定载人数
+	Seating *string `json:"seating,omitempty" xml:"seating,omitempty"`
+	// 总质量
+	GrossMass *string `json:"gross_mass,omitempty" xml:"gross_mass,omitempty"`
+	// 燃油类型
+	Fuel *string `json:"fuel,omitempty" xml:"fuel,omitempty"`
+	// 准牵引总质量
+	TractionMass *string `json:"traction_mass,omitempty" xml:"traction_mass,omitempty"`
+	// 证芯编号
+	ChipNum *string `json:"chip_num,omitempty" xml:"chip_num,omitempty"`
+}
+
+func (s OcrInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OcrInfo) GoString() string {
+	return s.String()
+}
+
+func (s *OcrInfo) SetSide(v string) *OcrInfo {
+	s.Side = &v
+	return s
+}
+
+func (s *OcrInfo) SetPhoto(v string) *OcrInfo {
+	s.Photo = &v
+	return s
+}
+
+func (s *OcrInfo) SetPhotoLocation(v *OcrLocation) *OcrInfo {
+	s.PhotoLocation = v
+	return s
+}
+
+func (s *OcrInfo) SetCardImage(v string) *OcrInfo {
+	s.CardImage = &v
+	return s
+}
+
+func (s *OcrInfo) SetCardLocation(v *OcrLocation) *OcrInfo {
+	s.CardLocation = v
+	return s
+}
+
+func (s *OcrInfo) SetName(v string) *OcrInfo {
+	s.Name = &v
+	return s
+}
+
+func (s *OcrInfo) SetSex(v string) *OcrInfo {
+	s.Sex = &v
+	return s
+}
+
+func (s *OcrInfo) SetNationality(v string) *OcrInfo {
+	s.Nationality = &v
+	return s
+}
+
+func (s *OcrInfo) SetBirth(v string) *OcrInfo {
+	s.Birth = &v
+	return s
+}
+
+func (s *OcrInfo) SetAddress(v string) *OcrInfo {
+	s.Address = &v
+	return s
+}
+
+func (s *OcrInfo) SetNum(v string) *OcrInfo {
+	s.Num = &v
+	return s
+}
+
+func (s *OcrInfo) SetStartDate(v string) *OcrInfo {
+	s.StartDate = &v
+	return s
+}
+
+func (s *OcrInfo) SetEndDate(v string) *OcrInfo {
+	s.EndDate = &v
+	return s
+}
+
+func (s *OcrInfo) SetIssue(v string) *OcrInfo {
+	s.Issue = &v
+	return s
+}
+
+func (s *OcrInfo) SetBankCardType(v string) *OcrInfo {
+	s.BankCardType = &v
+	return s
+}
+
+func (s *OcrInfo) SetBankName(v string) *OcrInfo {
+	s.BankName = &v
+	return s
+}
+
+func (s *OcrInfo) SetCardNumber(v string) *OcrInfo {
+	s.CardNumber = &v
+	return s
+}
+
+func (s *OcrInfo) SetValidToDate(v string) *OcrInfo {
+	s.ValidToDate = &v
+	return s
+}
+
+func (s *OcrInfo) SetTitle(v string) *OcrInfo {
+	s.Title = &v
+	return s
+}
+
+func (s *OcrInfo) SetDateOfExpiry(v string) *OcrInfo {
+	s.DateOfExpiry = &v
+	return s
+}
+
+func (s *OcrInfo) SetChangeNum(v string) *OcrInfo {
+	s.ChangeNum = &v
+	return s
+}
+
+func (s *OcrInfo) SetFirstIssue(v string) *OcrInfo {
+	s.FirstIssue = &v
+	return s
+}
+
+func (s *OcrInfo) SetDriverClass(v string) *OcrInfo {
+	s.DriverClass = &v
+	return s
+}
+
+func (s *OcrInfo) SetDocNum(v string) *OcrInfo {
+	s.DocNum = &v
+	return s
+}
+
+func (s *OcrInfo) SetIssueTime(v string) *OcrInfo {
+	s.IssueTime = &v
+	return s
+}
+
+func (s *OcrInfo) SetCurrentTime(v string) *OcrInfo {
+	s.CurrentTime = &v
+	return s
+}
+
+func (s *OcrInfo) SetBarCode(v string) *OcrInfo {
+	s.BarCode = &v
+	return s
+}
+
+func (s *OcrInfo) SetPoints(v string) *OcrInfo {
+	s.Points = &v
+	return s
+}
+
+func (s *OcrInfo) SetRemark(v string) *OcrInfo {
+	s.Remark = &v
+	return s
+}
+
+func (s *OcrInfo) SetStatus(v string) *OcrInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *OcrInfo) SetVehicle(v string) *OcrInfo {
+	s.Vehicle = &v
+	return s
+}
+
+func (s *OcrInfo) SetModel(v string) *OcrInfo {
+	s.Model = &v
+	return s
+}
+
+func (s *OcrInfo) SetType(v string) *OcrInfo {
+	s.Type = &v
+	return s
+}
+
+func (s *OcrInfo) SetUseage(v string) *OcrInfo {
+	s.Useage = &v
+	return s
+}
+
+func (s *OcrInfo) SetEngNum(v string) *OcrInfo {
+	s.EngNum = &v
+	return s
+}
+
+func (s *OcrInfo) SetPlate(v string) *OcrInfo {
+	s.Plate = &v
+	return s
+}
+
+func (s *OcrInfo) SetInspecRecord(v string) *OcrInfo {
+	s.InspecRecord = &v
+	return s
+}
+
+func (s *OcrInfo) SetLoad(v string) *OcrInfo {
+	s.Load = &v
+	return s
+}
+
+func (s *OcrInfo) SetCurbMass(v string) *OcrInfo {
+	s.CurbMass = &v
+	return s
+}
+
+func (s *OcrInfo) SetOverallDimension(v string) *OcrInfo {
+	s.OverallDimension = &v
+	return s
+}
+
+func (s *OcrInfo) SetSeating(v string) *OcrInfo {
+	s.Seating = &v
+	return s
+}
+
+func (s *OcrInfo) SetGrossMass(v string) *OcrInfo {
+	s.GrossMass = &v
+	return s
+}
+
+func (s *OcrInfo) SetFuel(v string) *OcrInfo {
+	s.Fuel = &v
+	return s
+}
+
+func (s *OcrInfo) SetTractionMass(v string) *OcrInfo {
+	s.TractionMass = &v
+	return s
+}
+
+func (s *OcrInfo) SetChipNum(v string) *OcrInfo {
+	s.ChipNum = &v
 	return s
 }
 
@@ -5355,6 +5851,12 @@ type CreateFaceverifyServerRequest struct {
 	CallbackNeedRetry *string `json:"callback_need_retry,omitempty" xml:"callback_need_retry,omitempty"`
 	// 活体检测的类型
 	Model *string `json:"model,omitempty" xml:"model,omitempty"`
+	// 图片文件
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
 }
 
 func (s CreateFaceverifyServerRequest) String() string {
@@ -5462,6 +5964,21 @@ func (s *CreateFaceverifyServerRequest) SetCallbackNeedRetry(v string) *CreateFa
 
 func (s *CreateFaceverifyServerRequest) SetModel(v string) *CreateFaceverifyServerRequest {
 	s.Model = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetFileObject(v io.Reader) *CreateFaceverifyServerRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetFileObjectName(v string) *CreateFaceverifyServerRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *CreateFaceverifyServerRequest) SetFileId(v string) *CreateFaceverifyServerRequest {
+	s.FileId = &v
 	return s
 }
 
@@ -6713,6 +7230,294 @@ func (s *QueryFaceverifyServermaterialResponse) SetMaterialInfo(v string) *Query
 	return s
 }
 
+type ScaleinImageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 图片
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s ScaleinImageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ScaleinImageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ScaleinImageRequest) SetAuthToken(v string) *ScaleinImageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ScaleinImageRequest) SetProductInstanceId(v string) *ScaleinImageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ScaleinImageRequest) SetFileObject(v io.Reader) *ScaleinImageRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *ScaleinImageRequest) SetFileObjectName(v string) *ScaleinImageRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *ScaleinImageRequest) SetFileId(v string) *ScaleinImageRequest {
+	s.FileId = &v
+	return s
+}
+
+type ScaleinImageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 压缩后的图片base64
+	Base64 *string `json:"base64,omitempty" xml:"base64,omitempty"`
+}
+
+func (s ScaleinImageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ScaleinImageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ScaleinImageResponse) SetReqMsgId(v string) *ScaleinImageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ScaleinImageResponse) SetResultCode(v string) *ScaleinImageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ScaleinImageResponse) SetResultMsg(v string) *ScaleinImageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ScaleinImageResponse) SetBase64(v string) *ScaleinImageResponse {
+	s.Base64 = &v
+	return s
+}
+
+type RecognizeOcrIndividualcardRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 长度不超过32位的0-9A-Za-z字符串。 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 待识别的卡类型。取值约束：ID_CARD（身份证）;EEP_TO_ML_CARD（港澳来往大陆通行证）;BANK_CARD（银行卡）
+	OcrType *string `json:"ocr_type,omitempty" xml:"ocr_type,omitempty" require:"true"`
+	// 传入的图片是base64编码的图片还是图片的URL。取值约束：BASE64（类型为base64）；FILE(文件)、URL（暂不支持）
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
+	// 传入的图片的具体内容，需要与data_type的选择保持一致。
+	//
+	DataContent *string `json:"data_content,omitempty" xml:"data_content,omitempty"`
+	// 证件图片
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 入参data_content是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
+	ReqEncType *string `json:"req_enc_type,omitempty" xml:"req_enc_type,omitempty"`
+	// 出参ocr_info是否经AES加密。不填默认不加密。取值约束：0（不加密）；1（加密）
+	RespEncType *string `json:"resp_enc_type,omitempty" xml:"resp_enc_type,omitempty"`
+	// 经过公钥RSA加密的AES密钥，用于对出参ocr_info加密。当req_enc_type = 1或resp_enc_type = 1时必填。
+	EncToken *string `json:"enc_token,omitempty" xml:"enc_token,omitempty"`
+	// 是否启用防伪检测，如果启用，出参会输出riskInfo字段。不填默认不启用防伪。取值约束：0（不启用）；1（启用）
+	RiskInfoType *string `json:"risk_info_type,omitempty" xml:"risk_info_type,omitempty"`
+	// 是否返回身份证头像照片 0：否 1：是 不填默认不返回。
+	ReturnPhoto *string `json:"return_photo,omitempty" xml:"return_photo,omitempty"`
+	// 是否返回身份证图片 0：否 1：是 不填默认不返回。
+	ReturnImage *string `json:"return_image,omitempty" xml:"return_image,omitempty"`
+	// 扩展信息JSON串。
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s RecognizeOcrIndividualcardRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RecognizeOcrIndividualcardRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetAuthToken(v string) *RecognizeOcrIndividualcardRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetProductInstanceId(v string) *RecognizeOcrIndividualcardRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetOuterOrderNo(v string) *RecognizeOcrIndividualcardRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetOcrType(v string) *RecognizeOcrIndividualcardRequest {
+	s.OcrType = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetDataType(v string) *RecognizeOcrIndividualcardRequest {
+	s.DataType = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetDataContent(v string) *RecognizeOcrIndividualcardRequest {
+	s.DataContent = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetFileObject(v io.Reader) *RecognizeOcrIndividualcardRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetFileObjectName(v string) *RecognizeOcrIndividualcardRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetFileId(v string) *RecognizeOcrIndividualcardRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetReqEncType(v string) *RecognizeOcrIndividualcardRequest {
+	s.ReqEncType = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetRespEncType(v string) *RecognizeOcrIndividualcardRequest {
+	s.RespEncType = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetEncToken(v string) *RecognizeOcrIndividualcardRequest {
+	s.EncToken = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetRiskInfoType(v string) *RecognizeOcrIndividualcardRequest {
+	s.RiskInfoType = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetReturnPhoto(v string) *RecognizeOcrIndividualcardRequest {
+	s.ReturnPhoto = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetReturnImage(v string) *RecognizeOcrIndividualcardRequest {
+	s.ReturnImage = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardRequest) SetExternParam(v string) *RecognizeOcrIndividualcardRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type RecognizeOcrIndividualcardResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果码
+	RetCode *string `json:"ret_code,omitempty" xml:"ret_code,omitempty"`
+	// 错误码
+	RetCodeSub *string `json:"ret_code_sub,omitempty" xml:"ret_code_sub,omitempty"`
+	// 错误信息
+	RetMessageSub *string `json:"ret_message_sub,omitempty" xml:"ret_message_sub,omitempty"`
+	// 识别结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
+	OcrInfo *OcrInfo `json:"ocr_info,omitempty" xml:"ocr_info,omitempty"`
+	// 防伪结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。 如果不启用防伪，则不返回该字段。
+	RiskInfo *RiskInfo `json:"risk_info,omitempty" xml:"risk_info,omitempty"`
+	// 扩展信息JSON串。
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+	// 加密后的识别结果
+	OcrInfoEncrypt *string `json:"ocr_info_encrypt,omitempty" xml:"ocr_info_encrypt,omitempty"`
+}
+
+func (s RecognizeOcrIndividualcardResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RecognizeOcrIndividualcardResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RecognizeOcrIndividualcardResponse) SetReqMsgId(v string) *RecognizeOcrIndividualcardResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardResponse) SetResultCode(v string) *RecognizeOcrIndividualcardResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardResponse) SetResultMsg(v string) *RecognizeOcrIndividualcardResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardResponse) SetRetCode(v string) *RecognizeOcrIndividualcardResponse {
+	s.RetCode = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardResponse) SetRetCodeSub(v string) *RecognizeOcrIndividualcardResponse {
+	s.RetCodeSub = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardResponse) SetRetMessageSub(v string) *RecognizeOcrIndividualcardResponse {
+	s.RetMessageSub = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardResponse) SetOcrInfo(v *OcrInfo) *RecognizeOcrIndividualcardResponse {
+	s.OcrInfo = v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardResponse) SetRiskInfo(v *RiskInfo) *RecognizeOcrIndividualcardResponse {
+	s.RiskInfo = v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardResponse) SetExtInfo(v string) *RecognizeOcrIndividualcardResponse {
+	s.ExtInfo = &v
+	return s
+}
+
+func (s *RecognizeOcrIndividualcardResponse) SetOcrInfoEncrypt(v string) *RecognizeOcrIndividualcardResponse {
+	s.OcrInfoEncrypt = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -6955,7 +7760,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.21.4"),
+				"sdk_version":      tea.String("1.21.19"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -8552,6 +9357,36 @@ func (client *Client) CreateFaceverifyServer(request *CreateFaceverifyServerRequ
  * Summary: 数科刷脸服务端初始化接口
  */
 func (client *Client) CreateFaceverifyServerEx(request *CreateFaceverifyServerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateFaceverifyServerResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("di.realperson.faceverify.server.create"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			createFaceverifyServerResponse := &CreateFaceverifyServerResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = createFaceverifyServerResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
@@ -8894,6 +9729,134 @@ func (client *Client) QueryFaceverifyServermaterialEx(request *QueryFaceverifySe
 	}
 	_result = &QueryFaceverifyServermaterialResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.faceverify.servermaterial.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 图片压缩接口
+ * Summary: 图片压缩接口
+ */
+func (client *Client) ScaleinImage(request *ScaleinImageRequest) (_result *ScaleinImageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ScaleinImageResponse{}
+	_body, _err := client.ScaleinImageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 图片压缩接口
+ * Summary: 图片压缩接口
+ */
+func (client *Client) ScaleinImageEx(request *ScaleinImageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ScaleinImageResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("di.realperson.image.scalein"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			scaleinImageResponse := &ScaleinImageResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = scaleinImageResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ScaleinImageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.image.scalein"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 要素卡证OCR
+ * Summary: 要素卡证OCR
+ */
+func (client *Client) RecognizeOcrIndividualcard(request *RecognizeOcrIndividualcardRequest) (_result *RecognizeOcrIndividualcardResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RecognizeOcrIndividualcardResponse{}
+	_body, _err := client.RecognizeOcrIndividualcardEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 要素卡证OCR
+ * Summary: 要素卡证OCR
+ */
+func (client *Client) RecognizeOcrIndividualcardEx(request *RecognizeOcrIndividualcardRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RecognizeOcrIndividualcardResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("di.realperson.ocr.individualcard.recognize"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			recognizeOcrIndividualcardResponse := &RecognizeOcrIndividualcardResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = recognizeOcrIndividualcardResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RecognizeOcrIndividualcardResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.ocr.individualcard.recognize"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
