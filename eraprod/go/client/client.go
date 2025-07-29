@@ -230,7 +230,7 @@ type OperateAgentProxyRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// json 序列化后的请求入参
-	RequestJson *string `json:"request_json,omitempty" xml:"request_json,omitempty" require:"true"`
+	AgentChatRequest *string `json:"agent_chat_request,omitempty" xml:"agent_chat_request,omitempty" require:"true"`
 }
 
 func (s OperateAgentProxyRequest) String() string {
@@ -251,8 +251,8 @@ func (s *OperateAgentProxyRequest) SetProductInstanceId(v string) *OperateAgentP
 	return s
 }
 
-func (s *OperateAgentProxyRequest) SetRequestJson(v string) *OperateAgentProxyRequest {
-	s.RequestJson = &v
+func (s *OperateAgentProxyRequest) SetAgentChatRequest(v string) *OperateAgentProxyRequest {
+	s.AgentChatRequest = &v
 	return s
 }
 
@@ -264,7 +264,7 @@ type OperateAgentProxyResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// json 序列化的回执结果
-	ResponseJson *string `json:"response_json,omitempty" xml:"response_json,omitempty"`
+	ChatCompletionObject *string `json:"chat_completion_object,omitempty" xml:"chat_completion_object,omitempty"`
 }
 
 func (s OperateAgentProxyResponse) String() string {
@@ -290,8 +290,8 @@ func (s *OperateAgentProxyResponse) SetResultMsg(v string) *OperateAgentProxyRes
 	return s
 }
 
-func (s *OperateAgentProxyResponse) SetResponseJson(v string) *OperateAgentProxyResponse {
-	s.ResponseJson = &v
+func (s *OperateAgentProxyResponse) SetChatCompletionObject(v string) *OperateAgentProxyResponse {
+	s.ChatCompletionObject = &v
 	return s
 }
 
@@ -417,7 +417,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.0"),
+				"sdk_version":      tea.String("1.1.2"),
 				"_prod_code":       tea.String("ERAPROD"),
 				"_prod_channel":    tea.String("default"),
 			}
