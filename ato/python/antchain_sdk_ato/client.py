@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.14.41',
+                    'sdk_version': '1.15.23',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.14.41',
+                    'sdk_version': '1.15.23',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -7219,6 +7219,1410 @@ class Client:
             await self.do_request_async('1.0', 'antchain.ato.inner.expandprocess.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_knowledge_baseinfo(
+        self,
+        request: ato_models.QueryKnowledgeBaseinfoRequest,
+    ) -> ato_models.QueryKnowledgeBaseinfoResponse:
+        """
+        Description: 商家自定义知识库-基础信息查询
+        Summary: 商家自定义知识库-基础信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_knowledge_baseinfo_ex(request, headers, runtime)
+
+    async def query_knowledge_baseinfo_async(
+        self,
+        request: ato_models.QueryKnowledgeBaseinfoRequest,
+    ) -> ato_models.QueryKnowledgeBaseinfoResponse:
+        """
+        Description: 商家自定义知识库-基础信息查询
+        Summary: 商家自定义知识库-基础信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_knowledge_baseinfo_ex_async(request, headers, runtime)
+
+    def query_knowledge_baseinfo_ex(
+        self,
+        request: ato_models.QueryKnowledgeBaseinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryKnowledgeBaseinfoResponse:
+        """
+        Description: 商家自定义知识库-基础信息查询
+        Summary: 商家自定义知识库-基础信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryKnowledgeBaseinfoResponse(),
+            self.do_request('1.0', 'antchain.ato.knowledge.baseinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_knowledge_baseinfo_ex_async(
+        self,
+        request: ato_models.QueryKnowledgeBaseinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryKnowledgeBaseinfoResponse:
+        """
+        Description: 商家自定义知识库-基础信息查询
+        Summary: 商家自定义知识库-基础信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryKnowledgeBaseinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.knowledge.baseinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_knowledge_category(
+        self,
+        request: ato_models.CreateKnowledgeCategoryRequest,
+    ) -> ato_models.CreateKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-创建用户自定义知识库
+        Summary: 商家自定义知识库-创建用户自定义知识库
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_knowledge_category_ex(request, headers, runtime)
+
+    async def create_knowledge_category_async(
+        self,
+        request: ato_models.CreateKnowledgeCategoryRequest,
+    ) -> ato_models.CreateKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-创建用户自定义知识库
+        Summary: 商家自定义知识库-创建用户自定义知识库
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_knowledge_category_ex_async(request, headers, runtime)
+
+    def create_knowledge_category_ex(
+        self,
+        request: ato_models.CreateKnowledgeCategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-创建用户自定义知识库
+        Summary: 商家自定义知识库-创建用户自定义知识库
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateKnowledgeCategoryResponse(),
+            self.do_request('1.0', 'antchain.ato.knowledge.category.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_knowledge_category_ex_async(
+        self,
+        request: ato_models.CreateKnowledgeCategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-创建用户自定义知识库
+        Summary: 商家自定义知识库-创建用户自定义知识库
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateKnowledgeCategoryResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.knowledge.category.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_knowledge_category(
+        self,
+        request: ato_models.PagequeryKnowledgeCategoryRequest,
+    ) -> ato_models.PagequeryKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-查询知识库信息列表
+        Summary: 商家自定义知识库-查询知识库信息列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_knowledge_category_ex(request, headers, runtime)
+
+    async def pagequery_knowledge_category_async(
+        self,
+        request: ato_models.PagequeryKnowledgeCategoryRequest,
+    ) -> ato_models.PagequeryKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-查询知识库信息列表
+        Summary: 商家自定义知识库-查询知识库信息列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_knowledge_category_ex_async(request, headers, runtime)
+
+    def pagequery_knowledge_category_ex(
+        self,
+        request: ato_models.PagequeryKnowledgeCategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-查询知识库信息列表
+        Summary: 商家自定义知识库-查询知识库信息列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryKnowledgeCategoryResponse(),
+            self.do_request('1.0', 'antchain.ato.knowledge.category.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_knowledge_category_ex_async(
+        self,
+        request: ato_models.PagequeryKnowledgeCategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-查询知识库信息列表
+        Summary: 商家自定义知识库-查询知识库信息列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryKnowledgeCategoryResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.knowledge.category.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_knowledge_category(
+        self,
+        request: ato_models.AddKnowledgeCategoryRequest,
+    ) -> ato_models.AddKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-新增知识知识库信息
+        Summary: 商家自定义知识库-新增知识知识库信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_knowledge_category_ex(request, headers, runtime)
+
+    async def add_knowledge_category_async(
+        self,
+        request: ato_models.AddKnowledgeCategoryRequest,
+    ) -> ato_models.AddKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-新增知识知识库信息
+        Summary: 商家自定义知识库-新增知识知识库信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_knowledge_category_ex_async(request, headers, runtime)
+
+    def add_knowledge_category_ex(
+        self,
+        request: ato_models.AddKnowledgeCategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.AddKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-新增知识知识库信息
+        Summary: 商家自定义知识库-新增知识知识库信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.AddKnowledgeCategoryResponse(),
+            self.do_request('1.0', 'antchain.ato.knowledge.category.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_knowledge_category_ex_async(
+        self,
+        request: ato_models.AddKnowledgeCategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.AddKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-新增知识知识库信息
+        Summary: 商家自定义知识库-新增知识知识库信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.AddKnowledgeCategoryResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.knowledge.category.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchdelete_knowledge_category(
+        self,
+        request: ato_models.BatchdeleteKnowledgeCategoryRequest,
+    ) -> ato_models.BatchdeleteKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-知识库信息批量删除
+        Summary: 商家自定义知识库-知识库信息批量删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchdelete_knowledge_category_ex(request, headers, runtime)
+
+    async def batchdelete_knowledge_category_async(
+        self,
+        request: ato_models.BatchdeleteKnowledgeCategoryRequest,
+    ) -> ato_models.BatchdeleteKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-知识库信息批量删除
+        Summary: 商家自定义知识库-知识库信息批量删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchdelete_knowledge_category_ex_async(request, headers, runtime)
+
+    def batchdelete_knowledge_category_ex(
+        self,
+        request: ato_models.BatchdeleteKnowledgeCategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.BatchdeleteKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-知识库信息批量删除
+        Summary: 商家自定义知识库-知识库信息批量删除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.BatchdeleteKnowledgeCategoryResponse(),
+            self.do_request('1.0', 'antchain.ato.knowledge.category.batchdelete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchdelete_knowledge_category_ex_async(
+        self,
+        request: ato_models.BatchdeleteKnowledgeCategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.BatchdeleteKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-知识库信息批量删除
+        Summary: 商家自定义知识库-知识库信息批量删除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.BatchdeleteKnowledgeCategoryResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.knowledge.category.batchdelete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_knowledge_category(
+        self,
+        request: ato_models.UpdateKnowledgeCategoryRequest,
+    ) -> ato_models.UpdateKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-编辑知识点
+        Summary: 商家自定义知识库-编辑知识点
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_knowledge_category_ex(request, headers, runtime)
+
+    async def update_knowledge_category_async(
+        self,
+        request: ato_models.UpdateKnowledgeCategoryRequest,
+    ) -> ato_models.UpdateKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-编辑知识点
+        Summary: 商家自定义知识库-编辑知识点
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_knowledge_category_ex_async(request, headers, runtime)
+
+    def update_knowledge_category_ex(
+        self,
+        request: ato_models.UpdateKnowledgeCategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UpdateKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-编辑知识点
+        Summary: 商家自定义知识库-编辑知识点
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UpdateKnowledgeCategoryResponse(),
+            self.do_request('1.0', 'antchain.ato.knowledge.category.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_knowledge_category_ex_async(
+        self,
+        request: ato_models.UpdateKnowledgeCategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UpdateKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-编辑知识点
+        Summary: 商家自定义知识库-编辑知识点
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UpdateKnowledgeCategoryResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.knowledge.category.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_knowledge_category(
+        self,
+        request: ato_models.OperateKnowledgeCategoryRequest,
+    ) -> ato_models.OperateKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-知识点流程撤回/上线/下线
+        Summary: 商家自定义知识库-知识点相关功能
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_knowledge_category_ex(request, headers, runtime)
+
+    async def operate_knowledge_category_async(
+        self,
+        request: ato_models.OperateKnowledgeCategoryRequest,
+    ) -> ato_models.OperateKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-知识点流程撤回/上线/下线
+        Summary: 商家自定义知识库-知识点相关功能
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_knowledge_category_ex_async(request, headers, runtime)
+
+    def operate_knowledge_category_ex(
+        self,
+        request: ato_models.OperateKnowledgeCategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.OperateKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-知识点流程撤回/上线/下线
+        Summary: 商家自定义知识库-知识点相关功能
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.OperateKnowledgeCategoryResponse(),
+            self.do_request('1.0', 'antchain.ato.knowledge.category.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_knowledge_category_ex_async(
+        self,
+        request: ato_models.OperateKnowledgeCategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.OperateKnowledgeCategoryResponse:
+        """
+        Description: 商家自定义知识库-知识点流程撤回/上线/下线
+        Summary: 商家自定义知识库-知识点相关功能
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.OperateKnowledgeCategoryResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.knowledge.category.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_knowledge_baseinfo(
+        self,
+        request: ato_models.SubmitKnowledgeBaseinfoRequest,
+    ) -> ato_models.SubmitKnowledgeBaseinfoResponse:
+        """
+        Description: 商家自定义知识库-基础信息维护
+        Summary: 商家自定义知识库-基础信息维护
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_knowledge_baseinfo_ex(request, headers, runtime)
+
+    async def submit_knowledge_baseinfo_async(
+        self,
+        request: ato_models.SubmitKnowledgeBaseinfoRequest,
+    ) -> ato_models.SubmitKnowledgeBaseinfoResponse:
+        """
+        Description: 商家自定义知识库-基础信息维护
+        Summary: 商家自定义知识库-基础信息维护
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_knowledge_baseinfo_ex_async(request, headers, runtime)
+
+    def submit_knowledge_baseinfo_ex(
+        self,
+        request: ato_models.SubmitKnowledgeBaseinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SubmitKnowledgeBaseinfoResponse:
+        """
+        Description: 商家自定义知识库-基础信息维护
+        Summary: 商家自定义知识库-基础信息维护
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SubmitKnowledgeBaseinfoResponse(),
+            self.do_request('1.0', 'antchain.ato.knowledge.baseinfo.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_knowledge_baseinfo_ex_async(
+        self,
+        request: ato_models.SubmitKnowledgeBaseinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SubmitKnowledgeBaseinfoResponse:
+        """
+        Description: 商家自定义知识库-基础信息维护
+        Summary: 商家自定义知识库-基础信息维护
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SubmitKnowledgeBaseinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.knowledge.baseinfo.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_knowledge_category(
+        self,
+        request: ato_models.SubmitKnowledgeCategoryRequest,
+    ) -> ato_models.SubmitKnowledgeCategoryResponse:
+        """
+        Description: 商户知识库-知识点全量提交
+        Summary: 商户知识库-知识点全量提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_knowledge_category_ex(request, headers, runtime)
+
+    async def submit_knowledge_category_async(
+        self,
+        request: ato_models.SubmitKnowledgeCategoryRequest,
+    ) -> ato_models.SubmitKnowledgeCategoryResponse:
+        """
+        Description: 商户知识库-知识点全量提交
+        Summary: 商户知识库-知识点全量提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_knowledge_category_ex_async(request, headers, runtime)
+
+    def submit_knowledge_category_ex(
+        self,
+        request: ato_models.SubmitKnowledgeCategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SubmitKnowledgeCategoryResponse:
+        """
+        Description: 商户知识库-知识点全量提交
+        Summary: 商户知识库-知识点全量提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SubmitKnowledgeCategoryResponse(),
+            self.do_request('1.0', 'antchain.ato.knowledge.category.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_knowledge_category_ex_async(
+        self,
+        request: ato_models.SubmitKnowledgeCategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SubmitKnowledgeCategoryResponse:
+        """
+        Description: 商户知识库-知识点全量提交
+        Summary: 商户知识库-知识点全量提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SubmitKnowledgeCategoryResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.knowledge.category.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_knowledge_categorylibrary(
+        self,
+        request: ato_models.QueryKnowledgeCategorylibraryRequest,
+    ) -> ato_models.QueryKnowledgeCategorylibraryResponse:
+        """
+        Description: 商家自定义知识库-查询知识库id
+        Summary: 商家自定义知识库-查询知识库id
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_knowledge_categorylibrary_ex(request, headers, runtime)
+
+    async def query_knowledge_categorylibrary_async(
+        self,
+        request: ato_models.QueryKnowledgeCategorylibraryRequest,
+    ) -> ato_models.QueryKnowledgeCategorylibraryResponse:
+        """
+        Description: 商家自定义知识库-查询知识库id
+        Summary: 商家自定义知识库-查询知识库id
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_knowledge_categorylibrary_ex_async(request, headers, runtime)
+
+    def query_knowledge_categorylibrary_ex(
+        self,
+        request: ato_models.QueryKnowledgeCategorylibraryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryKnowledgeCategorylibraryResponse:
+        """
+        Description: 商家自定义知识库-查询知识库id
+        Summary: 商家自定义知识库-查询知识库id
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryKnowledgeCategorylibraryResponse(),
+            self.do_request('1.0', 'antchain.ato.knowledge.categorylibrary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_knowledge_categorylibrary_ex_async(
+        self,
+        request: ato_models.QueryKnowledgeCategorylibraryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryKnowledgeCategorylibraryResponse:
+        """
+        Description: 商家自定义知识库-查询知识库id
+        Summary: 商家自定义知识库-查询知识库id
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryKnowledgeCategorylibraryResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.knowledge.categorylibrary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_inner_knowledgebaseinfo(
+        self,
+        request: ato_models.SubmitInnerKnowledgebaseinfoRequest,
+    ) -> ato_models.SubmitInnerKnowledgebaseinfoResponse:
+        """
+        Description: 商家自定义知识库-基础信息维护
+        Summary: 商家自定义知识库-基础信息维护
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_inner_knowledgebaseinfo_ex(request, headers, runtime)
+
+    async def submit_inner_knowledgebaseinfo_async(
+        self,
+        request: ato_models.SubmitInnerKnowledgebaseinfoRequest,
+    ) -> ato_models.SubmitInnerKnowledgebaseinfoResponse:
+        """
+        Description: 商家自定义知识库-基础信息维护
+        Summary: 商家自定义知识库-基础信息维护
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_inner_knowledgebaseinfo_ex_async(request, headers, runtime)
+
+    def submit_inner_knowledgebaseinfo_ex(
+        self,
+        request: ato_models.SubmitInnerKnowledgebaseinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SubmitInnerKnowledgebaseinfoResponse:
+        """
+        Description: 商家自定义知识库-基础信息维护
+        Summary: 商家自定义知识库-基础信息维护
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SubmitInnerKnowledgebaseinfoResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.knowledgebaseinfo.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_inner_knowledgebaseinfo_ex_async(
+        self,
+        request: ato_models.SubmitInnerKnowledgebaseinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SubmitInnerKnowledgebaseinfoResponse:
+        """
+        Description: 商家自定义知识库-基础信息维护
+        Summary: 商家自定义知识库-基础信息维护
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SubmitInnerKnowledgebaseinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.knowledgebaseinfo.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_knowledgebaseinfo(
+        self,
+        request: ato_models.QueryInnerKnowledgebaseinfoRequest,
+    ) -> ato_models.QueryInnerKnowledgebaseinfoResponse:
+        """
+        Description: 商家自定义知识库-基础信息查询
+        Summary: 商家自定义知识库-基础信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_knowledgebaseinfo_ex(request, headers, runtime)
+
+    async def query_inner_knowledgebaseinfo_async(
+        self,
+        request: ato_models.QueryInnerKnowledgebaseinfoRequest,
+    ) -> ato_models.QueryInnerKnowledgebaseinfoResponse:
+        """
+        Description: 商家自定义知识库-基础信息查询
+        Summary: 商家自定义知识库-基础信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_knowledgebaseinfo_ex_async(request, headers, runtime)
+
+    def query_inner_knowledgebaseinfo_ex(
+        self,
+        request: ato_models.QueryInnerKnowledgebaseinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerKnowledgebaseinfoResponse:
+        """
+        Description: 商家自定义知识库-基础信息查询
+        Summary: 商家自定义知识库-基础信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerKnowledgebaseinfoResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.knowledgebaseinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_knowledgebaseinfo_ex_async(
+        self,
+        request: ato_models.QueryInnerKnowledgebaseinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerKnowledgebaseinfoResponse:
+        """
+        Description: 商家自定义知识库-基础信息查询
+        Summary: 商家自定义知识库-基础信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerKnowledgebaseinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.knowledgebaseinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_inner_knowledgecategory(
+        self,
+        request: ato_models.SubmitInnerKnowledgecategoryRequest,
+    ) -> ato_models.SubmitInnerKnowledgecategoryResponse:
+        """
+        Description: 户知识库-知识点全量提交
+        Summary: 户知识库-知识点全量提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_inner_knowledgecategory_ex(request, headers, runtime)
+
+    async def submit_inner_knowledgecategory_async(
+        self,
+        request: ato_models.SubmitInnerKnowledgecategoryRequest,
+    ) -> ato_models.SubmitInnerKnowledgecategoryResponse:
+        """
+        Description: 户知识库-知识点全量提交
+        Summary: 户知识库-知识点全量提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_inner_knowledgecategory_ex_async(request, headers, runtime)
+
+    def submit_inner_knowledgecategory_ex(
+        self,
+        request: ato_models.SubmitInnerKnowledgecategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SubmitInnerKnowledgecategoryResponse:
+        """
+        Description: 户知识库-知识点全量提交
+        Summary: 户知识库-知识点全量提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SubmitInnerKnowledgecategoryResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.knowledgecategory.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_inner_knowledgecategory_ex_async(
+        self,
+        request: ato_models.SubmitInnerKnowledgecategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SubmitInnerKnowledgecategoryResponse:
+        """
+        Description: 户知识库-知识点全量提交
+        Summary: 户知识库-知识点全量提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SubmitInnerKnowledgecategoryResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.knowledgecategory.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_knowledgecategorylibrary(
+        self,
+        request: ato_models.QueryInnerKnowledgecategorylibraryRequest,
+    ) -> ato_models.QueryInnerKnowledgecategorylibraryResponse:
+        """
+        Description: 商家自定义知识库-查询知识库id
+        Summary: 商家自定义知识库-查询知识库id
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_knowledgecategorylibrary_ex(request, headers, runtime)
+
+    async def query_inner_knowledgecategorylibrary_async(
+        self,
+        request: ato_models.QueryInnerKnowledgecategorylibraryRequest,
+    ) -> ato_models.QueryInnerKnowledgecategorylibraryResponse:
+        """
+        Description: 商家自定义知识库-查询知识库id
+        Summary: 商家自定义知识库-查询知识库id
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_knowledgecategorylibrary_ex_async(request, headers, runtime)
+
+    def query_inner_knowledgecategorylibrary_ex(
+        self,
+        request: ato_models.QueryInnerKnowledgecategorylibraryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerKnowledgecategorylibraryResponse:
+        """
+        Description: 商家自定义知识库-查询知识库id
+        Summary: 商家自定义知识库-查询知识库id
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerKnowledgecategorylibraryResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.knowledgecategorylibrary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_knowledgecategorylibrary_ex_async(
+        self,
+        request: ato_models.QueryInnerKnowledgecategorylibraryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerKnowledgecategorylibraryResponse:
+        """
+        Description: 商家自定义知识库-查询知识库id
+        Summary: 商家自定义知识库-查询知识库id
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerKnowledgecategorylibraryResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.knowledgecategorylibrary.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_inner_knowledgecategory(
+        self,
+        request: ato_models.CreateInnerKnowledgecategoryRequest,
+    ) -> ato_models.CreateInnerKnowledgecategoryResponse:
+        """
+        Description: 商家自定义知识库-创建用户自定义知识库
+        Summary: 商家自定义知识库-创建用户自定义知识库
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_inner_knowledgecategory_ex(request, headers, runtime)
+
+    async def create_inner_knowledgecategory_async(
+        self,
+        request: ato_models.CreateInnerKnowledgecategoryRequest,
+    ) -> ato_models.CreateInnerKnowledgecategoryResponse:
+        """
+        Description: 商家自定义知识库-创建用户自定义知识库
+        Summary: 商家自定义知识库-创建用户自定义知识库
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_inner_knowledgecategory_ex_async(request, headers, runtime)
+
+    def create_inner_knowledgecategory_ex(
+        self,
+        request: ato_models.CreateInnerKnowledgecategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateInnerKnowledgecategoryResponse:
+        """
+        Description: 商家自定义知识库-创建用户自定义知识库
+        Summary: 商家自定义知识库-创建用户自定义知识库
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateInnerKnowledgecategoryResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.knowledgecategory.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_inner_knowledgecategory_ex_async(
+        self,
+        request: ato_models.CreateInnerKnowledgecategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateInnerKnowledgecategoryResponse:
+        """
+        Description: 商家自定义知识库-创建用户自定义知识库
+        Summary: 商家自定义知识库-创建用户自定义知识库
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateInnerKnowledgecategoryResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.knowledgecategory.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchdelete_inner_knowledgecategory(
+        self,
+        request: ato_models.BatchdeleteInnerKnowledgecategoryRequest,
+    ) -> ato_models.BatchdeleteInnerKnowledgecategoryResponse:
+        """
+        Description: 商家自定义知识库-知识库信息批量删除
+        Summary: 商家自定义知识库-知识库信息批量删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchdelete_inner_knowledgecategory_ex(request, headers, runtime)
+
+    async def batchdelete_inner_knowledgecategory_async(
+        self,
+        request: ato_models.BatchdeleteInnerKnowledgecategoryRequest,
+    ) -> ato_models.BatchdeleteInnerKnowledgecategoryResponse:
+        """
+        Description: 商家自定义知识库-知识库信息批量删除
+        Summary: 商家自定义知识库-知识库信息批量删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchdelete_inner_knowledgecategory_ex_async(request, headers, runtime)
+
+    def batchdelete_inner_knowledgecategory_ex(
+        self,
+        request: ato_models.BatchdeleteInnerKnowledgecategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.BatchdeleteInnerKnowledgecategoryResponse:
+        """
+        Description: 商家自定义知识库-知识库信息批量删除
+        Summary: 商家自定义知识库-知识库信息批量删除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.BatchdeleteInnerKnowledgecategoryResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.knowledgecategory.batchdelete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchdelete_inner_knowledgecategory_ex_async(
+        self,
+        request: ato_models.BatchdeleteInnerKnowledgecategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.BatchdeleteInnerKnowledgecategoryResponse:
+        """
+        Description: 商家自定义知识库-知识库信息批量删除
+        Summary: 商家自定义知识库-知识库信息批量删除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.BatchdeleteInnerKnowledgecategoryResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.knowledgecategory.batchdelete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_inner_knowledgecategory(
+        self,
+        request: ato_models.OperateInnerKnowledgecategoryRequest,
+    ) -> ato_models.OperateInnerKnowledgecategoryResponse:
+        """
+        Description: 商家自定义知识库-知识点相关功能
+        Summary: 商家自定义知识库-知识点相关功能
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_inner_knowledgecategory_ex(request, headers, runtime)
+
+    async def operate_inner_knowledgecategory_async(
+        self,
+        request: ato_models.OperateInnerKnowledgecategoryRequest,
+    ) -> ato_models.OperateInnerKnowledgecategoryResponse:
+        """
+        Description: 商家自定义知识库-知识点相关功能
+        Summary: 商家自定义知识库-知识点相关功能
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_inner_knowledgecategory_ex_async(request, headers, runtime)
+
+    def operate_inner_knowledgecategory_ex(
+        self,
+        request: ato_models.OperateInnerKnowledgecategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.OperateInnerKnowledgecategoryResponse:
+        """
+        Description: 商家自定义知识库-知识点相关功能
+        Summary: 商家自定义知识库-知识点相关功能
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.OperateInnerKnowledgecategoryResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.knowledgecategory.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_inner_knowledgecategory_ex_async(
+        self,
+        request: ato_models.OperateInnerKnowledgecategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.OperateInnerKnowledgecategoryResponse:
+        """
+        Description: 商家自定义知识库-知识点相关功能
+        Summary: 商家自定义知识库-知识点相关功能
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.OperateInnerKnowledgecategoryResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.knowledgecategory.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_inner_knowledgecategory(
+        self,
+        request: ato_models.AddInnerKnowledgecategoryRequest,
+    ) -> ato_models.AddInnerKnowledgecategoryResponse:
+        """
+        Description: 商家自定义知识库-新增知识知识库信息
+        Summary: 商家自定义知识库-新增知识知识库信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_inner_knowledgecategory_ex(request, headers, runtime)
+
+    async def add_inner_knowledgecategory_async(
+        self,
+        request: ato_models.AddInnerKnowledgecategoryRequest,
+    ) -> ato_models.AddInnerKnowledgecategoryResponse:
+        """
+        Description: 商家自定义知识库-新增知识知识库信息
+        Summary: 商家自定义知识库-新增知识知识库信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_inner_knowledgecategory_ex_async(request, headers, runtime)
+
+    def add_inner_knowledgecategory_ex(
+        self,
+        request: ato_models.AddInnerKnowledgecategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.AddInnerKnowledgecategoryResponse:
+        """
+        Description: 商家自定义知识库-新增知识知识库信息
+        Summary: 商家自定义知识库-新增知识知识库信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.AddInnerKnowledgecategoryResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.knowledgecategory.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_inner_knowledgecategory_ex_async(
+        self,
+        request: ato_models.AddInnerKnowledgecategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.AddInnerKnowledgecategoryResponse:
+        """
+        Description: 商家自定义知识库-新增知识知识库信息
+        Summary: 商家自定义知识库-新增知识知识库信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.AddInnerKnowledgecategoryResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.knowledgecategory.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_inner_knowledgecategory(
+        self,
+        request: ato_models.PagequeryInnerKnowledgecategoryRequest,
+    ) -> ato_models.PagequeryInnerKnowledgecategoryResponse:
+        """
+        Description:
+        商家自定义知识库-查询知识库信息列表
+        Summary:  商家自定义知识库-查询知识库信息列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_inner_knowledgecategory_ex(request, headers, runtime)
+
+    async def pagequery_inner_knowledgecategory_async(
+        self,
+        request: ato_models.PagequeryInnerKnowledgecategoryRequest,
+    ) -> ato_models.PagequeryInnerKnowledgecategoryResponse:
+        """
+        Description:
+        商家自定义知识库-查询知识库信息列表
+        Summary:  商家自定义知识库-查询知识库信息列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_inner_knowledgecategory_ex_async(request, headers, runtime)
+
+    def pagequery_inner_knowledgecategory_ex(
+        self,
+        request: ato_models.PagequeryInnerKnowledgecategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerKnowledgecategoryResponse:
+        """
+        Description:
+        商家自定义知识库-查询知识库信息列表
+        Summary:  商家自定义知识库-查询知识库信息列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerKnowledgecategoryResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.knowledgecategory.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_inner_knowledgecategory_ex_async(
+        self,
+        request: ato_models.PagequeryInnerKnowledgecategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerKnowledgecategoryResponse:
+        """
+        Description:
+        商家自定义知识库-查询知识库信息列表
+        Summary:  商家自定义知识库-查询知识库信息列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerKnowledgecategoryResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.knowledgecategory.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_inner_knowledgecategory(
+        self,
+        request: ato_models.UpdateInnerKnowledgecategoryRequest,
+    ) -> ato_models.UpdateInnerKnowledgecategoryResponse:
+        """
+        Description: 商家自定义知识库-编辑知识点
+        Summary: 商家自定义知识库-编辑知识点
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_inner_knowledgecategory_ex(request, headers, runtime)
+
+    async def update_inner_knowledgecategory_async(
+        self,
+        request: ato_models.UpdateInnerKnowledgecategoryRequest,
+    ) -> ato_models.UpdateInnerKnowledgecategoryResponse:
+        """
+        Description: 商家自定义知识库-编辑知识点
+        Summary: 商家自定义知识库-编辑知识点
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_inner_knowledgecategory_ex_async(request, headers, runtime)
+
+    def update_inner_knowledgecategory_ex(
+        self,
+        request: ato_models.UpdateInnerKnowledgecategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UpdateInnerKnowledgecategoryResponse:
+        """
+        Description: 商家自定义知识库-编辑知识点
+        Summary: 商家自定义知识库-编辑知识点
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UpdateInnerKnowledgecategoryResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.knowledgecategory.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_inner_knowledgecategory_ex_async(
+        self,
+        request: ato_models.UpdateInnerKnowledgecategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UpdateInnerKnowledgecategoryResponse:
+        """
+        Description: 商家自定义知识库-编辑知识点
+        Summary: 商家自定义知识库-编辑知识点
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UpdateInnerKnowledgecategoryResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.knowledgecategory.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_inner_saleschannel(
+        self,
+        request: ato_models.CreateInnerSaleschannelRequest,
+    ) -> ato_models.CreateInnerSaleschannelResponse:
+        """
+        Description: 可以通过此接口创建分销渠道，创建成功后返回子渠道的信息
+        Summary: 分销渠道创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_inner_saleschannel_ex(request, headers, runtime)
+
+    async def create_inner_saleschannel_async(
+        self,
+        request: ato_models.CreateInnerSaleschannelRequest,
+    ) -> ato_models.CreateInnerSaleschannelResponse:
+        """
+        Description: 可以通过此接口创建分销渠道，创建成功后返回子渠道的信息
+        Summary: 分销渠道创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_inner_saleschannel_ex_async(request, headers, runtime)
+
+    def create_inner_saleschannel_ex(
+        self,
+        request: ato_models.CreateInnerSaleschannelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateInnerSaleschannelResponse:
+        """
+        Description: 可以通过此接口创建分销渠道，创建成功后返回子渠道的信息
+        Summary: 分销渠道创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateInnerSaleschannelResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.saleschannel.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_inner_saleschannel_ex_async(
+        self,
+        request: ato_models.CreateInnerSaleschannelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateInnerSaleschannelResponse:
+        """
+        Description: 可以通过此接口创建分销渠道，创建成功后返回子渠道的信息
+        Summary: 分销渠道创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateInnerSaleschannelResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.saleschannel.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_saleschannel(
+        self,
+        request: ato_models.QueryInnerSaleschannelRequest,
+    ) -> ato_models.QueryInnerSaleschannelResponse:
+        """
+        Description: 查询分销渠道code、名称、级别等信息
+        Summary: 分销渠道查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_saleschannel_ex(request, headers, runtime)
+
+    async def query_inner_saleschannel_async(
+        self,
+        request: ato_models.QueryInnerSaleschannelRequest,
+    ) -> ato_models.QueryInnerSaleschannelResponse:
+        """
+        Description: 查询分销渠道code、名称、级别等信息
+        Summary: 分销渠道查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_saleschannel_ex_async(request, headers, runtime)
+
+    def query_inner_saleschannel_ex(
+        self,
+        request: ato_models.QueryInnerSaleschannelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSaleschannelResponse:
+        """
+        Description: 查询分销渠道code、名称、级别等信息
+        Summary: 分销渠道查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSaleschannelResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.saleschannel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_saleschannel_ex_async(
+        self,
+        request: ato_models.QueryInnerSaleschannelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSaleschannelResponse:
+        """
+        Description: 查询分销渠道code、名称、级别等信息
+        Summary: 分销渠道查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSaleschannelResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.saleschannel.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_inner_saleschannel(
+        self,
+        request: ato_models.UpdateInnerSaleschannelRequest,
+    ) -> ato_models.UpdateInnerSaleschannelResponse:
+        """
+        Description: 分销渠道更新，当前支持修改渠道名称
+        Summary: 分销渠道更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_inner_saleschannel_ex(request, headers, runtime)
+
+    async def update_inner_saleschannel_async(
+        self,
+        request: ato_models.UpdateInnerSaleschannelRequest,
+    ) -> ato_models.UpdateInnerSaleschannelResponse:
+        """
+        Description: 分销渠道更新，当前支持修改渠道名称
+        Summary: 分销渠道更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_inner_saleschannel_ex_async(request, headers, runtime)
+
+    def update_inner_saleschannel_ex(
+        self,
+        request: ato_models.UpdateInnerSaleschannelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UpdateInnerSaleschannelResponse:
+        """
+        Description: 分销渠道更新，当前支持修改渠道名称
+        Summary: 分销渠道更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UpdateInnerSaleschannelResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.saleschannel.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_inner_saleschannel_ex_async(
+        self,
+        request: ato_models.UpdateInnerSaleschannelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UpdateInnerSaleschannelResponse:
+        """
+        Description: 分销渠道更新，当前支持修改渠道名称
+        Summary: 分销渠道更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UpdateInnerSaleschannelResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.saleschannel.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_inner_saleschannel(
+        self,
+        request: ato_models.DeleteInnerSaleschannelRequest,
+    ) -> ato_models.DeleteInnerSaleschannelResponse:
+        """
+        Description: 删除所选的分销渠道
+        Summary: 分销渠道删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_inner_saleschannel_ex(request, headers, runtime)
+
+    async def delete_inner_saleschannel_async(
+        self,
+        request: ato_models.DeleteInnerSaleschannelRequest,
+    ) -> ato_models.DeleteInnerSaleschannelResponse:
+        """
+        Description: 删除所选的分销渠道
+        Summary: 分销渠道删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_inner_saleschannel_ex_async(request, headers, runtime)
+
+    def delete_inner_saleschannel_ex(
+        self,
+        request: ato_models.DeleteInnerSaleschannelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DeleteInnerSaleschannelResponse:
+        """
+        Description: 删除所选的分销渠道
+        Summary: 分销渠道删除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DeleteInnerSaleschannelResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.saleschannel.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_inner_saleschannel_ex_async(
+        self,
+        request: ato_models.DeleteInnerSaleschannelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DeleteInnerSaleschannelResponse:
+        """
+        Description: 删除所选的分销渠道
+        Summary: 分销渠道删除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DeleteInnerSaleschannelResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.saleschannel.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchcreate_inner_templatetextarea(
+        self,
+        request: ato_models.BatchcreateInnerTemplatetextareaRequest,
+    ) -> ato_models.BatchcreateInnerTemplatetextareaResponse:
+        """
+        Description: 批量创建文本域（组件）
+        Summary: 批量创建文本域
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchcreate_inner_templatetextarea_ex(request, headers, runtime)
+
+    async def batchcreate_inner_templatetextarea_async(
+        self,
+        request: ato_models.BatchcreateInnerTemplatetextareaRequest,
+    ) -> ato_models.BatchcreateInnerTemplatetextareaResponse:
+        """
+        Description: 批量创建文本域（组件）
+        Summary: 批量创建文本域
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchcreate_inner_templatetextarea_ex_async(request, headers, runtime)
+
+    def batchcreate_inner_templatetextarea_ex(
+        self,
+        request: ato_models.BatchcreateInnerTemplatetextareaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.BatchcreateInnerTemplatetextareaResponse:
+        """
+        Description: 批量创建文本域（组件）
+        Summary: 批量创建文本域
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.BatchcreateInnerTemplatetextareaResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.templatetextarea.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchcreate_inner_templatetextarea_ex_async(
+        self,
+        request: ato_models.BatchcreateInnerTemplatetextareaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.BatchcreateInnerTemplatetextareaResponse:
+        """
+        Description: 批量创建文本域（组件）
+        Summary: 批量创建文本域
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.BatchcreateInnerTemplatetextareaResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.templatetextarea.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def create_insure(
         self,
         request: ato_models.CreateInsureRequest,
@@ -9755,6 +11159,62 @@ class Client:
             await self.do_request_async('1.0', 'antchain.ato.trade.userpromise.resume', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def sync_trade_promoorderinfo(
+        self,
+        request: ato_models.SyncTradePromoorderinfoRequest,
+    ) -> ato_models.SyncTradePromoorderinfoResponse:
+        """
+        Description: 订单信息同步
+        Summary: 订单信息同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_trade_promoorderinfo_ex(request, headers, runtime)
+
+    async def sync_trade_promoorderinfo_async(
+        self,
+        request: ato_models.SyncTradePromoorderinfoRequest,
+    ) -> ato_models.SyncTradePromoorderinfoResponse:
+        """
+        Description: 订单信息同步
+        Summary: 订单信息同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_trade_promoorderinfo_ex_async(request, headers, runtime)
+
+    def sync_trade_promoorderinfo_ex(
+        self,
+        request: ato_models.SyncTradePromoorderinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SyncTradePromoorderinfoResponse:
+        """
+        Description: 订单信息同步
+        Summary: 订单信息同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SyncTradePromoorderinfoResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.promoorderinfo.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_trade_promoorderinfo_ex_async(
+        self,
+        request: ato_models.SyncTradePromoorderinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SyncTradePromoorderinfoResponse:
+        """
+        Description: 订单信息同步
+        Summary: 订单信息同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SyncTradePromoorderinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.promoorderinfo.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def create_withhold_sign(
         self,
         request: ato_models.CreateWithholdSignRequest,
@@ -10160,8 +11620,8 @@ class Client:
         request: ato_models.CreateWithholdActivepayRequest,
     ) -> ato_models.CreateWithholdActivepayResponse:
         """
-        Description: 代扣主动支付创建
-        Summary: 代扣主动支付创建
+        Description: 主动支付创建
+        Summary: 主动支付创建
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10172,8 +11632,8 @@ class Client:
         request: ato_models.CreateWithholdActivepayRequest,
     ) -> ato_models.CreateWithholdActivepayResponse:
         """
-        Description: 代扣主动支付创建
-        Summary: 代扣主动支付创建
+        Description: 主动支付创建
+        Summary: 主动支付创建
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10186,8 +11646,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ato_models.CreateWithholdActivepayResponse:
         """
-        Description: 代扣主动支付创建
-        Summary: 代扣主动支付创建
+        Description: 主动支付创建
+        Summary: 主动支付创建
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -10202,8 +11662,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ato_models.CreateWithholdActivepayResponse:
         """
-        Description: 代扣主动支付创建
-        Summary: 代扣主动支付创建
+        Description: 主动支付创建
+        Summary: 主动支付创建
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -10216,8 +11676,8 @@ class Client:
         request: ato_models.QueryWithholdActivepayRequest,
     ) -> ato_models.QueryWithholdActivepayResponse:
         """
-        Description: 代扣主动支付查询
-        Summary: 代扣主动支付查询
+        Description: 主动支付查询
+        Summary: 主动支付查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10228,8 +11688,8 @@ class Client:
         request: ato_models.QueryWithholdActivepayRequest,
     ) -> ato_models.QueryWithholdActivepayResponse:
         """
-        Description: 代扣主动支付查询
-        Summary: 代扣主动支付查询
+        Description: 主动支付查询
+        Summary: 主动支付查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10242,8 +11702,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ato_models.QueryWithholdActivepayResponse:
         """
-        Description: 代扣主动支付查询
-        Summary: 代扣主动支付查询
+        Description: 主动支付查询
+        Summary: 主动支付查询
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -10258,8 +11718,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ato_models.QueryWithholdActivepayResponse:
         """
-        Description: 代扣主动支付查询
-        Summary: 代扣主动支付查询
+        Description: 主动支付查询
+        Summary: 主动支付查询
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -10272,8 +11732,8 @@ class Client:
         request: ato_models.CancelWithholdActivepayRequest,
     ) -> ato_models.CancelWithholdActivepayResponse:
         """
-        Description: 代扣主动支付取消
-        Summary: 代扣主动支付取消
+        Description: 主动支付取消
+        Summary: 主动支付取消
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10284,8 +11744,8 @@ class Client:
         request: ato_models.CancelWithholdActivepayRequest,
     ) -> ato_models.CancelWithholdActivepayResponse:
         """
-        Description: 代扣主动支付取消
-        Summary: 代扣主动支付取消
+        Description: 主动支付取消
+        Summary: 主动支付取消
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -10298,8 +11758,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ato_models.CancelWithholdActivepayResponse:
         """
-        Description: 代扣主动支付取消
-        Summary: 代扣主动支付取消
+        Description: 主动支付取消
+        Summary: 主动支付取消
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -10314,8 +11774,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ato_models.CancelWithholdActivepayResponse:
         """
-        Description: 代扣主动支付取消
-        Summary: 代扣主动支付取消
+        Description: 主动支付取消
+        Summary: 主动支付取消
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -10489,6 +11949,118 @@ class Client:
         return TeaCore.from_map(
             ato_models.QueryWithholdCompensateaccountResponse(),
             await self.do_request_async('1.0', 'antchain.ato.withhold.compensateaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def retry_withhold_planpending(
+        self,
+        request: ato_models.RetryWithholdPlanpendingRequest,
+    ) -> ato_models.RetryWithholdPlanpendingResponse:
+        """
+        Description: 重试pending状态的代扣计划
+        Summary: 重试pending状态的代扣计划
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.retry_withhold_planpending_ex(request, headers, runtime)
+
+    async def retry_withhold_planpending_async(
+        self,
+        request: ato_models.RetryWithholdPlanpendingRequest,
+    ) -> ato_models.RetryWithholdPlanpendingResponse:
+        """
+        Description: 重试pending状态的代扣计划
+        Summary: 重试pending状态的代扣计划
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.retry_withhold_planpending_ex_async(request, headers, runtime)
+
+    def retry_withhold_planpending_ex(
+        self,
+        request: ato_models.RetryWithholdPlanpendingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.RetryWithholdPlanpendingResponse:
+        """
+        Description: 重试pending状态的代扣计划
+        Summary: 重试pending状态的代扣计划
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.RetryWithholdPlanpendingResponse(),
+            self.do_request('1.0', 'antchain.ato.withhold.planpending.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def retry_withhold_planpending_ex_async(
+        self,
+        request: ato_models.RetryWithholdPlanpendingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.RetryWithholdPlanpendingResponse:
+        """
+        Description: 重试pending状态的代扣计划
+        Summary: 重试pending状态的代扣计划
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.RetryWithholdPlanpendingResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.withhold.planpending.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def retry_withhold_dividepending(
+        self,
+        request: ato_models.RetryWithholdDividependingRequest,
+    ) -> ato_models.RetryWithholdDividependingResponse:
+        """
+        Description: 分账pending重试
+        Summary: 分账pending重试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.retry_withhold_dividepending_ex(request, headers, runtime)
+
+    async def retry_withhold_dividepending_async(
+        self,
+        request: ato_models.RetryWithholdDividependingRequest,
+    ) -> ato_models.RetryWithholdDividependingResponse:
+        """
+        Description: 分账pending重试
+        Summary: 分账pending重试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.retry_withhold_dividepending_ex_async(request, headers, runtime)
+
+    def retry_withhold_dividepending_ex(
+        self,
+        request: ato_models.RetryWithholdDividependingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.RetryWithholdDividependingResponse:
+        """
+        Description: 分账pending重试
+        Summary: 分账pending重试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.RetryWithholdDividependingResponse(),
+            self.do_request('1.0', 'antchain.ato.withhold.dividepending.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def retry_withhold_dividepending_ex_async(
+        self,
+        request: ato_models.RetryWithholdDividependingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.RetryWithholdDividependingResponse:
+        """
+        Description: 分账pending重试
+        Summary: 分账pending重试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.RetryWithholdDividependingResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.withhold.dividepending.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
