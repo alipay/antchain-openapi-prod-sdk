@@ -43,11 +43,18 @@ class QueryWithholdActivepayRequest extends Model
      */
     public $payType;
 
-    // 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
+    // 无用字段，无需关注
     /**
      * @var string
      */
     public $payChannel;
+
+    // 支付申请号，用于区分在一笔订单同一支付类型的多笔支付请求。
+    // 当支付类型非MULTI_PAY或为空时必填
+    /**
+     * @var int
+     */
+    public $payApplyNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +63,7 @@ class QueryWithholdActivepayRequest extends Model
         'tradeNo'           => 'trade_no',
         'payType'           => 'pay_type',
         'payChannel'        => 'pay_channel',
+        'payApplyNo'        => 'pay_apply_no',
     ];
 
     public function validate()
@@ -68,6 +76,7 @@ class QueryWithholdActivepayRequest extends Model
         Model::validateMinLength('orderId', $this->orderId, 1);
         Model::validateMinLength('payType', $this->payType, 1);
         Model::validateMinimum('periodNum', $this->periodNum, 1);
+        Model::validateMinimum('payApplyNo', $this->payApplyNo, 1);
     }
 
     public function toMap()
@@ -93,6 +102,9 @@ class QueryWithholdActivepayRequest extends Model
         }
         if (null !== $this->payChannel) {
             $res['pay_channel'] = $this->payChannel;
+        }
+        if (null !== $this->payApplyNo) {
+            $res['pay_apply_no'] = $this->payApplyNo;
         }
 
         return $res;
@@ -126,6 +138,9 @@ class QueryWithholdActivepayRequest extends Model
         }
         if (isset($map['pay_channel'])) {
             $model->payChannel = $map['pay_channel'];
+        }
+        if (isset($map['pay_apply_no'])) {
+            $model->payApplyNo = $map['pay_apply_no'];
         }
 
         return $model;

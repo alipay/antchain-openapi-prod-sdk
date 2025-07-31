@@ -13,8 +13,12 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\ATO\Models\AddFundDividerelationRequest;
 use AntChain\ATO\Models\AddFundDividerelationResponse;
+use AntChain\ATO\Models\AddInnerKnowledgecategoryRequest;
+use AntChain\ATO\Models\AddInnerKnowledgecategoryResponse;
 use AntChain\ATO\Models\AddInnerTemplateRequest;
 use AntChain\ATO\Models\AddInnerTemplateResponse;
+use AntChain\ATO\Models\AddKnowledgeCategoryRequest;
+use AntChain\ATO\Models\AddKnowledgeCategoryResponse;
 use AntChain\ATO\Models\AddMerchantexpandDividerelationRequest;
 use AntChain\ATO\Models\AddMerchantexpandDividerelationResponse;
 use AntChain\ATO\Models\AddTradeFinanceprecheckRequest;
@@ -35,6 +39,12 @@ use AntChain\ATO\Models\AuthFundFlowRequest;
 use AntChain\ATO\Models\AuthFundFlowResponse;
 use AntChain\ATO\Models\AuthSignFlowRequest;
 use AntChain\ATO\Models\AuthSignFlowResponse;
+use AntChain\ATO\Models\BatchcreateInnerTemplatetextareaRequest;
+use AntChain\ATO\Models\BatchcreateInnerTemplatetextareaResponse;
+use AntChain\ATO\Models\BatchdeleteInnerKnowledgecategoryRequest;
+use AntChain\ATO\Models\BatchdeleteInnerKnowledgecategoryResponse;
+use AntChain\ATO\Models\BatchdeleteKnowledgeCategoryRequest;
+use AntChain\ATO\Models\BatchdeleteKnowledgeCategoryResponse;
 use AntChain\ATO\Models\BatchqueryInnerMarketingscoreRequest;
 use AntChain\ATO\Models\BatchqueryInnerMarketingscoreResponse;
 use AntChain\ATO\Models\CallbackFundNotifyRequest;
@@ -65,10 +75,14 @@ use AntChain\ATO\Models\CreateInnerFunddividerelationRequest;
 use AntChain\ATO\Models\CreateInnerFunddividerelationResponse;
 use AntChain\ATO\Models\CreateInnerInsuresignRequest;
 use AntChain\ATO\Models\CreateInnerInsuresignResponse;
+use AntChain\ATO\Models\CreateInnerKnowledgecategoryRequest;
+use AntChain\ATO\Models\CreateInnerKnowledgecategoryResponse;
 use AntChain\ATO\Models\CreateInnerMerchantagreementRequest;
 use AntChain\ATO\Models\CreateInnerMerchantagreementResponse;
 use AntChain\ATO\Models\CreateInnerMerchantpayexpandRequest;
 use AntChain\ATO\Models\CreateInnerMerchantpayexpandResponse;
+use AntChain\ATO\Models\CreateInnerSaleschannelRequest;
+use AntChain\ATO\Models\CreateInnerSaleschannelResponse;
 use AntChain\ATO\Models\CreateInnerTemplateRequest;
 use AntChain\ATO\Models\CreateInnerTemplateResponse;
 use AntChain\ATO\Models\CreateInnerTemplatetextareaRequest;
@@ -79,6 +93,8 @@ use AntChain\ATO\Models\CreateInnerWithholdsignRequest;
 use AntChain\ATO\Models\CreateInnerWithholdsignResponse;
 use AntChain\ATO\Models\CreateInsureRequest;
 use AntChain\ATO\Models\CreateInsureResponse;
+use AntChain\ATO\Models\CreateKnowledgeCategoryRequest;
+use AntChain\ATO\Models\CreateKnowledgeCategoryResponse;
 use AntChain\ATO\Models\CreateRealpersonFacevrfRequest;
 use AntChain\ATO\Models\CreateRealpersonFacevrfResponse;
 use AntChain\ATO\Models\CreateWithholdActivepayRequest;
@@ -89,6 +105,8 @@ use AntChain\ATO\Models\CreateWithholdSignRequest;
 use AntChain\ATO\Models\CreateWithholdSignResponse;
 use AntChain\ATO\Models\DeleteInnerDatadownloadRequest;
 use AntChain\ATO\Models\DeleteInnerDatadownloadResponse;
+use AntChain\ATO\Models\DeleteInnerSaleschannelRequest;
+use AntChain\ATO\Models\DeleteInnerSaleschannelResponse;
 use AntChain\ATO\Models\DeleteInnerTemplateRequest;
 use AntChain\ATO\Models\DeleteInnerTemplateResponse;
 use AntChain\ATO\Models\DetailInnerCustomerserviceRequest;
@@ -153,6 +171,10 @@ use AntChain\ATO\Models\ListInnerTemplateRequest;
 use AntChain\ATO\Models\ListInnerTemplateResponse;
 use AntChain\ATO\Models\NotifyFundFlowRequest;
 use AntChain\ATO\Models\NotifyFundFlowResponse;
+use AntChain\ATO\Models\OperateInnerKnowledgecategoryRequest;
+use AntChain\ATO\Models\OperateInnerKnowledgecategoryResponse;
+use AntChain\ATO\Models\OperateKnowledgeCategoryRequest;
+use AntChain\ATO\Models\OperateKnowledgeCategoryResponse;
 use AntChain\ATO\Models\PagequeryInnerCompanyinfoRequest;
 use AntChain\ATO\Models\PagequeryInnerCompanyinfoResponse;
 use AntChain\ATO\Models\PagequeryInnerCustomerserviceRequest;
@@ -163,6 +185,8 @@ use AntChain\ATO\Models\PagequeryInnerFunddividerelationRequest;
 use AntChain\ATO\Models\PagequeryInnerFunddividerelationResponse;
 use AntChain\ATO\Models\PagequeryInnerInsureorderRequest;
 use AntChain\ATO\Models\PagequeryInnerInsureorderResponse;
+use AntChain\ATO\Models\PagequeryInnerKnowledgecategoryRequest;
+use AntChain\ATO\Models\PagequeryInnerKnowledgecategoryResponse;
 use AntChain\ATO\Models\PagequeryInnerMerchantagentRequest;
 use AntChain\ATO\Models\PagequeryInnerMerchantagentResponse;
 use AntChain\ATO\Models\PagequeryInnerMerchantagreementRequest;
@@ -177,6 +201,8 @@ use AntChain\ATO\Models\PagequeryInnerPendingeventRequest;
 use AntChain\ATO\Models\PagequeryInnerPendingeventResponse;
 use AntChain\ATO\Models\PagequeryInnerProductRequest;
 use AntChain\ATO\Models\PagequeryInnerProductResponse;
+use AntChain\ATO\Models\PagequeryKnowledgeCategoryRequest;
+use AntChain\ATO\Models\PagequeryKnowledgeCategoryResponse;
 use AntChain\ATO\Models\PauseTradeUserpromiseRequest;
 use AntChain\ATO\Models\PauseTradeUserpromiseResponse;
 use AntChain\ATO\Models\PreviewInnerTemplateRequest;
@@ -207,12 +233,18 @@ use AntChain\ATO\Models\QueryInnerFunddividerelationRequest;
 use AntChain\ATO\Models\QueryInnerFunddividerelationResponse;
 use AntChain\ATO\Models\QueryInnerInsuresignRequest;
 use AntChain\ATO\Models\QueryInnerInsuresignResponse;
+use AntChain\ATO\Models\QueryInnerKnowledgebaseinfoRequest;
+use AntChain\ATO\Models\QueryInnerKnowledgebaseinfoResponse;
+use AntChain\ATO\Models\QueryInnerKnowledgecategorylibraryRequest;
+use AntChain\ATO\Models\QueryInnerKnowledgecategorylibraryResponse;
 use AntChain\ATO\Models\QueryInnerLoggerRequest;
 use AntChain\ATO\Models\QueryInnerLoggerResponse;
 use AntChain\ATO\Models\QueryInnerMerchantagreementRequest;
 use AntChain\ATO\Models\QueryInnerMerchantagreementResponse;
 use AntChain\ATO\Models\QueryInnerMerchantpayexpandRequest;
 use AntChain\ATO\Models\QueryInnerMerchantpayexpandResponse;
+use AntChain\ATO\Models\QueryInnerSaleschannelRequest;
+use AntChain\ATO\Models\QueryInnerSaleschannelResponse;
 use AntChain\ATO\Models\QueryInnerSignfieldsRequest;
 use AntChain\ATO\Models\QueryInnerSignfieldsResponse;
 use AntChain\ATO\Models\QueryInnerSupplementalRequest;
@@ -237,6 +269,10 @@ use AntChain\ATO\Models\QueryInnerWithholdsignRequest;
 use AntChain\ATO\Models\QueryInnerWithholdsignResponse;
 use AntChain\ATO\Models\QueryInsureRequest;
 use AntChain\ATO\Models\QueryInsureResponse;
+use AntChain\ATO\Models\QueryKnowledgeBaseinfoRequest;
+use AntChain\ATO\Models\QueryKnowledgeBaseinfoResponse;
+use AntChain\ATO\Models\QueryKnowledgeCategorylibraryRequest;
+use AntChain\ATO\Models\QueryKnowledgeCategorylibraryResponse;
 use AntChain\ATO\Models\QueryMerchantexpandDividerelationRequest;
 use AntChain\ATO\Models\QueryMerchantexpandDividerelationResponse;
 use AntChain\ATO\Models\QueryMerchantexpandMerchantRequest;
@@ -277,6 +313,10 @@ use AntChain\ATO\Models\RetryInnerOrdermsgRequest;
 use AntChain\ATO\Models\RetryInnerOrdermsgResponse;
 use AntChain\ATO\Models\RetryInsurePayRequest;
 use AntChain\ATO\Models\RetryInsurePayResponse;
+use AntChain\ATO\Models\RetryWithholdDividependingRequest;
+use AntChain\ATO\Models\RetryWithholdDividependingResponse;
+use AntChain\ATO\Models\RetryWithholdPlanpendingRequest;
+use AntChain\ATO\Models\RetryWithholdPlanpendingResponse;
 use AntChain\ATO\Models\RetryWithholdPlanRequest;
 use AntChain\ATO\Models\RetryWithholdPlanResponse;
 use AntChain\ATO\Models\SaveInnerAgentcustomerserviceRequest;
@@ -295,12 +335,20 @@ use AntChain\ATO\Models\SubmitInnerDatadownloadRequest;
 use AntChain\ATO\Models\SubmitInnerDatadownloadResponse;
 use AntChain\ATO\Models\SubmitInnerFunddividerelationRequest;
 use AntChain\ATO\Models\SubmitInnerFunddividerelationResponse;
+use AntChain\ATO\Models\SubmitInnerKnowledgebaseinfoRequest;
+use AntChain\ATO\Models\SubmitInnerKnowledgebaseinfoResponse;
+use AntChain\ATO\Models\SubmitInnerKnowledgecategoryRequest;
+use AntChain\ATO\Models\SubmitInnerKnowledgecategoryResponse;
 use AntChain\ATO\Models\SubmitInnerMerchantpayexpandRequest;
 use AntChain\ATO\Models\SubmitInnerMerchantpayexpandResponse;
 use AntChain\ATO\Models\SubmitInnerPendingeventRequest;
 use AntChain\ATO\Models\SubmitInnerPendingeventResponse;
 use AntChain\ATO\Models\SubmitInnerTemplatesyncreviewRequest;
 use AntChain\ATO\Models\SubmitInnerTemplatesyncreviewResponse;
+use AntChain\ATO\Models\SubmitKnowledgeBaseinfoRequest;
+use AntChain\ATO\Models\SubmitKnowledgeBaseinfoResponse;
+use AntChain\ATO\Models\SubmitKnowledgeCategoryRequest;
+use AntChain\ATO\Models\SubmitKnowledgeCategoryResponse;
 use AntChain\ATO\Models\SubmitSignFlowRequest;
 use AntChain\ATO\Models\SubmitSignFlowResponse;
 use AntChain\ATO\Models\SyncFrontIndirectorderRequest;
@@ -333,6 +381,8 @@ use AntChain\ATO\Models\SyncTradeFinanceloanapplyRequest;
 use AntChain\ATO\Models\SyncTradeFinanceloanapplyResponse;
 use AntChain\ATO\Models\SyncTradeIndirectorderRequest;
 use AntChain\ATO\Models\SyncTradeIndirectorderResponse;
+use AntChain\ATO\Models\SyncTradePromoorderinfoRequest;
+use AntChain\ATO\Models\SyncTradePromoorderinfoResponse;
 use AntChain\ATO\Models\SyncTradeRequest;
 use AntChain\ATO\Models\SyncTradeResponse;
 use AntChain\ATO\Models\SyncTradeUserpromisedelayRequest;
@@ -345,12 +395,18 @@ use AntChain\ATO\Models\UnbindWithholdSignRequest;
 use AntChain\ATO\Models\UnbindWithholdSignResponse;
 use AntChain\ATO\Models\UpdateInnerCustomerserviceRequest;
 use AntChain\ATO\Models\UpdateInnerCustomerserviceResponse;
+use AntChain\ATO\Models\UpdateInnerKnowledgecategoryRequest;
+use AntChain\ATO\Models\UpdateInnerKnowledgecategoryResponse;
 use AntChain\ATO\Models\UpdateInnerMerchantpayexpandRequest;
 use AntChain\ATO\Models\UpdateInnerMerchantpayexpandResponse;
+use AntChain\ATO\Models\UpdateInnerSaleschannelRequest;
+use AntChain\ATO\Models\UpdateInnerSaleschannelResponse;
 use AntChain\ATO\Models\UpdateInnerTemplateRequest;
 use AntChain\ATO\Models\UpdateInnerTemplateResponse;
 use AntChain\ATO\Models\UpdateInnerTenantindirectmainclassRequest;
 use AntChain\ATO\Models\UpdateInnerTenantindirectmainclassResponse;
+use AntChain\ATO\Models\UpdateKnowledgeCategoryRequest;
+use AntChain\ATO\Models\UpdateKnowledgeCategoryResponse;
 use AntChain\ATO\Models\UpdateMerchantexpandMerchantRequest;
 use AntChain\ATO\Models\UpdateMerchantexpandMerchantResponse;
 use AntChain\ATO\Models\UpdateTradeOrderRequest;
@@ -520,7 +576,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.14.41',
+                    'sdk_version'      => '1.15.23',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4657,6 +4713,833 @@ class Client
     }
 
     /**
+     * Description: 商家自定义知识库-基础信息查询
+     * Summary: 商家自定义知识库-基础信息查询.
+     *
+     * @param QueryKnowledgeBaseinfoRequest $request
+     *
+     * @return QueryKnowledgeBaseinfoResponse
+     */
+    public function queryKnowledgeBaseinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryKnowledgeBaseinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家自定义知识库-基础信息查询
+     * Summary: 商家自定义知识库-基础信息查询.
+     *
+     * @param QueryKnowledgeBaseinfoRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryKnowledgeBaseinfoResponse
+     */
+    public function queryKnowledgeBaseinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryKnowledgeBaseinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.knowledge.baseinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家自定义知识库-创建用户自定义知识库
+     * Summary: 商家自定义知识库-创建用户自定义知识库.
+     *
+     * @param CreateKnowledgeCategoryRequest $request
+     *
+     * @return CreateKnowledgeCategoryResponse
+     */
+    public function createKnowledgeCategory($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createKnowledgeCategoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家自定义知识库-创建用户自定义知识库
+     * Summary: 商家自定义知识库-创建用户自定义知识库.
+     *
+     * @param CreateKnowledgeCategoryRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return CreateKnowledgeCategoryResponse
+     */
+    public function createKnowledgeCategoryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateKnowledgeCategoryResponse::fromMap($this->doRequest('1.0', 'antchain.ato.knowledge.category.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家自定义知识库-查询知识库信息列表
+     * Summary: 商家自定义知识库-查询知识库信息列表.
+     *
+     * @param PagequeryKnowledgeCategoryRequest $request
+     *
+     * @return PagequeryKnowledgeCategoryResponse
+     */
+    public function pagequeryKnowledgeCategory($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryKnowledgeCategoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家自定义知识库-查询知识库信息列表
+     * Summary: 商家自定义知识库-查询知识库信息列表.
+     *
+     * @param PagequeryKnowledgeCategoryRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return PagequeryKnowledgeCategoryResponse
+     */
+    public function pagequeryKnowledgeCategoryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryKnowledgeCategoryResponse::fromMap($this->doRequest('1.0', 'antchain.ato.knowledge.category.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家自定义知识库-新增知识知识库信息
+     * Summary: 商家自定义知识库-新增知识知识库信息.
+     *
+     * @param AddKnowledgeCategoryRequest $request
+     *
+     * @return AddKnowledgeCategoryResponse
+     */
+    public function addKnowledgeCategory($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addKnowledgeCategoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家自定义知识库-新增知识知识库信息
+     * Summary: 商家自定义知识库-新增知识知识库信息.
+     *
+     * @param AddKnowledgeCategoryRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return AddKnowledgeCategoryResponse
+     */
+    public function addKnowledgeCategoryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddKnowledgeCategoryResponse::fromMap($this->doRequest('1.0', 'antchain.ato.knowledge.category.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家自定义知识库-知识库信息批量删除
+     * Summary: 商家自定义知识库-知识库信息批量删除.
+     *
+     * @param BatchdeleteKnowledgeCategoryRequest $request
+     *
+     * @return BatchdeleteKnowledgeCategoryResponse
+     */
+    public function batchdeleteKnowledgeCategory($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchdeleteKnowledgeCategoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家自定义知识库-知识库信息批量删除
+     * Summary: 商家自定义知识库-知识库信息批量删除.
+     *
+     * @param BatchdeleteKnowledgeCategoryRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return BatchdeleteKnowledgeCategoryResponse
+     */
+    public function batchdeleteKnowledgeCategoryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchdeleteKnowledgeCategoryResponse::fromMap($this->doRequest('1.0', 'antchain.ato.knowledge.category.batchdelete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家自定义知识库-编辑知识点
+     * Summary: 商家自定义知识库-编辑知识点.
+     *
+     * @param UpdateKnowledgeCategoryRequest $request
+     *
+     * @return UpdateKnowledgeCategoryResponse
+     */
+    public function updateKnowledgeCategory($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateKnowledgeCategoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家自定义知识库-编辑知识点
+     * Summary: 商家自定义知识库-编辑知识点.
+     *
+     * @param UpdateKnowledgeCategoryRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return UpdateKnowledgeCategoryResponse
+     */
+    public function updateKnowledgeCategoryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateKnowledgeCategoryResponse::fromMap($this->doRequest('1.0', 'antchain.ato.knowledge.category.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家自定义知识库-知识点流程撤回/上线/下线
+     * Summary: 商家自定义知识库-知识点相关功能.
+     *
+     * @param OperateKnowledgeCategoryRequest $request
+     *
+     * @return OperateKnowledgeCategoryResponse
+     */
+    public function operateKnowledgeCategory($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateKnowledgeCategoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家自定义知识库-知识点流程撤回/上线/下线
+     * Summary: 商家自定义知识库-知识点相关功能.
+     *
+     * @param OperateKnowledgeCategoryRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return OperateKnowledgeCategoryResponse
+     */
+    public function operateKnowledgeCategoryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateKnowledgeCategoryResponse::fromMap($this->doRequest('1.0', 'antchain.ato.knowledge.category.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家自定义知识库-基础信息维护
+     * Summary: 商家自定义知识库-基础信息维护.
+     *
+     * @param SubmitKnowledgeBaseinfoRequest $request
+     *
+     * @return SubmitKnowledgeBaseinfoResponse
+     */
+    public function submitKnowledgeBaseinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitKnowledgeBaseinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家自定义知识库-基础信息维护
+     * Summary: 商家自定义知识库-基础信息维护.
+     *
+     * @param SubmitKnowledgeBaseinfoRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return SubmitKnowledgeBaseinfoResponse
+     */
+    public function submitKnowledgeBaseinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitKnowledgeBaseinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.knowledge.baseinfo.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户知识库-知识点全量提交
+     * Summary: 商户知识库-知识点全量提交.
+     *
+     * @param SubmitKnowledgeCategoryRequest $request
+     *
+     * @return SubmitKnowledgeCategoryResponse
+     */
+    public function submitKnowledgeCategory($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitKnowledgeCategoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户知识库-知识点全量提交
+     * Summary: 商户知识库-知识点全量提交.
+     *
+     * @param SubmitKnowledgeCategoryRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return SubmitKnowledgeCategoryResponse
+     */
+    public function submitKnowledgeCategoryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitKnowledgeCategoryResponse::fromMap($this->doRequest('1.0', 'antchain.ato.knowledge.category.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家自定义知识库-查询知识库id
+     * Summary: 商家自定义知识库-查询知识库id.
+     *
+     * @param QueryKnowledgeCategorylibraryRequest $request
+     *
+     * @return QueryKnowledgeCategorylibraryResponse
+     */
+    public function queryKnowledgeCategorylibrary($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryKnowledgeCategorylibraryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家自定义知识库-查询知识库id
+     * Summary: 商家自定义知识库-查询知识库id.
+     *
+     * @param QueryKnowledgeCategorylibraryRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryKnowledgeCategorylibraryResponse
+     */
+    public function queryKnowledgeCategorylibraryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryKnowledgeCategorylibraryResponse::fromMap($this->doRequest('1.0', 'antchain.ato.knowledge.categorylibrary.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家自定义知识库-基础信息维护
+     * Summary: 商家自定义知识库-基础信息维护.
+     *
+     * @param SubmitInnerKnowledgebaseinfoRequest $request
+     *
+     * @return SubmitInnerKnowledgebaseinfoResponse
+     */
+    public function submitInnerKnowledgebaseinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitInnerKnowledgebaseinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家自定义知识库-基础信息维护
+     * Summary: 商家自定义知识库-基础信息维护.
+     *
+     * @param SubmitInnerKnowledgebaseinfoRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return SubmitInnerKnowledgebaseinfoResponse
+     */
+    public function submitInnerKnowledgebaseinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitInnerKnowledgebaseinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.knowledgebaseinfo.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家自定义知识库-基础信息查询
+     * Summary: 商家自定义知识库-基础信息查询.
+     *
+     * @param QueryInnerKnowledgebaseinfoRequest $request
+     *
+     * @return QueryInnerKnowledgebaseinfoResponse
+     */
+    public function queryInnerKnowledgebaseinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerKnowledgebaseinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家自定义知识库-基础信息查询
+     * Summary: 商家自定义知识库-基础信息查询.
+     *
+     * @param QueryInnerKnowledgebaseinfoRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryInnerKnowledgebaseinfoResponse
+     */
+    public function queryInnerKnowledgebaseinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerKnowledgebaseinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.knowledgebaseinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 户知识库-知识点全量提交
+     * Summary: 户知识库-知识点全量提交.
+     *
+     * @param SubmitInnerKnowledgecategoryRequest $request
+     *
+     * @return SubmitInnerKnowledgecategoryResponse
+     */
+    public function submitInnerKnowledgecategory($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitInnerKnowledgecategoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 户知识库-知识点全量提交
+     * Summary: 户知识库-知识点全量提交.
+     *
+     * @param SubmitInnerKnowledgecategoryRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return SubmitInnerKnowledgecategoryResponse
+     */
+    public function submitInnerKnowledgecategoryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitInnerKnowledgecategoryResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.knowledgecategory.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家自定义知识库-查询知识库id
+     * Summary: 商家自定义知识库-查询知识库id.
+     *
+     * @param QueryInnerKnowledgecategorylibraryRequest $request
+     *
+     * @return QueryInnerKnowledgecategorylibraryResponse
+     */
+    public function queryInnerKnowledgecategorylibrary($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerKnowledgecategorylibraryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家自定义知识库-查询知识库id
+     * Summary: 商家自定义知识库-查询知识库id.
+     *
+     * @param QueryInnerKnowledgecategorylibraryRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return QueryInnerKnowledgecategorylibraryResponse
+     */
+    public function queryInnerKnowledgecategorylibraryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerKnowledgecategorylibraryResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.knowledgecategorylibrary.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家自定义知识库-创建用户自定义知识库
+     * Summary: 商家自定义知识库-创建用户自定义知识库.
+     *
+     * @param CreateInnerKnowledgecategoryRequest $request
+     *
+     * @return CreateInnerKnowledgecategoryResponse
+     */
+    public function createInnerKnowledgecategory($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createInnerKnowledgecategoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家自定义知识库-创建用户自定义知识库
+     * Summary: 商家自定义知识库-创建用户自定义知识库.
+     *
+     * @param CreateInnerKnowledgecategoryRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return CreateInnerKnowledgecategoryResponse
+     */
+    public function createInnerKnowledgecategoryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateInnerKnowledgecategoryResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.knowledgecategory.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家自定义知识库-知识库信息批量删除
+     * Summary: 商家自定义知识库-知识库信息批量删除.
+     *
+     * @param BatchdeleteInnerKnowledgecategoryRequest $request
+     *
+     * @return BatchdeleteInnerKnowledgecategoryResponse
+     */
+    public function batchdeleteInnerKnowledgecategory($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchdeleteInnerKnowledgecategoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家自定义知识库-知识库信息批量删除
+     * Summary: 商家自定义知识库-知识库信息批量删除.
+     *
+     * @param BatchdeleteInnerKnowledgecategoryRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return BatchdeleteInnerKnowledgecategoryResponse
+     */
+    public function batchdeleteInnerKnowledgecategoryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchdeleteInnerKnowledgecategoryResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.knowledgecategory.batchdelete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家自定义知识库-知识点相关功能
+     * Summary: 商家自定义知识库-知识点相关功能.
+     *
+     * @param OperateInnerKnowledgecategoryRequest $request
+     *
+     * @return OperateInnerKnowledgecategoryResponse
+     */
+    public function operateInnerKnowledgecategory($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateInnerKnowledgecategoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家自定义知识库-知识点相关功能
+     * Summary: 商家自定义知识库-知识点相关功能.
+     *
+     * @param OperateInnerKnowledgecategoryRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return OperateInnerKnowledgecategoryResponse
+     */
+    public function operateInnerKnowledgecategoryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateInnerKnowledgecategoryResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.knowledgecategory.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家自定义知识库-新增知识知识库信息
+     * Summary: 商家自定义知识库-新增知识知识库信息.
+     *
+     * @param AddInnerKnowledgecategoryRequest $request
+     *
+     * @return AddInnerKnowledgecategoryResponse
+     */
+    public function addInnerKnowledgecategory($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addInnerKnowledgecategoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家自定义知识库-新增知识知识库信息
+     * Summary: 商家自定义知识库-新增知识知识库信息.
+     *
+     * @param AddInnerKnowledgecategoryRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return AddInnerKnowledgecategoryResponse
+     */
+    public function addInnerKnowledgecategoryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddInnerKnowledgecategoryResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.knowledgecategory.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description:
+     * 商家自定义知识库-查询知识库信息列表
+     * Summary:  商家自定义知识库-查询知识库信息列表.
+     *
+     * @param PagequeryInnerKnowledgecategoryRequest $request
+     *
+     * @return PagequeryInnerKnowledgecategoryResponse
+     */
+    public function pagequeryInnerKnowledgecategory($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryInnerKnowledgecategoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description:
+     * 商家自定义知识库-查询知识库信息列表
+     * Summary:  商家自定义知识库-查询知识库信息列表.
+     *
+     * @param PagequeryInnerKnowledgecategoryRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return PagequeryInnerKnowledgecategoryResponse
+     */
+    public function pagequeryInnerKnowledgecategoryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryInnerKnowledgecategoryResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.knowledgecategory.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家自定义知识库-编辑知识点
+     * Summary: 商家自定义知识库-编辑知识点.
+     *
+     * @param UpdateInnerKnowledgecategoryRequest $request
+     *
+     * @return UpdateInnerKnowledgecategoryResponse
+     */
+    public function updateInnerKnowledgecategory($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateInnerKnowledgecategoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家自定义知识库-编辑知识点
+     * Summary: 商家自定义知识库-编辑知识点.
+     *
+     * @param UpdateInnerKnowledgecategoryRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return UpdateInnerKnowledgecategoryResponse
+     */
+    public function updateInnerKnowledgecategoryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateInnerKnowledgecategoryResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.knowledgecategory.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 可以通过此接口创建分销渠道，创建成功后返回子渠道的信息
+     * Summary: 分销渠道创建.
+     *
+     * @param CreateInnerSaleschannelRequest $request
+     *
+     * @return CreateInnerSaleschannelResponse
+     */
+    public function createInnerSaleschannel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createInnerSaleschannelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 可以通过此接口创建分销渠道，创建成功后返回子渠道的信息
+     * Summary: 分销渠道创建.
+     *
+     * @param CreateInnerSaleschannelRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return CreateInnerSaleschannelResponse
+     */
+    public function createInnerSaleschannelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateInnerSaleschannelResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.saleschannel.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询分销渠道code、名称、级别等信息
+     * Summary: 分销渠道查询.
+     *
+     * @param QueryInnerSaleschannelRequest $request
+     *
+     * @return QueryInnerSaleschannelResponse
+     */
+    public function queryInnerSaleschannel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerSaleschannelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询分销渠道code、名称、级别等信息
+     * Summary: 分销渠道查询.
+     *
+     * @param QueryInnerSaleschannelRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryInnerSaleschannelResponse
+     */
+    public function queryInnerSaleschannelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerSaleschannelResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.saleschannel.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分销渠道更新，当前支持修改渠道名称
+     * Summary: 分销渠道更新.
+     *
+     * @param UpdateInnerSaleschannelRequest $request
+     *
+     * @return UpdateInnerSaleschannelResponse
+     */
+    public function updateInnerSaleschannel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateInnerSaleschannelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分销渠道更新，当前支持修改渠道名称
+     * Summary: 分销渠道更新.
+     *
+     * @param UpdateInnerSaleschannelRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return UpdateInnerSaleschannelResponse
+     */
+    public function updateInnerSaleschannelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateInnerSaleschannelResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.saleschannel.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除所选的分销渠道
+     * Summary: 分销渠道删除.
+     *
+     * @param DeleteInnerSaleschannelRequest $request
+     *
+     * @return DeleteInnerSaleschannelResponse
+     */
+    public function deleteInnerSaleschannel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteInnerSaleschannelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除所选的分销渠道
+     * Summary: 分销渠道删除.
+     *
+     * @param DeleteInnerSaleschannelRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return DeleteInnerSaleschannelResponse
+     */
+    public function deleteInnerSaleschannelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteInnerSaleschannelResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.saleschannel.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批量创建文本域（组件）
+     * Summary: 批量创建文本域
+     *
+     * @param BatchcreateInnerTemplatetextareaRequest $request
+     *
+     * @return BatchcreateInnerTemplatetextareaResponse
+     */
+    public function batchcreateInnerTemplatetextarea($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchcreateInnerTemplatetextareaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批量创建文本域（组件）
+     * Summary: 批量创建文本域
+     *
+     * @param BatchcreateInnerTemplatetextareaRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return BatchcreateInnerTemplatetextareaResponse
+     */
+    public function batchcreateInnerTemplatetextareaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchcreateInnerTemplatetextareaResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.templatetextarea.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 一键投保
      * Summary: 投保.
      *
@@ -6147,6 +7030,39 @@ class Client
     }
 
     /**
+     * Description: 订单信息同步
+     * Summary: 订单信息同步.
+     *
+     * @param SyncTradePromoorderinfoRequest $request
+     *
+     * @return SyncTradePromoorderinfoResponse
+     */
+    public function syncTradePromoorderinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncTradePromoorderinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 订单信息同步
+     * Summary: 订单信息同步.
+     *
+     * @param SyncTradePromoorderinfoRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return SyncTradePromoorderinfoResponse
+     */
+    public function syncTradePromoorderinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncTradePromoorderinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.promoorderinfo.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 代扣签约创建
      * Summary: 代扣签约.
      *
@@ -6382,8 +7298,8 @@ class Client
     }
 
     /**
-     * Description: 代扣主动支付创建
-     * Summary: 代扣主动支付创建.
+     * Description: 主动支付创建
+     * Summary: 主动支付创建.
      *
      * @param CreateWithholdActivepayRequest $request
      *
@@ -6398,8 +7314,8 @@ class Client
     }
 
     /**
-     * Description: 代扣主动支付创建
-     * Summary: 代扣主动支付创建.
+     * Description: 主动支付创建
+     * Summary: 主动支付创建.
      *
      * @param CreateWithholdActivepayRequest $request
      * @param string[]                       $headers
@@ -6415,8 +7331,8 @@ class Client
     }
 
     /**
-     * Description: 代扣主动支付查询
-     * Summary: 代扣主动支付查询.
+     * Description: 主动支付查询
+     * Summary: 主动支付查询.
      *
      * @param QueryWithholdActivepayRequest $request
      *
@@ -6431,8 +7347,8 @@ class Client
     }
 
     /**
-     * Description: 代扣主动支付查询
-     * Summary: 代扣主动支付查询.
+     * Description: 主动支付查询
+     * Summary: 主动支付查询.
      *
      * @param QueryWithholdActivepayRequest $request
      * @param string[]                      $headers
@@ -6448,8 +7364,8 @@ class Client
     }
 
     /**
-     * Description: 代扣主动支付取消
-     * Summary: 代扣主动支付取消.
+     * Description: 主动支付取消
+     * Summary: 主动支付取消.
      *
      * @param CancelWithholdActivepayRequest $request
      *
@@ -6464,8 +7380,8 @@ class Client
     }
 
     /**
-     * Description: 代扣主动支付取消
-     * Summary: 代扣主动支付取消.
+     * Description: 主动支付取消
+     * Summary: 主动支付取消.
      *
      * @param CancelWithholdActivepayRequest $request
      * @param string[]                       $headers
@@ -6577,6 +7493,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryWithholdCompensateaccountResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.compensateaccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 重试pending状态的代扣计划
+     * Summary: 重试pending状态的代扣计划.
+     *
+     * @param RetryWithholdPlanpendingRequest $request
+     *
+     * @return RetryWithholdPlanpendingResponse
+     */
+    public function retryWithholdPlanpending($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->retryWithholdPlanpendingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 重试pending状态的代扣计划
+     * Summary: 重试pending状态的代扣计划.
+     *
+     * @param RetryWithholdPlanpendingRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return RetryWithholdPlanpendingResponse
+     */
+    public function retryWithholdPlanpendingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RetryWithholdPlanpendingResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.planpending.retry', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分账pending重试
+     * Summary: 分账pending重试.
+     *
+     * @param RetryWithholdDividependingRequest $request
+     *
+     * @return RetryWithholdDividependingResponse
+     */
+    public function retryWithholdDividepending($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->retryWithholdDividependingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分账pending重试
+     * Summary: 分账pending重试.
+     *
+     * @param RetryWithholdDividependingRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return RetryWithholdDividependingResponse
+     */
+    public function retryWithholdDividependingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RetryWithholdDividependingResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.dividepending.retry', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

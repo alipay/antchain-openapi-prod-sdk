@@ -55,6 +55,22 @@ class RiskModel extends Model
      * @var string
      */
     public $flowId;
+
+    // 拒量模型捞回分
+    /**
+     * @example 0.00570491
+     *
+     * @var string
+     */
+    public $mobThreeScore;
+
+    // 拒量模型首逾分
+    /**
+     * @example 0.00570491
+     *
+     * @var string
+     */
+    public $fpdThirtyScore;
     protected $_name = [
         'sceneCode'       => 'scene_code',
         'score'           => 'score',
@@ -62,6 +78,8 @@ class RiskModel extends Model
         'riskAdvice'      => 'risk_advice',
         'riskRank'        => 'risk_rank',
         'flowId'          => 'flow_id',
+        'mobThreeScore'   => 'mob_three_score',
+        'fpdThirtyScore'  => 'fpd_thirty_score',
     ];
 
     public function validate()
@@ -92,6 +110,12 @@ class RiskModel extends Model
         if (null !== $this->flowId) {
             $res['flow_id'] = $this->flowId;
         }
+        if (null !== $this->mobThreeScore) {
+            $res['mob_three_score'] = $this->mobThreeScore;
+        }
+        if (null !== $this->fpdThirtyScore) {
+            $res['fpd_thirty_score'] = $this->fpdThirtyScore;
+        }
 
         return $res;
     }
@@ -121,6 +145,12 @@ class RiskModel extends Model
         }
         if (isset($map['flow_id'])) {
             $model->flowId = $map['flow_id'];
+        }
+        if (isset($map['mob_three_score'])) {
+            $model->mobThreeScore = $map['mob_three_score'];
+        }
+        if (isset($map['fpd_thirty_score'])) {
+            $model->fpdThirtyScore = $map['fpd_thirty_score'];
         }
 
         return $model;

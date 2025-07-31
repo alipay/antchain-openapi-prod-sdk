@@ -78,6 +78,21 @@ class DetailInnerPendingeventResponse extends Model
      * @var string
      */
     public $effectiveEndTime;
+
+    // 待办事件模版code
+    // "INDIRECT_MERCHANT_CONFIRM","间联模式二级商户进件确认",
+    // "FINANCING_GRANT_CREDIT","融资授信场景"
+    // "FINANCING_USE_CREDIT","融资用信场景"
+    /**
+     * @var string
+     */
+    public $pendingTemplateCode;
+
+    // 操作时间
+    /**
+     * @var string
+     */
+    public $operateTime;
     protected $_name = [
         'reqMsgId'            => 'req_msg_id',
         'resultCode'          => 'result_code',
@@ -90,6 +105,8 @@ class DetailInnerPendingeventResponse extends Model
         'actionOptionsConfig' => 'action_options_config',
         'effectiveStartTime'  => 'effective_start_time',
         'effectiveEndTime'    => 'effective_end_time',
+        'pendingTemplateCode' => 'pending_template_code',
+        'operateTime'         => 'operate_time',
     ];
 
     public function validate()
@@ -131,6 +148,12 @@ class DetailInnerPendingeventResponse extends Model
         }
         if (null !== $this->effectiveEndTime) {
             $res['effective_end_time'] = $this->effectiveEndTime;
+        }
+        if (null !== $this->pendingTemplateCode) {
+            $res['pending_template_code'] = $this->pendingTemplateCode;
+        }
+        if (null !== $this->operateTime) {
+            $res['operate_time'] = $this->operateTime;
         }
 
         return $res;
@@ -176,6 +199,12 @@ class DetailInnerPendingeventResponse extends Model
         }
         if (isset($map['effective_end_time'])) {
             $model->effectiveEndTime = $map['effective_end_time'];
+        }
+        if (isset($map['pending_template_code'])) {
+            $model->pendingTemplateCode = $map['pending_template_code'];
+        }
+        if (isset($map['operate_time'])) {
+            $model->operateTime = $map['operate_time'];
         }
 
         return $model;

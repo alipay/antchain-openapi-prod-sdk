@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateWithholdActivepayResponse extends Model
+class QueryKnowledgeCategorylibraryResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,25 +26,30 @@ class CreateWithholdActivepayResponse extends Model
      */
     public $resultMsg;
 
-    // 支付宝支付订单号，用于拉起主动支付页面
+    // 知识库id
     /**
      * @var string
      */
-    public $tradeNo;
+    public $libraryId;
 
-    // 单据支付字符串
-    // app场景：返回签名字符串
-    // h5场景：返回支付链接
+    // 知识库名称
     /**
      * @var string
      */
-    public $orderStr;
+    public $libraryName;
+
+    // 类目id
+    /**
+     * @var string
+     */
+    public $categoryId;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'tradeNo'    => 'trade_no',
-        'orderStr'   => 'order_str',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'libraryId'   => 'library_id',
+        'libraryName' => 'library_name',
+        'categoryId'  => 'category_id',
     ];
 
     public function validate()
@@ -63,11 +68,14 @@ class CreateWithholdActivepayResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->tradeNo) {
-            $res['trade_no'] = $this->tradeNo;
+        if (null !== $this->libraryId) {
+            $res['library_id'] = $this->libraryId;
         }
-        if (null !== $this->orderStr) {
-            $res['order_str'] = $this->orderStr;
+        if (null !== $this->libraryName) {
+            $res['library_name'] = $this->libraryName;
+        }
+        if (null !== $this->categoryId) {
+            $res['category_id'] = $this->categoryId;
         }
 
         return $res;
@@ -76,7 +84,7 @@ class CreateWithholdActivepayResponse extends Model
     /**
      * @param array $map
      *
-     * @return CreateWithholdActivepayResponse
+     * @return QueryKnowledgeCategorylibraryResponse
      */
     public static function fromMap($map = [])
     {
@@ -90,11 +98,14 @@ class CreateWithholdActivepayResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['trade_no'])) {
-            $model->tradeNo = $map['trade_no'];
+        if (isset($map['library_id'])) {
+            $model->libraryId = $map['library_id'];
         }
-        if (isset($map['order_str'])) {
-            $model->orderStr = $map['order_str'];
+        if (isset($map['library_name'])) {
+            $model->libraryName = $map['library_name'];
+        }
+        if (isset($map['category_id'])) {
+            $model->categoryId = $map['category_id'];
         }
 
         return $model;

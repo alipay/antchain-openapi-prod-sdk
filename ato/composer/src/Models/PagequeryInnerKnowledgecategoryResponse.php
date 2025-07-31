@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateWithholdActivepayResponse extends Model
+class PagequeryInnerKnowledgecategoryResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,25 +26,24 @@ class CreateWithholdActivepayResponse extends Model
      */
     public $resultMsg;
 
-    // 支付宝支付订单号，用于拉起主动支付页面
+    // 总数
     /**
-     * @var string
+     * @var int
      */
-    public $tradeNo;
+    public $total;
 
-    // 单据支付字符串
-    // app场景：返回签名字符串
-    // h5场景：返回支付链接
+    // 知识点信息
+    //
     /**
-     * @var string
+     * @var KnowledgeInfo[]
      */
-    public $orderStr;
+    public $data;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'tradeNo'    => 'trade_no',
-        'orderStr'   => 'order_str',
+        'total'      => 'total',
+        'data'       => 'data',
     ];
 
     public function validate()
@@ -63,11 +62,17 @@ class CreateWithholdActivepayResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->tradeNo) {
-            $res['trade_no'] = $this->tradeNo;
+        if (null !== $this->total) {
+            $res['total'] = $this->total;
         }
-        if (null !== $this->orderStr) {
-            $res['order_str'] = $this->orderStr;
+        if (null !== $this->data) {
+            $res['data'] = [];
+            if (null !== $this->data && \is_array($this->data)) {
+                $n = 0;
+                foreach ($this->data as $item) {
+                    $res['data'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -76,7 +81,7 @@ class CreateWithholdActivepayResponse extends Model
     /**
      * @param array $map
      *
-     * @return CreateWithholdActivepayResponse
+     * @return PagequeryInnerKnowledgecategoryResponse
      */
     public static function fromMap($map = [])
     {
@@ -90,11 +95,17 @@ class CreateWithholdActivepayResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['trade_no'])) {
-            $model->tradeNo = $map['trade_no'];
+        if (isset($map['total'])) {
+            $model->total = $map['total'];
         }
-        if (isset($map['order_str'])) {
-            $model->orderStr = $map['order_str'];
+        if (isset($map['data'])) {
+            if (!empty($map['data'])) {
+                $model->data = [];
+                $n           = 0;
+                foreach ($map['data'] as $item) {
+                    $model->data[$n++] = null !== $item ? KnowledgeInfo::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

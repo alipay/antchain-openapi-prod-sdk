@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateWithholdActivepayResponse extends Model
+class QueryInnerKnowledgebaseinfoResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,25 +26,17 @@ class CreateWithholdActivepayResponse extends Model
      */
     public $resultMsg;
 
-    // 支付宝支付订单号，用于拉起主动支付页面
+    // 用户基础信息
+    //
     /**
-     * @var string
+     * @var MerchantBaseInfo
      */
-    public $tradeNo;
-
-    // 单据支付字符串
-    // app场景：返回签名字符串
-    // h5场景：返回支付链接
-    /**
-     * @var string
-     */
-    public $orderStr;
+    public $merchantBaseInfo;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'tradeNo'    => 'trade_no',
-        'orderStr'   => 'order_str',
+        'reqMsgId'         => 'req_msg_id',
+        'resultCode'       => 'result_code',
+        'resultMsg'        => 'result_msg',
+        'merchantBaseInfo' => 'merchant_base_info',
     ];
 
     public function validate()
@@ -63,11 +55,8 @@ class CreateWithholdActivepayResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->tradeNo) {
-            $res['trade_no'] = $this->tradeNo;
-        }
-        if (null !== $this->orderStr) {
-            $res['order_str'] = $this->orderStr;
+        if (null !== $this->merchantBaseInfo) {
+            $res['merchant_base_info'] = null !== $this->merchantBaseInfo ? $this->merchantBaseInfo->toMap() : null;
         }
 
         return $res;
@@ -76,7 +65,7 @@ class CreateWithholdActivepayResponse extends Model
     /**
      * @param array $map
      *
-     * @return CreateWithholdActivepayResponse
+     * @return QueryInnerKnowledgebaseinfoResponse
      */
     public static function fromMap($map = [])
     {
@@ -90,11 +79,8 @@ class CreateWithholdActivepayResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['trade_no'])) {
-            $model->tradeNo = $map['trade_no'];
-        }
-        if (isset($map['order_str'])) {
-            $model->orderStr = $map['order_str'];
+        if (isset($map['merchant_base_info'])) {
+            $model->merchantBaseInfo = MerchantBaseInfo::fromMap($map['merchant_base_info']);
         }
 
         return $model;
