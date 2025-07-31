@@ -69,6 +69,19 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string EffectiveEndTime { get; set; }
 
+        // 待办事件模版code
+        // "INDIRECT_MERCHANT_CONFIRM","间联模式二级商户进件确认",
+        // "FINANCING_GRANT_CREDIT","融资授信场景"
+        // "FINANCING_USE_CREDIT","融资用信场景"     
+        [NameInMap("pending_template_code")]
+        [Validation(Required=false)]
+        public string PendingTemplateCode { get; set; }
+
+        // 操作时间
+        [NameInMap("operate_time")]
+        [Validation(Required=false)]
+        public string OperateTime { get; set; }
+
     }
 
 }

@@ -39,12 +39,13 @@ namespace AntChain.SDK.ATO.Models
         public string PayChannel { get; set; }
 
         // 支付金额，单位为分
+        // 当支付类型非PERFORMANCE或为空必填
         [NameInMap("pay_amount")]
         [Validation(Required=false)]
         public long? PayAmount { get; set; }
 
         // 经营分账标识Y/N
-        // 当pay_type=BUYOUT、PENALTY必填。
+        // 当pay_type=BUYOUT、PENALTY、MULTI_PAY必填。
         [NameInMap("operation_divide_flag")]
         [Validation(Required=false, MaxLength=1)]
         public string OperationDivideFlag { get; set; }
@@ -54,6 +55,18 @@ namespace AntChain.SDK.ATO.Models
         [NameInMap("operation_divide_trans_in_list")]
         [Validation(Required=false)]
         public List<OperationDivideTransInModel> OperationDivideTransInList { get; set; }
+
+        // 单期支付明细列表
+        // 当pay_type=MULTI_PAY必填。
+        [NameInMap("multi_pay_detail")]
+        [Validation(Required=false)]
+        public List<SingleTermDetail> MultiPayDetail { get; set; }
+
+        // 支付申请号，用于区分在一笔订单同一支付类型的多笔支付请求。
+        // 当支付类型非MULTI_PAY或为空时必填
+        [NameInMap("pay_apply_no")]
+        [Validation(Required=false)]
+        public long? PayApplyNo { get; set; }
 
     }
 

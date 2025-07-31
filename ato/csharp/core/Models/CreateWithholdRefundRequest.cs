@@ -53,6 +53,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false, MaxLength=64)]
         public string PayType { get; set; }
 
+        // 多期合并支付第几期
+        [NameInMap("pay_apply_no")]
+        [Validation(Required=false)]
+        public long? PayApplyNo { get; set; }
+
     }
 
 }

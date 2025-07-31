@@ -137,7 +137,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.14.41"},
+                        {"sdk_version", "1.15.23"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.14.41"},
+                        {"sdk_version", "1.15.23"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -5556,6 +5556,1060 @@ namespace AntChain.SDK.ATO
         }
 
         /**
+         * Description: 商家自定义知识库-基础信息查询
+         * Summary: 商家自定义知识库-基础信息查询
+         */
+        public QueryKnowledgeBaseinfoResponse QueryKnowledgeBaseinfo(QueryKnowledgeBaseinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryKnowledgeBaseinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-基础信息查询
+         * Summary: 商家自定义知识库-基础信息查询
+         */
+        public async Task<QueryKnowledgeBaseinfoResponse> QueryKnowledgeBaseinfoAsync(QueryKnowledgeBaseinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryKnowledgeBaseinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-基础信息查询
+         * Summary: 商家自定义知识库-基础信息查询
+         */
+        public QueryKnowledgeBaseinfoResponse QueryKnowledgeBaseinfoEx(QueryKnowledgeBaseinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryKnowledgeBaseinfoResponse>(DoRequest("1.0", "antchain.ato.knowledge.baseinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-基础信息查询
+         * Summary: 商家自定义知识库-基础信息查询
+         */
+        public async Task<QueryKnowledgeBaseinfoResponse> QueryKnowledgeBaseinfoExAsync(QueryKnowledgeBaseinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryKnowledgeBaseinfoResponse>(await DoRequestAsync("1.0", "antchain.ato.knowledge.baseinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-创建用户自定义知识库
+         * Summary: 商家自定义知识库-创建用户自定义知识库
+         */
+        public CreateKnowledgeCategoryResponse CreateKnowledgeCategory(CreateKnowledgeCategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateKnowledgeCategoryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-创建用户自定义知识库
+         * Summary: 商家自定义知识库-创建用户自定义知识库
+         */
+        public async Task<CreateKnowledgeCategoryResponse> CreateKnowledgeCategoryAsync(CreateKnowledgeCategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateKnowledgeCategoryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-创建用户自定义知识库
+         * Summary: 商家自定义知识库-创建用户自定义知识库
+         */
+        public CreateKnowledgeCategoryResponse CreateKnowledgeCategoryEx(CreateKnowledgeCategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateKnowledgeCategoryResponse>(DoRequest("1.0", "antchain.ato.knowledge.category.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-创建用户自定义知识库
+         * Summary: 商家自定义知识库-创建用户自定义知识库
+         */
+        public async Task<CreateKnowledgeCategoryResponse> CreateKnowledgeCategoryExAsync(CreateKnowledgeCategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateKnowledgeCategoryResponse>(await DoRequestAsync("1.0", "antchain.ato.knowledge.category.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-查询知识库信息列表
+         * Summary: 商家自定义知识库-查询知识库信息列表
+         */
+        public PagequeryKnowledgeCategoryResponse PagequeryKnowledgeCategory(PagequeryKnowledgeCategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryKnowledgeCategoryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-查询知识库信息列表
+         * Summary: 商家自定义知识库-查询知识库信息列表
+         */
+        public async Task<PagequeryKnowledgeCategoryResponse> PagequeryKnowledgeCategoryAsync(PagequeryKnowledgeCategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryKnowledgeCategoryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-查询知识库信息列表
+         * Summary: 商家自定义知识库-查询知识库信息列表
+         */
+        public PagequeryKnowledgeCategoryResponse PagequeryKnowledgeCategoryEx(PagequeryKnowledgeCategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryKnowledgeCategoryResponse>(DoRequest("1.0", "antchain.ato.knowledge.category.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-查询知识库信息列表
+         * Summary: 商家自定义知识库-查询知识库信息列表
+         */
+        public async Task<PagequeryKnowledgeCategoryResponse> PagequeryKnowledgeCategoryExAsync(PagequeryKnowledgeCategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryKnowledgeCategoryResponse>(await DoRequestAsync("1.0", "antchain.ato.knowledge.category.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-新增知识知识库信息
+         * Summary: 商家自定义知识库-新增知识知识库信息
+         */
+        public AddKnowledgeCategoryResponse AddKnowledgeCategory(AddKnowledgeCategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddKnowledgeCategoryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-新增知识知识库信息
+         * Summary: 商家自定义知识库-新增知识知识库信息
+         */
+        public async Task<AddKnowledgeCategoryResponse> AddKnowledgeCategoryAsync(AddKnowledgeCategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddKnowledgeCategoryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-新增知识知识库信息
+         * Summary: 商家自定义知识库-新增知识知识库信息
+         */
+        public AddKnowledgeCategoryResponse AddKnowledgeCategoryEx(AddKnowledgeCategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddKnowledgeCategoryResponse>(DoRequest("1.0", "antchain.ato.knowledge.category.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-新增知识知识库信息
+         * Summary: 商家自定义知识库-新增知识知识库信息
+         */
+        public async Task<AddKnowledgeCategoryResponse> AddKnowledgeCategoryExAsync(AddKnowledgeCategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddKnowledgeCategoryResponse>(await DoRequestAsync("1.0", "antchain.ato.knowledge.category.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-知识库信息批量删除
+         * Summary: 商家自定义知识库-知识库信息批量删除
+         */
+        public BatchdeleteKnowledgeCategoryResponse BatchdeleteKnowledgeCategory(BatchdeleteKnowledgeCategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchdeleteKnowledgeCategoryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-知识库信息批量删除
+         * Summary: 商家自定义知识库-知识库信息批量删除
+         */
+        public async Task<BatchdeleteKnowledgeCategoryResponse> BatchdeleteKnowledgeCategoryAsync(BatchdeleteKnowledgeCategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchdeleteKnowledgeCategoryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-知识库信息批量删除
+         * Summary: 商家自定义知识库-知识库信息批量删除
+         */
+        public BatchdeleteKnowledgeCategoryResponse BatchdeleteKnowledgeCategoryEx(BatchdeleteKnowledgeCategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchdeleteKnowledgeCategoryResponse>(DoRequest("1.0", "antchain.ato.knowledge.category.batchdelete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-知识库信息批量删除
+         * Summary: 商家自定义知识库-知识库信息批量删除
+         */
+        public async Task<BatchdeleteKnowledgeCategoryResponse> BatchdeleteKnowledgeCategoryExAsync(BatchdeleteKnowledgeCategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchdeleteKnowledgeCategoryResponse>(await DoRequestAsync("1.0", "antchain.ato.knowledge.category.batchdelete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-编辑知识点
+         * Summary: 商家自定义知识库-编辑知识点
+         */
+        public UpdateKnowledgeCategoryResponse UpdateKnowledgeCategory(UpdateKnowledgeCategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateKnowledgeCategoryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-编辑知识点
+         * Summary: 商家自定义知识库-编辑知识点
+         */
+        public async Task<UpdateKnowledgeCategoryResponse> UpdateKnowledgeCategoryAsync(UpdateKnowledgeCategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateKnowledgeCategoryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-编辑知识点
+         * Summary: 商家自定义知识库-编辑知识点
+         */
+        public UpdateKnowledgeCategoryResponse UpdateKnowledgeCategoryEx(UpdateKnowledgeCategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateKnowledgeCategoryResponse>(DoRequest("1.0", "antchain.ato.knowledge.category.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-编辑知识点
+         * Summary: 商家自定义知识库-编辑知识点
+         */
+        public async Task<UpdateKnowledgeCategoryResponse> UpdateKnowledgeCategoryExAsync(UpdateKnowledgeCategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateKnowledgeCategoryResponse>(await DoRequestAsync("1.0", "antchain.ato.knowledge.category.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-知识点流程撤回/上线/下线
+         * Summary: 商家自定义知识库-知识点相关功能
+         */
+        public OperateKnowledgeCategoryResponse OperateKnowledgeCategory(OperateKnowledgeCategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateKnowledgeCategoryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-知识点流程撤回/上线/下线
+         * Summary: 商家自定义知识库-知识点相关功能
+         */
+        public async Task<OperateKnowledgeCategoryResponse> OperateKnowledgeCategoryAsync(OperateKnowledgeCategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateKnowledgeCategoryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-知识点流程撤回/上线/下线
+         * Summary: 商家自定义知识库-知识点相关功能
+         */
+        public OperateKnowledgeCategoryResponse OperateKnowledgeCategoryEx(OperateKnowledgeCategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateKnowledgeCategoryResponse>(DoRequest("1.0", "antchain.ato.knowledge.category.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-知识点流程撤回/上线/下线
+         * Summary: 商家自定义知识库-知识点相关功能
+         */
+        public async Task<OperateKnowledgeCategoryResponse> OperateKnowledgeCategoryExAsync(OperateKnowledgeCategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateKnowledgeCategoryResponse>(await DoRequestAsync("1.0", "antchain.ato.knowledge.category.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-基础信息维护
+         * Summary: 商家自定义知识库-基础信息维护
+         */
+        public SubmitKnowledgeBaseinfoResponse SubmitKnowledgeBaseinfo(SubmitKnowledgeBaseinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitKnowledgeBaseinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-基础信息维护
+         * Summary: 商家自定义知识库-基础信息维护
+         */
+        public async Task<SubmitKnowledgeBaseinfoResponse> SubmitKnowledgeBaseinfoAsync(SubmitKnowledgeBaseinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitKnowledgeBaseinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-基础信息维护
+         * Summary: 商家自定义知识库-基础信息维护
+         */
+        public SubmitKnowledgeBaseinfoResponse SubmitKnowledgeBaseinfoEx(SubmitKnowledgeBaseinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitKnowledgeBaseinfoResponse>(DoRequest("1.0", "antchain.ato.knowledge.baseinfo.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-基础信息维护
+         * Summary: 商家自定义知识库-基础信息维护
+         */
+        public async Task<SubmitKnowledgeBaseinfoResponse> SubmitKnowledgeBaseinfoExAsync(SubmitKnowledgeBaseinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitKnowledgeBaseinfoResponse>(await DoRequestAsync("1.0", "antchain.ato.knowledge.baseinfo.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商户知识库-知识点全量提交
+         * Summary: 商户知识库-知识点全量提交
+         */
+        public SubmitKnowledgeCategoryResponse SubmitKnowledgeCategory(SubmitKnowledgeCategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitKnowledgeCategoryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户知识库-知识点全量提交
+         * Summary: 商户知识库-知识点全量提交
+         */
+        public async Task<SubmitKnowledgeCategoryResponse> SubmitKnowledgeCategoryAsync(SubmitKnowledgeCategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitKnowledgeCategoryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户知识库-知识点全量提交
+         * Summary: 商户知识库-知识点全量提交
+         */
+        public SubmitKnowledgeCategoryResponse SubmitKnowledgeCategoryEx(SubmitKnowledgeCategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitKnowledgeCategoryResponse>(DoRequest("1.0", "antchain.ato.knowledge.category.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商户知识库-知识点全量提交
+         * Summary: 商户知识库-知识点全量提交
+         */
+        public async Task<SubmitKnowledgeCategoryResponse> SubmitKnowledgeCategoryExAsync(SubmitKnowledgeCategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitKnowledgeCategoryResponse>(await DoRequestAsync("1.0", "antchain.ato.knowledge.category.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-查询知识库id
+         * Summary: 商家自定义知识库-查询知识库id
+         */
+        public QueryKnowledgeCategorylibraryResponse QueryKnowledgeCategorylibrary(QueryKnowledgeCategorylibraryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryKnowledgeCategorylibraryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-查询知识库id
+         * Summary: 商家自定义知识库-查询知识库id
+         */
+        public async Task<QueryKnowledgeCategorylibraryResponse> QueryKnowledgeCategorylibraryAsync(QueryKnowledgeCategorylibraryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryKnowledgeCategorylibraryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-查询知识库id
+         * Summary: 商家自定义知识库-查询知识库id
+         */
+        public QueryKnowledgeCategorylibraryResponse QueryKnowledgeCategorylibraryEx(QueryKnowledgeCategorylibraryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryKnowledgeCategorylibraryResponse>(DoRequest("1.0", "antchain.ato.knowledge.categorylibrary.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-查询知识库id
+         * Summary: 商家自定义知识库-查询知识库id
+         */
+        public async Task<QueryKnowledgeCategorylibraryResponse> QueryKnowledgeCategorylibraryExAsync(QueryKnowledgeCategorylibraryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryKnowledgeCategorylibraryResponse>(await DoRequestAsync("1.0", "antchain.ato.knowledge.categorylibrary.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-基础信息维护
+         * Summary: 商家自定义知识库-基础信息维护
+         */
+        public SubmitInnerKnowledgebaseinfoResponse SubmitInnerKnowledgebaseinfo(SubmitInnerKnowledgebaseinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitInnerKnowledgebaseinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-基础信息维护
+         * Summary: 商家自定义知识库-基础信息维护
+         */
+        public async Task<SubmitInnerKnowledgebaseinfoResponse> SubmitInnerKnowledgebaseinfoAsync(SubmitInnerKnowledgebaseinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitInnerKnowledgebaseinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-基础信息维护
+         * Summary: 商家自定义知识库-基础信息维护
+         */
+        public SubmitInnerKnowledgebaseinfoResponse SubmitInnerKnowledgebaseinfoEx(SubmitInnerKnowledgebaseinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitInnerKnowledgebaseinfoResponse>(DoRequest("1.0", "antchain.ato.inner.knowledgebaseinfo.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-基础信息维护
+         * Summary: 商家自定义知识库-基础信息维护
+         */
+        public async Task<SubmitInnerKnowledgebaseinfoResponse> SubmitInnerKnowledgebaseinfoExAsync(SubmitInnerKnowledgebaseinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitInnerKnowledgebaseinfoResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.knowledgebaseinfo.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-基础信息查询
+         * Summary: 商家自定义知识库-基础信息查询
+         */
+        public QueryInnerKnowledgebaseinfoResponse QueryInnerKnowledgebaseinfo(QueryInnerKnowledgebaseinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryInnerKnowledgebaseinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-基础信息查询
+         * Summary: 商家自定义知识库-基础信息查询
+         */
+        public async Task<QueryInnerKnowledgebaseinfoResponse> QueryInnerKnowledgebaseinfoAsync(QueryInnerKnowledgebaseinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryInnerKnowledgebaseinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-基础信息查询
+         * Summary: 商家自定义知识库-基础信息查询
+         */
+        public QueryInnerKnowledgebaseinfoResponse QueryInnerKnowledgebaseinfoEx(QueryInnerKnowledgebaseinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerKnowledgebaseinfoResponse>(DoRequest("1.0", "antchain.ato.inner.knowledgebaseinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-基础信息查询
+         * Summary: 商家自定义知识库-基础信息查询
+         */
+        public async Task<QueryInnerKnowledgebaseinfoResponse> QueryInnerKnowledgebaseinfoExAsync(QueryInnerKnowledgebaseinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerKnowledgebaseinfoResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.knowledgebaseinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 户知识库-知识点全量提交
+         * Summary: 户知识库-知识点全量提交
+         */
+        public SubmitInnerKnowledgecategoryResponse SubmitInnerKnowledgecategory(SubmitInnerKnowledgecategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitInnerKnowledgecategoryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 户知识库-知识点全量提交
+         * Summary: 户知识库-知识点全量提交
+         */
+        public async Task<SubmitInnerKnowledgecategoryResponse> SubmitInnerKnowledgecategoryAsync(SubmitInnerKnowledgecategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitInnerKnowledgecategoryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 户知识库-知识点全量提交
+         * Summary: 户知识库-知识点全量提交
+         */
+        public SubmitInnerKnowledgecategoryResponse SubmitInnerKnowledgecategoryEx(SubmitInnerKnowledgecategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitInnerKnowledgecategoryResponse>(DoRequest("1.0", "antchain.ato.inner.knowledgecategory.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 户知识库-知识点全量提交
+         * Summary: 户知识库-知识点全量提交
+         */
+        public async Task<SubmitInnerKnowledgecategoryResponse> SubmitInnerKnowledgecategoryExAsync(SubmitInnerKnowledgecategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitInnerKnowledgecategoryResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.knowledgecategory.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-查询知识库id
+         * Summary: 商家自定义知识库-查询知识库id
+         */
+        public QueryInnerKnowledgecategorylibraryResponse QueryInnerKnowledgecategorylibrary(QueryInnerKnowledgecategorylibraryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryInnerKnowledgecategorylibraryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-查询知识库id
+         * Summary: 商家自定义知识库-查询知识库id
+         */
+        public async Task<QueryInnerKnowledgecategorylibraryResponse> QueryInnerKnowledgecategorylibraryAsync(QueryInnerKnowledgecategorylibraryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryInnerKnowledgecategorylibraryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-查询知识库id
+         * Summary: 商家自定义知识库-查询知识库id
+         */
+        public QueryInnerKnowledgecategorylibraryResponse QueryInnerKnowledgecategorylibraryEx(QueryInnerKnowledgecategorylibraryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerKnowledgecategorylibraryResponse>(DoRequest("1.0", "antchain.ato.inner.knowledgecategorylibrary.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-查询知识库id
+         * Summary: 商家自定义知识库-查询知识库id
+         */
+        public async Task<QueryInnerKnowledgecategorylibraryResponse> QueryInnerKnowledgecategorylibraryExAsync(QueryInnerKnowledgecategorylibraryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerKnowledgecategorylibraryResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.knowledgecategorylibrary.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-创建用户自定义知识库
+         * Summary: 商家自定义知识库-创建用户自定义知识库
+         */
+        public CreateInnerKnowledgecategoryResponse CreateInnerKnowledgecategory(CreateInnerKnowledgecategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateInnerKnowledgecategoryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-创建用户自定义知识库
+         * Summary: 商家自定义知识库-创建用户自定义知识库
+         */
+        public async Task<CreateInnerKnowledgecategoryResponse> CreateInnerKnowledgecategoryAsync(CreateInnerKnowledgecategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateInnerKnowledgecategoryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-创建用户自定义知识库
+         * Summary: 商家自定义知识库-创建用户自定义知识库
+         */
+        public CreateInnerKnowledgecategoryResponse CreateInnerKnowledgecategoryEx(CreateInnerKnowledgecategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateInnerKnowledgecategoryResponse>(DoRequest("1.0", "antchain.ato.inner.knowledgecategory.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-创建用户自定义知识库
+         * Summary: 商家自定义知识库-创建用户自定义知识库
+         */
+        public async Task<CreateInnerKnowledgecategoryResponse> CreateInnerKnowledgecategoryExAsync(CreateInnerKnowledgecategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateInnerKnowledgecategoryResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.knowledgecategory.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-知识库信息批量删除
+         * Summary: 商家自定义知识库-知识库信息批量删除
+         */
+        public BatchdeleteInnerKnowledgecategoryResponse BatchdeleteInnerKnowledgecategory(BatchdeleteInnerKnowledgecategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchdeleteInnerKnowledgecategoryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-知识库信息批量删除
+         * Summary: 商家自定义知识库-知识库信息批量删除
+         */
+        public async Task<BatchdeleteInnerKnowledgecategoryResponse> BatchdeleteInnerKnowledgecategoryAsync(BatchdeleteInnerKnowledgecategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchdeleteInnerKnowledgecategoryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-知识库信息批量删除
+         * Summary: 商家自定义知识库-知识库信息批量删除
+         */
+        public BatchdeleteInnerKnowledgecategoryResponse BatchdeleteInnerKnowledgecategoryEx(BatchdeleteInnerKnowledgecategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchdeleteInnerKnowledgecategoryResponse>(DoRequest("1.0", "antchain.ato.inner.knowledgecategory.batchdelete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-知识库信息批量删除
+         * Summary: 商家自定义知识库-知识库信息批量删除
+         */
+        public async Task<BatchdeleteInnerKnowledgecategoryResponse> BatchdeleteInnerKnowledgecategoryExAsync(BatchdeleteInnerKnowledgecategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchdeleteInnerKnowledgecategoryResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.knowledgecategory.batchdelete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-知识点相关功能
+         * Summary: 商家自定义知识库-知识点相关功能
+         */
+        public OperateInnerKnowledgecategoryResponse OperateInnerKnowledgecategory(OperateInnerKnowledgecategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateInnerKnowledgecategoryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-知识点相关功能
+         * Summary: 商家自定义知识库-知识点相关功能
+         */
+        public async Task<OperateInnerKnowledgecategoryResponse> OperateInnerKnowledgecategoryAsync(OperateInnerKnowledgecategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateInnerKnowledgecategoryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-知识点相关功能
+         * Summary: 商家自定义知识库-知识点相关功能
+         */
+        public OperateInnerKnowledgecategoryResponse OperateInnerKnowledgecategoryEx(OperateInnerKnowledgecategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateInnerKnowledgecategoryResponse>(DoRequest("1.0", "antchain.ato.inner.knowledgecategory.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-知识点相关功能
+         * Summary: 商家自定义知识库-知识点相关功能
+         */
+        public async Task<OperateInnerKnowledgecategoryResponse> OperateInnerKnowledgecategoryExAsync(OperateInnerKnowledgecategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateInnerKnowledgecategoryResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.knowledgecategory.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-新增知识知识库信息
+         * Summary: 商家自定义知识库-新增知识知识库信息
+         */
+        public AddInnerKnowledgecategoryResponse AddInnerKnowledgecategory(AddInnerKnowledgecategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddInnerKnowledgecategoryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-新增知识知识库信息
+         * Summary: 商家自定义知识库-新增知识知识库信息
+         */
+        public async Task<AddInnerKnowledgecategoryResponse> AddInnerKnowledgecategoryAsync(AddInnerKnowledgecategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddInnerKnowledgecategoryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-新增知识知识库信息
+         * Summary: 商家自定义知识库-新增知识知识库信息
+         */
+        public AddInnerKnowledgecategoryResponse AddInnerKnowledgecategoryEx(AddInnerKnowledgecategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddInnerKnowledgecategoryResponse>(DoRequest("1.0", "antchain.ato.inner.knowledgecategory.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-新增知识知识库信息
+         * Summary: 商家自定义知识库-新增知识知识库信息
+         */
+        public async Task<AddInnerKnowledgecategoryResponse> AddInnerKnowledgecategoryExAsync(AddInnerKnowledgecategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddInnerKnowledgecategoryResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.knowledgecategory.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 
+        商家自定义知识库-查询知识库信息列表
+         * Summary:  商家自定义知识库-查询知识库信息列表
+         */
+        public PagequeryInnerKnowledgecategoryResponse PagequeryInnerKnowledgecategory(PagequeryInnerKnowledgecategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryInnerKnowledgecategoryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 
+        商家自定义知识库-查询知识库信息列表
+         * Summary:  商家自定义知识库-查询知识库信息列表
+         */
+        public async Task<PagequeryInnerKnowledgecategoryResponse> PagequeryInnerKnowledgecategoryAsync(PagequeryInnerKnowledgecategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryInnerKnowledgecategoryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 
+        商家自定义知识库-查询知识库信息列表
+         * Summary:  商家自定义知识库-查询知识库信息列表
+         */
+        public PagequeryInnerKnowledgecategoryResponse PagequeryInnerKnowledgecategoryEx(PagequeryInnerKnowledgecategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryInnerKnowledgecategoryResponse>(DoRequest("1.0", "antchain.ato.inner.knowledgecategory.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 
+        商家自定义知识库-查询知识库信息列表
+         * Summary:  商家自定义知识库-查询知识库信息列表
+         */
+        public async Task<PagequeryInnerKnowledgecategoryResponse> PagequeryInnerKnowledgecategoryExAsync(PagequeryInnerKnowledgecategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryInnerKnowledgecategoryResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.knowledgecategory.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-编辑知识点
+         * Summary: 商家自定义知识库-编辑知识点
+         */
+        public UpdateInnerKnowledgecategoryResponse UpdateInnerKnowledgecategory(UpdateInnerKnowledgecategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateInnerKnowledgecategoryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-编辑知识点
+         * Summary: 商家自定义知识库-编辑知识点
+         */
+        public async Task<UpdateInnerKnowledgecategoryResponse> UpdateInnerKnowledgecategoryAsync(UpdateInnerKnowledgecategoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateInnerKnowledgecategoryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家自定义知识库-编辑知识点
+         * Summary: 商家自定义知识库-编辑知识点
+         */
+        public UpdateInnerKnowledgecategoryResponse UpdateInnerKnowledgecategoryEx(UpdateInnerKnowledgecategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateInnerKnowledgecategoryResponse>(DoRequest("1.0", "antchain.ato.inner.knowledgecategory.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家自定义知识库-编辑知识点
+         * Summary: 商家自定义知识库-编辑知识点
+         */
+        public async Task<UpdateInnerKnowledgecategoryResponse> UpdateInnerKnowledgecategoryExAsync(UpdateInnerKnowledgecategoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateInnerKnowledgecategoryResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.knowledgecategory.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 可以通过此接口创建分销渠道，创建成功后返回子渠道的信息
+         * Summary: 分销渠道创建
+         */
+        public CreateInnerSaleschannelResponse CreateInnerSaleschannel(CreateInnerSaleschannelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateInnerSaleschannelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 可以通过此接口创建分销渠道，创建成功后返回子渠道的信息
+         * Summary: 分销渠道创建
+         */
+        public async Task<CreateInnerSaleschannelResponse> CreateInnerSaleschannelAsync(CreateInnerSaleschannelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateInnerSaleschannelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 可以通过此接口创建分销渠道，创建成功后返回子渠道的信息
+         * Summary: 分销渠道创建
+         */
+        public CreateInnerSaleschannelResponse CreateInnerSaleschannelEx(CreateInnerSaleschannelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateInnerSaleschannelResponse>(DoRequest("1.0", "antchain.ato.inner.saleschannel.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 可以通过此接口创建分销渠道，创建成功后返回子渠道的信息
+         * Summary: 分销渠道创建
+         */
+        public async Task<CreateInnerSaleschannelResponse> CreateInnerSaleschannelExAsync(CreateInnerSaleschannelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateInnerSaleschannelResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.saleschannel.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询分销渠道code、名称、级别等信息
+         * Summary: 分销渠道查询
+         */
+        public QueryInnerSaleschannelResponse QueryInnerSaleschannel(QueryInnerSaleschannelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryInnerSaleschannelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询分销渠道code、名称、级别等信息
+         * Summary: 分销渠道查询
+         */
+        public async Task<QueryInnerSaleschannelResponse> QueryInnerSaleschannelAsync(QueryInnerSaleschannelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryInnerSaleschannelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询分销渠道code、名称、级别等信息
+         * Summary: 分销渠道查询
+         */
+        public QueryInnerSaleschannelResponse QueryInnerSaleschannelEx(QueryInnerSaleschannelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerSaleschannelResponse>(DoRequest("1.0", "antchain.ato.inner.saleschannel.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询分销渠道code、名称、级别等信息
+         * Summary: 分销渠道查询
+         */
+        public async Task<QueryInnerSaleschannelResponse> QueryInnerSaleschannelExAsync(QueryInnerSaleschannelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerSaleschannelResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.saleschannel.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分销渠道更新，当前支持修改渠道名称
+         * Summary: 分销渠道更新
+         */
+        public UpdateInnerSaleschannelResponse UpdateInnerSaleschannel(UpdateInnerSaleschannelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateInnerSaleschannelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分销渠道更新，当前支持修改渠道名称
+         * Summary: 分销渠道更新
+         */
+        public async Task<UpdateInnerSaleschannelResponse> UpdateInnerSaleschannelAsync(UpdateInnerSaleschannelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateInnerSaleschannelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分销渠道更新，当前支持修改渠道名称
+         * Summary: 分销渠道更新
+         */
+        public UpdateInnerSaleschannelResponse UpdateInnerSaleschannelEx(UpdateInnerSaleschannelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateInnerSaleschannelResponse>(DoRequest("1.0", "antchain.ato.inner.saleschannel.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分销渠道更新，当前支持修改渠道名称
+         * Summary: 分销渠道更新
+         */
+        public async Task<UpdateInnerSaleschannelResponse> UpdateInnerSaleschannelExAsync(UpdateInnerSaleschannelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateInnerSaleschannelResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.saleschannel.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除所选的分销渠道
+         * Summary: 分销渠道删除
+         */
+        public DeleteInnerSaleschannelResponse DeleteInnerSaleschannel(DeleteInnerSaleschannelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteInnerSaleschannelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除所选的分销渠道
+         * Summary: 分销渠道删除
+         */
+        public async Task<DeleteInnerSaleschannelResponse> DeleteInnerSaleschannelAsync(DeleteInnerSaleschannelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteInnerSaleschannelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 删除所选的分销渠道
+         * Summary: 分销渠道删除
+         */
+        public DeleteInnerSaleschannelResponse DeleteInnerSaleschannelEx(DeleteInnerSaleschannelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteInnerSaleschannelResponse>(DoRequest("1.0", "antchain.ato.inner.saleschannel.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 删除所选的分销渠道
+         * Summary: 分销渠道删除
+         */
+        public async Task<DeleteInnerSaleschannelResponse> DeleteInnerSaleschannelExAsync(DeleteInnerSaleschannelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteInnerSaleschannelResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.saleschannel.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量创建文本域（组件）
+         * Summary: 批量创建文本域
+         */
+        public BatchcreateInnerTemplatetextareaResponse BatchcreateInnerTemplatetextarea(BatchcreateInnerTemplatetextareaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchcreateInnerTemplatetextareaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量创建文本域（组件）
+         * Summary: 批量创建文本域
+         */
+        public async Task<BatchcreateInnerTemplatetextareaResponse> BatchcreateInnerTemplatetextareaAsync(BatchcreateInnerTemplatetextareaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchcreateInnerTemplatetextareaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量创建文本域（组件）
+         * Summary: 批量创建文本域
+         */
+        public BatchcreateInnerTemplatetextareaResponse BatchcreateInnerTemplatetextareaEx(BatchcreateInnerTemplatetextareaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchcreateInnerTemplatetextareaResponse>(DoRequest("1.0", "antchain.ato.inner.templatetextarea.batchcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量创建文本域（组件）
+         * Summary: 批量创建文本域
+         */
+        public async Task<BatchcreateInnerTemplatetextareaResponse> BatchcreateInnerTemplatetextareaExAsync(BatchcreateInnerTemplatetextareaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchcreateInnerTemplatetextareaResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.templatetextarea.batchcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 一键投保
          * Summary: 投保
          */
@@ -7500,6 +8554,48 @@ namespace AntChain.SDK.ATO
         }
 
         /**
+         * Description: 订单信息同步
+         * Summary: 订单信息同步
+         */
+        public SyncTradePromoorderinfoResponse SyncTradePromoorderinfo(SyncTradePromoorderinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncTradePromoorderinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 订单信息同步
+         * Summary: 订单信息同步
+         */
+        public async Task<SyncTradePromoorderinfoResponse> SyncTradePromoorderinfoAsync(SyncTradePromoorderinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncTradePromoorderinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 订单信息同步
+         * Summary: 订单信息同步
+         */
+        public SyncTradePromoorderinfoResponse SyncTradePromoorderinfoEx(SyncTradePromoorderinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncTradePromoorderinfoResponse>(DoRequest("1.0", "antchain.ato.trade.promoorderinfo.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 订单信息同步
+         * Summary: 订单信息同步
+         */
+        public async Task<SyncTradePromoorderinfoResponse> SyncTradePromoorderinfoExAsync(SyncTradePromoorderinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncTradePromoorderinfoResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.promoorderinfo.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 代扣签约创建
          * Summary: 代扣签约
          */
@@ -7802,8 +8898,8 @@ namespace AntChain.SDK.ATO
         }
 
         /**
-         * Description: 代扣主动支付创建
-         * Summary: 代扣主动支付创建
+         * Description: 主动支付创建
+         * Summary: 主动支付创建
          */
         public CreateWithholdActivepayResponse CreateWithholdActivepay(CreateWithholdActivepayRequest request)
         {
@@ -7813,8 +8909,8 @@ namespace AntChain.SDK.ATO
         }
 
         /**
-         * Description: 代扣主动支付创建
-         * Summary: 代扣主动支付创建
+         * Description: 主动支付创建
+         * Summary: 主动支付创建
          */
         public async Task<CreateWithholdActivepayResponse> CreateWithholdActivepayAsync(CreateWithholdActivepayRequest request)
         {
@@ -7824,8 +8920,8 @@ namespace AntChain.SDK.ATO
         }
 
         /**
-         * Description: 代扣主动支付创建
-         * Summary: 代扣主动支付创建
+         * Description: 主动支付创建
+         * Summary: 主动支付创建
          */
         public CreateWithholdActivepayResponse CreateWithholdActivepayEx(CreateWithholdActivepayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -7834,8 +8930,8 @@ namespace AntChain.SDK.ATO
         }
 
         /**
-         * Description: 代扣主动支付创建
-         * Summary: 代扣主动支付创建
+         * Description: 主动支付创建
+         * Summary: 主动支付创建
          */
         public async Task<CreateWithholdActivepayResponse> CreateWithholdActivepayExAsync(CreateWithholdActivepayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -7844,8 +8940,8 @@ namespace AntChain.SDK.ATO
         }
 
         /**
-         * Description: 代扣主动支付查询
-         * Summary: 代扣主动支付查询
+         * Description: 主动支付查询
+         * Summary: 主动支付查询
          */
         public QueryWithholdActivepayResponse QueryWithholdActivepay(QueryWithholdActivepayRequest request)
         {
@@ -7855,8 +8951,8 @@ namespace AntChain.SDK.ATO
         }
 
         /**
-         * Description: 代扣主动支付查询
-         * Summary: 代扣主动支付查询
+         * Description: 主动支付查询
+         * Summary: 主动支付查询
          */
         public async Task<QueryWithholdActivepayResponse> QueryWithholdActivepayAsync(QueryWithholdActivepayRequest request)
         {
@@ -7866,8 +8962,8 @@ namespace AntChain.SDK.ATO
         }
 
         /**
-         * Description: 代扣主动支付查询
-         * Summary: 代扣主动支付查询
+         * Description: 主动支付查询
+         * Summary: 主动支付查询
          */
         public QueryWithholdActivepayResponse QueryWithholdActivepayEx(QueryWithholdActivepayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -7876,8 +8972,8 @@ namespace AntChain.SDK.ATO
         }
 
         /**
-         * Description: 代扣主动支付查询
-         * Summary: 代扣主动支付查询
+         * Description: 主动支付查询
+         * Summary: 主动支付查询
          */
         public async Task<QueryWithholdActivepayResponse> QueryWithholdActivepayExAsync(QueryWithholdActivepayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -7886,8 +8982,8 @@ namespace AntChain.SDK.ATO
         }
 
         /**
-         * Description: 代扣主动支付取消
-         * Summary: 代扣主动支付取消
+         * Description: 主动支付取消
+         * Summary: 主动支付取消
          */
         public CancelWithholdActivepayResponse CancelWithholdActivepay(CancelWithholdActivepayRequest request)
         {
@@ -7897,8 +8993,8 @@ namespace AntChain.SDK.ATO
         }
 
         /**
-         * Description: 代扣主动支付取消
-         * Summary: 代扣主动支付取消
+         * Description: 主动支付取消
+         * Summary: 主动支付取消
          */
         public async Task<CancelWithholdActivepayResponse> CancelWithholdActivepayAsync(CancelWithholdActivepayRequest request)
         {
@@ -7908,8 +9004,8 @@ namespace AntChain.SDK.ATO
         }
 
         /**
-         * Description: 代扣主动支付取消
-         * Summary: 代扣主动支付取消
+         * Description: 主动支付取消
+         * Summary: 主动支付取消
          */
         public CancelWithholdActivepayResponse CancelWithholdActivepayEx(CancelWithholdActivepayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -7918,8 +9014,8 @@ namespace AntChain.SDK.ATO
         }
 
         /**
-         * Description: 代扣主动支付取消
-         * Summary: 代扣主动支付取消
+         * Description: 主动支付取消
+         * Summary: 主动支付取消
          */
         public async Task<CancelWithholdActivepayResponse> CancelWithholdActivepayExAsync(CancelWithholdActivepayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -8051,6 +9147,90 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryWithholdCompensateaccountResponse>(await DoRequestAsync("1.0", "antchain.ato.withhold.compensateaccount.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 重试pending状态的代扣计划
+         * Summary: 重试pending状态的代扣计划
+         */
+        public RetryWithholdPlanpendingResponse RetryWithholdPlanpending(RetryWithholdPlanpendingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RetryWithholdPlanpendingEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 重试pending状态的代扣计划
+         * Summary: 重试pending状态的代扣计划
+         */
+        public async Task<RetryWithholdPlanpendingResponse> RetryWithholdPlanpendingAsync(RetryWithholdPlanpendingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RetryWithholdPlanpendingExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 重试pending状态的代扣计划
+         * Summary: 重试pending状态的代扣计划
+         */
+        public RetryWithholdPlanpendingResponse RetryWithholdPlanpendingEx(RetryWithholdPlanpendingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RetryWithholdPlanpendingResponse>(DoRequest("1.0", "antchain.ato.withhold.planpending.retry", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 重试pending状态的代扣计划
+         * Summary: 重试pending状态的代扣计划
+         */
+        public async Task<RetryWithholdPlanpendingResponse> RetryWithholdPlanpendingExAsync(RetryWithholdPlanpendingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RetryWithholdPlanpendingResponse>(await DoRequestAsync("1.0", "antchain.ato.withhold.planpending.retry", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分账pending重试
+         * Summary: 分账pending重试
+         */
+        public RetryWithholdDividependingResponse RetryWithholdDividepending(RetryWithholdDividependingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RetryWithholdDividependingEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分账pending重试
+         * Summary: 分账pending重试
+         */
+        public async Task<RetryWithholdDividependingResponse> RetryWithholdDividependingAsync(RetryWithholdDividependingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RetryWithholdDividependingExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分账pending重试
+         * Summary: 分账pending重试
+         */
+        public RetryWithholdDividependingResponse RetryWithholdDividependingEx(RetryWithholdDividependingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RetryWithholdDividependingResponse>(DoRequest("1.0", "antchain.ato.withhold.dividepending.retry", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分账pending重试
+         * Summary: 分账pending重试
+         */
+        public async Task<RetryWithholdDividependingResponse> RetryWithholdDividependingExAsync(RetryWithholdDividependingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RetryWithholdDividependingResponse>(await DoRequestAsync("1.0", "antchain.ato.withhold.dividepending.retry", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

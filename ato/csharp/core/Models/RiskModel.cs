@@ -40,6 +40,16 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string FlowId { get; set; }
 
+        // 拒量模型捞回分
+        [NameInMap("mob_three_score")]
+        [Validation(Required=false)]
+        public string MobThreeScore { get; set; }
+
+        // 拒量模型首逾分
+        [NameInMap("fpd_thirty_score")]
+        [Validation(Required=false)]
+        public string FpdThirtyScore { get; set; }
+
     }
 
 }

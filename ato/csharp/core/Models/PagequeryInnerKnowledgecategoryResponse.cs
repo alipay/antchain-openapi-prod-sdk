@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class CreateWithholdActivepayResponse : TeaModel {
+    public class PagequeryInnerKnowledgecategoryResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,17 +24,16 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 支付宝支付订单号，用于拉起主动支付页面
-        [NameInMap("trade_no")]
+        // 总数
+        [NameInMap("total")]
         [Validation(Required=false)]
-        public string TradeNo { get; set; }
+        public long? Total { get; set; }
 
-        // 单据支付字符串
-        // app场景：返回签名字符串
-        // h5场景：返回支付链接
-        [NameInMap("order_str")]
+        // 知识点信息	
+        // 
+        [NameInMap("data")]
         [Validation(Required=false)]
-        public string OrderStr { get; set; }
+        public List<KnowledgeInfo> Data { get; set; }
 
     }
 

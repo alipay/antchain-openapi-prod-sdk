@@ -74,7 +74,7 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string Industry { get; set; }
 
-        // 枚举值：ZOLOZ_V2、ZOLOZ_V3、GENERAL_INDUSTRY、APPLET_RISK
+        // 枚举值：ZOLOZ_V2、ZOLOZ_V3、GENERAL_INDUSTRY、APPLET_RISK、REJECT_RISK
         [NameInMap("model_version")]
         [Validation(Required=false)]
         public string ModelVersion { get; set; }

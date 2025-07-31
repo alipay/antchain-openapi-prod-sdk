@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class CreateWithholdActivepayResponse : TeaModel {
+    public class QueryInnerSaleschannelResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,17 +24,31 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 支付宝支付订单号，用于拉起主动支付页面
-        [NameInMap("trade_no")]
+        // 渠道code
+        [NameInMap("channel_code")]
         [Validation(Required=false)]
-        public string TradeNo { get; set; }
+        public string ChannelCode { get; set; }
 
-        // 单据支付字符串
-        // app场景：返回签名字符串
-        // h5场景：返回支付链接
-        [NameInMap("order_str")]
+        // 渠道名称
+        [NameInMap("channel_name")]
         [Validation(Required=false)]
-        public string OrderStr { get; set; }
+        public string ChannelName { get; set; }
+
+        // 	
+        // 渠道链接
+        [NameInMap("channel_link")]
+        [Validation(Required=false)]
+        public string ChannelLink { get; set; }
+
+        // 渠道级别
+        [NameInMap("channel_level")]
+        [Validation(Required=false)]
+        public long? ChannelLevel { get; set; }
+
+        // 子渠道列表，JSONArray
+        [NameInMap("child_channel_list")]
+        [Validation(Required=false)]
+        public string ChildChannelList { get; set; }
 
     }
 
