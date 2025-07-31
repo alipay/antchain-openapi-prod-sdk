@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class OrderPromiseExcelInfo extends TeaModel {
     // 文件下载地址
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://www.baidu.com">http://www.baidu.com</a></p>
+     */
     @NameInMap("download_url")
     public String downloadUrl;
 
     // 文件类型,订单明细表:ORDER_DETAIL 还款记录表:ORDER_FULFILLMENT
+    /**
+     * <strong>example:</strong>
+     * <p>ORDER_DETAIL</p>
+     */
     @NameInMap("file_type")
     @Validation(required = true)
     public String fileType;
@@ -17,6 +25,10 @@ public class OrderPromiseExcelInfo extends TeaModel {
     // ● RUNNING:生成中
     // ● SUCCESS:已生成
     // ● FAILED:失败
+    /**
+     * <strong>example:</strong>
+     * <p>RUNNING</p>
+     */
     @NameInMap("task_status")
     @Validation(required = true)
     public String taskStatus;

@@ -5,31 +5,55 @@ import com.aliyun.tea.*;
 
 public class AgreementPage extends TeaModel {
     // 协议id
+    /**
+     * <strong>example:</strong>
+     * <p>1231234343423423</p>
+     */
     @NameInMap("agreement_id")
     @Validation(required = true)
     public String agreementId;
 
     // 代理企业名称
+    /**
+     * <strong>example:</strong>
+     * <p>xx公司</p>
+     */
     @NameInMap("merchant_name")
     @Validation(required = true)
     public String merchantName;
 
     // 租户8位id
+    /**
+     * <strong>example:</strong>
+     * <p>SADWQWAW</p>
+     */
     @NameInMap("tenant_id")
     @Validation(required = true)
     public String tenantId;
 
     // 业务类型 枚举
+    /**
+     * <strong>example:</strong>
+     * <p>业务类型</p>
+     */
     @NameInMap("product_main_class")
     @Validation(required = true)
     public String productMainClass;
 
     // 协议类型 枚举
+    /**
+     * <strong>example:</strong>
+     * <p>协议类型</p>
+     */
     @NameInMap("agreement_type")
     @Validation(required = true)
     public String agreementType;
 
     // 租户签约状态 枚举
+    /**
+     * <strong>example:</strong>
+     * <p>SUCCESS</p>
+     */
     @NameInMap("sign_status")
     @Validation(required = true)
     public String signStatus;

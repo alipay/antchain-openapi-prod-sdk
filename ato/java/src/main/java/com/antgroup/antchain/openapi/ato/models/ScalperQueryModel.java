@@ -5,121 +5,217 @@ import com.aliyun.tea.*;
 
 public class ScalperQueryModel extends TeaModel {
     // 注册手机号，填写咨询对象所关联的注册手机号
+    /**
+     * <strong>example:</strong>
+     * <p>123xxxxxx56</p>
+     */
     @NameInMap("registration_phone")
     @Validation(maxLength = 20, minLength = 1)
     public String registrationPhone;
 
     // 认证时间，填写风险咨询对象所关联的账号的真实身份认证时间
+    /**
+     * <strong>example:</strong>
+     * <p>2099-12-30 23:59:59</p>
+     */
     @NameInMap("certificate_date")
     @Validation(maxLength = 20, minLength = 1)
     public String certificateDate;
 
     // 登录手机号，填写风险咨询对象关联账号的登录手机号
+    /**
+     * <strong>example:</strong>
+     * <p>123xxxxxx56</p>
+     */
     @NameInMap("login_phone")
     @Validation(maxLength = 20, minLength = 1)
     public String loginPhone;
 
     // 注册账号身份证，填写风险咨询对象所关联账号的注册身份证信息
+    /**
+     * <strong>example:</strong>
+     * <p>123xxxxxxxxxx55</p>
+     */
     @NameInMap("registration_cert")
     @Validation(maxLength = 30, minLength = 1)
     public String registrationCert;
 
     // 登录账号身份证，登录账号的身份证号码
+    /**
+     * <strong>example:</strong>
+     * <p>230109xxxxxxxx3000</p>
+     */
     @NameInMap("login_cert")
     @Validation(maxLength = 30, minLength = 1)
     public String loginCert;
 
     // 注册时间，填写风险咨询对象所关联的账号的注册时间
+    /**
+     * <strong>example:</strong>
+     * <p>2099-12-30 23:59:59</p>
+     */
     @NameInMap("registration_date")
     @Validation(maxLength = 20, minLength = 1)
     public String registrationDate;
 
     // 证件类型；枚举值：1 - 身份证；2 - 护照
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("cert_type")
     @Validation(maximum = 2, minimum = 1)
     public Long certType;
 
     // 银行卡号
+    /**
+     * <strong>example:</strong>
+     * <p>223940194399993xxxx</p>
+     */
     @NameInMap("bank_card_no")
     @Validation(maxLength = 50, minLength = 1)
     public String bankCardNo;
 
     // 用户邮箱
+    /**
+     * <strong>example:</strong>
+     * <p><a href="mailto:zhifubaoxxxx@163.com">zhifubaoxxxx@163.com</a></p>
+     */
     @NameInMap("email_address")
     @Validation(maxLength = 35, minLength = 1)
     public String emailAddress;
 
     // 手机序列号
+    /**
+     * <strong>example:</strong>
+     * <p>86573603141xxxx</p>
+     */
     @NameInMap("imei")
     @Validation(maxLength = 100, minLength = 1)
     public String imei;
 
     // 国际移动用户识别码
+    /**
+     * <strong>example:</strong>
+     * <p>46000123456xxxx</p>
+     */
     @NameInMap("imsi")
     @Validation(maxLength = 100, minLength = 1)
     public String imsi;
 
     // mac 地址或设备唯一标识
+    /**
+     * <strong>example:</strong>
+     * <p>42.118.71.72</p>
+     */
     @NameInMap("mac_address")
     @Validation(maxLength = 30, minLength = 1)
     public String macAddress;
 
     // 设备号，设备唯一号码
+    /**
+     * <strong>example:</strong>
+     * <p>qtedxaxxxxxxxx</p>
+     */
     @NameInMap("apdid")
     @Validation(maxLength = 128, minLength = 1)
     public String apdid;
 
     // 支付宝外部交易号
+    /**
+     * <strong>example:</strong>
+     * <p>123xxxxxxxxxx55</p>
+     */
     @NameInMap("out_order_no")
     @Validation(maxLength = 128, minLength = 1)
     public String outOrderNo;
 
     // 所咨询的唯一支付宝交易号
+    /**
+     * <strong>example:</strong>
+     * <p>202304262200141025xxxxxx0000</p>
+     */
     @NameInMap("order_no")
     @Validation(maxLength = 128, minLength = 1)
     public String orderNo;
 
     // 用户购买或使用服务时产生的具体金额总数，单位：分
+    /**
+     * <strong>example:</strong>
+     * <p>3354</p>
+     */
     @NameInMap("sales_amount")
     @Validation(maximum = 1000000, minimum = 1)
     public Long salesAmount;
 
     // 用户姓名
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("user_name")
     @Validation(maxLength = 50, minLength = 1)
     public String userName;
 
     // 收货手机号，用于区分 mobile_no 所填的手机号
+    /**
+     * <strong>example:</strong>
+     * <p>1380095xxxx</p>
+     */
     @NameInMap("mailing_phone")
     @Validation(maxLength = 20, minLength = 1)
     public String mailingPhone;
 
     // 收货地址
+    /**
+     * <strong>example:</strong>
+     * <p>西溪路</p>
+     */
     @NameInMap("mailing_address")
     @Validation(maxLength = 128, minLength = 1)
     public String mailingAddress;
 
     // 是否为员工账号，枚举值：1 - 是
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("is_employee")
     @Validation(maxLength = 10, minLength = 1)
     public String isEmployee;
 
     // 渠道，枚举值：alipay - 支付宝；app - 自有app；pc - 电脑端
+    /**
+     * <strong>example:</strong>
+     * <p>alipay</p>
+     */
     @NameInMap("channel")
     @Validation(maxLength = 10, minLength = 1)
     public String channel;
 
     // 服务商 pid
+    /**
+     * <strong>example:</strong>
+     * <p>208850162456xxxx</p>
+     */
     @NameInMap("isv_pid")
     @Validation(maxLength = 128, minLength = 1)
     public String isvPid;
 
     // 门店行业类目，枚举值：CATERING - 餐饮；LEISURE - 休闲；MEDICAL - 医疗
+    /**
+     * <strong>example:</strong>
+     * <p>CATERING</p>
+     */
     @NameInMap("store_mcc_desc")
     @Validation(maxLength = 20, minLength = 1)
     public String storeMccDesc;
 
     // 消费者 id，外部会员账号
+    /**
+     * <strong>example:</strong>
+     * <p>12321123</p>
+     */
     @NameInMap("customer_id")
     @Validation(maxLength = 128, minLength = 1)
     public String customerId;

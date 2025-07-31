@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class DivideBindingTransInInfo extends TeaModel {
     // 分账方支付宝pid
+    /**
+     * <strong>example:</strong>
+     * <p>2088123456789</p>
+     */
     @NameInMap("alipay_pid")
     @Validation(required = true)
     public String alipayPid;

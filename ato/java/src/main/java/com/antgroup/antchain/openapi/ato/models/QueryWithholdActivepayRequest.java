@@ -30,10 +30,15 @@ public class QueryWithholdActivepayRequest extends TeaModel {
     @Validation(maxLength = 64, minLength = 1)
     public String payType;
 
-    // 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
+    // 无用字段，无需关注
     @NameInMap("pay_channel")
     @Validation(maxLength = 64)
     public String payChannel;
+
+    // 支付申请号，用于区分在一笔订单同一支付类型的多笔支付请求。
+    // 当支付类型非MULTI_PAY或为空时必填
+    @NameInMap("pay_apply_no")
+    public Long payApplyNo;
 
     public static QueryWithholdActivepayRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryWithholdActivepayRequest self = new QueryWithholdActivepayRequest();
@@ -94,6 +99,14 @@ public class QueryWithholdActivepayRequest extends TeaModel {
     }
     public String getPayChannel() {
         return this.payChannel;
+    }
+
+    public QueryWithholdActivepayRequest setPayApplyNo(Long payApplyNo) {
+        this.payApplyNo = payApplyNo;
+        return this;
+    }
+    public Long getPayApplyNo() {
+        return this.payApplyNo;
     }
 
 }

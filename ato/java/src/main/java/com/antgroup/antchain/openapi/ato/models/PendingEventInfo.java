@@ -5,29 +5,53 @@ import com.aliyun.tea.*;
 
 public class PendingEventInfo extends TeaModel {
     // 事件id
+    /**
+     * <strong>example:</strong>
+     * <p>12345678912</p>
+     */
     @NameInMap("event_id")
     public String eventId;
 
     // 通知:NOTIFICATION
     // 确认函:CONFIRMATION
+    /**
+     * <strong>example:</strong>
+     * <p>NOTIFICATION</p>
+     */
     @NameInMap("type")
     public String type;
 
     // ("PENDING","待办中"),  ("CONFIRMED","确认"),  
     // ("REJECTED","已拒绝")
     // ("FAILED","失败"),("EXPIRED","已过期");
+    /**
+     * <strong>example:</strong>
+     * <p>PENDING</p>
+     */
     @NameInMap("status")
     public String status;
 
     // 待办内容主题
+    /**
+     * <strong>example:</strong>
+     * <p>用信确认函</p>
+     */
     @NameInMap("content_subject")
     public String contentSubject;
 
     // 事件有效期开始
+    /**
+     * <strong>example:</strong>
+     * <p>2024-08-27 14:07:46.600</p>
+     */
     @NameInMap("effective_start_time")
     public String effectiveStartTime;
 
     // 事件有效期结束
+    /**
+     * <strong>example:</strong>
+     * <p>2025-02-19 11:03:43.786</p>
+     */
     @NameInMap("effective_end_time")
     public String effectiveEndTime;
 

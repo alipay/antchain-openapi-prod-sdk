@@ -5,56 +5,100 @@ import com.aliyun.tea.*;
 
 public class FundAssertReport extends TeaModel {
     // 投放月份 (整月)
+    /**
+     * <strong>example:</strong>
+     * <p>2024-12</p>
+     */
     @NameInMap("delivery_month")
     @Validation(required = true)
     public String deliveryMonth;
 
     // 账单金额
+    /**
+     * <strong>example:</strong>
+     * <p>1000（单位分）</p>
+     */
     @NameInMap("total_bill_amount")
     @Validation(required = true)
     public Long totalBillAmount;
 
     // 平均期限
+    /**
+     * <strong>example:</strong>
+     * <p>12</p>
+     */
     @NameInMap("average_term")
     @Validation(required = true)
     public String averageTerm;
 
     // 状态为取消的账单金额
+    /**
+     * <strong>example:</strong>
+     * <p>1000（单位分）</p>
+     */
     @NameInMap("cancelled_bill_amount")
     @Validation(required = true)
     public Long cancelledBillAmount;
 
     // Y期的订单的账单金额
+    /**
+     * <strong>example:</strong>
+     * <p>1000（单位分）</p>
+     */
     @NameInMap("total_bill_amount_y_period")
     @Validation(required = true)
     public Long totalBillAmountYPeriod;
 
     // 已到Y期订单中Y期平均期限(y期订单的平均期限)
+    /**
+     * <strong>example:</strong>
+     * <p>12</p>
+     */
     @NameInMap("average_term_y_period")
     @Validation(required = true)
     public String averageTermYPeriod;
 
     // Y期的订单中状态为取消的账单金额
+    /**
+     * <strong>example:</strong>
+     * <p>1000（单位分）</p>
+     */
     @NameInMap("cancelled_bill_amount_y_period")
     @Validation(required = true)
     public Long cancelledBillAmountYPeriod;
 
     // 状态为逾期1天及以上的账单金额
+    /**
+     * <strong>example:</strong>
+     * <p>1000(单位分)</p>
+     */
     @NameInMap("bill_amount_overdue_by1day_or_more")
     @Validation(required = true)
     public String billAmountOverdueBy1dayOrMore;
 
     // Y期的订单中状态为逾期1天及以上的账单金额
+    /**
+     * <strong>example:</strong>
+     * <p>1000(单位分)</p>
+     */
     @NameInMap("bill_amount_overdue_by1day_or_more_y_period")
     @Validation(required = true)
     public String billAmountOverdueBy1dayOrMoreYPeriod;
 
     // 状态为逾期30天及以上的账单金额
+    /**
+     * <strong>example:</strong>
+     * <p>1000(单位分)</p>
+     */
     @NameInMap("bill_amount_overdue_by30_days_or_more")
     @Validation(required = true)
     public String billAmountOverdueBy30DaysOrMore;
 
     // Y期的订单中状态为逾期30天及以上的账单金额
+    /**
+     * <strong>example:</strong>
+     * <p>1000(单位分)</p>
+     */
     @NameInMap("bill_amount_overdue_by30_days_or_more_y_period")
     @Validation(required = true)
     public String billAmountOverdueBy30DaysOrMoreYPeriod;

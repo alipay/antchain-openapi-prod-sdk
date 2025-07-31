@@ -5,18 +5,34 @@ import com.aliyun.tea.*;
 
 public class NoticeInfo extends TeaModel {
     // 通知id
+    /**
+     * <strong>example:</strong>
+     * <p>12345678</p>
+     */
     @NameInMap("notice_id")
     public Long noticeId;
 
     // 通知标题
+    /**
+     * <strong>example:</strong>
+     * <p>7月官网更新</p>
+     */
     @NameInMap("title")
     public String title;
 
     // 通知创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2024-10-17 18:41:59.000</p>
+     */
     @NameInMap("notice_create_time")
     public String noticeCreateTime;
 
     // 是否未读
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("unread")
     public Boolean unread;
 

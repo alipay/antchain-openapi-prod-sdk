@@ -5,26 +5,46 @@ import com.aliyun.tea.*;
 
 public class AuditInfo extends TeaModel {
     // 审核步骤
+    /**
+     * <strong>example:</strong>
+     * <p>商户提交</p>
+     */
     @NameInMap("stage")
     @Validation(required = true)
     public String stage;
 
     // 审核主体
+    /**
+     * <strong>example:</strong>
+     * <p>平台审核</p>
+     */
     @NameInMap("audit_subject")
     @Validation(required = true)
     public String auditSubject;
 
     // 审核状态
+    /**
+     * <strong>example:</strong>
+     * <p>AUDIT_PASSED</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 审核时间
+    /**
+     * <strong>example:</strong>
+     * <p>2023-04-05 12:12:23</p>
+     */
     @NameInMap("apply_date_str")
     @Validation(required = true)
     public String applyDateStr;
 
     // 审核失败描述
+    /**
+     * <strong>example:</strong>
+     * <p>xx值校验失败</p>
+     */
     @NameInMap("fail_reason")
     @Validation(required = true)
     public String failReason;

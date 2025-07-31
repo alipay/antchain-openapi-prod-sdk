@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class CompanySummaryInfo extends TeaModel {
     // 社会统一信用代码
+    /**
+     * <strong>example:</strong>
+     * <p>91301010101010101A</p>
+     */
     @NameInMap("merchant_id")
     public String merchantId;
 
     // 公司名称
+    /**
+     * <strong>example:</strong>
+     * <p>xxx公司</p>
+     */
     @NameInMap("merchant_name")
     public String merchantName;
 

@@ -5,46 +5,82 @@ import com.aliyun.tea.*;
 
 public class FarmingQueryModel extends TeaModel {
     // 支付宝外部交易号
+    /**
+     * <strong>example:</strong>
+     * <p>6983312****</p>
+     */
     @NameInMap("out_order_no")
     @Validation(maxLength = 128, minLength = 1)
     public String outOrderNo;
 
     // 支付宝内部交易号
+    /**
+     * <strong>example:</strong>
+     * <p>20230436xxxxxxxxx</p>
+     */
     @NameInMap("order_no")
     @Validation(maxLength = 128, minLength = 1)
     public String orderNo;
 
     // 金额，用户购买或使用服务时产生的具体金额，单位：分
+    /**
+     * <strong>example:</strong>
+     * <p>36500</p>
+     */
     @NameInMap("sales_amount")
     @Validation(maximum = 10000000, minimum = 1)
     public Long salesAmount;
 
     // 银行卡号
+    /**
+     * <strong>example:</strong>
+     * <p>6228xxxxxxxxxxxxx13</p>
+     */
     @NameInMap("bank_card_no")
     @Validation(maxLength = 128, minLength = 1)
     public String bankCardNo;
 
     // 服务商 pid
+    /**
+     * <strong>example:</strong>
+     * <p>2088xxxxxxxxxxxx</p>
+     */
     @NameInMap("isv_pid")
     @Validation(maxLength = 128, minLength = 1)
     public String isvPid;
 
     // 门店行业类目，枚举值：CATERING - 餐饮；LEISURE - 休闲；MEDICAL - 医疗
+    /**
+     * <strong>example:</strong>
+     * <p>CATERING</p>
+     */
     @NameInMap("store_mcc_desc")
     @Validation(maxLength = 30, minLength = 1)
     public String storeMccDesc;
 
     // 门店地址；不需要传城市和行政区
+    /**
+     * <strong>example:</strong>
+     * <p>万塘路18号</p>
+     */
     @NameInMap("outlet_address")
     @Validation(maxLength = 128, minLength = 1)
     public String outletAddress;
 
     // 公司名称
+    /**
+     * <strong>example:</strong>
+     * <p>杭州贸易有限公司</p>
+     */
     @NameInMap("company_name")
     @Validation(maxLength = 128, minLength = 1)
     public String companyName;
 
     // 店铺名称
+    /**
+     * <strong>example:</strong>
+     * <p>小店1号</p>
+     */
     @NameInMap("store_name")
     @Validation(maxLength = 128, minLength = 1)
     public String storeName;

@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class OrderProductInfo extends TeaModel {
     // 商品编码
+    /**
+     * <strong>example:</strong>
+     * <p>123456789012446</p>
+     */
     @NameInMap("product_id")
     public String productId;
 
     // 商品名称
+    /**
+     * <strong>example:</strong>
+     * <p>苹果手机</p>
+     */
     @NameInMap("product_name")
     public String productName;
 
     // 商品数量
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("product_number")
     public Long productNumber;
 

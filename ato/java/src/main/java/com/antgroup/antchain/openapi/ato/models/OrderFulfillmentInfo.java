@@ -5,22 +5,42 @@ import com.aliyun.tea.*;
 
 public class OrderFulfillmentInfo extends TeaModel {
     // 租期编号
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("lease_term_index")
     public Long leaseTermIndex;
 
     // 租期归还状态
+    /**
+     * <strong>example:</strong>
+     * <p>CANCEL</p>
+     */
     @NameInMap("rental_return_state")
     public String rentalReturnState;
 
     // 实际还款金额(分)
+    /**
+     * <strong>example:</strong>
+     * <p>123400</p>
+     */
     @NameInMap("real_repay_money")
     public Long realRepayMoney;
 
     // 租金(分)
+    /**
+     * <strong>example:</strong>
+     * <p>273800</p>
+     */
     @NameInMap("rental_money")
     public Long rentalMoney;
 
     // 每期实付时间
+    /**
+     * <strong>example:</strong>
+     * <p>2024-10-21 15:11:23.000 </p>
+     */
     @NameInMap("return_time")
     public String returnTime;
 

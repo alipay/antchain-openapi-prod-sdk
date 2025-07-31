@@ -5,46 +5,90 @@ import com.aliyun.tea.*;
 
 public class OrderInfo extends TeaModel {
     // 订单id
+    /**
+     * <strong>example:</strong>
+     * <p>SH20241017184159846222</p>
+     */
     @NameInMap("order_id")
     public String orderId;
 
     // 订单创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2024-10-17 18:41:59.000</p>
+     */
     @NameInMap("order_create_time")
     public String orderCreateTime;
 
     // 订单支付时间
+    /**
+     * <strong>example:</strong>
+     * <p>2024-10-17 18:41:59.000</p>
+     */
     @NameInMap("order_pay_time")
     public String orderPayTime;
 
     // 租金总额(分)
+    /**
+     * <strong>example:</strong>
+     * <p>3500</p>
+     */
     @NameInMap("total_rent_money")
     public Long totalRentMoney;
 
     // 租期
+    /**
+     * <strong>example:</strong>
+     * <p>12</p>
+     */
     @NameInMap("rent_term")
     public Long rentTerm;
 
     // 租期单位
+    /**
+     * <strong>example:</strong>
+     * <p>MONTH</p>
+     */
     @NameInMap("rent_unit")
     public String rentUnit;
 
     // 订单状态
+    /**
+     * <strong>example:</strong>
+     * <p>OPEN</p>
+     */
     @NameInMap("order_status")
     public String orderStatus;
 
     // 订单子状态
+    /**
+     * <strong>example:</strong>
+     * <p>ORDER_FULFILLMENT</p>
+     */
     @NameInMap("order_sub_status")
     public String orderSubStatus;
 
     // 免押金额（分）
+    /**
+     * <strong>example:</strong>
+     * <p>200</p>
+     */
     @NameInMap("deposit_price")
     public Long depositPrice;
 
     // 到期买断价(分)
+    /**
+     * <strong>example:</strong>
+     * <p>200</p>
+     */
     @NameInMap("buy_out_price")
     public Long buyOutPrice;
 
     // 物流方案
+    /**
+     * <strong>example:</strong>
+     * <p>POST</p>
+     */
     @NameInMap("logistic_type")
     public String logisticType;
 
@@ -53,10 +97,18 @@ public class OrderInfo extends TeaModel {
     // BUYOUT(1, "到期买断或归还"),
     // FREE_ON_RENT(2, "租满即送"),
     // RENEW_LEASE(3, "续租"),;
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("due_mode")
     public Long dueMode;
 
     // 首付款金额(分)
+    /**
+     * <strong>example:</strong>
+     * <p>200</p>
+     */
     @NameInMap("down_payment")
     public Long downPayment;
 

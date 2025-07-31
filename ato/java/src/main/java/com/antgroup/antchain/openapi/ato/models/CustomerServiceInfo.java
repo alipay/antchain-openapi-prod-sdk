@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class CustomerServiceInfo extends TeaModel {
     // 公司社会统一信息代码
+    /**
+     * <strong>example:</strong>
+     * <p>91301010101010101A</p>
+     */
     @NameInMap("merchant_id")
     public String merchantId;
 
     // 公司名称
+    /**
+     * <strong>example:</strong>
+     * <p>xxx公司</p>
+     */
     @NameInMap("merchant_name")
     public String merchantName;
 
     // 处理类型:
     // MERCHANT_PROCESS("MERCHANT_PROCESS", "商家处理"),
     // PROXY_PROCESS("PROXY_PROCESS", "服务商代处理"),
+    /**
+     * <strong>example:</strong>
+     * <p>MERCHANT_PROCESS</p>
+     */
     @NameInMap("process_type")
     public String processType;
 

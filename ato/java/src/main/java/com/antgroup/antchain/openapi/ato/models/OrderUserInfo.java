@@ -5,28 +5,52 @@ import com.aliyun.tea.*;
 
 public class OrderUserInfo extends TeaModel {
     // 承租人名称
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("user_name")
     public String userName;
 
     // 承租人手机号
+    /**
+     * <strong>example:</strong>
+     * <p>12345678912</p>
+     */
     @NameInMap("user_phone_number")
     public String userPhoneNumber;
 
     // 地址
+    /**
+     * <strong>example:</strong>
+     * <p>四川成都</p>
+     */
     @NameInMap("user_address")
     public String userAddress;
 
     // 支付宝账号
+    /**
+     * <strong>example:</strong>
+     * <p>2088123456789</p>
+     */
     @NameInMap("alipay_uid")
     public String alipayUid;
 
     // 租赁类别
     // 1:个人用户
     // 2:企业用户
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("lessee_type")
     public Long lesseeType;
 
     // 承租人身份证
+    /**
+     * <strong>example:</strong>
+     * <p>6102384935948594</p>
+     */
     @NameInMap("user_id")
     public String userId;
 

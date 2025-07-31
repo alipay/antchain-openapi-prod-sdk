@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class StaticData extends TeaModel {
     // 商户类型
+    /**
+     * <strong>example:</strong>
+     * <p>merchantType</p>
+     */
     @NameInMap("module_name")
     @Validation(required = true)
     public String moduleName;

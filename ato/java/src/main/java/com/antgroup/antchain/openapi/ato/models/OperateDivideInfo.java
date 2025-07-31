@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class OperateDivideInfo extends TeaModel {
     // 当前用户履约的租期编号
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("period_num")
     public Long periodNum;
 

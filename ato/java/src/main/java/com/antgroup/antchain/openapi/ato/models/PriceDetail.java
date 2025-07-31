@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class PriceDetail extends TeaModel {
     // 商品租赁期数
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("period_num")
     @Validation(required = true, maximum = 1000)
     public Long periodNum;
 
     // 押金，单位：分。
+    /**
+     * <strong>example:</strong>
+     * <p>100000</p>
+     */
     @NameInMap("deposit_price")
     @Validation(required = true, maximum = 10000000)
     public Long depositPrice;
 
     // 买断价格，单位：分
+    /**
+     * <strong>example:</strong>
+     * <p>100000</p>
+     */
     @NameInMap("buyout_price")
     @Validation(required = true, maximum = 10000000)
     public Long buyoutPrice;
 
     // 首期租金，单位：分
+    /**
+     * <strong>example:</strong>
+     * <p>100000</p>
+     */
     @NameInMap("initial_rent_price")
     @Validation(required = true, maximum = 10000000)
     public Long initialRentPrice;

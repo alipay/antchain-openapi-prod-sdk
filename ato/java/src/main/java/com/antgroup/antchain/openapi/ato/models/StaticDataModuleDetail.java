@@ -5,28 +5,52 @@ import com.aliyun.tea.*;
 
 public class StaticDataModuleDetail extends TeaModel {
     // 描述
+    /**
+     * <strong>example:</strong>
+     * <p>企业</p>
+     */
     @NameInMap("property_text")
     @Validation(required = true)
     public String propertyText;
 
     // 商户类型
+    /**
+     * <strong>example:</strong>
+     * <p>01</p>
+     */
     @NameInMap("property_value")
     @Validation(required = true)
     public String propertyValue;
 
     // 图标
+    /**
+     * <strong>example:</strong>
+     * <p>图标</p>
+     */
     @NameInMap("icon")
     public String icon;
 
     // 置灰图标
+    /**
+     * <strong>example:</strong>
+     * <p>置灰图标</p>
+     */
     @NameInMap("grey_icon")
     public String greyIcon;
 
     // 叶子结点，目前存的一级类目下的二级类目
+    /**
+     * <strong>example:</strong>
+     * <p>[{&quot;propertyText&quot;:&quot;123&quot;,&quot;propertyValue&quot;:&quot;123&quot;}]</p>
+     */
     @NameInMap("children_detail_list")
     public String childrenDetailList;
 
     // 是否有叶子结点
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("has_children")
     public Boolean hasChildren;
 

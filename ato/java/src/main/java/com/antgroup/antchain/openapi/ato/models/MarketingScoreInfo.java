@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class MarketingScoreInfo extends TeaModel {
     // 手机号
+    /**
+     * <strong>example:</strong>
+     * <p>16677778888</p>
+     */
     @NameInMap("phone_num")
     public String phoneNum;
 
     // 营销分
+    /**
+     * <strong>example:</strong>
+     * <p>55.5</p>
+     */
     @NameInMap("score")
     public String score;
 

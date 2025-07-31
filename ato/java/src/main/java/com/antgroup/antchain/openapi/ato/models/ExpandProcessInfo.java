@@ -9,14 +9,26 @@ public class ExpandProcessInfo extends TeaModel {
     // CUSTOM_SERVICE_INFO（客服信息）
     // AGENTCUSTOMERPESONINFO（间联客诉人员）
     // MERCHANT_EXPAND（商户进件）
+    /**
+     * <strong>example:</strong>
+     * <p>TENANT_INDIRECT_MAINCLASS</p>
+     */
     @NameInMap("process_node")
     public String processNode;
 
     // 是否已提交
+    /**
+     * <strong>example:</strong>
+     * <p>是否已提交</p>
+     */
     @NameInMap("is_submitted")
     public Boolean isSubmitted;
 
     // 审核通过
+    /**
+     * <strong>example:</strong>
+     * <p>SUCCESS</p>
+     */
     @NameInMap("audit_status")
     public String auditStatus;
 

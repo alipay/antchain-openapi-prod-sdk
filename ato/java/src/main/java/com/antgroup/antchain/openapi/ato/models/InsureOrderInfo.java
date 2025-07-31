@@ -5,42 +5,82 @@ import com.aliyun.tea.*;
 
 public class InsureOrderInfo extends TeaModel {
     // 商家订单ID
+    /**
+     * <strong>example:</strong>
+     * <p>F20240531174508229522</p>
+     */
     @NameInMap("order_id")
     public String orderId;
 
     // 投保编号（承保id）
+    /**
+     * <strong>example:</strong>
+     * <p>T20240531174508229522</p>
+     */
     @NameInMap("insure_id")
     public String insureId;
 
     // 商品名称
+    /**
+     * <strong>example:</strong>
+     * <p>华为meta60</p>
+     */
     @NameInMap("product_name")
     public String productName;
 
     // 保险开始时间
+    /**
+     * <strong>example:</strong>
+     * <p>2024-09-24 20:04:35</p>
+     */
     @NameInMap("insure_start_time")
     public String insureStartTime;
 
     // 保险终止时间
+    /**
+     * <strong>example:</strong>
+     * <p>2024-09-24 20:04:35</p>
+     */
     @NameInMap("insure_end_time")
     public String insureEndTime;
 
     // 投保金额（保额），单位分 100代表1元
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("insure_amount")
     public Long insureAmount;
 
     // 投保费用（保费），单位分 100代表1元
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("insure_premium")
     public Long insurePremium;
 
     // 投保状态枚举
+    /**
+     * <strong>example:</strong>
+     * <p>INSURE_SUCC</p>
+     */
     @NameInMap("status")
     public String status;
 
     // 电子保单下载链接
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://test-open.pingan.com.cn/Gateway/xxxxx/printGPForDMZ?ciphertext=$%7Bciphertext%7D&sign=$%7Bsign%7D">https://test-open.pingan.com.cn/Gateway/xxxxx/printGPForDMZ?ciphertext=${ciphertext}&amp;sign=${sign}</a></p>
+     */
     @NameInMap("policy_url")
     public String policyUrl;
 
     // 验真码
+    /**
+     * <strong>example:</strong>
+     * <p>9u649pfJ76crNdRRVD</p>
+     */
     @NameInMap("validate_code")
     public String validateCode;
 

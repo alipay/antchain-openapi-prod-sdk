@@ -62,7 +62,7 @@ public class QueryRiskRequest extends TeaModel {
     @NameInMap("industry")
     public String industry;
 
-    // 枚举值：ZOLOZ_V2、ZOLOZ_V3、GENERAL_INDUSTRY、APPLET_RISK
+    // 枚举值：ZOLOZ_V2、ZOLOZ_V3、GENERAL_INDUSTRY、APPLET_RISK、REJECT_RISK
     @NameInMap("model_version")
     public String modelVersion;
 

@@ -20,7 +20,9 @@ public class CreateWithholdActivepayResponse extends TeaModel {
     @NameInMap("trade_no")
     public String tradeNo;
 
-    // 签名字符串，用于APP支付场景，客户端唤起支付宝收银台使用。
+    // 单据支付字符串
+    // app场景：返回签名字符串
+    // h5场景：返回支付链接
     @NameInMap("order_str")
     public String orderStr;
 

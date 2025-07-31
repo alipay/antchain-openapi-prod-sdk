@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class PageQuery extends TeaModel {
     // 页大小
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("page_size")
     @Validation(required = true)
     public Long pageSize;
 
     // 当前页
+    /**
+     * <strong>example:</strong>
+     * <p>2</p>
+     */
     @NameInMap("page_index")
     @Validation(required = true)
     public Long pageIndex;

@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class ScalperQueryOrderItem extends TeaModel {
     // 订单商品名称
+    /**
+     * <strong>example:</strong>
+     * <p>商品1</p>
+     */
     @NameInMap("order_items_name")
     @Validation(maxLength = 256, minLength = 1)
     public String orderItemsName;
 
     // 订单商品数量
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("order_items_quantity")
     @Validation(maximum = 100000, minimum = 1)
     public Long orderItemsQuantity;
 
     // 订单商品价格，单位：分
+    /**
+     * <strong>example:</strong>
+     * <p>20000</p>
+     */
     @NameInMap("order_items_price")
     @Validation(maximum = 10000000, minimum = 1)
     public Long orderItemsPrice;

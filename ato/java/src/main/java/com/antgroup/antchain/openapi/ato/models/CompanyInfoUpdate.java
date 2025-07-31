@@ -9,38 +9,74 @@ public class CompanyInfoUpdate extends TeaModel {
     public FileInfo businessLicenseFile;
 
     // 业务类型 枚举
+    /**
+     * <strong>example:</strong>
+     * <p>业务类型</p>
+     */
     @NameInMap("product_main_class")
     public String productMainClass;
 
     // 公司名称
+    /**
+     * <strong>example:</strong>
+     * <p>xx公司</p>
+     */
     @NameInMap("company_name")
     public String companyName;
 
     // 公司别名
+    /**
+     * <strong>example:</strong>
+     * <p>公司别名</p>
+     */
     @NameInMap("company_alias_name")
     public String companyAliasName;
 
     // 公司数科租户id
+    /**
+     * <strong>example:</strong>
+     * <p>ASSDDDAS</p>
+     */
     @NameInMap("tenant_id")
     public String tenantId;
 
     // 公司联系电话
+    /**
+     * <strong>example:</strong>
+     * <p>1231xx2322</p>
+     */
     @NameInMap("company_mobile")
     public String companyMobile;
 
     // 公司联系地址
+    /**
+     * <strong>example:</strong>
+     * <p>xx市xx区</p>
+     */
     @NameInMap("company_address")
     public String companyAddress;
 
     // 联系人姓名
+    /**
+     * <strong>example:</strong>
+     * <p>李xx</p>
+     */
     @NameInMap("contact_name")
     public String contactName;
 
     // 联系人手机号码
+    /**
+     * <strong>example:</strong>
+     * <p>132xx2312312</p>
+     */
     @NameInMap("contact_mobile")
     public String contactMobile;
 
     // 商户类型： 01：企业；07：个体工商户 默认不填为01
+    /**
+     * <strong>example:</strong>
+     * <p>01</p>
+     */
     @NameInMap("merchant_type")
     public String merchantType;
 

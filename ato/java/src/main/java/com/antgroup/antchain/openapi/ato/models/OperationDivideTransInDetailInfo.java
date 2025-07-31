@@ -5,18 +5,34 @@ import com.aliyun.tea.*;
 
 public class OperationDivideTransInDetailInfo extends TeaModel {
     // 分账收入方名称
+    /**
+     * <strong>example:</strong>
+     * <p>xxx公司</p>
+     */
     @NameInMap("trans_in_name")
     public String transInName;
 
     // 分账收入方支付宝用户id, 支付宝2088id
+    /**
+     * <strong>example:</strong>
+     * <p>2088****1</p>
+     */
     @NameInMap("trans_in_user_id")
     public String transInUserId;
 
     // 分账金额，单位为分
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("divide_amount")
     public Long divideAmount;
 
     // 分账描述
+    /**
+     * <strong>example:</strong>
+     * <p>分账给经营商</p>
+     */
     @NameInMap("desc")
     public String desc;
 
@@ -24,6 +40,10 @@ public class OperationDivideTransInDetailInfo extends TeaModel {
     // PROCESSING("PROCESSING", "处理中"),
     // FAILED("FAILED", "失败"),
     // SUCCESS("SUCCESS", "分账成功");
+    /**
+     * <strong>example:</strong>
+     * <p>SUCCESS</p>
+     */
     @NameInMap("divide_status")
     public String divideStatus;
 

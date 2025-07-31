@@ -5,31 +5,55 @@ import com.aliyun.tea.*;
 
 public class RelationPage extends TeaModel {
     // 分账关系id
+    /**
+     * <strong>example:</strong>
+     * <p>1231234343423423</p>
+     */
     @NameInMap("relation_id")
     @Validation(required = true)
     public String relationId;
 
     // 分账公司名称
+    /**
+     * <strong>example:</strong>
+     * <p>xx公司</p>
+     */
     @NameInMap("company_name")
     @Validation(required = true)
     public String companyName;
 
     // 分账公司名称统一社会信用代码
+    /**
+     * <strong>example:</strong>
+     * <p>912123asdq2131</p>
+     */
     @NameInMap("merchant_id")
     @Validation(required = true)
     public String merchantId;
 
     // 审核状态
+    /**
+     * <strong>example:</strong>
+     * <p>AUDIT_PASSED</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 商户公司统一社会信用代码
+    /**
+     * <strong>example:</strong>
+     * <p>123123122134wexx</p>
+     */
     @NameInMap("subject_merchant_id")
     @Validation(required = true)
     public String subjectMerchantId;
 
     // 商户公司名称
+    /**
+     * <strong>example:</strong>
+     * <p>xx公司</p>
+     */
     @NameInMap("subject_company_name")
     @Validation(required = true)
     public String subjectCompanyName;

@@ -5,34 +5,66 @@ import com.aliyun.tea.*;
 
 public class DataDownloadInfo extends TeaModel {
     // 商户社会统一信用代码
+    /**
+     * <strong>example:</strong>
+     * <p>91301010101010101A</p>
+     */
     @NameInMap("merchant_id")
     public String merchantId;
 
     // 流水号
+    /**
+     * <strong>example:</strong>
+     * <p>123123122134</p>
+     */
     @NameInMap("biz_no")
     public String bizNo;
 
     //  状态
+    /**
+     * <strong>example:</strong>
+     * <p>TODO</p>
+     */
     @NameInMap("status")
     public String status;
 
     // TRADE_PROMISE_BILL: 交易履约账单
+    /**
+     * <strong>example:</strong>
+     * <p>交易履约账单</p>
+     */
     @NameInMap("type")
     public String type;
 
     // 筛选开始时间
+    /**
+     * <strong>example:</strong>
+     * <p>2024-10-17</p>
+     */
     @NameInMap("start_time")
     public String startTime;
 
     // 筛选结束时间
+    /**
+     * <strong>example:</strong>
+     * <p>2024-11-17</p>
+     */
     @NameInMap("end_time")
     public String endTime;
 
     // 任务创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2024-10-17 18:41:59</p>
+     */
     @NameInMap("create_time")
     public String createTime;
 
     // 下载结果
+    /**
+     * <strong>example:</strong>
+     * <p>下载结果</p>
+     */
     @NameInMap("result_info")
     public String resultInfo;
 

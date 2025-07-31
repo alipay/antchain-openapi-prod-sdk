@@ -5,38 +5,74 @@ import com.aliyun.tea.*;
 
 public class ProductInfo extends TeaModel {
     // 商家社会统一信用代码
+    /**
+     * <strong>example:</strong>
+     * <p>91428406M284UL87G</p>
+     */
     @NameInMap("merchant_id")
     public String merchantId;
 
     // 商品名称
+    /**
+     * <strong>example:</strong>
+     * <p>二手苹果14ProMax</p>
+     */
     @NameInMap("product_name")
     public String productName;
 
     // 商品id
+    /**
+     * <strong>example:</strong>
+     * <p>1725944255332_08831729157506415</p>
+     */
     @NameInMap("product_id")
     public String productId;
 
     // 商品规格
+    /**
+     * <strong>example:</strong>
+     * <p>到期归还-可随时买断/256G</p>
+     */
     @NameInMap("product_model")
     public String productModel;
 
     // 商品版本
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("product_version")
     public String productVersion;
 
     // 指导价(单位分)
+    /**
+     * <strong>example:</strong>
+     * <p>4000</p>
+     */
     @NameInMap("product_price")
     public Long productPrice;
 
     // 一级类目
+    /**
+     * <strong>example:</strong>
+     * <p>3C</p>
+     */
     @NameInMap("main_class")
     public String mainClass;
 
     // 二级类目
+    /**
+     * <strong>example:</strong>
+     * <p>3c_mobile</p>
+     */
     @NameInMap("sub_class")
     public String subClass;
 
     // 品牌
+    /**
+     * <strong>example:</strong>
+     * <p>苹果</p>
+     */
     @NameInMap("product_brand")
     public String productBrand;
 

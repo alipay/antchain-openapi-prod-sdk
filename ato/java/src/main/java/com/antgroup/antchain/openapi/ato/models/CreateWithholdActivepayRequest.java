@@ -31,11 +31,12 @@ public class CreateWithholdActivepayRequest extends TeaModel {
     public String payChannel;
 
     // 支付金额，单位为分
+    // 当支付类型非PERFORMANCE或为空必填
     @NameInMap("pay_amount")
     public Long payAmount;
 
     // 经营分账标识Y/N
-    // 当pay_type=BUYOUT、PENALTY必填。
+    // 当pay_type=BUYOUT、PENALTY、MULTI_PAY必填。
     @NameInMap("operation_divide_flag")
     @Validation(maxLength = 1, minLength = 1)
     public String operationDivideFlag;
@@ -44,6 +45,17 @@ public class CreateWithholdActivepayRequest extends TeaModel {
     // 经营分账收入列表，最多10条，分账比例与正常限制一致。
     @NameInMap("operation_divide_trans_in_list")
     public java.util.List<OperationDivideTransInModel> operationDivideTransInList;
+
+    // 单期支付明细列表
+    // 当pay_type=MULTI_PAY必填。
+    @NameInMap("multi_pay_detail")
+    public java.util.List<SingleTermDetail> multiPayDetail;
+
+    // 支付申请号，用于区分在一笔订单同一支付类型的多笔支付请求。
+    // 当支付类型非MULTI_PAY或为空时必填
+    @NameInMap("pay_apply_no")
+    @Validation(maximum = 10, minimum = 1)
+    public Long payApplyNo;
 
     public static CreateWithholdActivepayRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateWithholdActivepayRequest self = new CreateWithholdActivepayRequest();
@@ -120,6 +132,22 @@ public class CreateWithholdActivepayRequest extends TeaModel {
     }
     public java.util.List<OperationDivideTransInModel> getOperationDivideTransInList() {
         return this.operationDivideTransInList;
+    }
+
+    public CreateWithholdActivepayRequest setMultiPayDetail(java.util.List<SingleTermDetail> multiPayDetail) {
+        this.multiPayDetail = multiPayDetail;
+        return this;
+    }
+    public java.util.List<SingleTermDetail> getMultiPayDetail() {
+        return this.multiPayDetail;
+    }
+
+    public CreateWithholdActivepayRequest setPayApplyNo(Long payApplyNo) {
+        this.payApplyNo = payApplyNo;
+        return this;
+    }
+    public Long getPayApplyNo() {
+        return this.payApplyNo;
     }
 
 }

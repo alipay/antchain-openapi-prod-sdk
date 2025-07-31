@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class DeliveryDetail extends TeaModel {
     // 收件人姓名
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("receiver_name")
     @Validation(maxLength = 32)
     public String receiverName;
 
     // 收件人手机号
+    /**
+     * <strong>example:</strong>
+     * <p>13812345678</p>
+     */
     @NameInMap("receiver_mobile")
     @Validation(maxLength = 32)
     public String receiverMobile;
 
     // 收件人地址
+    /**
+     * <strong>example:</strong>
+     * <p>xx省xx市xx区xx录xx号xx室</p>
+     */
     @NameInMap("receiver_address")
     @Validation(maxLength = 256)
     public String receiverAddress;

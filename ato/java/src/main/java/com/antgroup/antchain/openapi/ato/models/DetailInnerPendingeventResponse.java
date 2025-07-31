@@ -53,6 +53,17 @@ public class DetailInnerPendingeventResponse extends TeaModel {
     @NameInMap("effective_end_time")
     public String effectiveEndTime;
 
+    // 待办事件模版code
+    // "INDIRECT_MERCHANT_CONFIRM","间联模式二级商户进件确认",
+    // "FINANCING_GRANT_CREDIT","融资授信场景"
+    // "FINANCING_USE_CREDIT","融资用信场景"     
+    @NameInMap("pending_template_code")
+    public String pendingTemplateCode;
+
+    // 操作时间
+    @NameInMap("operate_time")
+    public String operateTime;
+
     public static DetailInnerPendingeventResponse build(java.util.Map<String, ?> map) throws Exception {
         DetailInnerPendingeventResponse self = new DetailInnerPendingeventResponse();
         return TeaModel.build(map, self);
@@ -144,6 +155,22 @@ public class DetailInnerPendingeventResponse extends TeaModel {
     }
     public String getEffectiveEndTime() {
         return this.effectiveEndTime;
+    }
+
+    public DetailInnerPendingeventResponse setPendingTemplateCode(String pendingTemplateCode) {
+        this.pendingTemplateCode = pendingTemplateCode;
+        return this;
+    }
+    public String getPendingTemplateCode() {
+        return this.pendingTemplateCode;
+    }
+
+    public DetailInnerPendingeventResponse setOperateTime(String operateTime) {
+        this.operateTime = operateTime;
+        return this;
+    }
+    public String getOperateTime() {
+        return this.operateTime;
     }
 
 }

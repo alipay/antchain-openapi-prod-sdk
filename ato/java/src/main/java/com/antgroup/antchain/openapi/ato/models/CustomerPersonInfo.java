@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class CustomerPersonInfo extends TeaModel {
     // 客诉处理员支付宝账号
+    /**
+     * <strong>example:</strong>
+     * <p><a href="mailto:123123122134@163.com">123123122134@163.com</a></p>
+     */
     @NameInMap("alipay_logon_id")
     @Validation(required = true)
     public String alipayLogonId;
 
     // 客诉处理员支付宝绑定手机号
+    /**
+     * <strong>example:</strong>
+     * <p>123123122134</p>
+     */
     @NameInMap("alipay_bind_mobile")
     @Validation(required = true)
     public String alipayBindMobile;
 
     // 客服人员名称
+    /**
+     * <strong>example:</strong>
+     * <p>客服人员名称</p>
+     */
     @NameInMap("customer_service_name")
     @Validation(required = true)
     public String customerServiceName;

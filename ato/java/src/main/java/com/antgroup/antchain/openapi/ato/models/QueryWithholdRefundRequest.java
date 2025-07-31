@@ -34,6 +34,10 @@ public class QueryWithholdRefundRequest extends TeaModel {
     @Validation(maxLength = 64)
     public String payType;
 
+    // 第几次多期合并支付申请号
+    @NameInMap("pay_apply_no")
+    public Long payApplyNo;
+
     public static QueryWithholdRefundRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryWithholdRefundRequest self = new QueryWithholdRefundRequest();
         return TeaModel.build(map, self);
@@ -85,6 +89,14 @@ public class QueryWithholdRefundRequest extends TeaModel {
     }
     public String getPayType() {
         return this.payType;
+    }
+
+    public QueryWithholdRefundRequest setPayApplyNo(Long payApplyNo) {
+        this.payApplyNo = payApplyNo;
+        return this;
+    }
+    public Long getPayApplyNo() {
+        return this.payApplyNo;
     }
 
 }

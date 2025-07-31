@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class RiskStrategy extends TeaModel {
     // 策略ID
+    /**
+     * <strong>example:</strong>
+     * <p>策略ID</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public String id;
 
     // 策略名称
+    /**
+     * <strong>example:</strong>
+     * <p>策略名称</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 策略决策结果
+    /**
+     * <strong>example:</strong>
+     * <p>策略决策结果</p>
+     */
     @NameInMap("decision")
     @Validation(required = true)
     public String decision;
 
     // 风险场景编码
+    /**
+     * <strong>example:</strong>
+     * <p>风险场景编码</p>
+     */
     @NameInMap("scene_code")
     @Validation(required = true)
     public String sceneCode;

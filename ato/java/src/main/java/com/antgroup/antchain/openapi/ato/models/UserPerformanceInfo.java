@@ -5,17 +5,29 @@ import com.aliyun.tea.*;
 
 public class UserPerformanceInfo extends TeaModel {
     // 履约期数
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("period_num")
     @Validation(required = true)
     public Long periodNum;
 
     // 履约时间，格式 yyyy-MM-dd
     // 针对签收日作为起租日模式,未签收时：以签收日开始计算
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10</p>
+     */
     @NameInMap("pay_date")
     @Validation(required = true)
     public String payDate;
 
     // 履约金额，单位为分
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("pay_money")
     @Validation(required = true)
     public Long payMoney;
