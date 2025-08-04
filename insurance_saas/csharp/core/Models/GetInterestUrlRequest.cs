@@ -56,6 +56,11 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=true)]
         public string TbrIdCard { get; set; }
 
+        // 场景方信息,JSON字符串
+        [NameInMap("scene_info")]
+        [Validation(Required=true)]
+        public string SceneInfo { get; set; }
+
     }
 
 }

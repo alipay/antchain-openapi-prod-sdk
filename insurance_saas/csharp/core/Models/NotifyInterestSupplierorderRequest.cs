@@ -49,6 +49,11 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=false)]
         public string RefundTime { get; set; }
 
+        // 公证状态
+        [NameInMap("notary_status")]
+        [Validation(Required=false)]
+        public string NotaryStatus { get; set; }
+
     }
 
 }
