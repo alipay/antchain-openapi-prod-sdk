@@ -2738,6 +2738,8 @@ export class GetInterestUrlRequest extends $tea.Model {
   tbrPhone: string;
   // 用户身份证，明文
   tbrIdCard: string;
+  // 场景方信息,JSON字符串
+  sceneInfo: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2749,6 +2751,7 @@ export class GetInterestUrlRequest extends $tea.Model {
       tbrName: 'tbr_name',
       tbrPhone: 'tbr_phone',
       tbrIdCard: 'tbr_id_card',
+      sceneInfo: 'scene_info',
     };
   }
 
@@ -2763,6 +2766,7 @@ export class GetInterestUrlRequest extends $tea.Model {
       tbrName: 'string',
       tbrPhone: 'string',
       tbrIdCard: 'string',
+      sceneInfo: 'string',
     };
   }
 
@@ -2884,6 +2888,8 @@ export class NotifyInterestSupplierorderRequest extends $tea.Model {
   refundAmount?: string;
   // 退款时间
   refundTime?: string;
+  // 公证状态
+  notaryStatus?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2894,6 +2900,7 @@ export class NotifyInterestSupplierorderRequest extends $tea.Model {
       orderStatus: 'order_status',
       refundAmount: 'refund_amount',
       refundTime: 'refund_time',
+      notaryStatus: 'notary_status',
     };
   }
 
@@ -2907,6 +2914,7 @@ export class NotifyInterestSupplierorderRequest extends $tea.Model {
       orderStatus: 'string',
       refundAmount: 'string',
       refundTime: 'string',
+      notaryStatus: 'string',
     };
   }
 
@@ -3060,7 +3068,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.9.4",
+          sdk_version: "1.10.0",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
