@@ -3726,6 +3726,8 @@ type GetInterestUrlRequest struct {
 	TbrPhone *string `json:"tbr_phone,omitempty" xml:"tbr_phone,omitempty" require:"true"`
 	// 用户身份证，明文
 	TbrIdCard *string `json:"tbr_id_card,omitempty" xml:"tbr_id_card,omitempty" require:"true"`
+	// 场景方信息,JSON字符串
+	SceneInfo *string `json:"scene_info,omitempty" xml:"scene_info,omitempty" require:"true"`
 }
 
 func (s GetInterestUrlRequest) String() string {
@@ -3778,6 +3780,11 @@ func (s *GetInterestUrlRequest) SetTbrPhone(v string) *GetInterestUrlRequest {
 
 func (s *GetInterestUrlRequest) SetTbrIdCard(v string) *GetInterestUrlRequest {
 	s.TbrIdCard = &v
+	return s
+}
+
+func (s *GetInterestUrlRequest) SetSceneInfo(v string) *GetInterestUrlRequest {
+	s.SceneInfo = &v
 	return s
 }
 
@@ -3915,6 +3922,8 @@ type NotifyInterestSupplierorderRequest struct {
 	RefundAmount *string `json:"refund_amount,omitempty" xml:"refund_amount,omitempty"`
 	// 退款时间
 	RefundTime *string `json:"refund_time,omitempty" xml:"refund_time,omitempty"`
+	// 公证状态
+	NotaryStatus *string `json:"notary_status,omitempty" xml:"notary_status,omitempty"`
 }
 
 func (s NotifyInterestSupplierorderRequest) String() string {
@@ -3962,6 +3971,11 @@ func (s *NotifyInterestSupplierorderRequest) SetRefundAmount(v string) *NotifyIn
 
 func (s *NotifyInterestSupplierorderRequest) SetRefundTime(v string) *NotifyInterestSupplierorderRequest {
 	s.RefundTime = &v
+	return s
+}
+
+func (s *NotifyInterestSupplierorderRequest) SetNotaryStatus(v string) *NotifyInterestSupplierorderRequest {
+	s.NotaryStatus = &v
 	return s
 }
 
@@ -4126,7 +4140,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.9.4"),
+				"sdk_version":      tea.String("1.10.0"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
