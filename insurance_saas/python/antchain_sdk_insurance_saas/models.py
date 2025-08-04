@@ -4558,6 +4558,7 @@ class GetInterestUrlRequest(TeaModel):
         tbr_name: str = None,
         tbr_phone: str = None,
         tbr_id_card: str = None,
+        scene_info: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4579,6 +4580,8 @@ class GetInterestUrlRequest(TeaModel):
         self.tbr_phone = tbr_phone
         # 用户身份证，明文
         self.tbr_id_card = tbr_id_card
+        # 场景方信息,JSON字符串
+        self.scene_info = scene_info
 
     def validate(self):
         self.validate_required(self.right_apply_no, 'right_apply_no')
@@ -4588,6 +4591,7 @@ class GetInterestUrlRequest(TeaModel):
         self.validate_required(self.tbr_name, 'tbr_name')
         self.validate_required(self.tbr_phone, 'tbr_phone')
         self.validate_required(self.tbr_id_card, 'tbr_id_card')
+        self.validate_required(self.scene_info, 'scene_info')
 
     def to_map(self):
         _map = super().to_map()
@@ -4613,6 +4617,8 @@ class GetInterestUrlRequest(TeaModel):
             result['tbr_phone'] = self.tbr_phone
         if self.tbr_id_card is not None:
             result['tbr_id_card'] = self.tbr_id_card
+        if self.scene_info is not None:
+            result['scene_info'] = self.scene_info
         return result
 
     def from_map(self, m: dict = None):
@@ -4635,6 +4641,8 @@ class GetInterestUrlRequest(TeaModel):
             self.tbr_phone = m.get('tbr_phone')
         if m.get('tbr_id_card') is not None:
             self.tbr_id_card = m.get('tbr_id_card')
+        if m.get('scene_info') is not None:
+            self.scene_info = m.get('scene_info')
         return self
 
 
@@ -4798,6 +4806,7 @@ class NotifyInterestSupplierorderRequest(TeaModel):
         order_status: str = None,
         refund_amount: str = None,
         refund_time: str = None,
+        notary_status: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4815,6 +4824,8 @@ class NotifyInterestSupplierorderRequest(TeaModel):
         self.refund_amount = refund_amount
         # 退款时间
         self.refund_time = refund_time
+        # 公证状态
+        self.notary_status = notary_status
 
     def validate(self):
         self.validate_required(self.request_no, 'request_no')
@@ -4845,6 +4856,8 @@ class NotifyInterestSupplierorderRequest(TeaModel):
             result['refund_amount'] = self.refund_amount
         if self.refund_time is not None:
             result['refund_time'] = self.refund_time
+        if self.notary_status is not None:
+            result['notary_status'] = self.notary_status
         return result
 
     def from_map(self, m: dict = None):
@@ -4865,6 +4878,8 @@ class NotifyInterestSupplierorderRequest(TeaModel):
             self.refund_amount = m.get('refund_amount')
         if m.get('refund_time') is not None:
             self.refund_time = m.get('refund_time')
+        if m.get('notary_status') is not None:
+            self.notary_status = m.get('notary_status')
         return self
 
 
