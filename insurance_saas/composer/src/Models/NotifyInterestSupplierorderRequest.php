@@ -55,6 +55,12 @@ class NotifyInterestSupplierorderRequest extends Model
      * @var string
      */
     public $refundTime;
+
+    // 公证状态
+    /**
+     * @var string
+     */
+    public $notaryStatus;
     protected $_name = [
         'authToken'        => 'auth_token',
         'requestNo'        => 'request_no',
@@ -64,6 +70,7 @@ class NotifyInterestSupplierorderRequest extends Model
         'orderStatus'      => 'order_status',
         'refundAmount'     => 'refund_amount',
         'refundTime'       => 'refund_time',
+        'notaryStatus'     => 'notary_status',
     ];
 
     public function validate()
@@ -102,6 +109,9 @@ class NotifyInterestSupplierorderRequest extends Model
         if (null !== $this->refundTime) {
             $res['refund_time'] = $this->refundTime;
         }
+        if (null !== $this->notaryStatus) {
+            $res['notary_status'] = $this->notaryStatus;
+        }
 
         return $res;
     }
@@ -137,6 +147,9 @@ class NotifyInterestSupplierorderRequest extends Model
         }
         if (isset($map['refund_time'])) {
             $model->refundTime = $map['refund_time'];
+        }
+        if (isset($map['notary_status'])) {
+            $model->notaryStatus = $map['notary_status'];
         }
 
         return $model;

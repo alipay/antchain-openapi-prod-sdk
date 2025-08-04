@@ -63,6 +63,12 @@ class GetInterestUrlRequest extends Model
      * @var string
      */
     public $tbrIdCard;
+
+    // 场景方信息,JSON字符串
+    /**
+     * @var string
+     */
+    public $sceneInfo;
     protected $_name = [
         'authToken'        => 'auth_token',
         'rightApplyNo'     => 'right_apply_no',
@@ -73,6 +79,7 @@ class GetInterestUrlRequest extends Model
         'tbrName'          => 'tbr_name',
         'tbrPhone'         => 'tbr_phone',
         'tbrIdCard'        => 'tbr_id_card',
+        'sceneInfo'        => 'scene_info',
     ];
 
     public function validate()
@@ -84,6 +91,7 @@ class GetInterestUrlRequest extends Model
         Model::validateRequired('tbrName', $this->tbrName, true);
         Model::validateRequired('tbrPhone', $this->tbrPhone, true);
         Model::validateRequired('tbrIdCard', $this->tbrIdCard, true);
+        Model::validateRequired('sceneInfo', $this->sceneInfo, true);
     }
 
     public function toMap()
@@ -115,6 +123,9 @@ class GetInterestUrlRequest extends Model
         }
         if (null !== $this->tbrIdCard) {
             $res['tbr_id_card'] = $this->tbrIdCard;
+        }
+        if (null !== $this->sceneInfo) {
+            $res['scene_info'] = $this->sceneInfo;
         }
 
         return $res;
@@ -154,6 +165,9 @@ class GetInterestUrlRequest extends Model
         }
         if (isset($map['tbr_id_card'])) {
             $model->tbrIdCard = $map['tbr_id_card'];
+        }
+        if (isset($map['scene_info'])) {
+            $model->sceneInfo = $map['scene_info'];
         }
 
         return $model;
