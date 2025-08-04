@@ -49,6 +49,11 @@ public class GetInterestUrlRequest extends TeaModel {
     @Validation(required = true)
     public String tbrIdCard;
 
+    // 场景方信息,JSON字符串
+    @NameInMap("scene_info")
+    @Validation(required = true)
+    public String sceneInfo;
+
     public static GetInterestUrlRequest build(java.util.Map<String, ?> map) throws Exception {
         GetInterestUrlRequest self = new GetInterestUrlRequest();
         return TeaModel.build(map, self);
@@ -124,6 +129,14 @@ public class GetInterestUrlRequest extends TeaModel {
     }
     public String getTbrIdCard() {
         return this.tbrIdCard;
+    }
+
+    public GetInterestUrlRequest setSceneInfo(String sceneInfo) {
+        this.sceneInfo = sceneInfo;
+        return this;
+    }
+    public String getSceneInfo() {
+        return this.sceneInfo;
     }
 
 }

@@ -41,6 +41,10 @@ public class NotifyInterestSupplierorderRequest extends TeaModel {
     @NameInMap("refund_time")
     public String refundTime;
 
+    // 公证状态
+    @NameInMap("notary_status")
+    public String notaryStatus;
+
     public static NotifyInterestSupplierorderRequest build(java.util.Map<String, ?> map) throws Exception {
         NotifyInterestSupplierorderRequest self = new NotifyInterestSupplierorderRequest();
         return TeaModel.build(map, self);
@@ -108,6 +112,14 @@ public class NotifyInterestSupplierorderRequest extends TeaModel {
     }
     public String getRefundTime() {
         return this.refundTime;
+    }
+
+    public NotifyInterestSupplierorderRequest setNotaryStatus(String notaryStatus) {
+        this.notaryStatus = notaryStatus;
+        return this;
+    }
+    public String getNotaryStatus() {
+        return this.notaryStatus;
     }
 
 }
