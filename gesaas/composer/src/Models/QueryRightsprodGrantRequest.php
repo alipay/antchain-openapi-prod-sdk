@@ -24,10 +24,17 @@ class QueryRightsprodGrantRequest extends Model
      * @var string
      */
     public $outGrantOrderNo;
+
+    // 扩展信息
+    /**
+     * @var string
+     */
+    public $extInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'outGrantOrderNo'   => 'out_grant_order_no',
+        'extInfo'           => 'ext_info',
     ];
 
     public function validate()
@@ -46,6 +53,9 @@ class QueryRightsprodGrantRequest extends Model
         }
         if (null !== $this->outGrantOrderNo) {
             $res['out_grant_order_no'] = $this->outGrantOrderNo;
+        }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
         }
 
         return $res;
@@ -67,6 +77,9 @@ class QueryRightsprodGrantRequest extends Model
         }
         if (isset($map['out_grant_order_no'])) {
             $model->outGrantOrderNo = $map['out_grant_order_no'];
+        }
+        if (isset($map['ext_info'])) {
+            $model->extInfo = $map['ext_info'];
         }
 
         return $model;
