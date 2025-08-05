@@ -459,12 +459,15 @@ class QueryRightsprodGrantRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         out_grant_order_no: str = None,
+        ext_info: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 外部发放订单号
         self.out_grant_order_no = out_grant_order_no
+        # 扩展信息
+        self.ext_info = ext_info
 
     def validate(self):
         self.validate_required(self.out_grant_order_no, 'out_grant_order_no')
@@ -481,6 +484,8 @@ class QueryRightsprodGrantRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.out_grant_order_no is not None:
             result['out_grant_order_no'] = self.out_grant_order_no
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
         return result
 
     def from_map(self, m: dict = None):
@@ -491,6 +496,8 @@ class QueryRightsprodGrantRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('out_grant_order_no') is not None:
             self.out_grant_order_no = m.get('out_grant_order_no')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
         return self
 
 
