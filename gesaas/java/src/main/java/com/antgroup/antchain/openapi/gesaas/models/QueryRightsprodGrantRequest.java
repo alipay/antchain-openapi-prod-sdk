@@ -16,6 +16,10 @@ public class QueryRightsprodGrantRequest extends TeaModel {
     @Validation(required = true)
     public String outGrantOrderNo;
 
+    // 扩展信息
+    @NameInMap("ext_info")
+    public String extInfo;
+
     public static QueryRightsprodGrantRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryRightsprodGrantRequest self = new QueryRightsprodGrantRequest();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class QueryRightsprodGrantRequest extends TeaModel {
     }
     public String getOutGrantOrderNo() {
         return this.outGrantOrderNo;
+    }
+
+    public QueryRightsprodGrantRequest setExtInfo(String extInfo) {
+        this.extInfo = extInfo;
+        return this;
+    }
+    public String getExtInfo() {
+        return this.extInfo;
     }
 
 }
