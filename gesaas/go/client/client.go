@@ -388,6 +388,8 @@ type QueryRightsprodGrantRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 外部发放订单号
 	OutGrantOrderNo *string `json:"out_grant_order_no,omitempty" xml:"out_grant_order_no,omitempty" require:"true"`
+	// 扩展信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
 
 func (s QueryRightsprodGrantRequest) String() string {
@@ -410,6 +412,11 @@ func (s *QueryRightsprodGrantRequest) SetProductInstanceId(v string) *QueryRight
 
 func (s *QueryRightsprodGrantRequest) SetOutGrantOrderNo(v string) *QueryRightsprodGrantRequest {
 	s.OutGrantOrderNo = &v
+	return s
+}
+
+func (s *QueryRightsprodGrantRequest) SetExtInfo(v string) *QueryRightsprodGrantRequest {
+	s.ExtInfo = &v
 	return s
 }
 
@@ -574,7 +581,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.3"),
+				"sdk_version":      tea.String("1.1.0"),
 				"_prod_code":       tea.String("GESAAS"),
 				"_prod_channel":    tea.String("default"),
 			}
