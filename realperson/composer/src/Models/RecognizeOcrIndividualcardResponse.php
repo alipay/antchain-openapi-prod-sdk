@@ -26,24 +26,6 @@ class RecognizeOcrIndividualcardResponse extends Model
      */
     public $resultMsg;
 
-    // 返回结果码
-    /**
-     * @var string
-     */
-    public $retCode;
-
-    // 错误码
-    /**
-     * @var string
-     */
-    public $retCodeSub;
-
-    // 错误信息
-    /**
-     * @var string
-     */
-    public $retMessageSub;
-
     // 识别结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
     /**
      * @var OcrInfo
@@ -71,9 +53,6 @@ class RecognizeOcrIndividualcardResponse extends Model
         'reqMsgId'       => 'req_msg_id',
         'resultCode'     => 'result_code',
         'resultMsg'      => 'result_msg',
-        'retCode'        => 'ret_code',
-        'retCodeSub'     => 'ret_code_sub',
-        'retMessageSub'  => 'ret_message_sub',
         'ocrInfo'        => 'ocr_info',
         'riskInfo'       => 'risk_info',
         'extInfo'        => 'ext_info',
@@ -95,15 +74,6 @@ class RecognizeOcrIndividualcardResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->retCode) {
-            $res['ret_code'] = $this->retCode;
-        }
-        if (null !== $this->retCodeSub) {
-            $res['ret_code_sub'] = $this->retCodeSub;
-        }
-        if (null !== $this->retMessageSub) {
-            $res['ret_message_sub'] = $this->retMessageSub;
         }
         if (null !== $this->ocrInfo) {
             $res['ocr_info'] = null !== $this->ocrInfo ? $this->ocrInfo->toMap() : null;
@@ -137,15 +107,6 @@ class RecognizeOcrIndividualcardResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['ret_code'])) {
-            $model->retCode = $map['ret_code'];
-        }
-        if (isset($map['ret_code_sub'])) {
-            $model->retCodeSub = $map['ret_code_sub'];
-        }
-        if (isset($map['ret_message_sub'])) {
-            $model->retMessageSub = $map['ret_message_sub'];
         }
         if (isset($map['ocr_info'])) {
             $model->ocrInfo = OcrInfo::fromMap($map['ocr_info']);
