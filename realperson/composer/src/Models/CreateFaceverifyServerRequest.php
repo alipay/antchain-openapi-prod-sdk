@@ -177,9 +177,6 @@ class CreateFaceverifyServerRequest extends Model
         Model::validateRequired('bizCode', $this->bizCode, true);
         Model::validateRequired('sceneId', $this->sceneId, true);
         Model::validateRequired('identityType', $this->identityType, true);
-        Model::validateRequired('certType', $this->certType, true);
-        Model::validateRequired('certName', $this->certName, true);
-        Model::validateRequired('certNo', $this->certNo, true);
     }
 
     public function toMap()
