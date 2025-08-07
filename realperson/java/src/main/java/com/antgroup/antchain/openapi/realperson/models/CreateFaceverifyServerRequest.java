@@ -33,17 +33,14 @@ public class CreateFaceverifyServerRequest extends TeaModel {
 
     // 证件类型，如身份证
     @NameInMap("cert_type")
-    @Validation(required = true)
     public String certType;
 
     // 真实姓名
     @NameInMap("cert_name")
-    @Validation(required = true)
     public String certName;
 
     // 证件号码
     @NameInMap("cert_no")
-    @Validation(required = true)
     public String certNo;
 
     // h5认证完成后，服务端回调此地址通知商户认证结果
