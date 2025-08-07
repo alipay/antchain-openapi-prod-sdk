@@ -8730,9 +8730,6 @@ class RecognizeOcrIndividualcardResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        ret_code: str = None,
-        ret_code_sub: str = None,
-        ret_message_sub: str = None,
         ocr_info: OcrInfo = None,
         risk_info: RiskInfo = None,
         ext_info: str = None,
@@ -8744,12 +8741,6 @@ class RecognizeOcrIndividualcardResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 返回结果码
-        self.ret_code = ret_code
-        # 错误码
-        self.ret_code_sub = ret_code_sub
-        # 错误信息
-        self.ret_message_sub = ret_message_sub
         # 识别结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
         self.ocr_info = ocr_info
         # 防伪结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。 如果不启用防伪，则不返回该字段。
@@ -8777,12 +8768,6 @@ class RecognizeOcrIndividualcardResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.ret_code is not None:
-            result['ret_code'] = self.ret_code
-        if self.ret_code_sub is not None:
-            result['ret_code_sub'] = self.ret_code_sub
-        if self.ret_message_sub is not None:
-            result['ret_message_sub'] = self.ret_message_sub
         if self.ocr_info is not None:
             result['ocr_info'] = self.ocr_info.to_map()
         if self.risk_info is not None:
@@ -8801,12 +8786,6 @@ class RecognizeOcrIndividualcardResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('ret_code') is not None:
-            self.ret_code = m.get('ret_code')
-        if m.get('ret_code_sub') is not None:
-            self.ret_code_sub = m.get('ret_code_sub')
-        if m.get('ret_message_sub') is not None:
-            self.ret_message_sub = m.get('ret_message_sub')
         if m.get('ocr_info') is not None:
             temp_model = OcrInfo()
             self.ocr_info = temp_model.from_map(m['ocr_info'])
