@@ -16,18 +16,6 @@ public class RecognizeOcrIndividualcardResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 返回结果码
-    @NameInMap("ret_code")
-    public String retCode;
-
-    // 错误码
-    @NameInMap("ret_code_sub")
-    public String retCodeSub;
-
-    // 错误信息
-    @NameInMap("ret_message_sub")
-    public String retMessageSub;
-
     // 识别结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
     @NameInMap("ocr_info")
     public OcrInfo ocrInfo;
@@ -71,30 +59,6 @@ public class RecognizeOcrIndividualcardResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public RecognizeOcrIndividualcardResponse setRetCode(String retCode) {
-        this.retCode = retCode;
-        return this;
-    }
-    public String getRetCode() {
-        return this.retCode;
-    }
-
-    public RecognizeOcrIndividualcardResponse setRetCodeSub(String retCodeSub) {
-        this.retCodeSub = retCodeSub;
-        return this;
-    }
-    public String getRetCodeSub() {
-        return this.retCodeSub;
-    }
-
-    public RecognizeOcrIndividualcardResponse setRetMessageSub(String retMessageSub) {
-        this.retMessageSub = retMessageSub;
-        return this;
-    }
-    public String getRetMessageSub() {
-        return this.retMessageSub;
     }
 
     public RecognizeOcrIndividualcardResponse setOcrInfo(OcrInfo ocrInfo) {
