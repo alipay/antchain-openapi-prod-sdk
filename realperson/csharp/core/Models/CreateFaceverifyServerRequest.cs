@@ -40,17 +40,17 @@ namespace AntChain.SDK.REALPERSON.Models
 
         // 证件类型，如身份证
         [NameInMap("cert_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CertType { get; set; }
 
         // 真实姓名
         [NameInMap("cert_name")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CertName { get; set; }
 
         // 证件号码
         [NameInMap("cert_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CertNo { get; set; }
 
         // h5认证完成后，服务端回调此地址通知商户认证结果
