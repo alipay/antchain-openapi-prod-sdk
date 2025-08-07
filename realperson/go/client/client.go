@@ -7444,12 +7444,6 @@ type RecognizeOcrIndividualcardResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 返回结果码
-	RetCode *string `json:"ret_code,omitempty" xml:"ret_code,omitempty"`
-	// 错误码
-	RetCodeSub *string `json:"ret_code_sub,omitempty" xml:"ret_code_sub,omitempty"`
-	// 错误信息
-	RetMessageSub *string `json:"ret_message_sub,omitempty" xml:"ret_message_sub,omitempty"`
 	// 识别结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
 	OcrInfo *OcrInfo `json:"ocr_info,omitempty" xml:"ocr_info,omitempty"`
 	// 防伪结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。 如果不启用防伪，则不返回该字段。
@@ -7480,21 +7474,6 @@ func (s *RecognizeOcrIndividualcardResponse) SetResultCode(v string) *RecognizeO
 
 func (s *RecognizeOcrIndividualcardResponse) SetResultMsg(v string) *RecognizeOcrIndividualcardResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *RecognizeOcrIndividualcardResponse) SetRetCode(v string) *RecognizeOcrIndividualcardResponse {
-	s.RetCode = &v
-	return s
-}
-
-func (s *RecognizeOcrIndividualcardResponse) SetRetCodeSub(v string) *RecognizeOcrIndividualcardResponse {
-	s.RetCodeSub = &v
-	return s
-}
-
-func (s *RecognizeOcrIndividualcardResponse) SetRetMessageSub(v string) *RecognizeOcrIndividualcardResponse {
-	s.RetMessageSub = &v
 	return s
 }
 
@@ -7760,7 +7739,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.21.19"),
+				"sdk_version":      tea.String("1.21.20"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
