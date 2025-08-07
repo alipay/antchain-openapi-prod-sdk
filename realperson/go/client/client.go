@@ -5824,11 +5824,11 @@ type CreateFaceverifyServerRequest struct {
 	// 身份信息来源类型，如证件
 	IdentityType *string `json:"identity_type,omitempty" xml:"identity_type,omitempty" require:"true"`
 	// 证件类型，如身份证
-	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
 	// 真实姓名
-	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
 	// 证件号码
-	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
 	// h5认证完成后，服务端回调此地址通知商户认证结果
 	CallbackUrl *string `json:"callback_url,omitempty" xml:"callback_url,omitempty"`
 	// cert_name、cert_no两个字段的传入模式。0：明文1：密文
@@ -7739,7 +7739,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.21.20"),
+				"sdk_version":      tea.String("1.21.21"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
