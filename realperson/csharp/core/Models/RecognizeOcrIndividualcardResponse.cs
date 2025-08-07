@@ -24,21 +24,6 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 返回结果码
-        [NameInMap("ret_code")]
-        [Validation(Required=false)]
-        public string RetCode { get; set; }
-
-        // 错误码
-        [NameInMap("ret_code_sub")]
-        [Validation(Required=false)]
-        public string RetCodeSub { get; set; }
-
-        // 错误信息
-        [NameInMap("ret_message_sub")]
-        [Validation(Required=false)]
-        public string RetMessageSub { get; set; }
-
         // 识别结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
         [NameInMap("ocr_info")]
         [Validation(Required=false)]
