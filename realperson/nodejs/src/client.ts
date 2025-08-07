@@ -5364,12 +5364,6 @@ export class RecognizeOcrIndividualcardResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 返回结果码
-  retCode?: string;
-  // 错误码
-  retCodeSub?: string;
-  // 错误信息
-  retMessageSub?: string;
   // 识别结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。
   ocrInfo?: OcrInfo;
   // 防伪结果，为JSON串。如果入参resp_enc_type=1则是经过AES加密后的JSON串。 如果不启用防伪，则不返回该字段。
@@ -5383,9 +5377,6 @@ export class RecognizeOcrIndividualcardResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      retCode: 'ret_code',
-      retCodeSub: 'ret_code_sub',
-      retMessageSub: 'ret_message_sub',
       ocrInfo: 'ocr_info',
       riskInfo: 'risk_info',
       extInfo: 'ext_info',
@@ -5398,9 +5389,6 @@ export class RecognizeOcrIndividualcardResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      retCode: 'string',
-      retCodeSub: 'string',
-      retMessageSub: 'string',
       ocrInfo: OcrInfo,
       riskInfo: RiskInfo,
       extInfo: 'string',
@@ -5614,7 +5602,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.21.19",
+          sdk_version: "1.21.20",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
