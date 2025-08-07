@@ -6912,9 +6912,6 @@ class CreateFaceverifyServerRequest(TeaModel):
         self.validate_required(self.biz_code, 'biz_code')
         self.validate_required(self.scene_id, 'scene_id')
         self.validate_required(self.identity_type, 'identity_type')
-        self.validate_required(self.cert_type, 'cert_type')
-        self.validate_required(self.cert_name, 'cert_name')
-        self.validate_required(self.cert_no, 'cert_no')
 
     def to_map(self):
         _map = super().to_map()
