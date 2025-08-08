@@ -64,7 +64,6 @@ class NotifyInterestScenesubjectRequest extends Model
         Model::validateRequired('requestNo', $this->requestNo, true);
         Model::validateRequired('interestNo', $this->interestNo, true);
         Model::validateRequired('productCode', $this->productCode, true);
-        Model::validateRequired('applyLimitAmount', $this->applyLimitAmount, true);
         Model::validateRequired('applyLimitStatus', $this->applyLimitStatus, true);
     }
 

@@ -91,7 +91,6 @@ class GetInterestUrlRequest extends Model
         Model::validateRequired('tbrName', $this->tbrName, true);
         Model::validateRequired('tbrPhone', $this->tbrPhone, true);
         Model::validateRequired('tbrIdCard', $this->tbrIdCard, true);
-        Model::validateRequired('sceneInfo', $this->sceneInfo, true);
     }
 
     public function toMap()
