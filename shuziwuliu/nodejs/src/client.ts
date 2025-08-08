@@ -15724,6 +15724,8 @@ export class ApplyBcliInsuranceRequest extends $tea.Model {
   batteryCode: string;
   // 动力电池铭牌照片url
   batteryNameplatePicture: string;
+  // 动力电池包外观照片地址
+  batteryPackPhotoFile: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -15755,6 +15757,7 @@ export class ApplyBcliInsuranceRequest extends $tea.Model {
       licensePicture: 'license_picture',
       batteryCode: 'battery_code',
       batteryNameplatePicture: 'battery_nameplate_picture',
+      batteryPackPhotoFile: 'battery_pack_photo_file',
     };
   }
 
@@ -15789,6 +15792,7 @@ export class ApplyBcliInsuranceRequest extends $tea.Model {
       licensePicture: 'string',
       batteryCode: 'string',
       batteryNameplatePicture: 'string',
+      batteryPackPhotoFile: 'string',
     };
   }
 
@@ -21900,7 +21904,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.21",
+          sdk_version: "1.7.22",
           _prod_code: "SHUZIWULIU",
           _prod_channel: "undefined",
         };
