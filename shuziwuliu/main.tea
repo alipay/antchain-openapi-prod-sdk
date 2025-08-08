@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.21',
+    sdk_version = '1.7.22',
     _prod_code = 'SHUZIWULIU',
     _prod_channel = 'undefined'
   };
@@ -8876,6 +8876,8 @@ model ApplyBcliInsuranceRequest = {
   batteryCode: string(name='battery_code'),
   // 动力电池铭牌照片url
   batteryNameplatePicture: string(name='battery_nameplate_picture'),
+  // 动力电池包外观照片地址
+  batteryPackPhotoFile: string(name='battery_pack_photo_file'),
 }
 
 model ApplyBcliInsuranceResponse = {
