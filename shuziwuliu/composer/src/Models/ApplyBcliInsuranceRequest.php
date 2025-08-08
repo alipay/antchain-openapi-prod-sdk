@@ -180,6 +180,12 @@ class ApplyBcliInsuranceRequest extends Model
      * @var string
      */
     public $batteryNameplatePicture;
+
+    // 动力电池包外观照片地址
+    /**
+     * @var string
+     */
+    public $batteryPackPhotoFile;
     protected $_name = [
         'authToken'               => 'auth_token',
         'productInstanceId'       => 'product_instance_id',
@@ -210,6 +216,7 @@ class ApplyBcliInsuranceRequest extends Model
         'licensePicture'          => 'license_picture',
         'batteryCode'             => 'battery_code',
         'batteryNameplatePicture' => 'battery_nameplate_picture',
+        'batteryPackPhotoFile'    => 'battery_pack_photo_file',
     ];
 
     public function validate()
@@ -238,6 +245,7 @@ class ApplyBcliInsuranceRequest extends Model
         Model::validateRequired('licensePicture', $this->licensePicture, true);
         Model::validateRequired('batteryCode', $this->batteryCode, true);
         Model::validateRequired('batteryNameplatePicture', $this->batteryNameplatePicture, true);
+        Model::validateRequired('batteryPackPhotoFile', $this->batteryPackPhotoFile, true);
     }
 
     public function toMap()
@@ -329,6 +337,9 @@ class ApplyBcliInsuranceRequest extends Model
         }
         if (null !== $this->batteryNameplatePicture) {
             $res['battery_nameplate_picture'] = $this->batteryNameplatePicture;
+        }
+        if (null !== $this->batteryPackPhotoFile) {
+            $res['battery_pack_photo_file'] = $this->batteryPackPhotoFile;
         }
 
         return $res;
@@ -428,6 +439,9 @@ class ApplyBcliInsuranceRequest extends Model
         }
         if (isset($map['battery_nameplate_picture'])) {
             $model->batteryNameplatePicture = $map['battery_nameplate_picture'];
+        }
+        if (isset($map['battery_pack_photo_file'])) {
+            $model->batteryPackPhotoFile = $map['battery_pack_photo_file'];
         }
 
         return $model;
