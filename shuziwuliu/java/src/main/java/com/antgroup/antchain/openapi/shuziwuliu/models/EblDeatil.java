@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class EblDeatil extends TeaModel {
     // 电子提单copy文件hash
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("ebl_copy_pdf_file_hash")
     @Validation(required = true)
     public String eblCopyPdfFileHash;
 
     // 电子提单copy文件id
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("ebl_copy_pdf_file_id")
     @Validation(required = true)
     public String eblCopyPdfFileId;
 
     // 电子提单编号
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("ebl_no")
     @Validation(required = true)
     public String eblNo;

@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class VoucherResp extends TeaModel {
     // 消息
+    /**
+     * <strong>example:</strong>
+     * <p>success</p>
+     */
     @NameInMap("msg")
     @Validation(required = true, maxLength = 10)
     public String msg;

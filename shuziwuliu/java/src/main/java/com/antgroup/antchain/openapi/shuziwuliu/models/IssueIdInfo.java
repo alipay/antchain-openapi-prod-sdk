@@ -5,50 +5,90 @@ import com.aliyun.tea.*;
 
 public class IssueIdInfo extends TeaModel {
     // 信用流转凭证
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("issue_id")
     @Validation(required = true)
     public String issueId;
 
     // 全局唯一业务号
+    /**
+     * <strong>example:</strong>
+     * <p>fa142b66cb1</p>
+     */
     @NameInMap("out_biz_no")
     @Validation(required = true)
     public String outBizNo;
 
     // 合同号（预留）
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("contract_id")
     public String contractId;
 
     // 发行信用流转的运单号
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("waybill_id")
     @Validation(required = true)
     public String waybillId;
 
     // 支付订单
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("pay_order")
     @Validation(required = true)
     public String payOrder;
 
     // 凭证金额
+    /**
+     * <strong>example:</strong>
+     * <p>198.76</p>
+     */
     @NameInMap("ticket_amt")
     @Validation(required = true)
     public String ticketAmt;
 
     // 信用凭证发起时间
+    /**
+     * <strong>example:</strong>
+     * <p>1581579336000</p>
+     */
     @NameInMap("issue_date")
     @Validation(required = true)
     public String issueDate;
 
     // 信用凭证到期时间
+    /**
+     * <strong>example:</strong>
+     * <p>1581579336000</p>
+     */
     @NameInMap("expire_date")
     @Validation(required = true)
     public String expireDate;
 
     // 发行结果状态 -1:发行失败状态， 0:未完成状态， 1:已发行状态
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public Long status;
 
     // 失败原因信息
+    /**
+     * <strong>example:</strong>
+     * <p>success</p>
+     */
     @NameInMap("err_msg")
     @Validation(required = true)
     public String errMsg;

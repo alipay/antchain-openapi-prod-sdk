@@ -5,15 +5,27 @@ import com.aliyun.tea.*;
 
 public class SoNotifyBookingParam extends TeaModel {
     // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("action")
     public String action;
 
     // 订舱单号
+    /**
+     * <strong>example:</strong>
+     * <p>123456789</p>
+     */
     @NameInMap("booking_no")
     @Validation(required = true)
     public String bookingNo;
 
     // 船公司  业务必填 
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("carrier")
     public String carrier;
 
@@ -21,6 +33,10 @@ public class SoNotifyBookingParam extends TeaModel {
     // [{"containerVolume":"33","containerType":"22"}]
     // containerVolume--箱量 业务必填
     // containerType--箱型 业务必填
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("container_params")
     public String containerParams;
 
@@ -29,6 +45,10 @@ public class SoNotifyBookingParam extends TeaModel {
     public Long customsClearance;
 
     // 场站
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("cy")
     public String cy;
 
@@ -41,18 +61,34 @@ public class SoNotifyBookingParam extends TeaModel {
     public Long etd;
 
     // 港口
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("port")
     public String port;
 
     // 截单时间
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("si_closing")
     public Long siClosing;
 
     // 船名  业务必填
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("vessel")
     public String vessel;
 
     // 航次 业务必填
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("voyage")
     public String voyage;
 

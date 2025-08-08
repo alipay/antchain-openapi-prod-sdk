@@ -5,36 +5,64 @@ import com.aliyun.tea.*;
 
 public class UploadFinancingParam extends TeaModel {
     // 订舱单量（票）
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("booking_count")
     @Validation(required = true)
     public Long bookingCount;
 
     // 唯一标识
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("code")
     @Validation(required = true)
     public String code;
 
     // 结束日期
+    /**
+     * <strong>example:</strong>
+     * <p>2020-01-31</p>
+     */
     @NameInMap("end_date")
     @Validation(required = true)
     public String endDate;
 
     // 货代did
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("forwarder_did")
     @Validation(required = true)
     public String forwarderDid;
 
     // 开始日期
+    /**
+     * <strong>example:</strong>
+     * <p>2020-01-01</p>
+     */
     @NameInMap("start_date")
     @Validation(required = true)
     public String startDate;
 
     // 箱量【数量，不区分箱型，20GP是1TEU，40GP是2TEU】
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("teu")
     @Validation(required = true)
     public Long teu;
 
     // 运输总额
+    /**
+     * <strong>example:</strong>
+     * <p>[{&quot;total_amount&quot;;&quot;123.11&quot;,&quot;currency&quot;:“人民币”}]</p>
+     */
     @NameInMap("amounts")
     @Validation(required = true)
     public String amounts;

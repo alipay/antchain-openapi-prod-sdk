@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class UserIssueId extends TeaModel {
     // 凭证id
+    /**
+     * <strong>example:</strong>
+     * <p>12123</p>
+     */
     @NameInMap("issue_id")
     @Validation(required = true)
     public String issueId;
 
     // 凭证余额
+    /**
+     * <strong>example:</strong>
+     * <p>87.09</p>
+     */
     @NameInMap("balance_amt")
     @Validation(required = true)
     public String balanceAmt;

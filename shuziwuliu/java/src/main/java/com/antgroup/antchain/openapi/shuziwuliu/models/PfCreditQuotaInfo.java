@@ -5,63 +5,111 @@ import com.aliyun.tea.*;
 
 public class PfCreditQuotaInfo extends TeaModel {
     // 证件号
+    /**
+     * <strong>example:</strong>
+     * <p>6323232</p>
+     */
     @NameInMap("cert_no")
     @Validation(required = true)
     public String certNo;
 
     // 证件类型
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("cert_type")
     @Validation(required = true)
     public String certType;
 
     // 授信到期日期
+    /**
+     * <strong>example:</strong>
+     * <p>2020-09-19</p>
+     */
     @NameInMap("credit_end")
     @Validation(required = true)
     public String creditEnd;
 
     // 授信起始日期
+    /**
+     * <strong>example:</strong>
+     * <p>2020-09-11</p>
+     */
     @NameInMap("credit_start")
     @Validation(required = true)
     public String creditStart;
 
     // 额度编号
+    /**
+     * <strong>example:</strong>
+     * <p>923323</p>
+     */
     @NameInMap("quota_no")
     @Validation(required = true)
     public String quotaNo;
 
     // 剩余额度
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("remaining_quota")
     @Validation(required = true)
     public String remainingQuota;
 
     // SON:放款账号loanAccNo
     // 还款账号repayAcctNo
+    /**
+     * <strong>example:</strong>
+     * <p>loanAccNo</p>
+     */
     @NameInMap("remark")
     @Validation(required = true)
     public String remark;
 
     // 额度状态：
     // 0、停用 / 1、启用  /  2、冻结
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 授信额度
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("total_quota")
     @Validation(required = true)
     public String totalQuota;
 
     // 数据更新时间
+    /**
+     * <strong>example:</strong>
+     * <p>2020-09-10</p>
+     */
     @NameInMap("update_time")
     @Validation(required = true)
     public String updateTime;
 
     // 总质押额度
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("total_pledge_quota")
     @Validation(required = true)
     public String totalPledgeQuota;
 
     // 剩余质押额度
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("remain_pledge_quota")
     @Validation(required = true)
     public String remainPledgeQuota;

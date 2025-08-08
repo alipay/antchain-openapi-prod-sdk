@@ -5,12 +5,20 @@ import com.aliyun.tea.*;
 
 public class ScpTicketIssueData extends TeaModel {
     // 凭证对应的司机/货主的did
+    /**
+     * <strong>example:</strong>
+     * <p>1111</p>
+     */
     @NameInMap("did")
     @Validation(required = true)
     public String did;
 
     // 	
     // 凭证id
+    /**
+     * <strong>example:</strong>
+     * <p>11111111</p>
+     */
     @NameInMap("issue_id")
     @Validation(required = true)
     public String issueId;

@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class HouseBlBookingParam extends TeaModel {
     // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("action")
     public String action;
 
     // 订舱单号
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("booking_no")
     @Validation(required = true)
     public String bookingNo;

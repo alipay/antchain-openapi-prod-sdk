@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class PfVoucherCheckResult extends TeaModel {
     // 凭证id
+    /**
+     * <strong>example:</strong>
+     * <p>20119112323</p>
+     */
     @NameInMap("voucher_id")
     @Validation(required = true)
     public String voucherId;
 
     // 凭证类型
+    /**
+     * <strong>example:</strong>
+     * <p>WAYBILL</p>
+     */
     @NameInMap("voucher_category")
     @Validation(required = true)
     public String voucherCategory;
 
     // 状态；PASS:通过，NO_PASS 未通过
+    /**
+     * <strong>example:</strong>
+     * <p>PASS</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;

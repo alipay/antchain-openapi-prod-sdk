@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class PayAmount extends TeaModel {
     // 支付金额（2位小数）
+    /**
+     * <strong>example:</strong>
+     * <p>10000.00</p>
+     */
     @NameInMap("amount")
     @Validation(required = true)
     public String amount;
 
     // 支付方式
+    /**
+     * <strong>example:</strong>
+     * <p>银行转账</p>
+     */
     @NameInMap("pay_type")
     @Validation(required = true)
     public String payType;

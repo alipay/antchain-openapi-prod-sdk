@@ -5,31 +5,55 @@ import com.aliyun.tea.*;
 
 public class VoucherTestOne extends TeaModel {
     // 测试Long
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("voucher_test_one_long")
     @Validation(required = true, maximum = 10)
     public Long voucherTestOneLong;
 
     // 测试String
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("voucher_test_one_string")
     @Validation(required = true, maxLength = 10)
     public String voucherTestOneString;
 
     // 测试Int
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("voucher_test_one_int")
     @Validation(required = true)
     public Long voucherTestOneInt;
 
     // 测试Date
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("voucher_test_one_date")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String voucherTestOneDate;
 
     // 测试Integer
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("voucher_test_one_integer")
     @Validation(required = true, maximum = 10)
     public Long voucherTestOneInteger;
 
     // 测试Boolean
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("voucher_test_one_boolean")
     @Validation(required = true)
     public Boolean voucherTestOneBoolean;

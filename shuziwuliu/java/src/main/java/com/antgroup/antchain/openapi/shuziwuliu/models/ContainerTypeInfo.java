@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class ContainerTypeInfo extends TeaModel {
     // 箱型
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("container_type")
     public String containerType;
 
     // 箱量
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("container_volume")
     public String containerVolume;
 

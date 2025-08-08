@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class BookingNoInfo extends TeaModel {
     // 订舱单唯一标识
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("booking_no")
     public String bookingNo;
 
     // 订舱号
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("bkg_no")
     public String bkgNo;
 

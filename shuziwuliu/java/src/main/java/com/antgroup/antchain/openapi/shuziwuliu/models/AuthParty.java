@@ -5,30 +5,54 @@ import com.aliyun.tea.*;
 
 public class AuthParty extends TeaModel {
     // 签署方名称
+    /**
+     * <strong>example:</strong>
+     * <p>贾玲</p>
+     */
     @NameInMap("sign_party_name")
     @Validation(required = true)
     public String signPartyName;
 
     // 签署方证件类型，可以填写的枚举类：IDENTIFICATION_CARD，表示身份证
+    /**
+     * <strong>example:</strong>
+     * <p>IDENTIFICATION_CARD</p>
+     */
     @NameInMap("sign_party_cert_type")
     @Validation(required = true)
     public String signPartyCertType;
 
     // 签署方证件号码
+    /**
+     * <strong>example:</strong>
+     * <p>3308199612247856</p>
+     */
     @NameInMap("sign_party_cert_num")
     @Validation(required = true)
     public String signPartyCertNum;
 
     // 签署结果（必填，FINISH,FAIL,REFUSE三者选一，分别表示签署完成、失败和拒签）
+    /**
+     * <strong>example:</strong>
+     * <p>FINISH</p>
+     */
     @NameInMap("sign_result")
     @Validation(required = true)
     public String signResult;
 
     // 签署失败或拒签原因（失败或拒签时必填）
+    /**
+     * <strong>example:</strong>
+     * <p>审批未通过</p>
+     */
     @NameInMap("sign_fail_reason")
     public String signFailReason;
 
     // 签署时间(13位毫秒时间戳)
+    /**
+     * <strong>example:</strong>
+     * <p>2881999301656</p>
+     */
     @NameInMap("sign_time")
     @Validation(required = true)
     public String signTime;

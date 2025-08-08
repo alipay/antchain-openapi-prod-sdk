@@ -27,7 +27,7 @@ public class ApplyInsuranceCbecRequest extends TeaModel {
 
     // 险种编码，03--跨境出口货运险
     @NameInMap("external_product_code")
-    @Validation(required = true, maxLength = 64)
+    @Validation(required = true, maxLength = 2)
     public String externalProductCode;
 
     // 投保人名称

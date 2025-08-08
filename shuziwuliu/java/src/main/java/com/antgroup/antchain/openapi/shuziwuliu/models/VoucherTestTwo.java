@@ -5,66 +5,118 @@ import com.aliyun.tea.*;
 
 public class VoucherTestTwo extends TeaModel {
     // 测试Boolean
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("voucher_test_two_boolean")
     @Validation(required = true)
     public Boolean voucherTestTwoBoolean;
 
     // 凭证列表_apiTestList
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("voucher_test_two_api_test_list")
     @Validation(required = true)
     public java.util.List<VoucherTestOne> voucherTestTwoApiTestList;
 
     // 测试Int
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("voucher_test_two_int")
     @Validation(required = true)
     public Long voucherTestTwoInt;
 
     // 测试Integer
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("voucher_test_two_integer")
     @Validation(required = true, maximum = 10)
     public Long voucherTestTwoInteger;
 
     // 凭证列表_dateList
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("voucher_test_two_date_list")
     @Validation(required = true)
     public java.util.List<String> voucherTestTwoDateList;
 
     // 测试String
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("voucher_test_two_string")
     @Validation(required = true, maxLength = 10)
     public String voucherTestTwoString;
 
     // 测试Date
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("voucher_test_two_date")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String voucherTestTwoDate;
 
     // 凭证列表_integerList
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("voucher_test_two_integer_list")
     @Validation(required = true)
     public java.util.List<Long> voucherTestTwoIntegerList;
 
     // 测试Long
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("voucher_test_two_long")
     @Validation(required = true, maximum = 10)
     public Long voucherTestTwoLong;
 
     // 凭证列表_longList
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("voucher_test_two_long_list")
     @Validation(required = true)
     public java.util.List<Long> voucherTestTwoLongList;
 
     // 凭证列表_stringList
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("voucher_test_two_string_list")
     @Validation(required = true)
     public java.util.List<String> voucherTestTwoStringList;
 
     // 测试apiTestInfo
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("voucher_test_two_api_test_info")
     @Validation(required = true)
     public VoucherTestOne voucherTestTwoApiTestInfo;
 
     // 凭证列表_booleanList
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("voucher_test_two_boolean_list")
     @Validation(required = true)
     public java.util.List<Boolean> voucherTestTwoBooleanList;

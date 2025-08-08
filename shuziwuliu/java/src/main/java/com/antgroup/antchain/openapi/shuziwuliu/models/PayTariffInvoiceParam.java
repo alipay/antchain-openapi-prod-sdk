@@ -5,22 +5,42 @@ import com.aliyun.tea.*;
 
 public class PayTariffInvoiceParam extends TeaModel {
     // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("action")
     public String action;
 
     // 发票金额 业务必填
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("invoice_amount")
     public String invoiceAmount;
 
     // 资费项金额 业务必填
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("pay_tariff_amount")
     public String payTariffAmount;
 
     // 资费单据编号 业务必填
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("pay_tariff_code")
     public String payTariffCode;
 
     // 资费项发票code
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("pay_tariff_invoice_code")
     @Validation(required = true)
     public String payTariffInvoiceCode;

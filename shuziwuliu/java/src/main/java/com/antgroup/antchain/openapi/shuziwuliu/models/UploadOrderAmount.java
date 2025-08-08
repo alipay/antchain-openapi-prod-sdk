@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class UploadOrderAmount extends TeaModel {
     // 币种
+    /**
+     * <strong>example:</strong>
+     * <p>人民币</p>
+     */
     @NameInMap("currency")
     @Validation(required = true)
     public String currency;
 
     // 总金额
+    /**
+     * <strong>example:</strong>
+     * <p>123.23</p>
+     */
     @NameInMap("total_amount")
     @Validation(required = true)
     public String totalAmount;

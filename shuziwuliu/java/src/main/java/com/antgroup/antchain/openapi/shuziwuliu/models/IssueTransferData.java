@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class IssueTransferData extends TeaModel {
     // 凭证id
+    /**
+     * <strong>example:</strong>
+     * <p>11111111</p>
+     */
     @NameInMap("issue_id")
     @Validation(required = true)
     public String issueId;
 
     // 转出方did
+    /**
+     * <strong>example:</strong>
+     * <p>11111</p>
+     */
     @NameInMap("payer_did")
     @Validation(required = true)
     public String payerDid;
 
     // 接收方did
+    /**
+     * <strong>example:</strong>
+     * <p>111111</p>
+     */
     @NameInMap("rcv_did")
     @Validation(required = true)
     public String rcvDid;

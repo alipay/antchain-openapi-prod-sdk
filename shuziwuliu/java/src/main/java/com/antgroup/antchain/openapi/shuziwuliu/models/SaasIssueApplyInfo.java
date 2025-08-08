@@ -5,39 +5,71 @@ import com.aliyun.tea.*;
 
 public class SaasIssueApplyInfo extends TeaModel {
     // 货源订单
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("cargo_order")
     public String cargoOrder;
 
     // 合同号
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("contract_id")
     public String contractId;
 
     // 全局唯一业务单号
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("out_biz_no")
     @Validation(required = true)
     public String outBizNo;
 
     // 支付单号
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("pay_order")
     @Validation(required = true)
     public String payOrder;
 
     // 运单号
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("waybill_id")
     @Validation(required = true)
     public String waybillId;
 
     // 司机did
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("driver_did")
     @Validation(required = true)
     public String driverDid;
 
     // 发行费
+    /**
+     * <strong>example:</strong>
+     * <p>1.12</p>
+     */
     @NameInMap("freight")
     @Validation(required = true)
     public String freight;
 
     // 到期时间戳
+    /**
+     * <strong>example:</strong>
+     * <p>1593504406597</p>
+     */
     @NameInMap("expire_date")
     @Validation(required = true)
     public String expireDate;

@@ -5,19 +5,35 @@ import com.aliyun.tea.*;
 
 public class VehicleContainerParam extends TeaModel {
     // 操作动作,为空为新增或更新，UPDATE为更新，DELETE为删除
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("action")
     public String action;
 
     // 集装箱ID
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("container_id")
     @Validation(required = true)
     public String containerId;
 
     // 箱号
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("container_no")
     public String containerNo;
 
     // 封号
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("seal_no")
     public String sealNo;
 

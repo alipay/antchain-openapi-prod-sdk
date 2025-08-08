@@ -5,65 +5,117 @@ import com.aliyun.tea.*;
 
 public class StatementInfo extends TeaModel {
     // 信用流转批次号
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("batch_id")
     @Validation(required = true)
     public String batchId;
 
     // 全局唯一业务号
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("out_biz_no")
     @Validation(required = true)
     public String outBizNo;
 
     // 信用流转凭证
+    /**
+     * <strong>example:</strong>
+     * <p>1212312</p>
+     */
     @NameInMap("issue_id")
     @Validation(required = true)
     public String issueId;
 
     // 合同号（预留）
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("contract_id")
     public String contractId;
 
     // 发行信用流转的运单号
+    /**
+     * <strong>example:</strong>
+     * <p>321312</p>
+     */
     @NameInMap("waybill_id")
     @Validation(required = true)
     public String waybillId;
 
     // 发行信用流转的支付单号
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("pay_order")
     @Validation(required = true)
     public String payOrder;
 
     // 金额信息
+    /**
+     * <strong>example:</strong>
+     * <p>18.67</p>
+     */
     @NameInMap("credit_limit")
     @Validation(required = true)
     public String creditLimit;
 
     // 流水类型
+    /**
+     * <strong>example:</strong>
+     * <p>FINANCE</p>
+     */
     @NameInMap("state_type")
     @Validation(required = true)
     public String stateType;
 
     // 流水类型说明
+    /**
+     * <strong>example:</strong>
+     * <p>融资</p>
+     */
     @NameInMap("state_msg")
     @Validation(required = true)
     public String stateMsg;
 
     // 凭证来源方did
+    /**
+     * <strong>example:</strong>
+     * <p>did:mychain:fa142b66cb1dece6a36cd66081ceeece19674409149c32679f2e17ed2dd8312c</p>
+     */
     @NameInMap("from_did")
     @Validation(required = true)
     public String fromDid;
 
     // 凭证流转方did
+    /**
+     * <strong>example:</strong>
+     * <p>did:mychain:fa142b66cb1dece6a36cd66081ceeece19674409149c32679f2e17ed2dd8312c</p>
+     */
     @NameInMap("to_did")
     @Validation(required = true)
     public String toDid;
 
     // 信用凭证发起时间
+    /**
+     * <strong>example:</strong>
+     * <p>1581579336000</p>
+     */
     @NameInMap("issue_date")
     @Validation(required = true)
     public String issueDate;
 
     // 信用凭证到期时间
+    /**
+     * <strong>example:</strong>
+     * <p>1581579336000</p>
+     */
     @NameInMap("expire_date")
     @Validation(required = true)
     public String expireDate;

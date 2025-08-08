@@ -5,18 +5,34 @@ import com.aliyun.tea.*;
 
 public class ReparationsInfo extends TeaModel {
     // 平台赔款支付流水号
+    /**
+     * <strong>example:</strong>
+     * <p>2023112222332xxxx</p>
+     */
     @NameInMap("payment_no")
     public String paymentNo;
 
     // 平台赔款支付金额
+    /**
+     * <strong>example:</strong>
+     * <p>12.32</p>
+     */
     @NameInMap("payment_amount")
     public String paymentAmount;
 
     // 平台是否放弃货物所有权。Y:是，N:否
+    /**
+     * <strong>example:</strong>
+     * <p>Y</p>
+     */
     @NameInMap("relinquish_goods")
     public String relinquishGoods;
 
     // 退货本身是否高于货物本身价值。Y:是，N:否
+    /**
+     * <strong>example:</strong>
+     * <p>Y</p>
+     */
     @NameInMap("return_over_value")
     public String returnOverValue;
 

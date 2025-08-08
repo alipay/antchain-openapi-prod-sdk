@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class CargoInfo extends TeaModel {
     // 货物类型，货物类型的大类
+    /**
+     * <strong>example:</strong>
+     * <p>Computer &amp; Office</p>
+     */
     @NameInMap("cargo_type")
     @Validation(required = true)
     public String cargoType;
 
     // 货物名称，实际的货物名称
+    /**
+     * <strong>example:</strong>
+     * <p>3D Printing</p>
+     */
     @NameInMap("cargo_name")
     @Validation(required = true)
     public String cargoName;
 
     // 货物数量
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("cargo_quantity")
     @Validation(required = true)
     public String cargoQuantity;
 
     // 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
+    /**
+     * <strong>example:</strong>
+     * <p>1002.00</p>
+     */
     @NameInMap("cargo_worth")
     @Validation(required = true)
     public String cargoWorth;

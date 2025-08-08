@@ -5,18 +5,34 @@ import com.aliyun.tea.*;
 
 public class ContainerInfo extends TeaModel {
     // 订舱单唯一标识
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("booking_no")
     public String bookingNo;
 
     // 集装箱唯一标识
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("container_id")
     public String containerId;
 
     // 箱号
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("container_no")
     public String containerNo;
 
     // 箱型
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("container_type")
     public String containerType;
 

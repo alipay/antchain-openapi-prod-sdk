@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class UploadFileInfo extends TeaModel {
     // 文件id
+    /**
+     * <strong>example:</strong>
+     * <p>123456</p>
+     */
     @NameInMap("file_id")
     @Validation(required = true)
     public String fileId;
 
     // 文件hash
+    /**
+     * <strong>example:</strong>
+     * <p>ca94860b2f902e1ba7917d2c6a983cc43e5b3921f4b7ab28ea791ac28314ba52</p>
+     */
     @NameInMap("file_hash")
     @Validation(required = true)
     public String fileHash;

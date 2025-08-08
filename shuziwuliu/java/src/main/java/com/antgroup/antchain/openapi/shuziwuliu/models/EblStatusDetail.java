@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class EblStatusDetail extends TeaModel {
     // 当前提单状态
+    /**
+     * <strong>example:</strong>
+     * <p>endorsed</p>
+     */
     @NameInMap("current_ebl_status")
     @Validation(required = true)
     public String currentEblStatus;
 
     // 电子提单编号
+    /**
+     * <strong>example:</strong>
+     * <p>暂无 </p>
+     */
     @NameInMap("ebl_no")
     @Validation(required = true)
     public String eblNo;
 
     // 下一个提单状态
+    /**
+     * <strong>example:</strong>
+     * <p>surrendered</p>
+     */
     @NameInMap("next_ebl_status")
     @Validation(required = true)
     public String nextEblStatus;

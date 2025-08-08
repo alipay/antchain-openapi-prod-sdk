@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class ClaimInformation extends TeaModel {
     // 索赔资料地址url
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://www.xxx.com">https://www.xxx.com</a></p>
+     */
     @NameInMap("file_url")
     @Validation(required = true, maxLength = 500)
     public String fileUrl;
 
     // 文件名	
+    /**
+     * <strong>example:</strong>
+     * <p>客服判责资料 </p>
+     */
     @NameInMap("file_name")
     @Validation(required = true, maxLength = 200)
     public String fileName;

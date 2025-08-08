@@ -5,26 +5,46 @@ import com.aliyun.tea.*;
 
 public class PayBillInvoiceParam extends TeaModel {
     // 账单发票code
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("pay_bill_invoice_code")
     @Validation(required = true)
     public String payBillInvoiceCode;
 
     // 账单编号
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("pay_bill_order_code")
     @Validation(required = true)
     public String payBillOrderCode;
 
     // 账单金额
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("pay_bill_amount")
     @Validation(required = true)
     public String payBillAmount;
 
     // 发票金额
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("invoice_amount")
     @Validation(required = true)
     public String invoiceAmount;
 
     // 操作动作
+    /**
+     * <strong>example:</strong>
+     * <p>UPDATE、DELETE、INSERT</p>
+     */
     @NameInMap("action")
     public String action;
 

@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class ContainerIdInfo extends TeaModel {
     // 箱子唯一标识
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("container_id")
     public String containerId;
 
     // 箱号
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("container_no")
     public String containerNo;
 

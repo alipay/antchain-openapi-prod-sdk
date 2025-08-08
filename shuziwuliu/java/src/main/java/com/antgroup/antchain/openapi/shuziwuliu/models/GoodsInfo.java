@@ -5,28 +5,52 @@ import com.aliyun.tea.*;
 
 public class GoodsInfo extends TeaModel {
     // 货物ID [业务必填]
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("goods_id")
     public String goodsId;
 
     // 唛头
     // 
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("marks")
     public String marks;
 
     // 货物名称
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("goods")
     public String goods;
 
     // 货物类型
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("goods_type")
     public String goodsType;
 
     // 货物重量
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("weight")
     public String weight;
 
     // 件数
+    /**
+     * <strong>example:</strong>
+     * <p>暂无</p>
+     */
     @NameInMap("number")
     public String number;
 

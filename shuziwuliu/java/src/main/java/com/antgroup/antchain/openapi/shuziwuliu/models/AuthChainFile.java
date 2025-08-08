@@ -5,31 +5,55 @@ import com.aliyun.tea.*;
 
 public class AuthChainFile extends TeaModel {
     // 签署文件的hash值
+    /**
+     * <strong>example:</strong>
+     * <p>ca94860b2f902e1ba7917d2c6a983cc43e5b3921f4b7ab28ea791ac28314ba52</p>
+     */
     @NameInMap("sign_file_hash")
     @Validation(required = true)
     public String signFileHash;
 
     // 上链事务唯一标识
+    /**
+     * <strong>example:</strong>
+     * <p>ca94860b2f902e1ba7917d2c6a983cc43e5b3921f4b7ab28ea791ac28314ba52</p>
+     */
     @NameInMap("upload_chain_tx_code")
     @Validation(required = true)
     public String uploadChainTxCode;
 
     // 蚂蚁区块链统一证据编号
+    /**
+     * <strong>example:</strong>
+     * <p>ca94860b2f902e1ba7917d2c6a983cc43e5b3921f4b7ab28ea791ac28314ba52</p>
+     */
     @NameInMap("baas_uniq_code")
     @Validation(required = true)
     public String baasUniqCode;
 
     // 上链时间(13位毫秒级时间戳)
+    /**
+     * <strong>example:</strong>
+     * <p>1628563284015</p>
+     */
     @NameInMap("upload_chain_time")
     @Validation(required = true)
     public String uploadChainTime;
 
     // 上链文件下载链接
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://pic2.zhimg.com/v2-4d91e54c6cc5d225471684987a2061a1_r.jpg">https://pic2.zhimg.com/v2-4d91e54c6cc5d225471684987a2061a1_r.jpg</a></p>
+     */
     @NameInMap("file_url")
     @Validation(required = true)
     public String fileUrl;
 
     // 上链文件名称，要求包含扩展名。文件格式允许: pdf, txt, doc, docx
+    /**
+     * <strong>example:</strong>
+     * <p>上链文件.pdf</p>
+     */
     @NameInMap("file_name")
     @Validation(required = true)
     public String fileName;

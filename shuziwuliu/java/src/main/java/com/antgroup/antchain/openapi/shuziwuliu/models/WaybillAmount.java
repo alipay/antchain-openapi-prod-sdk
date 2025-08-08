@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class WaybillAmount extends TeaModel {
     // 运单金额（2位小数）
+    /**
+     * <strong>example:</strong>
+     * <p>100000.00</p>
+     */
     @NameInMap("amount")
     @Validation(required = true)
     public String amount;
 
     // 运单号
+    /**
+     * <strong>example:</strong>
+     * <p>123456</p>
+     */
     @NameInMap("waybill_id")
     @Validation(required = true)
     public String waybillId;

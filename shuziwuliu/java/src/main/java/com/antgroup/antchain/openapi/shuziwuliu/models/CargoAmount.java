@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class CargoAmount extends TeaModel {
     // 货运单对应金额（2位小数）
+    /**
+     * <strong>example:</strong>
+     * <p>100000.00</p>
+     */
     @NameInMap("amount")
     @Validation(required = true)
     public String amount;
 
     // 货源单号
+    /**
+     * <strong>example:</strong>
+     * <p>123466</p>
+     */
     @NameInMap("cargo_order")
     @Validation(required = true)
     public String cargoOrder;

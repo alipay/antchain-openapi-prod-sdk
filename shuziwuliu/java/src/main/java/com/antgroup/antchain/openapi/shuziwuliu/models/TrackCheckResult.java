@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class TrackCheckResult extends TeaModel {
     // 轨迹核验状态code
+    /**
+     * <strong>example:</strong>
+     * <p>AD</p>
+     */
     @NameInMap("track_check_status")
     public String trackCheckStatus;
 
     // 轨迹核验结果描述
+    /**
+     * <strong>example:</strong>
+     * <p>运单验证正常</p>
+     */
     @NameInMap("track_check_status_msg")
     public String trackCheckStatusMsg;
 

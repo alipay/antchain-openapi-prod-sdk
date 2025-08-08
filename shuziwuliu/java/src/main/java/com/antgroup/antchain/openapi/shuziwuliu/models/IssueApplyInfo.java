@@ -5,39 +5,71 @@ import com.aliyun.tea.*;
 
 public class IssueApplyInfo extends TeaModel {
     // 货源订单
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("cargo_order")
     public String cargoOrder;
 
     // 合同号（预留）
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("contract_id")
     public String contractId;
 
     // 凭证到期时间
+    /**
+     * <strong>example:</strong>
+     * <p>1581579336000</p>
+     */
     @NameInMap("expire_date")
     @Validation(required = true)
     public String expireDate;
 
     // 支付单运费，运费最多精确到小数点后2位
+    /**
+     * <strong>example:</strong>
+     * <p>189.76</p>
+     */
     @NameInMap("freight")
     @Validation(required = true)
     public String freight;
 
     // 全局唯一业务号
+    /**
+     * <strong>example:</strong>
+     * <p>fa142b66cb1dece6a3</p>
+     */
     @NameInMap("out_biz_no")
     @Validation(required = true)
     public String outBizNo;
 
     // 支付订单
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("pay_order")
     @Validation(required = true)
     public String payOrder;
 
     // 运单id
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("waybill_id")
     @Validation(required = true)
     public String waybillId;
 
     // 司机did
+    /**
+     * <strong>example:</strong>
+     * <p>did:mychain:11119abde09890ad6c40a5f9ba96fcb33ca134c6c29efdbbc743549e62c12222</p>
+     */
     @NameInMap("driver_did")
     public String driverDid;
 
