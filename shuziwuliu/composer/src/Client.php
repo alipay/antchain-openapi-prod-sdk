@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\SHUZIWULIU\Models\ApplyBcliInsuranceRequest;
+use AntChain\SHUZIWULIU\Models\ApplyBcliInsuranceResponse;
 use AntChain\SHUZIWULIU\Models\ApplyCbrfInsureRequest;
 use AntChain\SHUZIWULIU\Models\ApplyCbrfInsureResponse;
 use AntChain\SHUZIWULIU\Models\ApplyCreditIssueclearRequest;
@@ -149,6 +151,8 @@ use AntChain\SHUZIWULIU\Models\GetIssueTransferfileRequest;
 use AntChain\SHUZIWULIU\Models\GetIssueTransferfileResponse;
 use AntChain\SHUZIWULIU\Models\ImportWaybillLocationRequest;
 use AntChain\SHUZIWULIU\Models\ImportWaybillLocationResponse;
+use AntChain\SHUZIWULIU\Models\NotifyBcliPolicyRequest;
+use AntChain\SHUZIWULIU\Models\NotifyBcliPolicyResponse;
 use AntChain\SHUZIWULIU\Models\NotifyInsuranceOspireportRequest;
 use AntChain\SHUZIWULIU\Models\NotifyInsuranceOspireportResponse;
 use AntChain\SHUZIWULIU\Models\NotifyInsuranceReportresultRequest;
@@ -492,7 +496,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.14',
+                    'sdk_version'      => '1.7.21',
                     '_prod_code'       => 'SHUZIWULIU',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4238,6 +4242,72 @@ class Client
         Utils::validateModel($request);
 
         return UpdateInsuranceMaterialResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.material.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 动力电池投保保司回传保单信息接口
+     * Summary: 动力电池投保保司回传保单信息接口.
+     *
+     * @param NotifyBcliPolicyRequest $request
+     *
+     * @return NotifyBcliPolicyResponse
+     */
+    public function notifyBcliPolicy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyBcliPolicyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 动力电池投保保司回传保单信息接口
+     * Summary: 动力电池投保保司回传保单信息接口.
+     *
+     * @param NotifyBcliPolicyRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return NotifyBcliPolicyResponse
+     */
+    public function notifyBcliPolicyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyBcliPolicyResponse::fromMap($this->doRequest('1.0', 'digital.logistic.bcli.policy.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 动力电池投保接口
+     * Summary: 动力电池投保接口.
+     *
+     * @param ApplyBcliInsuranceRequest $request
+     *
+     * @return ApplyBcliInsuranceResponse
+     */
+    public function applyBcliInsurance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyBcliInsuranceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 动力电池投保接口
+     * Summary: 动力电池投保接口.
+     *
+     * @param ApplyBcliInsuranceRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ApplyBcliInsuranceResponse
+     */
+    public function applyBcliInsuranceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyBcliInsuranceResponse::fromMap($this->doRequest('1.0', 'digital.logistic.bcli.insurance.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

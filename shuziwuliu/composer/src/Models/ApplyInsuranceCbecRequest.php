@@ -271,7 +271,7 @@ class ApplyInsuranceCbecRequest extends Model
         Model::validateRequired('saleDate', $this->saleDate, true);
         Model::validateMaxLength('tradeNo', $this->tradeNo, 50);
         Model::validateMaxLength('externalChannelCode', $this->externalChannelCode, 64);
-        Model::validateMaxLength('externalProductCode', $this->externalProductCode, 64);
+        Model::validateMaxLength('externalProductCode', $this->externalProductCode, 2);
         Model::validateMaxLength('tbrName', $this->tbrName, 100);
         Model::validateMaxLength('tbrIdType', $this->tbrIdType, 2);
         Model::validateMaxLength('tbrIdNo', $this->tbrIdNo, 30);

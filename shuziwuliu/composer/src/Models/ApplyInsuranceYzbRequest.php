@@ -29,7 +29,7 @@ class ApplyInsuranceYzbRequest extends Model
      */
     public $tradeNo;
 
-    // 保司编码，PAIC---平安、CPIC---太保
+    // 保司编码，PAIC---平安广分、CPIC---太保深分，CPIC_SUZHOU-太保苏分
     /**
      * @var string
      */
@@ -246,8 +246,8 @@ class ApplyInsuranceYzbRequest extends Model
         Model::validateRequired('schemeName', $this->schemeName, true);
         Model::validateRequired('acplBbrName', $this->acplBbrName, true);
         Model::validateRequired('acplBbrIdNo', $this->acplBbrIdNo, true);
-        Model::validateMaxLength('tradeNo', $this->tradeNo, 50);
-        Model::validateMaxLength('externalChannelCode', $this->externalChannelCode, 10);
+        Model::validateMaxLength('tradeNo', $this->tradeNo, 64);
+        Model::validateMaxLength('externalChannelCode', $this->externalChannelCode, 32);
         Model::validateMaxLength('externalProductCode', $this->externalProductCode, 2);
         Model::validateMaxLength('tbrName', $this->tbrName, 100);
         Model::validateMaxLength('tbrIdType', $this->tbrIdType, 2);
