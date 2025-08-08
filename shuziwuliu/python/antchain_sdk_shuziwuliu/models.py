@@ -22072,7 +22072,7 @@ class ApplyInsuranceCbecRequest(TeaModel):
             self.validate_max_length(self.external_channel_code, 'external_channel_code', 64)
         self.validate_required(self.external_product_code, 'external_product_code')
         if self.external_product_code is not None:
-            self.validate_max_length(self.external_product_code, 'external_product_code', 64)
+            self.validate_max_length(self.external_product_code, 'external_product_code', 2)
         self.validate_required(self.tbr_name, 'tbr_name')
         if self.tbr_name is not None:
             self.validate_max_length(self.tbr_name, 'tbr_name', 100)
@@ -23710,7 +23710,7 @@ class ApplyInsuranceYzbRequest(TeaModel):
         # 其他编码建议为随机值。
         # 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
         self.trade_no = trade_no
-        # 保司编码，PAIC---平安、CPIC---太保
+        # 保司编码，PAIC---平安广分、CPIC---太保深分，CPIC_SUZHOU-太保苏分
         self.external_channel_code = external_channel_code
         # 险种编码，05-驿站宝
         self.external_product_code = external_product_code
@@ -23768,10 +23768,10 @@ class ApplyInsuranceYzbRequest(TeaModel):
     def validate(self):
         self.validate_required(self.trade_no, 'trade_no')
         if self.trade_no is not None:
-            self.validate_max_length(self.trade_no, 'trade_no', 50)
+            self.validate_max_length(self.trade_no, 'trade_no', 64)
         self.validate_required(self.external_channel_code, 'external_channel_code')
         if self.external_channel_code is not None:
-            self.validate_max_length(self.external_channel_code, 'external_channel_code', 10)
+            self.validate_max_length(self.external_channel_code, 'external_channel_code', 32)
         self.validate_required(self.external_product_code, 'external_product_code')
         if self.external_product_code is not None:
             self.validate_max_length(self.external_product_code, 'external_product_code', 2)
@@ -27226,6 +27226,447 @@ class UpdateInsuranceMaterialResponse(TeaModel):
             self.trade_no = m.get('trade_no')
         if m.get('report_no') is not None:
             self.report_no = m.get('report_no')
+        return self
+
+
+class NotifyBcliPolicyRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        trade_no: str = None,
+        insure_trade_no: str = None,
+        policy_no: str = None,
+        amount: str = None,
+        premium: str = None,
+        insure_start: str = None,
+        insure_end: str = None,
+        pol_url: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 业务流水号,格式：日期_身份标识_全局唯一序号
+        self.trade_no = trade_no
+        # 投保流水号，用于关联保单
+        self.insure_trade_no = insure_trade_no
+        # 保单号
+        self.policy_no = policy_no
+        # 保额，金额人民币元，精确到小数点后2位
+        self.amount = amount
+        # 保费，金额人民币元，精确到小数点后2位
+        self.premium = premium
+        # 保险起期 格式：yyyy-MM-dd HH:mm:ss
+        self.insure_start = insure_start
+        # 保险止期 格式：yyyy-MM-dd HH:mm:ss
+        self.insure_end = insure_end
+        # 电子保单URL,公网可以访问的URL
+        self.pol_url = pol_url
+
+    def validate(self):
+        self.validate_required(self.trade_no, 'trade_no')
+        self.validate_required(self.insure_trade_no, 'insure_trade_no')
+        self.validate_required(self.policy_no, 'policy_no')
+        self.validate_required(self.amount, 'amount')
+        self.validate_required(self.premium, 'premium')
+        self.validate_required(self.insure_start, 'insure_start')
+        self.validate_required(self.insure_end, 'insure_end')
+        self.validate_required(self.pol_url, 'pol_url')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.insure_trade_no is not None:
+            result['insure_trade_no'] = self.insure_trade_no
+        if self.policy_no is not None:
+            result['policy_no'] = self.policy_no
+        if self.amount is not None:
+            result['amount'] = self.amount
+        if self.premium is not None:
+            result['premium'] = self.premium
+        if self.insure_start is not None:
+            result['insure_start'] = self.insure_start
+        if self.insure_end is not None:
+            result['insure_end'] = self.insure_end
+        if self.pol_url is not None:
+            result['pol_url'] = self.pol_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('insure_trade_no') is not None:
+            self.insure_trade_no = m.get('insure_trade_no')
+        if m.get('policy_no') is not None:
+            self.policy_no = m.get('policy_no')
+        if m.get('amount') is not None:
+            self.amount = m.get('amount')
+        if m.get('premium') is not None:
+            self.premium = m.get('premium')
+        if m.get('insure_start') is not None:
+            self.insure_start = m.get('insure_start')
+        if m.get('insure_end') is not None:
+            self.insure_end = m.get('insure_end')
+        if m.get('pol_url') is not None:
+            self.pol_url = m.get('pol_url')
+        return self
+
+
+class NotifyBcliPolicyResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trade_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 流水号
+        self.trade_no = trade_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        return self
+
+
+class ApplyBcliInsuranceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        trade_no: str = None,
+        external_channel_code: str = None,
+        external_product_code: str = None,
+        tbr_name: str = None,
+        tbr_id_type: str = None,
+        tbr_id_no: str = None,
+        tbr_addr: str = None,
+        bbr_name: str = None,
+        bbr_id_type: str = None,
+        bbr_id_no: str = None,
+        bbr_addr: str = None,
+        scheme_name: str = None,
+        insured_amount: str = None,
+        insure_start: str = None,
+        insure_end: str = None,
+        email: str = None,
+        bcda_pt: str = None,
+        vehicle_plate: str = None,
+        vin: str = None,
+        vehicle_regist_date: str = None,
+        license_date: str = None,
+        vehicle_usage: str = None,
+        vehicle_price: str = None,
+        vehicle_age: str = None,
+        license_picture: str = None,
+        battery_code: str = None,
+        battery_nameplate_picture: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 投保流水号，格式：日期_身份标识_全局唯一序号
+        self.trade_no = trade_no
+        # 保司编码,CPIC_SHENZHEN-太保深分
+        self.external_channel_code = external_channel_code
+        # 保险产品编码,Pbins-动力电池延保保险产品编码
+        self.external_product_code = external_product_code
+        # 投保人名称
+        self.tbr_name = tbr_name
+        # 投保人证件类型，01-居民身份证、03-营业执照
+        self.tbr_id_type = tbr_id_type
+        # 投保人证件号码
+        self.tbr_id_no = tbr_id_no
+        # 投保人联系地址
+        self.tbr_addr = tbr_addr
+        # 被保人名称
+        self.bbr_name = bbr_name
+        # 01-居民身份证、03-营业执照
+        self.bbr_id_type = bbr_id_type
+        # 被保人证件号码
+        self.bbr_id_no = bbr_id_no
+        # 被保人联系地址
+        self.bbr_addr = bbr_addr
+        # 投保方案ID，battery202501
+        self.scheme_name = scheme_name
+        # 保额，金额人民币元，整数
+        self.insured_amount = insured_amount
+        # 客户所期待的保险起期，实际保司出单以保司出具的信息为准，格式：YYYY-MM-DD HH:MM:SS
+        self.insure_start = insure_start
+        # 客户所期待的保险止期，实际保司出单以保司出具的信息为准,格式：YYYY-MM-DD HH:MM:SS
+        self.insure_end = insure_end
+        # 邮箱地址，用于保司回传科技公司电子保单
+        self.email = email
+        # 保险期限内电池容量允许衰减程度
+        self.bcda_pt = bcda_pt
+        # 车牌号码
+        self.vehicle_plate = vehicle_plate
+        # 车架号
+        self.vin = vin
+        # 车辆初登日期  格式：YYYY-MM-DD
+        self.vehicle_regist_date = vehicle_regist_date
+        # 行驶证发证日期,格式：YYYY-MM-DD
+        self.license_date = license_date
+        # 车辆使用性质,01-企业非营业用车、02出租车、03租赁车、04家庭自用车、05党政机关用车、06事业团体用车、07城市公交、08公路客运、09营运货车、10营业特种车
+        self.vehicle_usage = vehicle_usage
+        # 投保车辆实际价值（元）,金额人民币元，精确到小数点后2位
+        self.vehicle_price = vehicle_price
+        # 投保车龄（月）
+        self.vehicle_age = vehicle_age
+        # 行驶证图片信息url
+        self.license_picture = license_picture
+        # 动力电池编码（ID),动力电池包的唯一标识
+        self.battery_code = battery_code
+        # 动力电池铭牌照片url
+        self.battery_nameplate_picture = battery_nameplate_picture
+
+    def validate(self):
+        self.validate_required(self.trade_no, 'trade_no')
+        self.validate_required(self.external_channel_code, 'external_channel_code')
+        self.validate_required(self.external_product_code, 'external_product_code')
+        self.validate_required(self.tbr_name, 'tbr_name')
+        self.validate_required(self.tbr_id_type, 'tbr_id_type')
+        self.validate_required(self.tbr_id_no, 'tbr_id_no')
+        self.validate_required(self.tbr_addr, 'tbr_addr')
+        self.validate_required(self.bbr_name, 'bbr_name')
+        self.validate_required(self.bbr_id_type, 'bbr_id_type')
+        self.validate_required(self.bbr_id_no, 'bbr_id_no')
+        self.validate_required(self.bbr_addr, 'bbr_addr')
+        self.validate_required(self.scheme_name, 'scheme_name')
+        self.validate_required(self.insured_amount, 'insured_amount')
+        self.validate_required(self.bcda_pt, 'bcda_pt')
+        self.validate_required(self.vehicle_plate, 'vehicle_plate')
+        self.validate_required(self.vin, 'vin')
+        self.validate_required(self.vehicle_regist_date, 'vehicle_regist_date')
+        self.validate_required(self.license_date, 'license_date')
+        self.validate_required(self.vehicle_usage, 'vehicle_usage')
+        self.validate_required(self.vehicle_price, 'vehicle_price')
+        self.validate_required(self.vehicle_age, 'vehicle_age')
+        self.validate_required(self.license_picture, 'license_picture')
+        self.validate_required(self.battery_code, 'battery_code')
+        self.validate_required(self.battery_nameplate_picture, 'battery_nameplate_picture')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.external_channel_code is not None:
+            result['external_channel_code'] = self.external_channel_code
+        if self.external_product_code is not None:
+            result['external_product_code'] = self.external_product_code
+        if self.tbr_name is not None:
+            result['tbr_name'] = self.tbr_name
+        if self.tbr_id_type is not None:
+            result['tbr_id_type'] = self.tbr_id_type
+        if self.tbr_id_no is not None:
+            result['tbr_id_no'] = self.tbr_id_no
+        if self.tbr_addr is not None:
+            result['tbr_addr'] = self.tbr_addr
+        if self.bbr_name is not None:
+            result['bbr_name'] = self.bbr_name
+        if self.bbr_id_type is not None:
+            result['bbr_id_type'] = self.bbr_id_type
+        if self.bbr_id_no is not None:
+            result['bbr_id_no'] = self.bbr_id_no
+        if self.bbr_addr is not None:
+            result['bbr_addr'] = self.bbr_addr
+        if self.scheme_name is not None:
+            result['scheme_name'] = self.scheme_name
+        if self.insured_amount is not None:
+            result['insured_amount'] = self.insured_amount
+        if self.insure_start is not None:
+            result['insure_start'] = self.insure_start
+        if self.insure_end is not None:
+            result['insure_end'] = self.insure_end
+        if self.email is not None:
+            result['email'] = self.email
+        if self.bcda_pt is not None:
+            result['bcda_pt'] = self.bcda_pt
+        if self.vehicle_plate is not None:
+            result['vehicle_plate'] = self.vehicle_plate
+        if self.vin is not None:
+            result['vin'] = self.vin
+        if self.vehicle_regist_date is not None:
+            result['vehicle_regist_date'] = self.vehicle_regist_date
+        if self.license_date is not None:
+            result['license_date'] = self.license_date
+        if self.vehicle_usage is not None:
+            result['vehicle_usage'] = self.vehicle_usage
+        if self.vehicle_price is not None:
+            result['vehicle_price'] = self.vehicle_price
+        if self.vehicle_age is not None:
+            result['vehicle_age'] = self.vehicle_age
+        if self.license_picture is not None:
+            result['license_picture'] = self.license_picture
+        if self.battery_code is not None:
+            result['battery_code'] = self.battery_code
+        if self.battery_nameplate_picture is not None:
+            result['battery_nameplate_picture'] = self.battery_nameplate_picture
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('external_channel_code') is not None:
+            self.external_channel_code = m.get('external_channel_code')
+        if m.get('external_product_code') is not None:
+            self.external_product_code = m.get('external_product_code')
+        if m.get('tbr_name') is not None:
+            self.tbr_name = m.get('tbr_name')
+        if m.get('tbr_id_type') is not None:
+            self.tbr_id_type = m.get('tbr_id_type')
+        if m.get('tbr_id_no') is not None:
+            self.tbr_id_no = m.get('tbr_id_no')
+        if m.get('tbr_addr') is not None:
+            self.tbr_addr = m.get('tbr_addr')
+        if m.get('bbr_name') is not None:
+            self.bbr_name = m.get('bbr_name')
+        if m.get('bbr_id_type') is not None:
+            self.bbr_id_type = m.get('bbr_id_type')
+        if m.get('bbr_id_no') is not None:
+            self.bbr_id_no = m.get('bbr_id_no')
+        if m.get('bbr_addr') is not None:
+            self.bbr_addr = m.get('bbr_addr')
+        if m.get('scheme_name') is not None:
+            self.scheme_name = m.get('scheme_name')
+        if m.get('insured_amount') is not None:
+            self.insured_amount = m.get('insured_amount')
+        if m.get('insure_start') is not None:
+            self.insure_start = m.get('insure_start')
+        if m.get('insure_end') is not None:
+            self.insure_end = m.get('insure_end')
+        if m.get('email') is not None:
+            self.email = m.get('email')
+        if m.get('bcda_pt') is not None:
+            self.bcda_pt = m.get('bcda_pt')
+        if m.get('vehicle_plate') is not None:
+            self.vehicle_plate = m.get('vehicle_plate')
+        if m.get('vin') is not None:
+            self.vin = m.get('vin')
+        if m.get('vehicle_regist_date') is not None:
+            self.vehicle_regist_date = m.get('vehicle_regist_date')
+        if m.get('license_date') is not None:
+            self.license_date = m.get('license_date')
+        if m.get('vehicle_usage') is not None:
+            self.vehicle_usage = m.get('vehicle_usage')
+        if m.get('vehicle_price') is not None:
+            self.vehicle_price = m.get('vehicle_price')
+        if m.get('vehicle_age') is not None:
+            self.vehicle_age = m.get('vehicle_age')
+        if m.get('license_picture') is not None:
+            self.license_picture = m.get('license_picture')
+        if m.get('battery_code') is not None:
+            self.battery_code = m.get('battery_code')
+        if m.get('battery_nameplate_picture') is not None:
+            self.battery_nameplate_picture = m.get('battery_nameplate_picture')
+        return self
+
+
+class ApplyBcliInsuranceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trade_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求ID
+        self.trade_no = trade_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
         return self
 
 
