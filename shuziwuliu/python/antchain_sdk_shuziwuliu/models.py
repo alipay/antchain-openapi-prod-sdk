@@ -27407,6 +27407,7 @@ class ApplyBcliInsuranceRequest(TeaModel):
         license_picture: str = None,
         battery_code: str = None,
         battery_nameplate_picture: str = None,
+        battery_pack_photo_file: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -27465,6 +27466,8 @@ class ApplyBcliInsuranceRequest(TeaModel):
         self.battery_code = battery_code
         # 动力电池铭牌照片url
         self.battery_nameplate_picture = battery_nameplate_picture
+        # 动力电池包外观照片地址
+        self.battery_pack_photo_file = battery_pack_photo_file
 
     def validate(self):
         self.validate_required(self.trade_no, 'trade_no')
@@ -27491,6 +27494,7 @@ class ApplyBcliInsuranceRequest(TeaModel):
         self.validate_required(self.license_picture, 'license_picture')
         self.validate_required(self.battery_code, 'battery_code')
         self.validate_required(self.battery_nameplate_picture, 'battery_nameplate_picture')
+        self.validate_required(self.battery_pack_photo_file, 'battery_pack_photo_file')
 
     def to_map(self):
         _map = super().to_map()
@@ -27556,6 +27560,8 @@ class ApplyBcliInsuranceRequest(TeaModel):
             result['battery_code'] = self.battery_code
         if self.battery_nameplate_picture is not None:
             result['battery_nameplate_picture'] = self.battery_nameplate_picture
+        if self.battery_pack_photo_file is not None:
+            result['battery_pack_photo_file'] = self.battery_pack_photo_file
         return result
 
     def from_map(self, m: dict = None):
@@ -27618,6 +27624,8 @@ class ApplyBcliInsuranceRequest(TeaModel):
             self.battery_code = m.get('battery_code')
         if m.get('battery_nameplate_picture') is not None:
             self.battery_nameplate_picture = m.get('battery_nameplate_picture')
+        if m.get('battery_pack_photo_file') is not None:
+            self.battery_pack_photo_file = m.get('battery_pack_photo_file')
         return self
 
 
