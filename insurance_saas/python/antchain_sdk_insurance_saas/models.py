@@ -4261,7 +4261,6 @@ class NotifyInterestScenesubjectRequest(TeaModel):
         self.validate_required(self.request_no, 'request_no')
         self.validate_required(self.interest_no, 'interest_no')
         self.validate_required(self.product_code, 'product_code')
-        self.validate_required(self.apply_limit_amount, 'apply_limit_amount')
         self.validate_required(self.apply_limit_status, 'apply_limit_status')
 
     def to_map(self):
@@ -4591,7 +4590,6 @@ class GetInterestUrlRequest(TeaModel):
         self.validate_required(self.tbr_name, 'tbr_name')
         self.validate_required(self.tbr_phone, 'tbr_phone')
         self.validate_required(self.tbr_id_card, 'tbr_id_card')
-        self.validate_required(self.scene_info, 'scene_info')
 
     def to_map(self):
         _map = super().to_map()
