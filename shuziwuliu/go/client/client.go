@@ -18051,7 +18051,7 @@ type ApplyInsuranceCbecRequest struct {
 	// 保司编码，CPIC---太保
 	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"64"`
 	// 险种编码，03--跨境出口货运险
-	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true" maxLength:"64"`
+	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true" maxLength:"2"`
 	// 投保人名称
 	TbrName *string `json:"tbr_name,omitempty" xml:"tbr_name,omitempty" require:"true" maxLength:"100"`
 	// 投保人证件类型，03--营业执照
@@ -19327,9 +19327,9 @@ type ApplyInsuranceYzbRequest struct {
 	// 身份标识可自定义。
 	// 其他编码建议为随机值。
 	// 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
-	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
-	// 保司编码，PAIC---平安、CPIC---太保
-	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"10"`
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"64"`
+	// 保司编码，PAIC---平安广分、CPIC---太保深分，CPIC_SUZHOU-太保苏分
+	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"32"`
 	// 险种编码，05-驿站宝
 	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true" maxLength:"2"`
 	// 投保人姓名，保险协议中的投保人全称
@@ -22061,6 +22061,377 @@ func (s *UpdateInsuranceMaterialResponse) SetTradeNo(v string) *UpdateInsuranceM
 
 func (s *UpdateInsuranceMaterialResponse) SetReportNo(v string) *UpdateInsuranceMaterialResponse {
 	s.ReportNo = &v
+	return s
+}
+
+type NotifyBcliPolicyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务流水号,格式：日期_身份标识_全局唯一序号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true"`
+	// 投保流水号，用于关联保单
+	InsureTradeNo *string `json:"insure_trade_no,omitempty" xml:"insure_trade_no,omitempty" require:"true"`
+	// 保单号
+	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty" require:"true"`
+	// 保额，金额人民币元，精确到小数点后2位
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	// 保费，金额人民币元，精确到小数点后2位
+	Premium *string `json:"premium,omitempty" xml:"premium,omitempty" require:"true"`
+	// 保险起期 格式：yyyy-MM-dd HH:mm:ss
+	InsureStart *string `json:"insure_start,omitempty" xml:"insure_start,omitempty" require:"true"`
+	// 保险止期 格式：yyyy-MM-dd HH:mm:ss
+	InsureEnd *string `json:"insure_end,omitempty" xml:"insure_end,omitempty" require:"true"`
+	// 电子保单URL,公网可以访问的URL
+	PolUrl *string `json:"pol_url,omitempty" xml:"pol_url,omitempty" require:"true"`
+}
+
+func (s NotifyBcliPolicyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyBcliPolicyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyBcliPolicyRequest) SetAuthToken(v string) *NotifyBcliPolicyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *NotifyBcliPolicyRequest) SetProductInstanceId(v string) *NotifyBcliPolicyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *NotifyBcliPolicyRequest) SetTradeNo(v string) *NotifyBcliPolicyRequest {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *NotifyBcliPolicyRequest) SetInsureTradeNo(v string) *NotifyBcliPolicyRequest {
+	s.InsureTradeNo = &v
+	return s
+}
+
+func (s *NotifyBcliPolicyRequest) SetPolicyNo(v string) *NotifyBcliPolicyRequest {
+	s.PolicyNo = &v
+	return s
+}
+
+func (s *NotifyBcliPolicyRequest) SetAmount(v string) *NotifyBcliPolicyRequest {
+	s.Amount = &v
+	return s
+}
+
+func (s *NotifyBcliPolicyRequest) SetPremium(v string) *NotifyBcliPolicyRequest {
+	s.Premium = &v
+	return s
+}
+
+func (s *NotifyBcliPolicyRequest) SetInsureStart(v string) *NotifyBcliPolicyRequest {
+	s.InsureStart = &v
+	return s
+}
+
+func (s *NotifyBcliPolicyRequest) SetInsureEnd(v string) *NotifyBcliPolicyRequest {
+	s.InsureEnd = &v
+	return s
+}
+
+func (s *NotifyBcliPolicyRequest) SetPolUrl(v string) *NotifyBcliPolicyRequest {
+	s.PolUrl = &v
+	return s
+}
+
+type NotifyBcliPolicyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 流水号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+}
+
+func (s NotifyBcliPolicyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyBcliPolicyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyBcliPolicyResponse) SetReqMsgId(v string) *NotifyBcliPolicyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *NotifyBcliPolicyResponse) SetResultCode(v string) *NotifyBcliPolicyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *NotifyBcliPolicyResponse) SetResultMsg(v string) *NotifyBcliPolicyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *NotifyBcliPolicyResponse) SetTradeNo(v string) *NotifyBcliPolicyResponse {
+	s.TradeNo = &v
+	return s
+}
+
+type ApplyBcliInsuranceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 投保流水号，格式：日期_身份标识_全局唯一序号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true"`
+	// 保司编码,CPIC_SHENZHEN-太保深分
+	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true"`
+	// 保险产品编码,Pbins-动力电池延保保险产品编码
+	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true"`
+	// 投保人名称
+	TbrName *string `json:"tbr_name,omitempty" xml:"tbr_name,omitempty" require:"true"`
+	// 投保人证件类型，01-居民身份证、03-营业执照
+	TbrIdType *string `json:"tbr_id_type,omitempty" xml:"tbr_id_type,omitempty" require:"true"`
+	// 投保人证件号码
+	TbrIdNo *string `json:"tbr_id_no,omitempty" xml:"tbr_id_no,omitempty" require:"true"`
+	// 投保人联系地址
+	TbrAddr *string `json:"tbr_addr,omitempty" xml:"tbr_addr,omitempty" require:"true"`
+	// 被保人名称
+	BbrName *string `json:"bbr_name,omitempty" xml:"bbr_name,omitempty" require:"true"`
+	// 01-居民身份证、03-营业执照
+	BbrIdType *string `json:"bbr_id_type,omitempty" xml:"bbr_id_type,omitempty" require:"true"`
+	// 被保人证件号码
+	BbrIdNo *string `json:"bbr_id_no,omitempty" xml:"bbr_id_no,omitempty" require:"true"`
+	// 被保人联系地址
+	BbrAddr *string `json:"bbr_addr,omitempty" xml:"bbr_addr,omitempty" require:"true"`
+	// 投保方案ID，battery202501
+	SchemeName *string `json:"scheme_name,omitempty" xml:"scheme_name,omitempty" require:"true"`
+	// 保额，金额人民币元，整数
+	InsuredAmount *string `json:"insured_amount,omitempty" xml:"insured_amount,omitempty" require:"true"`
+	// 客户所期待的保险起期，实际保司出单以保司出具的信息为准，格式：YYYY-MM-DD HH:MM:SS
+	InsureStart *string `json:"insure_start,omitempty" xml:"insure_start,omitempty"`
+	// 客户所期待的保险止期，实际保司出单以保司出具的信息为准,格式：YYYY-MM-DD HH:MM:SS
+	InsureEnd *string `json:"insure_end,omitempty" xml:"insure_end,omitempty"`
+	// 邮箱地址，用于保司回传科技公司电子保单
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+	// 保险期限内电池容量允许衰减程度
+	BcdaPt *string `json:"bcda_pt,omitempty" xml:"bcda_pt,omitempty" require:"true"`
+	// 车牌号码
+	VehiclePlate *string `json:"vehicle_plate,omitempty" xml:"vehicle_plate,omitempty" require:"true"`
+	// 车架号
+	Vin *string `json:"vin,omitempty" xml:"vin,omitempty" require:"true"`
+	// 车辆初登日期  格式：YYYY-MM-DD
+	VehicleRegistDate *string `json:"vehicle_regist_date,omitempty" xml:"vehicle_regist_date,omitempty" require:"true"`
+	// 行驶证发证日期,格式：YYYY-MM-DD
+	LicenseDate *string `json:"license_date,omitempty" xml:"license_date,omitempty" require:"true"`
+	// 车辆使用性质,01-企业非营业用车、02出租车、03租赁车、04家庭自用车、05党政机关用车、06事业团体用车、07城市公交、08公路客运、09营运货车、10营业特种车
+	VehicleUsage *string `json:"vehicle_usage,omitempty" xml:"vehicle_usage,omitempty" require:"true"`
+	// 投保车辆实际价值（元）,金额人民币元，精确到小数点后2位
+	VehiclePrice *string `json:"vehicle_price,omitempty" xml:"vehicle_price,omitempty" require:"true"`
+	// 投保车龄（月）
+	VehicleAge *string `json:"vehicle_age,omitempty" xml:"vehicle_age,omitempty" require:"true"`
+	// 行驶证图片信息url
+	LicensePicture *string `json:"license_picture,omitempty" xml:"license_picture,omitempty" require:"true"`
+	// 动力电池编码（ID),动力电池包的唯一标识
+	BatteryCode *string `json:"battery_code,omitempty" xml:"battery_code,omitempty" require:"true"`
+	// 动力电池铭牌照片url
+	BatteryNameplatePicture *string `json:"battery_nameplate_picture,omitempty" xml:"battery_nameplate_picture,omitempty" require:"true"`
+}
+
+func (s ApplyBcliInsuranceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyBcliInsuranceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyBcliInsuranceRequest) SetAuthToken(v string) *ApplyBcliInsuranceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetProductInstanceId(v string) *ApplyBcliInsuranceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetTradeNo(v string) *ApplyBcliInsuranceRequest {
+	s.TradeNo = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetExternalChannelCode(v string) *ApplyBcliInsuranceRequest {
+	s.ExternalChannelCode = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetExternalProductCode(v string) *ApplyBcliInsuranceRequest {
+	s.ExternalProductCode = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetTbrName(v string) *ApplyBcliInsuranceRequest {
+	s.TbrName = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetTbrIdType(v string) *ApplyBcliInsuranceRequest {
+	s.TbrIdType = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetTbrIdNo(v string) *ApplyBcliInsuranceRequest {
+	s.TbrIdNo = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetTbrAddr(v string) *ApplyBcliInsuranceRequest {
+	s.TbrAddr = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetBbrName(v string) *ApplyBcliInsuranceRequest {
+	s.BbrName = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetBbrIdType(v string) *ApplyBcliInsuranceRequest {
+	s.BbrIdType = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetBbrIdNo(v string) *ApplyBcliInsuranceRequest {
+	s.BbrIdNo = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetBbrAddr(v string) *ApplyBcliInsuranceRequest {
+	s.BbrAddr = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetSchemeName(v string) *ApplyBcliInsuranceRequest {
+	s.SchemeName = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetInsuredAmount(v string) *ApplyBcliInsuranceRequest {
+	s.InsuredAmount = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetInsureStart(v string) *ApplyBcliInsuranceRequest {
+	s.InsureStart = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetInsureEnd(v string) *ApplyBcliInsuranceRequest {
+	s.InsureEnd = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetEmail(v string) *ApplyBcliInsuranceRequest {
+	s.Email = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetBcdaPt(v string) *ApplyBcliInsuranceRequest {
+	s.BcdaPt = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetVehiclePlate(v string) *ApplyBcliInsuranceRequest {
+	s.VehiclePlate = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetVin(v string) *ApplyBcliInsuranceRequest {
+	s.Vin = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetVehicleRegistDate(v string) *ApplyBcliInsuranceRequest {
+	s.VehicleRegistDate = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetLicenseDate(v string) *ApplyBcliInsuranceRequest {
+	s.LicenseDate = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetVehicleUsage(v string) *ApplyBcliInsuranceRequest {
+	s.VehicleUsage = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetVehiclePrice(v string) *ApplyBcliInsuranceRequest {
+	s.VehiclePrice = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetVehicleAge(v string) *ApplyBcliInsuranceRequest {
+	s.VehicleAge = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetLicensePicture(v string) *ApplyBcliInsuranceRequest {
+	s.LicensePicture = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetBatteryCode(v string) *ApplyBcliInsuranceRequest {
+	s.BatteryCode = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetBatteryNameplatePicture(v string) *ApplyBcliInsuranceRequest {
+	s.BatteryNameplatePicture = &v
+	return s
+}
+
+type ApplyBcliInsuranceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求ID
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+}
+
+func (s ApplyBcliInsuranceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyBcliInsuranceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyBcliInsuranceResponse) SetReqMsgId(v string) *ApplyBcliInsuranceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceResponse) SetResultCode(v string) *ApplyBcliInsuranceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceResponse) SetResultMsg(v string) *ApplyBcliInsuranceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceResponse) SetTradeNo(v string) *ApplyBcliInsuranceResponse {
+	s.TradeNo = &v
 	return s
 }
 
@@ -30648,7 +31019,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.14"),
+				"sdk_version":      tea.String("1.7.21"),
 				"_prod_code":       tea.String("SHUZIWULIU"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -34511,6 +34882,74 @@ func (client *Client) UpdateInsuranceMaterialEx(request *UpdateInsuranceMaterial
 	}
 	_result = &UpdateInsuranceMaterialResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.insurance.material.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 动力电池投保保司回传保单信息接口
+ * Summary: 动力电池投保保司回传保单信息接口
+ */
+func (client *Client) NotifyBcliPolicy(request *NotifyBcliPolicyRequest) (_result *NotifyBcliPolicyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &NotifyBcliPolicyResponse{}
+	_body, _err := client.NotifyBcliPolicyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 动力电池投保保司回传保单信息接口
+ * Summary: 动力电池投保保司回传保单信息接口
+ */
+func (client *Client) NotifyBcliPolicyEx(request *NotifyBcliPolicyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyBcliPolicyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &NotifyBcliPolicyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.bcli.policy.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 动力电池投保接口
+ * Summary: 动力电池投保接口
+ */
+func (client *Client) ApplyBcliInsurance(request *ApplyBcliInsuranceRequest) (_result *ApplyBcliInsuranceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyBcliInsuranceResponse{}
+	_body, _err := client.ApplyBcliInsuranceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 动力电池投保接口
+ * Summary: 动力电池投保接口
+ */
+func (client *Client) ApplyBcliInsuranceEx(request *ApplyBcliInsuranceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyBcliInsuranceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyBcliInsuranceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("digital.logistic.bcli.insurance.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
