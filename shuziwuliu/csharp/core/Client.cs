@@ -137,7 +137,7 @@ namespace AntChain.SDK.SHUZIWULIU
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.14"},
+                        {"sdk_version", "1.7.21"},
                         {"_prod_code", "SHUZIWULIU"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SHUZIWULIU
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.14"},
+                        {"sdk_version", "1.7.21"},
                         {"_prod_code", "SHUZIWULIU"},
                         {"_prod_channel", "undefined"},
                     };
@@ -5031,6 +5031,90 @@ namespace AntChain.SDK.SHUZIWULIU
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UpdateInsuranceMaterialResponse>(await DoRequestAsync("1.0", "digital.logistic.insurance.material.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 动力电池投保保司回传保单信息接口
+         * Summary: 动力电池投保保司回传保单信息接口
+         */
+        public NotifyBcliPolicyResponse NotifyBcliPolicy(NotifyBcliPolicyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return NotifyBcliPolicyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 动力电池投保保司回传保单信息接口
+         * Summary: 动力电池投保保司回传保单信息接口
+         */
+        public async Task<NotifyBcliPolicyResponse> NotifyBcliPolicyAsync(NotifyBcliPolicyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await NotifyBcliPolicyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 动力电池投保保司回传保单信息接口
+         * Summary: 动力电池投保保司回传保单信息接口
+         */
+        public NotifyBcliPolicyResponse NotifyBcliPolicyEx(NotifyBcliPolicyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyBcliPolicyResponse>(DoRequest("1.0", "digital.logistic.bcli.policy.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 动力电池投保保司回传保单信息接口
+         * Summary: 动力电池投保保司回传保单信息接口
+         */
+        public async Task<NotifyBcliPolicyResponse> NotifyBcliPolicyExAsync(NotifyBcliPolicyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyBcliPolicyResponse>(await DoRequestAsync("1.0", "digital.logistic.bcli.policy.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 动力电池投保接口
+         * Summary: 动力电池投保接口
+         */
+        public ApplyBcliInsuranceResponse ApplyBcliInsurance(ApplyBcliInsuranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyBcliInsuranceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 动力电池投保接口
+         * Summary: 动力电池投保接口
+         */
+        public async Task<ApplyBcliInsuranceResponse> ApplyBcliInsuranceAsync(ApplyBcliInsuranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyBcliInsuranceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 动力电池投保接口
+         * Summary: 动力电池投保接口
+         */
+        public ApplyBcliInsuranceResponse ApplyBcliInsuranceEx(ApplyBcliInsuranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyBcliInsuranceResponse>(DoRequest("1.0", "digital.logistic.bcli.insurance.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 动力电池投保接口
+         * Summary: 动力电池投保接口
+         */
+        public async Task<ApplyBcliInsuranceResponse> ApplyBcliInsuranceExAsync(ApplyBcliInsuranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyBcliInsuranceResponse>(await DoRequestAsync("1.0", "digital.logistic.bcli.insurance.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

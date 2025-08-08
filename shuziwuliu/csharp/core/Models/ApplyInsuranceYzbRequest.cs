@@ -24,12 +24,12 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         // 其他编码建议为随机值。
         // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
         [NameInMap("trade_no")]
-        [Validation(Required=true, MaxLength=50)]
+        [Validation(Required=true, MaxLength=64)]
         public string TradeNo { get; set; }
 
-        // 保司编码，PAIC---平安、CPIC---太保
+        // 保司编码，PAIC---平安广分、CPIC---太保深分，CPIC_SUZHOU-太保苏分
         [NameInMap("external_channel_code")]
-        [Validation(Required=true, MaxLength=10)]
+        [Validation(Required=true, MaxLength=32)]
         public string ExternalChannelCode { get; set; }
 
         // 险种编码，05-驿站宝

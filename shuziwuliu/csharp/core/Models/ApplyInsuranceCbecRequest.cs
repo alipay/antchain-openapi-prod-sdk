@@ -34,7 +34,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 险种编码，03--跨境出口货运险
         [NameInMap("external_product_code")]
-        [Validation(Required=true, MaxLength=64)]
+        [Validation(Required=true, MaxLength=2)]
         public string ExternalProductCode { get; set; }
 
         // 投保人名称
