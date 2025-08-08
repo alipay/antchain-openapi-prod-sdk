@@ -3467,7 +3467,7 @@ type NotifyInterestScenesubjectRequest struct {
 	// 产品编码
 	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
 	// 申请审批额度，单位元
-	ApplyLimitAmount *string `json:"apply_limit_amount,omitempty" xml:"apply_limit_amount,omitempty" require:"true"`
+	ApplyLimitAmount *string `json:"apply_limit_amount,omitempty" xml:"apply_limit_amount,omitempty"`
 	// 申请额度审批状态
 	ApplyLimitStatus *string `json:"apply_limit_status,omitempty" xml:"apply_limit_status,omitempty" require:"true"`
 	// 权益标的信息,JSON字符串
@@ -3727,7 +3727,7 @@ type GetInterestUrlRequest struct {
 	// 用户身份证，明文
 	TbrIdCard *string `json:"tbr_id_card,omitempty" xml:"tbr_id_card,omitempty" require:"true"`
 	// 场景方信息,JSON字符串
-	SceneInfo *string `json:"scene_info,omitempty" xml:"scene_info,omitempty" require:"true"`
+	SceneInfo *string `json:"scene_info,omitempty" xml:"scene_info,omitempty"`
 }
 
 func (s GetInterestUrlRequest) String() string {
@@ -4140,7 +4140,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.0"),
+				"sdk_version":      tea.String("1.10.1"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
