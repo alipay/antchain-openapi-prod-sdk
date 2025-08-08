@@ -13748,7 +13748,7 @@ export class ApplyInsuranceYzbRequest extends $tea.Model {
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string;
-  // 保司编码，PAIC---平安、CPIC---太保
+  // 保司编码，PAIC---平安广分、CPIC---太保深分，CPIC_SUZHOU-太保苏分
   externalChannelCode: string;
   // 险种编码，05-驿站宝
   externalProductCode: string;
@@ -15571,6 +15571,256 @@ export class UpdateInsuranceMaterialResponse extends $tea.Model {
       resultMsg: 'string',
       tradeNo: 'string',
       reportNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyBcliPolicyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务流水号,格式：日期_身份标识_全局唯一序号
+  tradeNo: string;
+  // 投保流水号，用于关联保单
+  insureTradeNo: string;
+  // 保单号
+  policyNo: string;
+  // 保额，金额人民币元，精确到小数点后2位
+  amount: string;
+  // 保费，金额人民币元，精确到小数点后2位
+  premium: string;
+  // 保险起期 格式：yyyy-MM-dd HH:mm:ss
+  insureStart: string;
+  // 保险止期 格式：yyyy-MM-dd HH:mm:ss
+  insureEnd: string;
+  // 电子保单URL,公网可以访问的URL
+  polUrl: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tradeNo: 'trade_no',
+      insureTradeNo: 'insure_trade_no',
+      policyNo: 'policy_no',
+      amount: 'amount',
+      premium: 'premium',
+      insureStart: 'insure_start',
+      insureEnd: 'insure_end',
+      polUrl: 'pol_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tradeNo: 'string',
+      insureTradeNo: 'string',
+      policyNo: 'string',
+      amount: 'string',
+      premium: 'string',
+      insureStart: 'string',
+      insureEnd: 'string',
+      polUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyBcliPolicyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 流水号
+  tradeNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tradeNo: 'trade_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tradeNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyBcliInsuranceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 投保流水号，格式：日期_身份标识_全局唯一序号
+  tradeNo: string;
+  // 保司编码,CPIC_SHENZHEN-太保深分
+  externalChannelCode: string;
+  // 保险产品编码,Pbins-动力电池延保保险产品编码
+  externalProductCode: string;
+  // 投保人名称
+  tbrName: string;
+  // 投保人证件类型，01-居民身份证、03-营业执照
+  tbrIdType: string;
+  // 投保人证件号码
+  tbrIdNo: string;
+  // 投保人联系地址
+  tbrAddr: string;
+  // 被保人名称
+  bbrName: string;
+  // 01-居民身份证、03-营业执照
+  bbrIdType: string;
+  // 被保人证件号码
+  bbrIdNo: string;
+  // 被保人联系地址
+  bbrAddr: string;
+  // 投保方案ID，battery202501
+  schemeName: string;
+  // 保额，金额人民币元，整数
+  insuredAmount: string;
+  // 客户所期待的保险起期，实际保司出单以保司出具的信息为准，格式：YYYY-MM-DD HH:MM:SS
+  insureStart?: string;
+  // 客户所期待的保险止期，实际保司出单以保司出具的信息为准,格式：YYYY-MM-DD HH:MM:SS
+  insureEnd?: string;
+  // 邮箱地址，用于保司回传科技公司电子保单
+  email?: string;
+  // 保险期限内电池容量允许衰减程度
+  bcdaPt: string;
+  // 车牌号码
+  vehiclePlate: string;
+  // 车架号
+  vin: string;
+  // 车辆初登日期  格式：YYYY-MM-DD
+  vehicleRegistDate: string;
+  // 行驶证发证日期,格式：YYYY-MM-DD
+  licenseDate: string;
+  // 车辆使用性质,01-企业非营业用车、02出租车、03租赁车、04家庭自用车、05党政机关用车、06事业团体用车、07城市公交、08公路客运、09营运货车、10营业特种车
+  vehicleUsage: string;
+  // 投保车辆实际价值（元）,金额人民币元，精确到小数点后2位
+  vehiclePrice: string;
+  // 投保车龄（月）
+  vehicleAge: string;
+  // 行驶证图片信息url
+  licensePicture: string;
+  // 动力电池编码（ID),动力电池包的唯一标识
+  batteryCode: string;
+  // 动力电池铭牌照片url
+  batteryNameplatePicture: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tradeNo: 'trade_no',
+      externalChannelCode: 'external_channel_code',
+      externalProductCode: 'external_product_code',
+      tbrName: 'tbr_name',
+      tbrIdType: 'tbr_id_type',
+      tbrIdNo: 'tbr_id_no',
+      tbrAddr: 'tbr_addr',
+      bbrName: 'bbr_name',
+      bbrIdType: 'bbr_id_type',
+      bbrIdNo: 'bbr_id_no',
+      bbrAddr: 'bbr_addr',
+      schemeName: 'scheme_name',
+      insuredAmount: 'insured_amount',
+      insureStart: 'insure_start',
+      insureEnd: 'insure_end',
+      email: 'email',
+      bcdaPt: 'bcda_pt',
+      vehiclePlate: 'vehicle_plate',
+      vin: 'vin',
+      vehicleRegistDate: 'vehicle_regist_date',
+      licenseDate: 'license_date',
+      vehicleUsage: 'vehicle_usage',
+      vehiclePrice: 'vehicle_price',
+      vehicleAge: 'vehicle_age',
+      licensePicture: 'license_picture',
+      batteryCode: 'battery_code',
+      batteryNameplatePicture: 'battery_nameplate_picture',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tradeNo: 'string',
+      externalChannelCode: 'string',
+      externalProductCode: 'string',
+      tbrName: 'string',
+      tbrIdType: 'string',
+      tbrIdNo: 'string',
+      tbrAddr: 'string',
+      bbrName: 'string',
+      bbrIdType: 'string',
+      bbrIdNo: 'string',
+      bbrAddr: 'string',
+      schemeName: 'string',
+      insuredAmount: 'string',
+      insureStart: 'string',
+      insureEnd: 'string',
+      email: 'string',
+      bcdaPt: 'string',
+      vehiclePlate: 'string',
+      vin: 'string',
+      vehicleRegistDate: 'string',
+      licenseDate: 'string',
+      vehicleUsage: 'string',
+      vehiclePrice: 'string',
+      vehicleAge: 'string',
+      licensePicture: 'string',
+      batteryCode: 'string',
+      batteryNameplatePicture: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyBcliInsuranceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求ID
+  tradeNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tradeNo: 'trade_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tradeNo: 'string',
     };
   }
 
@@ -21650,7 +21900,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.14",
+          sdk_version: "1.7.21",
           _prod_code: "SHUZIWULIU",
           _prod_channel: "undefined",
         };
@@ -23828,6 +24078,44 @@ export default class Client {
   async updateInsuranceMaterialEx(request: UpdateInsuranceMaterialRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateInsuranceMaterialResponse> {
     Util.validateModel(request);
     return $tea.cast<UpdateInsuranceMaterialResponse>(await this.doRequest("1.0", "digital.logistic.insurance.material.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateInsuranceMaterialResponse({}));
+  }
+
+  /**
+   * Description: 动力电池投保保司回传保单信息接口
+   * Summary: 动力电池投保保司回传保单信息接口
+   */
+  async notifyBcliPolicy(request: NotifyBcliPolicyRequest): Promise<NotifyBcliPolicyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.notifyBcliPolicyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 动力电池投保保司回传保单信息接口
+   * Summary: 动力电池投保保司回传保单信息接口
+   */
+  async notifyBcliPolicyEx(request: NotifyBcliPolicyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyBcliPolicyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<NotifyBcliPolicyResponse>(await this.doRequest("1.0", "digital.logistic.bcli.policy.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyBcliPolicyResponse({}));
+  }
+
+  /**
+   * Description: 动力电池投保接口
+   * Summary: 动力电池投保接口
+   */
+  async applyBcliInsurance(request: ApplyBcliInsuranceRequest): Promise<ApplyBcliInsuranceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyBcliInsuranceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 动力电池投保接口
+   * Summary: 动力电池投保接口
+   */
+  async applyBcliInsuranceEx(request: ApplyBcliInsuranceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyBcliInsuranceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyBcliInsuranceResponse>(await this.doRequest("1.0", "digital.logistic.bcli.insurance.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyBcliInsuranceResponse({}));
   }
 
   /**
