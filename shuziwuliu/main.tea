@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.14',
+    sdk_version = '1.7.21',
     _prod_code = 'SHUZIWULIU',
     _prod_channel = 'undefined'
   };
@@ -7226,7 +7226,7 @@ model ApplyInsuranceCbecRequest = {
   // 保司编码，CPIC---太保
   externalChannelCode: string(maxLength=64, name='external_channel_code'),
   // 险种编码，03--跨境出口货运险
-  externalProductCode: string(maxLength=64, name='external_product_code'),
+  externalProductCode: string(maxLength=2, name='external_product_code'),
   // 投保人名称
   tbrName: string(maxLength=100, name='tbr_name'),
   // 投保人证件类型，03--营业执照
@@ -7715,9 +7715,9 @@ model ApplyInsuranceYzbRequest = {
   // 身份标识可自定义。
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
-  tradeNo: string(maxLength=50, name='trade_no'),
-  // 保司编码，PAIC---平安、CPIC---太保
-  externalChannelCode: string(maxLength=10, name='external_channel_code'),
+  tradeNo: string(maxLength=64, name='trade_no'),
+  // 保司编码，PAIC---平安广分、CPIC---太保深分，CPIC_SUZHOU-太保苏分
+  externalChannelCode: string(maxLength=32, name='external_channel_code'),
   // 险种编码，05-驿站宝
   externalProductCode: string(maxLength=2, name='external_product_code'),
   // 投保人姓名，保险协议中的投保人全称
@@ -8764,6 +8764,148 @@ async function updateInsuranceMaterial(request: UpdateInsuranceMaterialRequest):
 async function updateInsuranceMaterialEx(request: UpdateInsuranceMaterialRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateInsuranceMaterialResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'digital.logistic.insurance.material.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyBcliPolicyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务流水号,格式：日期_身份标识_全局唯一序号
+  tradeNo: string(name='trade_no'),
+  // 投保流水号，用于关联保单
+  insureTradeNo: string(name='insure_trade_no'),
+  // 保单号
+  policyNo: string(name='policy_no'),
+  // 保额，金额人民币元，精确到小数点后2位
+  amount: string(name='amount'),
+  // 保费，金额人民币元，精确到小数点后2位
+  premium: string(name='premium'),
+  // 保险起期 格式：yyyy-MM-dd HH:mm:ss
+  insureStart: string(name='insure_start'),
+  // 保险止期 格式：yyyy-MM-dd HH:mm:ss
+  insureEnd: string(name='insure_end'),
+  // 电子保单URL,公网可以访问的URL
+  polUrl: string(name='pol_url'),
+}
+
+model NotifyBcliPolicyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 流水号
+  tradeNo?: string(name='trade_no'),
+}
+
+/**
+ * Description: 动力电池投保保司回传保单信息接口
+ * Summary: 动力电池投保保司回传保单信息接口
+ */
+async function notifyBcliPolicy(request: NotifyBcliPolicyRequest): NotifyBcliPolicyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyBcliPolicyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 动力电池投保保司回传保单信息接口
+ * Summary: 动力电池投保保司回传保单信息接口
+ */
+async function notifyBcliPolicyEx(request: NotifyBcliPolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyBcliPolicyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.bcli.policy.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyBcliInsuranceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 投保流水号，格式：日期_身份标识_全局唯一序号
+  tradeNo: string(name='trade_no'),
+  // 保司编码,CPIC_SHENZHEN-太保深分
+  externalChannelCode: string(name='external_channel_code'),
+  // 保险产品编码,Pbins-动力电池延保保险产品编码
+  externalProductCode: string(name='external_product_code'),
+  // 投保人名称
+  tbrName: string(name='tbr_name'),
+  // 投保人证件类型，01-居民身份证、03-营业执照
+  tbrIdType: string(name='tbr_id_type'),
+  // 投保人证件号码
+  tbrIdNo: string(name='tbr_id_no'),
+  // 投保人联系地址
+  tbrAddr: string(name='tbr_addr'),
+  // 被保人名称
+  bbrName: string(name='bbr_name'),
+  // 01-居民身份证、03-营业执照
+  bbrIdType: string(name='bbr_id_type'),
+  // 被保人证件号码
+  bbrIdNo: string(name='bbr_id_no'),
+  // 被保人联系地址
+  bbrAddr: string(name='bbr_addr'),
+  // 投保方案ID，battery202501
+  schemeName: string(name='scheme_name'),
+  // 保额，金额人民币元，整数
+  insuredAmount: string(name='insured_amount'),
+  // 客户所期待的保险起期，实际保司出单以保司出具的信息为准，格式：YYYY-MM-DD HH:MM:SS
+  insureStart?: string(name='insure_start'),
+  // 客户所期待的保险止期，实际保司出单以保司出具的信息为准,格式：YYYY-MM-DD HH:MM:SS
+  insureEnd?: string(name='insure_end'),
+  // 邮箱地址，用于保司回传科技公司电子保单
+  email?: string(name='email'),
+  // 保险期限内电池容量允许衰减程度
+  bcdaPt: string(name='bcda_pt'),
+  // 车牌号码
+  vehiclePlate: string(name='vehicle_plate'),
+  // 车架号
+  vin: string(name='vin'),
+  // 车辆初登日期  格式：YYYY-MM-DD
+  vehicleRegistDate: string(name='vehicle_regist_date'),
+  // 行驶证发证日期,格式：YYYY-MM-DD
+  licenseDate: string(name='license_date'),
+  // 车辆使用性质,01-企业非营业用车、02出租车、03租赁车、04家庭自用车、05党政机关用车、06事业团体用车、07城市公交、08公路客运、09营运货车、10营业特种车
+  vehicleUsage: string(name='vehicle_usage'),
+  // 投保车辆实际价值（元）,金额人民币元，精确到小数点后2位
+  vehiclePrice: string(name='vehicle_price'),
+  // 投保车龄（月）
+  vehicleAge: string(name='vehicle_age'),
+  // 行驶证图片信息url
+  licensePicture: string(name='license_picture'),
+  // 动力电池编码（ID),动力电池包的唯一标识
+  batteryCode: string(name='battery_code'),
+  // 动力电池铭牌照片url
+  batteryNameplatePicture: string(name='battery_nameplate_picture'),
+}
+
+model ApplyBcliInsuranceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求ID
+  tradeNo?: string(name='trade_no'),
+}
+
+/**
+ * Description: 动力电池投保接口
+ * Summary: 动力电池投保接口
+ */
+async function applyBcliInsurance(request: ApplyBcliInsuranceRequest): ApplyBcliInsuranceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyBcliInsuranceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 动力电池投保接口
+ * Summary: 动力电池投保接口
+ */
+async function applyBcliInsuranceEx(request: ApplyBcliInsuranceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyBcliInsuranceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.bcli.insurance.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PushAuthSigninfoRequest = {
