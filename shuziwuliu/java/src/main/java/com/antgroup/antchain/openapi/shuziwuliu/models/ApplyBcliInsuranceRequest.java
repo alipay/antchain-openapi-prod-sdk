@@ -143,6 +143,11 @@ public class ApplyBcliInsuranceRequest extends TeaModel {
     @Validation(required = true)
     public String batteryNameplatePicture;
 
+    // 动力电池包外观照片地址
+    @NameInMap("battery_pack_photo_file")
+    @Validation(required = true)
+    public String batteryPackPhotoFile;
+
     public static ApplyBcliInsuranceRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyBcliInsuranceRequest self = new ApplyBcliInsuranceRequest();
         return TeaModel.build(map, self);
@@ -378,6 +383,14 @@ public class ApplyBcliInsuranceRequest extends TeaModel {
     }
     public String getBatteryNameplatePicture() {
         return this.batteryNameplatePicture;
+    }
+
+    public ApplyBcliInsuranceRequest setBatteryPackPhotoFile(String batteryPackPhotoFile) {
+        this.batteryPackPhotoFile = batteryPackPhotoFile;
+        return this;
+    }
+    public String getBatteryPackPhotoFile() {
+        return this.batteryPackPhotoFile;
     }
 
 }

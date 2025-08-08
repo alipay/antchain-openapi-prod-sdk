@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-shuziwuliu</artifactId>
-  <version>1.7.21</version>
+  <version>1.7.22</version>
   <packaging>jar</packaging>
   <name>openapi-shuziwuliu</name>
   <description>Ant Chain SHUZIWULIU SDK for Java
