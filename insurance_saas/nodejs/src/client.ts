@@ -2527,7 +2527,7 @@ export class NotifyInterestScenesubjectRequest extends $tea.Model {
   // 产品编码
   productCode: string;
   // 申请审批额度，单位元
-  applyLimitAmount: string;
+  applyLimitAmount?: string;
   // 申请额度审批状态
   applyLimitStatus: string;
   // 权益标的信息,JSON字符串
@@ -2739,7 +2739,7 @@ export class GetInterestUrlRequest extends $tea.Model {
   // 用户身份证，明文
   tbrIdCard: string;
   // 场景方信息,JSON字符串
-  sceneInfo: string;
+  sceneInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -3068,7 +3068,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.10.0",
+          sdk_version: "1.10.1",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
