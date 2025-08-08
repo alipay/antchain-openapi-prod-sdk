@@ -31,7 +31,7 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
 
         // 申请审批额度，单位元
         [NameInMap("apply_limit_amount")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ApplyLimitAmount { get; set; }
 
         // 申请额度审批状态

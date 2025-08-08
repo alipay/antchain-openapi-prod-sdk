@@ -58,7 +58,7 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
 
         // 场景方信息,JSON字符串
         [NameInMap("scene_info")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string SceneInfo { get; set; }
 
     }
