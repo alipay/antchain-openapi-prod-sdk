@@ -22241,6 +22241,8 @@ type ApplyBcliInsuranceRequest struct {
 	BatteryCode *string `json:"battery_code,omitempty" xml:"battery_code,omitempty" require:"true"`
 	// 动力电池铭牌照片url
 	BatteryNameplatePicture *string `json:"battery_nameplate_picture,omitempty" xml:"battery_nameplate_picture,omitempty" require:"true"`
+	// 动力电池包外观照片地址
+	BatteryPackPhotoFile *string `json:"battery_pack_photo_file,omitempty" xml:"battery_pack_photo_file,omitempty" require:"true"`
 }
 
 func (s ApplyBcliInsuranceRequest) String() string {
@@ -22393,6 +22395,11 @@ func (s *ApplyBcliInsuranceRequest) SetBatteryCode(v string) *ApplyBcliInsurance
 
 func (s *ApplyBcliInsuranceRequest) SetBatteryNameplatePicture(v string) *ApplyBcliInsuranceRequest {
 	s.BatteryNameplatePicture = &v
+	return s
+}
+
+func (s *ApplyBcliInsuranceRequest) SetBatteryPackPhotoFile(v string) *ApplyBcliInsuranceRequest {
+	s.BatteryPackPhotoFile = &v
 	return s
 }
 
@@ -31019,7 +31026,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.21"),
+				"sdk_version":      tea.String("1.7.22"),
 				"_prod_code":       tea.String("SHUZIWULIU"),
 				"_prod_channel":    tea.String("undefined"),
 			}
