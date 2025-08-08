@@ -153,6 +153,11 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true)]
         public string BatteryNameplatePicture { get; set; }
 
+        // 动力电池包外观照片地址
+        [NameInMap("battery_pack_photo_file")]
+        [Validation(Required=true)]
+        public string BatteryPackPhotoFile { get; set; }
+
     }
 
 }
