@@ -25,7 +25,6 @@ public class NotifyInterestScenesubjectRequest extends TeaModel {
 
     // 申请审批额度，单位元
     @NameInMap("apply_limit_amount")
-    @Validation(required = true)
     public String applyLimitAmount;
 
     // 申请额度审批状态

@@ -51,7 +51,6 @@ public class GetInterestUrlRequest extends TeaModel {
 
     // 场景方信息,JSON字符串
     @NameInMap("scene_info")
-    @Validation(required = true)
     public String sceneInfo;
 
     public static GetInterestUrlRequest build(java.util.Map<String, ?> map) throws Exception {
