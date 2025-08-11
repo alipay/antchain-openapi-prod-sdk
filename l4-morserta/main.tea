@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '3.0.4',
+    sdk_version = '4.0.0',
     _prod_code = 'MORSERTA',
     _prod_channel = 'default'
   };
@@ -207,8 +207,8 @@ model ConvertAdDataRequest = {
   authToken?: string(name='auth_token'),
   // 广告主id
   accountId: long(name='account_id'),
-  // ios/android
-  deviceOsType?: string(name='device_os_type'),
+  // ios/android/web
+  deviceOsType: string(name='device_os_type'),
   // 设备ID（imei或idfa的加密值）
   muid?: string(name='muid'),
   // 点击ID
@@ -219,8 +219,8 @@ model ConvertAdDataRequest = {
   impressionTime?: long(name='impression_time'),
   // 手机号MD5
   mobileMd5?: string(name='mobile_md5'),
-  // 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
-  platform?: string(name='platform'),
+  // 区分投放渠道来源guangdiantong/oceanengine
+  platform: string(name='platform'),
   // 事件类型，枚举值如下：
   // submit-提交表单
   // pay-付费
@@ -260,6 +260,12 @@ model ConvertAdDataRequest = {
   loanAmount?: string(name='loan_amount'),
   // 扩展json
   ext?: string(name='ext'),
+  // 手机号原值
+  mobile?: string(name='mobile'),
+  // 业务事件id, 用于唯一标识当前事件，如下单事件的订单id等
+  outEventId?: string(name='out_event_id'),
+  // android_id md5值
+  androidIdMd5?: string(name='android_id_md5'),
 }
 
 model ConvertAdDataResponse = {
