@@ -19,9 +19,9 @@ namespace AntChain.SDK.MORSERTA.Models
         [Validation(Required=true)]
         public long? AccountId { get; set; }
 
-        // ios/android
+        // ios/android/web
         [NameInMap("device_os_type")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string DeviceOsType { get; set; }
 
         // 设备ID（imei或idfa的加密值）
@@ -49,9 +49,9 @@ namespace AntChain.SDK.MORSERTA.Models
         [Validation(Required=false)]
         public string MobileMd5 { get; set; }
 
-        // 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
+        // 区分投放渠道来源guangdiantong/oceanengine
         [NameInMap("platform")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string Platform { get; set; }
 
         // 事件类型，枚举值如下：
@@ -143,6 +143,21 @@ namespace AntChain.SDK.MORSERTA.Models
         [NameInMap("ext")]
         [Validation(Required=false)]
         public string Ext { get; set; }
+
+        // 手机号原值
+        [NameInMap("mobile")]
+        [Validation(Required=false)]
+        public string Mobile { get; set; }
+
+        // 业务事件id, 用于唯一标识当前事件，如下单事件的订单id等
+        [NameInMap("out_event_id")]
+        [Validation(Required=false)]
+        public string OutEventId { get; set; }
+
+        // android_id md5值
+        [NameInMap("android_id_md5")]
+        [Validation(Required=false)]
+        public string AndroidIdMd5 { get; set; }
 
     }
 
