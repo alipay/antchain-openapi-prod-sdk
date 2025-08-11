@@ -282,12 +282,15 @@ class ConvertAdDataRequest(TeaModel):
         industry: str = None,
         loan_amount: str = None,
         ext: str = None,
+        mobile: str = None,
+        out_event_id: str = None,
+        android_id_md_5: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         # 广告主id
         self.account_id = account_id
-        # ios/android
+        # ios/android/web
         self.device_os_type = device_os_type
         # 设备ID（imei或idfa的加密值）
         self.muid = muid
@@ -299,7 +302,7 @@ class ConvertAdDataRequest(TeaModel):
         self.impression_time = impression_time
         # 手机号MD5
         self.mobile_md_5 = mobile_md_5
-        # 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
+        # 区分投放渠道来源guangdiantong/oceanengine
         self.platform = platform
         # 事件类型，枚举值如下：
         # submit-提交表单
@@ -340,10 +343,18 @@ class ConvertAdDataRequest(TeaModel):
         self.loan_amount = loan_amount
         # 扩展json
         self.ext = ext
+        # 手机号原值
+        self.mobile = mobile
+        # 业务事件id, 用于唯一标识当前事件，如下单事件的订单id等
+        self.out_event_id = out_event_id
+        # android_id md5值
+        self.android_id_md_5 = android_id_md_5
 
     def validate(self):
         self.validate_required(self.account_id, 'account_id')
+        self.validate_required(self.device_os_type, 'device_os_type')
         self.validate_required(self.click_id, 'click_id')
+        self.validate_required(self.platform, 'platform')
         self.validate_required(self.event_code, 'event_code')
         self.validate_required(self.event_time, 'event_time')
         self.validate_required(self.industry, 'industry')
@@ -406,6 +417,12 @@ class ConvertAdDataRequest(TeaModel):
             result['loan_amount'] = self.loan_amount
         if self.ext is not None:
             result['ext'] = self.ext
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.out_event_id is not None:
+            result['out_event_id'] = self.out_event_id
+        if self.android_id_md_5 is not None:
+            result['android_id_md5'] = self.android_id_md_5
         return result
 
     def from_map(self, m: dict = None):
@@ -462,6 +479,12 @@ class ConvertAdDataRequest(TeaModel):
             self.loan_amount = m.get('loan_amount')
         if m.get('ext') is not None:
             self.ext = m.get('ext')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('out_event_id') is not None:
+            self.out_event_id = m.get('out_event_id')
+        if m.get('android_id_md5') is not None:
+            self.android_id_md_5 = m.get('android_id_md5')
         return self
 
 
