@@ -231,8 +231,8 @@ type ConvertAdDataRequest struct {
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 广告主id
 	AccountId *int64 `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-	// ios/android
-	DeviceOsType *string `json:"device_os_type,omitempty" xml:"device_os_type,omitempty"`
+	// ios/android/web
+	DeviceOsType *string `json:"device_os_type,omitempty" xml:"device_os_type,omitempty" require:"true"`
 	// 设备ID（imei或idfa的加密值）
 	Muid *string `json:"muid,omitempty" xml:"muid,omitempty"`
 	// 点击ID
@@ -243,8 +243,8 @@ type ConvertAdDataRequest struct {
 	ImpressionTime *int64 `json:"impression_time,omitempty" xml:"impression_time,omitempty"`
 	// 手机号MD5
 	MobileMd5 *string `json:"mobile_md5,omitempty" xml:"mobile_md5,omitempty"`
-	// 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
-	Platform *string `json:"platform,omitempty" xml:"platform,omitempty"`
+	// 区分投放渠道来源guangdiantong/oceanengine
+	Platform *string `json:"platform,omitempty" xml:"platform,omitempty" require:"true"`
 	// 事件类型，枚举值如下：
 	// submit-提交表单
 	// pay-付费
@@ -284,6 +284,12 @@ type ConvertAdDataRequest struct {
 	LoanAmount *string `json:"loan_amount,omitempty" xml:"loan_amount,omitempty"`
 	// 扩展json
 	Ext *string `json:"ext,omitempty" xml:"ext,omitempty"`
+	// 手机号原值
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 业务事件id, 用于唯一标识当前事件，如下单事件的订单id等
+	OutEventId *string `json:"out_event_id,omitempty" xml:"out_event_id,omitempty"`
+	// android_id md5值
+	AndroidIdMd5 *string `json:"android_id_md5,omitempty" xml:"android_id_md5,omitempty"`
 }
 
 func (s ConvertAdDataRequest) String() string {
@@ -421,6 +427,21 @@ func (s *ConvertAdDataRequest) SetLoanAmount(v string) *ConvertAdDataRequest {
 
 func (s *ConvertAdDataRequest) SetExt(v string) *ConvertAdDataRequest {
 	s.Ext = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetMobile(v string) *ConvertAdDataRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetOutEventId(v string) *ConvertAdDataRequest {
+	s.OutEventId = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetAndroidIdMd5(v string) *ConvertAdDataRequest {
+	s.AndroidIdMd5 = &v
 	return s
 }
 
@@ -749,7 +770,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("3.0.4"),
+				"sdk_version":      tea.String("4.0.0"),
 				"_prod_code":       tea.String("MORSERTA"),
 				"_prod_channel":    tea.String("default"),
 			}

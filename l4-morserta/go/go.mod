@@ -1,4 +1,4 @@
-module github.com/antchain-openapi-sdk-go/l4-morserta/v3
+module github.com/antchain-openapi-sdk-go/l4-morserta/v4
 
 go 1.15
 
