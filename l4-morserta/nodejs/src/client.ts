@@ -146,8 +146,8 @@ export class ConvertAdDataRequest extends $tea.Model {
   authToken?: string;
   // 广告主id
   accountId: number;
-  // ios/android
-  deviceOsType?: string;
+  // ios/android/web
+  deviceOsType: string;
   // 设备ID（imei或idfa的加密值）
   muid?: string;
   // 点击ID
@@ -158,8 +158,8 @@ export class ConvertAdDataRequest extends $tea.Model {
   impressionTime?: number;
   // 手机号MD5
   mobileMd5?: string;
-  // 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
-  platform?: string;
+  // 区分投放渠道来源guangdiantong/oceanengine
+  platform: string;
   // 事件类型，枚举值如下：
   // submit-提交表单
   // pay-付费
@@ -199,6 +199,12 @@ export class ConvertAdDataRequest extends $tea.Model {
   loanAmount?: string;
   // 扩展json
   ext?: string;
+  // 手机号原值
+  mobile?: string;
+  // 业务事件id, 用于唯一标识当前事件，如下单事件的订单id等
+  outEventId?: string;
+  // android_id md5值
+  androidIdMd5?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -227,6 +233,9 @@ export class ConvertAdDataRequest extends $tea.Model {
       industry: 'industry',
       loanAmount: 'loan_amount',
       ext: 'ext',
+      mobile: 'mobile',
+      outEventId: 'out_event_id',
+      androidIdMd5: 'android_id_md5',
     };
   }
 
@@ -258,6 +267,9 @@ export class ConvertAdDataRequest extends $tea.Model {
       industry: 'string',
       loanAmount: 'string',
       ext: 'string',
+      mobile: 'string',
+      outEventId: 'string',
+      androidIdMd5: 'string',
     };
   }
 
@@ -544,7 +556,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "3.0.4",
+          sdk_version: "4.0.0",
           _prod_code: "MORSERTA",
           _prod_channel: "default",
         };
