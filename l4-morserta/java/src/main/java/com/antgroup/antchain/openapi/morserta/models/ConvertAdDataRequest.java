@@ -13,8 +13,9 @@ public class ConvertAdDataRequest extends TeaModel {
     @Validation(required = true)
     public Long accountId;
 
-    // ios/android
+    // ios/android/web
     @NameInMap("device_os_type")
+    @Validation(required = true)
     public String deviceOsType;
 
     // 设备ID（imei或idfa的加密值）
@@ -38,8 +39,9 @@ public class ConvertAdDataRequest extends TeaModel {
     @NameInMap("mobile_md5")
     public String mobileMd5;
 
-    // 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
+    // 区分投放渠道来源guangdiantong/oceanengine
     @NameInMap("platform")
+    @Validation(required = true)
     public String platform;
 
     // 事件类型，枚举值如下：
@@ -117,6 +119,18 @@ public class ConvertAdDataRequest extends TeaModel {
     // 扩展json
     @NameInMap("ext")
     public String ext;
+
+    // 手机号原值
+    @NameInMap("mobile")
+    public String mobile;
+
+    // 业务事件id, 用于唯一标识当前事件，如下单事件的订单id等
+    @NameInMap("out_event_id")
+    public String outEventId;
+
+    // android_id md5值
+    @NameInMap("android_id_md5")
+    public String androidIdMd5;
 
     public static ConvertAdDataRequest build(java.util.Map<String, ?> map) throws Exception {
         ConvertAdDataRequest self = new ConvertAdDataRequest();
@@ -329,6 +343,30 @@ public class ConvertAdDataRequest extends TeaModel {
     }
     public String getExt() {
         return this.ext;
+    }
+
+    public ConvertAdDataRequest setMobile(String mobile) {
+        this.mobile = mobile;
+        return this;
+    }
+    public String getMobile() {
+        return this.mobile;
+    }
+
+    public ConvertAdDataRequest setOutEventId(String outEventId) {
+        this.outEventId = outEventId;
+        return this;
+    }
+    public String getOutEventId() {
+        return this.outEventId;
+    }
+
+    public ConvertAdDataRequest setAndroidIdMd5(String androidIdMd5) {
+        this.androidIdMd5 = androidIdMd5;
+        return this;
+    }
+    public String getAndroidIdMd5() {
+        return this.androidIdMd5;
     }
 
 }
