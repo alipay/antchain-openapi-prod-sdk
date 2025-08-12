@@ -238,10 +238,13 @@ export class QueryDemoAasSaSaRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // aa
+  notBlankVerify: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      notBlankVerify: 'not_blank_verify',
     };
   }
 
@@ -249,6 +252,7 @@ export class QueryDemoAasSaSaRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      notBlankVerify: 'string',
     };
   }
 
@@ -398,7 +402,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.17",
+          sdk_version: "1.0.19",
           _prod_code: "ak_6f8b0e7502ec49d28cd8ad0e5807bbf9",
           _prod_channel: "saas",
         };
