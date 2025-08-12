@@ -793,6 +793,8 @@ type OcpxAdDataRequest struct {
 	OsType *string `json:"os_type,omitempty" xml:"os_type,omitempty" require:"true"`
 	// 点击id和user_info二者至少传一个
 	ClickId *string `json:"click_id,omitempty" xml:"click_id,omitempty"`
+	// 媒体监测链接下发的callback原值
+	Callback *string `json:"callback,omitempty" xml:"callback,omitempty" require:"true"`
 }
 
 func (s OcpxAdDataRequest) String() string {
@@ -850,6 +852,11 @@ func (s *OcpxAdDataRequest) SetOsType(v string) *OcpxAdDataRequest {
 
 func (s *OcpxAdDataRequest) SetClickId(v string) *OcpxAdDataRequest {
 	s.ClickId = &v
+	return s
+}
+
+func (s *OcpxAdDataRequest) SetCallback(v string) *OcpxAdDataRequest {
+	s.Callback = &v
 	return s
 }
 
@@ -1014,7 +1021,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("5.0.0"),
+				"sdk_version":      tea.String("6.0.0"),
 				"_prod_code":       tea.String("MORSERTA"),
 				"_prod_channel":    tea.String("default"),
 			}
