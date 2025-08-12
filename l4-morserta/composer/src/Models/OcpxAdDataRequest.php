@@ -67,6 +67,12 @@ class OcpxAdDataRequest extends Model
      * @var string
      */
     public $clickId;
+
+    // 媒体监测链接下发的callback原值
+    /**
+     * @var string
+     */
+    public $callback;
     protected $_name = [
         'authToken'  => 'auth_token',
         'industry'   => 'industry',
@@ -78,6 +84,7 @@ class OcpxAdDataRequest extends Model
         'outEventId' => 'out_event_id',
         'osType'     => 'os_type',
         'clickId'    => 'click_id',
+        'callback'   => 'callback',
     ];
 
     public function validate()
@@ -88,6 +95,7 @@ class OcpxAdDataRequest extends Model
         Model::validateRequired('eventCode', $this->eventCode, true);
         Model::validateRequired('eventTime', $this->eventTime, true);
         Model::validateRequired('osType', $this->osType, true);
+        Model::validateRequired('callback', $this->callback, true);
     }
 
     public function toMap()
@@ -122,6 +130,9 @@ class OcpxAdDataRequest extends Model
         }
         if (null !== $this->clickId) {
             $res['click_id'] = $this->clickId;
+        }
+        if (null !== $this->callback) {
+            $res['callback'] = $this->callback;
         }
 
         return $res;
@@ -164,6 +175,9 @@ class OcpxAdDataRequest extends Model
         }
         if (isset($map['click_id'])) {
             $model->clickId = $map['click_id'];
+        }
+        if (isset($map['callback'])) {
+            $model->callback = $map['callback'];
         }
 
         return $model;
