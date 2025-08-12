@@ -137,7 +137,7 @@ namespace AntChain.SDK.MORSERTA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "4.0.0"},
+                        {"sdk_version", "5.0.0"},
                         {"_prod_code", "MORSERTA"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MORSERTA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "4.0.0"},
+                        {"sdk_version", "5.0.0"},
                         {"_prod_code", "MORSERTA"},
                         {"_prod_channel", "default"},
                     };
@@ -487,6 +487,48 @@ namespace AntChain.SDK.MORSERTA
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ReportAdDataResponse>(await DoRequestAsync("1.0", "antcloud.morserta.ad.data.report", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+         * Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+         */
+        public OcpxAdDataResponse OcpxAdData(OcpxAdDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OcpxAdDataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+         * Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+         */
+        public async Task<OcpxAdDataResponse> OcpxAdDataAsync(OcpxAdDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OcpxAdDataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+         * Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+         */
+        public OcpxAdDataResponse OcpxAdDataEx(OcpxAdDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OcpxAdDataResponse>(DoRequest("1.0", "antcloud.morserta.ad.data.ocpx", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+         * Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+         */
+        public async Task<OcpxAdDataResponse> OcpxAdDataExAsync(OcpxAdDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OcpxAdDataResponse>(await DoRequestAsync("1.0", "antcloud.morserta.ad.data.ocpx", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

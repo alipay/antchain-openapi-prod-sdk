@@ -21,7 +21,7 @@ namespace AntChain.SDK.MORSERTA.Models
 
         // ios/android/web
         [NameInMap("device_os_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string DeviceOsType { get; set; }
 
         // 设备ID（imei或idfa的加密值）
@@ -51,7 +51,7 @@ namespace AntChain.SDK.MORSERTA.Models
 
         // 区分投放渠道来源guangdiantong/oceanengine
         [NameInMap("platform")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Platform { get; set; }
 
         // 事件类型，枚举值如下：
