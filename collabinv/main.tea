@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.43',
+    sdk_version = '1.0.45',
     _prod_code = 'COLLABINV',
     _prod_channel = 'default'
   };
@@ -556,6 +556,8 @@ model ImportIdmapSamplefileRequest = {
   filePath: string(name='file_path'),
   // 数据源code
   dataSource: string(name='data_source'),
+  // 结果加密方式
+  encryptionMethod: string(name='encryption_method'),
 }
 
 model ImportIdmapSamplefileResponse = {
@@ -588,6 +590,56 @@ async function importIdmapSamplefile(request: ImportIdmapSamplefileRequest): Imp
 async function importIdmapSamplefileEx(request: ImportIdmapSamplefileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportIdmapSamplefileResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.zkcollabinv.idmap.samplefile.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportIdmapPsiresultfileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件路径
+  filePath: string(name='file_path'),
+  // 文件名称
+  fileName: string(name='file_name'),
+  // 项目唯一标识
+  projectInfoId: string(name='project_info_id'),
+  // 样本编码
+  sampleCode: string(name='sample_code'),
+  // 样本任务编码
+  sampleTaskCode: string(name='sample_task_code'),
+  // 数据源编码
+  dataSource: string(name='data_source'),
+}
+
+model ImportIdmapPsiresultfileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果文件路径
+  resultFilePath?: string(name='result_file_path'),
+  // 结果文件名称
+  resultFileName?: string(name='result_file_name'),
+}
+
+/**
+ * Description: psi求交结果导入
+ * Summary: psi求交结果导入
+ */
+async function importIdmapPsiresultfile(request: ImportIdmapPsiresultfileRequest): ImportIdmapPsiresultfileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importIdmapPsiresultfileEx(request, headers, runtime);
+}
+
+/**
+ * Description: psi求交结果导入
+ * Summary: psi求交结果导入
+ */
+async function importIdmapPsiresultfileEx(request: ImportIdmapPsiresultfileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportIdmapPsiresultfileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.idmap.psiresultfile.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIndexresearchBrandRequest = {
