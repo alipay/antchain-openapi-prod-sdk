@@ -545,6 +545,8 @@ export class OcpxAdDataRequest extends $tea.Model {
   osType: string;
   // 点击id和user_info二者至少传一个
   clickId?: string;
+  // 媒体监测链接下发的callback原值
+  callback: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -557,6 +559,7 @@ export class OcpxAdDataRequest extends $tea.Model {
       outEventId: 'out_event_id',
       osType: 'os_type',
       clickId: 'click_id',
+      callback: 'callback',
     };
   }
 
@@ -572,6 +575,7 @@ export class OcpxAdDataRequest extends $tea.Model {
       outEventId: 'string',
       osType: 'string',
       clickId: 'string',
+      callback: 'string',
     };
   }
 
@@ -725,7 +729,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "5.0.0",
+          sdk_version: "6.0.0",
           _prod_code: "MORSERTA",
           _prod_channel: "default",
         };
