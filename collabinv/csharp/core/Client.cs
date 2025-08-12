@@ -137,7 +137,7 @@ namespace AntChain.SDK.COLLABINV
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.43"},
+                        {"sdk_version", "1.0.45"},
                         {"_prod_code", "COLLABINV"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.COLLABINV
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.43"},
+                        {"sdk_version", "1.0.45"},
                         {"_prod_code", "COLLABINV"},
                         {"_prod_channel", "default"},
                     };
@@ -613,6 +613,48 @@ namespace AntChain.SDK.COLLABINV
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ImportIdmapSamplefileResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.idmap.samplefile.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: psi求交结果导入
+         * Summary: psi求交结果导入
+         */
+        public ImportIdmapPsiresultfileResponse ImportIdmapPsiresultfile(ImportIdmapPsiresultfileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportIdmapPsiresultfileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: psi求交结果导入
+         * Summary: psi求交结果导入
+         */
+        public async Task<ImportIdmapPsiresultfileResponse> ImportIdmapPsiresultfileAsync(ImportIdmapPsiresultfileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportIdmapPsiresultfileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: psi求交结果导入
+         * Summary: psi求交结果导入
+         */
+        public ImportIdmapPsiresultfileResponse ImportIdmapPsiresultfileEx(ImportIdmapPsiresultfileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportIdmapPsiresultfileResponse>(DoRequest("1.0", "antchain.zkcollabinv.idmap.psiresultfile.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: psi求交结果导入
+         * Summary: psi求交结果导入
+         */
+        public async Task<ImportIdmapPsiresultfileResponse> ImportIdmapPsiresultfileExAsync(ImportIdmapPsiresultfileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportIdmapPsiresultfileResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.idmap.psiresultfile.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

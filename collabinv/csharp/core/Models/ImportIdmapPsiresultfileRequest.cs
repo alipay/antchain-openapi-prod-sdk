@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.COLLABINV.Models
 {
-    public class ImportIdmapSamplefileRequest : TeaModel {
+    public class ImportIdmapPsiresultfileRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,50 +18,35 @@ namespace AntChain.SDK.COLLABINV.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // oss文件名称
-        [NameInMap("file_name")]
-        [Validation(Required=true)]
-        public string FileName { get; set; }
-
-        // 项目ID
-        [NameInMap("project_info_id")]
-        [Validation(Required=true)]
-        public string ProjectInfoId { get; set; }
-
-        // 查询列
-        [NameInMap("param_type")]
-        [Validation(Required=true)]
-        public string ParamType { get; set; }
-
-        // 结果列
-        [NameInMap("result_type")]
-        [Validation(Required=true)]
-        public string ResultType { get; set; }
-
-        // 样本Code
-        [NameInMap("sample_code")]
-        [Validation(Required=true)]
-        public string SampleCode { get; set; }
-
-        // 样本任务Code
-        [NameInMap("sample_task_code")]
-        [Validation(Required=true)]
-        public string SampleTaskCode { get; set; }
-
-        // oss文件路径
+        // 文件路径
         [NameInMap("file_path")]
         [Validation(Required=true)]
         public string FilePath { get; set; }
 
-        // 数据源code
+        // 文件名称
+        [NameInMap("file_name")]
+        [Validation(Required=true)]
+        public string FileName { get; set; }
+
+        // 项目唯一标识
+        [NameInMap("project_info_id")]
+        [Validation(Required=true)]
+        public string ProjectInfoId { get; set; }
+
+        // 样本编码
+        [NameInMap("sample_code")]
+        [Validation(Required=true)]
+        public string SampleCode { get; set; }
+
+        // 样本任务编码
+        [NameInMap("sample_task_code")]
+        [Validation(Required=true)]
+        public string SampleTaskCode { get; set; }
+
+        // 数据源编码
         [NameInMap("data_source")]
         [Validation(Required=true)]
         public string DataSource { get; set; }
-
-        // 结果加密方式
-        [NameInMap("encryption_method")]
-        [Validation(Required=true)]
-        public string EncryptionMethod { get; set; }
 
     }
 
