@@ -50,6 +50,11 @@ public class OcpxAdDataRequest extends TeaModel {
     @NameInMap("click_id")
     public String clickId;
 
+    // 媒体监测链接下发的callback原值
+    @NameInMap("callback")
+    @Validation(required = true)
+    public String callback;
+
     public static OcpxAdDataRequest build(java.util.Map<String, ?> map) throws Exception {
         OcpxAdDataRequest self = new OcpxAdDataRequest();
         return TeaModel.build(map, self);
@@ -133,6 +138,14 @@ public class OcpxAdDataRequest extends TeaModel {
     }
     public String getClickId() {
         return this.clickId;
+    }
+
+    public OcpxAdDataRequest setCallback(String callback) {
+        this.callback = callback;
+        return this;
+    }
+    public String getCallback() {
+        return this.callback;
     }
 
 }
