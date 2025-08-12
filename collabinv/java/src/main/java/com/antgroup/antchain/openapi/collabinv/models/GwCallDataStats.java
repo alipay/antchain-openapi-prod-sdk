@@ -5,26 +5,50 @@ import com.aliyun.tea.*;
 
 public class GwCallDataStats extends TeaModel {
     // 租户
+    /**
+     * <strong>example:</strong>
+     * <p>ds</p>
+     */
     @NameInMap("invoke_tenant")
     public String invokeTenant;
 
     // 租户ID
+    /**
+     * <strong>example:</strong>
+     * <p>dd</p>
+     */
     @NameInMap("invoke_tenant_id")
     public String invokeTenantId;
 
     // 公key
+    /**
+     * <strong>example:</strong>
+     * <p>ss</p>
+     */
     @NameInMap("access_key")
     public String accessKey;
 
     // 调用数量
+    /**
+     * <strong>example:</strong>
+     * <p>33</p>
+     */
     @NameInMap("invoke_count")
     public String invokeCount;
 
     // 调用查得统计
+    /**
+     * <strong>example:</strong>
+     * <p>3</p>
+     */
     @NameInMap("success_count")
     public String successCount;
 
     // id
+    /**
+     * <strong>example:</strong>
+     * <p>223</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public String id;

@@ -5,25 +5,45 @@ import com.aliyun.tea.*;
 
 public class ChatConversationInfo extends TeaModel {
     // 会话ID
+    /**
+     * <strong>example:</strong>
+     * <p>3330003</p>
+     */
     @NameInMap("session_id")
     @Validation(required = true)
     public String sessionId;
 
     // 用户ID
+    /**
+     * <strong>example:</strong>
+     * <p>3330003</p>
+     */
     @NameInMap("user_id")
     @Validation(required = true)
     public String userId;
 
     // agent ID
+    /**
+     * <strong>example:</strong>
+     * <p>3330003</p>
+     */
     @NameInMap("agent_id")
     @Validation(required = true)
     public String agentId;
 
     // 会话名称
+    /**
+     * <strong>example:</strong>
+     * <p>会话名称</p>
+     */
     @NameInMap("title")
     public String title;
 
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2024-11-28 15:17</p>
+     */
     @NameInMap("create_date")
     @Validation(required = true)
     public String createDate;

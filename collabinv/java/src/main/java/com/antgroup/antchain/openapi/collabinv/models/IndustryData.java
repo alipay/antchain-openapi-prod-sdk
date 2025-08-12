@@ -5,41 +5,73 @@ import com.aliyun.tea.*;
 
 public class IndustryData extends TeaModel {
     // 行业
+    /**
+     * <strong>example:</strong>
+     * <p>餐饮美食</p>
+     */
     @NameInMap("industry")
     @Validation(required = true)
     public String industry;
 
     // 区域
+    /**
+     * <strong>example:</strong>
+     * <p>北京</p>
+     */
     @NameInMap("province")
     @Validation(required = true)
     public String province;
 
     // 日期
+    /**
+     * <strong>example:</strong>
+     * <p>202506</p>
+     */
     @NameInMap("trade_date")
     @Validation(required = true)
     public String tradeDate;
 
     // 线上线下 1:线下，0:线上，-1:全部
+    /**
+     * <strong>example:</strong>
+     * <p>-1</p>
+     */
     @NameInMap("ofp_type")
     @Validation(required = true)
     public String ofpType;
 
     // 消费规模指数(销售金额)
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("trade_scale")
     @Validation(required = true)
     public String tradeScale;
 
     // 交易活跃指数(次数)
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("trade_activity")
     @Validation(required = true)
     public String tradeActivity;
 
     // 消费价值指数(金额/次数)
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("trade_value")
     @Validation(required = true)
     public String tradeValue;
 
     // 交易覆盖指数(去重人数)
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("trade_coverage")
     @Validation(required = true)
     public String tradeCoverage;

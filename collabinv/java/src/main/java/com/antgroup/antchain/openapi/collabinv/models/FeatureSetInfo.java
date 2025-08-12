@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class FeatureSetInfo extends TeaModel {
     // 特征集编码
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("featureset_code")
     @Validation(required = true)
     public String featuresetCode;
 
     // 名称
+    /**
+     * <strong>example:</strong>
+     * <p>公共特征集</p>
+     */
     @NameInMap("featureset_name")
     @Validation(required = true)
     public String featuresetName;
 
     // 数量
+    /**
+     * <strong>example:</strong>
+     * <p>2000</p>
+     */
     @NameInMap("nums")
     @Validation(required = true)
     public String nums;
 
     // 描述
+    /**
+     * <strong>example:</strong>
+     * <p>公共特征类</p>
+     */
     @NameInMap("desc")
     @Validation(required = true)
     public String desc;

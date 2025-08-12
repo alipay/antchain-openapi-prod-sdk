@@ -51,6 +51,11 @@ public class ImportIdmapSamplefileRequest extends TeaModel {
     @Validation(required = true)
     public String dataSource;
 
+    // 结果加密方式
+    @NameInMap("encryption_method")
+    @Validation(required = true)
+    public String encryptionMethod;
+
     public static ImportIdmapSamplefileRequest build(java.util.Map<String, ?> map) throws Exception {
         ImportIdmapSamplefileRequest self = new ImportIdmapSamplefileRequest();
         return TeaModel.build(map, self);
@@ -134,6 +139,14 @@ public class ImportIdmapSamplefileRequest extends TeaModel {
     }
     public String getDataSource() {
         return this.dataSource;
+    }
+
+    public ImportIdmapSamplefileRequest setEncryptionMethod(String encryptionMethod) {
+        this.encryptionMethod = encryptionMethod;
+        return this;
+    }
+    public String getEncryptionMethod() {
+        return this.encryptionMethod;
     }
 
 }

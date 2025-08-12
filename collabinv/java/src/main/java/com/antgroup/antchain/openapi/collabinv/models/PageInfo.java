@@ -5,15 +5,27 @@ import com.aliyun.tea.*;
 
 public class PageInfo extends TeaModel {
     // 总数量
+    /**
+     * <strong>example:</strong>
+     * <p>50</p>
+     */
     @NameInMap("total")
     public Long total;
 
     // 当前页
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("page_index")
     @Validation(required = true)
     public Long pageIndex;
 
     // 页容量
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("page_size")
     @Validation(required = true)
     public Long pageSize;

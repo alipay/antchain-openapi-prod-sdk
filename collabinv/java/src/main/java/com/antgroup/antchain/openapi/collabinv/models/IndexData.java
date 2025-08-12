@@ -6,81 +6,145 @@ import com.aliyun.tea.*;
 public class IndexData extends TeaModel {
     // 月份
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>月份</p>
+     */
     @NameInMap("month")
     @Validation(required = true)
     public String month;
 
     // 高低线
+    /**
+     * <strong>example:</strong>
+     * <p>高</p>
+     */
     @NameInMap("city_tier")
     @Validation(required = true)
     public String cityTier;
 
     // 省份编码
+    /**
+     * <strong>example:</strong>
+     * <p>1001</p>
+     */
     @NameInMap("province_code")
     @Validation(required = true)
     public String provinceCode;
 
     // 总交易笔数指数
+    /**
+     * <strong>example:</strong>
+     * <p>1.1</p>
+     */
     @NameInMap("total_cnt")
     @Validation(required = true)
     public String totalCnt;
 
     // 总交易金额指数
+    /**
+     * <strong>example:</strong>
+     * <p>1.2</p>
+     */
     @NameInMap("total_amt")
     @Validation(required = true)
     public String totalAmt;
 
     // 总店铺数指数
+    /**
+     * <strong>example:</strong>
+     * <p>1.2</p>
+     */
     @NameInMap("total_shop")
     @Validation(required = true)
     public String totalShop;
 
     // 去重用户数指数
+    /**
+     * <strong>example:</strong>
+     * <p>1.2</p>
+     */
     @NameInMap("total_csm")
     @Validation(required = true)
     public String totalCsm;
 
     // 其中老店店铺总交易笔数指数
+    /**
+     * <strong>example:</strong>
+     * <p>1.1</p>
+     */
     @NameInMap("existing_cnt")
     @Validation(required = true)
     public String existingCnt;
 
     // 其中老店店铺总交易金额
+    /**
+     * <strong>example:</strong>
+     * <p>1.2</p>
+     */
     @NameInMap("existing_amt")
     @Validation(required = true)
     public String existingAmt;
 
     // 其中老店店铺数量指数
+    /**
+     * <strong>example:</strong>
+     * <p>1.2</p>
+     */
     @NameInMap("existing_shop")
     @Validation(required = true)
     public String existingShop;
 
     // 当月新增店铺数指数
+    /**
+     * <strong>example:</strong>
+     * <p>1.2</p>
+     */
     @NameInMap("new_shop")
     @Validation(required = true)
     public String newShop;
 
     // 分金额段指数
+    /**
+     * <strong>example:</strong>
+     * <p>1.2</p>
+     */
     @NameInMap("amt_range")
     @Validation(required = true)
     public String amtRange;
 
     // 店铺标签指数
+    /**
+     * <strong>example:</strong>
+     * <p>线下</p>
+     */
     @NameInMap("shop_tag")
     @Validation(required = true)
     public String shopTag;
 
     // 品牌码
+    /**
+     * <strong>example:</strong>
+     * <p>P100100</p>
+     */
     @NameInMap("brand_code")
     @Validation(required = true)
     public String brandCode;
 
     // 同店上年同期评分
+    /**
+     * <strong>example:</strong>
+     * <p>23.45</p>
+     */
     @NameInMap("existing_amt_last_year")
     @Validation(required = true)
     public String existingAmtLastYear;
 
     // 年月日
+    /**
+     * <strong>example:</strong>
+     * <p>20220101</p>
+     */
     @NameInMap("date")
     @Validation(required = true)
     public String date;
