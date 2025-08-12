@@ -10,16 +10,28 @@ public class MayaStreamResult extends TeaModel {
     public MayaRedGptResponseDTO data;
 
     // 是否成功
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("success")
     @Validation(required = true)
     public Boolean success;
 
     // 错误码
+    /**
+     * <strong>example:</strong>
+     * <p>10002</p>
+     */
     @NameInMap("error_code")
     @Validation(required = true)
     public String errorCode;
 
     // 错误信息
+    /**
+     * <strong>example:</strong>
+     * <p>maya平台调用失败</p>
+     */
     @NameInMap("error_msg")
     @Validation(required = true)
     public String errorMsg;

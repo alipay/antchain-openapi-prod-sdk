@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class PersonalLabelCustomization extends TeaModel {
     // 标签需求类型。0,1-只需要这些标签，2-不需要这些标签，默认0
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("filter_type")
     public Long filterType;
 

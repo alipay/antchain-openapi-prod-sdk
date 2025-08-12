@@ -32,7 +32,9 @@ public class Client {
     public Number _maxRequests;
     public Number _maxRequestsPerHost;
     /**
-     * Init client with Config
+     * <b>description</b> :
+     * <p>Init client with Config</p>
+     * 
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
@@ -64,7 +66,9 @@ public class Client {
     }
 
     /**
-     * Encapsulate the request and invoke the network
+     * <b>description</b> :
+     * <p>Encapsulate the request and invoke the network</p>
+     * 
      * @param action api name
      * @param protocol http or https
      * @param method e.g. GET
@@ -122,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "2.0.3"),
+                    new TeaPair("sdk_version", "2.0.4"),
                     new TeaPair("_prod_code", "ak_63625f64df2048aca9ff5bea9e227854"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -185,8 +189,9 @@ public class Client {
     }
 
     /**
-     * Description: 大模型护栏多轮对话提问检测 测试
-     * Summary: 大模型护栏多轮对话提问检测
+     * <b>description</b> :
+     * <p>Description: 大模型护栏多轮对话提问检测 测试
+     * Summary: 大模型护栏多轮对话提问检测</p>
      */
     public CheckDemoAicoguardcoreAicoguardrailsQuestionResponse checkDemoAicoguardcoreAicoguardrailsQuestion(CheckDemoAicoguardcoreAicoguardrailsQuestionRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -195,8 +200,9 @@ public class Client {
     }
 
     /**
-     * Description: 大模型护栏多轮对话提问检测 测试
-     * Summary: 大模型护栏多轮对话提问检测
+     * <b>description</b> :
+     * <p>Description: 大模型护栏多轮对话提问检测 测试
+     * Summary: 大模型护栏多轮对话提问检测</p>
      */
     public CheckDemoAicoguardcoreAicoguardrailsQuestionResponse checkDemoAicoguardcoreAicoguardrailsQuestionEx(CheckDemoAicoguardcoreAicoguardrailsQuestionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -204,8 +210,9 @@ public class Client {
     }
 
     /**
-     * Description: 提问检测服务接口
-     * Summary: 提问检测服务接口
+     * <b>description</b> :
+     * <p>Description: 提问检测服务接口
+     * Summary: 提问检测服务接口</p>
      */
     public CheckAntcloudAitechguardAicoguardrailsAskResponse checkAntcloudAitechguardAicoguardrailsAsk(CheckAntcloudAitechguardAicoguardrailsAskRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -214,8 +221,9 @@ public class Client {
     }
 
     /**
-     * Description: 提问检测服务接口
-     * Summary: 提问检测服务接口
+     * <b>description</b> :
+     * <p>Description: 提问检测服务接口
+     * Summary: 提问检测服务接口</p>
      */
     public CheckAntcloudAitechguardAicoguardrailsAskResponse checkAntcloudAitechguardAicoguardrailsAskEx(CheckAntcloudAitechguardAicoguardrailsAskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -223,8 +231,9 @@ public class Client {
     }
 
     /**
-     * Description: aicoguardcore对接天鉴回答检测服务接口
-     * Summary: 天鉴回答检测服务接口
+     * <b>description</b> :
+     * <p>Description: aicoguardcore对接天鉴回答检测服务接口
+     * Summary: 天鉴回答检测服务接口</p>
      */
     public CheckAntcloudAitechguardAicoguardrailsAnswerResponse checkAntcloudAitechguardAicoguardrailsAnswer(CheckAntcloudAitechguardAicoguardrailsAnswerRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -233,8 +242,9 @@ public class Client {
     }
 
     /**
-     * Description: aicoguardcore对接天鉴回答检测服务接口
-     * Summary: 天鉴回答检测服务接口
+     * <b>description</b> :
+     * <p>Description: aicoguardcore对接天鉴回答检测服务接口
+     * Summary: 天鉴回答检测服务接口</p>
      */
     public CheckAntcloudAitechguardAicoguardrailsAnswerResponse checkAntcloudAitechguardAicoguardrailsAnswerEx(CheckAntcloudAitechguardAicoguardrailsAnswerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -242,8 +252,9 @@ public class Client {
     }
 
     /**
-     * Description: 红色GPT流式调用网关接口
-     * Summary: 红色GPT网关方式调用接口
+     * <b>description</b> :
+     * <p>Description: 红色GPT流式调用网关接口
+     * Summary: 红色GPT网关方式调用接口</p>
      */
     public QueryAitechCommGuardcoreRedgptResponse queryAitechCommGuardcoreRedgpt(QueryAitechCommGuardcoreRedgptRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -252,8 +263,9 @@ public class Client {
     }
 
     /**
-     * Description: 红色GPT流式调用网关接口
-     * Summary: 红色GPT网关方式调用接口
+     * <b>description</b> :
+     * <p>Description: 红色GPT流式调用网关接口
+     * Summary: 红色GPT网关方式调用接口</p>
      */
     public QueryAitechCommGuardcoreRedgptResponse queryAitechCommGuardcoreRedgptEx(QueryAitechCommGuardcoreRedgptRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
