@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '5.0.0',
+    sdk_version = '6.0.0',
     _prod_code = 'MORSERTA',
     _prod_channel = 'default'
   };
@@ -440,6 +440,8 @@ model OcpxAdDataRequest = {
   osType: string(name='os_type'),
   // 点击id和user_info二者至少传一个
   clickId?: string(name='click_id'),
+  // 媒体监测链接下发的callback原值
+  callback: string(name='callback'),
 }
 
 model OcpxAdDataResponse = {
