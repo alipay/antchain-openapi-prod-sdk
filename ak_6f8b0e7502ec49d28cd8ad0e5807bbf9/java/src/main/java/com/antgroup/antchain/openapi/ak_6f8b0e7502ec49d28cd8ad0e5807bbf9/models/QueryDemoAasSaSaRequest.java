@@ -11,6 +11,11 @@ public class QueryDemoAasSaSaRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // aa
+    @NameInMap("not_blank_verify")
+    @Validation(required = true)
+    public String notBlankVerify;
+
     public static QueryDemoAasSaSaRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDemoAasSaSaRequest self = new QueryDemoAasSaSaRequest();
         return TeaModel.build(map, self);
@@ -30,6 +35,14 @@ public class QueryDemoAasSaSaRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public QueryDemoAasSaSaRequest setNotBlankVerify(String notBlankVerify) {
+        this.notBlankVerify = notBlankVerify;
+        return this;
+    }
+    public String getNotBlankVerify() {
+        return this.notBlankVerify;
     }
 
 }
