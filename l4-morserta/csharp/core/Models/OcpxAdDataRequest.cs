@@ -59,6 +59,11 @@ namespace AntChain.SDK.MORSERTA.Models
         [Validation(Required=false)]
         public string ClickId { get; set; }
 
+        // 媒体监测链接下发的callback原值
+        [NameInMap("callback")]
+        [Validation(Required=true)]
+        public string Callback { get; set; }
+
     }
 
 }
