@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.43',
+                    'sdk_version': '1.0.45',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.43',
+                    'sdk_version': '1.0.45',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -665,6 +665,62 @@ class Client:
         return TeaCore.from_map(
             collabinv_models.ImportIdmapSamplefileResponse(),
             await self.do_request_async('1.0', 'antchain.zkcollabinv.idmap.samplefile.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_idmap_psiresultfile(
+        self,
+        request: collabinv_models.ImportIdmapPsiresultfileRequest,
+    ) -> collabinv_models.ImportIdmapPsiresultfileResponse:
+        """
+        Description: psi求交结果导入
+        Summary: psi求交结果导入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_idmap_psiresultfile_ex(request, headers, runtime)
+
+    async def import_idmap_psiresultfile_async(
+        self,
+        request: collabinv_models.ImportIdmapPsiresultfileRequest,
+    ) -> collabinv_models.ImportIdmapPsiresultfileResponse:
+        """
+        Description: psi求交结果导入
+        Summary: psi求交结果导入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_idmap_psiresultfile_ex_async(request, headers, runtime)
+
+    def import_idmap_psiresultfile_ex(
+        self,
+        request: collabinv_models.ImportIdmapPsiresultfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.ImportIdmapPsiresultfileResponse:
+        """
+        Description: psi求交结果导入
+        Summary: psi求交结果导入
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.ImportIdmapPsiresultfileResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.idmap.psiresultfile.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_idmap_psiresultfile_ex_async(
+        self,
+        request: collabinv_models.ImportIdmapPsiresultfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.ImportIdmapPsiresultfileResponse:
+        """
+        Description: psi求交结果导入
+        Summary: psi求交结果导入
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.ImportIdmapPsiresultfileResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.idmap.psiresultfile.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_indexresearch_brand(

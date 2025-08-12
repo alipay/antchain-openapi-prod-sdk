@@ -1337,6 +1337,7 @@ class ImportIdmapSamplefileRequest(TeaModel):
         sample_task_code: str = None,
         file_path: str = None,
         data_source: str = None,
+        encryption_method: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1357,6 +1358,8 @@ class ImportIdmapSamplefileRequest(TeaModel):
         self.file_path = file_path
         # 数据源code
         self.data_source = data_source
+        # 结果加密方式
+        self.encryption_method = encryption_method
 
     def validate(self):
         self.validate_required(self.file_name, 'file_name')
@@ -1367,6 +1370,7 @@ class ImportIdmapSamplefileRequest(TeaModel):
         self.validate_required(self.sample_task_code, 'sample_task_code')
         self.validate_required(self.file_path, 'file_path')
         self.validate_required(self.data_source, 'data_source')
+        self.validate_required(self.encryption_method, 'encryption_method')
 
     def to_map(self):
         _map = super().to_map()
@@ -1394,6 +1398,8 @@ class ImportIdmapSamplefileRequest(TeaModel):
             result['file_path'] = self.file_path
         if self.data_source is not None:
             result['data_source'] = self.data_source
+        if self.encryption_method is not None:
+            result['encryption_method'] = self.encryption_method
         return result
 
     def from_map(self, m: dict = None):
@@ -1418,6 +1424,8 @@ class ImportIdmapSamplefileRequest(TeaModel):
             self.file_path = m.get('file_path')
         if m.get('data_source') is not None:
             self.data_source = m.get('data_source')
+        if m.get('encryption_method') is not None:
+            self.encryption_method = m.get('encryption_method')
         return self
 
 
@@ -1439,6 +1447,143 @@ class ImportIdmapSamplefileResponse(TeaModel):
         # 上传结果地址路径
         self.result_file_path = result_file_path
         # oss结果文件名称
+        self.result_file_name = result_file_name
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result_file_path is not None:
+            result['result_file_path'] = self.result_file_path
+        if self.result_file_name is not None:
+            result['result_file_name'] = self.result_file_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result_file_path') is not None:
+            self.result_file_path = m.get('result_file_path')
+        if m.get('result_file_name') is not None:
+            self.result_file_name = m.get('result_file_name')
+        return self
+
+
+class ImportIdmapPsiresultfileRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_path: str = None,
+        file_name: str = None,
+        project_info_id: str = None,
+        sample_code: str = None,
+        sample_task_code: str = None,
+        data_source: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 文件路径
+        self.file_path = file_path
+        # 文件名称
+        self.file_name = file_name
+        # 项目唯一标识
+        self.project_info_id = project_info_id
+        # 样本编码
+        self.sample_code = sample_code
+        # 样本任务编码
+        self.sample_task_code = sample_task_code
+        # 数据源编码
+        self.data_source = data_source
+
+    def validate(self):
+        self.validate_required(self.file_path, 'file_path')
+        self.validate_required(self.file_name, 'file_name')
+        self.validate_required(self.project_info_id, 'project_info_id')
+        self.validate_required(self.sample_code, 'sample_code')
+        self.validate_required(self.sample_task_code, 'sample_task_code')
+        self.validate_required(self.data_source, 'data_source')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_path is not None:
+            result['file_path'] = self.file_path
+        if self.file_name is not None:
+            result['file_name'] = self.file_name
+        if self.project_info_id is not None:
+            result['project_info_id'] = self.project_info_id
+        if self.sample_code is not None:
+            result['sample_code'] = self.sample_code
+        if self.sample_task_code is not None:
+            result['sample_task_code'] = self.sample_task_code
+        if self.data_source is not None:
+            result['data_source'] = self.data_source
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('file_path') is not None:
+            self.file_path = m.get('file_path')
+        if m.get('file_name') is not None:
+            self.file_name = m.get('file_name')
+        if m.get('project_info_id') is not None:
+            self.project_info_id = m.get('project_info_id')
+        if m.get('sample_code') is not None:
+            self.sample_code = m.get('sample_code')
+        if m.get('sample_task_code') is not None:
+            self.sample_task_code = m.get('sample_task_code')
+        if m.get('data_source') is not None:
+            self.data_source = m.get('data_source')
+        return self
+
+
+class ImportIdmapPsiresultfileResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result_file_path: str = None,
+        result_file_name: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 结果文件路径
+        self.result_file_path = result_file_path
+        # 结果文件名称
         self.result_file_name = result_file_name
 
     def validate(self):
