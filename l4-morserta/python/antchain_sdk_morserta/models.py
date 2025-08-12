@@ -890,6 +890,7 @@ class OcpxAdDataRequest(TeaModel):
         out_event_id: str = None,
         os_type: str = None,
         click_id: str = None,
+        callback: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -911,6 +912,8 @@ class OcpxAdDataRequest(TeaModel):
         self.os_type = os_type
         # 点击id和user_info二者至少传一个
         self.click_id = click_id
+        # 媒体监测链接下发的callback原值
+        self.callback = callback
 
     def validate(self):
         self.validate_required(self.industry, 'industry')
@@ -921,6 +924,7 @@ class OcpxAdDataRequest(TeaModel):
         if self.user_info:
             self.user_info.validate()
         self.validate_required(self.os_type, 'os_type')
+        self.validate_required(self.callback, 'callback')
 
     def to_map(self):
         _map = super().to_map()
@@ -948,6 +952,8 @@ class OcpxAdDataRequest(TeaModel):
             result['os_type'] = self.os_type
         if self.click_id is not None:
             result['click_id'] = self.click_id
+        if self.callback is not None:
+            result['callback'] = self.callback
         return result
 
     def from_map(self, m: dict = None):
@@ -973,6 +979,8 @@ class OcpxAdDataRequest(TeaModel):
             self.os_type = m.get('os_type')
         if m.get('click_id') is not None:
             self.click_id = m.get('click_id')
+        if m.get('callback') is not None:
+            self.callback = m.get('callback')
         return self
 
 
