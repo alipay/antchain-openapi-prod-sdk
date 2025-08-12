@@ -807,6 +807,8 @@ export class ImportIdmapSamplefileRequest extends $tea.Model {
   filePath: string;
   // 数据源code
   dataSource: string;
+  // 结果加密方式
+  encryptionMethod: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -819,6 +821,7 @@ export class ImportIdmapSamplefileRequest extends $tea.Model {
       sampleTaskCode: 'sample_task_code',
       filePath: 'file_path',
       dataSource: 'data_source',
+      encryptionMethod: 'encryption_method',
     };
   }
 
@@ -834,6 +837,7 @@ export class ImportIdmapSamplefileRequest extends $tea.Model {
       sampleTaskCode: 'string',
       filePath: 'string',
       dataSource: 'string',
+      encryptionMethod: 'string',
     };
   }
 
@@ -852,6 +856,89 @@ export class ImportIdmapSamplefileResponse extends $tea.Model {
   // 上传结果地址路径
   resultFilePath?: string;
   // oss结果文件名称
+  resultFileName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      resultFilePath: 'result_file_path',
+      resultFileName: 'result_file_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      resultFilePath: 'string',
+      resultFileName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportIdmapPsiresultfileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 文件路径
+  filePath: string;
+  // 文件名称
+  fileName: string;
+  // 项目唯一标识
+  projectInfoId: string;
+  // 样本编码
+  sampleCode: string;
+  // 样本任务编码
+  sampleTaskCode: string;
+  // 数据源编码
+  dataSource: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      filePath: 'file_path',
+      fileName: 'file_name',
+      projectInfoId: 'project_info_id',
+      sampleCode: 'sample_code',
+      sampleTaskCode: 'sample_task_code',
+      dataSource: 'data_source',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      filePath: 'string',
+      fileName: 'string',
+      projectInfoId: 'string',
+      sampleCode: 'string',
+      sampleTaskCode: 'string',
+      dataSource: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportIdmapPsiresultfileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果文件路径
+  resultFilePath?: string;
+  // 结果文件名称
   resultFileName?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2326,7 +2413,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.43",
+          sdk_version: "1.0.45",
           _prod_code: "COLLABINV",
           _prod_channel: "default",
         };
@@ -2505,6 +2592,25 @@ export default class Client {
   async importIdmapSamplefileEx(request: ImportIdmapSamplefileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportIdmapSamplefileResponse> {
     Util.validateModel(request);
     return $tea.cast<ImportIdmapSamplefileResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.idmap.samplefile.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportIdmapSamplefileResponse({}));
+  }
+
+  /**
+   * Description: psi求交结果导入
+   * Summary: psi求交结果导入
+   */
+  async importIdmapPsiresultfile(request: ImportIdmapPsiresultfileRequest): Promise<ImportIdmapPsiresultfileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importIdmapPsiresultfileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: psi求交结果导入
+   * Summary: psi求交结果导入
+   */
+  async importIdmapPsiresultfileEx(request: ImportIdmapPsiresultfileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportIdmapPsiresultfileResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportIdmapPsiresultfileResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.idmap.psiresultfile.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportIdmapPsiresultfileResponse({}));
   }
 
   /**
