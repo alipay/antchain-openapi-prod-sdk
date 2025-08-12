@@ -1086,6 +1086,8 @@ type ImportIdmapSamplefileRequest struct {
 	FilePath *string `json:"file_path,omitempty" xml:"file_path,omitempty" require:"true"`
 	// 数据源code
 	DataSource *string `json:"data_source,omitempty" xml:"data_source,omitempty" require:"true"`
+	// 结果加密方式
+	EncryptionMethod *string `json:"encryption_method,omitempty" xml:"encryption_method,omitempty" require:"true"`
 }
 
 func (s ImportIdmapSamplefileRequest) String() string {
@@ -1146,6 +1148,11 @@ func (s *ImportIdmapSamplefileRequest) SetDataSource(v string) *ImportIdmapSampl
 	return s
 }
 
+func (s *ImportIdmapSamplefileRequest) SetEncryptionMethod(v string) *ImportIdmapSamplefileRequest {
+	s.EncryptionMethod = &v
+	return s
+}
+
 type ImportIdmapSamplefileResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -1188,6 +1195,118 @@ func (s *ImportIdmapSamplefileResponse) SetResultFilePath(v string) *ImportIdmap
 }
 
 func (s *ImportIdmapSamplefileResponse) SetResultFileName(v string) *ImportIdmapSamplefileResponse {
+	s.ResultFileName = &v
+	return s
+}
+
+type ImportIdmapPsiresultfileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 文件路径
+	FilePath *string `json:"file_path,omitempty" xml:"file_path,omitempty" require:"true"`
+	// 文件名称
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
+	// 项目唯一标识
+	ProjectInfoId *string `json:"project_info_id,omitempty" xml:"project_info_id,omitempty" require:"true"`
+	// 样本编码
+	SampleCode *string `json:"sample_code,omitempty" xml:"sample_code,omitempty" require:"true"`
+	// 样本任务编码
+	SampleTaskCode *string `json:"sample_task_code,omitempty" xml:"sample_task_code,omitempty" require:"true"`
+	// 数据源编码
+	DataSource *string `json:"data_source,omitempty" xml:"data_source,omitempty" require:"true"`
+}
+
+func (s ImportIdmapPsiresultfileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportIdmapPsiresultfileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ImportIdmapPsiresultfileRequest) SetAuthToken(v string) *ImportIdmapPsiresultfileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ImportIdmapPsiresultfileRequest) SetProductInstanceId(v string) *ImportIdmapPsiresultfileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ImportIdmapPsiresultfileRequest) SetFilePath(v string) *ImportIdmapPsiresultfileRequest {
+	s.FilePath = &v
+	return s
+}
+
+func (s *ImportIdmapPsiresultfileRequest) SetFileName(v string) *ImportIdmapPsiresultfileRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *ImportIdmapPsiresultfileRequest) SetProjectInfoId(v string) *ImportIdmapPsiresultfileRequest {
+	s.ProjectInfoId = &v
+	return s
+}
+
+func (s *ImportIdmapPsiresultfileRequest) SetSampleCode(v string) *ImportIdmapPsiresultfileRequest {
+	s.SampleCode = &v
+	return s
+}
+
+func (s *ImportIdmapPsiresultfileRequest) SetSampleTaskCode(v string) *ImportIdmapPsiresultfileRequest {
+	s.SampleTaskCode = &v
+	return s
+}
+
+func (s *ImportIdmapPsiresultfileRequest) SetDataSource(v string) *ImportIdmapPsiresultfileRequest {
+	s.DataSource = &v
+	return s
+}
+
+type ImportIdmapPsiresultfileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果文件路径
+	ResultFilePath *string `json:"result_file_path,omitempty" xml:"result_file_path,omitempty"`
+	// 结果文件名称
+	ResultFileName *string `json:"result_file_name,omitempty" xml:"result_file_name,omitempty"`
+}
+
+func (s ImportIdmapPsiresultfileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportIdmapPsiresultfileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ImportIdmapPsiresultfileResponse) SetReqMsgId(v string) *ImportIdmapPsiresultfileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ImportIdmapPsiresultfileResponse) SetResultCode(v string) *ImportIdmapPsiresultfileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ImportIdmapPsiresultfileResponse) SetResultMsg(v string) *ImportIdmapPsiresultfileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ImportIdmapPsiresultfileResponse) SetResultFilePath(v string) *ImportIdmapPsiresultfileResponse {
+	s.ResultFilePath = &v
+	return s
+}
+
+func (s *ImportIdmapPsiresultfileResponse) SetResultFileName(v string) *ImportIdmapPsiresultfileResponse {
 	s.ResultFileName = &v
 	return s
 }
@@ -3079,7 +3198,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.43"),
+				"sdk_version":      tea.String("1.0.45"),
 				"_prod_code":       tea.String("COLLABINV"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -3368,6 +3487,40 @@ func (client *Client) ImportIdmapSamplefileEx(request *ImportIdmapSamplefileRequ
 	}
 	_result = &ImportIdmapSamplefileResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.idmap.samplefile.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: psi求交结果导入
+ * Summary: psi求交结果导入
+ */
+func (client *Client) ImportIdmapPsiresultfile(request *ImportIdmapPsiresultfileRequest) (_result *ImportIdmapPsiresultfileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ImportIdmapPsiresultfileResponse{}
+	_body, _err := client.ImportIdmapPsiresultfileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: psi求交结果导入
+ * Summary: psi求交结果导入
+ */
+func (client *Client) ImportIdmapPsiresultfileEx(request *ImportIdmapPsiresultfileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportIdmapPsiresultfileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ImportIdmapPsiresultfileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.idmap.psiresultfile.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
