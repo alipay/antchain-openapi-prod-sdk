@@ -77,6 +77,87 @@ export class Config extends $tea.Model {
   }
 }
 
+// 用户/设备标识
+export class UserInfo extends $tea.Model {
+  // Android 设备填写，imei原值
+  originalImei?: string;
+  // Android 设备填写，imei md5值
+  md5Imei?: string;
+  // Android 设备填写,android_id原值 
+  originalAndroidId?: string;
+  // Android 设备填写, md5 后的 android_id 设备号
+  md5AndroidId?: string;
+  // Android 设备填写，oaid原值
+  originalOaid?: string;
+  // Android 设备填写，oaid MD5值
+  md5Oaid?: string;
+  // iOS 设备填写, idfa原值
+  originalIdfa?: string;
+  // iOS 设备填写, idfa md5值
+  md5Idfa?: string;
+  // 客户电话原值
+  originalPhone?: string;
+  // md5后的电话号码
+  md5Phone?: string;
+  // 客户联系方式的sha256
+  sha256Phone?: string;
+  // iOS 设备填写,中国广告协会互联网广告标
+  caid?: string;
+  // IOS设备填写，caid版本
+  caidVersion?: string;
+  // 仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信 openid 保持原值
+  wechatOpenid?: string;
+  // 仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信 unionid 保持原值
+  wechatUnionid?: string;
+  // 仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信分配的 APPID
+  wechatAppId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      originalImei: 'original_imei',
+      md5Imei: 'md5_imei',
+      originalAndroidId: 'original_android_id',
+      md5AndroidId: 'md5_android_id',
+      originalOaid: 'original_oaid',
+      md5Oaid: 'md5_oaid',
+      originalIdfa: 'original_idfa',
+      md5Idfa: 'md5_idfa',
+      originalPhone: 'original_phone',
+      md5Phone: 'md5_phone',
+      sha256Phone: 'sha256_phone',
+      caid: 'caid',
+      caidVersion: 'caid_version',
+      wechatOpenid: 'wechat_openid',
+      wechatUnionid: 'wechat_unionid',
+      wechatAppId: 'wechat_app_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      originalImei: 'string',
+      md5Imei: 'string',
+      originalAndroidId: 'string',
+      md5AndroidId: 'string',
+      originalOaid: 'string',
+      md5Oaid: 'string',
+      originalIdfa: 'string',
+      md5Idfa: 'string',
+      originalPhone: 'string',
+      md5Phone: 'string',
+      sha256Phone: 'string',
+      caid: 'string',
+      caidVersion: 'string',
+      wechatOpenid: 'string',
+      wechatUnionid: 'string',
+      wechatAppId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class FeedbackReportDataRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -147,7 +228,7 @@ export class ConvertAdDataRequest extends $tea.Model {
   // 广告主id
   accountId: number;
   // ios/android/web
-  deviceOsType: string;
+  deviceOsType?: string;
   // 设备ID（imei或idfa的加密值）
   muid?: string;
   // 点击ID
@@ -159,7 +240,7 @@ export class ConvertAdDataRequest extends $tea.Model {
   // 手机号MD5
   mobileMd5?: string;
   // 区分投放渠道来源guangdiantong/oceanengine
-  platform: string;
+  platform?: string;
   // 事件类型，枚举值如下：
   // submit-提交表单
   // pay-付费
@@ -443,6 +524,94 @@ export class ReportAdDataResponse extends $tea.Model {
   }
 }
 
+export class OcpxAdDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 见对接文档中【Industry行业枚举】部分
+  industry: string;
+  // 归因渠道编码，见对接文档中的【渠道枚举】部分
+  channel: string;
+  // 归因广告账号id
+  accountId: string;
+  // 见对接文档中【转化事件event_code枚举】部分
+  eventCode: string;
+  // unix时间戳
+  eventTime: number;
+  // 转化用户/设备标识
+  userInfo?: UserInfo;
+  // 如有去重需求，可传递业务事件id， 唯一标识当前事件。如下单事件中的订单id
+  outEventId?: string;
+  // android/ios/web
+  osType: string;
+  // 点击id和user_info二者至少传一个
+  clickId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      industry: 'industry',
+      channel: 'channel',
+      accountId: 'account_id',
+      eventCode: 'event_code',
+      eventTime: 'event_time',
+      userInfo: 'user_info',
+      outEventId: 'out_event_id',
+      osType: 'os_type',
+      clickId: 'click_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      industry: 'string',
+      channel: 'string',
+      accountId: 'string',
+      eventCode: 'string',
+      eventTime: 'number',
+      userInfo: UserInfo,
+      outEventId: 'string',
+      osType: 'string',
+      clickId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OcpxAdDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 调用是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -556,7 +725,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "4.0.0",
+          sdk_version: "5.0.0",
           _prod_code: "MORSERTA",
           _prod_channel: "default",
         };
@@ -678,6 +847,25 @@ export default class Client {
   async reportAdDataEx(request: ReportAdDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReportAdDataResponse> {
     Util.validateModel(request);
     return $tea.cast<ReportAdDataResponse>(await this.doRequest("1.0", "antcloud.morserta.ad.data.report", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReportAdDataResponse({}));
+  }
+
+  /**
+   * Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+   * Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+   */
+  async ocpxAdData(request: OcpxAdDataRequest): Promise<OcpxAdDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.ocpxAdDataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+   * Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+   */
+  async ocpxAdDataEx(request: OcpxAdDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OcpxAdDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OcpxAdDataResponse>(await this.doRequest("1.0", "antcloud.morserta.ad.data.ocpx", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OcpxAdDataResponse({}));
   }
 
 }
