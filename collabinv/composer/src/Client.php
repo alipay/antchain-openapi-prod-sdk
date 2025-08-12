@@ -19,6 +19,8 @@ use AntChain\COLLABINV\Models\DeleteAgentConversationRequest;
 use AntChain\COLLABINV\Models\DeleteAgentConversationResponse;
 use AntChain\COLLABINV\Models\ExecModelSampletaskRequest;
 use AntChain\COLLABINV\Models\ExecModelSampletaskResponse;
+use AntChain\COLLABINV\Models\ImportIdmapPsiresultfileRequest;
+use AntChain\COLLABINV\Models\ImportIdmapPsiresultfileResponse;
 use AntChain\COLLABINV\Models\ImportIdmapSamplefileRequest;
 use AntChain\COLLABINV\Models\ImportIdmapSamplefileResponse;
 use AntChain\COLLABINV\Models\ListAgentConversationRequest;
@@ -206,7 +208,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.43',
+                    'sdk_version'      => '1.0.45',
                     '_prod_code'       => 'COLLABINV',
                     '_prod_channel'    => 'default',
                 ];
@@ -483,6 +485,39 @@ class Client
         Utils::validateModel($request);
 
         return ImportIdmapSamplefileResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.idmap.samplefile.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: psi求交结果导入
+     * Summary: psi求交结果导入.
+     *
+     * @param ImportIdmapPsiresultfileRequest $request
+     *
+     * @return ImportIdmapPsiresultfileResponse
+     */
+    public function importIdmapPsiresultfile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importIdmapPsiresultfileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: psi求交结果导入
+     * Summary: psi求交结果导入.
+     *
+     * @param ImportIdmapPsiresultfileRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return ImportIdmapPsiresultfileResponse
+     */
+    public function importIdmapPsiresultfileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportIdmapPsiresultfileResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.idmap.psiresultfile.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
