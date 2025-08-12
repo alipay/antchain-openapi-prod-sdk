@@ -9,7 +9,7 @@ English | [简体中文](README-CN.md)
 If you use `go mod` to manage your dependence, you can use the following command:
 
 ```sh
-$ go get github.com/antchain-openapi-sdk-go/l4-morserta/v4
+$ go get github.com/antchain-openapi-sdk-go/l4-morserta/v5
 ```
 
 ## Issues
