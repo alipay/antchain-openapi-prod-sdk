@@ -15,7 +15,6 @@ public class ConvertAdDataRequest extends TeaModel {
 
     // ios/android/web
     @NameInMap("device_os_type")
-    @Validation(required = true)
     public String deviceOsType;
 
     // 设备ID（imei或idfa的加密值）
@@ -41,7 +40,6 @@ public class ConvertAdDataRequest extends TeaModel {
 
     // 区分投放渠道来源guangdiantong/oceanengine
     @NameInMap("platform")
-    @Validation(required = true)
     public String platform;
 
     // 事件类型，枚举值如下：
