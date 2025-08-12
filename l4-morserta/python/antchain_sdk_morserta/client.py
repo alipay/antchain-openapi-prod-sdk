@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 用户/设备标识
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '4.0.0',
+                    'sdk_version': '5.0.0',
                     '_prod_code': 'MORSERTA',
                     '_prod_channel': 'default'
                 }
@@ -212,7 +213,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 用户/设备标识
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '4.0.0',
+                    'sdk_version': '5.0.0',
                     '_prod_code': 'MORSERTA',
                     '_prod_channel': 'default'
                 }
@@ -495,4 +497,60 @@ class Client:
         return TeaCore.from_map(
             morserta_models.ReportAdDataResponse(),
             await self.do_request_async('1.0', 'antcloud.morserta.ad.data.report', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def ocpx_ad_data(
+        self,
+        request: morserta_models.OcpxAdDataRequest,
+    ) -> morserta_models.OcpxAdDataResponse:
+        """
+        Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+        Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.ocpx_ad_data_ex(request, headers, runtime)
+
+    async def ocpx_ad_data_async(
+        self,
+        request: morserta_models.OcpxAdDataRequest,
+    ) -> morserta_models.OcpxAdDataResponse:
+        """
+        Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+        Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.ocpx_ad_data_ex_async(request, headers, runtime)
+
+    def ocpx_ad_data_ex(
+        self,
+        request: morserta_models.OcpxAdDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> morserta_models.OcpxAdDataResponse:
+        """
+        Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+        Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            morserta_models.OcpxAdDataResponse(),
+            self.do_request('1.0', 'antcloud.morserta.ad.data.ocpx', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def ocpx_ad_data_ex_async(
+        self,
+        request: morserta_models.OcpxAdDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> morserta_models.OcpxAdDataResponse:
+        """
+        Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+        Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            morserta_models.OcpxAdDataResponse(),
+            await self.do_request_async('1.0', 'antcloud.morserta.ad.data.ocpx', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

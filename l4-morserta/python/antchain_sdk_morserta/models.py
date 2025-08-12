@@ -153,6 +153,139 @@ class Config(TeaModel):
         return self
 
 
+class UserInfo(TeaModel):
+    def __init__(
+        self,
+        original_imei: str = None,
+        md_5imei: str = None,
+        original_android_id: str = None,
+        md_5android_id: str = None,
+        original_oaid: str = None,
+        md_5oaid: str = None,
+        original_idfa: str = None,
+        md_5idfa: str = None,
+        original_phone: str = None,
+        md_5phone: str = None,
+        sha_256phone: str = None,
+        caid: str = None,
+        caid_version: str = None,
+        wechat_openid: str = None,
+        wechat_unionid: str = None,
+        wechat_app_id: str = None,
+    ):
+        # Android 设备填写，imei原值
+        self.original_imei = original_imei
+        # Android 设备填写，imei md5值
+        self.md_5imei = md_5imei
+        # Android 设备填写,android_id原值
+        self.original_android_id = original_android_id
+        # Android 设备填写, md5 后的 android_id 设备号
+        self.md_5android_id = md_5android_id
+        # Android 设备填写，oaid原值
+        self.original_oaid = original_oaid
+        # Android 设备填写，oaid MD5值
+        self.md_5oaid = md_5oaid
+        # iOS 设备填写, idfa原值
+        self.original_idfa = original_idfa
+        # iOS 设备填写, idfa md5值
+        self.md_5idfa = md_5idfa
+        # 客户电话原值
+        self.original_phone = original_phone
+        # md5后的电话号码
+        self.md_5phone = md_5phone
+        # 客户联系方式的sha256
+        self.sha_256phone = sha_256phone
+        # iOS 设备填写,中国广告协会互联网广告标
+        self.caid = caid
+        # IOS设备填写，caid版本
+        self.caid_version = caid_version
+        # 仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信 openid 保持原值
+        self.wechat_openid = wechat_openid
+        # 仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信 unionid 保持原值
+        self.wechat_unionid = wechat_unionid
+        # 仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信分配的 APPID
+        self.wechat_app_id = wechat_app_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.original_imei is not None:
+            result['original_imei'] = self.original_imei
+        if self.md_5imei is not None:
+            result['md5_imei'] = self.md_5imei
+        if self.original_android_id is not None:
+            result['original_android_id'] = self.original_android_id
+        if self.md_5android_id is not None:
+            result['md5_android_id'] = self.md_5android_id
+        if self.original_oaid is not None:
+            result['original_oaid'] = self.original_oaid
+        if self.md_5oaid is not None:
+            result['md5_oaid'] = self.md_5oaid
+        if self.original_idfa is not None:
+            result['original_idfa'] = self.original_idfa
+        if self.md_5idfa is not None:
+            result['md5_idfa'] = self.md_5idfa
+        if self.original_phone is not None:
+            result['original_phone'] = self.original_phone
+        if self.md_5phone is not None:
+            result['md5_phone'] = self.md_5phone
+        if self.sha_256phone is not None:
+            result['sha256_phone'] = self.sha_256phone
+        if self.caid is not None:
+            result['caid'] = self.caid
+        if self.caid_version is not None:
+            result['caid_version'] = self.caid_version
+        if self.wechat_openid is not None:
+            result['wechat_openid'] = self.wechat_openid
+        if self.wechat_unionid is not None:
+            result['wechat_unionid'] = self.wechat_unionid
+        if self.wechat_app_id is not None:
+            result['wechat_app_id'] = self.wechat_app_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('original_imei') is not None:
+            self.original_imei = m.get('original_imei')
+        if m.get('md5_imei') is not None:
+            self.md_5imei = m.get('md5_imei')
+        if m.get('original_android_id') is not None:
+            self.original_android_id = m.get('original_android_id')
+        if m.get('md5_android_id') is not None:
+            self.md_5android_id = m.get('md5_android_id')
+        if m.get('original_oaid') is not None:
+            self.original_oaid = m.get('original_oaid')
+        if m.get('md5_oaid') is not None:
+            self.md_5oaid = m.get('md5_oaid')
+        if m.get('original_idfa') is not None:
+            self.original_idfa = m.get('original_idfa')
+        if m.get('md5_idfa') is not None:
+            self.md_5idfa = m.get('md5_idfa')
+        if m.get('original_phone') is not None:
+            self.original_phone = m.get('original_phone')
+        if m.get('md5_phone') is not None:
+            self.md_5phone = m.get('md5_phone')
+        if m.get('sha256_phone') is not None:
+            self.sha_256phone = m.get('sha256_phone')
+        if m.get('caid') is not None:
+            self.caid = m.get('caid')
+        if m.get('caid_version') is not None:
+            self.caid_version = m.get('caid_version')
+        if m.get('wechat_openid') is not None:
+            self.wechat_openid = m.get('wechat_openid')
+        if m.get('wechat_unionid') is not None:
+            self.wechat_unionid = m.get('wechat_unionid')
+        if m.get('wechat_app_id') is not None:
+            self.wechat_app_id = m.get('wechat_app_id')
+        return self
+
+
 class FeedbackReportDataRequest(TeaModel):
     def __init__(
         self,
@@ -352,9 +485,7 @@ class ConvertAdDataRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.account_id, 'account_id')
-        self.validate_required(self.device_os_type, 'device_os_type')
         self.validate_required(self.click_id, 'click_id')
-        self.validate_required(self.platform, 'platform')
         self.validate_required(self.event_code, 'event_code')
         self.validate_required(self.event_time, 'event_time')
         self.validate_required(self.industry, 'industry')
@@ -712,6 +843,154 @@ class ReportAdDataResponse(TeaModel):
         # 异常信息的文本描述
         self.result_msg = result_msg
         # 是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class OcpxAdDataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        industry: str = None,
+        channel: str = None,
+        account_id: str = None,
+        event_code: str = None,
+        event_time: int = None,
+        user_info: UserInfo = None,
+        out_event_id: str = None,
+        os_type: str = None,
+        click_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 见对接文档中【Industry行业枚举】部分
+        self.industry = industry
+        # 归因渠道编码，见对接文档中的【渠道枚举】部分
+        self.channel = channel
+        # 归因广告账号id
+        self.account_id = account_id
+        # 见对接文档中【转化事件event_code枚举】部分
+        self.event_code = event_code
+        # unix时间戳
+        self.event_time = event_time
+        # 转化用户/设备标识
+        self.user_info = user_info
+        # 如有去重需求，可传递业务事件id， 唯一标识当前事件。如下单事件中的订单id
+        self.out_event_id = out_event_id
+        # android/ios/web
+        self.os_type = os_type
+        # 点击id和user_info二者至少传一个
+        self.click_id = click_id
+
+    def validate(self):
+        self.validate_required(self.industry, 'industry')
+        self.validate_required(self.channel, 'channel')
+        self.validate_required(self.account_id, 'account_id')
+        self.validate_required(self.event_code, 'event_code')
+        self.validate_required(self.event_time, 'event_time')
+        if self.user_info:
+            self.user_info.validate()
+        self.validate_required(self.os_type, 'os_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.industry is not None:
+            result['industry'] = self.industry
+        if self.channel is not None:
+            result['channel'] = self.channel
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        if self.event_code is not None:
+            result['event_code'] = self.event_code
+        if self.event_time is not None:
+            result['event_time'] = self.event_time
+        if self.user_info is not None:
+            result['user_info'] = self.user_info.to_map()
+        if self.out_event_id is not None:
+            result['out_event_id'] = self.out_event_id
+        if self.os_type is not None:
+            result['os_type'] = self.os_type
+        if self.click_id is not None:
+            result['click_id'] = self.click_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('industry') is not None:
+            self.industry = m.get('industry')
+        if m.get('channel') is not None:
+            self.channel = m.get('channel')
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        if m.get('event_code') is not None:
+            self.event_code = m.get('event_code')
+        if m.get('event_time') is not None:
+            self.event_time = m.get('event_time')
+        if m.get('user_info') is not None:
+            temp_model = UserInfo()
+            self.user_info = temp_model.from_map(m['user_info'])
+        if m.get('out_event_id') is not None:
+            self.out_event_id = m.get('out_event_id')
+        if m.get('os_type') is not None:
+            self.os_type = m.get('os_type')
+        if m.get('click_id') is not None:
+            self.click_id = m.get('click_id')
+        return self
+
+
+class OcpxAdDataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 调用是否成功
         self.success = success
 
     def validate(self):
