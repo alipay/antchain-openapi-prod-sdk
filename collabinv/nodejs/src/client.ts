@@ -787,6 +787,81 @@ export class UpdateAgentConversationResponse extends $tea.Model {
   }
 }
 
+export class QueryAgentCompletionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户ID
+  userId: string;
+  // 会话id
+  sessionId: string;
+  // 查询词条
+  query: string;
+  // 会话存活时长，单位毫秒，默认5分钟，最大不超过10分钟
+  aliveTime?: number;
+  // agent_id
+  agentId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userId: 'user_id',
+      sessionId: 'session_id',
+      query: 'query',
+      aliveTime: 'alive_time',
+      agentId: 'agent_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userId: 'string',
+      sessionId: 'string',
+      query: 'string',
+      aliveTime: 'number',
+      agentId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAgentCompletionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 消息
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ImportIdmapSamplefileRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2413,7 +2488,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.45",
+          sdk_version: "1.0.46",
           _prod_code: "COLLABINV",
           _prod_channel: "default",
         };
@@ -2573,6 +2648,25 @@ export default class Client {
   async updateAgentConversationEx(request: UpdateAgentConversationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateAgentConversationResponse> {
     Util.validateModel(request);
     return $tea.cast<UpdateAgentConversationResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.agent.conversation.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateAgentConversationResponse({}));
+  }
+
+  /**
+   * Description: agent api 同步
+   * Summary: agent api
+   */
+  async queryAgentCompletion(request: QueryAgentCompletionRequest): Promise<QueryAgentCompletionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAgentCompletionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: agent api 同步
+   * Summary: agent api
+   */
+  async queryAgentCompletionEx(request: QueryAgentCompletionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAgentCompletionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAgentCompletionResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.agent.completion.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAgentCompletionResponse({}));
   }
 
   /**
