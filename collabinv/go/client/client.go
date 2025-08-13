@@ -1066,6 +1066,104 @@ func (s *UpdateAgentConversationResponse) SetResult(v bool) *UpdateAgentConversa
 	return s
 }
 
+type QueryAgentCompletionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 会话id
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 查询词条
+	Query *string `json:"query,omitempty" xml:"query,omitempty" require:"true"`
+	// 会话存活时长，单位毫秒，默认5分钟，最大不超过10分钟
+	AliveTime *int64 `json:"alive_time,omitempty" xml:"alive_time,omitempty"`
+	// agent_id
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+}
+
+func (s QueryAgentCompletionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAgentCompletionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAgentCompletionRequest) SetAuthToken(v string) *QueryAgentCompletionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAgentCompletionRequest) SetProductInstanceId(v string) *QueryAgentCompletionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAgentCompletionRequest) SetUserId(v string) *QueryAgentCompletionRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryAgentCompletionRequest) SetSessionId(v string) *QueryAgentCompletionRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *QueryAgentCompletionRequest) SetQuery(v string) *QueryAgentCompletionRequest {
+	s.Query = &v
+	return s
+}
+
+func (s *QueryAgentCompletionRequest) SetAliveTime(v int64) *QueryAgentCompletionRequest {
+	s.AliveTime = &v
+	return s
+}
+
+func (s *QueryAgentCompletionRequest) SetAgentId(v string) *QueryAgentCompletionRequest {
+	s.AgentId = &v
+	return s
+}
+
+type QueryAgentCompletionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 消息
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s QueryAgentCompletionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAgentCompletionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAgentCompletionResponse) SetReqMsgId(v string) *QueryAgentCompletionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAgentCompletionResponse) SetResultCode(v string) *QueryAgentCompletionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAgentCompletionResponse) SetResultMsg(v string) *QueryAgentCompletionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAgentCompletionResponse) SetMessage(v string) *QueryAgentCompletionResponse {
+	s.Message = &v
+	return s
+}
+
 type ImportIdmapSamplefileRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -3198,7 +3296,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.45"),
+				"sdk_version":      tea.String("1.0.46"),
 				"_prod_code":       tea.String("COLLABINV"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -3453,6 +3551,40 @@ func (client *Client) UpdateAgentConversationEx(request *UpdateAgentConversation
 	}
 	_result = &UpdateAgentConversationResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.agent.conversation.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: agent api 同步
+ * Summary: agent api
+ */
+func (client *Client) QueryAgentCompletion(request *QueryAgentCompletionRequest) (_result *QueryAgentCompletionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAgentCompletionResponse{}
+	_body, _err := client.QueryAgentCompletionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: agent api 同步
+ * Summary: agent api
+ */
+func (client *Client) QueryAgentCompletionEx(request *QueryAgentCompletionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAgentCompletionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAgentCompletionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.agent.completion.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
