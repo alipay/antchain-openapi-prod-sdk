@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.45',
+    sdk_version = '1.0.46',
     _prod_code = 'COLLABINV',
     _prod_channel = 'default'
   };
@@ -534,6 +534,52 @@ async function updateAgentConversation(request: UpdateAgentConversationRequest):
 async function updateAgentConversationEx(request: UpdateAgentConversationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateAgentConversationResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.zkcollabinv.agent.conversation.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAgentCompletionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户ID
+  userId: string(name='user_id'),
+  // 会话id
+  sessionId: string(name='session_id'),
+  // 查询词条
+  query: string(name='query'),
+  // 会话存活时长，单位毫秒，默认5分钟，最大不超过10分钟
+  aliveTime?: long(name='alive_time'),
+  // agent_id
+  agentId: string(name='agent_id'),
+}
+
+model QueryAgentCompletionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 消息
+  message?: string(name='message'),
+}
+
+/**
+ * Description: agent api 同步
+ * Summary: agent api
+ */
+async function queryAgentCompletion(request: QueryAgentCompletionRequest): QueryAgentCompletionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAgentCompletionEx(request, headers, runtime);
+}
+
+/**
+ * Description: agent api 同步
+ * Summary: agent api
+ */
+async function queryAgentCompletionEx(request: QueryAgentCompletionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAgentCompletionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.agent.completion.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ImportIdmapSamplefileRequest = {
