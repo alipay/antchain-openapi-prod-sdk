@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.45',
+                    'sdk_version': '1.0.46',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.45',
+                    'sdk_version': '1.0.46',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -609,6 +609,62 @@ class Client:
         return TeaCore.from_map(
             collabinv_models.UpdateAgentConversationResponse(),
             await self.do_request_async('1.0', 'antchain.zkcollabinv.agent.conversation.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_agent_completion(
+        self,
+        request: collabinv_models.QueryAgentCompletionRequest,
+    ) -> collabinv_models.QueryAgentCompletionResponse:
+        """
+        Description: agent api 同步
+        Summary: agent api
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_agent_completion_ex(request, headers, runtime)
+
+    async def query_agent_completion_async(
+        self,
+        request: collabinv_models.QueryAgentCompletionRequest,
+    ) -> collabinv_models.QueryAgentCompletionResponse:
+        """
+        Description: agent api 同步
+        Summary: agent api
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_agent_completion_ex_async(request, headers, runtime)
+
+    def query_agent_completion_ex(
+        self,
+        request: collabinv_models.QueryAgentCompletionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.QueryAgentCompletionResponse:
+        """
+        Description: agent api 同步
+        Summary: agent api
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.QueryAgentCompletionResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.agent.completion.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_agent_completion_ex_async(
+        self,
+        request: collabinv_models.QueryAgentCompletionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.QueryAgentCompletionResponse:
+        """
+        Description: agent api 同步
+        Summary: agent api
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.QueryAgentCompletionResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.agent.completion.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def import_idmap_samplefile(

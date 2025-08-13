@@ -1324,6 +1324,127 @@ class UpdateAgentConversationResponse(TeaModel):
         return self
 
 
+class QueryAgentCompletionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        user_id: str = None,
+        session_id: str = None,
+        query: str = None,
+        alive_time: int = None,
+        agent_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 用户ID
+        self.user_id = user_id
+        # 会话id
+        self.session_id = session_id
+        # 查询词条
+        self.query = query
+        # 会话存活时长，单位毫秒，默认5分钟，最大不超过10分钟
+        self.alive_time = alive_time
+        # agent_id
+        self.agent_id = agent_id
+
+    def validate(self):
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.session_id, 'session_id')
+        self.validate_required(self.query, 'query')
+        self.validate_required(self.agent_id, 'agent_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.query is not None:
+            result['query'] = self.query
+        if self.alive_time is not None:
+            result['alive_time'] = self.alive_time
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('query') is not None:
+            self.query = m.get('query')
+        if m.get('alive_time') is not None:
+            self.alive_time = m.get('alive_time')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        return self
+
+
+class QueryAgentCompletionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        message: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 消息
+        self.message = message
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.message is not None:
+            result['message'] = self.message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        return self
+
+
 class ImportIdmapSamplefileRequest(TeaModel):
     def __init__(
         self,
