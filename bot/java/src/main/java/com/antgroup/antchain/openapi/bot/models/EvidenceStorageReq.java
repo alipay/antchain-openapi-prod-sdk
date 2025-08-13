@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class EvidenceStorageReq extends TeaModel {
     // 业务数据，原文上链，或者加密（label若为CRYPTO）上链，上链后的业务数据，通过授权可被区块链其他业务方查询
+    /**
+     * <strong>example:</strong>
+     * <p>[{&quot;content&quot;:&quot;{业务数据}&quot;,&quot;label&quot;:&quot;CRYPTO&quot;,&quot;timestamp&quot;:0}]</p>
+     */
     @NameInMap("biz_data")
     public String bizData;
 
@@ -14,25 +18,45 @@ public class EvidenceStorageReq extends TeaModel {
     // "IOTPAY": 支付
     // "CZ": 存证
     // "RAW":文本
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;CZ&quot;</p>
+     */
     @NameInMap("category")
     @Validation(required = true)
     public String category;
 
     // 上链实体id(设备/空间)
     // 不可和project_uid同时为空
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;did:iot:a9147bd2b83d4732b56dc06b346588f5619f80a2d4d2412fab535cbd37293a00&quot;</p>
+     */
     @NameInMap("iot_did")
     public String iotDid;
 
     // 需要上链的证据的哈希值
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;ace1213412313&quot;</p>
+     */
     @NameInMap("hash")
     public String hash;
 
     // 上链的附属信息
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;附属信息json&quot;</p>
+     */
     @NameInMap("meta_json")
     public String metaJson;
 
     // 上链的项目id,
     // 不可和iot_did同时为空
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;上链的项目id&quot;</p>
+     */
     @NameInMap("project_uid")
     public String projectUid;
 

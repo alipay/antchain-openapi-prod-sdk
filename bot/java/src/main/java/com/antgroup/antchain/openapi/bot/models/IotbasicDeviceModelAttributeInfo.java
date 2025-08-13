@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class IotbasicDeviceModelAttributeInfo extends TeaModel {
     // 型号
+    /**
+     * <strong>example:</strong>
+     * <p>A2</p>
+     */
     @NameInMap("model_value")
     @Validation(required = true)
     public String modelValue;

@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class QueryTransactionResultInfo extends TeaModel {
     // 区块hash
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("block_hash")
     public String blockHash;
 
     // 父区块hash
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("parent_block_hash")
     public String parentBlockHash;
 
     // 交易时间戳
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("timestamp")
     public String timestamp;
 
@@ -21,14 +33,26 @@ public class QueryTransactionResultInfo extends TeaModel {
     public Long gas;
 
     // 交易发起方账户
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("from")
     public String from;
 
     // 交易接收方账户
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("to")
     public String to;
 
     // 交易类型
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("tx_type")
     public String txType;
 

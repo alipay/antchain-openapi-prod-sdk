@@ -5,45 +5,81 @@ import com.aliyun.tea.*;
 
 public class EBikeOperationLog extends TeaModel {
     // 日志时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10 10:10</p>
+     */
     @NameInMap("time")
     @Validation(required = true)
     public String time;
 
     // 租户
+    /**
+     * <strong>example:</strong>
+     * <p>XXXXX</p>
+     */
     @NameInMap("tenant")
     @Validation(required = true)
     public String tenant;
 
     // 小程序应用Id
+    /**
+     * <strong>example:</strong>
+     * <p>7006071575519</p>
+     */
     @NameInMap("app_id")
     @Validation(required = true)
     public String appId;
 
     // 用户id
+    /**
+     * <strong>example:</strong>
+     * <p>700607</p>
+     */
     @NameInMap("user_id")
     @Validation(required = true)
     public String userId;
 
     // 设备id
+    /**
+     * <strong>example:</strong>
+     * <p>DEVICE700607157</p>
+     */
     @NameInMap("device_id")
     public String deviceId;
 
     // 操作时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10 10:10:00</p>
+     */
     @NameInMap("operate_time")
     @Validation(required = true)
     public String operateTime;
 
     // 操作描述
+    /**
+     * <strong>example:</strong>
+     * <p>开锁成功</p>
+     */
     @NameInMap("operate_desc")
     @Validation(required = true)
     public String operateDesc;
 
     // 操作是否成功
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("success")
     @Validation(required = true)
     public Boolean success;
 
     // 日志等级(info、warn、error)
+    /**
+     * <strong>example:</strong>
+     * <p>info</p>
+     */
     @NameInMap("level")
     public String level;
 

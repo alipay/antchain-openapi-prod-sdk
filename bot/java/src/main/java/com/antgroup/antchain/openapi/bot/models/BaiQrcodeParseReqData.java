@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class BaiQrcodeParseReqData extends TeaModel {
     // 待识别图片的url
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://testImage.com/xxxxx">http://testImage.com/xxxxx</a></p>
+     */
     @NameInMap("image_url")
     @Validation(required = true)
     public String imageUrl;

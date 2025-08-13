@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class ProjectSpaceInfo extends TeaModel {
     // 项目名称
+    /**
+     * <strong>example:</strong>
+     * <p>温控节能</p>
+     */
     @NameInMap("project_name")
     @Validation(required = true)
     public String projectName;
 
     // 项目编码
+    /**
+     * <strong>example:</strong>
+     * <p>TEMP_CONTROL</p>
+     */
     @NameInMap("project_code")
     @Validation(required = true)
     public String projectCode;
 
     // 项目描述
+    /**
+     * <strong>example:</strong>
+     * <p>这是描述</p>
+     */
     @NameInMap("project_desc")
     public String projectDesc;
 

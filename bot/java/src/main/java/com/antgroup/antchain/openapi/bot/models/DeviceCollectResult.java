@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class DeviceCollectResult extends TeaModel {
     // 上链数据采集ID
+    /**
+     * <strong>example:</strong>
+     * <p>j8o12u38</p>
+     */
     @NameInMap("collect_id")
     @Validation(required = true)
     public String collectId;
 
     // 上链id
+    /**
+     * <strong>example:</strong>
+     * <p>auit98</p>
+     */
     @NameInMap("antchain_id")
     public String antchainId;
 

@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class DeviceOrderResult extends TeaModel {
     // 上链id
+    /**
+     * <strong>example:</strong>
+     * <p>amdfgs</p>
+     */
     @NameInMap("antchain_id")
     @Validation(required = true)
     public String antchainId;
 
     // 订单id
+    /**
+     * <strong>example:</strong>
+     * <p>34</p>
+     */
     @NameInMap("order_id")
     @Validation(required = true)
     public String orderId;

@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class OrderPushInfo extends TeaModel {
     // 订单号
+    /**
+     * <strong>example:</strong>
+     * <p>208395</p>
+     */
     @NameInMap("order_id")
     @Validation(required = true)
     public String orderId;
 
     // 时间戳，取订单上链timestamp字段
+    /**
+     * <strong>example:</strong>
+     * <p>1665490037182</p>
+     */
     @NameInMap("order_collect_time")
     @Validation(required = true)
     public String orderCollectTime;
 
     // 订单总金额
+    /**
+     * <strong>example:</strong>
+     * <p>12000.37</p>
+     */
     @NameInMap("total_amount")
     @Validation(required = true)
     public String totalAmount;
 
     // 租户id
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("tenant_id")
     @Validation(required = true)
     public String tenantId;

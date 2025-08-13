@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class ScfLeaseEqpInfoQueryRequest extends TeaModel {
     // 设备识别号
+    /**
+     * <strong>example:</strong>
+     * <p>10010100101</p>
+     */
     @NameInMap("device_no")
     @Validation(required = true)
     public String deviceNo;
 
     // 运营日期
+    /**
+     * <strong>example:</strong>
+     * <p>2021-07-20 11:34:00</p>
+     */
     @NameInMap("operation_date")
     @Validation(required = true)
     public String operationDate;

@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class DeviceorderRequest extends TeaModel {
     // 订单id
+    /**
+     * <strong>example:</strong>
+     * <p>20034932</p>
+     */
     @NameInMap("order_id")
     @Validation(required = true)
     public String orderId;
 
     // 支付状态
+    /**
+     * <strong>example:</strong>
+     * <p>PAID,UNPAID,PAYMENT_FAILED</p>
+     */
     @NameInMap("order_status")
     @Validation(required = true)
     public String orderStatus;
 
     // 商家唯一id
+    /**
+     * <strong>example:</strong>
+     * <p>30099234</p>
+     */
     @NameInMap("merchant_id")
     @Validation(required = true)
     public String merchantId;
@@ -25,6 +37,10 @@ public class DeviceorderRequest extends TeaModel {
     public java.util.List<IotBasicDeviceOrderItem> orderDeviceList;
 
     // 订单总金额，精确到小数点后两位
+    /**
+     * <strong>example:</strong>
+     * <p>22220.98</p>
+     */
     @NameInMap("total_amount")
     @Validation(required = true)
     public String totalAmount;

@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class TripView extends TeaModel {
     // 开始时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("trip_begin_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String tripBeginTime;
 
     // 结束时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("trip_end_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String tripEndTime;
 
     // 行驶公里数
+    /**
+     * <strong>example:</strong>
+     * <p>22</p>
+     */
     @NameInMap("trip_total_distance")
     @Validation(required = true)
     public Long tripTotalDistance;

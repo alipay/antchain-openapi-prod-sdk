@@ -6,29 +6,49 @@ import com.aliyun.tea.*;
 public class AlertStrategyPageResponse extends TeaModel {
     // 页数
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("page_index")
     @Validation(required = true)
     public Long pageIndex;
 
     // 页码
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("page_size")
     @Validation(required = true)
     public Long pageSize;
 
     // 总记录数
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("total_size")
     @Validation(required = true)
     public Long totalSize;
 
     // 总页数
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("total_pages")
     @Validation(required = true)
     public Long totalPages;
 
     // 数据
+    /**
+     * <strong>example:</strong>
+     * <p>{...}</p>
+     */
     @NameInMap("page_data")
     @Validation(required = true)
     public java.util.List<AlertStrategy> pageData;

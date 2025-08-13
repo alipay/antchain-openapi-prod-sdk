@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class BaiGoodsPointIdentificationResult extends TeaModel {
     // 鉴定点大项名称
+    /**
+     * <strong>example:</strong>
+     * <p>内包装</p>
+     */
     @NameInMap("point_name")
     @Validation(required = true)
     public String pointName;
 
     // 鉴定点子项名称
+    /**
+     * <strong>example:</strong>
+     * <p>顶部</p>
+     */
     @NameInMap("sub_point_name")
     @Validation(required = true)
     public String subPointName;
@@ -18,19 +26,35 @@ public class BaiGoodsPointIdentificationResult extends TeaModel {
     // REAL：鉴定为真
     // FAKE：鉴定为假
     // UNABLE_IDENTIFY：无法鉴定
+    /**
+     * <strong>example:</strong>
+     * <p>REAL</p>
+     */
     @NameInMap("result")
     @Validation(required = true)
     public String result;
 
     // 鉴定分数
+    /**
+     * <strong>example:</strong>
+     * <p>0.92</p>
+     */
     @NameInMap("grade")
     public String grade;
 
     // 用户侧的鉴定点point_id，直接将用户传入的user_point_id返回
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("user_point_id")
     public String userPointId;
 
     // 鉴定评价
+    /**
+     * <strong>example:</strong>
+     * <p>完全同一，趋于同一，不同一</p>
+     */
     @NameInMap("appraise_message")
     public String appraiseMessage;
 

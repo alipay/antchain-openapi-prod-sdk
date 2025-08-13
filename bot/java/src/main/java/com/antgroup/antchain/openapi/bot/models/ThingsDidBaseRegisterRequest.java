@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class ThingsDidBaseRegisterRequest extends TeaModel {
     // 信物链实体的所有者的分布式身份
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;did:mychain:6c9f6cde4f63103d25ab1d9893242547a8518d8f51bff1a9da44e4f8537a9816&quot;</p>
+     */
     @NameInMap("owner_tenant_did")
     public String ownerTenantDid;
 
     // 信物链实体的使用方的分布式身份列表
+    /**
+     * <strong>example:</strong>
+     * <p>[&quot;did:mychain:xxxx1&quot;,&quot;did:mychain:xxxx2&quot;]</p>
+     */
     @NameInMap("user_did")
     public java.util.List<String> userDid;
 
@@ -22,31 +30,55 @@ public class ThingsDidBaseRegisterRequest extends TeaModel {
     // DID_TYPE_CORPORATE:  组织实体
     // DID_TYPE_WAREHOUSE：仓库实体
     // DID_TYPE_SPACE： 空间实体
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;DID_TYPE_DEVICE_ALIYUN&quot;</p>
+     */
     @NameInMap("thing_type")
     @Validation(required = true)
     public String thingType;
 
     // 原始id，租户内同一类型实体唯一
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;aaaa123&quot;</p>
+     */
     @NameInMap("thing_origin_id")
     @Validation(required = true)
     public String thingOriginId;
 
     // 实体原始名称
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;摄像头a11&quot;</p>
+     */
     @NameInMap("thing_origin_name")
     @Validation(required = true)
     public String thingOriginName;
 
     // 实体版本
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;1.0.0&quot;</p>
+     */
     @NameInMap("thing_version")
     @Validation(required = true)
     public String thingVersion;
 
     // 业务编码
+    /**
+     * <strong>example:</strong>
+     * <p>null</p>
+     */
     @NameInMap("biz_type")
     public String bizType;
 
     // 信物链实体附加信息
     // 不同实体身份，有不同的json组织格式，参考另外技术文档
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;附加信息&quot;</p>
+     */
     @NameInMap("thing_extra_params")
     public String thingExtraParams;
 

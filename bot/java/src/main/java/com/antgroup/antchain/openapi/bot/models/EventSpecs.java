@@ -5,23 +5,43 @@ import com.aliyun.tea.*;
 
 public class EventSpecs extends TeaModel {
     // 物模型事件ID
+    /**
+     * <strong>example:</strong>
+     * <p>7084744398341955584</p>
+     */
     @NameInMap("event_model_id")
     @Validation(required = true)
     public String eventModelId;
 
     // 是否返回上链HASH，缺省值按false处理
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("return_hash")
     public Boolean returnHash;
 
     // 业务数据标识
+    /**
+     * <strong>example:</strong>
+     * <p>ORDER</p>
+     */
     @NameInMap("biz_type")
     public String bizType;
 
     // 提交日期
+    /**
+     * <strong>example:</strong>
+     * <p>2024-08-15</p>
+     */
     @NameInMap("submit_date")
     public String submitDate;
 
     // 是否是补数据内容
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("is_repaired")
     public Boolean isRepaired;
 

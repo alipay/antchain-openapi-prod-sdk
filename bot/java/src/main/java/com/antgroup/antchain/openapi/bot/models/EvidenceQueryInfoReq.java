@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class EvidenceQueryInfoReq extends TeaModel {
     // 暂时保留
+    /**
+     * <strong>example:</strong>
+     * <p>null</p>
+     */
     @NameInMap("device_signature")
     public String deviceSignature;
 
     // 暂时保留
+    /**
+     * <strong>example:</strong>
+     * <p>null</p>
+     */
     @NameInMap("device_uid")
     public String deviceUid;
 
@@ -17,11 +25,19 @@ public class EvidenceQueryInfoReq extends TeaModel {
     // "IOTPAY": 支付存证
     // "RAW": 文本上链
     // "TTTS": 溯源存证
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;CZ&quot;</p>
+     */
     @NameInMap("query_type")
     @Validation(required = true)
     public String queryType;
 
     // 查询的链上交易txHash
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;516e981c8b62c6ef08dc99b5f5165ab2a8592b5a116298788f95bbd45d0cc499&quot;</p>
+     */
     @NameInMap("tx_hash")
     @Validation(required = true)
     public String txHash;

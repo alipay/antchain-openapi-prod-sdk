@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class DeviceOperateInfo extends TeaModel {
     // 蚂蚁链iot平台设备ID
+    /**
+     * <strong>example:</strong>
+     * <p>213</p>
+     */
     @NameInMap("device_did")
     @Validation(required = true)
     public String deviceDid;
 
     // 设备签名
+    /**
+     * <strong>example:</strong>
+     * <p>sua8e</p>
+     */
     @NameInMap("signature")
     @Validation(required = true)
     public String signature;

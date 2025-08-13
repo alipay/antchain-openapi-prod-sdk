@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class IotbasicAppManagerPageInfo extends TeaModel {
     // 应用类型
+    /**
+     * <strong>example:</strong>
+     * <p>apk</p>
+     */
     @NameInMap("file_format")
     @Validation(required = true)
     public String fileFormat;
@@ -15,60 +19,108 @@ public class IotbasicAppManagerPageInfo extends TeaModel {
     public Long fileSize;
 
     // 应用模块名称
+    /**
+     * <strong>example:</strong>
+     * <p>温控设备客户端</p>
+     */
     @NameInMap("module_name")
     @Validation(required = true)
     public String moduleName;
 
     // 设备品类code
+    /**
+     * <strong>example:</strong>
+     * <p>code</p>
+     */
     @NameInMap("device_category")
     @Validation(required = true)
     public String deviceCategory;
 
     // 设备品类名称
+    /**
+     * <strong>example:</strong>
+     * <p>name</p>
+     */
     @NameInMap("device_category_name")
     @Validation(required = true)
     public String deviceCategoryName;
 
     // 应用模块包名
+    /**
+     * <strong>example:</strong>
+     * <p>packageName</p>
+     */
     @NameInMap("package_name")
     @Validation(required = true)
     public String packageName;
 
     // 应用描述
+    /**
+     * <strong>example:</strong>
+     * <p>desc</p>
+     */
     @NameInMap("remark")
     public String remark;
 
     // 应用版本号
+    /**
+     * <strong>example:</strong>
+     * <p>1.0</p>
+     */
     @NameInMap("apk_version")
     @Validation(required = true)
     public String apkVersion;
 
     // 应用包类型（整包：0/差分：1）
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("apk_type")
     @Validation(required = true)
     public Long apkType;
 
     // 应用名称
+    /**
+     * <strong>example:</strong>
+     * <p>apkName</p>
+     */
     @NameInMap("apk_name")
     @Validation(required = true)
     public String apkName;
 
     // 应用包id
+    /**
+     * <strong>example:</strong>
+     * <p>apkId</p>
+     */
     @NameInMap("apk_id")
     @Validation(required = true)
     public String apkId;
 
     // 下载次数
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("download_count")
     @Validation(required = true)
     public Long downloadCount;
 
     // 安装次数
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("install_count")
     @Validation(required = true)
     public Long installCount;
 
     // 设备型号
+    /**
+     * <strong>example:</strong>
+     * <p>model</p>
+     */
     @NameInMap("device_model")
     public String deviceModel;
 

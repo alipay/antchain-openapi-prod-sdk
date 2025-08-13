@@ -5,18 +5,34 @@ import com.aliyun.tea.*;
 
 public class TenantProjectCreateReq extends TeaModel {
     // 业务类型，默认空
+    /**
+     * <strong>example:</strong>
+     * <p>null</p>
+     */
     @NameInMap("biz_type")
     public String bizType;
 
     // 可选的，项目关联的区块链类型，1/2/3代表存证/合约等类型
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("blockchain_type")
     public Long blockchainType;
 
     // 可选的，项目关联的区块链uid
+    /**
+     * <strong>example:</strong>
+     * <p>1111111</p>
+     */
     @NameInMap("blockchain_uid")
     public String blockchainUid;
 
     // 租户下唯一项目名称，用以标识项目聚合的存证等信息
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;唯一项目名称&quot;</p>
+     */
     @NameInMap("project_name")
     @Validation(required = true)
     public String projectName;

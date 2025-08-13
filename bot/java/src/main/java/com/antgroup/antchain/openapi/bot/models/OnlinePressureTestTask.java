@@ -11,67 +11,115 @@ public class OnlinePressureTestTask extends TeaModel {
 
     // 修改时间	
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("gmt_modified")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtModified;
 
     // 产线场景码	
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>MAYI-0001 </p>
+     */
     @NameInMap("scene")
     @Validation(required = true)
     public String scene;
 
     // 压测的目标设备可信信根设备的唯一标识，JSONArray字符串	
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>[ {&quot;componentId&quot;: &quot;864964060327592&quot;} {&quot;componentId&quot;: &quot;864964060327592&quot;} ]</p>
+     */
     @NameInMap("component_id_list")
     @Validation(required = true)
     public String componentIdList;
 
     // 客户侧的压测报告	
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>[ { &quot;name&quot;:&quot;流量消耗&quot;, &quot;consumption&quot;:&quot;100KB&quot;, &quot;asExpected&quot;:true }, { &quot;name&quot;:&quot;功耗&quot;, &quot;consumption&quot;:&quot;25mA&quot;, &quot;asExpected&quot;:true }, { &quot;name&quot;:&quot;OTA升级&quot; &quot;asExpected&quot;:true } ] } </p>
+     */
     @NameInMap("customer_pt_report")
     public String customerPtReport;
 
     // 压测开始时间	
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("pt_start_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String ptStartTime;
 
     // 压测结束时间	
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("pt_end_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String ptEndTime;
 
     // RUNNING: 正在执行 SUCCESS : 测试通过 FAILED : 测试不通过	
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>RUNNING</p>
+     */
     @NameInMap("pt_status")
     @Validation(required = true)
     public String ptStatus;
 
     // 关联SIT环境的工单ID	
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>1122</p>
+     */
     @NameInMap("work_order_id")
     public String workOrderId;
 
     // 关联SIT环境的项目ID	
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>11223344</p>
+     */
     @NameInMap("project_id")
     @Validation(required = true)
     public String projectId;
 
     // 产线压测任务ID
+    /**
+     * <strong>example:</strong>
+     * <p>11223344566</p>
+     */
     @NameInMap("pt_task_id")
     @Validation(required = true)
     public String ptTaskId;
 
     // 压测不通过的原因
+    /**
+     * <strong>example:</strong>
+     * <p>数据验签失败</p>
+     */
     @NameInMap("failure_reason")
     @Validation(required = true)
     public String failureReason;
 
     // 拓展信息
+    /**
+     * <strong>example:</strong>
+     * <p>{...}</p>
+     */
     @NameInMap("extra_info")
     public String extraInfo;
 

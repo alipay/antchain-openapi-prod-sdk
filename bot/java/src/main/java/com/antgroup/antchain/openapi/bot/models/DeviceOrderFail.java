@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class DeviceOrderFail extends TeaModel {
     // 订单id
+    /**
+     * <strong>example:</strong>
+     * <p>90</p>
+     */
     @NameInMap("order_id")
     @Validation(required = true)
     public String orderId;
 
     // 设备did
+    /**
+     * <strong>example:</strong>
+     * <p>asdfg</p>
+     */
     @NameInMap("device_did")
     @Validation(required = true)
     public String deviceDid;
 
     // 返回code
+    /**
+     * <strong>example:</strong>
+     * <p>Fail</p>
+     */
     @NameInMap("code")
     @Validation(required = true)
     public String code;
 
     // 失败
+    /**
+     * <strong>example:</strong>
+     * <p>返回信息</p>
+     */
     @NameInMap("message")
     @Validation(required = true)
     public String message;

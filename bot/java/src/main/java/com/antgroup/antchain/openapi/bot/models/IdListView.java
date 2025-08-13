@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class IdListView extends TeaModel {
     // 数据id
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("data_id")
     @Validation(required = true)
     public Long dataId;
 
     // 数据名称
+    /**
+     * <strong>example:</strong>
+     * <p>name</p>
+     */
     @NameInMap("data_name")
     @Validation(required = true)
     public String dataName;

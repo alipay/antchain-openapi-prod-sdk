@@ -5,51 +5,91 @@ import com.aliyun.tea.*;
 
 public class CustomerDeviceItem extends TeaModel {
     // id
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public Long id;
 
     // 租户id
+    /**
+     * <strong>example:</strong>
+     * <p>tenant_id</p>
+     */
     @NameInMap("tenant_id")
     @Validation(required = true)
     public String tenantId;
 
     // 账号id
+    /**
+     * <strong>example:</strong>
+     * <p>账号id</p>
+     */
     @NameInMap("account_id")
     @Validation(required = true)
     public String accountId;
 
     //  设备品类-型号-规格  
+    /**
+     * <strong>example:</strong>
+     * <p> 设备品类-型号-规格  </p>
+     */
     @NameInMap("device_type")
     @Validation(required = true)
     public String deviceType;
 
     // 设备sn
+    /**
+     * <strong>example:</strong>
+     * <p>SN</p>
+     */
     @NameInMap("device_sn")
     @Validation(required = true)
     public String deviceSn;
 
     // 设备did
+    /**
+     * <strong>example:</strong>
+     * <p>dasdf</p>
+     */
     @NameInMap("device_did")
     @Validation(required = true)
     public String deviceDid;
 
     // 服务有效期
+    /**
+     * <strong>example:</strong>
+     * <p>服务有效期</p>
+     */
     @NameInMap("valide_time")
     @Validation(required = true)
     public String valideTime;
 
     // 设备状态
+    /**
+     * <strong>example:</strong>
+     * <p>INIT</p>
+     */
     @NameInMap("device_status")
     @Validation(required = true)
     public String deviceStatus;
 
     // 服务状态
+    /**
+     * <strong>example:</strong>
+     * <p>INIT</p>
+     */
     @NameInMap("service_status")
     @Validation(required = true)
     public String serviceStatus;
 
     // 屏幕状态 开屏、锁屏
+    /**
+     * <strong>example:</strong>
+     * <p>屏幕状态</p>
+     */
     @NameInMap("screen_status")
     public String screenStatus;
 

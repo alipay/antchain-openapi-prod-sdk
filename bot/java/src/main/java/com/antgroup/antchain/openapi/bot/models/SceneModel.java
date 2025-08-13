@@ -5,46 +5,86 @@ import com.aliyun.tea.*;
 
 public class SceneModel extends TeaModel {
     // 主键id
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public Long id;
 
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("gmt_create")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtCreate;
 
     // 修改时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("gmt_modified")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtModified;
 
     // 场景名
+    /**
+     * <strong>example:</strong>
+     * <p>testScene</p>
+     */
     @NameInMap("scene_name")
     @Validation(required = true)
     public String sceneName;
 
     // 是否托管
+    /**
+     * <strong>example:</strong>
+     * <p>ESCROWED</p>
+     */
     @NameInMap("escrowed")
     public String escrowed;
 
     // 私钥密码
+    /**
+     * <strong>example:</strong>
+     * <p>MEUCI..</p>
+     */
     @NameInMap("private_key_password")
     public String privateKeyPassword;
 
     // 租户
+    /**
+     * <strong>example:</strong>
+     * <p>testTenant</p>
+     */
     @NameInMap("tenant_name")
     public String tenantName;
 
     // 场景类型
+    /**
+     * <strong>example:</strong>
+     * <p>共享单车</p>
+     */
     @NameInMap("scene_type")
     public String sceneType;
 
     // 是否跳过中台数据校验处理
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("skip_pegasus")
     public Boolean skipPegasus;
 
     // 定制数据处理类 , 使用用逗号分隔
+    /**
+     * <strong>example:</strong>
+     * <p>XXX_GPS_PROCESSOR</p>
+     */
     @NameInMap("customer_processor")
     public String customerProcessor;
 

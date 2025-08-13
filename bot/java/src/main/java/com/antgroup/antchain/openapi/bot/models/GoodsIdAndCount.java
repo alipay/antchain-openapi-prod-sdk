@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class GoodsIdAndCount extends TeaModel {
     // 商品id
+    /**
+     * <strong>example:</strong>
+     * <p>23123131</p>
+     */
     @NameInMap("goods_sku_id")
     @Validation(required = true)
     public Long goodsSkuId;
 
     // 商品采购数量
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("count")
     @Validation(required = true)
     public Long count;

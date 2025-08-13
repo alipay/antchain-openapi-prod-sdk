@@ -5,46 +5,82 @@ import com.aliyun.tea.*;
 
 public class XrUserTicketPageInfo extends TeaModel {
     // 用户id
+    /**
+     * <strong>example:</strong>
+     * <p>2088**</p>
+     */
     @NameInMap("user_id")
     @Validation(required = true)
     public String userId;
 
     // 用户通行证编码
+    /**
+     * <strong>example:</strong>
+     * <p>2739875205</p>
+     */
     @NameInMap("xr_ticket_code")
     @Validation(required = true)
     public String xrTicketCode;
 
     // xr通行证资源池名称
+    /**
+     * <strong>example:</strong>
+     * <p>资源池001</p>
+     */
     @NameInMap("xr_ticket_pool_name")
     @Validation(required = true)
     public String xrTicketPoolName;
 
     // 资源名称
+    /**
+     * <strong>example:</strong>
+     * <p>资源001</p>
+     */
     @NameInMap("resource_name")
     @Validation(required = true)
     public String resourceName;
 
     // 用户通行证状态
+    /**
+     * <strong>example:</strong>
+     * <p>VALID</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 有效期
+    /**
+     * <strong>example:</strong>
+     * <p>2023-04-06</p>
+     */
     @NameInMap("valid_time")
     @Validation(required = true)
     public String validTime;
 
     // 所属业务
+    /**
+     * <strong>example:</strong>
+     * <p>XR_LEASE</p>
+     */
     @NameInMap("biz_scene")
     @Validation(required = true)
     public String bizScene;
 
     // 租户id
+    /**
+     * <strong>example:</strong>
+     * <p>QWERTYUI</p>
+     */
     @NameInMap("tenant_id")
     @Validation(required = true)
     public String tenantId;
 
     // 核销类型
+    /**
+     * <strong>example:</strong>
+     * <p>XR_DEVICE</p>
+     */
     @NameInMap("xr_verification_type")
     @Validation(required = true)
     public String xrVerificationType;

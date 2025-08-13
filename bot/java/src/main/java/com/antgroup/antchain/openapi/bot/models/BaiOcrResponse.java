@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class BaiOcrResponse extends TeaModel {
     // 返回的结果体
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;backResult&quot;:{&quot;issue&quot;:&quot;XXXX&quot;,&quot;endDate&quot;:&quot;20231010&quot;,&quot;startDate&quot;:&quot;20131010&quot;}}</p>
+     */
     @NameInMap("data")
     @Validation(required = true)
     public String data;

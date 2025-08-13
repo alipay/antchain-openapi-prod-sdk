@@ -5,39 +5,71 @@ import com.aliyun.tea.*;
 
 public class PermissionedTenantModel extends TeaModel {
     // 主键Id
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public Long id;
 
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10 10:10:00</p>
+     */
     @NameInMap("gmt_create")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtCreate;
 
     // 修改时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10 10:10:00</p>
+     */
     @NameInMap("gmt_modified")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtModified;
 
     // 租户名称
+    /**
+     * <strong>example:</strong>
+     * <p>testTenant</p>
+     */
     @NameInMap("tenant_name")
     @Validation(required = true)
     public String tenantName;
 
     // 公司名称
+    /**
+     * <strong>example:</strong>
+     * <p>alipay</p>
+     */
     @NameInMap("org_name")
     @Validation(required = true)
     public String orgName;
 
     // 租户所有人标识
+    /**
+     * <strong>example:</strong>
+     * <p>alipay</p>
+     */
     @NameInMap("owner")
     public String owner;
 
     // 网关私钥
+    /**
+     * <strong>example:</strong>
+     * <p>MEUCIDxNw...</p>
+     */
     @NameInMap("gateway_private_key")
     public String gatewayPrivateKey;
 
     // 网关公钥
+    /**
+     * <strong>example:</strong>
+     * <p>MEUCID...</p>
+     */
     @NameInMap("gateway_public_key")
     public String gatewayPublicKey;
 

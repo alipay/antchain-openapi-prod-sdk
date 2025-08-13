@@ -5,44 +5,76 @@ import com.aliyun.tea.*;
 
 public class Peripheral extends TeaModel {
     // 外围设备Id
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("peripheral_id")
     @Validation(required = true)
     public String peripheralId;
 
     // 数据模型id
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>123456</p>
+     */
     @NameInMap("peripheral_data_model_id")
     @Validation(required = true)
     public String peripheralDataModelId;
 
     // 场景码
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>scene1</p>
+     */
     @NameInMap("scene")
     @Validation(required = true)
     public String scene;
 
     // 外围设备名称
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>锂电池1 </p>
+     */
     @NameInMap("peripheral_name")
     public String peripheralName;
 
     // 厂商名称
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>宁德时代1</p>
+     */
     @NameInMap("corp_name")
     public String corpName;
 
     // 链上外围设备Id
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("chain_peripheral_id")
     @Validation(required = true)
     public String chainPeripheralId;
 
     // 链上哈希
+    /**
+     * <strong>example:</strong>
+     * <p>txhash123</p>
+     */
     @NameInMap("tx_hash")
     @Validation(required = true)
     public String txHash;
 
     // 上链时间
+    /**
+     * <strong>example:</strong>
+     * <p>1605076751000</p>
+     */
     @NameInMap("tx_time")
     @Validation(required = true)
     public Long txTime;
@@ -72,21 +104,37 @@ public class Peripheral extends TeaModel {
     // 垃圾分类回收 4001 
     // 
     // 洗车机 5000
+    /**
+     * <strong>example:</strong>
+     * <p>3000</p>
+     */
     @NameInMap("device_type_code")
     @Validation(required = true)
     public Long deviceTypeCode;
 
     // 单价，单位分
+    /**
+     * <strong>example:</strong>
+     * <p>1000</p>
+     */
     @NameInMap("initial_price")
     @Validation(required = true)
     public Long initialPrice;
 
     // 出厂时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("factory_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String factoryTime;
 
     // 投放时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("release_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String releaseTime;

@@ -5,31 +5,55 @@ import com.aliyun.tea.*;
 
 public class IotbasicDigitalKeyDeviceInfo extends TeaModel {
     // 设备id
+    /**
+     * <strong>example:</strong>
+     * <p>125839</p>
+     */
     @NameInMap("devid")
     @Validation(required = true)
     public String devid;
 
     // 设备名称
+    /**
+     * <strong>example:</strong>
+     * <p>867186033894659</p>
+     */
     @NameInMap("dev_name")
     @Validation(required = true)
     public String devName;
 
     // 设备sn
+    /**
+     * <strong>example:</strong>
+     * <p>9726001010008SC30N96</p>
+     */
     @NameInMap("sn")
     @Validation(required = true)
     public String sn;
 
     // Ccid
+    /**
+     * <strong>example:</strong>
+     * <p>898602B1191870002179</p>
+     */
     @NameInMap("ccid")
     @Validation(required = true)
     public String ccid;
 
     // Msisdn
+    /**
+     * <strong>example:</strong>
+     * <p>1064818313682</p>
+     */
     @NameInMap("msisdn")
     @Validation(required = true)
     public String msisdn;
 
     // tbox固件版本号(16进制)
+    /**
+     * <strong>example:</strong>
+     * <p>80000109</p>
+     */
     @NameInMap("ver")
     @Validation(required = true)
     public String ver;

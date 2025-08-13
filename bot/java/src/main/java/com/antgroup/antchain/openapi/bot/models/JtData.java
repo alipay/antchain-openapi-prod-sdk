@@ -5,26 +5,46 @@ import com.aliyun.tea.*;
 
 public class JtData extends TeaModel {
     // 数据的可信平台唯一ID
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("trustiot_id")
     @Validation(required = true)
     public Long trustiotId;
 
     // IoT可信平台设备唯一ID
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("trustiot_entity_id")
     @Validation(required = true)
     public Long trustiotEntityId;
 
     // 上报原文解析处理之后的数据
+    /**
+     * <strong>example:</strong>
+     * <p>processed_content</p>
+     */
     @NameInMap("processed_content")
     @Validation(required = true)
     public String processedContent;
 
     // 和上一次上报数据里程对比，新增的里程数
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("delta_mileage")
     public Long deltaMileage;
 
     // 正常位置信息：LOCATION
     // 告警信息：ALARM_BASIC、 ALARM_ADAS、 ALARM_DSM、 ALARM_ACCELEROMETER
+    /**
+     * <strong>example:</strong>
+     * <p>数据标识</p>
+     */
     @NameInMap("biz_type")
     @Validation(required = true)
     public String bizType;
@@ -52,14 +72,26 @@ public class JtData extends TeaModel {
     // 11701: 急加速
     // 11702: 急减速
     // 11703: 急转弯
+    /**
+     * <strong>example:</strong>
+     * <p>10001</p>
+     */
     @NameInMap("alarm_sub_type")
     public Long alarmSubType;
 
     // 关联设备唯一ID
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("related_trust_entity_id")
     public String relatedTrustEntityId;
 
     // 日报日期
+    /**
+     * <strong>example:</strong>
+     * <p>2023-12-01</p>
+     */
     @NameInMap("report_date")
     public String reportDate;
 

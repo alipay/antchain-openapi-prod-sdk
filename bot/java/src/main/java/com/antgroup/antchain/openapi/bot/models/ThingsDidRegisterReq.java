@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class ThingsDidRegisterReq extends TeaModel {
     // 业务编码，暂时保留，不需传入
+    /**
+     * <strong>example:</strong>
+     * <p>null</p>
+     */
     @NameInMap("biz_type")
     public String bizType;
 
     // 信物链实体的所有者的分布式身份
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;did:mychain:xxxxx&quot;</p>
+     */
     @NameInMap("owner_tenant_did")
     public String ownerTenantDid;
 
@@ -19,15 +27,27 @@ public class ThingsDidRegisterReq extends TeaModel {
     // CorporateReqModel，
     // WarehouseReqModel，
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;附加信息&quot;</p>
+     */
     @NameInMap("thing_extra_params")
     public String thingExtraParams;
 
     // 原始id，租户内同一类型实体唯一
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;租户下唯一ID&quot;</p>
+     */
     @NameInMap("thing_origin_id")
     @Validation(required = true)
     public String thingOriginId;
 
     // 实体原始名称
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;摄像头a&quot;</p>
+     */
     @NameInMap("thing_origin_name")
     @Validation(required = true)
     public String thingOriginName;
@@ -41,16 +61,28 @@ public class ThingsDidRegisterReq extends TeaModel {
     // DID_TYPE_CORPORATE(65536): 组织实体 
     // DID_TYPE_WAREHOUSE(131072)：仓库实体 
     // DID_TYPE_SPACE(196608)： 空间实体
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("thing_type")
     @Validation(required = true)
     public Long thingType;
 
     // 实体版本
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;1.0.0&quot;</p>
+     */
     @NameInMap("thing_version")
     @Validation(required = true)
     public String thingVersion;
 
     // 信物链实体的使用方的分布式身份列表
+    /**
+     * <strong>example:</strong>
+     * <p>[&quot;did:mychain:xxxx1&quot;,&quot;did:mychain:xxxx2&quot;]</p>
+     */
     @NameInMap("user_did")
     public java.util.List<String> userDid;
 

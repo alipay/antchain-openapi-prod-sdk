@@ -5,59 +5,115 @@ import com.aliyun.tea.*;
 
 public class DidBaseQueryResp extends TeaModel {
     // 授权水平，0-默认关联授权
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("auth_level")
     public Long authLevel;
 
     // 证书公钥，特定实体可查询
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;&quot;</p>
+     */
     @NameInMap("cert_public_key")
     public String certPublicKey;
 
     // 证书文本，特定实体可以查询
+    /**
+     * <strong>example:</strong>
+     * <p>“”</p>
+     */
     @NameInMap("cert_text")
     public String certText;
 
     // DID扩展，设备/企业组织/仓库/空间的解析同ThingExtraParams
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;&quot;</p>
+     */
     @NameInMap("did_extension")
     public String didExtension;
 
     // did公钥，特定w3c did实体可查询
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;&quot;</p>
+     */
     @NameInMap("did_public_key")
     public String didPublicKey;
 
     // DID用户名，w3c did实体可查询
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;&quot;</p>
+     */
     @NameInMap("did_username")
     public String didUsername;
 
     // 所有者DID
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;did:iot:xxxxx&quot;</p>
+     */
     @NameInMap("owner_did")
     public String ownerDid;
 
     // 实体附属空间列表，例如仓库下属库位，设备关联库位等
+    /**
+     * <strong>example:</strong>
+     * <p>[&quot;&quot;,&quot;&quot;]</p>
+     */
     @NameInMap("spaces_attached")
     public java.util.List<String> spacesAttached;
 
     // 实体附属实体列表，例如空间关联设备列表
+    /**
+     * <strong>example:</strong>
+     * <p>[&quot;&quot;,&quot;&quot;]</p>
+     */
     @NameInMap("things_attached")
     public java.util.List<String> thingsAttached;
 
     // 实体属性，在阿里云iot设备，对应三元组
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;,,&quot;</p>
+     */
     @NameInMap("thing_attribute")
     public String thingAttribute;
 
     // 原始ID
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;原始ID&quot;</p>
+     */
     @NameInMap("thing_id")
     public String thingId;
 
     // 实体物模型id
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;&quot;</p>
+     */
     @NameInMap("thing_model_id")
     public String thingModelId;
 
     // 服务端点，可实现w3c service endpoint
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;&quot;</p>
+     */
     @NameInMap("thing_service_endpoint")
     public String thingServiceEndpoint;
 
     // 设备状态需要是通过 updateStatus api更新，
     // 其他状态通过updateThingsDid api更新
+    /**
+     * <strong>example:</strong>
+     * <p>实体状态</p>
+     */
     @NameInMap("thing_status")
     public String thingStatus;
 
@@ -70,18 +126,34 @@ public class DidBaseQueryResp extends TeaModel {
     // 65536: 组织身份
     // 131072: 仓库身份
     // 196608: 空间身份
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("thing_type")
     public Long thingType;
 
     // 实体版本
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;1.0.0&quot;</p>
+     */
     @NameInMap("thing_version")
     public String thingVersion;
 
     // 使用者DID列表
+    /**
+     * <strong>example:</strong>
+     * <p>[&quot;did:iot:xxxxx&quot;,&quot;did:iot:yyyyy&quot;]</p>
+     */
     @NameInMap("user_did_list")
     public java.util.List<String> userDidList;
 
     // 查询的did
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;did:iot:xxxx&quot;</p>
+     */
     @NameInMap("did")
     public String did;
 

@@ -5,30 +5,54 @@ import com.aliyun.tea.*;
 
 public class IotBasicDeviceRegisterResult extends TeaModel {
     // 设备did
+    /**
+     * <strong>example:</strong>
+     * <p>did:private:12dsadadadf</p>
+     */
     @NameInMap("device_did")
     @Validation(required = true)
     public String deviceDid;
 
     // 设备密钥
+    /**
+     * <strong>example:</strong>
+     * <p>12321321</p>
+     */
     @NameInMap("private_key")
     @Validation(required = true)
     public String privateKey;
 
     // 设备名称
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("device_name")
     @Validation(required = true)
     public String deviceName;
 
     // 设备sn
+    /**
+     * <strong>example:</strong>
+     * <p>12321321</p>
+     */
     @NameInMap("device_sn")
     @Validation(required = true)
     public String deviceSn;
 
     // 设备认证密钥密文，需要下发安全认证SDK完成设备激活
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("sec_key")
     public String secKey;
 
     // 设备认证密钥状态
+    /**
+     * <strong>example:</strong>
+     * <p>servicing</p>
+     */
     @NameInMap("service_status")
     public String serviceStatus;
 

@@ -5,41 +5,73 @@ import com.aliyun.tea.*;
 
 public class IotbasicReleaseDeviceInfo extends TeaModel {
     // 应用名称
+    /**
+     * <strong>example:</strong>
+     * <p>应用名称</p>
+     */
     @NameInMap("apk_name")
     @Validation(required = true)
     public String apkName;
 
     // 应用版本号
+    /**
+     * <strong>example:</strong>
+     * <p>apkVersion</p>
+     */
     @NameInMap("apk_version")
     @Validation(required = true)
     public String apkVersion;
 
     // 工单id
+    /**
+     * <strong>example:</strong>
+     * <p>orderId</p>
+     */
     @NameInMap("order_id")
     @Validation(required = true)
     public String orderId;
 
     // 工单名称
+    /**
+     * <strong>example:</strong>
+     * <p>orderName</p>
+     */
     @NameInMap("order_name")
     @Validation(required = true)
     public String orderName;
 
     // 任务id
+    /**
+     * <strong>example:</strong>
+     * <p>taskId</p>
+     */
     @NameInMap("task_id")
     @Validation(required = true)
     public String taskId;
 
     // 设备升级任务唯一id
+    /**
+     * <strong>example:</strong>
+     * <p>orderDetailId</p>
+     */
     @NameInMap("order_detail_id")
     @Validation(required = true)
     public String orderDetailId;
 
     // 设备sn
+    /**
+     * <strong>example:</strong>
+     * <p>deviceSn</p>
+     */
     @NameInMap("device_sn")
     @Validation(required = true)
     public String deviceSn;
 
     // 设备id
+    /**
+     * <strong>example:</strong>
+     * <p>deviceId</p>
+     */
     @NameInMap("device_id")
     @Validation(required = true)
     public String deviceId;
@@ -53,15 +85,27 @@ public class IotbasicReleaseDeviceInfo extends TeaModel {
     // 升级失败：FAILED
     // 已取消：CANCELED
     // 升级超时：TIMEOUT
+    /**
+     * <strong>example:</strong>
+     * <p>QUEUED</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 发布时间
+    /**
+     * <strong>example:</strong>
+     * <p>2024-06-06 11:11:11</p>
+     */
     @NameInMap("release_time")
     public String releaseTime;
 
     // 升级完成时间
+    /**
+     * <strong>example:</strong>
+     * <p>2024-06-06 11:11:11</p>
+     */
     @NameInMap("upgrade_time")
     public String upgradeTime;
 

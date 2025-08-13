@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class CustomEntityInfo extends TeaModel {
     // 客户自定义实体类型，默认为JSSDK_ACCOUNT
+    /**
+     * <strong>example:</strong>
+     * <p>JSSDK_ACCOUNT</p>
+     */
     @NameInMap("customer_entity_type")
     @Validation(required = true)
     public String customerEntityType;
 
     // 客户自定义实体内容
+    /**
+     * <strong>example:</strong>
+     * <p>{...}</p>
+     */
     @NameInMap("customer_entity_content")
     @Validation(required = true)
     public String customerEntityContent;

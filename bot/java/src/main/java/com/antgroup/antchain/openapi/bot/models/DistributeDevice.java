@@ -5,34 +5,62 @@ import com.aliyun.tea.*;
 
 public class DistributeDevice extends TeaModel {
     // 链上设备Id  （deviceType=DEVICE 时有值)
+    /**
+     * <strong>example:</strong>
+     * <p>4533</p>
+     */
     @NameInMap("chain_device_id")
     public String chainDeviceId;
 
     // 设备id
+    /**
+     * <strong>example:</strong>
+     * <p>1122</p>
+     */
     @NameInMap("device_id")
     @Validation(required = true)
     public String deviceId;
 
     // 发行设备Id
+    /**
+     * <strong>example:</strong>
+     * <p>4455</p>
+     */
     @NameInMap("distribute_device_id")
     @Validation(required = true)
     public String distributeDeviceId;
 
     // 场景码
+    /**
+     * <strong>example:</strong>
+     * <p>SCENE</p>
+     */
     @NameInMap("scene")
     @Validation(required = true)
     public String scene;
 
     // 设备类型 DEVICE : 设备 、PERIPHERAL : 外围设备
+    /**
+     * <strong>example:</strong>
+     * <p>PERIPHERAL</p>
+     */
     @NameInMap("device_type")
     @Validation(required = true)
     public String deviceType;
 
     // 链上外围设备Id（deviceType=PERIPHERAL 时有值)
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("chain_peripheral_id")
     public String chainPeripheralId;
 
     // 设备状态，取值范围：NORMAL、OFFLINE、UNREGISTER
+    /**
+     * <strong>example:</strong>
+     * <p>NORMAL</p>
+     */
     @NameInMap("device_status")
     public String deviceStatus;
 

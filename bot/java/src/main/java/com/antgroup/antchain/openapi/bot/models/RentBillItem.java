@@ -5,30 +5,54 @@ import com.aliyun.tea.*;
 
 public class RentBillItem extends TeaModel {
     // 租约分期ID
+    /**
+     * <strong>example:</strong>
+     * <p>12321321</p>
+     */
     @NameInMap("bill_item_id")
     @Validation(required = true)
     public String billItemId;
 
     // 租约分期名称
+    /**
+     * <strong>example:</strong>
+     * <p>第几期</p>
+     */
     @NameInMap("bill_item_name")
     public String billItemName;
 
     // 租期开始日期
+    /**
+     * <strong>example:</strong>
+     * <p>2006-01-02 15:04:05</p>
+     */
     @NameInMap("bill_item_begin")
     @Validation(required = true)
     public String billItemBegin;
 
     // 租期结束日期 
+    /**
+     * <strong>example:</strong>
+     * <p>2006-02-02 15:04:05</p>
+     */
     @NameInMap("bill_item_end")
     @Validation(required = true)
     public String billItemEnd;
 
     // 租约金额
+    /**
+     * <strong>example:</strong>
+     * <p>5000</p>
+     */
     @NameInMap("bill_item_money")
     @Validation(required = true)
     public String billItemMoney;
 
     // 租约支付状态
+    /**
+     * <strong>example:</strong>
+     * <p>待支付，已支付，支付失败</p>
+     */
     @NameInMap("payment_state")
     public String paymentState;
 

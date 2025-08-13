@@ -5,39 +5,71 @@ import com.aliyun.tea.*;
 
 public class TsmCommonCmd extends TeaModel {
     // private byte cla;
+    /**
+     * <strong>example:</strong>
+     * <p>00</p>
+     */
     @NameInMap("cla")
     @Validation(required = true)
     public Long cla;
 
     //  host challenge data.
+    /**
+     * <strong>example:</strong>
+     * <p>[0,0]</p>
+     */
     @NameInMap("data")
     @Validation(required = true)
     public java.util.List<Long> data;
 
     // private byte ins;
+    /**
+     * <strong>example:</strong>
+     * <p>00</p>
+     */
     @NameInMap("ins")
     @Validation(required = true)
     public Long ins;
 
     //  private byte lc;
+    /**
+     * <strong>example:</strong>
+     * <p>lc</p>
+     */
     @NameInMap("lc")
     @Validation(required = true)
     public Long lc;
 
     // private byte le = (byte) 0x00;
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
     @NameInMap("le")
     public Long le;
 
     // private Boolean needSecurityHandle = Boolean.TRUE;
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("need_security_handle")
     public Boolean needSecurityHandle;
 
     // private byte p1;
+    /**
+     * <strong>example:</strong>
+     * <p>00</p>
+     */
     @NameInMap("p1")
     @Validation(required = true)
     public Long p1;
 
     // private byte p2 = (byte) 0x00;
+    /**
+     * <strong>example:</strong>
+     * <p>00</p>
+     */
     @NameInMap("p2")
     @Validation(required = true)
     public Long p2;

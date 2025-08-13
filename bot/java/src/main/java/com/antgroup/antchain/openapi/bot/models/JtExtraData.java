@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class JtExtraData extends TeaModel {
     // 查询的时间范围内的行驶总里程
+    /**
+     * <strong>example:</strong>
+     * <p>312</p>
+     */
     @NameInMap("delta_mileage")
     @Validation(required = true)
     public Long deltaMileage;
 
     // 最大车速
+    /**
+     * <strong>example:</strong>
+     * <p>60</p>
+     */
     @NameInMap("max_speed")
     @Validation(required = true)
     public Long maxSpeed;
 
     // 平均车速
+    /**
+     * <strong>example:</strong>
+     * <p>60</p>
+     */
     @NameInMap("avg_speed")
     @Validation(required = true)
     public Long avgSpeed;

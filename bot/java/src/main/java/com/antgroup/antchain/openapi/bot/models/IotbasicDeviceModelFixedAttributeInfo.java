@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class IotbasicDeviceModelFixedAttributeInfo extends TeaModel {
     // 属性说明
+    /**
+     * <strong>example:</strong>
+     * <p>name</p>
+     */
     @NameInMap("attribute_name")
     @Validation(required = true)
     public String attributeName;
 
     // 属性名称
+    /**
+     * <strong>example:</strong>
+     * <p>value</p>
+     */
     @NameInMap("attribute_value")
     @Validation(required = true)
     public String attributeValue;
@@ -17,6 +25,10 @@ public class IotbasicDeviceModelFixedAttributeInfo extends TeaModel {
     // 数据值类型
     // 字符串：string
     // 数字：long
+    /**
+     * <strong>example:</strong>
+     * <p>string</p>
+     */
     @NameInMap("data_type")
     @Validation(required = true)
     public String dataType;

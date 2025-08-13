@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class IotbasicOtaModuleInfo extends TeaModel {
     // OTA模块名称
+    /**
+     * <strong>example:</strong>
+     * <p>barcodeScanner</p>
+     */
     @NameInMap("module_name")
     @Validation(required = true)
     public String moduleName;
 
     // 最新版本号
+    /**
+     * <strong>example:</strong>
+     * <p>1.1.1</p>
+     */
     @NameInMap("last_version")
     public String lastVersion;
 

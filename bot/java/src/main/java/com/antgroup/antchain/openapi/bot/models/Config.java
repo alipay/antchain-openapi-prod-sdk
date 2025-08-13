@@ -4,7 +4,8 @@ package com.antgroup.antchain.openapi.bot.models;
 import com.aliyun.tea.*;
 
 /**
- * Model for initing client
+ * <b>description</b> :
+ * <p>Model for initing client</p>
  */
 public class Config extends TeaModel {
     /**
@@ -27,54 +28,81 @@ public class Config extends TeaModel {
 
     /**
      * <p>http protocol</p>
+     * 
+     * <strong>example:</strong>
+     * <p>http</p>
      */
     @NameInMap("protocol")
     public String protocol;
 
     /**
      * <p>read timeout</p>
+     * 
+     * <strong>example:</strong>
+     * <p>10</p>
      */
     @NameInMap("readTimeout")
     public Number readTimeout;
 
     /**
      * <p>connect timeout</p>
+     * 
+     * <strong>example:</strong>
+     * <p>10</p>
      */
     @NameInMap("connectTimeout")
     public Number connectTimeout;
 
     /**
      * <p>http proxy</p>
+     * 
+     * <strong>example:</strong>
+     * <p><a href="http://localhost">http://localhost</a></p>
      */
     @NameInMap("httpProxy")
     public String httpProxy;
 
     /**
      * <p>https proxy</p>
+     * 
+     * <strong>example:</strong>
+     * <p><a href="https://localhost">https://localhost</a></p>
      */
     @NameInMap("httpsProxy")
     public String httpsProxy;
 
     /**
      * <p>endpoint</p>
+     * 
+     * <strong>example:</strong>
+     * <p>cs.aliyuncs.com</p>
      */
     @NameInMap("endpoint")
     public String endpoint;
 
     /**
      * <p>proxy white list</p>
+     * 
+     * <strong>example:</strong>
+     * <p><a href="http://localhost">http://localhost</a></p>
      */
     @NameInMap("noProxy")
     public String noProxy;
 
     /**
      * <p>max idle conns</p>
+     * 
+     * <strong>example:</strong>
+     * <p>3</p>
      */
     @NameInMap("maxIdleConns")
     public Number maxIdleConns;
 
     /**
      * <p>user agent</p>
+     * 
+     * <strong>example:</strong>
+     * <p>Alibabacloud/1</p>
      */
     @NameInMap("userAgent")
     public String userAgent;
@@ -87,6 +115,9 @@ public class Config extends TeaModel {
 
     /**
      * <p>socks5 network</p>
+     * 
+     * <strong>example:</strong>
+     * <p>TCP</p>
      */
     @NameInMap("socks5NetWork")
     public String socks5NetWork;

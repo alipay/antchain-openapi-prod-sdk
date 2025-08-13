@@ -5,26 +5,46 @@ import com.aliyun.tea.*;
 
 public class QueryChainDataTransactionResultData extends TeaModel {
     // 所属业务
+    /**
+     * <strong>example:</strong>
+     * <p>SMART_CAR_KEY</p>
+     */
     @NameInMap("biz_scene")
     @Validation(required = true)
     public String bizScene;
 
     // 数据资产类型
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("data_scene")
     @Validation(required = true)
     public String dataScene;
 
     // 资产ID
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("asset_id")
     @Validation(required = true)
     public String assetId;
 
     // 租户id
+    /**
+     * <strong>example:</strong>
+     * <p>ASDFGHJK</p>
+     */
     @NameInMap("tenant_id")
     @Validation(required = true)
     public String tenantId;
 
     // 业务数据hash
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("text_hash")
     @Validation(required = true)
     public String textHash;

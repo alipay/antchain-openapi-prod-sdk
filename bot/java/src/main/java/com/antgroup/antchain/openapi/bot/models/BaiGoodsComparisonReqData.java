@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class BaiGoodsComparisonReqData extends TeaModel {
     // 品类
+    /**
+     * <strong>example:</strong>
+     * <p>奢侈品</p>
+     */
     @NameInMap("category")
     @Validation(required = true)
     public String category;
 
     // 品牌
+    /**
+     * <strong>example:</strong>
+     * <p>GUCCI</p>
+     */
     @NameInMap("brand")
     @Validation(required = true)
     public String brand;
 
     // 款式
+    /**
+     * <strong>example:</strong>
+     * <p>Gucci Diana</p>
+     */
     @NameInMap("style")
     @Validation(required = true)
     public String style;
@@ -25,6 +37,10 @@ public class BaiGoodsComparisonReqData extends TeaModel {
     public java.util.List<BaiGoodsPoint> goodsPoints;
 
     // 用户自定义字符串，系统不做处理，会在响应体中带回
+    /**
+     * <strong>example:</strong>
+     * <p>state</p>
+     */
     @NameInMap("out_state")
     public String outState;
 

@@ -21,16 +21,28 @@ public class DidBaseQueryReq extends TeaModel {
     // * "thingsAttached"关联实体列表（例：库位关联设备）
     // * "authLevel"     授权等级
     // * "thingServiceEndpoint" 服务列表
+    /**
+     * <strong>example:</strong>
+     * <p>[&quot;如下1&quot;,&quot;如下2&quot;]</p>
+     */
     @NameInMap("data_filter")
     @Validation(required = true)
     public java.util.List<String> dataFilter;
 
     // 是否从链上查询，从链上查询将返回txHash值
+    /**
+     * <strong>example:</strong>
+     * <p>false</p>
+     */
     @NameInMap("on_chain")
     @Validation(required = true)
     public Boolean onChain;
 
     // 需要查询的实体Did列表，同一次查询的Did须为相同类型
+    /**
+     * <strong>example:</strong>
+     * <p>[&quot;did:iot:xxxx&quot;,&quot;did:iot:yyyyy&quot;]</p>
+     */
     @NameInMap("things_did_list")
     @Validation(required = true)
     public java.util.List<String> thingsDidList;

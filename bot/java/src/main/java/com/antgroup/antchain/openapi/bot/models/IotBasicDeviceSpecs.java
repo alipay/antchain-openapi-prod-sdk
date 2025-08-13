@@ -5,51 +5,91 @@ import com.aliyun.tea.*;
 
 public class IotBasicDeviceSpecs extends TeaModel {
     // 厂商编码
+    /**
+     * <strong>example:</strong>
+     * <p>telpo</p>
+     */
     @NameInMap("corp_value")
     @Validation(required = true)
     public String corpValue;
 
     // 厂商名称
+    /**
+     * <strong>example:</strong>
+     * <p>天波</p>
+     */
     @NameInMap("corp_name")
     @Validation(required = true)
     public String corpName;
 
     // 型号名称
+    /**
+     * <strong>example:</strong>
+     * <p>TPS1231</p>
+     */
     @NameInMap("model_name")
     @Validation(required = true)
     public String modelName;
 
     // 型号编码
+    /**
+     * <strong>example:</strong>
+     * <p>TPS123</p>
+     */
     @NameInMap("model_value")
     @Validation(required = true)
     public String modelValue;
 
     // 防疫机
+    /**
+     * <strong>example:</strong>
+     * <p>设备品类名称</p>
+     */
     @NameInMap("category_name")
     @Validation(required = true)
     public String categoryName;
 
     // 设备品类编码
+    /**
+     * <strong>example:</strong>
+     * <p>antmic</p>
+     */
     @NameInMap("category_code")
     @Validation(required = true)
     public String categoryCode;
 
     // 规格ID
+    /**
+     * <strong>example:</strong>
+     * <p>12321321</p>
+     */
     @NameInMap("specs_id")
     @Validation(required = true)
     public Long specsId;
 
     // 规格名称
+    /**
+     * <strong>example:</strong>
+     * <p>规格名称</p>
+     */
     @NameInMap("specs_name")
     @Validation(required = true)
     public String specsName;
 
     // 规格编码
+    /**
+     * <strong>example:</strong>
+     * <p>规格编码</p>
+     */
     @NameInMap("specs_value")
     @Validation(required = true)
     public String specsValue;
 
     // 规格参数
+    /**
+     * <strong>example:</strong>
+     * <p>规格参数</p>
+     */
     @NameInMap("specs_param")
     @Validation(required = true)
     public String specsParam;

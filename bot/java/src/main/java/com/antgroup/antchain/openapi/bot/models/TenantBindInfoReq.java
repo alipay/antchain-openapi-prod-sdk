@@ -5,19 +5,35 @@ import com.aliyun.tea.*;
 
 public class TenantBindInfoReq extends TeaModel {
     // 租户关联扩展信息
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;CN,北京&quot;</p>
+     */
     @NameInMap("extension")
     public String extension;
 
     // 业务类型，默认空
+    /**
+     * <strong>example:</strong>
+     * <p>null</p>
+     */
     @NameInMap("biz_type")
     public String bizType;
 
     // 组织机构代码，可为中文
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;12345&quot;</p>
+     */
     @NameInMap("tenant_uid")
     @Validation(required = true)
     public String tenantUid;
 
     // 组织结构名称
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;xx公司xx部门&quot;</p>
+     */
     @NameInMap("user_name")
     @Validation(required = true)
     public String userName;

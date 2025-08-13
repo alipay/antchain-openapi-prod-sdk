@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class IotbasicDeviceModelAttributeFailInfo extends TeaModel {
     // 型号
+    /**
+     * <strong>example:</strong>
+     * <p>A2</p>
+     */
     @NameInMap("model_value")
     @Validation(required = true)
     public String modelValue;
@@ -14,11 +18,19 @@ public class IotbasicDeviceModelAttributeFailInfo extends TeaModel {
     public java.util.List<String> specsList;
 
     // 失败code
+    /**
+     * <strong>example:</strong>
+     * <p>code</p>
+     */
     @NameInMap("error_code")
     @Validation(required = true)
     public String errorCode;
 
     // 失败消息
+    /**
+     * <strong>example:</strong>
+     * <p>message</p>
+     */
     @NameInMap("error_message")
     @Validation(required = true)
     public String errorMessage;

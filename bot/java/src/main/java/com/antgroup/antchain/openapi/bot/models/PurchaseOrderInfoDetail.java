@@ -6,46 +6,78 @@ import com.aliyun.tea.*;
 public class PurchaseOrderInfoDetail extends TeaModel {
     // 租赁订单号
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>dadadasda</p>
+     */
     @NameInMap("order_number")
     @Validation(required = true)
     public String orderNumber;
 
     // 收货人姓名
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>立敢</p>
+     */
     @NameInMap("consignee_name")
     @Validation(required = true)
     public String consigneeName;
 
     // 收货人身份证号
+    /**
+     * <strong>example:</strong>
+     * <p>424234324324234</p>
+     */
     @NameInMap("consignee_id_number")
     @Validation(required = true)
     public String consigneeIdNumber;
 
     // 收货人手机号
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>13400113344</p>
+     */
     @NameInMap("consignee_phone")
     @Validation(required = true)
     public String consigneePhone;
 
     // 收货人地址
+    /**
+     * <strong>example:</strong>
+     * <p>北京市海淀区XXXXXXXX</p>
+     */
     @NameInMap("consignee_address")
     @Validation(required = true)
     public String consigneeAddress;
 
     // 供货商名称
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>fsafsafaf</p>
+     */
     @NameInMap("supplier_name")
     @Validation(required = true)
     public String supplierName;
 
     // 供货商租户id
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>fsffafaf</p>
+     */
     @NameInMap("supplier_id")
     @Validation(required = true)
     public String supplierId;
 
     // 采购商id
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>fafsafaf</p>
+     */
     @NameInMap("lease_id")
     @Validation(required = true)
     public String leaseId;

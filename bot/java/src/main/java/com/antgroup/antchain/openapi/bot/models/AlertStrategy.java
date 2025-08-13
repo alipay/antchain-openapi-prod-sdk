@@ -5,46 +5,82 @@ import com.aliyun.tea.*;
 
 public class AlertStrategy extends TeaModel {
     // 主键ID 
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public Long id;
 
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("gmt_create")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtCreate;
 
     // 更新时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("gmt_modified")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtModified;
 
     // 租户
+    /**
+     * <strong>example:</strong>
+     * <p>alipay</p>
+     */
     @NameInMap("tenant_name")
     @Validation(required = true)
     public String tenantName;
 
     // 场景码
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>alipay-0101</p>
+     */
     @NameInMap("scene")
     public String scene;
 
     // 策略类型：DEBUG（技术联调）；MONITOR（生产监控）
+    /**
+     * <strong>example:</strong>
+     * <p>MONITOR</p>
+     */
     @NameInMap("strategy_type")
     @Validation(required = true)
     public String strategyType;
 
     // 策略详情，json格式
+    /**
+     * <strong>example:</strong>
+     * <p>[{  &quot;alert_method&quot;: &quot;DING_TALK&quot;,   &quot;addresses&quot;: &quot;&quot;,  &quot;alert_strategy&quot;: &quot;&quot;,   &quot;params&quot;: {     &quot;fail_days&quot; : 10   } }, {  &quot;alert_method&quot;: &quot;EMAIL&quot;,   &quot;addresses&quot;: &quot;&quot;,  &quot;alert_strategy&quot;: &quot;&quot;,  &quot;params&quot;: {       } }]</p>
+     */
     @NameInMap("strategy_detail")
     @Validation(required = true)
     public String strategyDetail;
 
     // 是否启用，默认false
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("enabled")
     @Validation(required = true)
     public Boolean enabled;
 
     // 备注
+    /**
+     * <strong>example:</strong>
+     * <p>这是一条测试数据</p>
+     */
     @NameInMap("remark")
     public String remark;
 

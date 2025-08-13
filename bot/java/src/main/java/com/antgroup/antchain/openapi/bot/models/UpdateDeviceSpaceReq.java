@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class UpdateDeviceSpaceReq extends TeaModel {
     // API要更新的设备DID
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;did:iot:xxxxx&quot;</p>
+     */
     @NameInMap("device_did")
     @Validation(required = true)
     public String deviceDid;
@@ -13,11 +17,19 @@ public class UpdateDeviceSpaceReq extends TeaModel {
     // 1-添加  
     // 2-删除
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("update_mode")
     @Validation(required = true)
     public Long updateMode;
 
     // API要更新的设备部署库位
+    /**
+     * <strong>example:</strong>
+     * <p>[&quot;did:iot:xxxx&quot;,&quot;did:iot:xxxxx&quot;]</p>
+     */
     @NameInMap("device_space")
     @Validation(required = true)
     public java.util.List<String> deviceSpace;

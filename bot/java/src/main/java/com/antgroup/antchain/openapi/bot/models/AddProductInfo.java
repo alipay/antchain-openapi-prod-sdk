@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class AddProductInfo extends TeaModel {
     // 产品名称
+    /**
+     * <strong>example:</strong>
+     * <p>防疫一体机</p>
+     */
     @NameInMap("product_name")
     @Validation(required = true)
     public String productName;
 
     // 产品code
+    /**
+     * <strong>example:</strong>
+     * <p>face_smart</p>
+     */
     @NameInMap("product_code")
     @Validation(required = true)
     public String productCode;
 
     // 产品描述
+    /**
+     * <strong>example:</strong>
+     * <p>智能防疫机</p>
+     */
     @NameInMap("remark")
     public String remark;
 

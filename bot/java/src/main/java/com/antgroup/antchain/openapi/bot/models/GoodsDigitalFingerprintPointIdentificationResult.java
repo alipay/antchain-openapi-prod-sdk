@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class GoodsDigitalFingerprintPointIdentificationResult extends TeaModel {
     // 子鉴定项
+    /**
+     * <strong>example:</strong>
+     * <p>子鉴定项</p>
+     */
     @NameInMap("sub_point_name")
     @Validation(required = true)
     public String subPointName;
 
     // 商品数字指纹鉴定子项鉴定结果
+    /**
+     * <strong>example:</strong>
+     * <p>REAL</p>
+     */
     @NameInMap("result")
     @Validation(required = true)
     public String result;
 
     // 鉴定子项鉴定得分
+    /**
+     * <strong>example:</strong>
+     * <p>0.92</p>
+     */
     @NameInMap("grade")
     @Validation(required = true)
     public String grade;

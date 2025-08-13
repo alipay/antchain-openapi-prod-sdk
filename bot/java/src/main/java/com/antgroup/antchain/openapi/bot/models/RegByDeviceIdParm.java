@@ -5,20 +5,36 @@ import com.aliyun.tea.*;
 
 public class RegByDeviceIdParm extends TeaModel {
     // 一般是业务上唯一的设备ID/资产编码
+    /**
+     * <strong>example:</strong>
+     * <p>1122</p>
+     */
     @NameInMap("device_id")
     @Validation(required = true)
     public String deviceId;
 
     // 数据模型ID
+    /**
+     * <strong>example:</strong>
+     * <p>7033986596836630528</p>
+     */
     @NameInMap("device_data_model_id")
     public String deviceDataModelId;
 
     // 固定填写RAW_DATA
+    /**
+     * <strong>example:</strong>
+     * <p>RAW_DATA</p>
+     */
     @NameInMap("device_feature")
     public String deviceFeature;
 
     // true : 设备ID已存在时返回存在的设备关联字段;
     // false : 设备ID已存在时直接抛出异常；
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("with_exist_device_id")
     public Boolean withExistDeviceId;
 
@@ -28,40 +44,76 @@ public class RegByDeviceIdParm extends TeaModel {
     public Long deviceTypeCode;
 
     // 设备单价 单位：分
+    /**
+     * <strong>example:</strong>
+     * <p>1000</p>
+     */
     @NameInMap("initial_price")
     public Long initialPrice;
 
     // 出厂时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("factory_time")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String factoryTime;
 
     // 投放时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("release_time")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String releaseTime;
 
     // 额外信息，联系蚂蚁侧获取参数格式
+    /**
+     * <strong>example:</strong>
+     * <p>{...}</p>
+     */
     @NameInMap("extra_info")
     public String extraInfo;
 
     // 资产所有人标识（统一社会信用代码）
+    /**
+     * <strong>example:</strong>
+     * <p>91310101MA1FPCXA3G</p>
+     */
     @NameInMap("owner")
     public String owner;
 
     // 资产所有人名称
+    /**
+     * <strong>example:</strong>
+     * <p>蚂蚁区块链科技（上海）有限公司</p>
+     */
     @NameInMap("owner_name")
     public String ownerName;
 
     // 设备IMEI
+    /**
+     * <strong>example:</strong>
+     * <p>861037055012207</p>
+     */
     @NameInMap("device_imei")
     public String deviceImei;
 
     // 设备名称/设备型号
+    /**
+     * <strong>example:</strong>
+     * <p>64.0V30AH</p>
+     */
     @NameInMap("device_name")
     public String deviceName;
 
     // 生产厂商名
+    /**
+     * <strong>example:</strong>
+     * <p>浙江一厂</p>
+     */
     @NameInMap("corp_name")
     public String corpName;
 

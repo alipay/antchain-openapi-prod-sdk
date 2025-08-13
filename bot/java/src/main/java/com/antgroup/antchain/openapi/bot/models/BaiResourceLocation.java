@@ -7,11 +7,19 @@ public class BaiResourceLocation extends TeaModel {
     // 资源定位类型
     // HTTP_URL：资源url
     // STRING_BASE64：资源base64字符串（不带base64头部）
+    /**
+     * <strong>example:</strong>
+     * <p>HTTP_URL, STRING_BASE64</p>
+     */
     @NameInMap("location_type")
     @Validation(required = true)
     public String locationType;
 
     // 资源定位值
+    /**
+     * <strong>example:</strong>
+     * <p>abc</p>
+     */
     @NameInMap("location_value")
     @Validation(required = true)
     public String locationValue;

@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class CodeListView extends TeaModel {
     // 数据code
+    /**
+     * <strong>example:</strong>
+     * <p>ahog</p>
+     */
     @NameInMap("data_code")
     @Validation(required = true)
     public String dataCode;
 
     // 数据名称
+    /**
+     * <strong>example:</strong>
+     * <p>name</p>
+     */
     @NameInMap("data_name")
     @Validation(required = true)
     public String dataName;

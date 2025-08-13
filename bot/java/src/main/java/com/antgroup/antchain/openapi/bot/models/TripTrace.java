@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class TripTrace extends TeaModel {
     // 定位数据
+    /**
+     * <strong>example:</strong>
+     * <p>113.784416,22.747500</p>
+     */
     @NameInMap("device_location")
     @Validation(required = true)
     public String deviceLocation;

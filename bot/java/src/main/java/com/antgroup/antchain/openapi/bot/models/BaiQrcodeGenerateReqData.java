@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class BaiQrcodeGenerateReqData extends TeaModel {
     // 二维码的码值
+    /**
+     * <strong>example:</strong>
+     * <p>TEST1234567890</p>
+     */
     @NameInMap("qrcode_content")
     @Validation(required = true)
     public String qrcodeContent;

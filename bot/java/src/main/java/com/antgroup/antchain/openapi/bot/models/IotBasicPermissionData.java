@@ -5,26 +5,46 @@ import com.aliyun.tea.*;
 
 public class IotBasicPermissionData extends TeaModel {
     // 权限编码
+    /**
+     * <strong>example:</strong>
+     * <p>ADD_DEVICE</p>
+     */
     @NameInMap("permission_code")
     @Validation(required = true)
     public String permissionCode;
 
     // 权限名称
+    /**
+     * <strong>example:</strong>
+     * <p>注册设备</p>
+     */
     @NameInMap("permission_name")
     @Validation(required = true)
     public String permissionName;
 
     // 权限内容
+    /**
+     * <strong>example:</strong>
+     * <p>权限内容</p>
+     */
     @NameInMap("permission_data")
     @Validation(required = true)
     public String permissionData;
 
     // 权限类型
+    /**
+     * <strong>example:</strong>
+     * <p>权限类型</p>
+     */
     @NameInMap("permission_type")
     @Validation(required = true)
     public String permissionType;
 
     // 权限模块
+    /**
+     * <strong>example:</strong>
+     * <p>权限模块</p>
+     */
     @NameInMap("module")
     @Validation(required = true)
     public String module;

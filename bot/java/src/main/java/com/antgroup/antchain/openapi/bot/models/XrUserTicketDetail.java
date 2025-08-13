@@ -5,81 +5,149 @@ import com.aliyun.tea.*;
 
 public class XrUserTicketDetail extends TeaModel {
     // 业务类型
+    /**
+     * <strong>example:</strong>
+     * <p>XR_LEASE</p>
+     */
     @NameInMap("biz_scene")
     @Validation(required = true)
     public String bizScene;
 
     // 所属客户
+    /**
+     * <strong>example:</strong>
+     * <p>QWERTYUI</p>
+     */
     @NameInMap("tenant_id")
     @Validation(required = true)
     public String tenantId;
 
     // 用户通行证编码
+    /**
+     * <strong>example:</strong>
+     * <p>8613356</p>
+     */
     @NameInMap("xr_ticket_code")
     @Validation(required = true)
     public String xrTicketCode;
 
     // xr通行证资源池名称
+    /**
+     * <strong>example:</strong>
+     * <p>资源池001</p>
+     */
     @NameInMap("xr_ticket_pool_name")
     @Validation(required = true)
     public String xrTicketPoolName;
 
     // 用户id
+    /**
+     * <strong>example:</strong>
+     * <p>2088**</p>
+     */
     @NameInMap("user_id")
     @Validation(required = true)
     public String userId;
 
     // 资源id
+    /**
+     * <strong>example:</strong>
+     * <p>xsadds</p>
+     */
     @NameInMap("resource_id")
     @Validation(required = true)
     public String resourceId;
 
     // 资源名称
+    /**
+     * <strong>example:</strong>
+     * <p>资源001</p>
+     */
     @NameInMap("resource_name")
     @Validation(required = true)
     public String resourceName;
 
     // 用户通行证状态
+    /**
+     * <strong>example:</strong>
+     * <p>待核销</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 有效期
+    /**
+     * <strong>example:</strong>
+     * <p>2023-03-28</p>
+     */
     @NameInMap("valid_time")
     @Validation(required = true)
     public String validTime;
 
     // 实例id
+    /**
+     * <strong>example:</strong>
+     * <p>86871</p>
+     */
     @NameInMap("instance_id")
     public String instanceId;
 
     // 核销时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10 10:10:00</p>
+     */
     @NameInMap("xr_verification_time")
     public String xrVerificationTime;
 
     // 体验开始时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10 10:10:00</p>
+     */
     @NameInMap("sample_start_time")
     public String sampleStartTime;
 
     // 体验结束时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10 10:10:00</p>
+     */
     @NameInMap("sample_end_time")
     public String sampleEndTime;
 
     // 核销类型
+    /**
+     * <strong>example:</strong>
+     * <p>XR_DEVICE</p>
+     */
     @NameInMap("xr_verification_type")
     @Validation(required = true)
     public String xrVerificationType;
 
     // 实例名称
+    /**
+     * <strong>example:</strong>
+     * <p>实例001</p>
+     */
     @NameInMap("instance_name")
     public String instanceName;
 
     // 体验时长，分
+    /**
+     * <strong>example:</strong>
+     * <p>60</p>
+     */
     @NameInMap("test_time")
     @Validation(required = true)
     public Long testTime;
 
     // vr应用集合
+    /**
+     * <strong>example:</strong>
+     * <p>vr应用集合</p>
+     */
     @NameInMap("xr_apps")
     public String xrApps;
 

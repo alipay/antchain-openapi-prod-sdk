@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class CollectInfo extends TeaModel {
     // 资产ID
+    /**
+     * <strong>example:</strong>
+     * <p>56165431</p>
+     */
     @NameInMap("asset_id")
     @Validation(required = true)
     public String assetId;
 
     // 数据资产类型
+    /**
+     * <strong>example:</strong>
+     * <p>LOCK</p>
+     */
     @NameInMap("data_scene")
     @Validation(required = true)
     public String dataScene;
 
     // 资产数据内容，业务要上链的数据JSON格式
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;a&quot;:xx,&quot;b&quot;:xx}</p>
+     */
     @NameInMap("asset_data")
     @Validation(required = true)
     public String assetData;
 
     // 上链数据采集id
+    /**
+     * <strong>example:</strong>
+     * <p>289hj98u</p>
+     */
     @NameInMap("collect_id")
     @Validation(required = true)
     public String collectId;

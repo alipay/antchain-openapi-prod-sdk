@@ -5,40 +5,72 @@ import com.aliyun.tea.*;
 
 public class XrTicketPoolSuccessList extends TeaModel {
     // 租户id
+    /**
+     * <strong>example:</strong>
+     * <p>租户id</p>
+     */
     @NameInMap("tenant_id")
     @Validation(required = true)
     public String tenantId;
 
     // 资源id
+    /**
+     * <strong>example:</strong>
+     * <p>资源id</p>
+     */
     @NameInMap("resource_id")
     @Validation(required = true)
     public String resourceId;
 
     // 有效期
+    /**
+     * <strong>example:</strong>
+     * <p>2022-10-02</p>
+     */
     @NameInMap("valid_time")
     @Validation(required = true)
     public String validTime;
 
     // 体验时长
+    /**
+     * <strong>example:</strong>
+     * <p>60(单位分)</p>
+     */
     @NameInMap("test_time")
     @Validation(required = true)
     public Long testTime;
 
     // vr设备集合
+    /**
+     * <strong>example:</strong>
+     * <p>json或数组</p>
+     */
     @NameInMap("xr_apps")
     public String xrApps;
 
     // 券池最大数
+    /**
+     * <strong>example:</strong>
+     * <p>200</p>
+     */
     @NameInMap("max_pool_count")
     @Validation(required = true)
     public Long maxPoolCount;
 
     // 券池名称
+    /**
+     * <strong>example:</strong>
+     * <p>券池名称</p>
+     */
     @NameInMap("xr_ticket_pool_name")
     @Validation(required = true)
     public String xrTicketPoolName;
 
     // 核销类型
+    /**
+     * <strong>example:</strong>
+     * <p>XR_DEVICE</p>
+     */
     @NameInMap("xr_verification_type")
     @Validation(required = true)
     public String xrVerificationType;

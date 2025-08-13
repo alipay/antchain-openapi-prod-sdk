@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class IotBasicDeviceRegisterFail extends TeaModel {
     // 设备名称
+    /**
+     * <strong>example:</strong>
+     * <p>12321321</p>
+     */
     @NameInMap("device_name")
     @Validation(required = true)
     public String deviceName;
 
     // 设备sn
+    /**
+     * <strong>example:</strong>
+     * <p>2088xx</p>
+     */
     @NameInMap("device_sn")
     @Validation(required = true)
     public String deviceSn;
 
     // 错误编码
+    /**
+     * <strong>example:</strong>
+     * <p>code</p>
+     */
     @NameInMap("code")
     @Validation(required = true)
     public String code;
 
     // 错误描述
+    /**
+     * <strong>example:</strong>
+     * <p>message</p>
+     */
     @NameInMap("message")
     @Validation(required = true)
     public String message;

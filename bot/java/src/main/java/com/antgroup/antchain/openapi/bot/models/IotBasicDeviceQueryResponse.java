@@ -6,82 +6,150 @@ import com.aliyun.tea.*;
 public class IotBasicDeviceQueryResponse extends TeaModel {
     // 设备名称	
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>智能防疫一体机</p>
+     */
     @NameInMap("device_name")
     @Validation(required = true)
     public String deviceName;
 
     // 设备序列号
+    /**
+     * <strong>example:</strong>
+     * <p>CN12300x</p>
+     */
     @NameInMap("device_sn")
     @Validation(required = true)
     public String deviceSn;
 
     // 设备品类名称	
+    /**
+     * <strong>example:</strong>
+     * <p>智能防疫机</p>
+     */
     @NameInMap("device_category_name")
     @Validation(required = true)
     public String deviceCategoryName;
 
     // 设备型号
+    /**
+     * <strong>example:</strong>
+     * <p>PL10</p>
+     */
     @NameInMap("device_model")
     @Validation(required = true)
     public String deviceModel;
 
     // 设备状态
+    /**
+     * <strong>example:</strong>
+     * <p>online</p>
+     */
     @NameInMap("device_status")
     public String deviceStatus;
 
     // 设备安装位置
+    /**
+     * <strong>example:</strong>
+     * <p>浙江省杭州市西湖区 </p>
+     */
     @NameInMap("location")
     public String location;
 
     // 设备注册时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("register_time")
     @Validation(required = true)
     public String registerTime;
 
     // 设备厂商
+    /**
+     * <strong>example:</strong>
+     * <p>蚂蚁数科</p>
+     */
     @NameInMap("corp_name")
     @Validation(required = true)
     public String corpName;
 
     // 租户ID
+    /**
+     * <strong>example:</strong>
+     * <p>2088xx</p>
+     */
     @NameInMap("tenant_id")
     @Validation(required = true)
     public String tenantId;
 
     // 客户名称
+    /**
+     * <strong>example:</strong>
+     * <p>测试客户xx </p>
+     */
     @NameInMap("customer_name")
     @Validation(required = true)
     public String customerName;
 
     // 异常错误码
+    /**
+     * <strong>example:</strong>
+     * <p>SMILE_INIT_ERROR</p>
+     */
     @NameInMap("abnormal_code")
     public String abnormalCode;
 
     // 设备唯一身份id
+    /**
+     * <strong>example:</strong>
+     * <p>did:private:12dsadadadf </p>
+     */
     @NameInMap("device_did")
     public String deviceDid;
 
     // 账号ID
+    /**
+     * <strong>example:</strong>
+     * <p>12321321</p>
+     */
     @NameInMap("account_id")
     @Validation(required = true)
     public String accountId;
 
     // 账户名称
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("account_name")
     @Validation(required = true)
     public String accountName;
 
     // 设备服务状态
+    /**
+     * <strong>example:</strong>
+     * <p>INIT</p>
+     */
     @NameInMap("service_status")
     @Validation(required = true)
     public String serviceStatus;
 
     // 应用版本号
+    /**
+     * <strong>example:</strong>
+     * <p>1.1.13</p>
+     */
     @NameInMap("app_version")
     @Validation(required = true)
     public String appVersion;
 
     // 服务有效期
+    /**
+     * <strong>example:</strong>
+     * <p>2024-4-01</p>
+     */
     @NameInMap("validity_time")
     public String validityTime;
 

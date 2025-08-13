@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class IotbasicReleaseOrderInfo extends TeaModel {
     // 应用名称
+    /**
+     * <strong>example:</strong>
+     * <p>应用名称</p>
+     */
     @NameInMap("apk_name")
     @Validation(required = true)
     public String apkName;
 
     // 应用版本号
+    /**
+     * <strong>example:</strong>
+     * <p>apkVersion</p>
+     */
     @NameInMap("apk_version")
     @Validation(required = true)
     public String apkVersion;
 
     // 工单id
+    /**
+     * <strong>example:</strong>
+     * <p>orderId</p>
+     */
     @NameInMap("order_id")
     @Validation(required = true)
     public String orderId;
 
     // 工单名称
+    /**
+     * <strong>example:</strong>
+     * <p>orderName</p>
+     */
     @NameInMap("order_name")
     @Validation(required = true)
     public String orderName;
@@ -33,11 +49,19 @@ public class IotbasicReleaseOrderInfo extends TeaModel {
     // 全部成功：ALL_SUCCESS
     // 全部失败：ALL_FAILED
     // 全部取消：ALL_CANCELED
+    /**
+     * <strong>example:</strong>
+     * <p>IN_PROGRESS</p>
+     */
     @NameInMap("status")
     @Validation(required = true)
     public String status;
 
     // 发布时间
+    /**
+     * <strong>example:</strong>
+     * <p>2024-06-06 11:11:11</p>
+     */
     @NameInMap("release_time")
     @Validation(required = true)
     public String releaseTime;
@@ -53,6 +77,10 @@ public class IotbasicReleaseOrderInfo extends TeaModel {
     public Long releaseFinished;
 
     // 工单状态变更时间
+    /**
+     * <strong>example:</strong>
+     * <p>2024-06-06 11:11:11</p>
+     */
     @NameInMap("status_change_time")
     @Validation(required = true)
     public String statusChangeTime;

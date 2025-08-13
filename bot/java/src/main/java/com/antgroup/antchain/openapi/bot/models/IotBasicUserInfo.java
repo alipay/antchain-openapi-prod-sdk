@@ -5,18 +5,30 @@ import com.aliyun.tea.*;
 
 public class IotBasicUserInfo extends TeaModel {
     // 租户ID
+    /**
+     * <strong>example:</strong>
+     * <p>DWWS2D</p>
+     */
     @NameInMap("tenant")
     @Validation(required = true)
     public String tenant;
 
     // 金融云用户Id
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>12321321</p>
+     */
     @NameInMap("cloud_user_id")
     @Validation(required = true)
     public String cloudUserId;
 
     // 金融云平台的登录名
     // 
+    /**
+     * <strong>example:</strong>
+     * <p><a href="mailto:xxx@alitest.com">xxx@alitest.com</a></p>
+     */
     @NameInMap("login_name")
     @Validation(required = true)
     public String loginName;

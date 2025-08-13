@@ -5,39 +5,71 @@ import com.aliyun.tea.*;
 
 public class AssetElementRelationInfo extends TeaModel {
     // 来源要素ID
+    /**
+     * <strong>example:</strong>
+     * <p>112233</p>
+     */
     @NameInMap("source_element_id")
     @Validation(required = true)
     public String sourceElementId;
 
     // 目标要素ID
+    /**
+     * <strong>example:</strong>
+     * <p>112233</p>
+     */
     @NameInMap("target_element_id")
     @Validation(required = true)
     public String targetElementId;
 
     // 关联类型
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("relation_type")
     @Validation(required = true)
     public Long relationType;
 
     // 关联依据类型
+    /**
+     * <strong>example:</strong>
+     * <p>NORMAL</p>
+     */
     @NameInMap("relation_dependency_type")
     public String relationDependencyType;
 
     // 关联依据
+    /**
+     * <strong>example:</strong>
+     * <p>{...}</p>
+     */
     @NameInMap("relation_dependency")
     public String relationDependency;
 
     // 项目ID
+    /**
+     * <strong>example:</strong>
+     * <p>112233</p>
+     */
     @NameInMap("project_id")
     @Validation(required = true)
     public String projectId;
 
     // 来源要素名称
+    /**
+     * <strong>example:</strong>
+     * <p>来源要素</p>
+     */
     @NameInMap("source_element_name")
     @Validation(required = true)
     public String sourceElementName;
 
     // 目标要素名称
+    /**
+     * <strong>example:</strong>
+     * <p>目标要素</p>
+     */
     @NameInMap("target_element_name")
     @Validation(required = true)
     public String targetElementName;

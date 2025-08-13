@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class TripStatistics extends TeaModel {
     // 行驶天数
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("trip_day")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String tripDay;
 
     // 总里程
+    /**
+     * <strong>example:</strong>
+     * <p>12</p>
+     */
     @NameInMap("total_distance")
     @Validation(required = true)
     public Long totalDistance;
 
     // 总用时
+    /**
+     * <strong>example:</strong>
+     * <p>2</p>
+     */
     @NameInMap("total_duration")
     @Validation(required = true)
     public Long totalDuration;
 
     // 行驶次数
+    /**
+     * <strong>example:</strong>
+     * <p>12</p>
+     */
     @NameInMap("trip_count")
     @Validation(required = true)
     public Long tripCount;

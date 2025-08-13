@@ -8,16 +8,28 @@ public class BaiGoodsIdentificationRespData extends TeaModel {
     // REAL：鉴定为真
     // FAKE：鉴定为假
     // UNABLE_IDENTIFY：无法鉴定
+    /**
+     * <strong>example:</strong>
+     * <p>REAL</p>
+     */
     @NameInMap("identification_result")
     @Validation(required = true)
     public String identificationResult;
 
     // 整体鉴定分数
+    /**
+     * <strong>example:</strong>
+     * <p>0.99</p>
+     */
     @NameInMap("grade")
     @Validation(required = true)
     public String grade;
 
     // 整体鉴定报告描述
+    /**
+     * <strong>example:</strong>
+     * <p>AI鉴定成功</p>
+     */
     @NameInMap("description")
     public String description;
 
@@ -27,10 +39,18 @@ public class BaiGoodsIdentificationRespData extends TeaModel {
     public java.util.List<BaiGoodsPointIdentificationResult> pointIdentificationResults;
 
     // 鉴定评价
+    /**
+     * <strong>example:</strong>
+     * <p>完全同一，趋于同一，和不同一</p>
+     */
     @NameInMap("appraise_message")
     public String appraiseMessage;
 
     // 用户自定义字符串，系统不做处理，会在响应体中带回
+    /**
+     * <strong>example:</strong>
+     * <p>state</p>
+     */
     @NameInMap("out_state")
     public String outState;
 

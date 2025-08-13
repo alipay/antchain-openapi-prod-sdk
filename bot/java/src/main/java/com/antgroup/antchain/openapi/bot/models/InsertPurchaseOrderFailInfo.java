@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class InsertPurchaseOrderFailInfo extends TeaModel {
     // 订单ID
+    /**
+     * <strong>example:</strong>
+     * <p>safsafafafa</p>
+     */
     @NameInMap("order_id")
     @Validation(required = true)
     public String orderId;
 
     // 订单保存失败的原因
+    /**
+     * <strong>example:</strong>
+     * <p>fasfasfasfa</p>
+     */
     @NameInMap("fail_reason")
     @Validation(required = true)
     public String failReason;

@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class BaiGoodsPointCheckRespData extends TeaModel {
     // 图片是否有效，无效则需要提示重拍
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("valid")
     @Validation(required = true)
     public Boolean valid;

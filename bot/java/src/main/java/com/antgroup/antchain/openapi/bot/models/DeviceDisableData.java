@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class DeviceDisableData extends TeaModel {
     // 设备sn号
+    /**
+     * <strong>example:</strong>
+     * <p>sn123</p>
+     */
     @NameInMap("device_sn")
     @Validation(required = true)
     public String deviceSn;
 
     // 厂商
+    /**
+     * <strong>example:</strong>
+     * <p>telpo</p>
+     */
     @NameInMap("corp_name")
     @Validation(required = true)
     public String corpName;

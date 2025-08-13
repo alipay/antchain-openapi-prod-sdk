@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class BaiQrcodeGenerateRespData extends TeaModel {
     // 二维码的base64字符串
+    /**
+     * <strong>example:</strong>
+     * <p>/9j/4QyXRXhpZgAATU0AKgAAAAgABwESAAMAAAABAAEAAAEa......</p>
+     */
     @NameInMap("generate_result")
     @Validation(required = true)
     public String generateResult;
 
     // 生成结果码
+    /**
+     * <strong>example:</strong>
+     * <p>200</p>
+     */
     @NameInMap("generate_code")
     @Validation(required = true)
     public String generateCode;
 
     // 用于异常场景下细化错误信息
+    /**
+     * <strong>example:</strong>
+     * <p>码值不正确</p>
+     */
     @NameInMap("generate_message")
     @Validation(required = true)
     public String generateMessage;
 
     // 生成失败时的解决方案，用于异常场景下细化错误信息
+    /**
+     * <strong>example:</strong>
+     * <p>请调整码值重试</p>
+     */
     @NameInMap("unable_generate_solution")
     @Validation(required = true)
     public String unableGenerateSolution;

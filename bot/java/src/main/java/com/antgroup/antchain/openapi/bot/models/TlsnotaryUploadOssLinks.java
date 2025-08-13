@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class TlsnotaryUploadOssLinks extends TeaModel {
     // 证书链摘要文件的oss链接
+    /**
+     * <strong>example:</strong>
+     * <p>tlsnotary/{taskId}.json</p>
+     */
     @NameInMap("cert_chain_digest_link")
     @Validation(required = true)
     public String certChainDigestLink;
 
     // 邮件eml文件的oss链接
+    /**
+     * <strong>example:</strong>
+     * <p>tlsnotary/{taskId}.eml</p>
+     */
     @NameInMap("eml_file_link")
     @Validation(required = true)
     public String emlFileLink;

@@ -5,23 +5,43 @@ import com.aliyun.tea.*;
 
 public class EventData extends TeaModel {
     // 数据内容
+    /**
+     * <strong>example:</strong>
+     * <p>{ &quot;DEVICE-ID&quot;: &quot;ABC123&quot;, &quot;IMEI&quot;: &quot;868331011992179&quot;, &quot;HEART-BEAT-TIME&quot;: 1699053387008 }</p>
+     */
     @NameInMap("content")
     @Validation(required = true)
     public String content;
 
     // 可信设备ID
+    /**
+     * <strong>example:</strong>
+     * <p>7213004826408435712</p>
+     */
     @NameInMap("trust_iot_device_id")
     public Long trustIotDeviceId;
 
     // 业务ID
+    /**
+     * <strong>example:</strong>
+     * <p>20240815</p>
+     */
     @NameInMap("biz_id")
     public String bizId;
 
     // 设备数据签名
+    /**
+     * <strong>example:</strong>
+     * <p>8e084d95c5ac9198b01b9f6b8040b2daa35a3e2706a472295f52ec0966119383d7654eb2c1f67eb563194ab9d2197fcd8fcb5232308927e708257ebea8ce1cda</p>
+     */
     @NameInMap("signature")
     public String signature;
 
     // 设备数据间接上报时，服务端补充数据
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;PRICE&quot;:2.2,&quot;NUMBER&quot;:3}</p>
+     */
     @NameInMap("extra_data")
     public String extraData;
 

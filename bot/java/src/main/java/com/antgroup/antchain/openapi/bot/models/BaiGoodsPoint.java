@@ -5,24 +5,44 @@ import com.aliyun.tea.*;
 
 public class BaiGoodsPoint extends TeaModel {
     // 鉴定点名称
+    /**
+     * <strong>example:</strong>
+     * <p>内包装</p>
+     */
     @NameInMap("point_name")
     @Validation(required = true)
     public String pointName;
 
     // 鉴定点子项
+    /**
+     * <strong>example:</strong>
+     * <p>正面</p>
+     */
     @NameInMap("sub_point_name")
     @Validation(required = true)
     public String subPointName;
 
     // 鉴定点图片的url
+    /**
+     * <strong>example:</strong>
+     * <p><a href="https://xxxxxx/a.png">https://xxxxxx/a.png</a></p>
+     */
     @NameInMap("image_url")
     public String imageUrl;
 
     // 图片内容base64编码的字符串，该字段与image_url至少一个非空，同时传入以image_url为准
+    /**
+     * <strong>example:</strong>
+     * <p>/9j/4QyXRXhpZgAATU0AKgAAAAgABwESAAMAAAABAAEAAAEa......</p>
+     */
     @NameInMap("image_base64")
     public String imageBase64;
 
     // 用户侧鉴定单关联id
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("user_point_id")
     public String userPointId;
 

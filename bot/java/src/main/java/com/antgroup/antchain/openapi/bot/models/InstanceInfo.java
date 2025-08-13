@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class InstanceInfo extends TeaModel {
     // 实例id
+    /**
+     * <strong>example:</strong>
+     * <p>设备001</p>
+     */
     @NameInMap("instance_id")
     @Validation(required = true)
     public String instanceId;
 
     // 实例名称
+    /**
+     * <strong>example:</strong>
+     * <p>12313</p>
+     */
     @NameInMap("instance_name")
     @Validation(required = true)
     public String instanceName;

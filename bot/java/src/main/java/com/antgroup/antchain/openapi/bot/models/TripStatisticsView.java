@@ -5,36 +5,64 @@ import com.aliyun.tea.*;
 
 public class TripStatisticsView extends TeaModel {
     // 过去七天内所有行驶记录的总里程	，单位km
+    /**
+     * <strong>example:</strong>
+     * <p>20km</p>
+     */
     @NameInMap("total_distance")
     @Validation(required = true)
     public String totalDistance;
 
     // 行驶总用时
+    /**
+     * <strong>example:</strong>
+     * <p>3</p>
+     */
     @NameInMap("total_duration")
     @Validation(required = true)
     public String totalDuration;
 
     // 骑行次数
+    /**
+     * <strong>example:</strong>
+     * <p>2</p>
+     */
     @NameInMap("trip_count")
     @Validation(required = true)
     public String tripCount;
 
     // 最近一次行驶的里程
+    /**
+     * <strong>example:</strong>
+     * <p>2</p>
+     */
     @NameInMap("last_trip_distance")
     @Validation(required = true)
     public String lastTripDistance;
 
     // 最近一次行驶的平均速度	，单位  km/h
+    /**
+     * <strong>example:</strong>
+     * <p>45</p>
+     */
     @NameInMap("last_trip_avg_speed")
     @Validation(required = true)
     public String lastTripAvgSpeed;
 
     // 最近一次行驶的最大速度	
+    /**
+     * <strong>example:</strong>
+     * <p>50</p>
+     */
     @NameInMap("last_trip_max_speed")
     @Validation(required = true)
     public String lastTripMaxSpeed;
 
     // 最后一次行驶用时
+    /**
+     * <strong>example:</strong>
+     * <p>8</p>
+     */
     @NameInMap("last_trip_spend_time")
     @Validation(required = true)
     public String lastTripSpendTime;

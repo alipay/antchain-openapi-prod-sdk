@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class XrUserTicketInfo extends TeaModel {
     // xr通行证资源池名称
+    /**
+     * <strong>example:</strong>
+     * <p>资源池001</p>
+     */
     @NameInMap("xr_ticket_pool_name")
     @Validation(required = true)
     public String xrTicketPoolName;
 
     // 购买数量
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("count")
     @Validation(required = true)
     public Long count;

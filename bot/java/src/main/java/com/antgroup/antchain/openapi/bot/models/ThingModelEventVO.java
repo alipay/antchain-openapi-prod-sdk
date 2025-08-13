@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class ThingModelEventVO extends TeaModel {
     // 名称
+    /**
+     * <strong>example:</strong>
+     * <p>设备状态数据</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 物模型功能Id
+    /**
+     * <strong>example:</strong>
+     * <p>7067312861108285440</p>
+     */
     @NameInMap("feature_id")
     @Validation(required = true)
     public String featureId;
 
     // 业务标识
+    /**
+     * <strong>example:</strong>
+     * <p>LOCATION</p>
+     */
     @NameInMap("biz_type")
     @Validation(required = true)
     public String bizType;
 
     // 事件属性列表
+    /**
+     * <strong>example:</strong>
+     * <p>[...]</p>
+     */
     @NameInMap("event_properties")
     @Validation(required = true)
     public String eventProperties;

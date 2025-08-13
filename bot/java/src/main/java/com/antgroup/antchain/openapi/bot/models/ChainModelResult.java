@@ -5,41 +5,73 @@ import com.aliyun.tea.*;
 
 public class ChainModelResult extends TeaModel {
     // 所属业务
+    /**
+     * <strong>example:</strong>
+     * <p>XR_LEASE</p>
+     */
     @NameInMap("biz_scene")
     @Validation(required = true)
     public String bizScene;
 
     // 资产类型
+    /**
+     * <strong>example:</strong>
+     * <p>LOCK_RECORD</p>
+     */
     @NameInMap("data_scene")
     @Validation(required = true)
     public String dataScene;
 
     // 资产id
+    /**
+     * <strong>example:</strong>
+     * <p>资产id</p>
+     */
     @NameInMap("asset_id")
     @Validation(required = true)
     public String assetId;
 
     // 资产数据内容json
+    /**
+     * <strong>example:</strong>
+     * <p>{}</p>
+     */
     @NameInMap("asset_data")
     @Validation(required = true)
     public String assetData;
 
     // 租户id
+    /**
+     * <strong>example:</strong>
+     * <p>SDFJAG</p>
+     */
     @NameInMap("tenant_id")
     @Validation(required = true)
     public String tenantId;
 
     // 上链时间
+    /**
+     * <strong>example:</strong>
+     * <p>2022-10-02 09:10:09</p>
+     */
     @NameInMap("tx_time")
     @Validation(required = true)
     public String txTime;
 
     // 业务ID
+    /**
+     * <strong>example:</strong>
+     * <p>业务ID</p>
+     */
     @NameInMap("business_id")
     @Validation(required = true)
     public String businessId;
 
     // 上链id
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("antchain_id")
     @Validation(required = true)
     public String antchainId;

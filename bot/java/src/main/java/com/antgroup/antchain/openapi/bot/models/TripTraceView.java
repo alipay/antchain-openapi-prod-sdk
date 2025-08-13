@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class TripTraceView extends TeaModel {
     // 开始时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("begin_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String beginTime;
 
     // 结束时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("end_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String endTime;
@@ -25,11 +33,19 @@ public class TripTraceView extends TeaModel {
     public Long maxSpeed;
 
     // 最后定位时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("last_location_time")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String lastLocationTime;
 
     // 最后定位地址
+    /**
+     * <strong>example:</strong>
+     * <p>河南省郑州市</p>
+     */
     @NameInMap("last_location")
     @Validation(required = true)
     public String lastLocation;

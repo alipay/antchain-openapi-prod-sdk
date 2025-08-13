@@ -10,6 +10,10 @@ public class DistributeDataPackage extends TeaModel {
     public java.util.List<RawData> dataList;
 
     // 发行设备Id
+    /**
+     * <strong>example:</strong>
+     * <p>244</p>
+     */
     @NameInMap("distribute_device_id")
     @Validation(required = true)
     public String distributeDeviceId;

@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class DeviceControlFail extends TeaModel {
     // 设备did
+    /**
+     * <strong>example:</strong>
+     * <p>123</p>
+     */
     @NameInMap("device_did")
     @Validation(required = true)
     public String deviceDid;
 
     // 操作失败code
+    /**
+     * <strong>example:</strong>
+     * <p>bad_param</p>
+     */
     @NameInMap("code")
     @Validation(required = true)
     public String code;
 
     // 操作失败信息
+    /**
+     * <strong>example:</strong>
+     * <p>参数错误</p>
+     */
     @NameInMap("message")
     @Validation(required = true)
     public String message;

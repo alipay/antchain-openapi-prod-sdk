@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class RelatedEntity extends TeaModel {
     // 所关联实体的类型
+    /**
+     * <strong>example:</strong>
+     * <p>COSTOMER_ENETITY</p>
+     */
     @NameInMap("entity_type")
     @Validation(required = true)
     public String entityType;
 
     // 所关联实体的trustiot唯一ID
+    /**
+     * <strong>example:</strong>
+     * <p>7006071575276187649</p>
+     */
     @NameInMap("related_entity_trustiot_id")
     @Validation(required = true)
     public Long relatedEntityTrustiotId;

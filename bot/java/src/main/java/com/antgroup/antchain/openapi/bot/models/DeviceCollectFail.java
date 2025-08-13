@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class DeviceCollectFail extends TeaModel {
     // 上链数据采集ID
+    /**
+     * <strong>example:</strong>
+     * <p>81htq898</p>
+     */
     @NameInMap("collect_id")
     @Validation(required = true)
     public String collectId;
 
     // 错误码
+    /**
+     * <strong>example:</strong>
+     * <p>bad_param</p>
+     */
     @NameInMap("code")
     @Validation(required = true)
     public String code;
 
     // 错误信息
+    /**
+     * <strong>example:</strong>
+     * <p>参数错误</p>
+     */
     @NameInMap("message")
     @Validation(required = true)
     public String message;

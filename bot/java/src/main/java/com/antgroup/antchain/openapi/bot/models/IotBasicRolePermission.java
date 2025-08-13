@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class IotBasicRolePermission extends TeaModel {
     // 角色编码
+    /**
+     * <strong>example:</strong>
+     * <p>角色编码</p>
+     */
     @NameInMap("role_code")
     @Validation(required = true)
     public String roleCode;
 
     // 角色名称
+    /**
+     * <strong>example:</strong>
+     * <p>角色名称</p>
+     */
     @NameInMap("role_name")
     @Validation(required = true)
     public String roleName;
 
     // 权限列表
+    /**
+     * <strong>example:</strong>
+     * <p>权限列表</p>
+     */
     @NameInMap("permission_list")
     @Validation(required = true)
     public java.util.List<IotBasicPermissionData> permissionList;

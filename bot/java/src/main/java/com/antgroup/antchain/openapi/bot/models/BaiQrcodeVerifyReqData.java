@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class BaiQrcodeVerifyReqData extends TeaModel {
     // 二维码图片url
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://xxxxxx">http://xxxxxx</a></p>
+     */
     @NameInMap("query_image_url")
     @Validation(required = true)
     public String queryImageUrl;

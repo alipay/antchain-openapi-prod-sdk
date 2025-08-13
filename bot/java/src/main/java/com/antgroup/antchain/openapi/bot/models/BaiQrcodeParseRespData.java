@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class BaiQrcodeParseRespData extends TeaModel {
     // 二维码内容
+    /**
+     * <strong>example:</strong>
+     * <p>1234567890</p>
+     */
     @NameInMap("code_value")
     @Validation(required = true)
     public java.util.List<String> codeValue;

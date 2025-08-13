@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class DidUpdateTenantReq extends TeaModel {
     // 待更新实体身份did
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;did:iot_xxxxx&quot;</p>
+     */
     @NameInMap("thing_did")
     @Validation(required = true)
     public String thingDid;
 
     // 待更新访问者列表
+    /**
+     * <strong>example:</strong>
+     * <p>[&quot;&quot;,&quot;&quot;]</p>
+     */
     @NameInMap("tenant_list")
     @Validation(required = true)
     public java.util.List<String> tenantList;
@@ -18,12 +26,20 @@ public class DidUpdateTenantReq extends TeaModel {
     // TENANT_ROLE_OWNER
     // TENANT_ROLE_USER
     // TENANT_ROLE_OBSERVER
+    /**
+     * <strong>example:</strong>
+     * <p>TENANT_ROLE_OWNER</p>
+     */
     @NameInMap("tenant_role")
     @Validation(required = true)
     public String tenantRole;
 
     // 增加权限：THINGS_OP_MODE_ADD
     // 删除权限：THINGS_OP_MODE_REMOVE
+    /**
+     * <strong>example:</strong>
+     * <p>THINGS_OP_MODE_ADD</p>
+     */
     @NameInMap("op_mode")
     @Validation(required = true)
     public String opMode;

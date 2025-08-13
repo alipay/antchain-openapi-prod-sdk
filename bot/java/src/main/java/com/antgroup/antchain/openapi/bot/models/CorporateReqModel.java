@@ -5,30 +5,58 @@ import com.aliyun.tea.*;
 
 public class CorporateReqModel extends TeaModel {
     // 组织地址
+    /**
+     * <strong>example:</strong>
+     * <p>xxxxx</p>
+     */
     @NameInMap("address")
     public String address;
 
     // 运营地址
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;&quot;</p>
+     */
     @NameInMap("business_address")
     public String businessAddress;
 
     // 经营类目
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;&quot;</p>
+     */
     @NameInMap("business_scope")
     public String businessScope;
 
     // 注册时间，字符串类型
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;注册时间&quot;</p>
+     */
     @NameInMap("certify_date")
     public String certifyDate;
 
     // 营业执照有效期，字符串
+    /**
+     * <strong>example:</strong>
+     * <p>&quot;&quot;</p>
+     */
     @NameInMap("licence_expire_date")
     public String licenceExpireDate;
 
     // 国家
+    /**
+     * <strong>example:</strong>
+     * <p>CN</p>
+     */
     @NameInMap("nation")
     public String nation;
 
     // 组织类型
+    /**
+     * <strong>example:</strong>
+     * <p>LimitedCompany</p>
+     */
     @NameInMap("type")
     public String type;
 

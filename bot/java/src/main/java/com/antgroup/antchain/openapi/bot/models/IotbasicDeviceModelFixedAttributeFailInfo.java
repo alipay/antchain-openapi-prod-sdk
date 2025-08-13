@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class IotbasicDeviceModelFixedAttributeFailInfo extends TeaModel {
     // 属性说明
+    /**
+     * <strong>example:</strong>
+     * <p>name</p>
+     */
     @NameInMap("attribute_name")
     @Validation(required = true)
     public String attributeName;
 
     // 属性名称
+    /**
+     * <strong>example:</strong>
+     * <p>value</p>
+     */
     @NameInMap("attribute_value")
     @Validation(required = true)
     public String attributeValue;
 
     // 数据值类型 字符串：string 数字：long
+    /**
+     * <strong>example:</strong>
+     * <p>string</p>
+     */
     @NameInMap("data_type")
     @Validation(required = true)
     public String dataType;
@@ -30,11 +42,19 @@ public class IotbasicDeviceModelFixedAttributeFailInfo extends TeaModel {
     public Long dataRangeMax;
 
     // 失败code
+    /**
+     * <strong>example:</strong>
+     * <p>code</p>
+     */
     @NameInMap("error_code")
     @Validation(required = true)
     public String errorCode;
 
     // 失败消息
+    /**
+     * <strong>example:</strong>
+     * <p>message</p>
+     */
     @NameInMap("error_message")
     @Validation(required = true)
     public String errorMessage;

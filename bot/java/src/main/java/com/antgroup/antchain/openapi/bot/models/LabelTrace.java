@@ -5,32 +5,60 @@ import com.aliyun.tea.*;
 
 public class LabelTrace extends TeaModel {
     // 操作内容
+    /**
+     * <strong>example:</strong>
+     * <p>XXXXX</p>
+     */
     @NameInMap("content")
     public String content;
 
     // 链上哈希
+    /**
+     * <strong>example:</strong>
+     * <p>XXXXX</p>
+     */
     @NameInMap("tx_hash")
     @Validation(required = true)
     public String txHash;
 
     // 上链时间
+    /**
+     * <strong>example:</strong>
+     * <p>XXXXX</p>
+     */
     @NameInMap("tx_time")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String txTime;
 
     // 上链失败的错误码
+    /**
+     * <strong>example:</strong>
+     * <p>XXXXX</p>
+     */
     @NameInMap("error_code")
     public String errorCode;
 
     // 上链失败的错误信息
+    /**
+     * <strong>example:</strong>
+     * <p>XXXXX</p>
+     */
     @NameInMap("error_msg")
     public String errorMsg;
 
     // 是否上链成功
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("is_success")
     public Boolean isSuccess;
 
     // 标签对应资产版本号
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("version")
     public Long version;
 

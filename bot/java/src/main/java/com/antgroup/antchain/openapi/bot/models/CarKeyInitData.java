@@ -5,26 +5,46 @@ import com.aliyun.tea.*;
 
 public class CarKeyInitData extends TeaModel {
     // IIFFAA 根密钥
+    /**
+     * <strong>example:</strong>
+     * <p>fs</p>
+     */
     @NameInMap("root_pub_key")
     @Validation(required = true)
     public String rootPubKey;
 
     // IIFAA 设备唯一ID
+    /**
+     * <strong>example:</strong>
+     * <p>e2eer</p>
+     */
     @NameInMap("tuid")
     @Validation(required = true)
     public String tuid;
 
     // 业务密钥
+    /**
+     * <strong>example:</strong>
+     * <p>erw</p>
+     */
     @NameInMap("biz_priv_key")
     @Validation(required = true)
     public String bizPrivKey;
 
     // 设备唯一密钥
+    /**
+     * <strong>example:</strong>
+     * <p>fdsw</p>
+     */
     @NameInMap("device_priv_key")
     @Validation(required = true)
     public String devicePrivKey;
 
     // 无感空车凭证
+    /**
+     * <strong>example:</strong>
+     * <p>rew</p>
+     */
     @NameInMap("key_less_authy")
     @Validation(required = true)
     public String keyLessAuthy;

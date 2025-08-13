@@ -5,22 +5,42 @@ import com.aliyun.tea.*;
 
 public class TaskInfo extends TeaModel {
     // 升级计划Id
+    /**
+     * <strong>example:</strong>
+     * <p>234</p>
+     */
     @NameInMap("plan_id")
     public Long planId;
 
     // 刷库计划步骤id
+    /**
+     * <strong>example:</strong>
+     * <p>234</p>
+     */
     @NameInMap("plan_step_id")
     public Long planStepId;
 
     // 任务id
+    /**
+     * <strong>example:</strong>
+     * <p>234</p>
+     */
     @NameInMap("task_id")
     public Long taskId;
 
     // action_id
+    /**
+     * <strong>example:</strong>
+     * <p>234</p>
+     */
     @NameInMap("action_id")
     public Long actionId;
 
     // 任务类型
+    /**
+     * <strong>example:</strong>
+     * <p>升级，溯源</p>
+     */
     @NameInMap("task_type")
     @Validation(required = true)
     public String taskType;

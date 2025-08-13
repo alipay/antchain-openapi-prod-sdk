@@ -5,36 +5,64 @@ import com.aliyun.tea.*;
 
 public class IotbasicDigitalKeyDeviceNoShipInfo extends TeaModel {
     // 设备id
+    /**
+     * <strong>example:</strong>
+     * <p>125839</p>
+     */
     @NameInMap("devid")
     @Validation(required = true)
     public String devid;
 
     // 设备sn
+    /**
+     * <strong>example:</strong>
+     * <p>9726001010008SC30N96</p>
+     */
     @NameInMap("sn")
     @Validation(required = true)
     public String sn;
 
     // ccid
+    /**
+     * <strong>example:</strong>
+     * <p>898602B1191870002179</p>
+     */
     @NameInMap("ccid")
     @Validation(required = true)
     public String ccid;
 
     // imei
+    /**
+     * <strong>example:</strong>
+     * <p>866311069827503</p>
+     */
     @NameInMap("imei")
     @Validation(required = true)
     public String imei;
 
     // tbox固件版本号(16进制)
+    /**
+     * <strong>example:</strong>
+     * <p>80000109</p>
+     */
     @NameInMap("ver")
     @Validation(required = true)
     public String ver;
 
     // PEPS系统固件版本号(16进制)
+    /**
+     * <strong>example:</strong>
+     * <p>81070205</p>
+     */
     @NameInMap("peps_ver")
     @Validation(required = true)
     public String pepsVer;
 
     // 蓝牙固件版本号(16进制)
+    /**
+     * <strong>example:</strong>
+     * <p>80090204</p>
+     */
     @NameInMap("ble_ver")
     @Validation(required = true)
     public String bleVer;

@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class EntityChainData extends TeaModel {
     // 实体ID
+    /**
+     * <strong>example:</strong>
+     * <p>123456</p>
+     */
     @NameInMap("entity_id")
     @Validation(required = true)
     public String entityId;
 
     // 数据原文
+    /**
+     * <strong>example:</strong>
+     * <p>content</p>
+     */
     @NameInMap("content")
     @Validation(required = true)
     public String content;
 
     // 数据原文对应的签名
+    /**
+     * <strong>example:</strong>
+     * <p>1ac3dfe2</p>
+     */
     @NameInMap("sign")
     @Validation(required = true)
     public String sign;
 
     // 数据原文上链哈希
+    /**
+     * <strong>example:</strong>
+     * <p>1f2a9ec2b</p>
+     */
     @NameInMap("tx_hash")
     @Validation(required = true)
     public String txHash;

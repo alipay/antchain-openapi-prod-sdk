@@ -5,19 +5,35 @@ import com.aliyun.tea.*;
 
 public class RawData extends TeaModel {
     // 链上设备id
+    /**
+     * <strong>example:</strong>
+     * <p>1122</p>
+     */
     @NameInMap("chain_device_id")
     public String chainDeviceId;
 
     // 数据内容
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;a&quot;,&quot;11&quot;}</p>
+     */
     @NameInMap("content")
     @Validation(required = true)
     public String content;
 
     // 设备id
+    /**
+     * <strong>example:</strong>
+     * <p>433</p>
+     */
     @NameInMap("device_id")
     public String deviceId;
 
     // 上链哈希
+    /**
+     * <strong>example:</strong>
+     * <p>5533</p>
+     */
     @NameInMap("tx_hash")
     @Validation(required = true)
     public String txHash;
@@ -28,10 +44,18 @@ public class RawData extends TeaModel {
     public Long txTime;
 
     // 链上外围设备ID
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("chain_peripheral_id")
     public String chainPeripheralId;
 
     // 外围设备ID
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("peripheral_id")
     public String peripheralId;
 

@@ -5,15 +5,27 @@ import com.aliyun.tea.*;
 
 public class BaiGoodsComparisonResponse extends TeaModel {
     // 鉴定结果（REAL：为真   FAKE：为假   UNABLE_IDENTIFY：无法鉴定）
+    /**
+     * <strong>example:</strong>
+     * <p>REAL</p>
+     */
     @NameInMap("identification_result")
     @Validation(required = true)
     public String identificationResult;
 
     // 鉴定补充信息
+    /**
+     * <strong>example:</strong>
+     * <p>鉴定成功</p>
+     */
     @NameInMap("identification_message")
     public String identificationMessage;
 
     // 鉴定信息code
+    /**
+     * <strong>example:</strong>
+     * <p>200</p>
+     */
     @NameInMap("identification_code")
     public String identificationCode;
 

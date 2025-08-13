@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class IotbasicCategoryIndustrySceneInfo extends TeaModel {
     // 行业
+    /**
+     * <strong>example:</strong>
+     * <p>工业</p>
+     */
     @NameInMap("industry")
     @Validation(required = true)
     public String industry;
 
     // 场景
+    /**
+     * <strong>example:</strong>
+     * <p>智能工业</p>
+     */
     @NameInMap("scene")
     @Validation(required = true)
     public String scene;

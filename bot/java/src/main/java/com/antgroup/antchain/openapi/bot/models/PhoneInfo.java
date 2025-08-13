@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class PhoneInfo extends TeaModel {
     // 颜色
+    /**
+     * <strong>example:</strong>
+     * <p>红色</p>
+     */
     @NameInMap("colour")
     @Validation(required = true)
     public String colour;
 
     // 色值
+    /**
+     * <strong>example:</strong>
+     * <p>#BA0F2F</p>
+     */
     @NameInMap("colour_number")
     @Validation(required = true)
     public String colourNumber;
 
     // 内存大小
+    /**
+     * <strong>example:</strong>
+     * <p>128GB</p>
+     */
     @NameInMap("memory")
     @Validation(required = true)
     public String memory;

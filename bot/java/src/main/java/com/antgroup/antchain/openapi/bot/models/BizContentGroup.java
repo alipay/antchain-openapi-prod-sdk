@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class BizContentGroup extends TeaModel {
     // 设备链上ID（与scene参数、可信设备ID至少有一个参数不为空）
+    /**
+     * <strong>example:</strong>
+     * <p>txhash123</p>
+     */
     @NameInMap("chain_device_id")
     public String chainDeviceId;
 
     // 可信设备ID（与scene参数、设备链上ID至少有一个参数不为空）
+    /**
+     * <strong>example:</strong>
+     * <p>7006071575519457281</p>
+     */
     @NameInMap("trustiot_device_id")
     public Long trustiotDeviceId;
 
     // 业务Id
     // 
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("biz_id")
     @Validation(required = true)
     public String bizId;
@@ -22,6 +34,10 @@ public class BizContentGroup extends TeaModel {
     // 业务类型
     // 
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>123123</p>
+     */
     @NameInMap("biz_type")
     @Validation(required = true)
     public String bizType;
@@ -29,6 +45,10 @@ public class BizContentGroup extends TeaModel {
     // 数据内容 JSON字符串
     // 
     // 
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;&quot;:&quot;&quot;,&quot;&quot;}</p>
+     */
     @NameInMap("content")
     @Validation(required = true)
     public String content;

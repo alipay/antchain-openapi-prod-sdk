@@ -5,38 +5,70 @@ import com.aliyun.tea.*;
 
 public class IotBasicDeviceRegisterInfo extends TeaModel {
     // 设备规格
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("device_specs")
     @Validation(required = true)
     public String deviceSpecs;
 
     // 设备型号
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
     @NameInMap("device_model")
     @Validation(required = true)
     public String deviceModel;
 
     // 设备名称
+    /**
+     * <strong>example:</strong>
+     * <p>test</p>
+     */
     @NameInMap("device_name")
     @Validation(required = true)
     public String deviceName;
 
     // 设备sn
+    /**
+     * <strong>example:</strong>
+     * <p>xx</p>
+     */
     @NameInMap("device_sn")
     @Validation(required = true)
     public String deviceSn;
 
     // 设备标签
+    /**
+     * <strong>example:</strong>
+     * <p>telpo</p>
+     */
     @NameInMap("nick_name")
     public String nickName;
 
     // 安装位置
+    /**
+     * <strong>example:</strong>
+     * <p>杭州市</p>
+     */
     @NameInMap("location")
     public String location;
 
     // 设备扩展信息
+    /**
+     * <strong>example:</strong>
+     * <p>[{ &quot;txHash&quot; : &quot;2c952456827828cdedad06afccef75a9f2c2840cbb6b0b659f653da1e5916cb2&quot; }]</p>
+     */
     @NameInMap("device_ext")
     public String deviceExt;
 
     // 设备安全认证ID
+    /**
+     * <strong>example:</strong>
+     * <p>secid</p>
+     */
     @NameInMap("sec_id")
     public String secId;
 

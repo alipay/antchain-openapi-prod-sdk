@@ -5,35 +5,63 @@ import com.aliyun.tea.*;
 
 public class JtDevice extends TeaModel {
     // 设备ID
+    /**
+     * <strong>example:</strong>
+     * <p>STRING 123ABC</p>
+     */
     @NameInMap("device_id")
     @Validation(required = true)
     public String deviceId;
 
     // 场景码
+    /**
+     * <strong>example:</strong>
+     * <p>123ABC</p>
+     */
     @NameInMap("scene")
     @Validation(required = true)
     public String scene;
 
     // 可信设备ID
+    /**
+     * <strong>example:</strong>
+     * <p>7006071575276187649</p>
+     */
     @NameInMap("trustiot_device_id")
     @Validation(required = true)
     public Long trustiotDeviceId;
 
     // 设备注册时间
+    /**
+     * <strong>example:</strong>
+     * <p>1686497064968</p>
+     */
     @NameInMap("gmt_create")
     @Validation(required = true)
     public Long gmtCreate;
 
     // 设备是否在线
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("online")
     @Validation(required = true)
     public Boolean online;
 
     // 设备型号
+    /**
+     * <strong>example:</strong>
+     * <p>丰图T8</p>
+     */
     @NameInMap("device_model")
     public String deviceModel;
 
     // 终端型号
+    /**
+     * <strong>example:</strong>
+     * <p>型号A</p>
+     */
     @NameInMap("terminal_type")
     public String terminalType;
 

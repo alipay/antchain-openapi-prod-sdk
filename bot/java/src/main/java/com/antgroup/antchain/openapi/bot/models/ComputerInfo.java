@@ -5,40 +5,76 @@ import com.aliyun.tea.*;
 
 public class ComputerInfo extends TeaModel {
     // 颜色
+    /**
+     * <strong>example:</strong>
+     * <p>红色</p>
+     */
     @NameInMap("colour")
     public String colour;
 
     // 色值
+    /**
+     * <strong>example:</strong>
+     * <p>#BA0F2F</p>
+     */
     @NameInMap("colour_number")
     public String colourNumber;
 
     // 电脑型号
+    /**
+     * <strong>example:</strong>
+     * <p>X100</p>
+     */
     @NameInMap("computer_model")
     public String computerModel;
 
     // 配置参数
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;&quot;}</p>
+     */
     @NameInMap("config_param")
     public String configParam;
 
     // 显卡
+    /**
+     * <strong>example:</strong>
+     * <p>GTX3080</p>
+     */
     @NameInMap("video_card")
     public String videoCard;
 
     // 屏幕
+    /**
+     * <strong>example:</strong>
+     * <p>27</p>
+     */
     @NameInMap("screen_size")
     public String screenSize;
 
     // 电脑CPU
+    /**
+     * <strong>example:</strong>
+     * <p>i9</p>
+     */
     @NameInMap("cpu")
     @Validation(required = true)
     public String cpu;
 
     // 电脑内存
+    /**
+     * <strong>example:</strong>
+     * <p>16GB</p>
+     */
     @NameInMap("memory")
     @Validation(required = true)
     public String memory;
 
     // 电脑硬盘
+    /**
+     * <strong>example:</strong>
+     * <p>500GB</p>
+     */
     @NameInMap("disk_size")
     @Validation(required = true)
     public String diskSize;

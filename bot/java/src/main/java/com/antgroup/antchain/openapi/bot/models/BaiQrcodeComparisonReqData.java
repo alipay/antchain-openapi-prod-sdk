@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class BaiQrcodeComparisonReqData extends TeaModel {
     // 扫码操作id，多次请求的trace_id相同代表短时间内在扫同一个码
+    /**
+     * <strong>example:</strong>
+     * <p>trace_id_001</p>
+     */
     @NameInMap("trace_id")
     @Validation(required = true, maxLength = 128)
     public String traceId;
@@ -20,6 +24,10 @@ public class BaiQrcodeComparisonReqData extends TeaModel {
     public BaiResourceLocation galleryImageLocation;
 
     // 是否允许降级
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("downgrade")
     @Validation(required = true)
     public Boolean downgrade;

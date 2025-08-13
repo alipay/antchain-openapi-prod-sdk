@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class GoodsDigitalFingerprintRegisterResultData extends TeaModel {
     // 指纹图片入库是否成功
+    /**
+     * <strong>example:</strong>
+     * <p>true</p>
+     */
     @NameInMap("success")
     @Validation(required = true)
     public Boolean success;
 
     // 失败原因
+    /**
+     * <strong>example:</strong>
+     * <p>describe</p>
+     */
     @NameInMap("describe")
     public String describe;
 
