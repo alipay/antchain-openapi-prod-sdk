@@ -29,6 +29,8 @@ use AntChain\COLLABINV\Models\ListAgentMessageRequest;
 use AntChain\COLLABINV\Models\ListAgentMessageResponse;
 use AntChain\COLLABINV\Models\PushModelSamplefileRequest;
 use AntChain\COLLABINV\Models\PushModelSamplefileResponse;
+use AntChain\COLLABINV\Models\QueryAgentCompletionRequest;
+use AntChain\COLLABINV\Models\QueryAgentCompletionResponse;
 use AntChain\COLLABINV\Models\QueryAgentSseRequest;
 use AntChain\COLLABINV\Models\QueryAgentSseResponse;
 use AntChain\COLLABINV\Models\QueryIndexresearchBrandindexRequest;
@@ -208,7 +210,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.45',
+                    'sdk_version'      => '1.0.46',
                     '_prod_code'       => 'COLLABINV',
                     '_prod_channel'    => 'default',
                 ];
@@ -452,6 +454,39 @@ class Client
         Utils::validateModel($request);
 
         return UpdateAgentConversationResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.agent.conversation.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: agent api 同步
+     * Summary: agent api.
+     *
+     * @param QueryAgentCompletionRequest $request
+     *
+     * @return QueryAgentCompletionResponse
+     */
+    public function queryAgentCompletion($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAgentCompletionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: agent api 同步
+     * Summary: agent api.
+     *
+     * @param QueryAgentCompletionRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryAgentCompletionResponse
+     */
+    public function queryAgentCompletionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAgentCompletionResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.agent.completion.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
