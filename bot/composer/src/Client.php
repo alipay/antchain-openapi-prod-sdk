@@ -415,6 +415,8 @@ use AntChain\BOT\Models\QueryScfleaseEqpinfoRequest;
 use AntChain\BOT\Models\QueryScfleaseEqpinfoResponse;
 use AntChain\BOT\Models\QueryTaskRequest;
 use AntChain\BOT\Models\QueryTaskResponse;
+use AntChain\BOT\Models\QueryTaskscanRequest;
+use AntChain\BOT\Models\QueryTaskscanResponse;
 use AntChain\BOT\Models\QueryTechintegrationSkugrantstockinfoRequest;
 use AntChain\BOT\Models\QueryTechintegrationSkugrantstockinfoResponse;
 use AntChain\BOT\Models\QueryThingmodeleventBycustomertenantRequest;
@@ -710,7 +712,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.28',
+                    'sdk_version'      => '1.12.31',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -9341,6 +9343,39 @@ class Client
         Utils::validateModel($request);
 
         return UpdateDeviceBydeviceidResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.bydeviceid.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 时序异常检测任务扫描
+     * Summary: 任务扫描.
+     *
+     * @param QueryTaskscanRequest $request
+     *
+     * @return QueryTaskscanResponse
+     */
+    public function queryTaskscan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTaskscanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 时序异常检测任务扫描
+     * Summary: 任务扫描.
+     *
+     * @param QueryTaskscanRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryTaskscanResponse
+     */
+    public function queryTaskscanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTaskscanResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.taskscan.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
