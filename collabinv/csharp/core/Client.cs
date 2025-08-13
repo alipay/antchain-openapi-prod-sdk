@@ -137,7 +137,7 @@ namespace AntChain.SDK.COLLABINV
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.45"},
+                        {"sdk_version", "1.0.46"},
                         {"_prod_code", "COLLABINV"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.COLLABINV
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.45"},
+                        {"sdk_version", "1.0.46"},
                         {"_prod_code", "COLLABINV"},
                         {"_prod_channel", "default"},
                     };
@@ -571,6 +571,48 @@ namespace AntChain.SDK.COLLABINV
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UpdateAgentConversationResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.agent.conversation.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: agent api 同步
+         * Summary: agent api
+         */
+        public QueryAgentCompletionResponse QueryAgentCompletion(QueryAgentCompletionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAgentCompletionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: agent api 同步
+         * Summary: agent api
+         */
+        public async Task<QueryAgentCompletionResponse> QueryAgentCompletionAsync(QueryAgentCompletionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAgentCompletionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: agent api 同步
+         * Summary: agent api
+         */
+        public QueryAgentCompletionResponse QueryAgentCompletionEx(QueryAgentCompletionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAgentCompletionResponse>(DoRequest("1.0", "antchain.zkcollabinv.agent.completion.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: agent api 同步
+         * Summary: agent api
+         */
+        public async Task<QueryAgentCompletionResponse> QueryAgentCompletionExAsync(QueryAgentCompletionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAgentCompletionResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.agent.completion.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
