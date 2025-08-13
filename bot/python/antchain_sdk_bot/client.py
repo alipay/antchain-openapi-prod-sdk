@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.28',
+                    'sdk_version': '1.12.31',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.28',
+                    'sdk_version': '1.12.31',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -14849,6 +14849,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.UpdateDeviceBydeviceidResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.device.bydeviceid.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_taskscan(
+        self,
+        request: bot_models.QueryTaskscanRequest,
+    ) -> bot_models.QueryTaskscanResponse:
+        """
+        Description: 时序异常检测任务扫描
+        Summary: 任务扫描
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_taskscan_ex(request, headers, runtime)
+
+    async def query_taskscan_async(
+        self,
+        request: bot_models.QueryTaskscanRequest,
+    ) -> bot_models.QueryTaskscanResponse:
+        """
+        Description: 时序异常检测任务扫描
+        Summary: 任务扫描
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_taskscan_ex_async(request, headers, runtime)
+
+    def query_taskscan_ex(
+        self,
+        request: bot_models.QueryTaskscanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryTaskscanResponse:
+        """
+        Description: 时序异常检测任务扫描
+        Summary: 任务扫描
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryTaskscanResponse(),
+            self.do_request('1.0', 'blockchain.bot.taskscan.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_taskscan_ex_async(
+        self,
+        request: bot_models.QueryTaskscanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryTaskscanResponse:
+        """
+        Description: 时序异常检测任务扫描
+        Summary: 任务扫描
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryTaskscanResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.taskscan.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
