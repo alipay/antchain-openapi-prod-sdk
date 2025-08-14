@@ -781,6 +781,31 @@ export class KeyPageData extends $tea.Model {
   }
 }
 
+// 支持结算方式信息
+export class SupportedSettlementMethodInfo extends $tea.Model {
+  // 结算方式枚举：TD或TT
+  settlementMethodEnum?: string;
+  // 结算银行账户id
+  relatedSettlementAccountId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      settlementMethodEnum: 'settlement_method_enum',
+      relatedSettlementAccountId: 'related_settlement_account_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      settlementMethodEnum: 'string',
+      relatedSettlementAccountId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 总览统计数据
 export class DataSummaryTotal extends $tea.Model {
   // 原始币种资产价值列表
@@ -838,6 +863,8 @@ export class AssetProjectDetail extends $tea.Model {
   tokenName: string;
   // 项目介绍
   info: string;
+  // 项目描述(markdown格式)
+  description?: string;
   // 当前供应量
   supply: string;
   // 最大供应量
@@ -875,6 +902,7 @@ export class AssetProjectDetail extends $tea.Model {
       name: 'name',
       tokenName: 'token_name',
       info: 'info',
+      description: 'description',
       supply: 'supply',
       capacity: 'capacity',
       radio: 'radio',
@@ -903,6 +931,7 @@ export class AssetProjectDetail extends $tea.Model {
       name: 'string',
       tokenName: 'string',
       info: 'string',
+      description: 'string',
       supply: 'string',
       capacity: 'string',
       radio: 'number',
@@ -1108,6 +1137,8 @@ export class CreateIssuerProjectRequest extends $tea.Model {
   name: string;
   // 项目名称
   info: string;
+  // 项目描述(markdown格式)
+  description?: string;
   // 代币名称
   tokenName: string;
   // 最大供应量
@@ -1126,12 +1157,25 @@ export class CreateIssuerProjectRequest extends $tea.Model {
   transferKeys: string[];
   // 管理密钥ID列表(最多3个)
   managerKeys: string[];
+  // 项目封面文件id
+  projectCoverFileId: string;
+  // 是否限购
+  maxSubscriptionLimited: boolean;
+  // 最大可认购份额
+  maxSubscriptionAmount: string;
+  // 项目支持的结算方式
+  settlementMethods: SupportedSettlementMethodInfo[];
+  // crossChain
+  crossChain: boolean;
+  // 目标链名称列表（跨链项目必填）
+  targetChainNameList?: string[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       name: 'name',
       info: 'info',
+      description: 'description',
       tokenName: 'token_name',
       capacity: 'capacity',
       netValue: 'net_value',
@@ -1141,6 +1185,12 @@ export class CreateIssuerProjectRequest extends $tea.Model {
       burnKeys: 'burn_keys',
       transferKeys: 'transfer_keys',
       managerKeys: 'manager_keys',
+      projectCoverFileId: 'project_cover_file_id',
+      maxSubscriptionLimited: 'max_subscription_limited',
+      maxSubscriptionAmount: 'max_subscription_amount',
+      settlementMethods: 'settlement_methods',
+      crossChain: 'cross_chain',
+      targetChainNameList: 'target_chain_name_list',
     };
   }
 
@@ -1150,6 +1200,7 @@ export class CreateIssuerProjectRequest extends $tea.Model {
       productInstanceId: 'string',
       name: 'string',
       info: 'string',
+      description: 'string',
       tokenName: 'string',
       capacity: 'string',
       netValue: 'string',
@@ -1159,6 +1210,12 @@ export class CreateIssuerProjectRequest extends $tea.Model {
       burnKeys: { 'type': 'array', 'itemType': 'string' },
       transferKeys: { 'type': 'array', 'itemType': 'string' },
       managerKeys: { 'type': 'array', 'itemType': 'string' },
+      projectCoverFileId: 'string',
+      maxSubscriptionLimited: 'boolean',
+      maxSubscriptionAmount: 'string',
+      settlementMethods: { 'type': 'array', 'itemType': SupportedSettlementMethodInfo },
+      crossChain: 'boolean',
+      targetChainNameList: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -3902,7 +3959,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.10",
+          sdk_version: "1.0.13",
           _prod_code: "WEBTRWATRADE",
           _prod_channel: "default",
         };
