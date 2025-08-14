@@ -25,13 +25,6 @@ class PushDubbridgeInstallmentSupplementRequest extends Model
      */
     public $orderNo;
 
-    // 业务类型：1-现金贷；2-分期付
-    //
-    /**
-     * @var string
-     */
-    public $prodType;
-
     // 资产方用户唯一标识
     /**
      * @var string
@@ -43,6 +36,13 @@ class PushDubbridgeInstallmentSupplementRequest extends Model
      * @var string
      */
     public $bizOrderNo;
+
+    // 业务类型：1-现金贷；2-分期付
+    //
+    /**
+     * @var string
+     */
+    public $prodType;
 
     // 材料场景：2-支用前、3-支用后
     /**
@@ -77,9 +77,9 @@ class PushDubbridgeInstallmentSupplementRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'orderNo'           => 'order_no',
-        'prodType'          => 'prod_type',
         'openId'            => 'open_id',
         'bizOrderNo'        => 'biz_order_no',
+        'prodType'          => 'prod_type',
         'fileScene'         => 'file_scene',
         'fileList'          => 'file_list',
         'storeInfo'         => 'store_info',
@@ -90,7 +90,6 @@ class PushDubbridgeInstallmentSupplementRequest extends Model
     public function validate()
     {
         Model::validateRequired('orderNo', $this->orderNo, true);
-        Model::validateRequired('prodType', $this->prodType, true);
         Model::validateRequired('openId', $this->openId, true);
         Model::validateRequired('bizOrderNo', $this->bizOrderNo, true);
     }
@@ -107,14 +106,14 @@ class PushDubbridgeInstallmentSupplementRequest extends Model
         if (null !== $this->orderNo) {
             $res['order_no'] = $this->orderNo;
         }
-        if (null !== $this->prodType) {
-            $res['prod_type'] = $this->prodType;
-        }
         if (null !== $this->openId) {
             $res['open_id'] = $this->openId;
         }
         if (null !== $this->bizOrderNo) {
             $res['biz_order_no'] = $this->bizOrderNo;
+        }
+        if (null !== $this->prodType) {
+            $res['prod_type'] = $this->prodType;
         }
         if (null !== $this->fileScene) {
             $res['file_scene'] = $this->fileScene;
@@ -158,14 +157,14 @@ class PushDubbridgeInstallmentSupplementRequest extends Model
         if (isset($map['order_no'])) {
             $model->orderNo = $map['order_no'];
         }
-        if (isset($map['prod_type'])) {
-            $model->prodType = $map['prod_type'];
-        }
         if (isset($map['open_id'])) {
             $model->openId = $map['open_id'];
         }
         if (isset($map['biz_order_no'])) {
             $model->bizOrderNo = $map['biz_order_no'];
+        }
+        if (isset($map['prod_type'])) {
+            $model->prodType = $map['prod_type'];
         }
         if (isset($map['file_scene'])) {
             $model->fileScene = $map['file_scene'];

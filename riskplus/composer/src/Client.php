@@ -33,6 +33,10 @@ use AntChain\RISKPLUS\Models\ApplyRbbCompanyCreditRequest;
 use AntChain\RISKPLUS\Models\ApplyRbbCompanyCreditResponse;
 use AntChain\RISKPLUS\Models\ApplyRbbCompanyGuardRequest;
 use AntChain\RISKPLUS\Models\ApplyRbbCompanyGuardResponse;
+use AntChain\RISKPLUS\Models\ApplyTdiquickmsgRobotcallRequest;
+use AntChain\RISKPLUS\Models\ApplyTdiquickmsgRobotcallResponse;
+use AntChain\RISKPLUS\Models\ApplyTdiquickmsgRtBatchmarketingRequest;
+use AntChain\RISKPLUS\Models\ApplyTdiquickmsgRtBatchmarketingResponse;
 use AntChain\RISKPLUS\Models\ApplyUmktPhonenumberstatusforsmsRequest;
 use AntChain\RISKPLUS\Models\ApplyUmktPhonenumberstatusforsmsResponse;
 use AntChain\RISKPLUS\Models\ApplyUmktRealtimemarketingRequest;
@@ -79,6 +83,12 @@ use AntChain\RISKPLUS\Models\CallbackQmpSmsReportRequest;
 use AntChain\RISKPLUS\Models\CallbackQmpSmsReportResponse;
 use AntChain\RISKPLUS\Models\CallbackQmpSmsUpRequest;
 use AntChain\RISKPLUS\Models\CallbackQmpSmsUpResponse;
+use AntChain\RISKPLUS\Models\CallbackTdiquickmsgRobotcallRequest;
+use AntChain\RISKPLUS\Models\CallbackTdiquickmsgRobotcallResponse;
+use AntChain\RISKPLUS\Models\CallbackTdiquickmsgSmsRequest;
+use AntChain\RISKPLUS\Models\CallbackTdiquickmsgSmsResponse;
+use AntChain\RISKPLUS\Models\CallbackTdiquickmsgSmsUpRequest;
+use AntChain\RISKPLUS\Models\CallbackTdiquickmsgSmsUpResponse;
 use AntChain\RISKPLUS\Models\CallbackUmktRobotcallRequest;
 use AntChain\RISKPLUS\Models\CallbackUmktRobotcallResponse;
 use AntChain\RISKPLUS\Models\CallbackUmktSmsReportRequest;
@@ -177,6 +187,10 @@ use AntChain\RISKPLUS\Models\PushRiskplusUmktCommonbackflowRequest;
 use AntChain\RISKPLUS\Models\PushRiskplusUmktCommonbackflowResponse;
 use AntChain\RISKPLUS\Models\PushRpaasReportAnswerRequest;
 use AntChain\RISKPLUS\Models\PushRpaasReportAnswerResponse;
+use AntChain\RISKPLUS\Models\PushTdiquickmsgBackflowEventRequest;
+use AntChain\RISKPLUS\Models\PushTdiquickmsgBackflowEventResponse;
+use AntChain\RISKPLUS\Models\PushTdiquickmsgBackflowJsondataRequest;
+use AntChain\RISKPLUS\Models\PushTdiquickmsgBackflowJsondataResponse;
 use AntChain\RISKPLUS\Models\PushUmktBackflowEventRequest;
 use AntChain\RISKPLUS\Models\PushUmktBackflowEventResponse;
 use AntChain\RISKPLUS\Models\PushUmktBackflowJsondataRequest;
@@ -279,6 +293,8 @@ use AntChain\RISKPLUS\Models\QueryQmpCpaassmsTemplateRequest;
 use AntChain\RISKPLUS\Models\QueryQmpCpaassmsTemplateResponse;
 use AntChain\RISKPLUS\Models\QueryQmpDataaccessStatisticRequest;
 use AntChain\RISKPLUS\Models\QueryQmpDataaccessStatisticResponse;
+use AntChain\RISKPLUS\Models\QueryQmpOfflinehostplanDecisionresultRequest;
+use AntChain\RISKPLUS\Models\QueryQmpOfflinehostplanDecisionresultResponse;
 use AntChain\RISKPLUS\Models\QueryQmpRobotcallDetailRequest;
 use AntChain\RISKPLUS\Models\QueryQmpRobotcallDetailResponse;
 use AntChain\RISKPLUS\Models\QueryQmpRobotcallStatisticinfoRequest;
@@ -355,6 +371,8 @@ use AntChain\RISKPLUS\Models\QuerySecurityPolicyRequest;
 use AntChain\RISKPLUS\Models\QuerySecurityPolicyResponse;
 use AntChain\RISKPLUS\Models\QuerySnapshotEventRequest;
 use AntChain\RISKPLUS\Models\QuerySnapshotEventResponse;
+use AntChain\RISKPLUS\Models\QueryTdiquickmsgRobotcallStatisticinfoRequest;
+use AntChain\RISKPLUS\Models\QueryTdiquickmsgRobotcallStatisticinfoResponse;
 use AntChain\RISKPLUS\Models\QueryTdisaasSecurityPolicyRequest;
 use AntChain\RISKPLUS\Models\QueryTdisaasSecurityPolicyResponse;
 use AntChain\RISKPLUS\Models\QueryUmktCardsmsAnalysisRequest;
@@ -385,6 +403,8 @@ use AntChain\RISKPLUS\Models\ReceiveMdipParamsFileRequest;
 use AntChain\RISKPLUS\Models\ReceiveMdipParamsFileResponse;
 use AntChain\RISKPLUS\Models\ReceiveMdipParamsRbbfileRequest;
 use AntChain\RISKPLUS\Models\ReceiveMdipParamsRbbfileResponse;
+use AntChain\RISKPLUS\Models\ReceiveRbbOverseacompanyProfileRequest;
+use AntChain\RISKPLUS\Models\ReceiveRbbOverseacompanyProfileResponse;
 use AntChain\RISKPLUS\Models\ReceiveRbbParamsFileRequest;
 use AntChain\RISKPLUS\Models\ReceiveRbbParamsFileResponse;
 use AntChain\RISKPLUS\Models\ReceiveRfcParamsFileRequest;
@@ -604,7 +624,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.24.9',
+                    'sdk_version'      => '1.25.4',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4425,6 +4445,39 @@ class Client
     }
 
     /**
+     * Description: 安全托管分层结果查询接口
+     * Summary: 安全托管分层结果查询接口.
+     *
+     * @param QueryQmpOfflinehostplanDecisionresultRequest $request
+     *
+     * @return QueryQmpOfflinehostplanDecisionresultResponse
+     */
+    public function queryQmpOfflinehostplanDecisionresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryQmpOfflinehostplanDecisionresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 安全托管分层结果查询接口
+     * Summary: 安全托管分层结果查询接口.
+     *
+     * @param QueryQmpOfflinehostplanDecisionresultRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return QueryQmpOfflinehostplanDecisionresultResponse
+     */
+    public function queryQmpOfflinehostplanDecisionresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryQmpOfflinehostplanDecisionresultResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.offlinehostplan.decisionresult.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 企管盾票税交接授权信息表的同步
      * Summary: 企管盾票税交接授权信息表的同步.
      *
@@ -5590,6 +5643,58 @@ class Client
     }
 
     /**
+     * Description: 境外企业画像数据接收
+     * Summary: 境外企业画像数据接收.
+     *
+     * @param ReceiveRbbOverseacompanyProfileRequest $request
+     *
+     * @return ReceiveRbbOverseacompanyProfileResponse
+     */
+    public function receiveRbbOverseacompanyProfile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->receiveRbbOverseacompanyProfileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 境外企业画像数据接收
+     * Summary: 境外企业画像数据接收.
+     *
+     * @param ReceiveRbbOverseacompanyProfileRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return ReceiveRbbOverseacompanyProfileResponse
+     */
+    public function receiveRbbOverseacompanyProfileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'riskplus.rbb.overseacompany.profile.receive',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new ReceiveRbbOverseacompanyProfileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return ReceiveRbbOverseacompanyProfileResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.overseacompany.profile.receive', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 报告结果推送，算法调用
      * Summary: 报告结果推送
      *
@@ -6744,6 +6849,270 @@ class Client
         Utils::validateModel($request);
 
         return QuerySnapshotEventResponse::fromMap($this->doRequest('1.0', 'riskplus.snapshot.event.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批量实时触达接口
+     * Summary: 发起触达任务
+     *
+     * @param ApplyTdiquickmsgRtBatchmarketingRequest $request
+     *
+     * @return ApplyTdiquickmsgRtBatchmarketingResponse
+     */
+    public function applyTdiquickmsgRtBatchmarketing($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyTdiquickmsgRtBatchmarketingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批量实时触达接口
+     * Summary: 发起触达任务
+     *
+     * @param ApplyTdiquickmsgRtBatchmarketingRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return ApplyTdiquickmsgRtBatchmarketingResponse
+     */
+    public function applyTdiquickmsgRtBatchmarketingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyTdiquickmsgRtBatchmarketingResponse::fromMap($this->doRequest('1.0', 'riskplus.tdiquickmsg.rt.batchmarketing.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发起AI外呼
+     * Summary: 发起AI外呼
+     *
+     * @param ApplyTdiquickmsgRobotcallRequest $request
+     *
+     * @return ApplyTdiquickmsgRobotcallResponse
+     */
+    public function applyTdiquickmsgRobotcall($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyTdiquickmsgRobotcallEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发起AI外呼
+     * Summary: 发起AI外呼
+     *
+     * @param ApplyTdiquickmsgRobotcallRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return ApplyTdiquickmsgRobotcallResponse
+     */
+    public function applyTdiquickmsgRobotcallEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyTdiquickmsgRobotcallResponse::fromMap($this->doRequest('1.0', 'riskplus.tdiquickmsg.robotcall.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 短信状态回调接口
+     * Summary: 短信状态回调接口.
+     *
+     * @param CallbackTdiquickmsgSmsRequest $request
+     *
+     * @return CallbackTdiquickmsgSmsResponse
+     */
+    public function callbackTdiquickmsgSms($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackTdiquickmsgSmsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 短信状态回调接口
+     * Summary: 短信状态回调接口.
+     *
+     * @param CallbackTdiquickmsgSmsRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return CallbackTdiquickmsgSmsResponse
+     */
+    public function callbackTdiquickmsgSmsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackTdiquickmsgSmsResponse::fromMap($this->doRequest('1.0', 'riskplus.tdiquickmsg.sms.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新接入ai外呼服务商的回调接口
+     * Summary: ai外呼回调接口.
+     *
+     * @param CallbackTdiquickmsgRobotcallRequest $request
+     *
+     * @return CallbackTdiquickmsgRobotcallResponse
+     */
+    public function callbackTdiquickmsgRobotcall($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackTdiquickmsgRobotcallEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新接入ai外呼服务商的回调接口
+     * Summary: ai外呼回调接口.
+     *
+     * @param CallbackTdiquickmsgRobotcallRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return CallbackTdiquickmsgRobotcallResponse
+     */
+    public function callbackTdiquickmsgRobotcallEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackTdiquickmsgRobotcallResponse::fromMap($this->doRequest('1.0', 'riskplus.tdiquickmsg.robotcall.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 上行短信回调
+     * Summary: 上行短信回调.
+     *
+     * @param CallbackTdiquickmsgSmsUpRequest $request
+     *
+     * @return CallbackTdiquickmsgSmsUpResponse
+     */
+    public function callbackTdiquickmsgSmsUp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackTdiquickmsgSmsUpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 上行短信回调
+     * Summary: 上行短信回调.
+     *
+     * @param CallbackTdiquickmsgSmsUpRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return CallbackTdiquickmsgSmsUpResponse
+     */
+    public function callbackTdiquickmsgSmsUpEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackTdiquickmsgSmsUpResponse::fromMap($this->doRequest('1.0', 'riskplus.tdiquickmsg.sms.up.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 外呼任务统计查询接口
+     * Summary: 外呼任务统计查询接口.
+     *
+     * @param QueryTdiquickmsgRobotcallStatisticinfoRequest $request
+     *
+     * @return QueryTdiquickmsgRobotcallStatisticinfoResponse
+     */
+    public function queryTdiquickmsgRobotcallStatisticinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTdiquickmsgRobotcallStatisticinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 外呼任务统计查询接口
+     * Summary: 外呼任务统计查询接口.
+     *
+     * @param QueryTdiquickmsgRobotcallStatisticinfoRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return QueryTdiquickmsgRobotcallStatisticinfoResponse
+     */
+    public function queryTdiquickmsgRobotcallStatisticinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTdiquickmsgRobotcallStatisticinfoResponse::fromMap($this->doRequest('1.0', 'riskplus.tdiquickmsg.robotcall.statisticinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 蚁盾业务回流事件推送
+     * Summary: 蚁盾业务回流事件推送
+     *
+     * @param PushTdiquickmsgBackflowEventRequest $request
+     *
+     * @return PushTdiquickmsgBackflowEventResponse
+     */
+    public function pushTdiquickmsgBackflowEvent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushTdiquickmsgBackflowEventEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 蚁盾业务回流事件推送
+     * Summary: 蚁盾业务回流事件推送
+     *
+     * @param PushTdiquickmsgBackflowEventRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return PushTdiquickmsgBackflowEventResponse
+     */
+    public function pushTdiquickmsgBackflowEventEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushTdiquickmsgBackflowEventResponse::fromMap($this->doRequest('1.0', 'riskplus.tdiquickmsg.backflow.event.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 蚁盾数据回流推送，用于客户定制json数据
+     * Summary: 蚁盾数据回流json格式推送
+     *
+     * @param PushTdiquickmsgBackflowJsondataRequest $request
+     *
+     * @return PushTdiquickmsgBackflowJsondataResponse
+     */
+    public function pushTdiquickmsgBackflowJsondata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushTdiquickmsgBackflowJsondataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 蚁盾数据回流推送，用于客户定制json数据
+     * Summary: 蚁盾数据回流json格式推送
+     *
+     * @param PushTdiquickmsgBackflowJsondataRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return PushTdiquickmsgBackflowJsondataResponse
+     */
+    public function pushTdiquickmsgBackflowJsondataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushTdiquickmsgBackflowJsondataResponse::fromMap($this->doRequest('1.0', 'riskplus.tdiquickmsg.backflow.jsondata.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

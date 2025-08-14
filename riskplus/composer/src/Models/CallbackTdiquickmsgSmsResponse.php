@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UploadQmpOfflinehostplanResponse extends Model
+class CallbackTdiquickmsgSmsResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,17 +25,10 @@ class UploadQmpOfflinehostplanResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 导入id，可以用该id来查询分层结果
-    /**
-     * @var string
-     */
-    public $importId;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'importId'   => 'import_id',
     ];
 
     public function validate()
@@ -54,9 +47,6 @@ class UploadQmpOfflinehostplanResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->importId) {
-            $res['import_id'] = $this->importId;
-        }
 
         return $res;
     }
@@ -64,7 +54,7 @@ class UploadQmpOfflinehostplanResponse extends Model
     /**
      * @param array $map
      *
-     * @return UploadQmpOfflinehostplanResponse
+     * @return CallbackTdiquickmsgSmsResponse
      */
     public static function fromMap($map = [])
     {
@@ -77,9 +67,6 @@ class UploadQmpOfflinehostplanResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['import_id'])) {
-            $model->importId = $map['import_id'];
         }
 
         return $model;
