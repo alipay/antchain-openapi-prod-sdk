@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_dog.
 
-Created on 21/05/2025
+Created on 14/08/2025
 
 @author: Ant Chain SDK
 """
