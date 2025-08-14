@@ -1339,6 +1339,41 @@ class KeyPageData(TeaModel):
         return self
 
 
+class SupportedSettlementMethodInfo(TeaModel):
+    def __init__(
+        self,
+        settlement_method_enum: str = None,
+        related_settlement_account_id: str = None,
+    ):
+        # 结算方式枚举：TD或TT
+        self.settlement_method_enum = settlement_method_enum
+        # 结算银行账户id
+        self.related_settlement_account_id = related_settlement_account_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.settlement_method_enum is not None:
+            result['settlement_method_enum'] = self.settlement_method_enum
+        if self.related_settlement_account_id is not None:
+            result['related_settlement_account_id'] = self.related_settlement_account_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('settlement_method_enum') is not None:
+            self.settlement_method_enum = m.get('settlement_method_enum')
+        if m.get('related_settlement_account_id') is not None:
+            self.related_settlement_account_id = m.get('related_settlement_account_id')
+        return self
+
+
 class DataSummaryTotal(TeaModel):
     def __init__(
         self,
@@ -1414,6 +1449,7 @@ class AssetProjectDetail(TeaModel):
         name: str = None,
         token_name: str = None,
         info: str = None,
+        description: str = None,
         supply: str = None,
         capacity: str = None,
         radio: int = None,
@@ -1449,6 +1485,8 @@ class AssetProjectDetail(TeaModel):
         self.token_name = token_name
         # 项目介绍
         self.info = info
+        # 项目描述(markdown格式)
+        self.description = description
         # 当前供应量
         self.supply = supply
         # 最大供应量
@@ -1569,6 +1607,8 @@ class AssetProjectDetail(TeaModel):
             result['token_name'] = self.token_name
         if self.info is not None:
             result['info'] = self.info
+        if self.description is not None:
+            result['description'] = self.description
         if self.supply is not None:
             result['supply'] = self.supply
         if self.capacity is not None:
@@ -1640,6 +1680,8 @@ class AssetProjectDetail(TeaModel):
             self.token_name = m.get('token_name')
         if m.get('info') is not None:
             self.info = m.get('info')
+        if m.get('description') is not None:
+            self.description = m.get('description')
         if m.get('supply') is not None:
             self.supply = m.get('supply')
         if m.get('capacity') is not None:
@@ -1987,6 +2029,7 @@ class CreateIssuerProjectRequest(TeaModel):
         product_instance_id: str = None,
         name: str = None,
         info: str = None,
+        description: str = None,
         token_name: str = None,
         capacity: str = None,
         net_value: str = None,
@@ -1996,6 +2039,12 @@ class CreateIssuerProjectRequest(TeaModel):
         burn_keys: List[str] = None,
         transfer_keys: List[str] = None,
         manager_keys: List[str] = None,
+        project_cover_file_id: str = None,
+        max_subscription_limited: bool = None,
+        max_subscription_amount: str = None,
+        settlement_methods: List[SupportedSettlementMethodInfo] = None,
+        cross_chain: bool = None,
+        target_chain_name_list: List[str] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2004,6 +2053,8 @@ class CreateIssuerProjectRequest(TeaModel):
         self.name = name
         # 项目名称
         self.info = info
+        # 项目描述(markdown格式)
+        self.description = description
         # 代币名称
         self.token_name = token_name
         # 最大供应量
@@ -2022,6 +2073,18 @@ class CreateIssuerProjectRequest(TeaModel):
         self.transfer_keys = transfer_keys
         # 管理密钥ID列表(最多3个)
         self.manager_keys = manager_keys
+        # 项目封面文件id
+        self.project_cover_file_id = project_cover_file_id
+        # 是否限购
+        self.max_subscription_limited = max_subscription_limited
+        # 最大可认购份额
+        self.max_subscription_amount = max_subscription_amount
+        # 项目支持的结算方式
+        self.settlement_methods = settlement_methods
+        # crossChain
+        self.cross_chain = cross_chain
+        # 目标链名称列表（跨链项目必填）
+        self.target_chain_name_list = target_chain_name_list
 
     def validate(self):
         self.validate_required(self.name, 'name')
@@ -2038,6 +2101,15 @@ class CreateIssuerProjectRequest(TeaModel):
         self.validate_required(self.burn_keys, 'burn_keys')
         self.validate_required(self.transfer_keys, 'transfer_keys')
         self.validate_required(self.manager_keys, 'manager_keys')
+        self.validate_required(self.project_cover_file_id, 'project_cover_file_id')
+        self.validate_required(self.max_subscription_limited, 'max_subscription_limited')
+        self.validate_required(self.max_subscription_amount, 'max_subscription_amount')
+        self.validate_required(self.settlement_methods, 'settlement_methods')
+        if self.settlement_methods:
+            for k in self.settlement_methods:
+                if k:
+                    k.validate()
+        self.validate_required(self.cross_chain, 'cross_chain')
 
     def to_map(self):
         _map = super().to_map()
@@ -2053,6 +2125,8 @@ class CreateIssuerProjectRequest(TeaModel):
             result['name'] = self.name
         if self.info is not None:
             result['info'] = self.info
+        if self.description is not None:
+            result['description'] = self.description
         if self.token_name is not None:
             result['token_name'] = self.token_name
         if self.capacity is not None:
@@ -2073,6 +2147,20 @@ class CreateIssuerProjectRequest(TeaModel):
             result['transfer_keys'] = self.transfer_keys
         if self.manager_keys is not None:
             result['manager_keys'] = self.manager_keys
+        if self.project_cover_file_id is not None:
+            result['project_cover_file_id'] = self.project_cover_file_id
+        if self.max_subscription_limited is not None:
+            result['max_subscription_limited'] = self.max_subscription_limited
+        if self.max_subscription_amount is not None:
+            result['max_subscription_amount'] = self.max_subscription_amount
+        result['settlement_methods'] = []
+        if self.settlement_methods is not None:
+            for k in self.settlement_methods:
+                result['settlement_methods'].append(k.to_map() if k else None)
+        if self.cross_chain is not None:
+            result['cross_chain'] = self.cross_chain
+        if self.target_chain_name_list is not None:
+            result['target_chain_name_list'] = self.target_chain_name_list
         return result
 
     def from_map(self, m: dict = None):
@@ -2085,6 +2173,8 @@ class CreateIssuerProjectRequest(TeaModel):
             self.name = m.get('name')
         if m.get('info') is not None:
             self.info = m.get('info')
+        if m.get('description') is not None:
+            self.description = m.get('description')
         if m.get('token_name') is not None:
             self.token_name = m.get('token_name')
         if m.get('capacity') is not None:
@@ -2106,6 +2196,21 @@ class CreateIssuerProjectRequest(TeaModel):
             self.transfer_keys = m.get('transfer_keys')
         if m.get('manager_keys') is not None:
             self.manager_keys = m.get('manager_keys')
+        if m.get('project_cover_file_id') is not None:
+            self.project_cover_file_id = m.get('project_cover_file_id')
+        if m.get('max_subscription_limited') is not None:
+            self.max_subscription_limited = m.get('max_subscription_limited')
+        if m.get('max_subscription_amount') is not None:
+            self.max_subscription_amount = m.get('max_subscription_amount')
+        self.settlement_methods = []
+        if m.get('settlement_methods') is not None:
+            for k in m.get('settlement_methods'):
+                temp_model = SupportedSettlementMethodInfo()
+                self.settlement_methods.append(temp_model.from_map(k))
+        if m.get('cross_chain') is not None:
+            self.cross_chain = m.get('cross_chain')
+        if m.get('target_chain_name_list') is not None:
+            self.target_chain_name_list = m.get('target_chain_name_list')
         return self
 
 
