@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.24.9',
+                    'sdk_version': '1.25.4',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.24.9',
+                    'sdk_version': '1.25.4',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -6691,6 +6691,62 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.qmp.offlinehostplan.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_qmp_offlinehostplan_decisionresult(
+        self,
+        request: riskplus_models.QueryQmpOfflinehostplanDecisionresultRequest,
+    ) -> riskplus_models.QueryQmpOfflinehostplanDecisionresultResponse:
+        """
+        Description: 安全托管分层结果查询接口
+        Summary: 安全托管分层结果查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_qmp_offlinehostplan_decisionresult_ex(request, headers, runtime)
+
+    async def query_qmp_offlinehostplan_decisionresult_async(
+        self,
+        request: riskplus_models.QueryQmpOfflinehostplanDecisionresultRequest,
+    ) -> riskplus_models.QueryQmpOfflinehostplanDecisionresultResponse:
+        """
+        Description: 安全托管分层结果查询接口
+        Summary: 安全托管分层结果查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_qmp_offlinehostplan_decisionresult_ex_async(request, headers, runtime)
+
+    def query_qmp_offlinehostplan_decisionresult_ex(
+        self,
+        request: riskplus_models.QueryQmpOfflinehostplanDecisionresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryQmpOfflinehostplanDecisionresultResponse:
+        """
+        Description: 安全托管分层结果查询接口
+        Summary: 安全托管分层结果查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryQmpOfflinehostplanDecisionresultResponse(),
+            self.do_request('1.0', 'riskplus.qmp.offlinehostplan.decisionresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_qmp_offlinehostplan_decisionresult_ex_async(
+        self,
+        request: riskplus_models.QueryQmpOfflinehostplanDecisionresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryQmpOfflinehostplanDecisionresultResponse:
+        """
+        Description: 安全托管分层结果查询接口
+        Summary: 安全托管分层结果查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryQmpOfflinehostplanDecisionresultResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.offlinehostplan.decisionresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def sync_rdaas_tax_authinfo(
         self,
         request: riskplus_models.SyncRdaasTaxAuthinfoRequest,
@@ -8683,6 +8739,98 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.rbb.params.file.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def receive_rbb_overseacompany_profile(
+        self,
+        request: riskplus_models.ReceiveRbbOverseacompanyProfileRequest,
+    ) -> riskplus_models.ReceiveRbbOverseacompanyProfileResponse:
+        """
+        Description: 境外企业画像数据接收
+        Summary: 境外企业画像数据接收
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.receive_rbb_overseacompany_profile_ex(request, headers, runtime)
+
+    async def receive_rbb_overseacompany_profile_async(
+        self,
+        request: riskplus_models.ReceiveRbbOverseacompanyProfileRequest,
+    ) -> riskplus_models.ReceiveRbbOverseacompanyProfileResponse:
+        """
+        Description: 境外企业画像数据接收
+        Summary: 境外企业画像数据接收
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.receive_rbb_overseacompany_profile_ex_async(request, headers, runtime)
+
+    def receive_rbb_overseacompany_profile_ex(
+        self,
+        request: riskplus_models.ReceiveRbbOverseacompanyProfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ReceiveRbbOverseacompanyProfileResponse:
+        """
+        Description: 境外企业画像数据接收
+        Summary: 境外企业画像数据接收
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.rbb.overseacompany.profile.receive',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                receive_rbb_overseacompany_profile_response = riskplus_models.ReceiveRbbOverseacompanyProfileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return receive_rbb_overseacompany_profile_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ReceiveRbbOverseacompanyProfileResponse(),
+            self.do_request('1.0', 'riskplus.rbb.overseacompany.profile.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def receive_rbb_overseacompany_profile_ex_async(
+        self,
+        request: riskplus_models.ReceiveRbbOverseacompanyProfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ReceiveRbbOverseacompanyProfileResponse:
+        """
+        Description: 境外企业画像数据接收
+        Summary: 境外企业画像数据接收
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.rbb.overseacompany.profile.receive',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                receive_rbb_overseacompany_profile_response = riskplus_models.ReceiveRbbOverseacompanyProfileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return receive_rbb_overseacompany_profile_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ReceiveRbbOverseacompanyProfileResponse(),
+            await self.do_request_async('1.0', 'riskplus.rbb.overseacompany.profile.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def push_rpaas_report_answer(
         self,
         request: riskplus_models.PushRpaasReportAnswerRequest,
@@ -10645,6 +10793,454 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QuerySnapshotEventResponse(),
             await self.do_request_async('1.0', 'riskplus.snapshot.event.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_tdiquickmsg_rt_batchmarketing(
+        self,
+        request: riskplus_models.ApplyTdiquickmsgRtBatchmarketingRequest,
+    ) -> riskplus_models.ApplyTdiquickmsgRtBatchmarketingResponse:
+        """
+        Description: 批量实时触达接口
+        Summary: 发起触达任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_tdiquickmsg_rt_batchmarketing_ex(request, headers, runtime)
+
+    async def apply_tdiquickmsg_rt_batchmarketing_async(
+        self,
+        request: riskplus_models.ApplyTdiquickmsgRtBatchmarketingRequest,
+    ) -> riskplus_models.ApplyTdiquickmsgRtBatchmarketingResponse:
+        """
+        Description: 批量实时触达接口
+        Summary: 发起触达任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_tdiquickmsg_rt_batchmarketing_ex_async(request, headers, runtime)
+
+    def apply_tdiquickmsg_rt_batchmarketing_ex(
+        self,
+        request: riskplus_models.ApplyTdiquickmsgRtBatchmarketingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyTdiquickmsgRtBatchmarketingResponse:
+        """
+        Description: 批量实时触达接口
+        Summary: 发起触达任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyTdiquickmsgRtBatchmarketingResponse(),
+            self.do_request('1.0', 'riskplus.tdiquickmsg.rt.batchmarketing.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_tdiquickmsg_rt_batchmarketing_ex_async(
+        self,
+        request: riskplus_models.ApplyTdiquickmsgRtBatchmarketingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyTdiquickmsgRtBatchmarketingResponse:
+        """
+        Description: 批量实时触达接口
+        Summary: 发起触达任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyTdiquickmsgRtBatchmarketingResponse(),
+            await self.do_request_async('1.0', 'riskplus.tdiquickmsg.rt.batchmarketing.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_tdiquickmsg_robotcall(
+        self,
+        request: riskplus_models.ApplyTdiquickmsgRobotcallRequest,
+    ) -> riskplus_models.ApplyTdiquickmsgRobotcallResponse:
+        """
+        Description: 发起AI外呼
+        Summary: 发起AI外呼
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_tdiquickmsg_robotcall_ex(request, headers, runtime)
+
+    async def apply_tdiquickmsg_robotcall_async(
+        self,
+        request: riskplus_models.ApplyTdiquickmsgRobotcallRequest,
+    ) -> riskplus_models.ApplyTdiquickmsgRobotcallResponse:
+        """
+        Description: 发起AI外呼
+        Summary: 发起AI外呼
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_tdiquickmsg_robotcall_ex_async(request, headers, runtime)
+
+    def apply_tdiquickmsg_robotcall_ex(
+        self,
+        request: riskplus_models.ApplyTdiquickmsgRobotcallRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyTdiquickmsgRobotcallResponse:
+        """
+        Description: 发起AI外呼
+        Summary: 发起AI外呼
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyTdiquickmsgRobotcallResponse(),
+            self.do_request('1.0', 'riskplus.tdiquickmsg.robotcall.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_tdiquickmsg_robotcall_ex_async(
+        self,
+        request: riskplus_models.ApplyTdiquickmsgRobotcallRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ApplyTdiquickmsgRobotcallResponse:
+        """
+        Description: 发起AI外呼
+        Summary: 发起AI外呼
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ApplyTdiquickmsgRobotcallResponse(),
+            await self.do_request_async('1.0', 'riskplus.tdiquickmsg.robotcall.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_tdiquickmsg_sms(
+        self,
+        request: riskplus_models.CallbackTdiquickmsgSmsRequest,
+    ) -> riskplus_models.CallbackTdiquickmsgSmsResponse:
+        """
+        Description: 短信状态回调接口
+        Summary: 短信状态回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_tdiquickmsg_sms_ex(request, headers, runtime)
+
+    async def callback_tdiquickmsg_sms_async(
+        self,
+        request: riskplus_models.CallbackTdiquickmsgSmsRequest,
+    ) -> riskplus_models.CallbackTdiquickmsgSmsResponse:
+        """
+        Description: 短信状态回调接口
+        Summary: 短信状态回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_tdiquickmsg_sms_ex_async(request, headers, runtime)
+
+    def callback_tdiquickmsg_sms_ex(
+        self,
+        request: riskplus_models.CallbackTdiquickmsgSmsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackTdiquickmsgSmsResponse:
+        """
+        Description: 短信状态回调接口
+        Summary: 短信状态回调接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackTdiquickmsgSmsResponse(),
+            self.do_request('1.0', 'riskplus.tdiquickmsg.sms.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_tdiquickmsg_sms_ex_async(
+        self,
+        request: riskplus_models.CallbackTdiquickmsgSmsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackTdiquickmsgSmsResponse:
+        """
+        Description: 短信状态回调接口
+        Summary: 短信状态回调接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackTdiquickmsgSmsResponse(),
+            await self.do_request_async('1.0', 'riskplus.tdiquickmsg.sms.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_tdiquickmsg_robotcall(
+        self,
+        request: riskplus_models.CallbackTdiquickmsgRobotcallRequest,
+    ) -> riskplus_models.CallbackTdiquickmsgRobotcallResponse:
+        """
+        Description: 新接入ai外呼服务商的回调接口
+        Summary: ai外呼回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_tdiquickmsg_robotcall_ex(request, headers, runtime)
+
+    async def callback_tdiquickmsg_robotcall_async(
+        self,
+        request: riskplus_models.CallbackTdiquickmsgRobotcallRequest,
+    ) -> riskplus_models.CallbackTdiquickmsgRobotcallResponse:
+        """
+        Description: 新接入ai外呼服务商的回调接口
+        Summary: ai外呼回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_tdiquickmsg_robotcall_ex_async(request, headers, runtime)
+
+    def callback_tdiquickmsg_robotcall_ex(
+        self,
+        request: riskplus_models.CallbackTdiquickmsgRobotcallRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackTdiquickmsgRobotcallResponse:
+        """
+        Description: 新接入ai外呼服务商的回调接口
+        Summary: ai外呼回调接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackTdiquickmsgRobotcallResponse(),
+            self.do_request('1.0', 'riskplus.tdiquickmsg.robotcall.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_tdiquickmsg_robotcall_ex_async(
+        self,
+        request: riskplus_models.CallbackTdiquickmsgRobotcallRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackTdiquickmsgRobotcallResponse:
+        """
+        Description: 新接入ai外呼服务商的回调接口
+        Summary: ai外呼回调接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackTdiquickmsgRobotcallResponse(),
+            await self.do_request_async('1.0', 'riskplus.tdiquickmsg.robotcall.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_tdiquickmsg_sms_up(
+        self,
+        request: riskplus_models.CallbackTdiquickmsgSmsUpRequest,
+    ) -> riskplus_models.CallbackTdiquickmsgSmsUpResponse:
+        """
+        Description: 上行短信回调
+        Summary: 上行短信回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_tdiquickmsg_sms_up_ex(request, headers, runtime)
+
+    async def callback_tdiquickmsg_sms_up_async(
+        self,
+        request: riskplus_models.CallbackTdiquickmsgSmsUpRequest,
+    ) -> riskplus_models.CallbackTdiquickmsgSmsUpResponse:
+        """
+        Description: 上行短信回调
+        Summary: 上行短信回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_tdiquickmsg_sms_up_ex_async(request, headers, runtime)
+
+    def callback_tdiquickmsg_sms_up_ex(
+        self,
+        request: riskplus_models.CallbackTdiquickmsgSmsUpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackTdiquickmsgSmsUpResponse:
+        """
+        Description: 上行短信回调
+        Summary: 上行短信回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackTdiquickmsgSmsUpResponse(),
+            self.do_request('1.0', 'riskplus.tdiquickmsg.sms.up.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_tdiquickmsg_sms_up_ex_async(
+        self,
+        request: riskplus_models.CallbackTdiquickmsgSmsUpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackTdiquickmsgSmsUpResponse:
+        """
+        Description: 上行短信回调
+        Summary: 上行短信回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackTdiquickmsgSmsUpResponse(),
+            await self.do_request_async('1.0', 'riskplus.tdiquickmsg.sms.up.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_tdiquickmsg_robotcall_statisticinfo(
+        self,
+        request: riskplus_models.QueryTdiquickmsgRobotcallStatisticinfoRequest,
+    ) -> riskplus_models.QueryTdiquickmsgRobotcallStatisticinfoResponse:
+        """
+        Description: 外呼任务统计查询接口
+        Summary: 外呼任务统计查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_tdiquickmsg_robotcall_statisticinfo_ex(request, headers, runtime)
+
+    async def query_tdiquickmsg_robotcall_statisticinfo_async(
+        self,
+        request: riskplus_models.QueryTdiquickmsgRobotcallStatisticinfoRequest,
+    ) -> riskplus_models.QueryTdiquickmsgRobotcallStatisticinfoResponse:
+        """
+        Description: 外呼任务统计查询接口
+        Summary: 外呼任务统计查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_tdiquickmsg_robotcall_statisticinfo_ex_async(request, headers, runtime)
+
+    def query_tdiquickmsg_robotcall_statisticinfo_ex(
+        self,
+        request: riskplus_models.QueryTdiquickmsgRobotcallStatisticinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryTdiquickmsgRobotcallStatisticinfoResponse:
+        """
+        Description: 外呼任务统计查询接口
+        Summary: 外呼任务统计查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryTdiquickmsgRobotcallStatisticinfoResponse(),
+            self.do_request('1.0', 'riskplus.tdiquickmsg.robotcall.statisticinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_tdiquickmsg_robotcall_statisticinfo_ex_async(
+        self,
+        request: riskplus_models.QueryTdiquickmsgRobotcallStatisticinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryTdiquickmsgRobotcallStatisticinfoResponse:
+        """
+        Description: 外呼任务统计查询接口
+        Summary: 外呼任务统计查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryTdiquickmsgRobotcallStatisticinfoResponse(),
+            await self.do_request_async('1.0', 'riskplus.tdiquickmsg.robotcall.statisticinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_tdiquickmsg_backflow_event(
+        self,
+        request: riskplus_models.PushTdiquickmsgBackflowEventRequest,
+    ) -> riskplus_models.PushTdiquickmsgBackflowEventResponse:
+        """
+        Description: 蚁盾业务回流事件推送
+        Summary: 蚁盾业务回流事件推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_tdiquickmsg_backflow_event_ex(request, headers, runtime)
+
+    async def push_tdiquickmsg_backflow_event_async(
+        self,
+        request: riskplus_models.PushTdiquickmsgBackflowEventRequest,
+    ) -> riskplus_models.PushTdiquickmsgBackflowEventResponse:
+        """
+        Description: 蚁盾业务回流事件推送
+        Summary: 蚁盾业务回流事件推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_tdiquickmsg_backflow_event_ex_async(request, headers, runtime)
+
+    def push_tdiquickmsg_backflow_event_ex(
+        self,
+        request: riskplus_models.PushTdiquickmsgBackflowEventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushTdiquickmsgBackflowEventResponse:
+        """
+        Description: 蚁盾业务回流事件推送
+        Summary: 蚁盾业务回流事件推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushTdiquickmsgBackflowEventResponse(),
+            self.do_request('1.0', 'riskplus.tdiquickmsg.backflow.event.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_tdiquickmsg_backflow_event_ex_async(
+        self,
+        request: riskplus_models.PushTdiquickmsgBackflowEventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushTdiquickmsgBackflowEventResponse:
+        """
+        Description: 蚁盾业务回流事件推送
+        Summary: 蚁盾业务回流事件推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushTdiquickmsgBackflowEventResponse(),
+            await self.do_request_async('1.0', 'riskplus.tdiquickmsg.backflow.event.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_tdiquickmsg_backflow_jsondata(
+        self,
+        request: riskplus_models.PushTdiquickmsgBackflowJsondataRequest,
+    ) -> riskplus_models.PushTdiquickmsgBackflowJsondataResponse:
+        """
+        Description: 蚁盾数据回流推送，用于客户定制json数据
+        Summary: 蚁盾数据回流json格式推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_tdiquickmsg_backflow_jsondata_ex(request, headers, runtime)
+
+    async def push_tdiquickmsg_backflow_jsondata_async(
+        self,
+        request: riskplus_models.PushTdiquickmsgBackflowJsondataRequest,
+    ) -> riskplus_models.PushTdiquickmsgBackflowJsondataResponse:
+        """
+        Description: 蚁盾数据回流推送，用于客户定制json数据
+        Summary: 蚁盾数据回流json格式推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_tdiquickmsg_backflow_jsondata_ex_async(request, headers, runtime)
+
+    def push_tdiquickmsg_backflow_jsondata_ex(
+        self,
+        request: riskplus_models.PushTdiquickmsgBackflowJsondataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushTdiquickmsgBackflowJsondataResponse:
+        """
+        Description: 蚁盾数据回流推送，用于客户定制json数据
+        Summary: 蚁盾数据回流json格式推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushTdiquickmsgBackflowJsondataResponse(),
+            self.do_request('1.0', 'riskplus.tdiquickmsg.backflow.jsondata.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_tdiquickmsg_backflow_jsondata_ex_async(
+        self,
+        request: riskplus_models.PushTdiquickmsgBackflowJsondataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushTdiquickmsgBackflowJsondataResponse:
+        """
+        Description: 蚁盾数据回流推送，用于客户定制json数据
+        Summary: 蚁盾数据回流json格式推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushTdiquickmsgBackflowJsondataResponse(),
+            await self.do_request_async('1.0', 'riskplus.tdiquickmsg.backflow.jsondata.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_tdisaas_security_policy(
