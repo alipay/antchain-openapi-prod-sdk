@@ -1036,6 +1036,32 @@ func (s *KeyPageData) SetRecords(v []*KeyVO) *KeyPageData {
 	return s
 }
 
+// 支持结算方式信息
+type SupportedSettlementMethodInfo struct {
+	// 结算方式枚举：TD或TT
+	SettlementMethodEnum *string `json:"settlement_method_enum,omitempty" xml:"settlement_method_enum,omitempty"`
+	// 结算银行账户id
+	RelatedSettlementAccountId *string `json:"related_settlement_account_id,omitempty" xml:"related_settlement_account_id,omitempty"`
+}
+
+func (s SupportedSettlementMethodInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SupportedSettlementMethodInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SupportedSettlementMethodInfo) SetSettlementMethodEnum(v string) *SupportedSettlementMethodInfo {
+	s.SettlementMethodEnum = &v
+	return s
+}
+
+func (s *SupportedSettlementMethodInfo) SetRelatedSettlementAccountId(v string) *SupportedSettlementMethodInfo {
+	s.RelatedSettlementAccountId = &v
+	return s
+}
+
 // 总览统计数据
 type DataSummaryTotal struct {
 	// 原始币种资产价值列表
@@ -1100,6 +1126,8 @@ type AssetProjectDetail struct {
 	TokenName *string `json:"token_name,omitempty" xml:"token_name,omitempty" require:"true"`
 	// 项目介绍
 	Info *string `json:"info,omitempty" xml:"info,omitempty" require:"true"`
+	// 项目描述(markdown格式)
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 当前供应量
 	Supply *string `json:"supply,omitempty" xml:"supply,omitempty" require:"true"`
 	// 最大供应量
@@ -1186,6 +1214,11 @@ func (s *AssetProjectDetail) SetTokenName(v string) *AssetProjectDetail {
 
 func (s *AssetProjectDetail) SetInfo(v string) *AssetProjectDetail {
 	s.Info = &v
+	return s
+}
+
+func (s *AssetProjectDetail) SetDescription(v string) *AssetProjectDetail {
+	s.Description = &v
 	return s
 }
 
@@ -1478,6 +1511,8 @@ type CreateIssuerProjectRequest struct {
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 项目名称
 	Info *string `json:"info,omitempty" xml:"info,omitempty" require:"true"`
+	// 项目描述(markdown格式)
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
 	// 代币名称
 	TokenName *string `json:"token_name,omitempty" xml:"token_name,omitempty" require:"true"`
 	// 最大供应量
@@ -1496,6 +1531,18 @@ type CreateIssuerProjectRequest struct {
 	TransferKeys []*string `json:"transfer_keys,omitempty" xml:"transfer_keys,omitempty" require:"true" type:"Repeated"`
 	// 管理密钥ID列表(最多3个)
 	ManagerKeys []*string `json:"manager_keys,omitempty" xml:"manager_keys,omitempty" require:"true" type:"Repeated"`
+	// 项目封面文件id
+	ProjectCoverFileId *string `json:"project_cover_file_id,omitempty" xml:"project_cover_file_id,omitempty" require:"true"`
+	// 是否限购
+	MaxSubscriptionLimited *bool `json:"max_subscription_limited,omitempty" xml:"max_subscription_limited,omitempty" require:"true"`
+	// 最大可认购份额
+	MaxSubscriptionAmount *string `json:"max_subscription_amount,omitempty" xml:"max_subscription_amount,omitempty" require:"true"`
+	// 项目支持的结算方式
+	SettlementMethods []*SupportedSettlementMethodInfo `json:"settlement_methods,omitempty" xml:"settlement_methods,omitempty" require:"true" type:"Repeated"`
+	// crossChain
+	CrossChain *bool `json:"cross_chain,omitempty" xml:"cross_chain,omitempty" require:"true"`
+	// 目标链名称列表（跨链项目必填）
+	TargetChainNameList []*string `json:"target_chain_name_list,omitempty" xml:"target_chain_name_list,omitempty" type:"Repeated"`
 }
 
 func (s CreateIssuerProjectRequest) String() string {
@@ -1523,6 +1570,11 @@ func (s *CreateIssuerProjectRequest) SetName(v string) *CreateIssuerProjectReque
 
 func (s *CreateIssuerProjectRequest) SetInfo(v string) *CreateIssuerProjectRequest {
 	s.Info = &v
+	return s
+}
+
+func (s *CreateIssuerProjectRequest) SetDescription(v string) *CreateIssuerProjectRequest {
+	s.Description = &v
 	return s
 }
 
@@ -1568,6 +1620,36 @@ func (s *CreateIssuerProjectRequest) SetTransferKeys(v []*string) *CreateIssuerP
 
 func (s *CreateIssuerProjectRequest) SetManagerKeys(v []*string) *CreateIssuerProjectRequest {
 	s.ManagerKeys = v
+	return s
+}
+
+func (s *CreateIssuerProjectRequest) SetProjectCoverFileId(v string) *CreateIssuerProjectRequest {
+	s.ProjectCoverFileId = &v
+	return s
+}
+
+func (s *CreateIssuerProjectRequest) SetMaxSubscriptionLimited(v bool) *CreateIssuerProjectRequest {
+	s.MaxSubscriptionLimited = &v
+	return s
+}
+
+func (s *CreateIssuerProjectRequest) SetMaxSubscriptionAmount(v string) *CreateIssuerProjectRequest {
+	s.MaxSubscriptionAmount = &v
+	return s
+}
+
+func (s *CreateIssuerProjectRequest) SetSettlementMethods(v []*SupportedSettlementMethodInfo) *CreateIssuerProjectRequest {
+	s.SettlementMethods = v
+	return s
+}
+
+func (s *CreateIssuerProjectRequest) SetCrossChain(v bool) *CreateIssuerProjectRequest {
+	s.CrossChain = &v
+	return s
+}
+
+func (s *CreateIssuerProjectRequest) SetTargetChainNameList(v []*string) *CreateIssuerProjectRequest {
+	s.TargetChainNameList = v
 	return s
 }
 
@@ -4932,7 +5014,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.10"),
+				"sdk_version":      tea.String("1.0.13"),
 				"_prod_code":       tea.String("WEBTRWATRADE"),
 				"_prod_channel":    tea.String("default"),
 			}
