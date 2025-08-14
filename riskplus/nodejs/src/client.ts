@@ -12073,13 +12073,13 @@ export class PushDubbridgeInstallmentSupplementRequest extends $tea.Model {
   productInstanceId?: string;
   // 订单号：request请求单号，每次请求唯一，如uuid
   orderNo: string;
-  // 业务类型：1-现金贷；2-分期付
-  // 
-  prodType: string;
   // 资产方用户唯一标识
   openId: string;
   // 资产方购物订单号，如二轮车/摩托车订单号
   bizOrderNo: string;
+  // 业务类型：1-现金贷；2-分期付
+  // 
+  prodType?: string;
   // 材料场景：2-支用前、3-支用后
   fileScene?: string;
   // 材料列表
@@ -12095,9 +12095,9 @@ export class PushDubbridgeInstallmentSupplementRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       orderNo: 'order_no',
-      prodType: 'prod_type',
       openId: 'open_id',
       bizOrderNo: 'biz_order_no',
+      prodType: 'prod_type',
       fileScene: 'file_scene',
       fileList: 'file_list',
       storeInfo: 'store_info',
@@ -12111,9 +12111,9 @@ export class PushDubbridgeInstallmentSupplementRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       orderNo: 'string',
-      prodType: 'string',
       openId: 'string',
       bizOrderNo: 'string',
+      prodType: 'string',
       fileScene: 'string',
       fileList: { 'type': 'array', 'itemType': SupplementFile },
       storeInfo: StoreInfo,
@@ -14778,11 +14778,14 @@ export class UploadQmpOfflinehostplanResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 导入id，可以用该id来查询分层结果
+  importId?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      importId: 'import_id',
     };
   }
 
@@ -14791,6 +14794,82 @@ export class UploadQmpOfflinehostplanResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      importId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryQmpOfflinehostplanDecisionresultRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 文件上传时返回的导入id
+  importId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      importId: 'import_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      importId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryQmpOfflinehostplanDecisionresultResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 安全托管计划编码
+  planCode?: string;
+  // EXECUTING/DECISI ON_SUCCESS/DECISION_FAIL/CANCEL。执行中/成功/失败/取消。
+  status?: string;
+  // 总托管数量
+  totalNum?: number;
+  // 分层结果数
+  decisionNum?: number;
+  // 分层结果的oss文件路径
+  fileUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      planCode: 'plan_code',
+      status: 'status',
+      totalNum: 'total_num',
+      decisionNum: 'decision_num',
+      fileUrl: 'file_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      planCode: 'string',
+      status: 'string',
+      totalNum: 'number',
+      decisionNum: 'number',
+      fileUrl: 'string',
     };
   }
 
@@ -17137,6 +17216,71 @@ export class ReceiveRbbParamsFileResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       content: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReceiveRbbOverseacompanyProfileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // fileId
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReceiveRbbOverseacompanyProfileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 文件url
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
     };
   }
 
@@ -20031,6 +20175,783 @@ export class QuerySnapshotEventRequest extends $tea.Model {
 }
 
 export class QuerySnapshotEventResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyTdiquickmsgRtBatchmarketingRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景策略id
+  sceneStrategyId: number;
+  // 	
+  // 外部流水号
+  outSerialNo: string;
+  // 	
+  // 用户标识类型
+  paramType: string;
+  // 批量透传字段
+  outInfo?: string;
+  // 用户凭证列表
+  customerDetails: CustomerDetail[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneStrategyId: 'scene_strategy_id',
+      outSerialNo: 'out_serial_no',
+      paramType: 'param_type',
+      outInfo: 'out_info',
+      customerDetails: 'customer_details',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneStrategyId: 'number',
+      outSerialNo: 'string',
+      paramType: 'string',
+      outInfo: 'string',
+      customerDetails: { 'type': 'array', 'itemType': CustomerDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyTdiquickmsgRtBatchmarketingResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 批次流水号
+  bizId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizId: 'biz_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyTdiquickmsgRobotcallRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部流水号
+  outSerialNo: string;
+  // 场景策略id
+  sceneStrategyId: number;
+  // 客户透传字段
+  outInfo?: string;
+  // 用户参数类型
+  paramTemplate: string;
+  // 每个手机号的详细参数
+  customerDetails: RobotCallCustomerParam;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outSerialNo: 'out_serial_no',
+      sceneStrategyId: 'scene_strategy_id',
+      outInfo: 'out_info',
+      paramTemplate: 'param_template',
+      customerDetails: 'customer_details',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outSerialNo: 'string',
+      sceneStrategyId: 'number',
+      outInfo: 'string',
+      paramTemplate: 'string',
+      customerDetails: RobotCallCustomerParam,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyTdiquickmsgRobotcallResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 呼叫记录id
+  callId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      callId: 'call_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      callId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackTdiquickmsgSmsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 短信回执类型
+  // 
+  type: string;
+  // 手机号码
+  // 
+  phoneNumber: string;
+  // 发送时间
+  sendTime: string;
+  // 状态报告时间
+  reportTime: string;
+  // 是否接收成功。取值：true：接收成功false：接收失败
+  success: boolean;
+  // 状态报告编码
+  errCode: string;
+  // 状态报告说明
+  // 
+  errMsg: string;
+  // 短信长度
+  smsSize: string;
+  // 发送回执ID，即发送流水号
+  bizId: string;
+  // 业务扩展字段，回执时透传，JSON格式
+  bizProperties: string;
+  // 发送卡片短信时，文本短信状态报告中才会有该字段，且取值为CARD_SMS，发送纯文本短信时，状态报告中没有该字段
+  smsType?: string;
+  // 运营商
+  serviceProvider: string;
+  // 手机号码所属城市
+  city?: string;
+  // 手机号模版类型
+  keyTemplate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      type: 'type',
+      phoneNumber: 'phone_number',
+      sendTime: 'send_time',
+      reportTime: 'report_time',
+      success: 'success',
+      errCode: 'err_code',
+      errMsg: 'err_msg',
+      smsSize: 'sms_size',
+      bizId: 'biz_id',
+      bizProperties: 'biz_properties',
+      smsType: 'sms_type',
+      serviceProvider: 'service_provider',
+      city: 'city',
+      keyTemplate: 'key_template',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      type: 'string',
+      phoneNumber: 'string',
+      sendTime: 'string',
+      reportTime: 'string',
+      success: 'boolean',
+      errCode: 'string',
+      errMsg: 'string',
+      smsSize: 'string',
+      bizId: 'string',
+      bizProperties: 'string',
+      smsType: 'string',
+      serviceProvider: 'string',
+      city: 'string',
+      keyTemplate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackTdiquickmsgSmsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackTdiquickmsgRobotcallRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外呼号码，支持密文
+  customerKey: string;
+  // 当前呼叫次数 Integer
+  currentCallTimes: number;
+  // 号码的模版类型
+  keyTemplate: string;
+  // 导入号码时返回的批次号
+  batchId: string;
+  // 外呼类型 建议按照如下约定给到 2001:批量-预测外呼 2002:批量-AI外呼-不转人工 2003:批量-AI外呼-接通转人工 2004: 批量-AI外呼-智能转人工 2005:批量-语音通知
+  callType: number;
+  // 用户自定义标签
+  tag?: string;
+  // 外呼呼叫实例id
+  callId: string;
+  // 外呼任务编号
+  taskId: number;
+  // 外呼任务名称
+  taskName: string;
+  // 外呼的话术模板ID，可以为空
+  templateId?: number;
+  // 外呼状态编码
+  statusCode: number;
+  // 外呼状态编码对应描述
+  statusDescription: string;
+  // 转人工状态编码
+  transferStatusCode: string;
+  // 转人工状态编码对应描述
+  transferStatus: string;
+  // 分配坐席ID,可以为空
+  agentId?: number;
+  // 建议填写坐席在贵司业务系统唯一标识，用于查询对应agentId；可以为空。
+  agentTag?: string;
+  // 坐席分机号，可以为空
+  agentExtension?: string;
+  // 导入时间，格式:2019-01-09 14:14:19
+  importTime: string;
+  // 开始通话时间，格式：2019-01-09 14:14:19
+  callBeginTime: string;
+  // 振铃时长,单位毫秒
+  ringTime: number;
+  // 接通时间
+  answerTime?: string;
+  // 通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+  speakingTime: string;
+  // 通话时长，单位：秒
+  speakingDuration: number;
+  // 通话挂断时间
+  hangupTime: string;
+  // 对话轮次
+  speakingTurns: number;
+  // 坐席通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+  agentSpeakingTime: string;
+  // 坐席通话时长，单位：秒
+  agentSpeakingDuration: number;
+  // 意向标签
+  intentTag: string;
+  // 意向说明
+  intentDescription: string;
+  // 个性标签
+  individualTag?: string;
+  // 回复关键词
+  keywords?: string;
+  // 挂机方式
+  hungupType: number;
+  // 挂机短信，1:发送，2:不发送
+  sms: number;
+  // 对话录音,url
+  chatRecord?: string;
+  // 对话记录
+  chats?: string;
+  // 0:不添加，1:添加
+  addWx?: number;
+  // 加微进度可选值：已申请、加微成功
+  addWxStatus?: string;
+  // 是否接通重呼 0正常外呼，1接通重呼
+  answerRecall: number;
+  // 导入号码时的参数值
+  properties?: string;
+  // 导入号码时的业务参数值
+  bizProperties?: string;
+  // 拦截原因 可选值：黑名单拦截，灰名单拦截，异常号码拦截
+  interceptReason?: string;
+  // 回调冗余字段
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      customerKey: 'customer_key',
+      currentCallTimes: 'current_call_times',
+      keyTemplate: 'key_template',
+      batchId: 'batch_id',
+      callType: 'call_type',
+      tag: 'tag',
+      callId: 'call_id',
+      taskId: 'task_id',
+      taskName: 'task_name',
+      templateId: 'template_id',
+      statusCode: 'status_code',
+      statusDescription: 'status_description',
+      transferStatusCode: 'transfer_status_code',
+      transferStatus: 'transfer_status',
+      agentId: 'agent_id',
+      agentTag: 'agent_tag',
+      agentExtension: 'agent_extension',
+      importTime: 'import_time',
+      callBeginTime: 'call_begin_time',
+      ringTime: 'ring_time',
+      answerTime: 'answer_time',
+      speakingTime: 'speaking_time',
+      speakingDuration: 'speaking_duration',
+      hangupTime: 'hangup_time',
+      speakingTurns: 'speaking_turns',
+      agentSpeakingTime: 'agent_speaking_time',
+      agentSpeakingDuration: 'agent_speaking_duration',
+      intentTag: 'intent_tag',
+      intentDescription: 'intent_description',
+      individualTag: 'individual_tag',
+      keywords: 'keywords',
+      hungupType: 'hungup_type',
+      sms: 'sms',
+      chatRecord: 'chat_record',
+      chats: 'chats',
+      addWx: 'add_wx',
+      addWxStatus: 'add_wx_status',
+      answerRecall: 'answer_recall',
+      properties: 'properties',
+      bizProperties: 'biz_properties',
+      interceptReason: 'intercept_reason',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      customerKey: 'string',
+      currentCallTimes: 'number',
+      keyTemplate: 'string',
+      batchId: 'string',
+      callType: 'number',
+      tag: 'string',
+      callId: 'string',
+      taskId: 'number',
+      taskName: 'string',
+      templateId: 'number',
+      statusCode: 'number',
+      statusDescription: 'string',
+      transferStatusCode: 'string',
+      transferStatus: 'string',
+      agentId: 'number',
+      agentTag: 'string',
+      agentExtension: 'string',
+      importTime: 'string',
+      callBeginTime: 'string',
+      ringTime: 'number',
+      answerTime: 'string',
+      speakingTime: 'string',
+      speakingDuration: 'number',
+      hangupTime: 'string',
+      speakingTurns: 'number',
+      agentSpeakingTime: 'string',
+      agentSpeakingDuration: 'number',
+      intentTag: 'string',
+      intentDescription: 'string',
+      individualTag: 'string',
+      keywords: 'string',
+      hungupType: 'number',
+      sms: 'number',
+      chatRecord: 'string',
+      chats: 'string',
+      addWx: 'number',
+      addWxStatus: 'string',
+      answerRecall: 'number',
+      properties: 'string',
+      bizProperties: 'string',
+      interceptReason: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackTdiquickmsgRobotcallResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackTdiquickmsgSmsUpRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 回执类型
+  type: string;
+  // 手机号码
+  phoneNumber: string;
+  // 发送时间
+  sendTime: string;
+  // 发送内容
+  content: string;
+  // 签名信息
+  signName: string;
+  // 签名对应的客户ak
+  appKey: string;
+  // 行短信扩展号码
+  destCode: string;
+  // 序列号
+  sequenceId: number;
+  // 手机号模版类型
+  keyTemplate?: string;
+  // 原始手机号模版类型
+  originKeyTemplate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      type: 'type',
+      phoneNumber: 'phone_number',
+      sendTime: 'send_time',
+      content: 'content',
+      signName: 'sign_name',
+      appKey: 'app_key',
+      destCode: 'dest_code',
+      sequenceId: 'sequence_id',
+      keyTemplate: 'key_template',
+      originKeyTemplate: 'origin_key_template',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      type: 'string',
+      phoneNumber: 'string',
+      sendTime: 'string',
+      content: 'string',
+      signName: 'string',
+      appKey: 'string',
+      destCode: 'string',
+      sequenceId: 'number',
+      keyTemplate: 'string',
+      originKeyTemplate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackTdiquickmsgSmsUpResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTdiquickmsgRobotcallStatisticinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景策略id
+  sceneStrategyId: number;
+  // 客户透传字段
+  outInfo: string;
+  // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+  industryTag?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneStrategyId: 'scene_strategy_id',
+      outInfo: 'out_info',
+      industryTag: 'industry_tag',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneStrategyId: 'number',
+      outInfo: 'string',
+      industryTag: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTdiquickmsgRobotcallStatisticinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 全量手机号数量
+  totalCount?: number;
+  // 累计拨打次数
+  callCount?: number;
+  // 已经拨打的手机号数量
+  calleeCount?: string;
+  // 已拨打次数中接通的数量
+  connectCount?: number;
+  // 拨打率
+  callRate?: string;
+  // 接通率
+  connectRate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      totalCount: 'total_count',
+      callCount: 'call_count',
+      calleeCount: 'callee_count',
+      connectCount: 'connect_count',
+      callRate: 'call_rate',
+      connectRate: 'connect_rate',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      totalCount: 'number',
+      callCount: 'number',
+      calleeCount: 'string',
+      connectCount: 'number',
+      callRate: 'string',
+      connectRate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushTdiquickmsgBackflowEventRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 回流事件id，对应租户回流事件id
+  eventId: number;
+  // 回流事件记录列表
+  eventRecords: BackflowEventRecord[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      eventId: 'event_id',
+      eventRecords: 'event_records',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      eventId: 'number',
+      eventRecords: { 'type': 'array', 'itemType': BackflowEventRecord },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushTdiquickmsgBackflowEventResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushTdiquickmsgBackflowJsondataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 回流事件id，对应租户回流事件id
+  eventId: number;
+  // 回流事件记录列表
+  eventRecords: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      eventId: 'event_id',
+      eventRecords: 'event_records',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      eventId: 'number',
+      eventRecords: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushTdiquickmsgBackflowJsondataResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -23584,7 +24505,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.24.9",
+          sdk_version: "1.25.4",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -25849,6 +26770,25 @@ export default class Client {
   }
 
   /**
+   * Description: 安全托管分层结果查询接口
+   * Summary: 安全托管分层结果查询接口
+   */
+  async queryQmpOfflinehostplanDecisionresult(request: QueryQmpOfflinehostplanDecisionresultRequest): Promise<QueryQmpOfflinehostplanDecisionresultResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryQmpOfflinehostplanDecisionresultEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 安全托管分层结果查询接口
+   * Summary: 安全托管分层结果查询接口
+   */
+  async queryQmpOfflinehostplanDecisionresultEx(request: QueryQmpOfflinehostplanDecisionresultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryQmpOfflinehostplanDecisionresultResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryQmpOfflinehostplanDecisionresultResponse>(await this.doRequest("1.0", "riskplus.qmp.offlinehostplan.decisionresult.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryQmpOfflinehostplanDecisionresultResponse({}));
+  }
+
+  /**
    * Description: 企管盾票税交接授权信息表的同步
    * Summary: 企管盾票税交接授权信息表的同步
    */
@@ -26564,6 +27504,47 @@ export default class Client {
   }
 
   /**
+   * Description: 境外企业画像数据接收
+   * Summary: 境外企业画像数据接收
+   */
+  async receiveRbbOverseacompanyProfile(request: ReceiveRbbOverseacompanyProfileRequest): Promise<ReceiveRbbOverseacompanyProfileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.receiveRbbOverseacompanyProfileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 境外企业画像数据接收
+   * Summary: 境外企业画像数据接收
+   */
+  async receiveRbbOverseacompanyProfileEx(request: ReceiveRbbOverseacompanyProfileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReceiveRbbOverseacompanyProfileResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "riskplus.rbb.overseacompany.profile.receive",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let receiveRbbOverseacompanyProfileResponse = new ReceiveRbbOverseacompanyProfileResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return receiveRbbOverseacompanyProfileResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<ReceiveRbbOverseacompanyProfileResponse>(await this.doRequest("1.0", "riskplus.rbb.overseacompany.profile.receive", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReceiveRbbOverseacompanyProfileResponse({}));
+  }
+
+  /**
    * Description: 报告结果推送，算法调用
    * Summary: 报告结果推送
    */
@@ -27228,6 +28209,158 @@ export default class Client {
   async querySnapshotEventEx(request: QuerySnapshotEventRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySnapshotEventResponse> {
     Util.validateModel(request);
     return $tea.cast<QuerySnapshotEventResponse>(await this.doRequest("1.0", "riskplus.snapshot.event.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySnapshotEventResponse({}));
+  }
+
+  /**
+   * Description: 批量实时触达接口
+   * Summary: 发起触达任务
+   */
+  async applyTdiquickmsgRtBatchmarketing(request: ApplyTdiquickmsgRtBatchmarketingRequest): Promise<ApplyTdiquickmsgRtBatchmarketingResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyTdiquickmsgRtBatchmarketingEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 批量实时触达接口
+   * Summary: 发起触达任务
+   */
+  async applyTdiquickmsgRtBatchmarketingEx(request: ApplyTdiquickmsgRtBatchmarketingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyTdiquickmsgRtBatchmarketingResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyTdiquickmsgRtBatchmarketingResponse>(await this.doRequest("1.0", "riskplus.tdiquickmsg.rt.batchmarketing.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyTdiquickmsgRtBatchmarketingResponse({}));
+  }
+
+  /**
+   * Description: 发起AI外呼
+   * Summary: 发起AI外呼
+   */
+  async applyTdiquickmsgRobotcall(request: ApplyTdiquickmsgRobotcallRequest): Promise<ApplyTdiquickmsgRobotcallResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyTdiquickmsgRobotcallEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 发起AI外呼
+   * Summary: 发起AI外呼
+   */
+  async applyTdiquickmsgRobotcallEx(request: ApplyTdiquickmsgRobotcallRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyTdiquickmsgRobotcallResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyTdiquickmsgRobotcallResponse>(await this.doRequest("1.0", "riskplus.tdiquickmsg.robotcall.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyTdiquickmsgRobotcallResponse({}));
+  }
+
+  /**
+   * Description: 短信状态回调接口
+   * Summary: 短信状态回调接口
+   */
+  async callbackTdiquickmsgSms(request: CallbackTdiquickmsgSmsRequest): Promise<CallbackTdiquickmsgSmsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackTdiquickmsgSmsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 短信状态回调接口
+   * Summary: 短信状态回调接口
+   */
+  async callbackTdiquickmsgSmsEx(request: CallbackTdiquickmsgSmsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackTdiquickmsgSmsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackTdiquickmsgSmsResponse>(await this.doRequest("1.0", "riskplus.tdiquickmsg.sms.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackTdiquickmsgSmsResponse({}));
+  }
+
+  /**
+   * Description: 新接入ai外呼服务商的回调接口
+   * Summary: ai外呼回调接口
+   */
+  async callbackTdiquickmsgRobotcall(request: CallbackTdiquickmsgRobotcallRequest): Promise<CallbackTdiquickmsgRobotcallResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackTdiquickmsgRobotcallEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 新接入ai外呼服务商的回调接口
+   * Summary: ai外呼回调接口
+   */
+  async callbackTdiquickmsgRobotcallEx(request: CallbackTdiquickmsgRobotcallRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackTdiquickmsgRobotcallResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackTdiquickmsgRobotcallResponse>(await this.doRequest("1.0", "riskplus.tdiquickmsg.robotcall.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackTdiquickmsgRobotcallResponse({}));
+  }
+
+  /**
+   * Description: 上行短信回调
+   * Summary: 上行短信回调
+   */
+  async callbackTdiquickmsgSmsUp(request: CallbackTdiquickmsgSmsUpRequest): Promise<CallbackTdiquickmsgSmsUpResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackTdiquickmsgSmsUpEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 上行短信回调
+   * Summary: 上行短信回调
+   */
+  async callbackTdiquickmsgSmsUpEx(request: CallbackTdiquickmsgSmsUpRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackTdiquickmsgSmsUpResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackTdiquickmsgSmsUpResponse>(await this.doRequest("1.0", "riskplus.tdiquickmsg.sms.up.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackTdiquickmsgSmsUpResponse({}));
+  }
+
+  /**
+   * Description: 外呼任务统计查询接口
+   * Summary: 外呼任务统计查询接口
+   */
+  async queryTdiquickmsgRobotcallStatisticinfo(request: QueryTdiquickmsgRobotcallStatisticinfoRequest): Promise<QueryTdiquickmsgRobotcallStatisticinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryTdiquickmsgRobotcallStatisticinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 外呼任务统计查询接口
+   * Summary: 外呼任务统计查询接口
+   */
+  async queryTdiquickmsgRobotcallStatisticinfoEx(request: QueryTdiquickmsgRobotcallStatisticinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTdiquickmsgRobotcallStatisticinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryTdiquickmsgRobotcallStatisticinfoResponse>(await this.doRequest("1.0", "riskplus.tdiquickmsg.robotcall.statisticinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTdiquickmsgRobotcallStatisticinfoResponse({}));
+  }
+
+  /**
+   * Description: 蚁盾业务回流事件推送
+   * Summary: 蚁盾业务回流事件推送
+   */
+  async pushTdiquickmsgBackflowEvent(request: PushTdiquickmsgBackflowEventRequest): Promise<PushTdiquickmsgBackflowEventResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushTdiquickmsgBackflowEventEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 蚁盾业务回流事件推送
+   * Summary: 蚁盾业务回流事件推送
+   */
+  async pushTdiquickmsgBackflowEventEx(request: PushTdiquickmsgBackflowEventRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushTdiquickmsgBackflowEventResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushTdiquickmsgBackflowEventResponse>(await this.doRequest("1.0", "riskplus.tdiquickmsg.backflow.event.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushTdiquickmsgBackflowEventResponse({}));
+  }
+
+  /**
+   * Description: 蚁盾数据回流推送，用于客户定制json数据
+   * Summary: 蚁盾数据回流json格式推送
+   */
+  async pushTdiquickmsgBackflowJsondata(request: PushTdiquickmsgBackflowJsondataRequest): Promise<PushTdiquickmsgBackflowJsondataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushTdiquickmsgBackflowJsondataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 蚁盾数据回流推送，用于客户定制json数据
+   * Summary: 蚁盾数据回流json格式推送
+   */
+  async pushTdiquickmsgBackflowJsondataEx(request: PushTdiquickmsgBackflowJsondataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushTdiquickmsgBackflowJsondataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushTdiquickmsgBackflowJsondataResponse>(await this.doRequest("1.0", "riskplus.tdiquickmsg.backflow.jsondata.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushTdiquickmsgBackflowJsondataResponse({}));
   }
 
   /**
