@@ -32,7 +32,9 @@ public class Client {
     public Number _maxRequests;
     public Number _maxRequestsPerHost;
     /**
-     * Init client with Config
+     * <b>description</b> :
+     * <p>Init client with Config</p>
+     * 
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
@@ -64,7 +66,9 @@ public class Client {
     }
 
     /**
-     * Encapsulate the request and invoke the network
+     * <b>description</b> :
+     * <p>Encapsulate the request and invoke the network</p>
+     * 
      * @param action api name
      * @param protocol http or https
      * @param method e.g. GET
@@ -122,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.6"),
+                    new TeaPair("sdk_version", "1.0.8"),
                     new TeaPair("_prod_code", "DOG"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -185,8 +189,9 @@ public class Client {
     }
 
     /**
-     * Description: save form to aone 
-     * Summary: save form to aone 
+     * <b>description</b> :
+     * <p>Description: save form to aone 
+     * Summary: save form to aone </p>
      */
     public SaveAoneResponse saveAone(SaveAoneRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -195,8 +200,9 @@ public class Client {
     }
 
     /**
-     * Description: save form to aone 
-     * Summary: save form to aone 
+     * <b>description</b> :
+     * <p>Description: save form to aone 
+     * Summary: save form to aone </p>
      */
     public SaveAoneResponse saveAoneEx(SaveAoneRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -204,8 +210,9 @@ public class Client {
     }
 
     /**
-     * Description: 该接口用于获取狗狗的年龄A
-     * Summary: 获取狗狗的年龄
+     * <b>description</b> :
+     * <p>Description: 该接口用于获取狗狗的年龄A
+     * Summary: 获取狗狗的年龄</p>
      */
     public GetAgeResponse getAge(GetAgeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -214,8 +221,9 @@ public class Client {
     }
 
     /**
-     * Description: 该接口用于获取狗狗的年龄A
-     * Summary: 获取狗狗的年龄
+     * <b>description</b> :
+     * <p>Description: 该接口用于获取狗狗的年龄A
+     * Summary: 获取狗狗的年龄</p>
      */
     public GetAgeResponse getAgeEx(GetAgeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -223,8 +231,9 @@ public class Client {
     }
 
     /**
-     * Description: 近端网关测试接口
-     * Summary: 近端网关测试接口
+     * <b>description</b> :
+     * <p>Description: 近端网关测试接口
+     * Summary: 近端网关测试接口</p>
      */
     public QueryEmebdTestResponse queryEmebdTest(QueryEmebdTestRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -233,8 +242,9 @@ public class Client {
     }
 
     /**
-     * Description: 近端网关测试接口
-     * Summary: 近端网关测试接口
+     * <b>description</b> :
+     * <p>Description: 近端网关测试接口
+     * Summary: 近端网关测试接口</p>
      */
     public QueryEmebdTestResponse queryEmebdTestEx(QueryEmebdTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -242,8 +252,9 @@ public class Client {
     }
 
     /**
-     * Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用
+     * <b>description</b> :
+     * <p>Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用</p>
      */
     public CreateWorkbenchTestResponse createWorkbenchTest(CreateWorkbenchTestRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -252,8 +263,9 @@ public class Client {
     }
 
     /**
-     * Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用
+     * <b>description</b> :
+     * <p>Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用</p>
      */
     public CreateWorkbenchTestResponse createWorkbenchTestEx(CreateWorkbenchTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -261,8 +273,9 @@ public class Client {
     }
 
     /**
-     * Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用
+     * <b>description</b> :
+     * <p>Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用</p>
      */
     public QueryAaaBbbResponse queryAaaBbb(QueryAaaBbbRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -271,8 +284,9 @@ public class Client {
     }
 
     /**
-     * Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用
+     * <b>description</b> :
+     * <p>Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用</p>
      */
     public QueryAaaBbbResponse queryAaaBbbEx(QueryAaaBbbRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -280,8 +294,9 @@ public class Client {
     }
 
     /**
-     * Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用
+     * <b>description</b> :
+     * <p>Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用</p>
      */
     public QueryWorkbenchTestResponse queryWorkbenchTest(QueryWorkbenchTestRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -290,8 +305,9 @@ public class Client {
     }
 
     /**
-     * Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用
+     * <b>description</b> :
+     * <p>Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用</p>
      */
     public QueryWorkbenchTestResponse queryWorkbenchTestEx(QueryWorkbenchTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

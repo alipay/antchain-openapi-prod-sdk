@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class ResultList extends TeaModel {
     // 返回结果
+    /**
+     * <strong>example:</strong>
+     * <p>{&quot;name&quot;:&quot;value&quot;}</p>
+     */
     @NameInMap("result")
     @Validation(required = true)
     public DogHome result;

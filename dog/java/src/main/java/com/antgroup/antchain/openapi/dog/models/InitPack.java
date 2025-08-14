@@ -5,14 +5,26 @@ import com.aliyun.tea.*;
 
 public class InitPack extends TeaModel {
     // 2022-11-07 14:48
+    /**
+     * <strong>example:</strong>
+     * <p>2022-11-07 14:48</p>
+     */
     @NameInMap("time")
     public String time;
 
     // wanyi
+    /**
+     * <strong>example:</strong>
+     * <p>wanyi</p>
+     */
     @NameInMap("operator")
     public String operator;
 
     // 1
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("count")
     public Long count;
 
