@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "DOG",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-dog:1.0.6",
-    "go": "github.com/antchain-openapi-sdk-go/dog/client:v1.0.6",
+    "java": "com.antgroup.antchain.openapi:openapi-dog:1.0.8",
+    "go": "github.com/antchain-openapi-sdk-go/dog/client:v1.0.8",
     "csharp": "AntChain.SDK.DOG:1.0.6",
-    "ts": "@antchain/dog:1.0.6",
-    "php": "antchain/dog:1.0.6",
-    "python": "antchain_sdk_dog:1.0.6"
+    "ts": "@antchain/dog:1.0.8",
+    "php": "antchain/dog:1.0.8",
+    "python": "antchain_sdk_dog:1.0.8"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
