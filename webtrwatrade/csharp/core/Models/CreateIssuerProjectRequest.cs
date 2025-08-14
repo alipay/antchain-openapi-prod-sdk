@@ -28,6 +28,11 @@ namespace AntChain.SDK.WEBTRWATRADE.Models
         [Validation(Required=true)]
         public string Info { get; set; }
 
+        // 项目描述(markdown格式)
+        [NameInMap("description")]
+        [Validation(Required=false)]
+        public string Description { get; set; }
+
         // 代币名称
         [NameInMap("token_name")]
         [Validation(Required=true)]
@@ -72,6 +77,36 @@ namespace AntChain.SDK.WEBTRWATRADE.Models
         [NameInMap("manager_keys")]
         [Validation(Required=true)]
         public List<string> ManagerKeys { get; set; }
+
+        // 项目封面文件id
+        [NameInMap("project_cover_file_id")]
+        [Validation(Required=true)]
+        public string ProjectCoverFileId { get; set; }
+
+        // 是否限购
+        [NameInMap("max_subscription_limited")]
+        [Validation(Required=true)]
+        public bool? MaxSubscriptionLimited { get; set; }
+
+        // 最大可认购份额
+        [NameInMap("max_subscription_amount")]
+        [Validation(Required=true)]
+        public string MaxSubscriptionAmount { get; set; }
+
+        // 项目支持的结算方式
+        [NameInMap("settlement_methods")]
+        [Validation(Required=true)]
+        public List<SupportedSettlementMethodInfo> SettlementMethods { get; set; }
+
+        // crossChain
+        [NameInMap("cross_chain")]
+        [Validation(Required=true)]
+        public bool? CrossChain { get; set; }
+
+        // 目标链名称列表（跨链项目必填）
+        [NameInMap("target_chain_name_list")]
+        [Validation(Required=false)]
+        public List<string> TargetChainNameList { get; set; }
 
     }
 

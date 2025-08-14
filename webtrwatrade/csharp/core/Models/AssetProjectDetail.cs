@@ -65,6 +65,11 @@ namespace AntChain.SDK.WEBTRWATRADE.Models
         [Validation(Required=true)]
         public string Info { get; set; }
 
+        // 项目描述(markdown格式)
+        [NameInMap("description")]
+        [Validation(Required=false)]
+        public string Description { get; set; }
+
         // 当前供应量
         [NameInMap("supply")]
         [Validation(Required=true)]
