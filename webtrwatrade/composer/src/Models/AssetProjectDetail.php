@@ -96,6 +96,14 @@ class AssetProjectDetail extends Model
      */
     public $info;
 
+    // 项目描述(markdown格式)
+    /**
+     * @example # 新能源
+     *
+     * @var string
+     */
+    public $description;
+
     // 当前供应量
     /**
      * @example 5000
@@ -203,6 +211,7 @@ class AssetProjectDetail extends Model
         'name'                  => 'name',
         'tokenName'             => 'token_name',
         'info'                  => 'info',
+        'description'           => 'description',
         'supply'                => 'supply',
         'capacity'              => 'capacity',
         'radio'                 => 'radio',
@@ -321,6 +330,9 @@ class AssetProjectDetail extends Model
         }
         if (null !== $this->info) {
             $res['info'] = $this->info;
+        }
+        if (null !== $this->description) {
+            $res['description'] = $this->description;
         }
         if (null !== $this->supply) {
             $res['supply'] = $this->supply;
@@ -444,6 +456,9 @@ class AssetProjectDetail extends Model
         }
         if (isset($map['info'])) {
             $model->info = $map['info'];
+        }
+        if (isset($map['description'])) {
+            $model->description = $map['description'];
         }
         if (isset($map['supply'])) {
             $model->supply = $map['supply'];
