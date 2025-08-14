@@ -16248,13 +16248,13 @@ type PushDubbridgeInstallmentSupplementRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 订单号：request请求单号，每次请求唯一，如uuid
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
-	// 业务类型：1-现金贷；2-分期付
-	//
-	ProdType *string `json:"prod_type,omitempty" xml:"prod_type,omitempty" require:"true"`
 	// 资产方用户唯一标识
 	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty" require:"true"`
 	// 资产方购物订单号，如二轮车/摩托车订单号
 	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty" require:"true"`
+	// 业务类型：1-现金贷；2-分期付
+	//
+	ProdType *string `json:"prod_type,omitempty" xml:"prod_type,omitempty"`
 	// 材料场景：2-支用前、3-支用后
 	FileScene *string `json:"file_scene,omitempty" xml:"file_scene,omitempty"`
 	// 材料列表
@@ -16290,11 +16290,6 @@ func (s *PushDubbridgeInstallmentSupplementRequest) SetOrderNo(v string) *PushDu
 	return s
 }
 
-func (s *PushDubbridgeInstallmentSupplementRequest) SetProdType(v string) *PushDubbridgeInstallmentSupplementRequest {
-	s.ProdType = &v
-	return s
-}
-
 func (s *PushDubbridgeInstallmentSupplementRequest) SetOpenId(v string) *PushDubbridgeInstallmentSupplementRequest {
 	s.OpenId = &v
 	return s
@@ -16302,6 +16297,11 @@ func (s *PushDubbridgeInstallmentSupplementRequest) SetOpenId(v string) *PushDub
 
 func (s *PushDubbridgeInstallmentSupplementRequest) SetBizOrderNo(v string) *PushDubbridgeInstallmentSupplementRequest {
 	s.BizOrderNo = &v
+	return s
+}
+
+func (s *PushDubbridgeInstallmentSupplementRequest) SetProdType(v string) *PushDubbridgeInstallmentSupplementRequest {
+	s.ProdType = &v
 	return s
 }
 
@@ -19875,6 +19875,8 @@ type UploadQmpOfflinehostplanResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 导入id，可以用该id来查询分层结果
+	ImportId *string `json:"import_id,omitempty" xml:"import_id,omitempty"`
 }
 
 func (s UploadQmpOfflinehostplanResponse) String() string {
@@ -19897,6 +19899,109 @@ func (s *UploadQmpOfflinehostplanResponse) SetResultCode(v string) *UploadQmpOff
 
 func (s *UploadQmpOfflinehostplanResponse) SetResultMsg(v string) *UploadQmpOfflinehostplanResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadQmpOfflinehostplanResponse) SetImportId(v string) *UploadQmpOfflinehostplanResponse {
+	s.ImportId = &v
+	return s
+}
+
+type QueryQmpOfflinehostplanDecisionresultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 文件上传时返回的导入id
+	ImportId *string `json:"import_id,omitempty" xml:"import_id,omitempty" require:"true"`
+}
+
+func (s QueryQmpOfflinehostplanDecisionresultRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryQmpOfflinehostplanDecisionresultRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultRequest) SetAuthToken(v string) *QueryQmpOfflinehostplanDecisionresultRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultRequest) SetProductInstanceId(v string) *QueryQmpOfflinehostplanDecisionresultRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultRequest) SetImportId(v string) *QueryQmpOfflinehostplanDecisionresultRequest {
+	s.ImportId = &v
+	return s
+}
+
+type QueryQmpOfflinehostplanDecisionresultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 安全托管计划编码
+	PlanCode *string `json:"plan_code,omitempty" xml:"plan_code,omitempty"`
+	// EXECUTING/DECISI ON_SUCCESS/DECISION_FAIL/CANCEL。执行中/成功/失败/取消。
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 总托管数量
+	TotalNum *int64 `json:"total_num,omitempty" xml:"total_num,omitempty"`
+	// 分层结果数
+	DecisionNum *int64 `json:"decision_num,omitempty" xml:"decision_num,omitempty"`
+	// 分层结果的oss文件路径
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
+}
+
+func (s QueryQmpOfflinehostplanDecisionresultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryQmpOfflinehostplanDecisionresultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultResponse) SetReqMsgId(v string) *QueryQmpOfflinehostplanDecisionresultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultResponse) SetResultCode(v string) *QueryQmpOfflinehostplanDecisionresultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultResponse) SetResultMsg(v string) *QueryQmpOfflinehostplanDecisionresultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultResponse) SetPlanCode(v string) *QueryQmpOfflinehostplanDecisionresultResponse {
+	s.PlanCode = &v
+	return s
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultResponse) SetStatus(v string) *QueryQmpOfflinehostplanDecisionresultResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultResponse) SetTotalNum(v int64) *QueryQmpOfflinehostplanDecisionresultResponse {
+	s.TotalNum = &v
+	return s
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultResponse) SetDecisionNum(v int64) *QueryQmpOfflinehostplanDecisionresultResponse {
+	s.DecisionNum = &v
+	return s
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultResponse) SetFileUrl(v string) *QueryQmpOfflinehostplanDecisionresultResponse {
+	s.FileUrl = &v
 	return s
 }
 
@@ -22917,6 +23022,90 @@ func (s *ReceiveRbbParamsFileResponse) SetResultMsg(v string) *ReceiveRbbParamsF
 
 func (s *ReceiveRbbParamsFileResponse) SetContent(v string) *ReceiveRbbParamsFileResponse {
 	s.Content = &v
+	return s
+}
+
+type ReceiveRbbOverseacompanyProfileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// fileId
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s ReceiveRbbOverseacompanyProfileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiveRbbOverseacompanyProfileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiveRbbOverseacompanyProfileRequest) SetAuthToken(v string) *ReceiveRbbOverseacompanyProfileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ReceiveRbbOverseacompanyProfileRequest) SetProductInstanceId(v string) *ReceiveRbbOverseacompanyProfileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ReceiveRbbOverseacompanyProfileRequest) SetFileObject(v io.Reader) *ReceiveRbbOverseacompanyProfileRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *ReceiveRbbOverseacompanyProfileRequest) SetFileObjectName(v string) *ReceiveRbbOverseacompanyProfileRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *ReceiveRbbOverseacompanyProfileRequest) SetFileId(v string) *ReceiveRbbOverseacompanyProfileRequest {
+	s.FileId = &v
+	return s
+}
+
+type ReceiveRbbOverseacompanyProfileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文件url
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s ReceiveRbbOverseacompanyProfileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiveRbbOverseacompanyProfileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiveRbbOverseacompanyProfileResponse) SetReqMsgId(v string) *ReceiveRbbOverseacompanyProfileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ReceiveRbbOverseacompanyProfileResponse) SetResultCode(v string) *ReceiveRbbOverseacompanyProfileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ReceiveRbbOverseacompanyProfileResponse) SetResultMsg(v string) *ReceiveRbbOverseacompanyProfileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ReceiveRbbOverseacompanyProfileResponse) SetData(v string) *ReceiveRbbOverseacompanyProfileResponse {
+	s.Data = &v
 	return s
 }
 
@@ -26850,6 +27039,1096 @@ func (s *QuerySnapshotEventResponse) SetResultCode(v string) *QuerySnapshotEvent
 }
 
 func (s *QuerySnapshotEventResponse) SetResultMsg(v string) *QuerySnapshotEventResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type ApplyTdiquickmsgRtBatchmarketingRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景策略id
+	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
+	//
+	// 外部流水号
+	OutSerialNo *string `json:"out_serial_no,omitempty" xml:"out_serial_no,omitempty" require:"true"`
+	//
+	// 用户标识类型
+	ParamType *string `json:"param_type,omitempty" xml:"param_type,omitempty" require:"true"`
+	// 批量透传字段
+	OutInfo *string `json:"out_info,omitempty" xml:"out_info,omitempty"`
+	// 用户凭证列表
+	CustomerDetails []*CustomerDetail `json:"customer_details,omitempty" xml:"customer_details,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ApplyTdiquickmsgRtBatchmarketingRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyTdiquickmsgRtBatchmarketingRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyTdiquickmsgRtBatchmarketingRequest) SetAuthToken(v string) *ApplyTdiquickmsgRtBatchmarketingRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyTdiquickmsgRtBatchmarketingRequest) SetProductInstanceId(v string) *ApplyTdiquickmsgRtBatchmarketingRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyTdiquickmsgRtBatchmarketingRequest) SetSceneStrategyId(v int64) *ApplyTdiquickmsgRtBatchmarketingRequest {
+	s.SceneStrategyId = &v
+	return s
+}
+
+func (s *ApplyTdiquickmsgRtBatchmarketingRequest) SetOutSerialNo(v string) *ApplyTdiquickmsgRtBatchmarketingRequest {
+	s.OutSerialNo = &v
+	return s
+}
+
+func (s *ApplyTdiquickmsgRtBatchmarketingRequest) SetParamType(v string) *ApplyTdiquickmsgRtBatchmarketingRequest {
+	s.ParamType = &v
+	return s
+}
+
+func (s *ApplyTdiquickmsgRtBatchmarketingRequest) SetOutInfo(v string) *ApplyTdiquickmsgRtBatchmarketingRequest {
+	s.OutInfo = &v
+	return s
+}
+
+func (s *ApplyTdiquickmsgRtBatchmarketingRequest) SetCustomerDetails(v []*CustomerDetail) *ApplyTdiquickmsgRtBatchmarketingRequest {
+	s.CustomerDetails = v
+	return s
+}
+
+type ApplyTdiquickmsgRtBatchmarketingResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 批次流水号
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+}
+
+func (s ApplyTdiquickmsgRtBatchmarketingResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyTdiquickmsgRtBatchmarketingResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyTdiquickmsgRtBatchmarketingResponse) SetReqMsgId(v string) *ApplyTdiquickmsgRtBatchmarketingResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyTdiquickmsgRtBatchmarketingResponse) SetResultCode(v string) *ApplyTdiquickmsgRtBatchmarketingResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyTdiquickmsgRtBatchmarketingResponse) SetResultMsg(v string) *ApplyTdiquickmsgRtBatchmarketingResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyTdiquickmsgRtBatchmarketingResponse) SetBizId(v string) *ApplyTdiquickmsgRtBatchmarketingResponse {
+	s.BizId = &v
+	return s
+}
+
+type ApplyTdiquickmsgRobotcallRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部流水号
+	OutSerialNo *string `json:"out_serial_no,omitempty" xml:"out_serial_no,omitempty" require:"true"`
+	// 场景策略id
+	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
+	// 客户透传字段
+	OutInfo *string `json:"out_info,omitempty" xml:"out_info,omitempty"`
+	// 用户参数类型
+	ParamTemplate *string `json:"param_template,omitempty" xml:"param_template,omitempty" require:"true"`
+	// 每个手机号的详细参数
+	CustomerDetails *RobotCallCustomerParam `json:"customer_details,omitempty" xml:"customer_details,omitempty" require:"true"`
+}
+
+func (s ApplyTdiquickmsgRobotcallRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyTdiquickmsgRobotcallRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyTdiquickmsgRobotcallRequest) SetAuthToken(v string) *ApplyTdiquickmsgRobotcallRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyTdiquickmsgRobotcallRequest) SetProductInstanceId(v string) *ApplyTdiquickmsgRobotcallRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyTdiquickmsgRobotcallRequest) SetOutSerialNo(v string) *ApplyTdiquickmsgRobotcallRequest {
+	s.OutSerialNo = &v
+	return s
+}
+
+func (s *ApplyTdiquickmsgRobotcallRequest) SetSceneStrategyId(v int64) *ApplyTdiquickmsgRobotcallRequest {
+	s.SceneStrategyId = &v
+	return s
+}
+
+func (s *ApplyTdiquickmsgRobotcallRequest) SetOutInfo(v string) *ApplyTdiquickmsgRobotcallRequest {
+	s.OutInfo = &v
+	return s
+}
+
+func (s *ApplyTdiquickmsgRobotcallRequest) SetParamTemplate(v string) *ApplyTdiquickmsgRobotcallRequest {
+	s.ParamTemplate = &v
+	return s
+}
+
+func (s *ApplyTdiquickmsgRobotcallRequest) SetCustomerDetails(v *RobotCallCustomerParam) *ApplyTdiquickmsgRobotcallRequest {
+	s.CustomerDetails = v
+	return s
+}
+
+type ApplyTdiquickmsgRobotcallResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 呼叫记录id
+	CallId *string `json:"call_id,omitempty" xml:"call_id,omitempty"`
+}
+
+func (s ApplyTdiquickmsgRobotcallResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyTdiquickmsgRobotcallResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyTdiquickmsgRobotcallResponse) SetReqMsgId(v string) *ApplyTdiquickmsgRobotcallResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyTdiquickmsgRobotcallResponse) SetResultCode(v string) *ApplyTdiquickmsgRobotcallResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyTdiquickmsgRobotcallResponse) SetResultMsg(v string) *ApplyTdiquickmsgRobotcallResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyTdiquickmsgRobotcallResponse) SetCallId(v string) *ApplyTdiquickmsgRobotcallResponse {
+	s.CallId = &v
+	return s
+}
+
+type CallbackTdiquickmsgSmsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 短信回执类型
+	//
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 手机号码
+	//
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty" require:"true"`
+	// 发送时间
+	SendTime *string `json:"send_time,omitempty" xml:"send_time,omitempty" require:"true"`
+	// 状态报告时间
+	ReportTime *string `json:"report_time,omitempty" xml:"report_time,omitempty" require:"true"`
+	// 是否接收成功。取值：true：接收成功false：接收失败
+	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+	// 状态报告编码
+	ErrCode *string `json:"err_code,omitempty" xml:"err_code,omitempty" require:"true"`
+	// 状态报告说明
+	//
+	ErrMsg *string `json:"err_msg,omitempty" xml:"err_msg,omitempty" require:"true"`
+	// 短信长度
+	SmsSize *string `json:"sms_size,omitempty" xml:"sms_size,omitempty" require:"true"`
+	// 发送回执ID，即发送流水号
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 业务扩展字段，回执时透传，JSON格式
+	BizProperties *string `json:"biz_properties,omitempty" xml:"biz_properties,omitempty" require:"true"`
+	// 发送卡片短信时，文本短信状态报告中才会有该字段，且取值为CARD_SMS，发送纯文本短信时，状态报告中没有该字段
+	SmsType *string `json:"sms_type,omitempty" xml:"sms_type,omitempty"`
+	// 运营商
+	ServiceProvider *string `json:"service_provider,omitempty" xml:"service_provider,omitempty" require:"true"`
+	// 手机号码所属城市
+	City *string `json:"city,omitempty" xml:"city,omitempty"`
+	// 手机号模版类型
+	KeyTemplate *string `json:"key_template,omitempty" xml:"key_template,omitempty"`
+}
+
+func (s CallbackTdiquickmsgSmsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackTdiquickmsgSmsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackTdiquickmsgSmsRequest) SetAuthToken(v string) *CallbackTdiquickmsgSmsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsRequest) SetProductInstanceId(v string) *CallbackTdiquickmsgSmsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsRequest) SetType(v string) *CallbackTdiquickmsgSmsRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsRequest) SetPhoneNumber(v string) *CallbackTdiquickmsgSmsRequest {
+	s.PhoneNumber = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsRequest) SetSendTime(v string) *CallbackTdiquickmsgSmsRequest {
+	s.SendTime = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsRequest) SetReportTime(v string) *CallbackTdiquickmsgSmsRequest {
+	s.ReportTime = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsRequest) SetSuccess(v bool) *CallbackTdiquickmsgSmsRequest {
+	s.Success = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsRequest) SetErrCode(v string) *CallbackTdiquickmsgSmsRequest {
+	s.ErrCode = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsRequest) SetErrMsg(v string) *CallbackTdiquickmsgSmsRequest {
+	s.ErrMsg = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsRequest) SetSmsSize(v string) *CallbackTdiquickmsgSmsRequest {
+	s.SmsSize = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsRequest) SetBizId(v string) *CallbackTdiquickmsgSmsRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsRequest) SetBizProperties(v string) *CallbackTdiquickmsgSmsRequest {
+	s.BizProperties = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsRequest) SetSmsType(v string) *CallbackTdiquickmsgSmsRequest {
+	s.SmsType = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsRequest) SetServiceProvider(v string) *CallbackTdiquickmsgSmsRequest {
+	s.ServiceProvider = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsRequest) SetCity(v string) *CallbackTdiquickmsgSmsRequest {
+	s.City = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsRequest) SetKeyTemplate(v string) *CallbackTdiquickmsgSmsRequest {
+	s.KeyTemplate = &v
+	return s
+}
+
+type CallbackTdiquickmsgSmsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CallbackTdiquickmsgSmsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackTdiquickmsgSmsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackTdiquickmsgSmsResponse) SetReqMsgId(v string) *CallbackTdiquickmsgSmsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsResponse) SetResultCode(v string) *CallbackTdiquickmsgSmsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsResponse) SetResultMsg(v string) *CallbackTdiquickmsgSmsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CallbackTdiquickmsgRobotcallRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外呼号码，支持密文
+	CustomerKey *string `json:"customer_key,omitempty" xml:"customer_key,omitempty" require:"true"`
+	// 当前呼叫次数 Integer
+	CurrentCallTimes *int64 `json:"current_call_times,omitempty" xml:"current_call_times,omitempty" require:"true"`
+	// 号码的模版类型
+	KeyTemplate *string `json:"key_template,omitempty" xml:"key_template,omitempty" require:"true"`
+	// 导入号码时返回的批次号
+	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty" require:"true"`
+	// 外呼类型 建议按照如下约定给到 2001:批量-预测外呼 2002:批量-AI外呼-不转人工 2003:批量-AI外呼-接通转人工 2004: 批量-AI外呼-智能转人工 2005:批量-语音通知
+	CallType *int64 `json:"call_type,omitempty" xml:"call_type,omitempty" require:"true"`
+	// 用户自定义标签
+	Tag *string `json:"tag,omitempty" xml:"tag,omitempty"`
+	// 外呼呼叫实例id
+	CallId *string `json:"call_id,omitempty" xml:"call_id,omitempty" require:"true"`
+	// 外呼任务编号
+	TaskId *int64 `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 外呼任务名称
+	TaskName *string `json:"task_name,omitempty" xml:"task_name,omitempty" require:"true"`
+	// 外呼的话术模板ID，可以为空
+	TemplateId *int64 `json:"template_id,omitempty" xml:"template_id,omitempty"`
+	// 外呼状态编码
+	StatusCode *int64 `json:"status_code,omitempty" xml:"status_code,omitempty" require:"true"`
+	// 外呼状态编码对应描述
+	StatusDescription *string `json:"status_description,omitempty" xml:"status_description,omitempty" require:"true"`
+	// 转人工状态编码
+	TransferStatusCode *string `json:"transfer_status_code,omitempty" xml:"transfer_status_code,omitempty" require:"true"`
+	// 转人工状态编码对应描述
+	TransferStatus *string `json:"transfer_status,omitempty" xml:"transfer_status,omitempty" require:"true"`
+	// 分配坐席ID,可以为空
+	AgentId *int64 `json:"agent_id,omitempty" xml:"agent_id,omitempty"`
+	// 建议填写坐席在贵司业务系统唯一标识，用于查询对应agentId；可以为空。
+	AgentTag *string `json:"agent_tag,omitempty" xml:"agent_tag,omitempty"`
+	// 坐席分机号，可以为空
+	AgentExtension *string `json:"agent_extension,omitempty" xml:"agent_extension,omitempty"`
+	// 导入时间，格式:2019-01-09 14:14:19
+	ImportTime *string `json:"import_time,omitempty" xml:"import_time,omitempty" require:"true"`
+	// 开始通话时间，格式：2019-01-09 14:14:19
+	CallBeginTime *string `json:"call_begin_time,omitempty" xml:"call_begin_time,omitempty" require:"true"`
+	// 振铃时长,单位毫秒
+	RingTime *int64 `json:"ring_time,omitempty" xml:"ring_time,omitempty" require:"true"`
+	// 接通时间
+	AnswerTime *string `json:"answer_time,omitempty" xml:"answer_time,omitempty"`
+	// 通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+	SpeakingTime *string `json:"speaking_time,omitempty" xml:"speaking_time,omitempty" require:"true"`
+	// 通话时长，单位：秒
+	SpeakingDuration *int64 `json:"speaking_duration,omitempty" xml:"speaking_duration,omitempty" require:"true"`
+	// 通话挂断时间
+	HangupTime *string `json:"hangup_time,omitempty" xml:"hangup_time,omitempty" require:"true"`
+	// 对话轮次
+	SpeakingTurns *int64 `json:"speaking_turns,omitempty" xml:"speaking_turns,omitempty" require:"true"`
+	// 坐席通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+	AgentSpeakingTime *string `json:"agent_speaking_time,omitempty" xml:"agent_speaking_time,omitempty" require:"true"`
+	// 坐席通话时长，单位：秒
+	AgentSpeakingDuration *int64 `json:"agent_speaking_duration,omitempty" xml:"agent_speaking_duration,omitempty" require:"true"`
+	// 意向标签
+	IntentTag *string `json:"intent_tag,omitempty" xml:"intent_tag,omitempty" require:"true"`
+	// 意向说明
+	IntentDescription *string `json:"intent_description,omitempty" xml:"intent_description,omitempty" require:"true"`
+	// 个性标签
+	IndividualTag *string `json:"individual_tag,omitempty" xml:"individual_tag,omitempty"`
+	// 回复关键词
+	Keywords *string `json:"keywords,omitempty" xml:"keywords,omitempty"`
+	// 挂机方式
+	HungupType *int64 `json:"hungup_type,omitempty" xml:"hungup_type,omitempty" require:"true"`
+	// 挂机短信，1:发送，2:不发送
+	Sms *int64 `json:"sms,omitempty" xml:"sms,omitempty" require:"true"`
+	// 对话录音,url
+	ChatRecord *string `json:"chat_record,omitempty" xml:"chat_record,omitempty"`
+	// 对话记录
+	Chats *string `json:"chats,omitempty" xml:"chats,omitempty"`
+	// 0:不添加，1:添加
+	AddWx *int64 `json:"add_wx,omitempty" xml:"add_wx,omitempty"`
+	// 加微进度可选值：已申请、加微成功
+	AddWxStatus *string `json:"add_wx_status,omitempty" xml:"add_wx_status,omitempty"`
+	// 是否接通重呼 0正常外呼，1接通重呼
+	AnswerRecall *int64 `json:"answer_recall,omitempty" xml:"answer_recall,omitempty" require:"true"`
+	// 导入号码时的参数值
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+	// 导入号码时的业务参数值
+	BizProperties *string `json:"biz_properties,omitempty" xml:"biz_properties,omitempty"`
+	// 拦截原因 可选值：黑名单拦截，灰名单拦截，异常号码拦截
+	InterceptReason *string `json:"intercept_reason,omitempty" xml:"intercept_reason,omitempty"`
+	// 回调冗余字段
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s CallbackTdiquickmsgRobotcallRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackTdiquickmsgRobotcallRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetAuthToken(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetProductInstanceId(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetCustomerKey(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.CustomerKey = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetCurrentCallTimes(v int64) *CallbackTdiquickmsgRobotcallRequest {
+	s.CurrentCallTimes = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetKeyTemplate(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.KeyTemplate = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetBatchId(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.BatchId = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetCallType(v int64) *CallbackTdiquickmsgRobotcallRequest {
+	s.CallType = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetTag(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.Tag = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetCallId(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.CallId = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetTaskId(v int64) *CallbackTdiquickmsgRobotcallRequest {
+	s.TaskId = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetTaskName(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.TaskName = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetTemplateId(v int64) *CallbackTdiquickmsgRobotcallRequest {
+	s.TemplateId = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetStatusCode(v int64) *CallbackTdiquickmsgRobotcallRequest {
+	s.StatusCode = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetStatusDescription(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.StatusDescription = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetTransferStatusCode(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.TransferStatusCode = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetTransferStatus(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.TransferStatus = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetAgentId(v int64) *CallbackTdiquickmsgRobotcallRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetAgentTag(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.AgentTag = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetAgentExtension(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.AgentExtension = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetImportTime(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.ImportTime = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetCallBeginTime(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.CallBeginTime = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetRingTime(v int64) *CallbackTdiquickmsgRobotcallRequest {
+	s.RingTime = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetAnswerTime(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.AnswerTime = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetSpeakingTime(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.SpeakingTime = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetSpeakingDuration(v int64) *CallbackTdiquickmsgRobotcallRequest {
+	s.SpeakingDuration = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetHangupTime(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.HangupTime = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetSpeakingTurns(v int64) *CallbackTdiquickmsgRobotcallRequest {
+	s.SpeakingTurns = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetAgentSpeakingTime(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.AgentSpeakingTime = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetAgentSpeakingDuration(v int64) *CallbackTdiquickmsgRobotcallRequest {
+	s.AgentSpeakingDuration = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetIntentTag(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.IntentTag = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetIntentDescription(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.IntentDescription = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetIndividualTag(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.IndividualTag = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetKeywords(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.Keywords = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetHungupType(v int64) *CallbackTdiquickmsgRobotcallRequest {
+	s.HungupType = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetSms(v int64) *CallbackTdiquickmsgRobotcallRequest {
+	s.Sms = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetChatRecord(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.ChatRecord = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetChats(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.Chats = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetAddWx(v int64) *CallbackTdiquickmsgRobotcallRequest {
+	s.AddWx = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetAddWxStatus(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.AddWxStatus = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetAnswerRecall(v int64) *CallbackTdiquickmsgRobotcallRequest {
+	s.AnswerRecall = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetProperties(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.Properties = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetBizProperties(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.BizProperties = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetInterceptReason(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.InterceptReason = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallRequest) SetExtInfo(v string) *CallbackTdiquickmsgRobotcallRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+type CallbackTdiquickmsgRobotcallResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CallbackTdiquickmsgRobotcallResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackTdiquickmsgRobotcallResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackTdiquickmsgRobotcallResponse) SetReqMsgId(v string) *CallbackTdiquickmsgRobotcallResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallResponse) SetResultCode(v string) *CallbackTdiquickmsgRobotcallResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgRobotcallResponse) SetResultMsg(v string) *CallbackTdiquickmsgRobotcallResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CallbackTdiquickmsgSmsUpRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 回执类型
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 手机号码
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty" require:"true"`
+	// 发送时间
+	SendTime *string `json:"send_time,omitempty" xml:"send_time,omitempty" require:"true"`
+	// 发送内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+	// 签名信息
+	SignName *string `json:"sign_name,omitempty" xml:"sign_name,omitempty" require:"true"`
+	// 签名对应的客户ak
+	AppKey *string `json:"app_key,omitempty" xml:"app_key,omitempty" require:"true"`
+	// 行短信扩展号码
+	DestCode *string `json:"dest_code,omitempty" xml:"dest_code,omitempty" require:"true"`
+	// 序列号
+	SequenceId *int64 `json:"sequence_id,omitempty" xml:"sequence_id,omitempty" require:"true"`
+	// 手机号模版类型
+	KeyTemplate *string `json:"key_template,omitempty" xml:"key_template,omitempty"`
+	// 原始手机号模版类型
+	OriginKeyTemplate *string `json:"origin_key_template,omitempty" xml:"origin_key_template,omitempty"`
+}
+
+func (s CallbackTdiquickmsgSmsUpRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackTdiquickmsgSmsUpRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackTdiquickmsgSmsUpRequest) SetAuthToken(v string) *CallbackTdiquickmsgSmsUpRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsUpRequest) SetProductInstanceId(v string) *CallbackTdiquickmsgSmsUpRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsUpRequest) SetType(v string) *CallbackTdiquickmsgSmsUpRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsUpRequest) SetPhoneNumber(v string) *CallbackTdiquickmsgSmsUpRequest {
+	s.PhoneNumber = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsUpRequest) SetSendTime(v string) *CallbackTdiquickmsgSmsUpRequest {
+	s.SendTime = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsUpRequest) SetContent(v string) *CallbackTdiquickmsgSmsUpRequest {
+	s.Content = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsUpRequest) SetSignName(v string) *CallbackTdiquickmsgSmsUpRequest {
+	s.SignName = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsUpRequest) SetAppKey(v string) *CallbackTdiquickmsgSmsUpRequest {
+	s.AppKey = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsUpRequest) SetDestCode(v string) *CallbackTdiquickmsgSmsUpRequest {
+	s.DestCode = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsUpRequest) SetSequenceId(v int64) *CallbackTdiquickmsgSmsUpRequest {
+	s.SequenceId = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsUpRequest) SetKeyTemplate(v string) *CallbackTdiquickmsgSmsUpRequest {
+	s.KeyTemplate = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsUpRequest) SetOriginKeyTemplate(v string) *CallbackTdiquickmsgSmsUpRequest {
+	s.OriginKeyTemplate = &v
+	return s
+}
+
+type CallbackTdiquickmsgSmsUpResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CallbackTdiquickmsgSmsUpResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackTdiquickmsgSmsUpResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackTdiquickmsgSmsUpResponse) SetReqMsgId(v string) *CallbackTdiquickmsgSmsUpResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsUpResponse) SetResultCode(v string) *CallbackTdiquickmsgSmsUpResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackTdiquickmsgSmsUpResponse) SetResultMsg(v string) *CallbackTdiquickmsgSmsUpResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryTdiquickmsgRobotcallStatisticinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景策略id
+	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
+	// 客户透传字段
+	OutInfo *string `json:"out_info,omitempty" xml:"out_info,omitempty" require:"true"`
+	// 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+	IndustryTag *string `json:"industry_tag,omitempty" xml:"industry_tag,omitempty"`
+}
+
+func (s QueryTdiquickmsgRobotcallStatisticinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTdiquickmsgRobotcallStatisticinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTdiquickmsgRobotcallStatisticinfoRequest) SetAuthToken(v string) *QueryTdiquickmsgRobotcallStatisticinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTdiquickmsgRobotcallStatisticinfoRequest) SetProductInstanceId(v string) *QueryTdiquickmsgRobotcallStatisticinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTdiquickmsgRobotcallStatisticinfoRequest) SetSceneStrategyId(v int64) *QueryTdiquickmsgRobotcallStatisticinfoRequest {
+	s.SceneStrategyId = &v
+	return s
+}
+
+func (s *QueryTdiquickmsgRobotcallStatisticinfoRequest) SetOutInfo(v string) *QueryTdiquickmsgRobotcallStatisticinfoRequest {
+	s.OutInfo = &v
+	return s
+}
+
+func (s *QueryTdiquickmsgRobotcallStatisticinfoRequest) SetIndustryTag(v string) *QueryTdiquickmsgRobotcallStatisticinfoRequest {
+	s.IndustryTag = &v
+	return s
+}
+
+type QueryTdiquickmsgRobotcallStatisticinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 全量手机号数量
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// 累计拨打次数
+	CallCount *int64 `json:"call_count,omitempty" xml:"call_count,omitempty"`
+	// 已经拨打的手机号数量
+	CalleeCount *string `json:"callee_count,omitempty" xml:"callee_count,omitempty"`
+	// 已拨打次数中接通的数量
+	ConnectCount *int64 `json:"connect_count,omitempty" xml:"connect_count,omitempty"`
+	// 拨打率
+	CallRate *string `json:"call_rate,omitempty" xml:"call_rate,omitempty"`
+	// 接通率
+	ConnectRate *string `json:"connect_rate,omitempty" xml:"connect_rate,omitempty"`
+}
+
+func (s QueryTdiquickmsgRobotcallStatisticinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTdiquickmsgRobotcallStatisticinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTdiquickmsgRobotcallStatisticinfoResponse) SetReqMsgId(v string) *QueryTdiquickmsgRobotcallStatisticinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTdiquickmsgRobotcallStatisticinfoResponse) SetResultCode(v string) *QueryTdiquickmsgRobotcallStatisticinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTdiquickmsgRobotcallStatisticinfoResponse) SetResultMsg(v string) *QueryTdiquickmsgRobotcallStatisticinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTdiquickmsgRobotcallStatisticinfoResponse) SetTotalCount(v int64) *QueryTdiquickmsgRobotcallStatisticinfoResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *QueryTdiquickmsgRobotcallStatisticinfoResponse) SetCallCount(v int64) *QueryTdiquickmsgRobotcallStatisticinfoResponse {
+	s.CallCount = &v
+	return s
+}
+
+func (s *QueryTdiquickmsgRobotcallStatisticinfoResponse) SetCalleeCount(v string) *QueryTdiquickmsgRobotcallStatisticinfoResponse {
+	s.CalleeCount = &v
+	return s
+}
+
+func (s *QueryTdiquickmsgRobotcallStatisticinfoResponse) SetConnectCount(v int64) *QueryTdiquickmsgRobotcallStatisticinfoResponse {
+	s.ConnectCount = &v
+	return s
+}
+
+func (s *QueryTdiquickmsgRobotcallStatisticinfoResponse) SetCallRate(v string) *QueryTdiquickmsgRobotcallStatisticinfoResponse {
+	s.CallRate = &v
+	return s
+}
+
+func (s *QueryTdiquickmsgRobotcallStatisticinfoResponse) SetConnectRate(v string) *QueryTdiquickmsgRobotcallStatisticinfoResponse {
+	s.ConnectRate = &v
+	return s
+}
+
+type PushTdiquickmsgBackflowEventRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 回流事件id，对应租户回流事件id
+	EventId *int64 `json:"event_id,omitempty" xml:"event_id,omitempty" require:"true"`
+	// 回流事件记录列表
+	EventRecords []*BackflowEventRecord `json:"event_records,omitempty" xml:"event_records,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s PushTdiquickmsgBackflowEventRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushTdiquickmsgBackflowEventRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushTdiquickmsgBackflowEventRequest) SetAuthToken(v string) *PushTdiquickmsgBackflowEventRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushTdiquickmsgBackflowEventRequest) SetProductInstanceId(v string) *PushTdiquickmsgBackflowEventRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushTdiquickmsgBackflowEventRequest) SetEventId(v int64) *PushTdiquickmsgBackflowEventRequest {
+	s.EventId = &v
+	return s
+}
+
+func (s *PushTdiquickmsgBackflowEventRequest) SetEventRecords(v []*BackflowEventRecord) *PushTdiquickmsgBackflowEventRequest {
+	s.EventRecords = v
+	return s
+}
+
+type PushTdiquickmsgBackflowEventResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s PushTdiquickmsgBackflowEventResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushTdiquickmsgBackflowEventResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushTdiquickmsgBackflowEventResponse) SetReqMsgId(v string) *PushTdiquickmsgBackflowEventResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushTdiquickmsgBackflowEventResponse) SetResultCode(v string) *PushTdiquickmsgBackflowEventResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushTdiquickmsgBackflowEventResponse) SetResultMsg(v string) *PushTdiquickmsgBackflowEventResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PushTdiquickmsgBackflowJsondataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 回流事件id，对应租户回流事件id
+	EventId *int64 `json:"event_id,omitempty" xml:"event_id,omitempty" require:"true"`
+	// 回流事件记录列表
+	EventRecords *string `json:"event_records,omitempty" xml:"event_records,omitempty" require:"true"`
+}
+
+func (s PushTdiquickmsgBackflowJsondataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushTdiquickmsgBackflowJsondataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushTdiquickmsgBackflowJsondataRequest) SetAuthToken(v string) *PushTdiquickmsgBackflowJsondataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushTdiquickmsgBackflowJsondataRequest) SetProductInstanceId(v string) *PushTdiquickmsgBackflowJsondataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushTdiquickmsgBackflowJsondataRequest) SetEventId(v int64) *PushTdiquickmsgBackflowJsondataRequest {
+	s.EventId = &v
+	return s
+}
+
+func (s *PushTdiquickmsgBackflowJsondataRequest) SetEventRecords(v string) *PushTdiquickmsgBackflowJsondataRequest {
+	s.EventRecords = &v
+	return s
+}
+
+type PushTdiquickmsgBackflowJsondataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s PushTdiquickmsgBackflowJsondataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushTdiquickmsgBackflowJsondataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushTdiquickmsgBackflowJsondataResponse) SetReqMsgId(v string) *PushTdiquickmsgBackflowJsondataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushTdiquickmsgBackflowJsondataResponse) SetResultCode(v string) *PushTdiquickmsgBackflowJsondataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushTdiquickmsgBackflowJsondataResponse) SetResultMsg(v string) *PushTdiquickmsgBackflowJsondataResponse {
 	s.ResultMsg = &v
 	return s
 }
@@ -31513,7 +32792,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.24.9"),
+				"sdk_version":      tea.String("1.25.4"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -35500,6 +36779,40 @@ func (client *Client) UploadQmpOfflinehostplanEx(request *UploadQmpOfflinehostpl
 }
 
 /**
+ * Description: 安全托管分层结果查询接口
+ * Summary: 安全托管分层结果查询接口
+ */
+func (client *Client) QueryQmpOfflinehostplanDecisionresult(request *QueryQmpOfflinehostplanDecisionresultRequest) (_result *QueryQmpOfflinehostplanDecisionresultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryQmpOfflinehostplanDecisionresultResponse{}
+	_body, _err := client.QueryQmpOfflinehostplanDecisionresultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 安全托管分层结果查询接口
+ * Summary: 安全托管分层结果查询接口
+ */
+func (client *Client) QueryQmpOfflinehostplanDecisionresultEx(request *QueryQmpOfflinehostplanDecisionresultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryQmpOfflinehostplanDecisionresultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryQmpOfflinehostplanDecisionresultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.qmp.offlinehostplan.decisionresult.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 企管盾票税交接授权信息表的同步
  * Summary: 企管盾票税交接授权信息表的同步
  */
@@ -36742,6 +38055,70 @@ func (client *Client) ReceiveRbbParamsFileEx(request *ReceiveRbbParamsFileReques
 }
 
 /**
+ * Description: 境外企业画像数据接收
+ * Summary: 境外企业画像数据接收
+ */
+func (client *Client) ReceiveRbbOverseacompanyProfile(request *ReceiveRbbOverseacompanyProfileRequest) (_result *ReceiveRbbOverseacompanyProfileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ReceiveRbbOverseacompanyProfileResponse{}
+	_body, _err := client.ReceiveRbbOverseacompanyProfileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 境外企业画像数据接收
+ * Summary: 境外企业画像数据接收
+ */
+func (client *Client) ReceiveRbbOverseacompanyProfileEx(request *ReceiveRbbOverseacompanyProfileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ReceiveRbbOverseacompanyProfileResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("riskplus.rbb.overseacompany.profile.receive"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			receiveRbbOverseacompanyProfileResponse := &ReceiveRbbOverseacompanyProfileResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = receiveRbbOverseacompanyProfileResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ReceiveRbbOverseacompanyProfileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.overseacompany.profile.receive"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 报告结果推送，算法调用
  * Summary: 报告结果推送
  */
@@ -37926,6 +39303,278 @@ func (client *Client) QuerySnapshotEventEx(request *QuerySnapshotEventRequest, h
 	}
 	_result = &QuerySnapshotEventResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.snapshot.event.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 批量实时触达接口
+ * Summary: 发起触达任务
+ */
+func (client *Client) ApplyTdiquickmsgRtBatchmarketing(request *ApplyTdiquickmsgRtBatchmarketingRequest) (_result *ApplyTdiquickmsgRtBatchmarketingResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyTdiquickmsgRtBatchmarketingResponse{}
+	_body, _err := client.ApplyTdiquickmsgRtBatchmarketingEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 批量实时触达接口
+ * Summary: 发起触达任务
+ */
+func (client *Client) ApplyTdiquickmsgRtBatchmarketingEx(request *ApplyTdiquickmsgRtBatchmarketingRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyTdiquickmsgRtBatchmarketingResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyTdiquickmsgRtBatchmarketingResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.tdiquickmsg.rt.batchmarketing.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 发起AI外呼
+ * Summary: 发起AI外呼
+ */
+func (client *Client) ApplyTdiquickmsgRobotcall(request *ApplyTdiquickmsgRobotcallRequest) (_result *ApplyTdiquickmsgRobotcallResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyTdiquickmsgRobotcallResponse{}
+	_body, _err := client.ApplyTdiquickmsgRobotcallEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 发起AI外呼
+ * Summary: 发起AI外呼
+ */
+func (client *Client) ApplyTdiquickmsgRobotcallEx(request *ApplyTdiquickmsgRobotcallRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyTdiquickmsgRobotcallResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyTdiquickmsgRobotcallResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.tdiquickmsg.robotcall.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 短信状态回调接口
+ * Summary: 短信状态回调接口
+ */
+func (client *Client) CallbackTdiquickmsgSms(request *CallbackTdiquickmsgSmsRequest) (_result *CallbackTdiquickmsgSmsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackTdiquickmsgSmsResponse{}
+	_body, _err := client.CallbackTdiquickmsgSmsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 短信状态回调接口
+ * Summary: 短信状态回调接口
+ */
+func (client *Client) CallbackTdiquickmsgSmsEx(request *CallbackTdiquickmsgSmsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackTdiquickmsgSmsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackTdiquickmsgSmsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.tdiquickmsg.sms.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 新接入ai外呼服务商的回调接口
+ * Summary: ai外呼回调接口
+ */
+func (client *Client) CallbackTdiquickmsgRobotcall(request *CallbackTdiquickmsgRobotcallRequest) (_result *CallbackTdiquickmsgRobotcallResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackTdiquickmsgRobotcallResponse{}
+	_body, _err := client.CallbackTdiquickmsgRobotcallEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 新接入ai外呼服务商的回调接口
+ * Summary: ai外呼回调接口
+ */
+func (client *Client) CallbackTdiquickmsgRobotcallEx(request *CallbackTdiquickmsgRobotcallRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackTdiquickmsgRobotcallResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackTdiquickmsgRobotcallResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.tdiquickmsg.robotcall.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 上行短信回调
+ * Summary: 上行短信回调
+ */
+func (client *Client) CallbackTdiquickmsgSmsUp(request *CallbackTdiquickmsgSmsUpRequest) (_result *CallbackTdiquickmsgSmsUpResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackTdiquickmsgSmsUpResponse{}
+	_body, _err := client.CallbackTdiquickmsgSmsUpEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 上行短信回调
+ * Summary: 上行短信回调
+ */
+func (client *Client) CallbackTdiquickmsgSmsUpEx(request *CallbackTdiquickmsgSmsUpRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackTdiquickmsgSmsUpResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackTdiquickmsgSmsUpResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.tdiquickmsg.sms.up.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 外呼任务统计查询接口
+ * Summary: 外呼任务统计查询接口
+ */
+func (client *Client) QueryTdiquickmsgRobotcallStatisticinfo(request *QueryTdiquickmsgRobotcallStatisticinfoRequest) (_result *QueryTdiquickmsgRobotcallStatisticinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTdiquickmsgRobotcallStatisticinfoResponse{}
+	_body, _err := client.QueryTdiquickmsgRobotcallStatisticinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 外呼任务统计查询接口
+ * Summary: 外呼任务统计查询接口
+ */
+func (client *Client) QueryTdiquickmsgRobotcallStatisticinfoEx(request *QueryTdiquickmsgRobotcallStatisticinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTdiquickmsgRobotcallStatisticinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTdiquickmsgRobotcallStatisticinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.tdiquickmsg.robotcall.statisticinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 蚁盾业务回流事件推送
+ * Summary: 蚁盾业务回流事件推送
+ */
+func (client *Client) PushTdiquickmsgBackflowEvent(request *PushTdiquickmsgBackflowEventRequest) (_result *PushTdiquickmsgBackflowEventResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushTdiquickmsgBackflowEventResponse{}
+	_body, _err := client.PushTdiquickmsgBackflowEventEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 蚁盾业务回流事件推送
+ * Summary: 蚁盾业务回流事件推送
+ */
+func (client *Client) PushTdiquickmsgBackflowEventEx(request *PushTdiquickmsgBackflowEventRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushTdiquickmsgBackflowEventResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushTdiquickmsgBackflowEventResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.tdiquickmsg.backflow.event.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 蚁盾数据回流推送，用于客户定制json数据
+ * Summary: 蚁盾数据回流json格式推送
+ */
+func (client *Client) PushTdiquickmsgBackflowJsondata(request *PushTdiquickmsgBackflowJsondataRequest) (_result *PushTdiquickmsgBackflowJsondataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushTdiquickmsgBackflowJsondataResponse{}
+	_body, _err := client.PushTdiquickmsgBackflowJsondataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 蚁盾数据回流推送，用于客户定制json数据
+ * Summary: 蚁盾数据回流json格式推送
+ */
+func (client *Client) PushTdiquickmsgBackflowJsondataEx(request *PushTdiquickmsgBackflowJsondataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushTdiquickmsgBackflowJsondataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushTdiquickmsgBackflowJsondataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.tdiquickmsg.backflow.jsondata.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
