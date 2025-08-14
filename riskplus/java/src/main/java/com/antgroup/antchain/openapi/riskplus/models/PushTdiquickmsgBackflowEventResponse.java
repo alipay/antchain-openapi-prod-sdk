@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.riskplus.models;
 
 import com.aliyun.tea.*;
 
-public class UploadQmpOfflinehostplanResponse extends TeaModel {
+public class PushTdiquickmsgBackflowEventResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,12 @@ public class UploadQmpOfflinehostplanResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 导入id，可以用该id来查询分层结果
-    @NameInMap("import_id")
-    public String importId;
-
-    public static UploadQmpOfflinehostplanResponse build(java.util.Map<String, ?> map) throws Exception {
-        UploadQmpOfflinehostplanResponse self = new UploadQmpOfflinehostplanResponse();
+    public static PushTdiquickmsgBackflowEventResponse build(java.util.Map<String, ?> map) throws Exception {
+        PushTdiquickmsgBackflowEventResponse self = new PushTdiquickmsgBackflowEventResponse();
         return TeaModel.build(map, self);
     }
 
-    public UploadQmpOfflinehostplanResponse setReqMsgId(String reqMsgId) {
+    public PushTdiquickmsgBackflowEventResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +29,7 @@ public class UploadQmpOfflinehostplanResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public UploadQmpOfflinehostplanResponse setResultCode(String resultCode) {
+    public PushTdiquickmsgBackflowEventResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,20 +37,12 @@ public class UploadQmpOfflinehostplanResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public UploadQmpOfflinehostplanResponse setResultMsg(String resultMsg) {
+    public PushTdiquickmsgBackflowEventResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public UploadQmpOfflinehostplanResponse setImportId(String importId) {
-        this.importId = importId;
-        return this;
-    }
-    public String getImportId() {
-        return this.importId;
     }
 
 }

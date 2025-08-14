@@ -16,12 +16,6 @@ public class PushDubbridgeInstallmentSupplementRequest extends TeaModel {
     @Validation(required = true)
     public String orderNo;
 
-    // 业务类型：1-现金贷；2-分期付
-    // 
-    @NameInMap("prod_type")
-    @Validation(required = true)
-    public String prodType;
-
     // 资产方用户唯一标识
     @NameInMap("open_id")
     @Validation(required = true)
@@ -31,6 +25,11 @@ public class PushDubbridgeInstallmentSupplementRequest extends TeaModel {
     @NameInMap("biz_order_no")
     @Validation(required = true)
     public String bizOrderNo;
+
+    // 业务类型：1-现金贷；2-分期付
+    // 
+    @NameInMap("prod_type")
+    public String prodType;
 
     // 材料场景：2-支用前、3-支用后
     @NameInMap("file_scene")
@@ -81,14 +80,6 @@ public class PushDubbridgeInstallmentSupplementRequest extends TeaModel {
         return this.orderNo;
     }
 
-    public PushDubbridgeInstallmentSupplementRequest setProdType(String prodType) {
-        this.prodType = prodType;
-        return this;
-    }
-    public String getProdType() {
-        return this.prodType;
-    }
-
     public PushDubbridgeInstallmentSupplementRequest setOpenId(String openId) {
         this.openId = openId;
         return this;
@@ -103,6 +94,14 @@ public class PushDubbridgeInstallmentSupplementRequest extends TeaModel {
     }
     public String getBizOrderNo() {
         return this.bizOrderNo;
+    }
+
+    public PushDubbridgeInstallmentSupplementRequest setProdType(String prodType) {
+        this.prodType = prodType;
+        return this;
+    }
+    public String getProdType() {
+        return this.prodType;
     }
 
     public PushDubbridgeInstallmentSupplementRequest setFileScene(String fileScene) {

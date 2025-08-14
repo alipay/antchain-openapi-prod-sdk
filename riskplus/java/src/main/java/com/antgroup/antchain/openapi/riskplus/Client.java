@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.24.9"),
+                    new TeaPair("sdk_version", "1.25.4"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2628,6 +2628,27 @@ public class Client {
 
     /**
      * <b>description</b> :
+     * <p>Description: 安全托管分层结果查询接口
+     * Summary: 安全托管分层结果查询接口</p>
+     */
+    public QueryQmpOfflinehostplanDecisionresultResponse queryQmpOfflinehostplanDecisionresult(QueryQmpOfflinehostplanDecisionresultRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryQmpOfflinehostplanDecisionresultEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 安全托管分层结果查询接口
+     * Summary: 安全托管分层结果查询接口</p>
+     */
+    public QueryQmpOfflinehostplanDecisionresultResponse queryQmpOfflinehostplanDecisionresultEx(QueryQmpOfflinehostplanDecisionresultRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.qmp.offlinehostplan.decisionresult.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryQmpOfflinehostplanDecisionresultResponse());
+    }
+
+    /**
+     * <b>description</b> :
      * <p>Description: 企管盾票税交接授权信息表的同步
      * Summary: 企管盾票税交接授权信息表的同步</p>
      */
@@ -3409,6 +3430,49 @@ public class Client {
 
     /**
      * <b>description</b> :
+     * <p>Description: 境外企业画像数据接收
+     * Summary: 境外企业画像数据接收</p>
+     */
+    public ReceiveRbbOverseacompanyProfileResponse receiveRbbOverseacompanyProfile(ReceiveRbbOverseacompanyProfileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.receiveRbbOverseacompanyProfileEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 境外企业画像数据接收
+     * Summary: 境外企业画像数据接收</p>
+     */
+    public ReceiveRbbOverseacompanyProfileResponse receiveRbbOverseacompanyProfileEx(ReceiveRbbOverseacompanyProfileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "riskplus.rbb.overseacompany.profile.receive"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                ReceiveRbbOverseacompanyProfileResponse receiveRbbOverseacompanyProfileResponse = ReceiveRbbOverseacompanyProfileResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return receiveRbbOverseacompanyProfileResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rbb.overseacompany.profile.receive", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReceiveRbbOverseacompanyProfileResponse());
+    }
+
+    /**
+     * <b>description</b> :
      * <p>Description: 报告结果推送，算法调用
      * Summary: 报告结果推送</p>
      */
@@ -4142,6 +4206,174 @@ public class Client {
     public QuerySnapshotEventResponse querySnapshotEventEx(QuerySnapshotEventRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.snapshot.event.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySnapshotEventResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 批量实时触达接口
+     * Summary: 发起触达任务</p>
+     */
+    public ApplyTdiquickmsgRtBatchmarketingResponse applyTdiquickmsgRtBatchmarketing(ApplyTdiquickmsgRtBatchmarketingRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyTdiquickmsgRtBatchmarketingEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 批量实时触达接口
+     * Summary: 发起触达任务</p>
+     */
+    public ApplyTdiquickmsgRtBatchmarketingResponse applyTdiquickmsgRtBatchmarketingEx(ApplyTdiquickmsgRtBatchmarketingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.tdiquickmsg.rt.batchmarketing.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyTdiquickmsgRtBatchmarketingResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 发起AI外呼
+     * Summary: 发起AI外呼</p>
+     */
+    public ApplyTdiquickmsgRobotcallResponse applyTdiquickmsgRobotcall(ApplyTdiquickmsgRobotcallRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyTdiquickmsgRobotcallEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 发起AI外呼
+     * Summary: 发起AI外呼</p>
+     */
+    public ApplyTdiquickmsgRobotcallResponse applyTdiquickmsgRobotcallEx(ApplyTdiquickmsgRobotcallRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.tdiquickmsg.robotcall.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyTdiquickmsgRobotcallResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 短信状态回调接口
+     * Summary: 短信状态回调接口</p>
+     */
+    public CallbackTdiquickmsgSmsResponse callbackTdiquickmsgSms(CallbackTdiquickmsgSmsRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackTdiquickmsgSmsEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 短信状态回调接口
+     * Summary: 短信状态回调接口</p>
+     */
+    public CallbackTdiquickmsgSmsResponse callbackTdiquickmsgSmsEx(CallbackTdiquickmsgSmsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.tdiquickmsg.sms.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackTdiquickmsgSmsResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 新接入ai外呼服务商的回调接口
+     * Summary: ai外呼回调接口</p>
+     */
+    public CallbackTdiquickmsgRobotcallResponse callbackTdiquickmsgRobotcall(CallbackTdiquickmsgRobotcallRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackTdiquickmsgRobotcallEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 新接入ai外呼服务商的回调接口
+     * Summary: ai外呼回调接口</p>
+     */
+    public CallbackTdiquickmsgRobotcallResponse callbackTdiquickmsgRobotcallEx(CallbackTdiquickmsgRobotcallRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.tdiquickmsg.robotcall.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackTdiquickmsgRobotcallResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 上行短信回调
+     * Summary: 上行短信回调</p>
+     */
+    public CallbackTdiquickmsgSmsUpResponse callbackTdiquickmsgSmsUp(CallbackTdiquickmsgSmsUpRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackTdiquickmsgSmsUpEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 上行短信回调
+     * Summary: 上行短信回调</p>
+     */
+    public CallbackTdiquickmsgSmsUpResponse callbackTdiquickmsgSmsUpEx(CallbackTdiquickmsgSmsUpRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.tdiquickmsg.sms.up.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackTdiquickmsgSmsUpResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 外呼任务统计查询接口
+     * Summary: 外呼任务统计查询接口</p>
+     */
+    public QueryTdiquickmsgRobotcallStatisticinfoResponse queryTdiquickmsgRobotcallStatisticinfo(QueryTdiquickmsgRobotcallStatisticinfoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTdiquickmsgRobotcallStatisticinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 外呼任务统计查询接口
+     * Summary: 外呼任务统计查询接口</p>
+     */
+    public QueryTdiquickmsgRobotcallStatisticinfoResponse queryTdiquickmsgRobotcallStatisticinfoEx(QueryTdiquickmsgRobotcallStatisticinfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.tdiquickmsg.robotcall.statisticinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTdiquickmsgRobotcallStatisticinfoResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 蚁盾业务回流事件推送
+     * Summary: 蚁盾业务回流事件推送</p>
+     */
+    public PushTdiquickmsgBackflowEventResponse pushTdiquickmsgBackflowEvent(PushTdiquickmsgBackflowEventRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushTdiquickmsgBackflowEventEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 蚁盾业务回流事件推送
+     * Summary: 蚁盾业务回流事件推送</p>
+     */
+    public PushTdiquickmsgBackflowEventResponse pushTdiquickmsgBackflowEventEx(PushTdiquickmsgBackflowEventRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.tdiquickmsg.backflow.event.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushTdiquickmsgBackflowEventResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 蚁盾数据回流推送，用于客户定制json数据
+     * Summary: 蚁盾数据回流json格式推送</p>
+     */
+    public PushTdiquickmsgBackflowJsondataResponse pushTdiquickmsgBackflowJsondata(PushTdiquickmsgBackflowJsondataRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushTdiquickmsgBackflowJsondataEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 蚁盾数据回流推送，用于客户定制json数据
+     * Summary: 蚁盾数据回流json格式推送</p>
+     */
+    public PushTdiquickmsgBackflowJsondataResponse pushTdiquickmsgBackflowJsondataEx(PushTdiquickmsgBackflowJsondataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.tdiquickmsg.backflow.jsondata.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushTdiquickmsgBackflowJsondataResponse());
     }
 
     /**
