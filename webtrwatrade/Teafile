@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "WEBTRWATRADE",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-webtrwatrade:1.0.10",
-    "go": "github.com/antchain-openapi-sdk-go/webtrwatrade/client:v1.0.10",
+    "java": "com.antgroup.antchain.openapi:openapi-webtrwatrade:1.0.13",
+    "go": "github.com/antchain-openapi-sdk-go/webtrwatrade/client:v1.0.13",
     "csharp": "AntChain.SDK.WEBTRWATRADE:1.0.10",
-    "ts": "@antchain/webtrwatrade:1.0.10",
-    "php": "antchain/webtrwatrade:1.0.10",
-    "python": "antchain_sdk_webtrwatrade:1.0.10"
+    "ts": "@antchain/webtrwatrade:1.0.13",
+    "php": "antchain/webtrwatrade:1.0.13",
+    "python": "antchain_sdk_webtrwatrade:1.0.13"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

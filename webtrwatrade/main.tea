@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.10',
+    sdk_version = '1.0.13',
     _prod_code = 'WEBTRWATRADE',
     _prod_channel = 'default'
   };
@@ -431,6 +431,14 @@ model KeyPageData {
   records: [ KeyVO ](name='records', example=''),
 }
 
+// 支持结算方式信息
+model SupportedSettlementMethodInfo {
+  // 结算方式枚举：TD或TT
+  settlementMethodEnum?: string(name='settlement_method_enum', example='TD'),
+  // 结算银行账户id
+  relatedSettlementAccountId?: string(name='related_settlement_account_id', example='18129343249234'),
+}
+
 // 总览统计数据
 model DataSummaryTotal {
   // 原始币种资产价值列表
@@ -467,6 +475,8 @@ model AssetProjectDetail {
   tokenName: string(name='token_name', example='ETH'),
   // 项目介绍
   info: string(name='info', example='新能源充电桩项目'),
+  // 项目描述(markdown格式)
+  description?: string(name='description', example='# 新能源'),
   // 当前供应量
   supply: string(name='supply', example='5000'),
   // 最大供应量
@@ -567,6 +577,8 @@ model CreateIssuerProjectRequest = {
   name: string(name='name'),
   // 项目名称
   info: string(name='info'),
+  // 项目描述(markdown格式)
+  description?: string(name='description'),
   // 代币名称
   tokenName: string(name='token_name'),
   // 最大供应量
@@ -585,6 +597,18 @@ model CreateIssuerProjectRequest = {
   transferKeys: [ string ](name='transfer_keys'),
   // 管理密钥ID列表(最多3个)
   managerKeys: [ string ](name='manager_keys'),
+  // 项目封面文件id
+  projectCoverFileId: string(name='project_cover_file_id'),
+  // 是否限购
+  maxSubscriptionLimited: boolean(name='max_subscription_limited'),
+  // 最大可认购份额
+  maxSubscriptionAmount: string(name='max_subscription_amount'),
+  // 项目支持的结算方式
+  settlementMethods: [ SupportedSettlementMethodInfo ](name='settlement_methods'),
+  // crossChain
+  crossChain: boolean(name='cross_chain'),
+  // 目标链名称列表（跨链项目必填）
+  targetChainNameList?: [ string ](name='target_chain_name_list'),
 }
 
 model CreateIssuerProjectResponse = {
