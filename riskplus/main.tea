@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.24.9',
+    sdk_version = '1.25.4',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -6350,13 +6350,13 @@ model PushDubbridgeInstallmentSupplementRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 订单号：request请求单号，每次请求唯一，如uuid
   orderNo: string(name='order_no'),
-  // 业务类型：1-现金贷；2-分期付
-  // 
-  prodType: string(name='prod_type'),
   // 资产方用户唯一标识
   openId: string(name='open_id'),
   // 资产方购物订单号，如二轮车/摩托车订单号
   bizOrderNo: string(name='biz_order_no'),
+  // 业务类型：1-现金贷；2-分期付
+  // 
+  prodType?: string(name='prod_type'),
   // 材料场景：2-支用前、3-支用后
   fileScene?: string(name='file_scene'),
   // 材料列表
@@ -8017,6 +8017,8 @@ model UploadQmpOfflinehostplanResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 导入id，可以用该id来查询分层结果
+  importId?: string(name='import_id'),
 }
 
 /**
@@ -8056,6 +8058,52 @@ async function uploadQmpOfflinehostplanEx(request: UploadQmpOfflinehostplanReque
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.qmp.offlinehostplan.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryQmpOfflinehostplanDecisionresultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件上传时返回的导入id
+  importId: string(name='import_id'),
+}
+
+model QueryQmpOfflinehostplanDecisionresultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 安全托管计划编码
+  planCode?: string(name='plan_code'),
+  // EXECUTING/DECISI ON_SUCCESS/DECISION_FAIL/CANCEL。执行中/成功/失败/取消。
+  status?: string(name='status'),
+  // 总托管数量
+  totalNum?: long(name='total_num'),
+  // 分层结果数
+  decisionNum?: long(name='decision_num'),
+  // 分层结果的oss文件路径
+  fileUrl?: string(name='file_url'),
+}
+
+/**
+ * Description: 安全托管分层结果查询接口
+ * Summary: 安全托管分层结果查询接口
+ */
+async function queryQmpOfflinehostplanDecisionresult(request: QueryQmpOfflinehostplanDecisionresultRequest): QueryQmpOfflinehostplanDecisionresultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryQmpOfflinehostplanDecisionresultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 安全托管分层结果查询接口
+ * Summary: 安全托管分层结果查询接口
+ */
+async function queryQmpOfflinehostplanDecisionresultEx(request: QueryQmpOfflinehostplanDecisionresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryQmpOfflinehostplanDecisionresultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.qmp.offlinehostplan.decisionresult.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model SyncRdaasTaxAuthinfoRequest = {
@@ -9587,6 +9635,66 @@ async function receiveRbbParamsFileEx(request: ReceiveRbbParamsFileRequest, head
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.rbb.params.file.receive', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ReceiveRbbOverseacompanyProfileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // fileId
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model ReceiveRbbOverseacompanyProfileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文件url
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 境外企业画像数据接收
+ * Summary: 境外企业画像数据接收
+ */
+async function receiveRbbOverseacompanyProfile(request: ReceiveRbbOverseacompanyProfileRequest): ReceiveRbbOverseacompanyProfileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return receiveRbbOverseacompanyProfileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 境外企业画像数据接收
+ * Summary: 境外企业画像数据接收
+ */
+async function receiveRbbOverseacompanyProfileEx(request: ReceiveRbbOverseacompanyProfileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReceiveRbbOverseacompanyProfileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'riskplus.rbb.overseacompany.profile.receive',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var receiveRbbOverseacompanyProfileResponse = new ReceiveRbbOverseacompanyProfileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return receiveRbbOverseacompanyProfileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rbb.overseacompany.profile.receive', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PushRpaasReportAnswerRequest = {
@@ -11343,6 +11451,465 @@ async function querySnapshotEvent(request: QuerySnapshotEventRequest): QuerySnap
 async function querySnapshotEventEx(request: QuerySnapshotEventRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySnapshotEventResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.snapshot.event.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyTdiquickmsgRtBatchmarketingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景策略id
+  sceneStrategyId: long(name='scene_strategy_id'),
+  // 	
+  // 外部流水号
+  outSerialNo: string(name='out_serial_no'),
+  // 	
+  // 用户标识类型
+  paramType: string(name='param_type'),
+  // 批量透传字段
+  outInfo?: string(name='out_info'),
+  // 用户凭证列表
+  customerDetails: [ CustomerDetail ](name='customer_details'),
+}
+
+model ApplyTdiquickmsgRtBatchmarketingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 批次流水号
+  bizId?: string(name='biz_id'),
+}
+
+/**
+ * Description: 批量实时触达接口
+ * Summary: 发起触达任务
+ */
+async function applyTdiquickmsgRtBatchmarketing(request: ApplyTdiquickmsgRtBatchmarketingRequest): ApplyTdiquickmsgRtBatchmarketingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyTdiquickmsgRtBatchmarketingEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量实时触达接口
+ * Summary: 发起触达任务
+ */
+async function applyTdiquickmsgRtBatchmarketingEx(request: ApplyTdiquickmsgRtBatchmarketingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyTdiquickmsgRtBatchmarketingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.tdiquickmsg.rt.batchmarketing.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyTdiquickmsgRobotcallRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 外部流水号
+  outSerialNo: string(name='out_serial_no'),
+  // 场景策略id
+  sceneStrategyId: long(name='scene_strategy_id'),
+  // 客户透传字段
+  outInfo?: string(name='out_info'),
+  // 用户参数类型
+  paramTemplate: string(name='param_template'),
+  // 每个手机号的详细参数
+  customerDetails: RobotCallCustomerParam(name='customer_details'),
+}
+
+model ApplyTdiquickmsgRobotcallResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 呼叫记录id
+  callId?: string(name='call_id'),
+}
+
+/**
+ * Description: 发起AI外呼
+ * Summary: 发起AI外呼
+ */
+async function applyTdiquickmsgRobotcall(request: ApplyTdiquickmsgRobotcallRequest): ApplyTdiquickmsgRobotcallResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyTdiquickmsgRobotcallEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发起AI外呼
+ * Summary: 发起AI外呼
+ */
+async function applyTdiquickmsgRobotcallEx(request: ApplyTdiquickmsgRobotcallRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyTdiquickmsgRobotcallResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.tdiquickmsg.robotcall.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackTdiquickmsgSmsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 短信回执类型
+  // 
+  type: string(name='type'),
+  // 手机号码
+  // 
+  phoneNumber: string(name='phone_number'),
+  // 发送时间
+  sendTime: string(name='send_time'),
+  // 状态报告时间
+  reportTime: string(name='report_time'),
+  // 是否接收成功。取值：true：接收成功false：接收失败
+  success: boolean(name='success'),
+  // 状态报告编码
+  errCode: string(name='err_code'),
+  // 状态报告说明
+  // 
+  errMsg: string(name='err_msg'),
+  // 短信长度
+  smsSize: string(name='sms_size'),
+  // 发送回执ID，即发送流水号
+  bizId: string(name='biz_id'),
+  // 业务扩展字段，回执时透传，JSON格式
+  bizProperties: string(name='biz_properties'),
+  // 发送卡片短信时，文本短信状态报告中才会有该字段，且取值为CARD_SMS，发送纯文本短信时，状态报告中没有该字段
+  smsType?: string(name='sms_type'),
+  // 运营商
+  serviceProvider: string(name='service_provider'),
+  // 手机号码所属城市
+  city?: string(name='city'),
+  // 手机号模版类型
+  keyTemplate?: string(name='key_template'),
+}
+
+model CallbackTdiquickmsgSmsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 短信状态回调接口
+ * Summary: 短信状态回调接口
+ */
+async function callbackTdiquickmsgSms(request: CallbackTdiquickmsgSmsRequest): CallbackTdiquickmsgSmsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackTdiquickmsgSmsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 短信状态回调接口
+ * Summary: 短信状态回调接口
+ */
+async function callbackTdiquickmsgSmsEx(request: CallbackTdiquickmsgSmsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackTdiquickmsgSmsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.tdiquickmsg.sms.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackTdiquickmsgRobotcallRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 外呼号码，支持密文
+  customerKey: string(name='customer_key'),
+  // 当前呼叫次数 Integer
+  currentCallTimes: long(name='current_call_times'),
+  // 号码的模版类型
+  keyTemplate: string(name='key_template'),
+  // 导入号码时返回的批次号
+  batchId: string(name='batch_id'),
+  // 外呼类型 建议按照如下约定给到 2001:批量-预测外呼 2002:批量-AI外呼-不转人工 2003:批量-AI外呼-接通转人工 2004: 批量-AI外呼-智能转人工 2005:批量-语音通知
+  callType: long(name='call_type'),
+  // 用户自定义标签
+  tag?: string(name='tag'),
+  // 外呼呼叫实例id
+  callId: string(name='call_id'),
+  // 外呼任务编号
+  taskId: long(name='task_id'),
+  // 外呼任务名称
+  taskName: string(name='task_name'),
+  // 外呼的话术模板ID，可以为空
+  templateId?: long(name='template_id'),
+  // 外呼状态编码
+  statusCode: long(name='status_code'),
+  // 外呼状态编码对应描述
+  statusDescription: string(name='status_description'),
+  // 转人工状态编码
+  transferStatusCode: string(name='transfer_status_code'),
+  // 转人工状态编码对应描述
+  transferStatus: string(name='transfer_status'),
+  // 分配坐席ID,可以为空
+  agentId?: long(name='agent_id'),
+  // 建议填写坐席在贵司业务系统唯一标识，用于查询对应agentId；可以为空。
+  agentTag?: string(name='agent_tag'),
+  // 坐席分机号，可以为空
+  agentExtension?: string(name='agent_extension'),
+  // 导入时间，格式:2019-01-09 14:14:19
+  importTime: string(name='import_time'),
+  // 开始通话时间，格式：2019-01-09 14:14:19
+  callBeginTime: string(name='call_begin_time'),
+  // 振铃时长,单位毫秒
+  ringTime: long(name='ring_time'),
+  // 接通时间
+  answerTime?: string(name='answer_time'),
+  // 通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+  speakingTime: string(name='speaking_time'),
+  // 通话时长，单位：秒
+  speakingDuration: long(name='speaking_duration'),
+  // 通话挂断时间
+  hangupTime: string(name='hangup_time'),
+  // 对话轮次
+  speakingTurns: long(name='speaking_turns'),
+  // 坐席通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+  agentSpeakingTime: string(name='agent_speaking_time'),
+  // 坐席通话时长，单位：秒
+  agentSpeakingDuration: long(name='agent_speaking_duration'),
+  // 意向标签
+  intentTag: string(name='intent_tag'),
+  // 意向说明
+  intentDescription: string(name='intent_description'),
+  // 个性标签
+  individualTag?: string(name='individual_tag'),
+  // 回复关键词
+  keywords?: string(name='keywords'),
+  // 挂机方式
+  hungupType: long(name='hungup_type'),
+  // 挂机短信，1:发送，2:不发送
+  sms: long(name='sms'),
+  // 对话录音,url
+  chatRecord?: string(name='chat_record'),
+  // 对话记录
+  chats?: string(name='chats'),
+  // 0:不添加，1:添加
+  addWx?: long(name='add_wx'),
+  // 加微进度可选值：已申请、加微成功
+  addWxStatus?: string(name='add_wx_status'),
+  // 是否接通重呼 0正常外呼，1接通重呼
+  answerRecall: long(name='answer_recall'),
+  // 导入号码时的参数值
+  properties?: string(name='properties'),
+  // 导入号码时的业务参数值
+  bizProperties?: string(name='biz_properties'),
+  // 拦截原因 可选值：黑名单拦截，灰名单拦截，异常号码拦截
+  interceptReason?: string(name='intercept_reason'),
+  // 回调冗余字段
+  extInfo?: string(name='ext_info'),
+}
+
+model CallbackTdiquickmsgRobotcallResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 新接入ai外呼服务商的回调接口
+ * Summary: ai外呼回调接口
+ */
+async function callbackTdiquickmsgRobotcall(request: CallbackTdiquickmsgRobotcallRequest): CallbackTdiquickmsgRobotcallResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackTdiquickmsgRobotcallEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新接入ai外呼服务商的回调接口
+ * Summary: ai外呼回调接口
+ */
+async function callbackTdiquickmsgRobotcallEx(request: CallbackTdiquickmsgRobotcallRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackTdiquickmsgRobotcallResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.tdiquickmsg.robotcall.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackTdiquickmsgSmsUpRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 回执类型
+  type: string(name='type'),
+  // 手机号码
+  phoneNumber: string(name='phone_number'),
+  // 发送时间
+  sendTime: string(name='send_time'),
+  // 发送内容
+  content: string(name='content'),
+  // 签名信息
+  signName: string(name='sign_name'),
+  // 签名对应的客户ak
+  appKey: string(name='app_key'),
+  // 行短信扩展号码
+  destCode: string(name='dest_code'),
+  // 序列号
+  sequenceId: long(name='sequence_id'),
+  // 手机号模版类型
+  keyTemplate?: string(name='key_template'),
+  // 原始手机号模版类型
+  originKeyTemplate?: string(name='origin_key_template'),
+}
+
+model CallbackTdiquickmsgSmsUpResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 上行短信回调
+ * Summary: 上行短信回调
+ */
+async function callbackTdiquickmsgSmsUp(request: CallbackTdiquickmsgSmsUpRequest): CallbackTdiquickmsgSmsUpResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackTdiquickmsgSmsUpEx(request, headers, runtime);
+}
+
+/**
+ * Description: 上行短信回调
+ * Summary: 上行短信回调
+ */
+async function callbackTdiquickmsgSmsUpEx(request: CallbackTdiquickmsgSmsUpRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackTdiquickmsgSmsUpResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.tdiquickmsg.sms.up.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTdiquickmsgRobotcallStatisticinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景策略id
+  sceneStrategyId: long(name='scene_strategy_id'),
+  // 客户透传字段
+  outInfo: string(name='out_info'),
+  // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+  industryTag?: string(name='industry_tag'),
+}
+
+model QueryTdiquickmsgRobotcallStatisticinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 全量手机号数量
+  totalCount?: long(name='total_count'),
+  // 累计拨打次数
+  callCount?: long(name='call_count'),
+  // 已经拨打的手机号数量
+  calleeCount?: string(name='callee_count'),
+  // 已拨打次数中接通的数量
+  connectCount?: long(name='connect_count'),
+  // 拨打率
+  callRate?: string(name='call_rate'),
+  // 接通率
+  connectRate?: string(name='connect_rate'),
+}
+
+/**
+ * Description: 外呼任务统计查询接口
+ * Summary: 外呼任务统计查询接口
+ */
+async function queryTdiquickmsgRobotcallStatisticinfo(request: QueryTdiquickmsgRobotcallStatisticinfoRequest): QueryTdiquickmsgRobotcallStatisticinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTdiquickmsgRobotcallStatisticinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 外呼任务统计查询接口
+ * Summary: 外呼任务统计查询接口
+ */
+async function queryTdiquickmsgRobotcallStatisticinfoEx(request: QueryTdiquickmsgRobotcallStatisticinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTdiquickmsgRobotcallStatisticinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.tdiquickmsg.robotcall.statisticinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushTdiquickmsgBackflowEventRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 回流事件id，对应租户回流事件id
+  eventId: long(name='event_id'),
+  // 回流事件记录列表
+  eventRecords: [ BackflowEventRecord ](name='event_records'),
+}
+
+model PushTdiquickmsgBackflowEventResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 蚁盾业务回流事件推送
+ * Summary: 蚁盾业务回流事件推送
+ */
+async function pushTdiquickmsgBackflowEvent(request: PushTdiquickmsgBackflowEventRequest): PushTdiquickmsgBackflowEventResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushTdiquickmsgBackflowEventEx(request, headers, runtime);
+}
+
+/**
+ * Description: 蚁盾业务回流事件推送
+ * Summary: 蚁盾业务回流事件推送
+ */
+async function pushTdiquickmsgBackflowEventEx(request: PushTdiquickmsgBackflowEventRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushTdiquickmsgBackflowEventResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.tdiquickmsg.backflow.event.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushTdiquickmsgBackflowJsondataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 回流事件id，对应租户回流事件id
+  eventId: long(name='event_id'),
+  // 回流事件记录列表
+  eventRecords: string(name='event_records'),
+}
+
+model PushTdiquickmsgBackflowJsondataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 蚁盾数据回流推送，用于客户定制json数据
+ * Summary: 蚁盾数据回流json格式推送
+ */
+async function pushTdiquickmsgBackflowJsondata(request: PushTdiquickmsgBackflowJsondataRequest): PushTdiquickmsgBackflowJsondataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushTdiquickmsgBackflowJsondataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 蚁盾数据回流推送，用于客户定制json数据
+ * Summary: 蚁盾数据回流json格式推送
+ */
+async function pushTdiquickmsgBackflowJsondataEx(request: PushTdiquickmsgBackflowJsondataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushTdiquickmsgBackflowJsondataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.tdiquickmsg.backflow.jsondata.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryTdisaasSecurityPolicyRequest = {
