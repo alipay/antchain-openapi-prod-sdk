@@ -5,10 +5,18 @@ import com.aliyun.tea.*;
 
 public class ErrorMessage extends TeaModel {
     // 错误码
+    /**
+     * <strong>example:</strong>
+     * <p>W3S-000-5-O001</p>
+     */
     @NameInMap("displayed_code")
     public String displayedCode;
 
     // 错误描述
+    /**
+     * <strong>example:</strong>
+     * <p>param error [id is null]</p>
+     */
     @NameInMap("displayed_message")
     public String displayedMessage;
 

@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class KeyVO extends TeaModel {
     // 密钥id
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("key_id")
     @Validation(required = true)
     public String keyId;
 
     // 密钥名称
+    /**
+     * <strong>example:</strong>
+     * <p>name</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
@@ -17,26 +25,46 @@ public class KeyVO extends TeaModel {
     // 创建类型
     // KEY_FILE：上传密钥文件
     // CREATE_NEW_KEY：系统创建密钥
+    /**
+     * <strong>example:</strong>
+     * <p>KEY_FILE</p>
+     */
     @NameInMap("type")
     @Validation(required = true)
     public String type;
 
     // 钱包地址
+    /**
+     * <strong>example:</strong>
+     * <p>0x11111</p>
+     */
     @NameInMap("address")
     @Validation(required = true)
     public String address;
 
     // 关联项目数量
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("quantity")
     @Validation(required = true)
     public String quantity;
 
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("gmt_created")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtCreated;
 
     // 是否支持删除
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("delete_enable")
     @Validation(required = true)
     public Boolean deleteEnable;

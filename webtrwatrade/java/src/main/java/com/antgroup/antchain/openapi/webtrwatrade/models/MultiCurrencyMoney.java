@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class MultiCurrencyMoney extends TeaModel {
     // 金额，以分为单位
+    /**
+     * <strong>example:</strong>
+     * <p>100</p>
+     */
     @NameInMap("cent")
     @Validation(required = true)
     public String cent;
 
     // 币种编码
+    /**
+     * <strong>example:</strong>
+     * <p>HKD</p>
+     */
     @NameInMap("currency")
     @Validation(required = true)
     public String currency;
 
     // 金额，以元为单位，保留6位小数
+    /**
+     * <strong>example:</strong>
+     * <p>1.000000</p>
+     */
     @NameInMap("amount")
     @Validation(required = true)
     public String amount;

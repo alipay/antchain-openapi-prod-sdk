@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class DataSummaryStatisticsItem extends TeaModel {
     // 日期
+    /**
+     * <strong>example:</strong>
+     * <p>2024-01-01</p>
+     */
     @NameInMap("date")
     @Validation(required = true)
     public String date;

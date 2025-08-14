@@ -6,12 +6,20 @@ import com.aliyun.tea.*;
 public class InstitutionType extends TeaModel {
     // 机构类型编码
     // ISSUER/PLATFORM/DISTRIBUTOR
+    /**
+     * <strong>example:</strong>
+     * <p>ISSUER</p>
+     */
     @NameInMap("code")
     @Validation(required = true)
     public String code;
 
     // 机构类型名称
     //  ISSUER/PLATFORM/DISTRIBUTOR
+    /**
+     * <strong>example:</strong>
+     * <p>ISSUER</p>
+     */
     @NameInMap("name")
     public String name;
 

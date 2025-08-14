@@ -21,6 +21,10 @@ public class CreateIssuerProjectRequest extends TeaModel {
     @Validation(required = true)
     public String info;
 
+    // 项目描述(markdown格式)
+    @NameInMap("description")
+    public String description;
+
     // 代币名称
     @NameInMap("token_name")
     @Validation(required = true)
@@ -65,6 +69,35 @@ public class CreateIssuerProjectRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<String> managerKeys;
 
+    // 项目封面文件id
+    @NameInMap("project_cover_file_id")
+    @Validation(required = true)
+    public String projectCoverFileId;
+
+    // 是否限购
+    @NameInMap("max_subscription_limited")
+    @Validation(required = true)
+    public Boolean maxSubscriptionLimited;
+
+    // 最大可认购份额
+    @NameInMap("max_subscription_amount")
+    @Validation(required = true)
+    public String maxSubscriptionAmount;
+
+    // 项目支持的结算方式
+    @NameInMap("settlement_methods")
+    @Validation(required = true)
+    public java.util.List<SupportedSettlementMethodInfo> settlementMethods;
+
+    // crossChain
+    @NameInMap("cross_chain")
+    @Validation(required = true)
+    public Boolean crossChain;
+
+    // 目标链名称列表（跨链项目必填）
+    @NameInMap("target_chain_name_list")
+    public java.util.List<String> targetChainNameList;
+
     public static CreateIssuerProjectRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateIssuerProjectRequest self = new CreateIssuerProjectRequest();
         return TeaModel.build(map, self);
@@ -100,6 +133,14 @@ public class CreateIssuerProjectRequest extends TeaModel {
     }
     public String getInfo() {
         return this.info;
+    }
+
+    public CreateIssuerProjectRequest setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+    public String getDescription() {
+        return this.description;
     }
 
     public CreateIssuerProjectRequest setTokenName(String tokenName) {
@@ -172,6 +213,54 @@ public class CreateIssuerProjectRequest extends TeaModel {
     }
     public java.util.List<String> getManagerKeys() {
         return this.managerKeys;
+    }
+
+    public CreateIssuerProjectRequest setProjectCoverFileId(String projectCoverFileId) {
+        this.projectCoverFileId = projectCoverFileId;
+        return this;
+    }
+    public String getProjectCoverFileId() {
+        return this.projectCoverFileId;
+    }
+
+    public CreateIssuerProjectRequest setMaxSubscriptionLimited(Boolean maxSubscriptionLimited) {
+        this.maxSubscriptionLimited = maxSubscriptionLimited;
+        return this;
+    }
+    public Boolean getMaxSubscriptionLimited() {
+        return this.maxSubscriptionLimited;
+    }
+
+    public CreateIssuerProjectRequest setMaxSubscriptionAmount(String maxSubscriptionAmount) {
+        this.maxSubscriptionAmount = maxSubscriptionAmount;
+        return this;
+    }
+    public String getMaxSubscriptionAmount() {
+        return this.maxSubscriptionAmount;
+    }
+
+    public CreateIssuerProjectRequest setSettlementMethods(java.util.List<SupportedSettlementMethodInfo> settlementMethods) {
+        this.settlementMethods = settlementMethods;
+        return this;
+    }
+    public java.util.List<SupportedSettlementMethodInfo> getSettlementMethods() {
+        return this.settlementMethods;
+    }
+
+    public CreateIssuerProjectRequest setCrossChain(Boolean crossChain) {
+        this.crossChain = crossChain;
+        return this;
+    }
+    public Boolean getCrossChain() {
+        return this.crossChain;
+    }
+
+    public CreateIssuerProjectRequest setTargetChainNameList(java.util.List<String> targetChainNameList) {
+        this.targetChainNameList = targetChainNameList;
+        return this;
+    }
+    public java.util.List<String> getTargetChainNameList() {
+        return this.targetChainNameList;
     }
 
 }

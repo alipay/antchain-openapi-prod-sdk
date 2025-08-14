@@ -10,16 +10,28 @@ public class DataSummaryTotal extends TeaModel {
     public java.util.List<MultiCurrencyMoney> totalValueList;
 
     // 总项目数
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("total_projects")
     @Validation(required = true)
     public Long totalProjects;
 
     // 总用户数
+    /**
+     * <strong>example:</strong>
+     * <p>1000</p>
+     */
     @NameInMap("total_holders")
     @Validation(required = true)
     public Long totalHolders;
 
     // 最后更新时间戳
+    /**
+     * <strong>example:</strong>
+     * <p>1726024364000</p>
+     */
     @NameInMap("last_updated_time")
     @Validation(required = true)
     public Long lastUpdatedTime;

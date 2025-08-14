@@ -32,7 +32,9 @@ public class Client {
     public Number _maxRequests;
     public Number _maxRequestsPerHost;
     /**
-     * Init client with Config
+     * <b>description</b> :
+     * <p>Init client with Config</p>
+     * 
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
@@ -64,7 +66,9 @@ public class Client {
     }
 
     /**
-     * Encapsulate the request and invoke the network
+     * <b>description</b> :
+     * <p>Encapsulate the request and invoke the network</p>
+     * 
      * @param action api name
      * @param protocol http or https
      * @param method e.g. GET
@@ -122,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.10"),
+                    new TeaPair("sdk_version", "1.0.13"),
                     new TeaPair("_prod_code", "WEBTRWATRADE"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -185,8 +189,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构创建资产项目
-     * Summary: 发行机构创建资产项目
+     * <b>description</b> :
+     * <p>Description: 发行机构创建资产项目
+     * Summary: 发行机构创建资产项目</p>
      */
     public CreateIssuerProjectResponse createIssuerProject(CreateIssuerProjectRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -195,8 +200,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构创建资产项目
-     * Summary: 发行机构创建资产项目
+     * <b>description</b> :
+     * <p>Description: 发行机构创建资产项目
+     * Summary: 发行机构创建资产项目</p>
      */
     public CreateIssuerProjectResponse createIssuerProjectEx(CreateIssuerProjectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -204,8 +210,9 @@ public class Client {
     }
 
     /**
-     * Description: 分页查询发行机构持有的资产项目信息
-     * Summary: 分页查询发行机构项目信息
+     * <b>description</b> :
+     * <p>Description: 分页查询发行机构持有的资产项目信息
+     * Summary: 分页查询发行机构项目信息</p>
      */
     public PagequeryIssuerProjectResponse pagequeryIssuerProject(PagequeryIssuerProjectRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -214,8 +221,9 @@ public class Client {
     }
 
     /**
-     * Description: 分页查询发行机构持有的资产项目信息
-     * Summary: 分页查询发行机构项目信息
+     * <b>description</b> :
+     * <p>Description: 分页查询发行机构持有的资产项目信息
+     * Summary: 分页查询发行机构项目信息</p>
      */
     public PagequeryIssuerProjectResponse pagequeryIssuerProjectEx(PagequeryIssuerProjectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -223,8 +231,9 @@ public class Client {
     }
 
     /**
-     * Description: 分页查询代销机构代销的资产项目信息
-     * Summary: 分页查询代销机构项目信息
+     * <b>description</b> :
+     * <p>Description: 分页查询代销机构代销的资产项目信息
+     * Summary: 分页查询代销机构项目信息</p>
      */
     public PagequeryDistributorProjectResponse pagequeryDistributorProject(PagequeryDistributorProjectRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -233,8 +242,9 @@ public class Client {
     }
 
     /**
-     * Description: 分页查询代销机构代销的资产项目信息
-     * Summary: 分页查询代销机构项目信息
+     * <b>description</b> :
+     * <p>Description: 分页查询代销机构代销的资产项目信息
+     * Summary: 分页查询代销机构项目信息</p>
      */
     public PagequeryDistributorProjectResponse pagequeryDistributorProjectEx(PagequeryDistributorProjectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -242,8 +252,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构暂停项目
-     * Summary: 发行机构暂停项目
+     * <b>description</b> :
+     * <p>Description: 发行机构暂停项目
+     * Summary: 发行机构暂停项目</p>
      */
     public PauseIssuerProjectResponse pauseIssuerProject(PauseIssuerProjectRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -252,8 +263,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构暂停项目
-     * Summary: 发行机构暂停项目
+     * <b>description</b> :
+     * <p>Description: 发行机构暂停项目
+     * Summary: 发行机构暂停项目</p>
      */
     public PauseIssuerProjectResponse pauseIssuerProjectEx(PauseIssuerProjectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -261,8 +273,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构激活项目(使项目生效)
-     * Summary: 发行机构激活项目
+     * <b>description</b> :
+     * <p>Description: 发行机构激活项目(使项目生效)
+     * Summary: 发行机构激活项目</p>
      */
     public EnableIssuerProjectResponse enableIssuerProject(EnableIssuerProjectRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -271,8 +284,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构激活项目(使项目生效)
-     * Summary: 发行机构激活项目
+     * <b>description</b> :
+     * <p>Description: 发行机构激活项目(使项目生效)
+     * Summary: 发行机构激活项目</p>
      */
     public EnableIssuerProjectResponse enableIssuerProjectEx(EnableIssuerProjectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -280,8 +294,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构查询项目详情
-     * Summary: 发行机构查询项目详情
+     * <b>description</b> :
+     * <p>Description: 发行机构查询项目详情
+     * Summary: 发行机构查询项目详情</p>
      */
     public DetailIssuerProjectResponse detailIssuerProject(DetailIssuerProjectRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -290,8 +305,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构查询项目详情
-     * Summary: 发行机构查询项目详情
+     * <b>description</b> :
+     * <p>Description: 发行机构查询项目详情
+     * Summary: 发行机构查询项目详情</p>
      */
     public DetailIssuerProjectResponse detailIssuerProjectEx(DetailIssuerProjectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -299,8 +315,9 @@ public class Client {
     }
 
     /**
-     * Description: 代销机构查询项目详情
-     * Summary: 代销机构查询项目详情
+     * <b>description</b> :
+     * <p>Description: 代销机构查询项目详情
+     * Summary: 代销机构查询项目详情</p>
      */
     public DetailDistributorProjectResponse detailDistributorProject(DetailDistributorProjectRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -309,8 +326,9 @@ public class Client {
     }
 
     /**
-     * Description: 代销机构查询项目详情
-     * Summary: 代销机构查询项目详情
+     * <b>description</b> :
+     * <p>Description: 代销机构查询项目详情
+     * Summary: 代销机构查询项目详情</p>
      */
     public DetailDistributorProjectResponse detailDistributorProjectEx(DetailDistributorProjectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -318,8 +336,9 @@ public class Client {
     }
 
     /**
-     * Description: 平台管理员分页查询所有项目
-     * Summary: 平台管理分页查询项目
+     * <b>description</b> :
+     * <p>Description: 平台管理员分页查询所有项目
+     * Summary: 平台管理分页查询项目</p>
      */
     public PagequeryPlatformProjectResponse pagequeryPlatformProject(PagequeryPlatformProjectRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -328,8 +347,9 @@ public class Client {
     }
 
     /**
-     * Description: 平台管理员分页查询所有项目
-     * Summary: 平台管理分页查询项目
+     * <b>description</b> :
+     * <p>Description: 平台管理员分页查询所有项目
+     * Summary: 平台管理分页查询项目</p>
      */
     public PagequeryPlatformProjectResponse pagequeryPlatformProjectEx(PagequeryPlatformProjectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -337,8 +357,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构获取总览统计数据项
-     * Summary: 发行机构获取总览统计数据项
+     * <b>description</b> :
+     * <p>Description: 发行机构获取总览统计数据项
+     * Summary: 发行机构获取总览统计数据项</p>
      */
     public CountIssuerDatasummaryResponse countIssuerDatasummary(CountIssuerDatasummaryRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -347,8 +368,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构获取总览统计数据项
-     * Summary: 发行机构获取总览统计数据项
+     * <b>description</b> :
+     * <p>Description: 发行机构获取总览统计数据项
+     * Summary: 发行机构获取总览统计数据项</p>
      */
     public CountIssuerDatasummaryResponse countIssuerDatasummaryEx(CountIssuerDatasummaryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -356,8 +378,9 @@ public class Client {
     }
 
     /**
-     * Description: 代销机构获取总览统计数据项
-     * Summary: 代销机构获取总览统计数据项
+     * <b>description</b> :
+     * <p>Description: 代销机构获取总览统计数据项
+     * Summary: 代销机构获取总览统计数据项</p>
      */
     public CountDistributorDatasummaryResponse countDistributorDatasummary(CountDistributorDatasummaryRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -366,8 +389,9 @@ public class Client {
     }
 
     /**
-     * Description: 代销机构获取总览统计数据项
-     * Summary: 代销机构获取总览统计数据项
+     * <b>description</b> :
+     * <p>Description: 代销机构获取总览统计数据项
+     * Summary: 代销机构获取总览统计数据项</p>
      */
     public CountDistributorDatasummaryResponse countDistributorDatasummaryEx(CountDistributorDatasummaryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -375,8 +399,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构获取历史资产价值
-     * Summary: 发行机构获取历史资产价值
+     * <b>description</b> :
+     * <p>Description: 发行机构获取历史资产价值
+     * Summary: 发行机构获取历史资产价值</p>
      */
     public ListIssuerDatasummaryResponse listIssuerDatasummary(ListIssuerDatasummaryRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -385,8 +410,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构获取历史资产价值
-     * Summary: 发行机构获取历史资产价值
+     * <b>description</b> :
+     * <p>Description: 发行机构获取历史资产价值
+     * Summary: 发行机构获取历史资产价值</p>
      */
     public ListIssuerDatasummaryResponse listIssuerDatasummaryEx(ListIssuerDatasummaryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -394,8 +420,9 @@ public class Client {
     }
 
     /**
-     * Description: 代销机构获取历史资产价值
-     * Summary: 代销机构获取历史资产价值
+     * <b>description</b> :
+     * <p>Description: 代销机构获取历史资产价值
+     * Summary: 代销机构获取历史资产价值</p>
      */
     public ListDistributorDatasummaryResponse listDistributorDatasummary(ListDistributorDatasummaryRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -404,8 +431,9 @@ public class Client {
     }
 
     /**
-     * Description: 代销机构获取历史资产价值
-     * Summary: 代销机构获取历史资产价值
+     * <b>description</b> :
+     * <p>Description: 代销机构获取历史资产价值
+     * Summary: 代销机构获取历史资产价值</p>
      */
     public ListDistributorDatasummaryResponse listDistributorDatasummaryEx(ListDistributorDatasummaryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -413,8 +441,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询代销机构列表
-     * Summary: 查询代销机构列表
+     * <b>description</b> :
+     * <p>Description: 查询代销机构列表
+     * Summary: 查询代销机构列表</p>
      */
     public ListIssuerInstitutionResponse listIssuerInstitution(ListIssuerInstitutionRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -423,8 +452,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询代销机构列表
-     * Summary: 查询代销机构列表
+     * <b>description</b> :
+     * <p>Description: 查询代销机构列表
+     * Summary: 查询代销机构列表</p>
      */
     public ListIssuerInstitutionResponse listIssuerInstitutionEx(ListIssuerInstitutionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -432,8 +462,9 @@ public class Client {
     }
 
     /**
-     * Description: 分页查询密钥
-     * Summary: 分页查询密钥
+     * <b>description</b> :
+     * <p>Description: 分页查询密钥
+     * Summary: 分页查询密钥</p>
      */
     public PagequeryIssuerKeyResponse pagequeryIssuerKey(PagequeryIssuerKeyRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -442,8 +473,9 @@ public class Client {
     }
 
     /**
-     * Description: 分页查询密钥
-     * Summary: 分页查询密钥
+     * <b>description</b> :
+     * <p>Description: 分页查询密钥
+     * Summary: 分页查询密钥</p>
      */
     public PagequeryIssuerKeyResponse pagequeryIssuerKeyEx(PagequeryIssuerKeyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -451,8 +483,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询密钥详情
-     * Summary: 查询密钥详情
+     * <b>description</b> :
+     * <p>Description: 查询密钥详情
+     * Summary: 查询密钥详情</p>
      */
     public DetailIssuerKeyResponse detailIssuerKey(DetailIssuerKeyRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -461,8 +494,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询密钥详情
-     * Summary: 查询密钥详情
+     * <b>description</b> :
+     * <p>Description: 查询密钥详情
+     * Summary: 查询密钥详情</p>
      */
     public DetailIssuerKeyResponse detailIssuerKeyEx(DetailIssuerKeyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -470,8 +504,9 @@ public class Client {
     }
 
     /**
-     * Description: 创建密钥
-     * Summary: 创建密钥
+     * <b>description</b> :
+     * <p>Description: 创建密钥
+     * Summary: 创建密钥</p>
      */
     public CreateIssuerKeyResponse createIssuerKey(CreateIssuerKeyRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -480,8 +515,9 @@ public class Client {
     }
 
     /**
-     * Description: 创建密钥
-     * Summary: 创建密钥
+     * <b>description</b> :
+     * <p>Description: 创建密钥
+     * Summary: 创建密钥</p>
      */
     public CreateIssuerKeyResponse createIssuerKeyEx(CreateIssuerKeyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -489,8 +525,9 @@ public class Client {
     }
 
     /**
-     * Description: 删除密钥
-     * Summary: 删除密钥
+     * <b>description</b> :
+     * <p>Description: 删除密钥
+     * Summary: 删除密钥</p>
      */
     public DeleteIssuerKeyResponse deleteIssuerKey(DeleteIssuerKeyRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -499,8 +536,9 @@ public class Client {
     }
 
     /**
-     * Description: 删除密钥
-     * Summary: 删除密钥
+     * <b>description</b> :
+     * <p>Description: 删除密钥
+     * Summary: 删除密钥</p>
      */
     public DeleteIssuerKeyResponse deleteIssuerKeyEx(DeleteIssuerKeyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -508,8 +546,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构添加项目密钥
-     * Summary: 发行机构添加项目密钥
+     * <b>description</b> :
+     * <p>Description: 发行机构添加项目密钥
+     * Summary: 发行机构添加项目密钥</p>
      */
     public AddIssuerProjectkeyResponse addIssuerProjectkey(AddIssuerProjectkeyRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -518,8 +557,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构添加项目密钥
-     * Summary: 发行机构添加项目密钥
+     * <b>description</b> :
+     * <p>Description: 发行机构添加项目密钥
+     * Summary: 发行机构添加项目密钥</p>
      */
     public AddIssuerProjectkeyResponse addIssuerProjectkeyEx(AddIssuerProjectkeyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -527,8 +567,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构删除项目密钥
-     * Summary: 发行机构删除项目密钥
+     * <b>description</b> :
+     * <p>Description: 发行机构删除项目密钥
+     * Summary: 发行机构删除项目密钥</p>
      */
     public DeleteIssuerProjectkeyResponse deleteIssuerProjectkey(DeleteIssuerProjectkeyRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -537,8 +578,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构删除项目密钥
-     * Summary: 发行机构删除项目密钥
+     * <b>description</b> :
+     * <p>Description: 发行机构删除项目密钥
+     * Summary: 发行机构删除项目密钥</p>
      */
     public DeleteIssuerProjectkeyResponse deleteIssuerProjectkeyEx(DeleteIssuerProjectkeyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -546,8 +588,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构获取项目密钥列表
-     * Summary: 发行机构获取项目密钥列表
+     * <b>description</b> :
+     * <p>Description: 发行机构获取项目密钥列表
+     * Summary: 发行机构获取项目密钥列表</p>
      */
     public ListIssuerProjectkeyResponse listIssuerProjectkey(ListIssuerProjectkeyRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -556,8 +599,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构获取项目密钥列表
-     * Summary: 发行机构获取项目密钥列表
+     * <b>description</b> :
+     * <p>Description: 发行机构获取项目密钥列表
+     * Summary: 发行机构获取项目密钥列表</p>
      */
     public ListIssuerProjectkeyResponse listIssuerProjectkeyEx(ListIssuerProjectkeyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -565,8 +609,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构分页查询密钥关联的项目
-     * Summary: 发行机构分页查询密钥关联的项目
+     * <b>description</b> :
+     * <p>Description: 发行机构分页查询密钥关联的项目
+     * Summary: 发行机构分页查询密钥关联的项目</p>
      */
     public PagequeryIssuerProjectkeyResponse pagequeryIssuerProjectkey(PagequeryIssuerProjectkeyRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -575,8 +620,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构分页查询密钥关联的项目
-     * Summary: 发行机构分页查询密钥关联的项目
+     * <b>description</b> :
+     * <p>Description: 发行机构分页查询密钥关联的项目
+     * Summary: 发行机构分页查询密钥关联的项目</p>
      */
     public PagequeryIssuerProjectkeyResponse pagequeryIssuerProjectkeyEx(PagequeryIssuerProjectkeyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -584,8 +630,9 @@ public class Client {
     }
 
     /**
-     * Description: 更新项目净值
-     * Summary: 更新项目净值
+     * <b>description</b> :
+     * <p>Description: 更新项目净值
+     * Summary: 更新项目净值</p>
      */
     public UpdateIssuerNetvalueResponse updateIssuerNetvalue(UpdateIssuerNetvalueRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -594,8 +641,9 @@ public class Client {
     }
 
     /**
-     * Description: 更新项目净值
-     * Summary: 更新项目净值
+     * <b>description</b> :
+     * <p>Description: 更新项目净值
+     * Summary: 更新项目净值</p>
      */
     public UpdateIssuerNetvalueResponse updateIssuerNetvalueEx(UpdateIssuerNetvalueRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -603,8 +651,9 @@ public class Client {
     }
 
     /**
-     * Description: 获取净值列表
-     * Summary: 获取净值列表
+     * <b>description</b> :
+     * <p>Description: 获取净值列表
+     * Summary: 获取净值列表</p>
      */
     public ListIssuerNetvalueResponse listIssuerNetvalue(ListIssuerNetvalueRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -613,8 +662,9 @@ public class Client {
     }
 
     /**
-     * Description: 获取净值列表
-     * Summary: 获取净值列表
+     * <b>description</b> :
+     * <p>Description: 获取净值列表
+     * Summary: 获取净值列表</p>
      */
     public ListIssuerNetvalueResponse listIssuerNetvalueEx(ListIssuerNetvalueRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -622,8 +672,9 @@ public class Client {
     }
 
     /**
-     * Description: 上传项目报告
-     * Summary: 上传项目报告
+     * <b>description</b> :
+     * <p>Description: 上传项目报告
+     * Summary: 上传项目报告</p>
      */
     public UploadIssuerReportResponse uploadIssuerReport(UploadIssuerReportRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -632,8 +683,9 @@ public class Client {
     }
 
     /**
-     * Description: 上传项目报告
-     * Summary: 上传项目报告
+     * <b>description</b> :
+     * <p>Description: 上传项目报告
+     * Summary: 上传项目报告</p>
      */
     public UploadIssuerReportResponse uploadIssuerReportEx(UploadIssuerReportRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -641,8 +693,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构获取历史报告列表
-     * Summary: 发行机构获取历史报告列表
+     * <b>description</b> :
+     * <p>Description: 发行机构获取历史报告列表
+     * Summary: 发行机构获取历史报告列表</p>
      */
     public ListIssuerReportResponse listIssuerReport(ListIssuerReportRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -651,8 +704,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构获取历史报告列表
-     * Summary: 发行机构获取历史报告列表
+     * <b>description</b> :
+     * <p>Description: 发行机构获取历史报告列表
+     * Summary: 发行机构获取历史报告列表</p>
      */
     public ListIssuerReportResponse listIssuerReportEx(ListIssuerReportRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -660,8 +714,9 @@ public class Client {
     }
 
     /**
-     * Description: 代销机构获取历史项目报告
-     * Summary: 代销机构获取历史项目报告
+     * <b>description</b> :
+     * <p>Description: 代销机构获取历史项目报告
+     * Summary: 代销机构获取历史项目报告</p>
      */
     public ListDistributorReportResponse listDistributorReport(ListDistributorReportRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -670,8 +725,9 @@ public class Client {
     }
 
     /**
-     * Description: 代销机构获取历史项目报告
-     * Summary: 代销机构获取历史项目报告
+     * <b>description</b> :
+     * <p>Description: 代销机构获取历史项目报告
+     * Summary: 代销机构获取历史项目报告</p>
      */
     public ListDistributorReportResponse listDistributorReportEx(ListDistributorReportRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -679,8 +735,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构获取报告文件下载URL
-     * Summary: 发行机构获取报告文件下载URL
+     * <b>description</b> :
+     * <p>Description: 发行机构获取报告文件下载URL
+     * Summary: 发行机构获取报告文件下载URL</p>
      */
     public DownloadIssuerReportResponse downloadIssuerReport(DownloadIssuerReportRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -689,8 +746,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构获取报告文件下载URL
-     * Summary: 发行机构获取报告文件下载URL
+     * <b>description</b> :
+     * <p>Description: 发行机构获取报告文件下载URL
+     * Summary: 发行机构获取报告文件下载URL</p>
      */
     public DownloadIssuerReportResponse downloadIssuerReportEx(DownloadIssuerReportRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -698,8 +756,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构获取报告文件预览URL
-     * Summary: 发行机构获取报告文件预览URL
+     * <b>description</b> :
+     * <p>Description: 发行机构获取报告文件预览URL
+     * Summary: 发行机构获取报告文件预览URL</p>
      */
     public PreviewIssuerReportResponse previewIssuerReport(PreviewIssuerReportRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -708,8 +767,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行机构获取报告文件预览URL
-     * Summary: 发行机构获取报告文件预览URL
+     * <b>description</b> :
+     * <p>Description: 发行机构获取报告文件预览URL
+     * Summary: 发行机构获取报告文件预览URL</p>
      */
     public PreviewIssuerReportResponse previewIssuerReportEx(PreviewIssuerReportRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -717,8 +777,9 @@ public class Client {
     }
 
     /**
-     * Description: 代销机构获取报告文件下载URL
-     * Summary: 代销机构获取报告文件下载URL
+     * <b>description</b> :
+     * <p>Description: 代销机构获取报告文件下载URL
+     * Summary: 代销机构获取报告文件下载URL</p>
      */
     public DownloadDistributorReportResponse downloadDistributorReport(DownloadDistributorReportRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -727,8 +788,9 @@ public class Client {
     }
 
     /**
-     * Description: 代销机构获取报告文件下载URL
-     * Summary: 代销机构获取报告文件下载URL
+     * <b>description</b> :
+     * <p>Description: 代销机构获取报告文件下载URL
+     * Summary: 代销机构获取报告文件下载URL</p>
      */
     public DownloadDistributorReportResponse downloadDistributorReportEx(DownloadDistributorReportRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -736,8 +798,9 @@ public class Client {
     }
 
     /**
-     * Description: 代销机构获取报告文件预览URL
-     * Summary: 代销机构获取报告文件预览URL
+     * <b>description</b> :
+     * <p>Description: 代销机构获取报告文件预览URL
+     * Summary: 代销机构获取报告文件预览URL</p>
      */
     public PreviewDistributorReportResponse previewDistributorReport(PreviewDistributorReportRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -746,8 +809,9 @@ public class Client {
     }
 
     /**
-     * Description: 代销机构获取报告文件预览URL
-     * Summary: 代销机构获取报告文件预览URL
+     * <b>description</b> :
+     * <p>Description: 代销机构获取报告文件预览URL
+     * Summary: 代销机构获取报告文件预览URL</p>
      */
     public PreviewDistributorReportResponse previewDistributorReportEx(PreviewDistributorReportRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -755,8 +819,9 @@ public class Client {
     }
 
     /**
-     * Description: 分页查询二级用户列表
-     * Summary: 分页查询二级用户列表
+     * <b>description</b> :
+     * <p>Description: 分页查询二级用户列表
+     * Summary: 分页查询二级用户列表</p>
      */
     public PagequeryIssuerSubuserResponse pagequeryIssuerSubuser(PagequeryIssuerSubuserRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -765,8 +830,9 @@ public class Client {
     }
 
     /**
-     * Description: 分页查询二级用户列表
-     * Summary: 分页查询二级用户列表
+     * <b>description</b> :
+     * <p>Description: 分页查询二级用户列表
+     * Summary: 分页查询二级用户列表</p>
      */
     public PagequeryIssuerSubuserResponse pagequeryIssuerSubuserEx(PagequeryIssuerSubuserRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -774,8 +840,9 @@ public class Client {
     }
 
     /**
-     * Description: 分页查询二级用户列表
-     * Summary: 分页查询二级用户列表
+     * <b>description</b> :
+     * <p>Description: 分页查询二级用户列表
+     * Summary: 分页查询二级用户列表</p>
      */
     public PagequeryDistributorSubuserResponse pagequeryDistributorSubuser(PagequeryDistributorSubuserRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -784,8 +851,9 @@ public class Client {
     }
 
     /**
-     * Description: 分页查询二级用户列表
-     * Summary: 分页查询二级用户列表
+     * <b>description</b> :
+     * <p>Description: 分页查询二级用户列表
+     * Summary: 分页查询二级用户列表</p>
      */
     public PagequeryDistributorSubuserResponse pagequeryDistributorSubuserEx(PagequeryDistributorSubuserRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -793,8 +861,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询单个二级用户
-     * Summary: 查询单个二级用户
+     * <b>description</b> :
+     * <p>Description: 查询单个二级用户
+     * Summary: 查询单个二级用户</p>
      */
     public QueryIssuerSubuserResponse queryIssuerSubuser(QueryIssuerSubuserRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -803,8 +872,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询单个二级用户
-     * Summary: 查询单个二级用户
+     * <b>description</b> :
+     * <p>Description: 查询单个二级用户
+     * Summary: 查询单个二级用户</p>
      */
     public QueryIssuerSubuserResponse queryIssuerSubuserEx(QueryIssuerSubuserRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -812,8 +882,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询单个二级用户
-     * Summary: 查询单个二级用户
+     * <b>description</b> :
+     * <p>Description: 查询单个二级用户
+     * Summary: 查询单个二级用户</p>
      */
     public QueryDistributorSubuserResponse queryDistributorSubuser(QueryDistributorSubuserRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -822,8 +893,9 @@ public class Client {
     }
 
     /**
-     * Description: 查询单个二级用户
-     * Summary: 查询单个二级用户
+     * <b>description</b> :
+     * <p>Description: 查询单个二级用户
+     * Summary: 查询单个二级用户</p>
      */
     public QueryDistributorSubuserResponse queryDistributorSubuserEx(QueryDistributorSubuserRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -831,8 +903,9 @@ public class Client {
     }
 
     /**
-     * Description: 更新二级用户
-     * Summary: 更新二级用户
+     * <b>description</b> :
+     * <p>Description: 更新二级用户
+     * Summary: 更新二级用户</p>
      */
     public UpdateDistributorSubuserResponse updateDistributorSubuser(UpdateDistributorSubuserRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -841,8 +914,9 @@ public class Client {
     }
 
     /**
-     * Description: 更新二级用户
-     * Summary: 更新二级用户
+     * <b>description</b> :
+     * <p>Description: 更新二级用户
+     * Summary: 更新二级用户</p>
      */
     public UpdateDistributorSubuserResponse updateDistributorSubuserEx(UpdateDistributorSubuserRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -850,8 +924,9 @@ public class Client {
     }
 
     /**
-     * Description: 添加二级用户
-     * Summary: 添加二级用户
+     * <b>description</b> :
+     * <p>Description: 添加二级用户
+     * Summary: 添加二级用户</p>
      */
     public CreateDistributorSubuserResponse createDistributorSubuser(CreateDistributorSubuserRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -860,8 +935,9 @@ public class Client {
     }
 
     /**
-     * Description: 添加二级用户
-     * Summary: 添加二级用户
+     * <b>description</b> :
+     * <p>Description: 添加二级用户
+     * Summary: 添加二级用户</p>
      */
     public CreateDistributorSubuserResponse createDistributorSubuserEx(CreateDistributorSubuserRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -869,8 +945,9 @@ public class Client {
     }
 
     /**
-     * Description: 删除二级用户
-     * Summary: 删除二级用户
+     * <b>description</b> :
+     * <p>Description: 删除二级用户
+     * Summary: 删除二级用户</p>
      */
     public DeleteDistributorSubuserResponse deleteDistributorSubuser(DeleteDistributorSubuserRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -879,8 +956,9 @@ public class Client {
     }
 
     /**
-     * Description: 删除二级用户
-     * Summary: 删除二级用户
+     * <b>description</b> :
+     * <p>Description: 删除二级用户
+     * Summary: 删除二级用户</p>
      */
     public DeleteDistributorSubuserResponse deleteDistributorSubuserEx(DeleteDistributorSubuserRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -888,8 +966,9 @@ public class Client {
     }
 
     /**
-     * Description: 获取二级用户配额
-     * Summary: 获取二级用户配额
+     * <b>description</b> :
+     * <p>Description: 获取二级用户配额
+     * Summary: 获取二级用户配额</p>
      */
     public CountDistributorSubusertargetResponse countDistributorSubusertarget(CountDistributorSubusertargetRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -898,8 +977,9 @@ public class Client {
     }
 
     /**
-     * Description: 获取二级用户配额
-     * Summary: 获取二级用户配额
+     * <b>description</b> :
+     * <p>Description: 获取二级用户配额
+     * Summary: 获取二级用户配额</p>
      */
     public CountDistributorSubusertargetResponse countDistributorSubusertargetEx(CountDistributorSubusertargetRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -907,8 +987,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行token
-     * Summary: 发行token
+     * <b>description</b> :
+     * <p>Description: 发行token
+     * Summary: 发行token</p>
      */
     public IssueIssuerSubusertradeResponse issueIssuerSubusertrade(IssueIssuerSubusertradeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -917,8 +998,9 @@ public class Client {
     }
 
     /**
-     * Description: 发行token
-     * Summary: 发行token
+     * <b>description</b> :
+     * <p>Description: 发行token
+     * Summary: 发行token</p>
      */
     public IssueIssuerSubusertradeResponse issueIssuerSubusertradeEx(IssueIssuerSubusertradeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -926,8 +1008,9 @@ public class Client {
     }
 
     /**
-     * Description: 赎回token
-     * Summary: 赎回token
+     * <b>description</b> :
+     * <p>Description: 赎回token
+     * Summary: 赎回token</p>
      */
     public RedeemIssuerSubusertradeResponse redeemIssuerSubusertrade(RedeemIssuerSubusertradeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -936,8 +1019,9 @@ public class Client {
     }
 
     /**
-     * Description: 赎回token
-     * Summary: 赎回token
+     * <b>description</b> :
+     * <p>Description: 赎回token
+     * Summary: 赎回token</p>
      */
     public RedeemIssuerSubusertradeResponse redeemIssuerSubusertradeEx(RedeemIssuerSubusertradeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -945,8 +1029,9 @@ public class Client {
     }
 
     /**
-     * Description: 转移token
-     * Summary: 转移token
+     * <b>description</b> :
+     * <p>Description: 转移token
+     * Summary: 转移token</p>
      */
     public TransferIssuerSubusertradeResponse transferIssuerSubusertrade(TransferIssuerSubusertradeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -955,8 +1040,9 @@ public class Client {
     }
 
     /**
-     * Description: 转移token
-     * Summary: 转移token
+     * <b>description</b> :
+     * <p>Description: 转移token
+     * Summary: 转移token</p>
      */
     public TransferIssuerSubusertradeResponse transferIssuerSubusertradeEx(TransferIssuerSubusertradeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

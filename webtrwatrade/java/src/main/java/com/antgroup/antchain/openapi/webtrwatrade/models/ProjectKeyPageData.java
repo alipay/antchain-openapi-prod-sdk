@@ -5,21 +5,37 @@ import com.aliyun.tea.*;
 
 public class ProjectKeyPageData extends TeaModel {
     // 总记录数
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("total")
     @Validation(required = true)
     public Long total;
 
     // 总页数
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("page_count")
     @Validation(required = true)
     public Long pageCount;
 
     // 当前页码
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("page_num")
     @Validation(required = true)
     public Long pageNum;
 
     // 每页数量
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("page_size")
     @Validation(required = true)
     public Long pageSize;

@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class KeyProjectInfo extends TeaModel {
     // 项目名称
+    /**
+     * <strong>example:</strong>
+     * <p>name</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
@@ -14,11 +18,19 @@ public class KeyProjectInfo extends TeaModel {
     // BURN：赎回密钥
     // TRANSFER：转账密钥
     // MANAGER：管理密钥
+    /**
+     * <strong>example:</strong>
+     * <p>MINT</p>
+     */
     @NameInMap("key_type")
     @Validation(required = true)
     public String keyType;
 
     // 创建时间
+    /**
+     * <strong>example:</strong>
+     * <p>2018-10-10T10:10:00Z</p>
+     */
     @NameInMap("gmt_created")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtCreated;

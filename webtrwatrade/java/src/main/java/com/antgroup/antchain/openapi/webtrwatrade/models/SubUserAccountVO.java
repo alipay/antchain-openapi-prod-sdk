@@ -5,46 +5,82 @@ import com.aliyun.tea.*;
 
 public class SubUserAccountVO extends TeaModel {
     // 用户账户id
+    /**
+     * <strong>example:</strong>
+     * <p>userAccountId</p>
+     */
     @NameInMap("user_account_id")
     @Validation(required = true)
     public String userAccountId;
 
     // 用户id
+    /**
+     * <strong>example:</strong>
+     * <p>userId</p>
+     */
     @NameInMap("user_id")
     @Validation(required = true)
     public String userId;
 
     // 用户地址
+    /**
+     * <strong>example:</strong>
+     * <p>userAddress</p>
+     */
     @NameInMap("user_address")
     @Validation(required = true)
     public String userAddress;
 
     // 用户资产配额
+    /**
+     * <strong>example:</strong>
+     * <p>userTarget</p>
+     */
     @NameInMap("user_target")
     @Validation(required = true)
     public String userTarget;
 
     // 用户资产
+    /**
+     * <strong>example:</strong>
+     * <p>userBalance</p>
+     */
     @NameInMap("user_balance")
     @Validation(required = true)
     public String userBalance;
 
     // 项目id
+    /**
+     * <strong>example:</strong>
+     * <p>assetProjectId</p>
+     */
     @NameInMap("asset_project_id")
     @Validation(required = true)
     public String assetProjectId;
 
     // 项目名称
+    /**
+     * <strong>example:</strong>
+     * <p>assetProjectName</p>
+     */
     @NameInMap("asset_project_name")
     @Validation(required = true)
     public String assetProjectName;
 
     // 用户所属机构id
+    /**
+     * <strong>example:</strong>
+     * <p>institutionId</p>
+     */
     @NameInMap("institution_id")
     @Validation(required = true)
     public String institutionId;
 
     // 用户所属机构名称
+    /**
+     * <strong>example:</strong>
+     * <p>institutionName</p>
+     */
     @NameInMap("institution_name")
     @Validation(required = true)
     public String institutionName;

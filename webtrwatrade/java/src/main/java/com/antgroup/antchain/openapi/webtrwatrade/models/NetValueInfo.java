@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class NetValueInfo extends TeaModel {
     // 净值
+    /**
+     * <strong>example:</strong>
+     * <p>3.14</p>
+     */
     @NameInMap("net_value")
     @Validation(required = true)
     public String netValue;
 
     // 币种（目前支持USD、HKD）
+    /**
+     * <strong>example:</strong>
+     * <p>HKD</p>
+     */
     @NameInMap("currency")
     @Validation(required = true)
     public String currency;
 
     // 更新时间戳
+    /**
+     * <strong>example:</strong>
+     * <p>1726292715000</p>
+     */
     @NameInMap("update_time")
     @Validation(required = true)
     public Long updateTime;

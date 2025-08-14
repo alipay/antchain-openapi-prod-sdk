@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class InstitutionContactInfo extends TeaModel {
     // 联系人
+    /**
+     * <strong>example:</strong>
+     * <p>张三</p>
+     */
     @NameInMap("contact_person")
     @Validation(required = true)
     public String contactPerson;
 
     // 联系人邮箱
+    /**
+     * <strong>example:</strong>
+     * <p><a href="mailto:12345@gmail.com">12345@gmail.com</a></p>
+     */
     @NameInMap("contact_email")
     @Validation(required = true)
     public String contactEmail;

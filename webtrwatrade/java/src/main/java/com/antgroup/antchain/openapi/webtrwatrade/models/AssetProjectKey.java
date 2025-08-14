@@ -5,36 +5,64 @@ import com.aliyun.tea.*;
 
 public class AssetProjectKey extends TeaModel {
     // 项目ID
+    /**
+     * <strong>example:</strong>
+     * <p>f9146ccccf684db792a8fa10d876e22c</p>
+     */
     @NameInMap("project_id")
     @Validation(required = true)
     public String projectId;
 
     // 项目名称
+    /**
+     * <strong>example:</strong>
+     * <p>充电桩</p>
+     */
     @NameInMap("project_name")
     @Validation(required = true)
     public String projectName;
 
     // 密钥类型(MINT:发行密钥；BURN：赎回密钥；TRANSFER：转账密钥；MANAGER：管理密钥)
+    /**
+     * <strong>example:</strong>
+     * <p>MANAGER</p>
+     */
     @NameInMap("key_type")
     @Validation(required = true)
     public String keyType;
 
     // 密钥ID
+    /**
+     * <strong>example:</strong>
+     * <p>1826615104029319169</p>
+     */
     @NameInMap("key_id")
     @Validation(required = true)
     public String keyId;
 
     // 密钥名称
+    /**
+     * <strong>example:</strong>
+     * <p>管理密钥</p>
+     */
     @NameInMap("key_name")
     @Validation(required = true)
     public String keyName;
 
     // 密钥地址
+    /**
+     * <strong>example:</strong>
+     * <p>0x74d6c42ad822cfb8de858ce60f3c6dab1e553698</p>
+     */
     @NameInMap("key_address")
     @Validation(required = true)
     public String keyAddress;
 
     // 关联时间戳
+    /**
+     * <strong>example:</strong>
+     * <p>1726024364000</p>
+     */
     @NameInMap("correlation_time")
     @Validation(required = true)
     public Long correlationTime;

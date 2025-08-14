@@ -5,6 +5,10 @@ import com.aliyun.tea.*;
 
 public class UserInfo extends TeaModel {
     // 钱包地址
+    /**
+     * <strong>example:</strong>
+     * <p>0x111111111</p>
+     */
     @NameInMap("address")
     @Validation(required = true)
     public String address;

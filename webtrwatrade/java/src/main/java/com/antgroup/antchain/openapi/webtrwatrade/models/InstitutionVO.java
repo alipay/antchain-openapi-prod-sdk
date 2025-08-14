@@ -5,20 +5,36 @@ import com.aliyun.tea.*;
 
 public class InstitutionVO extends TeaModel {
     // 机构id
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
     @NameInMap("id")
     @Validation(required = true)
     public String id;
 
     // 机构名称
+    /**
+     * <strong>example:</strong>
+     * <p>ISSUER</p>
+     */
     @NameInMap("name")
     @Validation(required = true)
     public String name;
 
     // 简介
+    /**
+     * <strong>example:</strong>
+     * <p>about</p>
+     */
     @NameInMap("about")
     public String about;
 
     // 主页
+    /**
+     * <strong>example:</strong>
+     * <p>home_page</p>
+     */
     @NameInMap("home_page")
     public String homePage;
 
@@ -36,6 +52,10 @@ public class InstitutionVO extends TeaModel {
     public java.util.List<UserInfo> users;
 
     // 是否支持删除
+    /**
+     * <strong>example:</strong>
+     * <p>true, false</p>
+     */
     @NameInMap("delete_enable")
     public Boolean deleteEnable;
 
