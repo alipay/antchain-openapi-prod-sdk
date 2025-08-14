@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.24.9"},
+                        {"sdk_version", "1.25.4"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.24.9"},
+                        {"sdk_version", "1.25.4"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -5218,6 +5218,48 @@ namespace AntChain.SDK.RISKPLUS
         }
 
         /**
+         * Description: 安全托管分层结果查询接口
+         * Summary: 安全托管分层结果查询接口
+         */
+        public QueryQmpOfflinehostplanDecisionresultResponse QueryQmpOfflinehostplanDecisionresult(QueryQmpOfflinehostplanDecisionresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryQmpOfflinehostplanDecisionresultEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 安全托管分层结果查询接口
+         * Summary: 安全托管分层结果查询接口
+         */
+        public async Task<QueryQmpOfflinehostplanDecisionresultResponse> QueryQmpOfflinehostplanDecisionresultAsync(QueryQmpOfflinehostplanDecisionresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryQmpOfflinehostplanDecisionresultExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 安全托管分层结果查询接口
+         * Summary: 安全托管分层结果查询接口
+         */
+        public QueryQmpOfflinehostplanDecisionresultResponse QueryQmpOfflinehostplanDecisionresultEx(QueryQmpOfflinehostplanDecisionresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQmpOfflinehostplanDecisionresultResponse>(DoRequest("1.0", "riskplus.qmp.offlinehostplan.decisionresult.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 安全托管分层结果查询接口
+         * Summary: 安全托管分层结果查询接口
+         */
+        public async Task<QueryQmpOfflinehostplanDecisionresultResponse> QueryQmpOfflinehostplanDecisionresultExAsync(QueryQmpOfflinehostplanDecisionresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQmpOfflinehostplanDecisionresultResponse>(await DoRequestAsync("1.0", "riskplus.qmp.offlinehostplan.decisionresult.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 企管盾票税交接授权信息表的同步
          * Summary: 企管盾票税交接授权信息表的同步
          */
@@ -6796,6 +6838,96 @@ namespace AntChain.SDK.RISKPLUS
         }
 
         /**
+         * Description: 境外企业画像数据接收
+         * Summary: 境外企业画像数据接收
+         */
+        public ReceiveRbbOverseacompanyProfileResponse ReceiveRbbOverseacompanyProfile(ReceiveRbbOverseacompanyProfileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ReceiveRbbOverseacompanyProfileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 境外企业画像数据接收
+         * Summary: 境外企业画像数据接收
+         */
+        public async Task<ReceiveRbbOverseacompanyProfileResponse> ReceiveRbbOverseacompanyProfileAsync(ReceiveRbbOverseacompanyProfileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ReceiveRbbOverseacompanyProfileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 境外企业画像数据接收
+         * Summary: 境外企业画像数据接收
+         */
+        public ReceiveRbbOverseacompanyProfileResponse ReceiveRbbOverseacompanyProfileEx(ReceiveRbbOverseacompanyProfileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "riskplus.rbb.overseacompany.profile.receive",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ReceiveRbbOverseacompanyProfileResponse receiveRbbOverseacompanyProfileResponse = new ReceiveRbbOverseacompanyProfileResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return receiveRbbOverseacompanyProfileResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReceiveRbbOverseacompanyProfileResponse>(DoRequest("1.0", "riskplus.rbb.overseacompany.profile.receive", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 境外企业画像数据接收
+         * Summary: 境外企业画像数据接收
+         */
+        public async Task<ReceiveRbbOverseacompanyProfileResponse> ReceiveRbbOverseacompanyProfileExAsync(ReceiveRbbOverseacompanyProfileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "riskplus.rbb.overseacompany.profile.receive",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ReceiveRbbOverseacompanyProfileResponse receiveRbbOverseacompanyProfileResponse = new ReceiveRbbOverseacompanyProfileResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return receiveRbbOverseacompanyProfileResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReceiveRbbOverseacompanyProfileResponse>(await DoRequestAsync("1.0", "riskplus.rbb.overseacompany.profile.receive", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 报告结果推送，算法调用
          * Summary: 报告结果推送
          */
@@ -8267,6 +8399,342 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QuerySnapshotEventResponse>(await DoRequestAsync("1.0", "riskplus.snapshot.event.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量实时触达接口
+         * Summary: 发起触达任务
+         */
+        public ApplyTdiquickmsgRtBatchmarketingResponse ApplyTdiquickmsgRtBatchmarketing(ApplyTdiquickmsgRtBatchmarketingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyTdiquickmsgRtBatchmarketingEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量实时触达接口
+         * Summary: 发起触达任务
+         */
+        public async Task<ApplyTdiquickmsgRtBatchmarketingResponse> ApplyTdiquickmsgRtBatchmarketingAsync(ApplyTdiquickmsgRtBatchmarketingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyTdiquickmsgRtBatchmarketingExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量实时触达接口
+         * Summary: 发起触达任务
+         */
+        public ApplyTdiquickmsgRtBatchmarketingResponse ApplyTdiquickmsgRtBatchmarketingEx(ApplyTdiquickmsgRtBatchmarketingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyTdiquickmsgRtBatchmarketingResponse>(DoRequest("1.0", "riskplus.tdiquickmsg.rt.batchmarketing.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量实时触达接口
+         * Summary: 发起触达任务
+         */
+        public async Task<ApplyTdiquickmsgRtBatchmarketingResponse> ApplyTdiquickmsgRtBatchmarketingExAsync(ApplyTdiquickmsgRtBatchmarketingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyTdiquickmsgRtBatchmarketingResponse>(await DoRequestAsync("1.0", "riskplus.tdiquickmsg.rt.batchmarketing.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发起AI外呼
+         * Summary: 发起AI外呼
+         */
+        public ApplyTdiquickmsgRobotcallResponse ApplyTdiquickmsgRobotcall(ApplyTdiquickmsgRobotcallRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyTdiquickmsgRobotcallEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发起AI外呼
+         * Summary: 发起AI外呼
+         */
+        public async Task<ApplyTdiquickmsgRobotcallResponse> ApplyTdiquickmsgRobotcallAsync(ApplyTdiquickmsgRobotcallRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyTdiquickmsgRobotcallExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发起AI外呼
+         * Summary: 发起AI外呼
+         */
+        public ApplyTdiquickmsgRobotcallResponse ApplyTdiquickmsgRobotcallEx(ApplyTdiquickmsgRobotcallRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyTdiquickmsgRobotcallResponse>(DoRequest("1.0", "riskplus.tdiquickmsg.robotcall.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发起AI外呼
+         * Summary: 发起AI外呼
+         */
+        public async Task<ApplyTdiquickmsgRobotcallResponse> ApplyTdiquickmsgRobotcallExAsync(ApplyTdiquickmsgRobotcallRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyTdiquickmsgRobotcallResponse>(await DoRequestAsync("1.0", "riskplus.tdiquickmsg.robotcall.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 短信状态回调接口
+         * Summary: 短信状态回调接口
+         */
+        public CallbackTdiquickmsgSmsResponse CallbackTdiquickmsgSms(CallbackTdiquickmsgSmsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackTdiquickmsgSmsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 短信状态回调接口
+         * Summary: 短信状态回调接口
+         */
+        public async Task<CallbackTdiquickmsgSmsResponse> CallbackTdiquickmsgSmsAsync(CallbackTdiquickmsgSmsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackTdiquickmsgSmsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 短信状态回调接口
+         * Summary: 短信状态回调接口
+         */
+        public CallbackTdiquickmsgSmsResponse CallbackTdiquickmsgSmsEx(CallbackTdiquickmsgSmsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackTdiquickmsgSmsResponse>(DoRequest("1.0", "riskplus.tdiquickmsg.sms.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 短信状态回调接口
+         * Summary: 短信状态回调接口
+         */
+        public async Task<CallbackTdiquickmsgSmsResponse> CallbackTdiquickmsgSmsExAsync(CallbackTdiquickmsgSmsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackTdiquickmsgSmsResponse>(await DoRequestAsync("1.0", "riskplus.tdiquickmsg.sms.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新接入ai外呼服务商的回调接口
+         * Summary: ai外呼回调接口
+         */
+        public CallbackTdiquickmsgRobotcallResponse CallbackTdiquickmsgRobotcall(CallbackTdiquickmsgRobotcallRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackTdiquickmsgRobotcallEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新接入ai外呼服务商的回调接口
+         * Summary: ai外呼回调接口
+         */
+        public async Task<CallbackTdiquickmsgRobotcallResponse> CallbackTdiquickmsgRobotcallAsync(CallbackTdiquickmsgRobotcallRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackTdiquickmsgRobotcallExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新接入ai外呼服务商的回调接口
+         * Summary: ai外呼回调接口
+         */
+        public CallbackTdiquickmsgRobotcallResponse CallbackTdiquickmsgRobotcallEx(CallbackTdiquickmsgRobotcallRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackTdiquickmsgRobotcallResponse>(DoRequest("1.0", "riskplus.tdiquickmsg.robotcall.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新接入ai外呼服务商的回调接口
+         * Summary: ai外呼回调接口
+         */
+        public async Task<CallbackTdiquickmsgRobotcallResponse> CallbackTdiquickmsgRobotcallExAsync(CallbackTdiquickmsgRobotcallRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackTdiquickmsgRobotcallResponse>(await DoRequestAsync("1.0", "riskplus.tdiquickmsg.robotcall.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 上行短信回调
+         * Summary: 上行短信回调
+         */
+        public CallbackTdiquickmsgSmsUpResponse CallbackTdiquickmsgSmsUp(CallbackTdiquickmsgSmsUpRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackTdiquickmsgSmsUpEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 上行短信回调
+         * Summary: 上行短信回调
+         */
+        public async Task<CallbackTdiquickmsgSmsUpResponse> CallbackTdiquickmsgSmsUpAsync(CallbackTdiquickmsgSmsUpRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackTdiquickmsgSmsUpExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 上行短信回调
+         * Summary: 上行短信回调
+         */
+        public CallbackTdiquickmsgSmsUpResponse CallbackTdiquickmsgSmsUpEx(CallbackTdiquickmsgSmsUpRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackTdiquickmsgSmsUpResponse>(DoRequest("1.0", "riskplus.tdiquickmsg.sms.up.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 上行短信回调
+         * Summary: 上行短信回调
+         */
+        public async Task<CallbackTdiquickmsgSmsUpResponse> CallbackTdiquickmsgSmsUpExAsync(CallbackTdiquickmsgSmsUpRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackTdiquickmsgSmsUpResponse>(await DoRequestAsync("1.0", "riskplus.tdiquickmsg.sms.up.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外呼任务统计查询接口
+         * Summary: 外呼任务统计查询接口
+         */
+        public QueryTdiquickmsgRobotcallStatisticinfoResponse QueryTdiquickmsgRobotcallStatisticinfo(QueryTdiquickmsgRobotcallStatisticinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTdiquickmsgRobotcallStatisticinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外呼任务统计查询接口
+         * Summary: 外呼任务统计查询接口
+         */
+        public async Task<QueryTdiquickmsgRobotcallStatisticinfoResponse> QueryTdiquickmsgRobotcallStatisticinfoAsync(QueryTdiquickmsgRobotcallStatisticinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTdiquickmsgRobotcallStatisticinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 外呼任务统计查询接口
+         * Summary: 外呼任务统计查询接口
+         */
+        public QueryTdiquickmsgRobotcallStatisticinfoResponse QueryTdiquickmsgRobotcallStatisticinfoEx(QueryTdiquickmsgRobotcallStatisticinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTdiquickmsgRobotcallStatisticinfoResponse>(DoRequest("1.0", "riskplus.tdiquickmsg.robotcall.statisticinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 外呼任务统计查询接口
+         * Summary: 外呼任务统计查询接口
+         */
+        public async Task<QueryTdiquickmsgRobotcallStatisticinfoResponse> QueryTdiquickmsgRobotcallStatisticinfoExAsync(QueryTdiquickmsgRobotcallStatisticinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTdiquickmsgRobotcallStatisticinfoResponse>(await DoRequestAsync("1.0", "riskplus.tdiquickmsg.robotcall.statisticinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 蚁盾业务回流事件推送
+         * Summary: 蚁盾业务回流事件推送
+         */
+        public PushTdiquickmsgBackflowEventResponse PushTdiquickmsgBackflowEvent(PushTdiquickmsgBackflowEventRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushTdiquickmsgBackflowEventEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 蚁盾业务回流事件推送
+         * Summary: 蚁盾业务回流事件推送
+         */
+        public async Task<PushTdiquickmsgBackflowEventResponse> PushTdiquickmsgBackflowEventAsync(PushTdiquickmsgBackflowEventRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushTdiquickmsgBackflowEventExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 蚁盾业务回流事件推送
+         * Summary: 蚁盾业务回流事件推送
+         */
+        public PushTdiquickmsgBackflowEventResponse PushTdiquickmsgBackflowEventEx(PushTdiquickmsgBackflowEventRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushTdiquickmsgBackflowEventResponse>(DoRequest("1.0", "riskplus.tdiquickmsg.backflow.event.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 蚁盾业务回流事件推送
+         * Summary: 蚁盾业务回流事件推送
+         */
+        public async Task<PushTdiquickmsgBackflowEventResponse> PushTdiquickmsgBackflowEventExAsync(PushTdiquickmsgBackflowEventRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushTdiquickmsgBackflowEventResponse>(await DoRequestAsync("1.0", "riskplus.tdiquickmsg.backflow.event.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 蚁盾数据回流推送，用于客户定制json数据
+         * Summary: 蚁盾数据回流json格式推送
+         */
+        public PushTdiquickmsgBackflowJsondataResponse PushTdiquickmsgBackflowJsondata(PushTdiquickmsgBackflowJsondataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushTdiquickmsgBackflowJsondataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 蚁盾数据回流推送，用于客户定制json数据
+         * Summary: 蚁盾数据回流json格式推送
+         */
+        public async Task<PushTdiquickmsgBackflowJsondataResponse> PushTdiquickmsgBackflowJsondataAsync(PushTdiquickmsgBackflowJsondataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushTdiquickmsgBackflowJsondataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 蚁盾数据回流推送，用于客户定制json数据
+         * Summary: 蚁盾数据回流json格式推送
+         */
+        public PushTdiquickmsgBackflowJsondataResponse PushTdiquickmsgBackflowJsondataEx(PushTdiquickmsgBackflowJsondataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushTdiquickmsgBackflowJsondataResponse>(DoRequest("1.0", "riskplus.tdiquickmsg.backflow.jsondata.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 蚁盾数据回流推送，用于客户定制json数据
+         * Summary: 蚁盾数据回流json格式推送
+         */
+        public async Task<PushTdiquickmsgBackflowJsondataResponse> PushTdiquickmsgBackflowJsondataExAsync(PushTdiquickmsgBackflowJsondataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushTdiquickmsgBackflowJsondataResponse>(await DoRequestAsync("1.0", "riskplus.tdiquickmsg.backflow.jsondata.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

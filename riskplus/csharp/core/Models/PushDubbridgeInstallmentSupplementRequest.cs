@@ -23,12 +23,6 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string OrderNo { get; set; }
 
-        // 业务类型：1-现金贷；2-分期付
-        // 
-        [NameInMap("prod_type")]
-        [Validation(Required=true)]
-        public string ProdType { get; set; }
-
         // 资产方用户唯一标识
         [NameInMap("open_id")]
         [Validation(Required=true)]
@@ -38,6 +32,12 @@ namespace AntChain.SDK.RISKPLUS.Models
         [NameInMap("biz_order_no")]
         [Validation(Required=true)]
         public string BizOrderNo { get; set; }
+
+        // 业务类型：1-现金贷；2-分期付
+        // 
+        [NameInMap("prod_type")]
+        [Validation(Required=false)]
+        public string ProdType { get; set; }
 
         // 材料场景：2-支用前、3-支用后
         [NameInMap("file_scene")]
