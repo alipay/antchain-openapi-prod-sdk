@@ -49,17 +49,23 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
      */
     public $projectCode;
 
-    // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
+    // 资产方购物订单号，如二轮车/摩托车订单号
     /**
      * @var string
      */
-    public $tradeAmount;
+    public $bizOrderNo;
 
     // 身份证号
     /**
      * @var string
      */
     public $cardNo;
+
+    // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
+    /**
+     * @var string
+     */
+    public $tradeAmount;
 
     // 客户姓名
     /**
@@ -104,8 +110,9 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
         'openId'            => 'open_id',
         'mobile'            => 'mobile',
         'projectCode'       => 'project_code',
-        'tradeAmount'       => 'trade_amount',
+        'bizOrderNo'        => 'biz_order_no',
         'cardNo'            => 'card_no',
+        'tradeAmount'       => 'trade_amount',
         'customerName'      => 'customer_name',
         'trafficPlatform'   => 'traffic_platform',
         'trafficSourceName' => 'traffic_source_name',
@@ -147,11 +154,14 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
         if (null !== $this->projectCode) {
             $res['project_code'] = $this->projectCode;
         }
-        if (null !== $this->tradeAmount) {
-            $res['trade_amount'] = $this->tradeAmount;
+        if (null !== $this->bizOrderNo) {
+            $res['biz_order_no'] = $this->bizOrderNo;
         }
         if (null !== $this->cardNo) {
             $res['card_no'] = $this->cardNo;
+        }
+        if (null !== $this->tradeAmount) {
+            $res['trade_amount'] = $this->tradeAmount;
         }
         if (null !== $this->customerName) {
             $res['customer_name'] = $this->customerName;
@@ -204,11 +214,14 @@ class QueryDubbridgeInstallmentCreditamtRequest extends Model
         if (isset($map['project_code'])) {
             $model->projectCode = $map['project_code'];
         }
-        if (isset($map['trade_amount'])) {
-            $model->tradeAmount = $map['trade_amount'];
+        if (isset($map['biz_order_no'])) {
+            $model->bizOrderNo = $map['biz_order_no'];
         }
         if (isset($map['card_no'])) {
             $model->cardNo = $map['card_no'];
+        }
+        if (isset($map['trade_amount'])) {
+            $model->tradeAmount = $map['trade_amount'];
         }
         if (isset($map['customer_name'])) {
             $model->customerName = $map['customer_name'];
