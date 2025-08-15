@@ -11853,10 +11853,12 @@ export class QueryDubbridgeInstallmentCreditamtRequest extends $tea.Model {
   mobile: string;
   // 项目编号
   projectCode: string;
-  // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
-  tradeAmount?: string;
+  // 资产方购物订单号，如二轮车/摩托车订单号
+  bizOrderNo?: string;
   // 身份证号
   cardNo?: string;
+  // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
+  tradeAmount?: string;
   // 客户姓名
   customerName?: string;
   // 导流平台
@@ -11878,8 +11880,9 @@ export class QueryDubbridgeInstallmentCreditamtRequest extends $tea.Model {
       openId: 'open_id',
       mobile: 'mobile',
       projectCode: 'project_code',
-      tradeAmount: 'trade_amount',
+      bizOrderNo: 'biz_order_no',
       cardNo: 'card_no',
+      tradeAmount: 'trade_amount',
       customerName: 'customer_name',
       trafficPlatform: 'traffic_platform',
       trafficSourceName: 'traffic_source_name',
@@ -11898,8 +11901,9 @@ export class QueryDubbridgeInstallmentCreditamtRequest extends $tea.Model {
       openId: 'string',
       mobile: 'string',
       projectCode: 'string',
-      tradeAmount: 'string',
+      bizOrderNo: 'string',
       cardNo: 'string',
+      tradeAmount: 'string',
       customerName: 'string',
       trafficPlatform: 'string',
       trafficSourceName: 'string',
@@ -24505,7 +24509,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.25.4",
+          sdk_version: "1.25.5",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
