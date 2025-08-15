@@ -19713,8 +19713,9 @@ class QueryDubbridgeInstallmentCreditamtRequest(TeaModel):
         open_id: str = None,
         mobile: str = None,
         project_code: str = None,
-        trade_amount: str = None,
+        biz_order_no: str = None,
         card_no: str = None,
+        trade_amount: str = None,
         customer_name: str = None,
         traffic_platform: str = None,
         traffic_source_name: str = None,
@@ -19735,10 +19736,12 @@ class QueryDubbridgeInstallmentCreditamtRequest(TeaModel):
         self.mobile = mobile
         # 项目编号
         self.project_code = project_code
-        # 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
-        self.trade_amount = trade_amount
+        # 资产方购物订单号，如二轮车/摩托车订单号
+        self.biz_order_no = biz_order_no
         # 身份证号
         self.card_no = card_no
+        # 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
+        self.trade_amount = trade_amount
         # 客户姓名
         self.customer_name = customer_name
         # 导流平台
@@ -19779,10 +19782,12 @@ class QueryDubbridgeInstallmentCreditamtRequest(TeaModel):
             result['mobile'] = self.mobile
         if self.project_code is not None:
             result['project_code'] = self.project_code
-        if self.trade_amount is not None:
-            result['trade_amount'] = self.trade_amount
+        if self.biz_order_no is not None:
+            result['biz_order_no'] = self.biz_order_no
         if self.card_no is not None:
             result['card_no'] = self.card_no
+        if self.trade_amount is not None:
+            result['trade_amount'] = self.trade_amount
         if self.customer_name is not None:
             result['customer_name'] = self.customer_name
         if self.traffic_platform is not None:
@@ -19813,10 +19818,12 @@ class QueryDubbridgeInstallmentCreditamtRequest(TeaModel):
             self.mobile = m.get('mobile')
         if m.get('project_code') is not None:
             self.project_code = m.get('project_code')
-        if m.get('trade_amount') is not None:
-            self.trade_amount = m.get('trade_amount')
+        if m.get('biz_order_no') is not None:
+            self.biz_order_no = m.get('biz_order_no')
         if m.get('card_no') is not None:
             self.card_no = m.get('card_no')
+        if m.get('trade_amount') is not None:
+            self.trade_amount = m.get('trade_amount')
         if m.get('customer_name') is not None:
             self.customer_name = m.get('customer_name')
         if m.get('traffic_platform') is not None:
