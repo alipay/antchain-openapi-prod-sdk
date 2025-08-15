@@ -36,13 +36,17 @@ public class QueryDubbridgeInstallmentCreditamtRequest extends TeaModel {
     @Validation(required = true)
     public String projectCode;
 
-    // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
-    @NameInMap("trade_amount")
-    public String tradeAmount;
+    // 资产方购物订单号，如二轮车/摩托车订单号
+    @NameInMap("biz_order_no")
+    public String bizOrderNo;
 
     // 身份证号
     @NameInMap("card_no")
     public String cardNo;
+
+    // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
+    @NameInMap("trade_amount")
+    public String tradeAmount;
 
     // 客户姓名
     @NameInMap("customer_name")
@@ -129,12 +133,12 @@ public class QueryDubbridgeInstallmentCreditamtRequest extends TeaModel {
         return this.projectCode;
     }
 
-    public QueryDubbridgeInstallmentCreditamtRequest setTradeAmount(String tradeAmount) {
-        this.tradeAmount = tradeAmount;
+    public QueryDubbridgeInstallmentCreditamtRequest setBizOrderNo(String bizOrderNo) {
+        this.bizOrderNo = bizOrderNo;
         return this;
     }
-    public String getTradeAmount() {
-        return this.tradeAmount;
+    public String getBizOrderNo() {
+        return this.bizOrderNo;
     }
 
     public QueryDubbridgeInstallmentCreditamtRequest setCardNo(String cardNo) {
@@ -143,6 +147,14 @@ public class QueryDubbridgeInstallmentCreditamtRequest extends TeaModel {
     }
     public String getCardNo() {
         return this.cardNo;
+    }
+
+    public QueryDubbridgeInstallmentCreditamtRequest setTradeAmount(String tradeAmount) {
+        this.tradeAmount = tradeAmount;
+        return this;
+    }
+    public String getTradeAmount() {
+        return this.tradeAmount;
     }
 
     public QueryDubbridgeInstallmentCreditamtRequest setCustomerName(String customerName) {
