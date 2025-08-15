@@ -15931,10 +15931,12 @@ type QueryDubbridgeInstallmentCreditamtRequest struct {
 	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
 	// 项目编号
 	ProjectCode *string `json:"project_code,omitempty" xml:"project_code,omitempty" require:"true"`
-	// 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
-	TradeAmount *string `json:"trade_amount,omitempty" xml:"trade_amount,omitempty"`
+	// 资产方购物订单号，如二轮车/摩托车订单号
+	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty"`
 	// 身份证号
 	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty"`
+	// 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
+	TradeAmount *string `json:"trade_amount,omitempty" xml:"trade_amount,omitempty"`
 	// 客户姓名
 	CustomerName *string `json:"customer_name,omitempty" xml:"customer_name,omitempty"`
 	// 导流平台
@@ -15992,13 +15994,18 @@ func (s *QueryDubbridgeInstallmentCreditamtRequest) SetProjectCode(v string) *Qu
 	return s
 }
 
-func (s *QueryDubbridgeInstallmentCreditamtRequest) SetTradeAmount(v string) *QueryDubbridgeInstallmentCreditamtRequest {
-	s.TradeAmount = &v
+func (s *QueryDubbridgeInstallmentCreditamtRequest) SetBizOrderNo(v string) *QueryDubbridgeInstallmentCreditamtRequest {
+	s.BizOrderNo = &v
 	return s
 }
 
 func (s *QueryDubbridgeInstallmentCreditamtRequest) SetCardNo(v string) *QueryDubbridgeInstallmentCreditamtRequest {
 	s.CardNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeInstallmentCreditamtRequest) SetTradeAmount(v string) *QueryDubbridgeInstallmentCreditamtRequest {
+	s.TradeAmount = &v
 	return s
 }
 
@@ -32792,7 +32799,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.25.4"),
+				"sdk_version":      tea.String("1.25.5"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
