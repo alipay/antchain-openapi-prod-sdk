@@ -43,15 +43,20 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string ProjectCode { get; set; }
 
-        // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
-        [NameInMap("trade_amount")]
+        // 资产方购物订单号，如二轮车/摩托车订单号
+        [NameInMap("biz_order_no")]
         [Validation(Required=false)]
-        public string TradeAmount { get; set; }
+        public string BizOrderNo { get; set; }
 
         // 身份证号
         [NameInMap("card_no")]
         [Validation(Required=false)]
         public string CardNo { get; set; }
+
+        // 交易金额，单位：元，如199.88（用于筛选额度充足的机构）
+        [NameInMap("trade_amount")]
+        [Validation(Required=false)]
+        public string TradeAmount { get; set; }
 
         // 客户姓名
         [NameInMap("customer_name")]
