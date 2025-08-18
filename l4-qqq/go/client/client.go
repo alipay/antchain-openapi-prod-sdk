@@ -773,31 +773,185 @@ func (s *ApiAntchainAbcTestCreateResponse) SetMsg(v string) *ApiAntchainAbcTestC
 	return s
 }
 
-type ResetBbbCccRequest struct {
+type QueryAntchainAbcOneLimitRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
+}
+
+func (s QueryAntchainAbcOneLimitRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainAbcOneLimitRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainAbcOneLimitRequest) SetAuthToken(v string) *QueryAntchainAbcOneLimitRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntchainAbcOneLimitRequest) SetProductInstanceId(v string) *QueryAntchainAbcOneLimitRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntchainAbcOneLimitRequest) SetTimeout(v string) *QueryAntchainAbcOneLimitRequest {
+	s.Timeout = &v
+	return s
+}
+
+type QueryAntchainAbcOneLimitResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态码
+	Stauts *string `json:"stauts,omitempty" xml:"stauts,omitempty"`
+	// 状态码描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s QueryAntchainAbcOneLimitResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainAbcOneLimitResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainAbcOneLimitResponse) SetReqMsgId(v string) *QueryAntchainAbcOneLimitResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntchainAbcOneLimitResponse) SetResultCode(v string) *QueryAntchainAbcOneLimitResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntchainAbcOneLimitResponse) SetResultMsg(v string) *QueryAntchainAbcOneLimitResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntchainAbcOneLimitResponse) SetStauts(v string) *QueryAntchainAbcOneLimitResponse {
+	s.Stauts = &v
+	return s
+}
+
+func (s *QueryAntchainAbcOneLimitResponse) SetMsg(v string) *QueryAntchainAbcOneLimitResponse {
+	s.Msg = &v
+	return s
+}
+
+type UnstabilizeAntchainAbcOneLimitRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
+}
+
+func (s UnstabilizeAntchainAbcOneLimitRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnstabilizeAntchainAbcOneLimitRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UnstabilizeAntchainAbcOneLimitRequest) SetAuthToken(v string) *UnstabilizeAntchainAbcOneLimitRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UnstabilizeAntchainAbcOneLimitRequest) SetProductInstanceId(v string) *UnstabilizeAntchainAbcOneLimitRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UnstabilizeAntchainAbcOneLimitRequest) SetTimeout(v string) *UnstabilizeAntchainAbcOneLimitRequest {
+	s.Timeout = &v
+	return s
+}
+
+type UnstabilizeAntchainAbcOneLimitResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果码描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 状态码
+	Stauts *string `json:"stauts,omitempty" xml:"stauts,omitempty"`
+}
+
+func (s UnstabilizeAntchainAbcOneLimitResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnstabilizeAntchainAbcOneLimitResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UnstabilizeAntchainAbcOneLimitResponse) SetReqMsgId(v string) *UnstabilizeAntchainAbcOneLimitResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UnstabilizeAntchainAbcOneLimitResponse) SetResultCode(v string) *UnstabilizeAntchainAbcOneLimitResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UnstabilizeAntchainAbcOneLimitResponse) SetResultMsg(v string) *UnstabilizeAntchainAbcOneLimitResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UnstabilizeAntchainAbcOneLimitResponse) SetMsg(v string) *UnstabilizeAntchainAbcOneLimitResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *UnstabilizeAntchainAbcOneLimitResponse) SetStauts(v string) *UnstabilizeAntchainAbcOneLimitResponse {
+	s.Stauts = &v
+	return s
+}
+
+type ResetAntchainDemosdkBbbCccRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 }
 
-func (s ResetBbbCccRequest) String() string {
+func (s ResetAntchainDemosdkBbbCccRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ResetBbbCccRequest) GoString() string {
+func (s ResetAntchainDemosdkBbbCccRequest) GoString() string {
 	return s.String()
 }
 
-func (s *ResetBbbCccRequest) SetAuthToken(v string) *ResetBbbCccRequest {
+func (s *ResetAntchainDemosdkBbbCccRequest) SetAuthToken(v string) *ResetAntchainDemosdkBbbCccRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *ResetBbbCccRequest) SetProductInstanceId(v string) *ResetBbbCccRequest {
+func (s *ResetAntchainDemosdkBbbCccRequest) SetProductInstanceId(v string) *ResetAntchainDemosdkBbbCccRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-type ResetBbbCccResponse struct {
+type ResetAntchainDemosdkBbbCccResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -806,30 +960,100 @@ type ResetBbbCccResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
-func (s ResetBbbCccResponse) String() string {
+func (s ResetAntchainDemosdkBbbCccResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ResetBbbCccResponse) GoString() string {
+func (s ResetAntchainDemosdkBbbCccResponse) GoString() string {
 	return s.String()
 }
 
-func (s *ResetBbbCccResponse) SetReqMsgId(v string) *ResetBbbCccResponse {
+func (s *ResetAntchainDemosdkBbbCccResponse) SetReqMsgId(v string) *ResetAntchainDemosdkBbbCccResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *ResetBbbCccResponse) SetResultCode(v string) *ResetBbbCccResponse {
+func (s *ResetAntchainDemosdkBbbCccResponse) SetResultCode(v string) *ResetAntchainDemosdkBbbCccResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *ResetBbbCccResponse) SetResultMsg(v string) *ResetBbbCccResponse {
+func (s *ResetAntchainDemosdkBbbCccResponse) SetResultMsg(v string) *ResetAntchainDemosdkBbbCccResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-type QueryCcXxRequest struct {
+type BindAntchainDemosdkXxxRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 123
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 123
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s BindAntchainDemosdkXxxRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindAntchainDemosdkXxxRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BindAntchainDemosdkXxxRequest) SetAuthToken(v string) *BindAntchainDemosdkXxxRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BindAntchainDemosdkXxxRequest) SetProductInstanceId(v string) *BindAntchainDemosdkXxxRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BindAntchainDemosdkXxxRequest) SetDate(v string) *BindAntchainDemosdkXxxRequest {
+	s.Date = &v
+	return s
+}
+
+func (s *BindAntchainDemosdkXxxRequest) SetData(v string) *BindAntchainDemosdkXxxRequest {
+	s.Data = &v
+	return s
+}
+
+type BindAntchainDemosdkXxxResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s BindAntchainDemosdkXxxResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BindAntchainDemosdkXxxResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BindAntchainDemosdkXxxResponse) SetReqMsgId(v string) *BindAntchainDemosdkXxxResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BindAntchainDemosdkXxxResponse) SetResultCode(v string) *BindAntchainDemosdkXxxResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BindAntchainDemosdkXxxResponse) SetResultMsg(v string) *BindAntchainDemosdkXxxResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryAntchainDemosdkCcXxRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -839,35 +1063,35 @@ type QueryCcXxRequest struct {
 	Msg *ResultTest `json:"msg,omitempty" xml:"msg,omitempty" require:"true"`
 }
 
-func (s QueryCcXxRequest) String() string {
+func (s QueryAntchainDemosdkCcXxRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryCcXxRequest) GoString() string {
+func (s QueryAntchainDemosdkCcXxRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryCcXxRequest) SetAuthToken(v string) *QueryCcXxRequest {
+func (s *QueryAntchainDemosdkCcXxRequest) SetAuthToken(v string) *QueryAntchainDemosdkCcXxRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryCcXxRequest) SetProductInstanceId(v string) *QueryCcXxRequest {
+func (s *QueryAntchainDemosdkCcXxRequest) SetProductInstanceId(v string) *QueryAntchainDemosdkCcXxRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryCcXxRequest) SetName(v string) *QueryCcXxRequest {
+func (s *QueryAntchainDemosdkCcXxRequest) SetName(v string) *QueryAntchainDemosdkCcXxRequest {
 	s.Name = &v
 	return s
 }
 
-func (s *QueryCcXxRequest) SetMsg(v *ResultTest) *QueryCcXxRequest {
+func (s *QueryAntchainDemosdkCcXxRequest) SetMsg(v *ResultTest) *QueryAntchainDemosdkCcXxRequest {
 	s.Msg = v
 	return s
 }
 
-type QueryCcXxResponse struct {
+type QueryAntchainDemosdkCcXxResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -878,35 +1102,140 @@ type QueryCcXxResponse struct {
 	Test *string `json:"test,omitempty" xml:"test,omitempty"`
 }
 
-func (s QueryCcXxResponse) String() string {
+func (s QueryAntchainDemosdkCcXxResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryCcXxResponse) GoString() string {
+func (s QueryAntchainDemosdkCcXxResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryCcXxResponse) SetReqMsgId(v string) *QueryCcXxResponse {
+func (s *QueryAntchainDemosdkCcXxResponse) SetReqMsgId(v string) *QueryAntchainDemosdkCcXxResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryCcXxResponse) SetResultCode(v string) *QueryCcXxResponse {
+func (s *QueryAntchainDemosdkCcXxResponse) SetResultCode(v string) *QueryAntchainDemosdkCcXxResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryCcXxResponse) SetResultMsg(v string) *QueryCcXxResponse {
+func (s *QueryAntchainDemosdkCcXxResponse) SetResultMsg(v string) *QueryAntchainDemosdkCcXxResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryCcXxResponse) SetTest(v string) *QueryCcXxResponse {
+func (s *QueryAntchainDemosdkCcXxResponse) SetTest(v string) *QueryAntchainDemosdkCcXxResponse {
 	s.Test = &v
 	return s
 }
 
-type ImportCreateOneRequest struct {
+type ResetAntchainDemosdkAbcdLimitRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty"`
+	// 请求编号
+	Count *string `json:"count,omitempty" xml:"count,omitempty"`
+	// 请求时间
+	Time *string `json:"time,omitempty" xml:"time,omitempty"`
+	// 请求描述
+	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
+	// 操作者
+	Operator *string `json:"operator,omitempty" xml:"operator,omitempty"`
+}
+
+func (s ResetAntchainDemosdkAbcdLimitRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResetAntchainDemosdkAbcdLimitRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ResetAntchainDemosdkAbcdLimitRequest) SetAuthToken(v string) *ResetAntchainDemosdkAbcdLimitRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ResetAntchainDemosdkAbcdLimitRequest) SetProductInstanceId(v string) *ResetAntchainDemosdkAbcdLimitRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ResetAntchainDemosdkAbcdLimitRequest) SetTimeout(v string) *ResetAntchainDemosdkAbcdLimitRequest {
+	s.Timeout = &v
+	return s
+}
+
+func (s *ResetAntchainDemosdkAbcdLimitRequest) SetCount(v string) *ResetAntchainDemosdkAbcdLimitRequest {
+	s.Count = &v
+	return s
+}
+
+func (s *ResetAntchainDemosdkAbcdLimitRequest) SetTime(v string) *ResetAntchainDemosdkAbcdLimitRequest {
+	s.Time = &v
+	return s
+}
+
+func (s *ResetAntchainDemosdkAbcdLimitRequest) SetDesc(v string) *ResetAntchainDemosdkAbcdLimitRequest {
+	s.Desc = &v
+	return s
+}
+
+func (s *ResetAntchainDemosdkAbcdLimitRequest) SetOperator(v string) *ResetAntchainDemosdkAbcdLimitRequest {
+	s.Operator = &v
+	return s
+}
+
+type ResetAntchainDemosdkAbcdLimitResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	Stauts *string `json:"stauts,omitempty" xml:"stauts,omitempty"`
+	// 返回描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s ResetAntchainDemosdkAbcdLimitResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResetAntchainDemosdkAbcdLimitResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ResetAntchainDemosdkAbcdLimitResponse) SetReqMsgId(v string) *ResetAntchainDemosdkAbcdLimitResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ResetAntchainDemosdkAbcdLimitResponse) SetResultCode(v string) *ResetAntchainDemosdkAbcdLimitResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ResetAntchainDemosdkAbcdLimitResponse) SetResultMsg(v string) *ResetAntchainDemosdkAbcdLimitResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ResetAntchainDemosdkAbcdLimitResponse) SetStauts(v string) *ResetAntchainDemosdkAbcdLimitResponse {
+	s.Stauts = &v
+	return s
+}
+
+func (s *ResetAntchainDemosdkAbcdLimitResponse) SetMsg(v string) *ResetAntchainDemosdkAbcdLimitResponse {
+	s.Msg = &v
+	return s
+}
+
+type ImportAntchainDemosdkCreateOneRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -914,30 +1243,30 @@ type ImportCreateOneRequest struct {
 	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
 }
 
-func (s ImportCreateOneRequest) String() string {
+func (s ImportAntchainDemosdkCreateOneRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ImportCreateOneRequest) GoString() string {
+func (s ImportAntchainDemosdkCreateOneRequest) GoString() string {
 	return s.String()
 }
 
-func (s *ImportCreateOneRequest) SetAuthToken(v string) *ImportCreateOneRequest {
+func (s *ImportAntchainDemosdkCreateOneRequest) SetAuthToken(v string) *ImportAntchainDemosdkCreateOneRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *ImportCreateOneRequest) SetProductInstanceId(v string) *ImportCreateOneRequest {
+func (s *ImportAntchainDemosdkCreateOneRequest) SetProductInstanceId(v string) *ImportAntchainDemosdkCreateOneRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *ImportCreateOneRequest) SetTimeout(v string) *ImportCreateOneRequest {
+func (s *ImportAntchainDemosdkCreateOneRequest) SetTimeout(v string) *ImportAntchainDemosdkCreateOneRequest {
 	s.Timeout = &v
 	return s
 }
 
-type ImportCreateOneResponse struct {
+type ImportAntchainDemosdkCreateOneResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -950,36 +1279,351 @@ type ImportCreateOneResponse struct {
 	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
 }
 
-func (s ImportCreateOneResponse) String() string {
+func (s ImportAntchainDemosdkCreateOneResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s ImportCreateOneResponse) GoString() string {
+func (s ImportAntchainDemosdkCreateOneResponse) GoString() string {
 	return s.String()
 }
 
-func (s *ImportCreateOneResponse) SetReqMsgId(v string) *ImportCreateOneResponse {
+func (s *ImportAntchainDemosdkCreateOneResponse) SetReqMsgId(v string) *ImportAntchainDemosdkCreateOneResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *ImportCreateOneResponse) SetResultCode(v string) *ImportCreateOneResponse {
+func (s *ImportAntchainDemosdkCreateOneResponse) SetResultCode(v string) *ImportAntchainDemosdkCreateOneResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *ImportCreateOneResponse) SetResultMsg(v string) *ImportCreateOneResponse {
+func (s *ImportAntchainDemosdkCreateOneResponse) SetResultMsg(v string) *ImportAntchainDemosdkCreateOneResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *ImportCreateOneResponse) SetStatus(v string) *ImportCreateOneResponse {
+func (s *ImportAntchainDemosdkCreateOneResponse) SetStatus(v string) *ImportAntchainDemosdkCreateOneResponse {
 	s.Status = &v
 	return s
 }
 
-func (s *ImportCreateOneResponse) SetMsg(v string) *ImportCreateOneResponse {
+func (s *ImportAntchainDemosdkCreateOneResponse) SetMsg(v string) *ImportAntchainDemosdkCreateOneResponse {
 	s.Msg = &v
+	return s
+}
+
+type WithdrawAntchainDemosdkTwiceOneRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty"`
+}
+
+func (s WithdrawAntchainDemosdkTwiceOneRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WithdrawAntchainDemosdkTwiceOneRequest) GoString() string {
+	return s.String()
+}
+
+func (s *WithdrawAntchainDemosdkTwiceOneRequest) SetAuthToken(v string) *WithdrawAntchainDemosdkTwiceOneRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *WithdrawAntchainDemosdkTwiceOneRequest) SetProductInstanceId(v string) *WithdrawAntchainDemosdkTwiceOneRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *WithdrawAntchainDemosdkTwiceOneRequest) SetTimeout(v string) *WithdrawAntchainDemosdkTwiceOneRequest {
+	s.Timeout = &v
+	return s
+}
+
+type WithdrawAntchainDemosdkTwiceOneResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果码
+	Stauts *string `json:"stauts,omitempty" xml:"stauts,omitempty"`
+	// 返回结果描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s WithdrawAntchainDemosdkTwiceOneResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s WithdrawAntchainDemosdkTwiceOneResponse) GoString() string {
+	return s.String()
+}
+
+func (s *WithdrawAntchainDemosdkTwiceOneResponse) SetReqMsgId(v string) *WithdrawAntchainDemosdkTwiceOneResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *WithdrawAntchainDemosdkTwiceOneResponse) SetResultCode(v string) *WithdrawAntchainDemosdkTwiceOneResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *WithdrawAntchainDemosdkTwiceOneResponse) SetResultMsg(v string) *WithdrawAntchainDemosdkTwiceOneResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *WithdrawAntchainDemosdkTwiceOneResponse) SetStauts(v string) *WithdrawAntchainDemosdkTwiceOneResponse {
+	s.Stauts = &v
+	return s
+}
+
+func (s *WithdrawAntchainDemosdkTwiceOneResponse) SetMsg(v string) *WithdrawAntchainDemosdkTwiceOneResponse {
+	s.Msg = &v
+	return s
+}
+
+type QueryAntchainDemosdkTwiceThreeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty"`
+	// 11
+	Aa *DemoClass `json:"aa,omitempty" xml:"aa,omitempty"`
+}
+
+func (s QueryAntchainDemosdkTwiceThreeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainDemosdkTwiceThreeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainDemosdkTwiceThreeRequest) SetAuthToken(v string) *QueryAntchainDemosdkTwiceThreeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntchainDemosdkTwiceThreeRequest) SetProductInstanceId(v string) *QueryAntchainDemosdkTwiceThreeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntchainDemosdkTwiceThreeRequest) SetTimeout(v string) *QueryAntchainDemosdkTwiceThreeRequest {
+	s.Timeout = &v
+	return s
+}
+
+func (s *QueryAntchainDemosdkTwiceThreeRequest) SetAa(v *DemoClass) *QueryAntchainDemosdkTwiceThreeRequest {
+	s.Aa = v
+	return s
+}
+
+type QueryAntchainDemosdkTwiceThreeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态码
+	Stauts *string `json:"stauts,omitempty" xml:"stauts,omitempty"`
+	// 状态描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s QueryAntchainDemosdkTwiceThreeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainDemosdkTwiceThreeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainDemosdkTwiceThreeResponse) SetReqMsgId(v string) *QueryAntchainDemosdkTwiceThreeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntchainDemosdkTwiceThreeResponse) SetResultCode(v string) *QueryAntchainDemosdkTwiceThreeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntchainDemosdkTwiceThreeResponse) SetResultMsg(v string) *QueryAntchainDemosdkTwiceThreeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntchainDemosdkTwiceThreeResponse) SetStauts(v string) *QueryAntchainDemosdkTwiceThreeResponse {
+	s.Stauts = &v
+	return s
+}
+
+func (s *QueryAntchainDemosdkTwiceThreeResponse) SetMsg(v string) *QueryAntchainDemosdkTwiceThreeResponse {
+	s.Msg = &v
+	return s
+}
+
+type UnstabilizeAntchainDemosdkTwiceThreeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty"`
+}
+
+func (s UnstabilizeAntchainDemosdkTwiceThreeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnstabilizeAntchainDemosdkTwiceThreeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UnstabilizeAntchainDemosdkTwiceThreeRequest) SetAuthToken(v string) *UnstabilizeAntchainDemosdkTwiceThreeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UnstabilizeAntchainDemosdkTwiceThreeRequest) SetProductInstanceId(v string) *UnstabilizeAntchainDemosdkTwiceThreeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UnstabilizeAntchainDemosdkTwiceThreeRequest) SetTimeout(v string) *UnstabilizeAntchainDemosdkTwiceThreeRequest {
+	s.Timeout = &v
+	return s
+}
+
+type UnstabilizeAntchainDemosdkTwiceThreeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态码
+	Stauts *string `json:"stauts,omitempty" xml:"stauts,omitempty"`
+	// 状态描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s UnstabilizeAntchainDemosdkTwiceThreeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnstabilizeAntchainDemosdkTwiceThreeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UnstabilizeAntchainDemosdkTwiceThreeResponse) SetReqMsgId(v string) *UnstabilizeAntchainDemosdkTwiceThreeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UnstabilizeAntchainDemosdkTwiceThreeResponse) SetResultCode(v string) *UnstabilizeAntchainDemosdkTwiceThreeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UnstabilizeAntchainDemosdkTwiceThreeResponse) SetResultMsg(v string) *UnstabilizeAntchainDemosdkTwiceThreeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UnstabilizeAntchainDemosdkTwiceThreeResponse) SetStauts(v string) *UnstabilizeAntchainDemosdkTwiceThreeResponse {
+	s.Stauts = &v
+	return s
+}
+
+func (s *UnstabilizeAntchainDemosdkTwiceThreeResponse) SetMsg(v string) *UnstabilizeAntchainDemosdkTwiceThreeResponse {
+	s.Msg = &v
+	return s
+}
+
+type QueryAntchainDemosdkTesxRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 12
+	Test *DemoClass `json:"test,omitempty" xml:"test,omitempty"`
+	// 12
+	TestNew *TestDemo `json:"test_new,omitempty" xml:"test_new,omitempty"`
+}
+
+func (s QueryAntchainDemosdkTesxRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainDemosdkTesxRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainDemosdkTesxRequest) SetAuthToken(v string) *QueryAntchainDemosdkTesxRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntchainDemosdkTesxRequest) SetProductInstanceId(v string) *QueryAntchainDemosdkTesxRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntchainDemosdkTesxRequest) SetName(v string) *QueryAntchainDemosdkTesxRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *QueryAntchainDemosdkTesxRequest) SetTest(v *DemoClass) *QueryAntchainDemosdkTesxRequest {
+	s.Test = v
+	return s
+}
+
+func (s *QueryAntchainDemosdkTesxRequest) SetTestNew(v *TestDemo) *QueryAntchainDemosdkTesxRequest {
+	s.TestNew = v
+	return s
+}
+
+type QueryAntchainDemosdkTesxResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryAntchainDemosdkTesxResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainDemosdkTesxResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainDemosdkTesxResponse) SetReqMsgId(v string) *QueryAntchainDemosdkTesxResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntchainDemosdkTesxResponse) SetResultCode(v string) *QueryAntchainDemosdkTesxResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntchainDemosdkTesxResponse) SetResultMsg(v string) *QueryAntchainDemosdkTesxResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -1105,8 +1749,8 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.0.2"),
-				"_prod_code":       tea.String("DEMOSDK"),
+				"sdk_version":      tea.String("2.0.15"),
+				"_prod_code":       tea.String("QQQ"),
 				"_prod_channel":    tea.String("default"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
@@ -1266,14 +1910,82 @@ func (client *Client) ApiAntchainAbcTestCreateEx(request *ApiAntchainAbcTestCrea
 }
 
 /**
+ * Description: 哈哈哈哈哈哈哈哈个人工作台二期预发测试qqq
+ * Summary: 哈哈哈哈哈哈哈哈个人工作台二期预发测试qqq
+ */
+func (client *Client) QueryAntchainAbcOneLimit(request *QueryAntchainAbcOneLimitRequest) (_result *QueryAntchainAbcOneLimitResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntchainAbcOneLimitResponse{}
+	_body, _err := client.QueryAntchainAbcOneLimitEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 哈哈哈哈哈哈哈哈个人工作台二期预发测试qqq
+ * Summary: 哈哈哈哈哈哈哈哈个人工作台二期预发测试qqq
+ */
+func (client *Client) QueryAntchainAbcOneLimitEx(request *QueryAntchainAbcOneLimitRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainAbcOneLimitResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntchainAbcOneLimitResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.abc.one.limit.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期测试接口
+ * Summary: 个人工作台二期测试接口
+ */
+func (client *Client) UnstabilizeAntchainAbcOneLimit(request *UnstabilizeAntchainAbcOneLimitRequest) (_result *UnstabilizeAntchainAbcOneLimitResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UnstabilizeAntchainAbcOneLimitResponse{}
+	_body, _err := client.UnstabilizeAntchainAbcOneLimitEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期测试接口
+ * Summary: 个人工作台二期测试接口
+ */
+func (client *Client) UnstabilizeAntchainAbcOneLimitEx(request *UnstabilizeAntchainAbcOneLimitRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UnstabilizeAntchainAbcOneLimitResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UnstabilizeAntchainAbcOneLimitResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.abc.one.limit.unstabilize"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 测试接口
  * Summary: 测试接口
  */
-func (client *Client) ResetBbbCcc(request *ResetBbbCccRequest) (_result *ResetBbbCccResponse, _err error) {
+func (client *Client) ResetAntchainDemosdkBbbCcc(request *ResetAntchainDemosdkBbbCccRequest) (_result *ResetAntchainDemosdkBbbCccResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &ResetBbbCccResponse{}
-	_body, _err := client.ResetBbbCccEx(request, headers, runtime)
+	_result = &ResetAntchainDemosdkBbbCccResponse{}
+	_body, _err := client.ResetAntchainDemosdkBbbCccEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -1285,12 +1997,12 @@ func (client *Client) ResetBbbCcc(request *ResetBbbCccRequest) (_result *ResetBb
  * Description: 测试接口
  * Summary: 测试接口
  */
-func (client *Client) ResetBbbCccEx(request *ResetBbbCccRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ResetBbbCccResponse, _err error) {
+func (client *Client) ResetAntchainDemosdkBbbCccEx(request *ResetAntchainDemosdkBbbCccRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ResetAntchainDemosdkBbbCccResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &ResetBbbCccResponse{}
+	_result = &ResetAntchainDemosdkBbbCccResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.bbb.ccc.reset"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
@@ -1300,14 +2012,48 @@ func (client *Client) ResetBbbCccEx(request *ResetBbbCccRequest, headers map[str
 }
 
 /**
+ * Description: 自动化测试创建test，请勿修改、删除
+ * Summary: 自动化测试创建test，请勿修改、删除
+ */
+func (client *Client) BindAntchainDemosdkXxx(request *BindAntchainDemosdkXxxRequest) (_result *BindAntchainDemosdkXxxResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BindAntchainDemosdkXxxResponse{}
+	_body, _err := client.BindAntchainDemosdkXxxEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 自动化测试创建test，请勿修改、删除
+ * Summary: 自动化测试创建test，请勿修改、删除
+ */
+func (client *Client) BindAntchainDemosdkXxxEx(request *BindAntchainDemosdkXxxRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BindAntchainDemosdkXxxResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BindAntchainDemosdkXxxResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.xxx.bind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 测试
  * Summary: 测试
  */
-func (client *Client) QueryCcXx(request *QueryCcXxRequest) (_result *QueryCcXxResponse, _err error) {
+func (client *Client) QueryAntchainDemosdkCcXx(request *QueryAntchainDemosdkCcXxRequest) (_result *QueryAntchainDemosdkCcXxResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &QueryCcXxResponse{}
-	_body, _err := client.QueryCcXxEx(request, headers, runtime)
+	_result = &QueryAntchainDemosdkCcXxResponse{}
+	_body, _err := client.QueryAntchainDemosdkCcXxEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -1319,13 +2065,47 @@ func (client *Client) QueryCcXx(request *QueryCcXxRequest) (_result *QueryCcXxRe
  * Description: 测试
  * Summary: 测试
  */
-func (client *Client) QueryCcXxEx(request *QueryCcXxRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCcXxResponse, _err error) {
+func (client *Client) QueryAntchainDemosdkCcXxEx(request *QueryAntchainDemosdkCcXxRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainDemosdkCcXxResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryCcXxResponse{}
+	_result = &QueryAntchainDemosdkCcXxResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.cc.xx.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期分组路由灰度测试接口
+ * Summary: 个人工作台二期分组路由灰度测试接口
+ */
+func (client *Client) ResetAntchainDemosdkAbcdLimit(request *ResetAntchainDemosdkAbcdLimitRequest) (_result *ResetAntchainDemosdkAbcdLimitResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ResetAntchainDemosdkAbcdLimitResponse{}
+	_body, _err := client.ResetAntchainDemosdkAbcdLimitEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期分组路由灰度测试接口
+ * Summary: 个人工作台二期分组路由灰度测试接口
+ */
+func (client *Client) ResetAntchainDemosdkAbcdLimitEx(request *ResetAntchainDemosdkAbcdLimitRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ResetAntchainDemosdkAbcdLimitResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ResetAntchainDemosdkAbcdLimitResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.abcd.limit.reset"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -1337,11 +2117,11 @@ func (client *Client) QueryCcXxEx(request *QueryCcXxRequest, headers map[string]
  * Description: 用于个人工作台二期测试使用
  * Summary: 用于个人工作台二期测试使用
  */
-func (client *Client) ImportCreateOne(request *ImportCreateOneRequest) (_result *ImportCreateOneResponse, _err error) {
+func (client *Client) ImportAntchainDemosdkCreateOne(request *ImportAntchainDemosdkCreateOneRequest) (_result *ImportAntchainDemosdkCreateOneResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &ImportCreateOneResponse{}
-	_body, _err := client.ImportCreateOneEx(request, headers, runtime)
+	_result = &ImportAntchainDemosdkCreateOneResponse{}
+	_body, _err := client.ImportAntchainDemosdkCreateOneEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -1353,13 +2133,149 @@ func (client *Client) ImportCreateOne(request *ImportCreateOneRequest) (_result 
  * Description: 用于个人工作台二期测试使用
  * Summary: 用于个人工作台二期测试使用
  */
-func (client *Client) ImportCreateOneEx(request *ImportCreateOneRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportCreateOneResponse, _err error) {
+func (client *Client) ImportAntchainDemosdkCreateOneEx(request *ImportAntchainDemosdkCreateOneRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportAntchainDemosdkCreateOneResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &ImportCreateOneResponse{}
+	_result = &ImportAntchainDemosdkCreateOneResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.create.one.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+func (client *Client) WithdrawAntchainDemosdkTwiceOne(request *WithdrawAntchainDemosdkTwiceOneRequest) (_result *WithdrawAntchainDemosdkTwiceOneResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &WithdrawAntchainDemosdkTwiceOneResponse{}
+	_body, _err := client.WithdrawAntchainDemosdkTwiceOneEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+func (client *Client) WithdrawAntchainDemosdkTwiceOneEx(request *WithdrawAntchainDemosdkTwiceOneRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *WithdrawAntchainDemosdkTwiceOneResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &WithdrawAntchainDemosdkTwiceOneResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.twice.one.withdraw"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+func (client *Client) QueryAntchainDemosdkTwiceThree(request *QueryAntchainDemosdkTwiceThreeRequest) (_result *QueryAntchainDemosdkTwiceThreeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntchainDemosdkTwiceThreeResponse{}
+	_body, _err := client.QueryAntchainDemosdkTwiceThreeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+func (client *Client) QueryAntchainDemosdkTwiceThreeEx(request *QueryAntchainDemosdkTwiceThreeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainDemosdkTwiceThreeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntchainDemosdkTwiceThreeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.twice.three.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+func (client *Client) UnstabilizeAntchainDemosdkTwiceThree(request *UnstabilizeAntchainDemosdkTwiceThreeRequest) (_result *UnstabilizeAntchainDemosdkTwiceThreeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UnstabilizeAntchainDemosdkTwiceThreeResponse{}
+	_body, _err := client.UnstabilizeAntchainDemosdkTwiceThreeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+func (client *Client) UnstabilizeAntchainDemosdkTwiceThreeEx(request *UnstabilizeAntchainDemosdkTwiceThreeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UnstabilizeAntchainDemosdkTwiceThreeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UnstabilizeAntchainDemosdkTwiceThreeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.twice.three.unstabilize"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 测试接口
+ * Summary: 测试接口
+ */
+func (client *Client) QueryAntchainDemosdkTesx(request *QueryAntchainDemosdkTesxRequest) (_result *QueryAntchainDemosdkTesxResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntchainDemosdkTesxResponse{}
+	_body, _err := client.QueryAntchainDemosdkTesxEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 测试接口
+ * Summary: 测试接口
+ */
+func (client *Client) QueryAntchainDemosdkTesxEx(request *QueryAntchainDemosdkTesxRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainDemosdkTesxResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntchainDemosdkTesxResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.tesx.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
