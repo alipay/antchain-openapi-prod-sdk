@@ -13,8 +13,8 @@
 如未安装 `pip`, 请先至pip官网 [pip user guide](https://pip.pypa.io/en/stable/installing/ "pip User Guide") 安装pip .
 
 ```bash
-# 安装 antchain-demosdk
-pip install antchain-demosdk
+# 安装 antchain-qqq
+pip install antchain-qqq
 ```
 
 ## 问题
