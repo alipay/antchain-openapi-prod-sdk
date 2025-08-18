@@ -76,6 +76,10 @@ public class CreateElectrocarApplycarkeycertificateRequest extends TeaModel {
     @Validation(required = true)
     public String accessScene;
 
+    // 标识是否启用了阿里云物联网平台
+    @NameInMap("aliyun_iot_enabled")
+    public Boolean aliyunIotEnabled;
+
     public static CreateElectrocarApplycarkeycertificateRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateElectrocarApplycarkeycertificateRequest self = new CreateElectrocarApplycarkeycertificateRequest();
         return TeaModel.build(map, self);
@@ -191,6 +195,14 @@ public class CreateElectrocarApplycarkeycertificateRequest extends TeaModel {
     }
     public String getAccessScene() {
         return this.accessScene;
+    }
+
+    public CreateElectrocarApplycarkeycertificateRequest setAliyunIotEnabled(Boolean aliyunIotEnabled) {
+        this.aliyunIotEnabled = aliyunIotEnabled;
+        return this;
+    }
+    public Boolean getAliyunIotEnabled() {
+        return this.aliyunIotEnabled;
     }
 
 }
