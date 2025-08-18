@@ -3276,6 +3276,81 @@ export class UploadSimRiskdataResponse extends $tea.Model {
   }
 }
 
+export class QueryDigitalkeyUserinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 联合登录token
+  token: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      token: 'token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      token: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDigitalkeyUserinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户ID
+  uid?: string;
+  // 个人简介
+  introduction?: string;
+  // 用户昵称
+  nickName?: string;
+  // 用户头像地址
+  avatarUrl?: string;
+  // 品牌ID
+  brandId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      uid: 'uid',
+      introduction: 'introduction',
+      nickName: 'nick_name',
+      avatarUrl: 'avatar_url',
+      brandId: 'brand_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      uid: 'string',
+      introduction: 'string',
+      nickName: 'string',
+      avatarUrl: 'string',
+      brandId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateBssecpicRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -6582,7 +6657,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.18",
+          sdk_version: "1.4.19",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -7067,6 +7142,25 @@ export default class Client {
   async uploadSimRiskdataEx(request: UploadSimRiskdataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadSimRiskdataResponse> {
     Util.validateModel(request);
     return $tea.cast<UploadSimRiskdataResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.sim.riskdata.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadSimRiskdataResponse({}));
+  }
+
+  /**
+   * Description: 数字钥匙通过联登TOKEN获取用户信息
+   * Summary: 数字钥匙通过联登TOKEN获取用户信息
+   */
+  async queryDigitalkeyUserinfo(request: QueryDigitalkeyUserinfoRequest): Promise<QueryDigitalkeyUserinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDigitalkeyUserinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字钥匙通过联登TOKEN获取用户信息
+   * Summary: 数字钥匙通过联登TOKEN获取用户信息
+   */
+  async queryDigitalkeyUserinfoEx(request: QueryDigitalkeyUserinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDigitalkeyUserinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDigitalkeyUserinfoResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.userinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDigitalkeyUserinfoResponse({}));
   }
 
   /**
