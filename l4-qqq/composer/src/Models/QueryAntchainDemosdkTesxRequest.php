@@ -2,11 +2,11 @@
 
 // This file is auto-generated, don't edit it. Thanks.
 
-namespace AntChain\DEMOSDK\Models;
+namespace AntChain\QQQ\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryCcXxRequest extends Model
+class QueryAntchainDemosdkTesxRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,28 +19,34 @@ class QueryCcXxRequest extends Model
      */
     public $productInstanceId;
 
-    // aa
+    // 名称
     /**
      * @var string
      */
     public $name;
 
-    // 测试
+    // 12
     /**
-     * @var ResultTest
+     * @var DemoClass
      */
-    public $msg;
+    public $test;
+
+    // 12
+    /**
+     * @var TestDemo
+     */
+    public $testNew;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'name'              => 'name',
-        'msg'               => 'msg',
+        'test'              => 'test',
+        'testNew'           => 'test_new',
     ];
 
     public function validate()
     {
         Model::validateRequired('name', $this->name, true);
-        Model::validateRequired('msg', $this->msg, true);
     }
 
     public function toMap()
@@ -55,8 +61,11 @@ class QueryCcXxRequest extends Model
         if (null !== $this->name) {
             $res['name'] = $this->name;
         }
-        if (null !== $this->msg) {
-            $res['msg'] = null !== $this->msg ? $this->msg->toMap() : null;
+        if (null !== $this->test) {
+            $res['test'] = null !== $this->test ? $this->test->toMap() : null;
+        }
+        if (null !== $this->testNew) {
+            $res['test_new'] = null !== $this->testNew ? $this->testNew->toMap() : null;
         }
 
         return $res;
@@ -65,7 +74,7 @@ class QueryCcXxRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryCcXxRequest
+     * @return QueryAntchainDemosdkTesxRequest
      */
     public static function fromMap($map = [])
     {
@@ -79,8 +88,11 @@ class QueryCcXxRequest extends Model
         if (isset($map['name'])) {
             $model->name = $map['name'];
         }
-        if (isset($map['msg'])) {
-            $model->msg = ResultTest::fromMap($map['msg']);
+        if (isset($map['test'])) {
+            $model->test = DemoClass::fromMap($map['test']);
+        }
+        if (isset($map['test_new'])) {
+            $model->testNew = TestDemo::fromMap($map['test_new']);
         }
 
         return $model;

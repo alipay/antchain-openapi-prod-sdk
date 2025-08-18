@@ -2,7 +2,7 @@
 
 // This file is auto-generated, don't edit it. Thanks.
 
-namespace AntChain\DEMOSDK;
+namespace AntChain\QQQ;
 
 use AlibabaCloud\Tea\Exception\TeaError;
 use AlibabaCloud\Tea\Exception\TeaUnableRetryError;
@@ -11,18 +11,34 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\DEMOSDK\Models\ApiAntchainAbcTestCreateRequest;
-use AntChain\DEMOSDK\Models\ApiAntchainAbcTestCreateResponse;
-use AntChain\DEMOSDK\Models\ImportCreateOneRequest;
-use AntChain\DEMOSDK\Models\ImportCreateOneResponse;
-use AntChain\DEMOSDK\Models\QueryAntchainAbcApprovalTestRequest;
-use AntChain\DEMOSDK\Models\QueryAntchainAbcApprovalTestResponse;
-use AntChain\DEMOSDK\Models\QueryAntchainAbcTimeFiveRequest;
-use AntChain\DEMOSDK\Models\QueryAntchainAbcTimeFiveResponse;
-use AntChain\DEMOSDK\Models\QueryCcXxRequest;
-use AntChain\DEMOSDK\Models\QueryCcXxResponse;
-use AntChain\DEMOSDK\Models\ResetBbbCccRequest;
-use AntChain\DEMOSDK\Models\ResetBbbCccResponse;
+use AntChain\QQQ\Models\ApiAntchainAbcTestCreateRequest;
+use AntChain\QQQ\Models\ApiAntchainAbcTestCreateResponse;
+use AntChain\QQQ\Models\BindAntchainDemosdkXxxRequest;
+use AntChain\QQQ\Models\BindAntchainDemosdkXxxResponse;
+use AntChain\QQQ\Models\ImportAntchainDemosdkCreateOneRequest;
+use AntChain\QQQ\Models\ImportAntchainDemosdkCreateOneResponse;
+use AntChain\QQQ\Models\QueryAntchainAbcApprovalTestRequest;
+use AntChain\QQQ\Models\QueryAntchainAbcApprovalTestResponse;
+use AntChain\QQQ\Models\QueryAntchainAbcOneLimitRequest;
+use AntChain\QQQ\Models\QueryAntchainAbcOneLimitResponse;
+use AntChain\QQQ\Models\QueryAntchainAbcTimeFiveRequest;
+use AntChain\QQQ\Models\QueryAntchainAbcTimeFiveResponse;
+use AntChain\QQQ\Models\QueryAntchainDemosdkCcXxRequest;
+use AntChain\QQQ\Models\QueryAntchainDemosdkCcXxResponse;
+use AntChain\QQQ\Models\QueryAntchainDemosdkTesxRequest;
+use AntChain\QQQ\Models\QueryAntchainDemosdkTesxResponse;
+use AntChain\QQQ\Models\QueryAntchainDemosdkTwiceThreeRequest;
+use AntChain\QQQ\Models\QueryAntchainDemosdkTwiceThreeResponse;
+use AntChain\QQQ\Models\ResetAntchainDemosdkAbcdLimitRequest;
+use AntChain\QQQ\Models\ResetAntchainDemosdkAbcdLimitResponse;
+use AntChain\QQQ\Models\ResetAntchainDemosdkBbbCccRequest;
+use AntChain\QQQ\Models\ResetAntchainDemosdkBbbCccResponse;
+use AntChain\QQQ\Models\UnstabilizeAntchainAbcOneLimitRequest;
+use AntChain\QQQ\Models\UnstabilizeAntchainAbcOneLimitResponse;
+use AntChain\QQQ\Models\UnstabilizeAntchainDemosdkTwiceThreeRequest;
+use AntChain\QQQ\Models\UnstabilizeAntchainDemosdkTwiceThreeResponse;
+use AntChain\QQQ\Models\WithdrawAntchainDemosdkTwiceOneRequest;
+use AntChain\QQQ\Models\WithdrawAntchainDemosdkTwiceOneResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -170,8 +186,8 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '2.0.2',
-                    '_prod_code'       => 'DEMOSDK',
+                    'sdk_version'      => '2.0.15',
+                    '_prod_code'       => 'QQQ',
                     '_prod_channel'    => 'default',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
@@ -318,101 +334,365 @@ class Client
     }
 
     /**
-     * Description: 测试接口
-     * Summary: 测试接口.
+     * Description: 哈哈哈哈哈哈哈哈个人工作台二期预发测试qqq
+     * Summary: 哈哈哈哈哈哈哈哈个人工作台二期预发测试qqq.
      *
-     * @param ResetBbbCccRequest $request
+     * @param QueryAntchainAbcOneLimitRequest $request
      *
-     * @return ResetBbbCccResponse
+     * @return QueryAntchainAbcOneLimitResponse
      */
-    public function resetBbbCcc($request)
+    public function queryAntchainAbcOneLimit($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->resetBbbCccEx($request, $headers, $runtime);
+        return $this->queryAntchainAbcOneLimitEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 哈哈哈哈哈哈哈哈个人工作台二期预发测试qqq
+     * Summary: 哈哈哈哈哈哈哈哈个人工作台二期预发测试qqq.
+     *
+     * @param QueryAntchainAbcOneLimitRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryAntchainAbcOneLimitResponse
+     */
+    public function queryAntchainAbcOneLimitEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAbcOneLimitResponse::fromMap($this->doRequest('1.0', 'antchain.abc.one.limit.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人工作台二期测试接口
+     * Summary: 个人工作台二期测试接口.
+     *
+     * @param UnstabilizeAntchainAbcOneLimitRequest $request
+     *
+     * @return UnstabilizeAntchainAbcOneLimitResponse
+     */
+    public function unstabilizeAntchainAbcOneLimit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->unstabilizeAntchainAbcOneLimitEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期测试接口
+     * Summary: 个人工作台二期测试接口.
+     *
+     * @param UnstabilizeAntchainAbcOneLimitRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return UnstabilizeAntchainAbcOneLimitResponse
+     */
+    public function unstabilizeAntchainAbcOneLimitEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UnstabilizeAntchainAbcOneLimitResponse::fromMap($this->doRequest('1.0', 'antchain.abc.one.limit.unstabilize', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 测试接口
      * Summary: 测试接口.
      *
-     * @param ResetBbbCccRequest $request
-     * @param string[]           $headers
-     * @param RuntimeOptions     $runtime
+     * @param ResetAntchainDemosdkBbbCccRequest $request
      *
-     * @return ResetBbbCccResponse
+     * @return ResetAntchainDemosdkBbbCccResponse
      */
-    public function resetBbbCccEx($request, $headers, $runtime)
+    public function resetAntchainDemosdkBbbCcc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->resetAntchainDemosdkBbbCccEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试接口
+     * Summary: 测试接口.
+     *
+     * @param ResetAntchainDemosdkBbbCccRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return ResetAntchainDemosdkBbbCccResponse
+     */
+    public function resetAntchainDemosdkBbbCccEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return ResetBbbCccResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.bbb.ccc.reset', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return ResetAntchainDemosdkBbbCccResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.bbb.ccc.reset', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test，请勿修改、删除.
+     *
+     * @param BindAntchainDemosdkXxxRequest $request
+     *
+     * @return BindAntchainDemosdkXxxResponse
+     */
+    public function bindAntchainDemosdkXxx($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindAntchainDemosdkXxxEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test，请勿修改、删除.
+     *
+     * @param BindAntchainDemosdkXxxRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return BindAntchainDemosdkXxxResponse
+     */
+    public function bindAntchainDemosdkXxxEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindAntchainDemosdkXxxResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.xxx.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 测试
      * Summary: 测试.
      *
-     * @param QueryCcXxRequest $request
+     * @param QueryAntchainDemosdkCcXxRequest $request
      *
-     * @return QueryCcXxResponse
+     * @return QueryAntchainDemosdkCcXxResponse
      */
-    public function queryCcXx($request)
+    public function queryAntchainDemosdkCcXx($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryCcXxEx($request, $headers, $runtime);
+        return $this->queryAntchainDemosdkCcXxEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 测试
      * Summary: 测试.
      *
-     * @param QueryCcXxRequest $request
-     * @param string[]         $headers
-     * @param RuntimeOptions   $runtime
+     * @param QueryAntchainDemosdkCcXxRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
      *
-     * @return QueryCcXxResponse
+     * @return QueryAntchainDemosdkCcXxResponse
      */
-    public function queryCcXxEx($request, $headers, $runtime)
+    public function queryAntchainDemosdkCcXxEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryCcXxResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.cc.xx.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryAntchainDemosdkCcXxResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.cc.xx.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
-     * Description: 用于个人工作台二期测试使用
-     * Summary: 用于个人工作台二期测试使用.
+     * Description: 个人工作台二期分组路由灰度测试接口
+     * Summary: 个人工作台二期分组路由灰度测试接口.
      *
-     * @param ImportCreateOneRequest $request
+     * @param ResetAntchainDemosdkAbcdLimitRequest $request
      *
-     * @return ImportCreateOneResponse
+     * @return ResetAntchainDemosdkAbcdLimitResponse
      */
-    public function importCreateOne($request)
+    public function resetAntchainDemosdkAbcdLimit($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->importCreateOneEx($request, $headers, $runtime);
+        return $this->resetAntchainDemosdkAbcdLimitEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期分组路由灰度测试接口
+     * Summary: 个人工作台二期分组路由灰度测试接口.
+     *
+     * @param ResetAntchainDemosdkAbcdLimitRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return ResetAntchainDemosdkAbcdLimitResponse
+     */
+    public function resetAntchainDemosdkAbcdLimitEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ResetAntchainDemosdkAbcdLimitResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.abcd.limit.reset', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 用于个人工作台二期测试使用
      * Summary: 用于个人工作台二期测试使用.
      *
-     * @param ImportCreateOneRequest $request
-     * @param string[]               $headers
-     * @param RuntimeOptions         $runtime
+     * @param ImportAntchainDemosdkCreateOneRequest $request
      *
-     * @return ImportCreateOneResponse
+     * @return ImportAntchainDemosdkCreateOneResponse
      */
-    public function importCreateOneEx($request, $headers, $runtime)
+    public function importAntchainDemosdkCreateOne($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importAntchainDemosdkCreateOneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于个人工作台二期测试使用
+     * Summary: 用于个人工作台二期测试使用.
+     *
+     * @param ImportAntchainDemosdkCreateOneRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return ImportAntchainDemosdkCreateOneResponse
+     */
+    public function importAntchainDemosdkCreateOneEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return ImportCreateOneResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.create.one.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return ImportAntchainDemosdkCreateOneResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.create.one.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试.
+     *
+     * @param WithdrawAntchainDemosdkTwiceOneRequest $request
+     *
+     * @return WithdrawAntchainDemosdkTwiceOneResponse
+     */
+    public function withdrawAntchainDemosdkTwiceOne($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->withdrawAntchainDemosdkTwiceOneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试.
+     *
+     * @param WithdrawAntchainDemosdkTwiceOneRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return WithdrawAntchainDemosdkTwiceOneResponse
+     */
+    public function withdrawAntchainDemosdkTwiceOneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return WithdrawAntchainDemosdkTwiceOneResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.twice.one.withdraw', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试.
+     *
+     * @param QueryAntchainDemosdkTwiceThreeRequest $request
+     *
+     * @return QueryAntchainDemosdkTwiceThreeResponse
+     */
+    public function queryAntchainDemosdkTwiceThree($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainDemosdkTwiceThreeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试.
+     *
+     * @param QueryAntchainDemosdkTwiceThreeRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryAntchainDemosdkTwiceThreeResponse
+     */
+    public function queryAntchainDemosdkTwiceThreeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainDemosdkTwiceThreeResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.twice.three.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试.
+     *
+     * @param UnstabilizeAntchainDemosdkTwiceThreeRequest $request
+     *
+     * @return UnstabilizeAntchainDemosdkTwiceThreeResponse
+     */
+    public function unstabilizeAntchainDemosdkTwiceThree($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->unstabilizeAntchainDemosdkTwiceThreeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试.
+     *
+     * @param UnstabilizeAntchainDemosdkTwiceThreeRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return UnstabilizeAntchainDemosdkTwiceThreeResponse
+     */
+    public function unstabilizeAntchainDemosdkTwiceThreeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UnstabilizeAntchainDemosdkTwiceThreeResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.twice.three.unstabilize', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 测试接口
+     * Summary: 测试接口.
+     *
+     * @param QueryAntchainDemosdkTesxRequest $request
+     *
+     * @return QueryAntchainDemosdkTesxResponse
+     */
+    public function queryAntchainDemosdkTesx($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainDemosdkTesxEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 测试接口
+     * Summary: 测试接口.
+     *
+     * @param QueryAntchainDemosdkTesxRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryAntchainDemosdkTesxResponse
+     */
+    public function queryAntchainDemosdkTesxEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainDemosdkTesxResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.tesx.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

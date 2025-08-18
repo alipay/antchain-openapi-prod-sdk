@@ -2,11 +2,11 @@
 
 // This file is auto-generated, don't edit it. Thanks.
 
-namespace AntChain\DEMOSDK\Models;
+namespace AntChain\QQQ\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryCcXxResponse extends Model
+class UnstabilizeAntchainAbcOneLimitResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,23 @@ class QueryCcXxResponse extends Model
      */
     public $resultMsg;
 
-    // 1213
+    // 结果码描述
     /**
      * @var string
      */
-    public $test;
+    public $msg;
+
+    // 状态码
+    /**
+     * @var string
+     */
+    public $stauts;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'test'       => 'test',
+        'msg'        => 'msg',
+        'stauts'     => 'stauts',
     ];
 
     public function validate()
@@ -54,8 +61,11 @@ class QueryCcXxResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->test) {
-            $res['test'] = $this->test;
+        if (null !== $this->msg) {
+            $res['msg'] = $this->msg;
+        }
+        if (null !== $this->stauts) {
+            $res['stauts'] = $this->stauts;
         }
 
         return $res;
@@ -64,7 +74,7 @@ class QueryCcXxResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryCcXxResponse
+     * @return UnstabilizeAntchainAbcOneLimitResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +88,11 @@ class QueryCcXxResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['test'])) {
-            $model->test = $map['test'];
+        if (isset($map['msg'])) {
+            $model->msg = $map['msg'];
+        }
+        if (isset($map['stauts'])) {
+            $model->stauts = $map['stauts'];
         }
 
         return $model;

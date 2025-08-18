@@ -2,7 +2,7 @@
 
 // This file is auto-generated, don't edit it. Thanks.
 
-namespace AntChain\DEMOSDK\Models;
+namespace AntChain\QQQ\Models;
 
 use AlibabaCloud\Tea\Model;
 

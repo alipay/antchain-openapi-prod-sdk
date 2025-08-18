@@ -7,7 +7,7 @@ English | [简体中文](README-CN.md)
 ### Composer
 
 ```bash
-composer require antchain/demosdk
+composer require antchain/qqq
 ```
 
 ## Issues

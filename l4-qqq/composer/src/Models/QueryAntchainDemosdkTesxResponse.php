@@ -2,11 +2,11 @@
 
 // This file is auto-generated, don't edit it. Thanks.
 
-namespace AntChain\DEMOSDK\Models;
+namespace AntChain\QQQ\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ResetBbbCccResponse extends Model
+class QueryAntchainDemosdkTesxResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -54,7 +54,7 @@ class ResetBbbCccResponse extends Model
     /**
      * @param array $map
      *
-     * @return ResetBbbCccResponse
+     * @return QueryAntchainDemosdkTesxResponse
      */
     public static function fromMap($map = [])
     {

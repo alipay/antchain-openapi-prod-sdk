@@ -1,5 +1,5 @@
 {
-  "name": "antchain/demosdk",
+  "name": "antchain/qqq",
   "description": "Ant Chain SDK Library for PHP",
   "type": "library",
   "license": "Apache-2.0",
@@ -17,7 +17,7 @@
   },
   "autoload": {
     "psr-4": {
-      "AntChain\\DEMOSDK\\": "src"
+      "AntChain\\QQQ\\": "src"
     }
   },
   "scripts": {

@@ -6,7 +6,7 @@ namespace AntChain\QQQ\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntchainAbcApprovalTestResponse extends Model
+class ResetAntchainDemosdkBbbCccResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,24 +25,10 @@ class QueryAntchainAbcApprovalTestResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 回参
-    /**
-     * @var string
-     */
-    public $msg;
-
-    // 新增字段
-    /**
-     * @var int
-     */
-    public $code;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'msg'        => 'msg',
-        'code'       => 'code',
     ];
 
     public function validate()
@@ -61,12 +47,6 @@ class QueryAntchainAbcApprovalTestResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->msg) {
-            $res['msg'] = $this->msg;
-        }
-        if (null !== $this->code) {
-            $res['code'] = $this->code;
-        }
 
         return $res;
     }
@@ -74,7 +54,7 @@ class QueryAntchainAbcApprovalTestResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntchainAbcApprovalTestResponse
+     * @return ResetAntchainDemosdkBbbCccResponse
      */
     public static function fromMap($map = [])
     {
@@ -87,12 +67,6 @@ class QueryAntchainAbcApprovalTestResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['msg'])) {
-            $model->msg = $map['msg'];
-        }
-        if (isset($map['code'])) {
-            $model->code = $map['code'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\QQQ\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntchainAbcTimeFiveRequest extends Model
+class QueryAntchainDemosdkCcXxRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,19 +19,28 @@ class QueryAntchainAbcTimeFiveRequest extends Model
      */
     public $productInstanceId;
 
-    // 下游超时时间
+    // aa
     /**
      * @var string
      */
-    public $timeout;
+    public $name;
+
+    // 测试
+    /**
+     * @var ResultTest
+     */
+    public $msg;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'timeout'           => 'timeout',
+        'name'              => 'name',
+        'msg'               => 'msg',
     ];
 
     public function validate()
     {
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('msg', $this->msg, true);
     }
 
     public function toMap()
@@ -43,8 +52,11 @@ class QueryAntchainAbcTimeFiveRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->timeout) {
-            $res['timeout'] = $this->timeout;
+        if (null !== $this->name) {
+            $res['name'] = $this->name;
+        }
+        if (null !== $this->msg) {
+            $res['msg'] = null !== $this->msg ? $this->msg->toMap() : null;
         }
 
         return $res;
@@ -53,7 +65,7 @@ class QueryAntchainAbcTimeFiveRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntchainAbcTimeFiveRequest
+     * @return QueryAntchainDemosdkCcXxRequest
      */
     public static function fromMap($map = [])
     {
@@ -64,8 +76,11 @@ class QueryAntchainAbcTimeFiveRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['timeout'])) {
-            $model->timeout = $map['timeout'];
+        if (isset($map['name'])) {
+            $model->name = $map['name'];
+        }
+        if (isset($map['msg'])) {
+            $model->msg = ResultTest::fromMap($map['msg']);
         }
 
         return $model;

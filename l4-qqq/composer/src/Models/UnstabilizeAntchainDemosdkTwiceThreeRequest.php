@@ -6,7 +6,7 @@ namespace AntChain\QQQ\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntchainAbcTimeFiveRequest extends Model
+class UnstabilizeAntchainDemosdkTwiceThreeRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,7 +19,7 @@ class QueryAntchainAbcTimeFiveRequest extends Model
      */
     public $productInstanceId;
 
-    // 下游超时时间
+    // 超时时间
     /**
      * @var string
      */
@@ -53,7 +53,7 @@ class QueryAntchainAbcTimeFiveRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntchainAbcTimeFiveRequest
+     * @return UnstabilizeAntchainDemosdkTwiceThreeRequest
      */
     public static function fromMap($map = [])
     {

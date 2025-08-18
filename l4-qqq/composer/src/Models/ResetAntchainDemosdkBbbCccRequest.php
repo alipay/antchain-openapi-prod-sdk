@@ -2,11 +2,11 @@
 
 // This file is auto-generated, don't edit it. Thanks.
 
-namespace AntChain\DEMOSDK\Models;
+namespace AntChain\QQQ\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ResetBbbCccRequest extends Model
+class ResetAntchainDemosdkBbbCccRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -43,7 +43,7 @@ class ResetBbbCccRequest extends Model
     /**
      * @param array $map
      *
-     * @return ResetBbbCccRequest
+     * @return ResetAntchainDemosdkBbbCccRequest
      */
     public static function fromMap($map = [])
     {

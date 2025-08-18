@@ -2,11 +2,11 @@
 
 // This file is auto-generated, don't edit it. Thanks.
 
-namespace AntChain\DEMOSDK\Models;
+namespace AntChain\QQQ\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ImportCreateOneResponse extends Model
+class ResetAntchainDemosdkAbcdLimitResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,13 +26,13 @@ class ImportCreateOneResponse extends Model
      */
     public $resultMsg;
 
-    // 200
+    // 返回结果
     /**
      * @var string
      */
-    public $status;
+    public $stauts;
 
-    // SUCCESS le
+    // 返回描述
     /**
      * @var string
      */
@@ -41,7 +41,7 @@ class ImportCreateOneResponse extends Model
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'status'     => 'status',
+        'stauts'     => 'stauts',
         'msg'        => 'msg',
     ];
 
@@ -61,8 +61,8 @@ class ImportCreateOneResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
+        if (null !== $this->stauts) {
+            $res['stauts'] = $this->stauts;
         }
         if (null !== $this->msg) {
             $res['msg'] = $this->msg;
@@ -74,7 +74,7 @@ class ImportCreateOneResponse extends Model
     /**
      * @param array $map
      *
-     * @return ImportCreateOneResponse
+     * @return ResetAntchainDemosdkAbcdLimitResponse
      */
     public static function fromMap($map = [])
     {
@@ -88,8 +88,8 @@ class ImportCreateOneResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
+        if (isset($map['stauts'])) {
+            $model->stauts = $map['stauts'];
         }
         if (isset($map['msg'])) {
             $model->msg = $map['msg'];

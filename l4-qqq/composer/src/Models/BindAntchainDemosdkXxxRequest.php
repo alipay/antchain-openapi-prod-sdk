@@ -6,7 +6,7 @@ namespace AntChain\QQQ\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntchainAbcTimeFiveRequest extends Model
+class BindAntchainDemosdkXxxRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,19 +19,29 @@ class QueryAntchainAbcTimeFiveRequest extends Model
      */
     public $productInstanceId;
 
-    // 下游超时时间
+    // 123
     /**
      * @var string
      */
-    public $timeout;
+    public $date;
+
+    // 123
+    /**
+     * @var string
+     */
+    public $data;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'timeout'           => 'timeout',
+        'date'              => 'date',
+        'data'              => 'data',
     ];
 
     public function validate()
     {
+        Model::validateRequired('date', $this->date, true);
+        Model::validateRequired('data', $this->data, true);
+        Model::validatePattern('date', $this->date, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -43,8 +53,11 @@ class QueryAntchainAbcTimeFiveRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->timeout) {
-            $res['timeout'] = $this->timeout;
+        if (null !== $this->date) {
+            $res['date'] = $this->date;
+        }
+        if (null !== $this->data) {
+            $res['data'] = $this->data;
         }
 
         return $res;
@@ -53,7 +66,7 @@ class QueryAntchainAbcTimeFiveRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntchainAbcTimeFiveRequest
+     * @return BindAntchainDemosdkXxxRequest
      */
     public static function fromMap($map = [])
     {
@@ -64,8 +77,11 @@ class QueryAntchainAbcTimeFiveRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['timeout'])) {
-            $model->timeout = $map['timeout'];
+        if (isset($map['date'])) {
+            $model->date = $map['date'];
+        }
+        if (isset($map['data'])) {
+            $model->data = $map['data'];
         }
 
         return $model;
