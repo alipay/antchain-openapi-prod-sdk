@@ -137,7 +137,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.18"},
+                        {"sdk_version", "1.4.19"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.18"},
+                        {"sdk_version", "1.4.19"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1289,6 +1289,48 @@ namespace AntChain.SDK.SECURITYTECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadSimRiskdataResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.sim.riskdata.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字钥匙通过联登TOKEN获取用户信息
+         * Summary: 数字钥匙通过联登TOKEN获取用户信息
+         */
+        public QueryDigitalkeyUserinfoResponse QueryDigitalkeyUserinfo(QueryDigitalkeyUserinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDigitalkeyUserinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字钥匙通过联登TOKEN获取用户信息
+         * Summary: 数字钥匙通过联登TOKEN获取用户信息
+         */
+        public async Task<QueryDigitalkeyUserinfoResponse> QueryDigitalkeyUserinfoAsync(QueryDigitalkeyUserinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDigitalkeyUserinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字钥匙通过联登TOKEN获取用户信息
+         * Summary: 数字钥匙通过联登TOKEN获取用户信息
+         */
+        public QueryDigitalkeyUserinfoResponse QueryDigitalkeyUserinfoEx(QueryDigitalkeyUserinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDigitalkeyUserinfoResponse>(DoRequest("1.0", "antsecuritytech.gateway.digitalkey.userinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字钥匙通过联登TOKEN获取用户信息
+         * Summary: 数字钥匙通过联登TOKEN获取用户信息
+         */
+        public async Task<QueryDigitalkeyUserinfoResponse> QueryDigitalkeyUserinfoExAsync(QueryDigitalkeyUserinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDigitalkeyUserinfoResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.digitalkey.userinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
