@@ -6,7 +6,7 @@ using System.IO;
 
 using Tea;
 
-namespace AntChain.SDK.DEMOSDK.Models
+namespace AntChain.SDK.QQQ.Models
 {
     // 模拟大安全类型
     public class FaceImage : TeaModel {

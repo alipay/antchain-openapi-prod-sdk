@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.QQQ.Models
 {
-    public class ApiAntchainAbcTestCreateRequest : TeaModel {
+    public class BindAntchainDemosdkXxxRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,10 +18,15 @@ namespace AntChain.SDK.QQQ.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 1
-        [NameInMap("timeout")]
+        // 123
+        [NameInMap("date")]
+        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string Date { get; set; }
+
+        // 123
+        [NameInMap("data")]
         [Validation(Required=true)]
-        public string Timeout { get; set; }
+        public string Data { get; set; }
 
     }
 

@@ -6,9 +6,9 @@ using System.IO;
 
 using Tea;
 
-namespace AntChain.SDK.DEMOSDK.Models
+namespace AntChain.SDK.QQQ.Models
 {
-    public class ResetBbbCccRequest : TeaModel {
+    public class UnstabilizeAntchainAbcOneLimitRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -17,6 +17,11 @@ namespace AntChain.SDK.DEMOSDK.Models
         [NameInMap("product_instance_id")]
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
+
+        // 超时时间
+        [NameInMap("timeout")]
+        [Validation(Required=true)]
+        public string Timeout { get; set; }
 
     }
 

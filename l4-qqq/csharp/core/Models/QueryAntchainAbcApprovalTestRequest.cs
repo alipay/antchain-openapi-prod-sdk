@@ -6,7 +6,7 @@ using System.IO;
 
 using Tea;
 
-namespace AntChain.SDK.DEMOSDK.Models
+namespace AntChain.SDK.QQQ.Models
 {
     public class QueryAntchainAbcApprovalTestRequest : TeaModel {
         // OAuth模式下的授权token

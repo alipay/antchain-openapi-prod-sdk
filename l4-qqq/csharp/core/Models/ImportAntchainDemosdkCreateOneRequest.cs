@@ -6,9 +6,9 @@ using System.IO;
 
 using Tea;
 
-namespace AntChain.SDK.DEMOSDK.Models
+namespace AntChain.SDK.QQQ.Models
 {
-    public class ImportCreateOneRequest : TeaModel {
+    public class ImportAntchainDemosdkCreateOneRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]

@@ -6,7 +6,7 @@ using System.IO;
 
 using Tea;
 
-namespace AntChain.SDK.DEMOSDK.Models
+namespace AntChain.SDK.QQQ.Models
 {
     // 结构体返回结构
     public class ResultListDemo : TeaModel {

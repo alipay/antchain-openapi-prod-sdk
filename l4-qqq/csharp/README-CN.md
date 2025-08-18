@@ -7,7 +7,7 @@
 ### .NET
 
 ```bash
-donet add package AntChain.SDK.DEMOSDK
+donet add package AntChain.SDK.QQQ
 ```
 
 ## 问题

@@ -6,9 +6,9 @@ using System.IO;
 
 using Tea;
 
-namespace AntChain.SDK.DEMOSDK.Models
+namespace AntChain.SDK.QQQ.Models
 {
-    public class ImportCreateOneResponse : TeaModel {
+    public class QueryAntchainDemosdkTwiceThreeResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,12 +24,12 @@ namespace AntChain.SDK.DEMOSDK.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 200
-        [NameInMap("status")]
+        // 状态码
+        [NameInMap("stauts")]
         [Validation(Required=false)]
-        public string Status { get; set; }
+        public string Stauts { get; set; }
 
-        // SUCCESS le
+        // 状态描述
         [NameInMap("msg")]
         [Validation(Required=false)]
         public string Msg { get; set; }

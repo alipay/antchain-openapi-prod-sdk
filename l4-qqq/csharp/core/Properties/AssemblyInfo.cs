@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("antchain-demosdk")]
-[assembly: AssemblyDescription("Ant Chain DEMOSDK SDK Library for .NET")]
+[assembly: AssemblyTitle("antchain-qqq")]
+[assembly: AssemblyDescription("Ant Chain QQQ SDK Library for .NET")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ant Chain, Inc")]
 [assembly: AssemblyProduct("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("3a57cde0-36ec-11f0-a2d2-6730f56fb9d9")]
+[assembly: Guid("3c3fb5c0-7c0e-11f0-a250-e596a724ca90")]
 
 // Version information for an assembly consists of the following four values:
 //

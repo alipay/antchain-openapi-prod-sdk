@@ -7,7 +7,7 @@ English | [简体中文](README-CN.md)
 ### .NET
 
 ```bash
-donet add package AntChain.SDK.DEMOSDK
+donet add package AntChain.SDK.QQQ
 ```
 
 ## Issues

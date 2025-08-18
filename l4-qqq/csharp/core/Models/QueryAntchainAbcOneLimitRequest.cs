@@ -6,9 +6,9 @@ using System.IO;
 
 using Tea;
 
-namespace AntChain.SDK.DEMOSDK.Models
+namespace AntChain.SDK.QQQ.Models
 {
-    public class QueryCcXxRequest : TeaModel {
+    public class QueryAntchainAbcOneLimitRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,10 @@ namespace AntChain.SDK.DEMOSDK.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // aa
-        [NameInMap("name")]
+        // 超时时间
+        [NameInMap("timeout")]
         [Validation(Required=true)]
-        public string Name { get; set; }
-
-        // 测试
-        [NameInMap("msg")]
-        [Validation(Required=true)]
-        public ResultTest Msg { get; set; }
+        public string Timeout { get; set; }
 
     }
 

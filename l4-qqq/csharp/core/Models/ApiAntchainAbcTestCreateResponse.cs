@@ -6,7 +6,7 @@ using System.IO;
 
 using Tea;
 
-namespace AntChain.SDK.DEMOSDK.Models
+namespace AntChain.SDK.QQQ.Models
 {
     public class ApiAntchainAbcTestCreateResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查

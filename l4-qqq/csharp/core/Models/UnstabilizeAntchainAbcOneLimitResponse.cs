@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.QQQ.Models
 {
-    public class QueryAntchainAbcApprovalTestResponse : TeaModel {
+    public class UnstabilizeAntchainAbcOneLimitResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,15 @@ namespace AntChain.SDK.QQQ.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 回参
+        // 结果码描述
         [NameInMap("msg")]
         [Validation(Required=false)]
         public string Msg { get; set; }
 
-        // 新增字段
-        [NameInMap("code")]
+        // 状态码
+        [NameInMap("stauts")]
         [Validation(Required=false)]
-        public long? Code { get; set; }
+        public string Stauts { get; set; }
 
     }
 
