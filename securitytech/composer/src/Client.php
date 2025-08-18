@@ -75,6 +75,8 @@ use AntChain\SECURITYTECH\Models\QueryDeviceriskFingerRequest;
 use AntChain\SECURITYTECH\Models\QueryDeviceriskFingerResponse;
 use AntChain\SECURITYTECH\Models\QueryDeviceriskRisklabelRequest;
 use AntChain\SECURITYTECH\Models\QueryDeviceriskRisklabelResponse;
+use AntChain\SECURITYTECH\Models\QueryDigitalkeyUserinfoRequest;
+use AntChain\SECURITYTECH\Models\QueryDigitalkeyUserinfoResponse;
 use AntChain\SECURITYTECH\Models\QueryEkytDriverRequest;
 use AntChain\SECURITYTECH\Models\QueryEkytDriverResponse;
 use AntChain\SECURITYTECH\Models\QueryEkytFaceverifyRequest;
@@ -280,7 +282,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.4.18',
+                    'sdk_version'      => '1.4.19',
                     '_prod_code'       => 'SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1087,6 +1089,39 @@ class Client
         Utils::validateModel($request);
 
         return UploadSimRiskdataResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.sim.riskdata.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字钥匙通过联登TOKEN获取用户信息
+     * Summary: 数字钥匙通过联登TOKEN获取用户信息.
+     *
+     * @param QueryDigitalkeyUserinfoRequest $request
+     *
+     * @return QueryDigitalkeyUserinfoResponse
+     */
+    public function queryDigitalkeyUserinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDigitalkeyUserinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字钥匙通过联登TOKEN获取用户信息
+     * Summary: 数字钥匙通过联登TOKEN获取用户信息.
+     *
+     * @param QueryDigitalkeyUserinfoRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryDigitalkeyUserinfoResponse
+     */
+    public function queryDigitalkeyUserinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDigitalkeyUserinfoResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.digitalkey.userinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
