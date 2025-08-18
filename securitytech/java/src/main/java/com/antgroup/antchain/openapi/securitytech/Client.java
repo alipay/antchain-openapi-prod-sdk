@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.4.18"),
+                    new TeaPair("sdk_version", "1.4.19"),
                     new TeaPair("_prod_code", "SECURITYTECH"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -671,6 +671,27 @@ public class Client {
     public UploadSimRiskdataResponse uploadSimRiskdataEx(UploadSimRiskdataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.sim.riskdata.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadSimRiskdataResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 数字钥匙通过联登TOKEN获取用户信息
+     * Summary: 数字钥匙通过联登TOKEN获取用户信息</p>
+     */
+    public QueryDigitalkeyUserinfoResponse queryDigitalkeyUserinfo(QueryDigitalkeyUserinfoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDigitalkeyUserinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 数字钥匙通过联登TOKEN获取用户信息
+     * Summary: 数字钥匙通过联登TOKEN获取用户信息</p>
+     */
+    public QueryDigitalkeyUserinfoResponse queryDigitalkeyUserinfoEx(QueryDigitalkeyUserinfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.userinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDigitalkeyUserinfoResponse());
     }
 
     /**
