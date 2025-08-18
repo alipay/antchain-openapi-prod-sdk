@@ -4223,6 +4223,104 @@ func (s *UploadSimRiskdataResponse) SetExtraInfo(v string) *UploadSimRiskdataRes
 	return s
 }
 
+type QueryDigitalkeyUserinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 联合登录token
+	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+}
+
+func (s QueryDigitalkeyUserinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDigitalkeyUserinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDigitalkeyUserinfoRequest) SetAuthToken(v string) *QueryDigitalkeyUserinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDigitalkeyUserinfoRequest) SetProductInstanceId(v string) *QueryDigitalkeyUserinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDigitalkeyUserinfoRequest) SetToken(v string) *QueryDigitalkeyUserinfoRequest {
+	s.Token = &v
+	return s
+}
+
+type QueryDigitalkeyUserinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户ID
+	Uid *string `json:"uid,omitempty" xml:"uid,omitempty"`
+	// 个人简介
+	Introduction *string `json:"introduction,omitempty" xml:"introduction,omitempty"`
+	// 用户昵称
+	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty"`
+	// 用户头像地址
+	AvatarUrl *string `json:"avatar_url,omitempty" xml:"avatar_url,omitempty"`
+	// 品牌ID
+	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty"`
+}
+
+func (s QueryDigitalkeyUserinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDigitalkeyUserinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDigitalkeyUserinfoResponse) SetReqMsgId(v string) *QueryDigitalkeyUserinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDigitalkeyUserinfoResponse) SetResultCode(v string) *QueryDigitalkeyUserinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDigitalkeyUserinfoResponse) SetResultMsg(v string) *QueryDigitalkeyUserinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDigitalkeyUserinfoResponse) SetUid(v string) *QueryDigitalkeyUserinfoResponse {
+	s.Uid = &v
+	return s
+}
+
+func (s *QueryDigitalkeyUserinfoResponse) SetIntroduction(v string) *QueryDigitalkeyUserinfoResponse {
+	s.Introduction = &v
+	return s
+}
+
+func (s *QueryDigitalkeyUserinfoResponse) SetNickName(v string) *QueryDigitalkeyUserinfoResponse {
+	s.NickName = &v
+	return s
+}
+
+func (s *QueryDigitalkeyUserinfoResponse) SetAvatarUrl(v string) *QueryDigitalkeyUserinfoResponse {
+	s.AvatarUrl = &v
+	return s
+}
+
+func (s *QueryDigitalkeyUserinfoResponse) SetBrandId(v string) *QueryDigitalkeyUserinfoResponse {
+	s.BrandId = &v
+	return s
+}
+
 type CreateBssecpicRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -8652,7 +8750,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.18"),
+				"sdk_version":      tea.String("1.4.19"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -9487,6 +9585,40 @@ func (client *Client) UploadSimRiskdataEx(request *UploadSimRiskdataRequest, hea
 	}
 	_result = &UploadSimRiskdataResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.sim.riskdata.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字钥匙通过联登TOKEN获取用户信息
+ * Summary: 数字钥匙通过联登TOKEN获取用户信息
+ */
+func (client *Client) QueryDigitalkeyUserinfo(request *QueryDigitalkeyUserinfoRequest) (_result *QueryDigitalkeyUserinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDigitalkeyUserinfoResponse{}
+	_body, _err := client.QueryDigitalkeyUserinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字钥匙通过联登TOKEN获取用户信息
+ * Summary: 数字钥匙通过联登TOKEN获取用户信息
+ */
+func (client *Client) QueryDigitalkeyUserinfoEx(request *QueryDigitalkeyUserinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDigitalkeyUserinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDigitalkeyUserinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.digitalkey.userinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
