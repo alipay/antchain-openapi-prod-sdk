@@ -100,6 +100,12 @@ class CreateElectrocarApplycarkeycertificateRequest extends Model
      * @var string
      */
     public $accessScene;
+
+    // 标识是否启用了阿里云物联网平台
+    /**
+     * @var bool
+     */
+    public $aliyunIotEnabled;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -115,6 +121,7 @@ class CreateElectrocarApplycarkeycertificateRequest extends Model
         'bleName'           => 'ble_name',
         'deviceSn'          => 'device_sn',
         'accessScene'       => 'access_scene',
+        'aliyunIotEnabled'  => 'aliyun_iot_enabled',
     ];
 
     public function validate()
@@ -173,6 +180,9 @@ class CreateElectrocarApplycarkeycertificateRequest extends Model
         if (null !== $this->accessScene) {
             $res['access_scene'] = $this->accessScene;
         }
+        if (null !== $this->aliyunIotEnabled) {
+            $res['aliyun_iot_enabled'] = $this->aliyunIotEnabled;
+        }
 
         return $res;
     }
@@ -226,6 +236,9 @@ class CreateElectrocarApplycarkeycertificateRequest extends Model
         }
         if (isset($map['access_scene'])) {
             $model->accessScene = $map['access_scene'];
+        }
+        if (isset($map['aliyun_iot_enabled'])) {
+            $model->aliyunIotEnabled = $map['aliyun_iot_enabled'];
         }
 
         return $model;
