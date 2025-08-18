@@ -88,6 +88,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string AccessScene { get; set; }
 
+        // 标识是否启用了阿里云物联网平台
+        [NameInMap("aliyun_iot_enabled")]
+        [Validation(Required=false)]
+        public bool? AliyunIotEnabled { get; set; }
+
     }
 
 }
