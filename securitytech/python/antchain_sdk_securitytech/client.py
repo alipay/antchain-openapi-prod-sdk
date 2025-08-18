@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.18',
+                    'sdk_version': '1.4.19',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.18',
+                    'sdk_version': '1.4.19',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -1565,6 +1565,62 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.UploadSimRiskdataResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.sim.riskdata.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_digitalkey_userinfo(
+        self,
+        request: securitytech_models.QueryDigitalkeyUserinfoRequest,
+    ) -> securitytech_models.QueryDigitalkeyUserinfoResponse:
+        """
+        Description: 数字钥匙通过联登TOKEN获取用户信息
+        Summary: 数字钥匙通过联登TOKEN获取用户信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_digitalkey_userinfo_ex(request, headers, runtime)
+
+    async def query_digitalkey_userinfo_async(
+        self,
+        request: securitytech_models.QueryDigitalkeyUserinfoRequest,
+    ) -> securitytech_models.QueryDigitalkeyUserinfoResponse:
+        """
+        Description: 数字钥匙通过联登TOKEN获取用户信息
+        Summary: 数字钥匙通过联登TOKEN获取用户信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_digitalkey_userinfo_ex_async(request, headers, runtime)
+
+    def query_digitalkey_userinfo_ex(
+        self,
+        request: securitytech_models.QueryDigitalkeyUserinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryDigitalkeyUserinfoResponse:
+        """
+        Description: 数字钥匙通过联登TOKEN获取用户信息
+        Summary: 数字钥匙通过联登TOKEN获取用户信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryDigitalkeyUserinfoResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.digitalkey.userinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_digitalkey_userinfo_ex_async(
+        self,
+        request: securitytech_models.QueryDigitalkeyUserinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryDigitalkeyUserinfoResponse:
+        """
+        Description: 数字钥匙通过联登TOKEN获取用户信息
+        Summary: 数字钥匙通过联登TOKEN获取用户信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryDigitalkeyUserinfoResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.digitalkey.userinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_bssecpic(
