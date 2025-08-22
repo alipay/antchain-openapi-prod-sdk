@@ -28922,6 +28922,7 @@ class CreateElectrocarApplycarkeycertificateRequest(TeaModel):
         device_sn: str = None,
         access_scene: str = None,
         aliyun_iot_enabled: bool = None,
+        channel: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -28962,6 +28963,8 @@ class CreateElectrocarApplycarkeycertificateRequest(TeaModel):
         self.access_scene = access_scene
         # 标识是否启用了阿里云物联网平台
         self.aliyun_iot_enabled = aliyun_iot_enabled
+        # 设备接入 4g 渠道
+        self.channel = channel
 
     def validate(self):
         self.validate_required(self.request_id, 'request_id')
@@ -29008,6 +29011,8 @@ class CreateElectrocarApplycarkeycertificateRequest(TeaModel):
             result['access_scene'] = self.access_scene
         if self.aliyun_iot_enabled is not None:
             result['aliyun_iot_enabled'] = self.aliyun_iot_enabled
+        if self.channel is not None:
+            result['channel'] = self.channel
         return result
 
     def from_map(self, m: dict = None):
@@ -29042,6 +29047,8 @@ class CreateElectrocarApplycarkeycertificateRequest(TeaModel):
             self.access_scene = m.get('access_scene')
         if m.get('aliyun_iot_enabled') is not None:
             self.aliyun_iot_enabled = m.get('aliyun_iot_enabled')
+        if m.get('channel') is not None:
+            self.channel = m.get('channel')
         return self
 
 
