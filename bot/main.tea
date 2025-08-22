@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.32',
+    sdk_version = '1.12.33',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -9642,6 +9642,8 @@ model CreateElectrocarApplycarkeycertificateRequest = {
   accessScene: string(name='access_scene'),
   // 标识是否启用了阿里云物联网平台
   aliyunIotEnabled?: boolean(name='aliyun_iot_enabled'),
+  // 设备接入 4g 渠道
+  channel?: string(name='channel'),
 }
 
 model CreateElectrocarApplycarkeycertificateResponse = {
