@@ -93,6 +93,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public bool? AliyunIotEnabled { get; set; }
 
+        // 设备接入 4g 渠道
+        [NameInMap("channel")]
+        [Validation(Required=false)]
+        public string Channel { get; set; }
+
     }
 
 }
