@@ -17667,6 +17667,8 @@ export class CreateElectrocarApplycarkeycertificateRequest extends $tea.Model {
   accessScene: string;
   // 标识是否启用了阿里云物联网平台
   aliyunIotEnabled?: boolean;
+  // 设备接入 4g 渠道
+  channel?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -17684,6 +17686,7 @@ export class CreateElectrocarApplycarkeycertificateRequest extends $tea.Model {
       deviceSn: 'device_sn',
       accessScene: 'access_scene',
       aliyunIotEnabled: 'aliyun_iot_enabled',
+      channel: 'channel',
     };
   }
 
@@ -17704,6 +17707,7 @@ export class CreateElectrocarApplycarkeycertificateRequest extends $tea.Model {
       deviceSn: 'string',
       accessScene: 'string',
       aliyunIotEnabled: 'boolean',
+      channel: 'string',
     };
   }
 
@@ -28367,7 +28371,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.32",
+          sdk_version: "1.12.33",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
