@@ -80,6 +80,10 @@ public class CreateElectrocarApplycarkeycertificateRequest extends TeaModel {
     @NameInMap("aliyun_iot_enabled")
     public Boolean aliyunIotEnabled;
 
+    // 设备接入 4g 渠道
+    @NameInMap("channel")
+    public String channel;
+
     public static CreateElectrocarApplycarkeycertificateRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateElectrocarApplycarkeycertificateRequest self = new CreateElectrocarApplycarkeycertificateRequest();
         return TeaModel.build(map, self);
@@ -203,6 +207,14 @@ public class CreateElectrocarApplycarkeycertificateRequest extends TeaModel {
     }
     public Boolean getAliyunIotEnabled() {
         return this.aliyunIotEnabled;
+    }
+
+    public CreateElectrocarApplycarkeycertificateRequest setChannel(String channel) {
+        this.channel = channel;
+        return this;
+    }
+    public String getChannel() {
+        return this.channel;
     }
 
 }
