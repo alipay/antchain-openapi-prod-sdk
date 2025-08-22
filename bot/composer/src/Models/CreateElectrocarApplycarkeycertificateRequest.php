@@ -106,6 +106,12 @@ class CreateElectrocarApplycarkeycertificateRequest extends Model
      * @var bool
      */
     public $aliyunIotEnabled;
+
+    // 设备接入 4g 渠道
+    /**
+     * @var string
+     */
+    public $channel;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -122,6 +128,7 @@ class CreateElectrocarApplycarkeycertificateRequest extends Model
         'deviceSn'          => 'device_sn',
         'accessScene'       => 'access_scene',
         'aliyunIotEnabled'  => 'aliyun_iot_enabled',
+        'channel'           => 'channel',
     ];
 
     public function validate()
@@ -183,6 +190,9 @@ class CreateElectrocarApplycarkeycertificateRequest extends Model
         if (null !== $this->aliyunIotEnabled) {
             $res['aliyun_iot_enabled'] = $this->aliyunIotEnabled;
         }
+        if (null !== $this->channel) {
+            $res['channel'] = $this->channel;
+        }
 
         return $res;
     }
@@ -239,6 +249,9 @@ class CreateElectrocarApplycarkeycertificateRequest extends Model
         }
         if (isset($map['aliyun_iot_enabled'])) {
             $model->aliyunIotEnabled = $map['aliyun_iot_enabled'];
+        }
+        if (isset($map['channel'])) {
+            $model->channel = $map['channel'];
         }
 
         return $model;
