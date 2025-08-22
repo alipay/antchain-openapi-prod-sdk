@@ -23166,6 +23166,8 @@ type CreateElectrocarApplycarkeycertificateRequest struct {
 	AccessScene *string `json:"access_scene,omitempty" xml:"access_scene,omitempty" require:"true"`
 	// 标识是否启用了阿里云物联网平台
 	AliyunIotEnabled *bool `json:"aliyun_iot_enabled,omitempty" xml:"aliyun_iot_enabled,omitempty"`
+	// 设备接入 4g 渠道
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty"`
 }
 
 func (s CreateElectrocarApplycarkeycertificateRequest) String() string {
@@ -23248,6 +23250,11 @@ func (s *CreateElectrocarApplycarkeycertificateRequest) SetAccessScene(v string)
 
 func (s *CreateElectrocarApplycarkeycertificateRequest) SetAliyunIotEnabled(v bool) *CreateElectrocarApplycarkeycertificateRequest {
 	s.AliyunIotEnabled = &v
+	return s
+}
+
+func (s *CreateElectrocarApplycarkeycertificateRequest) SetChannel(v string) *CreateElectrocarApplycarkeycertificateRequest {
+	s.Channel = &v
 	return s
 }
 
@@ -36985,7 +36992,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.32"),
+				"sdk_version":      tea.String("1.12.33"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
