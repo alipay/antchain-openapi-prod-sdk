@@ -112,6 +112,38 @@ public class OrderInfo extends TeaModel {
     @NameInMap("down_payment")
     public Long downPayment;
 
+    // 商户统一社会信用代码
+    /**
+     * <strong>example:</strong>
+     * <p>91301010101010101A</p>
+     */
+    @NameInMap("merchant_id")
+    public String merchantId;
+
+    // 商户名称
+    /**
+     * <strong>example:</strong>
+     * <p>xxx有限公司</p>
+     */
+    @NameInMap("merchant_name")
+    public String merchantName;
+
+    // 订单开始履约期数
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
+    @NameInMap("divide_start_term_index")
+    public Long divideStartTermIndex;
+
+    // 订单关联的营销id
+    /**
+     * <strong>example:</strong>
+     * <p>Promoionxxxxx</p>
+     */
+    @NameInMap("promotion_id")
+    public String promotionId;
+
     public static OrderInfo build(java.util.Map<String, ?> map) throws Exception {
         OrderInfo self = new OrderInfo();
         return TeaModel.build(map, self);
@@ -219,6 +251,38 @@ public class OrderInfo extends TeaModel {
     }
     public Long getDownPayment() {
         return this.downPayment;
+    }
+
+    public OrderInfo setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+        return this;
+    }
+    public String getMerchantId() {
+        return this.merchantId;
+    }
+
+    public OrderInfo setMerchantName(String merchantName) {
+        this.merchantName = merchantName;
+        return this;
+    }
+    public String getMerchantName() {
+        return this.merchantName;
+    }
+
+    public OrderInfo setDivideStartTermIndex(Long divideStartTermIndex) {
+        this.divideStartTermIndex = divideStartTermIndex;
+        return this;
+    }
+    public Long getDivideStartTermIndex() {
+        return this.divideStartTermIndex;
+    }
+
+    public OrderInfo setPromotionId(String promotionId) {
+        this.promotionId = promotionId;
+        return this;
+    }
+    public String getPromotionId() {
+        return this.promotionId;
     }
 
 }

@@ -28,6 +28,10 @@ public class OrderRepayStrategy extends TeaModel {
     @NameInMap("pay_day")
     public String payDay;
 
+    // 付款项目列表
+    @NameInMap("payment_item_list")
+    public java.util.List<PaymentItem> paymentItemList;
+
     public static OrderRepayStrategy build(java.util.Map<String, ?> map) throws Exception {
         OrderRepayStrategy self = new OrderRepayStrategy();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class OrderRepayStrategy extends TeaModel {
     }
     public String getPayDay() {
         return this.payDay;
+    }
+
+    public OrderRepayStrategy setPaymentItemList(java.util.List<PaymentItem> paymentItemList) {
+        this.paymentItemList = paymentItemList;
+        return this;
+    }
+    public java.util.List<PaymentItem> getPaymentItemList() {
+        return this.paymentItemList;
     }
 
 }

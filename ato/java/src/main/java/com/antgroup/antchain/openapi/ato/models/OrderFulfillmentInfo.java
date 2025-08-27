@@ -44,6 +44,22 @@ public class OrderFulfillmentInfo extends TeaModel {
     @NameInMap("return_time")
     public String returnTime;
 
+    // 周期性代扣
+    /**
+     * <strong>example:</strong>
+     * <p>ANTDIGITAL</p>
+     */
+    @NameInMap("return_way")
+    public String returnWay;
+
+    // 还款流水号
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
+    @NameInMap("return_voucher_serial")
+    public String returnVoucherSerial;
+
     public static OrderFulfillmentInfo build(java.util.Map<String, ?> map) throws Exception {
         OrderFulfillmentInfo self = new OrderFulfillmentInfo();
         return TeaModel.build(map, self);
@@ -87,6 +103,22 @@ public class OrderFulfillmentInfo extends TeaModel {
     }
     public String getReturnTime() {
         return this.returnTime;
+    }
+
+    public OrderFulfillmentInfo setReturnWay(String returnWay) {
+        this.returnWay = returnWay;
+        return this;
+    }
+    public String getReturnWay() {
+        return this.returnWay;
+    }
+
+    public OrderFulfillmentInfo setReturnVoucherSerial(String returnVoucherSerial) {
+        this.returnVoucherSerial = returnVoucherSerial;
+        return this;
+    }
+    public String getReturnVoucherSerial() {
+        return this.returnVoucherSerial;
     }
 
 }
