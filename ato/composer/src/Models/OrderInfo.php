@@ -115,20 +115,56 @@ class OrderInfo extends Model
      * @var int
      */
     public $downPayment;
+
+    // 商户统一社会信用代码
+    /**
+     * @example 91301010101010101A
+     *
+     * @var string
+     */
+    public $merchantId;
+
+    // 商户名称
+    /**
+     * @example xxx有限公司
+     *
+     * @var string
+     */
+    public $merchantName;
+
+    // 订单开始履约期数
+    /**
+     * @example 1
+     *
+     * @var int
+     */
+    public $divideStartTermIndex;
+
+    // 订单关联的营销id
+    /**
+     * @example Promoionxxxxx
+     *
+     * @var string
+     */
+    public $promotionId;
     protected $_name = [
-        'orderId'         => 'order_id',
-        'orderCreateTime' => 'order_create_time',
-        'orderPayTime'    => 'order_pay_time',
-        'totalRentMoney'  => 'total_rent_money',
-        'rentTerm'        => 'rent_term',
-        'rentUnit'        => 'rent_unit',
-        'orderStatus'     => 'order_status',
-        'orderSubStatus'  => 'order_sub_status',
-        'depositPrice'    => 'deposit_price',
-        'buyOutPrice'     => 'buy_out_price',
-        'logisticType'    => 'logistic_type',
-        'dueMode'         => 'due_mode',
-        'downPayment'     => 'down_payment',
+        'orderId'              => 'order_id',
+        'orderCreateTime'      => 'order_create_time',
+        'orderPayTime'         => 'order_pay_time',
+        'totalRentMoney'       => 'total_rent_money',
+        'rentTerm'             => 'rent_term',
+        'rentUnit'             => 'rent_unit',
+        'orderStatus'          => 'order_status',
+        'orderSubStatus'       => 'order_sub_status',
+        'depositPrice'         => 'deposit_price',
+        'buyOutPrice'          => 'buy_out_price',
+        'logisticType'         => 'logistic_type',
+        'dueMode'              => 'due_mode',
+        'downPayment'          => 'down_payment',
+        'merchantId'           => 'merchant_id',
+        'merchantName'         => 'merchant_name',
+        'divideStartTermIndex' => 'divide_start_term_index',
+        'promotionId'          => 'promotion_id',
     ];
 
     public function validate()
@@ -176,6 +212,18 @@ class OrderInfo extends Model
         }
         if (null !== $this->downPayment) {
             $res['down_payment'] = $this->downPayment;
+        }
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
+        }
+        if (null !== $this->merchantName) {
+            $res['merchant_name'] = $this->merchantName;
+        }
+        if (null !== $this->divideStartTermIndex) {
+            $res['divide_start_term_index'] = $this->divideStartTermIndex;
+        }
+        if (null !== $this->promotionId) {
+            $res['promotion_id'] = $this->promotionId;
         }
 
         return $res;
@@ -227,6 +275,18 @@ class OrderInfo extends Model
         }
         if (isset($map['down_payment'])) {
             $model->downPayment = $map['down_payment'];
+        }
+        if (isset($map['merchant_id'])) {
+            $model->merchantId = $map['merchant_id'];
+        }
+        if (isset($map['merchant_name'])) {
+            $model->merchantName = $map['merchant_name'];
+        }
+        if (isset($map['divide_start_term_index'])) {
+            $model->divideStartTermIndex = $map['divide_start_term_index'];
+        }
+        if (isset($map['promotion_id'])) {
+            $model->promotionId = $map['promotion_id'];
         }
 
         return $model;
