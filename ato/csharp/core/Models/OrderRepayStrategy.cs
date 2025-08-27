@@ -25,6 +25,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string PayDay { get; set; }
 
+        // 付款项目列表
+        [NameInMap("payment_item_list")]
+        [Validation(Required=false)]
+        public List<PaymentItem> PaymentItemList { get; set; }
+
     }
 
 }

@@ -35,6 +35,16 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ReturnTime { get; set; }
 
+        // 周期性代扣
+        [NameInMap("return_way")]
+        [Validation(Required=false)]
+        public string ReturnWay { get; set; }
+
+        // 还款流水号
+        [NameInMap("return_voucher_serial")]
+        [Validation(Required=false)]
+        public string ReturnVoucherSerial { get; set; }
+
     }
 
 }

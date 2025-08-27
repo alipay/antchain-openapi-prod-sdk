@@ -79,6 +79,26 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public long? DownPayment { get; set; }
 
+        // 商户统一社会信用代码
+        [NameInMap("merchant_id")]
+        [Validation(Required=false)]
+        public string MerchantId { get; set; }
+
+        // 商户名称
+        [NameInMap("merchant_name")]
+        [Validation(Required=false)]
+        public string MerchantName { get; set; }
+
+        // 订单开始履约期数
+        [NameInMap("divide_start_term_index")]
+        [Validation(Required=false)]
+        public long? DivideStartTermIndex { get; set; }
+
+        // 订单关联的营销id
+        [NameInMap("promotion_id")]
+        [Validation(Required=false)]
+        public string PromotionId { get; set; }
+
     }
 
 }
