@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '2.0.15',
+    sdk_version = '2.0.16',
     _prod_code = 'QQQ',
     _prod_channel = 'default'
   };
@@ -721,14 +721,52 @@ async function withdrawAntchainDemosdkTwiceOneEx(request: WithdrawAntchainDemosd
   return doRequest('1.0' ,'antchain.demosdk.twice.one.withdraw', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model OperateAntchainDemosdkTwiceOneRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 超时时间
+  timeout?: string(name='timeout'),
+}
+
+model OperateAntchainDemosdkTwiceOneResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 状态码
+  stauts?: string(name='stauts'),
+  // 返回结果描述
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+async function operateAntchainDemosdkTwiceOne(request: OperateAntchainDemosdkTwiceOneRequest): OperateAntchainDemosdkTwiceOneResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateAntchainDemosdkTwiceOneEx(request, headers, runtime);
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+async function operateAntchainDemosdkTwiceOneEx(request: OperateAntchainDemosdkTwiceOneRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateAntchainDemosdkTwiceOneResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.demosdk.twice.one.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryAntchainDemosdkTwiceThreeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 超时时间
   timeout?: string(name='timeout'),
-  // 11
-  aa?: DemoClass(name='aa'),
 }
 
 model QueryAntchainDemosdkTwiceThreeResponse = {
@@ -809,10 +847,6 @@ model QueryAntchainDemosdkTesxRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 名称
   name: string(name='name'),
-  // 12
-  test?: DemoClass(name='test'),
-  // 12
-  testNew?: TestDemo(name='test_new'),
 }
 
 model QueryAntchainDemosdkTesxResponse = {

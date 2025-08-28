@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-demosdk:2.0.15",
-    "go": "github.com/antchain-openapi-sdk-go/l4-qqq/v2/client:v2.0.15",
-    "csharp": "AntChain.SDK.DEMOSDK:2.0.2",
-    "ts": "@antchain/demosdk:2.0.15",
-    "php": "antchain/demosdk:2.0.15",
-    "python": "antchain_sdk_demosdk:2.0.15"
+    "java": "com.antgroup.antchain.openapi:openapi-demosdk:2.0.16",
+    "go": "github.com/antchain-openapi-sdk-go/l4-qqq/v2/client:v2.0.16",
+    "csharp": "AntChain.SDK.DEMOSDK:2.0.16",
+    "ts": "@antchain/demosdk:2.0.16",
+    "php": "antchain/demosdk:2.0.16",
+    "python": "antchain_sdk_demosdk:2.0.16"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
