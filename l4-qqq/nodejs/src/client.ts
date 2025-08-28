@@ -1127,20 +1127,17 @@ export class WithdrawAntchainDemosdkTwiceOneResponse extends $tea.Model {
   }
 }
 
-export class QueryAntchainDemosdkTwiceThreeRequest extends $tea.Model {
+export class OperateAntchainDemosdkTwiceOneRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
   // 超时时间
   timeout?: string;
-  // 11
-  aa?: DemoClass;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       timeout: 'timeout',
-      aa: 'aa',
     };
   }
 
@@ -1149,7 +1146,69 @@ export class QueryAntchainDemosdkTwiceThreeRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       timeout: 'string',
-      aa: DemoClass,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateAntchainDemosdkTwiceOneResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 状态码
+  stauts?: string;
+  // 返回结果描述
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      stauts: 'stauts',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      stauts: 'string',
+      msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntchainDemosdkTwiceThreeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 超时时间
+  timeout?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      timeout: 'timeout',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      timeout: 'string',
     };
   }
 
@@ -1263,17 +1322,11 @@ export class QueryAntchainDemosdkTesxRequest extends $tea.Model {
   productInstanceId?: string;
   // 名称
   name: string;
-  // 12
-  test?: DemoClass;
-  // 12
-  testNew?: TestDemo;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       name: 'name',
-      test: 'test',
-      testNew: 'test_new',
     };
   }
 
@@ -1282,8 +1335,6 @@ export class QueryAntchainDemosdkTesxRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       name: 'string',
-      test: DemoClass,
-      testNew: TestDemo,
     };
   }
 
@@ -1433,7 +1484,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.0.15",
+          sdk_version: "2.0.16",
           _prod_code: "QQQ",
           _prod_channel: "default",
         };
@@ -1688,6 +1739,25 @@ export default class Client {
   async withdrawAntchainDemosdkTwiceOneEx(request: WithdrawAntchainDemosdkTwiceOneRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<WithdrawAntchainDemosdkTwiceOneResponse> {
     Util.validateModel(request);
     return $tea.cast<WithdrawAntchainDemosdkTwiceOneResponse>(await this.doRequest("1.0", "antchain.demosdk.twice.one.withdraw", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new WithdrawAntchainDemosdkTwiceOneResponse({}));
+  }
+
+  /**
+   * Description: 个人工作台二期预发测试
+   * Summary: 个人工作台二期预发测试
+   */
+  async operateAntchainDemosdkTwiceOne(request: OperateAntchainDemosdkTwiceOneRequest): Promise<OperateAntchainDemosdkTwiceOneResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.operateAntchainDemosdkTwiceOneEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人工作台二期预发测试
+   * Summary: 个人工作台二期预发测试
+   */
+  async operateAntchainDemosdkTwiceOneEx(request: OperateAntchainDemosdkTwiceOneRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateAntchainDemosdkTwiceOneResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OperateAntchainDemosdkTwiceOneResponse>(await this.doRequest("1.0", "antchain.demosdk.twice.one.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateAntchainDemosdkTwiceOneResponse({}));
   }
 
   /**
