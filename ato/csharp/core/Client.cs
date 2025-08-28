@@ -137,7 +137,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.15.64"},
+                        {"sdk_version", "1.15.67"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.15.64"},
+                        {"sdk_version", "1.15.67"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -7405,6 +7405,90 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<OperateInnerAgreementterminatezfbdirectResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.agreementterminatezfbdirect.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 解约申请配置详情
+         * Summary: 解约申请配置详情
+         */
+        public QueryInnerAgreementterminateconfigResponse QueryInnerAgreementterminateconfig(QueryInnerAgreementterminateconfigRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryInnerAgreementterminateconfigEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 解约申请配置详情
+         * Summary: 解约申请配置详情
+         */
+        public async Task<QueryInnerAgreementterminateconfigResponse> QueryInnerAgreementterminateconfigAsync(QueryInnerAgreementterminateconfigRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryInnerAgreementterminateconfigExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 解约申请配置详情
+         * Summary: 解约申请配置详情
+         */
+        public QueryInnerAgreementterminateconfigResponse QueryInnerAgreementterminateconfigEx(QueryInnerAgreementterminateconfigRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerAgreementterminateconfigResponse>(DoRequest("1.0", "antchain.ato.inner.agreementterminateconfig.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 解约申请配置详情
+         * Summary: 解约申请配置详情
+         */
+        public async Task<QueryInnerAgreementterminateconfigResponse> QueryInnerAgreementterminateconfigExAsync(QueryInnerAgreementterminateconfigRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerAgreementterminateconfigResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.agreementterminateconfig.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 解约申请商户各状态统计
+         * Summary: 解约申请商户各状态统计
+         */
+        public CountInnerAgreementterminateResponse CountInnerAgreementterminate(CountInnerAgreementterminateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CountInnerAgreementterminateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 解约申请商户各状态统计
+         * Summary: 解约申请商户各状态统计
+         */
+        public async Task<CountInnerAgreementterminateResponse> CountInnerAgreementterminateAsync(CountInnerAgreementterminateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CountInnerAgreementterminateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 解约申请商户各状态统计
+         * Summary: 解约申请商户各状态统计
+         */
+        public CountInnerAgreementterminateResponse CountInnerAgreementterminateEx(CountInnerAgreementterminateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CountInnerAgreementterminateResponse>(DoRequest("1.0", "antchain.ato.inner.agreementterminate.count", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 解约申请商户各状态统计
+         * Summary: 解约申请商户各状态统计
+         */
+        public async Task<CountInnerAgreementterminateResponse> CountInnerAgreementterminateExAsync(CountInnerAgreementterminateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CountInnerAgreementterminateResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.agreementterminate.count", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

@@ -79,6 +79,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ModelVersion { get; set; }
 
+        // 商家传入的订单ID，商家侧唯一
+        [NameInMap("order_id")]
+        [Validation(Required=false)]
+        public string OrderId { get; set; }
+
     }
 
 }
