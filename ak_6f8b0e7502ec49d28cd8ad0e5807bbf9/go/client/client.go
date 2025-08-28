@@ -327,8 +327,6 @@ type QueryDemoAasSaSaRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// aa
-	NotBlankVerify *string `json:"not_blank_verify,omitempty" xml:"not_blank_verify,omitempty" require:"true"`
 }
 
 func (s QueryDemoAasSaSaRequest) String() string {
@@ -346,11 +344,6 @@ func (s *QueryDemoAasSaSaRequest) SetAuthToken(v string) *QueryDemoAasSaSaReques
 
 func (s *QueryDemoAasSaSaRequest) SetProductInstanceId(v string) *QueryDemoAasSaSaRequest {
 	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *QueryDemoAasSaSaRequest) SetNotBlankVerify(v string) *QueryDemoAasSaSaRequest {
-	s.NotBlankVerify = &v
 	return s
 }
 
@@ -508,7 +501,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.21"),
+				"sdk_version":      tea.String("1.0.18"),
 				"_prod_code":       tea.String("ak_6f8b0e7502ec49d28cd8ad0e5807bbf9"),
 				"_prod_channel":    tea.String("saas"),
 			}
