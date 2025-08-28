@@ -23,16 +23,6 @@ namespace AntChain.SDK.QQQ.Models
         [Validation(Required=true)]
         public string Name { get; set; }
 
-        // 12
-        [NameInMap("test")]
-        [Validation(Required=false)]
-        public DemoClass Test { get; set; }
-
-        // 12
-        [NameInMap("test_new")]
-        [Validation(Required=false)]
-        public TestDemo TestNew { get; set; }
-
     }
 
 }

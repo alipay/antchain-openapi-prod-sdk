@@ -137,7 +137,7 @@ namespace AntChain.SDK.QQQ
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.0.15"},
+                        {"sdk_version", "2.0.16"},
                         {"_prod_code", "QQQ"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.QQQ
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.0.15"},
+                        {"sdk_version", "2.0.16"},
                         {"_prod_code", "QQQ"},
                         {"_prod_channel", "default"},
                     };
@@ -781,6 +781,48 @@ namespace AntChain.SDK.QQQ
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<WithdrawAntchainDemosdkTwiceOneResponse>(await DoRequestAsync("1.0", "antchain.demosdk.twice.one.withdraw", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人工作台二期预发测试
+         * Summary: 个人工作台二期预发测试
+         */
+        public OperateAntchainDemosdkTwiceOneResponse OperateAntchainDemosdkTwiceOne(OperateAntchainDemosdkTwiceOneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateAntchainDemosdkTwiceOneEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人工作台二期预发测试
+         * Summary: 个人工作台二期预发测试
+         */
+        public async Task<OperateAntchainDemosdkTwiceOneResponse> OperateAntchainDemosdkTwiceOneAsync(OperateAntchainDemosdkTwiceOneRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateAntchainDemosdkTwiceOneExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人工作台二期预发测试
+         * Summary: 个人工作台二期预发测试
+         */
+        public OperateAntchainDemosdkTwiceOneResponse OperateAntchainDemosdkTwiceOneEx(OperateAntchainDemosdkTwiceOneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateAntchainDemosdkTwiceOneResponse>(DoRequest("1.0", "antchain.demosdk.twice.one.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人工作台二期预发测试
+         * Summary: 个人工作台二期预发测试
+         */
+        public async Task<OperateAntchainDemosdkTwiceOneResponse> OperateAntchainDemosdkTwiceOneExAsync(OperateAntchainDemosdkTwiceOneRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateAntchainDemosdkTwiceOneResponse>(await DoRequestAsync("1.0", "antchain.demosdk.twice.one.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.QQQ.Models
 {
-    public class QueryAntchainDemosdkTwiceThreeRequest : TeaModel {
+    public class OperateAntchainDemosdkTwiceOneRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
