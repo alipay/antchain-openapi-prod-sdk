@@ -1389,14 +1389,89 @@ func (s *WithdrawAntchainDemosdkTwiceOneResponse) SetMsg(v string) *WithdrawAntc
 	return s
 }
 
+type OperateAntchainDemosdkTwiceOneRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty"`
+}
+
+func (s OperateAntchainDemosdkTwiceOneRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateAntchainDemosdkTwiceOneRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateAntchainDemosdkTwiceOneRequest) SetAuthToken(v string) *OperateAntchainDemosdkTwiceOneRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateAntchainDemosdkTwiceOneRequest) SetProductInstanceId(v string) *OperateAntchainDemosdkTwiceOneRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateAntchainDemosdkTwiceOneRequest) SetTimeout(v string) *OperateAntchainDemosdkTwiceOneRequest {
+	s.Timeout = &v
+	return s
+}
+
+type OperateAntchainDemosdkTwiceOneResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 状态码
+	Stauts *string `json:"stauts,omitempty" xml:"stauts,omitempty"`
+	// 返回结果描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s OperateAntchainDemosdkTwiceOneResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateAntchainDemosdkTwiceOneResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateAntchainDemosdkTwiceOneResponse) SetReqMsgId(v string) *OperateAntchainDemosdkTwiceOneResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateAntchainDemosdkTwiceOneResponse) SetResultCode(v string) *OperateAntchainDemosdkTwiceOneResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateAntchainDemosdkTwiceOneResponse) SetResultMsg(v string) *OperateAntchainDemosdkTwiceOneResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateAntchainDemosdkTwiceOneResponse) SetStauts(v string) *OperateAntchainDemosdkTwiceOneResponse {
+	s.Stauts = &v
+	return s
+}
+
+func (s *OperateAntchainDemosdkTwiceOneResponse) SetMsg(v string) *OperateAntchainDemosdkTwiceOneResponse {
+	s.Msg = &v
+	return s
+}
+
 type QueryAntchainDemosdkTwiceThreeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 超时时间
 	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty"`
-	// 11
-	Aa *DemoClass `json:"aa,omitempty" xml:"aa,omitempty"`
 }
 
 func (s QueryAntchainDemosdkTwiceThreeRequest) String() string {
@@ -1419,11 +1494,6 @@ func (s *QueryAntchainDemosdkTwiceThreeRequest) SetProductInstanceId(v string) *
 
 func (s *QueryAntchainDemosdkTwiceThreeRequest) SetTimeout(v string) *QueryAntchainDemosdkTwiceThreeRequest {
 	s.Timeout = &v
-	return s
-}
-
-func (s *QueryAntchainDemosdkTwiceThreeRequest) SetAa(v *DemoClass) *QueryAntchainDemosdkTwiceThreeRequest {
-	s.Aa = v
 	return s
 }
 
@@ -1556,10 +1626,6 @@ type QueryAntchainDemosdkTesxRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 12
-	Test *DemoClass `json:"test,omitempty" xml:"test,omitempty"`
-	// 12
-	TestNew *TestDemo `json:"test_new,omitempty" xml:"test_new,omitempty"`
 }
 
 func (s QueryAntchainDemosdkTesxRequest) String() string {
@@ -1582,16 +1648,6 @@ func (s *QueryAntchainDemosdkTesxRequest) SetProductInstanceId(v string) *QueryA
 
 func (s *QueryAntchainDemosdkTesxRequest) SetName(v string) *QueryAntchainDemosdkTesxRequest {
 	s.Name = &v
-	return s
-}
-
-func (s *QueryAntchainDemosdkTesxRequest) SetTest(v *DemoClass) *QueryAntchainDemosdkTesxRequest {
-	s.Test = v
-	return s
-}
-
-func (s *QueryAntchainDemosdkTesxRequest) SetTestNew(v *TestDemo) *QueryAntchainDemosdkTesxRequest {
-	s.TestNew = v
 	return s
 }
 
@@ -1749,7 +1805,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.0.15"),
+				"sdk_version":      tea.String("2.0.16"),
 				"_prod_code":       tea.String("QQQ"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -2174,6 +2230,40 @@ func (client *Client) WithdrawAntchainDemosdkTwiceOneEx(request *WithdrawAntchai
 	}
 	_result = &WithdrawAntchainDemosdkTwiceOneResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.twice.one.withdraw"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+func (client *Client) OperateAntchainDemosdkTwiceOne(request *OperateAntchainDemosdkTwiceOneRequest) (_result *OperateAntchainDemosdkTwiceOneResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateAntchainDemosdkTwiceOneResponse{}
+	_body, _err := client.OperateAntchainDemosdkTwiceOneEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人工作台二期预发测试
+ * Summary: 个人工作台二期预发测试
+ */
+func (client *Client) OperateAntchainDemosdkTwiceOneEx(request *OperateAntchainDemosdkTwiceOneRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateAntchainDemosdkTwiceOneResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateAntchainDemosdkTwiceOneResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.demosdk.twice.one.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
