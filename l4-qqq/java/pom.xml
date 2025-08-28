@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-l4-qqq</artifactId>
-  <version>2.0.15</version>
+  <version>2.0.16</version>
   <packaging>jar</packaging>
   <name>openapi-l4-qqq</name>
   <description>Ant Chain DEMOSDK SDK for Java

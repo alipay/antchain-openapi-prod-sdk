@@ -16,14 +16,6 @@ public class QueryAntchainDemosdkTesxRequest extends TeaModel {
     @Validation(required = true)
     public String name;
 
-    // 12
-    @NameInMap("test")
-    public DemoClass test;
-
-    // 12
-    @NameInMap("test_new")
-    public TestDemo testNew;
-
     public static QueryAntchainDemosdkTesxRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAntchainDemosdkTesxRequest self = new QueryAntchainDemosdkTesxRequest();
         return TeaModel.build(map, self);
@@ -51,22 +43,6 @@ public class QueryAntchainDemosdkTesxRequest extends TeaModel {
     }
     public String getName() {
         return this.name;
-    }
-
-    public QueryAntchainDemosdkTesxRequest setTest(DemoClass test) {
-        this.test = test;
-        return this;
-    }
-    public DemoClass getTest() {
-        return this.test;
-    }
-
-    public QueryAntchainDemosdkTesxRequest setTestNew(TestDemo testNew) {
-        this.testNew = testNew;
-        return this;
-    }
-    public TestDemo getTestNew() {
-        return this.testNew;
     }
 
 }

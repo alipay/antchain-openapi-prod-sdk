@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.qqq.models;
 
 import com.aliyun.tea.*;
 
-public class QueryAntchainDemosdkTwiceThreeRequest extends TeaModel {
+public class OperateAntchainDemosdkTwiceOneRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -15,12 +15,12 @@ public class QueryAntchainDemosdkTwiceThreeRequest extends TeaModel {
     @NameInMap("timeout")
     public String timeout;
 
-    public static QueryAntchainDemosdkTwiceThreeRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryAntchainDemosdkTwiceThreeRequest self = new QueryAntchainDemosdkTwiceThreeRequest();
+    public static OperateAntchainDemosdkTwiceOneRequest build(java.util.Map<String, ?> map) throws Exception {
+        OperateAntchainDemosdkTwiceOneRequest self = new OperateAntchainDemosdkTwiceOneRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryAntchainDemosdkTwiceThreeRequest setAuthToken(String authToken) {
+    public OperateAntchainDemosdkTwiceOneRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -28,7 +28,7 @@ public class QueryAntchainDemosdkTwiceThreeRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryAntchainDemosdkTwiceThreeRequest setProductInstanceId(String productInstanceId) {
+    public OperateAntchainDemosdkTwiceOneRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -36,7 +36,7 @@ public class QueryAntchainDemosdkTwiceThreeRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryAntchainDemosdkTwiceThreeRequest setTimeout(String timeout) {
+    public OperateAntchainDemosdkTwiceOneRequest setTimeout(String timeout) {
         this.timeout = timeout;
         return this;
     }
