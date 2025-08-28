@@ -17,6 +17,8 @@ use AntChain\QQQ\Models\BindAntchainDemosdkXxxRequest;
 use AntChain\QQQ\Models\BindAntchainDemosdkXxxResponse;
 use AntChain\QQQ\Models\ImportAntchainDemosdkCreateOneRequest;
 use AntChain\QQQ\Models\ImportAntchainDemosdkCreateOneResponse;
+use AntChain\QQQ\Models\OperateAntchainDemosdkTwiceOneRequest;
+use AntChain\QQQ\Models\OperateAntchainDemosdkTwiceOneResponse;
 use AntChain\QQQ\Models\QueryAntchainAbcApprovalTestRequest;
 use AntChain\QQQ\Models\QueryAntchainAbcApprovalTestResponse;
 use AntChain\QQQ\Models\QueryAntchainAbcOneLimitRequest;
@@ -186,7 +188,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '2.0.15',
+                    'sdk_version'      => '2.0.16',
                     '_prod_code'       => 'QQQ',
                     '_prod_channel'    => 'default',
                 ];
@@ -595,6 +597,39 @@ class Client
         Utils::validateModel($request);
 
         return WithdrawAntchainDemosdkTwiceOneResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.twice.one.withdraw', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试.
+     *
+     * @param OperateAntchainDemosdkTwiceOneRequest $request
+     *
+     * @return OperateAntchainDemosdkTwiceOneResponse
+     */
+    public function operateAntchainDemosdkTwiceOne($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateAntchainDemosdkTwiceOneEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人工作台二期预发测试
+     * Summary: 个人工作台二期预发测试.
+     *
+     * @param OperateAntchainDemosdkTwiceOneRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return OperateAntchainDemosdkTwiceOneResponse
+     */
+    public function operateAntchainDemosdkTwiceOneEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateAntchainDemosdkTwiceOneResponse::fromMap($this->doRequest('1.0', 'antchain.demosdk.twice.one.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

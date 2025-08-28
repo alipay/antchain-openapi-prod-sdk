@@ -24,17 +24,10 @@ class QueryAntchainDemosdkTwiceThreeRequest extends Model
      * @var string
      */
     public $timeout;
-
-    // 11
-    /**
-     * @var DemoClass
-     */
-    public $aa;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'timeout'           => 'timeout',
-        'aa'                => 'aa',
     ];
 
     public function validate()
@@ -52,9 +45,6 @@ class QueryAntchainDemosdkTwiceThreeRequest extends Model
         }
         if (null !== $this->timeout) {
             $res['timeout'] = $this->timeout;
-        }
-        if (null !== $this->aa) {
-            $res['aa'] = null !== $this->aa ? $this->aa->toMap() : null;
         }
 
         return $res;
@@ -76,9 +66,6 @@ class QueryAntchainDemosdkTwiceThreeRequest extends Model
         }
         if (isset($map['timeout'])) {
             $model->timeout = $map['timeout'];
-        }
-        if (isset($map['aa'])) {
-            $model->aa = DemoClass::fromMap($map['aa']);
         }
 
         return $model;
