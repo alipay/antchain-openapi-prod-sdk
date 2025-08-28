@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.15.64"),
+                    new TeaPair("sdk_version", "1.15.67"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -3727,6 +3727,48 @@ public class Client {
     public OperateInnerAgreementterminatezfbdirectResponse operateInnerAgreementterminatezfbdirectEx(OperateInnerAgreementterminatezfbdirectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.agreementterminatezfbdirect.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateInnerAgreementterminatezfbdirectResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 解约申请配置详情
+     * Summary: 解约申请配置详情</p>
+     */
+    public QueryInnerAgreementterminateconfigResponse queryInnerAgreementterminateconfig(QueryInnerAgreementterminateconfigRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInnerAgreementterminateconfigEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 解约申请配置详情
+     * Summary: 解约申请配置详情</p>
+     */
+    public QueryInnerAgreementterminateconfigResponse queryInnerAgreementterminateconfigEx(QueryInnerAgreementterminateconfigRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.agreementterminateconfig.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInnerAgreementterminateconfigResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 解约申请商户各状态统计
+     * Summary: 解约申请商户各状态统计</p>
+     */
+    public CountInnerAgreementterminateResponse countInnerAgreementterminate(CountInnerAgreementterminateRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.countInnerAgreementterminateEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 解约申请商户各状态统计
+     * Summary: 解约申请商户各状态统计</p>
+     */
+    public CountInnerAgreementterminateResponse countInnerAgreementterminateEx(CountInnerAgreementterminateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.agreementterminate.count", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CountInnerAgreementterminateResponse());
     }
 
     /**

@@ -66,6 +66,10 @@ public class QueryRiskRequest extends TeaModel {
     @NameInMap("model_version")
     public String modelVersion;
 
+    // 商家传入的订单ID，商家侧唯一
+    @NameInMap("order_id")
+    public String orderId;
+
     public static QueryRiskRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryRiskRequest self = new QueryRiskRequest();
         return TeaModel.build(map, self);
@@ -181,6 +185,14 @@ public class QueryRiskRequest extends TeaModel {
     }
     public String getModelVersion() {
         return this.modelVersion;
+    }
+
+    public QueryRiskRequest setOrderId(String orderId) {
+        this.orderId = orderId;
+        return this;
+    }
+    public String getOrderId() {
+        return this.orderId;
     }
 
 }

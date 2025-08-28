@@ -44,6 +44,22 @@ public class AgreementTerminateApplyInfo extends TeaModel {
     @NameInMap("handle_status")
     public String handleStatus;
 
+    // 商家处理超时时长
+    /**
+     * <strong>example:</strong>
+     * <p>5</p>
+     */
+    @NameInMap("merchant_handle_duration")
+    public String merchantHandleDuration;
+
+    // 商家处理超时时长
+    /**
+     * <strong>example:</strong>
+     * <p>DAY</p>
+     */
+    @NameInMap("merchant_handle_duration_type")
+    public String merchantHandleDurationType;
+
     public static AgreementTerminateApplyInfo build(java.util.Map<String, ?> map) throws Exception {
         AgreementTerminateApplyInfo self = new AgreementTerminateApplyInfo();
         return TeaModel.build(map, self);
@@ -87,6 +103,22 @@ public class AgreementTerminateApplyInfo extends TeaModel {
     }
     public String getHandleStatus() {
         return this.handleStatus;
+    }
+
+    public AgreementTerminateApplyInfo setMerchantHandleDuration(String merchantHandleDuration) {
+        this.merchantHandleDuration = merchantHandleDuration;
+        return this;
+    }
+    public String getMerchantHandleDuration() {
+        return this.merchantHandleDuration;
+    }
+
+    public AgreementTerminateApplyInfo setMerchantHandleDurationType(String merchantHandleDurationType) {
+        this.merchantHandleDurationType = merchantHandleDurationType;
+        return this;
+    }
+    public String getMerchantHandleDurationType() {
+        return this.merchantHandleDurationType;
     }
 
 }
