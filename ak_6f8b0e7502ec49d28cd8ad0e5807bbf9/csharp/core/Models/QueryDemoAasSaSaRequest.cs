@@ -18,11 +18,6 @@ namespace AntChain.SDK.Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // aa
-        [NameInMap("not_blank_verify")]
-        [Validation(Required=true)]
-        public string NotBlankVerify { get; set; }
-
     }
 
 }
