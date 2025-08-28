@@ -91,6 +91,12 @@ class QueryRiskRequest extends Model
      * @var string
      */
     public $modelVersion;
+
+    // 商家传入的订单ID，商家侧唯一
+    /**
+     * @var string
+     */
+    public $orderId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -106,6 +112,7 @@ class QueryRiskRequest extends Model
         'deliveryDetail'    => 'delivery_detail',
         'industry'          => 'industry',
         'modelVersion'      => 'model_version',
+        'orderId'           => 'order_id',
     ];
 
     public function validate()
@@ -165,6 +172,9 @@ class QueryRiskRequest extends Model
         if (null !== $this->modelVersion) {
             $res['model_version'] = $this->modelVersion;
         }
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
 
         return $res;
     }
@@ -218,6 +228,9 @@ class QueryRiskRequest extends Model
         }
         if (isset($map['model_version'])) {
             $model->modelVersion = $map['model_version'];
+        }
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
         }
 
         return $model;

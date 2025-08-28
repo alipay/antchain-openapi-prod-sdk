@@ -69,6 +69,8 @@ use AntChain\ATO\Models\ConfirmFundUsercancelRequest;
 use AntChain\ATO\Models\ConfirmFundUsercancelResponse;
 use AntChain\ATO\Models\ConfirmWithholdSignasyncunsignRequest;
 use AntChain\ATO\Models\ConfirmWithholdSignasyncunsignResponse;
+use AntChain\ATO\Models\CountInnerAgreementterminateRequest;
+use AntChain\ATO\Models\CountInnerAgreementterminateResponse;
 use AntChain\ATO\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\ATO\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\ATO\Models\CreateInnerCustomerserviceRequest;
@@ -247,6 +249,8 @@ use AntChain\ATO\Models\QueryFundCreditRequest;
 use AntChain\ATO\Models\QueryFundCreditResponse;
 use AntChain\ATO\Models\QueryFundDividerelationRequest;
 use AntChain\ATO\Models\QueryFundDividerelationResponse;
+use AntChain\ATO\Models\QueryInnerAgreementterminateconfigRequest;
+use AntChain\ATO\Models\QueryInnerAgreementterminateconfigResponse;
 use AntChain\ATO\Models\QueryInnerAuthorizationRequest;
 use AntChain\ATO\Models\QueryInnerAuthorizationResponse;
 use AntChain\ATO\Models\QueryInnerExpandprocessRequest;
@@ -614,7 +618,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.15.64',
+                    'sdk_version'      => '1.15.67',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -6202,6 +6206,72 @@ class Client
         Utils::validateModel($request);
 
         return OperateInnerAgreementterminatezfbdirectResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.agreementterminatezfbdirect.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 解约申请配置详情
+     * Summary: 解约申请配置详情.
+     *
+     * @param QueryInnerAgreementterminateconfigRequest $request
+     *
+     * @return QueryInnerAgreementterminateconfigResponse
+     */
+    public function queryInnerAgreementterminateconfig($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerAgreementterminateconfigEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 解约申请配置详情
+     * Summary: 解约申请配置详情.
+     *
+     * @param QueryInnerAgreementterminateconfigRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return QueryInnerAgreementterminateconfigResponse
+     */
+    public function queryInnerAgreementterminateconfigEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerAgreementterminateconfigResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.agreementterminateconfig.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 解约申请商户各状态统计
+     * Summary: 解约申请商户各状态统计
+     *
+     * @param CountInnerAgreementterminateRequest $request
+     *
+     * @return CountInnerAgreementterminateResponse
+     */
+    public function countInnerAgreementterminate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->countInnerAgreementterminateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 解约申请商户各状态统计
+     * Summary: 解约申请商户各状态统计
+     *
+     * @param CountInnerAgreementterminateRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return CountInnerAgreementterminateResponse
+     */
+    public function countInnerAgreementterminateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CountInnerAgreementterminateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.agreementterminate.count', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

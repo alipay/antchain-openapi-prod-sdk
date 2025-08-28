@@ -47,12 +47,30 @@ class AgreementTerminateApplyInfo extends Model
      * @var string
      */
     public $handleStatus;
+
+    // 商家处理超时时长
+    /**
+     * @example 5
+     *
+     * @var string
+     */
+    public $merchantHandleDuration;
+
+    // 商家处理超时时长
+    /**
+     * @example DAY
+     *
+     * @var string
+     */
+    public $merchantHandleDurationType;
     protected $_name = [
-        'orderId'           => 'order_id',
-        'terminateApplyId'  => 'terminate_apply_id',
-        'orderGmtCreate'    => 'order_gmt_create',
-        'gmtTerminateApply' => 'gmt_terminate_apply',
-        'handleStatus'      => 'handle_status',
+        'orderId'                    => 'order_id',
+        'terminateApplyId'           => 'terminate_apply_id',
+        'orderGmtCreate'             => 'order_gmt_create',
+        'gmtTerminateApply'          => 'gmt_terminate_apply',
+        'handleStatus'               => 'handle_status',
+        'merchantHandleDuration'     => 'merchant_handle_duration',
+        'merchantHandleDurationType' => 'merchant_handle_duration_type',
     ];
 
     public function validate()
@@ -76,6 +94,12 @@ class AgreementTerminateApplyInfo extends Model
         }
         if (null !== $this->handleStatus) {
             $res['handle_status'] = $this->handleStatus;
+        }
+        if (null !== $this->merchantHandleDuration) {
+            $res['merchant_handle_duration'] = $this->merchantHandleDuration;
+        }
+        if (null !== $this->merchantHandleDurationType) {
+            $res['merchant_handle_duration_type'] = $this->merchantHandleDurationType;
         }
 
         return $res;
@@ -103,6 +127,12 @@ class AgreementTerminateApplyInfo extends Model
         }
         if (isset($map['handle_status'])) {
             $model->handleStatus = $map['handle_status'];
+        }
+        if (isset($map['merchant_handle_duration'])) {
+            $model->merchantHandleDuration = $map['merchant_handle_duration'];
+        }
+        if (isset($map['merchant_handle_duration_type'])) {
+            $model->merchantHandleDurationType = $map['merchant_handle_duration_type'];
         }
 
         return $model;
