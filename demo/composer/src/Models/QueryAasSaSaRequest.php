@@ -18,21 +18,13 @@ class QueryAasSaSaRequest extends Model
      * @var string
      */
     public $productInstanceId;
-
-    // aa
-    /**
-     * @var string
-     */
-    public $notBlankVerify;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'notBlankVerify'    => 'not_blank_verify',
     ];
 
     public function validate()
     {
-        Model::validateRequired('notBlankVerify', $this->notBlankVerify, true);
     }
 
     public function toMap()
@@ -43,9 +35,6 @@ class QueryAasSaSaRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->notBlankVerify) {
-            $res['not_blank_verify'] = $this->notBlankVerify;
         }
 
         return $res;
@@ -64,9 +53,6 @@ class QueryAasSaSaRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['not_blank_verify'])) {
-            $model->notBlankVerify = $map['not_blank_verify'];
         }
 
         return $model;
