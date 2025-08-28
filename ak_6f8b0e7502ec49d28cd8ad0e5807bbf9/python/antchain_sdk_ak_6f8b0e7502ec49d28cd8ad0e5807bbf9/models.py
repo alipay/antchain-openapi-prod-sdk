@@ -393,16 +393,13 @@ class QueryDemoAasSaSaRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        not_blank_verify: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # aa
-        self.not_blank_verify = not_blank_verify
 
     def validate(self):
-        self.validate_required(self.not_blank_verify, 'not_blank_verify')
+        pass
 
     def to_map(self):
         _map = super().to_map()
@@ -414,8 +411,6 @@ class QueryDemoAasSaSaRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.not_blank_verify is not None:
-            result['not_blank_verify'] = self.not_blank_verify
         return result
 
     def from_map(self, m: dict = None):
@@ -424,8 +419,6 @@ class QueryDemoAasSaSaRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('not_blank_verify') is not None:
-            self.not_blank_verify = m.get('not_blank_verify')
         return self
 
 
