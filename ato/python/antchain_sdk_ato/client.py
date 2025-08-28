@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.64',
+                    'sdk_version': '1.15.67',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.64',
+                    'sdk_version': '1.15.67',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -9685,6 +9685,118 @@ class Client:
         return TeaCore.from_map(
             ato_models.OperateInnerAgreementterminatezfbdirectResponse(),
             await self.do_request_async('1.0', 'antchain.ato.inner.agreementterminatezfbdirect.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_agreementterminateconfig(
+        self,
+        request: ato_models.QueryInnerAgreementterminateconfigRequest,
+    ) -> ato_models.QueryInnerAgreementterminateconfigResponse:
+        """
+        Description: 解约申请配置详情
+        Summary: 解约申请配置详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_agreementterminateconfig_ex(request, headers, runtime)
+
+    async def query_inner_agreementterminateconfig_async(
+        self,
+        request: ato_models.QueryInnerAgreementterminateconfigRequest,
+    ) -> ato_models.QueryInnerAgreementterminateconfigResponse:
+        """
+        Description: 解约申请配置详情
+        Summary: 解约申请配置详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_agreementterminateconfig_ex_async(request, headers, runtime)
+
+    def query_inner_agreementterminateconfig_ex(
+        self,
+        request: ato_models.QueryInnerAgreementterminateconfigRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerAgreementterminateconfigResponse:
+        """
+        Description: 解约申请配置详情
+        Summary: 解约申请配置详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerAgreementterminateconfigResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.agreementterminateconfig.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_agreementterminateconfig_ex_async(
+        self,
+        request: ato_models.QueryInnerAgreementterminateconfigRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerAgreementterminateconfigResponse:
+        """
+        Description: 解约申请配置详情
+        Summary: 解约申请配置详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerAgreementterminateconfigResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.agreementterminateconfig.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def count_inner_agreementterminate(
+        self,
+        request: ato_models.CountInnerAgreementterminateRequest,
+    ) -> ato_models.CountInnerAgreementterminateResponse:
+        """
+        Description: 解约申请商户各状态统计
+        Summary: 解约申请商户各状态统计
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.count_inner_agreementterminate_ex(request, headers, runtime)
+
+    async def count_inner_agreementterminate_async(
+        self,
+        request: ato_models.CountInnerAgreementterminateRequest,
+    ) -> ato_models.CountInnerAgreementterminateResponse:
+        """
+        Description: 解约申请商户各状态统计
+        Summary: 解约申请商户各状态统计
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.count_inner_agreementterminate_ex_async(request, headers, runtime)
+
+    def count_inner_agreementterminate_ex(
+        self,
+        request: ato_models.CountInnerAgreementterminateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CountInnerAgreementterminateResponse:
+        """
+        Description: 解约申请商户各状态统计
+        Summary: 解约申请商户各状态统计
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CountInnerAgreementterminateResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.agreementterminate.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def count_inner_agreementterminate_ex_async(
+        self,
+        request: ato_models.CountInnerAgreementterminateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CountInnerAgreementterminateResponse:
+        """
+        Description: 解约申请商户各状态统计
+        Summary: 解约申请商户各状态统计
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CountInnerAgreementterminateResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.agreementterminate.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_insure(

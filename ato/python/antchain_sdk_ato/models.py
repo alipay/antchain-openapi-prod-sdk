@@ -5344,6 +5344,8 @@ class AgreementTerminateApplyInfo(TeaModel):
         order_gmt_create: str = None,
         gmt_terminate_apply: str = None,
         handle_status: str = None,
+        merchant_handle_duration: str = None,
+        merchant_handle_duration_type: str = None,
     ):
         # 订单ID
         self.order_id = order_id
@@ -5355,6 +5357,10 @@ class AgreementTerminateApplyInfo(TeaModel):
         self.gmt_terminate_apply = gmt_terminate_apply
         # 处理状态
         self.handle_status = handle_status
+        # 商家处理超时时长
+        self.merchant_handle_duration = merchant_handle_duration
+        # 商家处理超时时长
+        self.merchant_handle_duration_type = merchant_handle_duration_type
 
     def validate(self):
         pass
@@ -5375,6 +5381,10 @@ class AgreementTerminateApplyInfo(TeaModel):
             result['gmt_terminate_apply'] = self.gmt_terminate_apply
         if self.handle_status is not None:
             result['handle_status'] = self.handle_status
+        if self.merchant_handle_duration is not None:
+            result['merchant_handle_duration'] = self.merchant_handle_duration
+        if self.merchant_handle_duration_type is not None:
+            result['merchant_handle_duration_type'] = self.merchant_handle_duration_type
         return result
 
     def from_map(self, m: dict = None):
@@ -5389,6 +5399,10 @@ class AgreementTerminateApplyInfo(TeaModel):
             self.gmt_terminate_apply = m.get('gmt_terminate_apply')
         if m.get('handle_status') is not None:
             self.handle_status = m.get('handle_status')
+        if m.get('merchant_handle_duration') is not None:
+            self.merchant_handle_duration = m.get('merchant_handle_duration')
+        if m.get('merchant_handle_duration_type') is not None:
+            self.merchant_handle_duration_type = m.get('merchant_handle_duration_type')
         return self
 
 
@@ -26571,6 +26585,249 @@ class OperateInnerAgreementterminatezfbdirectResponse(TeaModel):
         return self
 
 
+class QueryInnerAgreementterminateconfigRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户ID
+        self.tenant_id = tenant_id
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class QueryInnerAgreementterminateconfigResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        timeout_hour: str = None,
+        timeout_day: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 商家处理超时时长-HOUR类型时长
+        self.timeout_hour = timeout_hour
+        # 商家处理超时时长-DAY类型时长
+        self.timeout_day = timeout_day
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.timeout_hour is not None:
+            result['timeout_hour'] = self.timeout_hour
+        if self.timeout_day is not None:
+            result['timeout_day'] = self.timeout_day
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('timeout_hour') is not None:
+            self.timeout_hour = m.get('timeout_hour')
+        if m.get('timeout_day') is not None:
+            self.timeout_day = m.get('timeout_day')
+        return self
+
+
+class CountInnerAgreementterminateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        merchant_handle_duration_type: str = None,
+        order_id: str = None,
+        terminate_apply_id: str = None,
+        gmt_terminate_apply_start_time: str = None,
+        gmt_terminate_apply_end_time: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户ID
+        self.tenant_id = tenant_id
+        # 商户超时类型
+        self.merchant_handle_duration_type = merchant_handle_duration_type
+        # 订单ID
+        self.order_id = order_id
+        # terminateApplyId
+        self.terminate_apply_id = terminate_apply_id
+        # 解约申请开始时间
+        self.gmt_terminate_apply_start_time = gmt_terminate_apply_start_time
+        # 解约申请结束时间
+        self.gmt_terminate_apply_end_time = gmt_terminate_apply_end_time
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.merchant_handle_duration_type is not None:
+            result['merchant_handle_duration_type'] = self.merchant_handle_duration_type
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.terminate_apply_id is not None:
+            result['terminate_apply_id'] = self.terminate_apply_id
+        if self.gmt_terminate_apply_start_time is not None:
+            result['gmt_terminate_apply_start_time'] = self.gmt_terminate_apply_start_time
+        if self.gmt_terminate_apply_end_time is not None:
+            result['gmt_terminate_apply_end_time'] = self.gmt_terminate_apply_end_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('merchant_handle_duration_type') is not None:
+            self.merchant_handle_duration_type = m.get('merchant_handle_duration_type')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('terminate_apply_id') is not None:
+            self.terminate_apply_id = m.get('terminate_apply_id')
+        if m.get('gmt_terminate_apply_start_time') is not None:
+            self.gmt_terminate_apply_start_time = m.get('gmt_terminate_apply_start_time')
+        if m.get('gmt_terminate_apply_end_time') is not None:
+            self.gmt_terminate_apply_end_time = m.get('gmt_terminate_apply_end_time')
+        return self
+
+
+class CountInnerAgreementterminateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        un_handle_status_num: int = None,
+        handing_status_num: int = None,
+        finished_status_num: int = None,
+        timeout_status_num: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 待处理-数量
+        self.un_handle_status_num = un_handle_status_num
+        # 处理中-数量
+        self.handing_status_num = handing_status_num
+        # 已处理-数量
+        self.finished_status_num = finished_status_num
+        # 已超时-数量
+        self.timeout_status_num = timeout_status_num
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.un_handle_status_num is not None:
+            result['un_handle_status_num'] = self.un_handle_status_num
+        if self.handing_status_num is not None:
+            result['handing_status_num'] = self.handing_status_num
+        if self.finished_status_num is not None:
+            result['finished_status_num'] = self.finished_status_num
+        if self.timeout_status_num is not None:
+            result['timeout_status_num'] = self.timeout_status_num
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('un_handle_status_num') is not None:
+            self.un_handle_status_num = m.get('un_handle_status_num')
+        if m.get('handing_status_num') is not None:
+            self.handing_status_num = m.get('handing_status_num')
+        if m.get('finished_status_num') is not None:
+            self.finished_status_num = m.get('finished_status_num')
+        if m.get('timeout_status_num') is not None:
+            self.timeout_status_num = m.get('timeout_status_num')
+        return self
+
+
 class CreateInsureRequest(TeaModel):
     def __init__(
         self,
@@ -27982,6 +28239,7 @@ class QueryRiskRequest(TeaModel):
         delivery_detail: DeliveryDetail = None,
         industry: str = None,
         model_version: str = None,
+        order_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -28011,6 +28269,8 @@ class QueryRiskRequest(TeaModel):
         self.industry = industry
         # 枚举值：ZOLOZ_V2、ZOLOZ_V3、GENERAL_INDUSTRY、APPLET_RISK、REJECT_RISK
         self.model_version = model_version
+        # 商家传入的订单ID，商家侧唯一
+        self.order_id = order_id
 
     def validate(self):
         self.validate_required(self.user_name, 'user_name')
@@ -28065,6 +28325,8 @@ class QueryRiskRequest(TeaModel):
             result['industry'] = self.industry
         if self.model_version is not None:
             result['model_version'] = self.model_version
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
         return result
 
     def from_map(self, m: dict = None):
@@ -28100,6 +28362,8 @@ class QueryRiskRequest(TeaModel):
             self.industry = m.get('industry')
         if m.get('model_version') is not None:
             self.model_version = m.get('model_version')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
         return self
 
 
