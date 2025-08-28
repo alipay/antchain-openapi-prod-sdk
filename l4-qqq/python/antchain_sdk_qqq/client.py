@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.0.15',
+                    'sdk_version': '2.0.16',
                     '_prod_code': 'QQQ',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.0.15',
+                    'sdk_version': '2.0.16',
                     '_prod_code': 'QQQ',
                     '_prod_channel': 'default'
                 }
@@ -889,6 +889,62 @@ class Client:
         return TeaCore.from_map(
             qqq_models.WithdrawAntchainDemosdkTwiceOneResponse(),
             await self.do_request_async('1.0', 'antchain.demosdk.twice.one.withdraw', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_antchain_demosdk_twice_one(
+        self,
+        request: qqq_models.OperateAntchainDemosdkTwiceOneRequest,
+    ) -> qqq_models.OperateAntchainDemosdkTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_antchain_demosdk_twice_one_ex(request, headers, runtime)
+
+    async def operate_antchain_demosdk_twice_one_async(
+        self,
+        request: qqq_models.OperateAntchainDemosdkTwiceOneRequest,
+    ) -> qqq_models.OperateAntchainDemosdkTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_antchain_demosdk_twice_one_ex_async(request, headers, runtime)
+
+    def operate_antchain_demosdk_twice_one_ex(
+        self,
+        request: qqq_models.OperateAntchainDemosdkTwiceOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> qqq_models.OperateAntchainDemosdkTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            qqq_models.OperateAntchainDemosdkTwiceOneResponse(),
+            self.do_request('1.0', 'antchain.demosdk.twice.one.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_antchain_demosdk_twice_one_ex_async(
+        self,
+        request: qqq_models.OperateAntchainDemosdkTwiceOneRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> qqq_models.OperateAntchainDemosdkTwiceOneResponse:
+        """
+        Description: 个人工作台二期预发测试
+        Summary: 个人工作台二期预发测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            qqq_models.OperateAntchainDemosdkTwiceOneResponse(),
+            await self.do_request_async('1.0', 'antchain.demosdk.twice.one.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_antchain_demosdk_twice_three(
