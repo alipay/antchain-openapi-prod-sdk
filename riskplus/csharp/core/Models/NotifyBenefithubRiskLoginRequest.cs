@@ -39,6 +39,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductCode { get; set; }
 
+        // 场景配置信息字符串，用于透传
+        [NameInMap("scene_config")]
+        [Validation(Required=false)]
+        public string SceneConfig { get; set; }
+
     }
 
 }

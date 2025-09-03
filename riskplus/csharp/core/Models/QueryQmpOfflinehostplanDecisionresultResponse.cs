@@ -49,6 +49,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string FileUrl { get; set; }
 
+        // 触达确认状态.Y/N,已确认，未确认，当前计划无触达则为空
+        [NameInMap("action_confirm_status")]
+        [Validation(Required=false)]
+        public string ActionConfirmStatus { get; set; }
+
+        // 触达时间
+        [NameInMap("action_time")]
+        [Validation(Required=false)]
+        public string ActionTime { get; set; }
+
     }
 
 }

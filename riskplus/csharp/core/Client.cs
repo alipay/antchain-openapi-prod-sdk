@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.25.5"},
+                        {"sdk_version", "1.26.3"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.25.5"},
+                        {"sdk_version", "1.26.3"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -487,6 +487,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryCreditshieldProductCallbackResponse>(await DoRequestAsync("1.0", "riskplus.creditshield.product.callback.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: ivr函数计算调用
+         * Summary: ivr函数计算调用
+         */
+        public QueryCreditshieldProductIvrfcResponse QueryCreditshieldProductIvrfc(QueryCreditshieldProductIvrfcRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCreditshieldProductIvrfcEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: ivr函数计算调用
+         * Summary: ivr函数计算调用
+         */
+        public async Task<QueryCreditshieldProductIvrfcResponse> QueryCreditshieldProductIvrfcAsync(QueryCreditshieldProductIvrfcRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCreditshieldProductIvrfcExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: ivr函数计算调用
+         * Summary: ivr函数计算调用
+         */
+        public QueryCreditshieldProductIvrfcResponse QueryCreditshieldProductIvrfcEx(QueryCreditshieldProductIvrfcRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCreditshieldProductIvrfcResponse>(DoRequest("1.0", "riskplus.creditshield.product.ivrfc.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: ivr函数计算调用
+         * Summary: ivr函数计算调用
+         */
+        public async Task<QueryCreditshieldProductIvrfcResponse> QueryCreditshieldProductIvrfcExAsync(QueryCreditshieldProductIvrfcRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCreditshieldProductIvrfcResponse>(await DoRequestAsync("1.0", "riskplus.creditshield.product.ivrfc.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -10647,6 +10689,48 @@ namespace AntChain.SDK.RISKPLUS
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadUmktOfflineImportrecordResponse>(await DoRequestAsync("1.0", "riskplus.umkt.offline.importrecord.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 圈投一体圈客结果文件url获取
+         * Summary: 圈投一体圈客结果文件url获取
+         */
+        public DownloadUmktOfflineCampaignResponse DownloadUmktOfflineCampaign(DownloadUmktOfflineCampaignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DownloadUmktOfflineCampaignEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 圈投一体圈客结果文件url获取
+         * Summary: 圈投一体圈客结果文件url获取
+         */
+        public async Task<DownloadUmktOfflineCampaignResponse> DownloadUmktOfflineCampaignAsync(DownloadUmktOfflineCampaignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DownloadUmktOfflineCampaignExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 圈投一体圈客结果文件url获取
+         * Summary: 圈投一体圈客结果文件url获取
+         */
+        public DownloadUmktOfflineCampaignResponse DownloadUmktOfflineCampaignEx(DownloadUmktOfflineCampaignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DownloadUmktOfflineCampaignResponse>(DoRequest("1.0", "riskplus.umkt.offline.campaign.download", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 圈投一体圈客结果文件url获取
+         * Summary: 圈投一体圈客结果文件url获取
+         */
+        public async Task<DownloadUmktOfflineCampaignResponse> DownloadUmktOfflineCampaignExAsync(DownloadUmktOfflineCampaignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DownloadUmktOfflineCampaignResponse>(await DoRequestAsync("1.0", "riskplus.umkt.offline.campaign.download", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class QueryQmpOfflinehostplanDecisionresultRequest : TeaModel {
+    public class QueryCreditshieldProductIvrfcRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,10 +18,15 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 文件上传时返回的导入id
-        [NameInMap("import_id")]
+        // 1.信息查询 2.债务人判断
+        [NameInMap("query_code")]
         [Validation(Required=true)]
-        public long? ImportId { get; set; }
+        public string QueryCode { get; set; }
+
+        // 查询信息Map集合
+        [NameInMap("query_infos")]
+        [Validation(Required=false)]
+        public List<QueryInfo> QueryInfos { get; set; }
 
     }
 
