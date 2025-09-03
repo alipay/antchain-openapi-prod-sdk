@@ -7690,6 +7690,8 @@ type NotifyBenefithubRiskLoginRequest struct {
 	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
 	// 产品code必填，后续多产品时可以区分
 	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
+	// 场景配置信息字符串，用于透传
+	SceneConfig *string `json:"scene_config,omitempty" xml:"scene_config,omitempty"`
 }
 
 func (s NotifyBenefithubRiskLoginRequest) String() string {
@@ -7727,6 +7729,11 @@ func (s *NotifyBenefithubRiskLoginRequest) SetMobile(v string) *NotifyBenefithub
 
 func (s *NotifyBenefithubRiskLoginRequest) SetProductCode(v string) *NotifyBenefithubRiskLoginRequest {
 	s.ProductCode = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskLoginRequest) SetSceneConfig(v string) *NotifyBenefithubRiskLoginRequest {
+	s.SceneConfig = &v
 	return s
 }
 
@@ -7936,6 +7943,91 @@ func (s *QueryCreditshieldProductCallbackResponse) SetSuccess(v bool) *QueryCred
 
 func (s *QueryCreditshieldProductCallbackResponse) SetQueryResults(v []*QueryResult) *QueryCreditshieldProductCallbackResponse {
 	s.QueryResults = v
+	return s
+}
+
+type QueryCreditshieldProductIvrfcRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 1.信息查询 2.债务人判断
+	QueryCode *string `json:"query_code,omitempty" xml:"query_code,omitempty" require:"true"`
+	// 查询信息Map集合
+	QueryInfos []*QueryInfo `json:"query_infos,omitempty" xml:"query_infos,omitempty" type:"Repeated"`
+}
+
+func (s QueryCreditshieldProductIvrfcRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCreditshieldProductIvrfcRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCreditshieldProductIvrfcRequest) SetAuthToken(v string) *QueryCreditshieldProductIvrfcRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCreditshieldProductIvrfcRequest) SetProductInstanceId(v string) *QueryCreditshieldProductIvrfcRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCreditshieldProductIvrfcRequest) SetQueryCode(v string) *QueryCreditshieldProductIvrfcRequest {
+	s.QueryCode = &v
+	return s
+}
+
+func (s *QueryCreditshieldProductIvrfcRequest) SetQueryInfos(v []*QueryInfo) *QueryCreditshieldProductIvrfcRequest {
+	s.QueryInfos = v
+	return s
+}
+
+type QueryCreditshieldProductIvrfcResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	//
+	// 接口请求是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 查询结果
+	QueryResult *string `json:"query_result,omitempty" xml:"query_result,omitempty"`
+}
+
+func (s QueryCreditshieldProductIvrfcResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCreditshieldProductIvrfcResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCreditshieldProductIvrfcResponse) SetReqMsgId(v string) *QueryCreditshieldProductIvrfcResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCreditshieldProductIvrfcResponse) SetResultCode(v string) *QueryCreditshieldProductIvrfcResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCreditshieldProductIvrfcResponse) SetResultMsg(v string) *QueryCreditshieldProductIvrfcResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCreditshieldProductIvrfcResponse) SetSuccess(v bool) *QueryCreditshieldProductIvrfcResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryCreditshieldProductIvrfcResponse) SetQueryResult(v string) *QueryCreditshieldProductIvrfcResponse {
+	s.QueryResult = &v
 	return s
 }
 
@@ -19883,7 +19975,7 @@ type UploadQmpOfflinehostplanResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 导入id，可以用该id来查询分层结果
-	ImportId *string `json:"import_id,omitempty" xml:"import_id,omitempty"`
+	ImportId *int64 `json:"import_id,omitempty" xml:"import_id,omitempty"`
 }
 
 func (s UploadQmpOfflinehostplanResponse) String() string {
@@ -19909,7 +20001,7 @@ func (s *UploadQmpOfflinehostplanResponse) SetResultMsg(v string) *UploadQmpOffl
 	return s
 }
 
-func (s *UploadQmpOfflinehostplanResponse) SetImportId(v string) *UploadQmpOfflinehostplanResponse {
+func (s *UploadQmpOfflinehostplanResponse) SetImportId(v int64) *UploadQmpOfflinehostplanResponse {
 	s.ImportId = &v
 	return s
 }
@@ -19919,7 +20011,7 @@ type QueryQmpOfflinehostplanDecisionresultRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 文件上传时返回的导入id
-	ImportId *string `json:"import_id,omitempty" xml:"import_id,omitempty" require:"true"`
+	ImportId *int64 `json:"import_id,omitempty" xml:"import_id,omitempty" require:"true"`
 }
 
 func (s QueryQmpOfflinehostplanDecisionresultRequest) String() string {
@@ -19940,7 +20032,7 @@ func (s *QueryQmpOfflinehostplanDecisionresultRequest) SetProductInstanceId(v st
 	return s
 }
 
-func (s *QueryQmpOfflinehostplanDecisionresultRequest) SetImportId(v string) *QueryQmpOfflinehostplanDecisionresultRequest {
+func (s *QueryQmpOfflinehostplanDecisionresultRequest) SetImportId(v int64) *QueryQmpOfflinehostplanDecisionresultRequest {
 	s.ImportId = &v
 	return s
 }
@@ -19962,6 +20054,10 @@ type QueryQmpOfflinehostplanDecisionresultResponse struct {
 	DecisionNum *int64 `json:"decision_num,omitempty" xml:"decision_num,omitempty"`
 	// 分层结果的oss文件路径
 	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
+	// 触达确认状态.Y/N,已确认，未确认，当前计划无触达则为空
+	ActionConfirmStatus *string `json:"action_confirm_status,omitempty" xml:"action_confirm_status,omitempty"`
+	// 触达时间
+	ActionTime *string `json:"action_time,omitempty" xml:"action_time,omitempty"`
 }
 
 func (s QueryQmpOfflinehostplanDecisionresultResponse) String() string {
@@ -20009,6 +20105,16 @@ func (s *QueryQmpOfflinehostplanDecisionresultResponse) SetDecisionNum(v int64) 
 
 func (s *QueryQmpOfflinehostplanDecisionresultResponse) SetFileUrl(v string) *QueryQmpOfflinehostplanDecisionresultResponse {
 	s.FileUrl = &v
+	return s
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultResponse) SetActionConfirmStatus(v string) *QueryQmpOfflinehostplanDecisionresultResponse {
+	s.ActionConfirmStatus = &v
+	return s
+}
+
+func (s *QueryQmpOfflinehostplanDecisionresultResponse) SetActionTime(v string) *QueryQmpOfflinehostplanDecisionresultResponse {
+	s.ActionTime = &v
 	return s
 }
 
@@ -32557,6 +32663,97 @@ func (s *UploadUmktOfflineImportrecordResponse) SetResultMsg(v string) *UploadUm
 	return s
 }
 
+type DownloadUmktOfflineCampaignRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 圈投计划id
+	CampaignId *int64 `json:"campaign_id,omitempty" xml:"campaign_id,omitempty" require:"true"`
+	// 节点id
+	NodeId *string `json:"node_id,omitempty" xml:"node_id,omitempty" require:"true"`
+	// 关联圈客计划id
+	DecisionPlanId *int64 `json:"decision_plan_id,omitempty" xml:"decision_plan_id,omitempty" require:"true"`
+	// 任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s DownloadUmktOfflineCampaignRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DownloadUmktOfflineCampaignRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DownloadUmktOfflineCampaignRequest) SetAuthToken(v string) *DownloadUmktOfflineCampaignRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DownloadUmktOfflineCampaignRequest) SetProductInstanceId(v string) *DownloadUmktOfflineCampaignRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DownloadUmktOfflineCampaignRequest) SetCampaignId(v int64) *DownloadUmktOfflineCampaignRequest {
+	s.CampaignId = &v
+	return s
+}
+
+func (s *DownloadUmktOfflineCampaignRequest) SetNodeId(v string) *DownloadUmktOfflineCampaignRequest {
+	s.NodeId = &v
+	return s
+}
+
+func (s *DownloadUmktOfflineCampaignRequest) SetDecisionPlanId(v int64) *DownloadUmktOfflineCampaignRequest {
+	s.DecisionPlanId = &v
+	return s
+}
+
+func (s *DownloadUmktOfflineCampaignRequest) SetTaskId(v string) *DownloadUmktOfflineCampaignRequest {
+	s.TaskId = &v
+	return s
+}
+
+type DownloadUmktOfflineCampaignResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文件链接url
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
+}
+
+func (s DownloadUmktOfflineCampaignResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DownloadUmktOfflineCampaignResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DownloadUmktOfflineCampaignResponse) SetReqMsgId(v string) *DownloadUmktOfflineCampaignResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DownloadUmktOfflineCampaignResponse) SetResultCode(v string) *DownloadUmktOfflineCampaignResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DownloadUmktOfflineCampaignResponse) SetResultMsg(v string) *DownloadUmktOfflineCampaignResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DownloadUmktOfflineCampaignResponse) SetFileUrl(v string) *DownloadUmktOfflineCampaignResponse {
+	s.FileUrl = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -32799,7 +32996,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.25.5"),
+				"sdk_version":      tea.String("1.26.3"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -32986,6 +33183,40 @@ func (client *Client) QueryCreditshieldProductCallbackEx(request *QueryCreditshi
 	}
 	_result = &QueryCreditshieldProductCallbackResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.creditshield.product.callback.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: ivr函数计算调用
+ * Summary: ivr函数计算调用
+ */
+func (client *Client) QueryCreditshieldProductIvrfc(request *QueryCreditshieldProductIvrfcRequest) (_result *QueryCreditshieldProductIvrfcResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCreditshieldProductIvrfcResponse{}
+	_body, _err := client.QueryCreditshieldProductIvrfcEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: ivr函数计算调用
+ * Summary: ivr函数计算调用
+ */
+func (client *Client) QueryCreditshieldProductIvrfcEx(request *QueryCreditshieldProductIvrfcRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCreditshieldProductIvrfcResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCreditshieldProductIvrfcResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.creditshield.product.ivrfc.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -41102,6 +41333,40 @@ func (client *Client) UploadUmktOfflineImportrecordEx(request *UploadUmktOffline
 	}
 	_result = &UploadUmktOfflineImportrecordResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.offline.importrecord.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 圈投一体圈客结果文件url获取
+ * Summary: 圈投一体圈客结果文件url获取
+ */
+func (client *Client) DownloadUmktOfflineCampaign(request *DownloadUmktOfflineCampaignRequest) (_result *DownloadUmktOfflineCampaignResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DownloadUmktOfflineCampaignResponse{}
+	_body, _err := client.DownloadUmktOfflineCampaignEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 圈投一体圈客结果文件url获取
+ * Summary: 圈投一体圈客结果文件url获取
+ */
+func (client *Client) DownloadUmktOfflineCampaignEx(request *DownloadUmktOfflineCampaignRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DownloadUmktOfflineCampaignResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DownloadUmktOfflineCampaignResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.offline.campaign.download"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
