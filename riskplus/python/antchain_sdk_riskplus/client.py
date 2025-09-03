@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.25.5',
+                    'sdk_version': '1.26.3',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.25.5',
+                    'sdk_version': '1.26.3',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -497,6 +497,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryCreditshieldProductCallbackResponse(),
             await self.do_request_async('1.0', 'riskplus.creditshield.product.callback.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_creditshield_product_ivrfc(
+        self,
+        request: riskplus_models.QueryCreditshieldProductIvrfcRequest,
+    ) -> riskplus_models.QueryCreditshieldProductIvrfcResponse:
+        """
+        Description: ivr函数计算调用
+        Summary: ivr函数计算调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_creditshield_product_ivrfc_ex(request, headers, runtime)
+
+    async def query_creditshield_product_ivrfc_async(
+        self,
+        request: riskplus_models.QueryCreditshieldProductIvrfcRequest,
+    ) -> riskplus_models.QueryCreditshieldProductIvrfcResponse:
+        """
+        Description: ivr函数计算调用
+        Summary: ivr函数计算调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_creditshield_product_ivrfc_ex_async(request, headers, runtime)
+
+    def query_creditshield_product_ivrfc_ex(
+        self,
+        request: riskplus_models.QueryCreditshieldProductIvrfcRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryCreditshieldProductIvrfcResponse:
+        """
+        Description: ivr函数计算调用
+        Summary: ivr函数计算调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryCreditshieldProductIvrfcResponse(),
+            self.do_request('1.0', 'riskplus.creditshield.product.ivrfc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_creditshield_product_ivrfc_ex_async(
+        self,
+        request: riskplus_models.QueryCreditshieldProductIvrfcRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryCreditshieldProductIvrfcResponse:
+        """
+        Description: ivr函数计算调用
+        Summary: ivr函数计算调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryCreditshieldProductIvrfcResponse(),
+            await self.do_request_async('1.0', 'riskplus.creditshield.product.ivrfc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_security_policy(
@@ -13705,6 +13761,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.UploadUmktOfflineImportrecordResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.offline.importrecord.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def download_umkt_offline_campaign(
+        self,
+        request: riskplus_models.DownloadUmktOfflineCampaignRequest,
+    ) -> riskplus_models.DownloadUmktOfflineCampaignResponse:
+        """
+        Description: 圈投一体圈客结果文件url获取
+        Summary: 圈投一体圈客结果文件url获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.download_umkt_offline_campaign_ex(request, headers, runtime)
+
+    async def download_umkt_offline_campaign_async(
+        self,
+        request: riskplus_models.DownloadUmktOfflineCampaignRequest,
+    ) -> riskplus_models.DownloadUmktOfflineCampaignResponse:
+        """
+        Description: 圈投一体圈客结果文件url获取
+        Summary: 圈投一体圈客结果文件url获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.download_umkt_offline_campaign_ex_async(request, headers, runtime)
+
+    def download_umkt_offline_campaign_ex(
+        self,
+        request: riskplus_models.DownloadUmktOfflineCampaignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.DownloadUmktOfflineCampaignResponse:
+        """
+        Description: 圈投一体圈客结果文件url获取
+        Summary: 圈投一体圈客结果文件url获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.DownloadUmktOfflineCampaignResponse(),
+            self.do_request('1.0', 'riskplus.umkt.offline.campaign.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def download_umkt_offline_campaign_ex_async(
+        self,
+        request: riskplus_models.DownloadUmktOfflineCampaignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.DownloadUmktOfflineCampaignResponse:
+        """
+        Description: 圈投一体圈客结果文件url获取
+        Summary: 圈投一体圈客结果文件url获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.DownloadUmktOfflineCampaignResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.offline.campaign.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

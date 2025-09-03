@@ -9478,6 +9478,7 @@ class NotifyBenefithubRiskLoginRequest(TeaModel):
         user_unique_id: str = None,
         mobile: str = None,
         product_code: str = None,
+        scene_config: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -9491,6 +9492,8 @@ class NotifyBenefithubRiskLoginRequest(TeaModel):
         self.mobile = mobile
         # 产品code必填，后续多产品时可以区分
         self.product_code = product_code
+        # 场景配置信息字符串，用于透传
+        self.scene_config = scene_config
 
     def validate(self):
         self.validate_required(self.platform_code, 'platform_code')
@@ -9515,6 +9518,8 @@ class NotifyBenefithubRiskLoginRequest(TeaModel):
             result['mobile'] = self.mobile
         if self.product_code is not None:
             result['product_code'] = self.product_code
+        if self.scene_config is not None:
+            result['scene_config'] = self.scene_config
         return result
 
     def from_map(self, m: dict = None):
@@ -9531,6 +9536,8 @@ class NotifyBenefithubRiskLoginRequest(TeaModel):
             self.mobile = m.get('mobile')
         if m.get('product_code') is not None:
             self.product_code = m.get('product_code')
+        if m.get('scene_config') is not None:
+            self.scene_config = m.get('scene_config')
         return self
 
 
@@ -9824,6 +9831,120 @@ class QueryCreditshieldProductCallbackResponse(TeaModel):
             for k in m.get('query_results'):
                 temp_model = QueryResult()
                 self.query_results.append(temp_model.from_map(k))
+        return self
+
+
+class QueryCreditshieldProductIvrfcRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        query_code: str = None,
+        query_infos: List[QueryInfo] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 1.信息查询 2.债务人判断
+        self.query_code = query_code
+        # 查询信息Map集合
+        self.query_infos = query_infos
+
+    def validate(self):
+        self.validate_required(self.query_code, 'query_code')
+        if self.query_infos:
+            for k in self.query_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.query_code is not None:
+            result['query_code'] = self.query_code
+        result['query_infos'] = []
+        if self.query_infos is not None:
+            for k in self.query_infos:
+                result['query_infos'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('query_code') is not None:
+            self.query_code = m.get('query_code')
+        self.query_infos = []
+        if m.get('query_infos') is not None:
+            for k in m.get('query_infos'):
+                temp_model = QueryInfo()
+                self.query_infos.append(temp_model.from_map(k))
+        return self
+
+
+class QueryCreditshieldProductIvrfcResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        query_result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 
+        # 接口请求是否成功
+        self.success = success
+        # 查询结果
+        self.query_result = query_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.query_result is not None:
+            result['query_result'] = self.query_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('query_result') is not None:
+            self.query_result = m.get('query_result')
         return self
 
 
@@ -24619,7 +24740,7 @@ class UploadQmpOfflinehostplanResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        import_id: str = None,
+        import_id: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -24667,7 +24788,7 @@ class QueryQmpOfflinehostplanDecisionresultRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        import_id: str = None,
+        import_id: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -24714,6 +24835,8 @@ class QueryQmpOfflinehostplanDecisionresultResponse(TeaModel):
         total_num: int = None,
         decision_num: int = None,
         file_url: str = None,
+        action_confirm_status: str = None,
+        action_time: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -24731,6 +24854,10 @@ class QueryQmpOfflinehostplanDecisionresultResponse(TeaModel):
         self.decision_num = decision_num
         # 分层结果的oss文件路径
         self.file_url = file_url
+        # 触达确认状态.Y/N,已确认，未确认，当前计划无触达则为空
+        self.action_confirm_status = action_confirm_status
+        # 触达时间
+        self.action_time = action_time
 
     def validate(self):
         pass
@@ -24757,6 +24884,10 @@ class QueryQmpOfflinehostplanDecisionresultResponse(TeaModel):
             result['decision_num'] = self.decision_num
         if self.file_url is not None:
             result['file_url'] = self.file_url
+        if self.action_confirm_status is not None:
+            result['action_confirm_status'] = self.action_confirm_status
+        if self.action_time is not None:
+            result['action_time'] = self.action_time
         return result
 
     def from_map(self, m: dict = None):
@@ -24777,6 +24908,10 @@ class QueryQmpOfflinehostplanDecisionresultResponse(TeaModel):
             self.decision_num = m.get('decision_num')
         if m.get('file_url') is not None:
             self.file_url = m.get('file_url')
+        if m.get('action_confirm_status') is not None:
+            self.action_confirm_status = m.get('action_confirm_status')
+        if m.get('action_time') is not None:
+            self.action_time = m.get('action_time')
         return self
 
 
@@ -40541,6 +40676,120 @@ class UploadUmktOfflineImportrecordResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        return self
+
+
+class DownloadUmktOfflineCampaignRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        campaign_id: int = None,
+        node_id: str = None,
+        decision_plan_id: int = None,
+        task_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 圈投计划id
+        self.campaign_id = campaign_id
+        # 节点id
+        self.node_id = node_id
+        # 关联圈客计划id
+        self.decision_plan_id = decision_plan_id
+        # 任务id
+        self.task_id = task_id
+
+    def validate(self):
+        self.validate_required(self.campaign_id, 'campaign_id')
+        self.validate_required(self.node_id, 'node_id')
+        self.validate_required(self.decision_plan_id, 'decision_plan_id')
+        self.validate_required(self.task_id, 'task_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.campaign_id is not None:
+            result['campaign_id'] = self.campaign_id
+        if self.node_id is not None:
+            result['node_id'] = self.node_id
+        if self.decision_plan_id is not None:
+            result['decision_plan_id'] = self.decision_plan_id
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('campaign_id') is not None:
+            self.campaign_id = m.get('campaign_id')
+        if m.get('node_id') is not None:
+            self.node_id = m.get('node_id')
+        if m.get('decision_plan_id') is not None:
+            self.decision_plan_id = m.get('decision_plan_id')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        return self
+
+
+class DownloadUmktOfflineCampaignResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        file_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 文件链接url
+        self.file_url = file_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.file_url is not None:
+            result['file_url'] = self.file_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('file_url') is not None:
+            self.file_url = m.get('file_url')
         return self
 
 
