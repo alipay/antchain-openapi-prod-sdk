@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.25.5',
+    sdk_version = '1.26.3',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -2473,6 +2473,8 @@ model NotifyBenefithubRiskLoginRequest = {
   mobile: string(name='mobile'),
   // 产品code必填，后续多产品时可以区分
   productCode?: string(name='product_code'),
+  // 场景配置信息字符串，用于透传
+  sceneConfig?: string(name='scene_config'),
 }
 
 model NotifyBenefithubRiskLoginResponse = {
@@ -2589,6 +2591,49 @@ async function queryCreditshieldProductCallback(request: QueryCreditshieldProduc
 async function queryCreditshieldProductCallbackEx(request: QueryCreditshieldProductCallbackRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCreditshieldProductCallbackResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.creditshield.product.callback.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCreditshieldProductIvrfcRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 1.信息查询 2.债务人判断
+  queryCode: string(name='query_code'),
+  // 查询信息Map集合
+  queryInfos?: [ QueryInfo ](name='query_infos'),
+}
+
+model QueryCreditshieldProductIvrfcResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 	
+  // 接口请求是否成功
+  success?: boolean(name='success'),
+  // 查询结果
+  queryResult?: string(name='query_result'),
+}
+
+/**
+ * Description: ivr函数计算调用
+ * Summary: ivr函数计算调用
+ */
+async function queryCreditshieldProductIvrfc(request: QueryCreditshieldProductIvrfcRequest): QueryCreditshieldProductIvrfcResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCreditshieldProductIvrfcEx(request, headers, runtime);
+}
+
+/**
+ * Description: ivr函数计算调用
+ * Summary: ivr函数计算调用
+ */
+async function queryCreditshieldProductIvrfcEx(request: QueryCreditshieldProductIvrfcRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCreditshieldProductIvrfcResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.creditshield.product.ivrfc.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QuerySecurityPolicyRequest = {
@@ -8020,7 +8065,7 @@ model UploadQmpOfflinehostplanResponse = {
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
   // 导入id，可以用该id来查询分层结果
-  importId?: string(name='import_id'),
+  importId?: long(name='import_id'),
 }
 
 /**
@@ -8067,7 +8112,7 @@ model QueryQmpOfflinehostplanDecisionresultRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 文件上传时返回的导入id
-  importId: string(name='import_id'),
+  importId: long(name='import_id'),
 }
 
 model QueryQmpOfflinehostplanDecisionresultResponse = {
@@ -8087,6 +8132,10 @@ model QueryQmpOfflinehostplanDecisionresultResponse = {
   decisionNum?: long(name='decision_num'),
   // 分层结果的oss文件路径
   fileUrl?: string(name='file_url'),
+  // 触达确认状态.Y/N,已确认，未确认，当前计划无触达则为空
+  actionConfirmStatus?: string(name='action_confirm_status'),
+  // 触达时间
+  actionTime?: string(name='action_time'),
 }
 
 /**
@@ -14001,6 +14050,50 @@ async function uploadUmktOfflineImportrecordEx(request: UploadUmktOfflineImportr
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.umkt.offline.importrecord.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DownloadUmktOfflineCampaignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 圈投计划id
+  campaignId: long(name='campaign_id'),
+  // 节点id
+  nodeId: string(name='node_id'),
+  // 关联圈客计划id
+  decisionPlanId: long(name='decision_plan_id'),
+  // 任务id
+  taskId: string(name='task_id'),
+}
+
+model DownloadUmktOfflineCampaignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文件链接url
+  fileUrl?: string(name='file_url'),
+}
+
+/**
+ * Description: 圈投一体圈客结果文件url获取
+ * Summary: 圈投一体圈客结果文件url获取
+ */
+async function downloadUmktOfflineCampaign(request: DownloadUmktOfflineCampaignRequest): DownloadUmktOfflineCampaignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return downloadUmktOfflineCampaignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 圈投一体圈客结果文件url获取
+ * Summary: 圈投一体圈客结果文件url获取
+ */
+async function downloadUmktOfflineCampaignEx(request: DownloadUmktOfflineCampaignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DownloadUmktOfflineCampaignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.offline.campaign.download', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
