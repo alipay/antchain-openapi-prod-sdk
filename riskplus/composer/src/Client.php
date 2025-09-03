@@ -125,6 +125,8 @@ use AntChain\RISKPLUS\Models\CreateRbbUserRequest;
 use AntChain\RISKPLUS\Models\CreateRbbUserResponse;
 use AntChain\RISKPLUS\Models\CreateRtopTokenRequest;
 use AntChain\RISKPLUS\Models\CreateRtopTokenResponse;
+use AntChain\RISKPLUS\Models\DownloadUmktOfflineCampaignRequest;
+use AntChain\RISKPLUS\Models\DownloadUmktOfflineCampaignResponse;
 use AntChain\RISKPLUS\Models\DownloadUmktOfflinedecisionResultRequest;
 use AntChain\RISKPLUS\Models\DownloadUmktOfflinedecisionResultResponse;
 use AntChain\RISKPLUS\Models\ExecRbbCompanyGuardRequest;
@@ -205,6 +207,8 @@ use AntChain\RISKPLUS\Models\QueryCreditshieldProductBatchRequest;
 use AntChain\RISKPLUS\Models\QueryCreditshieldProductBatchResponse;
 use AntChain\RISKPLUS\Models\QueryCreditshieldProductCallbackRequest;
 use AntChain\RISKPLUS\Models\QueryCreditshieldProductCallbackResponse;
+use AntChain\RISKPLUS\Models\QueryCreditshieldProductIvrfcRequest;
+use AntChain\RISKPLUS\Models\QueryCreditshieldProductIvrfcResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountStatusRequest;
@@ -624,7 +628,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.25.5',
+                    'sdk_version'      => '1.26.3',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -802,6 +806,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryCreditshieldProductCallbackResponse::fromMap($this->doRequest('1.0', 'riskplus.creditshield.product.callback.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: ivr函数计算调用
+     * Summary: ivr函数计算调用.
+     *
+     * @param QueryCreditshieldProductIvrfcRequest $request
+     *
+     * @return QueryCreditshieldProductIvrfcResponse
+     */
+    public function queryCreditshieldProductIvrfc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCreditshieldProductIvrfcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: ivr函数计算调用
+     * Summary: ivr函数计算调用.
+     *
+     * @param QueryCreditshieldProductIvrfcRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryCreditshieldProductIvrfcResponse
+     */
+    public function queryCreditshieldProductIvrfcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCreditshieldProductIvrfcResponse::fromMap($this->doRequest('1.0', 'riskplus.creditshield.product.ivrfc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -8558,6 +8595,39 @@ class Client
         Utils::validateModel($request);
 
         return UploadUmktOfflineImportrecordResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.offline.importrecord.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 圈投一体圈客结果文件url获取
+     * Summary: 圈投一体圈客结果文件url获取.
+     *
+     * @param DownloadUmktOfflineCampaignRequest $request
+     *
+     * @return DownloadUmktOfflineCampaignResponse
+     */
+    public function downloadUmktOfflineCampaign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->downloadUmktOfflineCampaignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 圈投一体圈客结果文件url获取
+     * Summary: 圈投一体圈客结果文件url获取.
+     *
+     * @param DownloadUmktOfflineCampaignRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return DownloadUmktOfflineCampaignResponse
+     */
+    public function downloadUmktOfflineCampaignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DownloadUmktOfflineCampaignResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.offline.campaign.download', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

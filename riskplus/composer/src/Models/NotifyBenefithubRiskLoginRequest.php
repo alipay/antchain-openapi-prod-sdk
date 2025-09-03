@@ -43,6 +43,12 @@ class NotifyBenefithubRiskLoginRequest extends Model
      * @var string
      */
     public $productCode;
+
+    // 场景配置信息字符串，用于透传
+    /**
+     * @var string
+     */
+    public $sceneConfig;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -50,6 +56,7 @@ class NotifyBenefithubRiskLoginRequest extends Model
         'userUniqueId'      => 'user_unique_id',
         'mobile'            => 'mobile',
         'productCode'       => 'product_code',
+        'sceneConfig'       => 'scene_config',
     ];
 
     public function validate()
@@ -80,6 +87,9 @@ class NotifyBenefithubRiskLoginRequest extends Model
         if (null !== $this->productCode) {
             $res['product_code'] = $this->productCode;
         }
+        if (null !== $this->sceneConfig) {
+            $res['scene_config'] = $this->sceneConfig;
+        }
 
         return $res;
     }
@@ -109,6 +119,9 @@ class NotifyBenefithubRiskLoginRequest extends Model
         }
         if (isset($map['product_code'])) {
             $model->productCode = $map['product_code'];
+        }
+        if (isset($map['scene_config'])) {
+            $model->sceneConfig = $map['scene_config'];
         }
 
         return $model;

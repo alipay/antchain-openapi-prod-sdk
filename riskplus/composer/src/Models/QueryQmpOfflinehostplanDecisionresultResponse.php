@@ -55,15 +55,29 @@ class QueryQmpOfflinehostplanDecisionresultResponse extends Model
      * @var string
      */
     public $fileUrl;
+
+    // 触达确认状态.Y/N,已确认，未确认，当前计划无触达则为空
+    /**
+     * @var string
+     */
+    public $actionConfirmStatus;
+
+    // 触达时间
+    /**
+     * @var string
+     */
+    public $actionTime;
     protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'planCode'    => 'plan_code',
-        'status'      => 'status',
-        'totalNum'    => 'total_num',
-        'decisionNum' => 'decision_num',
-        'fileUrl'     => 'file_url',
+        'reqMsgId'            => 'req_msg_id',
+        'resultCode'          => 'result_code',
+        'resultMsg'           => 'result_msg',
+        'planCode'            => 'plan_code',
+        'status'              => 'status',
+        'totalNum'            => 'total_num',
+        'decisionNum'         => 'decision_num',
+        'fileUrl'             => 'file_url',
+        'actionConfirmStatus' => 'action_confirm_status',
+        'actionTime'          => 'action_time',
     ];
 
     public function validate()
@@ -96,6 +110,12 @@ class QueryQmpOfflinehostplanDecisionresultResponse extends Model
         }
         if (null !== $this->fileUrl) {
             $res['file_url'] = $this->fileUrl;
+        }
+        if (null !== $this->actionConfirmStatus) {
+            $res['action_confirm_status'] = $this->actionConfirmStatus;
+        }
+        if (null !== $this->actionTime) {
+            $res['action_time'] = $this->actionTime;
         }
 
         return $res;
@@ -132,6 +152,12 @@ class QueryQmpOfflinehostplanDecisionresultResponse extends Model
         }
         if (isset($map['file_url'])) {
             $model->fileUrl = $map['file_url'];
+        }
+        if (isset($map['action_confirm_status'])) {
+            $model->actionConfirmStatus = $map['action_confirm_status'];
+        }
+        if (isset($map['action_time'])) {
+            $model->actionTime = $map['action_time'];
         }
 
         return $model;

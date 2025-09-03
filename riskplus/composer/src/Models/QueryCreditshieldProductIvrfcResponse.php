@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UploadQmpOfflinehostplanResponse extends Model
+class QueryCreditshieldProductIvrfcResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,24 @@ class UploadQmpOfflinehostplanResponse extends Model
      */
     public $resultMsg;
 
-    // 导入id，可以用该id来查询分层结果
+    //
+    // 接口请求是否成功
     /**
-     * @var int
+     * @var bool
      */
-    public $importId;
+    public $success;
+
+    // 查询结果
+    /**
+     * @var string
+     */
+    public $queryResult;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'importId'   => 'import_id',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'success'     => 'success',
+        'queryResult' => 'query_result',
     ];
 
     public function validate()
@@ -54,8 +62,11 @@ class UploadQmpOfflinehostplanResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->importId) {
-            $res['import_id'] = $this->importId;
+        if (null !== $this->success) {
+            $res['success'] = $this->success;
+        }
+        if (null !== $this->queryResult) {
+            $res['query_result'] = $this->queryResult;
         }
 
         return $res;
@@ -64,7 +75,7 @@ class UploadQmpOfflinehostplanResponse extends Model
     /**
      * @param array $map
      *
-     * @return UploadQmpOfflinehostplanResponse
+     * @return QueryCreditshieldProductIvrfcResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +89,11 @@ class UploadQmpOfflinehostplanResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['import_id'])) {
-            $model->importId = $map['import_id'];
+        if (isset($map['success'])) {
+            $model->success = $map['success'];
+        }
+        if (isset($map['query_result'])) {
+            $model->queryResult = $map['query_result'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UploadQmpOfflinehostplanResponse extends Model
+class DownloadUmktOfflineCampaignResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class UploadQmpOfflinehostplanResponse extends Model
      */
     public $resultMsg;
 
-    // 导入id，可以用该id来查询分层结果
+    // 文件链接url
     /**
-     * @var int
+     * @var string
      */
-    public $importId;
+    public $fileUrl;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'importId'   => 'import_id',
+        'fileUrl'    => 'file_url',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class UploadQmpOfflinehostplanResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->importId) {
-            $res['import_id'] = $this->importId;
+        if (null !== $this->fileUrl) {
+            $res['file_url'] = $this->fileUrl;
         }
 
         return $res;
@@ -64,7 +64,7 @@ class UploadQmpOfflinehostplanResponse extends Model
     /**
      * @param array $map
      *
-     * @return UploadQmpOfflinehostplanResponse
+     * @return DownloadUmktOfflineCampaignResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +78,8 @@ class UploadQmpOfflinehostplanResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['import_id'])) {
-            $model->importId = $map['import_id'];
+        if (isset($map['file_url'])) {
+            $model->fileUrl = $map['file_url'];
         }
 
         return $model;

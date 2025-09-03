@@ -21,7 +21,7 @@ class QueryQmpOfflinehostplanDecisionresultRequest extends Model
 
     // 文件上传时返回的导入id
     /**
-     * @var string
+     * @var int
      */
     public $importId;
     protected $_name = [
