@@ -5705,6 +5705,8 @@ export class NotifyBenefithubRiskLoginRequest extends $tea.Model {
   mobile: string;
   // 产品code必填，后续多产品时可以区分
   productCode?: string;
+  // 场景配置信息字符串，用于透传
+  sceneConfig?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5713,6 +5715,7 @@ export class NotifyBenefithubRiskLoginRequest extends $tea.Model {
       userUniqueId: 'user_unique_id',
       mobile: 'mobile',
       productCode: 'product_code',
+      sceneConfig: 'scene_config',
     };
   }
 
@@ -5724,6 +5727,7 @@ export class NotifyBenefithubRiskLoginRequest extends $tea.Model {
       userUniqueId: 'string',
       mobile: 'string',
       productCode: 'string',
+      sceneConfig: 'string',
     };
   }
 
@@ -5892,6 +5896,74 @@ export class QueryCreditshieldProductCallbackResponse extends $tea.Model {
       resultMsg: 'string',
       success: 'boolean',
       queryResults: { 'type': 'array', 'itemType': QueryResult },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCreditshieldProductIvrfcRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 1.信息查询 2.债务人判断
+  queryCode: string;
+  // 查询信息Map集合
+  queryInfos?: QueryInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      queryCode: 'query_code',
+      queryInfos: 'query_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      queryCode: 'string',
+      queryInfos: { 'type': 'array', 'itemType': QueryInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCreditshieldProductIvrfcResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 	
+  // 接口请求是否成功
+  success?: boolean;
+  // 查询结果
+  queryResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      queryResult: 'query_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      queryResult: 'string',
     };
   }
 
@@ -14783,7 +14855,7 @@ export class UploadQmpOfflinehostplanResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 导入id，可以用该id来查询分层结果
-  importId?: string;
+  importId?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -14798,7 +14870,7 @@ export class UploadQmpOfflinehostplanResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      importId: 'string',
+      importId: 'number',
     };
   }
 
@@ -14812,7 +14884,7 @@ export class QueryQmpOfflinehostplanDecisionresultRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 文件上传时返回的导入id
-  importId: string;
+  importId: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -14825,7 +14897,7 @@ export class QueryQmpOfflinehostplanDecisionresultRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      importId: 'string',
+      importId: 'number',
     };
   }
 
@@ -14851,6 +14923,10 @@ export class QueryQmpOfflinehostplanDecisionresultResponse extends $tea.Model {
   decisionNum?: number;
   // 分层结果的oss文件路径
   fileUrl?: string;
+  // 触达确认状态.Y/N,已确认，未确认，当前计划无触达则为空
+  actionConfirmStatus?: string;
+  // 触达时间
+  actionTime?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -14861,6 +14937,8 @@ export class QueryQmpOfflinehostplanDecisionresultResponse extends $tea.Model {
       totalNum: 'total_num',
       decisionNum: 'decision_num',
       fileUrl: 'file_url',
+      actionConfirmStatus: 'action_confirm_status',
+      actionTime: 'action_time',
     };
   }
 
@@ -14874,6 +14952,8 @@ export class QueryQmpOfflinehostplanDecisionresultResponse extends $tea.Model {
       totalNum: 'number',
       decisionNum: 'number',
       fileUrl: 'string',
+      actionConfirmStatus: 'string',
+      actionTime: 'string',
     };
   }
 
@@ -24308,6 +24388,77 @@ export class UploadUmktOfflineImportrecordResponse extends $tea.Model {
   }
 }
 
+export class DownloadUmktOfflineCampaignRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 圈投计划id
+  campaignId: number;
+  // 节点id
+  nodeId: string;
+  // 关联圈客计划id
+  decisionPlanId: number;
+  // 任务id
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      campaignId: 'campaign_id',
+      nodeId: 'node_id',
+      decisionPlanId: 'decision_plan_id',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      campaignId: 'number',
+      nodeId: 'string',
+      decisionPlanId: 'number',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DownloadUmktOfflineCampaignResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 文件链接url
+  fileUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      fileUrl: 'file_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      fileUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -24509,7 +24660,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.25.5",
+          sdk_version: "1.26.3",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -24631,6 +24782,25 @@ export default class Client {
   async queryCreditshieldProductCallbackEx(request: QueryCreditshieldProductCallbackRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCreditshieldProductCallbackResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryCreditshieldProductCallbackResponse>(await this.doRequest("1.0", "riskplus.creditshield.product.callback.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCreditshieldProductCallbackResponse({}));
+  }
+
+  /**
+   * Description: ivr函数计算调用
+   * Summary: ivr函数计算调用
+   */
+  async queryCreditshieldProductIvrfc(request: QueryCreditshieldProductIvrfcRequest): Promise<QueryCreditshieldProductIvrfcResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCreditshieldProductIvrfcEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: ivr函数计算调用
+   * Summary: ivr函数计算调用
+   */
+  async queryCreditshieldProductIvrfcEx(request: QueryCreditshieldProductIvrfcRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCreditshieldProductIvrfcResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCreditshieldProductIvrfcResponse>(await this.doRequest("1.0", "riskplus.creditshield.product.ivrfc.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCreditshieldProductIvrfcResponse({}));
   }
 
   /**
@@ -29231,6 +29401,25 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<UploadUmktOfflineImportrecordResponse>(await this.doRequest("1.0", "riskplus.umkt.offline.importrecord.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadUmktOfflineImportrecordResponse({}));
+  }
+
+  /**
+   * Description: 圈投一体圈客结果文件url获取
+   * Summary: 圈投一体圈客结果文件url获取
+   */
+  async downloadUmktOfflineCampaign(request: DownloadUmktOfflineCampaignRequest): Promise<DownloadUmktOfflineCampaignResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.downloadUmktOfflineCampaignEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 圈投一体圈客结果文件url获取
+   * Summary: 圈投一体圈客结果文件url获取
+   */
+  async downloadUmktOfflineCampaignEx(request: DownloadUmktOfflineCampaignRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DownloadUmktOfflineCampaignResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DownloadUmktOfflineCampaignResponse>(await this.doRequest("1.0", "riskplus.umkt.offline.campaign.download", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DownloadUmktOfflineCampaignResponse({}));
   }
 
   /**
