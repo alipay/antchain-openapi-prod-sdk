@@ -14,7 +14,7 @@ public class QueryQmpOfflinehostplanDecisionresultRequest extends TeaModel {
     // 文件上传时返回的导入id
     @NameInMap("import_id")
     @Validation(required = true)
-    public String importId;
+    public Long importId;
 
     public static QueryQmpOfflinehostplanDecisionresultRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryQmpOfflinehostplanDecisionresultRequest self = new QueryQmpOfflinehostplanDecisionresultRequest();
@@ -37,11 +37,11 @@ public class QueryQmpOfflinehostplanDecisionresultRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryQmpOfflinehostplanDecisionresultRequest setImportId(String importId) {
+    public QueryQmpOfflinehostplanDecisionresultRequest setImportId(Long importId) {
         this.importId = importId;
         return this;
     }
-    public String getImportId() {
+    public Long getImportId() {
         return this.importId;
     }
 

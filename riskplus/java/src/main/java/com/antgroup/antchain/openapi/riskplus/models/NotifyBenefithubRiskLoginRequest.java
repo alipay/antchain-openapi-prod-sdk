@@ -31,6 +31,10 @@ public class NotifyBenefithubRiskLoginRequest extends TeaModel {
     @NameInMap("product_code")
     public String productCode;
 
+    // 场景配置信息字符串，用于透传
+    @NameInMap("scene_config")
+    public String sceneConfig;
+
     public static NotifyBenefithubRiskLoginRequest build(java.util.Map<String, ?> map) throws Exception {
         NotifyBenefithubRiskLoginRequest self = new NotifyBenefithubRiskLoginRequest();
         return TeaModel.build(map, self);
@@ -82,6 +86,14 @@ public class NotifyBenefithubRiskLoginRequest extends TeaModel {
     }
     public String getProductCode() {
         return this.productCode;
+    }
+
+    public NotifyBenefithubRiskLoginRequest setSceneConfig(String sceneConfig) {
+        this.sceneConfig = sceneConfig;
+        return this;
+    }
+    public String getSceneConfig() {
+        return this.sceneConfig;
     }
 
 }

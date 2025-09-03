@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.25.5"),
+                    new TeaPair("sdk_version", "1.26.3"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -270,6 +270,27 @@ public class Client {
     public QueryCreditshieldProductCallbackResponse queryCreditshieldProductCallbackEx(QueryCreditshieldProductCallbackRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.creditshield.product.callback.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCreditshieldProductCallbackResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: ivr函数计算调用
+     * Summary: ivr函数计算调用</p>
+     */
+    public QueryCreditshieldProductIvrfcResponse queryCreditshieldProductIvrfc(QueryCreditshieldProductIvrfcRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCreditshieldProductIvrfcEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: ivr函数计算调用
+     * Summary: ivr函数计算调用</p>
+     */
+    public QueryCreditshieldProductIvrfcResponse queryCreditshieldProductIvrfcEx(QueryCreditshieldProductIvrfcRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.creditshield.product.ivrfc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCreditshieldProductIvrfcResponse());
     }
 
     /**
@@ -5324,6 +5345,27 @@ public class Client {
 
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.offline.importrecord.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadUmktOfflineImportrecordResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 圈投一体圈客结果文件url获取
+     * Summary: 圈投一体圈客结果文件url获取</p>
+     */
+    public DownloadUmktOfflineCampaignResponse downloadUmktOfflineCampaign(DownloadUmktOfflineCampaignRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.downloadUmktOfflineCampaignEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 圈投一体圈客结果文件url获取
+     * Summary: 圈投一体圈客结果文件url获取</p>
+     */
+    public DownloadUmktOfflineCampaignResponse downloadUmktOfflineCampaignEx(DownloadUmktOfflineCampaignRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.offline.campaign.download", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DownloadUmktOfflineCampaignResponse());
     }
 
     /**

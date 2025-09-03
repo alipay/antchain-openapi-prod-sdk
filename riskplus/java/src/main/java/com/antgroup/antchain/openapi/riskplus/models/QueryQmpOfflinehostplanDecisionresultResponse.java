@@ -36,6 +36,14 @@ public class QueryQmpOfflinehostplanDecisionresultResponse extends TeaModel {
     @NameInMap("file_url")
     public String fileUrl;
 
+    // 触达确认状态.Y/N,已确认，未确认，当前计划无触达则为空
+    @NameInMap("action_confirm_status")
+    public String actionConfirmStatus;
+
+    // 触达时间
+    @NameInMap("action_time")
+    public String actionTime;
+
     public static QueryQmpOfflinehostplanDecisionresultResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryQmpOfflinehostplanDecisionresultResponse self = new QueryQmpOfflinehostplanDecisionresultResponse();
         return TeaModel.build(map, self);
@@ -103,6 +111,22 @@ public class QueryQmpOfflinehostplanDecisionresultResponse extends TeaModel {
     }
     public String getFileUrl() {
         return this.fileUrl;
+    }
+
+    public QueryQmpOfflinehostplanDecisionresultResponse setActionConfirmStatus(String actionConfirmStatus) {
+        this.actionConfirmStatus = actionConfirmStatus;
+        return this;
+    }
+    public String getActionConfirmStatus() {
+        return this.actionConfirmStatus;
+    }
+
+    public QueryQmpOfflinehostplanDecisionresultResponse setActionTime(String actionTime) {
+        this.actionTime = actionTime;
+        return this;
+    }
+    public String getActionTime() {
+        return this.actionTime;
     }
 
 }
