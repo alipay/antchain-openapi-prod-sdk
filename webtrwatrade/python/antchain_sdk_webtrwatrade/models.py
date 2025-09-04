@@ -389,6 +389,41 @@ class UserInfo(TeaModel):
         return self
 
 
+class LoginAccountTypeBO(TeaModel):
+    def __init__(
+        self,
+        user_login_type: str = None,
+        login_name: str = None,
+    ):
+        # 登录类型
+        self.user_login_type = user_login_type
+        # 登录名称
+        self.login_name = login_name
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.user_login_type is not None:
+            result['user_login_type'] = self.user_login_type
+        if self.login_name is not None:
+            result['login_name'] = self.login_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('user_login_type') is not None:
+            self.user_login_type = m.get('user_login_type')
+        if m.get('login_name') is not None:
+            self.login_name = m.get('login_name')
+        return self
+
+
 class CrossChainBonusAccountsDetailVO(TeaModel):
     def __init__(
         self,
@@ -1426,19 +1461,26 @@ class AssetProject(TeaModel):
         return self
 
 
-class LoginAccountTypeBO(TeaModel):
+class UserOperatorInfoBO(TeaModel):
     def __init__(
         self,
-        user_login_type: str = None,
-        login_name: str = None,
+        user_id: str = None,
+        alias: str = None,
+        address: str = None,
+        login_account_type_list: LoginAccountTypeBO = None,
     ):
-        # 登录类型
-        self.user_login_type = user_login_type
-        # 登录名称
-        self.login_name = login_name
+        # userId
+        self.user_id = user_id
+        # 别名
+        self.alias = alias
+        # 钱包地址
+        self.address = address
+        # 登录账号类型列表
+        self.login_account_type_list = login_account_type_list
 
     def validate(self):
-        pass
+        if self.login_account_type_list:
+            self.login_account_type_list.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -1446,18 +1488,27 @@ class LoginAccountTypeBO(TeaModel):
             return _map
 
         result = dict()
-        if self.user_login_type is not None:
-            result['user_login_type'] = self.user_login_type
-        if self.login_name is not None:
-            result['login_name'] = self.login_name
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.alias is not None:
+            result['alias'] = self.alias
+        if self.address is not None:
+            result['address'] = self.address
+        if self.login_account_type_list is not None:
+            result['login_account_type_list'] = self.login_account_type_list.to_map()
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('user_login_type') is not None:
-            self.user_login_type = m.get('user_login_type')
-        if m.get('login_name') is not None:
-            self.login_name = m.get('login_name')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('alias') is not None:
+            self.alias = m.get('alias')
+        if m.get('address') is not None:
+            self.address = m.get('address')
+        if m.get('login_account_type_list') is not None:
+            temp_model = LoginAccountTypeBO()
+            self.login_account_type_list = temp_model.from_map(m['login_account_type_list'])
         return self
 
 
@@ -1727,6 +1778,135 @@ class DataSummaryStatisticsItem(TeaModel):
             for k in m.get('total_value_list'):
                 temp_model = MultiCurrencyMoney()
                 self.total_value_list.append(temp_model.from_map(k))
+        return self
+
+
+class ProjectWithRole(TeaModel):
+    def __init__(
+        self,
+        project_id: str = None,
+        projcet_name: str = None,
+        description: str = None,
+        token_name: str = None,
+        capacity: str = None,
+        net_value: str = None,
+        price_type: str = None,
+        project_net_value: str = None,
+        max_subscription_amount: str = None,
+        deployment_type: str = None,
+        chain_type: str = None,
+        user_operator_list: List[UserOperatorInfoBO] = None,
+        participant_infos: List[ParticipantInfo] = None,
+    ):
+        # 项目id
+        self.project_id = project_id
+        # 项目名称
+        self.projcet_name = projcet_name
+        # 描述
+        self.description = description
+        # token名称
+        self.token_name = token_name
+        # 最大供应量
+        self.capacity = capacity
+        # 净值
+        self.net_value = net_value
+        # 价格类型
+        self.price_type = price_type
+        # 项目净值
+        self.project_net_value = project_net_value
+        # 最大限额
+        self.max_subscription_amount = max_subscription_amount
+        # 部署类型 DIRECT_PUBLIC_CHAIN 直发公链，NORMAL 普通模式
+        self.deployment_type = deployment_type
+        # 项目所在链
+        self.chain_type = chain_type
+        # 操作角色列表
+        self.user_operator_list = user_operator_list
+        # 代销者机构集合
+        self.participant_infos = participant_infos
+
+    def validate(self):
+        if self.user_operator_list:
+            for k in self.user_operator_list:
+                if k:
+                    k.validate()
+        if self.participant_infos:
+            for k in self.participant_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.projcet_name is not None:
+            result['projcet_name'] = self.projcet_name
+        if self.description is not None:
+            result['description'] = self.description
+        if self.token_name is not None:
+            result['token_name'] = self.token_name
+        if self.capacity is not None:
+            result['capacity'] = self.capacity
+        if self.net_value is not None:
+            result['net_value'] = self.net_value
+        if self.price_type is not None:
+            result['price_type'] = self.price_type
+        if self.project_net_value is not None:
+            result['project_net_value'] = self.project_net_value
+        if self.max_subscription_amount is not None:
+            result['max_subscription_amount'] = self.max_subscription_amount
+        if self.deployment_type is not None:
+            result['deployment_type'] = self.deployment_type
+        if self.chain_type is not None:
+            result['chain_type'] = self.chain_type
+        result['user_operator_list'] = []
+        if self.user_operator_list is not None:
+            for k in self.user_operator_list:
+                result['user_operator_list'].append(k.to_map() if k else None)
+        result['participant_infos'] = []
+        if self.participant_infos is not None:
+            for k in self.participant_infos:
+                result['participant_infos'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('projcet_name') is not None:
+            self.projcet_name = m.get('projcet_name')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('token_name') is not None:
+            self.token_name = m.get('token_name')
+        if m.get('capacity') is not None:
+            self.capacity = m.get('capacity')
+        if m.get('net_value') is not None:
+            self.net_value = m.get('net_value')
+        if m.get('price_type') is not None:
+            self.price_type = m.get('price_type')
+        if m.get('project_net_value') is not None:
+            self.project_net_value = m.get('project_net_value')
+        if m.get('max_subscription_amount') is not None:
+            self.max_subscription_amount = m.get('max_subscription_amount')
+        if m.get('deployment_type') is not None:
+            self.deployment_type = m.get('deployment_type')
+        if m.get('chain_type') is not None:
+            self.chain_type = m.get('chain_type')
+        self.user_operator_list = []
+        if m.get('user_operator_list') is not None:
+            for k in m.get('user_operator_list'):
+                temp_model = UserOperatorInfoBO()
+                self.user_operator_list.append(temp_model.from_map(k))
+        self.participant_infos = []
+        if m.get('participant_infos') is not None:
+            for k in m.get('participant_infos'):
+                temp_model = ParticipantInfo()
+                self.participant_infos.append(temp_model.from_map(k))
         return self
 
 
@@ -2582,57 +2762,6 @@ class ProjectPageData(TeaModel):
             for k in m.get('records'):
                 temp_model = AssetProject()
                 self.records.append(temp_model.from_map(k))
-        return self
-
-
-class UserOperatorInfoBO(TeaModel):
-    def __init__(
-        self,
-        user_id: str = None,
-        alias: str = None,
-        address: str = None,
-        login_account_type_list: LoginAccountTypeBO = None,
-    ):
-        # userId
-        self.user_id = user_id
-        # 别名
-        self.alias = alias
-        # 钱包地址
-        self.address = address
-        # 登录账号类型列表
-        self.login_account_type_list = login_account_type_list
-
-    def validate(self):
-        if self.login_account_type_list:
-            self.login_account_type_list.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
-        if self.alias is not None:
-            result['alias'] = self.alias
-        if self.address is not None:
-            result['address'] = self.address
-        if self.login_account_type_list is not None:
-            result['login_account_type_list'] = self.login_account_type_list.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
-        if m.get('alias') is not None:
-            self.alias = m.get('alias')
-        if m.get('address') is not None:
-            self.address = m.get('address')
-        if m.get('login_account_type_list') is not None:
-            temp_model = LoginAccountTypeBO()
-            self.login_account_type_list = temp_model.from_map(m['login_account_type_list'])
         return self
 
 
@@ -3834,19 +3963,7 @@ class DetailIssuerProjectwithroleResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        project_id: str = None,
-        projcet_name: str = None,
-        description: str = None,
-        token_name: str = None,
-        capacity: str = None,
-        net_value: str = None,
-        price_type: str = None,
-        project_net_value: str = None,
-        max_subscription_amount: str = None,
-        deployment_type: str = None,
-        chain_type: str = None,
-        user_operator_list: UserOperatorInfoBO = None,
-        participant_infos: ParticipantInfo = None,
+        data: ProjectWithRole = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -3854,38 +3971,12 @@ class DetailIssuerProjectwithroleResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 项目id
-        self.project_id = project_id
-        # 项目名称
-        self.projcet_name = projcet_name
-        # 描述
-        self.description = description
-        # token名称
-        self.token_name = token_name
-        # 最大供应量
-        self.capacity = capacity
-        # 净值
-        self.net_value = net_value
-        # 价格类型
-        self.price_type = price_type
-        # 项目净值
-        self.project_net_value = project_net_value
-        # 购买最大限额
-        self.max_subscription_amount = max_subscription_amount
-        # 部署类型  DIRECT_PUBLIC_CHAIN 直发公链，NORMAL 普通模式
-        self.deployment_type = deployment_type
-        # 项目所在链
-        self.chain_type = chain_type
-        # 操作员list
-        self.user_operator_list = user_operator_list
-        # 代销者机构代销者机构
-        self.participant_infos = participant_infos
+        # 项目角色信息
+        self.data = data
 
     def validate(self):
-        if self.user_operator_list:
-            self.user_operator_list.validate()
-        if self.participant_infos:
-            self.participant_infos.validate()
+        if self.data:
+            self.data.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -3899,32 +3990,8 @@ class DetailIssuerProjectwithroleResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.project_id is not None:
-            result['project_id'] = self.project_id
-        if self.projcet_name is not None:
-            result['projcet_name'] = self.projcet_name
-        if self.description is not None:
-            result['description'] = self.description
-        if self.token_name is not None:
-            result['token_name'] = self.token_name
-        if self.capacity is not None:
-            result['capacity'] = self.capacity
-        if self.net_value is not None:
-            result['net_value'] = self.net_value
-        if self.price_type is not None:
-            result['price_type'] = self.price_type
-        if self.project_net_value is not None:
-            result['project_net_value'] = self.project_net_value
-        if self.max_subscription_amount is not None:
-            result['max_subscription_amount'] = self.max_subscription_amount
-        if self.deployment_type is not None:
-            result['deployment_type'] = self.deployment_type
-        if self.chain_type is not None:
-            result['chain_type'] = self.chain_type
-        if self.user_operator_list is not None:
-            result['user_operator_list'] = self.user_operator_list.to_map()
-        if self.participant_infos is not None:
-            result['participant_infos'] = self.participant_infos.to_map()
+        if self.data is not None:
+            result['data'] = self.data.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -3935,34 +4002,9 @@ class DetailIssuerProjectwithroleResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('project_id') is not None:
-            self.project_id = m.get('project_id')
-        if m.get('projcet_name') is not None:
-            self.projcet_name = m.get('projcet_name')
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('token_name') is not None:
-            self.token_name = m.get('token_name')
-        if m.get('capacity') is not None:
-            self.capacity = m.get('capacity')
-        if m.get('net_value') is not None:
-            self.net_value = m.get('net_value')
-        if m.get('price_type') is not None:
-            self.price_type = m.get('price_type')
-        if m.get('project_net_value') is not None:
-            self.project_net_value = m.get('project_net_value')
-        if m.get('max_subscription_amount') is not None:
-            self.max_subscription_amount = m.get('max_subscription_amount')
-        if m.get('deployment_type') is not None:
-            self.deployment_type = m.get('deployment_type')
-        if m.get('chain_type') is not None:
-            self.chain_type = m.get('chain_type')
-        if m.get('user_operator_list') is not None:
-            temp_model = UserOperatorInfoBO()
-            self.user_operator_list = temp_model.from_map(m['user_operator_list'])
-        if m.get('participant_infos') is not None:
-            temp_model = ParticipantInfo()
-            self.participant_infos = temp_model.from_map(m['participant_infos'])
+        if m.get('data') is not None:
+            temp_model = ProjectWithRole()
+            self.data = temp_model.from_map(m['data'])
         return self
 
 
