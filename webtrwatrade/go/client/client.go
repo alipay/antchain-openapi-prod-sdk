@@ -334,6 +334,32 @@ func (s *UserInfo) SetAddress(v string) *UserInfo {
 	return s
 }
 
+// 登录类型
+type LoginAccountTypeBO struct {
+	// 登录类型
+	UserLoginType *string `json:"user_login_type,omitempty" xml:"user_login_type,omitempty"`
+	// 登录名称
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+}
+
+func (s LoginAccountTypeBO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LoginAccountTypeBO) GoString() string {
+	return s.String()
+}
+
+func (s *LoginAccountTypeBO) SetUserLoginType(v string) *LoginAccountTypeBO {
+	s.UserLoginType = &v
+	return s
+}
+
+func (s *LoginAccountTypeBO) SetLoginName(v string) *LoginAccountTypeBO {
+	s.LoginName = &v
+	return s
+}
+
 // 跨链账号红利明细
 type CrossChainBonusAccountsDetailVO struct {
 	// 明细ID
@@ -1143,29 +1169,43 @@ func (s *AssetProject) SetGmtModified(v int64) *AssetProject {
 	return s
 }
 
-// 登录类型
-type LoginAccountTypeBO struct {
-	// 登录类型
-	UserLoginType *string `json:"user_login_type,omitempty" xml:"user_login_type,omitempty"`
-	// 登录名称
-	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+// 操作角色
+type UserOperatorInfoBO struct {
+	// userId
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 别名
+	Alias *string `json:"alias,omitempty" xml:"alias,omitempty"`
+	// 钱包地址
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
+	// 登录账号类型列表
+	LoginAccountTypeList *LoginAccountTypeBO `json:"login_account_type_list,omitempty" xml:"login_account_type_list,omitempty"`
 }
 
-func (s LoginAccountTypeBO) String() string {
+func (s UserOperatorInfoBO) String() string {
 	return tea.Prettify(s)
 }
 
-func (s LoginAccountTypeBO) GoString() string {
+func (s UserOperatorInfoBO) GoString() string {
 	return s.String()
 }
 
-func (s *LoginAccountTypeBO) SetUserLoginType(v string) *LoginAccountTypeBO {
-	s.UserLoginType = &v
+func (s *UserOperatorInfoBO) SetUserId(v string) *UserOperatorInfoBO {
+	s.UserId = &v
 	return s
 }
 
-func (s *LoginAccountTypeBO) SetLoginName(v string) *LoginAccountTypeBO {
-	s.LoginName = &v
+func (s *UserOperatorInfoBO) SetAlias(v string) *UserOperatorInfoBO {
+	s.Alias = &v
+	return s
+}
+
+func (s *UserOperatorInfoBO) SetAddress(v string) *UserOperatorInfoBO {
+	s.Address = &v
+	return s
+}
+
+func (s *UserOperatorInfoBO) SetLoginAccountTypeList(v *LoginAccountTypeBO) *UserOperatorInfoBO {
+	s.LoginAccountTypeList = v
 	return s
 }
 
@@ -1359,6 +1399,109 @@ func (s *DataSummaryStatisticsItem) SetDate(v string) *DataSummaryStatisticsItem
 
 func (s *DataSummaryStatisticsItem) SetTotalValueList(v []*MultiCurrencyMoney) *DataSummaryStatisticsItem {
 	s.TotalValueList = v
+	return s
+}
+
+// 项目角色信息
+type ProjectWithRole struct {
+	// 项目id
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty"`
+	// 项目名称
+	ProjcetName *string `json:"projcet_name,omitempty" xml:"projcet_name,omitempty"`
+	// 描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// token名称
+	TokenName *string `json:"token_name,omitempty" xml:"token_name,omitempty"`
+	// 最大供应量
+	Capacity *string `json:"capacity,omitempty" xml:"capacity,omitempty"`
+	// 净值
+	NetValue *string `json:"net_value,omitempty" xml:"net_value,omitempty"`
+	// 价格类型
+	PriceType *string `json:"price_type,omitempty" xml:"price_type,omitempty"`
+	// 项目净值
+	ProjectNetValue *string `json:"project_net_value,omitempty" xml:"project_net_value,omitempty"`
+	// 最大限额
+	MaxSubscriptionAmount *string `json:"max_subscription_amount,omitempty" xml:"max_subscription_amount,omitempty"`
+	// 部署类型 DIRECT_PUBLIC_CHAIN 直发公链，NORMAL 普通模式
+	DeploymentType *string `json:"deployment_type,omitempty" xml:"deployment_type,omitempty"`
+	// 项目所在链
+	ChainType *string `json:"chain_type,omitempty" xml:"chain_type,omitempty"`
+	// 操作角色列表
+	UserOperatorList []*UserOperatorInfoBO `json:"user_operator_list,omitempty" xml:"user_operator_list,omitempty" type:"Repeated"`
+	// 代销者机构集合
+	ParticipantInfos []*ParticipantInfo `json:"participant_infos,omitempty" xml:"participant_infos,omitempty" type:"Repeated"`
+}
+
+func (s ProjectWithRole) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ProjectWithRole) GoString() string {
+	return s.String()
+}
+
+func (s *ProjectWithRole) SetProjectId(v string) *ProjectWithRole {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *ProjectWithRole) SetProjcetName(v string) *ProjectWithRole {
+	s.ProjcetName = &v
+	return s
+}
+
+func (s *ProjectWithRole) SetDescription(v string) *ProjectWithRole {
+	s.Description = &v
+	return s
+}
+
+func (s *ProjectWithRole) SetTokenName(v string) *ProjectWithRole {
+	s.TokenName = &v
+	return s
+}
+
+func (s *ProjectWithRole) SetCapacity(v string) *ProjectWithRole {
+	s.Capacity = &v
+	return s
+}
+
+func (s *ProjectWithRole) SetNetValue(v string) *ProjectWithRole {
+	s.NetValue = &v
+	return s
+}
+
+func (s *ProjectWithRole) SetPriceType(v string) *ProjectWithRole {
+	s.PriceType = &v
+	return s
+}
+
+func (s *ProjectWithRole) SetProjectNetValue(v string) *ProjectWithRole {
+	s.ProjectNetValue = &v
+	return s
+}
+
+func (s *ProjectWithRole) SetMaxSubscriptionAmount(v string) *ProjectWithRole {
+	s.MaxSubscriptionAmount = &v
+	return s
+}
+
+func (s *ProjectWithRole) SetDeploymentType(v string) *ProjectWithRole {
+	s.DeploymentType = &v
+	return s
+}
+
+func (s *ProjectWithRole) SetChainType(v string) *ProjectWithRole {
+	s.ChainType = &v
+	return s
+}
+
+func (s *ProjectWithRole) SetUserOperatorList(v []*UserOperatorInfoBO) *ProjectWithRole {
+	s.UserOperatorList = v
+	return s
+}
+
+func (s *ProjectWithRole) SetParticipantInfos(v []*ParticipantInfo) *ProjectWithRole {
+	s.ParticipantInfos = v
 	return s
 }
 
@@ -1978,46 +2121,6 @@ func (s *ProjectPageData) SetPageSize(v int64) *ProjectPageData {
 
 func (s *ProjectPageData) SetRecords(v []*AssetProject) *ProjectPageData {
 	s.Records = v
-	return s
-}
-
-// 操作角色
-type UserOperatorInfoBO struct {
-	// userId
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
-	// 别名
-	Alias *string `json:"alias,omitempty" xml:"alias,omitempty"`
-	// 钱包地址
-	Address *string `json:"address,omitempty" xml:"address,omitempty"`
-	// 登录账号类型列表
-	LoginAccountTypeList *LoginAccountTypeBO `json:"login_account_type_list,omitempty" xml:"login_account_type_list,omitempty"`
-}
-
-func (s UserOperatorInfoBO) String() string {
-	return tea.Prettify(s)
-}
-
-func (s UserOperatorInfoBO) GoString() string {
-	return s.String()
-}
-
-func (s *UserOperatorInfoBO) SetUserId(v string) *UserOperatorInfoBO {
-	s.UserId = &v
-	return s
-}
-
-func (s *UserOperatorInfoBO) SetAlias(v string) *UserOperatorInfoBO {
-	s.Alias = &v
-	return s
-}
-
-func (s *UserOperatorInfoBO) SetAddress(v string) *UserOperatorInfoBO {
-	s.Address = &v
-	return s
-}
-
-func (s *UserOperatorInfoBO) SetLoginAccountTypeList(v *LoginAccountTypeBO) *UserOperatorInfoBO {
-	s.LoginAccountTypeList = v
 	return s
 }
 
@@ -2938,32 +3041,8 @@ type DetailIssuerProjectwithroleResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 项目id
-	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty"`
-	// 项目名称
-	ProjcetName *string `json:"projcet_name,omitempty" xml:"projcet_name,omitempty"`
-	// 描述
-	Description *string `json:"description,omitempty" xml:"description,omitempty"`
-	// token名称
-	TokenName *string `json:"token_name,omitempty" xml:"token_name,omitempty"`
-	// 最大供应量
-	Capacity *string `json:"capacity,omitempty" xml:"capacity,omitempty"`
-	// 净值
-	NetValue *string `json:"net_value,omitempty" xml:"net_value,omitempty"`
-	// 价格类型
-	PriceType *string `json:"price_type,omitempty" xml:"price_type,omitempty"`
-	// 项目净值
-	ProjectNetValue *string `json:"project_net_value,omitempty" xml:"project_net_value,omitempty"`
-	// 购买最大限额
-	MaxSubscriptionAmount *string `json:"max_subscription_amount,omitempty" xml:"max_subscription_amount,omitempty"`
-	// 部署类型  DIRECT_PUBLIC_CHAIN 直发公链，NORMAL 普通模式
-	DeploymentType *string `json:"deployment_type,omitempty" xml:"deployment_type,omitempty"`
-	// 项目所在链
-	ChainType *string `json:"chain_type,omitempty" xml:"chain_type,omitempty"`
-	// 操作员list
-	UserOperatorList *UserOperatorInfoBO `json:"user_operator_list,omitempty" xml:"user_operator_list,omitempty"`
-	// 代销者机构代销者机构
-	ParticipantInfos *ParticipantInfo `json:"participant_infos,omitempty" xml:"participant_infos,omitempty"`
+	// 项目角色信息
+	Data *ProjectWithRole `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s DetailIssuerProjectwithroleResponse) String() string {
@@ -2989,68 +3068,8 @@ func (s *DetailIssuerProjectwithroleResponse) SetResultMsg(v string) *DetailIssu
 	return s
 }
 
-func (s *DetailIssuerProjectwithroleResponse) SetProjectId(v string) *DetailIssuerProjectwithroleResponse {
-	s.ProjectId = &v
-	return s
-}
-
-func (s *DetailIssuerProjectwithroleResponse) SetProjcetName(v string) *DetailIssuerProjectwithroleResponse {
-	s.ProjcetName = &v
-	return s
-}
-
-func (s *DetailIssuerProjectwithroleResponse) SetDescription(v string) *DetailIssuerProjectwithroleResponse {
-	s.Description = &v
-	return s
-}
-
-func (s *DetailIssuerProjectwithroleResponse) SetTokenName(v string) *DetailIssuerProjectwithroleResponse {
-	s.TokenName = &v
-	return s
-}
-
-func (s *DetailIssuerProjectwithroleResponse) SetCapacity(v string) *DetailIssuerProjectwithroleResponse {
-	s.Capacity = &v
-	return s
-}
-
-func (s *DetailIssuerProjectwithroleResponse) SetNetValue(v string) *DetailIssuerProjectwithroleResponse {
-	s.NetValue = &v
-	return s
-}
-
-func (s *DetailIssuerProjectwithroleResponse) SetPriceType(v string) *DetailIssuerProjectwithroleResponse {
-	s.PriceType = &v
-	return s
-}
-
-func (s *DetailIssuerProjectwithroleResponse) SetProjectNetValue(v string) *DetailIssuerProjectwithroleResponse {
-	s.ProjectNetValue = &v
-	return s
-}
-
-func (s *DetailIssuerProjectwithroleResponse) SetMaxSubscriptionAmount(v string) *DetailIssuerProjectwithroleResponse {
-	s.MaxSubscriptionAmount = &v
-	return s
-}
-
-func (s *DetailIssuerProjectwithroleResponse) SetDeploymentType(v string) *DetailIssuerProjectwithroleResponse {
-	s.DeploymentType = &v
-	return s
-}
-
-func (s *DetailIssuerProjectwithroleResponse) SetChainType(v string) *DetailIssuerProjectwithroleResponse {
-	s.ChainType = &v
-	return s
-}
-
-func (s *DetailIssuerProjectwithroleResponse) SetUserOperatorList(v *UserOperatorInfoBO) *DetailIssuerProjectwithroleResponse {
-	s.UserOperatorList = v
-	return s
-}
-
-func (s *DetailIssuerProjectwithroleResponse) SetParticipantInfos(v *ParticipantInfo) *DetailIssuerProjectwithroleResponse {
-	s.ParticipantInfos = v
+func (s *DetailIssuerProjectwithroleResponse) SetData(v *ProjectWithRole) *DetailIssuerProjectwithroleResponse {
+	s.Data = v
 	return s
 }
 
@@ -6481,7 +6500,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.21"),
+				"sdk_version":      tea.String("1.0.22"),
 				"_prod_code":       tea.String("WEBTRWATRADE"),
 				"_prod_channel":    tea.String("default"),
 			}
