@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.13',
+                    'sdk_version': '1.0.21',
                     '_prod_code': 'WEBTRWATRADE',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.13',
+                    'sdk_version': '1.0.21',
                     '_prod_code': 'WEBTRWATRADE',
                     '_prod_channel': 'default'
                 }
@@ -721,6 +721,174 @@ class Client:
         return TeaCore.from_map(
             webtrwatrade_models.PagequeryPlatformProjectResponse(),
             await self.do_request_async('1.0', 'antdigital.webtrwatrade.platform.project.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_issuer_projectwithrole(
+        self,
+        request: webtrwatrade_models.DetailIssuerProjectwithroleRequest,
+    ) -> webtrwatrade_models.DetailIssuerProjectwithroleResponse:
+        """
+        Description: 发行机构查询项目及角色信息
+        Summary: 发行机构查询项目及角色信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_issuer_projectwithrole_ex(request, headers, runtime)
+
+    async def detail_issuer_projectwithrole_async(
+        self,
+        request: webtrwatrade_models.DetailIssuerProjectwithroleRequest,
+    ) -> webtrwatrade_models.DetailIssuerProjectwithroleResponse:
+        """
+        Description: 发行机构查询项目及角色信息
+        Summary: 发行机构查询项目及角色信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_issuer_projectwithrole_ex_async(request, headers, runtime)
+
+    def detail_issuer_projectwithrole_ex(
+        self,
+        request: webtrwatrade_models.DetailIssuerProjectwithroleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> webtrwatrade_models.DetailIssuerProjectwithroleResponse:
+        """
+        Description: 发行机构查询项目及角色信息
+        Summary: 发行机构查询项目及角色信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            webtrwatrade_models.DetailIssuerProjectwithroleResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.issuer.projectwithrole.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_issuer_projectwithrole_ex_async(
+        self,
+        request: webtrwatrade_models.DetailIssuerProjectwithroleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> webtrwatrade_models.DetailIssuerProjectwithroleResponse:
+        """
+        Description: 发行机构查询项目及角色信息
+        Summary: 发行机构查询项目及角色信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            webtrwatrade_models.DetailIssuerProjectwithroleResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.issuer.projectwithrole.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_issuer_crossaccount(
+        self,
+        request: webtrwatrade_models.ListIssuerCrossaccountRequest,
+    ) -> webtrwatrade_models.ListIssuerCrossaccountResponse:
+        """
+        Description: 发行机构跨链账号明细
+        Summary: 发行机构跨链账号明细
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_issuer_crossaccount_ex(request, headers, runtime)
+
+    async def list_issuer_crossaccount_async(
+        self,
+        request: webtrwatrade_models.ListIssuerCrossaccountRequest,
+    ) -> webtrwatrade_models.ListIssuerCrossaccountResponse:
+        """
+        Description: 发行机构跨链账号明细
+        Summary: 发行机构跨链账号明细
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_issuer_crossaccount_ex_async(request, headers, runtime)
+
+    def list_issuer_crossaccount_ex(
+        self,
+        request: webtrwatrade_models.ListIssuerCrossaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> webtrwatrade_models.ListIssuerCrossaccountResponse:
+        """
+        Description: 发行机构跨链账号明细
+        Summary: 发行机构跨链账号明细
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            webtrwatrade_models.ListIssuerCrossaccountResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.issuer.crossaccount.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_issuer_crossaccount_ex_async(
+        self,
+        request: webtrwatrade_models.ListIssuerCrossaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> webtrwatrade_models.ListIssuerCrossaccountResponse:
+        """
+        Description: 发行机构跨链账号明细
+        Summary: 发行机构跨链账号明细
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            webtrwatrade_models.ListIssuerCrossaccountResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.issuer.crossaccount.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_distributor_crossaccount(
+        self,
+        request: webtrwatrade_models.ListDistributorCrossaccountRequest,
+    ) -> webtrwatrade_models.ListDistributorCrossaccountResponse:
+        """
+        Description: 代销机构跨链账号明细
+        Summary: 代销机构跨链账号明细
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_distributor_crossaccount_ex(request, headers, runtime)
+
+    async def list_distributor_crossaccount_async(
+        self,
+        request: webtrwatrade_models.ListDistributorCrossaccountRequest,
+    ) -> webtrwatrade_models.ListDistributorCrossaccountResponse:
+        """
+        Description: 代销机构跨链账号明细
+        Summary: 代销机构跨链账号明细
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_distributor_crossaccount_ex_async(request, headers, runtime)
+
+    def list_distributor_crossaccount_ex(
+        self,
+        request: webtrwatrade_models.ListDistributorCrossaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> webtrwatrade_models.ListDistributorCrossaccountResponse:
+        """
+        Description: 代销机构跨链账号明细
+        Summary: 代销机构跨链账号明细
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            webtrwatrade_models.ListDistributorCrossaccountResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.distributor.crossaccount.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_distributor_crossaccount_ex_async(
+        self,
+        request: webtrwatrade_models.ListDistributorCrossaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> webtrwatrade_models.ListDistributorCrossaccountResponse:
+        """
+        Description: 代销机构跨链账号明细
+        Summary: 代销机构跨链账号明细
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            webtrwatrade_models.ListDistributorCrossaccountResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.distributor.crossaccount.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def count_issuer_datasummary(
@@ -1225,6 +1393,118 @@ class Client:
         return TeaCore.from_map(
             webtrwatrade_models.DeleteIssuerKeyResponse(),
             await self.do_request_async('1.0', 'antdigital.webtrwatrade.issuer.key.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_issuer_operationlog(
+        self,
+        request: webtrwatrade_models.ListIssuerOperationlogRequest,
+    ) -> webtrwatrade_models.ListIssuerOperationlogResponse:
+        """
+        Description: 发行机构查询登录登出操作日志
+        Summary: 发行机构查询登录登出操作日志
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_issuer_operationlog_ex(request, headers, runtime)
+
+    async def list_issuer_operationlog_async(
+        self,
+        request: webtrwatrade_models.ListIssuerOperationlogRequest,
+    ) -> webtrwatrade_models.ListIssuerOperationlogResponse:
+        """
+        Description: 发行机构查询登录登出操作日志
+        Summary: 发行机构查询登录登出操作日志
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_issuer_operationlog_ex_async(request, headers, runtime)
+
+    def list_issuer_operationlog_ex(
+        self,
+        request: webtrwatrade_models.ListIssuerOperationlogRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> webtrwatrade_models.ListIssuerOperationlogResponse:
+        """
+        Description: 发行机构查询登录登出操作日志
+        Summary: 发行机构查询登录登出操作日志
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            webtrwatrade_models.ListIssuerOperationlogResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.issuer.operationlog.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_issuer_operationlog_ex_async(
+        self,
+        request: webtrwatrade_models.ListIssuerOperationlogRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> webtrwatrade_models.ListIssuerOperationlogResponse:
+        """
+        Description: 发行机构查询登录登出操作日志
+        Summary: 发行机构查询登录登出操作日志
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            webtrwatrade_models.ListIssuerOperationlogResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.issuer.operationlog.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_distributor_operationlog(
+        self,
+        request: webtrwatrade_models.ListDistributorOperationlogRequest,
+    ) -> webtrwatrade_models.ListDistributorOperationlogResponse:
+        """
+        Description: 代销机构查询登录登出操作日志
+        Summary: 代销机构查询登录登出操作日志
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_distributor_operationlog_ex(request, headers, runtime)
+
+    async def list_distributor_operationlog_async(
+        self,
+        request: webtrwatrade_models.ListDistributorOperationlogRequest,
+    ) -> webtrwatrade_models.ListDistributorOperationlogResponse:
+        """
+        Description: 代销机构查询登录登出操作日志
+        Summary: 代销机构查询登录登出操作日志
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_distributor_operationlog_ex_async(request, headers, runtime)
+
+    def list_distributor_operationlog_ex(
+        self,
+        request: webtrwatrade_models.ListDistributorOperationlogRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> webtrwatrade_models.ListDistributorOperationlogResponse:
+        """
+        Description: 代销机构查询登录登出操作日志
+        Summary: 代销机构查询登录登出操作日志
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            webtrwatrade_models.ListDistributorOperationlogResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.distributor.operationlog.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_distributor_operationlog_ex_async(
+        self,
+        request: webtrwatrade_models.ListDistributorOperationlogRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> webtrwatrade_models.ListDistributorOperationlogResponse:
+        """
+        Description: 代销机构查询登录登出操作日志
+        Summary: 代销机构查询登录登出操作日志
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            webtrwatrade_models.ListDistributorOperationlogResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.distributor.operationlog.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def add_issuer_projectkey(
@@ -2401,6 +2681,118 @@ class Client:
         return TeaCore.from_map(
             webtrwatrade_models.CountDistributorSubusertargetResponse(),
             await self.do_request_async('1.0', 'antdigital.webtrwatrade.distributor.subusertarget.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_issuer(
+        self,
+        request: webtrwatrade_models.QueryIssuerRequest,
+    ) -> webtrwatrade_models.QueryIssuerResponse:
+        """
+        Description: 发行机构获取二级用户详情数据
+        Summary: 发行机构获取二级用户详情数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_issuer_ex(request, headers, runtime)
+
+    async def query_issuer_async(
+        self,
+        request: webtrwatrade_models.QueryIssuerRequest,
+    ) -> webtrwatrade_models.QueryIssuerResponse:
+        """
+        Description: 发行机构获取二级用户详情数据
+        Summary: 发行机构获取二级用户详情数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_issuer_ex_async(request, headers, runtime)
+
+    def query_issuer_ex(
+        self,
+        request: webtrwatrade_models.QueryIssuerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> webtrwatrade_models.QueryIssuerResponse:
+        """
+        Description: 发行机构获取二级用户详情数据
+        Summary: 发行机构获取二级用户详情数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            webtrwatrade_models.QueryIssuerResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.issuer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_issuer_ex_async(
+        self,
+        request: webtrwatrade_models.QueryIssuerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> webtrwatrade_models.QueryIssuerResponse:
+        """
+        Description: 发行机构获取二级用户详情数据
+        Summary: 发行机构获取二级用户详情数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            webtrwatrade_models.QueryIssuerResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.issuer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_distributor(
+        self,
+        request: webtrwatrade_models.QueryDistributorRequest,
+    ) -> webtrwatrade_models.QueryDistributorResponse:
+        """
+        Description: 代销机构获取二级用户详情数据
+        Summary: 代销机构获取二级用户详情数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_distributor_ex(request, headers, runtime)
+
+    async def query_distributor_async(
+        self,
+        request: webtrwatrade_models.QueryDistributorRequest,
+    ) -> webtrwatrade_models.QueryDistributorResponse:
+        """
+        Description: 代销机构获取二级用户详情数据
+        Summary: 代销机构获取二级用户详情数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_distributor_ex_async(request, headers, runtime)
+
+    def query_distributor_ex(
+        self,
+        request: webtrwatrade_models.QueryDistributorRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> webtrwatrade_models.QueryDistributorResponse:
+        """
+        Description: 代销机构获取二级用户详情数据
+        Summary: 代销机构获取二级用户详情数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            webtrwatrade_models.QueryDistributorResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.distributor.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_distributor_ex_async(
+        self,
+        request: webtrwatrade_models.QueryDistributorRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> webtrwatrade_models.QueryDistributorResponse:
+        """
+        Description: 代销机构获取二级用户详情数据
+        Summary: 代销机构获取二级用户详情数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            webtrwatrade_models.QueryDistributorResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.distributor.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def issue_issuer_subusertrade(
