@@ -1,0 +1,35 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.WEBTRWATRADE.Models
+{
+    // 操作角色
+    public class UserOperatorInfoBO : TeaModel {
+        // userId
+        [NameInMap("user_id")]
+        [Validation(Required=false)]
+        public string UserId { get; set; }
+
+        // 别名
+        [NameInMap("alias")]
+        [Validation(Required=false)]
+        public string Alias { get; set; }
+
+        // 钱包地址
+        [NameInMap("address")]
+        [Validation(Required=false)]
+        public string Address { get; set; }
+
+        // 登录账号类型列表
+        [NameInMap("login_account_type_list")]
+        [Validation(Required=false)]
+        public LoginAccountTypeBO LoginAccountTypeList { get; set; }
+
+    }
+
+}
