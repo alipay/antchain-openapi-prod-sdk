@@ -163,6 +163,59 @@ export class InstitutionType extends $tea.Model {
   }
 }
 
+// 跨链账号明细
+export class CrossChainAccountsDetailVO extends $tea.Model {
+  // 明细ID
+  id?: string;
+  // 交易链上Hash
+  transactionHash?: string;
+  // 交易前余额
+  preBalance?: string;
+  // 交易数量
+  transactionAmount?: string;
+  // 交易后余额
+  postBalance?: string;
+  // 交易类别
+  transactionType?: string;
+  // 对手地址
+  counterAddress?: string;
+  // 创建时间
+  gmtCreated?: number;
+  // 更新时间
+  gmtModified?: number;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      transactionHash: 'transaction_hash',
+      preBalance: 'pre_balance',
+      transactionAmount: 'transaction_amount',
+      postBalance: 'post_balance',
+      transactionType: 'transaction_type',
+      counterAddress: 'counter_address',
+      gmtCreated: 'gmt_created',
+      gmtModified: 'gmt_modified',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      transactionHash: 'string',
+      preBalance: 'string',
+      transactionAmount: 'string',
+      postBalance: 'string',
+      transactionType: 'string',
+      counterAddress: 'string',
+      gmtCreated: 'number',
+      gmtModified: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 用户信息
 export class UserInfo extends $tea.Model {
   // 钱包地址
@@ -176,6 +229,112 @@ export class UserInfo extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       address: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 跨链账号红利明细
+export class CrossChainBonusAccountsDetailVO extends $tea.Model {
+  // 明细ID
+  id?: string;
+  // 交易链上Hash
+  transactionHash?: string;
+  // 交易前余额
+  preBalance?: string;
+  // 交易数量
+  transactionAmount?: string;
+  // 交易后余额
+  postBalance?: string;
+  // 交易类型
+  transactionType?: string;
+  // 对手地址
+  counterAddress?: string;
+  // 创建时间
+  gmtCreated?: number;
+  // 更新时间
+  gmtModified?: number;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      transactionHash: 'transaction_hash',
+      preBalance: 'pre_balance',
+      transactionAmount: 'transaction_amount',
+      postBalance: 'post_balance',
+      transactionType: 'transaction_type',
+      counterAddress: 'counter_address',
+      gmtCreated: 'gmt_created',
+      gmtModified: 'gmt_modified',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      transactionHash: 'string',
+      preBalance: 'string',
+      transactionAmount: 'string',
+      postBalance: 'string',
+      transactionType: 'string',
+      counterAddress: 'string',
+      gmtCreated: 'number',
+      gmtModified: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 资产账户明细VO
+export class SubUserAccountDetailsVO extends $tea.Model {
+  // 明细ID
+  id: string;
+  // 交易链上Hash
+  transactionHash: string;
+  // 交易前余额
+  preBalance: string;
+  // 交易数量
+  transactionAmount: string;
+  // 交易后余额
+  postBalance: string;
+  // 交易类别
+  transactionType: string;
+  // 对手地址
+  counterAddress: string;
+  // 创建时间
+  gmtCreated: number;
+  // 更新时间
+  gmtModified: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      transactionHash: 'transaction_hash',
+      preBalance: 'pre_balance',
+      transactionAmount: 'transaction_amount',
+      postBalance: 'post_balance',
+      transactionType: 'transaction_type',
+      counterAddress: 'counter_address',
+      gmtCreated: 'gmt_created',
+      gmtModified: 'gmt_modified',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      transactionHash: 'string',
+      preBalance: 'string',
+      transactionAmount: 'string',
+      postBalance: 'string',
+      transactionType: 'string',
+      counterAddress: 'string',
+      gmtCreated: 'number',
+      gmtModified: 'string',
     };
   }
 
@@ -205,6 +364,59 @@ export class MultiCurrencyMoney extends $tea.Model {
       cent: 'string',
       currency: 'string',
       amount: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 红利账户明细
+export class SubUserBonusAccountDetailVO extends $tea.Model {
+  // 明细ID
+  id: string;
+  // 交易链上Hash
+  transactionHash: string;
+  // 交易前余额
+  preBalance: string;
+  // 交易数量
+  transactionAmount: string;
+  // 交易后余额
+  postBalance: string;
+  // 交易类别
+  transactionType: string;
+  // 对手地址
+  counterAddress: string;
+  // 创建时间
+  gmtCreated: number;
+  // 更新时间
+  gmtModified: number;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      transactionHash: 'transaction_hash',
+      preBalance: 'pre_balance',
+      transactionAmount: 'transaction_amount',
+      postBalance: 'post_balance',
+      transactionType: 'transaction_type',
+      counterAddress: 'counter_address',
+      gmtCreated: 'gmt_created',
+      gmtModified: 'gmt_modified',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      transactionHash: 'string',
+      preBalance: 'string',
+      transactionAmount: 'string',
+      postBalance: 'string',
+      transactionType: 'string',
+      counterAddress: 'string',
+      gmtCreated: 'number',
+      gmtModified: 'number',
     };
   }
 
@@ -502,6 +714,43 @@ export class ParticipantInfo extends $tea.Model {
   }
 }
 
+// 跨链账户信息
+export class CrossChainAccountsVO extends $tea.Model {
+  // 对侧链用户地址
+  crossChainUserAddress?: string;
+  // 对侧链账户ID
+  crossChainUserAccountId?: string;
+  // 对侧链红利账户ID
+  crossChainUserBonusAccountId?: string;
+  // 对侧链资产账户明细
+  crossChainUserAccountsDetails?: CrossChainAccountsDetailVO[];
+  // 对侧链账户信息
+  crossChainBonusAccountsDetails?: CrossChainBonusAccountsDetailVO[];
+  static names(): { [key: string]: string } {
+    return {
+      crossChainUserAddress: 'cross_chain_user_address',
+      crossChainUserAccountId: 'cross_chain_user_account_id',
+      crossChainUserBonusAccountId: 'cross_chain_user_bonus_account_id',
+      crossChainUserAccountsDetails: 'cross_chain_user_accounts_details',
+      crossChainBonusAccountsDetails: 'cross_chain_bonus_accounts_details',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      crossChainUserAddress: 'string',
+      crossChainUserAccountId: 'string',
+      crossChainUserBonusAccountId: 'string',
+      crossChainUserAccountsDetails: { 'type': 'array', 'itemType': CrossChainAccountsDetailVO },
+      crossChainBonusAccountsDetails: { 'type': 'array', 'itemType': CrossChainBonusAccountsDetailVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 资产项目信息
 export class AssetProject extends $tea.Model {
   // 项目ID
@@ -575,6 +824,31 @@ export class AssetProject extends $tea.Model {
       currency: 'string',
       gmtCreated: 'number',
       gmtModified: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 登录类型
+export class LoginAccountTypeBO extends $tea.Model {
+  // 登录类型
+  userLoginType?: string;
+  // 登录名称
+  loginName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      userLoginType: 'user_login_type',
+      loginName: 'login_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userLoginType: 'string',
+      loginName: 'string',
     };
   }
 
@@ -744,6 +1018,71 @@ export class DataSummaryStatisticsItem extends $tea.Model {
   }
 }
 
+// 跨链账号明细
+export class CrossAccountListVO extends $tea.Model {
+  // 项目ID
+  projectId?: string;
+  // 资产项目合约地址
+  assetProjectAddress?: string;
+  // 红利合约地址
+  bonusAddress?: string;
+  // 用户ID
+  userId?: string;
+  // 代销机构ID
+  distributorInstitutionId?: string;
+  // 发行链名称
+  chainName?: string;
+  // 投资者用户账户ID
+  subUserAccountId?: string;
+  // 投资者用户红利账户ID
+  subUserBonusAccountId?: string;
+  // 目标链名称
+  targetChainName?: string;
+  // 目标链资产合约地址
+  targetChainAssetTokenAddress?: string;
+  // 目标链红利合约地址
+  targetChainBonusAddress?: string;
+  // 对侧链账户信息
+  crossChainAccountsInfo?: CrossChainAccountsVO[];
+  static names(): { [key: string]: string } {
+    return {
+      projectId: 'project_id',
+      assetProjectAddress: 'asset_project_address',
+      bonusAddress: 'bonus_address',
+      userId: 'user_id',
+      distributorInstitutionId: 'distributor_institution_id',
+      chainName: 'chain_name',
+      subUserAccountId: 'sub_user_account_id',
+      subUserBonusAccountId: 'sub_user_bonus_account_id',
+      targetChainName: 'target_chain_name',
+      targetChainAssetTokenAddress: 'target_chain_asset_token_address',
+      targetChainBonusAddress: 'target_chain_bonus_address',
+      crossChainAccountsInfo: 'cross_chain_accounts_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      projectId: 'string',
+      assetProjectAddress: 'string',
+      bonusAddress: 'string',
+      userId: 'string',
+      distributorInstitutionId: 'string',
+      chainName: 'string',
+      subUserAccountId: 'string',
+      subUserBonusAccountId: 'string',
+      targetChainName: 'string',
+      targetChainAssetTokenAddress: 'string',
+      targetChainBonusAddress: 'string',
+      crossChainAccountsInfo: { 'type': 'array', 'itemType': CrossChainAccountsVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 密钥分页列表
 export class KeyPageData extends $tea.Model {
   // 总记录
@@ -773,6 +1112,108 @@ export class KeyPageData extends $tea.Model {
       pageNum: 'number',
       pageSize: 'number',
       records: { 'type': 'array', 'itemType': KeyVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 登入登出接口操作日志回参
+export class LoginOperationLogVO extends $tea.Model {
+  // 用户ID
+  userId: string;
+  // 用户地址
+  userAddress?: string;
+  // 登录名
+  loginName?: string;
+  // 登录类型
+  loginAccountType?: string;
+  // 请求URL
+  requestURL: string;
+  // 是否成功
+  success: boolean;
+  // 创建时间
+  gmtCreated: number;
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      userAddress: 'user_address',
+      loginName: 'login_name',
+      loginAccountType: 'login_account_type',
+      requestURL: 'request_u_r_l',
+      success: 'success',
+      gmtCreated: 'gmt_created',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      userAddress: 'string',
+      loginName: 'string',
+      loginAccountType: 'string',
+      requestURL: 'string',
+      success: 'boolean',
+      gmtCreated: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 资产账户明细与红利账户明细
+export class SubUserAccountDetailVO extends $tea.Model {
+  // 项目ID
+  projectId: string;
+  // 资产项目合约地址
+  assetProjectAddress?: string;
+  // 红利合约地址
+  bonusAddress?: string;
+  // 用户ID
+  userId?: string;
+  // 代销机构ID
+  distributorInstitutionId?: string;
+  // 发行链名称
+  chainName?: string;
+  // 投资者用户账户ID
+  subUserAccountId?: string;
+  // 投资者用户红利账户ID
+  subUserBonusAccountId?: string;
+  // 资产账户明细
+  subUserAccountDetails?: SubUserAccountDetailsVO[];
+  // 红利账户明细
+  subUserBonusAccountDetails?: SubUserBonusAccountDetailVO[];
+  static names(): { [key: string]: string } {
+    return {
+      projectId: 'project_id',
+      assetProjectAddress: 'asset_project_address',
+      bonusAddress: 'bonus_address',
+      userId: 'user_id',
+      distributorInstitutionId: 'distributor_institution_id',
+      chainName: 'chain_name',
+      subUserAccountId: 'sub_user_account_id',
+      subUserBonusAccountId: 'sub_user_bonus_account_id',
+      subUserAccountDetails: 'sub_user_account_details',
+      subUserBonusAccountDetails: 'sub_user_bonus_account_details',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      projectId: 'string',
+      assetProjectAddress: 'string',
+      bonusAddress: 'string',
+      userId: 'string',
+      distributorInstitutionId: 'string',
+      chainName: 'string',
+      subUserAccountId: 'string',
+      subUserBonusAccountId: 'string',
+      subUserAccountDetails: { 'type': 'array', 'itemType': SubUserAccountDetailsVO },
+      subUserBonusAccountDetails: { 'type': 'array', 'itemType': SubUserBonusAccountDetailVO },
     };
   }
 
@@ -1014,6 +1455,39 @@ export class ProjectPageData extends $tea.Model {
       pageNum: 'number',
       pageSize: 'number',
       records: { 'type': 'array', 'itemType': AssetProject },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 操作角色
+export class UserOperatorInfoBO extends $tea.Model {
+  // userId
+  userId?: string;
+  // 别名
+  alias?: string;
+  // 钱包地址
+  address?: string;
+  // 登录账号类型列表
+  loginAccountTypeList?: LoginAccountTypeBO;
+  static names(): { [key: string]: string } {
+    return {
+      userId: 'user_id',
+      alias: 'alias',
+      address: 'address',
+      loginAccountTypeList: 'login_account_type_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userId: 'string',
+      alias: 'string',
+      address: 'string',
+      loginAccountTypeList: LoginAccountTypeBO,
     };
   }
 
@@ -1697,6 +2171,306 @@ export class PagequeryPlatformProjectResponse extends $tea.Model {
   }
 }
 
+export class DetailIssuerProjectwithroleRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 项目id，项目资产ID和
+  // 项目合约地址+所在链组合 二选一
+  assetProjectId?: string;
+  // 资产项目合约地址，项目资产ID和
+  // 项目合约地址+所在链组合 二选一
+  assetProjectAddress?: string;
+  // 所在链，项目资产ID和
+  // 项目合约地址+所在链组合 二选一
+  chainName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      assetProjectId: 'asset_project_id',
+      assetProjectAddress: 'asset_project_address',
+      chainName: 'chain_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      assetProjectId: 'string',
+      assetProjectAddress: 'string',
+      chainName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailIssuerProjectwithroleResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 项目id
+  projectId?: string;
+  // 项目名称
+  projcetName?: string;
+  // 描述
+  description?: string;
+  // token名称
+  tokenName?: string;
+  // 最大供应量
+  capacity?: string;
+  // 净值
+  netValue?: string;
+  // 价格类型
+  priceType?: string;
+  // 项目净值
+  projectNetValue?: string;
+  // 购买最大限额
+  maxSubscriptionAmount?: string;
+  // 部署类型  DIRECT_PUBLIC_CHAIN 直发公链，NORMAL 普通模式
+  deploymentType?: string;
+  // 项目所在链
+  chainType?: string;
+  // 操作员list
+  userOperatorList?: UserOperatorInfoBO;
+  // 代销者机构代销者机构
+  participantInfos?: ParticipantInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      projectId: 'project_id',
+      projcetName: 'projcet_name',
+      description: 'description',
+      tokenName: 'token_name',
+      capacity: 'capacity',
+      netValue: 'net_value',
+      priceType: 'price_type',
+      projectNetValue: 'project_net_value',
+      maxSubscriptionAmount: 'max_subscription_amount',
+      deploymentType: 'deployment_type',
+      chainType: 'chain_type',
+      userOperatorList: 'user_operator_list',
+      participantInfos: 'participant_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      projectId: 'string',
+      projcetName: 'string',
+      description: 'string',
+      tokenName: 'string',
+      capacity: 'string',
+      netValue: 'string',
+      priceType: 'string',
+      projectNetValue: 'string',
+      maxSubscriptionAmount: 'string',
+      deploymentType: 'string',
+      chainType: 'string',
+      userOperatorList: UserOperatorInfoBO,
+      participantInfos: ParticipantInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListIssuerCrossaccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 资产项目ID
+  assetProjectId?: string;
+  // 资产项目合约地址
+  assetProjectAddress?: string;
+  // 用户ID
+  userId?: string;
+  // 本侧链用户地址
+  userAddress?: string;
+  // 登录名
+  loginName?: string;
+  // 登录名类型(EMAIL)
+  loginAccountType?: string;
+  // 对侧链用户地址
+  crossChainUserAddress?: string;
+  // 开始时间 (时间戳)
+  startTimeMills: number;
+  // 结束时间 (时间戳)
+  endTimeMills: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      assetProjectId: 'asset_project_id',
+      assetProjectAddress: 'asset_project_address',
+      userId: 'user_id',
+      userAddress: 'user_address',
+      loginName: 'login_name',
+      loginAccountType: 'login_account_type',
+      crossChainUserAddress: 'cross_chain_user_address',
+      startTimeMills: 'start_time_mills',
+      endTimeMills: 'end_time_mills',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      assetProjectId: 'string',
+      assetProjectAddress: 'string',
+      userId: 'string',
+      userAddress: 'string',
+      loginName: 'string',
+      loginAccountType: 'string',
+      crossChainUserAddress: 'string',
+      startTimeMills: 'number',
+      endTimeMills: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListIssuerCrossaccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 跨链账号明细
+  data?: CrossAccountListVO[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': CrossAccountListVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListDistributorCrossaccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 资产项目ID
+  assetProjectId?: string;
+  // 资产项目合约地址
+  assetProjectAddress?: string;
+  // 用户ID
+  userId?: string;
+  // 本侧链用户地址
+  userAddress?: string;
+  // 登录名
+  loginName?: string;
+  // 登录名类型(EMAIL)
+  loginAccountType?: string;
+  // 对侧链用户地址
+  crossChainUserAddress?: string;
+  // 开始时间 (时间戳)
+  startTimeMills: number;
+  // 结束时间 (时间戳)
+  endTimeMills: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      assetProjectId: 'asset_project_id',
+      assetProjectAddress: 'asset_project_address',
+      userId: 'user_id',
+      userAddress: 'user_address',
+      loginName: 'login_name',
+      loginAccountType: 'login_account_type',
+      crossChainUserAddress: 'cross_chain_user_address',
+      startTimeMills: 'start_time_mills',
+      endTimeMills: 'end_time_mills',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      assetProjectId: 'string',
+      assetProjectAddress: 'string',
+      userId: 'string',
+      userAddress: 'string',
+      loginName: 'string',
+      loginAccountType: 'string',
+      crossChainUserAddress: 'string',
+      startTimeMills: 'number',
+      endTimeMills: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListDistributorCrossaccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 跨链账号明细
+  data?: CrossAccountListVO[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': CrossAccountListVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CountIssuerDatasummaryRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2256,6 +3030,132 @@ export class DeleteIssuerKeyResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListIssuerOperationlogRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 开始时间 (时间戳)
+  startTimeMills: number;
+  // 结束时间 (时间戳)
+  endTimeMills: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      startTimeMills: 'start_time_mills',
+      endTimeMills: 'end_time_mills',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      startTimeMills: 'number',
+      endTimeMills: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListIssuerOperationlogResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 回参
+  data?: LoginOperationLogVO[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': LoginOperationLogVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListDistributorOperationlogRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 开始时间 (时间戳)
+  startTimeMills: number;
+  // 结束时间 (时间戳)
+  endTimeMills: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      startTimeMills: 'start_time_mills',
+      endTimeMills: 'end_time_mills',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      startTimeMills: 'number',
+      endTimeMills: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListDistributorOperationlogResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 回参
+  data?: LoginOperationLogVO[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': LoginOperationLogVO },
     };
   }
 
@@ -3625,6 +4525,180 @@ export class CountDistributorSubusertargetResponse extends $tea.Model {
   }
 }
 
+export class QueryIssuerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 资产项目ID
+  assetProjectId?: string;
+  // 资产项目合约地址
+  assetProjectAddress?: string;
+  // 用户ID
+  userId?: string;
+  // 用户地址
+  userAddress?: string;
+  // 登录名
+  loginName?: string;
+  // 登录名类型(EMAIL)
+  loginAccoutType?: string;
+  // 开始时间 (时间戳)
+  startTimeMills: number;
+  // 结束时间 (时间戳)
+  endTimeMills: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      assetProjectId: 'asset_project_id',
+      assetProjectAddress: 'asset_project_address',
+      userId: 'user_id',
+      userAddress: 'user_address',
+      loginName: 'login_name',
+      loginAccoutType: 'login_accout_type',
+      startTimeMills: 'start_time_mills',
+      endTimeMills: 'end_time_mills',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      assetProjectId: 'string',
+      assetProjectAddress: 'string',
+      userId: 'string',
+      userAddress: 'string',
+      loginName: 'string',
+      loginAccoutType: 'string',
+      startTimeMills: 'number',
+      endTimeMills: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIssuerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 账户明细列表
+  data?: SubUserAccountDetailVO[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': SubUserAccountDetailVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDistributorRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 资产项目ID
+  assetProjectId?: string;
+  // 资产项目合约地址
+  assetProjectAddress?: string;
+  // 用户ID
+  userId?: string;
+  // 用户地址
+  userAddress?: string;
+  // 登录名
+  loginName?: string;
+  // 登录名类型(EMAIL)
+  loginAccoutType?: string;
+  // 开始时间 (时间戳)
+  startTimeMills: number;
+  // 结束时间 (时间戳)
+  endTimeMills: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      assetProjectId: 'asset_project_id',
+      assetProjectAddress: 'asset_project_address',
+      userId: 'user_id',
+      userAddress: 'user_address',
+      loginName: 'login_name',
+      loginAccoutType: 'login_accout_type',
+      startTimeMills: 'start_time_mills',
+      endTimeMills: 'end_time_mills',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      assetProjectId: 'string',
+      assetProjectAddress: 'string',
+      userId: 'string',
+      userAddress: 'string',
+      loginName: 'string',
+      loginAccoutType: 'string',
+      startTimeMills: 'number',
+      endTimeMills: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDistributorResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 账户明细列表
+  data?: SubUserAccountDetailVO[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': SubUserAccountDetailVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class IssueIssuerSubusertradeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3959,7 +5033,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.13",
+          sdk_version: "1.0.21",
           _prod_code: "WEBTRWATRADE",
           _prod_channel: "default",
         };
@@ -4160,6 +5234,63 @@ export default class Client {
   }
 
   /**
+   * Description: 发行机构查询项目及角色信息
+   * Summary: 发行机构查询项目及角色信息
+   */
+  async detailIssuerProjectwithrole(request: DetailIssuerProjectwithroleRequest): Promise<DetailIssuerProjectwithroleResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.detailIssuerProjectwithroleEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 发行机构查询项目及角色信息
+   * Summary: 发行机构查询项目及角色信息
+   */
+  async detailIssuerProjectwithroleEx(request: DetailIssuerProjectwithroleRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailIssuerProjectwithroleResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DetailIssuerProjectwithroleResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.issuer.projectwithrole.detail", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DetailIssuerProjectwithroleResponse({}));
+  }
+
+  /**
+   * Description: 发行机构跨链账号明细
+   * Summary: 发行机构跨链账号明细
+   */
+  async listIssuerCrossaccount(request: ListIssuerCrossaccountRequest): Promise<ListIssuerCrossaccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listIssuerCrossaccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 发行机构跨链账号明细
+   * Summary: 发行机构跨链账号明细
+   */
+  async listIssuerCrossaccountEx(request: ListIssuerCrossaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListIssuerCrossaccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListIssuerCrossaccountResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.issuer.crossaccount.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListIssuerCrossaccountResponse({}));
+  }
+
+  /**
+   * Description: 代销机构跨链账号明细
+   * Summary: 代销机构跨链账号明细
+   */
+  async listDistributorCrossaccount(request: ListDistributorCrossaccountRequest): Promise<ListDistributorCrossaccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listDistributorCrossaccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 代销机构跨链账号明细
+   * Summary: 代销机构跨链账号明细
+   */
+  async listDistributorCrossaccountEx(request: ListDistributorCrossaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListDistributorCrossaccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListDistributorCrossaccountResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.distributor.crossaccount.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListDistributorCrossaccountResponse({}));
+  }
+
+  /**
    * Description: 发行机构获取总览统计数据项
    * Summary: 发行机构获取总览统计数据项
    */
@@ -4328,6 +5459,44 @@ export default class Client {
   async deleteIssuerKeyEx(request: DeleteIssuerKeyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteIssuerKeyResponse> {
     Util.validateModel(request);
     return $tea.cast<DeleteIssuerKeyResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.issuer.key.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteIssuerKeyResponse({}));
+  }
+
+  /**
+   * Description: 发行机构查询登录登出操作日志
+   * Summary: 发行机构查询登录登出操作日志
+   */
+  async listIssuerOperationlog(request: ListIssuerOperationlogRequest): Promise<ListIssuerOperationlogResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listIssuerOperationlogEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 发行机构查询登录登出操作日志
+   * Summary: 发行机构查询登录登出操作日志
+   */
+  async listIssuerOperationlogEx(request: ListIssuerOperationlogRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListIssuerOperationlogResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListIssuerOperationlogResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.issuer.operationlog.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListIssuerOperationlogResponse({}));
+  }
+
+  /**
+   * Description: 代销机构查询登录登出操作日志
+   * Summary: 代销机构查询登录登出操作日志
+   */
+  async listDistributorOperationlog(request: ListDistributorOperationlogRequest): Promise<ListDistributorOperationlogResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listDistributorOperationlogEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 代销机构查询登录登出操作日志
+   * Summary: 代销机构查询登录登出操作日志
+   */
+  async listDistributorOperationlogEx(request: ListDistributorOperationlogRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListDistributorOperationlogResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListDistributorOperationlogResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.distributor.operationlog.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListDistributorOperationlogResponse({}));
   }
 
   /**
@@ -4727,6 +5896,44 @@ export default class Client {
   async countDistributorSubusertargetEx(request: CountDistributorSubusertargetRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CountDistributorSubusertargetResponse> {
     Util.validateModel(request);
     return $tea.cast<CountDistributorSubusertargetResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.distributor.subusertarget.count", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CountDistributorSubusertargetResponse({}));
+  }
+
+  /**
+   * Description: 发行机构获取二级用户详情数据
+   * Summary: 发行机构获取二级用户详情数据
+   */
+  async queryIssuer(request: QueryIssuerRequest): Promise<QueryIssuerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIssuerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 发行机构获取二级用户详情数据
+   * Summary: 发行机构获取二级用户详情数据
+   */
+  async queryIssuerEx(request: QueryIssuerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIssuerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIssuerResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.issuer.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIssuerResponse({}));
+  }
+
+  /**
+   * Description: 代销机构获取二级用户详情数据
+   * Summary: 代销机构获取二级用户详情数据
+   */
+  async queryDistributor(request: QueryDistributorRequest): Promise<QueryDistributorResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDistributorEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 代销机构获取二级用户详情数据
+   * Summary: 代销机构获取二级用户详情数据
+   */
+  async queryDistributorEx(request: QueryDistributorRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDistributorResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDistributorResponse>(await this.doRequest("1.0", "antdigital.webtrwatrade.distributor.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDistributorResponse({}));
   }
 
   /**
