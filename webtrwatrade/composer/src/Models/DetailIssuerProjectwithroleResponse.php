@@ -26,100 +26,16 @@ class DetailIssuerProjectwithroleResponse extends Model
      */
     public $resultMsg;
 
-    // 项目id
+    // 项目角色信息
     /**
-     * @var string
+     * @var ProjectWithRole
      */
-    public $projectId;
-
-    // 项目名称
-    /**
-     * @var string
-     */
-    public $projcetName;
-
-    // 描述
-    /**
-     * @var string
-     */
-    public $description;
-
-    // token名称
-    /**
-     * @var string
-     */
-    public $tokenName;
-
-    // 最大供应量
-    /**
-     * @var string
-     */
-    public $capacity;
-
-    // 净值
-    /**
-     * @var string
-     */
-    public $netValue;
-
-    // 价格类型
-    /**
-     * @var string
-     */
-    public $priceType;
-
-    // 项目净值
-    /**
-     * @var string
-     */
-    public $projectNetValue;
-
-    // 购买最大限额
-    /**
-     * @var string
-     */
-    public $maxSubscriptionAmount;
-
-    // 部署类型  DIRECT_PUBLIC_CHAIN 直发公链，NORMAL 普通模式
-    /**
-     * @var string
-     */
-    public $deploymentType;
-
-    // 项目所在链
-    /**
-     * @var string
-     */
-    public $chainType;
-
-    // 操作员list
-    /**
-     * @var UserOperatorInfoBO
-     */
-    public $userOperatorList;
-
-    // 代销者机构代销者机构
-    /**
-     * @var ParticipantInfo
-     */
-    public $participantInfos;
+    public $data;
     protected $_name = [
-        'reqMsgId'              => 'req_msg_id',
-        'resultCode'            => 'result_code',
-        'resultMsg'             => 'result_msg',
-        'projectId'             => 'project_id',
-        'projcetName'           => 'projcet_name',
-        'description'           => 'description',
-        'tokenName'             => 'token_name',
-        'capacity'              => 'capacity',
-        'netValue'              => 'net_value',
-        'priceType'             => 'price_type',
-        'projectNetValue'       => 'project_net_value',
-        'maxSubscriptionAmount' => 'max_subscription_amount',
-        'deploymentType'        => 'deployment_type',
-        'chainType'             => 'chain_type',
-        'userOperatorList'      => 'user_operator_list',
-        'participantInfos'      => 'participant_infos',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'data'       => 'data',
     ];
 
     public function validate()
@@ -138,44 +54,8 @@ class DetailIssuerProjectwithroleResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->projectId) {
-            $res['project_id'] = $this->projectId;
-        }
-        if (null !== $this->projcetName) {
-            $res['projcet_name'] = $this->projcetName;
-        }
-        if (null !== $this->description) {
-            $res['description'] = $this->description;
-        }
-        if (null !== $this->tokenName) {
-            $res['token_name'] = $this->tokenName;
-        }
-        if (null !== $this->capacity) {
-            $res['capacity'] = $this->capacity;
-        }
-        if (null !== $this->netValue) {
-            $res['net_value'] = $this->netValue;
-        }
-        if (null !== $this->priceType) {
-            $res['price_type'] = $this->priceType;
-        }
-        if (null !== $this->projectNetValue) {
-            $res['project_net_value'] = $this->projectNetValue;
-        }
-        if (null !== $this->maxSubscriptionAmount) {
-            $res['max_subscription_amount'] = $this->maxSubscriptionAmount;
-        }
-        if (null !== $this->deploymentType) {
-            $res['deployment_type'] = $this->deploymentType;
-        }
-        if (null !== $this->chainType) {
-            $res['chain_type'] = $this->chainType;
-        }
-        if (null !== $this->userOperatorList) {
-            $res['user_operator_list'] = null !== $this->userOperatorList ? $this->userOperatorList->toMap() : null;
-        }
-        if (null !== $this->participantInfos) {
-            $res['participant_infos'] = null !== $this->participantInfos ? $this->participantInfos->toMap() : null;
+        if (null !== $this->data) {
+            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
         }
 
         return $res;
@@ -198,44 +78,8 @@ class DetailIssuerProjectwithroleResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['project_id'])) {
-            $model->projectId = $map['project_id'];
-        }
-        if (isset($map['projcet_name'])) {
-            $model->projcetName = $map['projcet_name'];
-        }
-        if (isset($map['description'])) {
-            $model->description = $map['description'];
-        }
-        if (isset($map['token_name'])) {
-            $model->tokenName = $map['token_name'];
-        }
-        if (isset($map['capacity'])) {
-            $model->capacity = $map['capacity'];
-        }
-        if (isset($map['net_value'])) {
-            $model->netValue = $map['net_value'];
-        }
-        if (isset($map['price_type'])) {
-            $model->priceType = $map['price_type'];
-        }
-        if (isset($map['project_net_value'])) {
-            $model->projectNetValue = $map['project_net_value'];
-        }
-        if (isset($map['max_subscription_amount'])) {
-            $model->maxSubscriptionAmount = $map['max_subscription_amount'];
-        }
-        if (isset($map['deployment_type'])) {
-            $model->deploymentType = $map['deployment_type'];
-        }
-        if (isset($map['chain_type'])) {
-            $model->chainType = $map['chain_type'];
-        }
-        if (isset($map['user_operator_list'])) {
-            $model->userOperatorList = UserOperatorInfoBO::fromMap($map['user_operator_list']);
-        }
-        if (isset($map['participant_infos'])) {
-            $model->participantInfos = ParticipantInfo::fromMap($map['participant_infos']);
+        if (isset($map['data'])) {
+            $model->data = ProjectWithRole::fromMap($map['data']);
         }
 
         return $model;
