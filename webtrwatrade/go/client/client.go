@@ -240,6 +240,81 @@ func (s *InstitutionType) SetName(v string) *InstitutionType {
 	return s
 }
 
+// 跨链账号明细
+type CrossChainAccountsDetailVO struct {
+	// 明细ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 交易链上Hash
+	TransactionHash *string `json:"transaction_hash,omitempty" xml:"transaction_hash,omitempty"`
+	// 交易前余额
+	PreBalance *string `json:"pre_balance,omitempty" xml:"pre_balance,omitempty"`
+	// 交易数量
+	TransactionAmount *string `json:"transaction_amount,omitempty" xml:"transaction_amount,omitempty"`
+	// 交易后余额
+	PostBalance *string `json:"post_balance,omitempty" xml:"post_balance,omitempty"`
+	// 交易类别
+	TransactionType *string `json:"transaction_type,omitempty" xml:"transaction_type,omitempty"`
+	// 对手地址
+	CounterAddress *string `json:"counter_address,omitempty" xml:"counter_address,omitempty"`
+	// 创建时间
+	GmtCreated *int64 `json:"gmt_created,omitempty" xml:"gmt_created,omitempty"`
+	// 更新时间
+	GmtModified *int64 `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty"`
+}
+
+func (s CrossChainAccountsDetailVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CrossChainAccountsDetailVO) GoString() string {
+	return s.String()
+}
+
+func (s *CrossChainAccountsDetailVO) SetId(v string) *CrossChainAccountsDetailVO {
+	s.Id = &v
+	return s
+}
+
+func (s *CrossChainAccountsDetailVO) SetTransactionHash(v string) *CrossChainAccountsDetailVO {
+	s.TransactionHash = &v
+	return s
+}
+
+func (s *CrossChainAccountsDetailVO) SetPreBalance(v string) *CrossChainAccountsDetailVO {
+	s.PreBalance = &v
+	return s
+}
+
+func (s *CrossChainAccountsDetailVO) SetTransactionAmount(v string) *CrossChainAccountsDetailVO {
+	s.TransactionAmount = &v
+	return s
+}
+
+func (s *CrossChainAccountsDetailVO) SetPostBalance(v string) *CrossChainAccountsDetailVO {
+	s.PostBalance = &v
+	return s
+}
+
+func (s *CrossChainAccountsDetailVO) SetTransactionType(v string) *CrossChainAccountsDetailVO {
+	s.TransactionType = &v
+	return s
+}
+
+func (s *CrossChainAccountsDetailVO) SetCounterAddress(v string) *CrossChainAccountsDetailVO {
+	s.CounterAddress = &v
+	return s
+}
+
+func (s *CrossChainAccountsDetailVO) SetGmtCreated(v int64) *CrossChainAccountsDetailVO {
+	s.GmtCreated = &v
+	return s
+}
+
+func (s *CrossChainAccountsDetailVO) SetGmtModified(v int64) *CrossChainAccountsDetailVO {
+	s.GmtModified = &v
+	return s
+}
+
 // 用户信息
 type UserInfo struct {
 	// 钱包地址
@@ -256,6 +331,156 @@ func (s UserInfo) GoString() string {
 
 func (s *UserInfo) SetAddress(v string) *UserInfo {
 	s.Address = &v
+	return s
+}
+
+// 跨链账号红利明细
+type CrossChainBonusAccountsDetailVO struct {
+	// 明细ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 交易链上Hash
+	TransactionHash *string `json:"transaction_hash,omitempty" xml:"transaction_hash,omitempty"`
+	// 交易前余额
+	PreBalance *string `json:"pre_balance,omitempty" xml:"pre_balance,omitempty"`
+	// 交易数量
+	TransactionAmount *string `json:"transaction_amount,omitempty" xml:"transaction_amount,omitempty"`
+	// 交易后余额
+	PostBalance *string `json:"post_balance,omitempty" xml:"post_balance,omitempty"`
+	// 交易类型
+	TransactionType *string `json:"transaction_type,omitempty" xml:"transaction_type,omitempty"`
+	// 对手地址
+	CounterAddress *string `json:"counter_address,omitempty" xml:"counter_address,omitempty"`
+	// 创建时间
+	GmtCreated *int64 `json:"gmt_created,omitempty" xml:"gmt_created,omitempty"`
+	// 更新时间
+	GmtModified *int64 `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty"`
+}
+
+func (s CrossChainBonusAccountsDetailVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CrossChainBonusAccountsDetailVO) GoString() string {
+	return s.String()
+}
+
+func (s *CrossChainBonusAccountsDetailVO) SetId(v string) *CrossChainBonusAccountsDetailVO {
+	s.Id = &v
+	return s
+}
+
+func (s *CrossChainBonusAccountsDetailVO) SetTransactionHash(v string) *CrossChainBonusAccountsDetailVO {
+	s.TransactionHash = &v
+	return s
+}
+
+func (s *CrossChainBonusAccountsDetailVO) SetPreBalance(v string) *CrossChainBonusAccountsDetailVO {
+	s.PreBalance = &v
+	return s
+}
+
+func (s *CrossChainBonusAccountsDetailVO) SetTransactionAmount(v string) *CrossChainBonusAccountsDetailVO {
+	s.TransactionAmount = &v
+	return s
+}
+
+func (s *CrossChainBonusAccountsDetailVO) SetPostBalance(v string) *CrossChainBonusAccountsDetailVO {
+	s.PostBalance = &v
+	return s
+}
+
+func (s *CrossChainBonusAccountsDetailVO) SetTransactionType(v string) *CrossChainBonusAccountsDetailVO {
+	s.TransactionType = &v
+	return s
+}
+
+func (s *CrossChainBonusAccountsDetailVO) SetCounterAddress(v string) *CrossChainBonusAccountsDetailVO {
+	s.CounterAddress = &v
+	return s
+}
+
+func (s *CrossChainBonusAccountsDetailVO) SetGmtCreated(v int64) *CrossChainBonusAccountsDetailVO {
+	s.GmtCreated = &v
+	return s
+}
+
+func (s *CrossChainBonusAccountsDetailVO) SetGmtModified(v int64) *CrossChainBonusAccountsDetailVO {
+	s.GmtModified = &v
+	return s
+}
+
+// 资产账户明细VO
+type SubUserAccountDetailsVO struct {
+	// 明细ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 交易链上Hash
+	TransactionHash *string `json:"transaction_hash,omitempty" xml:"transaction_hash,omitempty" require:"true"`
+	// 交易前余额
+	PreBalance *string `json:"pre_balance,omitempty" xml:"pre_balance,omitempty" require:"true"`
+	// 交易数量
+	TransactionAmount *string `json:"transaction_amount,omitempty" xml:"transaction_amount,omitempty" require:"true"`
+	// 交易后余额
+	PostBalance *string `json:"post_balance,omitempty" xml:"post_balance,omitempty" require:"true"`
+	// 交易类别
+	TransactionType *string `json:"transaction_type,omitempty" xml:"transaction_type,omitempty" require:"true"`
+	// 对手地址
+	CounterAddress *string `json:"counter_address,omitempty" xml:"counter_address,omitempty" require:"true"`
+	// 创建时间
+	GmtCreated *int64 `json:"gmt_created,omitempty" xml:"gmt_created,omitempty" require:"true"`
+	// 更新时间
+	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true"`
+}
+
+func (s SubUserAccountDetailsVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubUserAccountDetailsVO) GoString() string {
+	return s.String()
+}
+
+func (s *SubUserAccountDetailsVO) SetId(v string) *SubUserAccountDetailsVO {
+	s.Id = &v
+	return s
+}
+
+func (s *SubUserAccountDetailsVO) SetTransactionHash(v string) *SubUserAccountDetailsVO {
+	s.TransactionHash = &v
+	return s
+}
+
+func (s *SubUserAccountDetailsVO) SetPreBalance(v string) *SubUserAccountDetailsVO {
+	s.PreBalance = &v
+	return s
+}
+
+func (s *SubUserAccountDetailsVO) SetTransactionAmount(v string) *SubUserAccountDetailsVO {
+	s.TransactionAmount = &v
+	return s
+}
+
+func (s *SubUserAccountDetailsVO) SetPostBalance(v string) *SubUserAccountDetailsVO {
+	s.PostBalance = &v
+	return s
+}
+
+func (s *SubUserAccountDetailsVO) SetTransactionType(v string) *SubUserAccountDetailsVO {
+	s.TransactionType = &v
+	return s
+}
+
+func (s *SubUserAccountDetailsVO) SetCounterAddress(v string) *SubUserAccountDetailsVO {
+	s.CounterAddress = &v
+	return s
+}
+
+func (s *SubUserAccountDetailsVO) SetGmtCreated(v int64) *SubUserAccountDetailsVO {
+	s.GmtCreated = &v
+	return s
+}
+
+func (s *SubUserAccountDetailsVO) SetGmtModified(v string) *SubUserAccountDetailsVO {
+	s.GmtModified = &v
 	return s
 }
 
@@ -289,6 +514,81 @@ func (s *MultiCurrencyMoney) SetCurrency(v string) *MultiCurrencyMoney {
 
 func (s *MultiCurrencyMoney) SetAmount(v string) *MultiCurrencyMoney {
 	s.Amount = &v
+	return s
+}
+
+// 红利账户明细
+type SubUserBonusAccountDetailVO struct {
+	// 明细ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 交易链上Hash
+	TransactionHash *string `json:"transaction_hash,omitempty" xml:"transaction_hash,omitempty" require:"true"`
+	// 交易前余额
+	PreBalance *string `json:"pre_balance,omitempty" xml:"pre_balance,omitempty" require:"true"`
+	// 交易数量
+	TransactionAmount *string `json:"transaction_amount,omitempty" xml:"transaction_amount,omitempty" require:"true"`
+	// 交易后余额
+	PostBalance *string `json:"post_balance,omitempty" xml:"post_balance,omitempty" require:"true"`
+	// 交易类别
+	TransactionType *string `json:"transaction_type,omitempty" xml:"transaction_type,omitempty" require:"true"`
+	// 对手地址
+	CounterAddress *string `json:"counter_address,omitempty" xml:"counter_address,omitempty" require:"true"`
+	// 创建时间
+	GmtCreated *int64 `json:"gmt_created,omitempty" xml:"gmt_created,omitempty" require:"true"`
+	// 更新时间
+	GmtModified *int64 `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true"`
+}
+
+func (s SubUserBonusAccountDetailVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubUserBonusAccountDetailVO) GoString() string {
+	return s.String()
+}
+
+func (s *SubUserBonusAccountDetailVO) SetId(v string) *SubUserBonusAccountDetailVO {
+	s.Id = &v
+	return s
+}
+
+func (s *SubUserBonusAccountDetailVO) SetTransactionHash(v string) *SubUserBonusAccountDetailVO {
+	s.TransactionHash = &v
+	return s
+}
+
+func (s *SubUserBonusAccountDetailVO) SetPreBalance(v string) *SubUserBonusAccountDetailVO {
+	s.PreBalance = &v
+	return s
+}
+
+func (s *SubUserBonusAccountDetailVO) SetTransactionAmount(v string) *SubUserBonusAccountDetailVO {
+	s.TransactionAmount = &v
+	return s
+}
+
+func (s *SubUserBonusAccountDetailVO) SetPostBalance(v string) *SubUserBonusAccountDetailVO {
+	s.PostBalance = &v
+	return s
+}
+
+func (s *SubUserBonusAccountDetailVO) SetTransactionType(v string) *SubUserBonusAccountDetailVO {
+	s.TransactionType = &v
+	return s
+}
+
+func (s *SubUserBonusAccountDetailVO) SetCounterAddress(v string) *SubUserBonusAccountDetailVO {
+	s.CounterAddress = &v
+	return s
+}
+
+func (s *SubUserBonusAccountDetailVO) SetGmtCreated(v int64) *SubUserBonusAccountDetailVO {
+	s.GmtCreated = &v
+	return s
+}
+
+func (s *SubUserBonusAccountDetailVO) SetGmtModified(v int64) *SubUserBonusAccountDetailVO {
+	s.GmtModified = &v
 	return s
 }
 
@@ -672,6 +972,53 @@ func (s *ParticipantInfo) SetName(v string) *ParticipantInfo {
 	return s
 }
 
+// 跨链账户信息
+type CrossChainAccountsVO struct {
+	// 对侧链用户地址
+	CrossChainUserAddress *string `json:"cross_chain_user_address,omitempty" xml:"cross_chain_user_address,omitempty"`
+	// 对侧链账户ID
+	CrossChainUserAccountId *string `json:"cross_chain_user_account_id,omitempty" xml:"cross_chain_user_account_id,omitempty"`
+	// 对侧链红利账户ID
+	CrossChainUserBonusAccountId *string `json:"cross_chain_user_bonus_account_id,omitempty" xml:"cross_chain_user_bonus_account_id,omitempty"`
+	// 对侧链资产账户明细
+	CrossChainUserAccountsDetails []*CrossChainAccountsDetailVO `json:"cross_chain_user_accounts_details,omitempty" xml:"cross_chain_user_accounts_details,omitempty" type:"Repeated"`
+	// 对侧链账户信息
+	CrossChainBonusAccountsDetails []*CrossChainBonusAccountsDetailVO `json:"cross_chain_bonus_accounts_details,omitempty" xml:"cross_chain_bonus_accounts_details,omitempty" type:"Repeated"`
+}
+
+func (s CrossChainAccountsVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CrossChainAccountsVO) GoString() string {
+	return s.String()
+}
+
+func (s *CrossChainAccountsVO) SetCrossChainUserAddress(v string) *CrossChainAccountsVO {
+	s.CrossChainUserAddress = &v
+	return s
+}
+
+func (s *CrossChainAccountsVO) SetCrossChainUserAccountId(v string) *CrossChainAccountsVO {
+	s.CrossChainUserAccountId = &v
+	return s
+}
+
+func (s *CrossChainAccountsVO) SetCrossChainUserBonusAccountId(v string) *CrossChainAccountsVO {
+	s.CrossChainUserBonusAccountId = &v
+	return s
+}
+
+func (s *CrossChainAccountsVO) SetCrossChainUserAccountsDetails(v []*CrossChainAccountsDetailVO) *CrossChainAccountsVO {
+	s.CrossChainUserAccountsDetails = v
+	return s
+}
+
+func (s *CrossChainAccountsVO) SetCrossChainBonusAccountsDetails(v []*CrossChainBonusAccountsDetailVO) *CrossChainAccountsVO {
+	s.CrossChainBonusAccountsDetails = v
+	return s
+}
+
 // 资产项目信息
 type AssetProject struct {
 	// 项目ID
@@ -793,6 +1140,32 @@ func (s *AssetProject) SetGmtCreated(v int64) *AssetProject {
 
 func (s *AssetProject) SetGmtModified(v int64) *AssetProject {
 	s.GmtModified = &v
+	return s
+}
+
+// 登录类型
+type LoginAccountTypeBO struct {
+	// 登录类型
+	UserLoginType *string `json:"user_login_type,omitempty" xml:"user_login_type,omitempty"`
+	// 登录名称
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+}
+
+func (s LoginAccountTypeBO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LoginAccountTypeBO) GoString() string {
+	return s.String()
+}
+
+func (s *LoginAccountTypeBO) SetUserLoginType(v string) *LoginAccountTypeBO {
+	s.UserLoginType = &v
+	return s
+}
+
+func (s *LoginAccountTypeBO) SetLoginName(v string) *LoginAccountTypeBO {
+	s.LoginName = &v
 	return s
 }
 
@@ -989,6 +1362,102 @@ func (s *DataSummaryStatisticsItem) SetTotalValueList(v []*MultiCurrencyMoney) *
 	return s
 }
 
+// 跨链账号明细
+type CrossAccountListVO struct {
+	// 项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty"`
+	// 资产项目合约地址
+	AssetProjectAddress *string `json:"asset_project_address,omitempty" xml:"asset_project_address,omitempty"`
+	// 红利合约地址
+	BonusAddress *string `json:"bonus_address,omitempty" xml:"bonus_address,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 代销机构ID
+	DistributorInstitutionId *string `json:"distributor_institution_id,omitempty" xml:"distributor_institution_id,omitempty"`
+	// 发行链名称
+	ChainName *string `json:"chain_name,omitempty" xml:"chain_name,omitempty"`
+	// 投资者用户账户ID
+	SubUserAccountId *string `json:"sub_user_account_id,omitempty" xml:"sub_user_account_id,omitempty"`
+	// 投资者用户红利账户ID
+	SubUserBonusAccountId *string `json:"sub_user_bonus_account_id,omitempty" xml:"sub_user_bonus_account_id,omitempty"`
+	// 目标链名称
+	TargetChainName *string `json:"target_chain_name,omitempty" xml:"target_chain_name,omitempty"`
+	// 目标链资产合约地址
+	TargetChainAssetTokenAddress *string `json:"target_chain_asset_token_address,omitempty" xml:"target_chain_asset_token_address,omitempty"`
+	// 目标链红利合约地址
+	TargetChainBonusAddress *string `json:"target_chain_bonus_address,omitempty" xml:"target_chain_bonus_address,omitempty"`
+	// 对侧链账户信息
+	CrossChainAccountsInfo []*CrossChainAccountsVO `json:"cross_chain_accounts_info,omitempty" xml:"cross_chain_accounts_info,omitempty" type:"Repeated"`
+}
+
+func (s CrossAccountListVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CrossAccountListVO) GoString() string {
+	return s.String()
+}
+
+func (s *CrossAccountListVO) SetProjectId(v string) *CrossAccountListVO {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *CrossAccountListVO) SetAssetProjectAddress(v string) *CrossAccountListVO {
+	s.AssetProjectAddress = &v
+	return s
+}
+
+func (s *CrossAccountListVO) SetBonusAddress(v string) *CrossAccountListVO {
+	s.BonusAddress = &v
+	return s
+}
+
+func (s *CrossAccountListVO) SetUserId(v string) *CrossAccountListVO {
+	s.UserId = &v
+	return s
+}
+
+func (s *CrossAccountListVO) SetDistributorInstitutionId(v string) *CrossAccountListVO {
+	s.DistributorInstitutionId = &v
+	return s
+}
+
+func (s *CrossAccountListVO) SetChainName(v string) *CrossAccountListVO {
+	s.ChainName = &v
+	return s
+}
+
+func (s *CrossAccountListVO) SetSubUserAccountId(v string) *CrossAccountListVO {
+	s.SubUserAccountId = &v
+	return s
+}
+
+func (s *CrossAccountListVO) SetSubUserBonusAccountId(v string) *CrossAccountListVO {
+	s.SubUserBonusAccountId = &v
+	return s
+}
+
+func (s *CrossAccountListVO) SetTargetChainName(v string) *CrossAccountListVO {
+	s.TargetChainName = &v
+	return s
+}
+
+func (s *CrossAccountListVO) SetTargetChainAssetTokenAddress(v string) *CrossAccountListVO {
+	s.TargetChainAssetTokenAddress = &v
+	return s
+}
+
+func (s *CrossAccountListVO) SetTargetChainBonusAddress(v string) *CrossAccountListVO {
+	s.TargetChainBonusAddress = &v
+	return s
+}
+
+func (s *CrossAccountListVO) SetCrossChainAccountsInfo(v []*CrossChainAccountsVO) *CrossAccountListVO {
+	s.CrossChainAccountsInfo = v
+	return s
+}
+
 // 密钥分页列表
 type KeyPageData struct {
 	// 总记录
@@ -1033,6 +1502,149 @@ func (s *KeyPageData) SetPageSize(v int64) *KeyPageData {
 
 func (s *KeyPageData) SetRecords(v []*KeyVO) *KeyPageData {
 	s.Records = v
+	return s
+}
+
+// 登入登出接口操作日志回参
+type LoginOperationLogVO struct {
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 用户地址
+	UserAddress *string `json:"user_address,omitempty" xml:"user_address,omitempty"`
+	// 登录名
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+	// 登录类型
+	LoginAccountType *string `json:"login_account_type,omitempty" xml:"login_account_type,omitempty"`
+	// 请求URL
+	RequestURL *string `json:"request_u_r_l,omitempty" xml:"request_u_r_l,omitempty" require:"true"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+	// 创建时间
+	GmtCreated *int64 `json:"gmt_created,omitempty" xml:"gmt_created,omitempty" require:"true"`
+}
+
+func (s LoginOperationLogVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LoginOperationLogVO) GoString() string {
+	return s.String()
+}
+
+func (s *LoginOperationLogVO) SetUserId(v string) *LoginOperationLogVO {
+	s.UserId = &v
+	return s
+}
+
+func (s *LoginOperationLogVO) SetUserAddress(v string) *LoginOperationLogVO {
+	s.UserAddress = &v
+	return s
+}
+
+func (s *LoginOperationLogVO) SetLoginName(v string) *LoginOperationLogVO {
+	s.LoginName = &v
+	return s
+}
+
+func (s *LoginOperationLogVO) SetLoginAccountType(v string) *LoginOperationLogVO {
+	s.LoginAccountType = &v
+	return s
+}
+
+func (s *LoginOperationLogVO) SetRequestURL(v string) *LoginOperationLogVO {
+	s.RequestURL = &v
+	return s
+}
+
+func (s *LoginOperationLogVO) SetSuccess(v bool) *LoginOperationLogVO {
+	s.Success = &v
+	return s
+}
+
+func (s *LoginOperationLogVO) SetGmtCreated(v int64) *LoginOperationLogVO {
+	s.GmtCreated = &v
+	return s
+}
+
+// 资产账户明细与红利账户明细
+type SubUserAccountDetailVO struct {
+	// 项目ID
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 资产项目合约地址
+	AssetProjectAddress *string `json:"asset_project_address,omitempty" xml:"asset_project_address,omitempty"`
+	// 红利合约地址
+	BonusAddress *string `json:"bonus_address,omitempty" xml:"bonus_address,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 代销机构ID
+	DistributorInstitutionId *string `json:"distributor_institution_id,omitempty" xml:"distributor_institution_id,omitempty"`
+	// 发行链名称
+	ChainName *string `json:"chain_name,omitempty" xml:"chain_name,omitempty"`
+	// 投资者用户账户ID
+	SubUserAccountId *string `json:"sub_user_account_id,omitempty" xml:"sub_user_account_id,omitempty"`
+	// 投资者用户红利账户ID
+	SubUserBonusAccountId *string `json:"sub_user_bonus_account_id,omitempty" xml:"sub_user_bonus_account_id,omitempty"`
+	// 资产账户明细
+	SubUserAccountDetails []*SubUserAccountDetailsVO `json:"sub_user_account_details,omitempty" xml:"sub_user_account_details,omitempty" type:"Repeated"`
+	// 红利账户明细
+	SubUserBonusAccountDetails []*SubUserBonusAccountDetailVO `json:"sub_user_bonus_account_details,omitempty" xml:"sub_user_bonus_account_details,omitempty" type:"Repeated"`
+}
+
+func (s SubUserAccountDetailVO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubUserAccountDetailVO) GoString() string {
+	return s.String()
+}
+
+func (s *SubUserAccountDetailVO) SetProjectId(v string) *SubUserAccountDetailVO {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *SubUserAccountDetailVO) SetAssetProjectAddress(v string) *SubUserAccountDetailVO {
+	s.AssetProjectAddress = &v
+	return s
+}
+
+func (s *SubUserAccountDetailVO) SetBonusAddress(v string) *SubUserAccountDetailVO {
+	s.BonusAddress = &v
+	return s
+}
+
+func (s *SubUserAccountDetailVO) SetUserId(v string) *SubUserAccountDetailVO {
+	s.UserId = &v
+	return s
+}
+
+func (s *SubUserAccountDetailVO) SetDistributorInstitutionId(v string) *SubUserAccountDetailVO {
+	s.DistributorInstitutionId = &v
+	return s
+}
+
+func (s *SubUserAccountDetailVO) SetChainName(v string) *SubUserAccountDetailVO {
+	s.ChainName = &v
+	return s
+}
+
+func (s *SubUserAccountDetailVO) SetSubUserAccountId(v string) *SubUserAccountDetailVO {
+	s.SubUserAccountId = &v
+	return s
+}
+
+func (s *SubUserAccountDetailVO) SetSubUserBonusAccountId(v string) *SubUserAccountDetailVO {
+	s.SubUserBonusAccountId = &v
+	return s
+}
+
+func (s *SubUserAccountDetailVO) SetSubUserAccountDetails(v []*SubUserAccountDetailsVO) *SubUserAccountDetailVO {
+	s.SubUserAccountDetails = v
+	return s
+}
+
+func (s *SubUserAccountDetailVO) SetSubUserBonusAccountDetails(v []*SubUserBonusAccountDetailVO) *SubUserAccountDetailVO {
+	s.SubUserBonusAccountDetails = v
 	return s
 }
 
@@ -1366,6 +1978,46 @@ func (s *ProjectPageData) SetPageSize(v int64) *ProjectPageData {
 
 func (s *ProjectPageData) SetRecords(v []*AssetProject) *ProjectPageData {
 	s.Records = v
+	return s
+}
+
+// 操作角色
+type UserOperatorInfoBO struct {
+	// userId
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 别名
+	Alias *string `json:"alias,omitempty" xml:"alias,omitempty"`
+	// 钱包地址
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
+	// 登录账号类型列表
+	LoginAccountTypeList *LoginAccountTypeBO `json:"login_account_type_list,omitempty" xml:"login_account_type_list,omitempty"`
+}
+
+func (s UserOperatorInfoBO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UserOperatorInfoBO) GoString() string {
+	return s.String()
+}
+
+func (s *UserOperatorInfoBO) SetUserId(v string) *UserOperatorInfoBO {
+	s.UserId = &v
+	return s
+}
+
+func (s *UserOperatorInfoBO) SetAlias(v string) *UserOperatorInfoBO {
+	s.Alias = &v
+	return s
+}
+
+func (s *UserOperatorInfoBO) SetAddress(v string) *UserOperatorInfoBO {
+	s.Address = &v
+	return s
+}
+
+func (s *UserOperatorInfoBO) SetLoginAccountTypeList(v *LoginAccountTypeBO) *UserOperatorInfoBO {
+	s.LoginAccountTypeList = v
 	return s
 }
 
@@ -2231,6 +2883,429 @@ func (s *PagequeryPlatformProjectResponse) SetData(v *ProjectPageData) *Pagequer
 	return s
 }
 
+type DetailIssuerProjectwithroleRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 项目id，项目资产ID和
+	// 项目合约地址+所在链组合 二选一
+	AssetProjectId *string `json:"asset_project_id,omitempty" xml:"asset_project_id,omitempty"`
+	// 资产项目合约地址，项目资产ID和
+	// 项目合约地址+所在链组合 二选一
+	AssetProjectAddress *string `json:"asset_project_address,omitempty" xml:"asset_project_address,omitempty"`
+	// 所在链，项目资产ID和
+	// 项目合约地址+所在链组合 二选一
+	ChainName *string `json:"chain_name,omitempty" xml:"chain_name,omitempty"`
+}
+
+func (s DetailIssuerProjectwithroleRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailIssuerProjectwithroleRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailIssuerProjectwithroleRequest) SetAuthToken(v string) *DetailIssuerProjectwithroleRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailIssuerProjectwithroleRequest) SetProductInstanceId(v string) *DetailIssuerProjectwithroleRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailIssuerProjectwithroleRequest) SetAssetProjectId(v string) *DetailIssuerProjectwithroleRequest {
+	s.AssetProjectId = &v
+	return s
+}
+
+func (s *DetailIssuerProjectwithroleRequest) SetAssetProjectAddress(v string) *DetailIssuerProjectwithroleRequest {
+	s.AssetProjectAddress = &v
+	return s
+}
+
+func (s *DetailIssuerProjectwithroleRequest) SetChainName(v string) *DetailIssuerProjectwithroleRequest {
+	s.ChainName = &v
+	return s
+}
+
+type DetailIssuerProjectwithroleResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 项目id
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty"`
+	// 项目名称
+	ProjcetName *string `json:"projcet_name,omitempty" xml:"projcet_name,omitempty"`
+	// 描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	// token名称
+	TokenName *string `json:"token_name,omitempty" xml:"token_name,omitempty"`
+	// 最大供应量
+	Capacity *string `json:"capacity,omitempty" xml:"capacity,omitempty"`
+	// 净值
+	NetValue *string `json:"net_value,omitempty" xml:"net_value,omitempty"`
+	// 价格类型
+	PriceType *string `json:"price_type,omitempty" xml:"price_type,omitempty"`
+	// 项目净值
+	ProjectNetValue *string `json:"project_net_value,omitempty" xml:"project_net_value,omitempty"`
+	// 购买最大限额
+	MaxSubscriptionAmount *string `json:"max_subscription_amount,omitempty" xml:"max_subscription_amount,omitempty"`
+	// 部署类型  DIRECT_PUBLIC_CHAIN 直发公链，NORMAL 普通模式
+	DeploymentType *string `json:"deployment_type,omitempty" xml:"deployment_type,omitempty"`
+	// 项目所在链
+	ChainType *string `json:"chain_type,omitempty" xml:"chain_type,omitempty"`
+	// 操作员list
+	UserOperatorList *UserOperatorInfoBO `json:"user_operator_list,omitempty" xml:"user_operator_list,omitempty"`
+	// 代销者机构代销者机构
+	ParticipantInfos *ParticipantInfo `json:"participant_infos,omitempty" xml:"participant_infos,omitempty"`
+}
+
+func (s DetailIssuerProjectwithroleResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailIssuerProjectwithroleResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailIssuerProjectwithroleResponse) SetReqMsgId(v string) *DetailIssuerProjectwithroleResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailIssuerProjectwithroleResponse) SetResultCode(v string) *DetailIssuerProjectwithroleResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailIssuerProjectwithroleResponse) SetResultMsg(v string) *DetailIssuerProjectwithroleResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailIssuerProjectwithroleResponse) SetProjectId(v string) *DetailIssuerProjectwithroleResponse {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *DetailIssuerProjectwithroleResponse) SetProjcetName(v string) *DetailIssuerProjectwithroleResponse {
+	s.ProjcetName = &v
+	return s
+}
+
+func (s *DetailIssuerProjectwithroleResponse) SetDescription(v string) *DetailIssuerProjectwithroleResponse {
+	s.Description = &v
+	return s
+}
+
+func (s *DetailIssuerProjectwithroleResponse) SetTokenName(v string) *DetailIssuerProjectwithroleResponse {
+	s.TokenName = &v
+	return s
+}
+
+func (s *DetailIssuerProjectwithroleResponse) SetCapacity(v string) *DetailIssuerProjectwithroleResponse {
+	s.Capacity = &v
+	return s
+}
+
+func (s *DetailIssuerProjectwithroleResponse) SetNetValue(v string) *DetailIssuerProjectwithroleResponse {
+	s.NetValue = &v
+	return s
+}
+
+func (s *DetailIssuerProjectwithroleResponse) SetPriceType(v string) *DetailIssuerProjectwithroleResponse {
+	s.PriceType = &v
+	return s
+}
+
+func (s *DetailIssuerProjectwithroleResponse) SetProjectNetValue(v string) *DetailIssuerProjectwithroleResponse {
+	s.ProjectNetValue = &v
+	return s
+}
+
+func (s *DetailIssuerProjectwithroleResponse) SetMaxSubscriptionAmount(v string) *DetailIssuerProjectwithroleResponse {
+	s.MaxSubscriptionAmount = &v
+	return s
+}
+
+func (s *DetailIssuerProjectwithroleResponse) SetDeploymentType(v string) *DetailIssuerProjectwithroleResponse {
+	s.DeploymentType = &v
+	return s
+}
+
+func (s *DetailIssuerProjectwithroleResponse) SetChainType(v string) *DetailIssuerProjectwithroleResponse {
+	s.ChainType = &v
+	return s
+}
+
+func (s *DetailIssuerProjectwithroleResponse) SetUserOperatorList(v *UserOperatorInfoBO) *DetailIssuerProjectwithroleResponse {
+	s.UserOperatorList = v
+	return s
+}
+
+func (s *DetailIssuerProjectwithroleResponse) SetParticipantInfos(v *ParticipantInfo) *DetailIssuerProjectwithroleResponse {
+	s.ParticipantInfos = v
+	return s
+}
+
+type ListIssuerCrossaccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 资产项目ID
+	AssetProjectId *string `json:"asset_project_id,omitempty" xml:"asset_project_id,omitempty"`
+	// 资产项目合约地址
+	AssetProjectAddress *string `json:"asset_project_address,omitempty" xml:"asset_project_address,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 本侧链用户地址
+	UserAddress *string `json:"user_address,omitempty" xml:"user_address,omitempty"`
+	// 登录名
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+	// 登录名类型(EMAIL)
+	LoginAccountType *string `json:"login_account_type,omitempty" xml:"login_account_type,omitempty"`
+	// 对侧链用户地址
+	CrossChainUserAddress *string `json:"cross_chain_user_address,omitempty" xml:"cross_chain_user_address,omitempty"`
+	// 开始时间 (时间戳)
+	StartTimeMills *int64 `json:"start_time_mills,omitempty" xml:"start_time_mills,omitempty" require:"true"`
+	// 结束时间 (时间戳)
+	EndTimeMills *int64 `json:"end_time_mills,omitempty" xml:"end_time_mills,omitempty" require:"true"`
+}
+
+func (s ListIssuerCrossaccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListIssuerCrossaccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListIssuerCrossaccountRequest) SetAuthToken(v string) *ListIssuerCrossaccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListIssuerCrossaccountRequest) SetProductInstanceId(v string) *ListIssuerCrossaccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListIssuerCrossaccountRequest) SetAssetProjectId(v string) *ListIssuerCrossaccountRequest {
+	s.AssetProjectId = &v
+	return s
+}
+
+func (s *ListIssuerCrossaccountRequest) SetAssetProjectAddress(v string) *ListIssuerCrossaccountRequest {
+	s.AssetProjectAddress = &v
+	return s
+}
+
+func (s *ListIssuerCrossaccountRequest) SetUserId(v string) *ListIssuerCrossaccountRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *ListIssuerCrossaccountRequest) SetUserAddress(v string) *ListIssuerCrossaccountRequest {
+	s.UserAddress = &v
+	return s
+}
+
+func (s *ListIssuerCrossaccountRequest) SetLoginName(v string) *ListIssuerCrossaccountRequest {
+	s.LoginName = &v
+	return s
+}
+
+func (s *ListIssuerCrossaccountRequest) SetLoginAccountType(v string) *ListIssuerCrossaccountRequest {
+	s.LoginAccountType = &v
+	return s
+}
+
+func (s *ListIssuerCrossaccountRequest) SetCrossChainUserAddress(v string) *ListIssuerCrossaccountRequest {
+	s.CrossChainUserAddress = &v
+	return s
+}
+
+func (s *ListIssuerCrossaccountRequest) SetStartTimeMills(v int64) *ListIssuerCrossaccountRequest {
+	s.StartTimeMills = &v
+	return s
+}
+
+func (s *ListIssuerCrossaccountRequest) SetEndTimeMills(v int64) *ListIssuerCrossaccountRequest {
+	s.EndTimeMills = &v
+	return s
+}
+
+type ListIssuerCrossaccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 跨链账号明细
+	Data []*CrossAccountListVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s ListIssuerCrossaccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListIssuerCrossaccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListIssuerCrossaccountResponse) SetReqMsgId(v string) *ListIssuerCrossaccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListIssuerCrossaccountResponse) SetResultCode(v string) *ListIssuerCrossaccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListIssuerCrossaccountResponse) SetResultMsg(v string) *ListIssuerCrossaccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListIssuerCrossaccountResponse) SetData(v []*CrossAccountListVO) *ListIssuerCrossaccountResponse {
+	s.Data = v
+	return s
+}
+
+type ListDistributorCrossaccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 资产项目ID
+	AssetProjectId *string `json:"asset_project_id,omitempty" xml:"asset_project_id,omitempty"`
+	// 资产项目合约地址
+	AssetProjectAddress *string `json:"asset_project_address,omitempty" xml:"asset_project_address,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 本侧链用户地址
+	UserAddress *string `json:"user_address,omitempty" xml:"user_address,omitempty"`
+	// 登录名
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+	// 登录名类型(EMAIL)
+	LoginAccountType *string `json:"login_account_type,omitempty" xml:"login_account_type,omitempty"`
+	// 对侧链用户地址
+	CrossChainUserAddress *string `json:"cross_chain_user_address,omitempty" xml:"cross_chain_user_address,omitempty"`
+	// 开始时间 (时间戳)
+	StartTimeMills *int64 `json:"start_time_mills,omitempty" xml:"start_time_mills,omitempty" require:"true"`
+	// 结束时间 (时间戳)
+	EndTimeMills *int64 `json:"end_time_mills,omitempty" xml:"end_time_mills,omitempty" require:"true"`
+}
+
+func (s ListDistributorCrossaccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListDistributorCrossaccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListDistributorCrossaccountRequest) SetAuthToken(v string) *ListDistributorCrossaccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListDistributorCrossaccountRequest) SetProductInstanceId(v string) *ListDistributorCrossaccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListDistributorCrossaccountRequest) SetAssetProjectId(v string) *ListDistributorCrossaccountRequest {
+	s.AssetProjectId = &v
+	return s
+}
+
+func (s *ListDistributorCrossaccountRequest) SetAssetProjectAddress(v string) *ListDistributorCrossaccountRequest {
+	s.AssetProjectAddress = &v
+	return s
+}
+
+func (s *ListDistributorCrossaccountRequest) SetUserId(v string) *ListDistributorCrossaccountRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *ListDistributorCrossaccountRequest) SetUserAddress(v string) *ListDistributorCrossaccountRequest {
+	s.UserAddress = &v
+	return s
+}
+
+func (s *ListDistributorCrossaccountRequest) SetLoginName(v string) *ListDistributorCrossaccountRequest {
+	s.LoginName = &v
+	return s
+}
+
+func (s *ListDistributorCrossaccountRequest) SetLoginAccountType(v string) *ListDistributorCrossaccountRequest {
+	s.LoginAccountType = &v
+	return s
+}
+
+func (s *ListDistributorCrossaccountRequest) SetCrossChainUserAddress(v string) *ListDistributorCrossaccountRequest {
+	s.CrossChainUserAddress = &v
+	return s
+}
+
+func (s *ListDistributorCrossaccountRequest) SetStartTimeMills(v int64) *ListDistributorCrossaccountRequest {
+	s.StartTimeMills = &v
+	return s
+}
+
+func (s *ListDistributorCrossaccountRequest) SetEndTimeMills(v int64) *ListDistributorCrossaccountRequest {
+	s.EndTimeMills = &v
+	return s
+}
+
+type ListDistributorCrossaccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 跨链账号明细
+	Data []*CrossAccountListVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s ListDistributorCrossaccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListDistributorCrossaccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListDistributorCrossaccountResponse) SetReqMsgId(v string) *ListDistributorCrossaccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListDistributorCrossaccountResponse) SetResultCode(v string) *ListDistributorCrossaccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListDistributorCrossaccountResponse) SetResultMsg(v string) *ListDistributorCrossaccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListDistributorCrossaccountResponse) SetData(v []*CrossAccountListVO) *ListDistributorCrossaccountResponse {
+	s.Data = v
+	return s
+}
+
 type CountIssuerDatasummaryRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2923,6 +3998,160 @@ func (s *DeleteIssuerKeyResponse) SetResultCode(v string) *DeleteIssuerKeyRespon
 
 func (s *DeleteIssuerKeyResponse) SetResultMsg(v string) *DeleteIssuerKeyResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+type ListIssuerOperationlogRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 开始时间 (时间戳)
+	StartTimeMills *int64 `json:"start_time_mills,omitempty" xml:"start_time_mills,omitempty" require:"true"`
+	// 结束时间 (时间戳)
+	EndTimeMills *int64 `json:"end_time_mills,omitempty" xml:"end_time_mills,omitempty" require:"true"`
+}
+
+func (s ListIssuerOperationlogRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListIssuerOperationlogRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListIssuerOperationlogRequest) SetAuthToken(v string) *ListIssuerOperationlogRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListIssuerOperationlogRequest) SetProductInstanceId(v string) *ListIssuerOperationlogRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListIssuerOperationlogRequest) SetStartTimeMills(v int64) *ListIssuerOperationlogRequest {
+	s.StartTimeMills = &v
+	return s
+}
+
+func (s *ListIssuerOperationlogRequest) SetEndTimeMills(v int64) *ListIssuerOperationlogRequest {
+	s.EndTimeMills = &v
+	return s
+}
+
+type ListIssuerOperationlogResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 回参
+	Data []*LoginOperationLogVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s ListIssuerOperationlogResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListIssuerOperationlogResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListIssuerOperationlogResponse) SetReqMsgId(v string) *ListIssuerOperationlogResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListIssuerOperationlogResponse) SetResultCode(v string) *ListIssuerOperationlogResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListIssuerOperationlogResponse) SetResultMsg(v string) *ListIssuerOperationlogResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListIssuerOperationlogResponse) SetData(v []*LoginOperationLogVO) *ListIssuerOperationlogResponse {
+	s.Data = v
+	return s
+}
+
+type ListDistributorOperationlogRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 开始时间 (时间戳)
+	StartTimeMills *int64 `json:"start_time_mills,omitempty" xml:"start_time_mills,omitempty" require:"true"`
+	// 结束时间 (时间戳)
+	EndTimeMills *int64 `json:"end_time_mills,omitempty" xml:"end_time_mills,omitempty" require:"true"`
+}
+
+func (s ListDistributorOperationlogRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListDistributorOperationlogRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListDistributorOperationlogRequest) SetAuthToken(v string) *ListDistributorOperationlogRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListDistributorOperationlogRequest) SetProductInstanceId(v string) *ListDistributorOperationlogRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListDistributorOperationlogRequest) SetStartTimeMills(v int64) *ListDistributorOperationlogRequest {
+	s.StartTimeMills = &v
+	return s
+}
+
+func (s *ListDistributorOperationlogRequest) SetEndTimeMills(v int64) *ListDistributorOperationlogRequest {
+	s.EndTimeMills = &v
+	return s
+}
+
+type ListDistributorOperationlogResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 回参
+	Data []*LoginOperationLogVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s ListDistributorOperationlogResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListDistributorOperationlogResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListDistributorOperationlogResponse) SetReqMsgId(v string) *ListDistributorOperationlogResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListDistributorOperationlogResponse) SetResultCode(v string) *ListDistributorOperationlogResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListDistributorOperationlogResponse) SetResultMsg(v string) *ListDistributorOperationlogResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListDistributorOperationlogResponse) SetData(v []*LoginOperationLogVO) *ListDistributorOperationlogResponse {
+	s.Data = v
 	return s
 }
 
@@ -4605,6 +5834,244 @@ func (s *CountDistributorSubusertargetResponse) SetData(v string) *CountDistribu
 	return s
 }
 
+type QueryIssuerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 资产项目ID
+	AssetProjectId *string `json:"asset_project_id,omitempty" xml:"asset_project_id,omitempty"`
+	// 资产项目合约地址
+	AssetProjectAddress *string `json:"asset_project_address,omitempty" xml:"asset_project_address,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 用户地址
+	UserAddress *string `json:"user_address,omitempty" xml:"user_address,omitempty"`
+	// 登录名
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+	// 登录名类型(EMAIL)
+	LoginAccoutType *string `json:"login_accout_type,omitempty" xml:"login_accout_type,omitempty"`
+	// 开始时间 (时间戳)
+	StartTimeMills *int64 `json:"start_time_mills,omitempty" xml:"start_time_mills,omitempty" require:"true"`
+	// 结束时间 (时间戳)
+	EndTimeMills *int64 `json:"end_time_mills,omitempty" xml:"end_time_mills,omitempty" require:"true"`
+}
+
+func (s QueryIssuerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIssuerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIssuerRequest) SetAuthToken(v string) *QueryIssuerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIssuerRequest) SetProductInstanceId(v string) *QueryIssuerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIssuerRequest) SetAssetProjectId(v string) *QueryIssuerRequest {
+	s.AssetProjectId = &v
+	return s
+}
+
+func (s *QueryIssuerRequest) SetAssetProjectAddress(v string) *QueryIssuerRequest {
+	s.AssetProjectAddress = &v
+	return s
+}
+
+func (s *QueryIssuerRequest) SetUserId(v string) *QueryIssuerRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryIssuerRequest) SetUserAddress(v string) *QueryIssuerRequest {
+	s.UserAddress = &v
+	return s
+}
+
+func (s *QueryIssuerRequest) SetLoginName(v string) *QueryIssuerRequest {
+	s.LoginName = &v
+	return s
+}
+
+func (s *QueryIssuerRequest) SetLoginAccoutType(v string) *QueryIssuerRequest {
+	s.LoginAccoutType = &v
+	return s
+}
+
+func (s *QueryIssuerRequest) SetStartTimeMills(v int64) *QueryIssuerRequest {
+	s.StartTimeMills = &v
+	return s
+}
+
+func (s *QueryIssuerRequest) SetEndTimeMills(v int64) *QueryIssuerRequest {
+	s.EndTimeMills = &v
+	return s
+}
+
+type QueryIssuerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 账户明细列表
+	Data []*SubUserAccountDetailVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryIssuerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIssuerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIssuerResponse) SetReqMsgId(v string) *QueryIssuerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIssuerResponse) SetResultCode(v string) *QueryIssuerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIssuerResponse) SetResultMsg(v string) *QueryIssuerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIssuerResponse) SetData(v []*SubUserAccountDetailVO) *QueryIssuerResponse {
+	s.Data = v
+	return s
+}
+
+type QueryDistributorRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 资产项目ID
+	AssetProjectId *string `json:"asset_project_id,omitempty" xml:"asset_project_id,omitempty"`
+	// 资产项目合约地址
+	AssetProjectAddress *string `json:"asset_project_address,omitempty" xml:"asset_project_address,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 用户地址
+	UserAddress *string `json:"user_address,omitempty" xml:"user_address,omitempty"`
+	// 登录名
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty"`
+	// 登录名类型(EMAIL)
+	LoginAccoutType *string `json:"login_accout_type,omitempty" xml:"login_accout_type,omitempty"`
+	// 开始时间 (时间戳)
+	StartTimeMills *int64 `json:"start_time_mills,omitempty" xml:"start_time_mills,omitempty" require:"true"`
+	// 结束时间 (时间戳)
+	EndTimeMills *int64 `json:"end_time_mills,omitempty" xml:"end_time_mills,omitempty" require:"true"`
+}
+
+func (s QueryDistributorRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDistributorRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDistributorRequest) SetAuthToken(v string) *QueryDistributorRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDistributorRequest) SetProductInstanceId(v string) *QueryDistributorRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDistributorRequest) SetAssetProjectId(v string) *QueryDistributorRequest {
+	s.AssetProjectId = &v
+	return s
+}
+
+func (s *QueryDistributorRequest) SetAssetProjectAddress(v string) *QueryDistributorRequest {
+	s.AssetProjectAddress = &v
+	return s
+}
+
+func (s *QueryDistributorRequest) SetUserId(v string) *QueryDistributorRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryDistributorRequest) SetUserAddress(v string) *QueryDistributorRequest {
+	s.UserAddress = &v
+	return s
+}
+
+func (s *QueryDistributorRequest) SetLoginName(v string) *QueryDistributorRequest {
+	s.LoginName = &v
+	return s
+}
+
+func (s *QueryDistributorRequest) SetLoginAccoutType(v string) *QueryDistributorRequest {
+	s.LoginAccoutType = &v
+	return s
+}
+
+func (s *QueryDistributorRequest) SetStartTimeMills(v int64) *QueryDistributorRequest {
+	s.StartTimeMills = &v
+	return s
+}
+
+func (s *QueryDistributorRequest) SetEndTimeMills(v int64) *QueryDistributorRequest {
+	s.EndTimeMills = &v
+	return s
+}
+
+type QueryDistributorResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 账户明细列表
+	Data []*SubUserAccountDetailVO `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryDistributorResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDistributorResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDistributorResponse) SetReqMsgId(v string) *QueryDistributorResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDistributorResponse) SetResultCode(v string) *QueryDistributorResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDistributorResponse) SetResultMsg(v string) *QueryDistributorResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDistributorResponse) SetData(v []*SubUserAccountDetailVO) *QueryDistributorResponse {
+	s.Data = v
+	return s
+}
+
 type IssueIssuerSubusertradeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -5014,7 +6481,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.13"),
+				"sdk_version":      tea.String("1.0.21"),
 				"_prod_code":       tea.String("WEBTRWATRADE"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -5345,6 +6812,108 @@ func (client *Client) PagequeryPlatformProjectEx(request *PagequeryPlatformProje
 }
 
 /**
+ * Description: 发行机构查询项目及角色信息
+ * Summary: 发行机构查询项目及角色信息
+ */
+func (client *Client) DetailIssuerProjectwithrole(request *DetailIssuerProjectwithroleRequest) (_result *DetailIssuerProjectwithroleResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailIssuerProjectwithroleResponse{}
+	_body, _err := client.DetailIssuerProjectwithroleEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 发行机构查询项目及角色信息
+ * Summary: 发行机构查询项目及角色信息
+ */
+func (client *Client) DetailIssuerProjectwithroleEx(request *DetailIssuerProjectwithroleRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailIssuerProjectwithroleResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailIssuerProjectwithroleResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.webtrwatrade.issuer.projectwithrole.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 发行机构跨链账号明细
+ * Summary: 发行机构跨链账号明细
+ */
+func (client *Client) ListIssuerCrossaccount(request *ListIssuerCrossaccountRequest) (_result *ListIssuerCrossaccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListIssuerCrossaccountResponse{}
+	_body, _err := client.ListIssuerCrossaccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 发行机构跨链账号明细
+ * Summary: 发行机构跨链账号明细
+ */
+func (client *Client) ListIssuerCrossaccountEx(request *ListIssuerCrossaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListIssuerCrossaccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListIssuerCrossaccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.webtrwatrade.issuer.crossaccount.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 代销机构跨链账号明细
+ * Summary: 代销机构跨链账号明细
+ */
+func (client *Client) ListDistributorCrossaccount(request *ListDistributorCrossaccountRequest) (_result *ListDistributorCrossaccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListDistributorCrossaccountResponse{}
+	_body, _err := client.ListDistributorCrossaccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 代销机构跨链账号明细
+ * Summary: 代销机构跨链账号明细
+ */
+func (client *Client) ListDistributorCrossaccountEx(request *ListDistributorCrossaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListDistributorCrossaccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListDistributorCrossaccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.webtrwatrade.distributor.crossaccount.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 发行机构获取总览统计数据项
  * Summary: 发行机构获取总览统计数据项
  */
@@ -5643,6 +7212,74 @@ func (client *Client) DeleteIssuerKeyEx(request *DeleteIssuerKeyRequest, headers
 	}
 	_result = &DeleteIssuerKeyResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.webtrwatrade.issuer.key.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 发行机构查询登录登出操作日志
+ * Summary: 发行机构查询登录登出操作日志
+ */
+func (client *Client) ListIssuerOperationlog(request *ListIssuerOperationlogRequest) (_result *ListIssuerOperationlogResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListIssuerOperationlogResponse{}
+	_body, _err := client.ListIssuerOperationlogEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 发行机构查询登录登出操作日志
+ * Summary: 发行机构查询登录登出操作日志
+ */
+func (client *Client) ListIssuerOperationlogEx(request *ListIssuerOperationlogRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListIssuerOperationlogResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListIssuerOperationlogResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.webtrwatrade.issuer.operationlog.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 代销机构查询登录登出操作日志
+ * Summary: 代销机构查询登录登出操作日志
+ */
+func (client *Client) ListDistributorOperationlog(request *ListDistributorOperationlogRequest) (_result *ListDistributorOperationlogResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListDistributorOperationlogResponse{}
+	_body, _err := client.ListDistributorOperationlogEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 代销机构查询登录登出操作日志
+ * Summary: 代销机构查询登录登出操作日志
+ */
+func (client *Client) ListDistributorOperationlogEx(request *ListDistributorOperationlogRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListDistributorOperationlogResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListDistributorOperationlogResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.webtrwatrade.distributor.operationlog.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -6357,6 +7994,74 @@ func (client *Client) CountDistributorSubusertargetEx(request *CountDistributorS
 	}
 	_result = &CountDistributorSubusertargetResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.webtrwatrade.distributor.subusertarget.count"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 发行机构获取二级用户详情数据
+ * Summary: 发行机构获取二级用户详情数据
+ */
+func (client *Client) QueryIssuer(request *QueryIssuerRequest) (_result *QueryIssuerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIssuerResponse{}
+	_body, _err := client.QueryIssuerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 发行机构获取二级用户详情数据
+ * Summary: 发行机构获取二级用户详情数据
+ */
+func (client *Client) QueryIssuerEx(request *QueryIssuerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIssuerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIssuerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.webtrwatrade.issuer.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 代销机构获取二级用户详情数据
+ * Summary: 代销机构获取二级用户详情数据
+ */
+func (client *Client) QueryDistributor(request *QueryDistributorRequest) (_result *QueryDistributorResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDistributorResponse{}
+	_body, _err := client.QueryDistributorEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 代销机构获取二级用户详情数据
+ * Summary: 代销机构获取二级用户详情数据
+ */
+func (client *Client) QueryDistributorEx(request *QueryDistributorRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDistributorResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDistributorResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.webtrwatrade.distributor.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
