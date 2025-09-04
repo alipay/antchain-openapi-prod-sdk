@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.21',
+    sdk_version = '1.0.22',
     _prod_code = 'WEBTRWATRADE',
     _prod_channel = 'default'
   };
@@ -219,6 +219,14 @@ model CrossChainAccountsDetailVO {
 model UserInfo {
   // 钱包地址
   address: string(name='address', example='0x111111111'),
+}
+
+// 登录类型
+model LoginAccountTypeBO {
+  // 登录类型
+  userLoginType?: string(name='user_login_type', example='1'),
+  // 登录名称
+  loginName?: string(name='login_name', example='1'),
 }
 
 // 跨链账号红利明细
@@ -461,12 +469,16 @@ model AssetProject {
   gmtModified: long(name='gmt_modified', example='1726024364000'),
 }
 
-// 登录类型
-model LoginAccountTypeBO {
-  // 登录类型
-  userLoginType?: string(name='user_login_type', example='1'),
-  // 登录名称
-  loginName?: string(name='login_name', example='1'),
+// 操作角色
+model UserOperatorInfoBO {
+  // userId
+  userId?: string(name='user_id', example='1'),
+  // 别名
+  alias?: string(name='alias', example='1'),
+  // 钱包地址
+  address?: string(name='address', example='1'),
+  // 登录账号类型列表
+  loginAccountTypeList?: LoginAccountTypeBO(name='login_account_type_list', example='1'),
 }
 
 // 项目报告
@@ -525,6 +537,36 @@ model DataSummaryStatisticsItem {
   date: string(name='date', example='2024-01-01'),
   // 原始币种资产价值
   totalValueList: [ MultiCurrencyMoney ](name='total_value_list', example=''),
+}
+
+// 项目角色信息
+model ProjectWithRole {
+  // 项目id
+  projectId?: string(name='project_id', example='1'),
+  // 项目名称
+  projcetName?: string(name='projcet_name', example='1'),
+  // 描述
+  description?: string(name='description', example='1'),
+  // token名称
+  tokenName?: string(name='token_name', example='1'),
+  // 最大供应量
+  capacity?: string(name='capacity', example='1'),
+  // 净值
+  netValue?: string(name='net_value', example='1'),
+  // 价格类型
+  priceType?: string(name='price_type', example='1'),
+  // 项目净值
+  projectNetValue?: string(name='project_net_value', example='1'),
+  // 最大限额
+  maxSubscriptionAmount?: string(name='max_subscription_amount', example='1'),
+  // 部署类型 DIRECT_PUBLIC_CHAIN 直发公链，NORMAL 普通模式
+  deploymentType?: string(name='deployment_type', example='1'),
+  // 项目所在链
+  chainType?: string(name='chain_type', example='1'),
+  // 操作角色列表
+  userOperatorList?: [ UserOperatorInfoBO ](name='user_operator_list', example='1'),
+  // 代销者机构集合
+  participantInfos?: [ ParticipantInfo ](name='participant_infos', example='1'),
 }
 
 // 跨链账号明细
@@ -707,18 +749,6 @@ model ProjectPageData {
   pageSize: long(name='page_size', example='10'),
   // 项目列表
   records: [ AssetProject ](name='records', example=''),
-}
-
-// 操作角色
-model UserOperatorInfoBO {
-  // userId
-  userId?: string(name='user_id', example='1'),
-  // 别名
-  alias?: string(name='alias', example='1'),
-  // 钱包地址
-  address?: string(name='address', example='1'),
-  // 登录账号类型列表
-  loginAccountTypeList?: LoginAccountTypeBO(name='login_account_type_list', example='1'),
 }
 
 // 二级用户列表
@@ -1135,32 +1165,8 @@ model DetailIssuerProjectwithroleResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 项目id
-  projectId?: string(name='project_id'),
-  // 项目名称
-  projcetName?: string(name='projcet_name'),
-  // 描述
-  description?: string(name='description'),
-  // token名称
-  tokenName?: string(name='token_name'),
-  // 最大供应量
-  capacity?: string(name='capacity'),
-  // 净值
-  netValue?: string(name='net_value'),
-  // 价格类型
-  priceType?: string(name='price_type'),
-  // 项目净值
-  projectNetValue?: string(name='project_net_value'),
-  // 购买最大限额
-  maxSubscriptionAmount?: string(name='max_subscription_amount'),
-  // 部署类型  DIRECT_PUBLIC_CHAIN 直发公链，NORMAL 普通模式
-  deploymentType?: string(name='deployment_type'),
-  // 项目所在链
-  chainType?: string(name='chain_type'),
-  // 操作员list
-  userOperatorList?: UserOperatorInfoBO(name='user_operator_list'),
-  // 代销者机构代销者机构
-  participantInfos?: ParticipantInfo(name='participant_infos'),
+  // 项目角色信息
+  data?: ProjectWithRole(name='data'),
 }
 
 /**
