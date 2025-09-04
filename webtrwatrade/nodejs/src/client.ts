@@ -237,6 +237,31 @@ export class UserInfo extends $tea.Model {
   }
 }
 
+// 登录类型
+export class LoginAccountTypeBO extends $tea.Model {
+  // 登录类型
+  userLoginType?: string;
+  // 登录名称
+  loginName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      userLoginType: 'user_login_type',
+      loginName: 'login_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userLoginType: 'string',
+      loginName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 跨链账号红利明细
 export class CrossChainBonusAccountsDetailVO extends $tea.Model {
   // 明细ID
@@ -832,23 +857,31 @@ export class AssetProject extends $tea.Model {
   }
 }
 
-// 登录类型
-export class LoginAccountTypeBO extends $tea.Model {
-  // 登录类型
-  userLoginType?: string;
-  // 登录名称
-  loginName?: string;
+// 操作角色
+export class UserOperatorInfoBO extends $tea.Model {
+  // userId
+  userId?: string;
+  // 别名
+  alias?: string;
+  // 钱包地址
+  address?: string;
+  // 登录账号类型列表
+  loginAccountTypeList?: LoginAccountTypeBO;
   static names(): { [key: string]: string } {
     return {
-      userLoginType: 'user_login_type',
-      loginName: 'login_name',
+      userId: 'user_id',
+      alias: 'alias',
+      address: 'address',
+      loginAccountTypeList: 'login_account_type_list',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      userLoginType: 'string',
-      loginName: 'string',
+      userId: 'string',
+      alias: 'string',
+      address: 'string',
+      loginAccountTypeList: LoginAccountTypeBO,
     };
   }
 
@@ -1010,6 +1043,75 @@ export class DataSummaryStatisticsItem extends $tea.Model {
     return {
       date: 'string',
       totalValueList: { 'type': 'array', 'itemType': MultiCurrencyMoney },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 项目角色信息
+export class ProjectWithRole extends $tea.Model {
+  // 项目id
+  projectId?: string;
+  // 项目名称
+  projcetName?: string;
+  // 描述
+  description?: string;
+  // token名称
+  tokenName?: string;
+  // 最大供应量
+  capacity?: string;
+  // 净值
+  netValue?: string;
+  // 价格类型
+  priceType?: string;
+  // 项目净值
+  projectNetValue?: string;
+  // 最大限额
+  maxSubscriptionAmount?: string;
+  // 部署类型 DIRECT_PUBLIC_CHAIN 直发公链，NORMAL 普通模式
+  deploymentType?: string;
+  // 项目所在链
+  chainType?: string;
+  // 操作角色列表
+  userOperatorList?: UserOperatorInfoBO[];
+  // 代销者机构集合
+  participantInfos?: ParticipantInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      projectId: 'project_id',
+      projcetName: 'projcet_name',
+      description: 'description',
+      tokenName: 'token_name',
+      capacity: 'capacity',
+      netValue: 'net_value',
+      priceType: 'price_type',
+      projectNetValue: 'project_net_value',
+      maxSubscriptionAmount: 'max_subscription_amount',
+      deploymentType: 'deployment_type',
+      chainType: 'chain_type',
+      userOperatorList: 'user_operator_list',
+      participantInfos: 'participant_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      projectId: 'string',
+      projcetName: 'string',
+      description: 'string',
+      tokenName: 'string',
+      capacity: 'string',
+      netValue: 'string',
+      priceType: 'string',
+      projectNetValue: 'string',
+      maxSubscriptionAmount: 'string',
+      deploymentType: 'string',
+      chainType: 'string',
+      userOperatorList: { 'type': 'array', 'itemType': UserOperatorInfoBO },
+      participantInfos: { 'type': 'array', 'itemType': ParticipantInfo },
     };
   }
 
@@ -1455,39 +1557,6 @@ export class ProjectPageData extends $tea.Model {
       pageNum: 'number',
       pageSize: 'number',
       records: { 'type': 'array', 'itemType': AssetProject },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 操作角色
-export class UserOperatorInfoBO extends $tea.Model {
-  // userId
-  userId?: string;
-  // 别名
-  alias?: string;
-  // 钱包地址
-  address?: string;
-  // 登录账号类型列表
-  loginAccountTypeList?: LoginAccountTypeBO;
-  static names(): { [key: string]: string } {
-    return {
-      userId: 'user_id',
-      alias: 'alias',
-      address: 'address',
-      loginAccountTypeList: 'login_account_type_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      userId: 'string',
-      alias: 'string',
-      address: 'string',
-      loginAccountTypeList: LoginAccountTypeBO,
     };
   }
 
@@ -2216,50 +2285,14 @@ export class DetailIssuerProjectwithroleResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 项目id
-  projectId?: string;
-  // 项目名称
-  projcetName?: string;
-  // 描述
-  description?: string;
-  // token名称
-  tokenName?: string;
-  // 最大供应量
-  capacity?: string;
-  // 净值
-  netValue?: string;
-  // 价格类型
-  priceType?: string;
-  // 项目净值
-  projectNetValue?: string;
-  // 购买最大限额
-  maxSubscriptionAmount?: string;
-  // 部署类型  DIRECT_PUBLIC_CHAIN 直发公链，NORMAL 普通模式
-  deploymentType?: string;
-  // 项目所在链
-  chainType?: string;
-  // 操作员list
-  userOperatorList?: UserOperatorInfoBO;
-  // 代销者机构代销者机构
-  participantInfos?: ParticipantInfo;
+  // 项目角色信息
+  data?: ProjectWithRole;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      projectId: 'project_id',
-      projcetName: 'projcet_name',
-      description: 'description',
-      tokenName: 'token_name',
-      capacity: 'capacity',
-      netValue: 'net_value',
-      priceType: 'price_type',
-      projectNetValue: 'project_net_value',
-      maxSubscriptionAmount: 'max_subscription_amount',
-      deploymentType: 'deployment_type',
-      chainType: 'chain_type',
-      userOperatorList: 'user_operator_list',
-      participantInfos: 'participant_infos',
+      data: 'data',
     };
   }
 
@@ -2268,19 +2301,7 @@ export class DetailIssuerProjectwithroleResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      projectId: 'string',
-      projcetName: 'string',
-      description: 'string',
-      tokenName: 'string',
-      capacity: 'string',
-      netValue: 'string',
-      priceType: 'string',
-      projectNetValue: 'string',
-      maxSubscriptionAmount: 'string',
-      deploymentType: 'string',
-      chainType: 'string',
-      userOperatorList: UserOperatorInfoBO,
-      participantInfos: ParticipantInfo,
+      data: ProjectWithRole,
     };
   }
 
@@ -5033,7 +5054,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.21",
+          sdk_version: "1.0.22",
           _prod_code: "WEBTRWATRADE",
           _prod_channel: "default",
         };
