@@ -1467,7 +1467,7 @@ class UserOperatorInfoBO(TeaModel):
         user_id: str = None,
         alias: str = None,
         address: str = None,
-        login_account_type_list: List[LoginAccountTypeBO] = None,
+        user_login_account_list: List[LoginAccountTypeBO] = None,
     ):
         # userId
         self.user_id = user_id
@@ -1476,11 +1476,11 @@ class UserOperatorInfoBO(TeaModel):
         # 钱包地址
         self.address = address
         # 登录账号类型列表
-        self.login_account_type_list = login_account_type_list
+        self.user_login_account_list = user_login_account_list
 
     def validate(self):
-        if self.login_account_type_list:
-            for k in self.login_account_type_list:
+        if self.user_login_account_list:
+            for k in self.user_login_account_list:
                 if k:
                     k.validate()
 
@@ -1496,10 +1496,10 @@ class UserOperatorInfoBO(TeaModel):
             result['alias'] = self.alias
         if self.address is not None:
             result['address'] = self.address
-        result['login_account_type_list'] = []
-        if self.login_account_type_list is not None:
-            for k in self.login_account_type_list:
-                result['login_account_type_list'].append(k.to_map() if k else None)
+        result['user_login_account_list'] = []
+        if self.user_login_account_list is not None:
+            for k in self.user_login_account_list:
+                result['user_login_account_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -1510,11 +1510,11 @@ class UserOperatorInfoBO(TeaModel):
             self.alias = m.get('alias')
         if m.get('address') is not None:
             self.address = m.get('address')
-        self.login_account_type_list = []
-        if m.get('login_account_type_list') is not None:
-            for k in m.get('login_account_type_list'):
+        self.user_login_account_list = []
+        if m.get('user_login_account_list') is not None:
+            for k in m.get('user_login_account_list'):
                 temp_model = LoginAccountTypeBO()
-                self.login_account_type_list.append(temp_model.from_map(k))
+                self.user_login_account_list.append(temp_model.from_map(k))
         return self
 
 
