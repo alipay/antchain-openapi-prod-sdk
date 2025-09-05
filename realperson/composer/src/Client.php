@@ -23,6 +23,8 @@ use AntChain\REALPERSON\Models\CheckCarrierTwometaRequest;
 use AntChain\REALPERSON\Models\CheckCarrierTwometaResponse;
 use AntChain\REALPERSON\Models\CheckCarTwometaRequest;
 use AntChain\REALPERSON\Models\CheckCarTwometaResponse;
+use AntChain\REALPERSON\Models\CheckIdcardFourmetaRequest;
+use AntChain\REALPERSON\Models\CheckIdcardFourmetaResponse;
 use AntChain\REALPERSON\Models\CheckIndividualidFourmetaRequest;
 use AntChain\REALPERSON\Models\CheckIndividualidFourmetaResponse;
 use AntChain\REALPERSON\Models\CheckIndividualidThreemetaRequest;
@@ -75,6 +77,10 @@ use AntChain\REALPERSON\Models\QueryBankLivenessplusRequest;
 use AntChain\REALPERSON\Models\QueryBankLivenessplusResponse;
 use AntChain\REALPERSON\Models\QueryBankLivenessRequest;
 use AntChain\REALPERSON\Models\QueryBankLivenessResponse;
+use AntChain\REALPERSON\Models\QueryCarinfoBriefRequest;
+use AntChain\REALPERSON\Models\QueryCarinfoBriefResponse;
+use AntChain\REALPERSON\Models\QueryCarinfoDetailRequest;
+use AntChain\REALPERSON\Models\QueryCarinfoDetailResponse;
 use AntChain\REALPERSON\Models\QueryCarrierNetstatusRequest;
 use AntChain\REALPERSON\Models\QueryCarrierNetstatusResponse;
 use AntChain\REALPERSON\Models\QueryCarrierRepairmobileRequest;
@@ -268,7 +274,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.21.21',
+                    'sdk_version'      => '1.22.0',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2229,6 +2235,105 @@ class Client
         Utils::validateModel($request);
 
         return RecognizeOcrIndividualcardResponse::fromMap($this->doRequest('1.0', 'di.realperson.ocr.individualcard.recognize', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人四要素认证
+     * Summary: 个人四要素认证
+     *
+     * @param CheckIdcardFourmetaRequest $request
+     *
+     * @return CheckIdcardFourmetaResponse
+     */
+    public function checkIdcardFourmeta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkIdcardFourmetaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人四要素认证
+     * Summary: 个人四要素认证
+     *
+     * @param CheckIdcardFourmetaRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CheckIdcardFourmetaResponse
+     */
+    public function checkIdcardFourmetaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckIdcardFourmetaResponse::fromMap($this->doRequest('1.0', 'di.realperson.idcard.fourmeta.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 车辆资产验证详版
+     * Summary: 车辆资产验证详版.
+     *
+     * @param QueryCarinfoDetailRequest $request
+     *
+     * @return QueryCarinfoDetailResponse
+     */
+    public function queryCarinfoDetail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCarinfoDetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 车辆资产验证详版
+     * Summary: 车辆资产验证详版.
+     *
+     * @param QueryCarinfoDetailRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryCarinfoDetailResponse
+     */
+    public function queryCarinfoDetailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCarinfoDetailResponse::fromMap($this->doRequest('1.0', 'di.realperson.carinfo.detail.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 车辆资产验证简版
+     * Summary: 车辆资产验证简版.
+     *
+     * @param QueryCarinfoBriefRequest $request
+     *
+     * @return QueryCarinfoBriefResponse
+     */
+    public function queryCarinfoBrief($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCarinfoBriefEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 车辆资产验证简版
+     * Summary: 车辆资产验证简版.
+     *
+     * @param QueryCarinfoBriefRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryCarinfoBriefResponse
+     */
+    public function queryCarinfoBriefEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCarinfoBriefResponse::fromMap($this->doRequest('1.0', 'di.realperson.carinfo.brief.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
