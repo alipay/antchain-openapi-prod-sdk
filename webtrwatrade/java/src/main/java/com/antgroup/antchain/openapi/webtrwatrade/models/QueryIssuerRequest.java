@@ -45,6 +45,10 @@ public class QueryIssuerRequest extends TeaModel {
     @Validation(required = true)
     public Long endTimeMills;
 
+    // 项目所在链
+    @NameInMap("chain_name")
+    public String chainName;
+
     public static QueryIssuerRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryIssuerRequest self = new QueryIssuerRequest();
         return TeaModel.build(map, self);
@@ -128,6 +132,14 @@ public class QueryIssuerRequest extends TeaModel {
     }
     public Long getEndTimeMills() {
         return this.endTimeMills;
+    }
+
+    public QueryIssuerRequest setChainName(String chainName) {
+        this.chainName = chainName;
+        return this;
+    }
+    public String getChainName() {
+        return this.chainName;
     }
 
 }

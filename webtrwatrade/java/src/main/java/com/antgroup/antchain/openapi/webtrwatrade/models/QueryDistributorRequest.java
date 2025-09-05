@@ -19,6 +19,10 @@ public class QueryDistributorRequest extends TeaModel {
     @NameInMap("asset_project_address")
     public String assetProjectAddress;
 
+    // 项目所在链
+    @NameInMap("chain_name")
+    public String chainName;
+
     // 用户ID
     @NameInMap("user_id")
     public String userId;
@@ -80,6 +84,14 @@ public class QueryDistributorRequest extends TeaModel {
     }
     public String getAssetProjectAddress() {
         return this.assetProjectAddress;
+    }
+
+    public QueryDistributorRequest setChainName(String chainName) {
+        this.chainName = chainName;
+        return this;
+    }
+    public String getChainName() {
+        return this.chainName;
     }
 
     public QueryDistributorRequest setUserId(String userId) {

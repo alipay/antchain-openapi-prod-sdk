@@ -36,6 +36,14 @@ public class UserOperatorInfoBO extends TeaModel {
     @NameInMap("user_login_account_list")
     public java.util.List<LoginAccountTypeBO> userLoginAccountList;
 
+    // 机构类型列表
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
+    @NameInMap("user_institution_type_list")
+    public java.util.List<String> userInstitutionTypeList;
+
     public static UserOperatorInfoBO build(java.util.Map<String, ?> map) throws Exception {
         UserOperatorInfoBO self = new UserOperatorInfoBO();
         return TeaModel.build(map, self);
@@ -71,6 +79,14 @@ public class UserOperatorInfoBO extends TeaModel {
     }
     public java.util.List<LoginAccountTypeBO> getUserLoginAccountList() {
         return this.userLoginAccountList;
+    }
+
+    public UserOperatorInfoBO setUserInstitutionTypeList(java.util.List<String> userInstitutionTypeList) {
+        this.userInstitutionTypeList = userInstitutionTypeList;
+        return this;
+    }
+    public java.util.List<String> getUserInstitutionTypeList() {
+        return this.userInstitutionTypeList;
     }
 
 }
