@@ -1178,7 +1178,7 @@ type UserOperatorInfoBO struct {
 	// 钱包地址
 	Address *string `json:"address,omitempty" xml:"address,omitempty"`
 	// 登录账号类型列表
-	LoginAccountTypeList []*LoginAccountTypeBO `json:"login_account_type_list,omitempty" xml:"login_account_type_list,omitempty" type:"Repeated"`
+	UserLoginAccountList []*LoginAccountTypeBO `json:"user_login_account_list,omitempty" xml:"user_login_account_list,omitempty" type:"Repeated"`
 }
 
 func (s UserOperatorInfoBO) String() string {
@@ -1204,8 +1204,8 @@ func (s *UserOperatorInfoBO) SetAddress(v string) *UserOperatorInfoBO {
 	return s
 }
 
-func (s *UserOperatorInfoBO) SetLoginAccountTypeList(v []*LoginAccountTypeBO) *UserOperatorInfoBO {
-	s.LoginAccountTypeList = v
+func (s *UserOperatorInfoBO) SetUserLoginAccountList(v []*LoginAccountTypeBO) *UserOperatorInfoBO {
+	s.UserLoginAccountList = v
 	return s
 }
 
@@ -6500,7 +6500,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.23"),
+				"sdk_version":      tea.String("1.0.24"),
 				"_prod_code":       tea.String("WEBTRWATRADE"),
 				"_prod_channel":    tea.String("default"),
 			}
