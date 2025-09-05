@@ -1179,6 +1179,8 @@ type UserOperatorInfoBO struct {
 	Address *string `json:"address,omitempty" xml:"address,omitempty"`
 	// 登录账号类型列表
 	UserLoginAccountList []*LoginAccountTypeBO `json:"user_login_account_list,omitempty" xml:"user_login_account_list,omitempty" type:"Repeated"`
+	// 机构类型列表
+	UserInstitutionTypeList []*string `json:"user_institution_type_list,omitempty" xml:"user_institution_type_list,omitempty" type:"Repeated"`
 }
 
 func (s UserOperatorInfoBO) String() string {
@@ -1206,6 +1208,11 @@ func (s *UserOperatorInfoBO) SetAddress(v string) *UserOperatorInfoBO {
 
 func (s *UserOperatorInfoBO) SetUserLoginAccountList(v []*LoginAccountTypeBO) *UserOperatorInfoBO {
 	s.UserLoginAccountList = v
+	return s
+}
+
+func (s *UserOperatorInfoBO) SetUserInstitutionTypeList(v []*string) *UserOperatorInfoBO {
+	s.UserInstitutionTypeList = v
 	return s
 }
 
@@ -3081,6 +3088,8 @@ type ListIssuerCrossaccountRequest struct {
 	AssetProjectId *string `json:"asset_project_id,omitempty" xml:"asset_project_id,omitempty"`
 	// 资产项目合约地址
 	AssetProjectAddress *string `json:"asset_project_address,omitempty" xml:"asset_project_address,omitempty"`
+	// 项目所在链
+	ChainName *string `json:"chain_name,omitempty" xml:"chain_name,omitempty"`
 	// 用户ID
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
 	// 本侧链用户地址
@@ -3122,6 +3131,11 @@ func (s *ListIssuerCrossaccountRequest) SetAssetProjectId(v string) *ListIssuerC
 
 func (s *ListIssuerCrossaccountRequest) SetAssetProjectAddress(v string) *ListIssuerCrossaccountRequest {
 	s.AssetProjectAddress = &v
+	return s
+}
+
+func (s *ListIssuerCrossaccountRequest) SetChainName(v string) *ListIssuerCrossaccountRequest {
+	s.ChainName = &v
 	return s
 }
 
@@ -3207,6 +3221,8 @@ type ListDistributorCrossaccountRequest struct {
 	AssetProjectId *string `json:"asset_project_id,omitempty" xml:"asset_project_id,omitempty"`
 	// 资产项目合约地址
 	AssetProjectAddress *string `json:"asset_project_address,omitempty" xml:"asset_project_address,omitempty"`
+	// 项目所在链
+	ChainName *string `json:"chain_name,omitempty" xml:"chain_name,omitempty"`
 	// 用户ID
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
 	// 本侧链用户地址
@@ -3248,6 +3264,11 @@ func (s *ListDistributorCrossaccountRequest) SetAssetProjectId(v string) *ListDi
 
 func (s *ListDistributorCrossaccountRequest) SetAssetProjectAddress(v string) *ListDistributorCrossaccountRequest {
 	s.AssetProjectAddress = &v
+	return s
+}
+
+func (s *ListDistributorCrossaccountRequest) SetChainName(v string) *ListDistributorCrossaccountRequest {
+	s.ChainName = &v
 	return s
 }
 
@@ -5873,6 +5894,8 @@ type QueryIssuerRequest struct {
 	StartTimeMills *int64 `json:"start_time_mills,omitempty" xml:"start_time_mills,omitempty" require:"true"`
 	// 结束时间 (时间戳)
 	EndTimeMills *int64 `json:"end_time_mills,omitempty" xml:"end_time_mills,omitempty" require:"true"`
+	// 项目所在链
+	ChainName *string `json:"chain_name,omitempty" xml:"chain_name,omitempty"`
 }
 
 func (s QueryIssuerRequest) String() string {
@@ -5933,6 +5956,11 @@ func (s *QueryIssuerRequest) SetEndTimeMills(v int64) *QueryIssuerRequest {
 	return s
 }
 
+func (s *QueryIssuerRequest) SetChainName(v string) *QueryIssuerRequest {
+	s.ChainName = &v
+	return s
+}
+
 type QueryIssuerResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -5980,6 +6008,8 @@ type QueryDistributorRequest struct {
 	AssetProjectId *string `json:"asset_project_id,omitempty" xml:"asset_project_id,omitempty"`
 	// 资产项目合约地址
 	AssetProjectAddress *string `json:"asset_project_address,omitempty" xml:"asset_project_address,omitempty"`
+	// 项目所在链
+	ChainName *string `json:"chain_name,omitempty" xml:"chain_name,omitempty"`
 	// 用户ID
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
 	// 用户地址
@@ -6019,6 +6049,11 @@ func (s *QueryDistributorRequest) SetAssetProjectId(v string) *QueryDistributorR
 
 func (s *QueryDistributorRequest) SetAssetProjectAddress(v string) *QueryDistributorRequest {
 	s.AssetProjectAddress = &v
+	return s
+}
+
+func (s *QueryDistributorRequest) SetChainName(v string) *QueryDistributorRequest {
+	s.ChainName = &v
 	return s
 }
 
@@ -6500,7 +6535,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.24"),
+				"sdk_version":      tea.String("1.0.25"),
 				"_prod_code":       tea.String("WEBTRWATRADE"),
 				"_prod_channel":    tea.String("default"),
 			}
