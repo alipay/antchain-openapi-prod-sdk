@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.24',
+    sdk_version = '1.0.25',
     _prod_code = 'WEBTRWATRADE',
     _prod_channel = 'default'
   };
@@ -479,6 +479,8 @@ model UserOperatorInfoBO {
   address?: string(name='address', example='1'),
   // 登录账号类型列表
   userLoginAccountList?: [ LoginAccountTypeBO ](name='user_login_account_list', example='1'),
+  // 机构类型列表
+  userInstitutionTypeList?: [ string ](name='user_institution_type_list', example='1'),
 }
 
 // 项目报告
@@ -1196,6 +1198,8 @@ model ListIssuerCrossaccountRequest = {
   assetProjectId?: string(name='asset_project_id'),
   // 资产项目合约地址
   assetProjectAddress?: string(name='asset_project_address'),
+  // 项目所在链
+  chainName?: string(name='chain_name'),
   // 用户ID
   userId?: string(name='user_id'),
   // 本侧链用户地址
@@ -1250,6 +1254,8 @@ model ListDistributorCrossaccountRequest = {
   assetProjectId?: string(name='asset_project_id'),
   // 资产项目合约地址
   assetProjectAddress?: string(name='asset_project_address'),
+  // 项目所在链
+  chainName?: string(name='chain_name'),
   // 用户ID
   userId?: string(name='user_id'),
   // 本侧链用户地址
@@ -2618,6 +2624,8 @@ model QueryIssuerRequest = {
   startTimeMills: long(name='start_time_mills'),
   // 结束时间 (时间戳)
   endTimeMills: long(name='end_time_mills'),
+  // 项目所在链
+  chainName?: string(name='chain_name'),
 }
 
 model QueryIssuerResponse = {
@@ -2658,6 +2666,8 @@ model QueryDistributorRequest = {
   assetProjectId?: string(name='asset_project_id'),
   // 资产项目合约地址
   assetProjectAddress?: string(name='asset_project_address'),
+  // 项目所在链
+  chainName?: string(name='chain_name'),
   // 用户ID
   userId?: string(name='user_id'),
   // 用户地址
