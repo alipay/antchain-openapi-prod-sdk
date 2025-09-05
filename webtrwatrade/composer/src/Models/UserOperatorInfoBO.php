@@ -38,12 +38,12 @@ class UserOperatorInfoBO extends Model
      *
      * @var LoginAccountTypeBO[]
      */
-    public $loginAccountTypeList;
+    public $userLoginAccountList;
     protected $_name = [
         'userId'               => 'user_id',
         'alias'                => 'alias',
         'address'              => 'address',
-        'loginAccountTypeList' => 'login_account_type_list',
+        'userLoginAccountList' => 'user_login_account_list',
     ];
 
     public function validate()
@@ -62,12 +62,12 @@ class UserOperatorInfoBO extends Model
         if (null !== $this->address) {
             $res['address'] = $this->address;
         }
-        if (null !== $this->loginAccountTypeList) {
-            $res['login_account_type_list'] = [];
-            if (null !== $this->loginAccountTypeList && \is_array($this->loginAccountTypeList)) {
+        if (null !== $this->userLoginAccountList) {
+            $res['user_login_account_list'] = [];
+            if (null !== $this->userLoginAccountList && \is_array($this->userLoginAccountList)) {
                 $n = 0;
-                foreach ($this->loginAccountTypeList as $item) {
-                    $res['login_account_type_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                foreach ($this->userLoginAccountList as $item) {
+                    $res['user_login_account_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
         }
@@ -92,12 +92,12 @@ class UserOperatorInfoBO extends Model
         if (isset($map['address'])) {
             $model->address = $map['address'];
         }
-        if (isset($map['login_account_type_list'])) {
-            if (!empty($map['login_account_type_list'])) {
-                $model->loginAccountTypeList = [];
+        if (isset($map['user_login_account_list'])) {
+            if (!empty($map['user_login_account_list'])) {
+                $model->userLoginAccountList = [];
                 $n                           = 0;
-                foreach ($map['login_account_type_list'] as $item) {
-                    $model->loginAccountTypeList[$n++] = null !== $item ? LoginAccountTypeBO::fromMap($item) : $item;
+                foreach ($map['user_login_account_list'] as $item) {
+                    $model->userLoginAccountList[$n++] = null !== $item ? LoginAccountTypeBO::fromMap($item) : $item;
                 }
             }
         }
