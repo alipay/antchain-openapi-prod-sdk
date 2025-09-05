@@ -58,6 +58,11 @@ namespace AntChain.SDK.WEBTRWATRADE.Models
         [Validation(Required=true)]
         public long? EndTimeMills { get; set; }
 
+        // 项目所在链
+        [NameInMap("chain_name")]
+        [Validation(Required=false)]
+        public string ChainName { get; set; }
+
     }
 
 }

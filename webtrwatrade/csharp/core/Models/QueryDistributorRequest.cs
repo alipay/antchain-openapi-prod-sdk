@@ -28,6 +28,11 @@ namespace AntChain.SDK.WEBTRWATRADE.Models
         [Validation(Required=false)]
         public string AssetProjectAddress { get; set; }
 
+        // 项目所在链
+        [NameInMap("chain_name")]
+        [Validation(Required=false)]
+        public string ChainName { get; set; }
+
         // 用户ID
         [NameInMap("user_id")]
         [Validation(Required=false)]

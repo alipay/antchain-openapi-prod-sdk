@@ -30,6 +30,11 @@ namespace AntChain.SDK.WEBTRWATRADE.Models
         [Validation(Required=false)]
         public List<LoginAccountTypeBO> UserLoginAccountList { get; set; }
 
+        // 机构类型列表
+        [NameInMap("user_institution_type_list")]
+        [Validation(Required=false)]
+        public List<string> UserInstitutionTypeList { get; set; }
+
     }
 
 }
