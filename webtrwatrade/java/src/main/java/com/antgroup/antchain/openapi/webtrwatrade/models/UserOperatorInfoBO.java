@@ -33,8 +33,8 @@ public class UserOperatorInfoBO extends TeaModel {
      * <strong>example:</strong>
      * <p>1</p>
      */
-    @NameInMap("login_account_type_list")
-    public java.util.List<LoginAccountTypeBO> loginAccountTypeList;
+    @NameInMap("user_login_account_list")
+    public java.util.List<LoginAccountTypeBO> userLoginAccountList;
 
     public static UserOperatorInfoBO build(java.util.Map<String, ?> map) throws Exception {
         UserOperatorInfoBO self = new UserOperatorInfoBO();
@@ -65,12 +65,12 @@ public class UserOperatorInfoBO extends TeaModel {
         return this.address;
     }
 
-    public UserOperatorInfoBO setLoginAccountTypeList(java.util.List<LoginAccountTypeBO> loginAccountTypeList) {
-        this.loginAccountTypeList = loginAccountTypeList;
+    public UserOperatorInfoBO setUserLoginAccountList(java.util.List<LoginAccountTypeBO> userLoginAccountList) {
+        this.userLoginAccountList = userLoginAccountList;
         return this;
     }
-    public java.util.List<LoginAccountTypeBO> getLoginAccountTypeList() {
-        return this.loginAccountTypeList;
+    public java.util.List<LoginAccountTypeBO> getUserLoginAccountList() {
+        return this.userLoginAccountList;
     }
 
 }
