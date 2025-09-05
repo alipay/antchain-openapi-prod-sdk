@@ -718,6 +718,324 @@ func (s *OcrInfo) SetChipNum(v string) *OcrInfo {
 	return s
 }
 
+// 车辆资产验证详版车辆信息
+type CarInfoDetail struct {
+	// 车辆型号
+	Clxh *string `json:"clxh,omitempty" xml:"clxh,omitempty"`
+	// 发动机号
+	EngineCode *string `json:"engine_code,omitempty" xml:"engine_code,omitempty"`
+	// 发动机型号
+	EngineModel *string `json:"engine_model,omitempty" xml:"engine_model,omitempty"`
+	// 生产时间
+	ProductionTime *string `json:"production_time,omitempty" xml:"production_time,omitempty"`
+	// 品牌名称
+	BrandName *string `json:"brand_name,omitempty" xml:"brand_name,omitempty"`
+	// 高尔夫(第七代,2014-)
+	SeriesName *string `json:"series_name,omitempty" xml:"series_name,omitempty"`
+	// 年款
+	ModelYear *string `json:"model_year,omitempty" xml:"model_year,omitempty"`
+	// 款型名称
+	VehicleName *string `json:"vehicle_name,omitempty" xml:"vehicle_name,omitempty"`
+	// 指导价
+	GuidePrice *string `json:"guide_price,omitempty" xml:"guide_price,omitempty"`
+	// 车身颜色
+	Color *string `json:"color,omitempty" xml:"color,omitempty"`
+	// 车型级别
+	VehicleLevel *string `json:"vehicle_level,omitempty" xml:"vehicle_level,omitempty"`
+	// 车型种类
+	VehicleType *string `json:"vehicle_type,omitempty" xml:"vehicle_type,omitempty"`
+	// 车身结构
+	BodyStruct *string `json:"body_struct,omitempty" xml:"body_struct,omitempty"`
+	//  燃料种类
+	FuelType *string `json:"fuel_type,omitempty" xml:"fuel_type,omitempty"`
+	// 驱动方式
+	DriveWay *string `json:"drive_way,omitempty" xml:"drive_way,omitempty"`
+	// 底盘型号-商用车用
+	ChassisModel *string `json:"chassis_model,omitempty" xml:"chassis_model,omitempty"`
+	// 排放标准
+	EmissionStandard *string `json:"emission_standard,omitempty" xml:"emission_standard,omitempty"`
+	// 排量
+	Displacement *string `json:"displacement,omitempty" xml:"displacement,omitempty"`
+	// 长
+	Length *string `json:"length,omitempty" xml:"length,omitempty"`
+	// 宽
+	Width *string `json:"width,omitempty" xml:"width,omitempty"`
+	// 高
+	Height *string `json:"height,omitempty" xml:"height,omitempty"`
+	// 总质量
+	TotalMass *string `json:"total_mass,omitempty" xml:"total_mass,omitempty"`
+	// 整备质量
+	CurbWeight *string `json:"curb_weight,omitempty" xml:"curb_weight,omitempty"`
+	// 前轮距
+	TireDistanceBefore *string `json:"tire_distance_before,omitempty" xml:"tire_distance_before,omitempty"`
+	// 后轮距
+	TireDistanceAfter *string `json:"tire_distance_after,omitempty" xml:"tire_distance_after,omitempty"`
+	// 轴数
+	AxesNumber *string `json:"axes_number,omitempty" xml:"axes_number,omitempty"`
+	// 轴距
+	WheelBase *string `json:"wheel_base,omitempty" xml:"wheel_base,omitempty"`
+	// 座位数
+	SeatingCapacity *string `json:"seating_capacity,omitempty" xml:"seating_capacity,omitempty"`
+	// 核定载质量
+	ApprovedLoad *string `json:"approved_load,omitempty" xml:"approved_load,omitempty"`
+	// 准牵引总质量
+	QuasiTraction *string `json:"quasi_traction,omitempty" xml:"quasi_traction,omitempty"`
+	// 轮胎规格
+	TireSize *string `json:"tire_size,omitempty" xml:"tire_size,omitempty"`
+	// 轮胎数
+	TireNumber *string `json:"tire_number,omitempty" xml:"tire_number,omitempty"`
+	//  变速箱
+	Transmission *string `json:"transmission,omitempty" xml:"transmission,omitempty"`
+	//  功率
+	Power *string `json:"power,omitempty" xml:"power,omitempty"`
+	// 油耗
+	FuelConsumption *string `json:"fuel_consumption,omitempty" xml:"fuel_consumption,omitempty"`
+	// 环保标准
+	EnvironmentalStandards *string `json:"environmental_standards,omitempty" xml:"environmental_standards,omitempty"`
+}
+
+func (s CarInfoDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarInfoDetail) GoString() string {
+	return s.String()
+}
+
+func (s *CarInfoDetail) SetClxh(v string) *CarInfoDetail {
+	s.Clxh = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetEngineCode(v string) *CarInfoDetail {
+	s.EngineCode = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetEngineModel(v string) *CarInfoDetail {
+	s.EngineModel = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetProductionTime(v string) *CarInfoDetail {
+	s.ProductionTime = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetBrandName(v string) *CarInfoDetail {
+	s.BrandName = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetSeriesName(v string) *CarInfoDetail {
+	s.SeriesName = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetModelYear(v string) *CarInfoDetail {
+	s.ModelYear = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetVehicleName(v string) *CarInfoDetail {
+	s.VehicleName = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetGuidePrice(v string) *CarInfoDetail {
+	s.GuidePrice = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetColor(v string) *CarInfoDetail {
+	s.Color = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetVehicleLevel(v string) *CarInfoDetail {
+	s.VehicleLevel = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetVehicleType(v string) *CarInfoDetail {
+	s.VehicleType = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetBodyStruct(v string) *CarInfoDetail {
+	s.BodyStruct = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetFuelType(v string) *CarInfoDetail {
+	s.FuelType = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetDriveWay(v string) *CarInfoDetail {
+	s.DriveWay = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetChassisModel(v string) *CarInfoDetail {
+	s.ChassisModel = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetEmissionStandard(v string) *CarInfoDetail {
+	s.EmissionStandard = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetDisplacement(v string) *CarInfoDetail {
+	s.Displacement = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetLength(v string) *CarInfoDetail {
+	s.Length = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetWidth(v string) *CarInfoDetail {
+	s.Width = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetHeight(v string) *CarInfoDetail {
+	s.Height = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetTotalMass(v string) *CarInfoDetail {
+	s.TotalMass = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetCurbWeight(v string) *CarInfoDetail {
+	s.CurbWeight = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetTireDistanceBefore(v string) *CarInfoDetail {
+	s.TireDistanceBefore = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetTireDistanceAfter(v string) *CarInfoDetail {
+	s.TireDistanceAfter = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetAxesNumber(v string) *CarInfoDetail {
+	s.AxesNumber = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetWheelBase(v string) *CarInfoDetail {
+	s.WheelBase = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetSeatingCapacity(v string) *CarInfoDetail {
+	s.SeatingCapacity = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetApprovedLoad(v string) *CarInfoDetail {
+	s.ApprovedLoad = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetQuasiTraction(v string) *CarInfoDetail {
+	s.QuasiTraction = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetTireSize(v string) *CarInfoDetail {
+	s.TireSize = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetTireNumber(v string) *CarInfoDetail {
+	s.TireNumber = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetTransmission(v string) *CarInfoDetail {
+	s.Transmission = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetPower(v string) *CarInfoDetail {
+	s.Power = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetFuelConsumption(v string) *CarInfoDetail {
+	s.FuelConsumption = &v
+	return s
+}
+
+func (s *CarInfoDetail) SetEnvironmentalStandards(v string) *CarInfoDetail {
+	s.EnvironmentalStandards = &v
+	return s
+}
+
+// 车辆资产验证简版车辆信息
+type CarInfoBrief struct {
+	// 生产时间
+	ProductionTime *string `json:"production_time,omitempty" xml:"production_time,omitempty"`
+	// 品牌名称
+	BrandName *string `json:"brand_name,omitempty" xml:"brand_name,omitempty"`
+	// 车系名称
+	SeriesName *string `json:"series_name,omitempty" xml:"series_name,omitempty"`
+	// 燃料种类
+	FuelType *string `json:"fuel_type,omitempty" xml:"fuel_type,omitempty"`
+	// 轴数
+	AxesNumber *string `json:"axes_number,omitempty" xml:"axes_number,omitempty"`
+	// 轴距
+	WheelBase *string `json:"wheel_base,omitempty" xml:"wheel_base,omitempty"`
+}
+
+func (s CarInfoBrief) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarInfoBrief) GoString() string {
+	return s.String()
+}
+
+func (s *CarInfoBrief) SetProductionTime(v string) *CarInfoBrief {
+	s.ProductionTime = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetBrandName(v string) *CarInfoBrief {
+	s.BrandName = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetSeriesName(v string) *CarInfoBrief {
+	s.SeriesName = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetFuelType(v string) *CarInfoBrief {
+	s.FuelType = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetAxesNumber(v string) *CarInfoBrief {
+	s.AxesNumber = &v
+	return s
+}
+
+func (s *CarInfoBrief) SetWheelBase(v string) *CarInfoBrief {
+	s.WheelBase = &v
+	return s
+}
+
 // 键值对
 type XNameValuePair struct {
 	// 键名
@@ -7497,6 +7815,301 @@ func (s *RecognizeOcrIndividualcardResponse) SetOcrInfoEncrypt(v string) *Recogn
 	return s
 }
 
+type CheckIdcardFourmetaRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 身份证号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 开始时间，yyyyMMdd格式的注册日期。
+	BeginDate *string `json:"begin_date,omitempty" xml:"begin_date,omitempty" require:"true"`
+	// 失效时间，yyyyMMdd格式的注册日期。(长期有效
+	// 身份证填 8 个 0))
+	ExpiryDate *string `json:"expiry_date,omitempty" xml:"expiry_date,omitempty" require:"true"`
+	// map结果的json数据格式，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s CheckIdcardFourmetaRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckIdcardFourmetaRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckIdcardFourmetaRequest) SetAuthToken(v string) *CheckIdcardFourmetaRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaRequest) SetProductInstanceId(v string) *CheckIdcardFourmetaRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaRequest) SetOuterOrderNo(v string) *CheckIdcardFourmetaRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaRequest) SetCertName(v string) *CheckIdcardFourmetaRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaRequest) SetCertNo(v string) *CheckIdcardFourmetaRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaRequest) SetBeginDate(v string) *CheckIdcardFourmetaRequest {
+	s.BeginDate = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaRequest) SetExpiryDate(v string) *CheckIdcardFourmetaRequest {
+	s.ExpiryDate = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaRequest) SetExternParam(v string) *CheckIdcardFourmetaRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type CheckIdcardFourmetaResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// true:匹配成功 false：匹配失败
+	Match *string `json:"match,omitempty" xml:"match,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s CheckIdcardFourmetaResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckIdcardFourmetaResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckIdcardFourmetaResponse) SetReqMsgId(v string) *CheckIdcardFourmetaResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaResponse) SetResultCode(v string) *CheckIdcardFourmetaResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaResponse) SetResultMsg(v string) *CheckIdcardFourmetaResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaResponse) SetMatch(v string) *CheckIdcardFourmetaResponse {
+	s.Match = &v
+	return s
+}
+
+func (s *CheckIdcardFourmetaResponse) SetExternInfo(v string) *CheckIdcardFourmetaResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryCarinfoDetailRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// vin码
+	Vin *string `json:"vin,omitempty" xml:"vin,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+}
+
+func (s QueryCarinfoDetailRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarinfoDetailRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarinfoDetailRequest) SetAuthToken(v string) *QueryCarinfoDetailRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCarinfoDetailRequest) SetProductInstanceId(v string) *QueryCarinfoDetailRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCarinfoDetailRequest) SetVin(v string) *QueryCarinfoDetailRequest {
+	s.Vin = &v
+	return s
+}
+
+func (s *QueryCarinfoDetailRequest) SetExternParam(v string) *QueryCarinfoDetailRequest {
+	s.ExternParam = &v
+	return s
+}
+
+func (s *QueryCarinfoDetailRequest) SetOuterOrderNo(v string) *QueryCarinfoDetailRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+type QueryCarinfoDetailResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，为JSONObject。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	// 车辆信息
+	CarInfo *CarInfoDetail `json:"car_info,omitempty" xml:"car_info,omitempty"`
+}
+
+func (s QueryCarinfoDetailResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarinfoDetailResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarinfoDetailResponse) SetReqMsgId(v string) *QueryCarinfoDetailResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCarinfoDetailResponse) SetResultCode(v string) *QueryCarinfoDetailResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCarinfoDetailResponse) SetResultMsg(v string) *QueryCarinfoDetailResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCarinfoDetailResponse) SetExternInfo(v string) *QueryCarinfoDetailResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+func (s *QueryCarinfoDetailResponse) SetCarInfo(v *CarInfoDetail) *QueryCarinfoDetailResponse {
+	s.CarInfo = v
+	return s
+}
+
+type QueryCarinfoBriefRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// extern_param
+	Vin *string `json:"vin,omitempty" xml:"vin,omitempty" require:"true"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryCarinfoBriefRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarinfoBriefRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarinfoBriefRequest) SetAuthToken(v string) *QueryCarinfoBriefRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCarinfoBriefRequest) SetProductInstanceId(v string) *QueryCarinfoBriefRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCarinfoBriefRequest) SetVin(v string) *QueryCarinfoBriefRequest {
+	s.Vin = &v
+	return s
+}
+
+func (s *QueryCarinfoBriefRequest) SetOuterOrderNo(v string) *QueryCarinfoBriefRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryCarinfoBriefRequest) SetExternParam(v string) *QueryCarinfoBriefRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryCarinfoBriefResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 扩展信息，为JSONObject。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	// 车辆信息
+	CarInfo *CarInfoBrief `json:"car_info,omitempty" xml:"car_info,omitempty"`
+}
+
+func (s QueryCarinfoBriefResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCarinfoBriefResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCarinfoBriefResponse) SetReqMsgId(v string) *QueryCarinfoBriefResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCarinfoBriefResponse) SetResultCode(v string) *QueryCarinfoBriefResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCarinfoBriefResponse) SetResultMsg(v string) *QueryCarinfoBriefResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCarinfoBriefResponse) SetExternInfo(v string) *QueryCarinfoBriefResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+func (s *QueryCarinfoBriefResponse) SetCarInfo(v *CarInfoBrief) *QueryCarinfoBriefResponse {
+	s.CarInfo = v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -7739,7 +8352,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.21.21"),
+				"sdk_version":      tea.String("1.22.0"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -9836,6 +10449,108 @@ func (client *Client) RecognizeOcrIndividualcardEx(request *RecognizeOcrIndividu
 	}
 	_result = &RecognizeOcrIndividualcardResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.ocr.individualcard.recognize"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人四要素认证
+ * Summary: 个人四要素认证
+ */
+func (client *Client) CheckIdcardFourmeta(request *CheckIdcardFourmetaRequest) (_result *CheckIdcardFourmetaResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckIdcardFourmetaResponse{}
+	_body, _err := client.CheckIdcardFourmetaEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人四要素认证
+ * Summary: 个人四要素认证
+ */
+func (client *Client) CheckIdcardFourmetaEx(request *CheckIdcardFourmetaRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckIdcardFourmetaResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckIdcardFourmetaResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.idcard.fourmeta.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 车辆资产验证详版
+ * Summary: 车辆资产验证详版
+ */
+func (client *Client) QueryCarinfoDetail(request *QueryCarinfoDetailRequest) (_result *QueryCarinfoDetailResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCarinfoDetailResponse{}
+	_body, _err := client.QueryCarinfoDetailEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 车辆资产验证详版
+ * Summary: 车辆资产验证详版
+ */
+func (client *Client) QueryCarinfoDetailEx(request *QueryCarinfoDetailRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCarinfoDetailResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCarinfoDetailResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.carinfo.detail.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 车辆资产验证简版
+ * Summary: 车辆资产验证简版
+ */
+func (client *Client) QueryCarinfoBrief(request *QueryCarinfoBriefRequest) (_result *QueryCarinfoBriefResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCarinfoBriefResponse{}
+	_body, _err := client.QueryCarinfoBriefEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 车辆资产验证简版
+ * Summary: 车辆资产验证简版
+ */
+func (client *Client) QueryCarinfoBriefEx(request *QueryCarinfoBriefRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCarinfoBriefResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCarinfoBriefResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.carinfo.brief.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
