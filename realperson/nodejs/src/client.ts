@@ -473,6 +473,208 @@ export class OcrInfo extends $tea.Model {
   }
 }
 
+// 车辆资产验证详版车辆信息
+export class CarInfoDetail extends $tea.Model {
+  // 车辆型号
+  clxh?: string;
+  // 发动机号
+  engineCode?: string;
+  // 发动机型号
+  engineModel?: string;
+  // 生产时间
+  productionTime?: string;
+  // 品牌名称
+  brandName?: string;
+  // 高尔夫(第七代,2014-)
+  seriesName?: string;
+  // 年款
+  modelYear?: string;
+  // 款型名称
+  vehicleName?: string;
+  // 指导价
+  guidePrice?: string;
+  // 车身颜色
+  color?: string;
+  // 车型级别
+  vehicleLevel?: string;
+  // 车型种类
+  vehicleType?: string;
+  // 车身结构
+  bodyStruct?: string;
+  //  燃料种类
+  fuelType?: string;
+  // 驱动方式
+  driveWay?: string;
+  // 底盘型号-商用车用
+  chassisModel?: string;
+  // 排放标准
+  emissionStandard?: string;
+  // 排量
+  displacement?: string;
+  // 长
+  length?: string;
+  // 宽
+  width?: string;
+  // 高
+  height?: string;
+  // 总质量
+  totalMass?: string;
+  // 整备质量
+  curbWeight?: string;
+  // 前轮距
+  tireDistanceBefore?: string;
+  // 后轮距
+  tireDistanceAfter?: string;
+  // 轴数
+  axesNumber?: string;
+  // 轴距 
+  wheelBase?: string;
+  // 座位数
+  seatingCapacity?: string;
+  // 核定载质量
+  approvedLoad?: string;
+  // 准牵引总质量 
+  quasiTraction?: string;
+  // 轮胎规格
+  tireSize?: string;
+  // 轮胎数
+  tireNumber?: string;
+  //  变速箱
+  transmission?: string;
+  //  功率
+  power?: string;
+  // 油耗
+  fuelConsumption?: string;
+  // 环保标准
+  environmentalStandards?: string;
+  static names(): { [key: string]: string } {
+    return {
+      clxh: 'clxh',
+      engineCode: 'engine_code',
+      engineModel: 'engine_model',
+      productionTime: 'production_time',
+      brandName: 'brand_name',
+      seriesName: 'series_name',
+      modelYear: 'model_year',
+      vehicleName: 'vehicle_name',
+      guidePrice: 'guide_price',
+      color: 'color',
+      vehicleLevel: 'vehicle_level',
+      vehicleType: 'vehicle_type',
+      bodyStruct: 'body_struct',
+      fuelType: 'fuel_type',
+      driveWay: 'drive_way',
+      chassisModel: 'chassis_model',
+      emissionStandard: 'emission_standard',
+      displacement: 'displacement',
+      length: 'length',
+      width: 'width',
+      height: 'height',
+      totalMass: 'total_mass',
+      curbWeight: 'curb_weight',
+      tireDistanceBefore: 'tire_distance_before',
+      tireDistanceAfter: 'tire_distance_after',
+      axesNumber: 'axes_number',
+      wheelBase: 'wheel_base',
+      seatingCapacity: 'seating_capacity',
+      approvedLoad: 'approved_load',
+      quasiTraction: 'quasi_traction',
+      tireSize: 'tire_size',
+      tireNumber: 'tire_number',
+      transmission: 'transmission',
+      power: 'power',
+      fuelConsumption: 'fuel_consumption',
+      environmentalStandards: 'environmental_standards',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      clxh: 'string',
+      engineCode: 'string',
+      engineModel: 'string',
+      productionTime: 'string',
+      brandName: 'string',
+      seriesName: 'string',
+      modelYear: 'string',
+      vehicleName: 'string',
+      guidePrice: 'string',
+      color: 'string',
+      vehicleLevel: 'string',
+      vehicleType: 'string',
+      bodyStruct: 'string',
+      fuelType: 'string',
+      driveWay: 'string',
+      chassisModel: 'string',
+      emissionStandard: 'string',
+      displacement: 'string',
+      length: 'string',
+      width: 'string',
+      height: 'string',
+      totalMass: 'string',
+      curbWeight: 'string',
+      tireDistanceBefore: 'string',
+      tireDistanceAfter: 'string',
+      axesNumber: 'string',
+      wheelBase: 'string',
+      seatingCapacity: 'string',
+      approvedLoad: 'string',
+      quasiTraction: 'string',
+      tireSize: 'string',
+      tireNumber: 'string',
+      transmission: 'string',
+      power: 'string',
+      fuelConsumption: 'string',
+      environmentalStandards: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 车辆资产验证简版车辆信息
+export class CarInfoBrief extends $tea.Model {
+  // 生产时间
+  productionTime?: string;
+  // 品牌名称
+  brandName?: string;
+  // 车系名称
+  seriesName?: string;
+  // 燃料种类
+  fuelType?: string;
+  // 轴数
+  axesNumber?: string;
+  // 轴距
+  wheelBase?: string;
+  static names(): { [key: string]: string } {
+    return {
+      productionTime: 'production_time',
+      brandName: 'brand_name',
+      seriesName: 'series_name',
+      fuelType: 'fuel_type',
+      axesNumber: 'axes_number',
+      wheelBase: 'wheel_base',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      productionTime: 'string',
+      brandName: 'string',
+      seriesName: 'string',
+      fuelType: 'string',
+      axesNumber: 'string',
+      wheelBase: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 键值对
 export class XNameValuePair extends $tea.Model {
   // 键名
@@ -5401,6 +5603,232 @@ export class RecognizeOcrIndividualcardResponse extends $tea.Model {
   }
 }
 
+export class CheckIdcardFourmetaRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+  outerOrderNo: string;
+  // 姓名
+  certName: string;
+  // 身份证号码
+  certNo: string;
+  // 开始时间，yyyyMMdd格式的注册日期。
+  beginDate: string;
+  // 失效时间，yyyyMMdd格式的注册日期。(长期有效
+  // 身份证填 8 个 0))
+  expiryDate: string;
+  // map结果的json数据格式，预留字段
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      beginDate: 'begin_date',
+      expiryDate: 'expiry_date',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      certName: 'string',
+      certNo: 'string',
+      beginDate: 'string',
+      expiryDate: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckIdcardFourmetaResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // true:匹配成功 false：匹配失败
+  match?: string;
+  // 扩展信息，预留字段
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      match: 'match',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      match: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCarinfoDetailRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // vin码
+  vin: string;
+  // 扩展信息，预留字段
+  externParam?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。	
+  outerOrderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      vin: 'vin',
+      externParam: 'extern_param',
+      outerOrderNo: 'outer_order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      vin: 'string',
+      externParam: 'string',
+      outerOrderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCarinfoDetailResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 扩展信息，为JSONObject。
+  externInfo?: string;
+  // 车辆信息
+  carInfo?: CarInfoDetail;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      externInfo: 'extern_info',
+      carInfo: 'car_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      externInfo: 'string',
+      carInfo: CarInfoDetail,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCarinfoBriefRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // extern_param
+  vin: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+  outerOrderNo: string;
+  // 扩展信息，预留字段
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      vin: 'vin',
+      outerOrderNo: 'outer_order_no',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      vin: 'string',
+      outerOrderNo: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCarinfoBriefResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 扩展信息，为JSONObject。
+  externInfo?: string;
+  // 车辆信息
+  carInfo?: CarInfoBrief;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      externInfo: 'extern_info',
+      carInfo: 'car_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      externInfo: 'string',
+      carInfo: CarInfoBrief,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -5602,7 +6030,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.21.21",
+          sdk_version: "1.22.0",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
@@ -6828,6 +7256,63 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<RecognizeOcrIndividualcardResponse>(await this.doRequest("1.0", "di.realperson.ocr.individualcard.recognize", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RecognizeOcrIndividualcardResponse({}));
+  }
+
+  /**
+   * Description: 个人四要素认证
+   * Summary: 个人四要素认证
+   */
+  async checkIdcardFourmeta(request: CheckIdcardFourmetaRequest): Promise<CheckIdcardFourmetaResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkIdcardFourmetaEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人四要素认证
+   * Summary: 个人四要素认证
+   */
+  async checkIdcardFourmetaEx(request: CheckIdcardFourmetaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckIdcardFourmetaResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckIdcardFourmetaResponse>(await this.doRequest("1.0", "di.realperson.idcard.fourmeta.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckIdcardFourmetaResponse({}));
+  }
+
+  /**
+   * Description: 车辆资产验证详版
+   * Summary: 车辆资产验证详版
+   */
+  async queryCarinfoDetail(request: QueryCarinfoDetailRequest): Promise<QueryCarinfoDetailResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCarinfoDetailEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 车辆资产验证详版
+   * Summary: 车辆资产验证详版
+   */
+  async queryCarinfoDetailEx(request: QueryCarinfoDetailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCarinfoDetailResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCarinfoDetailResponse>(await this.doRequest("1.0", "di.realperson.carinfo.detail.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCarinfoDetailResponse({}));
+  }
+
+  /**
+   * Description: 车辆资产验证简版
+   * Summary: 车辆资产验证简版
+   */
+  async queryCarinfoBrief(request: QueryCarinfoBriefRequest): Promise<QueryCarinfoBriefResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCarinfoBriefEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 车辆资产验证简版
+   * Summary: 车辆资产验证简版
+   */
+  async queryCarinfoBriefEx(request: QueryCarinfoBriefRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCarinfoBriefResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCarinfoBriefResponse>(await this.doRequest("1.0", "di.realperson.carinfo.brief.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCarinfoBriefResponse({}));
   }
 
   /**
