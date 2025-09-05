@@ -1468,6 +1468,7 @@ class UserOperatorInfoBO(TeaModel):
         alias: str = None,
         address: str = None,
         user_login_account_list: List[LoginAccountTypeBO] = None,
+        user_institution_type_list: List[str] = None,
     ):
         # userId
         self.user_id = user_id
@@ -1477,6 +1478,8 @@ class UserOperatorInfoBO(TeaModel):
         self.address = address
         # 登录账号类型列表
         self.user_login_account_list = user_login_account_list
+        # 机构类型列表
+        self.user_institution_type_list = user_institution_type_list
 
     def validate(self):
         if self.user_login_account_list:
@@ -1500,6 +1503,8 @@ class UserOperatorInfoBO(TeaModel):
         if self.user_login_account_list is not None:
             for k in self.user_login_account_list:
                 result['user_login_account_list'].append(k.to_map() if k else None)
+        if self.user_institution_type_list is not None:
+            result['user_institution_type_list'] = self.user_institution_type_list
         return result
 
     def from_map(self, m: dict = None):
@@ -1515,6 +1520,8 @@ class UserOperatorInfoBO(TeaModel):
             for k in m.get('user_login_account_list'):
                 temp_model = LoginAccountTypeBO()
                 self.user_login_account_list.append(temp_model.from_map(k))
+        if m.get('user_institution_type_list') is not None:
+            self.user_institution_type_list = m.get('user_institution_type_list')
         return self
 
 
@@ -4021,6 +4028,7 @@ class ListIssuerCrossaccountRequest(TeaModel):
         product_instance_id: str = None,
         asset_project_id: str = None,
         asset_project_address: str = None,
+        chain_name: str = None,
         user_id: str = None,
         user_address: str = None,
         login_name: str = None,
@@ -4036,6 +4044,8 @@ class ListIssuerCrossaccountRequest(TeaModel):
         self.asset_project_id = asset_project_id
         # 资产项目合约地址
         self.asset_project_address = asset_project_address
+        # 项目所在链
+        self.chain_name = chain_name
         # 用户ID
         self.user_id = user_id
         # 本侧链用户地址
@@ -4069,6 +4079,8 @@ class ListIssuerCrossaccountRequest(TeaModel):
             result['asset_project_id'] = self.asset_project_id
         if self.asset_project_address is not None:
             result['asset_project_address'] = self.asset_project_address
+        if self.chain_name is not None:
+            result['chain_name'] = self.chain_name
         if self.user_id is not None:
             result['user_id'] = self.user_id
         if self.user_address is not None:
@@ -4095,6 +4107,8 @@ class ListIssuerCrossaccountRequest(TeaModel):
             self.asset_project_id = m.get('asset_project_id')
         if m.get('asset_project_address') is not None:
             self.asset_project_address = m.get('asset_project_address')
+        if m.get('chain_name') is not None:
+            self.chain_name = m.get('chain_name')
         if m.get('user_id') is not None:
             self.user_id = m.get('user_id')
         if m.get('user_address') is not None:
@@ -4176,6 +4190,7 @@ class ListDistributorCrossaccountRequest(TeaModel):
         product_instance_id: str = None,
         asset_project_id: str = None,
         asset_project_address: str = None,
+        chain_name: str = None,
         user_id: str = None,
         user_address: str = None,
         login_name: str = None,
@@ -4191,6 +4206,8 @@ class ListDistributorCrossaccountRequest(TeaModel):
         self.asset_project_id = asset_project_id
         # 资产项目合约地址
         self.asset_project_address = asset_project_address
+        # 项目所在链
+        self.chain_name = chain_name
         # 用户ID
         self.user_id = user_id
         # 本侧链用户地址
@@ -4224,6 +4241,8 @@ class ListDistributorCrossaccountRequest(TeaModel):
             result['asset_project_id'] = self.asset_project_id
         if self.asset_project_address is not None:
             result['asset_project_address'] = self.asset_project_address
+        if self.chain_name is not None:
+            result['chain_name'] = self.chain_name
         if self.user_id is not None:
             result['user_id'] = self.user_id
         if self.user_address is not None:
@@ -4250,6 +4269,8 @@ class ListDistributorCrossaccountRequest(TeaModel):
             self.asset_project_id = m.get('asset_project_id')
         if m.get('asset_project_address') is not None:
             self.asset_project_address = m.get('asset_project_address')
+        if m.get('chain_name') is not None:
+            self.chain_name = m.get('chain_name')
         if m.get('user_id') is not None:
             self.user_id = m.get('user_id')
         if m.get('user_address') is not None:
@@ -7628,6 +7649,7 @@ class QueryIssuerRequest(TeaModel):
         login_accout_type: str = None,
         start_time_mills: int = None,
         end_time_mills: int = None,
+        chain_name: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -7648,6 +7670,8 @@ class QueryIssuerRequest(TeaModel):
         self.start_time_mills = start_time_mills
         # 结束时间 (时间戳)
         self.end_time_mills = end_time_mills
+        # 项目所在链
+        self.chain_name = chain_name
 
     def validate(self):
         self.validate_required(self.start_time_mills, 'start_time_mills')
@@ -7679,6 +7703,8 @@ class QueryIssuerRequest(TeaModel):
             result['start_time_mills'] = self.start_time_mills
         if self.end_time_mills is not None:
             result['end_time_mills'] = self.end_time_mills
+        if self.chain_name is not None:
+            result['chain_name'] = self.chain_name
         return result
 
     def from_map(self, m: dict = None):
@@ -7703,6 +7729,8 @@ class QueryIssuerRequest(TeaModel):
             self.start_time_mills = m.get('start_time_mills')
         if m.get('end_time_mills') is not None:
             self.end_time_mills = m.get('end_time_mills')
+        if m.get('chain_name') is not None:
+            self.chain_name = m.get('chain_name')
         return self
 
 
@@ -7770,6 +7798,7 @@ class QueryDistributorRequest(TeaModel):
         product_instance_id: str = None,
         asset_project_id: str = None,
         asset_project_address: str = None,
+        chain_name: str = None,
         user_id: str = None,
         user_address: str = None,
         login_name: str = None,
@@ -7784,6 +7813,8 @@ class QueryDistributorRequest(TeaModel):
         self.asset_project_id = asset_project_id
         # 资产项目合约地址
         self.asset_project_address = asset_project_address
+        # 项目所在链
+        self.chain_name = chain_name
         # 用户ID
         self.user_id = user_id
         # 用户地址
@@ -7815,6 +7846,8 @@ class QueryDistributorRequest(TeaModel):
             result['asset_project_id'] = self.asset_project_id
         if self.asset_project_address is not None:
             result['asset_project_address'] = self.asset_project_address
+        if self.chain_name is not None:
+            result['chain_name'] = self.chain_name
         if self.user_id is not None:
             result['user_id'] = self.user_id
         if self.user_address is not None:
@@ -7839,6 +7872,8 @@ class QueryDistributorRequest(TeaModel):
             self.asset_project_id = m.get('asset_project_id')
         if m.get('asset_project_address') is not None:
             self.asset_project_address = m.get('asset_project_address')
+        if m.get('chain_name') is not None:
+            self.chain_name = m.get('chain_name')
         if m.get('user_id') is not None:
             self.user_id = m.get('user_id')
         if m.get('user_address') is not None:
