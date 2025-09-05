@@ -31,6 +31,12 @@ class QueryDistributorRequest extends Model
      */
     public $assetProjectAddress;
 
+    // 项目所在链
+    /**
+     * @var string
+     */
+    public $chainName;
+
     // 用户ID
     /**
      * @var string
@@ -71,6 +77,7 @@ class QueryDistributorRequest extends Model
         'productInstanceId'   => 'product_instance_id',
         'assetProjectId'      => 'asset_project_id',
         'assetProjectAddress' => 'asset_project_address',
+        'chainName'           => 'chain_name',
         'userId'              => 'user_id',
         'userAddress'         => 'user_address',
         'loginName'           => 'login_name',
@@ -99,6 +106,9 @@ class QueryDistributorRequest extends Model
         }
         if (null !== $this->assetProjectAddress) {
             $res['asset_project_address'] = $this->assetProjectAddress;
+        }
+        if (null !== $this->chainName) {
+            $res['chain_name'] = $this->chainName;
         }
         if (null !== $this->userId) {
             $res['user_id'] = $this->userId;
@@ -141,6 +151,9 @@ class QueryDistributorRequest extends Model
         }
         if (isset($map['asset_project_address'])) {
             $model->assetProjectAddress = $map['asset_project_address'];
+        }
+        if (isset($map['chain_name'])) {
+            $model->chainName = $map['chain_name'];
         }
         if (isset($map['user_id'])) {
             $model->userId = $map['user_id'];

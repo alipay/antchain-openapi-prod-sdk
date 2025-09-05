@@ -39,11 +39,20 @@ class UserOperatorInfoBO extends Model
      * @var LoginAccountTypeBO[]
      */
     public $userLoginAccountList;
+
+    // 机构类型列表
+    /**
+     * @example 1
+     *
+     * @var string[]
+     */
+    public $userInstitutionTypeList;
     protected $_name = [
-        'userId'               => 'user_id',
-        'alias'                => 'alias',
-        'address'              => 'address',
-        'userLoginAccountList' => 'user_login_account_list',
+        'userId'                  => 'user_id',
+        'alias'                   => 'alias',
+        'address'                 => 'address',
+        'userLoginAccountList'    => 'user_login_account_list',
+        'userInstitutionTypeList' => 'user_institution_type_list',
     ];
 
     public function validate()
@@ -70,6 +79,9 @@ class UserOperatorInfoBO extends Model
                     $res['user_login_account_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->userInstitutionTypeList) {
+            $res['user_institution_type_list'] = $this->userInstitutionTypeList;
         }
 
         return $res;
@@ -99,6 +111,11 @@ class UserOperatorInfoBO extends Model
                 foreach ($map['user_login_account_list'] as $item) {
                     $model->userLoginAccountList[$n++] = null !== $item ? LoginAccountTypeBO::fromMap($item) : $item;
                 }
+            }
+        }
+        if (isset($map['user_institution_type_list'])) {
+            if (!empty($map['user_institution_type_list'])) {
+                $model->userInstitutionTypeList = $map['user_institution_type_list'];
             }
         }
 

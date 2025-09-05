@@ -66,6 +66,12 @@ class QueryIssuerRequest extends Model
      * @var int
      */
     public $endTimeMills;
+
+    // 项目所在链
+    /**
+     * @var string
+     */
+    public $chainName;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -77,6 +83,7 @@ class QueryIssuerRequest extends Model
         'loginAccoutType'     => 'login_accout_type',
         'startTimeMills'      => 'start_time_mills',
         'endTimeMills'        => 'end_time_mills',
+        'chainName'           => 'chain_name',
     ];
 
     public function validate()
@@ -117,6 +124,9 @@ class QueryIssuerRequest extends Model
         }
         if (null !== $this->endTimeMills) {
             $res['end_time_mills'] = $this->endTimeMills;
+        }
+        if (null !== $this->chainName) {
+            $res['chain_name'] = $this->chainName;
         }
 
         return $res;
@@ -159,6 +169,9 @@ class QueryIssuerRequest extends Model
         }
         if (isset($map['end_time_mills'])) {
             $model->endTimeMills = $map['end_time_mills'];
+        }
+        if (isset($map['chain_name'])) {
+            $model->chainName = $map['chain_name'];
         }
 
         return $model;
