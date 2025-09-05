@@ -1467,7 +1467,7 @@ class UserOperatorInfoBO(TeaModel):
         user_id: str = None,
         alias: str = None,
         address: str = None,
-        login_account_type_list: LoginAccountTypeBO = None,
+        login_account_type_list: List[LoginAccountTypeBO] = None,
     ):
         # userId
         self.user_id = user_id
@@ -1480,7 +1480,9 @@ class UserOperatorInfoBO(TeaModel):
 
     def validate(self):
         if self.login_account_type_list:
-            self.login_account_type_list.validate()
+            for k in self.login_account_type_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -1494,8 +1496,10 @@ class UserOperatorInfoBO(TeaModel):
             result['alias'] = self.alias
         if self.address is not None:
             result['address'] = self.address
+        result['login_account_type_list'] = []
         if self.login_account_type_list is not None:
-            result['login_account_type_list'] = self.login_account_type_list.to_map()
+            for k in self.login_account_type_list:
+                result['login_account_type_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -1506,9 +1510,11 @@ class UserOperatorInfoBO(TeaModel):
             self.alias = m.get('alias')
         if m.get('address') is not None:
             self.address = m.get('address')
+        self.login_account_type_list = []
         if m.get('login_account_type_list') is not None:
-            temp_model = LoginAccountTypeBO()
-            self.login_account_type_list = temp_model.from_map(m['login_account_type_list'])
+            for k in m.get('login_account_type_list'):
+                temp_model = LoginAccountTypeBO()
+                self.login_account_type_list.append(temp_model.from_map(k))
         return self
 
 
