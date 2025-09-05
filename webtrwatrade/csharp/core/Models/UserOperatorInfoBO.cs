@@ -26,9 +26,9 @@ namespace AntChain.SDK.WEBTRWATRADE.Models
         public string Address { get; set; }
 
         // 登录账号类型列表
-        [NameInMap("login_account_type_list")]
+        [NameInMap("user_login_account_list")]
         [Validation(Required=false)]
-        public List<LoginAccountTypeBO> LoginAccountTypeList { get; set; }
+        public List<LoginAccountTypeBO> UserLoginAccountList { get; set; }
 
     }
 
