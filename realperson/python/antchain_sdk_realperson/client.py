@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.21.21',
+                    'sdk_version': '1.22.0',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.21.21',
+                    'sdk_version': '1.22.0',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -3549,6 +3549,174 @@ class Client:
         return TeaCore.from_map(
             realperson_models.RecognizeOcrIndividualcardResponse(),
             await self.do_request_async('1.0', 'di.realperson.ocr.individualcard.recognize', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_idcard_fourmeta(
+        self,
+        request: realperson_models.CheckIdcardFourmetaRequest,
+    ) -> realperson_models.CheckIdcardFourmetaResponse:
+        """
+        Description: 个人四要素认证
+        Summary: 个人四要素认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_idcard_fourmeta_ex(request, headers, runtime)
+
+    async def check_idcard_fourmeta_async(
+        self,
+        request: realperson_models.CheckIdcardFourmetaRequest,
+    ) -> realperson_models.CheckIdcardFourmetaResponse:
+        """
+        Description: 个人四要素认证
+        Summary: 个人四要素认证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_idcard_fourmeta_ex_async(request, headers, runtime)
+
+    def check_idcard_fourmeta_ex(
+        self,
+        request: realperson_models.CheckIdcardFourmetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckIdcardFourmetaResponse:
+        """
+        Description: 个人四要素认证
+        Summary: 个人四要素认证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.CheckIdcardFourmetaResponse(),
+            self.do_request('1.0', 'di.realperson.idcard.fourmeta.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_idcard_fourmeta_ex_async(
+        self,
+        request: realperson_models.CheckIdcardFourmetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.CheckIdcardFourmetaResponse:
+        """
+        Description: 个人四要素认证
+        Summary: 个人四要素认证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.CheckIdcardFourmetaResponse(),
+            await self.do_request_async('1.0', 'di.realperson.idcard.fourmeta.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_carinfo_detail(
+        self,
+        request: realperson_models.QueryCarinfoDetailRequest,
+    ) -> realperson_models.QueryCarinfoDetailResponse:
+        """
+        Description: 车辆资产验证详版
+        Summary: 车辆资产验证详版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_carinfo_detail_ex(request, headers, runtime)
+
+    async def query_carinfo_detail_async(
+        self,
+        request: realperson_models.QueryCarinfoDetailRequest,
+    ) -> realperson_models.QueryCarinfoDetailResponse:
+        """
+        Description: 车辆资产验证详版
+        Summary: 车辆资产验证详版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_carinfo_detail_ex_async(request, headers, runtime)
+
+    def query_carinfo_detail_ex(
+        self,
+        request: realperson_models.QueryCarinfoDetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryCarinfoDetailResponse:
+        """
+        Description: 车辆资产验证详版
+        Summary: 车辆资产验证详版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryCarinfoDetailResponse(),
+            self.do_request('1.0', 'di.realperson.carinfo.detail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_carinfo_detail_ex_async(
+        self,
+        request: realperson_models.QueryCarinfoDetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryCarinfoDetailResponse:
+        """
+        Description: 车辆资产验证详版
+        Summary: 车辆资产验证详版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryCarinfoDetailResponse(),
+            await self.do_request_async('1.0', 'di.realperson.carinfo.detail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_carinfo_brief(
+        self,
+        request: realperson_models.QueryCarinfoBriefRequest,
+    ) -> realperson_models.QueryCarinfoBriefResponse:
+        """
+        Description: 车辆资产验证简版
+        Summary: 车辆资产验证简版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_carinfo_brief_ex(request, headers, runtime)
+
+    async def query_carinfo_brief_async(
+        self,
+        request: realperson_models.QueryCarinfoBriefRequest,
+    ) -> realperson_models.QueryCarinfoBriefResponse:
+        """
+        Description: 车辆资产验证简版
+        Summary: 车辆资产验证简版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_carinfo_brief_ex_async(request, headers, runtime)
+
+    def query_carinfo_brief_ex(
+        self,
+        request: realperson_models.QueryCarinfoBriefRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryCarinfoBriefResponse:
+        """
+        Description: 车辆资产验证简版
+        Summary: 车辆资产验证简版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryCarinfoBriefResponse(),
+            self.do_request('1.0', 'di.realperson.carinfo.brief.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_carinfo_brief_ex_async(
+        self,
+        request: realperson_models.QueryCarinfoBriefRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryCarinfoBriefResponse:
+        """
+        Description: 车辆资产验证简版
+        Summary: 车辆资产验证简版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryCarinfoBriefResponse(),
+            await self.do_request_async('1.0', 'di.realperson.carinfo.brief.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

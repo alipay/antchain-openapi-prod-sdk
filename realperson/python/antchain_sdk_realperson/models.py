@@ -784,6 +784,342 @@ class OcrInfo(TeaModel):
         return self
 
 
+class CarInfoDetail(TeaModel):
+    def __init__(
+        self,
+        clxh: str = None,
+        engine_code: str = None,
+        engine_model: str = None,
+        production_time: str = None,
+        brand_name: str = None,
+        series_name: str = None,
+        model_year: str = None,
+        vehicle_name: str = None,
+        guide_price: str = None,
+        color: str = None,
+        vehicle_level: str = None,
+        vehicle_type: str = None,
+        body_struct: str = None,
+        fuel_type: str = None,
+        drive_way: str = None,
+        chassis_model: str = None,
+        emission_standard: str = None,
+        displacement: str = None,
+        length: str = None,
+        width: str = None,
+        height: str = None,
+        total_mass: str = None,
+        curb_weight: str = None,
+        tire_distance_before: str = None,
+        tire_distance_after: str = None,
+        axes_number: str = None,
+        wheel_base: str = None,
+        seating_capacity: str = None,
+        approved_load: str = None,
+        quasi_traction: str = None,
+        tire_size: str = None,
+        tire_number: str = None,
+        transmission: str = None,
+        power: str = None,
+        fuel_consumption: str = None,
+        environmental_standards: str = None,
+    ):
+        # 车辆型号
+        self.clxh = clxh
+        # 发动机号
+        self.engine_code = engine_code
+        # 发动机型号
+        self.engine_model = engine_model
+        # 生产时间
+        self.production_time = production_time
+        # 品牌名称
+        self.brand_name = brand_name
+        # 高尔夫(第七代,2014-)
+        self.series_name = series_name
+        # 年款
+        self.model_year = model_year
+        # 款型名称
+        self.vehicle_name = vehicle_name
+        # 指导价
+        self.guide_price = guide_price
+        # 车身颜色
+        self.color = color
+        # 车型级别
+        self.vehicle_level = vehicle_level
+        # 车型种类
+        self.vehicle_type = vehicle_type
+        # 车身结构
+        self.body_struct = body_struct
+        # 燃料种类
+        self.fuel_type = fuel_type
+        # 驱动方式
+        self.drive_way = drive_way
+        # 底盘型号-商用车用
+        self.chassis_model = chassis_model
+        # 排放标准
+        self.emission_standard = emission_standard
+        # 排量
+        self.displacement = displacement
+        # 长
+        self.length = length
+        # 宽
+        self.width = width
+        # 高
+        self.height = height
+        # 总质量
+        self.total_mass = total_mass
+        # 整备质量
+        self.curb_weight = curb_weight
+        # 前轮距
+        self.tire_distance_before = tire_distance_before
+        # 后轮距
+        self.tire_distance_after = tire_distance_after
+        # 轴数
+        self.axes_number = axes_number
+        # 轴距
+        self.wheel_base = wheel_base
+        # 座位数
+        self.seating_capacity = seating_capacity
+        # 核定载质量
+        self.approved_load = approved_load
+        # 准牵引总质量
+        self.quasi_traction = quasi_traction
+        # 轮胎规格
+        self.tire_size = tire_size
+        # 轮胎数
+        self.tire_number = tire_number
+        # 变速箱
+        self.transmission = transmission
+        # 功率
+        self.power = power
+        # 油耗
+        self.fuel_consumption = fuel_consumption
+        # 环保标准
+        self.environmental_standards = environmental_standards
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.clxh is not None:
+            result['clxh'] = self.clxh
+        if self.engine_code is not None:
+            result['engine_code'] = self.engine_code
+        if self.engine_model is not None:
+            result['engine_model'] = self.engine_model
+        if self.production_time is not None:
+            result['production_time'] = self.production_time
+        if self.brand_name is not None:
+            result['brand_name'] = self.brand_name
+        if self.series_name is not None:
+            result['series_name'] = self.series_name
+        if self.model_year is not None:
+            result['model_year'] = self.model_year
+        if self.vehicle_name is not None:
+            result['vehicle_name'] = self.vehicle_name
+        if self.guide_price is not None:
+            result['guide_price'] = self.guide_price
+        if self.color is not None:
+            result['color'] = self.color
+        if self.vehicle_level is not None:
+            result['vehicle_level'] = self.vehicle_level
+        if self.vehicle_type is not None:
+            result['vehicle_type'] = self.vehicle_type
+        if self.body_struct is not None:
+            result['body_struct'] = self.body_struct
+        if self.fuel_type is not None:
+            result['fuel_type'] = self.fuel_type
+        if self.drive_way is not None:
+            result['drive_way'] = self.drive_way
+        if self.chassis_model is not None:
+            result['chassis_model'] = self.chassis_model
+        if self.emission_standard is not None:
+            result['emission_standard'] = self.emission_standard
+        if self.displacement is not None:
+            result['displacement'] = self.displacement
+        if self.length is not None:
+            result['length'] = self.length
+        if self.width is not None:
+            result['width'] = self.width
+        if self.height is not None:
+            result['height'] = self.height
+        if self.total_mass is not None:
+            result['total_mass'] = self.total_mass
+        if self.curb_weight is not None:
+            result['curb_weight'] = self.curb_weight
+        if self.tire_distance_before is not None:
+            result['tire_distance_before'] = self.tire_distance_before
+        if self.tire_distance_after is not None:
+            result['tire_distance_after'] = self.tire_distance_after
+        if self.axes_number is not None:
+            result['axes_number'] = self.axes_number
+        if self.wheel_base is not None:
+            result['wheel_base'] = self.wheel_base
+        if self.seating_capacity is not None:
+            result['seating_capacity'] = self.seating_capacity
+        if self.approved_load is not None:
+            result['approved_load'] = self.approved_load
+        if self.quasi_traction is not None:
+            result['quasi_traction'] = self.quasi_traction
+        if self.tire_size is not None:
+            result['tire_size'] = self.tire_size
+        if self.tire_number is not None:
+            result['tire_number'] = self.tire_number
+        if self.transmission is not None:
+            result['transmission'] = self.transmission
+        if self.power is not None:
+            result['power'] = self.power
+        if self.fuel_consumption is not None:
+            result['fuel_consumption'] = self.fuel_consumption
+        if self.environmental_standards is not None:
+            result['environmental_standards'] = self.environmental_standards
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('clxh') is not None:
+            self.clxh = m.get('clxh')
+        if m.get('engine_code') is not None:
+            self.engine_code = m.get('engine_code')
+        if m.get('engine_model') is not None:
+            self.engine_model = m.get('engine_model')
+        if m.get('production_time') is not None:
+            self.production_time = m.get('production_time')
+        if m.get('brand_name') is not None:
+            self.brand_name = m.get('brand_name')
+        if m.get('series_name') is not None:
+            self.series_name = m.get('series_name')
+        if m.get('model_year') is not None:
+            self.model_year = m.get('model_year')
+        if m.get('vehicle_name') is not None:
+            self.vehicle_name = m.get('vehicle_name')
+        if m.get('guide_price') is not None:
+            self.guide_price = m.get('guide_price')
+        if m.get('color') is not None:
+            self.color = m.get('color')
+        if m.get('vehicle_level') is not None:
+            self.vehicle_level = m.get('vehicle_level')
+        if m.get('vehicle_type') is not None:
+            self.vehicle_type = m.get('vehicle_type')
+        if m.get('body_struct') is not None:
+            self.body_struct = m.get('body_struct')
+        if m.get('fuel_type') is not None:
+            self.fuel_type = m.get('fuel_type')
+        if m.get('drive_way') is not None:
+            self.drive_way = m.get('drive_way')
+        if m.get('chassis_model') is not None:
+            self.chassis_model = m.get('chassis_model')
+        if m.get('emission_standard') is not None:
+            self.emission_standard = m.get('emission_standard')
+        if m.get('displacement') is not None:
+            self.displacement = m.get('displacement')
+        if m.get('length') is not None:
+            self.length = m.get('length')
+        if m.get('width') is not None:
+            self.width = m.get('width')
+        if m.get('height') is not None:
+            self.height = m.get('height')
+        if m.get('total_mass') is not None:
+            self.total_mass = m.get('total_mass')
+        if m.get('curb_weight') is not None:
+            self.curb_weight = m.get('curb_weight')
+        if m.get('tire_distance_before') is not None:
+            self.tire_distance_before = m.get('tire_distance_before')
+        if m.get('tire_distance_after') is not None:
+            self.tire_distance_after = m.get('tire_distance_after')
+        if m.get('axes_number') is not None:
+            self.axes_number = m.get('axes_number')
+        if m.get('wheel_base') is not None:
+            self.wheel_base = m.get('wheel_base')
+        if m.get('seating_capacity') is not None:
+            self.seating_capacity = m.get('seating_capacity')
+        if m.get('approved_load') is not None:
+            self.approved_load = m.get('approved_load')
+        if m.get('quasi_traction') is not None:
+            self.quasi_traction = m.get('quasi_traction')
+        if m.get('tire_size') is not None:
+            self.tire_size = m.get('tire_size')
+        if m.get('tire_number') is not None:
+            self.tire_number = m.get('tire_number')
+        if m.get('transmission') is not None:
+            self.transmission = m.get('transmission')
+        if m.get('power') is not None:
+            self.power = m.get('power')
+        if m.get('fuel_consumption') is not None:
+            self.fuel_consumption = m.get('fuel_consumption')
+        if m.get('environmental_standards') is not None:
+            self.environmental_standards = m.get('environmental_standards')
+        return self
+
+
+class CarInfoBrief(TeaModel):
+    def __init__(
+        self,
+        production_time: str = None,
+        brand_name: str = None,
+        series_name: str = None,
+        fuel_type: str = None,
+        axes_number: str = None,
+        wheel_base: str = None,
+    ):
+        # 生产时间
+        self.production_time = production_time
+        # 品牌名称
+        self.brand_name = brand_name
+        # 车系名称
+        self.series_name = series_name
+        # 燃料种类
+        self.fuel_type = fuel_type
+        # 轴数
+        self.axes_number = axes_number
+        # 轴距
+        self.wheel_base = wheel_base
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.production_time is not None:
+            result['production_time'] = self.production_time
+        if self.brand_name is not None:
+            result['brand_name'] = self.brand_name
+        if self.series_name is not None:
+            result['series_name'] = self.series_name
+        if self.fuel_type is not None:
+            result['fuel_type'] = self.fuel_type
+        if self.axes_number is not None:
+            result['axes_number'] = self.axes_number
+        if self.wheel_base is not None:
+            result['wheel_base'] = self.wheel_base
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('production_time') is not None:
+            self.production_time = m.get('production_time')
+        if m.get('brand_name') is not None:
+            self.brand_name = m.get('brand_name')
+        if m.get('series_name') is not None:
+            self.series_name = m.get('series_name')
+        if m.get('fuel_type') is not None:
+            self.fuel_type = m.get('fuel_type')
+        if m.get('axes_number') is not None:
+            self.axes_number = m.get('axes_number')
+        if m.get('wheel_base') is not None:
+            self.wheel_base = m.get('wheel_base')
+        return self
+
+
 class XNameValuePair(TeaModel):
     def __init__(
         self,
@@ -8793,6 +9129,371 @@ class RecognizeOcrIndividualcardResponse(TeaModel):
             self.ext_info = m.get('ext_info')
         if m.get('ocr_info_encrypt') is not None:
             self.ocr_info_encrypt = m.get('ocr_info_encrypt')
+        return self
+
+
+class CheckIdcardFourmetaRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        outer_order_no: str = None,
+        cert_name: str = None,
+        cert_no: str = None,
+        begin_date: str = None,
+        expiry_date: str = None,
+        extern_param: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+        self.outer_order_no = outer_order_no
+        # 姓名
+        self.cert_name = cert_name
+        # 身份证号码
+        self.cert_no = cert_no
+        # 开始时间，yyyyMMdd格式的注册日期。
+        self.begin_date = begin_date
+        # 失效时间，yyyyMMdd格式的注册日期。(长期有效
+        # 身份证填 8 个 0))
+        self.expiry_date = expiry_date
+        # map结果的json数据格式，预留字段
+        self.extern_param = extern_param
+
+    def validate(self):
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+        self.validate_required(self.cert_name, 'cert_name')
+        self.validate_required(self.cert_no, 'cert_no')
+        self.validate_required(self.begin_date, 'begin_date')
+        self.validate_required(self.expiry_date, 'expiry_date')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        if self.cert_name is not None:
+            result['cert_name'] = self.cert_name
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.begin_date is not None:
+            result['begin_date'] = self.begin_date
+        if self.expiry_date is not None:
+            result['expiry_date'] = self.expiry_date
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        if m.get('cert_name') is not None:
+            self.cert_name = m.get('cert_name')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('begin_date') is not None:
+            self.begin_date = m.get('begin_date')
+        if m.get('expiry_date') is not None:
+            self.expiry_date = m.get('expiry_date')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
+        return self
+
+
+class CheckIdcardFourmetaResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        match: str = None,
+        extern_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # true:匹配成功 false：匹配失败
+        self.match = match
+        # 扩展信息，预留字段
+        self.extern_info = extern_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.match is not None:
+            result['match'] = self.match
+        if self.extern_info is not None:
+            result['extern_info'] = self.extern_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('match') is not None:
+            self.match = m.get('match')
+        if m.get('extern_info') is not None:
+            self.extern_info = m.get('extern_info')
+        return self
+
+
+class QueryCarinfoDetailRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        vin: str = None,
+        extern_param: str = None,
+        outer_order_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # vin码
+        self.vin = vin
+        # 扩展信息，预留字段
+        self.extern_param = extern_param
+        # 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+        self.outer_order_no = outer_order_no
+
+    def validate(self):
+        self.validate_required(self.vin, 'vin')
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.vin is not None:
+            result['vin'] = self.vin
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('vin') is not None:
+            self.vin = m.get('vin')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        return self
+
+
+class QueryCarinfoDetailResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        extern_info: str = None,
+        car_info: CarInfoDetail = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 扩展信息，为JSONObject。
+        self.extern_info = extern_info
+        # 车辆信息
+        self.car_info = car_info
+
+    def validate(self):
+        if self.car_info:
+            self.car_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.extern_info is not None:
+            result['extern_info'] = self.extern_info
+        if self.car_info is not None:
+            result['car_info'] = self.car_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('extern_info') is not None:
+            self.extern_info = m.get('extern_info')
+        if m.get('car_info') is not None:
+            temp_model = CarInfoDetail()
+            self.car_info = temp_model.from_map(m['car_info'])
+        return self
+
+
+class QueryCarinfoBriefRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        vin: str = None,
+        outer_order_no: str = None,
+        extern_param: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # extern_param
+        self.vin = vin
+        # 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权核查。
+        self.outer_order_no = outer_order_no
+        # 扩展信息，预留字段
+        self.extern_param = extern_param
+
+    def validate(self):
+        self.validate_required(self.vin, 'vin')
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.vin is not None:
+            result['vin'] = self.vin
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('vin') is not None:
+            self.vin = m.get('vin')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
+        return self
+
+
+class QueryCarinfoBriefResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        extern_info: str = None,
+        car_info: CarInfoBrief = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 扩展信息，为JSONObject。
+        self.extern_info = extern_info
+        # 车辆信息
+        self.car_info = car_info
+
+    def validate(self):
+        if self.car_info:
+            self.car_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.extern_info is not None:
+            result['extern_info'] = self.extern_info
+        if self.car_info is not None:
+            result['car_info'] = self.car_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('extern_info') is not None:
+            self.extern_info = m.get('extern_info')
+        if m.get('car_info') is not None:
+            temp_model = CarInfoBrief()
+            self.car_info = temp_model.from_map(m['car_info'])
         return self
 
 
