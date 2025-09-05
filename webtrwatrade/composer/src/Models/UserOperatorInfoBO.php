@@ -36,7 +36,7 @@ class UserOperatorInfoBO extends Model
     /**
      * @example 1
      *
-     * @var LoginAccountTypeBO
+     * @var LoginAccountTypeBO[]
      */
     public $loginAccountTypeList;
     protected $_name = [
@@ -63,7 +63,13 @@ class UserOperatorInfoBO extends Model
             $res['address'] = $this->address;
         }
         if (null !== $this->loginAccountTypeList) {
-            $res['login_account_type_list'] = null !== $this->loginAccountTypeList ? $this->loginAccountTypeList->toMap() : null;
+            $res['login_account_type_list'] = [];
+            if (null !== $this->loginAccountTypeList && \is_array($this->loginAccountTypeList)) {
+                $n = 0;
+                foreach ($this->loginAccountTypeList as $item) {
+                    $res['login_account_type_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -87,7 +93,13 @@ class UserOperatorInfoBO extends Model
             $model->address = $map['address'];
         }
         if (isset($map['login_account_type_list'])) {
-            $model->loginAccountTypeList = LoginAccountTypeBO::fromMap($map['login_account_type_list']);
+            if (!empty($map['login_account_type_list'])) {
+                $model->loginAccountTypeList = [];
+                $n                           = 0;
+                foreach ($map['login_account_type_list'] as $item) {
+                    $model->loginAccountTypeList[$n++] = null !== $item ? LoginAccountTypeBO::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
