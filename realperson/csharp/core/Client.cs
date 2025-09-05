@@ -137,7 +137,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.21.21"},
+                        {"sdk_version", "1.22.0"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.21.21"},
+                        {"sdk_version", "1.22.0"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2923,6 +2923,132 @@ namespace AntChain.SDK.REALPERSON
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<RecognizeOcrIndividualcardResponse>(await DoRequestAsync("1.0", "di.realperson.ocr.individualcard.recognize", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人四要素认证
+         * Summary: 个人四要素认证
+         */
+        public CheckIdcardFourmetaResponse CheckIdcardFourmeta(CheckIdcardFourmetaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckIdcardFourmetaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人四要素认证
+         * Summary: 个人四要素认证
+         */
+        public async Task<CheckIdcardFourmetaResponse> CheckIdcardFourmetaAsync(CheckIdcardFourmetaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckIdcardFourmetaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 个人四要素认证
+         * Summary: 个人四要素认证
+         */
+        public CheckIdcardFourmetaResponse CheckIdcardFourmetaEx(CheckIdcardFourmetaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckIdcardFourmetaResponse>(DoRequest("1.0", "di.realperson.idcard.fourmeta.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 个人四要素认证
+         * Summary: 个人四要素认证
+         */
+        public async Task<CheckIdcardFourmetaResponse> CheckIdcardFourmetaExAsync(CheckIdcardFourmetaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckIdcardFourmetaResponse>(await DoRequestAsync("1.0", "di.realperson.idcard.fourmeta.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 车辆资产验证详版
+         * Summary: 车辆资产验证详版
+         */
+        public QueryCarinfoDetailResponse QueryCarinfoDetail(QueryCarinfoDetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCarinfoDetailEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 车辆资产验证详版
+         * Summary: 车辆资产验证详版
+         */
+        public async Task<QueryCarinfoDetailResponse> QueryCarinfoDetailAsync(QueryCarinfoDetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCarinfoDetailExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 车辆资产验证详版
+         * Summary: 车辆资产验证详版
+         */
+        public QueryCarinfoDetailResponse QueryCarinfoDetailEx(QueryCarinfoDetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCarinfoDetailResponse>(DoRequest("1.0", "di.realperson.carinfo.detail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 车辆资产验证详版
+         * Summary: 车辆资产验证详版
+         */
+        public async Task<QueryCarinfoDetailResponse> QueryCarinfoDetailExAsync(QueryCarinfoDetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCarinfoDetailResponse>(await DoRequestAsync("1.0", "di.realperson.carinfo.detail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 车辆资产验证简版
+         * Summary: 车辆资产验证简版
+         */
+        public QueryCarinfoBriefResponse QueryCarinfoBrief(QueryCarinfoBriefRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCarinfoBriefEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 车辆资产验证简版
+         * Summary: 车辆资产验证简版
+         */
+        public async Task<QueryCarinfoBriefResponse> QueryCarinfoBriefAsync(QueryCarinfoBriefRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCarinfoBriefExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 车辆资产验证简版
+         * Summary: 车辆资产验证简版
+         */
+        public QueryCarinfoBriefResponse QueryCarinfoBriefEx(QueryCarinfoBriefRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCarinfoBriefResponse>(DoRequest("1.0", "di.realperson.carinfo.brief.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 车辆资产验证简版
+         * Summary: 车辆资产验证简版
+         */
+        public async Task<QueryCarinfoBriefResponse> QueryCarinfoBriefExAsync(QueryCarinfoBriefRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCarinfoBriefResponse>(await DoRequestAsync("1.0", "di.realperson.carinfo.brief.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
