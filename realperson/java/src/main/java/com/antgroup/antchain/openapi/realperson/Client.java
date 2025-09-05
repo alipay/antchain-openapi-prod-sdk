@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.21.21"),
+                    new TeaPair("sdk_version", "1.22.0"),
                     new TeaPair("_prod_code", "REALPERSON"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1474,6 +1474,69 @@ public class Client {
 
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.ocr.individualcard.recognize", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RecognizeOcrIndividualcardResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 个人四要素认证
+     * Summary: 个人四要素认证</p>
+     */
+    public CheckIdcardFourmetaResponse checkIdcardFourmeta(CheckIdcardFourmetaRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkIdcardFourmetaEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 个人四要素认证
+     * Summary: 个人四要素认证</p>
+     */
+    public CheckIdcardFourmetaResponse checkIdcardFourmetaEx(CheckIdcardFourmetaRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.idcard.fourmeta.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckIdcardFourmetaResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 车辆资产验证详版
+     * Summary: 车辆资产验证详版</p>
+     */
+    public QueryCarinfoDetailResponse queryCarinfoDetail(QueryCarinfoDetailRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCarinfoDetailEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 车辆资产验证详版
+     * Summary: 车辆资产验证详版</p>
+     */
+    public QueryCarinfoDetailResponse queryCarinfoDetailEx(QueryCarinfoDetailRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.carinfo.detail.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCarinfoDetailResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 车辆资产验证简版
+     * Summary: 车辆资产验证简版</p>
+     */
+    public QueryCarinfoBriefResponse queryCarinfoBrief(QueryCarinfoBriefRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCarinfoBriefEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 车辆资产验证简版
+     * Summary: 车辆资产验证简版</p>
+     */
+    public QueryCarinfoBriefResponse queryCarinfoBriefEx(QueryCarinfoBriefRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.carinfo.brief.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCarinfoBriefResponse());
     }
 
     /**
