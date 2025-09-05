@@ -867,12 +867,15 @@ export class UserOperatorInfoBO extends $tea.Model {
   address?: string;
   // 登录账号类型列表
   userLoginAccountList?: LoginAccountTypeBO[];
+  // 机构类型列表
+  userInstitutionTypeList?: string[];
   static names(): { [key: string]: string } {
     return {
       userId: 'user_id',
       alias: 'alias',
       address: 'address',
       userLoginAccountList: 'user_login_account_list',
+      userInstitutionTypeList: 'user_institution_type_list',
     };
   }
 
@@ -882,6 +885,7 @@ export class UserOperatorInfoBO extends $tea.Model {
       alias: 'string',
       address: 'string',
       userLoginAccountList: { 'type': 'array', 'itemType': LoginAccountTypeBO },
+      userInstitutionTypeList: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -2318,6 +2322,8 @@ export class ListIssuerCrossaccountRequest extends $tea.Model {
   assetProjectId?: string;
   // 资产项目合约地址
   assetProjectAddress?: string;
+  // 项目所在链
+  chainName?: string;
   // 用户ID
   userId?: string;
   // 本侧链用户地址
@@ -2338,6 +2344,7 @@ export class ListIssuerCrossaccountRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       assetProjectId: 'asset_project_id',
       assetProjectAddress: 'asset_project_address',
+      chainName: 'chain_name',
       userId: 'user_id',
       userAddress: 'user_address',
       loginName: 'login_name',
@@ -2354,6 +2361,7 @@ export class ListIssuerCrossaccountRequest extends $tea.Model {
       productInstanceId: 'string',
       assetProjectId: 'string',
       assetProjectAddress: 'string',
+      chainName: 'string',
       userId: 'string',
       userAddress: 'string',
       loginName: 'string',
@@ -2409,6 +2417,8 @@ export class ListDistributorCrossaccountRequest extends $tea.Model {
   assetProjectId?: string;
   // 资产项目合约地址
   assetProjectAddress?: string;
+  // 项目所在链
+  chainName?: string;
   // 用户ID
   userId?: string;
   // 本侧链用户地址
@@ -2429,6 +2439,7 @@ export class ListDistributorCrossaccountRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       assetProjectId: 'asset_project_id',
       assetProjectAddress: 'asset_project_address',
+      chainName: 'chain_name',
       userId: 'user_id',
       userAddress: 'user_address',
       loginName: 'login_name',
@@ -2445,6 +2456,7 @@ export class ListDistributorCrossaccountRequest extends $tea.Model {
       productInstanceId: 'string',
       assetProjectId: 'string',
       assetProjectAddress: 'string',
+      chainName: 'string',
       userId: 'string',
       userAddress: 'string',
       loginName: 'string',
@@ -4566,6 +4578,8 @@ export class QueryIssuerRequest extends $tea.Model {
   startTimeMills: number;
   // 结束时间 (时间戳)
   endTimeMills: number;
+  // 项目所在链
+  chainName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4578,6 +4592,7 @@ export class QueryIssuerRequest extends $tea.Model {
       loginAccoutType: 'login_accout_type',
       startTimeMills: 'start_time_mills',
       endTimeMills: 'end_time_mills',
+      chainName: 'chain_name',
     };
   }
 
@@ -4593,6 +4608,7 @@ export class QueryIssuerRequest extends $tea.Model {
       loginAccoutType: 'string',
       startTimeMills: 'number',
       endTimeMills: 'number',
+      chainName: 'string',
     };
   }
 
@@ -4641,6 +4657,8 @@ export class QueryDistributorRequest extends $tea.Model {
   assetProjectId?: string;
   // 资产项目合约地址
   assetProjectAddress?: string;
+  // 项目所在链
+  chainName?: string;
   // 用户ID
   userId?: string;
   // 用户地址
@@ -4659,6 +4677,7 @@ export class QueryDistributorRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       assetProjectId: 'asset_project_id',
       assetProjectAddress: 'asset_project_address',
+      chainName: 'chain_name',
       userId: 'user_id',
       userAddress: 'user_address',
       loginName: 'login_name',
@@ -4674,6 +4693,7 @@ export class QueryDistributorRequest extends $tea.Model {
       productInstanceId: 'string',
       assetProjectId: 'string',
       assetProjectAddress: 'string',
+      chainName: 'string',
       userId: 'string',
       userAddress: 'string',
       loginName: 'string',
@@ -5054,7 +5074,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.24",
+          sdk_version: "1.0.25",
           _prod_code: "WEBTRWATRADE",
           _prod_channel: "default",
         };
