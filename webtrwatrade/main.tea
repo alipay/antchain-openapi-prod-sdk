@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.22',
+    sdk_version = '1.0.23',
     _prod_code = 'WEBTRWATRADE',
     _prod_channel = 'default'
   };
@@ -478,7 +478,7 @@ model UserOperatorInfoBO {
   // 钱包地址
   address?: string(name='address', example='1'),
   // 登录账号类型列表
-  loginAccountTypeList?: LoginAccountTypeBO(name='login_account_type_list', example='1'),
+  loginAccountTypeList?: [ LoginAccountTypeBO ](name='login_account_type_list', example='1'),
 }
 
 // 项目报告
