@@ -866,13 +866,13 @@ export class UserOperatorInfoBO extends $tea.Model {
   // 钱包地址
   address?: string;
   // 登录账号类型列表
-  loginAccountTypeList?: LoginAccountTypeBO[];
+  userLoginAccountList?: LoginAccountTypeBO[];
   static names(): { [key: string]: string } {
     return {
       userId: 'user_id',
       alias: 'alias',
       address: 'address',
-      loginAccountTypeList: 'login_account_type_list',
+      userLoginAccountList: 'user_login_account_list',
     };
   }
 
@@ -881,7 +881,7 @@ export class UserOperatorInfoBO extends $tea.Model {
       userId: 'string',
       alias: 'string',
       address: 'string',
-      loginAccountTypeList: { 'type': 'array', 'itemType': LoginAccountTypeBO },
+      userLoginAccountList: { 'type': 'array', 'itemType': LoginAccountTypeBO },
     };
   }
 
@@ -5054,7 +5054,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.23",
+          sdk_version: "1.0.24",
           _prod_code: "WEBTRWATRADE",
           _prod_channel: "default",
         };
