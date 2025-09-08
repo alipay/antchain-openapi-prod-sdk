@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.33"),
+                    new TeaPair("sdk_version", "1.12.34"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -5690,6 +5690,27 @@ public class Client {
     public QueryTaskscanResponse queryTaskscanEx(QueryTaskscanRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.taskscan.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTaskscanResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 时序异常检测检测到任务后，发出告警通知
+     * Summary: 异常检测任务告警</p>
+     */
+    public SendTaskalarmResponse sendTaskalarm(SendTaskalarmRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.sendTaskalarmEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 时序异常检测检测到任务后，发出告警通知
+     * Summary: 异常检测任务告警</p>
+     */
+    public SendTaskalarmResponse sendTaskalarmEx(SendTaskalarmRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.taskalarm.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendTaskalarmResponse());
     }
 
     /**
