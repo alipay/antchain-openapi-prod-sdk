@@ -35222,6 +35222,90 @@ func (s *QueryTaskscanResponse) SetData(v string) *QueryTaskscanResponse {
 	return s
 }
 
+type SendTaskalarmRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 发出告警的任务名称作为租户
+	Alarmname *string `json:"alarmname,omitempty" xml:"alarmname,omitempty" require:"true"`
+	// 异常类型作为标题
+	Alarmtitle *string `json:"alarmtitle,omitempty" xml:"alarmtitle,omitempty" require:"true"`
+	// 异常的详细描述
+	Alarmcontent *string `json:"alarmcontent,omitempty" xml:"alarmcontent,omitempty" require:"true"`
+}
+
+func (s SendTaskalarmRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendTaskalarmRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SendTaskalarmRequest) SetAuthToken(v string) *SendTaskalarmRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SendTaskalarmRequest) SetProductInstanceId(v string) *SendTaskalarmRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SendTaskalarmRequest) SetAlarmname(v string) *SendTaskalarmRequest {
+	s.Alarmname = &v
+	return s
+}
+
+func (s *SendTaskalarmRequest) SetAlarmtitle(v string) *SendTaskalarmRequest {
+	s.Alarmtitle = &v
+	return s
+}
+
+func (s *SendTaskalarmRequest) SetAlarmcontent(v string) *SendTaskalarmRequest {
+	s.Alarmcontent = &v
+	return s
+}
+
+type SendTaskalarmResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 告警是否成功
+	Alarmcode *bool `json:"alarmcode,omitempty" xml:"alarmcode,omitempty"`
+}
+
+func (s SendTaskalarmResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendTaskalarmResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SendTaskalarmResponse) SetReqMsgId(v string) *SendTaskalarmResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SendTaskalarmResponse) SetResultCode(v string) *SendTaskalarmResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SendTaskalarmResponse) SetResultMsg(v string) *SendTaskalarmResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SendTaskalarmResponse) SetAlarmcode(v bool) *SendTaskalarmResponse {
+	s.Alarmcode = &v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -36992,7 +37076,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.33"),
+				"sdk_version":      tea.String("1.12.34"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -45943,6 +46027,40 @@ func (client *Client) QueryTaskscanEx(request *QueryTaskscanRequest, headers map
 	}
 	_result = &QueryTaskscanResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.taskscan.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 时序异常检测检测到任务后，发出告警通知
+ * Summary: 异常检测任务告警
+ */
+func (client *Client) SendTaskalarm(request *SendTaskalarmRequest) (_result *SendTaskalarmResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SendTaskalarmResponse{}
+	_body, _err := client.SendTaskalarmEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 时序异常检测检测到任务后，发出告警通知
+ * Summary: 异常检测任务告警
+ */
+func (client *Client) SendTaskalarmEx(request *SendTaskalarmRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SendTaskalarmResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SendTaskalarmResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.taskalarm.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
