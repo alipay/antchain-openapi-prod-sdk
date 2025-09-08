@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.33"},
+                        {"sdk_version", "1.12.34"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.33"},
+                        {"sdk_version", "1.12.34"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -11335,6 +11335,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryTaskscanResponse>(await DoRequestAsync("1.0", "blockchain.bot.taskscan.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 时序异常检测检测到任务后，发出告警通知
+         * Summary: 异常检测任务告警
+         */
+        public SendTaskalarmResponse SendTaskalarm(SendTaskalarmRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SendTaskalarmEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 时序异常检测检测到任务后，发出告警通知
+         * Summary: 异常检测任务告警
+         */
+        public async Task<SendTaskalarmResponse> SendTaskalarmAsync(SendTaskalarmRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SendTaskalarmExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 时序异常检测检测到任务后，发出告警通知
+         * Summary: 异常检测任务告警
+         */
+        public SendTaskalarmResponse SendTaskalarmEx(SendTaskalarmRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendTaskalarmResponse>(DoRequest("1.0", "blockchain.bot.taskalarm.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 时序异常检测检测到任务后，发出告警通知
+         * Summary: 异常检测任务告警
+         */
+        public async Task<SendTaskalarmResponse> SendTaskalarmExAsync(SendTaskalarmRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendTaskalarmResponse>(await DoRequestAsync("1.0", "blockchain.bot.taskalarm.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
