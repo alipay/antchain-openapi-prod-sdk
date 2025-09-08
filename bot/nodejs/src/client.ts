@@ -26989,6 +26989,73 @@ export class QueryTaskscanResponse extends $tea.Model {
   }
 }
 
+export class SendTaskalarmRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 发出告警的任务名称作为租户
+  alarmname: string;
+  // 异常类型作为标题
+  alarmtitle: string;
+  // 异常的详细描述
+  alarmcontent: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      alarmname: 'alarmname',
+      alarmtitle: 'alarmtitle',
+      alarmcontent: 'alarmcontent',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      alarmname: 'string',
+      alarmtitle: 'string',
+      alarmcontent: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendTaskalarmResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 告警是否成功
+  alarmcode?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      alarmcode: 'alarmcode',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      alarmcode: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecThingsdidOneapiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -28371,7 +28438,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.33",
+          sdk_version: "1.12.34",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -33401,6 +33468,25 @@ export default class Client {
   async queryTaskscanEx(request: QueryTaskscanRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTaskscanResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryTaskscanResponse>(await this.doRequest("1.0", "blockchain.bot.taskscan.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTaskscanResponse({}));
+  }
+
+  /**
+   * Description: 时序异常检测检测到任务后，发出告警通知
+   * Summary: 异常检测任务告警
+   */
+  async sendTaskalarm(request: SendTaskalarmRequest): Promise<SendTaskalarmResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.sendTaskalarmEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 时序异常检测检测到任务后，发出告警通知
+   * Summary: 异常检测任务告警
+   */
+  async sendTaskalarmEx(request: SendTaskalarmRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendTaskalarmResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SendTaskalarmResponse>(await this.doRequest("1.0", "blockchain.bot.taskalarm.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendTaskalarmResponse({}));
   }
 
   /**
