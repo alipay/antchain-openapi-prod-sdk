@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.33',
+    sdk_version = '1.12.34',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -15472,6 +15472,48 @@ async function queryTaskscan(request: QueryTaskscanRequest): QueryTaskscanRespon
 async function queryTaskscanEx(request: QueryTaskscanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTaskscanResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.taskscan.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendTaskalarmRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 发出告警的任务名称作为租户
+  alarmname: string(name='alarmname'),
+  // 异常类型作为标题
+  alarmtitle: string(name='alarmtitle'),
+  // 异常的详细描述
+  alarmcontent: string(name='alarmcontent'),
+}
+
+model SendTaskalarmResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 告警是否成功
+  alarmcode?: boolean(name='alarmcode'),
+}
+
+/**
+ * Description: 时序异常检测检测到任务后，发出告警通知
+ * Summary: 异常检测任务告警
+ */
+async function sendTaskalarm(request: SendTaskalarmRequest): SendTaskalarmResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendTaskalarmEx(request, headers, runtime);
+}
+
+/**
+ * Description: 时序异常检测检测到任务后，发出告警通知
+ * Summary: 异常检测任务告警
+ */
+async function sendTaskalarmEx(request: SendTaskalarmRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendTaskalarmResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.taskalarm.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
