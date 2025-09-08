@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.33',
+                    'sdk_version': '1.12.34',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.33',
+                    'sdk_version': '1.12.34',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -14905,6 +14905,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryTaskscanResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.taskscan.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def send_taskalarm(
+        self,
+        request: bot_models.SendTaskalarmRequest,
+    ) -> bot_models.SendTaskalarmResponse:
+        """
+        Description: 时序异常检测检测到任务后，发出告警通知
+        Summary: 异常检测任务告警
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.send_taskalarm_ex(request, headers, runtime)
+
+    async def send_taskalarm_async(
+        self,
+        request: bot_models.SendTaskalarmRequest,
+    ) -> bot_models.SendTaskalarmResponse:
+        """
+        Description: 时序异常检测检测到任务后，发出告警通知
+        Summary: 异常检测任务告警
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.send_taskalarm_ex_async(request, headers, runtime)
+
+    def send_taskalarm_ex(
+        self,
+        request: bot_models.SendTaskalarmRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SendTaskalarmResponse:
+        """
+        Description: 时序异常检测检测到任务后，发出告警通知
+        Summary: 异常检测任务告警
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SendTaskalarmResponse(),
+            self.do_request('1.0', 'blockchain.bot.taskalarm.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def send_taskalarm_ex_async(
+        self,
+        request: bot_models.SendTaskalarmRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SendTaskalarmResponse:
+        """
+        Description: 时序异常检测检测到任务后，发出告警通知
+        Summary: 异常检测任务告警
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SendTaskalarmResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.taskalarm.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
