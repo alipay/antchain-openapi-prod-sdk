@@ -477,6 +477,8 @@ use AntChain\BOT\Models\SendLabelTransferonasyncRequest;
 use AntChain\BOT\Models\SendLabelTransferonasyncResponse;
 use AntChain\BOT\Models\SendLabelTransferrawonasyncRequest;
 use AntChain\BOT\Models\SendLabelTransferrawonasyncResponse;
+use AntChain\BOT\Models\SendTaskalarmRequest;
+use AntChain\BOT\Models\SendTaskalarmResponse;
 use AntChain\BOT\Models\SendThingDataRequest;
 use AntChain\BOT\Models\SendThingDataResponse;
 use AntChain\BOT\Models\SetConsumerSubscribeRequest;
@@ -712,7 +714,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.33',
+                    'sdk_version'      => '1.12.34',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -9376,6 +9378,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryTaskscanResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.taskscan.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 时序异常检测检测到任务后，发出告警通知
+     * Summary: 异常检测任务告警.
+     *
+     * @param SendTaskalarmRequest $request
+     *
+     * @return SendTaskalarmResponse
+     */
+    public function sendTaskalarm($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendTaskalarmEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 时序异常检测检测到任务后，发出告警通知
+     * Summary: 异常检测任务告警.
+     *
+     * @param SendTaskalarmRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return SendTaskalarmResponse
+     */
+    public function sendTaskalarmEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendTaskalarmResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.taskalarm.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
