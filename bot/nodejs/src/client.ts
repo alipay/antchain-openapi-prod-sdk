@@ -27031,7 +27031,7 @@ export class SendTaskalarmResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 告警是否成功
+  // 异常结果返回值
   alarmcode?: boolean;
   static names(): { [key: string]: string } {
     return {
@@ -28438,7 +28438,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.34",
+          sdk_version: "1.12.35",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
