@@ -44178,7 +44178,7 @@ class SendTaskalarmResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 告警是否成功
+        # 异常结果返回值
         self.alarmcode = alarmcode
 
     def validate(self):
