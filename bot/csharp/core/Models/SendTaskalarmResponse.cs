@@ -24,7 +24,7 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 告警是否成功
+        // 异常结果返回值
         [NameInMap("alarmcode")]
         [Validation(Required=false)]
         public bool? Alarmcode { get; set; }
