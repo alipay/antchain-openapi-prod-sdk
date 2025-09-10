@@ -35274,7 +35274,7 @@ type SendTaskalarmResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 告警是否成功
+	// 异常结果返回值
 	Alarmcode *bool `json:"alarmcode,omitempty" xml:"alarmcode,omitempty"`
 }
 
@@ -37076,7 +37076,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.34"),
+				"sdk_version":      tea.String("1.12.35"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
