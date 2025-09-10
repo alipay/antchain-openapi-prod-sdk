@@ -26,7 +26,7 @@ class SendTaskalarmResponse extends Model
      */
     public $resultMsg;
 
-    // 告警是否成功
+    // 异常结果返回值
     /**
      * @var bool
      */
