@@ -16,7 +16,7 @@ public class SendTaskalarmResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 告警是否成功
+    // 异常结果返回值
     @NameInMap("alarmcode")
     public Boolean alarmcode;
 
