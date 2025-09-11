@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_webtrwatrade.
 
-Created on 05/09/2025
+Created on 11/09/2025
 
 @author: Ant Chain SDK
 """
