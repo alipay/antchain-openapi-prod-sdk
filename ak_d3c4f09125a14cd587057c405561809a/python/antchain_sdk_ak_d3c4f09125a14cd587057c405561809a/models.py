@@ -430,6 +430,98 @@ class CrossChainAccountsVO(TeaModel):
         return self
 
 
+class SubUserAccountDetailsVO(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        transaction_hash: str = None,
+        pre_balance: str = None,
+        transaction_amount: str = None,
+        post_balance: str = None,
+        transaction_type: str = None,
+        counter_address: str = None,
+        gmt_created: int = None,
+        gmt_modified: str = None,
+    ):
+        # 明细ID
+        self.id = id
+        # 交易链上Hash
+        self.transaction_hash = transaction_hash
+        # 交易前余额
+        self.pre_balance = pre_balance
+        # 交易数量
+        self.transaction_amount = transaction_amount
+        # 交易后余额
+        self.post_balance = post_balance
+        # 交易类别
+        self.transaction_type = transaction_type
+        # 对手地址
+        self.counter_address = counter_address
+        # 创建时间
+        self.gmt_created = gmt_created
+        # 更新时间
+        self.gmt_modified = gmt_modified
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.transaction_hash, 'transaction_hash')
+        self.validate_required(self.pre_balance, 'pre_balance')
+        self.validate_required(self.transaction_amount, 'transaction_amount')
+        self.validate_required(self.post_balance, 'post_balance')
+        self.validate_required(self.transaction_type, 'transaction_type')
+        self.validate_required(self.counter_address, 'counter_address')
+        self.validate_required(self.gmt_created, 'gmt_created')
+        self.validate_required(self.gmt_modified, 'gmt_modified')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.transaction_hash is not None:
+            result['transaction_hash'] = self.transaction_hash
+        if self.pre_balance is not None:
+            result['pre_balance'] = self.pre_balance
+        if self.transaction_amount is not None:
+            result['transaction_amount'] = self.transaction_amount
+        if self.post_balance is not None:
+            result['post_balance'] = self.post_balance
+        if self.transaction_type is not None:
+            result['transaction_type'] = self.transaction_type
+        if self.counter_address is not None:
+            result['counter_address'] = self.counter_address
+        if self.gmt_created is not None:
+            result['gmt_created'] = self.gmt_created
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('transaction_hash') is not None:
+            self.transaction_hash = m.get('transaction_hash')
+        if m.get('pre_balance') is not None:
+            self.pre_balance = m.get('pre_balance')
+        if m.get('transaction_amount') is not None:
+            self.transaction_amount = m.get('transaction_amount')
+        if m.get('post_balance') is not None:
+            self.post_balance = m.get('post_balance')
+        if m.get('transaction_type') is not None:
+            self.transaction_type = m.get('transaction_type')
+        if m.get('counter_address') is not None:
+            self.counter_address = m.get('counter_address')
+        if m.get('gmt_created') is not None:
+            self.gmt_created = m.get('gmt_created')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
+        return self
+
+
 class UserOperatorInfoBO(TeaModel):
     def __init__(
         self,
@@ -491,6 +583,98 @@ class UserOperatorInfoBO(TeaModel):
                 self.user_login_account_list.append(temp_model.from_map(k))
         if m.get('user_institution_type_list') is not None:
             self.user_institution_type_list = m.get('user_institution_type_list')
+        return self
+
+
+class SubUserBonusAccountDetailVO(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        transaction_hash: str = None,
+        pre_balance: str = None,
+        transaction_amount: str = None,
+        post_balance: str = None,
+        transaction_type: str = None,
+        counter_address: str = None,
+        gmt_created: int = None,
+        gmt_modified: int = None,
+    ):
+        # 明细ID
+        self.id = id
+        # 交易链上Hash
+        self.transaction_hash = transaction_hash
+        # 交易前余额
+        self.pre_balance = pre_balance
+        # 交易数量
+        self.transaction_amount = transaction_amount
+        # 交易后余额
+        self.post_balance = post_balance
+        # 交易类别
+        self.transaction_type = transaction_type
+        # 对手地址
+        self.counter_address = counter_address
+        # 创建时间
+        self.gmt_created = gmt_created
+        # 更新时间
+        self.gmt_modified = gmt_modified
+
+    def validate(self):
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.transaction_hash, 'transaction_hash')
+        self.validate_required(self.pre_balance, 'pre_balance')
+        self.validate_required(self.transaction_amount, 'transaction_amount')
+        self.validate_required(self.post_balance, 'post_balance')
+        self.validate_required(self.transaction_type, 'transaction_type')
+        self.validate_required(self.counter_address, 'counter_address')
+        self.validate_required(self.gmt_created, 'gmt_created')
+        self.validate_required(self.gmt_modified, 'gmt_modified')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.transaction_hash is not None:
+            result['transaction_hash'] = self.transaction_hash
+        if self.pre_balance is not None:
+            result['pre_balance'] = self.pre_balance
+        if self.transaction_amount is not None:
+            result['transaction_amount'] = self.transaction_amount
+        if self.post_balance is not None:
+            result['post_balance'] = self.post_balance
+        if self.transaction_type is not None:
+            result['transaction_type'] = self.transaction_type
+        if self.counter_address is not None:
+            result['counter_address'] = self.counter_address
+        if self.gmt_created is not None:
+            result['gmt_created'] = self.gmt_created
+        if self.gmt_modified is not None:
+            result['gmt_modified'] = self.gmt_modified
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('transaction_hash') is not None:
+            self.transaction_hash = m.get('transaction_hash')
+        if m.get('pre_balance') is not None:
+            self.pre_balance = m.get('pre_balance')
+        if m.get('transaction_amount') is not None:
+            self.transaction_amount = m.get('transaction_amount')
+        if m.get('post_balance') is not None:
+            self.post_balance = m.get('post_balance')
+        if m.get('transaction_type') is not None:
+            self.transaction_type = m.get('transaction_type')
+        if m.get('counter_address') is not None:
+            self.counter_address = m.get('counter_address')
+        if m.get('gmt_created') is not None:
+            self.gmt_created = m.get('gmt_created')
+        if m.get('gmt_modified') is not None:
+            self.gmt_modified = m.get('gmt_modified')
         return self
 
 
@@ -779,98 +963,6 @@ class CrossAccountListVO(TeaModel):
         return self
 
 
-class SubUserAccountVO(TeaModel):
-    def __init__(
-        self,
-        user_account_id: str = None,
-        user_id: str = None,
-        user_address: str = None,
-        user_target: str = None,
-        user_balance: str = None,
-        asset_project_id: str = None,
-        asset_project_name: str = None,
-        institution_id: str = None,
-        institution_name: str = None,
-    ):
-        # 用户账户id
-        self.user_account_id = user_account_id
-        # 用户id
-        self.user_id = user_id
-        # 用户地址
-        self.user_address = user_address
-        # 用户资产配额
-        self.user_target = user_target
-        # 用户资产
-        self.user_balance = user_balance
-        # 项目id
-        self.asset_project_id = asset_project_id
-        # 项目名称
-        self.asset_project_name = asset_project_name
-        # 用户所属机构id
-        self.institution_id = institution_id
-        # 用户所属机构名称
-        self.institution_name = institution_name
-
-    def validate(self):
-        self.validate_required(self.user_account_id, 'user_account_id')
-        self.validate_required(self.user_id, 'user_id')
-        self.validate_required(self.user_address, 'user_address')
-        self.validate_required(self.user_target, 'user_target')
-        self.validate_required(self.user_balance, 'user_balance')
-        self.validate_required(self.asset_project_id, 'asset_project_id')
-        self.validate_required(self.asset_project_name, 'asset_project_name')
-        self.validate_required(self.institution_id, 'institution_id')
-        self.validate_required(self.institution_name, 'institution_name')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.user_account_id is not None:
-            result['user_account_id'] = self.user_account_id
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
-        if self.user_address is not None:
-            result['user_address'] = self.user_address
-        if self.user_target is not None:
-            result['user_target'] = self.user_target
-        if self.user_balance is not None:
-            result['user_balance'] = self.user_balance
-        if self.asset_project_id is not None:
-            result['asset_project_id'] = self.asset_project_id
-        if self.asset_project_name is not None:
-            result['asset_project_name'] = self.asset_project_name
-        if self.institution_id is not None:
-            result['institution_id'] = self.institution_id
-        if self.institution_name is not None:
-            result['institution_name'] = self.institution_name
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('user_account_id') is not None:
-            self.user_account_id = m.get('user_account_id')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
-        if m.get('user_address') is not None:
-            self.user_address = m.get('user_address')
-        if m.get('user_target') is not None:
-            self.user_target = m.get('user_target')
-        if m.get('user_balance') is not None:
-            self.user_balance = m.get('user_balance')
-        if m.get('asset_project_id') is not None:
-            self.asset_project_id = m.get('asset_project_id')
-        if m.get('asset_project_name') is not None:
-            self.asset_project_name = m.get('asset_project_name')
-        if m.get('institution_id') is not None:
-            self.institution_id = m.get('institution_id')
-        if m.get('institution_name') is not None:
-            self.institution_name = m.get('institution_name')
-        return self
-
-
 class LoginOperationLogVO(TeaModel):
     def __init__(
         self,
@@ -944,29 +1036,51 @@ class LoginOperationLogVO(TeaModel):
         return self
 
 
-class QueryAntdigitalWebtrwatradeIssuerSubuserRequest(TeaModel):
+class SubUserAccountDetailVO(TeaModel):
     def __init__(
         self,
-        auth_token: str = None,
-        product_instance_id: str = None,
-        user_id: str = None,
         project_id: str = None,
-        institution_id: str = None,
+        asset_project_address: str = None,
+        bonus_address: str = None,
+        user_id: str = None,
+        distributor_institution_id: str = None,
+        chain_name: str = None,
+        sub_user_account_id: str = None,
+        sub_user_bonus_account_id: str = None,
+        sub_user_account_details: List[SubUserAccountDetailsVO] = None,
+        sub_user_bonus_account_details: List[SubUserBonusAccountDetailVO] = None,
     ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        self.product_instance_id = product_instance_id
-        # 用户id
-        self.user_id = user_id
-        # 项目id
+        # 项目ID
         self.project_id = project_id
-        # 机构id
-        self.institution_id = institution_id
+        # 资产项目合约地址
+        self.asset_project_address = asset_project_address
+        # 红利合约地址
+        self.bonus_address = bonus_address
+        # 用户ID
+        self.user_id = user_id
+        # 代销机构ID
+        self.distributor_institution_id = distributor_institution_id
+        # 发行链名称
+        self.chain_name = chain_name
+        # 投资者用户账户ID
+        self.sub_user_account_id = sub_user_account_id
+        # 投资者用户红利账户ID
+        self.sub_user_bonus_account_id = sub_user_bonus_account_id
+        # 资产账户明细
+        self.sub_user_account_details = sub_user_account_details
+        # 红利账户明细
+        self.sub_user_bonus_account_details = sub_user_bonus_account_details
 
     def validate(self):
-        self.validate_required(self.user_id, 'user_id')
         self.validate_required(self.project_id, 'project_id')
-        self.validate_required(self.institution_id, 'institution_id')
+        if self.sub_user_account_details:
+            for k in self.sub_user_account_details:
+                if k:
+                    k.validate()
+        if self.sub_user_bonus_account_details:
+            for k in self.sub_user_bonus_account_details:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -974,189 +1088,60 @@ class QueryAntdigitalWebtrwatradeIssuerSubuserRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.product_instance_id is not None:
-            result['product_instance_id'] = self.product_instance_id
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
         if self.project_id is not None:
             result['project_id'] = self.project_id
-        if self.institution_id is not None:
-            result['institution_id'] = self.institution_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('product_instance_id') is not None:
-            self.product_instance_id = m.get('product_instance_id')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
-        if m.get('project_id') is not None:
-            self.project_id = m.get('project_id')
-        if m.get('institution_id') is not None:
-            self.institution_id = m.get('institution_id')
-        return self
-
-
-class QueryAntdigitalWebtrwatradeIssuerSubuserResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        data: SubUserAccountVO = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # 二级用户信息
-        self.data = data
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.data is not None:
-            result['data'] = self.data.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('data') is not None:
-            temp_model = SubUserAccountVO()
-            self.data = temp_model.from_map(m['data'])
-        return self
-
-
-class QueryAntdigitalWebtrwatradeDistributorSubuserRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        product_instance_id: str = None,
-        user_id: str = None,
-        institution_id: str = None,
-        project_id: str = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        self.product_instance_id = product_instance_id
-        # 用户id
-        self.user_id = user_id
-        # 机构id
-        self.institution_id = institution_id
-        # 项目id
-        self.project_id = project_id
-
-    def validate(self):
-        self.validate_required(self.user_id, 'user_id')
-        self.validate_required(self.institution_id, 'institution_id')
-        self.validate_required(self.project_id, 'project_id')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.product_instance_id is not None:
-            result['product_instance_id'] = self.product_instance_id
+        if self.asset_project_address is not None:
+            result['asset_project_address'] = self.asset_project_address
+        if self.bonus_address is not None:
+            result['bonus_address'] = self.bonus_address
         if self.user_id is not None:
             result['user_id'] = self.user_id
-        if self.institution_id is not None:
-            result['institution_id'] = self.institution_id
-        if self.project_id is not None:
-            result['project_id'] = self.project_id
+        if self.distributor_institution_id is not None:
+            result['distributor_institution_id'] = self.distributor_institution_id
+        if self.chain_name is not None:
+            result['chain_name'] = self.chain_name
+        if self.sub_user_account_id is not None:
+            result['sub_user_account_id'] = self.sub_user_account_id
+        if self.sub_user_bonus_account_id is not None:
+            result['sub_user_bonus_account_id'] = self.sub_user_bonus_account_id
+        result['sub_user_account_details'] = []
+        if self.sub_user_account_details is not None:
+            for k in self.sub_user_account_details:
+                result['sub_user_account_details'].append(k.to_map() if k else None)
+        result['sub_user_bonus_account_details'] = []
+        if self.sub_user_bonus_account_details is not None:
+            for k in self.sub_user_bonus_account_details:
+                result['sub_user_bonus_account_details'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('product_instance_id') is not None:
-            self.product_instance_id = m.get('product_instance_id')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
-        if m.get('institution_id') is not None:
-            self.institution_id = m.get('institution_id')
         if m.get('project_id') is not None:
             self.project_id = m.get('project_id')
-        return self
-
-
-class QueryAntdigitalWebtrwatradeDistributorSubuserResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        data: SubUserAccountVO = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # 二级用户信息
-        self.data = data
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.data is not None:
-            result['data'] = self.data.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('data') is not None:
-            temp_model = SubUserAccountVO()
-            self.data = temp_model.from_map(m['data'])
+        if m.get('asset_project_address') is not None:
+            self.asset_project_address = m.get('asset_project_address')
+        if m.get('bonus_address') is not None:
+            self.bonus_address = m.get('bonus_address')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('distributor_institution_id') is not None:
+            self.distributor_institution_id = m.get('distributor_institution_id')
+        if m.get('chain_name') is not None:
+            self.chain_name = m.get('chain_name')
+        if m.get('sub_user_account_id') is not None:
+            self.sub_user_account_id = m.get('sub_user_account_id')
+        if m.get('sub_user_bonus_account_id') is not None:
+            self.sub_user_bonus_account_id = m.get('sub_user_bonus_account_id')
+        self.sub_user_account_details = []
+        if m.get('sub_user_account_details') is not None:
+            for k in m.get('sub_user_account_details'):
+                temp_model = SubUserAccountDetailsVO()
+                self.sub_user_account_details.append(temp_model.from_map(k))
+        self.sub_user_bonus_account_details = []
+        if m.get('sub_user_bonus_account_details') is not None:
+            for k in m.get('sub_user_bonus_account_details'):
+                temp_model = SubUserBonusAccountDetailVO()
+                self.sub_user_bonus_account_details.append(temp_model.from_map(k))
         return self
 
 
@@ -1368,6 +1353,316 @@ class ListAntdigitalWebtrwatradeDistributorOperationlogResponse(TeaModel):
         if m.get('data') is not None:
             for k in m.get('data'):
                 temp_model = LoginOperationLogVO()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class QueryAntdigitalWebtrwatradeIssuerRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        asset_project_id: str = None,
+        asset_project_address: str = None,
+        user_id: str = None,
+        user_address: str = None,
+        login_name: str = None,
+        login_accout_type: str = None,
+        start_time_mills: int = None,
+        end_time_mills: int = None,
+        chain_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 资产项目ID
+        self.asset_project_id = asset_project_id
+        # 资产项目合约地址
+        self.asset_project_address = asset_project_address
+        # 用户ID
+        self.user_id = user_id
+        # 用户地址
+        self.user_address = user_address
+        # 登录名
+        self.login_name = login_name
+        # 登录名类型(EMAIL)
+        self.login_accout_type = login_accout_type
+        # 开始时间 (时间戳)
+        self.start_time_mills = start_time_mills
+        # 结束时间 (时间戳)
+        self.end_time_mills = end_time_mills
+        # 项目所在链
+        self.chain_name = chain_name
+
+    def validate(self):
+        self.validate_required(self.start_time_mills, 'start_time_mills')
+        self.validate_required(self.end_time_mills, 'end_time_mills')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.asset_project_id is not None:
+            result['asset_project_id'] = self.asset_project_id
+        if self.asset_project_address is not None:
+            result['asset_project_address'] = self.asset_project_address
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_address is not None:
+            result['user_address'] = self.user_address
+        if self.login_name is not None:
+            result['login_name'] = self.login_name
+        if self.login_accout_type is not None:
+            result['login_accout_type'] = self.login_accout_type
+        if self.start_time_mills is not None:
+            result['start_time_mills'] = self.start_time_mills
+        if self.end_time_mills is not None:
+            result['end_time_mills'] = self.end_time_mills
+        if self.chain_name is not None:
+            result['chain_name'] = self.chain_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('asset_project_id') is not None:
+            self.asset_project_id = m.get('asset_project_id')
+        if m.get('asset_project_address') is not None:
+            self.asset_project_address = m.get('asset_project_address')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_address') is not None:
+            self.user_address = m.get('user_address')
+        if m.get('login_name') is not None:
+            self.login_name = m.get('login_name')
+        if m.get('login_accout_type') is not None:
+            self.login_accout_type = m.get('login_accout_type')
+        if m.get('start_time_mills') is not None:
+            self.start_time_mills = m.get('start_time_mills')
+        if m.get('end_time_mills') is not None:
+            self.end_time_mills = m.get('end_time_mills')
+        if m.get('chain_name') is not None:
+            self.chain_name = m.get('chain_name')
+        return self
+
+
+class QueryAntdigitalWebtrwatradeIssuerResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[SubUserAccountDetailVO] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 账户明细列表
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = SubUserAccountDetailVO()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class QueryAntdigitalWebtrwatradeDistributorRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        asset_project_id: str = None,
+        asset_project_address: str = None,
+        chain_name: str = None,
+        user_id: str = None,
+        user_address: str = None,
+        login_name: str = None,
+        login_accout_type: str = None,
+        start_time_mills: int = None,
+        end_time_mills: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 资产项目ID
+        self.asset_project_id = asset_project_id
+        # 资产项目合约地址
+        self.asset_project_address = asset_project_address
+        # 项目所在链
+        self.chain_name = chain_name
+        # 用户ID
+        self.user_id = user_id
+        # 用户地址
+        self.user_address = user_address
+        # 登录名
+        self.login_name = login_name
+        # 登录名类型(EMAIL)
+        self.login_accout_type = login_accout_type
+        # 开始时间 (时间戳)
+        self.start_time_mills = start_time_mills
+        # 结束时间 (时间戳)
+        self.end_time_mills = end_time_mills
+
+    def validate(self):
+        self.validate_required(self.start_time_mills, 'start_time_mills')
+        self.validate_required(self.end_time_mills, 'end_time_mills')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.asset_project_id is not None:
+            result['asset_project_id'] = self.asset_project_id
+        if self.asset_project_address is not None:
+            result['asset_project_address'] = self.asset_project_address
+        if self.chain_name is not None:
+            result['chain_name'] = self.chain_name
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_address is not None:
+            result['user_address'] = self.user_address
+        if self.login_name is not None:
+            result['login_name'] = self.login_name
+        if self.login_accout_type is not None:
+            result['login_accout_type'] = self.login_accout_type
+        if self.start_time_mills is not None:
+            result['start_time_mills'] = self.start_time_mills
+        if self.end_time_mills is not None:
+            result['end_time_mills'] = self.end_time_mills
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('asset_project_id') is not None:
+            self.asset_project_id = m.get('asset_project_id')
+        if m.get('asset_project_address') is not None:
+            self.asset_project_address = m.get('asset_project_address')
+        if m.get('chain_name') is not None:
+            self.chain_name = m.get('chain_name')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_address') is not None:
+            self.user_address = m.get('user_address')
+        if m.get('login_name') is not None:
+            self.login_name = m.get('login_name')
+        if m.get('login_accout_type') is not None:
+            self.login_accout_type = m.get('login_accout_type')
+        if m.get('start_time_mills') is not None:
+            self.start_time_mills = m.get('start_time_mills')
+        if m.get('end_time_mills') is not None:
+            self.end_time_mills = m.get('end_time_mills')
+        return self
+
+
+class QueryAntdigitalWebtrwatradeDistributorResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[SubUserAccountDetailVO] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 账户明细列表
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = SubUserAccountDetailVO()
                 self.data.append(temp_model.from_map(k))
         return self
 

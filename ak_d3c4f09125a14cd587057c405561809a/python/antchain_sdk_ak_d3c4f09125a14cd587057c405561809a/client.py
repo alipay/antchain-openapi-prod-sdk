@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_d3c4f09125a14cd587057c405561809a',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_d3c4f09125a14cd587057c405561809a',
                     '_prod_channel': 'saas'
                 }
@@ -274,118 +274,6 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
-
-    def query_antdigital_webtrwatrade_issuer_subuser(
-        self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuserRequest,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuserResponse:
-        """
-        Description: 查询单个二级用户
-        Summary: 查询单个二级用户
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_antdigital_webtrwatrade_issuer_subuser_ex(request, headers, runtime)
-
-    async def query_antdigital_webtrwatrade_issuer_subuser_async(
-        self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuserRequest,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuserResponse:
-        """
-        Description: 查询单个二级用户
-        Summary: 查询单个二级用户
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_antdigital_webtrwatrade_issuer_subuser_ex_async(request, headers, runtime)
-
-    def query_antdigital_webtrwatrade_issuer_subuser_ex(
-        self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuserRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuserResponse:
-        """
-        Description: 查询单个二级用户
-        Summary: 查询单个二级用户
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuserResponse(),
-            self.do_request('1.0', 'antdigital.webtrwatrade.issuer.subuser.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_antdigital_webtrwatrade_issuer_subuser_ex_async(
-        self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuserRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuserResponse:
-        """
-        Description: 查询单个二级用户
-        Summary: 查询单个二级用户
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerSubuserResponse(),
-            await self.do_request_async('1.0', 'antdigital.webtrwatrade.issuer.subuser.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_antdigital_webtrwatrade_distributor_subuser(
-        self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuserRequest,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuserResponse:
-        """
-        Description: 查询单个二级用户
-        Summary: 查询单个二级用户
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_antdigital_webtrwatrade_distributor_subuser_ex(request, headers, runtime)
-
-    async def query_antdigital_webtrwatrade_distributor_subuser_async(
-        self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuserRequest,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuserResponse:
-        """
-        Description: 查询单个二级用户
-        Summary: 查询单个二级用户
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_antdigital_webtrwatrade_distributor_subuser_ex_async(request, headers, runtime)
-
-    def query_antdigital_webtrwatrade_distributor_subuser_ex(
-        self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuserRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuserResponse:
-        """
-        Description: 查询单个二级用户
-        Summary: 查询单个二级用户
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuserResponse(),
-            self.do_request('1.0', 'antdigital.webtrwatrade.distributor.subuser.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_antdigital_webtrwatrade_distributor_subuser_ex_async(
-        self,
-        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuserRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuserResponse:
-        """
-        Description: 查询单个二级用户
-        Summary: 查询单个二级用户
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorSubuserResponse(),
-            await self.do_request_async('1.0', 'antdigital.webtrwatrade.distributor.subuser.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
 
     def list_antdigital_webtrwatrade_issuer_operationlog(
         self,
@@ -497,6 +385,118 @@ class Client:
         return TeaCore.from_map(
             ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.ListAntdigitalWebtrwatradeDistributorOperationlogResponse(),
             await self.do_request_async('1.0', 'antdigital.webtrwatrade.distributor.operationlog.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antdigital_webtrwatrade_issuer(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerResponse:
+        """
+        Description: 发行机构获取二级用户详情数据
+        Summary: 发行机构获取二级用户详情数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antdigital_webtrwatrade_issuer_ex(request, headers, runtime)
+
+    async def query_antdigital_webtrwatrade_issuer_async(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerResponse:
+        """
+        Description: 发行机构获取二级用户详情数据
+        Summary: 发行机构获取二级用户详情数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antdigital_webtrwatrade_issuer_ex_async(request, headers, runtime)
+
+    def query_antdigital_webtrwatrade_issuer_ex(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerResponse:
+        """
+        Description: 发行机构获取二级用户详情数据
+        Summary: 发行机构获取二级用户详情数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.issuer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antdigital_webtrwatrade_issuer_ex_async(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerResponse:
+        """
+        Description: 发行机构获取二级用户详情数据
+        Summary: 发行机构获取二级用户详情数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeIssuerResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.issuer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antdigital_webtrwatrade_distributor(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorResponse:
+        """
+        Description: 代销机构获取二级用户详情数据
+        Summary: 代销机构获取二级用户详情数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antdigital_webtrwatrade_distributor_ex(request, headers, runtime)
+
+    async def query_antdigital_webtrwatrade_distributor_async(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorRequest,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorResponse:
+        """
+        Description: 代销机构获取二级用户详情数据
+        Summary: 代销机构获取二级用户详情数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antdigital_webtrwatrade_distributor_ex_async(request, headers, runtime)
+
+    def query_antdigital_webtrwatrade_distributor_ex(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorResponse:
+        """
+        Description: 代销机构获取二级用户详情数据
+        Summary: 代销机构获取二级用户详情数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorResponse(),
+            self.do_request('1.0', 'antdigital.webtrwatrade.distributor.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antdigital_webtrwatrade_distributor_ex_async(
+        self,
+        request: ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorResponse:
+        """
+        Description: 代销机构获取二级用户详情数据
+        Summary: 代销机构获取二级用户详情数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_d_3c_4f_09125a_14cd_587057c_405561809a_models.QueryAntdigitalWebtrwatradeDistributorResponse(),
+            await self.do_request_async('1.0', 'antdigital.webtrwatrade.distributor.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def list_antdigital_webtrwatrade_issuer_crossaccount(
