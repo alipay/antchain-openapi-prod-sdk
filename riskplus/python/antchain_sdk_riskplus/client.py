@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.26.3',
+                    'sdk_version': '1.26.4',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.26.3',
+                    'sdk_version': '1.26.4',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -385,6 +385,118 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.NotifyBenefithubRiskLoginResponse(),
             await self.do_request_async('1.0', 'riskplus.benefithub.risk.login.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_benefithub_risk_payunilateral(
+        self,
+        request: riskplus_models.NotifyBenefithubRiskPayunilateralRequest,
+    ) -> riskplus_models.NotifyBenefithubRiskPayunilateralResponse:
+        """
+        Description: 奇富组件支付结果通知, 提供给驭鉴使用，用于接收从奇富支付成功的通知，发起订单创建
+        Summary: 奇富组件支付结果通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_benefithub_risk_payunilateral_ex(request, headers, runtime)
+
+    async def notify_benefithub_risk_payunilateral_async(
+        self,
+        request: riskplus_models.NotifyBenefithubRiskPayunilateralRequest,
+    ) -> riskplus_models.NotifyBenefithubRiskPayunilateralResponse:
+        """
+        Description: 奇富组件支付结果通知, 提供给驭鉴使用，用于接收从奇富支付成功的通知，发起订单创建
+        Summary: 奇富组件支付结果通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_benefithub_risk_payunilateral_ex_async(request, headers, runtime)
+
+    def notify_benefithub_risk_payunilateral_ex(
+        self,
+        request: riskplus_models.NotifyBenefithubRiskPayunilateralRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.NotifyBenefithubRiskPayunilateralResponse:
+        """
+        Description: 奇富组件支付结果通知, 提供给驭鉴使用，用于接收从奇富支付成功的通知，发起订单创建
+        Summary: 奇富组件支付结果通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.NotifyBenefithubRiskPayunilateralResponse(),
+            self.do_request('1.0', 'riskplus.benefithub.risk.payunilateral.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_benefithub_risk_payunilateral_ex_async(
+        self,
+        request: riskplus_models.NotifyBenefithubRiskPayunilateralRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.NotifyBenefithubRiskPayunilateralResponse:
+        """
+        Description: 奇富组件支付结果通知, 提供给驭鉴使用，用于接收从奇富支付成功的通知，发起订单创建
+        Summary: 奇富组件支付结果通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.NotifyBenefithubRiskPayunilateralResponse(),
+            await self.do_request_async('1.0', 'riskplus.benefithub.risk.payunilateral.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_benefithub_report_information(
+        self,
+        request: riskplus_models.QueryBenefithubReportInformationRequest,
+    ) -> riskplus_models.QueryBenefithubReportInformationResponse:
+        """
+        Description: 渠道主动查询报告详情接口
+        Summary: 渠道查询报告详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_benefithub_report_information_ex(request, headers, runtime)
+
+    async def query_benefithub_report_information_async(
+        self,
+        request: riskplus_models.QueryBenefithubReportInformationRequest,
+    ) -> riskplus_models.QueryBenefithubReportInformationResponse:
+        """
+        Description: 渠道主动查询报告详情接口
+        Summary: 渠道查询报告详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_benefithub_report_information_ex_async(request, headers, runtime)
+
+    def query_benefithub_report_information_ex(
+        self,
+        request: riskplus_models.QueryBenefithubReportInformationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryBenefithubReportInformationResponse:
+        """
+        Description: 渠道主动查询报告详情接口
+        Summary: 渠道查询报告详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryBenefithubReportInformationResponse(),
+            self.do_request('1.0', 'riskplus.benefithub.report.information.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_benefithub_report_information_ex_async(
+        self,
+        request: riskplus_models.QueryBenefithubReportInformationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryBenefithubReportInformationResponse:
+        """
+        Description: 渠道主动查询报告详情接口
+        Summary: 渠道查询报告详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryBenefithubReportInformationResponse(),
+            await self.do_request_async('1.0', 'riskplus.benefithub.report.information.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def batchquery_creditshield_product_info(
