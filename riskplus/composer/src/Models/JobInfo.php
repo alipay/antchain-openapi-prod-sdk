@@ -111,6 +111,14 @@ class JobInfo extends Model
      * @var int
      */
     public $yearSalary;
+
+    // 贷款用户所属行业类别
+    /**
+     * @example 1
+     *
+     * @var string
+     */
+    public $induInvol;
     protected $_name = [
         'jobType'             => 'job_type',
         'workPosition'        => 'work_position',
@@ -125,6 +133,7 @@ class JobInfo extends Model
         'companyStreet'       => 'company_street',
         'companyAddress'      => 'company_address',
         'yearSalary'          => 'year_salary',
+        'induInvol'           => 'indu_invol',
     ];
 
     public function validate()
@@ -172,6 +181,9 @@ class JobInfo extends Model
         }
         if (null !== $this->yearSalary) {
             $res['year_salary'] = $this->yearSalary;
+        }
+        if (null !== $this->induInvol) {
+            $res['indu_invol'] = $this->induInvol;
         }
 
         return $res;
@@ -223,6 +235,9 @@ class JobInfo extends Model
         }
         if (isset($map['year_salary'])) {
             $model->yearSalary = $map['year_salary'];
+        }
+        if (isset($map['indu_invol'])) {
+            $model->induInvol = $map['indu_invol'];
         }
 
         return $model;

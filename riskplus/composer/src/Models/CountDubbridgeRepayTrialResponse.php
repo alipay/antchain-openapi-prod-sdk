@@ -61,6 +61,12 @@ class CountDubbridgeRepayTrialResponse extends Model
      * @var int
      */
     public $realLiquidatedDamages;
+
+    // 试算期次还款计划结果
+    /**
+     * @var RepayResult[]
+     */
+    public $repayResultList;
     protected $_name = [
         'reqMsgId'              => 'req_msg_id',
         'resultCode'            => 'result_code',
@@ -71,6 +77,7 @@ class CountDubbridgeRepayTrialResponse extends Model
         'serviceCharge'         => 'service_charge',
         'realGuaranteeFee'      => 'real_guarantee_fee',
         'realLiquidatedDamages' => 'real_liquidated_damages',
+        'repayResultList'       => 'repay_result_list',
     ];
 
     public function validate()
@@ -106,6 +113,15 @@ class CountDubbridgeRepayTrialResponse extends Model
         }
         if (null !== $this->realLiquidatedDamages) {
             $res['real_liquidated_damages'] = $this->realLiquidatedDamages;
+        }
+        if (null !== $this->repayResultList) {
+            $res['repay_result_list'] = [];
+            if (null !== $this->repayResultList && \is_array($this->repayResultList)) {
+                $n = 0;
+                foreach ($this->repayResultList as $item) {
+                    $res['repay_result_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -145,6 +161,15 @@ class CountDubbridgeRepayTrialResponse extends Model
         }
         if (isset($map['real_liquidated_damages'])) {
             $model->realLiquidatedDamages = $map['real_liquidated_damages'];
+        }
+        if (isset($map['repay_result_list'])) {
+            if (!empty($map['repay_result_list'])) {
+                $model->repayResultList = [];
+                $n                      = 0;
+                foreach ($map['repay_result_list'] as $item) {
+                    $model->repayResultList[$n++] = null !== $item ? RepayResult::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

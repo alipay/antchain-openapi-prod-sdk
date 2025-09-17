@@ -159,6 +159,8 @@ use AntChain\RISKPLUS\Models\ListRtopStarCompanyRequest;
 use AntChain\RISKPLUS\Models\ListRtopStarCompanyResponse;
 use AntChain\RISKPLUS\Models\NotifyBenefithubRiskLoginRequest;
 use AntChain\RISKPLUS\Models\NotifyBenefithubRiskLoginResponse;
+use AntChain\RISKPLUS\Models\NotifyBenefithubRiskPayunilateralRequest;
+use AntChain\RISKPLUS\Models\NotifyBenefithubRiskPayunilateralResponse;
 use AntChain\RISKPLUS\Models\NotifyDubbridgeCallbackRequest;
 use AntChain\RISKPLUS\Models\NotifyDubbridgeCallbackResponse;
 use AntChain\RISKPLUS\Models\NotifyDubbridgeDefininnerchannelRequest;
@@ -203,6 +205,8 @@ use AntChain\RISKPLUS\Models\PushUmktCustomerGroupRequest;
 use AntChain\RISKPLUS\Models\PushUmktCustomerGroupResponse;
 use AntChain\RISKPLUS\Models\QueryBatchSecurityPolicyRequest;
 use AntChain\RISKPLUS\Models\QueryBatchSecurityPolicyResponse;
+use AntChain\RISKPLUS\Models\QueryBenefithubReportInformationRequest;
+use AntChain\RISKPLUS\Models\QueryBenefithubReportInformationResponse;
 use AntChain\RISKPLUS\Models\QueryCreditshieldProductBatchRequest;
 use AntChain\RISKPLUS\Models\QueryCreditshieldProductBatchResponse;
 use AntChain\RISKPLUS\Models\QueryCreditshieldProductCallbackRequest;
@@ -628,7 +632,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.26.3',
+                    'sdk_version'      => '1.26.4',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -740,6 +744,72 @@ class Client
         Utils::validateModel($request);
 
         return NotifyBenefithubRiskLoginResponse::fromMap($this->doRequest('1.0', 'riskplus.benefithub.risk.login.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 奇富组件支付结果通知, 提供给驭鉴使用，用于接收从奇富支付成功的通知，发起订单创建
+     * Summary: 奇富组件支付结果通知.
+     *
+     * @param NotifyBenefithubRiskPayunilateralRequest $request
+     *
+     * @return NotifyBenefithubRiskPayunilateralResponse
+     */
+    public function notifyBenefithubRiskPayunilateral($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyBenefithubRiskPayunilateralEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 奇富组件支付结果通知, 提供给驭鉴使用，用于接收从奇富支付成功的通知，发起订单创建
+     * Summary: 奇富组件支付结果通知.
+     *
+     * @param NotifyBenefithubRiskPayunilateralRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return NotifyBenefithubRiskPayunilateralResponse
+     */
+    public function notifyBenefithubRiskPayunilateralEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyBenefithubRiskPayunilateralResponse::fromMap($this->doRequest('1.0', 'riskplus.benefithub.risk.payunilateral.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 渠道主动查询报告详情接口
+     * Summary: 渠道查询报告详情.
+     *
+     * @param QueryBenefithubReportInformationRequest $request
+     *
+     * @return QueryBenefithubReportInformationResponse
+     */
+    public function queryBenefithubReportInformation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBenefithubReportInformationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 渠道主动查询报告详情接口
+     * Summary: 渠道查询报告详情.
+     *
+     * @param QueryBenefithubReportInformationRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return QueryBenefithubReportInformationResponse
+     */
+    public function queryBenefithubReportInformationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBenefithubReportInformationResponse::fromMap($this->doRequest('1.0', 'riskplus.benefithub.report.information.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
