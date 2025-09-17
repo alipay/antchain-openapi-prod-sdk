@@ -5889,11 +5889,20 @@ export class QueryBenefithubReportInformationRequest extends $tea.Model {
   productInstanceId?: string;
   // 订单号
   orderNo: string;
+  // 业务分配的平台code，8位纯大写字母code
+  platformCode: string;
+  // 产品码
+  productCode: string;
+  // 平台code、用户唯一ID 组合出全局唯一id
+  userUniqueId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       orderNo: 'order_no',
+      platformCode: 'platform_code',
+      productCode: 'product_code',
+      userUniqueId: 'user_unique_id',
     };
   }
 
@@ -5902,6 +5911,9 @@ export class QueryBenefithubReportInformationRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       orderNo: 'string',
+      platformCode: 'string',
+      productCode: 'string',
+      userUniqueId: 'string',
     };
   }
 
@@ -24910,7 +24922,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.26.4",
+          sdk_version: "1.26.5",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
