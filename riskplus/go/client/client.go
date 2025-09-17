@@ -4039,6 +4039,8 @@ type JobInfo struct {
 	CompanyAddress *string `json:"company_address,omitempty" xml:"company_address,omitempty"`
 	// 年收入
 	YearSalary *int64 `json:"year_salary,omitempty" xml:"year_salary,omitempty"`
+	// 贷款用户所属行业类别
+	InduInvol *string `json:"indu_invol,omitempty" xml:"indu_invol,omitempty"`
 }
 
 func (s JobInfo) String() string {
@@ -4111,6 +4113,11 @@ func (s *JobInfo) SetCompanyAddress(v string) *JobInfo {
 
 func (s *JobInfo) SetYearSalary(v int64) *JobInfo {
 	s.YearSalary = &v
+	return s
+}
+
+func (s *JobInfo) SetInduInvol(v string) *JobInfo {
+	s.InduInvol = &v
 	return s
 }
 
@@ -7773,6 +7780,307 @@ func (s *NotifyBenefithubRiskLoginResponse) SetResultMsg(v string) *NotifyBenefi
 
 func (s *NotifyBenefithubRiskLoginResponse) SetH5Url(v string) *NotifyBenefithubRiskLoginResponse {
 	s.H5Url = &v
+	return s
+}
+
+type NotifyBenefithubRiskPayunilateralRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务操作类型,目前只支持下单
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 外部支付的订单号
+	PaymentNo *string `json:"payment_no,omitempty" xml:"payment_no,omitempty" require:"true"`
+	// 订单状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 订单金额
+	OrderAmount *string `json:"order_amount,omitempty" xml:"order_amount,omitempty" require:"true"`
+	// 订单实际支付金额
+	PaymentAmount *string `json:"payment_amount,omitempty" xml:"payment_amount,omitempty" require:"true"`
+	// 支付时间
+	PaymentTime *string `json:"payment_time,omitempty" xml:"payment_time,omitempty" require:"true"`
+	// 支付使用的方式
+	PaymentMethodType *string `json:"payment_method_type,omitempty" xml:"payment_method_type,omitempty" require:"true"`
+	// 三方支付流水号
+	CapNum *string `json:"cap_num,omitempty" xml:"cap_num,omitempty" require:"true"`
+	// 支付通道商户号
+	MerchantNo *string `json:"merchant_no,omitempty" xml:"merchant_no,omitempty"`
+	// 订单类型，订阅、单次购买等
+	OrderType *string `json:"order_type,omitempty" xml:"order_type,omitempty" require:"true"`
+	// 订单来源
+	OrderSource *string `json:"order_source,omitempty" xml:"order_source,omitempty" require:"true"`
+	// 平台code，由蚂蚁数科颁发的特定平台code，用于报告产品授权使用
+	PlatformCode *string `json:"platform_code,omitempty" xml:"platform_code,omitempty" require:"true"`
+	// 用户唯一id，流量平台提供，内部结合platformCode 组成唯一code
+	UserUniqueId *string `json:"user_unique_id,omitempty" xml:"user_unique_id,omitempty" require:"true"`
+	// 产品code，具体的报告产品；不同产品价格、展示内容可能均不一样，可通过产品code区分不同场景
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+}
+
+func (s NotifyBenefithubRiskPayunilateralRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyBenefithubRiskPayunilateralRequest) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyBenefithubRiskPayunilateralRequest) SetAuthToken(v string) *NotifyBenefithubRiskPayunilateralRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskPayunilateralRequest) SetProductInstanceId(v string) *NotifyBenefithubRiskPayunilateralRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskPayunilateralRequest) SetBizType(v string) *NotifyBenefithubRiskPayunilateralRequest {
+	s.BizType = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskPayunilateralRequest) SetPaymentNo(v string) *NotifyBenefithubRiskPayunilateralRequest {
+	s.PaymentNo = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskPayunilateralRequest) SetStatus(v string) *NotifyBenefithubRiskPayunilateralRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskPayunilateralRequest) SetOrderAmount(v string) *NotifyBenefithubRiskPayunilateralRequest {
+	s.OrderAmount = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskPayunilateralRequest) SetPaymentAmount(v string) *NotifyBenefithubRiskPayunilateralRequest {
+	s.PaymentAmount = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskPayunilateralRequest) SetPaymentTime(v string) *NotifyBenefithubRiskPayunilateralRequest {
+	s.PaymentTime = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskPayunilateralRequest) SetPaymentMethodType(v string) *NotifyBenefithubRiskPayunilateralRequest {
+	s.PaymentMethodType = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskPayunilateralRequest) SetCapNum(v string) *NotifyBenefithubRiskPayunilateralRequest {
+	s.CapNum = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskPayunilateralRequest) SetMerchantNo(v string) *NotifyBenefithubRiskPayunilateralRequest {
+	s.MerchantNo = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskPayunilateralRequest) SetOrderType(v string) *NotifyBenefithubRiskPayunilateralRequest {
+	s.OrderType = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskPayunilateralRequest) SetOrderSource(v string) *NotifyBenefithubRiskPayunilateralRequest {
+	s.OrderSource = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskPayunilateralRequest) SetPlatformCode(v string) *NotifyBenefithubRiskPayunilateralRequest {
+	s.PlatformCode = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskPayunilateralRequest) SetUserUniqueId(v string) *NotifyBenefithubRiskPayunilateralRequest {
+	s.UserUniqueId = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskPayunilateralRequest) SetProductCode(v string) *NotifyBenefithubRiskPayunilateralRequest {
+	s.ProductCode = &v
+	return s
+}
+
+type NotifyBenefithubRiskPayunilateralResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求返回结果
+	ResultData *string `json:"result_data,omitempty" xml:"result_data,omitempty"`
+}
+
+func (s NotifyBenefithubRiskPayunilateralResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyBenefithubRiskPayunilateralResponse) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyBenefithubRiskPayunilateralResponse) SetReqMsgId(v string) *NotifyBenefithubRiskPayunilateralResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskPayunilateralResponse) SetResultCode(v string) *NotifyBenefithubRiskPayunilateralResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskPayunilateralResponse) SetResultMsg(v string) *NotifyBenefithubRiskPayunilateralResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *NotifyBenefithubRiskPayunilateralResponse) SetResultData(v string) *NotifyBenefithubRiskPayunilateralResponse {
+	s.ResultData = &v
+	return s
+}
+
+type QueryBenefithubReportInformationRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+}
+
+func (s QueryBenefithubReportInformationRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBenefithubReportInformationRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBenefithubReportInformationRequest) SetAuthToken(v string) *QueryBenefithubReportInformationRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBenefithubReportInformationRequest) SetProductInstanceId(v string) *QueryBenefithubReportInformationRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBenefithubReportInformationRequest) SetOrderNo(v string) *QueryBenefithubReportInformationRequest {
+	s.OrderNo = &v
+	return s
+}
+
+type QueryBenefithubReportInformationResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户id
+	Uuid *string `json:"uuid,omitempty" xml:"uuid,omitempty"`
+	// 订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
+	// 平台code
+	PlatformCode *string `json:"platform_code,omitempty" xml:"platform_code,omitempty"`
+	// 产品码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
+	// 报案号
+	ReportNo *string `json:"report_no,omitempty" xml:"report_no,omitempty"`
+	// 报告生成时间
+	ReportTime *string `json:"report_time,omitempty" xml:"report_time,omitempty"`
+	// 报案到期时间
+	ReportEndTime *string `json:"report_end_time,omitempty" xml:"report_end_time,omitempty"`
+	// 报告内容
+	ReportContent *string `json:"report_content,omitempty" xml:"report_content,omitempty"`
+	// 状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 用户姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 身份证号
+	IdCard *string `json:"id_card,omitempty" xml:"id_card,omitempty"`
+}
+
+func (s QueryBenefithubReportInformationResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBenefithubReportInformationResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBenefithubReportInformationResponse) SetReqMsgId(v string) *QueryBenefithubReportInformationResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBenefithubReportInformationResponse) SetResultCode(v string) *QueryBenefithubReportInformationResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBenefithubReportInformationResponse) SetResultMsg(v string) *QueryBenefithubReportInformationResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBenefithubReportInformationResponse) SetUuid(v string) *QueryBenefithubReportInformationResponse {
+	s.Uuid = &v
+	return s
+}
+
+func (s *QueryBenefithubReportInformationResponse) SetOrderNo(v string) *QueryBenefithubReportInformationResponse {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryBenefithubReportInformationResponse) SetPlatformCode(v string) *QueryBenefithubReportInformationResponse {
+	s.PlatformCode = &v
+	return s
+}
+
+func (s *QueryBenefithubReportInformationResponse) SetProductCode(v string) *QueryBenefithubReportInformationResponse {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *QueryBenefithubReportInformationResponse) SetReportNo(v string) *QueryBenefithubReportInformationResponse {
+	s.ReportNo = &v
+	return s
+}
+
+func (s *QueryBenefithubReportInformationResponse) SetReportTime(v string) *QueryBenefithubReportInformationResponse {
+	s.ReportTime = &v
+	return s
+}
+
+func (s *QueryBenefithubReportInformationResponse) SetReportEndTime(v string) *QueryBenefithubReportInformationResponse {
+	s.ReportEndTime = &v
+	return s
+}
+
+func (s *QueryBenefithubReportInformationResponse) SetReportContent(v string) *QueryBenefithubReportInformationResponse {
+	s.ReportContent = &v
+	return s
+}
+
+func (s *QueryBenefithubReportInformationResponse) SetStatus(v string) *QueryBenefithubReportInformationResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryBenefithubReportInformationResponse) SetName(v string) *QueryBenefithubReportInformationResponse {
+	s.Name = &v
+	return s
+}
+
+func (s *QueryBenefithubReportInformationResponse) SetIdCard(v string) *QueryBenefithubReportInformationResponse {
+	s.IdCard = &v
 	return s
 }
 
@@ -13791,6 +14099,8 @@ type CountDubbridgeRepayTrialRequest struct {
 	RepayType *string `json:"repay_type,omitempty" xml:"repay_type,omitempty" require:"true"`
 	// 订单号
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 试算逾期期次列表
+	PeriodList []*int64 `json:"period_list,omitempty" xml:"period_list,omitempty" type:"Repeated"`
 }
 
 func (s CountDubbridgeRepayTrialRequest) String() string {
@@ -13826,6 +14136,11 @@ func (s *CountDubbridgeRepayTrialRequest) SetOrderNo(v string) *CountDubbridgeRe
 	return s
 }
 
+func (s *CountDubbridgeRepayTrialRequest) SetPeriodList(v []*int64) *CountDubbridgeRepayTrialRequest {
+	s.PeriodList = v
+	return s
+}
+
 type CountDubbridgeRepayTrialResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -13845,6 +14160,8 @@ type CountDubbridgeRepayTrialResponse struct {
 	RealGuaranteeFee *int64 `json:"real_guarantee_fee,omitempty" xml:"real_guarantee_fee,omitempty"`
 	// 违约金
 	RealLiquidatedDamages *int64 `json:"real_liquidated_damages,omitempty" xml:"real_liquidated_damages,omitempty"`
+	// 试算期次还款计划结果
+	RepayResultList []*RepayResult `json:"repay_result_list,omitempty" xml:"repay_result_list,omitempty" type:"Repeated"`
 }
 
 func (s CountDubbridgeRepayTrialResponse) String() string {
@@ -13900,20 +14217,39 @@ func (s *CountDubbridgeRepayTrialResponse) SetRealLiquidatedDamages(v int64) *Co
 	return s
 }
 
+func (s *CountDubbridgeRepayTrialResponse) SetRepayResultList(v []*RepayResult) *CountDubbridgeRepayTrialResponse {
+	s.RepayResultList = v
+	return s
+}
+
 type RepayDubbridgeRepayWithholdRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
 	// 授信申请订单号
 	OriginalOrderNo *string `json:"original_order_no,omitempty" xml:"original_order_no,omitempty" require:"true"`
 	// 还款类型1:当期结清，2：正常还款3：全部结清
 	RepayType *string `json:"repay_type,omitempty" xml:"repay_type,omitempty" require:"true"`
-	// 订单号
-	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 逾期期次列表（担保渠道）
+	PeriodList []*int64 `json:"period_list,omitempty" xml:"period_list,omitempty" type:"Repeated"`
 	// 校验还款金额
 	ValidRepayAmount *string `json:"valid_repay_amount,omitempty" xml:"valid_repay_amount,omitempty"`
 	// 银行卡号
 	BankCardNo *string `json:"bank_card_no,omitempty" xml:"bank_card_no,omitempty"`
+	// 是否支付代扣，Y是N否（Y：支付代扣，N：无需走支付通道，直接信息流入账--线下还款模式）；（担保渠道）
+	PaymentFlag *string `json:"payment_flag,omitempty" xml:"payment_flag,omitempty"`
+	// 账号开户名，payment_flag=Y时，必填；（担保渠道）
+	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty"`
+	// 银行预留手机号，payment_flag=Y时，必填；（担保渠道）
+	ReservedMobile *string `json:"reserved_mobile,omitempty" xml:"reserved_mobile,omitempty"`
+	// 账号开户行编码（担保渠道）
+	AccountOpenBank *string `json:"account_open_bank,omitempty" xml:"account_open_bank,omitempty"`
+	// 扣款渠道代码（担保渠道）
+	DeductionCode *string `json:"deduction_code,omitempty" xml:"deduction_code,omitempty"`
+	// 通道签约协议号（担保渠道）
+	SigningAgreementNum *string `json:"signing_agreement_num,omitempty" xml:"signing_agreement_num,omitempty"`
 }
 
 func (s RepayDubbridgeRepayWithholdRequest) String() string {
@@ -13934,6 +14270,11 @@ func (s *RepayDubbridgeRepayWithholdRequest) SetProductInstanceId(v string) *Rep
 	return s
 }
 
+func (s *RepayDubbridgeRepayWithholdRequest) SetOrderNo(v string) *RepayDubbridgeRepayWithholdRequest {
+	s.OrderNo = &v
+	return s
+}
+
 func (s *RepayDubbridgeRepayWithholdRequest) SetOriginalOrderNo(v string) *RepayDubbridgeRepayWithholdRequest {
 	s.OriginalOrderNo = &v
 	return s
@@ -13944,8 +14285,8 @@ func (s *RepayDubbridgeRepayWithholdRequest) SetRepayType(v string) *RepayDubbri
 	return s
 }
 
-func (s *RepayDubbridgeRepayWithholdRequest) SetOrderNo(v string) *RepayDubbridgeRepayWithholdRequest {
-	s.OrderNo = &v
+func (s *RepayDubbridgeRepayWithholdRequest) SetPeriodList(v []*int64) *RepayDubbridgeRepayWithholdRequest {
+	s.PeriodList = v
 	return s
 }
 
@@ -13956,6 +14297,36 @@ func (s *RepayDubbridgeRepayWithholdRequest) SetValidRepayAmount(v string) *Repa
 
 func (s *RepayDubbridgeRepayWithholdRequest) SetBankCardNo(v string) *RepayDubbridgeRepayWithholdRequest {
 	s.BankCardNo = &v
+	return s
+}
+
+func (s *RepayDubbridgeRepayWithholdRequest) SetPaymentFlag(v string) *RepayDubbridgeRepayWithholdRequest {
+	s.PaymentFlag = &v
+	return s
+}
+
+func (s *RepayDubbridgeRepayWithholdRequest) SetAccountName(v string) *RepayDubbridgeRepayWithholdRequest {
+	s.AccountName = &v
+	return s
+}
+
+func (s *RepayDubbridgeRepayWithholdRequest) SetReservedMobile(v string) *RepayDubbridgeRepayWithholdRequest {
+	s.ReservedMobile = &v
+	return s
+}
+
+func (s *RepayDubbridgeRepayWithholdRequest) SetAccountOpenBank(v string) *RepayDubbridgeRepayWithholdRequest {
+	s.AccountOpenBank = &v
+	return s
+}
+
+func (s *RepayDubbridgeRepayWithholdRequest) SetDeductionCode(v string) *RepayDubbridgeRepayWithholdRequest {
+	s.DeductionCode = &v
+	return s
+}
+
+func (s *RepayDubbridgeRepayWithholdRequest) SetSigningAgreementNum(v string) *RepayDubbridgeRepayWithholdRequest {
+	s.SigningAgreementNum = &v
 	return s
 }
 
@@ -32996,7 +33367,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.26.3"),
+				"sdk_version":      tea.String("1.26.4"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -33115,6 +33486,74 @@ func (client *Client) NotifyBenefithubRiskLoginEx(request *NotifyBenefithubRiskL
 	}
 	_result = &NotifyBenefithubRiskLoginResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.benefithub.risk.login.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 奇富组件支付结果通知, 提供给驭鉴使用，用于接收从奇富支付成功的通知，发起订单创建
+ * Summary: 奇富组件支付结果通知
+ */
+func (client *Client) NotifyBenefithubRiskPayunilateral(request *NotifyBenefithubRiskPayunilateralRequest) (_result *NotifyBenefithubRiskPayunilateralResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &NotifyBenefithubRiskPayunilateralResponse{}
+	_body, _err := client.NotifyBenefithubRiskPayunilateralEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 奇富组件支付结果通知, 提供给驭鉴使用，用于接收从奇富支付成功的通知，发起订单创建
+ * Summary: 奇富组件支付结果通知
+ */
+func (client *Client) NotifyBenefithubRiskPayunilateralEx(request *NotifyBenefithubRiskPayunilateralRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyBenefithubRiskPayunilateralResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &NotifyBenefithubRiskPayunilateralResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.benefithub.risk.payunilateral.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 渠道主动查询报告详情接口
+ * Summary: 渠道查询报告详情
+ */
+func (client *Client) QueryBenefithubReportInformation(request *QueryBenefithubReportInformationRequest) (_result *QueryBenefithubReportInformationResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBenefithubReportInformationResponse{}
+	_body, _err := client.QueryBenefithubReportInformationEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 渠道主动查询报告详情接口
+ * Summary: 渠道查询报告详情
+ */
+func (client *Client) QueryBenefithubReportInformationEx(request *QueryBenefithubReportInformationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBenefithubReportInformationResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBenefithubReportInformationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.benefithub.report.information.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
