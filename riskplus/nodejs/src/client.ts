@@ -3038,6 +3038,8 @@ export class JobInfo extends $tea.Model {
   companyAddress?: string;
   // 年收入
   yearSalary?: number;
+  // 贷款用户所属行业类别
+  induInvol?: string;
   static names(): { [key: string]: string } {
     return {
       jobType: 'job_type',
@@ -3053,6 +3055,7 @@ export class JobInfo extends $tea.Model {
       companyStreet: 'company_street',
       companyAddress: 'company_address',
       yearSalary: 'year_salary',
+      induInvol: 'indu_invol',
     };
   }
 
@@ -3071,6 +3074,7 @@ export class JobInfo extends $tea.Model {
       companyStreet: 'string',
       companyAddress: 'string',
       yearSalary: 'number',
+      induInvol: 'string',
     };
   }
 
@@ -5760,6 +5764,216 @@ export class NotifyBenefithubRiskLoginResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       h5Url: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyBenefithubRiskPayunilateralRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务操作类型,目前只支持下单
+  bizType: string;
+  // 外部支付的订单号
+  paymentNo: string;
+  // 订单状态
+  status: string;
+  // 订单金额
+  orderAmount: string;
+  // 订单实际支付金额
+  paymentAmount: string;
+  // 支付时间
+  paymentTime: string;
+  // 支付使用的方式
+  paymentMethodType: string;
+  // 三方支付流水号
+  capNum: string;
+  // 支付通道商户号
+  merchantNo?: string;
+  // 订单类型，订阅、单次购买等
+  orderType: string;
+  // 订单来源
+  orderSource: string;
+  // 平台code，由蚂蚁数科颁发的特定平台code，用于报告产品授权使用
+  platformCode: string;
+  // 用户唯一id，流量平台提供，内部结合platformCode 组成唯一code
+  userUniqueId: string;
+  // 产品code，具体的报告产品；不同产品价格、展示内容可能均不一样，可通过产品code区分不同场景
+  productCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizType: 'biz_type',
+      paymentNo: 'payment_no',
+      status: 'status',
+      orderAmount: 'order_amount',
+      paymentAmount: 'payment_amount',
+      paymentTime: 'payment_time',
+      paymentMethodType: 'payment_method_type',
+      capNum: 'cap_num',
+      merchantNo: 'merchant_no',
+      orderType: 'order_type',
+      orderSource: 'order_source',
+      platformCode: 'platform_code',
+      userUniqueId: 'user_unique_id',
+      productCode: 'product_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizType: 'string',
+      paymentNo: 'string',
+      status: 'string',
+      orderAmount: 'string',
+      paymentAmount: 'string',
+      paymentTime: 'string',
+      paymentMethodType: 'string',
+      capNum: 'string',
+      merchantNo: 'string',
+      orderType: 'string',
+      orderSource: 'string',
+      platformCode: 'string',
+      userUniqueId: 'string',
+      productCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyBenefithubRiskPayunilateralResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求返回结果
+  resultData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      resultData: 'result_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      resultData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBenefithubReportInformationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单号
+  orderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBenefithubReportInformationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户id
+  uuid?: string;
+  // 订单号
+  orderNo?: string;
+  // 平台code
+  platformCode?: string;
+  // 产品码
+  productCode?: string;
+  // 报案号
+  reportNo?: string;
+  // 报告生成时间
+  reportTime?: string;
+  // 报案到期时间
+  reportEndTime?: string;
+  // 报告内容
+  reportContent?: string;
+  // 状态
+  status?: string;
+  // 用户姓名
+  name?: string;
+  // 身份证号
+  idCard?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      uuid: 'uuid',
+      orderNo: 'order_no',
+      platformCode: 'platform_code',
+      productCode: 'product_code',
+      reportNo: 'report_no',
+      reportTime: 'report_time',
+      reportEndTime: 'report_end_time',
+      reportContent: 'report_content',
+      status: 'status',
+      name: 'name',
+      idCard: 'id_card',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      uuid: 'string',
+      orderNo: 'string',
+      platformCode: 'string',
+      productCode: 'string',
+      reportNo: 'string',
+      reportTime: 'string',
+      reportEndTime: 'string',
+      reportContent: 'string',
+      status: 'string',
+      name: 'string',
+      idCard: 'string',
     };
   }
 
@@ -10242,6 +10456,8 @@ export class CountDubbridgeRepayTrialRequest extends $tea.Model {
   repayType: string;
   // 订单号
   orderNo: string;
+  // 试算逾期期次列表
+  periodList?: number[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10249,6 +10465,7 @@ export class CountDubbridgeRepayTrialRequest extends $tea.Model {
       originalOrderNo: 'original_order_no',
       repayType: 'repay_type',
       orderNo: 'order_no',
+      periodList: 'period_list',
     };
   }
 
@@ -10259,6 +10476,7 @@ export class CountDubbridgeRepayTrialRequest extends $tea.Model {
       originalOrderNo: 'string',
       repayType: 'string',
       orderNo: 'string',
+      periodList: { 'type': 'array', 'itemType': 'number' },
     };
   }
 
@@ -10286,6 +10504,8 @@ export class CountDubbridgeRepayTrialResponse extends $tea.Model {
   realGuaranteeFee?: number;
   // 违约金
   realLiquidatedDamages?: number;
+  // 试算期次还款计划结果
+  repayResultList?: RepayResult[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -10297,6 +10517,7 @@ export class CountDubbridgeRepayTrialResponse extends $tea.Model {
       serviceCharge: 'service_charge',
       realGuaranteeFee: 'real_guarantee_fee',
       realLiquidatedDamages: 'real_liquidated_damages',
+      repayResultList: 'repay_result_list',
     };
   }
 
@@ -10311,6 +10532,7 @@ export class CountDubbridgeRepayTrialResponse extends $tea.Model {
       serviceCharge: 'number',
       realGuaranteeFee: 'number',
       realLiquidatedDamages: 'number',
+      repayResultList: { 'type': 'array', 'itemType': RepayResult },
     };
   }
 
@@ -10323,25 +10545,46 @@ export class RepayDubbridgeRepayWithholdRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 订单号
+  orderNo: string;
   // 授信申请订单号
   originalOrderNo: string;
   // 还款类型1:当期结清，2：正常还款3：全部结清
   repayType: string;
-  // 订单号
-  orderNo: string;
+  // 逾期期次列表（担保渠道）
+  periodList?: number[];
   // 校验还款金额
   validRepayAmount?: string;
   // 银行卡号
   bankCardNo?: string;
+  // 是否支付代扣，Y是N否（Y：支付代扣，N：无需走支付通道，直接信息流入账--线下还款模式）；（担保渠道）
+  paymentFlag?: string;
+  // 账号开户名，payment_flag=Y时，必填；（担保渠道）
+  accountName?: string;
+  // 银行预留手机号，payment_flag=Y时，必填；（担保渠道）
+  reservedMobile?: string;
+  // 账号开户行编码（担保渠道）
+  accountOpenBank?: string;
+  // 扣款渠道代码（担保渠道）
+  deductionCode?: string;
+  // 通道签约协议号（担保渠道）
+  signingAgreementNum?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
       originalOrderNo: 'original_order_no',
       repayType: 'repay_type',
-      orderNo: 'order_no',
+      periodList: 'period_list',
       validRepayAmount: 'valid_repay_amount',
       bankCardNo: 'bank_card_no',
+      paymentFlag: 'payment_flag',
+      accountName: 'account_name',
+      reservedMobile: 'reserved_mobile',
+      accountOpenBank: 'account_open_bank',
+      deductionCode: 'deduction_code',
+      signingAgreementNum: 'signing_agreement_num',
     };
   }
 
@@ -10349,11 +10592,18 @@ export class RepayDubbridgeRepayWithholdRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      orderNo: 'string',
       originalOrderNo: 'string',
       repayType: 'string',
-      orderNo: 'string',
+      periodList: { 'type': 'array', 'itemType': 'number' },
       validRepayAmount: 'string',
       bankCardNo: 'string',
+      paymentFlag: 'string',
+      accountName: 'string',
+      reservedMobile: 'string',
+      accountOpenBank: 'string',
+      deductionCode: 'string',
+      signingAgreementNum: 'string',
     };
   }
 
@@ -24660,7 +24910,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.26.3",
+          sdk_version: "1.26.4",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -24744,6 +24994,44 @@ export default class Client {
   async notifyBenefithubRiskLoginEx(request: NotifyBenefithubRiskLoginRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyBenefithubRiskLoginResponse> {
     Util.validateModel(request);
     return $tea.cast<NotifyBenefithubRiskLoginResponse>(await this.doRequest("1.0", "riskplus.benefithub.risk.login.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyBenefithubRiskLoginResponse({}));
+  }
+
+  /**
+   * Description: 奇富组件支付结果通知, 提供给驭鉴使用，用于接收从奇富支付成功的通知，发起订单创建
+   * Summary: 奇富组件支付结果通知
+   */
+  async notifyBenefithubRiskPayunilateral(request: NotifyBenefithubRiskPayunilateralRequest): Promise<NotifyBenefithubRiskPayunilateralResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.notifyBenefithubRiskPayunilateralEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 奇富组件支付结果通知, 提供给驭鉴使用，用于接收从奇富支付成功的通知，发起订单创建
+   * Summary: 奇富组件支付结果通知
+   */
+  async notifyBenefithubRiskPayunilateralEx(request: NotifyBenefithubRiskPayunilateralRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyBenefithubRiskPayunilateralResponse> {
+    Util.validateModel(request);
+    return $tea.cast<NotifyBenefithubRiskPayunilateralResponse>(await this.doRequest("1.0", "riskplus.benefithub.risk.payunilateral.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyBenefithubRiskPayunilateralResponse({}));
+  }
+
+  /**
+   * Description: 渠道主动查询报告详情接口
+   * Summary: 渠道查询报告详情
+   */
+  async queryBenefithubReportInformation(request: QueryBenefithubReportInformationRequest): Promise<QueryBenefithubReportInformationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryBenefithubReportInformationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 渠道主动查询报告详情接口
+   * Summary: 渠道查询报告详情
+   */
+  async queryBenefithubReportInformationEx(request: QueryBenefithubReportInformationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBenefithubReportInformationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryBenefithubReportInformationResponse>(await this.doRequest("1.0", "riskplus.benefithub.report.information.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBenefithubReportInformationResponse({}));
   }
 
   /**
