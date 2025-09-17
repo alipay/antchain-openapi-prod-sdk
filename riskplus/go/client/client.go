@@ -7950,6 +7950,12 @@ type QueryBenefithubReportInformationRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 订单号
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 业务分配的平台code，8位纯大写字母code
+	PlatformCode *string `json:"platform_code,omitempty" xml:"platform_code,omitempty" require:"true"`
+	// 产品码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 平台code、用户唯一ID 组合出全局唯一id
+	UserUniqueId *string `json:"user_unique_id,omitempty" xml:"user_unique_id,omitempty" require:"true"`
 }
 
 func (s QueryBenefithubReportInformationRequest) String() string {
@@ -7972,6 +7978,21 @@ func (s *QueryBenefithubReportInformationRequest) SetProductInstanceId(v string)
 
 func (s *QueryBenefithubReportInformationRequest) SetOrderNo(v string) *QueryBenefithubReportInformationRequest {
 	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryBenefithubReportInformationRequest) SetPlatformCode(v string) *QueryBenefithubReportInformationRequest {
+	s.PlatformCode = &v
+	return s
+}
+
+func (s *QueryBenefithubReportInformationRequest) SetProductCode(v string) *QueryBenefithubReportInformationRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *QueryBenefithubReportInformationRequest) SetUserUniqueId(v string) *QueryBenefithubReportInformationRequest {
+	s.UserUniqueId = &v
 	return s
 }
 
@@ -33367,7 +33388,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.26.4"),
+				"sdk_version":      tea.String("1.26.5"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
