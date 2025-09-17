@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.26.3"},
+                        {"sdk_version", "1.26.4"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.26.3"},
+                        {"sdk_version", "1.26.4"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -403,6 +403,90 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<NotifyBenefithubRiskLoginResponse>(await DoRequestAsync("1.0", "riskplus.benefithub.risk.login.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 奇富组件支付结果通知, 提供给驭鉴使用，用于接收从奇富支付成功的通知，发起订单创建
+         * Summary: 奇富组件支付结果通知
+         */
+        public NotifyBenefithubRiskPayunilateralResponse NotifyBenefithubRiskPayunilateral(NotifyBenefithubRiskPayunilateralRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return NotifyBenefithubRiskPayunilateralEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 奇富组件支付结果通知, 提供给驭鉴使用，用于接收从奇富支付成功的通知，发起订单创建
+         * Summary: 奇富组件支付结果通知
+         */
+        public async Task<NotifyBenefithubRiskPayunilateralResponse> NotifyBenefithubRiskPayunilateralAsync(NotifyBenefithubRiskPayunilateralRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await NotifyBenefithubRiskPayunilateralExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 奇富组件支付结果通知, 提供给驭鉴使用，用于接收从奇富支付成功的通知，发起订单创建
+         * Summary: 奇富组件支付结果通知
+         */
+        public NotifyBenefithubRiskPayunilateralResponse NotifyBenefithubRiskPayunilateralEx(NotifyBenefithubRiskPayunilateralRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyBenefithubRiskPayunilateralResponse>(DoRequest("1.0", "riskplus.benefithub.risk.payunilateral.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 奇富组件支付结果通知, 提供给驭鉴使用，用于接收从奇富支付成功的通知，发起订单创建
+         * Summary: 奇富组件支付结果通知
+         */
+        public async Task<NotifyBenefithubRiskPayunilateralResponse> NotifyBenefithubRiskPayunilateralExAsync(NotifyBenefithubRiskPayunilateralRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyBenefithubRiskPayunilateralResponse>(await DoRequestAsync("1.0", "riskplus.benefithub.risk.payunilateral.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 渠道主动查询报告详情接口
+         * Summary: 渠道查询报告详情
+         */
+        public QueryBenefithubReportInformationResponse QueryBenefithubReportInformation(QueryBenefithubReportInformationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryBenefithubReportInformationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 渠道主动查询报告详情接口
+         * Summary: 渠道查询报告详情
+         */
+        public async Task<QueryBenefithubReportInformationResponse> QueryBenefithubReportInformationAsync(QueryBenefithubReportInformationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryBenefithubReportInformationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 渠道主动查询报告详情接口
+         * Summary: 渠道查询报告详情
+         */
+        public QueryBenefithubReportInformationResponse QueryBenefithubReportInformationEx(QueryBenefithubReportInformationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBenefithubReportInformationResponse>(DoRequest("1.0", "riskplus.benefithub.report.information.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 渠道主动查询报告详情接口
+         * Summary: 渠道查询报告详情
+         */
+        public async Task<QueryBenefithubReportInformationResponse> QueryBenefithubReportInformationExAsync(QueryBenefithubReportInformationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBenefithubReportInformationResponse>(await DoRequestAsync("1.0", "riskplus.benefithub.report.information.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

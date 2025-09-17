@@ -54,6 +54,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public long? RealLiquidatedDamages { get; set; }
 
+        // 试算期次还款计划结果
+        [NameInMap("repay_result_list")]
+        [Validation(Required=false)]
+        public List<RepayResult> RepayResultList { get; set; }
+
     }
 
 }

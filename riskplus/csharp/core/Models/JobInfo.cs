@@ -75,6 +75,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public long? YearSalary { get; set; }
 
+        // 贷款用户所属行业类别
+        [NameInMap("indu_invol")]
+        [Validation(Required=false)]
+        public string InduInvol { get; set; }
+
     }
 
 }
