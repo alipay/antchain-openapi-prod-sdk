@@ -6,7 +6,7 @@ namespace AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntdigitalWebtrwatradeIssuerSubuserResponse extends Model
+class QueryAntdigitalWebtrwatradeDistributorResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,9 +26,9 @@ class QueryAntdigitalWebtrwatradeIssuerSubuserResponse extends Model
      */
     public $resultMsg;
 
-    // 二级用户信息
+    // 账户明细列表
     /**
-     * @var SubUserAccountVO
+     * @var SubUserAccountDetailVO[]
      */
     public $data;
     protected $_name = [
@@ -55,7 +55,13 @@ class QueryAntdigitalWebtrwatradeIssuerSubuserResponse extends Model
             $res['result_msg'] = $this->resultMsg;
         }
         if (null !== $this->data) {
-            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
+            $res['data'] = [];
+            if (null !== $this->data && \is_array($this->data)) {
+                $n = 0;
+                foreach ($this->data as $item) {
+                    $res['data'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -64,7 +70,7 @@ class QueryAntdigitalWebtrwatradeIssuerSubuserResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntdigitalWebtrwatradeIssuerSubuserResponse
+     * @return QueryAntdigitalWebtrwatradeDistributorResponse
      */
     public static function fromMap($map = [])
     {
@@ -79,7 +85,13 @@ class QueryAntdigitalWebtrwatradeIssuerSubuserResponse extends Model
             $model->resultMsg = $map['result_msg'];
         }
         if (isset($map['data'])) {
-            $model->data = SubUserAccountVO::fromMap($map['data']);
+            if (!empty($map['data'])) {
+                $model->data = [];
+                $n           = 0;
+                foreach ($map['data'] as $item) {
+                    $model->data[$n++] = null !== $item ? SubUserAccountDetailVO::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

@@ -21,10 +21,10 @@ use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\ListAntdigitalWebtrwatra
 use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\ListAntdigitalWebtrwatradeIssuerCrossaccountResponse;
 use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\ListAntdigitalWebtrwatradeIssuerOperationlogRequest;
 use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\ListAntdigitalWebtrwatradeIssuerOperationlogResponse;
-use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\QueryAntdigitalWebtrwatradeDistributorSubuserRequest;
-use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\QueryAntdigitalWebtrwatradeDistributorSubuserResponse;
-use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\QueryAntdigitalWebtrwatradeIssuerSubuserRequest;
-use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\QueryAntdigitalWebtrwatradeIssuerSubuserResponse;
+use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\QueryAntdigitalWebtrwatradeDistributorRequest;
+use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\QueryAntdigitalWebtrwatradeDistributorResponse;
+use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\QueryAntdigitalWebtrwatradeIssuerRequest;
+use AntChain\Ak_d3c4f09125a14cd587057c405561809a\Models\QueryAntdigitalWebtrwatradeIssuerResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -172,7 +172,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                     '_prod_code'       => 'ak_d3c4f09125a14cd587057c405561809a',
                     '_prod_channel'    => 'saas',
                 ];
@@ -218,72 +218,6 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
-    }
-
-    /**
-     * Description: 查询单个二级用户
-     * Summary: 查询单个二级用户.
-     *
-     * @param QueryAntdigitalWebtrwatradeIssuerSubuserRequest $request
-     *
-     * @return QueryAntdigitalWebtrwatradeIssuerSubuserResponse
-     */
-    public function queryAntdigitalWebtrwatradeIssuerSubuser($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryAntdigitalWebtrwatradeIssuerSubuserEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 查询单个二级用户
-     * Summary: 查询单个二级用户.
-     *
-     * @param QueryAntdigitalWebtrwatradeIssuerSubuserRequest $request
-     * @param string[]                                        $headers
-     * @param RuntimeOptions                                  $runtime
-     *
-     * @return QueryAntdigitalWebtrwatradeIssuerSubuserResponse
-     */
-    public function queryAntdigitalWebtrwatradeIssuerSubuserEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryAntdigitalWebtrwatradeIssuerSubuserResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.issuer.subuser.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 查询单个二级用户
-     * Summary: 查询单个二级用户.
-     *
-     * @param QueryAntdigitalWebtrwatradeDistributorSubuserRequest $request
-     *
-     * @return QueryAntdigitalWebtrwatradeDistributorSubuserResponse
-     */
-    public function queryAntdigitalWebtrwatradeDistributorSubuser($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryAntdigitalWebtrwatradeDistributorSubuserEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 查询单个二级用户
-     * Summary: 查询单个二级用户.
-     *
-     * @param QueryAntdigitalWebtrwatradeDistributorSubuserRequest $request
-     * @param string[]                                             $headers
-     * @param RuntimeOptions                                       $runtime
-     *
-     * @return QueryAntdigitalWebtrwatradeDistributorSubuserResponse
-     */
-    public function queryAntdigitalWebtrwatradeDistributorSubuserEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryAntdigitalWebtrwatradeDistributorSubuserResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.distributor.subuser.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -350,6 +284,72 @@ class Client
         Utils::validateModel($request);
 
         return ListAntdigitalWebtrwatradeDistributorOperationlogResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.distributor.operationlog.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发行机构获取二级用户详情数据
+     * Summary: 发行机构获取二级用户详情数据.
+     *
+     * @param QueryAntdigitalWebtrwatradeIssuerRequest $request
+     *
+     * @return QueryAntdigitalWebtrwatradeIssuerResponse
+     */
+    public function queryAntdigitalWebtrwatradeIssuer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntdigitalWebtrwatradeIssuerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发行机构获取二级用户详情数据
+     * Summary: 发行机构获取二级用户详情数据.
+     *
+     * @param QueryAntdigitalWebtrwatradeIssuerRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return QueryAntdigitalWebtrwatradeIssuerResponse
+     */
+    public function queryAntdigitalWebtrwatradeIssuerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntdigitalWebtrwatradeIssuerResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.issuer.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代销机构获取二级用户详情数据
+     * Summary: 代销机构获取二级用户详情数据.
+     *
+     * @param QueryAntdigitalWebtrwatradeDistributorRequest $request
+     *
+     * @return QueryAntdigitalWebtrwatradeDistributorResponse
+     */
+    public function queryAntdigitalWebtrwatradeDistributor($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntdigitalWebtrwatradeDistributorEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代销机构获取二级用户详情数据
+     * Summary: 代销机构获取二级用户详情数据.
+     *
+     * @param QueryAntdigitalWebtrwatradeDistributorRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return QueryAntdigitalWebtrwatradeDistributorResponse
+     */
+    public function queryAntdigitalWebtrwatradeDistributorEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntdigitalWebtrwatradeDistributorResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.distributor.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
