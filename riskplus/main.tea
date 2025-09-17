@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.26.3',
+    sdk_version = '1.26.4',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -1374,6 +1374,8 @@ model JobInfo {
   companyAddress?: string(name='company_address', example='公司详细地址'),
   // 年收入
   yearSalary?: long(name='year_salary', example='年收入'),
+  // 贷款用户所属行业类别
+  induInvol?: string(name='indu_invol', example='1'),
 }
 
 // 天枢系统居住信息结构体
@@ -2505,6 +2507,128 @@ async function notifyBenefithubRiskLogin(request: NotifyBenefithubRiskLoginReque
 async function notifyBenefithubRiskLoginEx(request: NotifyBenefithubRiskLoginRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyBenefithubRiskLoginResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.benefithub.risk.login.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyBenefithubRiskPayunilateralRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务操作类型,目前只支持下单
+  bizType: string(name='biz_type'),
+  // 外部支付的订单号
+  paymentNo: string(name='payment_no'),
+  // 订单状态
+  status: string(name='status'),
+  // 订单金额
+  orderAmount: string(name='order_amount'),
+  // 订单实际支付金额
+  paymentAmount: string(name='payment_amount'),
+  // 支付时间
+  paymentTime: string(name='payment_time'),
+  // 支付使用的方式
+  paymentMethodType: string(name='payment_method_type'),
+  // 三方支付流水号
+  capNum: string(name='cap_num'),
+  // 支付通道商户号
+  merchantNo?: string(name='merchant_no'),
+  // 订单类型，订阅、单次购买等
+  orderType: string(name='order_type'),
+  // 订单来源
+  orderSource: string(name='order_source'),
+  // 平台code，由蚂蚁数科颁发的特定平台code，用于报告产品授权使用
+  platformCode: string(name='platform_code'),
+  // 用户唯一id，流量平台提供，内部结合platformCode 组成唯一code
+  userUniqueId: string(name='user_unique_id'),
+  // 产品code，具体的报告产品；不同产品价格、展示内容可能均不一样，可通过产品code区分不同场景
+  productCode: string(name='product_code'),
+}
+
+model NotifyBenefithubRiskPayunilateralResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求返回结果
+  resultData?: string(name='result_data'),
+}
+
+/**
+ * Description: 奇富组件支付结果通知, 提供给驭鉴使用，用于接收从奇富支付成功的通知，发起订单创建
+ * Summary: 奇富组件支付结果通知
+ */
+async function notifyBenefithubRiskPayunilateral(request: NotifyBenefithubRiskPayunilateralRequest): NotifyBenefithubRiskPayunilateralResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyBenefithubRiskPayunilateralEx(request, headers, runtime);
+}
+
+/**
+ * Description: 奇富组件支付结果通知, 提供给驭鉴使用，用于接收从奇富支付成功的通知，发起订单创建
+ * Summary: 奇富组件支付结果通知
+ */
+async function notifyBenefithubRiskPayunilateralEx(request: NotifyBenefithubRiskPayunilateralRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyBenefithubRiskPayunilateralResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.benefithub.risk.payunilateral.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBenefithubReportInformationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  orderNo: string(name='order_no'),
+}
+
+model QueryBenefithubReportInformationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户id
+  uuid?: string(name='uuid'),
+  // 订单号
+  orderNo?: string(name='order_no'),
+  // 平台code
+  platformCode?: string(name='platform_code'),
+  // 产品码
+  productCode?: string(name='product_code'),
+  // 报案号
+  reportNo?: string(name='report_no'),
+  // 报告生成时间
+  reportTime?: string(name='report_time'),
+  // 报案到期时间
+  reportEndTime?: string(name='report_end_time'),
+  // 报告内容
+  reportContent?: string(name='report_content'),
+  // 状态
+  status?: string(name='status'),
+  // 用户姓名
+  name?: string(name='name'),
+  // 身份证号
+  idCard?: string(name='id_card'),
+}
+
+/**
+ * Description: 渠道主动查询报告详情接口
+ * Summary: 渠道查询报告详情
+ */
+async function queryBenefithubReportInformation(request: QueryBenefithubReportInformationRequest): QueryBenefithubReportInformationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBenefithubReportInformationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 渠道主动查询报告详情接口
+ * Summary: 渠道查询报告详情
+ */
+async function queryBenefithubReportInformationEx(request: QueryBenefithubReportInformationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBenefithubReportInformationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.benefithub.report.information.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model BatchqueryCreditshieldProductInfoRequest = {
@@ -5237,6 +5361,8 @@ model CountDubbridgeRepayTrialRequest = {
   repayType: string(name='repay_type'),
   // 订单号
   orderNo: string(name='order_no'),
+  // 试算逾期期次列表
+  periodList?: [ long ](name='period_list'),
 }
 
 model CountDubbridgeRepayTrialResponse = {
@@ -5258,6 +5384,8 @@ model CountDubbridgeRepayTrialResponse = {
   realGuaranteeFee?: long(name='real_guarantee_fee'),
   // 违约金
   realLiquidatedDamages?: long(name='real_liquidated_damages'),
+  // 试算期次还款计划结果
+  repayResultList?: [ RepayResult ](name='repay_result_list'),
 }
 
 /**
@@ -5283,16 +5411,30 @@ model RepayDubbridgeRepayWithholdRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  orderNo: string(name='order_no'),
   // 授信申请订单号
   originalOrderNo: string(name='original_order_no'),
   // 还款类型1:当期结清，2：正常还款3：全部结清
   repayType: string(name='repay_type'),
-  // 订单号
-  orderNo: string(name='order_no'),
+  // 逾期期次列表（担保渠道）
+  periodList?: [ long ](name='period_list'),
   // 校验还款金额
   validRepayAmount?: string(name='valid_repay_amount'),
   // 银行卡号
   bankCardNo?: string(name='bank_card_no'),
+  // 是否支付代扣，Y是N否（Y：支付代扣，N：无需走支付通道，直接信息流入账--线下还款模式）；（担保渠道）
+  paymentFlag?: string(name='payment_flag'),
+  // 账号开户名，payment_flag=Y时，必填；（担保渠道）
+  accountName?: string(name='account_name'),
+  // 银行预留手机号，payment_flag=Y时，必填；（担保渠道）
+  reservedMobile?: string(name='reserved_mobile'),
+  // 账号开户行编码（担保渠道）
+  accountOpenBank?: string(name='account_open_bank'),
+  // 扣款渠道代码（担保渠道）
+  deductionCode?: string(name='deduction_code'),
+  // 通道签约协议号（担保渠道）
+  signingAgreementNum?: string(name='signing_agreement_num'),
 }
 
 model RepayDubbridgeRepayWithholdResponse = {
