@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "ak_d3c4f09125a14cd587057c405561809a"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "ak_d3c4f09125a14cd587057c405561809a"},
                         {"_prod_channel", "saas"},
                     };
@@ -319,90 +319,6 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
-        }
-
-        /**
-         * Description: 查询单个二级用户
-         * Summary: 查询单个二级用户
-         */
-        public QueryAntdigitalWebtrwatradeIssuerSubuserResponse QueryAntdigitalWebtrwatradeIssuerSubuser(QueryAntdigitalWebtrwatradeIssuerSubuserRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryAntdigitalWebtrwatradeIssuerSubuserEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 查询单个二级用户
-         * Summary: 查询单个二级用户
-         */
-        public async Task<QueryAntdigitalWebtrwatradeIssuerSubuserResponse> QueryAntdigitalWebtrwatradeIssuerSubuserAsync(QueryAntdigitalWebtrwatradeIssuerSubuserRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryAntdigitalWebtrwatradeIssuerSubuserExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 查询单个二级用户
-         * Summary: 查询单个二级用户
-         */
-        public QueryAntdigitalWebtrwatradeIssuerSubuserResponse QueryAntdigitalWebtrwatradeIssuerSubuserEx(QueryAntdigitalWebtrwatradeIssuerSubuserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryAntdigitalWebtrwatradeIssuerSubuserResponse>(DoRequest("1.0", "antdigital.webtrwatrade.issuer.subuser.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 查询单个二级用户
-         * Summary: 查询单个二级用户
-         */
-        public async Task<QueryAntdigitalWebtrwatradeIssuerSubuserResponse> QueryAntdigitalWebtrwatradeIssuerSubuserExAsync(QueryAntdigitalWebtrwatradeIssuerSubuserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryAntdigitalWebtrwatradeIssuerSubuserResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.issuer.subuser.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 查询单个二级用户
-         * Summary: 查询单个二级用户
-         */
-        public QueryAntdigitalWebtrwatradeDistributorSubuserResponse QueryAntdigitalWebtrwatradeDistributorSubuser(QueryAntdigitalWebtrwatradeDistributorSubuserRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryAntdigitalWebtrwatradeDistributorSubuserEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 查询单个二级用户
-         * Summary: 查询单个二级用户
-         */
-        public async Task<QueryAntdigitalWebtrwatradeDistributorSubuserResponse> QueryAntdigitalWebtrwatradeDistributorSubuserAsync(QueryAntdigitalWebtrwatradeDistributorSubuserRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryAntdigitalWebtrwatradeDistributorSubuserExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 查询单个二级用户
-         * Summary: 查询单个二级用户
-         */
-        public QueryAntdigitalWebtrwatradeDistributorSubuserResponse QueryAntdigitalWebtrwatradeDistributorSubuserEx(QueryAntdigitalWebtrwatradeDistributorSubuserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryAntdigitalWebtrwatradeDistributorSubuserResponse>(DoRequest("1.0", "antdigital.webtrwatrade.distributor.subuser.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 查询单个二级用户
-         * Summary: 查询单个二级用户
-         */
-        public async Task<QueryAntdigitalWebtrwatradeDistributorSubuserResponse> QueryAntdigitalWebtrwatradeDistributorSubuserExAsync(QueryAntdigitalWebtrwatradeDistributorSubuserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryAntdigitalWebtrwatradeDistributorSubuserResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.distributor.subuser.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -487,6 +403,90 @@ namespace AntChain.SDK.Ak_d3c4f09125a14cd587057c405561809a
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ListAntdigitalWebtrwatradeDistributorOperationlogResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.distributor.operationlog.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发行机构获取二级用户详情数据
+         * Summary: 发行机构获取二级用户详情数据
+         */
+        public QueryAntdigitalWebtrwatradeIssuerResponse QueryAntdigitalWebtrwatradeIssuer(QueryAntdigitalWebtrwatradeIssuerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntdigitalWebtrwatradeIssuerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发行机构获取二级用户详情数据
+         * Summary: 发行机构获取二级用户详情数据
+         */
+        public async Task<QueryAntdigitalWebtrwatradeIssuerResponse> QueryAntdigitalWebtrwatradeIssuerAsync(QueryAntdigitalWebtrwatradeIssuerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntdigitalWebtrwatradeIssuerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发行机构获取二级用户详情数据
+         * Summary: 发行机构获取二级用户详情数据
+         */
+        public QueryAntdigitalWebtrwatradeIssuerResponse QueryAntdigitalWebtrwatradeIssuerEx(QueryAntdigitalWebtrwatradeIssuerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntdigitalWebtrwatradeIssuerResponse>(DoRequest("1.0", "antdigital.webtrwatrade.issuer.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发行机构获取二级用户详情数据
+         * Summary: 发行机构获取二级用户详情数据
+         */
+        public async Task<QueryAntdigitalWebtrwatradeIssuerResponse> QueryAntdigitalWebtrwatradeIssuerExAsync(QueryAntdigitalWebtrwatradeIssuerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntdigitalWebtrwatradeIssuerResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.issuer.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代销机构获取二级用户详情数据
+         * Summary: 代销机构获取二级用户详情数据
+         */
+        public QueryAntdigitalWebtrwatradeDistributorResponse QueryAntdigitalWebtrwatradeDistributor(QueryAntdigitalWebtrwatradeDistributorRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntdigitalWebtrwatradeDistributorEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代销机构获取二级用户详情数据
+         * Summary: 代销机构获取二级用户详情数据
+         */
+        public async Task<QueryAntdigitalWebtrwatradeDistributorResponse> QueryAntdigitalWebtrwatradeDistributorAsync(QueryAntdigitalWebtrwatradeDistributorRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntdigitalWebtrwatradeDistributorExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代销机构获取二级用户详情数据
+         * Summary: 代销机构获取二级用户详情数据
+         */
+        public QueryAntdigitalWebtrwatradeDistributorResponse QueryAntdigitalWebtrwatradeDistributorEx(QueryAntdigitalWebtrwatradeDistributorRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntdigitalWebtrwatradeDistributorResponse>(DoRequest("1.0", "antdigital.webtrwatrade.distributor.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代销机构获取二级用户详情数据
+         * Summary: 代销机构获取二级用户详情数据
+         */
+        public async Task<QueryAntdigitalWebtrwatradeDistributorResponse> QueryAntdigitalWebtrwatradeDistributorExAsync(QueryAntdigitalWebtrwatradeDistributorRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntdigitalWebtrwatradeDistributorResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.distributor.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
