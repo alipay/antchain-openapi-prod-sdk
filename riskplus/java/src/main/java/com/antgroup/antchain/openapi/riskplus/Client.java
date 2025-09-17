@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.26.3"),
+                    new TeaPair("sdk_version", "1.26.4"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -228,6 +228,48 @@ public class Client {
     public NotifyBenefithubRiskLoginResponse notifyBenefithubRiskLoginEx(NotifyBenefithubRiskLoginRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.benefithub.risk.login.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyBenefithubRiskLoginResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 奇富组件支付结果通知, 提供给驭鉴使用，用于接收从奇富支付成功的通知，发起订单创建
+     * Summary: 奇富组件支付结果通知</p>
+     */
+    public NotifyBenefithubRiskPayunilateralResponse notifyBenefithubRiskPayunilateral(NotifyBenefithubRiskPayunilateralRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.notifyBenefithubRiskPayunilateralEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 奇富组件支付结果通知, 提供给驭鉴使用，用于接收从奇富支付成功的通知，发起订单创建
+     * Summary: 奇富组件支付结果通知</p>
+     */
+    public NotifyBenefithubRiskPayunilateralResponse notifyBenefithubRiskPayunilateralEx(NotifyBenefithubRiskPayunilateralRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.benefithub.risk.payunilateral.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyBenefithubRiskPayunilateralResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 渠道主动查询报告详情接口
+     * Summary: 渠道查询报告详情</p>
+     */
+    public QueryBenefithubReportInformationResponse queryBenefithubReportInformation(QueryBenefithubReportInformationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBenefithubReportInformationEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 渠道主动查询报告详情接口
+     * Summary: 渠道查询报告详情</p>
+     */
+    public QueryBenefithubReportInformationResponse queryBenefithubReportInformationEx(QueryBenefithubReportInformationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.benefithub.report.information.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBenefithubReportInformationResponse());
     }
 
     /**

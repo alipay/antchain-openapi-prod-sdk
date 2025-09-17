@@ -108,6 +108,14 @@ public class JobInfo extends TeaModel {
     @NameInMap("year_salary")
     public Long yearSalary;
 
+    // 贷款用户所属行业类别
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
+    @NameInMap("indu_invol")
+    public String induInvol;
+
     public static JobInfo build(java.util.Map<String, ?> map) throws Exception {
         JobInfo self = new JobInfo();
         return TeaModel.build(map, self);
@@ -215,6 +223,14 @@ public class JobInfo extends TeaModel {
     }
     public Long getYearSalary() {
         return this.yearSalary;
+    }
+
+    public JobInfo setInduInvol(String induInvol) {
+        this.induInvol = induInvol;
+        return this;
+    }
+    public String getInduInvol() {
+        return this.induInvol;
     }
 
 }

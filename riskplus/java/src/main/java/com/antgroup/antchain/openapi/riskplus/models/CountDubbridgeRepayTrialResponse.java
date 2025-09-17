@@ -40,6 +40,10 @@ public class CountDubbridgeRepayTrialResponse extends TeaModel {
     @NameInMap("real_liquidated_damages")
     public Long realLiquidatedDamages;
 
+    // 试算期次还款计划结果
+    @NameInMap("repay_result_list")
+    public java.util.List<RepayResult> repayResultList;
+
     public static CountDubbridgeRepayTrialResponse build(java.util.Map<String, ?> map) throws Exception {
         CountDubbridgeRepayTrialResponse self = new CountDubbridgeRepayTrialResponse();
         return TeaModel.build(map, self);
@@ -115,6 +119,14 @@ public class CountDubbridgeRepayTrialResponse extends TeaModel {
     }
     public Long getRealLiquidatedDamages() {
         return this.realLiquidatedDamages;
+    }
+
+    public CountDubbridgeRepayTrialResponse setRepayResultList(java.util.List<RepayResult> repayResultList) {
+        this.repayResultList = repayResultList;
+        return this;
+    }
+    public java.util.List<RepayResult> getRepayResultList() {
+        return this.repayResultList;
     }
 
 }

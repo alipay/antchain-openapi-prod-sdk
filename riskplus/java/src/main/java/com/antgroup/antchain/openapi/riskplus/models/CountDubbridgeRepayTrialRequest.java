@@ -26,6 +26,10 @@ public class CountDubbridgeRepayTrialRequest extends TeaModel {
     @Validation(required = true)
     public String orderNo;
 
+    // 试算逾期期次列表
+    @NameInMap("period_list")
+    public java.util.List<Long> periodList;
+
     public static CountDubbridgeRepayTrialRequest build(java.util.Map<String, ?> map) throws Exception {
         CountDubbridgeRepayTrialRequest self = new CountDubbridgeRepayTrialRequest();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class CountDubbridgeRepayTrialRequest extends TeaModel {
     }
     public String getOrderNo() {
         return this.orderNo;
+    }
+
+    public CountDubbridgeRepayTrialRequest setPeriodList(java.util.List<Long> periodList) {
+        this.periodList = periodList;
+        return this;
+    }
+    public java.util.List<Long> getPeriodList() {
+        return this.periodList;
     }
 
 }

@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-riskplus</artifactId>
-  <version>1.26.3</version>
+  <version>1.26.4</version>
   <packaging>jar</packaging>
   <name>openapi-riskplus</name>
   <description>Ant Chain RISKPLUS SDK for Java
