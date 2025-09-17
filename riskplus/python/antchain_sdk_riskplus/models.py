@@ -9796,15 +9796,27 @@ class QueryBenefithubReportInformationRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         order_no: str = None,
+        platform_code: str = None,
+        product_code: str = None,
+        user_unique_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 订单号
         self.order_no = order_no
+        # 业务分配的平台code，8位纯大写字母code
+        self.platform_code = platform_code
+        # 产品码
+        self.product_code = product_code
+        # 平台code、用户唯一ID 组合出全局唯一id
+        self.user_unique_id = user_unique_id
 
     def validate(self):
         self.validate_required(self.order_no, 'order_no')
+        self.validate_required(self.platform_code, 'platform_code')
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.user_unique_id, 'user_unique_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -9818,6 +9830,12 @@ class QueryBenefithubReportInformationRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.order_no is not None:
             result['order_no'] = self.order_no
+        if self.platform_code is not None:
+            result['platform_code'] = self.platform_code
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.user_unique_id is not None:
+            result['user_unique_id'] = self.user_unique_id
         return result
 
     def from_map(self, m: dict = None):
@@ -9828,6 +9846,12 @@ class QueryBenefithubReportInformationRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('order_no') is not None:
             self.order_no = m.get('order_no')
+        if m.get('platform_code') is not None:
+            self.platform_code = m.get('platform_code')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('user_unique_id') is not None:
+            self.user_unique_id = m.get('user_unique_id')
         return self
 
 
