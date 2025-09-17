@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_d3c4f09125a14cd587057c405561809a.models
 
 import com.aliyun.tea.*;
 
-public class QueryAntdigitalWebtrwatradeDistributorSubuserResponse extends TeaModel {
+public class QueryAntdigitalWebtrwatradeDistributorResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class QueryAntdigitalWebtrwatradeDistributorSubuserResponse extends TeaMo
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 二级用户信息
+    // 账户明细列表
     @NameInMap("data")
-    public SubUserAccountVO data;
+    public java.util.List<SubUserAccountDetailVO> data;
 
-    public static QueryAntdigitalWebtrwatradeDistributorSubuserResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryAntdigitalWebtrwatradeDistributorSubuserResponse self = new QueryAntdigitalWebtrwatradeDistributorSubuserResponse();
+    public static QueryAntdigitalWebtrwatradeDistributorResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryAntdigitalWebtrwatradeDistributorResponse self = new QueryAntdigitalWebtrwatradeDistributorResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryAntdigitalWebtrwatradeDistributorSubuserResponse setReqMsgId(String reqMsgId) {
+    public QueryAntdigitalWebtrwatradeDistributorResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryAntdigitalWebtrwatradeDistributorSubuserResponse extends TeaMo
         return this.reqMsgId;
     }
 
-    public QueryAntdigitalWebtrwatradeDistributorSubuserResponse setResultCode(String resultCode) {
+    public QueryAntdigitalWebtrwatradeDistributorResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryAntdigitalWebtrwatradeDistributorSubuserResponse extends TeaMo
         return this.resultCode;
     }
 
-    public QueryAntdigitalWebtrwatradeDistributorSubuserResponse setResultMsg(String resultMsg) {
+    public QueryAntdigitalWebtrwatradeDistributorResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,11 +49,11 @@ public class QueryAntdigitalWebtrwatradeDistributorSubuserResponse extends TeaMo
         return this.resultMsg;
     }
 
-    public QueryAntdigitalWebtrwatradeDistributorSubuserResponse setData(SubUserAccountVO data) {
+    public QueryAntdigitalWebtrwatradeDistributorResponse setData(java.util.List<SubUserAccountDetailVO> data) {
         this.data = data;
         return this;
     }
-    public SubUserAccountVO getData() {
+    public java.util.List<SubUserAccountDetailVO> getData() {
         return this.data;
     }
 
