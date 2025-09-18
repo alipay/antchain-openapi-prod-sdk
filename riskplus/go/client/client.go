@@ -2052,6 +2052,171 @@ func (s *RiskLabelInfo) SetUpdateDate(v string) *RiskLabelInfo {
 	return s
 }
 
+// 二级商户入驻结果
+type SubMerchantOrder struct {
+	// 是否开通线上预授权，
+	// TRUE/FALSE
+	AppPreAuth *string `json:"app_pre_auth,omitempty" xml:"app_pre_auth,omitempty"`
+	// 申请单创建时间
+	ApplyTime *string `json:"apply_time,omitempty" xml:"apply_time,omitempty" require:"true"`
+	// 本申请单的请求类型，
+	// 商户预校验: ZHIFUTONG_CONSULT
+	// 商户创建: ZHIFUTONG_CREATE
+	// 商户修改: ZHIFUTONG_MODIFY
+	//
+	ApplyType *string `json:"apply_type,omitempty" xml:"apply_type,omitempty" require:"true"`
+	// 进件生成的卡编号，在发起结算时可以作为结算账号
+	CardAliasNo *string `json:"card_alias_no,omitempty" xml:"card_alias_no,omitempty"`
+	// 外部商户id
+	ExternalId *string `json:"external_id,omitempty" xml:"external_id,omitempty" require:"true"`
+	// 是否开通线下预授权，
+	// TRUE/FALSE
+	FacePreAuth *string `json:"face_pre_auth,omitempty" xml:"face_pre_auth,omitempty"`
+	// 风控审核状态，
+	// CREATE: 已创建待审批
+	// SKIP: 跳过风控审批步骤
+	// PASS: 风控审核通过
+	// REJECT: 风控审批拒绝
+	//
+	FkAudit *string `json:"fk_audit,omitempty" xml:"fk_audit,omitempty"`
+	// 风控审批备注
+	FkAuditMemo *string `json:"fk_audit_memo,omitempty" xml:"fk_audit_memo,omitempty"`
+	// 判断个人当面付权限版本，
+	// TRUE: 表示是标准版
+	// FALSE: 表示受限版
+	//
+	IsFaceLimit *string `json:"is_face_limit,omitempty" xml:"is_face_limit,omitempty"`
+	// 客资审核状态，
+	// CREATE: 已创建待审批
+	// SKIP: 跳过客资审批步骤
+	// PASS: 客资审核通过
+	// REJECT: 客资审批拒绝
+	KzAudit *string `json:"kz_audit,omitempty" xml:"kz_audit,omitempty"`
+	// 客资审批备注
+	KzAuditMemo *string `json:"kz_audit_memo,omitempty" xml:"kz_audit_memo,omitempty"`
+	// 进件时填写的商户名称
+	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty"`
+	// 入驻申请单号
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 申请单处理失败时，通过此此段返回具体的失败理由，
+	// 与kf_audit_memo和kz_audit_memo配合使用
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+	// 签约支付宝账号（脱敏）
+	SafeBindingLogonId *string `json:"safe_binding_logon_id,omitempty" xml:"safe_binding_logon_id,omitempty"`
+	// 二级商户id，当总体申请状态status为99时，smid才算进件完成
+	Smid *string `json:"smid,omitempty" xml:"smid,omitempty"`
+	// 申请总体状态，
+	// 99: 已完结
+	// -1: 失败
+	// 031: 审核中
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 二级商户确认状态，
+	// CREATE: 已发起二级商户确认
+	// SKIP: 无需确认
+	// FAIL: 签约失败
+	// NOT_CONFIRM: 商户未确认
+	// FINISH: 签约完成
+	SubConfirm *string `json:"sub_confirm,omitempty" xml:"sub_confirm,omitempty"`
+}
+
+func (s SubMerchantOrder) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubMerchantOrder) GoString() string {
+	return s.String()
+}
+
+func (s *SubMerchantOrder) SetAppPreAuth(v string) *SubMerchantOrder {
+	s.AppPreAuth = &v
+	return s
+}
+
+func (s *SubMerchantOrder) SetApplyTime(v string) *SubMerchantOrder {
+	s.ApplyTime = &v
+	return s
+}
+
+func (s *SubMerchantOrder) SetApplyType(v string) *SubMerchantOrder {
+	s.ApplyType = &v
+	return s
+}
+
+func (s *SubMerchantOrder) SetCardAliasNo(v string) *SubMerchantOrder {
+	s.CardAliasNo = &v
+	return s
+}
+
+func (s *SubMerchantOrder) SetExternalId(v string) *SubMerchantOrder {
+	s.ExternalId = &v
+	return s
+}
+
+func (s *SubMerchantOrder) SetFacePreAuth(v string) *SubMerchantOrder {
+	s.FacePreAuth = &v
+	return s
+}
+
+func (s *SubMerchantOrder) SetFkAudit(v string) *SubMerchantOrder {
+	s.FkAudit = &v
+	return s
+}
+
+func (s *SubMerchantOrder) SetFkAuditMemo(v string) *SubMerchantOrder {
+	s.FkAuditMemo = &v
+	return s
+}
+
+func (s *SubMerchantOrder) SetIsFaceLimit(v string) *SubMerchantOrder {
+	s.IsFaceLimit = &v
+	return s
+}
+
+func (s *SubMerchantOrder) SetKzAudit(v string) *SubMerchantOrder {
+	s.KzAudit = &v
+	return s
+}
+
+func (s *SubMerchantOrder) SetKzAuditMemo(v string) *SubMerchantOrder {
+	s.KzAuditMemo = &v
+	return s
+}
+
+func (s *SubMerchantOrder) SetMerchantName(v string) *SubMerchantOrder {
+	s.MerchantName = &v
+	return s
+}
+
+func (s *SubMerchantOrder) SetOrderId(v string) *SubMerchantOrder {
+	s.OrderId = &v
+	return s
+}
+
+func (s *SubMerchantOrder) SetReason(v string) *SubMerchantOrder {
+	s.Reason = &v
+	return s
+}
+
+func (s *SubMerchantOrder) SetSafeBindingLogonId(v string) *SubMerchantOrder {
+	s.SafeBindingLogonId = &v
+	return s
+}
+
+func (s *SubMerchantOrder) SetSmid(v string) *SubMerchantOrder {
+	s.Smid = &v
+	return s
+}
+
+func (s *SubMerchantOrder) SetStatus(v string) *SubMerchantOrder {
+	s.Status = &v
+	return s
+}
+
+func (s *SubMerchantOrder) SetSubConfirm(v string) *SubMerchantOrder {
+	s.SubConfirm = &v
+	return s
+}
+
 // 企业反馈
 type RtopCompanyFeedback struct {
 	// 主键
@@ -5707,6 +5872,14 @@ func (s *DefinInnerChannelNotifyResult) SetBizResponse(v string) *DefinInnerChan
 type StoreInfo struct {
 	// 品牌
 	StoreBrand *string `json:"store_brand,omitempty" xml:"store_brand,omitempty" require:"true"`
+	// 品牌，商户入驻时需填写，
+	// TBJHF: 赛鸽出行
+	// AIJNBJ: 智迈电动车
+	// KJOKJBO: 金箭出行
+	// IFJRJTIJ: 骑士智行
+	// KVMPOH: 巨龙智行
+	// NPGBRVBO: 摩生态A
+	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty"`
 	// 门店ID
 	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
 	// 门店名称
@@ -5715,10 +5888,16 @@ type StoreInfo struct {
 	Usci *string `json:"usci,omitempty" xml:"usci,omitempty" require:"true"`
 	// 门店-省，浙江省
 	Province *string `json:"province,omitempty" xml:"province,omitempty" require:"true"`
+	// 省编码
+	ProvinceCode *string `json:"province_code,omitempty" xml:"province_code,omitempty"`
 	// 门店-市，杭州市
 	City *string `json:"city,omitempty" xml:"city,omitempty" require:"true"`
+	// 市编码
+	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty"`
 	// 门店-区，滨江区
 	District *string `json:"district,omitempty" xml:"district,omitempty" require:"true"`
+	// 区编码
+	DistrictCode *string `json:"district_code,omitempty" xml:"district_code,omitempty"`
 	// 门店-详细地址，
 	// 望江路万达广场一层001号
 	Address *string `json:"address,omitempty" xml:"address,omitempty" require:"true"`
@@ -5727,7 +5906,7 @@ type StoreInfo struct {
 	// 营业执照-结束时间，yyyy-MM-dd，长期上送：9999-12-31
 	StoreEndDate *string `json:"store_end_date,omitempty" xml:"store_end_date,omitempty" require:"true"`
 	// 门店类型，
-	// 个体、企业、其他
+	// 个体: 个体工商户；企业
 	StoreType *string `json:"store_type,omitempty" xml:"store_type,omitempty" require:"true"`
 	// 法人-姓名
 	LegalPersonName *string `json:"legal_person_name,omitempty" xml:"legal_person_name,omitempty" require:"true"`
@@ -5759,6 +5938,12 @@ type StoreInfo struct {
 	LoginTenant *string `json:"login_tenant,omitempty" xml:"login_tenant,omitempty"`
 	// 入驻时间
 	LoginDate *string `json:"login_date,omitempty" xml:"login_date,omitempty"`
+	// 结算支付宝账户，交易资金结算的具体支付宝账号，商户入驻时需填写
+	AlipayLogonId *string `json:"alipay_logon_id,omitempty" xml:"alipay_logon_id,omitempty"`
+	// 支付宝openId，商户入驻时（非必填）
+	InfoSourceOpenId *string `json:"info_source_open_id,omitempty" xml:"info_source_open_id,omitempty"`
+	// 签约支付宝账户，商户入驻时（非必填）
+	BindingAlipayLogonId *string `json:"binding_alipay_logon_id,omitempty" xml:"binding_alipay_logon_id,omitempty"`
 }
 
 func (s StoreInfo) String() string {
@@ -5771,6 +5956,11 @@ func (s StoreInfo) GoString() string {
 
 func (s *StoreInfo) SetStoreBrand(v string) *StoreInfo {
 	s.StoreBrand = &v
+	return s
+}
+
+func (s *StoreInfo) SetTrafficPlatform(v string) *StoreInfo {
+	s.TrafficPlatform = &v
 	return s
 }
 
@@ -5794,13 +5984,28 @@ func (s *StoreInfo) SetProvince(v string) *StoreInfo {
 	return s
 }
 
+func (s *StoreInfo) SetProvinceCode(v string) *StoreInfo {
+	s.ProvinceCode = &v
+	return s
+}
+
 func (s *StoreInfo) SetCity(v string) *StoreInfo {
 	s.City = &v
 	return s
 }
 
+func (s *StoreInfo) SetCityCode(v string) *StoreInfo {
+	s.CityCode = &v
+	return s
+}
+
 func (s *StoreInfo) SetDistrict(v string) *StoreInfo {
 	s.District = &v
+	return s
+}
+
+func (s *StoreInfo) SetDistrictCode(v string) *StoreInfo {
+	s.DistrictCode = &v
 	return s
 }
 
@@ -5896,6 +6101,21 @@ func (s *StoreInfo) SetLoginTenant(v string) *StoreInfo {
 
 func (s *StoreInfo) SetLoginDate(v string) *StoreInfo {
 	s.LoginDate = &v
+	return s
+}
+
+func (s *StoreInfo) SetAlipayLogonId(v string) *StoreInfo {
+	s.AlipayLogonId = &v
+	return s
+}
+
+func (s *StoreInfo) SetInfoSourceOpenId(v string) *StoreInfo {
+	s.InfoSourceOpenId = &v
+	return s
+}
+
+func (s *StoreInfo) SetBindingAlipayLogonId(v string) *StoreInfo {
+	s.BindingAlipayLogonId = &v
 	return s
 }
 
@@ -16983,6 +17203,394 @@ func (s *QueryDubbridgeInstallmentTrialResponse) SetRestAmount(v string) *QueryD
 
 func (s *QueryDubbridgeInstallmentTrialResponse) SetInstallmentList(v []*InstallmentTrial) *QueryDubbridgeInstallmentTrialResponse {
 	s.InstallmentList = v
+	return s
+}
+
+type UploadDubbridgeAlipayImageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// request请求单号，每次请求唯一，如uuid
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 门店Id
+	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
+	// 门店所属子品牌，
+	// TBJHF: 赛鸽出行-
+	// AIJNBJ: 智迈电动车
+	// KJOKJBO: 金箭出行
+	// IFJRJTIJ: 骑士智行
+	// KVMPOH: 巨龙智行
+	// NPGBRVBO: 摩生态A
+	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty" require:"true"`
+	// 图片种类，
+	// 10: 营业执照
+	// 20: 门头照
+	// 21: 内景照
+	ImageCategory *string `json:"image_category,omitempty" xml:"image_category,omitempty" require:"true"`
+	// 文件base64字符串，最大10M；（建议）
+	ImageContent *string `json:"image_content,omitempty" xml:"image_content,omitempty"`
+	// 图片文件路径
+	ImagePath *string `json:"image_path,omitempty" xml:"image_path,omitempty"`
+	// 图片格式，
+	// 支持格式：bmp、jpg、jpeg、png、gif
+	ImageType *string `json:"image_type,omitempty" xml:"image_type,omitempty" require:"true"`
+}
+
+func (s UploadDubbridgeAlipayImageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadDubbridgeAlipayImageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadDubbridgeAlipayImageRequest) SetAuthToken(v string) *UploadDubbridgeAlipayImageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadDubbridgeAlipayImageRequest) SetProductInstanceId(v string) *UploadDubbridgeAlipayImageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadDubbridgeAlipayImageRequest) SetOrderNo(v string) *UploadDubbridgeAlipayImageRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *UploadDubbridgeAlipayImageRequest) SetStoreId(v string) *UploadDubbridgeAlipayImageRequest {
+	s.StoreId = &v
+	return s
+}
+
+func (s *UploadDubbridgeAlipayImageRequest) SetTrafficPlatform(v string) *UploadDubbridgeAlipayImageRequest {
+	s.TrafficPlatform = &v
+	return s
+}
+
+func (s *UploadDubbridgeAlipayImageRequest) SetImageCategory(v string) *UploadDubbridgeAlipayImageRequest {
+	s.ImageCategory = &v
+	return s
+}
+
+func (s *UploadDubbridgeAlipayImageRequest) SetImageContent(v string) *UploadDubbridgeAlipayImageRequest {
+	s.ImageContent = &v
+	return s
+}
+
+func (s *UploadDubbridgeAlipayImageRequest) SetImagePath(v string) *UploadDubbridgeAlipayImageRequest {
+	s.ImagePath = &v
+	return s
+}
+
+func (s *UploadDubbridgeAlipayImageRequest) SetImageType(v string) *UploadDubbridgeAlipayImageRequest {
+	s.ImageType = &v
+	return s
+}
+
+type UploadDubbridgeAlipayImageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 图片上传后的标识
+	ImageId *string `json:"image_id,omitempty" xml:"image_id,omitempty"`
+}
+
+func (s UploadDubbridgeAlipayImageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadDubbridgeAlipayImageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadDubbridgeAlipayImageResponse) SetReqMsgId(v string) *UploadDubbridgeAlipayImageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadDubbridgeAlipayImageResponse) SetResultCode(v string) *UploadDubbridgeAlipayImageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadDubbridgeAlipayImageResponse) SetResultMsg(v string) *UploadDubbridgeAlipayImageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadDubbridgeAlipayImageResponse) SetImageId(v string) *UploadDubbridgeAlipayImageResponse {
+	s.ImageId = &v
+	return s
+}
+
+type CreateDubbridgeAlipayMerchantRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// request请求单号，每次请求唯一，如uuid
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 门店详情
+	StoreInfo *StoreInfo `json:"store_info,omitempty" xml:"store_info,omitempty" require:"true"`
+}
+
+func (s CreateDubbridgeAlipayMerchantRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateDubbridgeAlipayMerchantRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateDubbridgeAlipayMerchantRequest) SetAuthToken(v string) *CreateDubbridgeAlipayMerchantRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateDubbridgeAlipayMerchantRequest) SetProductInstanceId(v string) *CreateDubbridgeAlipayMerchantRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateDubbridgeAlipayMerchantRequest) SetOrderNo(v string) *CreateDubbridgeAlipayMerchantRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *CreateDubbridgeAlipayMerchantRequest) SetStoreInfo(v *StoreInfo) *CreateDubbridgeAlipayMerchantRequest {
+	s.StoreInfo = v
+	return s
+}
+
+type CreateDubbridgeAlipayMerchantResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 入驻申请单号
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+}
+
+func (s CreateDubbridgeAlipayMerchantResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateDubbridgeAlipayMerchantResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateDubbridgeAlipayMerchantResponse) SetReqMsgId(v string) *CreateDubbridgeAlipayMerchantResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateDubbridgeAlipayMerchantResponse) SetResultCode(v string) *CreateDubbridgeAlipayMerchantResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateDubbridgeAlipayMerchantResponse) SetResultMsg(v string) *CreateDubbridgeAlipayMerchantResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateDubbridgeAlipayMerchantResponse) SetOrderId(v string) *CreateDubbridgeAlipayMerchantResponse {
+	s.OrderId = &v
+	return s
+}
+
+type QueryDubbridgeAlipayMerchantRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// request请求单号，每次请求唯一，如uuid
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 门店id
+	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
+	// 入驻申请单号
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+}
+
+func (s QueryDubbridgeAlipayMerchantRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeAlipayMerchantRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeAlipayMerchantRequest) SetAuthToken(v string) *QueryDubbridgeAlipayMerchantRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayMerchantRequest) SetProductInstanceId(v string) *QueryDubbridgeAlipayMerchantRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayMerchantRequest) SetOrderNo(v string) *QueryDubbridgeAlipayMerchantRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayMerchantRequest) SetStoreId(v string) *QueryDubbridgeAlipayMerchantRequest {
+	s.StoreId = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayMerchantRequest) SetOrderId(v string) *QueryDubbridgeAlipayMerchantRequest {
+	s.OrderId = &v
+	return s
+}
+
+type QueryDubbridgeAlipayMerchantResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 入驻结果信息
+	SubMerchantOrder *SubMerchantOrder `json:"sub_merchant_order,omitempty" xml:"sub_merchant_order,omitempty"`
+}
+
+func (s QueryDubbridgeAlipayMerchantResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeAlipayMerchantResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeAlipayMerchantResponse) SetReqMsgId(v string) *QueryDubbridgeAlipayMerchantResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayMerchantResponse) SetResultCode(v string) *QueryDubbridgeAlipayMerchantResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayMerchantResponse) SetResultMsg(v string) *QueryDubbridgeAlipayMerchantResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeAlipayMerchantResponse) SetSubMerchantOrder(v *SubMerchantOrder) *QueryDubbridgeAlipayMerchantResponse {
+	s.SubMerchantOrder = v
+	return s
+}
+
+type CreateDubbridgeAlipayTradeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// request请求单号，每次请求唯一，如uuid
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 订单归属门店id
+	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
+	// 订单车辆信息
+	VehicleInfo *VehicleInfo `json:"vehicle_info,omitempty" xml:"vehicle_info,omitempty" require:"true"`
+	// 订单绝对超时时间 yyyy-MM-dd HH:mm:ss，支付宝结算生成订单二维码时传值（非必填，优先于 timeout_express)
+	TimeExpire *string `json:"time_expire,omitempty" xml:"time_expire,omitempty"`
+	// 订单相对超时时间，从预下单请求时间开始计算，该笔订单允许的最晚付款时间，逾期将关闭交易（非必填）
+	TimeoutExpress *string `json:"timeout_express,omitempty" xml:"timeout_express,omitempty"`
+}
+
+func (s CreateDubbridgeAlipayTradeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateDubbridgeAlipayTradeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateDubbridgeAlipayTradeRequest) SetAuthToken(v string) *CreateDubbridgeAlipayTradeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateDubbridgeAlipayTradeRequest) SetProductInstanceId(v string) *CreateDubbridgeAlipayTradeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateDubbridgeAlipayTradeRequest) SetOrderNo(v string) *CreateDubbridgeAlipayTradeRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *CreateDubbridgeAlipayTradeRequest) SetStoreId(v string) *CreateDubbridgeAlipayTradeRequest {
+	s.StoreId = &v
+	return s
+}
+
+func (s *CreateDubbridgeAlipayTradeRequest) SetVehicleInfo(v *VehicleInfo) *CreateDubbridgeAlipayTradeRequest {
+	s.VehicleInfo = v
+	return s
+}
+
+func (s *CreateDubbridgeAlipayTradeRequest) SetTimeExpire(v string) *CreateDubbridgeAlipayTradeRequest {
+	s.TimeExpire = &v
+	return s
+}
+
+func (s *CreateDubbridgeAlipayTradeRequest) SetTimeoutExpress(v string) *CreateDubbridgeAlipayTradeRequest {
+	s.TimeoutExpress = &v
+	return s
+}
+
+type CreateDubbridgeAlipayTradeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 资产方购物订单号
+	BizOrderNo *string `json:"biz_order_no,omitempty" xml:"biz_order_no,omitempty"`
+	// 订单二维码码串，支付宝预下单生成的二维码码串，有效时间2小时
+	QrCode *string `json:"qr_code,omitempty" xml:"qr_code,omitempty"`
+}
+
+func (s CreateDubbridgeAlipayTradeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateDubbridgeAlipayTradeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateDubbridgeAlipayTradeResponse) SetReqMsgId(v string) *CreateDubbridgeAlipayTradeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateDubbridgeAlipayTradeResponse) SetResultCode(v string) *CreateDubbridgeAlipayTradeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateDubbridgeAlipayTradeResponse) SetResultMsg(v string) *CreateDubbridgeAlipayTradeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateDubbridgeAlipayTradeResponse) SetBizOrderNo(v string) *CreateDubbridgeAlipayTradeResponse {
+	s.BizOrderNo = &v
+	return s
+}
+
+func (s *CreateDubbridgeAlipayTradeResponse) SetQrCode(v string) *CreateDubbridgeAlipayTradeResponse {
+	s.QrCode = &v
 	return s
 }
 
@@ -33388,7 +33996,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.26.5"),
+				"sdk_version":      tea.String("1.26.6"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -36291,6 +36899,142 @@ func (client *Client) QueryDubbridgeInstallmentTrialEx(request *QueryDubbridgeIn
 	}
 	_result = &QueryDubbridgeInstallmentTrialResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.installment.trial.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统二级商户入驻图片上传-分期付
+ * Summary: 天枢系统二级商户入驻图片上传-分期付
+ */
+func (client *Client) UploadDubbridgeAlipayImage(request *UploadDubbridgeAlipayImageRequest) (_result *UploadDubbridgeAlipayImageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadDubbridgeAlipayImageResponse{}
+	_body, _err := client.UploadDubbridgeAlipayImageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统二级商户入驻图片上传-分期付
+ * Summary: 天枢系统二级商户入驻图片上传-分期付
+ */
+func (client *Client) UploadDubbridgeAlipayImageEx(request *UploadDubbridgeAlipayImageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadDubbridgeAlipayImageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadDubbridgeAlipayImageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.alipay.image.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统二级商户入驻-分期付
+ * Summary: 天枢系统二级商户入驻-分期付
+ */
+func (client *Client) CreateDubbridgeAlipayMerchant(request *CreateDubbridgeAlipayMerchantRequest) (_result *CreateDubbridgeAlipayMerchantResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateDubbridgeAlipayMerchantResponse{}
+	_body, _err := client.CreateDubbridgeAlipayMerchantEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统二级商户入驻-分期付
+ * Summary: 天枢系统二级商户入驻-分期付
+ */
+func (client *Client) CreateDubbridgeAlipayMerchantEx(request *CreateDubbridgeAlipayMerchantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateDubbridgeAlipayMerchantResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateDubbridgeAlipayMerchantResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.alipay.merchant.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统二级商户入驻结果查询-分期付
+ * Summary: 天枢系统二级商户入驻结果查询-分期付
+ */
+func (client *Client) QueryDubbridgeAlipayMerchant(request *QueryDubbridgeAlipayMerchantRequest) (_result *QueryDubbridgeAlipayMerchantResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeAlipayMerchantResponse{}
+	_body, _err := client.QueryDubbridgeAlipayMerchantEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统二级商户入驻结果查询-分期付
+ * Summary: 天枢系统二级商户入驻结果查询-分期付
+ */
+func (client *Client) QueryDubbridgeAlipayMerchantEx(request *QueryDubbridgeAlipayMerchantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeAlipayMerchantResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeAlipayMerchantResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.alipay.merchant.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统二级商户支付宝订单码创建-分期付
+ * Summary: 天枢系统二级商户支付宝订单码创建-分期付
+ */
+func (client *Client) CreateDubbridgeAlipayTrade(request *CreateDubbridgeAlipayTradeRequest) (_result *CreateDubbridgeAlipayTradeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateDubbridgeAlipayTradeResponse{}
+	_body, _err := client.CreateDubbridgeAlipayTradeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统二级商户支付宝订单码创建-分期付
+ * Summary: 天枢系统二级商户支付宝订单码创建-分期付
+ */
+func (client *Client) CreateDubbridgeAlipayTradeEx(request *CreateDubbridgeAlipayTradeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateDubbridgeAlipayTradeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateDubbridgeAlipayTradeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.alipay.trade.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
