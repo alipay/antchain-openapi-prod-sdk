@@ -1574,6 +1574,122 @@ export class RiskLabelInfo extends $tea.Model {
   }
 }
 
+// 二级商户入驻结果
+export class SubMerchantOrder extends $tea.Model {
+  // 是否开通线上预授权，
+  // TRUE/FALSE
+  appPreAuth?: string;
+  // 申请单创建时间
+  applyTime: string;
+  // 本申请单的请求类型，
+  // 商户预校验: ZHIFUTONG_CONSULT
+  // 商户创建: ZHIFUTONG_CREATE
+  // 商户修改: ZHIFUTONG_MODIFY
+  // 
+  applyType: string;
+  // 进件生成的卡编号，在发起结算时可以作为结算账号
+  cardAliasNo?: string;
+  // 外部商户id
+  externalId: string;
+  // 是否开通线下预授权，
+  // TRUE/FALSE
+  facePreAuth?: string;
+  // 风控审核状态，
+  // CREATE: 已创建待审批
+  // SKIP: 跳过风控审批步骤
+  // PASS: 风控审核通过
+  // REJECT: 风控审批拒绝
+  // 
+  fkAudit?: string;
+  // 风控审批备注
+  fkAuditMemo?: string;
+  // 判断个人当面付权限版本，
+  // TRUE: 表示是标准版
+  // FALSE: 表示受限版
+  // 
+  isFaceLimit?: string;
+  // 客资审核状态，
+  // CREATE: 已创建待审批
+  // SKIP: 跳过客资审批步骤
+  // PASS: 客资审核通过
+  // REJECT: 客资审批拒绝
+  kzAudit?: string;
+  // 客资审批备注
+  kzAuditMemo?: string;
+  // 进件时填写的商户名称
+  merchantName?: string;
+  // 入驻申请单号
+  orderId: string;
+  // 申请单处理失败时，通过此此段返回具体的失败理由，
+  // 与kf_audit_memo和kz_audit_memo配合使用
+  reason?: string;
+  // 签约支付宝账号（脱敏）
+  safeBindingLogonId?: string;
+  // 二级商户id，当总体申请状态status为99时，smid才算进件完成
+  smid?: string;
+  // 申请总体状态，
+  // 99: 已完结
+  // -1: 失败
+  // 031: 审核中
+  status: string;
+  // 二级商户确认状态，
+  // CREATE: 已发起二级商户确认
+  // SKIP: 无需确认
+  // FAIL: 签约失败
+  // NOT_CONFIRM: 商户未确认
+  // FINISH: 签约完成
+  subConfirm?: string;
+  static names(): { [key: string]: string } {
+    return {
+      appPreAuth: 'app_pre_auth',
+      applyTime: 'apply_time',
+      applyType: 'apply_type',
+      cardAliasNo: 'card_alias_no',
+      externalId: 'external_id',
+      facePreAuth: 'face_pre_auth',
+      fkAudit: 'fk_audit',
+      fkAuditMemo: 'fk_audit_memo',
+      isFaceLimit: 'is_face_limit',
+      kzAudit: 'kz_audit',
+      kzAuditMemo: 'kz_audit_memo',
+      merchantName: 'merchant_name',
+      orderId: 'order_id',
+      reason: 'reason',
+      safeBindingLogonId: 'safe_binding_logon_id',
+      smid: 'smid',
+      status: 'status',
+      subConfirm: 'sub_confirm',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      appPreAuth: 'string',
+      applyTime: 'string',
+      applyType: 'string',
+      cardAliasNo: 'string',
+      externalId: 'string',
+      facePreAuth: 'string',
+      fkAudit: 'string',
+      fkAuditMemo: 'string',
+      isFaceLimit: 'string',
+      kzAudit: 'string',
+      kzAuditMemo: 'string',
+      merchantName: 'string',
+      orderId: 'string',
+      reason: 'string',
+      safeBindingLogonId: 'string',
+      smid: 'string',
+      status: 'string',
+      subConfirm: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 企业反馈
 export class RtopCompanyFeedback extends $tea.Model {
   // 主键
@@ -4259,6 +4375,14 @@ export class DefinInnerChannelNotifyResult extends $tea.Model {
 export class StoreInfo extends $tea.Model {
   // 品牌
   storeBrand: string;
+  // 品牌，商户入驻时需填写，
+  // TBJHF: 赛鸽出行
+  // AIJNBJ: 智迈电动车
+  // KJOKJBO: 金箭出行
+  // IFJRJTIJ: 骑士智行
+  // KVMPOH: 巨龙智行
+  // NPGBRVBO: 摩生态A
+  trafficPlatform?: string;
   // 门店ID
   storeId: string;
   // 门店名称
@@ -4267,10 +4391,16 @@ export class StoreInfo extends $tea.Model {
   usci: string;
   // 门店-省，浙江省
   province: string;
+  // 省编码
+  provinceCode?: string;
   // 门店-市，杭州市
   city: string;
+  // 市编码
+  cityCode?: string;
   // 门店-区，滨江区
   district: string;
+  // 区编码
+  districtCode?: string;
   // 门店-详细地址，
   // 望江路万达广场一层001号
   address: string;
@@ -4279,7 +4409,7 @@ export class StoreInfo extends $tea.Model {
   // 营业执照-结束时间，yyyy-MM-dd，长期上送：9999-12-31
   storeEndDate: string;
   // 门店类型，
-  // 个体、企业、其他
+  // 个体: 个体工商户；企业
   storeType: string;
   // 法人-姓名
   legalPersonName: string;
@@ -4311,15 +4441,25 @@ export class StoreInfo extends $tea.Model {
   loginTenant?: string;
   // 入驻时间
   loginDate?: string;
+  // 结算支付宝账户，交易资金结算的具体支付宝账号，商户入驻时需填写
+  alipayLogonId?: string;
+  // 支付宝openId，商户入驻时（非必填）
+  infoSourceOpenId?: string;
+  // 签约支付宝账户，商户入驻时（非必填）
+  bindingAlipayLogonId?: string;
   static names(): { [key: string]: string } {
     return {
       storeBrand: 'store_brand',
+      trafficPlatform: 'traffic_platform',
       storeId: 'store_id',
       storeName: 'store_name',
       usci: 'usci',
       province: 'province',
+      provinceCode: 'province_code',
       city: 'city',
+      cityCode: 'city_code',
       district: 'district',
+      districtCode: 'district_code',
       address: 'address',
       storeStartDate: 'store_start_date',
       storeEndDate: 'store_end_date',
@@ -4339,18 +4479,25 @@ export class StoreInfo extends $tea.Model {
       payeeBankName: 'payee_bank_name',
       loginTenant: 'login_tenant',
       loginDate: 'login_date',
+      alipayLogonId: 'alipay_logon_id',
+      infoSourceOpenId: 'info_source_open_id',
+      bindingAlipayLogonId: 'binding_alipay_logon_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       storeBrand: 'string',
+      trafficPlatform: 'string',
       storeId: 'string',
       storeName: 'string',
       usci: 'string',
       province: 'string',
+      provinceCode: 'string',
       city: 'string',
+      cityCode: 'string',
       district: 'string',
+      districtCode: 'string',
       address: 'string',
       storeStartDate: 'string',
       storeEndDate: 'string',
@@ -4370,6 +4517,9 @@ export class StoreInfo extends $tea.Model {
       payeeBankName: 'string',
       loginTenant: 'string',
       loginDate: 'string',
+      alipayLogonId: 'string',
+      infoSourceOpenId: 'string',
+      bindingAlipayLogonId: 'string',
     };
   }
 
@@ -12580,6 +12730,308 @@ export class QueryDubbridgeInstallmentTrialResponse extends $tea.Model {
       creditAmount: 'string',
       restAmount: 'string',
       installmentList: { 'type': 'array', 'itemType': InstallmentTrial },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadDubbridgeAlipayImageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // request请求单号，每次请求唯一，如uuid
+  orderNo: string;
+  // 门店Id
+  storeId: string;
+  // 门店所属子品牌，
+  // TBJHF: 赛鸽出行-
+  // AIJNBJ: 智迈电动车
+  // KJOKJBO: 金箭出行
+  // IFJRJTIJ: 骑士智行
+  // KVMPOH: 巨龙智行
+  // NPGBRVBO: 摩生态A
+  trafficPlatform: string;
+  // 图片种类，
+  // 10: 营业执照
+  // 20: 门头照
+  // 21: 内景照
+  imageCategory: string;
+  // 文件base64字符串，最大10M；（建议）
+  imageContent?: string;
+  // 图片文件路径
+  imagePath?: string;
+  // 图片格式，
+  // 支持格式：bmp、jpg、jpeg、png、gif
+  imageType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      storeId: 'store_id',
+      trafficPlatform: 'traffic_platform',
+      imageCategory: 'image_category',
+      imageContent: 'image_content',
+      imagePath: 'image_path',
+      imageType: 'image_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+      storeId: 'string',
+      trafficPlatform: 'string',
+      imageCategory: 'string',
+      imageContent: 'string',
+      imagePath: 'string',
+      imageType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadDubbridgeAlipayImageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 图片上传后的标识
+  imageId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      imageId: 'image_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      imageId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDubbridgeAlipayMerchantRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // request请求单号，每次请求唯一，如uuid
+  orderNo: string;
+  // 门店详情
+  storeInfo: StoreInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      storeInfo: 'store_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+      storeInfo: StoreInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDubbridgeAlipayMerchantResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 入驻申请单号
+  orderId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeAlipayMerchantRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // request请求单号，每次请求唯一，如uuid
+  orderNo: string;
+  // 门店id
+  storeId: string;
+  // 入驻申请单号
+  orderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      storeId: 'store_id',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+      storeId: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeAlipayMerchantResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 入驻结果信息
+  subMerchantOrder?: SubMerchantOrder;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      subMerchantOrder: 'sub_merchant_order',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      subMerchantOrder: SubMerchantOrder,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDubbridgeAlipayTradeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // request请求单号，每次请求唯一，如uuid
+  orderNo: string;
+  // 订单归属门店id
+  storeId: string;
+  // 订单车辆信息
+  vehicleInfo: VehicleInfo;
+  // 订单绝对超时时间 yyyy-MM-dd HH:mm:ss，支付宝结算生成订单二维码时传值（非必填，优先于 timeout_express)
+  timeExpire?: string;
+  // 订单相对超时时间，从预下单请求时间开始计算，该笔订单允许的最晚付款时间，逾期将关闭交易（非必填）
+  timeoutExpress?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      storeId: 'store_id',
+      vehicleInfo: 'vehicle_info',
+      timeExpire: 'time_expire',
+      timeoutExpress: 'timeout_express',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+      storeId: 'string',
+      vehicleInfo: VehicleInfo,
+      timeExpire: 'string',
+      timeoutExpress: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateDubbridgeAlipayTradeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 资产方购物订单号
+  bizOrderNo?: string;
+  // 订单二维码码串，支付宝预下单生成的二维码码串，有效时间2小时
+  qrCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizOrderNo: 'biz_order_no',
+      qrCode: 'qr_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizOrderNo: 'string',
+      qrCode: 'string',
     };
   }
 
@@ -24922,7 +25374,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.26.5",
+          sdk_version: "1.26.6",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -26567,6 +27019,82 @@ export default class Client {
   async queryDubbridgeInstallmentTrialEx(request: QueryDubbridgeInstallmentTrialRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeInstallmentTrialResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDubbridgeInstallmentTrialResponse>(await this.doRequest("1.0", "riskplus.dubbridge.installment.trial.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeInstallmentTrialResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统二级商户入驻图片上传-分期付
+   * Summary: 天枢系统二级商户入驻图片上传-分期付
+   */
+  async uploadDubbridgeAlipayImage(request: UploadDubbridgeAlipayImageRequest): Promise<UploadDubbridgeAlipayImageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadDubbridgeAlipayImageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统二级商户入驻图片上传-分期付
+   * Summary: 天枢系统二级商户入驻图片上传-分期付
+   */
+  async uploadDubbridgeAlipayImageEx(request: UploadDubbridgeAlipayImageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadDubbridgeAlipayImageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadDubbridgeAlipayImageResponse>(await this.doRequest("1.0", "riskplus.dubbridge.alipay.image.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadDubbridgeAlipayImageResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统二级商户入驻-分期付
+   * Summary: 天枢系统二级商户入驻-分期付
+   */
+  async createDubbridgeAlipayMerchant(request: CreateDubbridgeAlipayMerchantRequest): Promise<CreateDubbridgeAlipayMerchantResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createDubbridgeAlipayMerchantEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统二级商户入驻-分期付
+   * Summary: 天枢系统二级商户入驻-分期付
+   */
+  async createDubbridgeAlipayMerchantEx(request: CreateDubbridgeAlipayMerchantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDubbridgeAlipayMerchantResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateDubbridgeAlipayMerchantResponse>(await this.doRequest("1.0", "riskplus.dubbridge.alipay.merchant.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDubbridgeAlipayMerchantResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统二级商户入驻结果查询-分期付
+   * Summary: 天枢系统二级商户入驻结果查询-分期付
+   */
+  async queryDubbridgeAlipayMerchant(request: QueryDubbridgeAlipayMerchantRequest): Promise<QueryDubbridgeAlipayMerchantResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeAlipayMerchantEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统二级商户入驻结果查询-分期付
+   * Summary: 天枢系统二级商户入驻结果查询-分期付
+   */
+  async queryDubbridgeAlipayMerchantEx(request: QueryDubbridgeAlipayMerchantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeAlipayMerchantResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeAlipayMerchantResponse>(await this.doRequest("1.0", "riskplus.dubbridge.alipay.merchant.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeAlipayMerchantResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统二级商户支付宝订单码创建-分期付
+   * Summary: 天枢系统二级商户支付宝订单码创建-分期付
+   */
+  async createDubbridgeAlipayTrade(request: CreateDubbridgeAlipayTradeRequest): Promise<CreateDubbridgeAlipayTradeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createDubbridgeAlipayTradeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统二级商户支付宝订单码创建-分期付
+   * Summary: 天枢系统二级商户支付宝订单码创建-分期付
+   */
+  async createDubbridgeAlipayTradeEx(request: CreateDubbridgeAlipayTradeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDubbridgeAlipayTradeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateDubbridgeAlipayTradeResponse>(await this.doRequest("1.0", "riskplus.dubbridge.alipay.trade.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDubbridgeAlipayTradeResponse({}));
   }
 
   /**
