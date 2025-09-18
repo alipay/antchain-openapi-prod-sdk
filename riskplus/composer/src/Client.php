@@ -115,6 +115,10 @@ use AntChain\RISKPLUS\Models\CountDubheRepayTrialRequest;
 use AntChain\RISKPLUS\Models\CountDubheRepayTrialResponse;
 use AntChain\RISKPLUS\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\RISKPLUS\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\RISKPLUS\Models\CreateDubbridgeAlipayMerchantRequest;
+use AntChain\RISKPLUS\Models\CreateDubbridgeAlipayMerchantResponse;
+use AntChain\RISKPLUS\Models\CreateDubbridgeAlipayTradeRequest;
+use AntChain\RISKPLUS\Models\CreateDubbridgeAlipayTradeResponse;
 use AntChain\RISKPLUS\Models\CreateRbbApiGwtokenRequest;
 use AntChain\RISKPLUS\Models\CreateRbbApiGwtokenResponse;
 use AntChain\RISKPLUS\Models\CreateRbbTenantRequest;
@@ -221,6 +225,8 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeAccountUsecreditRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountUsecreditResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAgreementPreviewRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAgreementPreviewResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeAlipayMerchantRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeAlipayMerchantResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditPermitRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditPermitResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditStatusRequest;
@@ -465,6 +471,8 @@ use AntChain\RISKPLUS\Models\UpdateDubbridgeInstitutionCreditRequest;
 use AntChain\RISKPLUS\Models\UpdateDubbridgeInstitutionCreditResponse;
 use AntChain\RISKPLUS\Models\UpdateDubheCustomerInfoRequest;
 use AntChain\RISKPLUS\Models\UpdateDubheCustomerInfoResponse;
+use AntChain\RISKPLUS\Models\UploadDubbridgeAlipayImageRequest;
+use AntChain\RISKPLUS\Models\UploadDubbridgeAlipayImageResponse;
 use AntChain\RISKPLUS\Models\UploadDubbridgeFileRequest;
 use AntChain\RISKPLUS\Models\UploadDubbridgeFileResponse;
 use AntChain\RISKPLUS\Models\UploadQmpOfflinehostplanRequest;
@@ -632,7 +640,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.26.5',
+                    'sdk_version'      => '1.26.6',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3436,6 +3444,138 @@ class Client
         Utils::validateModel($request);
 
         return QueryDubbridgeInstallmentTrialResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.installment.trial.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统二级商户入驻图片上传-分期付
+     * Summary: 天枢系统二级商户入驻图片上传-分期付.
+     *
+     * @param UploadDubbridgeAlipayImageRequest $request
+     *
+     * @return UploadDubbridgeAlipayImageResponse
+     */
+    public function uploadDubbridgeAlipayImage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadDubbridgeAlipayImageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统二级商户入驻图片上传-分期付
+     * Summary: 天枢系统二级商户入驻图片上传-分期付.
+     *
+     * @param UploadDubbridgeAlipayImageRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return UploadDubbridgeAlipayImageResponse
+     */
+    public function uploadDubbridgeAlipayImageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadDubbridgeAlipayImageResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.alipay.image.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统二级商户入驻-分期付
+     * Summary: 天枢系统二级商户入驻-分期付.
+     *
+     * @param CreateDubbridgeAlipayMerchantRequest $request
+     *
+     * @return CreateDubbridgeAlipayMerchantResponse
+     */
+    public function createDubbridgeAlipayMerchant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDubbridgeAlipayMerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统二级商户入驻-分期付
+     * Summary: 天枢系统二级商户入驻-分期付.
+     *
+     * @param CreateDubbridgeAlipayMerchantRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return CreateDubbridgeAlipayMerchantResponse
+     */
+    public function createDubbridgeAlipayMerchantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDubbridgeAlipayMerchantResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.alipay.merchant.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统二级商户入驻结果查询-分期付
+     * Summary: 天枢系统二级商户入驻结果查询-分期付.
+     *
+     * @param QueryDubbridgeAlipayMerchantRequest $request
+     *
+     * @return QueryDubbridgeAlipayMerchantResponse
+     */
+    public function queryDubbridgeAlipayMerchant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeAlipayMerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统二级商户入驻结果查询-分期付
+     * Summary: 天枢系统二级商户入驻结果查询-分期付.
+     *
+     * @param QueryDubbridgeAlipayMerchantRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryDubbridgeAlipayMerchantResponse
+     */
+    public function queryDubbridgeAlipayMerchantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeAlipayMerchantResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.alipay.merchant.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统二级商户支付宝订单码创建-分期付
+     * Summary: 天枢系统二级商户支付宝订单码创建-分期付.
+     *
+     * @param CreateDubbridgeAlipayTradeRequest $request
+     *
+     * @return CreateDubbridgeAlipayTradeResponse
+     */
+    public function createDubbridgeAlipayTrade($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDubbridgeAlipayTradeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统二级商户支付宝订单码创建-分期付
+     * Summary: 天枢系统二级商户支付宝订单码创建-分期付.
+     *
+     * @param CreateDubbridgeAlipayTradeRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CreateDubbridgeAlipayTradeResponse
+     */
+    public function createDubbridgeAlipayTradeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDubbridgeAlipayTradeResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.alipay.trade.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

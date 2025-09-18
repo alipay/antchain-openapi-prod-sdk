@@ -16,6 +16,20 @@ class StoreInfo extends Model
      */
     public $storeBrand;
 
+    // 品牌，商户入驻时需填写，
+    // TBJHF: 赛鸽出行
+    // AIJNBJ: 智迈电动车
+    // KJOKJBO: 金箭出行
+    // IFJRJTIJ: 骑士智行
+    // KVMPOH: 巨龙智行
+    // NPGBRVBO: 摩生态A
+    /**
+     * @example IFJRJTIJ
+     *
+     * @var string
+     */
+    public $trafficPlatform;
+
     // 门店ID
     /**
      * @example xxxx
@@ -48,6 +62,14 @@ class StoreInfo extends Model
      */
     public $province;
 
+    // 省编码
+    /**
+     * @example 100001
+     *
+     * @var string
+     */
+    public $provinceCode;
+
     // 门店-市，杭州市
     /**
      * @example 杭州市
@@ -56,6 +78,14 @@ class StoreInfo extends Model
      */
     public $city;
 
+    // 市编码
+    /**
+     * @example xxxx
+     *
+     * @var string
+     */
+    public $cityCode;
+
     // 门店-区，滨江区
     /**
      * @example 滨江区
@@ -63,6 +93,14 @@ class StoreInfo extends Model
      * @var string
      */
     public $district;
+
+    // 区编码
+    /**
+     * @example xxx
+     *
+     * @var string
+     */
+    public $districtCode;
 
     // 门店-详细地址，
     // 望江路万达广场一层001号
@@ -90,7 +128,7 @@ class StoreInfo extends Model
     public $storeEndDate;
 
     // 门店类型，
-    // 个体、企业、其他
+    // 个体: 个体工商户；企业
     /**
      * @example 个体
      *
@@ -217,33 +255,64 @@ class StoreInfo extends Model
      * @var string
      */
     public $loginDate;
+
+    // 结算支付宝账户，交易资金结算的具体支付宝账号，商户入驻时需填写
+    /**
+     * @example xxxx@126.com
+     *
+     * @var string
+     */
+    public $alipayLogonId;
+
+    // 支付宝openId，商户入驻时（非必填）
+    /**
+     * @example xxxx
+     *
+     * @var string
+     */
+    public $infoSourceOpenId;
+
+    // 签约支付宝账户，商户入驻时（非必填）
+    /**
+     * @example xxx
+     *
+     * @var string
+     */
+    public $bindingAlipayLogonId;
     protected $_name = [
-        'storeBrand'        => 'store_brand',
-        'storeId'           => 'store_id',
-        'storeName'         => 'store_name',
-        'usci'              => 'usci',
-        'province'          => 'province',
-        'city'              => 'city',
-        'district'          => 'district',
-        'address'           => 'address',
-        'storeStartDate'    => 'store_start_date',
-        'storeEndDate'      => 'store_end_date',
-        'storeType'         => 'store_type',
-        'legalPersonName'   => 'legal_person_name',
-        'legalPersonIdCard' => 'legal_person_id_card',
-        'legalPersonMobile' => 'legal_person_mobile',
-        'effectiveDate'     => 'effective_date',
-        'bankName'          => 'bank_name',
-        'branchName'        => 'branch_name',
-        'cnapsCode'         => 'cnaps_code',
-        'accountName'       => 'account_name',
-        'accountNumber'     => 'account_number',
-        'bankProvince'      => 'bank_province',
-        'bankCity'          => 'bank_city',
-        'payeeBankCard'     => 'payee_bank_card',
-        'payeeBankName'     => 'payee_bank_name',
-        'loginTenant'       => 'login_tenant',
-        'loginDate'         => 'login_date',
+        'storeBrand'           => 'store_brand',
+        'trafficPlatform'      => 'traffic_platform',
+        'storeId'              => 'store_id',
+        'storeName'            => 'store_name',
+        'usci'                 => 'usci',
+        'province'             => 'province',
+        'provinceCode'         => 'province_code',
+        'city'                 => 'city',
+        'cityCode'             => 'city_code',
+        'district'             => 'district',
+        'districtCode'         => 'district_code',
+        'address'              => 'address',
+        'storeStartDate'       => 'store_start_date',
+        'storeEndDate'         => 'store_end_date',
+        'storeType'            => 'store_type',
+        'legalPersonName'      => 'legal_person_name',
+        'legalPersonIdCard'    => 'legal_person_id_card',
+        'legalPersonMobile'    => 'legal_person_mobile',
+        'effectiveDate'        => 'effective_date',
+        'bankName'             => 'bank_name',
+        'branchName'           => 'branch_name',
+        'cnapsCode'            => 'cnaps_code',
+        'accountName'          => 'account_name',
+        'accountNumber'        => 'account_number',
+        'bankProvince'         => 'bank_province',
+        'bankCity'             => 'bank_city',
+        'payeeBankCard'        => 'payee_bank_card',
+        'payeeBankName'        => 'payee_bank_name',
+        'loginTenant'          => 'login_tenant',
+        'loginDate'            => 'login_date',
+        'alipayLogonId'        => 'alipay_logon_id',
+        'infoSourceOpenId'     => 'info_source_open_id',
+        'bindingAlipayLogonId' => 'binding_alipay_logon_id',
     ];
 
     public function validate()
@@ -271,6 +340,9 @@ class StoreInfo extends Model
         if (null !== $this->storeBrand) {
             $res['store_brand'] = $this->storeBrand;
         }
+        if (null !== $this->trafficPlatform) {
+            $res['traffic_platform'] = $this->trafficPlatform;
+        }
         if (null !== $this->storeId) {
             $res['store_id'] = $this->storeId;
         }
@@ -283,11 +355,20 @@ class StoreInfo extends Model
         if (null !== $this->province) {
             $res['province'] = $this->province;
         }
+        if (null !== $this->provinceCode) {
+            $res['province_code'] = $this->provinceCode;
+        }
         if (null !== $this->city) {
             $res['city'] = $this->city;
         }
+        if (null !== $this->cityCode) {
+            $res['city_code'] = $this->cityCode;
+        }
         if (null !== $this->district) {
             $res['district'] = $this->district;
+        }
+        if (null !== $this->districtCode) {
+            $res['district_code'] = $this->districtCode;
         }
         if (null !== $this->address) {
             $res['address'] = $this->address;
@@ -346,6 +427,15 @@ class StoreInfo extends Model
         if (null !== $this->loginDate) {
             $res['login_date'] = $this->loginDate;
         }
+        if (null !== $this->alipayLogonId) {
+            $res['alipay_logon_id'] = $this->alipayLogonId;
+        }
+        if (null !== $this->infoSourceOpenId) {
+            $res['info_source_open_id'] = $this->infoSourceOpenId;
+        }
+        if (null !== $this->bindingAlipayLogonId) {
+            $res['binding_alipay_logon_id'] = $this->bindingAlipayLogonId;
+        }
 
         return $res;
     }
@@ -361,6 +451,9 @@ class StoreInfo extends Model
         if (isset($map['store_brand'])) {
             $model->storeBrand = $map['store_brand'];
         }
+        if (isset($map['traffic_platform'])) {
+            $model->trafficPlatform = $map['traffic_platform'];
+        }
         if (isset($map['store_id'])) {
             $model->storeId = $map['store_id'];
         }
@@ -373,11 +466,20 @@ class StoreInfo extends Model
         if (isset($map['province'])) {
             $model->province = $map['province'];
         }
+        if (isset($map['province_code'])) {
+            $model->provinceCode = $map['province_code'];
+        }
         if (isset($map['city'])) {
             $model->city = $map['city'];
         }
+        if (isset($map['city_code'])) {
+            $model->cityCode = $map['city_code'];
+        }
         if (isset($map['district'])) {
             $model->district = $map['district'];
+        }
+        if (isset($map['district_code'])) {
+            $model->districtCode = $map['district_code'];
         }
         if (isset($map['address'])) {
             $model->address = $map['address'];
@@ -435,6 +537,15 @@ class StoreInfo extends Model
         }
         if (isset($map['login_date'])) {
             $model->loginDate = $map['login_date'];
+        }
+        if (isset($map['alipay_logon_id'])) {
+            $model->alipayLogonId = $map['alipay_logon_id'];
+        }
+        if (isset($map['info_source_open_id'])) {
+            $model->infoSourceOpenId = $map['info_source_open_id'];
+        }
+        if (isset($map['binding_alipay_logon_id'])) {
+            $model->bindingAlipayLogonId = $map['binding_alipay_logon_id'];
         }
 
         return $model;
