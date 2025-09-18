@@ -10546,6 +10546,7 @@ class TransferAntchainAtoTradeFinanceRequest(TeaModel):
         fund_id_list: List[str] = None,
         fund_sign_mode: str = None,
         divide_start_term_index: int = None,
+        fund_mode: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -10560,6 +10561,8 @@ class TransferAntchainAtoTradeFinanceRequest(TeaModel):
         self.fund_sign_mode = fund_sign_mode
         # 商户分账起始期数
         self.divide_start_term_index = divide_start_term_index
+        # 融资模式
+        self.fund_mode = fund_mode
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -10590,6 +10593,8 @@ class TransferAntchainAtoTradeFinanceRequest(TeaModel):
             result['fund_sign_mode'] = self.fund_sign_mode
         if self.divide_start_term_index is not None:
             result['divide_start_term_index'] = self.divide_start_term_index
+        if self.fund_mode is not None:
+            result['fund_mode'] = self.fund_mode
         return result
 
     def from_map(self, m: dict = None):
@@ -10608,6 +10613,8 @@ class TransferAntchainAtoTradeFinanceRequest(TeaModel):
             self.fund_sign_mode = m.get('fund_sign_mode')
         if m.get('divide_start_term_index') is not None:
             self.divide_start_term_index = m.get('divide_start_term_index')
+        if m.get('fund_mode') is not None:
+            self.fund_mode = m.get('fund_mode')
         return self
 
 
