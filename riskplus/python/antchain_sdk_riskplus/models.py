@@ -2581,6 +2581,184 @@ class RiskLabelInfo(TeaModel):
         return self
 
 
+class SubMerchantOrder(TeaModel):
+    def __init__(
+        self,
+        app_pre_auth: str = None,
+        apply_time: str = None,
+        apply_type: str = None,
+        card_alias_no: str = None,
+        external_id: str = None,
+        face_pre_auth: str = None,
+        fk_audit: str = None,
+        fk_audit_memo: str = None,
+        is_face_limit: str = None,
+        kz_audit: str = None,
+        kz_audit_memo: str = None,
+        merchant_name: str = None,
+        order_id: str = None,
+        reason: str = None,
+        safe_binding_logon_id: str = None,
+        smid: str = None,
+        status: str = None,
+        sub_confirm: str = None,
+    ):
+        # 是否开通线上预授权，
+        # TRUE/FALSE
+        self.app_pre_auth = app_pre_auth
+        # 申请单创建时间
+        self.apply_time = apply_time
+        # 本申请单的请求类型，
+        # 商户预校验: ZHIFUTONG_CONSULT
+        # 商户创建: ZHIFUTONG_CREATE
+        # 商户修改: ZHIFUTONG_MODIFY
+        # 
+        self.apply_type = apply_type
+        # 进件生成的卡编号，在发起结算时可以作为结算账号
+        self.card_alias_no = card_alias_no
+        # 外部商户id
+        self.external_id = external_id
+        # 是否开通线下预授权，
+        # TRUE/FALSE
+        self.face_pre_auth = face_pre_auth
+        # 风控审核状态，
+        # CREATE: 已创建待审批
+        # SKIP: 跳过风控审批步骤
+        # PASS: 风控审核通过
+        # REJECT: 风控审批拒绝
+        # 
+        self.fk_audit = fk_audit
+        # 风控审批备注
+        self.fk_audit_memo = fk_audit_memo
+        # 判断个人当面付权限版本，
+        # TRUE: 表示是标准版
+        # FALSE: 表示受限版
+        # 
+        self.is_face_limit = is_face_limit
+        # 客资审核状态，
+        # CREATE: 已创建待审批
+        # SKIP: 跳过客资审批步骤
+        # PASS: 客资审核通过
+        # REJECT: 客资审批拒绝
+        self.kz_audit = kz_audit
+        # 客资审批备注
+        self.kz_audit_memo = kz_audit_memo
+        # 进件时填写的商户名称
+        self.merchant_name = merchant_name
+        # 入驻申请单号
+        self.order_id = order_id
+        # 申请单处理失败时，通过此此段返回具体的失败理由，
+        # 与kf_audit_memo和kz_audit_memo配合使用
+        self.reason = reason
+        # 签约支付宝账号（脱敏）
+        self.safe_binding_logon_id = safe_binding_logon_id
+        # 二级商户id，当总体申请状态status为99时，smid才算进件完成
+        self.smid = smid
+        # 申请总体状态，
+        # 99: 已完结
+        # -1: 失败
+        # 031: 审核中
+        self.status = status
+        # 二级商户确认状态，
+        # CREATE: 已发起二级商户确认
+        # SKIP: 无需确认
+        # FAIL: 签约失败
+        # NOT_CONFIRM: 商户未确认
+        # FINISH: 签约完成
+        self.sub_confirm = sub_confirm
+
+    def validate(self):
+        self.validate_required(self.apply_time, 'apply_time')
+        self.validate_required(self.apply_type, 'apply_type')
+        self.validate_required(self.external_id, 'external_id')
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_pre_auth is not None:
+            result['app_pre_auth'] = self.app_pre_auth
+        if self.apply_time is not None:
+            result['apply_time'] = self.apply_time
+        if self.apply_type is not None:
+            result['apply_type'] = self.apply_type
+        if self.card_alias_no is not None:
+            result['card_alias_no'] = self.card_alias_no
+        if self.external_id is not None:
+            result['external_id'] = self.external_id
+        if self.face_pre_auth is not None:
+            result['face_pre_auth'] = self.face_pre_auth
+        if self.fk_audit is not None:
+            result['fk_audit'] = self.fk_audit
+        if self.fk_audit_memo is not None:
+            result['fk_audit_memo'] = self.fk_audit_memo
+        if self.is_face_limit is not None:
+            result['is_face_limit'] = self.is_face_limit
+        if self.kz_audit is not None:
+            result['kz_audit'] = self.kz_audit
+        if self.kz_audit_memo is not None:
+            result['kz_audit_memo'] = self.kz_audit_memo
+        if self.merchant_name is not None:
+            result['merchant_name'] = self.merchant_name
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.reason is not None:
+            result['reason'] = self.reason
+        if self.safe_binding_logon_id is not None:
+            result['safe_binding_logon_id'] = self.safe_binding_logon_id
+        if self.smid is not None:
+            result['smid'] = self.smid
+        if self.status is not None:
+            result['status'] = self.status
+        if self.sub_confirm is not None:
+            result['sub_confirm'] = self.sub_confirm
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('app_pre_auth') is not None:
+            self.app_pre_auth = m.get('app_pre_auth')
+        if m.get('apply_time') is not None:
+            self.apply_time = m.get('apply_time')
+        if m.get('apply_type') is not None:
+            self.apply_type = m.get('apply_type')
+        if m.get('card_alias_no') is not None:
+            self.card_alias_no = m.get('card_alias_no')
+        if m.get('external_id') is not None:
+            self.external_id = m.get('external_id')
+        if m.get('face_pre_auth') is not None:
+            self.face_pre_auth = m.get('face_pre_auth')
+        if m.get('fk_audit') is not None:
+            self.fk_audit = m.get('fk_audit')
+        if m.get('fk_audit_memo') is not None:
+            self.fk_audit_memo = m.get('fk_audit_memo')
+        if m.get('is_face_limit') is not None:
+            self.is_face_limit = m.get('is_face_limit')
+        if m.get('kz_audit') is not None:
+            self.kz_audit = m.get('kz_audit')
+        if m.get('kz_audit_memo') is not None:
+            self.kz_audit_memo = m.get('kz_audit_memo')
+        if m.get('merchant_name') is not None:
+            self.merchant_name = m.get('merchant_name')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('reason') is not None:
+            self.reason = m.get('reason')
+        if m.get('safe_binding_logon_id') is not None:
+            self.safe_binding_logon_id = m.get('safe_binding_logon_id')
+        if m.get('smid') is not None:
+            self.smid = m.get('smid')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('sub_confirm') is not None:
+            self.sub_confirm = m.get('sub_confirm')
+        return self
+
+
 class RtopCompanyFeedback(TeaModel):
     def __init__(
         self,
@@ -7060,12 +7238,16 @@ class StoreInfo(TeaModel):
     def __init__(
         self,
         store_brand: str = None,
+        traffic_platform: str = None,
         store_id: str = None,
         store_name: str = None,
         usci: str = None,
         province: str = None,
+        province_code: str = None,
         city: str = None,
+        city_code: str = None,
         district: str = None,
+        district_code: str = None,
         address: str = None,
         store_start_date: str = None,
         store_end_date: str = None,
@@ -7085,9 +7267,20 @@ class StoreInfo(TeaModel):
         payee_bank_name: str = None,
         login_tenant: str = None,
         login_date: str = None,
+        alipay_logon_id: str = None,
+        info_source_open_id: str = None,
+        binding_alipay_logon_id: str = None,
     ):
         # 品牌
         self.store_brand = store_brand
+        # 品牌，商户入驻时需填写，
+        # TBJHF: 赛鸽出行
+        # AIJNBJ: 智迈电动车
+        # KJOKJBO: 金箭出行
+        # IFJRJTIJ: 骑士智行
+        # KVMPOH: 巨龙智行
+        # NPGBRVBO: 摩生态A
+        self.traffic_platform = traffic_platform
         # 门店ID
         self.store_id = store_id
         # 门店名称
@@ -7096,10 +7289,16 @@ class StoreInfo(TeaModel):
         self.usci = usci
         # 门店-省，浙江省
         self.province = province
+        # 省编码
+        self.province_code = province_code
         # 门店-市，杭州市
         self.city = city
+        # 市编码
+        self.city_code = city_code
         # 门店-区，滨江区
         self.district = district
+        # 区编码
+        self.district_code = district_code
         # 门店-详细地址，
         # 望江路万达广场一层001号
         self.address = address
@@ -7108,7 +7307,7 @@ class StoreInfo(TeaModel):
         # 营业执照-结束时间，yyyy-MM-dd，长期上送：9999-12-31
         self.store_end_date = store_end_date
         # 门店类型，
-        # 个体、企业、其他
+        # 个体: 个体工商户；企业
         self.store_type = store_type
         # 法人-姓名
         self.legal_person_name = legal_person_name
@@ -7140,6 +7339,12 @@ class StoreInfo(TeaModel):
         self.login_tenant = login_tenant
         # 入驻时间
         self.login_date = login_date
+        # 结算支付宝账户，交易资金结算的具体支付宝账号，商户入驻时需填写
+        self.alipay_logon_id = alipay_logon_id
+        # 支付宝openId，商户入驻时（非必填）
+        self.info_source_open_id = info_source_open_id
+        # 签约支付宝账户，商户入驻时（非必填）
+        self.binding_alipay_logon_id = binding_alipay_logon_id
 
     def validate(self):
         self.validate_required(self.store_brand, 'store_brand')
@@ -7166,6 +7371,8 @@ class StoreInfo(TeaModel):
         result = dict()
         if self.store_brand is not None:
             result['store_brand'] = self.store_brand
+        if self.traffic_platform is not None:
+            result['traffic_platform'] = self.traffic_platform
         if self.store_id is not None:
             result['store_id'] = self.store_id
         if self.store_name is not None:
@@ -7174,10 +7381,16 @@ class StoreInfo(TeaModel):
             result['usci'] = self.usci
         if self.province is not None:
             result['province'] = self.province
+        if self.province_code is not None:
+            result['province_code'] = self.province_code
         if self.city is not None:
             result['city'] = self.city
+        if self.city_code is not None:
+            result['city_code'] = self.city_code
         if self.district is not None:
             result['district'] = self.district
+        if self.district_code is not None:
+            result['district_code'] = self.district_code
         if self.address is not None:
             result['address'] = self.address
         if self.store_start_date is not None:
@@ -7216,12 +7429,20 @@ class StoreInfo(TeaModel):
             result['login_tenant'] = self.login_tenant
         if self.login_date is not None:
             result['login_date'] = self.login_date
+        if self.alipay_logon_id is not None:
+            result['alipay_logon_id'] = self.alipay_logon_id
+        if self.info_source_open_id is not None:
+            result['info_source_open_id'] = self.info_source_open_id
+        if self.binding_alipay_logon_id is not None:
+            result['binding_alipay_logon_id'] = self.binding_alipay_logon_id
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('store_brand') is not None:
             self.store_brand = m.get('store_brand')
+        if m.get('traffic_platform') is not None:
+            self.traffic_platform = m.get('traffic_platform')
         if m.get('store_id') is not None:
             self.store_id = m.get('store_id')
         if m.get('store_name') is not None:
@@ -7230,10 +7451,16 @@ class StoreInfo(TeaModel):
             self.usci = m.get('usci')
         if m.get('province') is not None:
             self.province = m.get('province')
+        if m.get('province_code') is not None:
+            self.province_code = m.get('province_code')
         if m.get('city') is not None:
             self.city = m.get('city')
+        if m.get('city_code') is not None:
+            self.city_code = m.get('city_code')
         if m.get('district') is not None:
             self.district = m.get('district')
+        if m.get('district_code') is not None:
+            self.district_code = m.get('district_code')
         if m.get('address') is not None:
             self.address = m.get('address')
         if m.get('store_start_date') is not None:
@@ -7272,6 +7499,12 @@ class StoreInfo(TeaModel):
             self.login_tenant = m.get('login_tenant')
         if m.get('login_date') is not None:
             self.login_date = m.get('login_date')
+        if m.get('alipay_logon_id') is not None:
+            self.alipay_logon_id = m.get('alipay_logon_id')
+        if m.get('info_source_open_id') is not None:
+            self.info_source_open_id = m.get('info_source_open_id')
+        if m.get('binding_alipay_logon_id') is not None:
+            self.binding_alipay_logon_id = m.get('binding_alipay_logon_id')
         return self
 
 
@@ -20979,6 +21212,491 @@ class QueryDubbridgeInstallmentTrialResponse(TeaModel):
             for k in m.get('installment_list'):
                 temp_model = InstallmentTrial()
                 self.installment_list.append(temp_model.from_map(k))
+        return self
+
+
+class UploadDubbridgeAlipayImageRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_no: str = None,
+        store_id: str = None,
+        traffic_platform: str = None,
+        image_category: str = None,
+        image_content: str = None,
+        image_path: str = None,
+        image_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # request请求单号，每次请求唯一，如uuid
+        self.order_no = order_no
+        # 门店Id
+        self.store_id = store_id
+        # 门店所属子品牌，
+        # TBJHF: 赛鸽出行-\
+        # AIJNBJ: 智迈电动车
+        # KJOKJBO: 金箭出行
+        # IFJRJTIJ: 骑士智行
+        # KVMPOH: 巨龙智行
+        # NPGBRVBO: 摩生态A
+        self.traffic_platform = traffic_platform
+        # 图片种类，
+        # 10: 营业执照
+        # 20: 门头照
+        # 21: 内景照
+        self.image_category = image_category
+        # 文件base64字符串，最大10M；（建议）
+        self.image_content = image_content
+        # 图片文件路径
+        self.image_path = image_path
+        # 图片格式，
+        # 支持格式：bmp、jpg、jpeg、png、gif
+        self.image_type = image_type
+
+    def validate(self):
+        self.validate_required(self.order_no, 'order_no')
+        self.validate_required(self.store_id, 'store_id')
+        self.validate_required(self.traffic_platform, 'traffic_platform')
+        self.validate_required(self.image_category, 'image_category')
+        self.validate_required(self.image_type, 'image_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_no is not None:
+            result['order_no'] = self.order_no
+        if self.store_id is not None:
+            result['store_id'] = self.store_id
+        if self.traffic_platform is not None:
+            result['traffic_platform'] = self.traffic_platform
+        if self.image_category is not None:
+            result['image_category'] = self.image_category
+        if self.image_content is not None:
+            result['image_content'] = self.image_content
+        if self.image_path is not None:
+            result['image_path'] = self.image_path
+        if self.image_type is not None:
+            result['image_type'] = self.image_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_no') is not None:
+            self.order_no = m.get('order_no')
+        if m.get('store_id') is not None:
+            self.store_id = m.get('store_id')
+        if m.get('traffic_platform') is not None:
+            self.traffic_platform = m.get('traffic_platform')
+        if m.get('image_category') is not None:
+            self.image_category = m.get('image_category')
+        if m.get('image_content') is not None:
+            self.image_content = m.get('image_content')
+        if m.get('image_path') is not None:
+            self.image_path = m.get('image_path')
+        if m.get('image_type') is not None:
+            self.image_type = m.get('image_type')
+        return self
+
+
+class UploadDubbridgeAlipayImageResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        image_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 图片上传后的标识
+        self.image_id = image_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.image_id is not None:
+            result['image_id'] = self.image_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('image_id') is not None:
+            self.image_id = m.get('image_id')
+        return self
+
+
+class CreateDubbridgeAlipayMerchantRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_no: str = None,
+        store_info: StoreInfo = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # request请求单号，每次请求唯一，如uuid
+        self.order_no = order_no
+        # 门店详情
+        self.store_info = store_info
+
+    def validate(self):
+        self.validate_required(self.order_no, 'order_no')
+        self.validate_required(self.store_info, 'store_info')
+        if self.store_info:
+            self.store_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_no is not None:
+            result['order_no'] = self.order_no
+        if self.store_info is not None:
+            result['store_info'] = self.store_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_no') is not None:
+            self.order_no = m.get('order_no')
+        if m.get('store_info') is not None:
+            temp_model = StoreInfo()
+            self.store_info = temp_model.from_map(m['store_info'])
+        return self
+
+
+class CreateDubbridgeAlipayMerchantResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        order_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 入驻申请单号
+        self.order_id = order_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        return self
+
+
+class QueryDubbridgeAlipayMerchantRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_no: str = None,
+        store_id: str = None,
+        order_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # request请求单号，每次请求唯一，如uuid
+        self.order_no = order_no
+        # 门店id
+        self.store_id = store_id
+        # 入驻申请单号
+        self.order_id = order_id
+
+    def validate(self):
+        self.validate_required(self.order_no, 'order_no')
+        self.validate_required(self.store_id, 'store_id')
+        self.validate_required(self.order_id, 'order_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_no is not None:
+            result['order_no'] = self.order_no
+        if self.store_id is not None:
+            result['store_id'] = self.store_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_no') is not None:
+            self.order_no = m.get('order_no')
+        if m.get('store_id') is not None:
+            self.store_id = m.get('store_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        return self
+
+
+class QueryDubbridgeAlipayMerchantResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        sub_merchant_order: SubMerchantOrder = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 入驻结果信息
+        self.sub_merchant_order = sub_merchant_order
+
+    def validate(self):
+        if self.sub_merchant_order:
+            self.sub_merchant_order.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.sub_merchant_order is not None:
+            result['sub_merchant_order'] = self.sub_merchant_order.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('sub_merchant_order') is not None:
+            temp_model = SubMerchantOrder()
+            self.sub_merchant_order = temp_model.from_map(m['sub_merchant_order'])
+        return self
+
+
+class CreateDubbridgeAlipayTradeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_no: str = None,
+        store_id: str = None,
+        vehicle_info: VehicleInfo = None,
+        time_expire: str = None,
+        timeout_express: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # request请求单号，每次请求唯一，如uuid
+        self.order_no = order_no
+        # 订单归属门店id
+        self.store_id = store_id
+        # 订单车辆信息
+        self.vehicle_info = vehicle_info
+        # 订单绝对超时时间 yyyy-MM-dd HH:mm:ss，支付宝结算生成订单二维码时传值（非必填，优先于 timeout_express)
+        self.time_expire = time_expire
+        # 订单相对超时时间，从预下单请求时间开始计算，该笔订单允许的最晚付款时间，逾期将关闭交易（非必填）
+        self.timeout_express = timeout_express
+
+    def validate(self):
+        self.validate_required(self.order_no, 'order_no')
+        self.validate_required(self.store_id, 'store_id')
+        self.validate_required(self.vehicle_info, 'vehicle_info')
+        if self.vehicle_info:
+            self.vehicle_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_no is not None:
+            result['order_no'] = self.order_no
+        if self.store_id is not None:
+            result['store_id'] = self.store_id
+        if self.vehicle_info is not None:
+            result['vehicle_info'] = self.vehicle_info.to_map()
+        if self.time_expire is not None:
+            result['time_expire'] = self.time_expire
+        if self.timeout_express is not None:
+            result['timeout_express'] = self.timeout_express
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_no') is not None:
+            self.order_no = m.get('order_no')
+        if m.get('store_id') is not None:
+            self.store_id = m.get('store_id')
+        if m.get('vehicle_info') is not None:
+            temp_model = VehicleInfo()
+            self.vehicle_info = temp_model.from_map(m['vehicle_info'])
+        if m.get('time_expire') is not None:
+            self.time_expire = m.get('time_expire')
+        if m.get('timeout_express') is not None:
+            self.timeout_express = m.get('timeout_express')
+        return self
+
+
+class CreateDubbridgeAlipayTradeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_order_no: str = None,
+        qr_code: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 资产方购物订单号
+        self.biz_order_no = biz_order_no
+        # 订单二维码码串，支付宝预下单生成的二维码码串，有效时间2小时
+        self.qr_code = qr_code
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_order_no is not None:
+            result['biz_order_no'] = self.biz_order_no
+        if self.qr_code is not None:
+            result['qr_code'] = self.qr_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_order_no') is not None:
+            self.biz_order_no = m.get('biz_order_no')
+        if m.get('qr_code') is not None:
+            self.qr_code = m.get('qr_code')
         return self
 
 

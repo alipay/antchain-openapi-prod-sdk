@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.26.5',
+                    'sdk_version': '1.26.6',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.26.5',
+                    'sdk_version': '1.26.6',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -4957,6 +4957,230 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryDubbridgeInstallmentTrialResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.installment.trial.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_dubbridge_alipay_image(
+        self,
+        request: riskplus_models.UploadDubbridgeAlipayImageRequest,
+    ) -> riskplus_models.UploadDubbridgeAlipayImageResponse:
+        """
+        Description: 天枢系统二级商户入驻图片上传-分期付
+        Summary: 天枢系统二级商户入驻图片上传-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_dubbridge_alipay_image_ex(request, headers, runtime)
+
+    async def upload_dubbridge_alipay_image_async(
+        self,
+        request: riskplus_models.UploadDubbridgeAlipayImageRequest,
+    ) -> riskplus_models.UploadDubbridgeAlipayImageResponse:
+        """
+        Description: 天枢系统二级商户入驻图片上传-分期付
+        Summary: 天枢系统二级商户入驻图片上传-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_dubbridge_alipay_image_ex_async(request, headers, runtime)
+
+    def upload_dubbridge_alipay_image_ex(
+        self,
+        request: riskplus_models.UploadDubbridgeAlipayImageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.UploadDubbridgeAlipayImageResponse:
+        """
+        Description: 天枢系统二级商户入驻图片上传-分期付
+        Summary: 天枢系统二级商户入驻图片上传-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.UploadDubbridgeAlipayImageResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.alipay.image.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_dubbridge_alipay_image_ex_async(
+        self,
+        request: riskplus_models.UploadDubbridgeAlipayImageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.UploadDubbridgeAlipayImageResponse:
+        """
+        Description: 天枢系统二级商户入驻图片上传-分期付
+        Summary: 天枢系统二级商户入驻图片上传-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.UploadDubbridgeAlipayImageResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.alipay.image.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_dubbridge_alipay_merchant(
+        self,
+        request: riskplus_models.CreateDubbridgeAlipayMerchantRequest,
+    ) -> riskplus_models.CreateDubbridgeAlipayMerchantResponse:
+        """
+        Description: 天枢系统二级商户入驻-分期付
+        Summary: 天枢系统二级商户入驻-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_dubbridge_alipay_merchant_ex(request, headers, runtime)
+
+    async def create_dubbridge_alipay_merchant_async(
+        self,
+        request: riskplus_models.CreateDubbridgeAlipayMerchantRequest,
+    ) -> riskplus_models.CreateDubbridgeAlipayMerchantResponse:
+        """
+        Description: 天枢系统二级商户入驻-分期付
+        Summary: 天枢系统二级商户入驻-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_dubbridge_alipay_merchant_ex_async(request, headers, runtime)
+
+    def create_dubbridge_alipay_merchant_ex(
+        self,
+        request: riskplus_models.CreateDubbridgeAlipayMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CreateDubbridgeAlipayMerchantResponse:
+        """
+        Description: 天枢系统二级商户入驻-分期付
+        Summary: 天枢系统二级商户入驻-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CreateDubbridgeAlipayMerchantResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.alipay.merchant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_dubbridge_alipay_merchant_ex_async(
+        self,
+        request: riskplus_models.CreateDubbridgeAlipayMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CreateDubbridgeAlipayMerchantResponse:
+        """
+        Description: 天枢系统二级商户入驻-分期付
+        Summary: 天枢系统二级商户入驻-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CreateDubbridgeAlipayMerchantResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.alipay.merchant.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_alipay_merchant(
+        self,
+        request: riskplus_models.QueryDubbridgeAlipayMerchantRequest,
+    ) -> riskplus_models.QueryDubbridgeAlipayMerchantResponse:
+        """
+        Description: 天枢系统二级商户入驻结果查询-分期付
+        Summary: 天枢系统二级商户入驻结果查询-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_alipay_merchant_ex(request, headers, runtime)
+
+    async def query_dubbridge_alipay_merchant_async(
+        self,
+        request: riskplus_models.QueryDubbridgeAlipayMerchantRequest,
+    ) -> riskplus_models.QueryDubbridgeAlipayMerchantResponse:
+        """
+        Description: 天枢系统二级商户入驻结果查询-分期付
+        Summary: 天枢系统二级商户入驻结果查询-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_alipay_merchant_ex_async(request, headers, runtime)
+
+    def query_dubbridge_alipay_merchant_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeAlipayMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeAlipayMerchantResponse:
+        """
+        Description: 天枢系统二级商户入驻结果查询-分期付
+        Summary: 天枢系统二级商户入驻结果查询-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeAlipayMerchantResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.alipay.merchant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_alipay_merchant_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeAlipayMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeAlipayMerchantResponse:
+        """
+        Description: 天枢系统二级商户入驻结果查询-分期付
+        Summary: 天枢系统二级商户入驻结果查询-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeAlipayMerchantResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.alipay.merchant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_dubbridge_alipay_trade(
+        self,
+        request: riskplus_models.CreateDubbridgeAlipayTradeRequest,
+    ) -> riskplus_models.CreateDubbridgeAlipayTradeResponse:
+        """
+        Description: 天枢系统二级商户支付宝订单码创建-分期付
+        Summary: 天枢系统二级商户支付宝订单码创建-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_dubbridge_alipay_trade_ex(request, headers, runtime)
+
+    async def create_dubbridge_alipay_trade_async(
+        self,
+        request: riskplus_models.CreateDubbridgeAlipayTradeRequest,
+    ) -> riskplus_models.CreateDubbridgeAlipayTradeResponse:
+        """
+        Description: 天枢系统二级商户支付宝订单码创建-分期付
+        Summary: 天枢系统二级商户支付宝订单码创建-分期付
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_dubbridge_alipay_trade_ex_async(request, headers, runtime)
+
+    def create_dubbridge_alipay_trade_ex(
+        self,
+        request: riskplus_models.CreateDubbridgeAlipayTradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CreateDubbridgeAlipayTradeResponse:
+        """
+        Description: 天枢系统二级商户支付宝订单码创建-分期付
+        Summary: 天枢系统二级商户支付宝订单码创建-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CreateDubbridgeAlipayTradeResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.alipay.trade.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_dubbridge_alipay_trade_ex_async(
+        self,
+        request: riskplus_models.CreateDubbridgeAlipayTradeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CreateDubbridgeAlipayTradeResponse:
+        """
+        Description: 天枢系统二级商户支付宝订单码创建-分期付
+        Summary: 天枢系统二级商户支付宝订单码创建-分期付
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CreateDubbridgeAlipayTradeResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.alipay.trade.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def verify_finservice_zhima_identify(
