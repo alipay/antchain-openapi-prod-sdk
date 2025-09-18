@@ -36,6 +36,10 @@ public class TransferAntchainAtoTradeFinanceRequest extends TeaModel {
     @Validation(required = true, minimum = 1)
     public Long divideStartTermIndex;
 
+    // 融资模式
+    @NameInMap("fund_mode")
+    public String fundMode;
+
     public static TransferAntchainAtoTradeFinanceRequest build(java.util.Map<String, ?> map) throws Exception {
         TransferAntchainAtoTradeFinanceRequest self = new TransferAntchainAtoTradeFinanceRequest();
         return TeaModel.build(map, self);
@@ -95,6 +99,14 @@ public class TransferAntchainAtoTradeFinanceRequest extends TeaModel {
     }
     public Long getDivideStartTermIndex() {
         return this.divideStartTermIndex;
+    }
+
+    public TransferAntchainAtoTradeFinanceRequest setFundMode(String fundMode) {
+        this.fundMode = fundMode;
+        return this;
+    }
+    public String getFundMode() {
+        return this.fundMode;
     }
 
 }
