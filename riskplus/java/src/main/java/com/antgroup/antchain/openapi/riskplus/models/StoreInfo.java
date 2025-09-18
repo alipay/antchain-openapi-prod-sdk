@@ -13,6 +13,20 @@ public class StoreInfo extends TeaModel {
     @Validation(required = true)
     public String storeBrand;
 
+    // 品牌，商户入驻时需填写，
+    // TBJHF: 赛鸽出行
+    // AIJNBJ: 智迈电动车
+    // KJOKJBO: 金箭出行
+    // IFJRJTIJ: 骑士智行
+    // KVMPOH: 巨龙智行
+    // NPGBRVBO: 摩生态A
+    /**
+     * <strong>example:</strong>
+     * <p>IFJRJTIJ</p>
+     */
+    @NameInMap("traffic_platform")
+    public String trafficPlatform;
+
     // 门店ID
     /**
      * <strong>example:</strong>
@@ -49,6 +63,14 @@ public class StoreInfo extends TeaModel {
     @Validation(required = true)
     public String province;
 
+    // 省编码
+    /**
+     * <strong>example:</strong>
+     * <p>100001</p>
+     */
+    @NameInMap("province_code")
+    public String provinceCode;
+
     // 门店-市，杭州市
     /**
      * <strong>example:</strong>
@@ -58,6 +80,14 @@ public class StoreInfo extends TeaModel {
     @Validation(required = true)
     public String city;
 
+    // 市编码
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
+    @NameInMap("city_code")
+    public String cityCode;
+
     // 门店-区，滨江区
     /**
      * <strong>example:</strong>
@@ -66,6 +96,14 @@ public class StoreInfo extends TeaModel {
     @NameInMap("district")
     @Validation(required = true)
     public String district;
+
+    // 区编码
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
+    @NameInMap("district_code")
+    public String districtCode;
 
     // 门店-详细地址，
     // 望江路万达广场一层001号
@@ -96,7 +134,7 @@ public class StoreInfo extends TeaModel {
     public String storeEndDate;
 
     // 门店类型，
-    // 个体、企业、其他
+    // 个体: 个体工商户；企业
     /**
      * <strong>example:</strong>
      * <p>个体</p>
@@ -229,6 +267,30 @@ public class StoreInfo extends TeaModel {
     @NameInMap("login_date")
     public String loginDate;
 
+    // 结算支付宝账户，交易资金结算的具体支付宝账号，商户入驻时需填写
+    /**
+     * <strong>example:</strong>
+     * <p><a href="mailto:xxxx@126.com">xxxx@126.com</a></p>
+     */
+    @NameInMap("alipay_logon_id")
+    public String alipayLogonId;
+
+    // 支付宝openId，商户入驻时（非必填）
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
+    @NameInMap("info_source_open_id")
+    public String infoSourceOpenId;
+
+    // 签约支付宝账户，商户入驻时（非必填）
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
+    @NameInMap("binding_alipay_logon_id")
+    public String bindingAlipayLogonId;
+
     public static StoreInfo build(java.util.Map<String, ?> map) throws Exception {
         StoreInfo self = new StoreInfo();
         return TeaModel.build(map, self);
@@ -240,6 +302,14 @@ public class StoreInfo extends TeaModel {
     }
     public String getStoreBrand() {
         return this.storeBrand;
+    }
+
+    public StoreInfo setTrafficPlatform(String trafficPlatform) {
+        this.trafficPlatform = trafficPlatform;
+        return this;
+    }
+    public String getTrafficPlatform() {
+        return this.trafficPlatform;
     }
 
     public StoreInfo setStoreId(String storeId) {
@@ -274,6 +344,14 @@ public class StoreInfo extends TeaModel {
         return this.province;
     }
 
+    public StoreInfo setProvinceCode(String provinceCode) {
+        this.provinceCode = provinceCode;
+        return this;
+    }
+    public String getProvinceCode() {
+        return this.provinceCode;
+    }
+
     public StoreInfo setCity(String city) {
         this.city = city;
         return this;
@@ -282,12 +360,28 @@ public class StoreInfo extends TeaModel {
         return this.city;
     }
 
+    public StoreInfo setCityCode(String cityCode) {
+        this.cityCode = cityCode;
+        return this;
+    }
+    public String getCityCode() {
+        return this.cityCode;
+    }
+
     public StoreInfo setDistrict(String district) {
         this.district = district;
         return this;
     }
     public String getDistrict() {
         return this.district;
+    }
+
+    public StoreInfo setDistrictCode(String districtCode) {
+        this.districtCode = districtCode;
+        return this;
+    }
+    public String getDistrictCode() {
+        return this.districtCode;
     }
 
     public StoreInfo setAddress(String address) {
@@ -440,6 +534,30 @@ public class StoreInfo extends TeaModel {
     }
     public String getLoginDate() {
         return this.loginDate;
+    }
+
+    public StoreInfo setAlipayLogonId(String alipayLogonId) {
+        this.alipayLogonId = alipayLogonId;
+        return this;
+    }
+    public String getAlipayLogonId() {
+        return this.alipayLogonId;
+    }
+
+    public StoreInfo setInfoSourceOpenId(String infoSourceOpenId) {
+        this.infoSourceOpenId = infoSourceOpenId;
+        return this;
+    }
+    public String getInfoSourceOpenId() {
+        return this.infoSourceOpenId;
+    }
+
+    public StoreInfo setBindingAlipayLogonId(String bindingAlipayLogonId) {
+        this.bindingAlipayLogonId = bindingAlipayLogonId;
+        return this;
+    }
+    public String getBindingAlipayLogonId() {
+        return this.bindingAlipayLogonId;
     }
 
 }

@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.26.5"),
+                    new TeaPair("sdk_version", "1.26.6"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1951,6 +1951,90 @@ public class Client {
     public QueryDubbridgeInstallmentTrialResponse queryDubbridgeInstallmentTrialEx(QueryDubbridgeInstallmentTrialRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.installment.trial.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeInstallmentTrialResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天枢系统二级商户入驻图片上传-分期付
+     * Summary: 天枢系统二级商户入驻图片上传-分期付</p>
+     */
+    public UploadDubbridgeAlipayImageResponse uploadDubbridgeAlipayImage(UploadDubbridgeAlipayImageRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadDubbridgeAlipayImageEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天枢系统二级商户入驻图片上传-分期付
+     * Summary: 天枢系统二级商户入驻图片上传-分期付</p>
+     */
+    public UploadDubbridgeAlipayImageResponse uploadDubbridgeAlipayImageEx(UploadDubbridgeAlipayImageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.alipay.image.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadDubbridgeAlipayImageResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天枢系统二级商户入驻-分期付
+     * Summary: 天枢系统二级商户入驻-分期付</p>
+     */
+    public CreateDubbridgeAlipayMerchantResponse createDubbridgeAlipayMerchant(CreateDubbridgeAlipayMerchantRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDubbridgeAlipayMerchantEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天枢系统二级商户入驻-分期付
+     * Summary: 天枢系统二级商户入驻-分期付</p>
+     */
+    public CreateDubbridgeAlipayMerchantResponse createDubbridgeAlipayMerchantEx(CreateDubbridgeAlipayMerchantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.alipay.merchant.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDubbridgeAlipayMerchantResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天枢系统二级商户入驻结果查询-分期付
+     * Summary: 天枢系统二级商户入驻结果查询-分期付</p>
+     */
+    public QueryDubbridgeAlipayMerchantResponse queryDubbridgeAlipayMerchant(QueryDubbridgeAlipayMerchantRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeAlipayMerchantEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天枢系统二级商户入驻结果查询-分期付
+     * Summary: 天枢系统二级商户入驻结果查询-分期付</p>
+     */
+    public QueryDubbridgeAlipayMerchantResponse queryDubbridgeAlipayMerchantEx(QueryDubbridgeAlipayMerchantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.alipay.merchant.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeAlipayMerchantResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天枢系统二级商户支付宝订单码创建-分期付
+     * Summary: 天枢系统二级商户支付宝订单码创建-分期付</p>
+     */
+    public CreateDubbridgeAlipayTradeResponse createDubbridgeAlipayTrade(CreateDubbridgeAlipayTradeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDubbridgeAlipayTradeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 天枢系统二级商户支付宝订单码创建-分期付
+     * Summary: 天枢系统二级商户支付宝订单码创建-分期付</p>
+     */
+    public CreateDubbridgeAlipayTradeResponse createDubbridgeAlipayTradeEx(CreateDubbridgeAlipayTradeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.alipay.trade.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDubbridgeAlipayTradeResponse());
     }
 
     /**
