@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.26.5"},
+                        {"sdk_version", "1.26.6"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.26.5"},
+                        {"sdk_version", "1.26.6"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3853,6 +3853,174 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDubbridgeInstallmentTrialResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.installment.trial.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统二级商户入驻图片上传-分期付
+         * Summary: 天枢系统二级商户入驻图片上传-分期付
+         */
+        public UploadDubbridgeAlipayImageResponse UploadDubbridgeAlipayImage(UploadDubbridgeAlipayImageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadDubbridgeAlipayImageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统二级商户入驻图片上传-分期付
+         * Summary: 天枢系统二级商户入驻图片上传-分期付
+         */
+        public async Task<UploadDubbridgeAlipayImageResponse> UploadDubbridgeAlipayImageAsync(UploadDubbridgeAlipayImageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadDubbridgeAlipayImageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统二级商户入驻图片上传-分期付
+         * Summary: 天枢系统二级商户入驻图片上传-分期付
+         */
+        public UploadDubbridgeAlipayImageResponse UploadDubbridgeAlipayImageEx(UploadDubbridgeAlipayImageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadDubbridgeAlipayImageResponse>(DoRequest("1.0", "riskplus.dubbridge.alipay.image.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统二级商户入驻图片上传-分期付
+         * Summary: 天枢系统二级商户入驻图片上传-分期付
+         */
+        public async Task<UploadDubbridgeAlipayImageResponse> UploadDubbridgeAlipayImageExAsync(UploadDubbridgeAlipayImageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadDubbridgeAlipayImageResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.alipay.image.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统二级商户入驻-分期付
+         * Summary: 天枢系统二级商户入驻-分期付
+         */
+        public CreateDubbridgeAlipayMerchantResponse CreateDubbridgeAlipayMerchant(CreateDubbridgeAlipayMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateDubbridgeAlipayMerchantEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统二级商户入驻-分期付
+         * Summary: 天枢系统二级商户入驻-分期付
+         */
+        public async Task<CreateDubbridgeAlipayMerchantResponse> CreateDubbridgeAlipayMerchantAsync(CreateDubbridgeAlipayMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateDubbridgeAlipayMerchantExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统二级商户入驻-分期付
+         * Summary: 天枢系统二级商户入驻-分期付
+         */
+        public CreateDubbridgeAlipayMerchantResponse CreateDubbridgeAlipayMerchantEx(CreateDubbridgeAlipayMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDubbridgeAlipayMerchantResponse>(DoRequest("1.0", "riskplus.dubbridge.alipay.merchant.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统二级商户入驻-分期付
+         * Summary: 天枢系统二级商户入驻-分期付
+         */
+        public async Task<CreateDubbridgeAlipayMerchantResponse> CreateDubbridgeAlipayMerchantExAsync(CreateDubbridgeAlipayMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDubbridgeAlipayMerchantResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.alipay.merchant.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统二级商户入驻结果查询-分期付
+         * Summary: 天枢系统二级商户入驻结果查询-分期付
+         */
+        public QueryDubbridgeAlipayMerchantResponse QueryDubbridgeAlipayMerchant(QueryDubbridgeAlipayMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeAlipayMerchantEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统二级商户入驻结果查询-分期付
+         * Summary: 天枢系统二级商户入驻结果查询-分期付
+         */
+        public async Task<QueryDubbridgeAlipayMerchantResponse> QueryDubbridgeAlipayMerchantAsync(QueryDubbridgeAlipayMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeAlipayMerchantExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统二级商户入驻结果查询-分期付
+         * Summary: 天枢系统二级商户入驻结果查询-分期付
+         */
+        public QueryDubbridgeAlipayMerchantResponse QueryDubbridgeAlipayMerchantEx(QueryDubbridgeAlipayMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeAlipayMerchantResponse>(DoRequest("1.0", "riskplus.dubbridge.alipay.merchant.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统二级商户入驻结果查询-分期付
+         * Summary: 天枢系统二级商户入驻结果查询-分期付
+         */
+        public async Task<QueryDubbridgeAlipayMerchantResponse> QueryDubbridgeAlipayMerchantExAsync(QueryDubbridgeAlipayMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeAlipayMerchantResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.alipay.merchant.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统二级商户支付宝订单码创建-分期付
+         * Summary: 天枢系统二级商户支付宝订单码创建-分期付
+         */
+        public CreateDubbridgeAlipayTradeResponse CreateDubbridgeAlipayTrade(CreateDubbridgeAlipayTradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateDubbridgeAlipayTradeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统二级商户支付宝订单码创建-分期付
+         * Summary: 天枢系统二级商户支付宝订单码创建-分期付
+         */
+        public async Task<CreateDubbridgeAlipayTradeResponse> CreateDubbridgeAlipayTradeAsync(CreateDubbridgeAlipayTradeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateDubbridgeAlipayTradeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统二级商户支付宝订单码创建-分期付
+         * Summary: 天枢系统二级商户支付宝订单码创建-分期付
+         */
+        public CreateDubbridgeAlipayTradeResponse CreateDubbridgeAlipayTradeEx(CreateDubbridgeAlipayTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDubbridgeAlipayTradeResponse>(DoRequest("1.0", "riskplus.dubbridge.alipay.trade.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统二级商户支付宝订单码创建-分期付
+         * Summary: 天枢系统二级商户支付宝订单码创建-分期付
+         */
+        public async Task<CreateDubbridgeAlipayTradeResponse> CreateDubbridgeAlipayTradeExAsync(CreateDubbridgeAlipayTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDubbridgeAlipayTradeResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.alipay.trade.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

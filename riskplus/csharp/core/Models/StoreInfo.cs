@@ -15,6 +15,17 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string StoreBrand { get; set; }
 
+        // 品牌，商户入驻时需填写，
+        // TBJHF: 赛鸽出行
+        // AIJNBJ: 智迈电动车
+        // KJOKJBO: 金箭出行
+        // IFJRJTIJ: 骑士智行
+        // KVMPOH: 巨龙智行
+        // NPGBRVBO: 摩生态A
+        [NameInMap("traffic_platform")]
+        [Validation(Required=false)]
+        public string TrafficPlatform { get; set; }
+
         // 门店ID
         [NameInMap("store_id")]
         [Validation(Required=true)]
@@ -35,15 +46,30 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string Province { get; set; }
 
+        // 省编码
+        [NameInMap("province_code")]
+        [Validation(Required=false)]
+        public string ProvinceCode { get; set; }
+
         // 门店-市，杭州市
         [NameInMap("city")]
         [Validation(Required=true)]
         public string City { get; set; }
 
+        // 市编码
+        [NameInMap("city_code")]
+        [Validation(Required=false)]
+        public string CityCode { get; set; }
+
         // 门店-区，滨江区
         [NameInMap("district")]
         [Validation(Required=true)]
         public string District { get; set; }
+
+        // 区编码
+        [NameInMap("district_code")]
+        [Validation(Required=false)]
+        public string DistrictCode { get; set; }
 
         // 门店-详细地址，
         // 望江路万达广场一层001号
@@ -62,7 +88,7 @@ namespace AntChain.SDK.RISKPLUS.Models
         public string StoreEndDate { get; set; }
 
         // 门店类型，
-        // 个体、企业、其他
+        // 个体: 个体工商户；企业
         [NameInMap("store_type")]
         [Validation(Required=true)]
         public string StoreType { get; set; }
@@ -141,6 +167,21 @@ namespace AntChain.SDK.RISKPLUS.Models
         [NameInMap("login_date")]
         [Validation(Required=false)]
         public string LoginDate { get; set; }
+
+        // 结算支付宝账户，交易资金结算的具体支付宝账号，商户入驻时需填写
+        [NameInMap("alipay_logon_id")]
+        [Validation(Required=false)]
+        public string AlipayLogonId { get; set; }
+
+        // 支付宝openId，商户入驻时（非必填）
+        [NameInMap("info_source_open_id")]
+        [Validation(Required=false)]
+        public string InfoSourceOpenId { get; set; }
+
+        // 签约支付宝账户，商户入驻时（非必填）
+        [NameInMap("binding_alipay_logon_id")]
+        [Validation(Required=false)]
+        public string BindingAlipayLogonId { get; set; }
 
     }
 
