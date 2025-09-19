@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.26.6"},
+                        {"sdk_version", "1.26.7"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.26.6"},
+                        {"sdk_version", "1.26.7"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -487,6 +487,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryBenefithubReportInformationResponse>(await DoRequestAsync("1.0", "riskplus.benefithub.report.information.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 渠道查询报告有效期
+         * Summary: 渠道查询报告有效期
+         */
+        public QueryBenefithubReportEffectiveResponse QueryBenefithubReportEffective(QueryBenefithubReportEffectiveRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryBenefithubReportEffectiveEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 渠道查询报告有效期
+         * Summary: 渠道查询报告有效期
+         */
+        public async Task<QueryBenefithubReportEffectiveResponse> QueryBenefithubReportEffectiveAsync(QueryBenefithubReportEffectiveRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryBenefithubReportEffectiveExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 渠道查询报告有效期
+         * Summary: 渠道查询报告有效期
+         */
+        public QueryBenefithubReportEffectiveResponse QueryBenefithubReportEffectiveEx(QueryBenefithubReportEffectiveRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBenefithubReportEffectiveResponse>(DoRequest("1.0", "riskplus.benefithub.report.effective.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 渠道查询报告有效期
+         * Summary: 渠道查询报告有效期
+         */
+        public async Task<QueryBenefithubReportEffectiveResponse> QueryBenefithubReportEffectiveExAsync(QueryBenefithubReportEffectiveRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBenefithubReportEffectiveResponse>(await DoRequestAsync("1.0", "riskplus.benefithub.report.effective.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
