@@ -8325,6 +8325,97 @@ func (s *QueryBenefithubReportInformationResponse) SetIdCard(v string) *QueryBen
 	return s
 }
 
+type QueryBenefithubReportEffectiveRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户唯一id
+	Uuid *string `json:"uuid,omitempty" xml:"uuid,omitempty" require:"true"`
+	// 平台code
+	PlatformCode *string `json:"platform_code,omitempty" xml:"platform_code,omitempty" require:"true"`
+}
+
+func (s QueryBenefithubReportEffectiveRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBenefithubReportEffectiveRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBenefithubReportEffectiveRequest) SetAuthToken(v string) *QueryBenefithubReportEffectiveRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBenefithubReportEffectiveRequest) SetProductInstanceId(v string) *QueryBenefithubReportEffectiveRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBenefithubReportEffectiveRequest) SetUuid(v string) *QueryBenefithubReportEffectiveRequest {
+	s.Uuid = &v
+	return s
+}
+
+func (s *QueryBenefithubReportEffectiveRequest) SetPlatformCode(v string) *QueryBenefithubReportEffectiveRequest {
+	s.PlatformCode = &v
+	return s
+}
+
+type QueryBenefithubReportEffectiveResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否存在有效订单0无1有
+	ReportValid *string `json:"report_valid,omitempty" xml:"report_valid,omitempty"`
+	// 报告生成时间
+	ReportValidFrom *string `json:"report_valid_from,omitempty" xml:"report_valid_from,omitempty"`
+	// 报告过期时间
+	ReportValidTo *string `json:"report_valid_to,omitempty" xml:"report_valid_to,omitempty"`
+}
+
+func (s QueryBenefithubReportEffectiveResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBenefithubReportEffectiveResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBenefithubReportEffectiveResponse) SetReqMsgId(v string) *QueryBenefithubReportEffectiveResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBenefithubReportEffectiveResponse) SetResultCode(v string) *QueryBenefithubReportEffectiveResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBenefithubReportEffectiveResponse) SetResultMsg(v string) *QueryBenefithubReportEffectiveResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBenefithubReportEffectiveResponse) SetReportValid(v string) *QueryBenefithubReportEffectiveResponse {
+	s.ReportValid = &v
+	return s
+}
+
+func (s *QueryBenefithubReportEffectiveResponse) SetReportValidFrom(v string) *QueryBenefithubReportEffectiveResponse {
+	s.ReportValidFrom = &v
+	return s
+}
+
+func (s *QueryBenefithubReportEffectiveResponse) SetReportValidTo(v string) *QueryBenefithubReportEffectiveResponse {
+	s.ReportValidTo = &v
+	return s
+}
+
 type BatchqueryCreditshieldProductInfoRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -33996,7 +34087,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.26.6"),
+				"sdk_version":      tea.String("1.26.7"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -34183,6 +34274,40 @@ func (client *Client) QueryBenefithubReportInformationEx(request *QueryBenefithu
 	}
 	_result = &QueryBenefithubReportInformationResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.benefithub.report.information.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 渠道查询报告有效期
+ * Summary: 渠道查询报告有效期
+ */
+func (client *Client) QueryBenefithubReportEffective(request *QueryBenefithubReportEffectiveRequest) (_result *QueryBenefithubReportEffectiveResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBenefithubReportEffectiveResponse{}
+	_body, _err := client.QueryBenefithubReportEffectiveEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 渠道查询报告有效期
+ * Summary: 渠道查询报告有效期
+ */
+func (client *Client) QueryBenefithubReportEffectiveEx(request *QueryBenefithubReportEffectiveRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBenefithubReportEffectiveResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBenefithubReportEffectiveResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.benefithub.report.effective.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
