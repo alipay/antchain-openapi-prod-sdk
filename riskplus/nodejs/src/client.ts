@@ -6144,6 +6144,77 @@ export class QueryBenefithubReportInformationResponse extends $tea.Model {
   }
 }
 
+export class QueryBenefithubReportEffectiveRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户唯一id
+  uuid: string;
+  // 平台code
+  platformCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      uuid: 'uuid',
+      platformCode: 'platform_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      uuid: 'string',
+      platformCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBenefithubReportEffectiveResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否存在有效订单0无1有
+  reportValid?: string;
+  // 报告生成时间
+  reportValidFrom?: string;
+  // 报告过期时间
+  reportValidTo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      reportValid: 'report_valid',
+      reportValidFrom: 'report_valid_from',
+      reportValidTo: 'report_valid_to',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      reportValid: 'string',
+      reportValidFrom: 'string',
+      reportValidTo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class BatchqueryCreditshieldProductInfoRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -25374,7 +25445,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.26.6",
+          sdk_version: "1.26.7",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -25496,6 +25567,25 @@ export default class Client {
   async queryBenefithubReportInformationEx(request: QueryBenefithubReportInformationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBenefithubReportInformationResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryBenefithubReportInformationResponse>(await this.doRequest("1.0", "riskplus.benefithub.report.information.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBenefithubReportInformationResponse({}));
+  }
+
+  /**
+   * Description: 渠道查询报告有效期
+   * Summary: 渠道查询报告有效期
+   */
+  async queryBenefithubReportEffective(request: QueryBenefithubReportEffectiveRequest): Promise<QueryBenefithubReportEffectiveResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryBenefithubReportEffectiveEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 渠道查询报告有效期
+   * Summary: 渠道查询报告有效期
+   */
+  async queryBenefithubReportEffectiveEx(request: QueryBenefithubReportEffectiveRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBenefithubReportEffectiveResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryBenefithubReportEffectiveResponse>(await this.doRequest("1.0", "riskplus.benefithub.report.effective.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBenefithubReportEffectiveResponse({}));
   }
 
   /**
