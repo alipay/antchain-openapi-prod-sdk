@@ -209,6 +209,8 @@ use AntChain\RISKPLUS\Models\PushUmktCustomerGroupRequest;
 use AntChain\RISKPLUS\Models\PushUmktCustomerGroupResponse;
 use AntChain\RISKPLUS\Models\QueryBatchSecurityPolicyRequest;
 use AntChain\RISKPLUS\Models\QueryBatchSecurityPolicyResponse;
+use AntChain\RISKPLUS\Models\QueryBenefithubReportEffectiveRequest;
+use AntChain\RISKPLUS\Models\QueryBenefithubReportEffectiveResponse;
 use AntChain\RISKPLUS\Models\QueryBenefithubReportInformationRequest;
 use AntChain\RISKPLUS\Models\QueryBenefithubReportInformationResponse;
 use AntChain\RISKPLUS\Models\QueryCreditshieldProductBatchRequest;
@@ -640,7 +642,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.26.6',
+                    'sdk_version'      => '1.26.7',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -818,6 +820,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryBenefithubReportInformationResponse::fromMap($this->doRequest('1.0', 'riskplus.benefithub.report.information.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 渠道查询报告有效期
+     * Summary: 渠道查询报告有效期
+     *
+     * @param QueryBenefithubReportEffectiveRequest $request
+     *
+     * @return QueryBenefithubReportEffectiveResponse
+     */
+    public function queryBenefithubReportEffective($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBenefithubReportEffectiveEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 渠道查询报告有效期
+     * Summary: 渠道查询报告有效期
+     *
+     * @param QueryBenefithubReportEffectiveRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryBenefithubReportEffectiveResponse
+     */
+    public function queryBenefithubReportEffectiveEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBenefithubReportEffectiveResponse::fromMap($this->doRequest('1.0', 'riskplus.benefithub.report.effective.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
