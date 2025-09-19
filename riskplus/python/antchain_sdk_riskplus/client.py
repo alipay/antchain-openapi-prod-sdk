@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.26.6',
+                    'sdk_version': '1.26.7',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.26.6',
+                    'sdk_version': '1.26.7',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -497,6 +497,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryBenefithubReportInformationResponse(),
             await self.do_request_async('1.0', 'riskplus.benefithub.report.information.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_benefithub_report_effective(
+        self,
+        request: riskplus_models.QueryBenefithubReportEffectiveRequest,
+    ) -> riskplus_models.QueryBenefithubReportEffectiveResponse:
+        """
+        Description: 渠道查询报告有效期
+        Summary: 渠道查询报告有效期
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_benefithub_report_effective_ex(request, headers, runtime)
+
+    async def query_benefithub_report_effective_async(
+        self,
+        request: riskplus_models.QueryBenefithubReportEffectiveRequest,
+    ) -> riskplus_models.QueryBenefithubReportEffectiveResponse:
+        """
+        Description: 渠道查询报告有效期
+        Summary: 渠道查询报告有效期
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_benefithub_report_effective_ex_async(request, headers, runtime)
+
+    def query_benefithub_report_effective_ex(
+        self,
+        request: riskplus_models.QueryBenefithubReportEffectiveRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryBenefithubReportEffectiveResponse:
+        """
+        Description: 渠道查询报告有效期
+        Summary: 渠道查询报告有效期
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryBenefithubReportEffectiveResponse(),
+            self.do_request('1.0', 'riskplus.benefithub.report.effective.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_benefithub_report_effective_ex_async(
+        self,
+        request: riskplus_models.QueryBenefithubReportEffectiveRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryBenefithubReportEffectiveResponse:
+        """
+        Description: 渠道查询报告有效期
+        Summary: 渠道查询报告有效期
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryBenefithubReportEffectiveResponse(),
+            await self.do_request_async('1.0', 'riskplus.benefithub.report.effective.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def batchquery_creditshield_product_info(
