@@ -148,6 +148,183 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 经营分账收入方列表
+type OperateDivideTransInModel struct {
+	// 分账收入方支付宝用户id, 支付宝2088id
+	TransInUserId *string `json:"trans_in_user_id,omitempty" xml:"trans_in_user_id,omitempty" require:"true"`
+	// 分账金额，单位为分 大于0
+	DivideAmount *int64 `json:"divide_amount,omitempty" xml:"divide_amount,omitempty" require:"true"`
+}
+
+func (s OperateDivideTransInModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateDivideTransInModel) GoString() string {
+	return s.String()
+}
+
+func (s *OperateDivideTransInModel) SetTransInUserId(v string) *OperateDivideTransInModel {
+	s.TransInUserId = &v
+	return s
+}
+
+func (s *OperateDivideTransInModel) SetDivideAmount(v int64) *OperateDivideTransInModel {
+	s.DivideAmount = &v
+	return s
+}
+
+// 还款策略
+type RepayStrategy struct {
+	// 应付租金时间，精确到天 格式为yyyy-MM-dd
+	PayDay *string `json:"pay_day,omitempty" xml:"pay_day,omitempty" require:"true"`
+	// 用户还款期数，从1开始
+	TermIndex *int64 `json:"term_index,omitempty" xml:"term_index,omitempty" require:"true"`
+	// 应付租金，精确到分，即1234表示12.34元 大于0
+	RentaMoney *int64 `json:"renta_money,omitempty" xml:"renta_money,omitempty" require:"true"`
+	// 是否经营分账, Y-是、N-否 为空代表否
+	OperateDivideFlag *string `json:"operate_divide_flag,omitempty" xml:"operate_divide_flag,omitempty"`
+	// 经营分账收入方列表
+	// 当operateDivideFlag 为Y时必填
+	OperateDivideTransInList []*OperateDivideTransInModel `json:"operate_divide_trans_in_list,omitempty" xml:"operate_divide_trans_in_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s RepayStrategy) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RepayStrategy) GoString() string {
+	return s.String()
+}
+
+func (s *RepayStrategy) SetPayDay(v string) *RepayStrategy {
+	s.PayDay = &v
+	return s
+}
+
+func (s *RepayStrategy) SetTermIndex(v int64) *RepayStrategy {
+	s.TermIndex = &v
+	return s
+}
+
+func (s *RepayStrategy) SetRentaMoney(v int64) *RepayStrategy {
+	s.RentaMoney = &v
+	return s
+}
+
+func (s *RepayStrategy) SetOperateDivideFlag(v string) *RepayStrategy {
+	s.OperateDivideFlag = &v
+	return s
+}
+
+func (s *RepayStrategy) SetOperateDivideTransInList(v []*OperateDivideTransInModel) *RepayStrategy {
+	s.OperateDivideTransInList = v
+	return s
+}
+
+// 主订单信息
+type OrderInfoReq struct {
+	// 订单创建时间
+	OrderCreateTime *string `json:"order_create_time,omitempty" xml:"order_create_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 订单付款主题
+	OrderPaySubject *string `json:"order_pay_subject,omitempty" xml:"order_pay_subject,omitempty"`
+	// 总租期
+	// 总租期最小值为1
+	// 总租期最大值为60
+	RentTerm *int64 `json:"rent_term,omitempty" xml:"rent_term,omitempty" require:"true"`
+	// 租期单位
+	// MONTH : 月
+	// DAY : 天
+	RentUnit *string `json:"rent_unit,omitempty" xml:"rent_unit,omitempty" require:"true"`
+	// 租金总额 单位/分
+	// 最小值为1
+	TotalRentMoney *int64 `json:"total_rent_money,omitempty" xml:"total_rent_money,omitempty" require:"true"`
+}
+
+func (s OrderInfoReq) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrderInfoReq) GoString() string {
+	return s.String()
+}
+
+func (s *OrderInfoReq) SetOrderCreateTime(v string) *OrderInfoReq {
+	s.OrderCreateTime = &v
+	return s
+}
+
+func (s *OrderInfoReq) SetOrderPaySubject(v string) *OrderInfoReq {
+	s.OrderPaySubject = &v
+	return s
+}
+
+func (s *OrderInfoReq) SetRentTerm(v int64) *OrderInfoReq {
+	s.RentTerm = &v
+	return s
+}
+
+func (s *OrderInfoReq) SetRentUnit(v string) *OrderInfoReq {
+	s.RentUnit = &v
+	return s
+}
+
+func (s *OrderInfoReq) SetTotalRentMoney(v int64) *OrderInfoReq {
+	s.TotalRentMoney = &v
+	return s
+}
+
+// 订单还款计划
+type OrderPromise struct {
+	// 宽限期/天
+	// 不传默认为0
+	GracePeriodDays *int64 `json:"grace_period_days,omitempty" xml:"grace_period_days,omitempty"`
+	// 罚息类型
+	//  NONE : 没有罚息  PENALTY_FEE： 罚息（暂不支持）
+	PunishmentType *string `json:"punishment_type,omitempty" xml:"punishment_type,omitempty" require:"true"`
+	// 租期
+	// 租期最小值为1
+	PayPeriod *int64 `json:"pay_period,omitempty" xml:"pay_period,omitempty" require:"true"`
+	// 租赁公司支付宝UID
+	LeaseAlipayUid *string `json:"lease_alipay_uid,omitempty" xml:"lease_alipay_uid,omitempty" require:"true"`
+	// 还款策略
+	// repayStrategyList长度 == payPeriod
+	RepayStrategyList []*RepayStrategy `json:"repay_strategy_list,omitempty" xml:"repay_strategy_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s OrderPromise) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrderPromise) GoString() string {
+	return s.String()
+}
+
+func (s *OrderPromise) SetGracePeriodDays(v int64) *OrderPromise {
+	s.GracePeriodDays = &v
+	return s
+}
+
+func (s *OrderPromise) SetPunishmentType(v string) *OrderPromise {
+	s.PunishmentType = &v
+	return s
+}
+
+func (s *OrderPromise) SetPayPeriod(v int64) *OrderPromise {
+	s.PayPeriod = &v
+	return s
+}
+
+func (s *OrderPromise) SetLeaseAlipayUid(v string) *OrderPromise {
+	s.LeaseAlipayUid = &v
+	return s
+}
+
+func (s *OrderPromise) SetRepayStrategyList(v []*RepayStrategy) *OrderPromise {
+	s.RepayStrategyList = v
+	return s
+}
+
 // 订单详情列表
 type OrderDetail struct {
 	// 凭证编号
@@ -164,6 +341,95 @@ func (s OrderDetail) GoString() string {
 
 func (s *OrderDetail) SetVoucherCode(v string) *OrderDetail {
 	s.VoucherCode = &v
+	return s
+}
+
+// 订单进件请求参数
+type OrderFullInfoReq struct {
+	// 订单号
+	//
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 手机号
+	MobilePhone *string `json:"mobile_phone,omitempty" xml:"mobile_phone,omitempty" require:"true"`
+	// 产品ID=实际产品ID#版本 prod#1
+	//
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty" require:"true"`
+	// 商户的统一社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
+	// 商户公司名字
+	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty" require:"true"`
+	// 业务场景 默认为CHARGING_BY_TERM
+	// CHARGING_BY_ORDER : 整单结算
+	// CHARGING_BY_TERM : 分期结算
+	//  CHARGING_BY_TERM_INDIRECT : 间联模式使用，分期结算
+	//  CHARGING_BY_PROFIT : 分润结算
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 业务类型 LEASE : 租赁 （默认） INSTALLMENT: 分期付款
+	//
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 签署模式 NONE : 灵活签约
+	SignMode *string `json:"sign_mode,omitempty" xml:"sign_mode,omitempty" require:"true"`
+	// 主订单信息
+	OrderInfo *OrderInfoReq `json:"order_info,omitempty" xml:"order_info,omitempty" require:"true"`
+	// 订单还款计划
+	PromiseInfo *OrderPromise `json:"promise_info,omitempty" xml:"promise_info,omitempty" require:"true"`
+}
+
+func (s OrderFullInfoReq) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrderFullInfoReq) GoString() string {
+	return s.String()
+}
+
+func (s *OrderFullInfoReq) SetOrderId(v string) *OrderFullInfoReq {
+	s.OrderId = &v
+	return s
+}
+
+func (s *OrderFullInfoReq) SetMobilePhone(v string) *OrderFullInfoReq {
+	s.MobilePhone = &v
+	return s
+}
+
+func (s *OrderFullInfoReq) SetProductId(v string) *OrderFullInfoReq {
+	s.ProductId = &v
+	return s
+}
+
+func (s *OrderFullInfoReq) SetMerchantId(v string) *OrderFullInfoReq {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *OrderFullInfoReq) SetMerchantName(v string) *OrderFullInfoReq {
+	s.MerchantName = &v
+	return s
+}
+
+func (s *OrderFullInfoReq) SetBizScene(v string) *OrderFullInfoReq {
+	s.BizScene = &v
+	return s
+}
+
+func (s *OrderFullInfoReq) SetBizType(v string) *OrderFullInfoReq {
+	s.BizType = &v
+	return s
+}
+
+func (s *OrderFullInfoReq) SetSignMode(v string) *OrderFullInfoReq {
+	s.SignMode = &v
+	return s
+}
+
+func (s *OrderFullInfoReq) SetOrderInfo(v *OrderInfoReq) *OrderFullInfoReq {
+	s.OrderInfo = v
+	return s
+}
+
+func (s *OrderFullInfoReq) SetPromiseInfo(v *OrderPromise) *OrderFullInfoReq {
+	s.PromiseInfo = v
 	return s
 }
 
@@ -253,6 +519,150 @@ func (s *RightsGrantResultVO) SetGrantStatus(v string) *RightsGrantResultVO {
 
 func (s *RightsGrantResultVO) SetOrderDetails(v []*OrderDetail) *RightsGrantResultVO {
 	s.OrderDetails = v
+	return s
+}
+
+type CheckOmngRiskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 手机号
+	MobilePhone *string `json:"mobile_phone,omitempty" xml:"mobile_phone,omitempty" require:"true"`
+	// 产品ID=实际产品ID#版本
+	// prod#1
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty" require:"true"`
+	// 商户的统一社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
+	// 商户公司名字
+	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty" require:"true"`
+	// 业务场景
+	// 默认为CHARGING_BY_TERM
+	//
+	//  CHARGING_BY_ORDER : 整单结算
+	// CHARGING_BY_TERM : 分期结算
+	//  CHARGING_BY_TERM_INDIRECT : 间联模式使用，分期结算
+	// CHARGING_BY_PROFIT : 分润结算
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 业务类型
+	// LEASE : 租赁 （默认）
+	// INSTALLMENT: 分期付款
+	//
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 签署模式
+	//  NONE : 灵活签约
+	SignMode *string `json:"sign_mode,omitempty" xml:"sign_mode,omitempty" require:"true"`
+	// 主订单信息
+	OrderInfo *OrderInfoReq `json:"order_info,omitempty" xml:"order_info,omitempty" require:"true"`
+	// 订单还款计划
+	PromiseInfo *OrderPromise `json:"promise_info,omitempty" xml:"promise_info,omitempty" require:"true"`
+}
+
+func (s CheckOmngRiskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckOmngRiskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckOmngRiskRequest) SetAuthToken(v string) *CheckOmngRiskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckOmngRiskRequest) SetProductInstanceId(v string) *CheckOmngRiskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckOmngRiskRequest) SetOrderId(v string) *CheckOmngRiskRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *CheckOmngRiskRequest) SetMobilePhone(v string) *CheckOmngRiskRequest {
+	s.MobilePhone = &v
+	return s
+}
+
+func (s *CheckOmngRiskRequest) SetProductId(v string) *CheckOmngRiskRequest {
+	s.ProductId = &v
+	return s
+}
+
+func (s *CheckOmngRiskRequest) SetMerchantId(v string) *CheckOmngRiskRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *CheckOmngRiskRequest) SetMerchantName(v string) *CheckOmngRiskRequest {
+	s.MerchantName = &v
+	return s
+}
+
+func (s *CheckOmngRiskRequest) SetBizScene(v string) *CheckOmngRiskRequest {
+	s.BizScene = &v
+	return s
+}
+
+func (s *CheckOmngRiskRequest) SetBizType(v string) *CheckOmngRiskRequest {
+	s.BizType = &v
+	return s
+}
+
+func (s *CheckOmngRiskRequest) SetSignMode(v string) *CheckOmngRiskRequest {
+	s.SignMode = &v
+	return s
+}
+
+func (s *CheckOmngRiskRequest) SetOrderInfo(v *OrderInfoReq) *CheckOmngRiskRequest {
+	s.OrderInfo = v
+	return s
+}
+
+func (s *CheckOmngRiskRequest) SetPromiseInfo(v *OrderPromise) *CheckOmngRiskRequest {
+	s.PromiseInfo = v
+	return s
+}
+
+type CheckOmngRiskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 授权串
+	InfoStr *string `json:"info_str,omitempty" xml:"info_str,omitempty"`
+}
+
+func (s CheckOmngRiskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckOmngRiskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckOmngRiskResponse) SetReqMsgId(v string) *CheckOmngRiskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckOmngRiskResponse) SetResultCode(v string) *CheckOmngRiskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckOmngRiskResponse) SetResultMsg(v string) *CheckOmngRiskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckOmngRiskResponse) SetInfoStr(v string) *CheckOmngRiskResponse {
+	s.InfoStr = &v
 	return s
 }
 
@@ -581,7 +991,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.0"),
+				"sdk_version":      tea.String("1.2.0"),
 				"_prod_code":       tea.String("GESAAS"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -637,6 +1047,40 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 品牌会员签约鉴权产品链路风控鉴权
+ * Summary: 风控鉴权
+ */
+func (client *Client) CheckOmngRisk(request *CheckOmngRiskRequest) (_result *CheckOmngRiskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckOmngRiskResponse{}
+	_body, _err := client.CheckOmngRiskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 品牌会员签约鉴权产品链路风控鉴权
+ * Summary: 风控鉴权
+ */
+func (client *Client) CheckOmngRiskEx(request *CheckOmngRiskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckOmngRiskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckOmngRiskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.gesaas.omng.risk.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
