@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 订单详情列表
+            # 经营分账收入方列表
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.0',
+                    'sdk_version': '1.2.0',
                     '_prod_code': 'GESAAS',
                     '_prod_channel': 'default'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 订单详情列表
+            # 经营分账收入方列表
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.0',
+                    'sdk_version': '1.2.0',
                     '_prod_code': 'GESAAS',
                     '_prod_channel': 'default'
                 }
@@ -274,6 +274,62 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def check_omng_risk(
+        self,
+        request: gesaas_models.CheckOmngRiskRequest,
+    ) -> gesaas_models.CheckOmngRiskResponse:
+        """
+        Description: 品牌会员签约鉴权产品链路风控鉴权
+        Summary: 风控鉴权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_omng_risk_ex(request, headers, runtime)
+
+    async def check_omng_risk_async(
+        self,
+        request: gesaas_models.CheckOmngRiskRequest,
+    ) -> gesaas_models.CheckOmngRiskResponse:
+        """
+        Description: 品牌会员签约鉴权产品链路风控鉴权
+        Summary: 风控鉴权
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_omng_risk_ex_async(request, headers, runtime)
+
+    def check_omng_risk_ex(
+        self,
+        request: gesaas_models.CheckOmngRiskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.CheckOmngRiskResponse:
+        """
+        Description: 品牌会员签约鉴权产品链路风控鉴权
+        Summary: 风控鉴权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.CheckOmngRiskResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.omng.risk.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_omng_risk_ex_async(
+        self,
+        request: gesaas_models.CheckOmngRiskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.CheckOmngRiskResponse:
+        """
+        Description: 品牌会员签约鉴权产品链路风控鉴权
+        Summary: 风控鉴权
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.CheckOmngRiskResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.omng.risk.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def submit_rightsprod_grant(
         self,
