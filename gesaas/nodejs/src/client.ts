@@ -77,6 +77,152 @@ export class Config extends $tea.Model {
   }
 }
 
+// 经营分账收入方列表
+export class OperateDivideTransInModel extends $tea.Model {
+  // 分账收入方支付宝用户id, 支付宝2088id
+  transInUserId: string;
+  // 分账金额，单位为分 大于0
+  divideAmount: number;
+  static names(): { [key: string]: string } {
+    return {
+      transInUserId: 'trans_in_user_id',
+      divideAmount: 'divide_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      transInUserId: 'string',
+      divideAmount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 还款策略
+export class RepayStrategy extends $tea.Model {
+  // 应付租金时间，精确到天 格式为yyyy-MM-dd
+  payDay: string;
+  // 用户还款期数，从1开始
+  termIndex: number;
+  // 应付租金，精确到分，即1234表示12.34元 大于0
+  rentaMoney: number;
+  // 是否经营分账, Y-是、N-否 为空代表否
+  operateDivideFlag?: string;
+  // 经营分账收入方列表
+  // 当operateDivideFlag 为Y时必填
+  operateDivideTransInList: OperateDivideTransInModel[];
+  static names(): { [key: string]: string } {
+    return {
+      payDay: 'pay_day',
+      termIndex: 'term_index',
+      rentaMoney: 'renta_money',
+      operateDivideFlag: 'operate_divide_flag',
+      operateDivideTransInList: 'operate_divide_trans_in_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      payDay: 'string',
+      termIndex: 'number',
+      rentaMoney: 'number',
+      operateDivideFlag: 'string',
+      operateDivideTransInList: { 'type': 'array', 'itemType': OperateDivideTransInModel },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 主订单信息
+export class OrderInfoReq extends $tea.Model {
+  // 订单创建时间
+  orderCreateTime: string;
+  // 订单付款主题
+  orderPaySubject?: string;
+  // 总租期
+  // 总租期最小值为1
+  // 总租期最大值为60
+  rentTerm: number;
+  // 租期单位
+  // MONTH : 月 
+  // DAY : 天
+  rentUnit: string;
+  // 租金总额 单位/分
+  // 最小值为1
+  totalRentMoney: number;
+  static names(): { [key: string]: string } {
+    return {
+      orderCreateTime: 'order_create_time',
+      orderPaySubject: 'order_pay_subject',
+      rentTerm: 'rent_term',
+      rentUnit: 'rent_unit',
+      totalRentMoney: 'total_rent_money',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderCreateTime: 'string',
+      orderPaySubject: 'string',
+      rentTerm: 'number',
+      rentUnit: 'string',
+      totalRentMoney: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 订单还款计划
+export class OrderPromise extends $tea.Model {
+  // 宽限期/天
+  // 不传默认为0
+  gracePeriodDays?: number;
+  // 罚息类型
+  //  NONE : 没有罚息  PENALTY_FEE： 罚息（暂不支持）
+  punishmentType: string;
+  // 租期
+  // 租期最小值为1
+  payPeriod: number;
+  // 租赁公司支付宝UID
+  leaseAlipayUid: string;
+  // 还款策略 
+  // repayStrategyList长度 == payPeriod
+  repayStrategyList: RepayStrategy[];
+  static names(): { [key: string]: string } {
+    return {
+      gracePeriodDays: 'grace_period_days',
+      punishmentType: 'punishment_type',
+      payPeriod: 'pay_period',
+      leaseAlipayUid: 'lease_alipay_uid',
+      repayStrategyList: 'repay_strategy_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      gracePeriodDays: 'number',
+      punishmentType: 'string',
+      payPeriod: 'number',
+      leaseAlipayUid: 'string',
+      repayStrategyList: { 'type': 'array', 'itemType': RepayStrategy },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 订单详情列表
 export class OrderDetail extends $tea.Model {
   // 凭证编号
@@ -90,6 +236,70 @@ export class OrderDetail extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       voucherCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 订单进件请求参数
+export class OrderFullInfoReq extends $tea.Model {
+  // 订单号
+  // 
+  orderId: string;
+  // 手机号
+  mobilePhone: string;
+  // 产品ID=实际产品ID#版本 prod#1	
+  // 
+  productId: string;
+  // 商户的统一社会信用代码
+  merchantId: string;
+  // 商户公司名字
+  merchantName: string;
+  // 业务场景 默认为CHARGING_BY_TERM 
+  // CHARGING_BY_ORDER : 整单结算 
+  // CHARGING_BY_TERM : 分期结算
+  //  CHARGING_BY_TERM_INDIRECT : 间联模式使用，分期结算
+  //  CHARGING_BY_PROFIT : 分润结算
+  bizScene: string;
+  // 业务类型 LEASE : 租赁 （默认） INSTALLMENT: 分期付款	
+  // 
+  bizType: string;
+  // 签署模式 NONE : 灵活签约
+  signMode: string;
+  // 主订单信息
+  orderInfo: OrderInfoReq;
+  // 订单还款计划
+  promiseInfo: OrderPromise;
+  static names(): { [key: string]: string } {
+    return {
+      orderId: 'order_id',
+      mobilePhone: 'mobile_phone',
+      productId: 'product_id',
+      merchantId: 'merchant_id',
+      merchantName: 'merchant_name',
+      bizScene: 'biz_scene',
+      bizType: 'biz_type',
+      signMode: 'sign_mode',
+      orderInfo: 'order_info',
+      promiseInfo: 'promise_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderId: 'string',
+      mobilePhone: 'string',
+      productId: 'string',
+      merchantId: 'string',
+      merchantName: 'string',
+      bizScene: 'string',
+      bizType: 'string',
+      signMode: 'string',
+      orderInfo: OrderInfoReq,
+      promiseInfo: OrderPromise,
     };
   }
 
@@ -162,6 +372,112 @@ export class RightsGrantResultVO extends $tea.Model {
       effectTime: 'string',
       grantStatus: 'string',
       orderDetails: { 'type': 'array', 'itemType': OrderDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckOmngRiskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单号
+  orderId: string;
+  // 手机号
+  mobilePhone: string;
+  // 产品ID=实际产品ID#版本
+  // prod#1
+  productId: string;
+  // 商户的统一社会信用代码
+  merchantId: string;
+  // 商户公司名字
+  merchantName: string;
+  // 业务场景
+  // 默认为CHARGING_BY_TERM
+  // 
+  //  CHARGING_BY_ORDER : 整单结算 
+  // CHARGING_BY_TERM : 分期结算
+  //  CHARGING_BY_TERM_INDIRECT : 间联模式使用，分期结算 
+  // CHARGING_BY_PROFIT : 分润结算
+  bizScene: string;
+  // 业务类型
+  // LEASE : 租赁 （默认） 
+  // INSTALLMENT: 分期付款
+  // 
+  bizType: string;
+  // 签署模式
+  //  NONE : 灵活签约
+  signMode: string;
+  // 主订单信息
+  orderInfo: OrderInfoReq;
+  // 订单还款计划
+  promiseInfo: OrderPromise;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      mobilePhone: 'mobile_phone',
+      productId: 'product_id',
+      merchantId: 'merchant_id',
+      merchantName: 'merchant_name',
+      bizScene: 'biz_scene',
+      bizType: 'biz_type',
+      signMode: 'sign_mode',
+      orderInfo: 'order_info',
+      promiseInfo: 'promise_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      mobilePhone: 'string',
+      productId: 'string',
+      merchantId: 'string',
+      merchantName: 'string',
+      bizScene: 'string',
+      bizType: 'string',
+      signMode: 'string',
+      orderInfo: OrderInfoReq,
+      promiseInfo: OrderPromise,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckOmngRiskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 授权串
+  infoStr?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      infoStr: 'info_str',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      infoStr: 'string',
     };
   }
 
@@ -437,7 +753,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.0",
+          sdk_version: "1.2.0",
           _prod_code: "GESAAS",
           _prod_channel: "default",
         };
@@ -483,6 +799,25 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: 品牌会员签约鉴权产品链路风控鉴权
+   * Summary: 风控鉴权
+   */
+  async checkOmngRisk(request: CheckOmngRiskRequest): Promise<CheckOmngRiskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkOmngRiskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 品牌会员签约鉴权产品链路风控鉴权
+   * Summary: 风控鉴权
+   */
+  async checkOmngRiskEx(request: CheckOmngRiskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckOmngRiskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckOmngRiskResponse>(await this.doRequest("1.0", "antdigital.gesaas.omng.risk.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckOmngRiskResponse({}));
   }
 
   /**
