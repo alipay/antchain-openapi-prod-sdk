@@ -137,7 +137,7 @@ namespace AntChain.SDK.GESAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.0"},
+                        {"sdk_version", "1.2.0"},
                         {"_prod_code", "GESAAS"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.GESAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.0"},
+                        {"sdk_version", "1.2.0"},
                         {"_prod_code", "GESAAS"},
                         {"_prod_channel", "default"},
                     };
@@ -319,6 +319,48 @@ namespace AntChain.SDK.GESAAS
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: 品牌会员签约鉴权产品链路风控鉴权
+         * Summary: 风控鉴权
+         */
+        public CheckOmngRiskResponse CheckOmngRisk(CheckOmngRiskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckOmngRiskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 品牌会员签约鉴权产品链路风控鉴权
+         * Summary: 风控鉴权
+         */
+        public async Task<CheckOmngRiskResponse> CheckOmngRiskAsync(CheckOmngRiskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckOmngRiskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 品牌会员签约鉴权产品链路风控鉴权
+         * Summary: 风控鉴权
+         */
+        public CheckOmngRiskResponse CheckOmngRiskEx(CheckOmngRiskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckOmngRiskResponse>(DoRequest("1.0", "antdigital.gesaas.omng.risk.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 品牌会员签约鉴权产品链路风控鉴权
+         * Summary: 风控鉴权
+         */
+        public async Task<CheckOmngRiskResponse> CheckOmngRiskExAsync(CheckOmngRiskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckOmngRiskResponse>(await DoRequestAsync("1.0", "antdigital.gesaas.omng.risk.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
