@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.0"),
+                    new TeaPair("sdk_version", "1.2.0"),
                     new TeaPair("_prod_code", "GESAAS"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -186,6 +186,27 @@ public class Client {
 
     public void addResponseInterceptor(ResponseInterceptor interceptor) {
         interceptorChain.addResponseInterceptor(interceptor);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 品牌会员签约鉴权产品链路风控鉴权
+     * Summary: 风控鉴权</p>
+     */
+    public CheckOmngRiskResponse checkOmngRisk(CheckOmngRiskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkOmngRiskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 品牌会员签约鉴权产品链路风控鉴权
+     * Summary: 风控鉴权</p>
+     */
+    public CheckOmngRiskResponse checkOmngRiskEx(CheckOmngRiskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.gesaas.omng.risk.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckOmngRiskResponse());
     }
 
     /**
