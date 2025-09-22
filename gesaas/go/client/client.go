@@ -181,7 +181,7 @@ type RepayStrategy struct {
 	// 用户还款期数，从1开始
 	TermIndex *int64 `json:"term_index,omitempty" xml:"term_index,omitempty" require:"true"`
 	// 应付租金，精确到分，即1234表示12.34元 大于0
-	RentaMoney *int64 `json:"renta_money,omitempty" xml:"renta_money,omitempty" require:"true"`
+	RentalMoney *int64 `json:"rental_money,omitempty" xml:"rental_money,omitempty" require:"true"`
 	// 是否经营分账, Y-是、N-否 为空代表否
 	OperateDivideFlag *string `json:"operate_divide_flag,omitempty" xml:"operate_divide_flag,omitempty"`
 	// 经营分账收入方列表
@@ -207,8 +207,8 @@ func (s *RepayStrategy) SetTermIndex(v int64) *RepayStrategy {
 	return s
 }
 
-func (s *RepayStrategy) SetRentaMoney(v int64) *RepayStrategy {
-	s.RentaMoney = &v
+func (s *RepayStrategy) SetRentalMoney(v int64) *RepayStrategy {
+	s.RentalMoney = &v
 	return s
 }
 
@@ -227,7 +227,7 @@ type OrderInfoReq struct {
 	// 订单创建时间
 	OrderCreateTime *string `json:"order_create_time,omitempty" xml:"order_create_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 订单付款主题
-	OrderPaySubject *string `json:"order_pay_subject,omitempty" xml:"order_pay_subject,omitempty"`
+	OrderPaySubject *string `json:"order_pay_subject,omitempty" xml:"order_pay_subject,omitempty" require:"true"`
 	// 总租期
 	// 总租期最小值为1
 	// 总租期最大值为60
@@ -235,7 +235,7 @@ type OrderInfoReq struct {
 	// 租期单位
 	// MONTH : 月
 	// DAY : 天
-	RentUnit *string `json:"rent_unit,omitempty" xml:"rent_unit,omitempty" require:"true"`
+	RentUnit *string `json:"rent_unit,omitempty" xml:"rent_unit,omitempty"`
 	// 租金总额 单位/分
 	// 最小值为1
 	TotalRentMoney *int64 `json:"total_rent_money,omitempty" xml:"total_rent_money,omitempty" require:"true"`
@@ -281,7 +281,7 @@ type OrderPromise struct {
 	GracePeriodDays *int64 `json:"grace_period_days,omitempty" xml:"grace_period_days,omitempty"`
 	// 罚息类型
 	//  NONE : 没有罚息  PENALTY_FEE： 罚息（暂不支持）
-	PunishmentType *string `json:"punishment_type,omitempty" xml:"punishment_type,omitempty" require:"true"`
+	PunishmentType *string `json:"punishment_type,omitempty" xml:"punishment_type,omitempty"`
 	// 租期
 	// 租期最小值为1
 	PayPeriod *int64 `json:"pay_period,omitempty" xml:"pay_period,omitempty" require:"true"`
@@ -544,15 +544,15 @@ type CheckOmngRiskRequest struct {
 	// CHARGING_BY_TERM : 分期结算
 	//  CHARGING_BY_TERM_INDIRECT : 间联模式使用，分期结算
 	// CHARGING_BY_PROFIT : 分润结算
-	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty"`
 	// 业务类型
 	// LEASE : 租赁 （默认）
 	// INSTALLMENT: 分期付款
 	//
-	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
 	// 签署模式
 	//  NONE : 灵活签约
-	SignMode *string `json:"sign_mode,omitempty" xml:"sign_mode,omitempty" require:"true"`
+	SignMode *string `json:"sign_mode,omitempty" xml:"sign_mode,omitempty"`
 	// 主订单信息
 	OrderInfo *OrderInfoReq `json:"order_info,omitempty" xml:"order_info,omitempty" require:"true"`
 	// 订单还款计划
@@ -991,7 +991,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.0"),
+				"sdk_version":      tea.String("1.2.3"),
 				"_prod_code":       tea.String("GESAAS"),
 				"_prod_channel":    tea.String("default"),
 			}
