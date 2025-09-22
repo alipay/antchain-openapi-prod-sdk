@@ -30,7 +30,7 @@ class RepayStrategy extends Model
      *
      * @var int
      */
-    public $rentaMoney;
+    public $rentalMoney;
 
     // 是否经营分账, Y-是、N-否 为空代表否
     /**
@@ -51,7 +51,7 @@ class RepayStrategy extends Model
     protected $_name = [
         'payDay'                   => 'pay_day',
         'termIndex'                => 'term_index',
-        'rentaMoney'               => 'renta_money',
+        'rentalMoney'              => 'rental_money',
         'operateDivideFlag'        => 'operate_divide_flag',
         'operateDivideTransInList' => 'operate_divide_trans_in_list',
     ];
@@ -60,7 +60,7 @@ class RepayStrategy extends Model
     {
         Model::validateRequired('payDay', $this->payDay, true);
         Model::validateRequired('termIndex', $this->termIndex, true);
-        Model::validateRequired('rentaMoney', $this->rentaMoney, true);
+        Model::validateRequired('rentalMoney', $this->rentalMoney, true);
         Model::validateRequired('operateDivideTransInList', $this->operateDivideTransInList, true);
     }
 
@@ -73,8 +73,8 @@ class RepayStrategy extends Model
         if (null !== $this->termIndex) {
             $res['term_index'] = $this->termIndex;
         }
-        if (null !== $this->rentaMoney) {
-            $res['renta_money'] = $this->rentaMoney;
+        if (null !== $this->rentalMoney) {
+            $res['rental_money'] = $this->rentalMoney;
         }
         if (null !== $this->operateDivideFlag) {
             $res['operate_divide_flag'] = $this->operateDivideFlag;
@@ -106,8 +106,8 @@ class RepayStrategy extends Model
         if (isset($map['term_index'])) {
             $model->termIndex = $map['term_index'];
         }
-        if (isset($map['renta_money'])) {
-            $model->rentaMoney = $map['renta_money'];
+        if (isset($map['rental_money'])) {
+            $model->rentalMoney = $map['rental_money'];
         }
         if (isset($map['operate_divide_flag'])) {
             $model->operateDivideFlag = $map['operate_divide_flag'];

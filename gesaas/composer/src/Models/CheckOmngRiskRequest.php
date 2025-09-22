@@ -111,9 +111,6 @@ class CheckOmngRiskRequest extends Model
         Model::validateRequired('productId', $this->productId, true);
         Model::validateRequired('merchantId', $this->merchantId, true);
         Model::validateRequired('merchantName', $this->merchantName, true);
-        Model::validateRequired('bizScene', $this->bizScene, true);
-        Model::validateRequired('bizType', $this->bizType, true);
-        Model::validateRequired('signMode', $this->signMode, true);
         Model::validateRequired('orderInfo', $this->orderInfo, true);
         Model::validateRequired('promiseInfo', $this->promiseInfo, true);
     }

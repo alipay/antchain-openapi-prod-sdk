@@ -61,7 +61,6 @@ class OrderPromise extends Model
 
     public function validate()
     {
-        Model::validateRequired('punishmentType', $this->punishmentType, true);
         Model::validateRequired('payPeriod', $this->payPeriod, true);
         Model::validateRequired('leaseAlipayUid', $this->leaseAlipayUid, true);
         Model::validateRequired('repayStrategyList', $this->repayStrategyList, true);
