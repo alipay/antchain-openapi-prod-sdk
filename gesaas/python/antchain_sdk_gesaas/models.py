@@ -195,7 +195,7 @@ class RepayStrategy(TeaModel):
         self,
         pay_day: str = None,
         term_index: int = None,
-        renta_money: int = None,
+        rental_money: int = None,
         operate_divide_flag: str = None,
         operate_divide_trans_in_list: List[OperateDivideTransInModel] = None,
     ):
@@ -204,7 +204,7 @@ class RepayStrategy(TeaModel):
         # 用户还款期数，从1开始
         self.term_index = term_index
         # 应付租金，精确到分，即1234表示12.34元 大于0
-        self.renta_money = renta_money
+        self.rental_money = rental_money
         # 是否经营分账, Y-是、N-否 为空代表否
         self.operate_divide_flag = operate_divide_flag
         # 经营分账收入方列表
@@ -214,7 +214,7 @@ class RepayStrategy(TeaModel):
     def validate(self):
         self.validate_required(self.pay_day, 'pay_day')
         self.validate_required(self.term_index, 'term_index')
-        self.validate_required(self.renta_money, 'renta_money')
+        self.validate_required(self.rental_money, 'rental_money')
         self.validate_required(self.operate_divide_trans_in_list, 'operate_divide_trans_in_list')
         if self.operate_divide_trans_in_list:
             for k in self.operate_divide_trans_in_list:
@@ -231,8 +231,8 @@ class RepayStrategy(TeaModel):
             result['pay_day'] = self.pay_day
         if self.term_index is not None:
             result['term_index'] = self.term_index
-        if self.renta_money is not None:
-            result['renta_money'] = self.renta_money
+        if self.rental_money is not None:
+            result['rental_money'] = self.rental_money
         if self.operate_divide_flag is not None:
             result['operate_divide_flag'] = self.operate_divide_flag
         result['operate_divide_trans_in_list'] = []
@@ -247,8 +247,8 @@ class RepayStrategy(TeaModel):
             self.pay_day = m.get('pay_day')
         if m.get('term_index') is not None:
             self.term_index = m.get('term_index')
-        if m.get('renta_money') is not None:
-            self.renta_money = m.get('renta_money')
+        if m.get('rental_money') is not None:
+            self.rental_money = m.get('rental_money')
         if m.get('operate_divide_flag') is not None:
             self.operate_divide_flag = m.get('operate_divide_flag')
         self.operate_divide_trans_in_list = []
@@ -288,8 +288,8 @@ class OrderInfoReq(TeaModel):
         self.validate_required(self.order_create_time, 'order_create_time')
         if self.order_create_time is not None:
             self.validate_pattern(self.order_create_time, 'order_create_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.order_pay_subject, 'order_pay_subject')
         self.validate_required(self.rent_term, 'rent_term')
-        self.validate_required(self.rent_unit, 'rent_unit')
         self.validate_required(self.total_rent_money, 'total_rent_money')
 
     def to_map(self):
@@ -350,7 +350,6 @@ class OrderPromise(TeaModel):
         self.repay_strategy_list = repay_strategy_list
 
     def validate(self):
-        self.validate_required(self.punishment_type, 'punishment_type')
         self.validate_required(self.pay_period, 'pay_period')
         self.validate_required(self.lease_alipay_uid, 'lease_alipay_uid')
         self.validate_required(self.repay_strategy_list, 'repay_strategy_list')
@@ -716,9 +715,6 @@ class CheckOmngRiskRequest(TeaModel):
         self.validate_required(self.product_id, 'product_id')
         self.validate_required(self.merchant_id, 'merchant_id')
         self.validate_required(self.merchant_name, 'merchant_name')
-        self.validate_required(self.biz_scene, 'biz_scene')
-        self.validate_required(self.biz_type, 'biz_type')
-        self.validate_required(self.sign_mode, 'sign_mode')
         self.validate_required(self.order_info, 'order_info')
         if self.order_info:
             self.order_info.validate()
