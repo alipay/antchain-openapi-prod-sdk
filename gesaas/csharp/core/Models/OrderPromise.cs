@@ -19,7 +19,7 @@ namespace AntChain.SDK.GESAAS.Models
         // 罚息类型
         //  NONE : 没有罚息  PENALTY_FEE： 罚息（暂不支持）
         [NameInMap("punishment_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string PunishmentType { get; set; }
 
         // 租期

@@ -17,7 +17,7 @@ namespace AntChain.SDK.GESAAS.Models
 
         // 订单付款主题
         [NameInMap("order_pay_subject")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string OrderPaySubject { get; set; }
 
         // 总租期
@@ -31,7 +31,7 @@ namespace AntChain.SDK.GESAAS.Models
         // MONTH : 月 
         // DAY : 天
         [NameInMap("rent_unit")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string RentUnit { get; set; }
 
         // 租金总额 单位/分

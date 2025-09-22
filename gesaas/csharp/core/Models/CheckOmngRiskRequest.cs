@@ -52,7 +52,7 @@ namespace AntChain.SDK.GESAAS.Models
         //  CHARGING_BY_TERM_INDIRECT : 间联模式使用，分期结算 
         // CHARGING_BY_PROFIT : 分润结算
         [NameInMap("biz_scene")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string BizScene { get; set; }
 
         // 业务类型
@@ -60,13 +60,13 @@ namespace AntChain.SDK.GESAAS.Models
         // INSTALLMENT: 分期付款
         // 
         [NameInMap("biz_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string BizType { get; set; }
 
         // 签署模式
         //  NONE : 灵活签约
         [NameInMap("sign_mode")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string SignMode { get; set; }
 
         // 主订单信息

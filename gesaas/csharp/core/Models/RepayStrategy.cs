@@ -21,9 +21,9 @@ namespace AntChain.SDK.GESAAS.Models
         public long? TermIndex { get; set; }
 
         // 应付租金，精确到分，即1234表示12.34元 大于0
-        [NameInMap("renta_money")]
+        [NameInMap("rental_money")]
         [Validation(Required=true)]
-        public long? RentaMoney { get; set; }
+        public long? RentalMoney { get; set; }
 
         // 是否经营分账, Y-是、N-否 为空代表否
         [NameInMap("operate_divide_flag")]
