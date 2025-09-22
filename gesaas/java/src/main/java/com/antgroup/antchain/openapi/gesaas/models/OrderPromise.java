@@ -20,7 +20,6 @@ public class OrderPromise extends TeaModel {
      * <p>NONE</p>
      */
     @NameInMap("punishment_type")
-    @Validation(required = true)
     public String punishmentType;
 
     // 租期

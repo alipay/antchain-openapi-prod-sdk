@@ -19,6 +19,7 @@ public class OrderInfoReq extends TeaModel {
      * <p>退订、续订,人工客服电话:4006476616商家订单号：</p>
      */
     @NameInMap("order_pay_subject")
+    @Validation(required = true)
     public String orderPaySubject;
 
     // 总租期
@@ -40,7 +41,6 @@ public class OrderInfoReq extends TeaModel {
      * <p>MONTH</p>
      */
     @NameInMap("rent_unit")
-    @Validation(required = true)
     public String rentUnit;
 
     // 租金总额 单位/分

@@ -45,7 +45,6 @@ public class CheckOmngRiskRequest extends TeaModel {
     //  CHARGING_BY_TERM_INDIRECT : 间联模式使用，分期结算 
     // CHARGING_BY_PROFIT : 分润结算
     @NameInMap("biz_scene")
-    @Validation(required = true)
     public String bizScene;
 
     // 业务类型
@@ -53,13 +52,11 @@ public class CheckOmngRiskRequest extends TeaModel {
     // INSTALLMENT: 分期付款
     // 
     @NameInMap("biz_type")
-    @Validation(required = true)
     public String bizType;
 
     // 签署模式
     //  NONE : 灵活签约
     @NameInMap("sign_mode")
-    @Validation(required = true)
     public String signMode;
 
     // 主订单信息

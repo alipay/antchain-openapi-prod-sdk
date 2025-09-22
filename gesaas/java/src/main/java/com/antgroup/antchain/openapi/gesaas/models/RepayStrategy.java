@@ -27,9 +27,9 @@ public class RepayStrategy extends TeaModel {
      * <strong>example:</strong>
      * <p>1234</p>
      */
-    @NameInMap("renta_money")
+    @NameInMap("rental_money")
     @Validation(required = true)
-    public Long rentaMoney;
+    public Long rentalMoney;
 
     // 是否经营分账, Y-是、N-否 为空代表否
     /**
@@ -66,12 +66,12 @@ public class RepayStrategy extends TeaModel {
         return this.termIndex;
     }
 
-    public RepayStrategy setRentaMoney(Long rentaMoney) {
-        this.rentaMoney = rentaMoney;
+    public RepayStrategy setRentalMoney(Long rentalMoney) {
+        this.rentalMoney = rentalMoney;
         return this;
     }
-    public Long getRentaMoney() {
-        return this.rentaMoney;
+    public Long getRentalMoney() {
+        return this.rentalMoney;
     }
 
     public RepayStrategy setOperateDivideFlag(String operateDivideFlag) {
