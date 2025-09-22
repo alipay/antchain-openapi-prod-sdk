@@ -109,7 +109,7 @@ export class RepayStrategy extends $tea.Model {
   // 用户还款期数，从1开始
   termIndex: number;
   // 应付租金，精确到分，即1234表示12.34元 大于0
-  rentaMoney: number;
+  rentalMoney: number;
   // 是否经营分账, Y-是、N-否 为空代表否
   operateDivideFlag?: string;
   // 经营分账收入方列表
@@ -119,7 +119,7 @@ export class RepayStrategy extends $tea.Model {
     return {
       payDay: 'pay_day',
       termIndex: 'term_index',
-      rentaMoney: 'renta_money',
+      rentalMoney: 'rental_money',
       operateDivideFlag: 'operate_divide_flag',
       operateDivideTransInList: 'operate_divide_trans_in_list',
     };
@@ -129,7 +129,7 @@ export class RepayStrategy extends $tea.Model {
     return {
       payDay: 'string',
       termIndex: 'number',
-      rentaMoney: 'number',
+      rentalMoney: 'number',
       operateDivideFlag: 'string',
       operateDivideTransInList: { 'type': 'array', 'itemType': OperateDivideTransInModel },
     };
@@ -145,7 +145,7 @@ export class OrderInfoReq extends $tea.Model {
   // 订单创建时间
   orderCreateTime: string;
   // 订单付款主题
-  orderPaySubject?: string;
+  orderPaySubject: string;
   // 总租期
   // 总租期最小值为1
   // 总租期最大值为60
@@ -153,7 +153,7 @@ export class OrderInfoReq extends $tea.Model {
   // 租期单位
   // MONTH : 月 
   // DAY : 天
-  rentUnit: string;
+  rentUnit?: string;
   // 租金总额 单位/分
   // 最小值为1
   totalRentMoney: number;
@@ -189,7 +189,7 @@ export class OrderPromise extends $tea.Model {
   gracePeriodDays?: number;
   // 罚息类型
   //  NONE : 没有罚息  PENALTY_FEE： 罚息（暂不支持）
-  punishmentType: string;
+  punishmentType?: string;
   // 租期
   // 租期最小值为1
   payPeriod: number;
@@ -402,15 +402,15 @@ export class CheckOmngRiskRequest extends $tea.Model {
   // CHARGING_BY_TERM : 分期结算
   //  CHARGING_BY_TERM_INDIRECT : 间联模式使用，分期结算 
   // CHARGING_BY_PROFIT : 分润结算
-  bizScene: string;
+  bizScene?: string;
   // 业务类型
   // LEASE : 租赁 （默认） 
   // INSTALLMENT: 分期付款
   // 
-  bizType: string;
+  bizType?: string;
   // 签署模式
   //  NONE : 灵活签约
-  signMode: string;
+  signMode?: string;
   // 主订单信息
   orderInfo: OrderInfoReq;
   // 订单还款计划
@@ -753,7 +753,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.0",
+          sdk_version: "1.2.3",
           _prod_code: "GESAAS",
           _prod_channel: "default",
         };
