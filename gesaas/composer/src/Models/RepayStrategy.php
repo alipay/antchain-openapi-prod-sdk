@@ -61,7 +61,6 @@ class RepayStrategy extends Model
         Model::validateRequired('payDay', $this->payDay, true);
         Model::validateRequired('termIndex', $this->termIndex, true);
         Model::validateRequired('rentalMoney', $this->rentalMoney, true);
-        Model::validateRequired('operateDivideTransInList', $this->operateDivideTransInList, true);
     }
 
     public function toMap()
