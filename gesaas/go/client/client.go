@@ -186,7 +186,7 @@ type RepayStrategy struct {
 	OperateDivideFlag *string `json:"operate_divide_flag,omitempty" xml:"operate_divide_flag,omitempty"`
 	// 经营分账收入方列表
 	// 当operateDivideFlag 为Y时必填
-	OperateDivideTransInList []*OperateDivideTransInModel `json:"operate_divide_trans_in_list,omitempty" xml:"operate_divide_trans_in_list,omitempty" require:"true" type:"Repeated"`
+	OperateDivideTransInList []*OperateDivideTransInModel `json:"operate_divide_trans_in_list,omitempty" xml:"operate_divide_trans_in_list,omitempty" type:"Repeated"`
 }
 
 func (s RepayStrategy) String() string {
@@ -991,7 +991,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.3"),
+				"sdk_version":      tea.String("1.2.5"),
 				"_prod_code":       tea.String("GESAAS"),
 				"_prod_channel":    tea.String("default"),
 			}
