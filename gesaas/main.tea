@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.3',
+    sdk_version = '1.2.5',
     _prod_code = 'GESAAS',
     _prod_channel = 'default'
   };
@@ -181,7 +181,7 @@ model RepayStrategy {
   operateDivideFlag?: string(name='operate_divide_flag', example='Y'),
   // 经营分账收入方列表
   // 当operateDivideFlag 为Y时必填
-  operateDivideTransInList: [ OperateDivideTransInModel ](name='operate_divide_trans_in_list', example=''),
+  operateDivideTransInList?: [ OperateDivideTransInModel ](name='operate_divide_trans_in_list', example=''),
 }
 
 // 主订单信息
