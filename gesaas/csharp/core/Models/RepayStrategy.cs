@@ -33,7 +33,7 @@ namespace AntChain.SDK.GESAAS.Models
         // 经营分账收入方列表
         // 当operateDivideFlag 为Y时必填
         [NameInMap("operate_divide_trans_in_list")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public List<OperateDivideTransInModel> OperateDivideTransInList { get; set; }
 
     }
