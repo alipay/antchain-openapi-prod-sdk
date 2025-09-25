@@ -215,7 +215,6 @@ class RepayStrategy(TeaModel):
         self.validate_required(self.pay_day, 'pay_day')
         self.validate_required(self.term_index, 'term_index')
         self.validate_required(self.rental_money, 'rental_money')
-        self.validate_required(self.operate_divide_trans_in_list, 'operate_divide_trans_in_list')
         if self.operate_divide_trans_in_list:
             for k in self.operate_divide_trans_in_list:
                 if k:
