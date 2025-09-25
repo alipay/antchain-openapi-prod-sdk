@@ -42,7 +42,6 @@ public class RepayStrategy extends TeaModel {
     // 经营分账收入方列表
     // 当operateDivideFlag 为Y时必填
     @NameInMap("operate_divide_trans_in_list")
-    @Validation(required = true)
     public java.util.List<OperateDivideTransInModel> operateDivideTransInList;
 
     public static RepayStrategy build(java.util.Map<String, ?> map) throws Exception {
