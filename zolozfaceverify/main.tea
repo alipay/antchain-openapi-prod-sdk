@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.6.0',
+    sdk_version = '1.6.2',
     _prod_code = 'ZOLOZFACEVERIFY',
     _prod_channel = 'undefined'
   };
@@ -788,6 +788,8 @@ model VerifyFaceauthZimResponse = {
   retMessageSub?: string(name='ret_message_sub'),
   // 验证返回明细码
   validationRetCode?: string(name='validation_ret_code'),
+  // 返回的身份信息
+  identityInfo?: string(name='identity_info'),
 }
 
 /**
@@ -1297,5 +1299,53 @@ async function initFaceauthNfc(request: InitFaceauthNfcRequest): InitFaceauthNfc
 async function initFaceauthNfcEx(request: InitFaceauthNfcRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitFaceauthNfcResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'faceverifyzoloz.faceauth.nfc.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateConsoleSceneDomainRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景id
+  sceneId: string(name='scene_id'),
+  // 用于排查问题
+  bizId: string(name='biz_id'),
+  // 客户填自己需要绑定的小程序名称
+  miniProgramName: string(name='mini_program_name'),
+  // 所属平台，微信、支付宝
+  platform: string(name='platform'),
+  // 校验文件的名称
+  checkFileName: string(name='check_file_name'),
+  // 填校验文件里面的内容
+  checkFileBody: string(name='check_file_body'),
+}
+
+model CreateConsoleSceneDomainResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回绑定的域名
+  domain?: string(name='domain'),
+}
+
+/**
+ * Description: 用于阿里云渠道小程序域名的绑定
+ * Summary: 新增场景与域名映射
+ */
+async function createConsoleSceneDomain(request: CreateConsoleSceneDomainRequest): CreateConsoleSceneDomainResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createConsoleSceneDomainEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于阿里云渠道小程序域名的绑定
+ * Summary: 新增场景与域名映射
+ */
+async function createConsoleSceneDomainEx(request: CreateConsoleSceneDomainRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateConsoleSceneDomainResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'faceverifyzoloz.console.scene.domain.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 

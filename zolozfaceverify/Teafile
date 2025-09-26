@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "ZOLOZFACEVERIFY",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-zolozfaceverify:1.6.0",
-    "go": "github.com/antchain-openapi-sdk-go/zolozfaceverify/client:v1.6.0",
-    "csharp": "AntChain.SDK.ZOLOZFACEVERIFY:1.6.0",
-    "ts": "@antchain/zolozfaceverify:1.6.0",
-    "php": "antchain/zolozfaceverify:1.6.0",
-    "python": "antchain_sdk_zolozfaceverify:1.6.0"
+    "java": "com.antgroup.antchain.openapi:openapi-zolozfaceverify:1.6.2",
+    "go": "github.com/antchain-openapi-sdk-go/zolozfaceverify/client:v1.6.2",
+    "csharp": "AntChain.SDK.ZOLOZFACEVERIFY:1.6.2",
+    "ts": "@antchain/zolozfaceverify:1.6.2",
+    "php": "antchain/zolozfaceverify:1.6.2",
+    "python": "antchain_sdk_zolozfaceverify:1.6.2"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
