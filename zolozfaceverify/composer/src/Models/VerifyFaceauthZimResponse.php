@@ -67,6 +67,12 @@ class VerifyFaceauthZimResponse extends Model
      * @var string
      */
     public $validationRetCode;
+
+    // 返回的身份信息
+    /**
+     * @var string
+     */
+    public $identityInfo;
     protected $_name = [
         'reqMsgId'          => 'req_msg_id',
         'resultCode'        => 'result_code',
@@ -78,6 +84,7 @@ class VerifyFaceauthZimResponse extends Model
         'retCodeSub'        => 'ret_code_sub',
         'retMessageSub'     => 'ret_message_sub',
         'validationRetCode' => 'validation_ret_code',
+        'identityInfo'      => 'identity_info',
     ];
 
     public function validate()
@@ -116,6 +123,9 @@ class VerifyFaceauthZimResponse extends Model
         }
         if (null !== $this->validationRetCode) {
             $res['validation_ret_code'] = $this->validationRetCode;
+        }
+        if (null !== $this->identityInfo) {
+            $res['identity_info'] = $this->identityInfo;
         }
 
         return $res;
@@ -158,6 +168,9 @@ class VerifyFaceauthZimResponse extends Model
         }
         if (isset($map['validation_ret_code'])) {
             $model->validationRetCode = $map['validation_ret_code'];
+        }
+        if (isset($map['identity_info'])) {
+            $model->identityInfo = $map['identity_info'];
         }
 
         return $model;
