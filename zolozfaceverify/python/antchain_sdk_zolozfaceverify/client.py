@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.0',
+                    'sdk_version': '1.6.2',
                     '_prod_code': 'ZOLOZFACEVERIFY',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.0',
+                    'sdk_version': '1.6.2',
                     '_prod_code': 'ZOLOZFACEVERIFY',
                     '_prod_channel': 'undefined'
                 }
@@ -1449,4 +1449,60 @@ class Client:
         return TeaCore.from_map(
             zolozfaceverify_models.InitFaceauthNfcResponse(),
             await self.do_request_async('1.0', 'faceverifyzoloz.faceauth.nfc.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_console_scene_domain(
+        self,
+        request: zolozfaceverify_models.CreateConsoleSceneDomainRequest,
+    ) -> zolozfaceverify_models.CreateConsoleSceneDomainResponse:
+        """
+        Description: 用于阿里云渠道小程序域名的绑定
+        Summary: 新增场景与域名映射
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_console_scene_domain_ex(request, headers, runtime)
+
+    async def create_console_scene_domain_async(
+        self,
+        request: zolozfaceverify_models.CreateConsoleSceneDomainRequest,
+    ) -> zolozfaceverify_models.CreateConsoleSceneDomainResponse:
+        """
+        Description: 用于阿里云渠道小程序域名的绑定
+        Summary: 新增场景与域名映射
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_console_scene_domain_ex_async(request, headers, runtime)
+
+    def create_console_scene_domain_ex(
+        self,
+        request: zolozfaceverify_models.CreateConsoleSceneDomainRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> zolozfaceverify_models.CreateConsoleSceneDomainResponse:
+        """
+        Description: 用于阿里云渠道小程序域名的绑定
+        Summary: 新增场景与域名映射
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            zolozfaceverify_models.CreateConsoleSceneDomainResponse(),
+            self.do_request('1.0', 'faceverifyzoloz.console.scene.domain.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_console_scene_domain_ex_async(
+        self,
+        request: zolozfaceverify_models.CreateConsoleSceneDomainRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> zolozfaceverify_models.CreateConsoleSceneDomainResponse:
+        """
+        Description: 用于阿里云渠道小程序域名的绑定
+        Summary: 新增场景与域名映射
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            zolozfaceverify_models.CreateConsoleSceneDomainResponse(),
+            await self.do_request_async('1.0', 'faceverifyzoloz.console.scene.domain.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

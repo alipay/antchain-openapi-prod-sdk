@@ -1869,6 +1869,7 @@ class VerifyFaceauthZimResponse(TeaModel):
         ret_code_sub: str = None,
         ret_message_sub: str = None,
         validation_ret_code: str = None,
+        identity_info: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -1890,6 +1891,8 @@ class VerifyFaceauthZimResponse(TeaModel):
         self.ret_message_sub = ret_message_sub
         # 验证返回明细码
         self.validation_ret_code = validation_ret_code
+        # 返回的身份信息
+        self.identity_info = identity_info
 
     def validate(self):
         pass
@@ -1920,6 +1923,8 @@ class VerifyFaceauthZimResponse(TeaModel):
             result['ret_message_sub'] = self.ret_message_sub
         if self.validation_ret_code is not None:
             result['validation_ret_code'] = self.validation_ret_code
+        if self.identity_info is not None:
+            result['identity_info'] = self.identity_info
         return result
 
     def from_map(self, m: dict = None):
@@ -1944,6 +1949,8 @@ class VerifyFaceauthZimResponse(TeaModel):
             self.ret_message_sub = m.get('ret_message_sub')
         if m.get('validation_ret_code') is not None:
             self.validation_ret_code = m.get('validation_ret_code')
+        if m.get('identity_info') is not None:
+            self.identity_info = m.get('identity_info')
         return self
 
 
@@ -3228,6 +3235,136 @@ class InitFaceauthNfcResponse(TeaModel):
             self.result_code_sub = m.get('result_code_sub')
         if m.get('result_msg_sub') is not None:
             self.result_msg_sub = m.get('result_msg_sub')
+        return self
+
+
+class CreateConsoleSceneDomainRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene_id: str = None,
+        biz_id: str = None,
+        mini_program_name: str = None,
+        platform: str = None,
+        check_file_name: str = None,
+        check_file_body: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景id
+        self.scene_id = scene_id
+        # 用于排查问题
+        self.biz_id = biz_id
+        # 客户填自己需要绑定的小程序名称
+        self.mini_program_name = mini_program_name
+        # 所属平台，微信、支付宝
+        self.platform = platform
+        # 校验文件的名称
+        self.check_file_name = check_file_name
+        # 填校验文件里面的内容
+        self.check_file_body = check_file_body
+
+    def validate(self):
+        self.validate_required(self.scene_id, 'scene_id')
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.mini_program_name, 'mini_program_name')
+        self.validate_required(self.platform, 'platform')
+        self.validate_required(self.check_file_name, 'check_file_name')
+        self.validate_required(self.check_file_body, 'check_file_body')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene_id is not None:
+            result['scene_id'] = self.scene_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.mini_program_name is not None:
+            result['mini_program_name'] = self.mini_program_name
+        if self.platform is not None:
+            result['platform'] = self.platform
+        if self.check_file_name is not None:
+            result['check_file_name'] = self.check_file_name
+        if self.check_file_body is not None:
+            result['check_file_body'] = self.check_file_body
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene_id') is not None:
+            self.scene_id = m.get('scene_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('mini_program_name') is not None:
+            self.mini_program_name = m.get('mini_program_name')
+        if m.get('platform') is not None:
+            self.platform = m.get('platform')
+        if m.get('check_file_name') is not None:
+            self.check_file_name = m.get('check_file_name')
+        if m.get('check_file_body') is not None:
+            self.check_file_body = m.get('check_file_body')
+        return self
+
+
+class CreateConsoleSceneDomainResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        domain: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回绑定的域名
+        self.domain = domain
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.domain is not None:
+            result['domain'] = self.domain
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('domain') is not None:
+            self.domain = m.get('domain')
         return self
 
 
