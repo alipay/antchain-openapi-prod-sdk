@@ -1581,6 +1581,8 @@ type VerifyFaceauthZimResponse struct {
 	RetMessageSub *string `json:"ret_message_sub,omitempty" xml:"ret_message_sub,omitempty"`
 	// 验证返回明细码
 	ValidationRetCode *string `json:"validation_ret_code,omitempty" xml:"validation_ret_code,omitempty"`
+	// 返回的身份信息
+	IdentityInfo *string `json:"identity_info,omitempty" xml:"identity_info,omitempty"`
 }
 
 func (s VerifyFaceauthZimResponse) String() string {
@@ -1638,6 +1640,11 @@ func (s *VerifyFaceauthZimResponse) SetRetMessageSub(v string) *VerifyFaceauthZi
 
 func (s *VerifyFaceauthZimResponse) SetValidationRetCode(v string) *VerifyFaceauthZimResponse {
 	s.ValidationRetCode = &v
+	return s
+}
+
+func (s *VerifyFaceauthZimResponse) SetIdentityInfo(v string) *VerifyFaceauthZimResponse {
+	s.IdentityInfo = &v
 	return s
 }
 
@@ -2734,6 +2741,111 @@ func (s *InitFaceauthNfcResponse) SetResultMsgSub(v string) *InitFaceauthNfcResp
 	return s
 }
 
+type CreateConsoleSceneDomainRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景id
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+	// 用于排查问题
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 客户填自己需要绑定的小程序名称
+	MiniProgramName *string `json:"mini_program_name,omitempty" xml:"mini_program_name,omitempty" require:"true"`
+	// 所属平台，微信、支付宝
+	Platform *string `json:"platform,omitempty" xml:"platform,omitempty" require:"true"`
+	// 校验文件的名称
+	CheckFileName *string `json:"check_file_name,omitempty" xml:"check_file_name,omitempty" require:"true"`
+	// 填校验文件里面的内容
+	CheckFileBody *string `json:"check_file_body,omitempty" xml:"check_file_body,omitempty" require:"true"`
+}
+
+func (s CreateConsoleSceneDomainRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateConsoleSceneDomainRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateConsoleSceneDomainRequest) SetAuthToken(v string) *CreateConsoleSceneDomainRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateConsoleSceneDomainRequest) SetProductInstanceId(v string) *CreateConsoleSceneDomainRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateConsoleSceneDomainRequest) SetSceneId(v string) *CreateConsoleSceneDomainRequest {
+	s.SceneId = &v
+	return s
+}
+
+func (s *CreateConsoleSceneDomainRequest) SetBizId(v string) *CreateConsoleSceneDomainRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *CreateConsoleSceneDomainRequest) SetMiniProgramName(v string) *CreateConsoleSceneDomainRequest {
+	s.MiniProgramName = &v
+	return s
+}
+
+func (s *CreateConsoleSceneDomainRequest) SetPlatform(v string) *CreateConsoleSceneDomainRequest {
+	s.Platform = &v
+	return s
+}
+
+func (s *CreateConsoleSceneDomainRequest) SetCheckFileName(v string) *CreateConsoleSceneDomainRequest {
+	s.CheckFileName = &v
+	return s
+}
+
+func (s *CreateConsoleSceneDomainRequest) SetCheckFileBody(v string) *CreateConsoleSceneDomainRequest {
+	s.CheckFileBody = &v
+	return s
+}
+
+type CreateConsoleSceneDomainResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回绑定的域名
+	Domain *string `json:"domain,omitempty" xml:"domain,omitempty"`
+}
+
+func (s CreateConsoleSceneDomainResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateConsoleSceneDomainResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateConsoleSceneDomainResponse) SetReqMsgId(v string) *CreateConsoleSceneDomainResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateConsoleSceneDomainResponse) SetResultCode(v string) *CreateConsoleSceneDomainResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateConsoleSceneDomainResponse) SetResultMsg(v string) *CreateConsoleSceneDomainResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateConsoleSceneDomainResponse) SetDomain(v string) *CreateConsoleSceneDomainResponse {
+	s.Domain = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2856,7 +2968,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.0"),
+				"sdk_version":      tea.String("1.6.2"),
 				"_prod_code":       tea.String("ZOLOZFACEVERIFY"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -3621,6 +3733,40 @@ func (client *Client) InitFaceauthNfcEx(request *InitFaceauthNfcRequest, headers
 	}
 	_result = &InitFaceauthNfcResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("faceverifyzoloz.faceauth.nfc.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用于阿里云渠道小程序域名的绑定
+ * Summary: 新增场景与域名映射
+ */
+func (client *Client) CreateConsoleSceneDomain(request *CreateConsoleSceneDomainRequest) (_result *CreateConsoleSceneDomainResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateConsoleSceneDomainResponse{}
+	_body, _err := client.CreateConsoleSceneDomainEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用于阿里云渠道小程序域名的绑定
+ * Summary: 新增场景与域名映射
+ */
+func (client *Client) CreateConsoleSceneDomainEx(request *CreateConsoleSceneDomainRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateConsoleSceneDomainResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateConsoleSceneDomainResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("faceverifyzoloz.console.scene.domain.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
