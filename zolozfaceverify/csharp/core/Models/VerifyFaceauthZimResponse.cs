@@ -59,6 +59,11 @@ namespace AntChain.SDK.ZOLOZFACEVERIFY.Models
         [Validation(Required=false)]
         public string ValidationRetCode { get; set; }
 
+        // 返回的身份信息
+        [NameInMap("identity_info")]
+        [Validation(Required=false)]
+        public string IdentityInfo { get; set; }
+
     }
 
 }

@@ -137,7 +137,7 @@ namespace AntChain.SDK.ZOLOZFACEVERIFY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.0"},
+                        {"sdk_version", "1.6.2"},
                         {"_prod_code", "ZOLOZFACEVERIFY"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ZOLOZFACEVERIFY
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.0"},
+                        {"sdk_version", "1.6.2"},
                         {"_prod_code", "ZOLOZFACEVERIFY"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1201,6 +1201,48 @@ namespace AntChain.SDK.ZOLOZFACEVERIFY
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<InitFaceauthNfcResponse>(await DoRequestAsync("1.0", "faceverifyzoloz.faceauth.nfc.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于阿里云渠道小程序域名的绑定
+         * Summary: 新增场景与域名映射
+         */
+        public CreateConsoleSceneDomainResponse CreateConsoleSceneDomain(CreateConsoleSceneDomainRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateConsoleSceneDomainEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于阿里云渠道小程序域名的绑定
+         * Summary: 新增场景与域名映射
+         */
+        public async Task<CreateConsoleSceneDomainResponse> CreateConsoleSceneDomainAsync(CreateConsoleSceneDomainRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateConsoleSceneDomainExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于阿里云渠道小程序域名的绑定
+         * Summary: 新增场景与域名映射
+         */
+        public CreateConsoleSceneDomainResponse CreateConsoleSceneDomainEx(CreateConsoleSceneDomainRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateConsoleSceneDomainResponse>(DoRequest("1.0", "faceverifyzoloz.console.scene.domain.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于阿里云渠道小程序域名的绑定
+         * Summary: 新增场景与域名映射
+         */
+        public async Task<CreateConsoleSceneDomainResponse> CreateConsoleSceneDomainExAsync(CreateConsoleSceneDomainRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateConsoleSceneDomainResponse>(await DoRequestAsync("1.0", "faceverifyzoloz.console.scene.domain.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
