@@ -1146,6 +1146,8 @@ export class VerifyFaceauthZimResponse extends $tea.Model {
   retMessageSub?: string;
   // 验证返回明细码
   validationRetCode?: string;
+  // 返回的身份信息
+  identityInfo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -1158,6 +1160,7 @@ export class VerifyFaceauthZimResponse extends $tea.Model {
       retCodeSub: 'ret_code_sub',
       retMessageSub: 'ret_message_sub',
       validationRetCode: 'validation_ret_code',
+      identityInfo: 'identity_info',
     };
   }
 
@@ -1173,6 +1176,7 @@ export class VerifyFaceauthZimResponse extends $tea.Model {
       retCodeSub: 'string',
       retMessageSub: 'string',
       validationRetCode: 'string',
+      identityInfo: 'string',
     };
   }
 
@@ -1986,6 +1990,85 @@ export class InitFaceauthNfcResponse extends $tea.Model {
   }
 }
 
+export class CreateConsoleSceneDomainRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景id
+  sceneId: string;
+  // 用于排查问题
+  bizId: string;
+  // 客户填自己需要绑定的小程序名称
+  miniProgramName: string;
+  // 所属平台，微信、支付宝
+  platform: string;
+  // 校验文件的名称
+  checkFileName: string;
+  // 填校验文件里面的内容
+  checkFileBody: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneId: 'scene_id',
+      bizId: 'biz_id',
+      miniProgramName: 'mini_program_name',
+      platform: 'platform',
+      checkFileName: 'check_file_name',
+      checkFileBody: 'check_file_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneId: 'string',
+      bizId: 'string',
+      miniProgramName: 'string',
+      platform: 'string',
+      checkFileName: 'string',
+      checkFileBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateConsoleSceneDomainResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回绑定的域名
+  domain?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      domain: 'domain',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      domain: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -2013,7 +2096,7 @@ export default class Client {
    * @param config config contains the necessary information to create a client
    */
   constructor(config: Config) {
-    if (Util.isUnset($tea.toMap(config))) {
+    if (Util.isUnset(config)) {
       throw $tea.newError({
         code: "ParameterMissing",
         message: "'config' can not be unset",
@@ -2099,7 +2182,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.0",
+          sdk_version: "1.6.2",
           _prod_code: "ZOLOZFACEVERIFY",
           _prod_channel: "undefined",
         };
@@ -2544,6 +2627,25 @@ export default class Client {
   async initFaceauthNfcEx(request: InitFaceauthNfcRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitFaceauthNfcResponse> {
     Util.validateModel(request);
     return $tea.cast<InitFaceauthNfcResponse>(await this.doRequest("1.0", "faceverifyzoloz.faceauth.nfc.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitFaceauthNfcResponse({}));
+  }
+
+  /**
+   * Description: 用于阿里云渠道小程序域名的绑定
+   * Summary: 新增场景与域名映射
+   */
+  async createConsoleSceneDomain(request: CreateConsoleSceneDomainRequest): Promise<CreateConsoleSceneDomainResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createConsoleSceneDomainEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用于阿里云渠道小程序域名的绑定
+   * Summary: 新增场景与域名映射
+   */
+  async createConsoleSceneDomainEx(request: CreateConsoleSceneDomainRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateConsoleSceneDomainResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateConsoleSceneDomainResponse>(await this.doRequest("1.0", "faceverifyzoloz.console.scene.domain.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateConsoleSceneDomainResponse({}));
   }
 
 }
