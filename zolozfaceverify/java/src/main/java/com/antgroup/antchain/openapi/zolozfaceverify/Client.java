@@ -2,13 +2,15 @@
 package com.antgroup.antchain.openapi.zolozfaceverify;
 
 import com.aliyun.tea.*;
+import com.aliyun.tea.interceptor.InterceptorChain;
+import com.aliyun.tea.interceptor.RuntimeOptionsInterceptor;
+import com.aliyun.tea.interceptor.RequestInterceptor;
+import com.aliyun.tea.interceptor.ResponseInterceptor;
 import com.antgroup.antchain.openapi.zolozfaceverify.models.*;
-import com.antgroup.antchain.openapi.antchain.util.*;
-import com.aliyun.teautil.*;
-import com.aliyun.teautil.models.*;
-import com.aliyun.common.*;
 
 public class Client {
+
+    private final static InterceptorChain interceptorChain = InterceptorChain.create();
 
     public String _endpoint;
     public String _regionId;
@@ -30,11 +32,13 @@ public class Client {
     public Number _maxRequests;
     public Number _maxRequestsPerHost;
     /**
-     * Init client with Config
+     * <b>description</b> :
+     * <p>Init client with Config</p>
+     * 
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
-        if (com.aliyun.teautil.Common.isUnset(TeaModel.buildMap(config))) {
+        if (com.aliyun.teautil.Common.isUnset(config)) {
             throw new TeaException(TeaConverter.buildMap(
                 new TeaPair("code", "ParameterMissing"),
                 new TeaPair("message", "'config' can not be unset")
@@ -61,7 +65,19 @@ public class Client {
         this._maxRequestsPerHost = com.aliyun.teautil.Common.defaultNumber(config.maxRequestsPerHost, 100);
     }
 
-    public java.util.Map<String, ?> doRequest(String version, String action, String protocol, String method, String pathname, java.util.Map<String, ?> request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    /**
+     * <b>description</b> :
+     * <p>Encapsulate the request and invoke the network</p>
+     * 
+     * @param action api name
+     * @param protocol http or https
+     * @param method e.g. GET
+     * @param pathname pathname of every api
+     * @param request which contains request params
+     * @param runtime which controls some details of call api, such as retry times
+     * @return the response
+     */
+    public java.util.Map<String, ?> doRequest(String version, String action, String protocol, String method, String pathname, java.util.Map<String, ?> request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         java.util.Map<String, Object> runtime_ = TeaConverter.buildMap(
             new TeaPair("timeouted", "retry"),
             new TeaPair("readTimeout", com.aliyun.teautil.Common.defaultNumber(runtime.readTimeout, _readTimeout)),
@@ -110,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.0"),
+                    new TeaPair("sdk_version", "1.6.2"),
                     new TeaPair("_prod_code", "ZOLOZFACEVERIFY"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -134,7 +150,7 @@ public class Client {
                 );
                 request_.query.put("sign", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getSignature(signedParam, _accessKeySecret));
                 _lastRequest = request_;
-                TeaResponse response_ = Tea.doAction(request_, runtime_);
+                TeaResponse response_ = Tea.doAction(request_, runtime_, interceptorChain);
 
                 String raw = com.aliyun.teautil.Common.readAsString(response_.body);
                 Object obj = com.aliyun.teautil.Common.parseJSON(raw);
@@ -157,406 +173,480 @@ public class Client {
                 throw e;
             }
         }
-
         throw new TeaUnretryableException(_lastRequest, _lastException);
     }
 
+    public void addRuntimeOptionsInterceptor(RuntimeOptionsInterceptor interceptor) {
+        interceptorChain.addRuntimeOptionsInterceptor(interceptor);
+    }
+
+    public void addRequestInterceptor(RequestInterceptor interceptor) {
+        interceptorChain.addRequestInterceptor(interceptor);
+    }
+
+    public void addResponseInterceptor(ResponseInterceptor interceptor) {
+        interceptorChain.addResponseInterceptor(interceptor);
+    }
+
     /**
-     * Description: 金融云计算能力输出给主站使用
-     * Summary: 金融云计算能力输出给主站使用
+     * <b>description</b> :
+     * <p>Description: 金融云计算能力输出给主站使用
+     * Summary: 金融云计算能力输出给主站使用</p>
      */
     public ExecFaceauthAlgorithmResponse execFaceauthAlgorithm(ExecFaceauthAlgorithmRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.execFaceauthAlgorithmEx(request, headers, runtime);
     }
 
     /**
-     * Description: 金融云计算能力输出给主站使用
-     * Summary: 金融云计算能力输出给主站使用
+     * <b>description</b> :
+     * <p>Description: 金融云计算能力输出给主站使用
+     * Summary: 金融云计算能力输出给主站使用</p>
      */
-    public ExecFaceauthAlgorithmResponse execFaceauthAlgorithmEx(ExecFaceauthAlgorithmRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public ExecFaceauthAlgorithmResponse execFaceauthAlgorithmEx(ExecFaceauthAlgorithmRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.algorithm.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecFaceauthAlgorithmResponse());
     }
 
     /**
-     * Description: 调用“实人认证初始化”接口初始化认证服务并得到zimId，zimId用于唯一标识一次认证请求，后续通过zimId可以查询本次实人认证的结果
-     * Summary: 实人认证初始化
+     * <b>description</b> :
+     * <p>Description: 调用“实人认证初始化”接口初始化认证服务并得到zimId，zimId用于唯一标识一次认证请求，后续通过zimId可以查询本次实人认证的结果
+     * Summary: 实人认证初始化</p>
      */
     public FaceFaceauthInitializeResponse faceFaceauthInitialize(FaceFaceauthInitializeRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.faceFaceauthInitializeEx(request, headers, runtime);
     }
 
     /**
-     * Description: 调用“实人认证初始化”接口初始化认证服务并得到zimId，zimId用于唯一标识一次认证请求，后续通过zimId可以查询本次实人认证的结果
-     * Summary: 实人认证初始化
+     * <b>description</b> :
+     * <p>Description: 调用“实人认证初始化”接口初始化认证服务并得到zimId，zimId用于唯一标识一次认证请求，后续通过zimId可以查询本次实人认证的结果
+     * Summary: 实人认证初始化</p>
      */
-    public FaceFaceauthInitializeResponse faceFaceauthInitializeEx(FaceFaceauthInitializeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public FaceFaceauthInitializeResponse faceFaceauthInitializeEx(FaceFaceauthInitializeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.initialize.face", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FaceFaceauthInitializeResponse());
     }
 
     /**
-     * Description: 调用“实人认证结果查询”接口可以通过zimId查询当次认证的结果
-     * Summary: 实人认证查询
+     * <b>description</b> :
+     * <p>Description: 调用“实人认证结果查询”接口可以通过zimId查询当次认证的结果
+     * Summary: 实人认证查询</p>
      */
     public FaceFaceauthQueryResponse faceFaceauthQuery(FaceFaceauthQueryRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.faceFaceauthQueryEx(request, headers, runtime);
     }
 
     /**
-     * Description: 调用“实人认证结果查询”接口可以通过zimId查询当次认证的结果
-     * Summary: 实人认证查询
+     * <b>description</b> :
+     * <p>Description: 调用“实人认证结果查询”接口可以通过zimId查询当次认证的结果
+     * Summary: 实人认证查询</p>
      */
-    public FaceFaceauthQueryResponse faceFaceauthQueryEx(FaceFaceauthQueryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public FaceFaceauthQueryResponse faceFaceauthQueryEx(FaceFaceauthQueryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.query.face", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FaceFaceauthQueryResponse());
     }
 
     /**
-     * Description: 人脸纯服务端模式比对
-     * Summary: 人脸纯服务端模式比对
+     * <b>description</b> :
+     * <p>Description: 人脸纯服务端模式比对
+     * Summary: 人脸纯服务端模式比对</p>
      */
     public IdentityFaceauthServermodeResponse identityFaceauthServermode(IdentityFaceauthServermodeRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.identityFaceauthServermodeEx(request, headers, runtime);
     }
 
     /**
-     * Description: 人脸纯服务端模式比对
-     * Summary: 人脸纯服务端模式比对
+     * <b>description</b> :
+     * <p>Description: 人脸纯服务端模式比对
+     * Summary: 人脸纯服务端模式比对</p>
      */
-    public IdentityFaceauthServermodeResponse identityFaceauthServermodeEx(IdentityFaceauthServermodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public IdentityFaceauthServermodeResponse identityFaceauthServermodeEx(IdentityFaceauthServermodeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.servermode.identity", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new IdentityFaceauthServermodeResponse());
     }
 
     /**
-     * Description: 调用“H5实人认证初始化”接口初始化认证服务并得到zimId，zimId用于唯一标识一次认证请求，后续通过zimId可以查询本次实人认证的结果
-     * Summary: H5实人认证初始化
+     * <b>description</b> :
+     * <p>Description: 调用“H5实人认证初始化”接口初始化认证服务并得到zimId，zimId用于唯一标识一次认证请求，后续通过zimId可以查询本次实人认证的结果
+     * Summary: H5实人认证初始化</p>
      */
     public InitializeFaceauthWebResponse initializeFaceauthWeb(InitializeFaceauthWebRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.initializeFaceauthWebEx(request, headers, runtime);
     }
 
     /**
-     * Description: 调用“H5实人认证初始化”接口初始化认证服务并得到zimId，zimId用于唯一标识一次认证请求，后续通过zimId可以查询本次实人认证的结果
-     * Summary: H5实人认证初始化
+     * <b>description</b> :
+     * <p>Description: 调用“H5实人认证初始化”接口初始化认证服务并得到zimId，zimId用于唯一标识一次认证请求，后续通过zimId可以查询本次实人认证的结果
+     * Summary: H5实人认证初始化</p>
      */
-    public InitializeFaceauthWebResponse initializeFaceauthWebEx(InitializeFaceauthWebRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public InitializeFaceauthWebResponse initializeFaceauthWebEx(InitializeFaceauthWebRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.web.initialize", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitializeFaceauthWebResponse());
     }
 
     /**
-     * Description: H5实人认证查询
-     * Summary: H5实人认证查询
+     * <b>description</b> :
+     * <p>Description: H5实人认证查询
+     * Summary: H5实人认证查询</p>
      */
     public QueryFaceauthWebResponse queryFaceauthWeb(QueryFaceauthWebRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryFaceauthWebEx(request, headers, runtime);
     }
 
     /**
-     * Description: H5实人认证查询
-     * Summary: H5实人认证查询
+     * <b>description</b> :
+     * <p>Description: H5实人认证查询
+     * Summary: H5实人认证查询</p>
      */
-    public QueryFaceauthWebResponse queryFaceauthWebEx(QueryFaceauthWebRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryFaceauthWebResponse queryFaceauthWebEx(QueryFaceauthWebRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.web.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFaceauthWebResponse());
     }
 
     /**
-     * Description: 提供给业务方刷脸认证计量查询接口
-     * Summary: 提供给业务方刷脸认证计量查询接口
+     * <b>description</b> :
+     * <p>Description: 提供给业务方刷脸认证计量查询接口
+     * Summary: 提供给业务方刷脸认证计量查询接口</p>
      */
     public QueryFaceauthMeteringResponse queryFaceauthMetering(QueryFaceauthMeteringRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryFaceauthMeteringEx(request, headers, runtime);
     }
 
     /**
-     * Description: 提供给业务方刷脸认证计量查询接口
-     * Summary: 提供给业务方刷脸认证计量查询接口
+     * <b>description</b> :
+     * <p>Description: 提供给业务方刷脸认证计量查询接口
+     * Summary: 提供给业务方刷脸认证计量查询接口</p>
      */
-    public QueryFaceauthMeteringResponse queryFaceauthMeteringEx(QueryFaceauthMeteringRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryFaceauthMeteringResponse queryFaceauthMeteringEx(QueryFaceauthMeteringRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.metering.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFaceauthMeteringResponse());
     }
 
     /**
-     * Description: 极简模式初始化接口，返回zimId和协议
-     * Summary: 极简模式初始化接口
+     * <b>description</b> :
+     * <p>Description: 极简模式初始化接口，返回zimId和协议
+     * Summary: 极简模式初始化接口</p>
      */
     public InitFaceauthFaceLiteResponse initFaceauthFaceLite(InitFaceauthFaceLiteRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.initFaceauthFaceLiteEx(request, headers, runtime);
     }
 
     /**
-     * Description: 极简模式初始化接口，返回zimId和协议
-     * Summary: 极简模式初始化接口
+     * <b>description</b> :
+     * <p>Description: 极简模式初始化接口，返回zimId和协议
+     * Summary: 极简模式初始化接口</p>
      */
-    public InitFaceauthFaceLiteResponse initFaceauthFaceLiteEx(InitFaceauthFaceLiteRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public InitFaceauthFaceLiteResponse initFaceauthFaceLiteEx(InitFaceauthFaceLiteRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.face.lite.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitFaceauthFaceLiteResponse());
     }
 
     /**
-     * Description: 数据查询，排查case
-     * Summary: 数据查询，排查case
+     * <b>description</b> :
+     * <p>Description: 数据查询，排查case
+     * Summary: 数据查询，排查case</p>
      */
     public QueryFaceauthDataResponse queryFaceauthData(QueryFaceauthDataRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryFaceauthDataEx(request, headers, runtime);
     }
 
     /**
-     * Description: 数据查询，排查case
-     * Summary: 数据查询，排查case
+     * <b>description</b> :
+     * <p>Description: 数据查询，排查case
+     * Summary: 数据查询，排查case</p>
      */
-    public QueryFaceauthDataResponse queryFaceauthDataEx(QueryFaceauthDataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryFaceauthDataResponse queryFaceauthDataEx(QueryFaceauthDataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.data.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFaceauthDataResponse());
     }
 
     /**
-     * Description: 提供人脸特征提取、人脸区域识别等能力接口
-     * Summary: 提供人脸特征提取、人脸区域识别等能力接口
+     * <b>description</b> :
+     * <p>Description: 提供人脸特征提取、人脸区域识别等能力接口
+     * Summary: 提供人脸特征提取、人脸区域识别等能力接口</p>
      */
     public ExecAuthenticationCustomerFaceabilityResponse execAuthenticationCustomerFaceability(ExecAuthenticationCustomerFaceabilityRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.execAuthenticationCustomerFaceabilityEx(request, headers, runtime);
     }
 
     /**
-     * Description: 提供人脸特征提取、人脸区域识别等能力接口
-     * Summary: 提供人脸特征提取、人脸区域识别等能力接口
+     * <b>description</b> :
+     * <p>Description: 提供人脸特征提取、人脸区域识别等能力接口
+     * Summary: 提供人脸特征提取、人脸区域识别等能力接口</p>
      */
-    public ExecAuthenticationCustomerFaceabilityResponse execAuthenticationCustomerFaceabilityEx(ExecAuthenticationCustomerFaceabilityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public ExecAuthenticationCustomerFaceabilityResponse execAuthenticationCustomerFaceabilityEx(ExecAuthenticationCustomerFaceabilityRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.authentication.customer.faceability.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecAuthenticationCustomerFaceabilityResponse());
     }
 
     /**
-     * Description: 客户端接口初始化认证
-     * Summary: 客户端初始化
+     * <b>description</b> :
+     * <p>Description: 客户端接口初始化认证
+     * Summary: 客户端初始化</p>
      */
     public InitFaceauthZimResponse initFaceauthZim(InitFaceauthZimRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.initFaceauthZimEx(request, headers, runtime);
     }
 
     /**
-     * Description: 客户端接口初始化认证
-     * Summary: 客户端初始化
+     * <b>description</b> :
+     * <p>Description: 客户端接口初始化认证
+     * Summary: 客户端初始化</p>
      */
-    public InitFaceauthZimResponse initFaceauthZimEx(InitFaceauthZimRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public InitFaceauthZimResponse initFaceauthZimEx(InitFaceauthZimRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.zim.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitFaceauthZimResponse());
     }
 
     /**
-     * Description: 提供客户端活体检测与人脸比对服务
-     * Summary: 客户端人脸验证
+     * <b>description</b> :
+     * <p>Description: 提供客户端活体检测与人脸比对服务
+     * Summary: 客户端人脸验证</p>
      */
     public VerifyFaceauthZimResponse verifyFaceauthZim(VerifyFaceauthZimRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.verifyFaceauthZimEx(request, headers, runtime);
     }
 
     /**
-     * Description: 提供客户端活体检测与人脸比对服务
-     * Summary: 客户端人脸验证
+     * <b>description</b> :
+     * <p>Description: 提供客户端活体检测与人脸比对服务
+     * Summary: 客户端人脸验证</p>
      */
-    public VerifyFaceauthZimResponse verifyFaceauthZimEx(VerifyFaceauthZimRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public VerifyFaceauthZimResponse verifyFaceauthZimEx(VerifyFaceauthZimRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.zim.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyFaceauthZimResponse());
     }
 
     /**
-     * Description: OCR识别接口，开放给阿里云场景
-     * Summary: OCR识别接口
+     * <b>description</b> :
+     * <p>Description: OCR识别接口，开放给阿里云场景
+     * Summary: OCR识别接口</p>
      */
     public RecognizeFaceauthOcrResponse recognizeFaceauthOcr(RecognizeFaceauthOcrRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.recognizeFaceauthOcrEx(request, headers, runtime);
     }
 
     /**
-     * Description: OCR识别接口，开放给阿里云场景
-     * Summary: OCR识别接口
+     * <b>description</b> :
+     * <p>Description: OCR识别接口，开放给阿里云场景
+     * Summary: OCR识别接口</p>
      */
-    public RecognizeFaceauthOcrResponse recognizeFaceauthOcrEx(RecognizeFaceauthOcrRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public RecognizeFaceauthOcrResponse recognizeFaceauthOcrEx(RecognizeFaceauthOcrRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.ocr.recognize", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RecognizeFaceauthOcrResponse());
     }
 
     /**
-     * Description: Web实人认证初始化	
-     * Summary: Web实人认证初始化 
+     * <b>description</b> :
+     * <p>Description: Web实人认证初始化	
+     * Summary: Web实人认证初始化 </p>
      */
     public InitFaceauthWebsdkResponse initFaceauthWebsdk(InitFaceauthWebsdkRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.initFaceauthWebsdkEx(request, headers, runtime);
     }
 
     /**
-     * Description: Web实人认证初始化	
-     * Summary: Web实人认证初始化 
+     * <b>description</b> :
+     * <p>Description: Web实人认证初始化	
+     * Summary: Web实人认证初始化 </p>
      */
-    public InitFaceauthWebsdkResponse initFaceauthWebsdkEx(InitFaceauthWebsdkRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public InitFaceauthWebsdkResponse initFaceauthWebsdkEx(InitFaceauthWebsdkRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.websdk.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitFaceauthWebsdkResponse());
     }
 
     /**
-     * Description: Web实人认证查询
-     * Summary: Web实人认证查询
+     * <b>description</b> :
+     * <p>Description: Web实人认证查询
+     * Summary: Web实人认证查询</p>
      */
     public QueryFaceauthWebsdkResponse queryFaceauthWebsdk(QueryFaceauthWebsdkRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryFaceauthWebsdkEx(request, headers, runtime);
     }
 
     /**
-     * Description: Web实人认证查询
-     * Summary: Web实人认证查询
+     * <b>description</b> :
+     * <p>Description: Web实人认证查询
+     * Summary: Web实人认证查询</p>
      */
-    public QueryFaceauthWebsdkResponse queryFaceauthWebsdkEx(QueryFaceauthWebsdkRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryFaceauthWebsdkResponse queryFaceauthWebsdkEx(QueryFaceauthWebsdkRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.websdk.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFaceauthWebsdkResponse());
     }
 
     /**
-     * Description: zoloz提供具备权限控制的人脸图片获取接口，提供于支付宝会员等上游，控制数据风险
-     * Summary: 获取认证资料
+     * <b>description</b> :
+     * <p>Description: zoloz提供具备权限控制的人脸图片获取接口，提供于支付宝会员等上游，控制数据风险
+     * Summary: 获取认证资料</p>
      */
     public QueryFaceauthFileResponse queryFaceauthFile(QueryFaceauthFileRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryFaceauthFileEx(request, headers, runtime);
     }
 
     /**
-     * Description: zoloz提供具备权限控制的人脸图片获取接口，提供于支付宝会员等上游，控制数据风险
-     * Summary: 获取认证资料
+     * <b>description</b> :
+     * <p>Description: zoloz提供具备权限控制的人脸图片获取接口，提供于支付宝会员等上游，控制数据风险
+     * Summary: 获取认证资料</p>
      */
-    public QueryFaceauthFileResponse queryFaceauthFileEx(QueryFaceauthFileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryFaceauthFileResponse queryFaceauthFileEx(QueryFaceauthFileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.file.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFaceauthFileResponse());
     }
 
     /**
-     * Description: 人脸双因子认证服务端初始化
-     * Summary: 人脸双因子认证服务端初始化
+     * <b>description</b> :
+     * <p>Description: 人脸双因子认证服务端初始化
+     * Summary: 人脸双因子认证服务端初始化</p>
      */
     public InitFaceauthFaceplusResponse initFaceauthFaceplus(InitFaceauthFaceplusRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.initFaceauthFaceplusEx(request, headers, runtime);
     }
 
     /**
-     * Description: 人脸双因子认证服务端初始化
-     * Summary: 人脸双因子认证服务端初始化
+     * <b>description</b> :
+     * <p>Description: 人脸双因子认证服务端初始化
+     * Summary: 人脸双因子认证服务端初始化</p>
      */
-    public InitFaceauthFaceplusResponse initFaceauthFaceplusEx(InitFaceauthFaceplusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public InitFaceauthFaceplusResponse initFaceauthFaceplusEx(InitFaceauthFaceplusRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.faceplus.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitFaceauthFaceplusResponse());
     }
 
     /**
-     * Description: 人脸双因子认证服务端查询
-     * Summary: 人脸双因子认证服务端查询
+     * <b>description</b> :
+     * <p>Description: 人脸双因子认证服务端查询
+     * Summary: 人脸双因子认证服务端查询</p>
      */
     public QueryFaceauthFaceplusResponse queryFaceauthFaceplus(QueryFaceauthFaceplusRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryFaceauthFaceplusEx(request, headers, runtime);
     }
 
     /**
-     * Description: 人脸双因子认证服务端查询
-     * Summary: 人脸双因子认证服务端查询
+     * <b>description</b> :
+     * <p>Description: 人脸双因子认证服务端查询
+     * Summary: 人脸双因子认证服务端查询</p>
      */
-    public QueryFaceauthFaceplusResponse queryFaceauthFaceplusEx(QueryFaceauthFaceplusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryFaceauthFaceplusResponse queryFaceauthFaceplusEx(QueryFaceauthFaceplusRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.faceplus.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFaceauthFaceplusResponse());
     }
 
     /**
-     * Description: 意愿核身认证服务端初始化
-     * Summary: 意愿核身认证服务端初始化
+     * <b>description</b> :
+     * <p>Description: 意愿核身认证服务端初始化
+     * Summary: 意愿核身认证服务端初始化</p>
      */
     public InitFaceauthFaceWishResponse initFaceauthFaceWish(InitFaceauthFaceWishRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.initFaceauthFaceWishEx(request, headers, runtime);
     }
 
     /**
-     * Description: 意愿核身认证服务端初始化
-     * Summary: 意愿核身认证服务端初始化
+     * <b>description</b> :
+     * <p>Description: 意愿核身认证服务端初始化
+     * Summary: 意愿核身认证服务端初始化</p>
      */
-    public InitFaceauthFaceWishResponse initFaceauthFaceWishEx(InitFaceauthFaceWishRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public InitFaceauthFaceWishResponse initFaceauthFaceWishEx(InitFaceauthFaceWishRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.face.wish.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitFaceauthFaceWishResponse());
     }
 
     /**
-     * Description: 人脸视频认证
-     * Summary: 人脸视频认证
+     * <b>description</b> :
+     * <p>Description: 人脸视频认证
+     * Summary: 人脸视频认证</p>
      */
     public VerifyFaceauthVideoResponse verifyFaceauthVideo(VerifyFaceauthVideoRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.verifyFaceauthVideoEx(request, headers, runtime);
     }
 
     /**
-     * Description: 人脸视频认证
-     * Summary: 人脸视频认证
+     * <b>description</b> :
+     * <p>Description: 人脸视频认证
+     * Summary: 人脸视频认证</p>
      */
-    public VerifyFaceauthVideoResponse verifyFaceauthVideoEx(VerifyFaceauthVideoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public VerifyFaceauthVideoResponse verifyFaceauthVideoEx(VerifyFaceauthVideoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.video.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyFaceauthVideoResponse());
     }
 
     /**
-     * Description: 实证NFC服务端初始化
-     * Summary: 实证NFC服务端初始化
+     * <b>description</b> :
+     * <p>Description: 实证NFC服务端初始化
+     * Summary: 实证NFC服务端初始化</p>
      */
     public InitFaceauthNfcResponse initFaceauthNfc(InitFaceauthNfcRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.initFaceauthNfcEx(request, headers, runtime);
     }
 
     /**
-     * Description: 实证NFC服务端初始化
-     * Summary: 实证NFC服务端初始化
+     * <b>description</b> :
+     * <p>Description: 实证NFC服务端初始化
+     * Summary: 实证NFC服务端初始化</p>
      */
-    public InitFaceauthNfcResponse initFaceauthNfcEx(InitFaceauthNfcRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public InitFaceauthNfcResponse initFaceauthNfcEx(InitFaceauthNfcRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.faceauth.nfc.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitFaceauthNfcResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 用于阿里云渠道小程序域名的绑定
+     * Summary: 新增场景与域名映射</p>
+     */
+    public CreateConsoleSceneDomainResponse createConsoleSceneDomain(CreateConsoleSceneDomainRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createConsoleSceneDomainEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 用于阿里云渠道小程序域名的绑定
+     * Summary: 新增场景与域名映射</p>
+     */
+    public CreateConsoleSceneDomainResponse createConsoleSceneDomainEx(CreateConsoleSceneDomainRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "faceverifyzoloz.console.scene.domain.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateConsoleSceneDomainResponse());
     }
 }

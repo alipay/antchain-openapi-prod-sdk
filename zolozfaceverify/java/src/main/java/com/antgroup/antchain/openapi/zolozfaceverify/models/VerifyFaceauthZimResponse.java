@@ -44,6 +44,10 @@ public class VerifyFaceauthZimResponse extends TeaModel {
     @NameInMap("validation_ret_code")
     public String validationRetCode;
 
+    // 返回的身份信息
+    @NameInMap("identity_info")
+    public String identityInfo;
+
     public static VerifyFaceauthZimResponse build(java.util.Map<String, ?> map) throws Exception {
         VerifyFaceauthZimResponse self = new VerifyFaceauthZimResponse();
         return TeaModel.build(map, self);
@@ -127,6 +131,14 @@ public class VerifyFaceauthZimResponse extends TeaModel {
     }
     public String getValidationRetCode() {
         return this.validationRetCode;
+    }
+
+    public VerifyFaceauthZimResponse setIdentityInfo(String identityInfo) {
+        this.identityInfo = identityInfo;
+        return this;
+    }
+    public String getIdentityInfo() {
+        return this.identityInfo;
     }
 
 }

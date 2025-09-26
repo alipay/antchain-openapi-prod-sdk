@@ -5,34 +5,66 @@ import com.aliyun.tea.*;
 
 public class MeteringDataDetail extends TeaModel {
     // 比对通过
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("identify_passed_pv")
     public Long identifyPassedPv;
 
     // 上传服务端成功
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("identify_succeed_pv")
     public Long identifySucceedPv;
 
     // 计量类型
+    /**
+     * <strong>example:</strong>
+     * <p>计量类型</p>
+     */
     @NameInMap("metering_type")
     public String meteringType;
 
     // 产品渲染（SDK唤起）
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("prod_start_pv")
     public Long prodStartPv;
 
     // 查询结果通过
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("query_passed_pv")
     public Long queryPassedPv;
 
     // 发起查询
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("query_succeed_pv")
     public Long querySucceedPv;
 
     // 可用性检查通过
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("usable_passed_pv")
     public Long usablePassedPv;
 
     // 可用性检查开始
+    /**
+     * <strong>example:</strong>
+     * <p>10</p>
+     */
     @NameInMap("usable_start_pv")
     public Long usableStartPv;
 

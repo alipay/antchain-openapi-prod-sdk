@@ -5,15 +5,27 @@ import com.aliyun.tea.*;
 
 public class MeteringData extends TeaModel {
     // endTime
+    /**
+     * <strong>example:</strong>
+     * <p>endTime</p>
+     */
     @NameInMap("end_time")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String endTime;
 
     // metering_data_detail_list
+    /**
+     * <strong>example:</strong>
+     * <p>metering_data_detail_list</p>
+     */
     @NameInMap("metering_data_detail_list")
     public java.util.List<MeteringDataDetail> meteringDataDetailList;
 
     // startTime
+    /**
+     * <strong>example:</strong>
+     * <p>startTime</p>
+     */
     @NameInMap("start_time")
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String startTime;
