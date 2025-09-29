@@ -137,7 +137,7 @@ namespace AntChain.SDK.BXPT_NEW
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.21"},
+                        {"sdk_version", "1.2.27"},
                         {"_prod_code", "BXPT_NEW"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BXPT_NEW
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.21"},
+                        {"sdk_version", "1.2.27"},
                         {"_prod_code", "BXPT_NEW"},
                         {"_prod_channel", "default"},
                     };
@@ -574,6 +574,138 @@ namespace AntChain.SDK.BXPT_NEW
         }
 
         /**
+         * Description: 提供多模态的数据产品执行，支持上传文本，图片、视频、音频等格式
+         * Summary: 提供多模态的数据产品执行
+         */
+        public ExecMultimodalDataprodResponse ExecMultimodalDataprod(ExecMultimodalDataprodRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecMultimodalDataprodEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提供多模态的数据产品执行，支持上传文本，图片、视频、音频等格式
+         * Summary: 提供多模态的数据产品执行
+         */
+        public async Task<ExecMultimodalDataprodResponse> ExecMultimodalDataprodAsync(ExecMultimodalDataprodRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecMultimodalDataprodExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提供多模态的数据产品执行，支持上传文本，图片、视频、音频等格式
+         * Summary: 提供多模态的数据产品执行
+         */
+        public ExecMultimodalDataprodResponse ExecMultimodalDataprodEx(ExecMultimodalDataprodRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antcloud.bxptnew.multimodal.dataprod.exec",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ExecMultimodalDataprodResponse execMultimodalDataprodResponse = new ExecMultimodalDataprodResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return execMultimodalDataprodResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecMultimodalDataprodResponse>(DoRequest("1.0", "antcloud.bxptnew.multimodal.dataprod.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提供多模态的数据产品执行，支持上传文本，图片、视频、音频等格式
+         * Summary: 提供多模态的数据产品执行
+         */
+        public async Task<ExecMultimodalDataprodResponse> ExecMultimodalDataprodExAsync(ExecMultimodalDataprodRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antcloud.bxptnew.multimodal.dataprod.exec",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ExecMultimodalDataprodResponse execMultimodalDataprodResponse = new ExecMultimodalDataprodResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return execMultimodalDataprodResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecMultimodalDataprodResponse>(await DoRequestAsync("1.0", "antcloud.bxptnew.multimodal.dataprod.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数据产品执行结果通知
+         * Summary: 数据产品执行结果通知
+         */
+        public NotifyMultimodalDataprodResponse NotifyMultimodalDataprod(NotifyMultimodalDataprodRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return NotifyMultimodalDataprodEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数据产品执行结果通知
+         * Summary: 数据产品执行结果通知
+         */
+        public async Task<NotifyMultimodalDataprodResponse> NotifyMultimodalDataprodAsync(NotifyMultimodalDataprodRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await NotifyMultimodalDataprodExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数据产品执行结果通知
+         * Summary: 数据产品执行结果通知
+         */
+        public NotifyMultimodalDataprodResponse NotifyMultimodalDataprodEx(NotifyMultimodalDataprodRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyMultimodalDataprodResponse>(DoRequest("1.0", "antcloud.bxptnew.multimodal.dataprod.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数据产品执行结果通知
+         * Summary: 数据产品执行结果通知
+         */
+        public async Task<NotifyMultimodalDataprodResponse> NotifyMultimodalDataprodExAsync(NotifyMultimodalDataprodRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyMultimodalDataprodResponse>(await DoRequestAsync("1.0", "antcloud.bxptnew.multimodal.dataprod.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 保险数据营销决策查询
          * Summary: 保险数据营销决策查询
          */
@@ -655,6 +787,48 @@ namespace AntChain.SDK.BXPT_NEW
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PushDatapromotionTrafficResponse>(await DoRequestAsync("1.0", "antcloud.bxptnew.datapromotion.traffic.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public CreateAntcloudGatewayxFileUploadResponse CreateAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateAntcloudGatewayxFileUploadEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public async Task<CreateAntcloudGatewayxFileUploadResponse> CreateAntcloudGatewayxFileUploadAsync(CreateAntcloudGatewayxFileUploadRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateAntcloudGatewayxFileUploadExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public CreateAntcloudGatewayxFileUploadResponse CreateAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAntcloudGatewayxFileUploadResponse>(DoRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建HTTP PUT提交的文件上传
+         * Summary: 文件上传创建
+         */
+        public async Task<CreateAntcloudGatewayxFileUploadResponse> CreateAntcloudGatewayxFileUploadExAsync(CreateAntcloudGatewayxFileUploadRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAntcloudGatewayxFileUploadResponse>(await DoRequestAsync("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
