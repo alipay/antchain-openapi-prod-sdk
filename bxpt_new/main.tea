@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.21',
+    sdk_version = '1.2.27',
     _prod_code = 'BXPT_NEW',
     _prod_channel = 'default'
   };
@@ -159,6 +159,14 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
 }
 
 model ExecDataproductRequest = {
@@ -476,6 +484,110 @@ async function queryDrrdataRiafdEx(request: QueryDrrdataRiafdRequest, headers: m
   return doRequest('1.0' ,'antcloud.bxptnew.drrdata.riafd.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model ExecMultimodalDataprodRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 文件唯一id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 业务入参的json字符串
+  bizContent?: string(name='biz_content'),
+  // 数据产品编码
+  productCode: string(name='product_code'),
+  // 请求唯一标识
+  requestId: string(name='request_id'),
+}
+
+model ExecMultimodalDataprodResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务返回值json
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 提供多模态的数据产品执行，支持上传文本，图片、视频、音频等格式
+ * Summary: 提供多模态的数据产品执行
+ */
+async function execMultimodalDataprod(request: ExecMultimodalDataprodRequest): ExecMultimodalDataprodResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execMultimodalDataprodEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提供多模态的数据产品执行，支持上传文本，图片、视频、音频等格式
+ * Summary: 提供多模态的数据产品执行
+ */
+async function execMultimodalDataprodEx(request: ExecMultimodalDataprodRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecMultimodalDataprodResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antcloud.bxptnew.multimodal.dataprod.exec',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var execMultimodalDataprodResponse = new ExecMultimodalDataprodResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return execMultimodalDataprodResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.bxptnew.multimodal.dataprod.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyMultimodalDataprodRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 通知具体json内容
+  bizContent?: string(name='biz_content'),
+  // 唯一请求id
+  requestId: string(name='request_id'),
+  // 业务标识
+  bizNo: string(name='biz_no'),
+}
+
+model NotifyMultimodalDataprodResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 数据产品执行结果通知
+ * Summary: 数据产品执行结果通知
+ */
+async function notifyMultimodalDataprod(request: NotifyMultimodalDataprodRequest): NotifyMultimodalDataprodResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyMultimodalDataprodEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数据产品执行结果通知
+ * Summary: 数据产品执行结果通知
+ */
+async function notifyMultimodalDataprodEx(request: NotifyMultimodalDataprodRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyMultimodalDataprodResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.bxptnew.multimodal.dataprod.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryDatapromotionDecisionRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -559,5 +671,58 @@ async function pushDatapromotionTraffic(request: PushDatapromotionTrafficRequest
 async function pushDatapromotionTrafficEx(request: PushDatapromotionTrafficRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushDatapromotionTrafficResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.bxptnew.datapromotion.traffic.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
