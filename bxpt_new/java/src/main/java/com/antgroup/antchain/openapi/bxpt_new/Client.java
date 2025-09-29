@@ -32,7 +32,9 @@ public class Client {
     public Number _maxRequests;
     public Number _maxRequestsPerHost;
     /**
-     * Init client with Config
+     * <b>description</b> :
+     * <p>Init client with Config</p>
+     * 
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
@@ -64,7 +66,9 @@ public class Client {
     }
 
     /**
-     * Encapsulate the request and invoke the network
+     * <b>description</b> :
+     * <p>Encapsulate the request and invoke the network</p>
+     * 
      * @param action api name
      * @param protocol http or https
      * @param method e.g. GET
@@ -122,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.21"),
+                    new TeaPair("sdk_version", "1.2.27"),
                     new TeaPair("_prod_code", "BXPT_NEW"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -185,8 +189,9 @@ public class Client {
     }
 
     /**
-     * Description: 保险数据产品服务调用
-     * Summary: 保险数据产品服务调用
+     * <b>description</b> :
+     * <p>Description: 保险数据产品服务调用
+     * Summary: 保险数据产品服务调用</p>
      */
     public ExecDataproductResponse execDataproduct(ExecDataproductRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -195,8 +200,9 @@ public class Client {
     }
 
     /**
-     * Description: 保险数据产品服务调用
-     * Summary: 保险数据产品服务调用
+     * <b>description</b> :
+     * <p>Description: 保险数据产品服务调用
+     * Summary: 保险数据产品服务调用</p>
      */
     public ExecDataproductResponse execDataproductEx(ExecDataproductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -204,8 +210,9 @@ public class Client {
     }
 
     /**
-     * Description: 保险数据产品服务异步调用
-     * Summary: 保险数据产品服务异步调用
+     * <b>description</b> :
+     * <p>Description: 保险数据产品服务异步调用
+     * Summary: 保险数据产品服务异步调用</p>
      */
     public ExecDataproductAsyncResponse execDataproductAsync(ExecDataproductAsyncRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -214,8 +221,9 @@ public class Client {
     }
 
     /**
-     * Description: 保险数据产品服务异步调用
-     * Summary: 保险数据产品服务异步调用
+     * <b>description</b> :
+     * <p>Description: 保险数据产品服务异步调用
+     * Summary: 保险数据产品服务异步调用</p>
      */
     public ExecDataproductAsyncResponse execDataproductAsyncEx(ExecDataproductAsyncRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -223,8 +231,9 @@ public class Client {
     }
 
     /**
-     * Description: 保险数据产品服务异步结果查询
-     * Summary: 保险数据产品服务异步结果查询
+     * <b>description</b> :
+     * <p>Description: 保险数据产品服务异步结果查询
+     * Summary: 保险数据产品服务异步结果查询</p>
      */
     public QueryDataproductAsyncResponse queryDataproductAsync(QueryDataproductAsyncRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -233,8 +242,9 @@ public class Client {
     }
 
     /**
-     * Description: 保险数据产品服务异步结果查询
-     * Summary: 保险数据产品服务异步结果查询
+     * <b>description</b> :
+     * <p>Description: 保险数据产品服务异步结果查询
+     * Summary: 保险数据产品服务异步结果查询</p>
      */
     public QueryDataproductAsyncResponse queryDataproductAsyncEx(QueryDataproductAsyncRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -242,8 +252,9 @@ public class Client {
     }
 
     /**
-     * Description: 退运险物理轨迹订阅提交
-     * Summary: 退运险物理轨迹订阅提交
+     * <b>description</b> :
+     * <p>Description: 退运险物理轨迹订阅提交
+     * Summary: 退运险物理轨迹订阅提交</p>
      */
     public SubmitDrrdataSubscriptionResponse submitDrrdataSubscription(SubmitDrrdataSubscriptionRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -252,8 +263,9 @@ public class Client {
     }
 
     /**
-     * Description: 退运险物理轨迹订阅提交
-     * Summary: 退运险物理轨迹订阅提交
+     * <b>description</b> :
+     * <p>Description: 退运险物理轨迹订阅提交
+     * Summary: 退运险物理轨迹订阅提交</p>
      */
     public SubmitDrrdataSubscriptionResponse submitDrrdataSubscriptionEx(SubmitDrrdataSubscriptionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -261,8 +273,9 @@ public class Client {
     }
 
     /**
-     * Description: 退运险物理轨迹数据接收
-     * Summary: 退运险物理轨迹数据接收
+     * <b>description</b> :
+     * <p>Description: 退运险物理轨迹数据接收
+     * Summary: 退运险物理轨迹数据接收</p>
      */
     public ReceiveDrrdataTrackResponse receiveDrrdataTrack(ReceiveDrrdataTrackRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -271,8 +284,9 @@ public class Client {
     }
 
     /**
-     * Description: 退运险物理轨迹数据接收
-     * Summary: 退运险物理轨迹数据接收
+     * <b>description</b> :
+     * <p>Description: 退运险物理轨迹数据接收
+     * Summary: 退运险物理轨迹数据接收</p>
      */
     public ReceiveDrrdataTrackResponse receiveDrrdataTrackEx(ReceiveDrrdataTrackRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -280,8 +294,9 @@ public class Client {
     }
 
     /**
-     * Description: 退运险反欺诈服务api
-     * Summary: 退运险反欺诈服务api
+     * <b>description</b> :
+     * <p>Description: 退运险反欺诈服务api
+     * Summary: 退运险反欺诈服务api</p>
      */
     public QueryDrrdataRiafdResponse queryDrrdataRiafd(QueryDrrdataRiafdRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -290,8 +305,9 @@ public class Client {
     }
 
     /**
-     * Description: 退运险反欺诈服务api
-     * Summary: 退运险反欺诈服务api
+     * <b>description</b> :
+     * <p>Description: 退运险反欺诈服务api
+     * Summary: 退运险反欺诈服务api</p>
      */
     public QueryDrrdataRiafdResponse queryDrrdataRiafdEx(QueryDrrdataRiafdRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -299,8 +315,73 @@ public class Client {
     }
 
     /**
-     * Description: 保险数据营销决策查询
-     * Summary: 保险数据营销决策查询
+     * <b>description</b> :
+     * <p>Description: 提供多模态的数据产品执行，支持上传文本，图片、视频、音频等格式
+     * Summary: 提供多模态的数据产品执行</p>
+     */
+    public ExecMultimodalDataprodResponse execMultimodalDataprod(ExecMultimodalDataprodRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execMultimodalDataprodEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 提供多模态的数据产品执行，支持上传文本，图片、视频、音频等格式
+     * Summary: 提供多模态的数据产品执行</p>
+     */
+    public ExecMultimodalDataprodResponse execMultimodalDataprodEx(ExecMultimodalDataprodRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antcloud.bxptnew.multimodal.dataprod.exec"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                ExecMultimodalDataprodResponse execMultimodalDataprodResponse = ExecMultimodalDataprodResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return execMultimodalDataprodResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.bxptnew.multimodal.dataprod.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecMultimodalDataprodResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 数据产品执行结果通知
+     * Summary: 数据产品执行结果通知</p>
+     */
+    public NotifyMultimodalDataprodResponse notifyMultimodalDataprod(NotifyMultimodalDataprodRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.notifyMultimodalDataprodEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 数据产品执行结果通知
+     * Summary: 数据产品执行结果通知</p>
+     */
+    public NotifyMultimodalDataprodResponse notifyMultimodalDataprodEx(NotifyMultimodalDataprodRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.bxptnew.multimodal.dataprod.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyMultimodalDataprodResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 保险数据营销决策查询
+     * Summary: 保险数据营销决策查询</p>
      */
     public QueryDatapromotionDecisionResponse queryDatapromotionDecision(QueryDatapromotionDecisionRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -309,8 +390,9 @@ public class Client {
     }
 
     /**
-     * Description: 保险数据营销决策查询
-     * Summary: 保险数据营销决策查询
+     * <b>description</b> :
+     * <p>Description: 保险数据营销决策查询
+     * Summary: 保险数据营销决策查询</p>
      */
     public QueryDatapromotionDecisionResponse queryDatapromotionDecisionEx(QueryDatapromotionDecisionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -318,8 +400,9 @@ public class Client {
     }
 
     /**
-     * Description: 保险数据营销流量推送
-     * Summary: 保险数据营销流量推送
+     * <b>description</b> :
+     * <p>Description: 保险数据营销流量推送
+     * Summary: 保险数据营销流量推送</p>
      */
     public PushDatapromotionTrafficResponse pushDatapromotionTraffic(PushDatapromotionTrafficRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -328,11 +411,33 @@ public class Client {
     }
 
     /**
-     * Description: 保险数据营销流量推送
-     * Summary: 保险数据营销流量推送
+     * <b>description</b> :
+     * <p>Description: 保险数据营销流量推送
+     * Summary: 保险数据营销流量推送</p>
      */
     public PushDatapromotionTrafficResponse pushDatapromotionTrafficEx(PushDatapromotionTrafficRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.bxptnew.datapromotion.traffic.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushDatapromotionTrafficResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse());
     }
 }
