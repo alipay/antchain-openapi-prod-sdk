@@ -2,6 +2,7 @@
 import AntchainUtil from '@antchain/alipay-util';
 import Util, * as $Util from '@alicloud/tea-util';
 import RPCUtil from '@alicloud/rpc-util';
+import { Readable } from 'stream';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
@@ -69,6 +70,31 @@ export class Config extends $tea.Model {
       keepAliveDurationMillis: 'number',
       maxRequests: 'number',
       maxRequestsPerHost: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 键值对
+export class XNameValuePair extends $tea.Model {
+  // 键名
+  name: string;
+  // 键值
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      value: 'string',
     };
   }
 
@@ -582,6 +608,140 @@ export class QueryDrrdataRiafdResponse extends $tea.Model {
   }
 }
 
+export class ExecMultimodalDataprodRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 文件唯一id
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  // 业务入参的json字符串
+  bizContent?: string;
+  // 数据产品编码
+  productCode: string;
+  // 请求唯一标识
+  requestId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      bizContent: 'biz_content',
+      productCode: 'product_code',
+      requestId: 'request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      bizContent: 'string',
+      productCode: 'string',
+      requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecMultimodalDataprodResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 业务返回值json
+  bizResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizResult: 'biz_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyMultimodalDataprodRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 通知具体json内容
+  bizContent?: string;
+  // 唯一请求id
+  requestId: string;
+  // 业务标识
+  bizNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      bizContent: 'biz_content',
+      requestId: 'request_id',
+      bizNo: 'biz_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      bizContent: 'string',
+      requestId: 'string',
+      bizNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyMultimodalDataprodResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryDatapromotionDecisionRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -715,6 +875,94 @@ export class PushDatapromotionTrafficResponse extends $tea.Model {
   }
 }
 
+export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 上传文件作用的openapi method
+  apiCode: string;
+  // 文件标签，多个标签;分割
+  fileLabel?: string;
+  // 自定义的文件元数据
+  fileMetadata?: string;
+  // 文件名，不传则随机生成文件名
+  fileName?: string;
+  // 文件的多媒体类型
+  mimeType?: string;
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      apiCode: 'api_code',
+      fileLabel: 'file_label',
+      fileMetadata: 'file_metadata',
+      fileName: 'file_name',
+      mimeType: 'mime_type',
+      apiCluster: 'api_cluster',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      apiCode: 'string',
+      fileLabel: 'string',
+      fileMetadata: 'string',
+      fileName: 'string',
+      mimeType: 'string',
+      apiCluster: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudGatewayxFileUploadResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上传有效期
+  expiredTime?: string;
+  // 32位文件唯一id
+  fileId?: string;
+  // 放入http请求头里
+  uploadHeaders?: XNameValuePair[];
+  // 文件上传地址
+  uploadUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      expiredTime: 'expired_time',
+      fileId: 'file_id',
+      uploadHeaders: 'upload_headers',
+      uploadUrl: 'upload_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      expiredTime: 'string',
+      fileId: 'string',
+      uploadHeaders: { 'type': 'array', 'itemType': XNameValuePair },
+      uploadUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -828,7 +1076,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.21",
+          sdk_version: "1.2.27",
           _prod_code: "BXPT_NEW",
           _prod_channel: "default",
         };
@@ -991,6 +1239,66 @@ export default class Client {
   }
 
   /**
+   * Description: 提供多模态的数据产品执行，支持上传文本，图片、视频、音频等格式
+   * Summary: 提供多模态的数据产品执行
+   */
+  async execMultimodalDataprod(request: ExecMultimodalDataprodRequest): Promise<ExecMultimodalDataprodResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execMultimodalDataprodEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 提供多模态的数据产品执行，支持上传文本，图片、视频、音频等格式
+   * Summary: 提供多模态的数据产品执行
+   */
+  async execMultimodalDataprodEx(request: ExecMultimodalDataprodRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecMultimodalDataprodResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antcloud.bxptnew.multimodal.dataprod.exec",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let execMultimodalDataprodResponse = new ExecMultimodalDataprodResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return execMultimodalDataprodResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<ExecMultimodalDataprodResponse>(await this.doRequest("1.0", "antcloud.bxptnew.multimodal.dataprod.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecMultimodalDataprodResponse({}));
+  }
+
+  /**
+   * Description: 数据产品执行结果通知
+   * Summary: 数据产品执行结果通知
+   */
+  async notifyMultimodalDataprod(request: NotifyMultimodalDataprodRequest): Promise<NotifyMultimodalDataprodResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.notifyMultimodalDataprodEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数据产品执行结果通知
+   * Summary: 数据产品执行结果通知
+   */
+  async notifyMultimodalDataprodEx(request: NotifyMultimodalDataprodRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyMultimodalDataprodResponse> {
+    Util.validateModel(request);
+    return $tea.cast<NotifyMultimodalDataprodResponse>(await this.doRequest("1.0", "antcloud.bxptnew.multimodal.dataprod.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyMultimodalDataprodResponse({}));
+  }
+
+  /**
    * Description: 保险数据营销决策查询
    * Summary: 保险数据营销决策查询
    */
@@ -1026,6 +1334,25 @@ export default class Client {
   async pushDatapromotionTrafficEx(request: PushDatapromotionTrafficRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushDatapromotionTrafficResponse> {
     Util.validateModel(request);
     return $tea.cast<PushDatapromotionTrafficResponse>(await this.doRequest("1.0", "antcloud.bxptnew.datapromotion.traffic.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushDatapromotionTrafficResponse({}));
+  }
+
+  /**
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateAntcloudGatewayxFileUploadResponse>(await this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse({}));
   }
 
 }
