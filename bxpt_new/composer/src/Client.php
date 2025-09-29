@@ -11,10 +11,16 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\BXPT_NEW\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\BXPT_NEW\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\BXPT_NEW\Models\ExecDataproductAsyncRequest;
 use AntChain\BXPT_NEW\Models\ExecDataproductAsyncResponse;
 use AntChain\BXPT_NEW\Models\ExecDataproductRequest;
 use AntChain\BXPT_NEW\Models\ExecDataproductResponse;
+use AntChain\BXPT_NEW\Models\ExecMultimodalDataprodRequest;
+use AntChain\BXPT_NEW\Models\ExecMultimodalDataprodResponse;
+use AntChain\BXPT_NEW\Models\NotifyMultimodalDataprodRequest;
+use AntChain\BXPT_NEW\Models\NotifyMultimodalDataprodResponse;
 use AntChain\BXPT_NEW\Models\PushDatapromotionTrafficRequest;
 use AntChain\BXPT_NEW\Models\PushDatapromotionTrafficResponse;
 use AntChain\BXPT_NEW\Models\QueryDataproductAsyncRequest;
@@ -146,6 +152,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 键值对
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -173,7 +180,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.21',
+                    'sdk_version'      => '1.2.27',
                     '_prod_code'       => 'BXPT_NEW',
                     '_prod_channel'    => 'default',
                 ];
@@ -420,6 +427,91 @@ class Client
     }
 
     /**
+     * Description: 提供多模态的数据产品执行，支持上传文本，图片、视频、音频等格式
+     * Summary: 提供多模态的数据产品执行.
+     *
+     * @param ExecMultimodalDataprodRequest $request
+     *
+     * @return ExecMultimodalDataprodResponse
+     */
+    public function execMultimodalDataprod($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execMultimodalDataprodEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提供多模态的数据产品执行，支持上传文本，图片、视频、音频等格式
+     * Summary: 提供多模态的数据产品执行.
+     *
+     * @param ExecMultimodalDataprodRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return ExecMultimodalDataprodResponse
+     */
+    public function execMultimodalDataprodEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antcloud.bxptnew.multimodal.dataprod.exec',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new ExecMultimodalDataprodResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return ExecMultimodalDataprodResponse::fromMap($this->doRequest('1.0', 'antcloud.bxptnew.multimodal.dataprod.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据产品执行结果通知
+     * Summary: 数据产品执行结果通知.
+     *
+     * @param NotifyMultimodalDataprodRequest $request
+     *
+     * @return NotifyMultimodalDataprodResponse
+     */
+    public function notifyMultimodalDataprod($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyMultimodalDataprodEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据产品执行结果通知
+     * Summary: 数据产品执行结果通知.
+     *
+     * @param NotifyMultimodalDataprodRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return NotifyMultimodalDataprodResponse
+     */
+    public function notifyMultimodalDataprodEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyMultimodalDataprodResponse::fromMap($this->doRequest('1.0', 'antcloud.bxptnew.multimodal.dataprod.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 保险数据营销决策查询
      * Summary: 保险数据营销决策查询.
      *
@@ -483,5 +575,38 @@ class Client
         Utils::validateModel($request);
 
         return PushDatapromotionTrafficResponse::fromMap($this->doRequest('1.0', 'antcloud.bxptnew.datapromotion.traffic.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
