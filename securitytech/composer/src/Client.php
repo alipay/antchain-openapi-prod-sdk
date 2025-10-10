@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\SECURITYTECH\Models\ApplyDigitalkeyCredRequest;
+use AntChain\SECURITYTECH\Models\ApplyDigitalkeyCredResponse;
 use AntChain\SECURITYTECH\Models\ApplyIifaaDevicekeyRequest;
 use AntChain\SECURITYTECH\Models\ApplyIifaaDevicekeyResponse;
 use AntChain\SECURITYTECH\Models\CancelSimOrderRequest;
@@ -43,6 +45,8 @@ use AntChain\SECURITYTECH\Models\GetAshieldHardeningtaskprocessRequest;
 use AntChain\SECURITYTECH\Models\GetAshieldHardeningtaskprocessResponse;
 use AntChain\SECURITYTECH\Models\ImportYhllRequest;
 use AntChain\SECURITYTECH\Models\ImportYhllResponse;
+use AntChain\SECURITYTECH\Models\InitDigitalkeyCorpRequest;
+use AntChain\SECURITYTECH\Models\InitDigitalkeyCorpResponse;
 use AntChain\SECURITYTECH\Models\InitEkytFaceverifyRequest;
 use AntChain\SECURITYTECH\Models\InitEkytFaceverifyResponse;
 use AntChain\SECURITYTECH\Models\InitEkytTrustsignRequest;
@@ -61,6 +65,10 @@ use AntChain\SECURITYTECH\Models\ListSimOrderRequest;
 use AntChain\SECURITYTECH\Models\ListSimOrderResponse;
 use AntChain\SECURITYTECH\Models\ListSimSkuRequest;
 use AntChain\SECURITYTECH\Models\ListSimSkuResponse;
+use AntChain\SECURITYTECH\Models\OperateTwevPowerRequest;
+use AntChain\SECURITYTECH\Models\OperateTwevPowerResponse;
+use AntChain\SECURITYTECH\Models\OperateTwevSearchRequest;
+use AntChain\SECURITYTECH\Models\OperateTwevSearchResponse;
 use AntChain\SECURITYTECH\Models\PullSimSkuRequest;
 use AntChain\SECURITYTECH\Models\PullSimSkuResponse;
 use AntChain\SECURITYTECH\Models\QueryCctPictureRequest;
@@ -107,6 +115,10 @@ use AntChain\SECURITYTECH\Models\QuerySimSkuRequest;
 use AntChain\SECURITYTECH\Models\QuerySimSkuResponse;
 use AntChain\SECURITYTECH\Models\QuerySpuListRequest;
 use AntChain\SECURITYTECH\Models\QuerySpuListResponse;
+use AntChain\SECURITYTECH\Models\QueryTwevPositionRequest;
+use AntChain\SECURITYTECH\Models\QueryTwevPositionResponse;
+use AntChain\SECURITYTECH\Models\QueryTwevTaskRequest;
+use AntChain\SECURITYTECH\Models\QueryTwevTaskResponse;
 use AntChain\SECURITYTECH\Models\QueryYhllRequest;
 use AntChain\SECURITYTECH\Models\QueryYhllResponse;
 use AntChain\SECURITYTECH\Models\RecognizeCctAnalyzeRequest;
@@ -282,7 +294,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.4.19',
+                    'sdk_version'      => '1.4.20',
                     '_prod_code'       => 'SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1122,6 +1134,204 @@ class Client
         Utils::validateModel($request);
 
         return QueryDigitalkeyUserinfoResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.digitalkey.userinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 车辆gps定位查询接口
+     * Summary: 车辆gps定位查询接口.
+     *
+     * @param QueryTwevPositionRequest $request
+     *
+     * @return QueryTwevPositionResponse
+     */
+    public function queryTwevPosition($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTwevPositionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 车辆gps定位查询接口
+     * Summary: 车辆gps定位查询接口.
+     *
+     * @param QueryTwevPositionRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryTwevPositionResponse
+     */
+    public function queryTwevPositionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTwevPositionResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.twev.position.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 寻车鸣笛
+     * Summary: 寻车鸣笛.
+     *
+     * @param OperateTwevSearchRequest $request
+     *
+     * @return OperateTwevSearchResponse
+     */
+    public function operateTwevSearch($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateTwevSearchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 寻车鸣笛
+     * Summary: 寻车鸣笛.
+     *
+     * @param OperateTwevSearchRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return OperateTwevSearchResponse
+     */
+    public function operateTwevSearchEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateTwevSearchResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.twev.search.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 二轮车锁车/解锁
+     * Summary: 二轮车锁车/解锁
+     *
+     * @param OperateTwevPowerRequest $request
+     *
+     * @return OperateTwevPowerResponse
+     */
+    public function operateTwevPower($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateTwevPowerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 二轮车锁车/解锁
+     * Summary: 二轮车锁车/解锁
+     *
+     * @param OperateTwevPowerRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return OperateTwevPowerResponse
+     */
+    public function operateTwevPowerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateTwevPowerResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.twev.power.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 二轮车异步任务结果查询
+     * Summary: 二轮车异步任务结果查询.
+     *
+     * @param QueryTwevTaskRequest $request
+     *
+     * @return QueryTwevTaskResponse
+     */
+    public function queryTwevTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTwevTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 二轮车异步任务结果查询
+     * Summary: 二轮车异步任务结果查询.
+     *
+     * @param QueryTwevTaskRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryTwevTaskResponse
+     */
+    public function queryTwevTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTwevTaskResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.twev.task.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字钥匙设备凭证数据申请
+     * Summary: 数字钥匙设备凭证数据申请.
+     *
+     * @param ApplyDigitalkeyCredRequest $request
+     *
+     * @return ApplyDigitalkeyCredResponse
+     */
+    public function applyDigitalkeyCred($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyDigitalkeyCredEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字钥匙设备凭证数据申请
+     * Summary: 数字钥匙设备凭证数据申请.
+     *
+     * @param ApplyDigitalkeyCredRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return ApplyDigitalkeyCredResponse
+     */
+    public function applyDigitalkeyCredEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyDigitalkeyCredResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.digitalkey.cred.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 客户信息初始化
+     * Summary: 客户信息初始化.
+     *
+     * @param InitDigitalkeyCorpRequest $request
+     *
+     * @return InitDigitalkeyCorpResponse
+     */
+    public function initDigitalkeyCorp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initDigitalkeyCorpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 客户信息初始化
+     * Summary: 客户信息初始化.
+     *
+     * @param InitDigitalkeyCorpRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return InitDigitalkeyCorpResponse
+     */
+    public function initDigitalkeyCorpEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitDigitalkeyCorpResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.digitalkey.corp.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
