@@ -3351,6 +3351,476 @@ export class QueryDigitalkeyUserinfoResponse extends $tea.Model {
   }
 }
 
+export class QueryTwevPositionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 智能中控id
+  tuid: string;
+  // HQS（黑骑士）；ZHMAI（智迈）；MOFAQ（摩法圈）
+  brand: string;
+  // json，扩展预留
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tuid: 'tuid',
+      brand: 'brand',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tuid: 'string',
+      brand: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTwevPositionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 经度
+  lng?: string;
+  // 纬度
+  lat?: string;
+  // 定位时间
+  gpsTime?: string;
+  // json，扩展预留
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      lng: 'lng',
+      lat: 'lat',
+      gpsTime: 'gps_time',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      lng: 'string',
+      lat: 'string',
+      gpsTime: 'string',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateTwevSearchRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 智能中控id
+  tuid: string;
+  // HQS（黑骑士）；ZHMAI（智迈）；MOFAQ（摩法圈）
+  brand: string;
+  // json，扩展预留
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tuid: 'tuid',
+      brand: 'brand',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tuid: 'string',
+      brand: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateTwevSearchResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // json，预留拓展
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateTwevPowerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 智能中控id
+  tuid: string;
+  // 品牌信息
+  brand: string;
+  // 操作类型
+  operateType: string;
+  // json，扩展预留
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tuid: 'tuid',
+      brand: 'brand',
+      operateType: 'operate_type',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tuid: 'string',
+      brand: 'string',
+      operateType: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateTwevPowerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 异步任务id
+  taskId?: string;
+  // json，扩展预留
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTwevTaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务ID。和tuid二选一
+  taskId?: string;
+  // 智能中控ID，和任务ID二选一
+  tuid?: string;
+  // json，扩展预留
+  externInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+      tuid: 'tuid',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+      tuid: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryTwevTaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 任务结果
+  taskResult?: string;
+  // json，扩展预留
+  extraInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskResult: 'task_result',
+      extraInfo: 'extra_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskResult: 'string',
+      extraInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDigitalkeyCredRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备类型
+  deviceType?: string;
+  // 凭证类型
+  credType?: string;
+  // 需要生成的内容
+  generateCode?: string;
+  // 客户身份ID
+  secretId: string;
+  // 设备SN号
+  deviceSn?: string;
+  // MAC地址
+  mac?: string;
+  // ble名称
+  bleNme: string;
+  // 无感控车数据
+  keyLess?: string;
+  // 凭证格式
+  formatType?: string;
+  // 加密类型
+  encType?: string;
+  // 协议类型
+  protocolType?: string;
+  // 品牌ID
+  brandId: string;
+  // IOT通道
+  channel?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceType: 'device_type',
+      credType: 'cred_type',
+      generateCode: 'generate_code',
+      secretId: 'secret_id',
+      deviceSn: 'device_sn',
+      mac: 'mac',
+      bleNme: 'ble_nme',
+      keyLess: 'key_less',
+      formatType: 'format_type',
+      encType: 'enc_type',
+      protocolType: 'protocol_type',
+      brandId: 'brand_id',
+      channel: 'channel',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceType: 'string',
+      credType: 'string',
+      generateCode: 'string',
+      secretId: 'string',
+      deviceSn: 'string',
+      mac: 'string',
+      bleNme: 'string',
+      keyLess: 'string',
+      formatType: 'string',
+      encType: 'string',
+      protocolType: 'string',
+      brandId: 'string',
+      channel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyDigitalkeyCredResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 凭证数据
+  cred?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      cred: 'cred',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      cred: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitDigitalkeyCorpRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 客户code
+  corpCode: string;
+  // 客户名称
+  corpName: string;
+  // 产品code
+  productcOde: string;
+  // 商户pid
+  pid?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      corpCode: 'corp_code',
+      corpName: 'corp_name',
+      productcOde: 'productc_ode',
+      pid: 'pid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      corpCode: 'string',
+      corpName: 'string',
+      productcOde: 'string',
+      pid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitDigitalkeyCorpResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 客户身份ID
+  secretId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      secretId: 'secret_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      secretId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateBssecpicRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -6657,7 +7127,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.19",
+          sdk_version: "1.4.20",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -7161,6 +7631,120 @@ export default class Client {
   async queryDigitalkeyUserinfoEx(request: QueryDigitalkeyUserinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDigitalkeyUserinfoResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDigitalkeyUserinfoResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.userinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDigitalkeyUserinfoResponse({}));
+  }
+
+  /**
+   * Description: 车辆gps定位查询接口
+   * Summary: 车辆gps定位查询接口
+   */
+  async queryTwevPosition(request: QueryTwevPositionRequest): Promise<QueryTwevPositionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryTwevPositionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 车辆gps定位查询接口
+   * Summary: 车辆gps定位查询接口
+   */
+  async queryTwevPositionEx(request: QueryTwevPositionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTwevPositionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryTwevPositionResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.twev.position.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTwevPositionResponse({}));
+  }
+
+  /**
+   * Description: 寻车鸣笛
+   * Summary: 寻车鸣笛
+   */
+  async operateTwevSearch(request: OperateTwevSearchRequest): Promise<OperateTwevSearchResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.operateTwevSearchEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 寻车鸣笛
+   * Summary: 寻车鸣笛
+   */
+  async operateTwevSearchEx(request: OperateTwevSearchRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateTwevSearchResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OperateTwevSearchResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.twev.search.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateTwevSearchResponse({}));
+  }
+
+  /**
+   * Description: 二轮车锁车/解锁
+   * Summary: 二轮车锁车/解锁
+   */
+  async operateTwevPower(request: OperateTwevPowerRequest): Promise<OperateTwevPowerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.operateTwevPowerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 二轮车锁车/解锁
+   * Summary: 二轮车锁车/解锁
+   */
+  async operateTwevPowerEx(request: OperateTwevPowerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateTwevPowerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OperateTwevPowerResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.twev.power.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateTwevPowerResponse({}));
+  }
+
+  /**
+   * Description: 二轮车异步任务结果查询
+   * Summary: 二轮车异步任务结果查询
+   */
+  async queryTwevTask(request: QueryTwevTaskRequest): Promise<QueryTwevTaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryTwevTaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 二轮车异步任务结果查询
+   * Summary: 二轮车异步任务结果查询
+   */
+  async queryTwevTaskEx(request: QueryTwevTaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTwevTaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryTwevTaskResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.twev.task.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTwevTaskResponse({}));
+  }
+
+  /**
+   * Description: 数字钥匙设备凭证数据申请
+   * Summary: 数字钥匙设备凭证数据申请
+   */
+  async applyDigitalkeyCred(request: ApplyDigitalkeyCredRequest): Promise<ApplyDigitalkeyCredResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyDigitalkeyCredEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字钥匙设备凭证数据申请
+   * Summary: 数字钥匙设备凭证数据申请
+   */
+  async applyDigitalkeyCredEx(request: ApplyDigitalkeyCredRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyDigitalkeyCredResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyDigitalkeyCredResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.cred.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyDigitalkeyCredResponse({}));
+  }
+
+  /**
+   * Description: 客户信息初始化
+   * Summary: 客户信息初始化
+   */
+  async initDigitalkeyCorp(request: InitDigitalkeyCorpRequest): Promise<InitDigitalkeyCorpResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initDigitalkeyCorpEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 客户信息初始化
+   * Summary: 客户信息初始化
+   */
+  async initDigitalkeyCorpEx(request: InitDigitalkeyCorpRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitDigitalkeyCorpResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitDigitalkeyCorpResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.corp.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitDigitalkeyCorpResponse({}));
   }
 
   /**
