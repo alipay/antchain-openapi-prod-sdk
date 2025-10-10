@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.19',
+    sdk_version = '1.4.20',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -1838,6 +1838,292 @@ async function queryDigitalkeyUserinfo(request: QueryDigitalkeyUserinfoRequest):
 async function queryDigitalkeyUserinfoEx(request: QueryDigitalkeyUserinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDigitalkeyUserinfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.digitalkey.userinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTwevPositionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 智能中控id
+  tuid: string(name='tuid'),
+  // HQS（黑骑士）；ZHMAI（智迈）；MOFAQ（摩法圈）
+  brand: string(name='brand'),
+  // json，扩展预留
+  externInfo?: string(name='extern_info'),
+}
+
+model QueryTwevPositionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 经度
+  lng?: string(name='lng'),
+  // 纬度
+  lat?: string(name='lat'),
+  // 定位时间
+  gpsTime?: string(name='gps_time'),
+  // json，扩展预留
+  extraInfo?: string(name='extra_info'),
+}
+
+/**
+ * Description: 车辆gps定位查询接口
+ * Summary: 车辆gps定位查询接口
+ */
+async function queryTwevPosition(request: QueryTwevPositionRequest): QueryTwevPositionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTwevPositionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 车辆gps定位查询接口
+ * Summary: 车辆gps定位查询接口
+ */
+async function queryTwevPositionEx(request: QueryTwevPositionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTwevPositionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.twev.position.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateTwevSearchRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 智能中控id
+  tuid: string(name='tuid'),
+  // HQS（黑骑士）；ZHMAI（智迈）；MOFAQ（摩法圈）
+  brand: string(name='brand'),
+  // json，扩展预留
+  externInfo?: string(name='extern_info'),
+}
+
+model OperateTwevSearchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // json，预留拓展
+  extraInfo?: string(name='extra_info'),
+}
+
+/**
+ * Description: 寻车鸣笛
+ * Summary: 寻车鸣笛
+ */
+async function operateTwevSearch(request: OperateTwevSearchRequest): OperateTwevSearchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateTwevSearchEx(request, headers, runtime);
+}
+
+/**
+ * Description: 寻车鸣笛
+ * Summary: 寻车鸣笛
+ */
+async function operateTwevSearchEx(request: OperateTwevSearchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateTwevSearchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.twev.search.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateTwevPowerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 智能中控id
+  tuid: string(name='tuid'),
+  // 品牌信息
+  brand: string(name='brand'),
+  // 操作类型
+  operateType: string(name='operate_type'),
+  // json，扩展预留
+  externInfo?: string(name='extern_info'),
+}
+
+model OperateTwevPowerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 异步任务id
+  taskId?: string(name='task_id'),
+  // json，扩展预留
+  extraInfo?: string(name='extra_info'),
+}
+
+/**
+ * Description: 二轮车锁车/解锁
+ * Summary: 二轮车锁车/解锁
+ */
+async function operateTwevPower(request: OperateTwevPowerRequest): OperateTwevPowerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateTwevPowerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 二轮车锁车/解锁
+ * Summary: 二轮车锁车/解锁
+ */
+async function operateTwevPowerEx(request: OperateTwevPowerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateTwevPowerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.twev.power.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTwevTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID。和tuid二选一
+  taskId?: string(name='task_id'),
+  // 智能中控ID，和任务ID二选一
+  tuid?: string(name='tuid'),
+  // json，扩展预留
+  externInfo: string(name='extern_info'),
+}
+
+model QueryTwevTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务结果
+  taskResult?: string(name='task_result'),
+  // json，扩展预留
+  extraInfo?: string(name='extra_info'),
+}
+
+/**
+ * Description: 二轮车异步任务结果查询
+ * Summary: 二轮车异步任务结果查询
+ */
+async function queryTwevTask(request: QueryTwevTaskRequest): QueryTwevTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTwevTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 二轮车异步任务结果查询
+ * Summary: 二轮车异步任务结果查询
+ */
+async function queryTwevTaskEx(request: QueryTwevTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTwevTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.twev.task.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyDigitalkeyCredRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备类型
+  deviceType?: string(name='device_type'),
+  // 凭证类型
+  credType?: string(name='cred_type'),
+  // 需要生成的内容
+  generateCode?: string(name='generate_code'),
+  // 客户身份ID
+  secretId: string(name='secret_id'),
+  // 设备SN号
+  deviceSn?: string(name='device_sn'),
+  // MAC地址
+  mac?: string(name='mac'),
+  // ble名称
+  bleNme: string(name='ble_nme'),
+  // 无感控车数据
+  keyLess?: string(name='key_less'),
+  // 凭证格式
+  formatType?: string(name='format_type'),
+  // 加密类型
+  encType?: string(name='enc_type'),
+  // 协议类型
+  protocolType?: string(name='protocol_type'),
+  // 品牌ID
+  brandId: string(name='brand_id'),
+  // IOT通道
+  channel?: string(name='channel'),
+}
+
+model ApplyDigitalkeyCredResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 凭证数据
+  cred?: string(name='cred'),
+}
+
+/**
+ * Description: 数字钥匙设备凭证数据申请
+ * Summary: 数字钥匙设备凭证数据申请
+ */
+async function applyDigitalkeyCred(request: ApplyDigitalkeyCredRequest): ApplyDigitalkeyCredResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyDigitalkeyCredEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字钥匙设备凭证数据申请
+ * Summary: 数字钥匙设备凭证数据申请
+ */
+async function applyDigitalkeyCredEx(request: ApplyDigitalkeyCredRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyDigitalkeyCredResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.digitalkey.cred.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitDigitalkeyCorpRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 客户code
+  corpCode: string(name='corp_code'),
+  // 客户名称
+  corpName: string(name='corp_name'),
+  // 产品code
+  productcOde: string(name='productc_ode'),
+  // 商户pid
+  pid?: string(name='pid'),
+}
+
+model InitDigitalkeyCorpResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 客户身份ID
+  secretId?: string(name='secret_id'),
+}
+
+/**
+ * Description: 客户信息初始化
+ * Summary: 客户信息初始化
+ */
+async function initDigitalkeyCorp(request: InitDigitalkeyCorpRequest): InitDigitalkeyCorpResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initDigitalkeyCorpEx(request, headers, runtime);
+}
+
+/**
+ * Description: 客户信息初始化
+ * Summary: 客户信息初始化
+ */
+async function initDigitalkeyCorpEx(request: InitDigitalkeyCorpRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitDigitalkeyCorpResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.digitalkey.corp.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateBssecpicRequest = {
