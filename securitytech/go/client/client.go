@@ -4321,6 +4321,629 @@ func (s *QueryDigitalkeyUserinfoResponse) SetBrandId(v string) *QueryDigitalkeyU
 	return s
 }
 
+type QueryTwevPositionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能中控id
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// HQS（黑骑士）；ZHMAI（智迈）；MOFAQ（摩法圈）
+	Brand *string `json:"brand,omitempty" xml:"brand,omitempty" require:"true"`
+	// json，扩展预留
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryTwevPositionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTwevPositionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTwevPositionRequest) SetAuthToken(v string) *QueryTwevPositionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTwevPositionRequest) SetProductInstanceId(v string) *QueryTwevPositionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTwevPositionRequest) SetTuid(v string) *QueryTwevPositionRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryTwevPositionRequest) SetBrand(v string) *QueryTwevPositionRequest {
+	s.Brand = &v
+	return s
+}
+
+func (s *QueryTwevPositionRequest) SetExternInfo(v string) *QueryTwevPositionRequest {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryTwevPositionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 经度
+	Lng *string `json:"lng,omitempty" xml:"lng,omitempty"`
+	// 纬度
+	Lat *string `json:"lat,omitempty" xml:"lat,omitempty"`
+	// 定位时间
+	GpsTime *string `json:"gps_time,omitempty" xml:"gps_time,omitempty"`
+	// json，扩展预留
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s QueryTwevPositionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTwevPositionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTwevPositionResponse) SetReqMsgId(v string) *QueryTwevPositionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTwevPositionResponse) SetResultCode(v string) *QueryTwevPositionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTwevPositionResponse) SetResultMsg(v string) *QueryTwevPositionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTwevPositionResponse) SetLng(v string) *QueryTwevPositionResponse {
+	s.Lng = &v
+	return s
+}
+
+func (s *QueryTwevPositionResponse) SetLat(v string) *QueryTwevPositionResponse {
+	s.Lat = &v
+	return s
+}
+
+func (s *QueryTwevPositionResponse) SetGpsTime(v string) *QueryTwevPositionResponse {
+	s.GpsTime = &v
+	return s
+}
+
+func (s *QueryTwevPositionResponse) SetExtraInfo(v string) *QueryTwevPositionResponse {
+	s.ExtraInfo = &v
+	return s
+}
+
+type OperateTwevSearchRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能中控id
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// HQS（黑骑士）；ZHMAI（智迈）；MOFAQ（摩法圈）
+	Brand *string `json:"brand,omitempty" xml:"brand,omitempty" require:"true"`
+	// json，扩展预留
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s OperateTwevSearchRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateTwevSearchRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateTwevSearchRequest) SetAuthToken(v string) *OperateTwevSearchRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateTwevSearchRequest) SetProductInstanceId(v string) *OperateTwevSearchRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateTwevSearchRequest) SetTuid(v string) *OperateTwevSearchRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *OperateTwevSearchRequest) SetBrand(v string) *OperateTwevSearchRequest {
+	s.Brand = &v
+	return s
+}
+
+func (s *OperateTwevSearchRequest) SetExternInfo(v string) *OperateTwevSearchRequest {
+	s.ExternInfo = &v
+	return s
+}
+
+type OperateTwevSearchResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// json，预留拓展
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s OperateTwevSearchResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateTwevSearchResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateTwevSearchResponse) SetReqMsgId(v string) *OperateTwevSearchResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateTwevSearchResponse) SetResultCode(v string) *OperateTwevSearchResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateTwevSearchResponse) SetResultMsg(v string) *OperateTwevSearchResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateTwevSearchResponse) SetExtraInfo(v string) *OperateTwevSearchResponse {
+	s.ExtraInfo = &v
+	return s
+}
+
+type OperateTwevPowerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能中控id
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty" require:"true"`
+	// 品牌信息
+	Brand *string `json:"brand,omitempty" xml:"brand,omitempty" require:"true"`
+	// 操作类型
+	OperateType *string `json:"operate_type,omitempty" xml:"operate_type,omitempty" require:"true"`
+	// json，扩展预留
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s OperateTwevPowerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateTwevPowerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OperateTwevPowerRequest) SetAuthToken(v string) *OperateTwevPowerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OperateTwevPowerRequest) SetProductInstanceId(v string) *OperateTwevPowerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *OperateTwevPowerRequest) SetTuid(v string) *OperateTwevPowerRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *OperateTwevPowerRequest) SetBrand(v string) *OperateTwevPowerRequest {
+	s.Brand = &v
+	return s
+}
+
+func (s *OperateTwevPowerRequest) SetOperateType(v string) *OperateTwevPowerRequest {
+	s.OperateType = &v
+	return s
+}
+
+func (s *OperateTwevPowerRequest) SetExternInfo(v string) *OperateTwevPowerRequest {
+	s.ExternInfo = &v
+	return s
+}
+
+type OperateTwevPowerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异步任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// json，扩展预留
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s OperateTwevPowerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperateTwevPowerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OperateTwevPowerResponse) SetReqMsgId(v string) *OperateTwevPowerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OperateTwevPowerResponse) SetResultCode(v string) *OperateTwevPowerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OperateTwevPowerResponse) SetResultMsg(v string) *OperateTwevPowerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OperateTwevPowerResponse) SetTaskId(v string) *OperateTwevPowerResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *OperateTwevPowerResponse) SetExtraInfo(v string) *OperateTwevPowerResponse {
+	s.ExtraInfo = &v
+	return s
+}
+
+type QueryTwevTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务ID。和tuid二选一
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 智能中控ID，和任务ID二选一
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+	// json，扩展预留
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty" require:"true"`
+}
+
+func (s QueryTwevTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTwevTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTwevTaskRequest) SetAuthToken(v string) *QueryTwevTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTwevTaskRequest) SetProductInstanceId(v string) *QueryTwevTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTwevTaskRequest) SetTaskId(v string) *QueryTwevTaskRequest {
+	s.TaskId = &v
+	return s
+}
+
+func (s *QueryTwevTaskRequest) SetTuid(v string) *QueryTwevTaskRequest {
+	s.Tuid = &v
+	return s
+}
+
+func (s *QueryTwevTaskRequest) SetExternInfo(v string) *QueryTwevTaskRequest {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryTwevTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务结果
+	TaskResult *string `json:"task_result,omitempty" xml:"task_result,omitempty"`
+	// json，扩展预留
+	ExtraInfo *string `json:"extra_info,omitempty" xml:"extra_info,omitempty"`
+}
+
+func (s QueryTwevTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTwevTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTwevTaskResponse) SetReqMsgId(v string) *QueryTwevTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTwevTaskResponse) SetResultCode(v string) *QueryTwevTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTwevTaskResponse) SetResultMsg(v string) *QueryTwevTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTwevTaskResponse) SetTaskResult(v string) *QueryTwevTaskResponse {
+	s.TaskResult = &v
+	return s
+}
+
+func (s *QueryTwevTaskResponse) SetExtraInfo(v string) *QueryTwevTaskResponse {
+	s.ExtraInfo = &v
+	return s
+}
+
+type ApplyDigitalkeyCredRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备类型
+	DeviceType *string `json:"device_type,omitempty" xml:"device_type,omitempty"`
+	// 凭证类型
+	CredType *string `json:"cred_type,omitempty" xml:"cred_type,omitempty"`
+	// 需要生成的内容
+	GenerateCode *string `json:"generate_code,omitempty" xml:"generate_code,omitempty"`
+	// 客户身份ID
+	SecretId *string `json:"secret_id,omitempty" xml:"secret_id,omitempty" require:"true"`
+	// 设备SN号
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty"`
+	// MAC地址
+	Mac *string `json:"mac,omitempty" xml:"mac,omitempty"`
+	// ble名称
+	BleNme *string `json:"ble_nme,omitempty" xml:"ble_nme,omitempty" require:"true"`
+	// 无感控车数据
+	KeyLess *string `json:"key_less,omitempty" xml:"key_less,omitempty"`
+	// 凭证格式
+	FormatType *string `json:"format_type,omitempty" xml:"format_type,omitempty"`
+	// 加密类型
+	EncType *string `json:"enc_type,omitempty" xml:"enc_type,omitempty"`
+	// 协议类型
+	ProtocolType *string `json:"protocol_type,omitempty" xml:"protocol_type,omitempty"`
+	// 品牌ID
+	BrandId *string `json:"brand_id,omitempty" xml:"brand_id,omitempty" require:"true"`
+	// IOT通道
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty"`
+}
+
+func (s ApplyDigitalkeyCredRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyDigitalkeyCredRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyDigitalkeyCredRequest) SetAuthToken(v string) *ApplyDigitalkeyCredRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyDigitalkeyCredRequest) SetProductInstanceId(v string) *ApplyDigitalkeyCredRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyDigitalkeyCredRequest) SetDeviceType(v string) *ApplyDigitalkeyCredRequest {
+	s.DeviceType = &v
+	return s
+}
+
+func (s *ApplyDigitalkeyCredRequest) SetCredType(v string) *ApplyDigitalkeyCredRequest {
+	s.CredType = &v
+	return s
+}
+
+func (s *ApplyDigitalkeyCredRequest) SetGenerateCode(v string) *ApplyDigitalkeyCredRequest {
+	s.GenerateCode = &v
+	return s
+}
+
+func (s *ApplyDigitalkeyCredRequest) SetSecretId(v string) *ApplyDigitalkeyCredRequest {
+	s.SecretId = &v
+	return s
+}
+
+func (s *ApplyDigitalkeyCredRequest) SetDeviceSn(v string) *ApplyDigitalkeyCredRequest {
+	s.DeviceSn = &v
+	return s
+}
+
+func (s *ApplyDigitalkeyCredRequest) SetMac(v string) *ApplyDigitalkeyCredRequest {
+	s.Mac = &v
+	return s
+}
+
+func (s *ApplyDigitalkeyCredRequest) SetBleNme(v string) *ApplyDigitalkeyCredRequest {
+	s.BleNme = &v
+	return s
+}
+
+func (s *ApplyDigitalkeyCredRequest) SetKeyLess(v string) *ApplyDigitalkeyCredRequest {
+	s.KeyLess = &v
+	return s
+}
+
+func (s *ApplyDigitalkeyCredRequest) SetFormatType(v string) *ApplyDigitalkeyCredRequest {
+	s.FormatType = &v
+	return s
+}
+
+func (s *ApplyDigitalkeyCredRequest) SetEncType(v string) *ApplyDigitalkeyCredRequest {
+	s.EncType = &v
+	return s
+}
+
+func (s *ApplyDigitalkeyCredRequest) SetProtocolType(v string) *ApplyDigitalkeyCredRequest {
+	s.ProtocolType = &v
+	return s
+}
+
+func (s *ApplyDigitalkeyCredRequest) SetBrandId(v string) *ApplyDigitalkeyCredRequest {
+	s.BrandId = &v
+	return s
+}
+
+func (s *ApplyDigitalkeyCredRequest) SetChannel(v string) *ApplyDigitalkeyCredRequest {
+	s.Channel = &v
+	return s
+}
+
+type ApplyDigitalkeyCredResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 凭证数据
+	Cred *string `json:"cred,omitempty" xml:"cred,omitempty"`
+}
+
+func (s ApplyDigitalkeyCredResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyDigitalkeyCredResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyDigitalkeyCredResponse) SetReqMsgId(v string) *ApplyDigitalkeyCredResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyDigitalkeyCredResponse) SetResultCode(v string) *ApplyDigitalkeyCredResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyDigitalkeyCredResponse) SetResultMsg(v string) *ApplyDigitalkeyCredResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyDigitalkeyCredResponse) SetCred(v string) *ApplyDigitalkeyCredResponse {
+	s.Cred = &v
+	return s
+}
+
+type InitDigitalkeyCorpRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 客户code
+	CorpCode *string `json:"corp_code,omitempty" xml:"corp_code,omitempty" require:"true"`
+	// 客户名称
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty" require:"true"`
+	// 产品code
+	ProductcOde *string `json:"productc_ode,omitempty" xml:"productc_ode,omitempty" require:"true"`
+	// 商户pid
+	Pid *string `json:"pid,omitempty" xml:"pid,omitempty"`
+}
+
+func (s InitDigitalkeyCorpRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitDigitalkeyCorpRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitDigitalkeyCorpRequest) SetAuthToken(v string) *InitDigitalkeyCorpRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitDigitalkeyCorpRequest) SetProductInstanceId(v string) *InitDigitalkeyCorpRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitDigitalkeyCorpRequest) SetCorpCode(v string) *InitDigitalkeyCorpRequest {
+	s.CorpCode = &v
+	return s
+}
+
+func (s *InitDigitalkeyCorpRequest) SetCorpName(v string) *InitDigitalkeyCorpRequest {
+	s.CorpName = &v
+	return s
+}
+
+func (s *InitDigitalkeyCorpRequest) SetProductcOde(v string) *InitDigitalkeyCorpRequest {
+	s.ProductcOde = &v
+	return s
+}
+
+func (s *InitDigitalkeyCorpRequest) SetPid(v string) *InitDigitalkeyCorpRequest {
+	s.Pid = &v
+	return s
+}
+
+type InitDigitalkeyCorpResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 客户身份ID
+	SecretId *string `json:"secret_id,omitempty" xml:"secret_id,omitempty"`
+}
+
+func (s InitDigitalkeyCorpResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitDigitalkeyCorpResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitDigitalkeyCorpResponse) SetReqMsgId(v string) *InitDigitalkeyCorpResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitDigitalkeyCorpResponse) SetResultCode(v string) *InitDigitalkeyCorpResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitDigitalkeyCorpResponse) SetResultMsg(v string) *InitDigitalkeyCorpResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitDigitalkeyCorpResponse) SetSecretId(v string) *InitDigitalkeyCorpResponse {
+	s.SecretId = &v
+	return s
+}
+
 type CreateBssecpicRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -8750,7 +9373,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.19"),
+				"sdk_version":      tea.String("1.4.20"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -9619,6 +10242,210 @@ func (client *Client) QueryDigitalkeyUserinfoEx(request *QueryDigitalkeyUserinfo
 	}
 	_result = &QueryDigitalkeyUserinfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.digitalkey.userinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 车辆gps定位查询接口
+ * Summary: 车辆gps定位查询接口
+ */
+func (client *Client) QueryTwevPosition(request *QueryTwevPositionRequest) (_result *QueryTwevPositionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTwevPositionResponse{}
+	_body, _err := client.QueryTwevPositionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 车辆gps定位查询接口
+ * Summary: 车辆gps定位查询接口
+ */
+func (client *Client) QueryTwevPositionEx(request *QueryTwevPositionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTwevPositionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTwevPositionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.twev.position.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 寻车鸣笛
+ * Summary: 寻车鸣笛
+ */
+func (client *Client) OperateTwevSearch(request *OperateTwevSearchRequest) (_result *OperateTwevSearchResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateTwevSearchResponse{}
+	_body, _err := client.OperateTwevSearchEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 寻车鸣笛
+ * Summary: 寻车鸣笛
+ */
+func (client *Client) OperateTwevSearchEx(request *OperateTwevSearchRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateTwevSearchResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateTwevSearchResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.twev.search.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 二轮车锁车/解锁
+ * Summary: 二轮车锁车/解锁
+ */
+func (client *Client) OperateTwevPower(request *OperateTwevPowerRequest) (_result *OperateTwevPowerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OperateTwevPowerResponse{}
+	_body, _err := client.OperateTwevPowerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 二轮车锁车/解锁
+ * Summary: 二轮车锁车/解锁
+ */
+func (client *Client) OperateTwevPowerEx(request *OperateTwevPowerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OperateTwevPowerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OperateTwevPowerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.twev.power.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 二轮车异步任务结果查询
+ * Summary: 二轮车异步任务结果查询
+ */
+func (client *Client) QueryTwevTask(request *QueryTwevTaskRequest) (_result *QueryTwevTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTwevTaskResponse{}
+	_body, _err := client.QueryTwevTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 二轮车异步任务结果查询
+ * Summary: 二轮车异步任务结果查询
+ */
+func (client *Client) QueryTwevTaskEx(request *QueryTwevTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTwevTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTwevTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.twev.task.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字钥匙设备凭证数据申请
+ * Summary: 数字钥匙设备凭证数据申请
+ */
+func (client *Client) ApplyDigitalkeyCred(request *ApplyDigitalkeyCredRequest) (_result *ApplyDigitalkeyCredResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyDigitalkeyCredResponse{}
+	_body, _err := client.ApplyDigitalkeyCredEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字钥匙设备凭证数据申请
+ * Summary: 数字钥匙设备凭证数据申请
+ */
+func (client *Client) ApplyDigitalkeyCredEx(request *ApplyDigitalkeyCredRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyDigitalkeyCredResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyDigitalkeyCredResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.digitalkey.cred.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 客户信息初始化
+ * Summary: 客户信息初始化
+ */
+func (client *Client) InitDigitalkeyCorp(request *InitDigitalkeyCorpRequest) (_result *InitDigitalkeyCorpResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitDigitalkeyCorpResponse{}
+	_body, _err := client.InitDigitalkeyCorpEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 客户信息初始化
+ * Summary: 客户信息初始化
+ */
+func (client *Client) InitDigitalkeyCorpEx(request *InitDigitalkeyCorpRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitDigitalkeyCorpResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitDigitalkeyCorpResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.digitalkey.corp.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
