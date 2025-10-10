@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.19',
+                    'sdk_version': '1.4.20',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.19',
+                    'sdk_version': '1.4.20',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -1621,6 +1621,342 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.QueryDigitalkeyUserinfoResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.digitalkey.userinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_twev_position(
+        self,
+        request: securitytech_models.QueryTwevPositionRequest,
+    ) -> securitytech_models.QueryTwevPositionResponse:
+        """
+        Description: 车辆gps定位查询接口
+        Summary: 车辆gps定位查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_twev_position_ex(request, headers, runtime)
+
+    async def query_twev_position_async(
+        self,
+        request: securitytech_models.QueryTwevPositionRequest,
+    ) -> securitytech_models.QueryTwevPositionResponse:
+        """
+        Description: 车辆gps定位查询接口
+        Summary: 车辆gps定位查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_twev_position_ex_async(request, headers, runtime)
+
+    def query_twev_position_ex(
+        self,
+        request: securitytech_models.QueryTwevPositionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryTwevPositionResponse:
+        """
+        Description: 车辆gps定位查询接口
+        Summary: 车辆gps定位查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryTwevPositionResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.twev.position.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_twev_position_ex_async(
+        self,
+        request: securitytech_models.QueryTwevPositionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryTwevPositionResponse:
+        """
+        Description: 车辆gps定位查询接口
+        Summary: 车辆gps定位查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryTwevPositionResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.twev.position.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_twev_search(
+        self,
+        request: securitytech_models.OperateTwevSearchRequest,
+    ) -> securitytech_models.OperateTwevSearchResponse:
+        """
+        Description: 寻车鸣笛
+        Summary: 寻车鸣笛
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_twev_search_ex(request, headers, runtime)
+
+    async def operate_twev_search_async(
+        self,
+        request: securitytech_models.OperateTwevSearchRequest,
+    ) -> securitytech_models.OperateTwevSearchResponse:
+        """
+        Description: 寻车鸣笛
+        Summary: 寻车鸣笛
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_twev_search_ex_async(request, headers, runtime)
+
+    def operate_twev_search_ex(
+        self,
+        request: securitytech_models.OperateTwevSearchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.OperateTwevSearchResponse:
+        """
+        Description: 寻车鸣笛
+        Summary: 寻车鸣笛
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.OperateTwevSearchResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.twev.search.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_twev_search_ex_async(
+        self,
+        request: securitytech_models.OperateTwevSearchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.OperateTwevSearchResponse:
+        """
+        Description: 寻车鸣笛
+        Summary: 寻车鸣笛
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.OperateTwevSearchResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.twev.search.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_twev_power(
+        self,
+        request: securitytech_models.OperateTwevPowerRequest,
+    ) -> securitytech_models.OperateTwevPowerResponse:
+        """
+        Description: 二轮车锁车/解锁
+        Summary: 二轮车锁车/解锁
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_twev_power_ex(request, headers, runtime)
+
+    async def operate_twev_power_async(
+        self,
+        request: securitytech_models.OperateTwevPowerRequest,
+    ) -> securitytech_models.OperateTwevPowerResponse:
+        """
+        Description: 二轮车锁车/解锁
+        Summary: 二轮车锁车/解锁
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_twev_power_ex_async(request, headers, runtime)
+
+    def operate_twev_power_ex(
+        self,
+        request: securitytech_models.OperateTwevPowerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.OperateTwevPowerResponse:
+        """
+        Description: 二轮车锁车/解锁
+        Summary: 二轮车锁车/解锁
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.OperateTwevPowerResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.twev.power.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_twev_power_ex_async(
+        self,
+        request: securitytech_models.OperateTwevPowerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.OperateTwevPowerResponse:
+        """
+        Description: 二轮车锁车/解锁
+        Summary: 二轮车锁车/解锁
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.OperateTwevPowerResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.twev.power.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_twev_task(
+        self,
+        request: securitytech_models.QueryTwevTaskRequest,
+    ) -> securitytech_models.QueryTwevTaskResponse:
+        """
+        Description: 二轮车异步任务结果查询
+        Summary: 二轮车异步任务结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_twev_task_ex(request, headers, runtime)
+
+    async def query_twev_task_async(
+        self,
+        request: securitytech_models.QueryTwevTaskRequest,
+    ) -> securitytech_models.QueryTwevTaskResponse:
+        """
+        Description: 二轮车异步任务结果查询
+        Summary: 二轮车异步任务结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_twev_task_ex_async(request, headers, runtime)
+
+    def query_twev_task_ex(
+        self,
+        request: securitytech_models.QueryTwevTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryTwevTaskResponse:
+        """
+        Description: 二轮车异步任务结果查询
+        Summary: 二轮车异步任务结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryTwevTaskResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.twev.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_twev_task_ex_async(
+        self,
+        request: securitytech_models.QueryTwevTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryTwevTaskResponse:
+        """
+        Description: 二轮车异步任务结果查询
+        Summary: 二轮车异步任务结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryTwevTaskResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.twev.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_digitalkey_cred(
+        self,
+        request: securitytech_models.ApplyDigitalkeyCredRequest,
+    ) -> securitytech_models.ApplyDigitalkeyCredResponse:
+        """
+        Description: 数字钥匙设备凭证数据申请
+        Summary: 数字钥匙设备凭证数据申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_digitalkey_cred_ex(request, headers, runtime)
+
+    async def apply_digitalkey_cred_async(
+        self,
+        request: securitytech_models.ApplyDigitalkeyCredRequest,
+    ) -> securitytech_models.ApplyDigitalkeyCredResponse:
+        """
+        Description: 数字钥匙设备凭证数据申请
+        Summary: 数字钥匙设备凭证数据申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_digitalkey_cred_ex_async(request, headers, runtime)
+
+    def apply_digitalkey_cred_ex(
+        self,
+        request: securitytech_models.ApplyDigitalkeyCredRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ApplyDigitalkeyCredResponse:
+        """
+        Description: 数字钥匙设备凭证数据申请
+        Summary: 数字钥匙设备凭证数据申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ApplyDigitalkeyCredResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.digitalkey.cred.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_digitalkey_cred_ex_async(
+        self,
+        request: securitytech_models.ApplyDigitalkeyCredRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ApplyDigitalkeyCredResponse:
+        """
+        Description: 数字钥匙设备凭证数据申请
+        Summary: 数字钥匙设备凭证数据申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ApplyDigitalkeyCredResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.digitalkey.cred.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_digitalkey_corp(
+        self,
+        request: securitytech_models.InitDigitalkeyCorpRequest,
+    ) -> securitytech_models.InitDigitalkeyCorpResponse:
+        """
+        Description: 客户信息初始化
+        Summary: 客户信息初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_digitalkey_corp_ex(request, headers, runtime)
+
+    async def init_digitalkey_corp_async(
+        self,
+        request: securitytech_models.InitDigitalkeyCorpRequest,
+    ) -> securitytech_models.InitDigitalkeyCorpResponse:
+        """
+        Description: 客户信息初始化
+        Summary: 客户信息初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_digitalkey_corp_ex_async(request, headers, runtime)
+
+    def init_digitalkey_corp_ex(
+        self,
+        request: securitytech_models.InitDigitalkeyCorpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.InitDigitalkeyCorpResponse:
+        """
+        Description: 客户信息初始化
+        Summary: 客户信息初始化
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.InitDigitalkeyCorpResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.digitalkey.corp.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_digitalkey_corp_ex_async(
+        self,
+        request: securitytech_models.InitDigitalkeyCorpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.InitDigitalkeyCorpResponse:
+        """
+        Description: 客户信息初始化
+        Summary: 客户信息初始化
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.InitDigitalkeyCorpResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.digitalkey.corp.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_bssecpic(
