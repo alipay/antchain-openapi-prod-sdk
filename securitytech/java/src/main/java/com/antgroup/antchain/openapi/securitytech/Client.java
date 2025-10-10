@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.4.19"),
+                    new TeaPair("sdk_version", "1.4.20"),
                     new TeaPair("_prod_code", "SECURITYTECH"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -692,6 +692,132 @@ public class Client {
     public QueryDigitalkeyUserinfoResponse queryDigitalkeyUserinfoEx(QueryDigitalkeyUserinfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.userinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDigitalkeyUserinfoResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 车辆gps定位查询接口
+     * Summary: 车辆gps定位查询接口</p>
+     */
+    public QueryTwevPositionResponse queryTwevPosition(QueryTwevPositionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTwevPositionEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 车辆gps定位查询接口
+     * Summary: 车辆gps定位查询接口</p>
+     */
+    public QueryTwevPositionResponse queryTwevPositionEx(QueryTwevPositionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.twev.position.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTwevPositionResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 寻车鸣笛
+     * Summary: 寻车鸣笛</p>
+     */
+    public OperateTwevSearchResponse operateTwevSearch(OperateTwevSearchRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateTwevSearchEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 寻车鸣笛
+     * Summary: 寻车鸣笛</p>
+     */
+    public OperateTwevSearchResponse operateTwevSearchEx(OperateTwevSearchRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.twev.search.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateTwevSearchResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 二轮车锁车/解锁
+     * Summary: 二轮车锁车/解锁</p>
+     */
+    public OperateTwevPowerResponse operateTwevPower(OperateTwevPowerRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateTwevPowerEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 二轮车锁车/解锁
+     * Summary: 二轮车锁车/解锁</p>
+     */
+    public OperateTwevPowerResponse operateTwevPowerEx(OperateTwevPowerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.twev.power.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateTwevPowerResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 二轮车异步任务结果查询
+     * Summary: 二轮车异步任务结果查询</p>
+     */
+    public QueryTwevTaskResponse queryTwevTask(QueryTwevTaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTwevTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 二轮车异步任务结果查询
+     * Summary: 二轮车异步任务结果查询</p>
+     */
+    public QueryTwevTaskResponse queryTwevTaskEx(QueryTwevTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.twev.task.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTwevTaskResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 数字钥匙设备凭证数据申请
+     * Summary: 数字钥匙设备凭证数据申请</p>
+     */
+    public ApplyDigitalkeyCredResponse applyDigitalkeyCred(ApplyDigitalkeyCredRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyDigitalkeyCredEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 数字钥匙设备凭证数据申请
+     * Summary: 数字钥匙设备凭证数据申请</p>
+     */
+    public ApplyDigitalkeyCredResponse applyDigitalkeyCredEx(ApplyDigitalkeyCredRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.cred.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyDigitalkeyCredResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 客户信息初始化
+     * Summary: 客户信息初始化</p>
+     */
+    public InitDigitalkeyCorpResponse initDigitalkeyCorp(InitDigitalkeyCorpRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initDigitalkeyCorpEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 客户信息初始化
+     * Summary: 客户信息初始化</p>
+     */
+    public InitDigitalkeyCorpResponse initDigitalkeyCorpEx(InitDigitalkeyCorpRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.digitalkey.corp.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitDigitalkeyCorpResponse());
     }
 
     /**
