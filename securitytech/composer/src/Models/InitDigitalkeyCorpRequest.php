@@ -35,7 +35,7 @@ class InitDigitalkeyCorpRequest extends Model
     /**
      * @var string
      */
-    public $productcOde;
+    public $productCode;
 
     // 商户pid
     /**
@@ -47,7 +47,7 @@ class InitDigitalkeyCorpRequest extends Model
         'productInstanceId' => 'product_instance_id',
         'corpCode'          => 'corp_code',
         'corpName'          => 'corp_name',
-        'productcOde'       => 'productc_ode',
+        'productCode'       => 'product_code',
         'pid'               => 'pid',
     ];
 
@@ -55,7 +55,7 @@ class InitDigitalkeyCorpRequest extends Model
     {
         Model::validateRequired('corpCode', $this->corpCode, true);
         Model::validateRequired('corpName', $this->corpName, true);
-        Model::validateRequired('productcOde', $this->productcOde, true);
+        Model::validateRequired('productCode', $this->productCode, true);
     }
 
     public function toMap()
@@ -73,8 +73,8 @@ class InitDigitalkeyCorpRequest extends Model
         if (null !== $this->corpName) {
             $res['corp_name'] = $this->corpName;
         }
-        if (null !== $this->productcOde) {
-            $res['productc_ode'] = $this->productcOde;
+        if (null !== $this->productCode) {
+            $res['product_code'] = $this->productCode;
         }
         if (null !== $this->pid) {
             $res['pid'] = $this->pid;
@@ -103,8 +103,8 @@ class InitDigitalkeyCorpRequest extends Model
         if (isset($map['corp_name'])) {
             $model->corpName = $map['corp_name'];
         }
-        if (isset($map['productc_ode'])) {
-            $model->productcOde = $map['productc_ode'];
+        if (isset($map['product_code'])) {
+            $model->productCode = $map['product_code'];
         }
         if (isset($map['pid'])) {
             $model->pid = $map['pid'];
