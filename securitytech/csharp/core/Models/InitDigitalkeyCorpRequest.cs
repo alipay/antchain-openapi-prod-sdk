@@ -29,9 +29,9 @@ namespace AntChain.SDK.SECURITYTECH.Models
         public string CorpName { get; set; }
 
         // 产品code
-        [NameInMap("productc_ode")]
+        [NameInMap("product_code")]
         [Validation(Required=true)]
-        public string ProductcOde { get; set; }
+        public string ProductCode { get; set; }
 
         // 商户pid
         [NameInMap("pid")]
