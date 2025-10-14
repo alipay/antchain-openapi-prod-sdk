@@ -3759,7 +3759,7 @@ export class InitDigitalkeyCorpRequest extends $tea.Model {
   // 客户名称
   corpName: string;
   // 产品code
-  productcOde: string;
+  productCode: string;
   // 商户pid
   pid?: string;
   static names(): { [key: string]: string } {
@@ -3768,7 +3768,7 @@ export class InitDigitalkeyCorpRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       corpCode: 'corp_code',
       corpName: 'corp_name',
-      productcOde: 'productc_ode',
+      productCode: 'product_code',
       pid: 'pid',
     };
   }
@@ -3779,7 +3779,7 @@ export class InitDigitalkeyCorpRequest extends $tea.Model {
       productInstanceId: 'string',
       corpCode: 'string',
       corpName: 'string',
-      productcOde: 'string',
+      productCode: 'string',
       pid: 'string',
     };
   }
@@ -7127,7 +7127,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.20",
+          sdk_version: "1.4.21",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
