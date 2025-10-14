@@ -4862,7 +4862,7 @@ type InitDigitalkeyCorpRequest struct {
 	// 客户名称
 	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty" require:"true"`
 	// 产品code
-	ProductcOde *string `json:"productc_ode,omitempty" xml:"productc_ode,omitempty" require:"true"`
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
 	// 商户pid
 	Pid *string `json:"pid,omitempty" xml:"pid,omitempty"`
 }
@@ -4895,8 +4895,8 @@ func (s *InitDigitalkeyCorpRequest) SetCorpName(v string) *InitDigitalkeyCorpReq
 	return s
 }
 
-func (s *InitDigitalkeyCorpRequest) SetProductcOde(v string) *InitDigitalkeyCorpRequest {
-	s.ProductcOde = &v
+func (s *InitDigitalkeyCorpRequest) SetProductCode(v string) *InitDigitalkeyCorpRequest {
+	s.ProductCode = &v
 	return s
 }
 
@@ -9373,7 +9373,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.20"),
+				"sdk_version":      tea.String("1.4.21"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
