@@ -22,9 +22,9 @@ public class InitDigitalkeyCorpRequest extends TeaModel {
     public String corpName;
 
     // 产品code
-    @NameInMap("productc_ode")
+    @NameInMap("product_code")
     @Validation(required = true)
-    public String productcOde;
+    public String productCode;
 
     // 商户pid
     @NameInMap("pid")
@@ -67,12 +67,12 @@ public class InitDigitalkeyCorpRequest extends TeaModel {
         return this.corpName;
     }
 
-    public InitDigitalkeyCorpRequest setProductcOde(String productcOde) {
-        this.productcOde = productcOde;
+    public InitDigitalkeyCorpRequest setProductCode(String productCode) {
+        this.productCode = productCode;
         return this;
     }
-    public String getProductcOde() {
-        return this.productcOde;
+    public String getProductCode() {
+        return this.productCode;
     }
 
     public InitDigitalkeyCorpRequest setPid(String pid) {
