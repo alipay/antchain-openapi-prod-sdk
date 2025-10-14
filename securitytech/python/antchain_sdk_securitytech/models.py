@@ -6142,7 +6142,7 @@ class InitDigitalkeyCorpRequest(TeaModel):
         product_instance_id: str = None,
         corp_code: str = None,
         corp_name: str = None,
-        productc_ode: str = None,
+        product_code: str = None,
         pid: str = None,
     ):
         # OAuth模式下的授权token
@@ -6153,14 +6153,14 @@ class InitDigitalkeyCorpRequest(TeaModel):
         # 客户名称
         self.corp_name = corp_name
         # 产品code
-        self.productc_ode = productc_ode
+        self.product_code = product_code
         # 商户pid
         self.pid = pid
 
     def validate(self):
         self.validate_required(self.corp_code, 'corp_code')
         self.validate_required(self.corp_name, 'corp_name')
-        self.validate_required(self.productc_ode, 'productc_ode')
+        self.validate_required(self.product_code, 'product_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -6176,8 +6176,8 @@ class InitDigitalkeyCorpRequest(TeaModel):
             result['corp_code'] = self.corp_code
         if self.corp_name is not None:
             result['corp_name'] = self.corp_name
-        if self.productc_ode is not None:
-            result['productc_ode'] = self.productc_ode
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
         if self.pid is not None:
             result['pid'] = self.pid
         return result
@@ -6192,8 +6192,8 @@ class InitDigitalkeyCorpRequest(TeaModel):
             self.corp_code = m.get('corp_code')
         if m.get('corp_name') is not None:
             self.corp_name = m.get('corp_name')
-        if m.get('productc_ode') is not None:
-            self.productc_ode = m.get('productc_ode')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
         if m.get('pid') is not None:
             self.pid = m.get('pid')
         return self
