@@ -616,6 +616,74 @@ export class OcpxAdDataResponse extends $tea.Model {
   }
 }
 
+export class DataAdDataExportExperimentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 广告主账户为数字，如“9471147”
+  accountId: string;
+  // 开始时间 yyyyMMdd
+  startDay: string;
+  // 结束时间 yyyyMMdd
+  endDay: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      accountId: 'account_id',
+      startDay: 'start_day',
+      endDay: 'end_day',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      accountId: 'string',
+      startDay: 'string',
+      endDay: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DataAdDataExportExperimentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 效果指标数据
+  data?: string;
+  // 是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -729,7 +797,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "6.0.0",
+          sdk_version: "6.0.1",
           _prod_code: "MORSERTA",
           _prod_channel: "default",
         };
@@ -870,6 +938,25 @@ export default class Client {
   async ocpxAdDataEx(request: OcpxAdDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OcpxAdDataResponse> {
     Util.validateModel(request);
     return $tea.cast<OcpxAdDataResponse>(await this.doRequest("1.0", "antcloud.morserta.ad.data.ocpx", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OcpxAdDataResponse({}));
+  }
+
+  /**
+   * Description: 实验效果数据拉取接口
+   * Summary: 实验效果数据拉取接口
+   */
+  async dataAdDataExportExperiment(request: DataAdDataExportExperimentRequest): Promise<DataAdDataExportExperimentResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.dataAdDataExportExperimentEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 实验效果数据拉取接口
+   * Summary: 实验效果数据拉取接口
+   */
+  async dataAdDataExportExperimentEx(request: DataAdDataExportExperimentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DataAdDataExportExperimentResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DataAdDataExportExperimentResponse>(await this.doRequest("1.0", "antcloud.morserta.ad.data.export.experiment.data", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DataAdDataExportExperimentResponse({}));
   }
 
 }
