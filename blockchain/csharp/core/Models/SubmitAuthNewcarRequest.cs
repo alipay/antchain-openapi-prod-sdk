@@ -48,6 +48,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string CarSeriesId { get; set; }
 
+        // 提交线索的唯一id
+        [NameInMap("submit_id")]
+        [Validation(Required=false)]
+        public string SubmitId { get; set; }
+
     }
 
 }

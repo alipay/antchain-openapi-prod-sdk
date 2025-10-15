@@ -137,7 +137,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.28.55"},
+                        {"sdk_version", "1.28.58"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.28.55"},
+                        {"sdk_version", "1.28.58"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -18098,8 +18098,8 @@ namespace AntChain.SDK.BLOCKCHAIN
         }
 
         /**
-         * Description: 新车线索提交
-         * Summary: 新车线索提交
+         * Description: 提交新车线索
+         * Summary: 提交新车线索
          */
         public SubmitAuthNewcarResponse SubmitAuthNewcar(SubmitAuthNewcarRequest request)
         {
@@ -18109,8 +18109,8 @@ namespace AntChain.SDK.BLOCKCHAIN
         }
 
         /**
-         * Description: 新车线索提交
-         * Summary: 新车线索提交
+         * Description: 提交新车线索
+         * Summary: 提交新车线索
          */
         public async Task<SubmitAuthNewcarResponse> SubmitAuthNewcarAsync(SubmitAuthNewcarRequest request)
         {
@@ -18120,8 +18120,8 @@ namespace AntChain.SDK.BLOCKCHAIN
         }
 
         /**
-         * Description: 新车线索提交
-         * Summary: 新车线索提交
+         * Description: 提交新车线索
+         * Summary: 提交新车线索
          */
         public SubmitAuthNewcarResponse SubmitAuthNewcarEx(SubmitAuthNewcarRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -18130,8 +18130,8 @@ namespace AntChain.SDK.BLOCKCHAIN
         }
 
         /**
-         * Description: 新车线索提交
-         * Summary: 新车线索提交
+         * Description: 提交新车线索
+         * Summary: 提交新车线索
          */
         public async Task<SubmitAuthNewcarResponse> SubmitAuthNewcarExAsync(SubmitAuthNewcarRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -18305,6 +18305,90 @@ namespace AntChain.SDK.BLOCKCHAIN
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAuthCarpriceResponse>(await DoRequestAsync("1.0", "baas.auth.carprice.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过设备号匹配用户是否存在
+         * Summary: 查询人群数据是否存在
+         */
+        public MatchAuthCarUsersResponse MatchAuthCarUsers(MatchAuthCarUsersRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return MatchAuthCarUsersEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过设备号匹配用户是否存在
+         * Summary: 查询人群数据是否存在
+         */
+        public async Task<MatchAuthCarUsersResponse> MatchAuthCarUsersAsync(MatchAuthCarUsersRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await MatchAuthCarUsersExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过设备号匹配用户是否存在
+         * Summary: 查询人群数据是否存在
+         */
+        public MatchAuthCarUsersResponse MatchAuthCarUsersEx(MatchAuthCarUsersRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<MatchAuthCarUsersResponse>(DoRequest("1.0", "baas.auth.car.users.match", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过设备号匹配用户是否存在
+         * Summary: 查询人群数据是否存在
+         */
+        public async Task<MatchAuthCarUsersResponse> MatchAuthCarUsersExAsync(MatchAuthCarUsersRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<MatchAuthCarUsersResponse>(await DoRequestAsync("1.0", "baas.auth.car.users.match", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新车线索批量提交
+         * Summary: 新车线索批量提交
+         */
+        public BatchcreateAuthNewcarResponse BatchcreateAuthNewcar(BatchcreateAuthNewcarRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchcreateAuthNewcarEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新车线索批量提交
+         * Summary: 新车线索批量提交
+         */
+        public async Task<BatchcreateAuthNewcarResponse> BatchcreateAuthNewcarAsync(BatchcreateAuthNewcarRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchcreateAuthNewcarExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 新车线索批量提交
+         * Summary: 新车线索批量提交
+         */
+        public BatchcreateAuthNewcarResponse BatchcreateAuthNewcarEx(BatchcreateAuthNewcarRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchcreateAuthNewcarResponse>(DoRequest("1.0", "baas.auth.newcar.batchcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 新车线索批量提交
+         * Summary: 新车线索批量提交
+         */
+        public async Task<BatchcreateAuthNewcarResponse> BatchcreateAuthNewcarExAsync(BatchcreateAuthNewcarRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchcreateAuthNewcarResponse>(await DoRequestAsync("1.0", "baas.auth.newcar.batchcreate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
