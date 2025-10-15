@@ -899,6 +899,91 @@ func (s *OcpxAdDataResponse) SetSuccess(v bool) *OcpxAdDataResponse {
 	return s
 }
 
+type DataAdDataExportExperimentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 广告主账户为数字，如“9471147”
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 开始时间 yyyyMMdd
+	StartDay *string `json:"start_day,omitempty" xml:"start_day,omitempty" require:"true"`
+	// 结束时间 yyyyMMdd
+	EndDay *string `json:"end_day,omitempty" xml:"end_day,omitempty" require:"true"`
+}
+
+func (s DataAdDataExportExperimentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataAdDataExportExperimentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DataAdDataExportExperimentRequest) SetAuthToken(v string) *DataAdDataExportExperimentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DataAdDataExportExperimentRequest) SetAccountId(v string) *DataAdDataExportExperimentRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *DataAdDataExportExperimentRequest) SetStartDay(v string) *DataAdDataExportExperimentRequest {
+	s.StartDay = &v
+	return s
+}
+
+func (s *DataAdDataExportExperimentRequest) SetEndDay(v string) *DataAdDataExportExperimentRequest {
+	s.EndDay = &v
+	return s
+}
+
+type DataAdDataExportExperimentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 效果指标数据
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s DataAdDataExportExperimentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataAdDataExportExperimentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DataAdDataExportExperimentResponse) SetReqMsgId(v string) *DataAdDataExportExperimentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DataAdDataExportExperimentResponse) SetResultCode(v string) *DataAdDataExportExperimentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DataAdDataExportExperimentResponse) SetResultMsg(v string) *DataAdDataExportExperimentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DataAdDataExportExperimentResponse) SetData(v string) *DataAdDataExportExperimentResponse {
+	s.Data = &v
+	return s
+}
+
+func (s *DataAdDataExportExperimentResponse) SetSuccess(v bool) *DataAdDataExportExperimentResponse {
+	s.Success = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1021,7 +1106,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("6.0.0"),
+				"sdk_version":      tea.String("6.0.1"),
 				"_prod_code":       tea.String("MORSERTA"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1242,6 +1327,40 @@ func (client *Client) OcpxAdDataEx(request *OcpxAdDataRequest, headers map[strin
 	}
 	_result = &OcpxAdDataResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.morserta.ad.data.ocpx"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 实验效果数据拉取接口
+ * Summary: 实验效果数据拉取接口
+ */
+func (client *Client) DataAdDataExportExperiment(request *DataAdDataExportExperimentRequest) (_result *DataAdDataExportExperimentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DataAdDataExportExperimentResponse{}
+	_body, _err := client.DataAdDataExportExperimentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 实验效果数据拉取接口
+ * Summary: 实验效果数据拉取接口
+ */
+func (client *Client) DataAdDataExportExperimentEx(request *DataAdDataExportExperimentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DataAdDataExportExperimentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DataAdDataExportExperimentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.morserta.ad.data.export.experiment.data"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
