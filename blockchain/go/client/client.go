@@ -2051,6 +2051,67 @@ func (s *DataEntity) SetPublicInfo(v string) *DataEntity {
 	return s
 }
 
+// 车辆用户信息
+type CarUserInfo struct {
+	// 唯一标识用户的id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 手机号
+	PhoneNum *string `json:"phone_num,omitempty" xml:"phone_num,omitempty" require:"true"`
+	// 城市编码
+	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty" require:"true"`
+	// 姓名
+	UserCertName *string `json:"user_cert_name,omitempty" xml:"user_cert_name,omitempty"`
+	// 证件号码
+	UserCertNo *string `json:"user_cert_no,omitempty" xml:"user_cert_no,omitempty"`
+	// 性别
+	UserGender *string `json:"user_gender,omitempty" xml:"user_gender,omitempty"`
+	// 昵称
+	Nick *string `json:"nick,omitempty" xml:"nick,omitempty"`
+}
+
+func (s CarUserInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarUserInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CarUserInfo) SetUserId(v string) *CarUserInfo {
+	s.UserId = &v
+	return s
+}
+
+func (s *CarUserInfo) SetPhoneNum(v string) *CarUserInfo {
+	s.PhoneNum = &v
+	return s
+}
+
+func (s *CarUserInfo) SetCityCode(v string) *CarUserInfo {
+	s.CityCode = &v
+	return s
+}
+
+func (s *CarUserInfo) SetUserCertName(v string) *CarUserInfo {
+	s.UserCertName = &v
+	return s
+}
+
+func (s *CarUserInfo) SetUserCertNo(v string) *CarUserInfo {
+	s.UserCertNo = &v
+	return s
+}
+
+func (s *CarUserInfo) SetUserGender(v string) *CarUserInfo {
+	s.UserGender = &v
+	return s
+}
+
+func (s *CarUserInfo) SetNick(v string) *CarUserInfo {
+	s.Nick = &v
+	return s
+}
+
 // 阿里云蚂蚁链对象
 type ALiYunAntChain struct {
 	// ant_chain_id
@@ -7162,67 +7223,6 @@ func (s *UpdateDidServiceList) SetServiceList(v []*DisServicesInfo) *UpdateDidSe
 	return s
 }
 
-// 车辆用户信息
-type CarUserInfo struct {
-	// 唯一标识用户的id
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
-	// 手机号
-	PhoneNum *string `json:"phone_num,omitempty" xml:"phone_num,omitempty" require:"true"`
-	// 城市编码
-	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty" require:"true"`
-	// 姓名
-	UserCertName *string `json:"user_cert_name,omitempty" xml:"user_cert_name,omitempty"`
-	// 证件号码
-	UserCertNo *string `json:"user_cert_no,omitempty" xml:"user_cert_no,omitempty"`
-	// 性别
-	UserGender *string `json:"user_gender,omitempty" xml:"user_gender,omitempty"`
-	// 昵称
-	Nick *string `json:"nick,omitempty" xml:"nick,omitempty"`
-}
-
-func (s CarUserInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CarUserInfo) GoString() string {
-	return s.String()
-}
-
-func (s *CarUserInfo) SetUserId(v string) *CarUserInfo {
-	s.UserId = &v
-	return s
-}
-
-func (s *CarUserInfo) SetPhoneNum(v string) *CarUserInfo {
-	s.PhoneNum = &v
-	return s
-}
-
-func (s *CarUserInfo) SetCityCode(v string) *CarUserInfo {
-	s.CityCode = &v
-	return s
-}
-
-func (s *CarUserInfo) SetUserCertName(v string) *CarUserInfo {
-	s.UserCertName = &v
-	return s
-}
-
-func (s *CarUserInfo) SetUserCertNo(v string) *CarUserInfo {
-	s.UserCertNo = &v
-	return s
-}
-
-func (s *CarUserInfo) SetUserGender(v string) *CarUserInfo {
-	s.UserGender = &v
-	return s
-}
-
-func (s *CarUserInfo) SetNick(v string) *CarUserInfo {
-	s.Nick = &v
-	return s
-}
-
 // 营销分销商品信息
 type ItemDto struct {
 	// 商品id
@@ -9331,6 +9331,32 @@ func (s *ContracPageReq) SetSize(v int64) *ContracPageReq {
 	return s
 }
 
+// 批量提交结果
+type BatchSubmitCarResult struct {
+	// 提交线索唯一请求id
+	SubmitId *string `json:"submit_id,omitempty" xml:"submit_id,omitempty" require:"true"`
+	// 是否成功
+	IsSuccess *bool `json:"is_success,omitempty" xml:"is_success,omitempty" require:"true"`
+}
+
+func (s BatchSubmitCarResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchSubmitCarResult) GoString() string {
+	return s.String()
+}
+
+func (s *BatchSubmitCarResult) SetSubmitId(v string) *BatchSubmitCarResult {
+	s.SubmitId = &v
+	return s
+}
+
+func (s *BatchSubmitCarResult) SetIsSuccess(v bool) *BatchSubmitCarResult {
+	s.IsSuccess = &v
+	return s
+}
+
 // 人群标签枚举集合对象
 type CrowdTagEnumResp struct {
 	// 人群标签code
@@ -9980,6 +10006,60 @@ func (s *CreditTransferStatementInfo) SetStateType(v string) *CreditTransferStat
 
 func (s *CreditTransferStatementInfo) SetToDid(v string) *CreditTransferStatementInfo {
 	s.ToDid = &v
+	return s
+}
+
+// 新车信息
+type NewCarInfo struct {
+	// 车系
+	CarSeries *string `json:"car_series,omitempty" xml:"car_series,omitempty" require:"true"`
+	// 金融方案
+	FinaicalPlan *string `json:"finaical_plan,omitempty" xml:"finaical_plan,omitempty"`
+	// 车系id
+	CarSeriesId *string `json:"car_series_id,omitempty" xml:"car_series_id,omitempty"`
+	// 请求提交唯一id
+	SubmitId *string `json:"submit_id,omitempty" xml:"submit_id,omitempty"`
+	// 预计购买时间
+	PurcharseTime *string `json:"purcharse_time,omitempty" xml:"purcharse_time,omitempty"`
+	// 用户信息
+	UserInfo *CarUserInfo `json:"user_info,omitempty" xml:"user_info,omitempty" require:"true"`
+}
+
+func (s NewCarInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NewCarInfo) GoString() string {
+	return s.String()
+}
+
+func (s *NewCarInfo) SetCarSeries(v string) *NewCarInfo {
+	s.CarSeries = &v
+	return s
+}
+
+func (s *NewCarInfo) SetFinaicalPlan(v string) *NewCarInfo {
+	s.FinaicalPlan = &v
+	return s
+}
+
+func (s *NewCarInfo) SetCarSeriesId(v string) *NewCarInfo {
+	s.CarSeriesId = &v
+	return s
+}
+
+func (s *NewCarInfo) SetSubmitId(v string) *NewCarInfo {
+	s.SubmitId = &v
+	return s
+}
+
+func (s *NewCarInfo) SetPurcharseTime(v string) *NewCarInfo {
+	s.PurcharseTime = &v
+	return s
+}
+
+func (s *NewCarInfo) SetUserInfo(v *CarUserInfo) *NewCarInfo {
+	s.UserInfo = v
 	return s
 }
 
@@ -51759,6 +51839,8 @@ type SubmitAuthNewcarRequest struct {
 	PurcharseTime *string `json:"purcharse_time,omitempty" xml:"purcharse_time,omitempty"`
 	// xxxx
 	CarSeriesId *string `json:"car_series_id,omitempty" xml:"car_series_id,omitempty"`
+	// 提交线索的唯一id
+	SubmitId *string `json:"submit_id,omitempty" xml:"submit_id,omitempty"`
 }
 
 func (s SubmitAuthNewcarRequest) String() string {
@@ -51806,6 +51888,11 @@ func (s *SubmitAuthNewcarRequest) SetPurcharseTime(v string) *SubmitAuthNewcarRe
 
 func (s *SubmitAuthNewcarRequest) SetCarSeriesId(v string) *SubmitAuthNewcarRequest {
 	s.CarSeriesId = &v
+	return s
+}
+
+func (s *SubmitAuthNewcarRequest) SetSubmitId(v string) *SubmitAuthNewcarRequest {
+	s.SubmitId = &v
 	return s
 }
 
@@ -52231,6 +52318,160 @@ func (s *QueryAuthCarpriceResponse) SetPageNum(v int64) *QueryAuthCarpriceRespon
 
 func (s *QueryAuthCarpriceResponse) SetData(v []*CarBusinessPrice) *QueryAuthCarpriceResponse {
 	s.Data = v
+	return s
+}
+
+type MatchAuthCarUsersRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备号的md5
+	Oaid *string `json:"oaid,omitempty" xml:"oaid,omitempty"`
+	// 手机号md5
+	Phone *string `json:"phone,omitempty" xml:"phone,omitempty"`
+}
+
+func (s MatchAuthCarUsersRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MatchAuthCarUsersRequest) GoString() string {
+	return s.String()
+}
+
+func (s *MatchAuthCarUsersRequest) SetAuthToken(v string) *MatchAuthCarUsersRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *MatchAuthCarUsersRequest) SetProductInstanceId(v string) *MatchAuthCarUsersRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *MatchAuthCarUsersRequest) SetOaid(v string) *MatchAuthCarUsersRequest {
+	s.Oaid = &v
+	return s
+}
+
+func (s *MatchAuthCarUsersRequest) SetPhone(v string) *MatchAuthCarUsersRequest {
+	s.Phone = &v
+	return s
+}
+
+type MatchAuthCarUsersResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	IsSuccess *bool `json:"is_success,omitempty" xml:"is_success,omitempty"`
+}
+
+func (s MatchAuthCarUsersResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MatchAuthCarUsersResponse) GoString() string {
+	return s.String()
+}
+
+func (s *MatchAuthCarUsersResponse) SetReqMsgId(v string) *MatchAuthCarUsersResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *MatchAuthCarUsersResponse) SetResultCode(v string) *MatchAuthCarUsersResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *MatchAuthCarUsersResponse) SetResultMsg(v string) *MatchAuthCarUsersResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *MatchAuthCarUsersResponse) SetIsSuccess(v bool) *MatchAuthCarUsersResponse {
+	s.IsSuccess = &v
+	return s
+}
+
+type BatchcreateAuthNewcarRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// testchannleCode
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 新车线索集合
+	NewCarInfo *NewCarInfo `json:"new_car_info,omitempty" xml:"new_car_info,omitempty" require:"true"`
+}
+
+func (s BatchcreateAuthNewcarRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchcreateAuthNewcarRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchcreateAuthNewcarRequest) SetAuthToken(v string) *BatchcreateAuthNewcarRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchcreateAuthNewcarRequest) SetProductInstanceId(v string) *BatchcreateAuthNewcarRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchcreateAuthNewcarRequest) SetSceneCode(v string) *BatchcreateAuthNewcarRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *BatchcreateAuthNewcarRequest) SetNewCarInfo(v *NewCarInfo) *BatchcreateAuthNewcarRequest {
+	s.NewCarInfo = v
+	return s
+}
+
+type BatchcreateAuthNewcarResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 批量提交结果
+	BatchSubmitCarResult []*BatchSubmitCarResult `json:"batch_submit_car_result,omitempty" xml:"batch_submit_car_result,omitempty" type:"Repeated"`
+}
+
+func (s BatchcreateAuthNewcarResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchcreateAuthNewcarResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchcreateAuthNewcarResponse) SetReqMsgId(v string) *BatchcreateAuthNewcarResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchcreateAuthNewcarResponse) SetResultCode(v string) *BatchcreateAuthNewcarResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchcreateAuthNewcarResponse) SetResultMsg(v string) *BatchcreateAuthNewcarResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BatchcreateAuthNewcarResponse) SetBatchSubmitCarResult(v []*BatchSubmitCarResult) *BatchcreateAuthNewcarResponse {
+	s.BatchSubmitCarResult = v
 	return s
 }
 
@@ -71532,7 +71773,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.55"),
+				"sdk_version":      tea.String("1.28.58"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -85951,8 +86192,8 @@ func (client *Client) RecognizeAuthCarinfoEx(request *RecognizeAuthCarinfoReques
 }
 
 /**
- * Description: 新车线索提交
- * Summary: 新车线索提交
+ * Description: 提交新车线索
+ * Summary: 提交新车线索
  */
 func (client *Client) SubmitAuthNewcar(request *SubmitAuthNewcarRequest) (_result *SubmitAuthNewcarResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -85967,8 +86208,8 @@ func (client *Client) SubmitAuthNewcar(request *SubmitAuthNewcarRequest) (_resul
 }
 
 /**
- * Description: 新车线索提交
- * Summary: 新车线索提交
+ * Description: 提交新车线索
+ * Summary: 提交新车线索
  */
 func (client *Client) SubmitAuthNewcarEx(request *SubmitAuthNewcarRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitAuthNewcarResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -86113,6 +86354,74 @@ func (client *Client) QueryAuthCarpriceEx(request *QueryAuthCarpriceRequest, hea
 	}
 	_result = &QueryAuthCarpriceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.carprice.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 通过设备号匹配用户是否存在
+ * Summary: 查询人群数据是否存在
+ */
+func (client *Client) MatchAuthCarUsers(request *MatchAuthCarUsersRequest) (_result *MatchAuthCarUsersResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &MatchAuthCarUsersResponse{}
+	_body, _err := client.MatchAuthCarUsersEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通过设备号匹配用户是否存在
+ * Summary: 查询人群数据是否存在
+ */
+func (client *Client) MatchAuthCarUsersEx(request *MatchAuthCarUsersRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *MatchAuthCarUsersResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &MatchAuthCarUsersResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.car.users.match"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 新车线索批量提交
+ * Summary: 新车线索批量提交
+ */
+func (client *Client) BatchcreateAuthNewcar(request *BatchcreateAuthNewcarRequest) (_result *BatchcreateAuthNewcarResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchcreateAuthNewcarResponse{}
+	_body, _err := client.BatchcreateAuthNewcarEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 新车线索批量提交
+ * Summary: 新车线索批量提交
+ */
+func (client *Client) BatchcreateAuthNewcarEx(request *BatchcreateAuthNewcarRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchcreateAuthNewcarResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchcreateAuthNewcarResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.newcar.batchcreate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
