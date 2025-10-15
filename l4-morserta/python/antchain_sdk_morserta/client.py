@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '6.0.0',
+                    'sdk_version': '6.0.1',
                     '_prod_code': 'MORSERTA',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '6.0.0',
+                    'sdk_version': '6.0.1',
                     '_prod_code': 'MORSERTA',
                     '_prod_channel': 'default'
                 }
@@ -553,4 +553,60 @@ class Client:
         return TeaCore.from_map(
             morserta_models.OcpxAdDataResponse(),
             await self.do_request_async('1.0', 'antcloud.morserta.ad.data.ocpx', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def data_ad_data_export_experiment(
+        self,
+        request: morserta_models.DataAdDataExportExperimentRequest,
+    ) -> morserta_models.DataAdDataExportExperimentResponse:
+        """
+        Description: 实验效果数据拉取接口
+        Summary: 实验效果数据拉取接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.data_ad_data_export_experiment_ex(request, headers, runtime)
+
+    async def data_ad_data_export_experiment_async(
+        self,
+        request: morserta_models.DataAdDataExportExperimentRequest,
+    ) -> morserta_models.DataAdDataExportExperimentResponse:
+        """
+        Description: 实验效果数据拉取接口
+        Summary: 实验效果数据拉取接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.data_ad_data_export_experiment_ex_async(request, headers, runtime)
+
+    def data_ad_data_export_experiment_ex(
+        self,
+        request: morserta_models.DataAdDataExportExperimentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> morserta_models.DataAdDataExportExperimentResponse:
+        """
+        Description: 实验效果数据拉取接口
+        Summary: 实验效果数据拉取接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            morserta_models.DataAdDataExportExperimentResponse(),
+            self.do_request('1.0', 'antcloud.morserta.ad.data.export.experiment.data', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def data_ad_data_export_experiment_ex_async(
+        self,
+        request: morserta_models.DataAdDataExportExperimentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> morserta_models.DataAdDataExportExperimentResponse:
+        """
+        Description: 实验效果数据拉取接口
+        Summary: 实验效果数据拉取接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            morserta_models.DataAdDataExportExperimentResponse(),
+            await self.do_request_async('1.0', 'antcloud.morserta.ad.data.export.experiment.data', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

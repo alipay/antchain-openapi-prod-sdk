@@ -1033,3 +1033,110 @@ class OcpxAdDataResponse(TeaModel):
         return self
 
 
+class DataAdDataExportExperimentRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        account_id: str = None,
+        start_day: str = None,
+        end_day: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 广告主账户为数字，如“9471147”
+        self.account_id = account_id
+        # 开始时间 yyyyMMdd
+        self.start_day = start_day
+        # 结束时间 yyyyMMdd
+        self.end_day = end_day
+
+    def validate(self):
+        self.validate_required(self.account_id, 'account_id')
+        self.validate_required(self.start_day, 'start_day')
+        self.validate_required(self.end_day, 'end_day')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.account_id is not None:
+            result['account_id'] = self.account_id
+        if self.start_day is not None:
+            result['start_day'] = self.start_day
+        if self.end_day is not None:
+            result['end_day'] = self.end_day
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('account_id') is not None:
+            self.account_id = m.get('account_id')
+        if m.get('start_day') is not None:
+            self.start_day = m.get('start_day')
+        if m.get('end_day') is not None:
+            self.end_day = m.get('end_day')
+        return self
+
+
+class DataAdDataExportExperimentResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 效果指标数据
+        self.data = data
+        # 是否成功
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
