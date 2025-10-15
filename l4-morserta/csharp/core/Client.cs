@@ -137,7 +137,7 @@ namespace AntChain.SDK.MORSERTA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "6.0.0"},
+                        {"sdk_version", "6.0.1"},
                         {"_prod_code", "MORSERTA"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MORSERTA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "6.0.0"},
+                        {"sdk_version", "6.0.1"},
                         {"_prod_code", "MORSERTA"},
                         {"_prod_channel", "default"},
                     };
@@ -529,6 +529,48 @@ namespace AntChain.SDK.MORSERTA
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<OcpxAdDataResponse>(await DoRequestAsync("1.0", "antcloud.morserta.ad.data.ocpx", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 实验效果数据拉取接口
+         * Summary: 实验效果数据拉取接口
+         */
+        public DataAdDataExportExperimentResponse DataAdDataExportExperiment(DataAdDataExportExperimentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DataAdDataExportExperimentEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 实验效果数据拉取接口
+         * Summary: 实验效果数据拉取接口
+         */
+        public async Task<DataAdDataExportExperimentResponse> DataAdDataExportExperimentAsync(DataAdDataExportExperimentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DataAdDataExportExperimentExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 实验效果数据拉取接口
+         * Summary: 实验效果数据拉取接口
+         */
+        public DataAdDataExportExperimentResponse DataAdDataExportExperimentEx(DataAdDataExportExperimentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DataAdDataExportExperimentResponse>(DoRequest("1.0", "antcloud.morserta.ad.data.export.experiment.data", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 实验效果数据拉取接口
+         * Summary: 实验效果数据拉取接口
+         */
+        public async Task<DataAdDataExportExperimentResponse> DataAdDataExportExperimentExAsync(DataAdDataExportExperimentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DataAdDataExportExperimentResponse>(await DoRequestAsync("1.0", "antcloud.morserta.ad.data.export.experiment.data", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
