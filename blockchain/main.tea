@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.28.55',
+    sdk_version = '1.28.58',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -719,6 +719,24 @@ model DataEntity {
   updateTime?: long(name='update_time', example='1592810480442'),
   // DID doc里的公开信息
   publicInfo?: string(name='public_info', example='{}'),
+}
+
+// 车辆用户信息
+model CarUserInfo {
+  // 唯一标识用户的id
+  userId: string(name='user_id', example='xxxxx'),
+  // 手机号
+  phoneNum: string(name='phone_num', example='138xxxxxxx'),
+  // 城市编码
+  cityCode: string(name='city_code', example='110000'),
+  // 姓名
+  userCertName?: string(name='user_cert_name', example='张三'),
+  // 证件号码
+  userCertNo?: string(name='user_cert_no', example='xxxxx'),
+  // 性别
+  userGender?: string(name='user_gender', example='girl'),
+  // 昵称
+  nick?: string(name='nick', example='xxxxx'),
 }
 
 // 阿里云蚂蚁链对象
@@ -2250,24 +2268,6 @@ model UpdateDidServiceList {
   serviceList: [ DisServicesInfo ](name='service_list', example=''),
 }
 
-// 车辆用户信息
-model CarUserInfo {
-  // 唯一标识用户的id
-  userId: string(name='user_id', example='xxxxx'),
-  // 手机号
-  phoneNum: string(name='phone_num', example='138xxxxxxx'),
-  // 城市编码
-  cityCode: string(name='city_code', example='110000'),
-  // 姓名
-  userCertName?: string(name='user_cert_name', example='张三'),
-  // 证件号码
-  userCertNo?: string(name='user_cert_no', example='xxxxx'),
-  // 性别
-  userGender?: string(name='user_gender', example='girl'),
-  // 昵称
-  nick?: string(name='nick', example='xxxxx'),
-}
-
 // 营销分销商品信息
 model ItemDto {
   // 商品id
@@ -2897,6 +2897,14 @@ model ContracPageReq {
   size: long(name='size', example='200'),
 }
 
+// 批量提交结果
+model BatchSubmitCarResult {
+  // 提交线索唯一请求id
+  submitId: string(name='submit_id', example='xxx'),
+  // 是否成功
+  isSuccess: boolean(name='is_success', example='true, false'),
+}
+
 // 人群标签枚举集合对象
 model CrowdTagEnumResp {
   // 人群标签code
@@ -3090,6 +3098,22 @@ model CreditTransferStatementInfo {
   stateType?: string(name='state_type', example='融资提现'),
   // 凭证流转方did
   toDid?: string(name='to_did', example='did:mychain:1b8b30228ec99cb5de99b2265538f3c505b274e0bef98fb9cee7aabd8f5f47eb'),
+}
+
+// 新车信息
+model NewCarInfo {
+  // 车系
+  carSeries: string(name='car_series', example='xx'),
+  // 金融方案
+  finaicalPlan?: string(name='finaical_plan', example='xxx'),
+  // 车系id
+  carSeriesId?: string(name='car_series_id', example='xxx'),
+  // 请求提交唯一id
+  submitId?: string(name='submit_id', example='xxxx'),
+  // 预计购买时间
+  purcharseTime?: string(name='purcharse_time', example='1'),
+  // 用户信息
+  userInfo: CarUserInfo(name='user_info', example=''),
 }
 
 // 阿里云合约工程信息查询
@@ -22778,6 +22802,8 @@ model SubmitAuthNewcarRequest = {
   purcharseTime?: string(name='purcharse_time'),
   // xxxx
   carSeriesId?: string(name='car_series_id'),
+  // 提交线索的唯一id
+  submitId?: string(name='submit_id'),
 }
 
 model SubmitAuthNewcarResponse = {
@@ -22792,8 +22818,8 @@ model SubmitAuthNewcarResponse = {
 }
 
 /**
- * Description: 新车线索提交
- * Summary: 新车线索提交
+ * Description: 提交新车线索
+ * Summary: 提交新车线索
  */
 async function submitAuthNewcar(request: SubmitAuthNewcarRequest): SubmitAuthNewcarResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -22802,8 +22828,8 @@ async function submitAuthNewcar(request: SubmitAuthNewcarRequest): SubmitAuthNew
 }
 
 /**
- * Description: 新车线索提交
- * Summary: 新车线索提交
+ * Description: 提交新车线索
+ * Summary: 提交新车线索
  */
 async function submitAuthNewcarEx(request: SubmitAuthNewcarRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAuthNewcarResponse {
   Util.validateModel(request);
@@ -22991,6 +23017,86 @@ async function queryAuthCarprice(request: QueryAuthCarpriceRequest): QueryAuthCa
 async function queryAuthCarpriceEx(request: QueryAuthCarpriceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAuthCarpriceResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.auth.carprice.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model MatchAuthCarUsersRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备号的md5
+  oaid?: string(name='oaid'),
+  // 手机号md5
+  phone?: string(name='phone'),
+}
+
+model MatchAuthCarUsersResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  isSuccess?: boolean(name='is_success'),
+}
+
+/**
+ * Description: 通过设备号匹配用户是否存在
+ * Summary: 查询人群数据是否存在
+ */
+async function matchAuthCarUsers(request: MatchAuthCarUsersRequest): MatchAuthCarUsersResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return matchAuthCarUsersEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过设备号匹配用户是否存在
+ * Summary: 查询人群数据是否存在
+ */
+async function matchAuthCarUsersEx(request: MatchAuthCarUsersRequest, headers: map[string]string, runtime: Util.RuntimeOptions): MatchAuthCarUsersResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.car.users.match', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchcreateAuthNewcarRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // testchannleCode
+  sceneCode: string(name='scene_code'),
+  // 新车线索集合
+  newCarInfo: NewCarInfo(name='new_car_info'),
+}
+
+model BatchcreateAuthNewcarResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 批量提交结果
+  batchSubmitCarResult?: [ BatchSubmitCarResult ](name='batch_submit_car_result'),
+}
+
+/**
+ * Description: 新车线索批量提交
+ * Summary: 新车线索批量提交
+ */
+async function batchcreateAuthNewcar(request: BatchcreateAuthNewcarRequest): BatchcreateAuthNewcarResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchcreateAuthNewcarEx(request, headers, runtime);
+}
+
+/**
+ * Description: 新车线索批量提交
+ * Summary: 新车线索批量提交
+ */
+async function batchcreateAuthNewcarEx(request: BatchcreateAuthNewcarRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateAuthNewcarResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.newcar.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StartDidCorporateAgentcreateRequest = {
