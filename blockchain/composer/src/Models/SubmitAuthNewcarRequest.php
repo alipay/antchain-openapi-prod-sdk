@@ -54,6 +54,12 @@ class SubmitAuthNewcarRequest extends Model
      * @var string
      */
     public $carSeriesId;
+
+    // 提交线索的唯一id
+    /**
+     * @var string
+     */
+    public $submitId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -63,6 +69,7 @@ class SubmitAuthNewcarRequest extends Model
         'finaicalPlan'      => 'finaical_plan',
         'purcharseTime'     => 'purcharse_time',
         'carSeriesId'       => 'car_series_id',
+        'submitId'          => 'submit_id',
     ];
 
     public function validate()
@@ -99,6 +106,9 @@ class SubmitAuthNewcarRequest extends Model
         if (null !== $this->carSeriesId) {
             $res['car_series_id'] = $this->carSeriesId;
         }
+        if (null !== $this->submitId) {
+            $res['submit_id'] = $this->submitId;
+        }
 
         return $res;
     }
@@ -134,6 +144,9 @@ class SubmitAuthNewcarRequest extends Model
         }
         if (isset($map['car_series_id'])) {
             $model->carSeriesId = $map['car_series_id'];
+        }
+        if (isset($map['submit_id'])) {
+            $model->submitId = $map['submit_id'];
         }
 
         return $model;

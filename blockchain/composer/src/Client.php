@@ -67,6 +67,8 @@ use AntChain\BLOCKCHAIN\Models\BatchcreateAccountMappingRequest;
 use AntChain\BLOCKCHAIN\Models\BatchcreateAccountMappingResponse;
 use AntChain\BLOCKCHAIN\Models\BatchcreateAuthCertRequest;
 use AntChain\BLOCKCHAIN\Models\BatchcreateAuthCertResponse;
+use AntChain\BLOCKCHAIN\Models\BatchcreateAuthNewcarRequest;
+use AntChain\BLOCKCHAIN\Models\BatchcreateAuthNewcarResponse;
 use AntChain\BLOCKCHAIN\Models\BatchcreateChainMiniappUserRequest;
 use AntChain\BLOCKCHAIN\Models\BatchcreateChainMiniappUserResponse;
 use AntChain\BLOCKCHAIN\Models\BatchcreateDigitalassetartAccountRequest;
@@ -541,6 +543,8 @@ use AntChain\BLOCKCHAIN\Models\ListMydidcommunWorkergroupPodversionRequest;
 use AntChain\BLOCKCHAIN\Models\ListMydidcommunWorkergroupPodversionResponse;
 use AntChain\BLOCKCHAIN\Models\ListWaasDidValidpublickeysRequest;
 use AntChain\BLOCKCHAIN\Models\ListWaasDidValidpublickeysResponse;
+use AntChain\BLOCKCHAIN\Models\MatchAuthCarUsersRequest;
+use AntChain\BLOCKCHAIN\Models\MatchAuthCarUsersResponse;
 use AntChain\BLOCKCHAIN\Models\MatchAuthTaskCrowdRequest;
 use AntChain\BLOCKCHAIN\Models\MatchAuthTaskCrowdResponse;
 use AntChain\BLOCKCHAIN\Models\MatchAuthTaskRequest;
@@ -1402,7 +1406,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.28.55',
+                    'sdk_version'      => '1.28.58',
                     '_prod_code'       => 'BLOCKCHAIN',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -15369,8 +15373,8 @@ class Client
     }
 
     /**
-     * Description: 新车线索提交
-     * Summary: 新车线索提交.
+     * Description: 提交新车线索
+     * Summary: 提交新车线索.
      *
      * @param SubmitAuthNewcarRequest $request
      *
@@ -15385,8 +15389,8 @@ class Client
     }
 
     /**
-     * Description: 新车线索提交
-     * Summary: 新车线索提交.
+     * Description: 提交新车线索
+     * Summary: 提交新车线索.
      *
      * @param SubmitAuthNewcarRequest $request
      * @param string[]                $headers
@@ -15531,6 +15535,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryAuthCarpriceResponse::fromMap($this->doRequest('1.0', 'baas.auth.carprice.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过设备号匹配用户是否存在
+     * Summary: 查询人群数据是否存在.
+     *
+     * @param MatchAuthCarUsersRequest $request
+     *
+     * @return MatchAuthCarUsersResponse
+     */
+    public function matchAuthCarUsers($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->matchAuthCarUsersEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过设备号匹配用户是否存在
+     * Summary: 查询人群数据是否存在.
+     *
+     * @param MatchAuthCarUsersRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return MatchAuthCarUsersResponse
+     */
+    public function matchAuthCarUsersEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return MatchAuthCarUsersResponse::fromMap($this->doRequest('1.0', 'baas.auth.car.users.match', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新车线索批量提交
+     * Summary: 新车线索批量提交.
+     *
+     * @param BatchcreateAuthNewcarRequest $request
+     *
+     * @return BatchcreateAuthNewcarResponse
+     */
+    public function batchcreateAuthNewcar($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchcreateAuthNewcarEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新车线索批量提交
+     * Summary: 新车线索批量提交.
+     *
+     * @param BatchcreateAuthNewcarRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return BatchcreateAuthNewcarResponse
+     */
+    public function batchcreateAuthNewcarEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchcreateAuthNewcarResponse::fromMap($this->doRequest('1.0', 'baas.auth.newcar.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
