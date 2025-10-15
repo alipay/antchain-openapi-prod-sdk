@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '6.0.0',
+    sdk_version = '6.0.1',
     _prod_code = 'MORSERTA',
     _prod_channel = 'default'
   };
@@ -472,5 +472,48 @@ async function ocpxAdData(request: OcpxAdDataRequest): OcpxAdDataResponse {
 async function ocpxAdDataEx(request: OcpxAdDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OcpxAdDataResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.morserta.ad.data.ocpx', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DataAdDataExportExperimentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 广告主账户为数字，如“9471147”
+  accountId: string(name='account_id'),
+  // 开始时间 yyyyMMdd
+  startDay: string(name='start_day'),
+  // 结束时间 yyyyMMdd
+  endDay: string(name='end_day'),
+}
+
+model DataAdDataExportExperimentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 效果指标数据
+  data?: string(name='data'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 实验效果数据拉取接口
+ * Summary: 实验效果数据拉取接口
+ */
+async function dataAdDataExportExperiment(request: DataAdDataExportExperimentRequest): DataAdDataExportExperimentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return dataAdDataExportExperimentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 实验效果数据拉取接口
+ * Summary: 实验效果数据拉取接口
+ */
+async function dataAdDataExportExperimentEx(request: DataAdDataExportExperimentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DataAdDataExportExperimentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.morserta.ad.data.export.experiment.data', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
