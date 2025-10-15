@@ -20,7 +20,7 @@ class ConvertAdDataRequest extends Model
      */
     public $accountId;
 
-    // ios/android
+    // ios/android/web
     /**
      * @var string
      */
@@ -56,7 +56,7 @@ class ConvertAdDataRequest extends Model
      */
     public $mobileMd5;
 
-    // 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
+    // 区分投放渠道来源guangdiantong/oceanengine
     /**
      * @var string
      */
@@ -168,6 +168,24 @@ class ConvertAdDataRequest extends Model
      * @var string
      */
     public $ext;
+
+    // 手机号原值
+    /**
+     * @var string
+     */
+    public $mobile;
+
+    // 业务事件id, 用于唯一标识当前事件，如下单事件的订单id等
+    /**
+     * @var string
+     */
+    public $outEventId;
+
+    // android_id md5值
+    /**
+     * @var string
+     */
+    public $androidIdMd5;
     protected $_name = [
         'authToken'             => 'auth_token',
         'accountId'             => 'account_id',
@@ -195,6 +213,9 @@ class ConvertAdDataRequest extends Model
         'industry'              => 'industry',
         'loanAmount'            => 'loan_amount',
         'ext'                   => 'ext',
+        'mobile'                => 'mobile',
+        'outEventId'            => 'out_event_id',
+        'androidIdMd5'          => 'android_id_md5',
     ];
 
     public function validate()
@@ -287,6 +308,15 @@ class ConvertAdDataRequest extends Model
         if (null !== $this->ext) {
             $res['ext'] = $this->ext;
         }
+        if (null !== $this->mobile) {
+            $res['mobile'] = $this->mobile;
+        }
+        if (null !== $this->outEventId) {
+            $res['out_event_id'] = $this->outEventId;
+        }
+        if (null !== $this->androidIdMd5) {
+            $res['android_id_md5'] = $this->androidIdMd5;
+        }
 
         return $res;
     }
@@ -376,6 +406,15 @@ class ConvertAdDataRequest extends Model
         }
         if (isset($map['ext'])) {
             $model->ext = $map['ext'];
+        }
+        if (isset($map['mobile'])) {
+            $model->mobile = $map['mobile'];
+        }
+        if (isset($map['out_event_id'])) {
+            $model->outEventId = $map['out_event_id'];
+        }
+        if (isset($map['android_id_md5'])) {
+            $model->androidIdMd5 = $map['android_id_md5'];
         }
 
         return $model;

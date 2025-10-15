@@ -15,8 +15,12 @@ use AntChain\MORSERTA\Models\ClickAdDataRequest;
 use AntChain\MORSERTA\Models\ClickAdDataResponse;
 use AntChain\MORSERTA\Models\ConvertAdDataRequest;
 use AntChain\MORSERTA\Models\ConvertAdDataResponse;
+use AntChain\MORSERTA\Models\DataAdDataExportExperimentRequest;
+use AntChain\MORSERTA\Models\DataAdDataExportExperimentResponse;
 use AntChain\MORSERTA\Models\FeedbackReportDataRequest;
 use AntChain\MORSERTA\Models\FeedbackReportDataResponse;
+use AntChain\MORSERTA\Models\OcpxAdDataRequest;
+use AntChain\MORSERTA\Models\OcpxAdDataResponse;
 use AntChain\MORSERTA\Models\ReportAdDataRequest;
 use AntChain\MORSERTA\Models\ReportAdDataResponse;
 use AntChain\Util\UtilClient;
@@ -138,6 +142,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 用户/设备标识
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -165,7 +170,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '3.0.4',
+                    'sdk_version'      => '5.0.0',
                     '_prod_code'       => 'MORSERTA',
                     '_prod_channel'    => 'default',
                 ];
@@ -310,6 +315,72 @@ class Client
         Utils::validateModel($request);
 
         return ReportAdDataResponse::fromMap($this->doRequest('1.0', 'antcloud.morserta.ad.data.report', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+     * Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主.
+     *
+     * @param OcpxAdDataRequest $request
+     *
+     * @return OcpxAdDataResponse
+     */
+    public function ocpxAdData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->ocpxAdDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+     * Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主.
+     *
+     * @param OcpxAdDataRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return OcpxAdDataResponse
+     */
+    public function ocpxAdDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OcpxAdDataResponse::fromMap($this->doRequest('1.0', 'antcloud.morserta.ad.data.ocpx', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 实验效果数据拉取接口
+     * Summary: 实验效果数据拉取接口.
+     *
+     * @param DataAdDataExportExperimentRequest $request
+     *
+     * @return DataAdDataExportExperimentResponse
+     */
+    public function dataAdDataExportExperiment($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->dataAdDataExportExperimentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 实验效果数据拉取接口
+     * Summary: 实验效果数据拉取接口.
+     *
+     * @param DataAdDataExportExperimentRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return DataAdDataExportExperimentResponse
+     */
+    public function dataAdDataExportExperimentEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DataAdDataExportExperimentResponse::fromMap($this->doRequest('1.0', 'antcloud.morserta.ad.data.export.experiment.data', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
