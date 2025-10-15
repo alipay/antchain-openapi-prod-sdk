@@ -148,12 +148,136 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 用户/设备标识
+type UserInfo struct {
+	// Android 设备填写，imei原值
+	OriginalImei *string `json:"original_imei,omitempty" xml:"original_imei,omitempty"`
+	// Android 设备填写，imei md5值
+	Md5Imei *string `json:"md5_imei,omitempty" xml:"md5_imei,omitempty"`
+	// Android 设备填写,android_id原值
+	OriginalAndroidId *string `json:"original_android_id,omitempty" xml:"original_android_id,omitempty"`
+	// Android 设备填写, md5 后的 android_id 设备号
+	Md5AndroidId *string `json:"md5_android_id,omitempty" xml:"md5_android_id,omitempty"`
+	// Android 设备填写，oaid原值
+	OriginalOaid *string `json:"original_oaid,omitempty" xml:"original_oaid,omitempty"`
+	// Android 设备填写，oaid MD5值
+	Md5Oaid *string `json:"md5_oaid,omitempty" xml:"md5_oaid,omitempty"`
+	// iOS 设备填写, idfa原值
+	OriginalIdfa *string `json:"original_idfa,omitempty" xml:"original_idfa,omitempty"`
+	// iOS 设备填写, idfa md5值
+	Md5Idfa *string `json:"md5_idfa,omitempty" xml:"md5_idfa,omitempty"`
+	// 客户电话原值
+	OriginalPhone *string `json:"original_phone,omitempty" xml:"original_phone,omitempty"`
+	// md5后的电话号码
+	Md5Phone *string `json:"md5_phone,omitempty" xml:"md5_phone,omitempty"`
+	// 客户联系方式的sha256
+	Sha256Phone *string `json:"sha256_phone,omitempty" xml:"sha256_phone,omitempty"`
+	// iOS 设备填写,中国广告协会互联网广告标
+	Caid *string `json:"caid,omitempty" xml:"caid,omitempty"`
+	// IOS设备填写，caid版本
+	CaidVersion *string `json:"caid_version,omitempty" xml:"caid_version,omitempty"`
+	// 仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信 openid 保持原值
+	WechatOpenid *string `json:"wechat_openid,omitempty" xml:"wechat_openid,omitempty"`
+	// 仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信 unionid 保持原值
+	WechatUnionid *string `json:"wechat_unionid,omitempty" xml:"wechat_unionid,omitempty"`
+	// 仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信分配的 APPID
+	WechatAppId *string `json:"wechat_app_id,omitempty" xml:"wechat_app_id,omitempty"`
+}
+
+func (s UserInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UserInfo) GoString() string {
+	return s.String()
+}
+
+func (s *UserInfo) SetOriginalImei(v string) *UserInfo {
+	s.OriginalImei = &v
+	return s
+}
+
+func (s *UserInfo) SetMd5Imei(v string) *UserInfo {
+	s.Md5Imei = &v
+	return s
+}
+
+func (s *UserInfo) SetOriginalAndroidId(v string) *UserInfo {
+	s.OriginalAndroidId = &v
+	return s
+}
+
+func (s *UserInfo) SetMd5AndroidId(v string) *UserInfo {
+	s.Md5AndroidId = &v
+	return s
+}
+
+func (s *UserInfo) SetOriginalOaid(v string) *UserInfo {
+	s.OriginalOaid = &v
+	return s
+}
+
+func (s *UserInfo) SetMd5Oaid(v string) *UserInfo {
+	s.Md5Oaid = &v
+	return s
+}
+
+func (s *UserInfo) SetOriginalIdfa(v string) *UserInfo {
+	s.OriginalIdfa = &v
+	return s
+}
+
+func (s *UserInfo) SetMd5Idfa(v string) *UserInfo {
+	s.Md5Idfa = &v
+	return s
+}
+
+func (s *UserInfo) SetOriginalPhone(v string) *UserInfo {
+	s.OriginalPhone = &v
+	return s
+}
+
+func (s *UserInfo) SetMd5Phone(v string) *UserInfo {
+	s.Md5Phone = &v
+	return s
+}
+
+func (s *UserInfo) SetSha256Phone(v string) *UserInfo {
+	s.Sha256Phone = &v
+	return s
+}
+
+func (s *UserInfo) SetCaid(v string) *UserInfo {
+	s.Caid = &v
+	return s
+}
+
+func (s *UserInfo) SetCaidVersion(v string) *UserInfo {
+	s.CaidVersion = &v
+	return s
+}
+
+func (s *UserInfo) SetWechatOpenid(v string) *UserInfo {
+	s.WechatOpenid = &v
+	return s
+}
+
+func (s *UserInfo) SetWechatUnionid(v string) *UserInfo {
+	s.WechatUnionid = &v
+	return s
+}
+
+func (s *UserInfo) SetWechatAppId(v string) *UserInfo {
+	s.WechatAppId = &v
+	return s
+}
+
 type ConvertAdDataRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	// 广告主id
 	AccountId *int64 `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-	// ios/android
+	// ios/android/web
 	DeviceOsType *string `json:"device_os_type,omitempty" xml:"device_os_type,omitempty"`
 	// 设备ID（imei或idfa的加密值）
 	Muid *string `json:"muid,omitempty" xml:"muid,omitempty"`
@@ -165,7 +289,7 @@ type ConvertAdDataRequest struct {
 	ImpressionTime *int64 `json:"impression_time,omitempty" xml:"impression_time,omitempty"`
 	// 手机号MD5
 	MobileMd5 *string `json:"mobile_md5,omitempty" xml:"mobile_md5,omitempty"`
-	// 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
+	// 区分投放渠道来源guangdiantong/oceanengine
 	Platform *string `json:"platform,omitempty" xml:"platform,omitempty"`
 	// 事件类型，枚举值如下：
 	// submit-提交表单
@@ -206,6 +330,12 @@ type ConvertAdDataRequest struct {
 	LoanAmount *string `json:"loan_amount,omitempty" xml:"loan_amount,omitempty"`
 	// 扩展json
 	Ext *string `json:"ext,omitempty" xml:"ext,omitempty"`
+	// 手机号原值
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 业务事件id, 用于唯一标识当前事件，如下单事件的订单id等
+	OutEventId *string `json:"out_event_id,omitempty" xml:"out_event_id,omitempty"`
+	// android_id md5值
+	AndroidIdMd5 *string `json:"android_id_md5,omitempty" xml:"android_id_md5,omitempty"`
 }
 
 func (s ConvertAdDataRequest) String() string {
@@ -343,6 +473,21 @@ func (s *ConvertAdDataRequest) SetLoanAmount(v string) *ConvertAdDataRequest {
 
 func (s *ConvertAdDataRequest) SetExt(v string) *ConvertAdDataRequest {
 	s.Ext = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetMobile(v string) *ConvertAdDataRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetOutEventId(v string) *ConvertAdDataRequest {
+	s.OutEventId = &v
+	return s
+}
+
+func (s *ConvertAdDataRequest) SetAndroidIdMd5(v string) *ConvertAdDataRequest {
+	s.AndroidIdMd5 = &v
 	return s
 }
 
@@ -549,6 +694,218 @@ func (s *ReportAdDataResponse) SetSuccess(v bool) *ReportAdDataResponse {
 	return s
 }
 
+type OcpxAdDataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 见对接文档中【Industry行业枚举】部分
+	Industry *string `json:"industry,omitempty" xml:"industry,omitempty" require:"true"`
+	// 归因渠道编码，见对接文档中的【渠道枚举】部分
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
+	// 归因广告账号id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 见对接文档中【转化事件event_code枚举】部分
+	EventCode *string `json:"event_code,omitempty" xml:"event_code,omitempty" require:"true"`
+	// unix时间戳
+	EventTime *int64 `json:"event_time,omitempty" xml:"event_time,omitempty" require:"true"`
+	// 转化用户/设备标识
+	UserInfo *UserInfo `json:"user_info,omitempty" xml:"user_info,omitempty"`
+	// 如有去重需求，可传递业务事件id， 唯一标识当前事件。如下单事件中的订单id
+	OutEventId *string `json:"out_event_id,omitempty" xml:"out_event_id,omitempty"`
+	// android/ios/web
+	OsType *string `json:"os_type,omitempty" xml:"os_type,omitempty" require:"true"`
+	// 点击id和user_info二者至少传一个
+	ClickId *string `json:"click_id,omitempty" xml:"click_id,omitempty"`
+	// 媒体监测链接下发的callback原值
+	Callback *string `json:"callback,omitempty" xml:"callback,omitempty" require:"true"`
+}
+
+func (s OcpxAdDataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OcpxAdDataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *OcpxAdDataRequest) SetAuthToken(v string) *OcpxAdDataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *OcpxAdDataRequest) SetIndustry(v string) *OcpxAdDataRequest {
+	s.Industry = &v
+	return s
+}
+
+func (s *OcpxAdDataRequest) SetChannel(v string) *OcpxAdDataRequest {
+	s.Channel = &v
+	return s
+}
+
+func (s *OcpxAdDataRequest) SetAccountId(v string) *OcpxAdDataRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *OcpxAdDataRequest) SetEventCode(v string) *OcpxAdDataRequest {
+	s.EventCode = &v
+	return s
+}
+
+func (s *OcpxAdDataRequest) SetEventTime(v int64) *OcpxAdDataRequest {
+	s.EventTime = &v
+	return s
+}
+
+func (s *OcpxAdDataRequest) SetUserInfo(v *UserInfo) *OcpxAdDataRequest {
+	s.UserInfo = v
+	return s
+}
+
+func (s *OcpxAdDataRequest) SetOutEventId(v string) *OcpxAdDataRequest {
+	s.OutEventId = &v
+	return s
+}
+
+func (s *OcpxAdDataRequest) SetOsType(v string) *OcpxAdDataRequest {
+	s.OsType = &v
+	return s
+}
+
+func (s *OcpxAdDataRequest) SetClickId(v string) *OcpxAdDataRequest {
+	s.ClickId = &v
+	return s
+}
+
+func (s *OcpxAdDataRequest) SetCallback(v string) *OcpxAdDataRequest {
+	s.Callback = &v
+	return s
+}
+
+type OcpxAdDataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 调用是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s OcpxAdDataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OcpxAdDataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OcpxAdDataResponse) SetReqMsgId(v string) *OcpxAdDataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *OcpxAdDataResponse) SetResultCode(v string) *OcpxAdDataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *OcpxAdDataResponse) SetResultMsg(v string) *OcpxAdDataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *OcpxAdDataResponse) SetSuccess(v bool) *OcpxAdDataResponse {
+	s.Success = &v
+	return s
+}
+
+type DataAdDataExportExperimentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 广告主账户为数字，如“9471147”
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 开始时间 yyyyMMdd
+	StartDay *string `json:"start_day,omitempty" xml:"start_day,omitempty" require:"true"`
+	// 结束时间 yyyyMMdd
+	EndDay *string `json:"end_day,omitempty" xml:"end_day,omitempty" require:"true"`
+}
+
+func (s DataAdDataExportExperimentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataAdDataExportExperimentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DataAdDataExportExperimentRequest) SetAuthToken(v string) *DataAdDataExportExperimentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DataAdDataExportExperimentRequest) SetAccountId(v string) *DataAdDataExportExperimentRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *DataAdDataExportExperimentRequest) SetStartDay(v string) *DataAdDataExportExperimentRequest {
+	s.StartDay = &v
+	return s
+}
+
+func (s *DataAdDataExportExperimentRequest) SetEndDay(v string) *DataAdDataExportExperimentRequest {
+	s.EndDay = &v
+	return s
+}
+
+type DataAdDataExportExperimentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 效果指标数据
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s DataAdDataExportExperimentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataAdDataExportExperimentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DataAdDataExportExperimentResponse) SetReqMsgId(v string) *DataAdDataExportExperimentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DataAdDataExportExperimentResponse) SetResultCode(v string) *DataAdDataExportExperimentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DataAdDataExportExperimentResponse) SetResultMsg(v string) *DataAdDataExportExperimentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DataAdDataExportExperimentResponse) SetData(v string) *DataAdDataExportExperimentResponse {
+	s.Data = &v
+	return s
+}
+
+func (s *DataAdDataExportExperimentResponse) SetSuccess(v bool) *DataAdDataExportExperimentResponse {
+	s.Success = &v
+	return s
+}
+
 type FeedbackReportDataRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -749,7 +1106,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("3.0.4"),
+				"sdk_version":      tea.String("5.0.0"),
 				"_prod_code":       tea.String("MORSERTA"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -902,6 +1259,74 @@ func (client *Client) ReportAdDataEx(request *ReportAdDataRequest, headers map[s
 	}
 	_result = &ReportAdDataResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.morserta.ad.data.report"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+ * Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+ */
+func (client *Client) OcpxAdData(request *OcpxAdDataRequest) (_result *OcpxAdDataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &OcpxAdDataResponse{}
+	_body, _err := client.OcpxAdDataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+ * Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+ */
+func (client *Client) OcpxAdDataEx(request *OcpxAdDataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *OcpxAdDataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &OcpxAdDataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.morserta.ad.data.ocpx"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 实验效果数据拉取接口
+ * Summary: 实验效果数据拉取接口
+ */
+func (client *Client) DataAdDataExportExperiment(request *DataAdDataExportExperimentRequest) (_result *DataAdDataExportExperimentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DataAdDataExportExperimentResponse{}
+	_body, _err := client.DataAdDataExportExperimentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 实验效果数据拉取接口
+ * Summary: 实验效果数据拉取接口
+ */
+func (client *Client) DataAdDataExportExperimentEx(request *DataAdDataExportExperimentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DataAdDataExportExperimentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DataAdDataExportExperimentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.morserta.ad.data.export.experiment.data"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
