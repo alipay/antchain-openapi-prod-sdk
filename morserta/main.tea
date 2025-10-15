@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '3.0.4',
+    sdk_version = '5.0.0',
     _prod_code = 'MORSERTA',
     _prod_channel = 'default'
   };
@@ -161,12 +161,48 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 用户/设备标识
+model UserInfo {
+  // Android 设备填写，imei原值
+  originalImei?: string(name='original_imei', example='Android 设备填写，imei原值'),
+  // Android 设备填写，imei md5值
+  md5Imei?: string(name='md5_imei', example='Android 设备填写，imei md5值'),
+  // Android 设备填写,android_id原值 
+  originalAndroidId?: string(name='original_android_id', example='Android 设备填写,android_id原值 '),
+  // Android 设备填写, md5 后的 android_id 设备号
+  md5AndroidId?: string(name='md5_android_id', example='Android 设备填写, md5 后的 android_id 设备号'),
+  // Android 设备填写，oaid原值
+  originalOaid?: string(name='original_oaid', example='Android 设备填写，oaid原值'),
+  // Android 设备填写，oaid MD5值
+  md5Oaid?: string(name='md5_oaid', example='Android 设备填写，oaid MD5值'),
+  // iOS 设备填写, idfa原值
+  originalIdfa?: string(name='original_idfa', example='iOS 设备填写, idfa原值'),
+  // iOS 设备填写, idfa md5值
+  md5Idfa?: string(name='md5_idfa', example='iOS 设备填写, idfa md5值'),
+  // 客户电话原值
+  originalPhone?: string(name='original_phone', example='客户电话原值'),
+  // md5后的电话号码
+  md5Phone?: string(name='md5_phone', example='md5后的电话号码'),
+  // 客户联系方式的sha256
+  sha256Phone?: string(name='sha256_phone', example='客户联系方式的sha256'),
+  // iOS 设备填写,中国广告协会互联网广告标
+  caid?: string(name='caid', example='iOS 设备填写,中国广告协会互联网广告标'),
+  // IOS设备填写，caid版本
+  caidVersion?: string(name='caid_version', example='IOS设备填写，caid版本'),
+  // 仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信 openid 保持原值
+  wechatOpenid?: string(name='wechat_openid', example='仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信 openid 保持原值'),
+  // 仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信 unionid 保持原值
+  wechatUnionid?: string(name='wechat_unionid', example='仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信 unionid 保持原值'),
+  // 仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信分配的 APPID
+  wechatAppId?: string(name='wechat_app_id', example='仅腾讯渠道下，WECHAT, WECHAT_MINI_PROGRAM, WECHAT_MINI_GAME投放时传递，微信分配的 APPID'),
+}
+
 model ConvertAdDataRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   // 广告主id
   accountId: long(name='account_id'),
-  // ios/android
+  // ios/android/web
   deviceOsType?: string(name='device_os_type'),
   // 设备ID（imei或idfa的加密值）
   muid?: string(name='muid'),
@@ -178,7 +214,7 @@ model ConvertAdDataRequest = {
   impressionTime?: long(name='impression_time'),
   // 手机号MD5
   mobileMd5?: string(name='mobile_md5'),
-  // 区分投放渠道来源weixin\youlianghui\chuanshanjia\douyin
+  // 区分投放渠道来源guangdiantong/oceanengine
   platform?: string(name='platform'),
   // 事件类型，枚举值如下：
   // submit-提交表单
@@ -219,6 +255,12 @@ model ConvertAdDataRequest = {
   loanAmount?: string(name='loan_amount'),
   // 扩展json
   ext?: string(name='ext'),
+  // 手机号原值
+  mobile?: string(name='mobile'),
+  // 业务事件id, 用于唯一标识当前事件，如下单事件的订单id等
+  outEventId?: string(name='out_event_id'),
+  // android_id md5值
+  androidIdMd5?: string(name='android_id_md5'),
 }
 
 model ConvertAdDataResponse = {
@@ -334,6 +376,104 @@ async function reportAdData(request: ReportAdDataRequest): ReportAdDataResponse 
 async function reportAdDataEx(request: ReportAdDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ReportAdDataResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.morserta.ad.data.report', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OcpxAdDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 见对接文档中【Industry行业枚举】部分
+  industry: string(name='industry'),
+  // 归因渠道编码，见对接文档中的【渠道枚举】部分
+  channel: string(name='channel'),
+  // 归因广告账号id
+  accountId: string(name='account_id'),
+  // 见对接文档中【转化事件event_code枚举】部分
+  eventCode: string(name='event_code'),
+  // unix时间戳
+  eventTime: long(name='event_time'),
+  // 转化用户/设备标识
+  userInfo?: UserInfo(name='user_info'),
+  // 如有去重需求，可传递业务事件id， 唯一标识当前事件。如下单事件中的订单id
+  outEventId?: string(name='out_event_id'),
+  // android/ios/web
+  osType: string(name='os_type'),
+  // 点击id和user_info二者至少传一个
+  clickId?: string(name='click_id'),
+  // 媒体监测链接下发的callback原值
+  callback: string(name='callback'),
+}
+
+model OcpxAdDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 调用是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+ * Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+ */
+async function ocpxAdData(request: OcpxAdDataRequest): OcpxAdDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return ocpxAdDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+ * Summary: 广告主通过该接口将归因后的转化数据回传给数科，数科回传至广告主
+ */
+async function ocpxAdDataEx(request: OcpxAdDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OcpxAdDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.morserta.ad.data.ocpx', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DataAdDataExportExperimentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 广告主账户为数字，如“9471147”
+  accountId: string(name='account_id'),
+  // 开始时间 yyyyMMdd
+  startDay: string(name='start_day'),
+  // 结束时间 yyyyMMdd
+  endDay: string(name='end_day'),
+}
+
+model DataAdDataExportExperimentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 效果指标数据
+  data?: string(name='data'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 实验效果数据拉取接口
+ * Summary: 实验效果数据拉取接口
+ */
+async function dataAdDataExportExperiment(request: DataAdDataExportExperimentRequest): DataAdDataExportExperimentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return dataAdDataExportExperimentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 实验效果数据拉取接口
+ * Summary: 实验效果数据拉取接口
+ */
+async function dataAdDataExportExperimentEx(request: DataAdDataExportExperimentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DataAdDataExportExperimentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.morserta.ad.data.export.experiment.data', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model FeedbackReportDataRequest = {
