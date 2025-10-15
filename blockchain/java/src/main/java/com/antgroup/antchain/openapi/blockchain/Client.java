@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.28.55"),
+                    new TeaPair("sdk_version", "1.28.58"),
                     new TeaPair("_prod_code", "BLOCKCHAIN"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -9074,8 +9074,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 新车线索提交
-     * Summary: 新车线索提交</p>
+     * <p>Description: 提交新车线索
+     * Summary: 提交新车线索</p>
      */
     public SubmitAuthNewcarResponse submitAuthNewcar(SubmitAuthNewcarRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -9085,8 +9085,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: 新车线索提交
-     * Summary: 新车线索提交</p>
+     * <p>Description: 提交新车线索
+     * Summary: 提交新车线索</p>
      */
     public SubmitAuthNewcarResponse submitAuthNewcarEx(SubmitAuthNewcarRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -9175,6 +9175,48 @@ public class Client {
     public QueryAuthCarpriceResponse queryAuthCarpriceEx(QueryAuthCarpriceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.auth.carprice.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAuthCarpriceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 通过设备号匹配用户是否存在
+     * Summary: 查询人群数据是否存在</p>
+     */
+    public MatchAuthCarUsersResponse matchAuthCarUsers(MatchAuthCarUsersRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.matchAuthCarUsersEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 通过设备号匹配用户是否存在
+     * Summary: 查询人群数据是否存在</p>
+     */
+    public MatchAuthCarUsersResponse matchAuthCarUsersEx(MatchAuthCarUsersRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.car.users.match", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new MatchAuthCarUsersResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 新车线索批量提交
+     * Summary: 新车线索批量提交</p>
+     */
+    public BatchcreateAuthNewcarResponse batchcreateAuthNewcar(BatchcreateAuthNewcarRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchcreateAuthNewcarEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 新车线索批量提交
+     * Summary: 新车线索批量提交</p>
+     */
+    public BatchcreateAuthNewcarResponse batchcreateAuthNewcarEx(BatchcreateAuthNewcarRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.newcar.batchcreate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchcreateAuthNewcarResponse());
     }
 
     /**

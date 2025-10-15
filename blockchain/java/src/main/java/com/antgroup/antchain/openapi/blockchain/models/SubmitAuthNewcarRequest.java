@@ -38,6 +38,10 @@ public class SubmitAuthNewcarRequest extends TeaModel {
     @NameInMap("car_series_id")
     public String carSeriesId;
 
+    // 提交线索的唯一id
+    @NameInMap("submit_id")
+    public String submitId;
+
     public static SubmitAuthNewcarRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitAuthNewcarRequest self = new SubmitAuthNewcarRequest();
         return TeaModel.build(map, self);
@@ -105,6 +109,14 @@ public class SubmitAuthNewcarRequest extends TeaModel {
     }
     public String getCarSeriesId() {
         return this.carSeriesId;
+    }
+
+    public SubmitAuthNewcarRequest setSubmitId(String submitId) {
+        this.submitId = submitId;
+        return this;
+    }
+    public String getSubmitId() {
+        return this.submitId;
     }
 
 }
