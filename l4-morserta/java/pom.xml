@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-l4-morserta</artifactId>
-  <version>6.0.0</version>
+  <version>6.0.1</version>
   <packaging>jar</packaging>
   <name>openapi-l4-morserta</name>
   <description>Ant Chain MORSERTA SDK for Java
