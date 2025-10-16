@@ -44,6 +44,12 @@ class DownloadUmktOfflinedecisionResultRequest extends Model
      * @var int
      */
     public $taskId;
+
+    // 执行批次，yyyyMMddHHmm格式
+    /**
+     * @var string
+     */
+    public $execBatch;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -51,6 +57,7 @@ class DownloadUmktOfflinedecisionResultRequest extends Model
         'decisionPlanId'        => 'decision_plan_id',
         'resultDate'            => 'result_date',
         'taskId'                => 'task_id',
+        'execBatch'             => 'exec_batch',
     ];
 
     public function validate()
@@ -79,6 +86,9 @@ class DownloadUmktOfflinedecisionResultRequest extends Model
         }
         if (null !== $this->taskId) {
             $res['task_id'] = $this->taskId;
+        }
+        if (null !== $this->execBatch) {
+            $res['exec_batch'] = $this->execBatch;
         }
 
         return $res;
@@ -109,6 +119,9 @@ class DownloadUmktOfflinedecisionResultRequest extends Model
         }
         if (isset($map['task_id'])) {
             $model->taskId = $map['task_id'];
+        }
+        if (isset($map['exec_batch'])) {
+            $model->execBatch = $map['exec_batch'];
         }
 
         return $model;

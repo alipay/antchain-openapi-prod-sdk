@@ -111,6 +111,22 @@ class StoreInfo extends Model
      */
     public $address;
 
+    // 门店-经度
+    /**
+     * @example xxxx
+     *
+     * @var string
+     */
+    public $longitude;
+
+    // 门店-纬度
+    /**
+     * @example xxxx
+     *
+     * @var string
+     */
+    public $latitude;
+
     // 营业执照-开始时间，yyyy-MM-dd
     /**
      * @example yyyy-MM-dd
@@ -176,6 +192,14 @@ class StoreInfo extends Model
      */
     public $bankName;
 
+    // 对公-开户行编码
+    /**
+     * @example ICBC
+     *
+     * @var string
+     */
+    public $bankCode;
+
     // 对公-支行名称
     /**
      * @example xxx
@@ -240,6 +264,14 @@ class StoreInfo extends Model
      */
     public $payeeBankName;
 
+    // 对私-银行编码
+    /**
+     * @example ICBC
+     *
+     * @var string
+     */
+    public $payeeBankCode;
+
     // 蚂蚁数科入驻账号
     /**
      * @example xxxx
@@ -292,6 +324,8 @@ class StoreInfo extends Model
         'district'             => 'district',
         'districtCode'         => 'district_code',
         'address'              => 'address',
+        'longitude'            => 'longitude',
+        'latitude'             => 'latitude',
         'storeStartDate'       => 'store_start_date',
         'storeEndDate'         => 'store_end_date',
         'storeType'            => 'store_type',
@@ -300,6 +334,7 @@ class StoreInfo extends Model
         'legalPersonMobile'    => 'legal_person_mobile',
         'effectiveDate'        => 'effective_date',
         'bankName'             => 'bank_name',
+        'bankCode'             => 'bank_code',
         'branchName'           => 'branch_name',
         'cnapsCode'            => 'cnaps_code',
         'accountName'          => 'account_name',
@@ -308,6 +343,7 @@ class StoreInfo extends Model
         'bankCity'             => 'bank_city',
         'payeeBankCard'        => 'payee_bank_card',
         'payeeBankName'        => 'payee_bank_name',
+        'payeeBankCode'        => 'payee_bank_code',
         'loginTenant'          => 'login_tenant',
         'loginDate'            => 'login_date',
         'alipayLogonId'        => 'alipay_logon_id',
@@ -373,6 +409,12 @@ class StoreInfo extends Model
         if (null !== $this->address) {
             $res['address'] = $this->address;
         }
+        if (null !== $this->longitude) {
+            $res['longitude'] = $this->longitude;
+        }
+        if (null !== $this->latitude) {
+            $res['latitude'] = $this->latitude;
+        }
         if (null !== $this->storeStartDate) {
             $res['store_start_date'] = $this->storeStartDate;
         }
@@ -397,6 +439,9 @@ class StoreInfo extends Model
         if (null !== $this->bankName) {
             $res['bank_name'] = $this->bankName;
         }
+        if (null !== $this->bankCode) {
+            $res['bank_code'] = $this->bankCode;
+        }
         if (null !== $this->branchName) {
             $res['branch_name'] = $this->branchName;
         }
@@ -420,6 +465,9 @@ class StoreInfo extends Model
         }
         if (null !== $this->payeeBankName) {
             $res['payee_bank_name'] = $this->payeeBankName;
+        }
+        if (null !== $this->payeeBankCode) {
+            $res['payee_bank_code'] = $this->payeeBankCode;
         }
         if (null !== $this->loginTenant) {
             $res['login_tenant'] = $this->loginTenant;
@@ -484,6 +532,12 @@ class StoreInfo extends Model
         if (isset($map['address'])) {
             $model->address = $map['address'];
         }
+        if (isset($map['longitude'])) {
+            $model->longitude = $map['longitude'];
+        }
+        if (isset($map['latitude'])) {
+            $model->latitude = $map['latitude'];
+        }
         if (isset($map['store_start_date'])) {
             $model->storeStartDate = $map['store_start_date'];
         }
@@ -508,6 +562,9 @@ class StoreInfo extends Model
         if (isset($map['bank_name'])) {
             $model->bankName = $map['bank_name'];
         }
+        if (isset($map['bank_code'])) {
+            $model->bankCode = $map['bank_code'];
+        }
         if (isset($map['branch_name'])) {
             $model->branchName = $map['branch_name'];
         }
@@ -531,6 +588,9 @@ class StoreInfo extends Model
         }
         if (isset($map['payee_bank_name'])) {
             $model->payeeBankName = $map['payee_bank_name'];
+        }
+        if (isset($map['payee_bank_code'])) {
+            $model->payeeBankCode = $map['payee_bank_code'];
         }
         if (isset($map['login_tenant'])) {
             $model->loginTenant = $map['login_tenant'];

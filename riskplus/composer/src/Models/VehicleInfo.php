@@ -48,6 +48,30 @@ class VehicleInfo extends Model
      */
     public $wifiMac;
 
+    // pad-经度
+    /**
+     * @example xxxx
+     *
+     * @var string
+     */
+    public $longitude;
+
+    // pad-纬度
+    /**
+     * @example xxx
+     *
+     * @var string
+     */
+    public $latitude;
+
+    // 车辆类型（摩托车）：1-新车、0-二手车
+    /**
+     * @example 0
+     *
+     * @var string
+     */
+    public $vehicleType;
+
     // SN码/中控号(授信后放款前)
     /**
      * @example xxx
@@ -173,6 +197,9 @@ class VehicleInfo extends Model
         'installmentAmount' => 'installment_amount',
         'downPayment'       => 'down_payment',
         'wifiMac'           => 'wifi_mac',
+        'longitude'         => 'longitude',
+        'latitude'          => 'latitude',
+        'vehicleType'       => 'vehicle_type',
         'sn'                => 'sn',
         'frameNo'           => 'frame_no',
         'sku'               => 'sku',
@@ -216,6 +243,15 @@ class VehicleInfo extends Model
         }
         if (null !== $this->wifiMac) {
             $res['wifi_mac'] = $this->wifiMac;
+        }
+        if (null !== $this->longitude) {
+            $res['longitude'] = $this->longitude;
+        }
+        if (null !== $this->latitude) {
+            $res['latitude'] = $this->latitude;
+        }
+        if (null !== $this->vehicleType) {
+            $res['vehicle_type'] = $this->vehicleType;
         }
         if (null !== $this->sn) {
             $res['sn'] = $this->sn;
@@ -288,6 +324,15 @@ class VehicleInfo extends Model
         }
         if (isset($map['wifi_mac'])) {
             $model->wifiMac = $map['wifi_mac'];
+        }
+        if (isset($map['longitude'])) {
+            $model->longitude = $map['longitude'];
+        }
+        if (isset($map['latitude'])) {
+            $model->latitude = $map['latitude'];
+        }
+        if (isset($map['vehicle_type'])) {
+            $model->vehicleType = $map['vehicle_type'];
         }
         if (isset($map['sn'])) {
             $model->sn = $map['sn'];
