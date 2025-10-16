@@ -5901,6 +5901,10 @@ type StoreInfo struct {
 	// 门店-详细地址，
 	// 望江路万达广场一层001号
 	Address *string `json:"address,omitempty" xml:"address,omitempty" require:"true"`
+	// 门店-经度
+	Longitude *string `json:"longitude,omitempty" xml:"longitude,omitempty"`
+	// 门店-纬度
+	Latitude *string `json:"latitude,omitempty" xml:"latitude,omitempty"`
 	// 营业执照-开始时间，yyyy-MM-dd
 	StoreStartDate *string `json:"store_start_date,omitempty" xml:"store_start_date,omitempty" require:"true"`
 	// 营业执照-结束时间，yyyy-MM-dd，长期上送：9999-12-31
@@ -5918,6 +5922,8 @@ type StoreInfo struct {
 	EffectiveDate *string `json:"effective_date,omitempty" xml:"effective_date,omitempty" require:"true"`
 	// 对公-开户行名称
 	BankName *string `json:"bank_name,omitempty" xml:"bank_name,omitempty"`
+	// 对公-开户行编码
+	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty"`
 	// 对公-支行名称
 	BranchName *string `json:"branch_name,omitempty" xml:"branch_name,omitempty"`
 	// 对公-联行号
@@ -5934,6 +5940,8 @@ type StoreInfo struct {
 	PayeeBankCard *string `json:"payee_bank_card,omitempty" xml:"payee_bank_card,omitempty"`
 	// 对私-银行名称
 	PayeeBankName *string `json:"payee_bank_name,omitempty" xml:"payee_bank_name,omitempty"`
+	// 对私-银行编码
+	PayeeBankCode *string `json:"payee_bank_code,omitempty" xml:"payee_bank_code,omitempty"`
 	// 蚂蚁数科入驻账号
 	LoginTenant *string `json:"login_tenant,omitempty" xml:"login_tenant,omitempty"`
 	// 入驻时间
@@ -6014,6 +6022,16 @@ func (s *StoreInfo) SetAddress(v string) *StoreInfo {
 	return s
 }
 
+func (s *StoreInfo) SetLongitude(v string) *StoreInfo {
+	s.Longitude = &v
+	return s
+}
+
+func (s *StoreInfo) SetLatitude(v string) *StoreInfo {
+	s.Latitude = &v
+	return s
+}
+
 func (s *StoreInfo) SetStoreStartDate(v string) *StoreInfo {
 	s.StoreStartDate = &v
 	return s
@@ -6054,6 +6072,11 @@ func (s *StoreInfo) SetBankName(v string) *StoreInfo {
 	return s
 }
 
+func (s *StoreInfo) SetBankCode(v string) *StoreInfo {
+	s.BankCode = &v
+	return s
+}
+
 func (s *StoreInfo) SetBranchName(v string) *StoreInfo {
 	s.BranchName = &v
 	return s
@@ -6091,6 +6114,11 @@ func (s *StoreInfo) SetPayeeBankCard(v string) *StoreInfo {
 
 func (s *StoreInfo) SetPayeeBankName(v string) *StoreInfo {
 	s.PayeeBankName = &v
+	return s
+}
+
+func (s *StoreInfo) SetPayeeBankCode(v string) *StoreInfo {
+	s.PayeeBankCode = &v
 	return s
 }
 
@@ -6858,6 +6886,12 @@ type VehicleInfo struct {
 	DownPayment *string `json:"down_payment,omitempty" xml:"down_payment,omitempty"`
 	// pad设备提供
 	WifiMac *string `json:"wifi_mac,omitempty" xml:"wifi_mac,omitempty"`
+	// pad-经度
+	Longitude *string `json:"longitude,omitempty" xml:"longitude,omitempty"`
+	// pad-纬度
+	Latitude *string `json:"latitude,omitempty" xml:"latitude,omitempty"`
+	// 车辆类型（摩托车）：1-新车、0-二手车
+	VehicleType *string `json:"vehicle_type,omitempty" xml:"vehicle_type,omitempty"`
 	// SN码/中控号(授信后放款前)
 	Sn *string `json:"sn,omitempty" xml:"sn,omitempty"`
 	// 车驾号(授信后放款前)
@@ -6920,6 +6954,21 @@ func (s *VehicleInfo) SetDownPayment(v string) *VehicleInfo {
 
 func (s *VehicleInfo) SetWifiMac(v string) *VehicleInfo {
 	s.WifiMac = &v
+	return s
+}
+
+func (s *VehicleInfo) SetLongitude(v string) *VehicleInfo {
+	s.Longitude = &v
+	return s
+}
+
+func (s *VehicleInfo) SetLatitude(v string) *VehicleInfo {
+	s.Latitude = &v
+	return s
+}
+
+func (s *VehicleInfo) SetVehicleType(v string) *VehicleInfo {
+	s.VehicleType = &v
 	return s
 }
 
@@ -33500,6 +33549,8 @@ type DownloadUmktOfflinedecisionResultRequest struct {
 	ResultDate *string `json:"result_date,omitempty" xml:"result_date,omitempty"`
 	// 离线圈客任务id
 	TaskId *int64 `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 执行批次，yyyyMMddHHmm格式
+	ExecBatch *string `json:"exec_batch,omitempty" xml:"exec_batch,omitempty"`
 }
 
 func (s DownloadUmktOfflinedecisionResultRequest) String() string {
@@ -33537,6 +33588,11 @@ func (s *DownloadUmktOfflinedecisionResultRequest) SetResultDate(v string) *Down
 
 func (s *DownloadUmktOfflinedecisionResultRequest) SetTaskId(v int64) *DownloadUmktOfflinedecisionResultRequest {
 	s.TaskId = &v
+	return s
+}
+
+func (s *DownloadUmktOfflinedecisionResultRequest) SetExecBatch(v string) *DownloadUmktOfflinedecisionResultRequest {
+	s.ExecBatch = &v
 	return s
 }
 
@@ -34087,7 +34143,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.26.7"),
+				"sdk_version":      tea.String("1.26.8"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
