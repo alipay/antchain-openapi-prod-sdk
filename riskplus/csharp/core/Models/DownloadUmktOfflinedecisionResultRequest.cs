@@ -40,6 +40,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public long? TaskId { get; set; }
 
+        // 执行批次，yyyyMMddHHmm格式
+        [NameInMap("exec_batch")]
+        [Validation(Required=false)]
+        public string ExecBatch { get; set; }
+
     }
 
 }

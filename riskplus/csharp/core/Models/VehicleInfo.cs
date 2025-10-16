@@ -35,6 +35,21 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string WifiMac { get; set; }
 
+        // pad-经度
+        [NameInMap("longitude")]
+        [Validation(Required=false)]
+        public string Longitude { get; set; }
+
+        // pad-纬度
+        [NameInMap("latitude")]
+        [Validation(Required=false)]
+        public string Latitude { get; set; }
+
+        // 车辆类型（摩托车）：1-新车、0-二手车
+        [NameInMap("vehicle_type")]
+        [Validation(Required=false)]
+        public string VehicleType { get; set; }
+
         // SN码/中控号(授信后放款前)
         [NameInMap("sn")]
         [Validation(Required=false)]

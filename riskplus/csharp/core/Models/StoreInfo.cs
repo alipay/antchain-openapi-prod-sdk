@@ -77,6 +77,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string Address { get; set; }
 
+        // 门店-经度
+        [NameInMap("longitude")]
+        [Validation(Required=false)]
+        public string Longitude { get; set; }
+
+        // 门店-纬度
+        [NameInMap("latitude")]
+        [Validation(Required=false)]
+        public string Latitude { get; set; }
+
         // 营业执照-开始时间，yyyy-MM-dd
         [NameInMap("store_start_date")]
         [Validation(Required=true)]
@@ -118,6 +128,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string BankName { get; set; }
 
+        // 对公-开户行编码
+        [NameInMap("bank_code")]
+        [Validation(Required=false)]
+        public string BankCode { get; set; }
+
         // 对公-支行名称
         [NameInMap("branch_name")]
         [Validation(Required=false)]
@@ -157,6 +172,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [NameInMap("payee_bank_name")]
         [Validation(Required=false)]
         public string PayeeBankName { get; set; }
+
+        // 对私-银行编码
+        [NameInMap("payee_bank_code")]
+        [Validation(Required=false)]
+        public string PayeeBankCode { get; set; }
 
         // 蚂蚁数科入驻账号
         [NameInMap("login_tenant")]
