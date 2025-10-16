@@ -7249,6 +7249,8 @@ class StoreInfo(TeaModel):
         district: str = None,
         district_code: str = None,
         address: str = None,
+        longitude: str = None,
+        latitude: str = None,
         store_start_date: str = None,
         store_end_date: str = None,
         store_type: str = None,
@@ -7257,6 +7259,7 @@ class StoreInfo(TeaModel):
         legal_person_mobile: str = None,
         effective_date: str = None,
         bank_name: str = None,
+        bank_code: str = None,
         branch_name: str = None,
         cnaps_code: str = None,
         account_name: str = None,
@@ -7265,6 +7268,7 @@ class StoreInfo(TeaModel):
         bank_city: str = None,
         payee_bank_card: str = None,
         payee_bank_name: str = None,
+        payee_bank_code: str = None,
         login_tenant: str = None,
         login_date: str = None,
         alipay_logon_id: str = None,
@@ -7302,6 +7306,10 @@ class StoreInfo(TeaModel):
         # 门店-详细地址，
         # 望江路万达广场一层001号
         self.address = address
+        # 门店-经度
+        self.longitude = longitude
+        # 门店-纬度
+        self.latitude = latitude
         # 营业执照-开始时间，yyyy-MM-dd
         self.store_start_date = store_start_date
         # 营业执照-结束时间，yyyy-MM-dd，长期上送：9999-12-31
@@ -7319,6 +7327,8 @@ class StoreInfo(TeaModel):
         self.effective_date = effective_date
         # 对公-开户行名称
         self.bank_name = bank_name
+        # 对公-开户行编码
+        self.bank_code = bank_code
         # 对公-支行名称
         self.branch_name = branch_name
         # 对公-联行号
@@ -7335,6 +7345,8 @@ class StoreInfo(TeaModel):
         self.payee_bank_card = payee_bank_card
         # 对私-银行名称
         self.payee_bank_name = payee_bank_name
+        # 对私-银行编码
+        self.payee_bank_code = payee_bank_code
         # 蚂蚁数科入驻账号
         self.login_tenant = login_tenant
         # 入驻时间
@@ -7393,6 +7405,10 @@ class StoreInfo(TeaModel):
             result['district_code'] = self.district_code
         if self.address is not None:
             result['address'] = self.address
+        if self.longitude is not None:
+            result['longitude'] = self.longitude
+        if self.latitude is not None:
+            result['latitude'] = self.latitude
         if self.store_start_date is not None:
             result['store_start_date'] = self.store_start_date
         if self.store_end_date is not None:
@@ -7409,6 +7425,8 @@ class StoreInfo(TeaModel):
             result['effective_date'] = self.effective_date
         if self.bank_name is not None:
             result['bank_name'] = self.bank_name
+        if self.bank_code is not None:
+            result['bank_code'] = self.bank_code
         if self.branch_name is not None:
             result['branch_name'] = self.branch_name
         if self.cnaps_code is not None:
@@ -7425,6 +7443,8 @@ class StoreInfo(TeaModel):
             result['payee_bank_card'] = self.payee_bank_card
         if self.payee_bank_name is not None:
             result['payee_bank_name'] = self.payee_bank_name
+        if self.payee_bank_code is not None:
+            result['payee_bank_code'] = self.payee_bank_code
         if self.login_tenant is not None:
             result['login_tenant'] = self.login_tenant
         if self.login_date is not None:
@@ -7463,6 +7483,10 @@ class StoreInfo(TeaModel):
             self.district_code = m.get('district_code')
         if m.get('address') is not None:
             self.address = m.get('address')
+        if m.get('longitude') is not None:
+            self.longitude = m.get('longitude')
+        if m.get('latitude') is not None:
+            self.latitude = m.get('latitude')
         if m.get('store_start_date') is not None:
             self.store_start_date = m.get('store_start_date')
         if m.get('store_end_date') is not None:
@@ -7479,6 +7503,8 @@ class StoreInfo(TeaModel):
             self.effective_date = m.get('effective_date')
         if m.get('bank_name') is not None:
             self.bank_name = m.get('bank_name')
+        if m.get('bank_code') is not None:
+            self.bank_code = m.get('bank_code')
         if m.get('branch_name') is not None:
             self.branch_name = m.get('branch_name')
         if m.get('cnaps_code') is not None:
@@ -7495,6 +7521,8 @@ class StoreInfo(TeaModel):
             self.payee_bank_card = m.get('payee_bank_card')
         if m.get('payee_bank_name') is not None:
             self.payee_bank_name = m.get('payee_bank_name')
+        if m.get('payee_bank_code') is not None:
+            self.payee_bank_code = m.get('payee_bank_code')
         if m.get('login_tenant') is not None:
             self.login_tenant = m.get('login_tenant')
         if m.get('login_date') is not None:
@@ -8388,6 +8416,9 @@ class VehicleInfo(TeaModel):
         installment_amount: str = None,
         down_payment: str = None,
         wifi_mac: str = None,
+        longitude: str = None,
+        latitude: str = None,
+        vehicle_type: str = None,
         sn: str = None,
         frame_no: str = None,
         sku: str = None,
@@ -8414,6 +8445,12 @@ class VehicleInfo(TeaModel):
         self.down_payment = down_payment
         # pad设备提供
         self.wifi_mac = wifi_mac
+        # pad-经度
+        self.longitude = longitude
+        # pad-纬度
+        self.latitude = latitude
+        # 车辆类型（摩托车）：1-新车、0-二手车
+        self.vehicle_type = vehicle_type
         # SN码/中控号(授信后放款前)
         self.sn = sn
         # 车驾号(授信后放款前)
@@ -8468,6 +8505,12 @@ class VehicleInfo(TeaModel):
             result['down_payment'] = self.down_payment
         if self.wifi_mac is not None:
             result['wifi_mac'] = self.wifi_mac
+        if self.longitude is not None:
+            result['longitude'] = self.longitude
+        if self.latitude is not None:
+            result['latitude'] = self.latitude
+        if self.vehicle_type is not None:
+            result['vehicle_type'] = self.vehicle_type
         if self.sn is not None:
             result['sn'] = self.sn
         if self.frame_no is not None:
@@ -8512,6 +8555,12 @@ class VehicleInfo(TeaModel):
             self.down_payment = m.get('down_payment')
         if m.get('wifi_mac') is not None:
             self.wifi_mac = m.get('wifi_mac')
+        if m.get('longitude') is not None:
+            self.longitude = m.get('longitude')
+        if m.get('latitude') is not None:
+            self.latitude = m.get('latitude')
+        if m.get('vehicle_type') is not None:
+            self.vehicle_type = m.get('vehicle_type')
         if m.get('sn') is not None:
             self.sn = m.get('sn')
         if m.get('frame_no') is not None:
@@ -41626,6 +41675,7 @@ class DownloadUmktOfflinedecisionResultRequest(TeaModel):
         decision_plan_id: int = None,
         result_date: str = None,
         task_id: int = None,
+        exec_batch: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -41640,6 +41690,8 @@ class DownloadUmktOfflinedecisionResultRequest(TeaModel):
         self.result_date = result_date
         # 离线圈客任务id
         self.task_id = task_id
+        # 执行批次，yyyyMMddHHmm格式
+        self.exec_batch = exec_batch
 
     def validate(self):
         self.validate_required(self.offline_decision_plan_id, 'offline_decision_plan_id')
@@ -41663,6 +41715,8 @@ class DownloadUmktOfflinedecisionResultRequest(TeaModel):
             result['result_date'] = self.result_date
         if self.task_id is not None:
             result['task_id'] = self.task_id
+        if self.exec_batch is not None:
+            result['exec_batch'] = self.exec_batch
         return result
 
     def from_map(self, m: dict = None):
@@ -41679,6 +41733,8 @@ class DownloadUmktOfflinedecisionResultRequest(TeaModel):
             self.result_date = m.get('result_date')
         if m.get('task_id') is not None:
             self.task_id = m.get('task_id')
+        if m.get('exec_batch') is not None:
+            self.exec_batch = m.get('exec_batch')
         return self
 
 
