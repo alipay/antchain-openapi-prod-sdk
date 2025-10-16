@@ -115,6 +115,22 @@ public class StoreInfo extends TeaModel {
     @Validation(required = true)
     public String address;
 
+    // 门店-经度
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
+    @NameInMap("longitude")
+    public String longitude;
+
+    // 门店-纬度
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
+    @NameInMap("latitude")
+    public String latitude;
+
     // 营业执照-开始时间，yyyy-MM-dd
     /**
      * <strong>example:</strong>
@@ -187,6 +203,14 @@ public class StoreInfo extends TeaModel {
     @NameInMap("bank_name")
     public String bankName;
 
+    // 对公-开户行编码
+    /**
+     * <strong>example:</strong>
+     * <p>ICBC</p>
+     */
+    @NameInMap("bank_code")
+    public String bankCode;
+
     // 对公-支行名称
     /**
      * <strong>example:</strong>
@@ -250,6 +274,14 @@ public class StoreInfo extends TeaModel {
      */
     @NameInMap("payee_bank_name")
     public String payeeBankName;
+
+    // 对私-银行编码
+    /**
+     * <strong>example:</strong>
+     * <p>ICBC</p>
+     */
+    @NameInMap("payee_bank_code")
+    public String payeeBankCode;
 
     // 蚂蚁数科入驻账号
     /**
@@ -392,6 +424,22 @@ public class StoreInfo extends TeaModel {
         return this.address;
     }
 
+    public StoreInfo setLongitude(String longitude) {
+        this.longitude = longitude;
+        return this;
+    }
+    public String getLongitude() {
+        return this.longitude;
+    }
+
+    public StoreInfo setLatitude(String latitude) {
+        this.latitude = latitude;
+        return this;
+    }
+    public String getLatitude() {
+        return this.latitude;
+    }
+
     public StoreInfo setStoreStartDate(String storeStartDate) {
         this.storeStartDate = storeStartDate;
         return this;
@@ -456,6 +504,14 @@ public class StoreInfo extends TeaModel {
         return this.bankName;
     }
 
+    public StoreInfo setBankCode(String bankCode) {
+        this.bankCode = bankCode;
+        return this;
+    }
+    public String getBankCode() {
+        return this.bankCode;
+    }
+
     public StoreInfo setBranchName(String branchName) {
         this.branchName = branchName;
         return this;
@@ -518,6 +574,14 @@ public class StoreInfo extends TeaModel {
     }
     public String getPayeeBankName() {
         return this.payeeBankName;
+    }
+
+    public StoreInfo setPayeeBankCode(String payeeBankCode) {
+        this.payeeBankCode = payeeBankCode;
+        return this;
+    }
+    public String getPayeeBankCode() {
+        return this.payeeBankCode;
     }
 
     public StoreInfo setLoginTenant(String loginTenant) {

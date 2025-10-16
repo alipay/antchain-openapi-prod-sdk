@@ -46,6 +46,30 @@ public class VehicleInfo extends TeaModel {
     @NameInMap("wifi_mac")
     public String wifiMac;
 
+    // pad-经度
+    /**
+     * <strong>example:</strong>
+     * <p>xxxx</p>
+     */
+    @NameInMap("longitude")
+    public String longitude;
+
+    // pad-纬度
+    /**
+     * <strong>example:</strong>
+     * <p>xxx</p>
+     */
+    @NameInMap("latitude")
+    public String latitude;
+
+    // 车辆类型（摩托车）：1-新车、0-二手车
+    /**
+     * <strong>example:</strong>
+     * <p>0</p>
+     */
+    @NameInMap("vehicle_type")
+    public String vehicleType;
+
     // SN码/中控号(授信后放款前)
     /**
      * <strong>example:</strong>
@@ -212,6 +236,30 @@ public class VehicleInfo extends TeaModel {
     }
     public String getWifiMac() {
         return this.wifiMac;
+    }
+
+    public VehicleInfo setLongitude(String longitude) {
+        this.longitude = longitude;
+        return this;
+    }
+    public String getLongitude() {
+        return this.longitude;
+    }
+
+    public VehicleInfo setLatitude(String latitude) {
+        this.latitude = latitude;
+        return this;
+    }
+    public String getLatitude() {
+        return this.latitude;
+    }
+
+    public VehicleInfo setVehicleType(String vehicleType) {
+        this.vehicleType = vehicleType;
+        return this;
+    }
+    public String getVehicleType() {
+        return this.vehicleType;
     }
 
     public VehicleInfo setSn(String sn) {

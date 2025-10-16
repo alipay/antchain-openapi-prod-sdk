@@ -31,6 +31,10 @@ public class DownloadUmktOfflinedecisionResultRequest extends TeaModel {
     @NameInMap("task_id")
     public Long taskId;
 
+    // 执行批次，yyyyMMddHHmm格式
+    @NameInMap("exec_batch")
+    public String execBatch;
+
     public static DownloadUmktOfflinedecisionResultRequest build(java.util.Map<String, ?> map) throws Exception {
         DownloadUmktOfflinedecisionResultRequest self = new DownloadUmktOfflinedecisionResultRequest();
         return TeaModel.build(map, self);
@@ -82,6 +86,14 @@ public class DownloadUmktOfflinedecisionResultRequest extends TeaModel {
     }
     public Long getTaskId() {
         return this.taskId;
+    }
+
+    public DownloadUmktOfflinedecisionResultRequest setExecBatch(String execBatch) {
+        this.execBatch = execBatch;
+        return this;
+    }
+    public String getExecBatch() {
+        return this.execBatch;
     }
 
 }
