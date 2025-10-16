@@ -4404,6 +4404,10 @@ export class StoreInfo extends $tea.Model {
   // 门店-详细地址，
   // 望江路万达广场一层001号
   address: string;
+  // 门店-经度
+  longitude?: string;
+  // 门店-纬度
+  latitude?: string;
   // 营业执照-开始时间，yyyy-MM-dd
   storeStartDate: string;
   // 营业执照-结束时间，yyyy-MM-dd，长期上送：9999-12-31
@@ -4421,6 +4425,8 @@ export class StoreInfo extends $tea.Model {
   effectiveDate: string;
   // 对公-开户行名称
   bankName?: string;
+  // 对公-开户行编码
+  bankCode?: string;
   // 对公-支行名称
   branchName?: string;
   // 对公-联行号
@@ -4437,6 +4443,8 @@ export class StoreInfo extends $tea.Model {
   payeeBankCard?: string;
   // 对私-银行名称
   payeeBankName?: string;
+  // 对私-银行编码
+  payeeBankCode?: string;
   // 蚂蚁数科入驻账号
   loginTenant?: string;
   // 入驻时间
@@ -4461,6 +4469,8 @@ export class StoreInfo extends $tea.Model {
       district: 'district',
       districtCode: 'district_code',
       address: 'address',
+      longitude: 'longitude',
+      latitude: 'latitude',
       storeStartDate: 'store_start_date',
       storeEndDate: 'store_end_date',
       storeType: 'store_type',
@@ -4469,6 +4479,7 @@ export class StoreInfo extends $tea.Model {
       legalPersonMobile: 'legal_person_mobile',
       effectiveDate: 'effective_date',
       bankName: 'bank_name',
+      bankCode: 'bank_code',
       branchName: 'branch_name',
       cnapsCode: 'cnaps_code',
       accountName: 'account_name',
@@ -4477,6 +4488,7 @@ export class StoreInfo extends $tea.Model {
       bankCity: 'bank_city',
       payeeBankCard: 'payee_bank_card',
       payeeBankName: 'payee_bank_name',
+      payeeBankCode: 'payee_bank_code',
       loginTenant: 'login_tenant',
       loginDate: 'login_date',
       alipayLogonId: 'alipay_logon_id',
@@ -4499,6 +4511,8 @@ export class StoreInfo extends $tea.Model {
       district: 'string',
       districtCode: 'string',
       address: 'string',
+      longitude: 'string',
+      latitude: 'string',
       storeStartDate: 'string',
       storeEndDate: 'string',
       storeType: 'string',
@@ -4507,6 +4521,7 @@ export class StoreInfo extends $tea.Model {
       legalPersonMobile: 'string',
       effectiveDate: 'string',
       bankName: 'string',
+      bankCode: 'string',
       branchName: 'string',
       cnapsCode: 'string',
       accountName: 'string',
@@ -4515,6 +4530,7 @@ export class StoreInfo extends $tea.Model {
       bankCity: 'string',
       payeeBankCard: 'string',
       payeeBankName: 'string',
+      payeeBankCode: 'string',
       loginTenant: 'string',
       loginDate: 'string',
       alipayLogonId: 'string',
@@ -5048,6 +5064,12 @@ export class VehicleInfo extends $tea.Model {
   downPayment?: string;
   // pad设备提供
   wifiMac?: string;
+  // pad-经度
+  longitude?: string;
+  // pad-纬度
+  latitude?: string;
+  // 车辆类型（摩托车）：1-新车、0-二手车
+  vehicleType?: string;
   // SN码/中控号(授信后放款前)
   sn?: string;
   // 车驾号(授信后放款前)
@@ -5085,6 +5107,9 @@ export class VehicleInfo extends $tea.Model {
       installmentAmount: 'installment_amount',
       downPayment: 'down_payment',
       wifiMac: 'wifi_mac',
+      longitude: 'longitude',
+      latitude: 'latitude',
+      vehicleType: 'vehicle_type',
       sn: 'sn',
       frameNo: 'frame_no',
       sku: 'sku',
@@ -5110,6 +5135,9 @@ export class VehicleInfo extends $tea.Model {
       installmentAmount: 'string',
       downPayment: 'string',
       wifiMac: 'string',
+      longitude: 'string',
+      latitude: 'string',
+      vehicleType: 'string',
       sn: 'string',
       frameNo: 'string',
       sku: 'string',
@@ -24978,6 +25006,8 @@ export class DownloadUmktOfflinedecisionResultRequest extends $tea.Model {
   resultDate?: string;
   // 离线圈客任务id
   taskId?: number;
+  // 执行批次，yyyyMMddHHmm格式
+  execBatch?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -24986,6 +25016,7 @@ export class DownloadUmktOfflinedecisionResultRequest extends $tea.Model {
       decisionPlanId: 'decision_plan_id',
       resultDate: 'result_date',
       taskId: 'task_id',
+      execBatch: 'exec_batch',
     };
   }
 
@@ -24997,6 +25028,7 @@ export class DownloadUmktOfflinedecisionResultRequest extends $tea.Model {
       decisionPlanId: 'number',
       resultDate: 'string',
       taskId: 'number',
+      execBatch: 'string',
     };
   }
 
@@ -25445,7 +25477,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.26.7",
+          sdk_version: "1.26.8",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
