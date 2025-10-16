@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.26.7',
+    sdk_version = '1.26.8',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -1952,6 +1952,10 @@ model StoreInfo {
   // 门店-详细地址，
   // 望江路万达广场一层001号
   address: string(name='address', example='望江路万达广场一层001号'),
+  // 门店-经度
+  longitude?: string(name='longitude', example='xxxx'),
+  // 门店-纬度
+  latitude?: string(name='latitude', example='xxxx'),
   // 营业执照-开始时间，yyyy-MM-dd
   storeStartDate: string(name='store_start_date', example='yyyy-MM-dd'),
   // 营业执照-结束时间，yyyy-MM-dd，长期上送：9999-12-31
@@ -1969,6 +1973,8 @@ model StoreInfo {
   effectiveDate: string(name='effective_date', example='yyyy.MM.dd-长期'),
   // 对公-开户行名称
   bankName?: string(name='bank_name', example='xxx'),
+  // 对公-开户行编码
+  bankCode?: string(name='bank_code', example='ICBC'),
   // 对公-支行名称
   branchName?: string(name='branch_name', example='xxx'),
   // 对公-联行号
@@ -1985,6 +1991,8 @@ model StoreInfo {
   payeeBankCard?: string(name='payee_bank_card', example='xxxx'),
   // 对私-银行名称
   payeeBankName?: string(name='payee_bank_name', example='xxx'),
+  // 对私-银行编码
+  payeeBankCode?: string(name='payee_bank_code', example='ICBC'),
   // 蚂蚁数科入驻账号
   loginTenant?: string(name='login_tenant', example='xxxx'),
   // 入驻时间
@@ -2224,6 +2232,12 @@ model VehicleInfo {
   downPayment?: string(name='down_payment', example='199.00'),
   // pad设备提供
   wifiMac?: string(name='wifi_mac', example='xxx'),
+  // pad-经度
+  longitude?: string(name='longitude', example='xxxx'),
+  // pad-纬度
+  latitude?: string(name='latitude', example='xxx'),
+  // 车辆类型（摩托车）：1-新车、0-二手车
+  vehicleType?: string(name='vehicle_type', example='0'),
   // SN码/中控号(授信后放款前)
   sn?: string(name='sn', example='xxx'),
   // 车驾号(授信后放款前)
@@ -14385,6 +14399,8 @@ model DownloadUmktOfflinedecisionResultRequest = {
   resultDate?: string(name='result_date'),
   // 离线圈客任务id
   taskId?: long(name='task_id'),
+  // 执行批次，yyyyMMddHHmm格式
+  execBatch?: string(name='exec_batch'),
 }
 
 model DownloadUmktOfflinedecisionResultResponse = {
