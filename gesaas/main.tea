@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.5',
+    sdk_version = '1.2.6',
     _prod_code = 'GESAAS',
     _prod_channel = 'default'
   };
@@ -375,6 +375,8 @@ model SubmitRightsprodGrantRequest = {
   extInfo?: string(name='ext_info'),
   // 发放信息,如活动ID等信息
   grantInfo?: string(name='grant_info'),
+  // 技术租户ID、当开通权益中心产品在非数科的应用租户下时需要填写对应的技术租户ID（涉及到时技术对接时 技术会分配，如未分配则不需要传参数）
+  techTenantId?: string(name='tech_tenant_id'),
 }
 
 model SubmitRightsprodGrantResponse = {
@@ -413,6 +415,8 @@ model QueryRightsprodGrantRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 外部发放订单号
   outGrantOrderNo: string(name='out_grant_order_no'),
+  // 技术租户ID、当开通权益中心产品在非数科的应用租户下时需要填写对应的技术租户ID（涉及到时技术对接时 技术会分配，如未分配则不需要传值）
+  techTenantId?: string(name='tech_tenant_id'),
   // 扩展信息
   extInfo?: string(name='ext_info'),
 }
