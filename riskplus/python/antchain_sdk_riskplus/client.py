@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.26.8',
+                    'sdk_version': '1.26.9',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.26.8',
+                    'sdk_version': '1.26.9',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -11745,6 +11745,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryTdisaasSecurityPolicyResponse(),
             await self.do_request_async('1.0', 'riskplus.tdisaas.security.policy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_airsaas_security_policy(
+        self,
+        request: riskplus_models.QueryAirsaasSecurityPolicyRequest,
+    ) -> riskplus_models.QueryAirsaasSecurityPolicyResponse:
+        """
+        Description: saas风险咨询（air引擎）
+        Summary: saas风险咨询（air引擎）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_airsaas_security_policy_ex(request, headers, runtime)
+
+    async def query_airsaas_security_policy_async(
+        self,
+        request: riskplus_models.QueryAirsaasSecurityPolicyRequest,
+    ) -> riskplus_models.QueryAirsaasSecurityPolicyResponse:
+        """
+        Description: saas风险咨询（air引擎）
+        Summary: saas风险咨询（air引擎）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_airsaas_security_policy_ex_async(request, headers, runtime)
+
+    def query_airsaas_security_policy_ex(
+        self,
+        request: riskplus_models.QueryAirsaasSecurityPolicyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryAirsaasSecurityPolicyResponse:
+        """
+        Description: saas风险咨询（air引擎）
+        Summary: saas风险咨询（air引擎）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryAirsaasSecurityPolicyResponse(),
+            self.do_request('1.0', 'riskplus.airsaas.security.policy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_airsaas_security_policy_ex_async(
+        self,
+        request: riskplus_models.QueryAirsaasSecurityPolicyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryAirsaasSecurityPolicyResponse:
+        """
+        Description: saas风险咨询（air引擎）
+        Summary: saas风险咨询（air引擎）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryAirsaasSecurityPolicyResponse(),
+            await self.do_request_async('1.0', 'riskplus.airsaas.security.policy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def upload_umkt_params_file(

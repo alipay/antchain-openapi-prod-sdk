@@ -21629,23 +21629,24 @@ class QueryDubbridgeAlipayMerchantRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         order_no: str = None,
-        store_id: str = None,
         order_id: str = None,
+        store_id: str = None,
+        traffic_platform: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # request请求单号，每次请求唯一，如uuid
         self.order_no = order_no
-        # 门店id
-        self.store_id = store_id
-        # 入驻申请单号
+        # 入驻申请单号，store_id二选一
         self.order_id = order_id
+        # 门店id，配合traffic_platform使用
+        self.store_id = store_id
+        # 门店所属子品牌，配合store_id使用
+        self.traffic_platform = traffic_platform
 
     def validate(self):
         self.validate_required(self.order_no, 'order_no')
-        self.validate_required(self.store_id, 'store_id')
-        self.validate_required(self.order_id, 'order_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -21659,10 +21660,12 @@ class QueryDubbridgeAlipayMerchantRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.order_no is not None:
             result['order_no'] = self.order_no
-        if self.store_id is not None:
-            result['store_id'] = self.store_id
         if self.order_id is not None:
             result['order_id'] = self.order_id
+        if self.store_id is not None:
+            result['store_id'] = self.store_id
+        if self.traffic_platform is not None:
+            result['traffic_platform'] = self.traffic_platform
         return result
 
     def from_map(self, m: dict = None):
@@ -21673,10 +21676,12 @@ class QueryDubbridgeAlipayMerchantRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('order_no') is not None:
             self.order_no = m.get('order_no')
-        if m.get('store_id') is not None:
-            self.store_id = m.get('store_id')
         if m.get('order_id') is not None:
             self.order_id = m.get('order_id')
+        if m.get('store_id') is not None:
+            self.store_id = m.get('store_id')
+        if m.get('traffic_platform') is not None:
+            self.traffic_platform = m.get('traffic_platform')
         return self
 
 
@@ -21737,6 +21742,7 @@ class CreateDubbridgeAlipayTradeRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         order_no: str = None,
+        traffic_platform: str = None,
         store_id: str = None,
         vehicle_info: VehicleInfo = None,
         time_expire: str = None,
@@ -21747,6 +21753,8 @@ class CreateDubbridgeAlipayTradeRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # request请求单号，每次请求唯一，如uuid
         self.order_no = order_no
+        # 门店所属子品牌
+        self.traffic_platform = traffic_platform
         # 订单归属门店id
         self.store_id = store_id
         # 订单车辆信息
@@ -21758,6 +21766,7 @@ class CreateDubbridgeAlipayTradeRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.order_no, 'order_no')
+        self.validate_required(self.traffic_platform, 'traffic_platform')
         self.validate_required(self.store_id, 'store_id')
         self.validate_required(self.vehicle_info, 'vehicle_info')
         if self.vehicle_info:
@@ -21775,6 +21784,8 @@ class CreateDubbridgeAlipayTradeRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.order_no is not None:
             result['order_no'] = self.order_no
+        if self.traffic_platform is not None:
+            result['traffic_platform'] = self.traffic_platform
         if self.store_id is not None:
             result['store_id'] = self.store_id
         if self.vehicle_info is not None:
@@ -21793,6 +21804,8 @@ class CreateDubbridgeAlipayTradeRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('order_no') is not None:
             self.order_no = m.get('order_no')
+        if m.get('traffic_platform') is not None:
+            self.traffic_platform = m.get('traffic_platform')
         if m.get('store_id') is not None:
             self.store_id = m.get('store_id')
         if m.get('vehicle_info') is not None:
@@ -36492,6 +36505,161 @@ class QueryTdisaasSecurityPolicyRequest(TeaModel):
 
 
 class QueryTdisaasSecurityPolicyResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        model_details: List[ModelDetails] = None,
+        security_id: str = None,
+        security_result: str = None,
+        strategy_details: List[StrategyDetails] = None,
+        df_scene_infos: List[DfSceneInfos] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 场景分
+        self.model_details = model_details
+        # 安全请求id
+        self.security_id = security_id
+        # 策略结果
+        self.security_result = security_result
+        # 策略结果详情
+        self.strategy_details = strategy_details
+        # 决策流信息
+        self.df_scene_infos = df_scene_infos
+
+    def validate(self):
+        if self.model_details:
+            for k in self.model_details:
+                if k:
+                    k.validate()
+        if self.strategy_details:
+            for k in self.strategy_details:
+                if k:
+                    k.validate()
+        if self.df_scene_infos:
+            for k in self.df_scene_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['model_details'] = []
+        if self.model_details is not None:
+            for k in self.model_details:
+                result['model_details'].append(k.to_map() if k else None)
+        if self.security_id is not None:
+            result['security_id'] = self.security_id
+        if self.security_result is not None:
+            result['security_result'] = self.security_result
+        result['strategy_details'] = []
+        if self.strategy_details is not None:
+            for k in self.strategy_details:
+                result['strategy_details'].append(k.to_map() if k else None)
+        result['df_scene_infos'] = []
+        if self.df_scene_infos is not None:
+            for k in self.df_scene_infos:
+                result['df_scene_infos'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.model_details = []
+        if m.get('model_details') is not None:
+            for k in m.get('model_details'):
+                temp_model = ModelDetails()
+                self.model_details.append(temp_model.from_map(k))
+        if m.get('security_id') is not None:
+            self.security_id = m.get('security_id')
+        if m.get('security_result') is not None:
+            self.security_result = m.get('security_result')
+        self.strategy_details = []
+        if m.get('strategy_details') is not None:
+            for k in m.get('strategy_details'):
+                temp_model = StrategyDetails()
+                self.strategy_details.append(temp_model.from_map(k))
+        self.df_scene_infos = []
+        if m.get('df_scene_infos') is not None:
+            for k in m.get('df_scene_infos'):
+                temp_model = DfSceneInfos()
+                self.df_scene_infos.append(temp_model.from_map(k))
+        return self
+
+
+class QueryAirsaasSecurityPolicyRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        event_info: EventInfo = None,
+        risk_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 风控时间咨询查询入参
+        self.event_info = event_info
+        # 请求处理方式
+        self.risk_type = risk_type
+
+    def validate(self):
+        self.validate_required(self.event_info, 'event_info')
+        if self.event_info:
+            self.event_info.validate()
+        self.validate_required(self.risk_type, 'risk_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.event_info is not None:
+            result['event_info'] = self.event_info.to_map()
+        if self.risk_type is not None:
+            result['risk_type'] = self.risk_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('event_info') is not None:
+            temp_model = EventInfo()
+            self.event_info = temp_model.from_map(m['event_info'])
+        if m.get('risk_type') is not None:
+            self.risk_type = m.get('risk_type')
+        return self
+
+
+class QueryAirsaasSecurityPolicyResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
