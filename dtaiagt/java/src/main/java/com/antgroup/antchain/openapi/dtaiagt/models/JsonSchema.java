@@ -4,6 +4,15 @@ package com.antgroup.antchain.openapi.dtaiagt.models;
 import com.aliyun.tea.*;
 
 public class JsonSchema extends TeaModel {
+    // 工具属性，Map<String, Object> 类型，适配网关透出，使用字符串方式存储
+    /**
+     * <strong>example:</strong>
+     * <p>[{}]</p>
+     */
+    @NameInMap("properties_json")
+    @Validation(required = true)
+    public String propertiesJson;
+
     // 类型
     /**
      * <strong>example:</strong>
@@ -12,15 +21,6 @@ public class JsonSchema extends TeaModel {
     @NameInMap("type")
     @Validation(required = true)
     public String type;
-
-    //  Map<String, Object> 类型
-    /**
-     * <strong>example:</strong>
-     * <p> Map&lt;String, Object&gt; </p>
-     */
-    @NameInMap("properties")
-    @Validation(required = true)
-    public String properties;
 
     // 必填项
     /**
@@ -41,20 +41,20 @@ public class JsonSchema extends TeaModel {
         return TeaModel.build(map, self);
     }
 
+    public JsonSchema setPropertiesJson(String propertiesJson) {
+        this.propertiesJson = propertiesJson;
+        return this;
+    }
+    public String getPropertiesJson() {
+        return this.propertiesJson;
+    }
+
     public JsonSchema setType(String type) {
         this.type = type;
         return this;
     }
     public String getType() {
         return this.type;
-    }
-
-    public JsonSchema setProperties(String properties) {
-        this.properties = properties;
-        return this;
-    }
-    public String getProperties() {
-        return this.properties;
     }
 
     public JsonSchema setRequired(java.util.List<String> required) {
