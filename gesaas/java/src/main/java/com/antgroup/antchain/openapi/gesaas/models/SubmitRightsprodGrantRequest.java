@@ -50,6 +50,10 @@ public class SubmitRightsprodGrantRequest extends TeaModel {
     @NameInMap("grant_info")
     public String grantInfo;
 
+    // 技术租户ID、当开通权益中心产品在非数科的应用租户下时需要填写对应的技术租户ID（涉及到时技术对接时 技术会分配，如未分配则不需要传参数）
+    @NameInMap("tech_tenant_id")
+    public String techTenantId;
+
     public static SubmitRightsprodGrantRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitRightsprodGrantRequest self = new SubmitRightsprodGrantRequest();
         return TeaModel.build(map, self);
@@ -141,6 +145,14 @@ public class SubmitRightsprodGrantRequest extends TeaModel {
     }
     public String getGrantInfo() {
         return this.grantInfo;
+    }
+
+    public SubmitRightsprodGrantRequest setTechTenantId(String techTenantId) {
+        this.techTenantId = techTenantId;
+        return this;
+    }
+    public String getTechTenantId() {
+        return this.techTenantId;
     }
 
 }
