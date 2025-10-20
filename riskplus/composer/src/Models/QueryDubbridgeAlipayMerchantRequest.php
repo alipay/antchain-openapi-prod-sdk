@@ -25,30 +25,35 @@ class QueryDubbridgeAlipayMerchantRequest extends Model
      */
     public $orderNo;
 
-    // 门店id
+    // 入驻申请单号，store_id二选一
+    /**
+     * @var string
+     */
+    public $orderId;
+
+    // 门店id，配合traffic_platform使用
     /**
      * @var string
      */
     public $storeId;
 
-    // 入驻申请单号
+    // 门店所属子品牌，配合store_id使用
     /**
      * @var string
      */
-    public $orderId;
+    public $trafficPlatform;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'orderNo'           => 'order_no',
-        'storeId'           => 'store_id',
         'orderId'           => 'order_id',
+        'storeId'           => 'store_id',
+        'trafficPlatform'   => 'traffic_platform',
     ];
 
     public function validate()
     {
         Model::validateRequired('orderNo', $this->orderNo, true);
-        Model::validateRequired('storeId', $this->storeId, true);
-        Model::validateRequired('orderId', $this->orderId, true);
     }
 
     public function toMap()
@@ -63,11 +68,14 @@ class QueryDubbridgeAlipayMerchantRequest extends Model
         if (null !== $this->orderNo) {
             $res['order_no'] = $this->orderNo;
         }
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
         if (null !== $this->storeId) {
             $res['store_id'] = $this->storeId;
         }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
+        if (null !== $this->trafficPlatform) {
+            $res['traffic_platform'] = $this->trafficPlatform;
         }
 
         return $res;
@@ -90,11 +98,14 @@ class QueryDubbridgeAlipayMerchantRequest extends Model
         if (isset($map['order_no'])) {
             $model->orderNo = $map['order_no'];
         }
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
+        }
         if (isset($map['store_id'])) {
             $model->storeId = $map['store_id'];
         }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
+        if (isset($map['traffic_platform'])) {
+            $model->trafficPlatform = $map['traffic_platform'];
         }
 
         return $model;

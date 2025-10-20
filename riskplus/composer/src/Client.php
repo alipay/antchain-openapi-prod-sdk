@@ -207,6 +207,8 @@ use AntChain\RISKPLUS\Models\PushUmktCommonDataRequest;
 use AntChain\RISKPLUS\Models\PushUmktCommonDataResponse;
 use AntChain\RISKPLUS\Models\PushUmktCustomerGroupRequest;
 use AntChain\RISKPLUS\Models\PushUmktCustomerGroupResponse;
+use AntChain\RISKPLUS\Models\QueryAirsaasSecurityPolicyRequest;
+use AntChain\RISKPLUS\Models\QueryAirsaasSecurityPolicyResponse;
 use AntChain\RISKPLUS\Models\QueryBatchSecurityPolicyRequest;
 use AntChain\RISKPLUS\Models\QueryBatchSecurityPolicyResponse;
 use AntChain\RISKPLUS\Models\QueryBenefithubReportEffectiveRequest;
@@ -642,7 +644,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.26.8',
+                    'sdk_version'      => '1.26.9',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -7428,6 +7430,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryTdisaasSecurityPolicyResponse::fromMap($this->doRequest('1.0', 'riskplus.tdisaas.security.policy.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: saas风险咨询（air引擎）
+     * Summary: saas风险咨询（air引擎）.
+     *
+     * @param QueryAirsaasSecurityPolicyRequest $request
+     *
+     * @return QueryAirsaasSecurityPolicyResponse
+     */
+    public function queryAirsaasSecurityPolicy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAirsaasSecurityPolicyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: saas风险咨询（air引擎）
+     * Summary: saas风险咨询（air引擎）.
+     *
+     * @param QueryAirsaasSecurityPolicyRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryAirsaasSecurityPolicyResponse
+     */
+    public function queryAirsaasSecurityPolicyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAirsaasSecurityPolicyResponse::fromMap($this->doRequest('1.0', 'riskplus.airsaas.security.policy.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

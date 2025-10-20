@@ -25,6 +25,12 @@ class CreateDubbridgeAlipayTradeRequest extends Model
      */
     public $orderNo;
 
+    // 门店所属子品牌
+    /**
+     * @var string
+     */
+    public $trafficPlatform;
+
     // 订单归属门店id
     /**
      * @var string
@@ -52,6 +58,7 @@ class CreateDubbridgeAlipayTradeRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'orderNo'           => 'order_no',
+        'trafficPlatform'   => 'traffic_platform',
         'storeId'           => 'store_id',
         'vehicleInfo'       => 'vehicle_info',
         'timeExpire'        => 'time_expire',
@@ -61,6 +68,7 @@ class CreateDubbridgeAlipayTradeRequest extends Model
     public function validate()
     {
         Model::validateRequired('orderNo', $this->orderNo, true);
+        Model::validateRequired('trafficPlatform', $this->trafficPlatform, true);
         Model::validateRequired('storeId', $this->storeId, true);
         Model::validateRequired('vehicleInfo', $this->vehicleInfo, true);
     }
@@ -76,6 +84,9 @@ class CreateDubbridgeAlipayTradeRequest extends Model
         }
         if (null !== $this->orderNo) {
             $res['order_no'] = $this->orderNo;
+        }
+        if (null !== $this->trafficPlatform) {
+            $res['traffic_platform'] = $this->trafficPlatform;
         }
         if (null !== $this->storeId) {
             $res['store_id'] = $this->storeId;
@@ -109,6 +120,9 @@ class CreateDubbridgeAlipayTradeRequest extends Model
         }
         if (isset($map['order_no'])) {
             $model->orderNo = $map['order_no'];
+        }
+        if (isset($map['traffic_platform'])) {
+            $model->trafficPlatform = $map['traffic_platform'];
         }
         if (isset($map['store_id'])) {
             $model->storeId = $map['store_id'];
