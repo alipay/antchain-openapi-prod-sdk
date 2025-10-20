@@ -8,6 +8,14 @@ use AlibabaCloud\Tea\Model;
 
 class JsonSchema extends Model
 {
+    // 工具属性，Map<String, Object> 类型，适配网关透出，使用字符串方式存储
+    /**
+     * @example [{}]
+     *
+     * @var string
+     */
+    public $propertiesJson;
+
     // 类型
     /**
      * @example null
@@ -15,14 +23,6 @@ class JsonSchema extends Model
      * @var string
      */
     public $type;
-
-    // Map<String, Object> 类型
-    /**
-     * @example  Map<String, Object>
-     *
-     * @var string
-     */
-    public $properties;
 
     // 必填项
     /**
@@ -40,16 +40,16 @@ class JsonSchema extends Model
      */
     public $additionalProperties;
     protected $_name = [
+        'propertiesJson'       => 'properties_json',
         'type'                 => 'type',
-        'properties'           => 'properties',
         'required'             => 'required',
         'additionalProperties' => 'additional_properties',
     ];
 
     public function validate()
     {
+        Model::validateRequired('propertiesJson', $this->propertiesJson, true);
         Model::validateRequired('type', $this->type, true);
-        Model::validateRequired('properties', $this->properties, true);
         Model::validateRequired('required', $this->required, true);
         Model::validateRequired('additionalProperties', $this->additionalProperties, true);
     }
@@ -57,11 +57,11 @@ class JsonSchema extends Model
     public function toMap()
     {
         $res = [];
+        if (null !== $this->propertiesJson) {
+            $res['properties_json'] = $this->propertiesJson;
+        }
         if (null !== $this->type) {
             $res['type'] = $this->type;
-        }
-        if (null !== $this->properties) {
-            $res['properties'] = $this->properties;
         }
         if (null !== $this->required) {
             $res['required'] = $this->required;
@@ -81,11 +81,11 @@ class JsonSchema extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
+        if (isset($map['properties_json'])) {
+            $model->propertiesJson = $map['properties_json'];
+        }
         if (isset($map['type'])) {
             $model->type = $map['type'];
-        }
-        if (isset($map['properties'])) {
-            $model->properties = $map['properties'];
         }
         if (isset($map['required'])) {
             if (!empty($map['required'])) {
