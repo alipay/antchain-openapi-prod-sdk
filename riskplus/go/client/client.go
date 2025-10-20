@@ -17551,10 +17551,12 @@ type QueryDubbridgeAlipayMerchantRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// request请求单号，每次请求唯一，如uuid
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
-	// 门店id
-	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
-	// 入驻申请单号
-	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 入驻申请单号，store_id二选一
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// 门店id，配合traffic_platform使用
+	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty"`
+	// 门店所属子品牌，配合store_id使用
+	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty"`
 }
 
 func (s QueryDubbridgeAlipayMerchantRequest) String() string {
@@ -17580,13 +17582,18 @@ func (s *QueryDubbridgeAlipayMerchantRequest) SetOrderNo(v string) *QueryDubbrid
 	return s
 }
 
+func (s *QueryDubbridgeAlipayMerchantRequest) SetOrderId(v string) *QueryDubbridgeAlipayMerchantRequest {
+	s.OrderId = &v
+	return s
+}
+
 func (s *QueryDubbridgeAlipayMerchantRequest) SetStoreId(v string) *QueryDubbridgeAlipayMerchantRequest {
 	s.StoreId = &v
 	return s
 }
 
-func (s *QueryDubbridgeAlipayMerchantRequest) SetOrderId(v string) *QueryDubbridgeAlipayMerchantRequest {
-	s.OrderId = &v
+func (s *QueryDubbridgeAlipayMerchantRequest) SetTrafficPlatform(v string) *QueryDubbridgeAlipayMerchantRequest {
+	s.TrafficPlatform = &v
 	return s
 }
 
@@ -17635,6 +17642,8 @@ type CreateDubbridgeAlipayTradeRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// request请求单号，每次请求唯一，如uuid
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 门店所属子品牌
+	TrafficPlatform *string `json:"traffic_platform,omitempty" xml:"traffic_platform,omitempty" require:"true"`
 	// 订单归属门店id
 	StoreId *string `json:"store_id,omitempty" xml:"store_id,omitempty" require:"true"`
 	// 订单车辆信息
@@ -17665,6 +17674,11 @@ func (s *CreateDubbridgeAlipayTradeRequest) SetProductInstanceId(v string) *Crea
 
 func (s *CreateDubbridgeAlipayTradeRequest) SetOrderNo(v string) *CreateDubbridgeAlipayTradeRequest {
 	s.OrderNo = &v
+	return s
+}
+
+func (s *CreateDubbridgeAlipayTradeRequest) SetTrafficPlatform(v string) *CreateDubbridgeAlipayTradeRequest {
+	s.TrafficPlatform = &v
 	return s
 }
 
@@ -29491,6 +29505,111 @@ func (s *QueryTdisaasSecurityPolicyResponse) SetDfSceneInfos(v []*DfSceneInfos) 
 	return s
 }
 
+type QueryAirsaasSecurityPolicyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 风控时间咨询查询入参
+	EventInfo *EventInfo `json:"event_info,omitempty" xml:"event_info,omitempty" require:"true"`
+	// 请求处理方式
+	RiskType *string `json:"risk_type,omitempty" xml:"risk_type,omitempty" require:"true"`
+}
+
+func (s QueryAirsaasSecurityPolicyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAirsaasSecurityPolicyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAirsaasSecurityPolicyRequest) SetAuthToken(v string) *QueryAirsaasSecurityPolicyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAirsaasSecurityPolicyRequest) SetProductInstanceId(v string) *QueryAirsaasSecurityPolicyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAirsaasSecurityPolicyRequest) SetEventInfo(v *EventInfo) *QueryAirsaasSecurityPolicyRequest {
+	s.EventInfo = v
+	return s
+}
+
+func (s *QueryAirsaasSecurityPolicyRequest) SetRiskType(v string) *QueryAirsaasSecurityPolicyRequest {
+	s.RiskType = &v
+	return s
+}
+
+type QueryAirsaasSecurityPolicyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 场景分
+	ModelDetails []*ModelDetails `json:"model_details,omitempty" xml:"model_details,omitempty" type:"Repeated"`
+	// 安全请求id
+	SecurityId *string `json:"security_id,omitempty" xml:"security_id,omitempty"`
+	// 策略结果
+	SecurityResult *string `json:"security_result,omitempty" xml:"security_result,omitempty"`
+	// 策略结果详情
+	StrategyDetails []*StrategyDetails `json:"strategy_details,omitempty" xml:"strategy_details,omitempty" type:"Repeated"`
+	// 决策流信息
+	DfSceneInfos []*DfSceneInfos `json:"df_scene_infos,omitempty" xml:"df_scene_infos,omitempty" type:"Repeated"`
+}
+
+func (s QueryAirsaasSecurityPolicyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAirsaasSecurityPolicyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAirsaasSecurityPolicyResponse) SetReqMsgId(v string) *QueryAirsaasSecurityPolicyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAirsaasSecurityPolicyResponse) SetResultCode(v string) *QueryAirsaasSecurityPolicyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAirsaasSecurityPolicyResponse) SetResultMsg(v string) *QueryAirsaasSecurityPolicyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAirsaasSecurityPolicyResponse) SetModelDetails(v []*ModelDetails) *QueryAirsaasSecurityPolicyResponse {
+	s.ModelDetails = v
+	return s
+}
+
+func (s *QueryAirsaasSecurityPolicyResponse) SetSecurityId(v string) *QueryAirsaasSecurityPolicyResponse {
+	s.SecurityId = &v
+	return s
+}
+
+func (s *QueryAirsaasSecurityPolicyResponse) SetSecurityResult(v string) *QueryAirsaasSecurityPolicyResponse {
+	s.SecurityResult = &v
+	return s
+}
+
+func (s *QueryAirsaasSecurityPolicyResponse) SetStrategyDetails(v []*StrategyDetails) *QueryAirsaasSecurityPolicyResponse {
+	s.StrategyDetails = v
+	return s
+}
+
+func (s *QueryAirsaasSecurityPolicyResponse) SetDfSceneInfos(v []*DfSceneInfos) *QueryAirsaasSecurityPolicyResponse {
+	s.DfSceneInfos = v
+	return s
+}
+
 type UploadUmktParamsFileRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -34143,7 +34262,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.26.8"),
+				"sdk_version":      tea.String("1.26.9"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -41232,6 +41351,40 @@ func (client *Client) QueryTdisaasSecurityPolicyEx(request *QueryTdisaasSecurity
 	}
 	_result = &QueryTdisaasSecurityPolicyResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.tdisaas.security.policy.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: saas风险咨询（air引擎）
+ * Summary: saas风险咨询（air引擎）
+ */
+func (client *Client) QueryAirsaasSecurityPolicy(request *QueryAirsaasSecurityPolicyRequest) (_result *QueryAirsaasSecurityPolicyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAirsaasSecurityPolicyResponse{}
+	_body, _err := client.QueryAirsaasSecurityPolicyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: saas风险咨询（air引擎）
+ * Summary: saas风险咨询（air引擎）
+ */
+func (client *Client) QueryAirsaasSecurityPolicyEx(request *QueryAirsaasSecurityPolicyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAirsaasSecurityPolicyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAirsaasSecurityPolicyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.airsaas.security.policy.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
