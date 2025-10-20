@@ -77,6 +77,338 @@ export class Config extends $tea.Model {
   }
 }
 
+// 工具入参的json schema
+export class JsonSchema extends $tea.Model {
+  // 类型
+  type: string;
+  //  Map<String, Object> 类型
+  properties: string;
+  // 必填项
+  required: string[];
+  // 是否允许额外属性
+  additionalProperties: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      type: 'type',
+      properties: 'properties',
+      required: 'required',
+      additionalProperties: 'additional_properties',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      type: 'string',
+      properties: 'string',
+      required: { 'type': 'array', 'itemType': 'string' },
+      additionalProperties: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 工具列表vo
+export class ToolInfoVO extends $tea.Model {
+  // 工具名称
+  name: string;
+  // 工具描述
+  description: string;
+  // 工具入参的json schema
+  inputSchema: JsonSchema;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      description: 'description',
+      inputSchema: 'input_schema',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      description: 'string',
+      inputSchema: JsonSchema,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 异常对象
+export class BizErrorInfo extends $tea.Model {
+  // code
+  code: string;
+  // 异常信息
+  errorMsg?: string;
+  // params
+  params?: string;
+  static names(): { [key: string]: string } {
+    return {
+      code: 'code',
+      errorMsg: 'error_msg',
+      params: 'params',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      code: 'string',
+      errorMsg: 'string',
+      params: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 我的MCP详情VO
+export class DigitalGatewayMCPDetailVO extends $tea.Model {
+  // server_host
+  serverHost: string;
+  // server请求协议
+  transportProtocol: string;
+  // 网关请求令牌
+  serverToken: string;
+  // 空间id
+  spaceId: string;
+  // server_id
+  serverId: string;
+  // server_code
+  serverCode: string;
+  // server名称
+  serverName: string;
+  // icon
+  icon: string;
+  // server描述
+  description: string;
+  // mcp上架信息（富文本）
+  docs: string;
+  // 工具列表
+  toolList: ToolInfoVO;
+  static names(): { [key: string]: string } {
+    return {
+      serverHost: 'server_host',
+      transportProtocol: 'transport_protocol',
+      serverToken: 'server_token',
+      spaceId: 'space_id',
+      serverId: 'server_id',
+      serverCode: 'server_code',
+      serverName: 'server_name',
+      icon: 'icon',
+      description: 'description',
+      docs: 'docs',
+      toolList: 'tool_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      serverHost: 'string',
+      transportProtocol: 'string',
+      serverToken: 'string',
+      spaceId: 'string',
+      serverId: 'string',
+      serverCode: 'string',
+      serverName: 'string',
+      icon: 'string',
+      description: 'string',
+      docs: 'string',
+      toolList: ToolInfoVO,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// MyMCP page分页内容信息
+export class DigitalGatewayMCPPageVO extends $tea.Model {
+  // 空间id
+  spaceId: string;
+  // server_id
+  serverId: string;
+  // server_code
+  serverCode: string;
+  // server_name
+  serverName: string;
+  // icon
+  icon: string;
+  // description
+  description: string;
+  //  mcp分类
+  categories: string[];
+  static names(): { [key: string]: string } {
+    return {
+      spaceId: 'space_id',
+      serverId: 'server_id',
+      serverCode: 'server_code',
+      serverName: 'server_name',
+      icon: 'icon',
+      description: 'description',
+      categories: 'categories',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      spaceId: 'string',
+      serverId: 'string',
+      serverCode: 'string',
+      serverName: 'string',
+      icon: 'string',
+      description: 'string',
+      categories: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// MCP已订阅清单Request
+export class MCPServerQueryPageGatewayRequest extends $tea.Model {
+  // 空间id
+  spaceId: string;
+  // 运行模式
+  runMode?: string;
+  // 来源
+  source?: string;
+  // 查询条件
+  query?: string;
+  // 页码
+  pageNum: number;
+  // 分页大小
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      spaceId: 'space_id',
+      runMode: 'run_mode',
+      source: 'source',
+      query: 'query',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      spaceId: 'string',
+      runMode: 'string',
+      source: 'string',
+      query: 'string',
+      pageNum: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// MCP详情查询返回Result对象
+export class MCPDetailCommonResult extends $tea.Model {
+  // MCP详情信息
+  result: DigitalGatewayMCPDetailVO;
+  // success
+  success: boolean;
+  // code
+  code: string;
+  // msg
+  msg: string;
+  // trace_id
+  traceId: string;
+  // req_id
+  reqId: string;
+  // 异常对象
+  bizError: BizErrorInfo;
+  static names(): { [key: string]: string } {
+    return {
+      result: 'result',
+      success: 'success',
+      code: 'code',
+      msg: 'msg',
+      traceId: 'trace_id',
+      reqId: 'req_id',
+      bizError: 'biz_error',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      result: DigitalGatewayMCPDetailVO,
+      success: 'boolean',
+      code: 'string',
+      msg: 'string',
+      traceId: 'string',
+      reqId: 'string',
+      bizError: BizErrorInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 我订阅的MCP分页对象
+export class MyMcpPageRestult extends $tea.Model {
+  // total_count
+  totalCount: number;
+  // current_page
+  currentPage: number;
+  // trace_id
+  traceId: string;
+  // success
+  success: boolean;
+  // code
+  code: string;
+  // msg
+  msg: string;
+  // req_id
+  reqId: string;
+  // MCP分页内容
+  result: DigitalGatewayMCPPageVO[];
+  static names(): { [key: string]: string } {
+    return {
+      totalCount: 'total_count',
+      currentPage: 'current_page',
+      traceId: 'trace_id',
+      success: 'success',
+      code: 'code',
+      msg: 'msg',
+      reqId: 'req_id',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      totalCount: 'number',
+      currentPage: 'number',
+      traceId: 'string',
+      success: 'boolean',
+      code: 'string',
+      msg: 'string',
+      reqId: 'string',
+      result: { 'type': 'array', 'itemType': DigitalGatewayMCPPageVO },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class StartOpenaiChatRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -254,6 +586,318 @@ export class StartAgentCchatResponse extends $tea.Model {
   }
 }
 
+export class PagequeryAgentMcplistRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 空间ID
+  spaceId: string;
+  // 查询条件
+  query?: string;
+  // 页码
+  pageNum: number;
+  // 分页大小
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      spaceId: 'space_id',
+      query: 'query',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      spaceId: 'string',
+      query: 'string',
+      pageNum: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryAgentMcplistResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // MyMCP分页对象
+  data?: MyMcpPageRestult;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: MyMcpPageRestult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailAgentMcpRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 空间id
+  spaceId: string;
+  // 平台serverId
+  serverId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      spaceId: 'space_id',
+      serverId: 'server_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      spaceId: 'string',
+      serverId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailAgentMcpResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // MCP详情接口返回Result
+  data?: MCPDetailCommonResult;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: MCPDetailCommonResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartAgentTaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求内容，内容为 TaskChatReq 对象的json字符串
+  taskChatReq: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskChatReq: 'task_chat_req',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskChatReq: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartAgentTaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 会话结果
+  chatCompletionObject?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      chatCompletionObject: 'chat_completion_object',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      chatCompletionObject: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StopAgentTaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求内容，内容为 task_event_req 对象的json字符串
+  taskEventReq: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskEventReq: 'task_event_req',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskEventReq: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StopAgentTaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // success
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateAgentTaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求内容，内容为 task_event_req 对象的json字符串
+  taskEventReq: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskEventReq: 'task_event_req',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskEventReq: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateAgentTaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 会话结果
+  // 
+  taskMessages?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskMessages: 'task_messages',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskMessages: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -367,7 +1011,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.0",
+          sdk_version: "1.2.0",
           _prod_code: "DTAIAGT",
           _prod_channel: "default",
         };
@@ -470,6 +1114,101 @@ export default class Client {
   async startAgentCchatEx(request: StartAgentCchatRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartAgentCchatResponse> {
     Util.validateModel(request);
     return $tea.cast<StartAgentCchatResponse>(await this.doRequest("1.0", "antdigital.dtaiagt.agent.cchat.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartAgentCchatResponse({}));
+  }
+
+  /**
+   * Description: 查询已订阅的mcp清单
+   * Summary: 查询已订阅的mcp清单
+   */
+  async pagequeryAgentMcplist(request: PagequeryAgentMcplistRequest): Promise<PagequeryAgentMcplistResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryAgentMcplistEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询已订阅的mcp清单
+   * Summary: 查询已订阅的mcp清单
+   */
+  async pagequeryAgentMcplistEx(request: PagequeryAgentMcplistRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryAgentMcplistResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryAgentMcplistResponse>(await this.doRequest("1.0", "antdigital.dtaiagt.agent.mcplist.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryAgentMcplistResponse({}));
+  }
+
+  /**
+   * Description: mcp详情
+   * Summary: mcp详情
+   */
+  async detailAgentMcp(request: DetailAgentMcpRequest): Promise<DetailAgentMcpResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.detailAgentMcpEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: mcp详情
+   * Summary: mcp详情
+   */
+  async detailAgentMcpEx(request: DetailAgentMcpRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailAgentMcpResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DetailAgentMcpResponse>(await this.doRequest("1.0", "antdigital.dtaiagt.agent.mcp.detail", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DetailAgentMcpResponse({}));
+  }
+
+  /**
+   * Description: 长任务对话，发起任务&重连任务
+   * Summary: 长任务对话
+   */
+  async startAgentTask(request: StartAgentTaskRequest): Promise<StartAgentTaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.startAgentTaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 长任务对话，发起任务&重连任务
+   * Summary: 长任务对话
+   */
+  async startAgentTaskEx(request: StartAgentTaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartAgentTaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StartAgentTaskResponse>(await this.doRequest("1.0", "antdigital.dtaiagt.agent.task.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartAgentTaskResponse({}));
+  }
+
+  /**
+   * Description: 终止任务
+   * Summary: 终止任务
+   */
+  async stopAgentTask(request: StopAgentTaskRequest): Promise<StopAgentTaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.stopAgentTaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 终止任务
+   * Summary: 终止任务
+   */
+  async stopAgentTaskEx(request: StopAgentTaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StopAgentTaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StopAgentTaskResponse>(await this.doRequest("1.0", "antdigital.dtaiagt.agent.task.stop", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StopAgentTaskResponse({}));
+  }
+
+  /**
+   * Description: 获取前序消息流
+   * Summary: 获取前序消息流
+   */
+  async operateAgentTask(request: OperateAgentTaskRequest): Promise<OperateAgentTaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.operateAgentTaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取前序消息流
+   * Summary: 获取前序消息流
+   */
+  async operateAgentTaskEx(request: OperateAgentTaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateAgentTaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OperateAgentTaskResponse>(await this.doRequest("1.0", "antdigital.dtaiagt.agent.task.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateAgentTaskResponse({}));
   }
 
 }
