@@ -157,23 +157,23 @@ class Config(TeaModel):
 class JsonSchema(TeaModel):
     def __init__(
         self,
+        properties_json: str = None,
         type: str = None,
-        properties: str = None,
         required: List[str] = None,
         additional_properties: bool = None,
     ):
+        # 工具属性，Map<String, Object> 类型，适配网关透出，使用字符串方式存储
+        self.properties_json = properties_json
         # 类型
         self.type = type
-        # Map<String, Object> 类型
-        self.properties = properties
         # 必填项
         self.required = required
         # 是否允许额外属性
         self.additional_properties = additional_properties
 
     def validate(self):
+        self.validate_required(self.properties_json, 'properties_json')
         self.validate_required(self.type, 'type')
-        self.validate_required(self.properties, 'properties')
         self.validate_required(self.required, 'required')
         self.validate_required(self.additional_properties, 'additional_properties')
 
@@ -183,10 +183,10 @@ class JsonSchema(TeaModel):
             return _map
 
         result = dict()
+        if self.properties_json is not None:
+            result['properties_json'] = self.properties_json
         if self.type is not None:
             result['type'] = self.type
-        if self.properties is not None:
-            result['properties'] = self.properties
         if self.required is not None:
             result['required'] = self.required
         if self.additional_properties is not None:
@@ -195,10 +195,10 @@ class JsonSchema(TeaModel):
 
     def from_map(self, m: dict = None):
         m = m or dict()
+        if m.get('properties_json') is not None:
+            self.properties_json = m.get('properties_json')
         if m.get('type') is not None:
             self.type = m.get('type')
-        if m.get('properties') is not None:
-            self.properties = m.get('properties')
         if m.get('required') is not None:
             self.required = m.get('required')
         if m.get('additional_properties') is not None:
