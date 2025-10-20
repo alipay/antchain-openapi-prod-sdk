@@ -137,7 +137,7 @@ namespace AntChain.SDK.DTAIAGT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.0"},
+                        {"sdk_version", "1.2.0"},
                         {"_prod_code", "DTAIAGT"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DTAIAGT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.0"},
+                        {"sdk_version", "1.2.0"},
                         {"_prod_code", "DTAIAGT"},
                         {"_prod_channel", "default"},
                     };
@@ -445,6 +445,216 @@ namespace AntChain.SDK.DTAIAGT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<StartAgentCchatResponse>(await DoRequestAsync("1.0", "antdigital.dtaiagt.agent.cchat.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询已订阅的mcp清单
+         * Summary: 查询已订阅的mcp清单
+         */
+        public PagequeryAgentMcplistResponse PagequeryAgentMcplist(PagequeryAgentMcplistRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryAgentMcplistEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询已订阅的mcp清单
+         * Summary: 查询已订阅的mcp清单
+         */
+        public async Task<PagequeryAgentMcplistResponse> PagequeryAgentMcplistAsync(PagequeryAgentMcplistRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryAgentMcplistExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询已订阅的mcp清单
+         * Summary: 查询已订阅的mcp清单
+         */
+        public PagequeryAgentMcplistResponse PagequeryAgentMcplistEx(PagequeryAgentMcplistRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryAgentMcplistResponse>(DoRequest("1.0", "antdigital.dtaiagt.agent.mcplist.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询已订阅的mcp清单
+         * Summary: 查询已订阅的mcp清单
+         */
+        public async Task<PagequeryAgentMcplistResponse> PagequeryAgentMcplistExAsync(PagequeryAgentMcplistRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryAgentMcplistResponse>(await DoRequestAsync("1.0", "antdigital.dtaiagt.agent.mcplist.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: mcp详情
+         * Summary: mcp详情
+         */
+        public DetailAgentMcpResponse DetailAgentMcp(DetailAgentMcpRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DetailAgentMcpEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: mcp详情
+         * Summary: mcp详情
+         */
+        public async Task<DetailAgentMcpResponse> DetailAgentMcpAsync(DetailAgentMcpRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DetailAgentMcpExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: mcp详情
+         * Summary: mcp详情
+         */
+        public DetailAgentMcpResponse DetailAgentMcpEx(DetailAgentMcpRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailAgentMcpResponse>(DoRequest("1.0", "antdigital.dtaiagt.agent.mcp.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: mcp详情
+         * Summary: mcp详情
+         */
+        public async Task<DetailAgentMcpResponse> DetailAgentMcpExAsync(DetailAgentMcpRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailAgentMcpResponse>(await DoRequestAsync("1.0", "antdigital.dtaiagt.agent.mcp.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 长任务对话，发起任务&重连任务
+         * Summary: 长任务对话
+         */
+        public StartAgentTaskResponse StartAgentTask(StartAgentTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StartAgentTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 长任务对话，发起任务&重连任务
+         * Summary: 长任务对话
+         */
+        public async Task<StartAgentTaskResponse> StartAgentTaskAsync(StartAgentTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StartAgentTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 长任务对话，发起任务&重连任务
+         * Summary: 长任务对话
+         */
+        public StartAgentTaskResponse StartAgentTaskEx(StartAgentTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartAgentTaskResponse>(DoRequest("1.0", "antdigital.dtaiagt.agent.task.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 长任务对话，发起任务&重连任务
+         * Summary: 长任务对话
+         */
+        public async Task<StartAgentTaskResponse> StartAgentTaskExAsync(StartAgentTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartAgentTaskResponse>(await DoRequestAsync("1.0", "antdigital.dtaiagt.agent.task.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终止任务
+         * Summary: 终止任务
+         */
+        public StopAgentTaskResponse StopAgentTask(StopAgentTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StopAgentTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终止任务
+         * Summary: 终止任务
+         */
+        public async Task<StopAgentTaskResponse> StopAgentTaskAsync(StopAgentTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StopAgentTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 终止任务
+         * Summary: 终止任务
+         */
+        public StopAgentTaskResponse StopAgentTaskEx(StopAgentTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StopAgentTaskResponse>(DoRequest("1.0", "antdigital.dtaiagt.agent.task.stop", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 终止任务
+         * Summary: 终止任务
+         */
+        public async Task<StopAgentTaskResponse> StopAgentTaskExAsync(StopAgentTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StopAgentTaskResponse>(await DoRequestAsync("1.0", "antdigital.dtaiagt.agent.task.stop", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取前序消息流
+         * Summary: 获取前序消息流
+         */
+        public OperateAgentTaskResponse OperateAgentTask(OperateAgentTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateAgentTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取前序消息流
+         * Summary: 获取前序消息流
+         */
+        public async Task<OperateAgentTaskResponse> OperateAgentTaskAsync(OperateAgentTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateAgentTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取前序消息流
+         * Summary: 获取前序消息流
+         */
+        public OperateAgentTaskResponse OperateAgentTaskEx(OperateAgentTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateAgentTaskResponse>(DoRequest("1.0", "antdigital.dtaiagt.agent.task.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取前序消息流
+         * Summary: 获取前序消息流
+         */
+        public async Task<OperateAgentTaskResponse> OperateAgentTaskExAsync(OperateAgentTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateAgentTaskResponse>(await DoRequestAsync("1.0", "antdigital.dtaiagt.agent.task.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
