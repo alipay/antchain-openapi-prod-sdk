@@ -23,6 +23,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string OrderNo { get; set; }
 
+        // 门店所属子品牌
+        [NameInMap("traffic_platform")]
+        [Validation(Required=true)]
+        public string TrafficPlatform { get; set; }
+
         // 订单归属门店id
         [NameInMap("store_id")]
         [Validation(Required=true)]

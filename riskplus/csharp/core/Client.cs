@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.26.8"},
+                        {"sdk_version", "1.26.9"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.26.8"},
+                        {"sdk_version", "1.26.9"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -9113,6 +9113,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryTdisaasSecurityPolicyResponse>(await DoRequestAsync("1.0", "riskplus.tdisaas.security.policy.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: saas风险咨询（air引擎）
+         * Summary: saas风险咨询（air引擎）
+         */
+        public QueryAirsaasSecurityPolicyResponse QueryAirsaasSecurityPolicy(QueryAirsaasSecurityPolicyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAirsaasSecurityPolicyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: saas风险咨询（air引擎）
+         * Summary: saas风险咨询（air引擎）
+         */
+        public async Task<QueryAirsaasSecurityPolicyResponse> QueryAirsaasSecurityPolicyAsync(QueryAirsaasSecurityPolicyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAirsaasSecurityPolicyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: saas风险咨询（air引擎）
+         * Summary: saas风险咨询（air引擎）
+         */
+        public QueryAirsaasSecurityPolicyResponse QueryAirsaasSecurityPolicyEx(QueryAirsaasSecurityPolicyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAirsaasSecurityPolicyResponse>(DoRequest("1.0", "riskplus.airsaas.security.policy.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: saas风险咨询（air引擎）
+         * Summary: saas风险咨询（air引擎）
+         */
+        public async Task<QueryAirsaasSecurityPolicyResponse> QueryAirsaasSecurityPolicyExAsync(QueryAirsaasSecurityPolicyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAirsaasSecurityPolicyResponse>(await DoRequestAsync("1.0", "riskplus.airsaas.security.policy.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
