@@ -150,10 +150,10 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 
 // 工具入参的json schema
 type JsonSchema struct {
+	// 工具属性，Map<String, Object> 类型，适配网关透出，使用字符串方式存储
+	PropertiesJson *string `json:"properties_json,omitempty" xml:"properties_json,omitempty" require:"true"`
 	// 类型
 	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	//  Map<String, Object> 类型
-	Properties *string `json:"properties,omitempty" xml:"properties,omitempty" require:"true"`
 	// 必填项
 	Required []*string `json:"required,omitempty" xml:"required,omitempty" require:"true" type:"Repeated"`
 	// 是否允许额外属性
@@ -168,13 +168,13 @@ func (s JsonSchema) GoString() string {
 	return s.String()
 }
 
-func (s *JsonSchema) SetType(v string) *JsonSchema {
-	s.Type = &v
+func (s *JsonSchema) SetPropertiesJson(v string) *JsonSchema {
+	s.PropertiesJson = &v
 	return s
 }
 
-func (s *JsonSchema) SetProperties(v string) *JsonSchema {
-	s.Properties = &v
+func (s *JsonSchema) SetType(v string) *JsonSchema {
+	s.Type = &v
 	return s
 }
 
@@ -1298,7 +1298,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.0"),
+				"sdk_version":      tea.String("1.3.0"),
 				"_prod_code":       tea.String("DTAIAGT"),
 				"_prod_channel":    tea.String("default"),
 			}
