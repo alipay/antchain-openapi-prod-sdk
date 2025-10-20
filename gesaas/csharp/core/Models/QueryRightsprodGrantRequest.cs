@@ -23,6 +23,11 @@ namespace AntChain.SDK.GESAAS.Models
         [Validation(Required=true)]
         public string OutGrantOrderNo { get; set; }
 
+        // 技术租户ID、当开通权益中心产品在非数科的应用租户下时需要填写对应的技术租户ID（涉及到时技术对接时 技术会分配，如未分配则不需要传值）
+        [NameInMap("tech_tenant_id")]
+        [Validation(Required=false)]
+        public string TechTenantId { get; set; }
+
         // 扩展信息
         [NameInMap("ext_info")]
         [Validation(Required=false)]
