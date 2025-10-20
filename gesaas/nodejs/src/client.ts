@@ -508,6 +508,8 @@ export class SubmitRightsprodGrantRequest extends $tea.Model {
   extInfo?: string;
   // 发放信息,如活动ID等信息
   grantInfo?: string;
+  // 技术租户ID、当开通权益中心产品在非数科的应用租户下时需要填写对应的技术租户ID（涉及到时技术对接时 技术会分配，如未分配则不需要传参数）
+  techTenantId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -521,6 +523,7 @@ export class SubmitRightsprodGrantRequest extends $tea.Model {
       outGrantOrderNo: 'out_grant_order_no',
       extInfo: 'ext_info',
       grantInfo: 'grant_info',
+      techTenantId: 'tech_tenant_id',
     };
   }
 
@@ -537,6 +540,7 @@ export class SubmitRightsprodGrantRequest extends $tea.Model {
       outGrantOrderNo: 'string',
       extInfo: 'string',
       grantInfo: 'string',
+      techTenantId: 'string',
     };
   }
 
@@ -583,6 +587,8 @@ export class QueryRightsprodGrantRequest extends $tea.Model {
   productInstanceId?: string;
   // 外部发放订单号
   outGrantOrderNo: string;
+  // 技术租户ID、当开通权益中心产品在非数科的应用租户下时需要填写对应的技术租户ID（涉及到时技术对接时 技术会分配，如未分配则不需要传值）
+  techTenantId?: string;
   // 扩展信息
   extInfo?: string;
   static names(): { [key: string]: string } {
@@ -590,6 +596,7 @@ export class QueryRightsprodGrantRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       outGrantOrderNo: 'out_grant_order_no',
+      techTenantId: 'tech_tenant_id',
       extInfo: 'ext_info',
     };
   }
@@ -599,6 +606,7 @@ export class QueryRightsprodGrantRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       outGrantOrderNo: 'string',
+      techTenantId: 'string',
       extInfo: 'string',
     };
   }
@@ -753,7 +761,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.5",
+          sdk_version: "1.2.6",
           _prod_code: "GESAAS",
           _prod_channel: "default",
         };
