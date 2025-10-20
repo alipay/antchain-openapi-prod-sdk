@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.0',
+    sdk_version = '1.2.0',
     _prod_code = 'DTAIAGT',
     _prod_channel = 'default'
   };
@@ -159,6 +159,136 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// 工具入参的json schema
+model JsonSchema {
+  // 类型
+  type: string(name='type', example='null'),
+  //  Map<String, Object> 类型
+  properties: string(name='properties', example=' Map<String, Object> '),
+  // 必填项
+  required: [ string ](name='required', example='[]'),
+  // 是否允许额外属性
+  additionalProperties: boolean(name='additional_properties', example=''),
+}
+
+// 工具列表vo
+model ToolInfoVO {
+  // 工具名称
+  name: string(name='name', example='工具名称'),
+  // 工具描述
+  description: string(name='description', example='工具描述'),
+  // 工具入参的json schema
+  inputSchema: JsonSchema(name='input_schema', example=''),
+}
+
+// 异常对象
+model BizErrorInfo {
+  // code
+  code: string(name='code', example='code'),
+  // 异常信息
+  errorMsg?: string(name='error_msg', example='error_msg'),
+  // params
+  params?: string(name='params', example='params'),
+}
+
+// 我的MCP详情VO
+model DigitalGatewayMCPDetailVO {
+  // server_host
+  serverHost: string(name='server_host', example='server_host'),
+  // server请求协议
+  transportProtocol: string(name='transport_protocol', example='transport_protocol'),
+  // 网关请求令牌
+  serverToken: string(name='server_token', example='server_token'),
+  // 空间id
+  spaceId: string(name='space_id', example='123'),
+  // server_id
+  serverId: string(name='server_id', example='123'),
+  // server_code
+  serverCode: string(name='server_code', example='server_code'),
+  // server名称
+  serverName: string(name='server_name', example='server_name'),
+  // icon
+  icon: string(name='icon', example='icon'),
+  // server描述
+  description: string(name='description', example='description'),
+  // mcp上架信息（富文本）
+  docs: string(name='docs', example='docs'),
+  // 工具列表
+  toolList: ToolInfoVO(name='tool_list', example=''),
+}
+
+// MyMCP page分页内容信息
+model DigitalGatewayMCPPageVO {
+  // 空间id
+  spaceId: string(name='space_id', example='123'),
+  // server_id
+  serverId: string(name='server_id', example='server_id'),
+  // server_code
+  serverCode: string(name='server_code', example='server_code'),
+  // server_name
+  serverName: string(name='server_name', example='server_name'),
+  // icon
+  icon: string(name='icon', example='icon'),
+  // description
+  description: string(name='description', example='description'),
+  //  mcp分类
+  categories: [ string ](name='categories', example=''),
+}
+
+// MCP已订阅清单Request
+model MCPServerQueryPageGatewayRequest {
+  // 空间id
+  spaceId: string(name='space_id', example='123'),
+  // 运行模式
+  runMode?: string(name='run_mode', example='null'),
+  // 来源
+  source?: string(name='source', example='all'),
+  // 查询条件
+  query?: string(name='query', example='测试'),
+  // 页码
+  pageNum: long(name='page_num', example=''),
+  // 分页大小
+  pageSize: long(name='page_size', example=''),
+}
+
+// MCP详情查询返回Result对象
+model MCPDetailCommonResult {
+  // MCP详情信息
+  result: DigitalGatewayMCPDetailVO(name='result', example=''),
+  // success
+  success: boolean(name='success', example='true, false'),
+  // code
+  code: string(name='code', example='ok'),
+  // msg
+  msg: string(name='msg', example='msg'),
+  // trace_id
+  traceId: string(name='trace_id', example='trace_id'),
+  // req_id
+  reqId: string(name='req_id', example='req_id'),
+  // 异常对象
+  bizError: BizErrorInfo(name='biz_error', example='biz_error'),
+}
+
+// 我订阅的MCP分页对象
+model MyMcpPageRestult {
+  // total_count
+  totalCount: long(name='total_count', example=''),
+  // current_page
+  currentPage: long(name='current_page', example=''),
+  // trace_id
+  traceId: string(name='trace_id', example='trace_id'),
+  // success
+  success: boolean(name='success', example='true, false'),
+  // code
+  code: string(name='code', example='ok'),
+  // msg
+  msg: string(name='msg', example='msg'),
+  // req_id
+  reqId: string(name='req_id', example='req_id'),
+  // MCP分页内容
+  result: [ DigitalGatewayMCPPageVO ](name='result', example=''),
 }
 
 model StartOpenaiChatRequest = {
@@ -273,5 +403,204 @@ async function startAgentCchat(request: StartAgentCchatRequest): StartAgentCchat
 async function startAgentCchatEx(request: StartAgentCchatRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartAgentCchatResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.dtaiagt.agent.cchat.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryAgentMcplistRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 空间ID
+  spaceId: string(name='space_id'),
+  // 查询条件
+  query?: string(name='query'),
+  // 页码
+  pageNum: long(name='page_num'),
+  // 分页大小
+  pageSize: long(name='page_size'),
+}
+
+model PagequeryAgentMcplistResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // MyMCP分页对象
+  data?: MyMcpPageRestult(name='data'),
+}
+
+/**
+ * Description: 查询已订阅的mcp清单
+ * Summary: 查询已订阅的mcp清单
+ */
+async function pagequeryAgentMcplist(request: PagequeryAgentMcplistRequest): PagequeryAgentMcplistResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryAgentMcplistEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询已订阅的mcp清单
+ * Summary: 查询已订阅的mcp清单
+ */
+async function pagequeryAgentMcplistEx(request: PagequeryAgentMcplistRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryAgentMcplistResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.agent.mcplist.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailAgentMcpRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 空间id
+  spaceId: string(name='space_id'),
+  // 平台serverId
+  serverId: string(name='server_id'),
+}
+
+model DetailAgentMcpResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // MCP详情接口返回Result
+  data?: MCPDetailCommonResult(name='data'),
+}
+
+/**
+ * Description: mcp详情
+ * Summary: mcp详情
+ */
+async function detailAgentMcp(request: DetailAgentMcpRequest): DetailAgentMcpResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailAgentMcpEx(request, headers, runtime);
+}
+
+/**
+ * Description: mcp详情
+ * Summary: mcp详情
+ */
+async function detailAgentMcpEx(request: DetailAgentMcpRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailAgentMcpResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.agent.mcp.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StartAgentTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求内容，内容为 TaskChatReq 对象的json字符串
+  taskChatReq: string(name='task_chat_req'),
+}
+
+model StartAgentTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 会话结果
+  chatCompletionObject?: string(name='chat_completion_object'),
+}
+
+/**
+ * Description: 长任务对话，发起任务&重连任务
+ * Summary: 长任务对话
+ */
+async function startAgentTask(request: StartAgentTaskRequest): StartAgentTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startAgentTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 长任务对话，发起任务&重连任务
+ * Summary: 长任务对话
+ */
+async function startAgentTaskEx(request: StartAgentTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartAgentTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.agent.task.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model StopAgentTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求内容，内容为 task_event_req 对象的json字符串
+  taskEventReq: string(name='task_event_req'),
+}
+
+model StopAgentTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // success
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 终止任务
+ * Summary: 终止任务
+ */
+async function stopAgentTask(request: StopAgentTaskRequest): StopAgentTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return stopAgentTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 终止任务
+ * Summary: 终止任务
+ */
+async function stopAgentTaskEx(request: StopAgentTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StopAgentTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.agent.task.stop', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateAgentTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求内容，内容为 task_event_req 对象的json字符串
+  taskEventReq: string(name='task_event_req'),
+}
+
+model OperateAgentTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 会话结果
+  // 
+  taskMessages?: string(name='task_messages'),
+}
+
+/**
+ * Description: 获取前序消息流
+ * Summary: 获取前序消息流
+ */
+async function operateAgentTask(request: OperateAgentTaskRequest): OperateAgentTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateAgentTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取前序消息流
+ * Summary: 获取前序消息流
+ */
+async function operateAgentTaskEx(request: OperateAgentTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateAgentTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.dtaiagt.agent.task.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
