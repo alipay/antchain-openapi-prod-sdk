@@ -202,6 +202,62 @@ class BatchResult(TeaModel):
         return self
 
 
+class TaskDetailResult(TeaModel):
+    def __init__(
+        self,
+        total_count: int = None,
+        success_count: int = None,
+        fail_count: int = None,
+        processing_count: int = None,
+        error_info: str = None,
+    ):
+        # 总数量
+        self.total_count = total_count
+        # 成功数量
+        self.success_count = success_count
+        # 失败数量
+        self.fail_count = fail_count
+        # 处理中数量
+        self.processing_count = processing_count
+        # 当状态为无效时，显示具体的错误信息
+        self.error_info = error_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.total_count is not None:
+            result['total_count'] = self.total_count
+        if self.success_count is not None:
+            result['success_count'] = self.success_count
+        if self.fail_count is not None:
+            result['fail_count'] = self.fail_count
+        if self.processing_count is not None:
+            result['processing_count'] = self.processing_count
+        if self.error_info is not None:
+            result['error_info'] = self.error_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('total_count') is not None:
+            self.total_count = m.get('total_count')
+        if m.get('success_count') is not None:
+            self.success_count = m.get('success_count')
+        if m.get('fail_count') is not None:
+            self.fail_count = m.get('fail_count')
+        if m.get('processing_count') is not None:
+            self.processing_count = m.get('processing_count')
+        if m.get('error_info') is not None:
+            self.error_info = m.get('error_info')
+        return self
+
+
 class Address(TeaModel):
     def __init__(
         self,
@@ -940,6 +996,147 @@ class QueryScenedataOnlineResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('result') is not None:
             self.result = m.get('result')
+        return self
+
+
+class QueryScenedataTaskinfoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        batch_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 批次号
+        self.batch_no = batch_no
+
+    def validate(self):
+        self.validate_required(self.batch_no, 'batch_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.batch_no is not None:
+            result['batch_no'] = self.batch_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('batch_no') is not None:
+            self.batch_no = m.get('batch_no')
+        return self
+
+
+class QueryScenedataTaskinfoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        task_status: str = None,
+        biz_date: str = None,
+        scene: str = None,
+        task_type: str = None,
+        tenant_id: str = None,
+        source_mark: str = None,
+        create_time: str = None,
+        result: TaskDetailResult = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # -1-无效，0-待处理，1-处理中，2-处理完成
+        self.task_status = task_status
+        # 业务日期
+        self.biz_date = biz_date
+        # 场景
+        self.scene = scene
+        # 任务类型
+        self.task_type = task_type
+        # 批次所属租户id
+        self.tenant_id = tenant_id
+        # 来源标识
+        self.source_mark = source_mark
+        # 任务创建时间
+        self.create_time = create_time
+        # 批次统计结果信息
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.task_status is not None:
+            result['task_status'] = self.task_status
+        if self.biz_date is not None:
+            result['biz_date'] = self.biz_date
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.task_type is not None:
+            result['task_type'] = self.task_type
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.source_mark is not None:
+            result['source_mark'] = self.source_mark
+        if self.create_time is not None:
+            result['create_time'] = self.create_time
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('task_status') is not None:
+            self.task_status = m.get('task_status')
+        if m.get('biz_date') is not None:
+            self.biz_date = m.get('biz_date')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('task_type') is not None:
+            self.task_type = m.get('task_type')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('source_mark') is not None:
+            self.source_mark = m.get('source_mark')
+        if m.get('create_time') is not None:
+            self.create_time = m.get('create_time')
+        if m.get('result') is not None:
+            temp_model = TaskDetailResult()
+            self.result = temp_model.from_map(m['result'])
         return self
 
 

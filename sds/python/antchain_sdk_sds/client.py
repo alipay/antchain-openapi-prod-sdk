@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.0',
+                    'sdk_version': '1.4.0',
                     '_prod_code': 'SDS',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.0',
+                    'sdk_version': '1.4.0',
                     '_prod_code': 'SDS',
                     '_prod_channel': 'default'
                 }
@@ -438,6 +438,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             sds_models.UploadScenedataFileResponse(),
@@ -471,6 +472,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             sds_models.UploadScenedataFileResponse(),
@@ -587,6 +589,62 @@ class Client:
         return TeaCore.from_map(
             sds_models.QueryScenedataOnlineResponse(),
             await self.do_request_async('1.0', 'antchain.sds.scenedata.online.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_scenedata_taskinfo(
+        self,
+        request: sds_models.QueryScenedataTaskinfoRequest,
+    ) -> sds_models.QueryScenedataTaskinfoResponse:
+        """
+        Description: 通过批次号查询任务详细信息
+        Summary: 批次任务信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_scenedata_taskinfo_ex(request, headers, runtime)
+
+    async def query_scenedata_taskinfo_async(
+        self,
+        request: sds_models.QueryScenedataTaskinfoRequest,
+    ) -> sds_models.QueryScenedataTaskinfoResponse:
+        """
+        Description: 通过批次号查询任务详细信息
+        Summary: 批次任务信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_scenedata_taskinfo_ex_async(request, headers, runtime)
+
+    def query_scenedata_taskinfo_ex(
+        self,
+        request: sds_models.QueryScenedataTaskinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.QueryScenedataTaskinfoResponse:
+        """
+        Description: 通过批次号查询任务详细信息
+        Summary: 批次任务信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.QueryScenedataTaskinfoResponse(),
+            self.do_request('1.0', 'antchain.sds.scenedata.taskinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_scenedata_taskinfo_ex_async(
+        self,
+        request: sds_models.QueryScenedataTaskinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.QueryScenedataTaskinfoResponse:
+        """
+        Description: 通过批次号查询任务详细信息
+        Summary: 批次任务信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.QueryScenedataTaskinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.sds.scenedata.taskinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
