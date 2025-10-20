@@ -16,15 +16,17 @@ public class QueryDubbridgeAlipayMerchantRequest extends TeaModel {
     @Validation(required = true)
     public String orderNo;
 
-    // 门店id
+    // 入驻申请单号，store_id二选一
+    @NameInMap("order_id")
+    public String orderId;
+
+    // 门店id，配合traffic_platform使用
     @NameInMap("store_id")
-    @Validation(required = true)
     public String storeId;
 
-    // 入驻申请单号
-    @NameInMap("order_id")
-    @Validation(required = true)
-    public String orderId;
+    // 门店所属子品牌，配合store_id使用
+    @NameInMap("traffic_platform")
+    public String trafficPlatform;
 
     public static QueryDubbridgeAlipayMerchantRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeAlipayMerchantRequest self = new QueryDubbridgeAlipayMerchantRequest();
@@ -55,6 +57,14 @@ public class QueryDubbridgeAlipayMerchantRequest extends TeaModel {
         return this.orderNo;
     }
 
+    public QueryDubbridgeAlipayMerchantRequest setOrderId(String orderId) {
+        this.orderId = orderId;
+        return this;
+    }
+    public String getOrderId() {
+        return this.orderId;
+    }
+
     public QueryDubbridgeAlipayMerchantRequest setStoreId(String storeId) {
         this.storeId = storeId;
         return this;
@@ -63,12 +73,12 @@ public class QueryDubbridgeAlipayMerchantRequest extends TeaModel {
         return this.storeId;
     }
 
-    public QueryDubbridgeAlipayMerchantRequest setOrderId(String orderId) {
-        this.orderId = orderId;
+    public QueryDubbridgeAlipayMerchantRequest setTrafficPlatform(String trafficPlatform) {
+        this.trafficPlatform = trafficPlatform;
         return this;
     }
-    public String getOrderId() {
-        return this.orderId;
+    public String getTrafficPlatform() {
+        return this.trafficPlatform;
     }
 
 }

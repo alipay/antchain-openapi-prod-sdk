@@ -16,6 +16,11 @@ public class CreateDubbridgeAlipayTradeRequest extends TeaModel {
     @Validation(required = true)
     public String orderNo;
 
+    // 门店所属子品牌
+    @NameInMap("traffic_platform")
+    @Validation(required = true)
+    public String trafficPlatform;
+
     // 订单归属门店id
     @NameInMap("store_id")
     @Validation(required = true)
@@ -61,6 +66,14 @@ public class CreateDubbridgeAlipayTradeRequest extends TeaModel {
     }
     public String getOrderNo() {
         return this.orderNo;
+    }
+
+    public CreateDubbridgeAlipayTradeRequest setTrafficPlatform(String trafficPlatform) {
+        this.trafficPlatform = trafficPlatform;
+        return this;
+    }
+    public String getTrafficPlatform() {
+        return this.trafficPlatform;
     }
 
     public CreateDubbridgeAlipayTradeRequest setStoreId(String storeId) {
