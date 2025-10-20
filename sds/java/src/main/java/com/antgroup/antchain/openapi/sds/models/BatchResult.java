@@ -5,16 +5,28 @@ import com.aliyun.tea.*;
 
 public class BatchResult extends TeaModel {
     // 业务号
+    /**
+     * <strong>example:</strong>
+     * <p>业务号</p>
+     */
     @NameInMap("biz_no")
     @Validation(required = true, maxLength = 64)
     public String bizNo;
 
     // 业务号类型
+    /**
+     * <strong>example:</strong>
+     * <p>PHONE_SHA1</p>
+     */
     @NameInMap("biz_no_type")
     @Validation(required = true, maxLength = 32)
     public String bizNoType;
 
     // 结果
+    /**
+     * <strong>example:</strong>
+     * <p>Y</p>
+     */
     @NameInMap("result")
     @Validation(required = true)
     public String result;

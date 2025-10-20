@@ -32,7 +32,9 @@ public class Client {
     public Number _maxRequests;
     public Number _maxRequestsPerHost;
     /**
-     * Init client with Config
+     * <b>description</b> :
+     * <p>Init client with Config</p>
+     * 
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
@@ -64,7 +66,9 @@ public class Client {
     }
 
     /**
-     * Encapsulate the request and invoke the network
+     * <b>description</b> :
+     * <p>Encapsulate the request and invoke the network</p>
+     * 
      * @param action api name
      * @param protocol http or https
      * @param method e.g. GET
@@ -122,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.0"),
+                    new TeaPair("sdk_version", "1.4.0"),
                     new TeaPair("_prod_code", "SDS"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -185,8 +189,9 @@ public class Client {
     }
 
     /**
-     * Description: 根据人维度的业务号和城市，决定是否优待人群，业务号可以是不同类型的，可以是手机号，也可以是证件号，如果业务号是敏感数据，可以选择算法类型加密传输。
-     * Summary: 优待人群判断
+     * <b>description</b> :
+     * <p>Description: 根据人维度的业务号和城市，决定是否优待人群，业务号可以是不同类型的，可以是手机号，也可以是证件号，如果业务号是敏感数据，可以选择算法类型加密传输。
+     * Summary: 优待人群判断</p>
      */
     public JudgeCrowdPrefermentResponse judgeCrowdPreferment(JudgeCrowdPrefermentRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -195,8 +200,9 @@ public class Client {
     }
 
     /**
-     * Description: 根据人维度的业务号和城市，决定是否优待人群，业务号可以是不同类型的，可以是手机号，也可以是证件号，如果业务号是敏感数据，可以选择算法类型加密传输。
-     * Summary: 优待人群判断
+     * <b>description</b> :
+     * <p>Description: 根据人维度的业务号和城市，决定是否优待人群，业务号可以是不同类型的，可以是手机号，也可以是证件号，如果业务号是敏感数据，可以选择算法类型加密传输。
+     * Summary: 优待人群判断</p>
      */
     public JudgeCrowdPrefermentResponse judgeCrowdPrefermentEx(JudgeCrowdPrefermentRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -204,8 +210,9 @@ public class Client {
     }
 
     /**
-     * Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
-     * Summary: 场景数据批处理任务提交
+     * <b>description</b> :
+     * <p>Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
+     * Summary: 场景数据批处理任务提交</p>
      */
     public SubmitScenedataTaskResponse submitScenedataTask(SubmitScenedataTaskRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -214,8 +221,9 @@ public class Client {
     }
 
     /**
-     * Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
-     * Summary: 场景数据批处理任务提交
+     * <b>description</b> :
+     * <p>Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
+     * Summary: 场景数据批处理任务提交</p>
      */
     public SubmitScenedataTaskResponse submitScenedataTaskEx(SubmitScenedataTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -223,8 +231,9 @@ public class Client {
     }
 
     /**
-     * Description: 批次数据文件上传
-     * Summary: 批次数据文件上传
+     * <b>description</b> :
+     * <p>Description: 批次数据文件上传
+     * Summary: 批次数据文件上传</p>
      */
     public UploadScenedataFileResponse uploadScenedataFile(UploadScenedataFileRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -233,8 +242,9 @@ public class Client {
     }
 
     /**
-     * Description: 批次数据文件上传
-     * Summary: 批次数据文件上传
+     * <b>description</b> :
+     * <p>Description: 批次数据文件上传
+     * Summary: 批次数据文件上传</p>
      */
     public UploadScenedataFileResponse uploadScenedataFileEx(UploadScenedataFileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
@@ -256,6 +266,7 @@ public class Client {
             java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
             com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
             request.fileId = uploadResp.fileId;
+            request.fileObject = null;
         }
 
         com.aliyun.teautil.Common.validateModel(request);
@@ -263,8 +274,9 @@ public class Client {
     }
 
     /**
-     * Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
-     * Summary: 场景数据任务结果批量查询
+     * <b>description</b> :
+     * <p>Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
+     * Summary: 场景数据任务结果批量查询</p>
      */
     public BatchqueryScenedataTaskresultResponse batchqueryScenedataTaskresult(BatchqueryScenedataTaskresultRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -273,8 +285,9 @@ public class Client {
     }
 
     /**
-     * Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
-     * Summary: 场景数据任务结果批量查询
+     * <b>description</b> :
+     * <p>Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
+     * Summary: 场景数据任务结果批量查询</p>
      */
     public BatchqueryScenedataTaskresultResponse batchqueryScenedataTaskresultEx(BatchqueryScenedataTaskresultRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -282,8 +295,9 @@ public class Client {
     }
 
     /**
-     * Description: 场景数据在线查询，仅支持单条匹配
-     * Summary: 场景数据在线查询
+     * <b>description</b> :
+     * <p>Description: 场景数据在线查询，仅支持单条匹配
+     * Summary: 场景数据在线查询</p>
      */
     public QueryScenedataOnlineResponse queryScenedataOnline(QueryScenedataOnlineRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -292,8 +306,9 @@ public class Client {
     }
 
     /**
-     * Description: 场景数据在线查询，仅支持单条匹配
-     * Summary: 场景数据在线查询
+     * <b>description</b> :
+     * <p>Description: 场景数据在线查询，仅支持单条匹配
+     * Summary: 场景数据在线查询</p>
      */
     public QueryScenedataOnlineResponse queryScenedataOnlineEx(QueryScenedataOnlineRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -301,8 +316,30 @@ public class Client {
     }
 
     /**
-     * Description: 创建HTTP PUT提交的文件上传
-     * Summary: 文件上传创建
+     * <b>description</b> :
+     * <p>Description: 通过批次号查询任务详细信息
+     * Summary: 批次任务信息查询</p>
+     */
+    public QueryScenedataTaskinfoResponse queryScenedataTaskinfo(QueryScenedataTaskinfoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryScenedataTaskinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 通过批次号查询任务详细信息
+     * Summary: 批次任务信息查询</p>
+     */
+    public QueryScenedataTaskinfoResponse queryScenedataTaskinfoEx(QueryScenedataTaskinfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.sds.scenedata.taskinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryScenedataTaskinfoResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
      */
     public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -311,8 +348,9 @@ public class Client {
     }
 
     /**
-     * Description: 创建HTTP PUT提交的文件上传
-     * Summary: 文件上传创建
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
      */
     public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

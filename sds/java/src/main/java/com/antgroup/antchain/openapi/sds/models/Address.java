@@ -5,11 +5,19 @@ import com.aliyun.tea.*;
 
 public class Address extends TeaModel {
     // 市级
+    /**
+     * <strong>example:</strong>
+     * <p>110100</p>
+     */
     @NameInMap("city")
     @Validation(required = true, maxLength = 6, minLength = 6)
     public String city;
 
     // 区、县级
+    /**
+     * <strong>example:</strong>
+     * <p>110101</p>
+     */
     @NameInMap("district")
     @Validation(maxLength = 6, minLength = 6)
     public String district;

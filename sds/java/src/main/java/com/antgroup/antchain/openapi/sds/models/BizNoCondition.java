@@ -8,6 +8,10 @@ public class BizNoCondition extends TeaModel {
     // CITY 城市
     // BLOCK 区县
     // AGE 年龄
+    /**
+     * <strong>example:</strong>
+     * <p>100010</p>
+     */
     @NameInMap("dimension")
     @Validation(required = true)
     public String dimension;
@@ -16,6 +20,10 @@ public class BizNoCondition extends TeaModel {
     // CITY:区划码
     // BLOCK:区划码（底包暂不支持）
     // AGE:30+、40+、50+（底包暂不支持
+    /**
+     * <strong>example:</strong>
+     * <p>[&quot;100010&quot;,&quot;100011&quot;,&quot;100020&quot;]</p>
+     */
     @NameInMap("value_scope")
     @Validation(required = true)
     public java.util.List<String> valueScope;
