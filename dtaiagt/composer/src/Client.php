@@ -11,12 +11,22 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\DTAIAGT\Models\DetailAgentMcpRequest;
+use AntChain\DTAIAGT\Models\DetailAgentMcpResponse;
+use AntChain\DTAIAGT\Models\OperateAgentTaskRequest;
+use AntChain\DTAIAGT\Models\OperateAgentTaskResponse;
+use AntChain\DTAIAGT\Models\PagequeryAgentMcplistRequest;
+use AntChain\DTAIAGT\Models\PagequeryAgentMcplistResponse;
 use AntChain\DTAIAGT\Models\StartAgentCchatRequest;
 use AntChain\DTAIAGT\Models\StartAgentCchatResponse;
 use AntChain\DTAIAGT\Models\StartAgentChatRequest;
 use AntChain\DTAIAGT\Models\StartAgentChatResponse;
+use AntChain\DTAIAGT\Models\StartAgentTaskRequest;
+use AntChain\DTAIAGT\Models\StartAgentTaskResponse;
 use AntChain\DTAIAGT\Models\StartOpenaiChatRequest;
 use AntChain\DTAIAGT\Models\StartOpenaiChatResponse;
+use AntChain\DTAIAGT\Models\StopAgentTaskRequest;
+use AntChain\DTAIAGT\Models\StopAgentTaskResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -136,6 +146,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 工具入参的json schema
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -163,7 +174,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.0',
+                    'sdk_version'      => '1.2.0',
                     '_prod_code'       => 'DTAIAGT',
                     '_prod_channel'    => 'default',
                 ];
@@ -308,5 +319,170 @@ class Client
         Utils::validateModel($request);
 
         return StartAgentCchatResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.cchat.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询已订阅的mcp清单
+     * Summary: 查询已订阅的mcp清单.
+     *
+     * @param PagequeryAgentMcplistRequest $request
+     *
+     * @return PagequeryAgentMcplistResponse
+     */
+    public function pagequeryAgentMcplist($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryAgentMcplistEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询已订阅的mcp清单
+     * Summary: 查询已订阅的mcp清单.
+     *
+     * @param PagequeryAgentMcplistRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return PagequeryAgentMcplistResponse
+     */
+    public function pagequeryAgentMcplistEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryAgentMcplistResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.mcplist.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: mcp详情
+     * Summary: mcp详情.
+     *
+     * @param DetailAgentMcpRequest $request
+     *
+     * @return DetailAgentMcpResponse
+     */
+    public function detailAgentMcp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailAgentMcpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: mcp详情
+     * Summary: mcp详情.
+     *
+     * @param DetailAgentMcpRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return DetailAgentMcpResponse
+     */
+    public function detailAgentMcpEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailAgentMcpResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.mcp.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 长任务对话，发起任务&重连任务
+     * Summary: 长任务对话.
+     *
+     * @param StartAgentTaskRequest $request
+     *
+     * @return StartAgentTaskResponse
+     */
+    public function startAgentTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startAgentTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 长任务对话，发起任务&重连任务
+     * Summary: 长任务对话.
+     *
+     * @param StartAgentTaskRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return StartAgentTaskResponse
+     */
+    public function startAgentTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartAgentTaskResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.task.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 终止任务
+     * Summary: 终止任务
+     *
+     * @param StopAgentTaskRequest $request
+     *
+     * @return StopAgentTaskResponse
+     */
+    public function stopAgentTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->stopAgentTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 终止任务
+     * Summary: 终止任务
+     *
+     * @param StopAgentTaskRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return StopAgentTaskResponse
+     */
+    public function stopAgentTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StopAgentTaskResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.task.stop', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取前序消息流
+     * Summary: 获取前序消息流
+     *
+     * @param OperateAgentTaskRequest $request
+     *
+     * @return OperateAgentTaskResponse
+     */
+    public function operateAgentTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateAgentTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取前序消息流
+     * Summary: 获取前序消息流
+     *
+     * @param OperateAgentTaskRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return OperateAgentTaskResponse
+     */
+    public function operateAgentTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateAgentTaskResponse::fromMap($this->doRequest('1.0', 'antdigital.dtaiagt.agent.task.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
