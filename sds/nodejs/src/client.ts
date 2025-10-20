@@ -107,6 +107,43 @@ export class BatchResult extends $tea.Model {
   }
 }
 
+// 任务详细结果包含任务的统计数据信息
+export class TaskDetailResult extends $tea.Model {
+  // 总数量
+  totalCount?: number;
+  // 成功数量
+  successCount?: number;
+  // 失败数量
+  failCount?: number;
+  // 处理中数量
+  processingCount?: number;
+  // 当状态为无效时，显示具体的错误信息
+  errorInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      totalCount: 'total_count',
+      successCount: 'success_count',
+      failCount: 'fail_count',
+      processingCount: 'processing_count',
+      errorInfo: 'error_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      totalCount: 'number',
+      successCount: 'number',
+      failCount: 'number',
+      processingCount: 'number',
+      errorInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 地址，包含省、市、区(县)
 export class Address extends $tea.Model {
   // 市级
@@ -554,6 +591,93 @@ export class QueryScenedataOnlineResponse extends $tea.Model {
   }
 }
 
+export class QueryScenedataTaskinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 批次号
+  batchNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      batchNo: 'batch_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      batchNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryScenedataTaskinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // -1-无效，0-待处理，1-处理中，2-处理完成
+  taskStatus?: string;
+  // 业务日期
+  bizDate?: string;
+  // 场景
+  scene?: string;
+  // 任务类型
+  taskType?: string;
+  // 批次所属租户id
+  tenantId?: string;
+  // 来源标识
+  sourceMark?: string;
+  // 任务创建时间
+  createTime?: string;
+  // 批次统计结果信息
+  result?: TaskDetailResult;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskStatus: 'task_status',
+      bizDate: 'biz_date',
+      scene: 'scene',
+      taskType: 'task_type',
+      tenantId: 'tenant_id',
+      sourceMark: 'source_mark',
+      createTime: 'create_time',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskStatus: 'string',
+      bizDate: 'string',
+      scene: 'string',
+      taskType: 'string',
+      tenantId: 'string',
+      sourceMark: 'string',
+      createTime: 'string',
+      result: TaskDetailResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -755,7 +879,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.0",
+          sdk_version: "1.4.0",
           _prod_code: "SDS",
           _prod_channel: "default",
         };
@@ -875,6 +999,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -917,6 +1042,25 @@ export default class Client {
   async queryScenedataOnlineEx(request: QueryScenedataOnlineRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryScenedataOnlineResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryScenedataOnlineResponse>(await this.doRequest("1.0", "antchain.sds.scenedata.online.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryScenedataOnlineResponse({}));
+  }
+
+  /**
+   * Description: 通过批次号查询任务详细信息
+   * Summary: 批次任务信息查询
+   */
+  async queryScenedataTaskinfo(request: QueryScenedataTaskinfoRequest): Promise<QueryScenedataTaskinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryScenedataTaskinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 通过批次号查询任务详细信息
+   * Summary: 批次任务信息查询
+   */
+  async queryScenedataTaskinfoEx(request: QueryScenedataTaskinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryScenedataTaskinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryScenedataTaskinfoResponse>(await this.doRequest("1.0", "antchain.sds.scenedata.taskinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryScenedataTaskinfoResponse({}));
   }
 
   /**
