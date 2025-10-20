@@ -182,6 +182,53 @@ func (s *BatchResult) SetResult(v string) *BatchResult {
 	return s
 }
 
+// 任务详细结果包含任务的统计数据信息
+type TaskDetailResult struct {
+	// 总数量
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// 成功数量
+	SuccessCount *int64 `json:"success_count,omitempty" xml:"success_count,omitempty"`
+	// 失败数量
+	FailCount *int64 `json:"fail_count,omitempty" xml:"fail_count,omitempty"`
+	// 处理中数量
+	ProcessingCount *int64 `json:"processing_count,omitempty" xml:"processing_count,omitempty"`
+	// 当状态为无效时，显示具体的错误信息
+	ErrorInfo *string `json:"error_info,omitempty" xml:"error_info,omitempty"`
+}
+
+func (s TaskDetailResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TaskDetailResult) GoString() string {
+	return s.String()
+}
+
+func (s *TaskDetailResult) SetTotalCount(v int64) *TaskDetailResult {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *TaskDetailResult) SetSuccessCount(v int64) *TaskDetailResult {
+	s.SuccessCount = &v
+	return s
+}
+
+func (s *TaskDetailResult) SetFailCount(v int64) *TaskDetailResult {
+	s.FailCount = &v
+	return s
+}
+
+func (s *TaskDetailResult) SetProcessingCount(v int64) *TaskDetailResult {
+	s.ProcessingCount = &v
+	return s
+}
+
+func (s *TaskDetailResult) SetErrorInfo(v string) *TaskDetailResult {
+	s.ErrorInfo = &v
+	return s
+}
+
 // 地址，包含省、市、区(县)
 type Address struct {
 	// 市级
@@ -740,6 +787,125 @@ func (s *QueryScenedataOnlineResponse) SetResult(v string) *QueryScenedataOnline
 	return s
 }
 
+type QueryScenedataTaskinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 批次号
+	BatchNo *string `json:"batch_no,omitempty" xml:"batch_no,omitempty" require:"true"`
+}
+
+func (s QueryScenedataTaskinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryScenedataTaskinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryScenedataTaskinfoRequest) SetAuthToken(v string) *QueryScenedataTaskinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryScenedataTaskinfoRequest) SetProductInstanceId(v string) *QueryScenedataTaskinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryScenedataTaskinfoRequest) SetBatchNo(v string) *QueryScenedataTaskinfoRequest {
+	s.BatchNo = &v
+	return s
+}
+
+type QueryScenedataTaskinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// -1-无效，0-待处理，1-处理中，2-处理完成
+	TaskStatus *string `json:"task_status,omitempty" xml:"task_status,omitempty"`
+	// 业务日期
+	BizDate *string `json:"biz_date,omitempty" xml:"biz_date,omitempty"`
+	// 场景
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 任务类型
+	TaskType *string `json:"task_type,omitempty" xml:"task_type,omitempty"`
+	// 批次所属租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 来源标识
+	SourceMark *string `json:"source_mark,omitempty" xml:"source_mark,omitempty"`
+	// 任务创建时间
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
+	// 批次统计结果信息
+	Result *TaskDetailResult `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryScenedataTaskinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryScenedataTaskinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryScenedataTaskinfoResponse) SetReqMsgId(v string) *QueryScenedataTaskinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryScenedataTaskinfoResponse) SetResultCode(v string) *QueryScenedataTaskinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryScenedataTaskinfoResponse) SetResultMsg(v string) *QueryScenedataTaskinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryScenedataTaskinfoResponse) SetTaskStatus(v string) *QueryScenedataTaskinfoResponse {
+	s.TaskStatus = &v
+	return s
+}
+
+func (s *QueryScenedataTaskinfoResponse) SetBizDate(v string) *QueryScenedataTaskinfoResponse {
+	s.BizDate = &v
+	return s
+}
+
+func (s *QueryScenedataTaskinfoResponse) SetScene(v string) *QueryScenedataTaskinfoResponse {
+	s.Scene = &v
+	return s
+}
+
+func (s *QueryScenedataTaskinfoResponse) SetTaskType(v string) *QueryScenedataTaskinfoResponse {
+	s.TaskType = &v
+	return s
+}
+
+func (s *QueryScenedataTaskinfoResponse) SetTenantId(v string) *QueryScenedataTaskinfoResponse {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryScenedataTaskinfoResponse) SetSourceMark(v string) *QueryScenedataTaskinfoResponse {
+	s.SourceMark = &v
+	return s
+}
+
+func (s *QueryScenedataTaskinfoResponse) SetCreateTime(v string) *QueryScenedataTaskinfoResponse {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *QueryScenedataTaskinfoResponse) SetResult(v *TaskDetailResult) *QueryScenedataTaskinfoResponse {
+	s.Result = v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -982,7 +1148,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.0"),
+				"sdk_version":      tea.String("1.4.0"),
 				"_prod_code":       tea.String("SDS"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1156,6 +1322,7 @@ func (client *Client) UploadScenedataFileEx(request *UploadScenedataFileRequest,
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -1232,6 +1399,40 @@ func (client *Client) QueryScenedataOnlineEx(request *QueryScenedataOnlineReques
 	}
 	_result = &QueryScenedataOnlineResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.sds.scenedata.online.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 通过批次号查询任务详细信息
+ * Summary: 批次任务信息查询
+ */
+func (client *Client) QueryScenedataTaskinfo(request *QueryScenedataTaskinfoRequest) (_result *QueryScenedataTaskinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryScenedataTaskinfoResponse{}
+	_body, _err := client.QueryScenedataTaskinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通过批次号查询任务详细信息
+ * Summary: 批次任务信息查询
+ */
+func (client *Client) QueryScenedataTaskinfoEx(request *QueryScenedataTaskinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryScenedataTaskinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryScenedataTaskinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.sds.scenedata.taskinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
