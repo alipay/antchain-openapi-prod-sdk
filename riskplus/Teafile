@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-riskplus:1.26.8",
-    "go": "github.com/antchain-openapi-sdk-go/riskplus/client:v1.26.8",
-    "csharp": "AntChain.SDK.RISKPLUS:1.26.8",
-    "ts": "@antchain/riskplus:1.26.8",
-    "php": "antchain/riskplus:1.26.8",
-    "python": "antchain_sdk_riskplus:1.26.8"
+    "java": "com.antgroup.antchain.openapi:openapi-riskplus:1.26.9",
+    "go": "github.com/antchain-openapi-sdk-go/riskplus/client:v1.26.9",
+    "csharp": "AntChain.SDK.RISKPLUS:1.26.9",
+    "ts": "@antchain/riskplus:1.26.9",
+    "php": "antchain/riskplus:1.26.9",
+    "python": "antchain_sdk_riskplus:1.26.9"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

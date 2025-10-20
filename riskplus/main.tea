@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.26.8',
+    sdk_version = '1.26.9',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -6899,10 +6899,12 @@ model QueryDubbridgeAlipayMerchantRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // request请求单号，每次请求唯一，如uuid
   orderNo: string(name='order_no'),
-  // 门店id
-  storeId: string(name='store_id'),
-  // 入驻申请单号
-  orderId: string(name='order_id'),
+  // 入驻申请单号，store_id二选一
+  orderId?: string(name='order_id'),
+  // 门店id，配合traffic_platform使用
+  storeId?: string(name='store_id'),
+  // 门店所属子品牌，配合store_id使用
+  trafficPlatform?: string(name='traffic_platform'),
 }
 
 model QueryDubbridgeAlipayMerchantResponse = {
@@ -6941,6 +6943,8 @@ model CreateDubbridgeAlipayTradeRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // request请求单号，每次请求唯一，如uuid
   orderNo: string(name='order_no'),
+  // 门店所属子品牌
+  trafficPlatform: string(name='traffic_platform'),
   // 订单归属门店id
   storeId: string(name='store_id'),
   // 订单车辆信息
@@ -12492,6 +12496,54 @@ async function queryTdisaasSecurityPolicy(request: QueryTdisaasSecurityPolicyReq
 async function queryTdisaasSecurityPolicyEx(request: QueryTdisaasSecurityPolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTdisaasSecurityPolicyResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.tdisaas.security.policy.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAirsaasSecurityPolicyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 风控时间咨询查询入参
+  eventInfo: EventInfo(name='event_info'),
+  // 请求处理方式
+  riskType: string(name='risk_type'),
+}
+
+model QueryAirsaasSecurityPolicyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 场景分
+  modelDetails?: [ ModelDetails ](name='model_details'),
+  // 安全请求id
+  securityId?: string(name='security_id'),
+  // 策略结果
+  securityResult?: string(name='security_result'),
+  // 策略结果详情
+  strategyDetails?: [ StrategyDetails ](name='strategy_details'),
+  // 决策流信息
+  dfSceneInfos?: [ DfSceneInfos ](name='df_scene_infos'),
+}
+
+/**
+ * Description: saas风险咨询（air引擎）
+ * Summary: saas风险咨询（air引擎）
+ */
+async function queryAirsaasSecurityPolicy(request: QueryAirsaasSecurityPolicyRequest): QueryAirsaasSecurityPolicyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAirsaasSecurityPolicyEx(request, headers, runtime);
+}
+
+/**
+ * Description: saas风险咨询（air引擎）
+ * Summary: saas风险咨询（air引擎）
+ */
+async function queryAirsaasSecurityPolicyEx(request: QueryAirsaasSecurityPolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAirsaasSecurityPolicyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.airsaas.security.policy.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model UploadUmktParamsFileRequest = {
