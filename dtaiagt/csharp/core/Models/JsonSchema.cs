@@ -10,15 +10,15 @@ namespace AntChain.SDK.DTAIAGT.Models
 {
     // 工具入参的json schema
     public class JsonSchema : TeaModel {
+        // 工具属性，Map<String, Object> 类型，适配网关透出，使用字符串方式存储
+        [NameInMap("properties_json")]
+        [Validation(Required=true)]
+        public string PropertiesJson { get; set; }
+
         // 类型
         [NameInMap("type")]
         [Validation(Required=true)]
         public string Type { get; set; }
-
-        //  Map<String, Object> 类型
-        [NameInMap("properties")]
-        [Validation(Required=true)]
-        public string Properties { get; set; }
 
         // 必填项
         [NameInMap("required")]
