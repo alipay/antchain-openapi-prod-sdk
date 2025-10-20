@@ -72,6 +72,12 @@ class SubmitRightsprodGrantRequest extends Model
      * @var string
      */
     public $grantInfo;
+
+    // 技术租户ID、当开通权益中心产品在非数科的应用租户下时需要填写对应的技术租户ID（涉及到时技术对接时 技术会分配，如未分配则不需要传参数）
+    /**
+     * @var string
+     */
+    public $techTenantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -84,6 +90,7 @@ class SubmitRightsprodGrantRequest extends Model
         'outGrantOrderNo'   => 'out_grant_order_no',
         'extInfo'           => 'ext_info',
         'grantInfo'         => 'grant_info',
+        'techTenantId'      => 'tech_tenant_id',
     ];
 
     public function validate()
@@ -129,6 +136,9 @@ class SubmitRightsprodGrantRequest extends Model
         if (null !== $this->grantInfo) {
             $res['grant_info'] = $this->grantInfo;
         }
+        if (null !== $this->techTenantId) {
+            $res['tech_tenant_id'] = $this->techTenantId;
+        }
 
         return $res;
     }
@@ -173,6 +183,9 @@ class SubmitRightsprodGrantRequest extends Model
         }
         if (isset($map['grant_info'])) {
             $model->grantInfo = $map['grant_info'];
+        }
+        if (isset($map['tech_tenant_id'])) {
+            $model->techTenantId = $map['tech_tenant_id'];
         }
 
         return $model;

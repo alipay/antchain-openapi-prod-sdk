@@ -25,6 +25,12 @@ class QueryRightsprodGrantRequest extends Model
      */
     public $outGrantOrderNo;
 
+    // 技术租户ID、当开通权益中心产品在非数科的应用租户下时需要填写对应的技术租户ID（涉及到时技术对接时 技术会分配，如未分配则不需要传值）
+    /**
+     * @var string
+     */
+    public $techTenantId;
+
     // 扩展信息
     /**
      * @var string
@@ -34,6 +40,7 @@ class QueryRightsprodGrantRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'outGrantOrderNo'   => 'out_grant_order_no',
+        'techTenantId'      => 'tech_tenant_id',
         'extInfo'           => 'ext_info',
     ];
 
@@ -53,6 +60,9 @@ class QueryRightsprodGrantRequest extends Model
         }
         if (null !== $this->outGrantOrderNo) {
             $res['out_grant_order_no'] = $this->outGrantOrderNo;
+        }
+        if (null !== $this->techTenantId) {
+            $res['tech_tenant_id'] = $this->techTenantId;
         }
         if (null !== $this->extInfo) {
             $res['ext_info'] = $this->extInfo;
@@ -77,6 +87,9 @@ class QueryRightsprodGrantRequest extends Model
         }
         if (isset($map['out_grant_order_no'])) {
             $model->outGrantOrderNo = $map['out_grant_order_no'];
+        }
+        if (isset($map['tech_tenant_id'])) {
+            $model->techTenantId = $map['tech_tenant_id'];
         }
         if (isset($map['ext_info'])) {
             $model->extInfo = $map['ext_info'];
