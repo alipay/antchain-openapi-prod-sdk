@@ -19,6 +19,8 @@ use AntChain\SDS\Models\JudgeCrowdPrefermentRequest;
 use AntChain\SDS\Models\JudgeCrowdPrefermentResponse;
 use AntChain\SDS\Models\QueryScenedataOnlineRequest;
 use AntChain\SDS\Models\QueryScenedataOnlineResponse;
+use AntChain\SDS\Models\QueryScenedataTaskinfoRequest;
+use AntChain\SDS\Models\QueryScenedataTaskinfoResponse;
 use AntChain\SDS\Models\SubmitScenedataTaskRequest;
 use AntChain\SDS\Models\SubmitScenedataTaskResponse;
 use AntChain\SDS\Models\UploadScenedataFileRequest;
@@ -170,7 +172,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.0',
+                    'sdk_version'      => '1.4.0',
                     '_prod_code'       => 'SDS',
                     '_prod_channel'    => 'default',
                 ];
@@ -328,7 +330,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -399,6 +402,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryScenedataOnlineResponse::fromMap($this->doRequest('1.0', 'antchain.sds.scenedata.online.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过批次号查询任务详细信息
+     * Summary: 批次任务信息查询.
+     *
+     * @param QueryScenedataTaskinfoRequest $request
+     *
+     * @return QueryScenedataTaskinfoResponse
+     */
+    public function queryScenedataTaskinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryScenedataTaskinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过批次号查询任务详细信息
+     * Summary: 批次任务信息查询.
+     *
+     * @param QueryScenedataTaskinfoRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryScenedataTaskinfoResponse
+     */
+    public function queryScenedataTaskinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryScenedataTaskinfoResponse::fromMap($this->doRequest('1.0', 'antchain.sds.scenedata.taskinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
