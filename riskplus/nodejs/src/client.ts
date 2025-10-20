@@ -12999,17 +12999,20 @@ export class QueryDubbridgeAlipayMerchantRequest extends $tea.Model {
   productInstanceId?: string;
   // request请求单号，每次请求唯一，如uuid
   orderNo: string;
-  // 门店id
-  storeId: string;
-  // 入驻申请单号
-  orderId: string;
+  // 入驻申请单号，store_id二选一
+  orderId?: string;
+  // 门店id，配合traffic_platform使用
+  storeId?: string;
+  // 门店所属子品牌，配合store_id使用
+  trafficPlatform?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       orderNo: 'order_no',
-      storeId: 'store_id',
       orderId: 'order_id',
+      storeId: 'store_id',
+      trafficPlatform: 'traffic_platform',
     };
   }
 
@@ -13018,8 +13021,9 @@ export class QueryDubbridgeAlipayMerchantRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       orderNo: 'string',
-      storeId: 'string',
       orderId: 'string',
+      storeId: 'string',
+      trafficPlatform: 'string',
     };
   }
 
@@ -13066,6 +13070,8 @@ export class CreateDubbridgeAlipayTradeRequest extends $tea.Model {
   productInstanceId?: string;
   // request请求单号，每次请求唯一，如uuid
   orderNo: string;
+  // 门店所属子品牌
+  trafficPlatform: string;
   // 订单归属门店id
   storeId: string;
   // 订单车辆信息
@@ -13079,6 +13085,7 @@ export class CreateDubbridgeAlipayTradeRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       orderNo: 'order_no',
+      trafficPlatform: 'traffic_platform',
       storeId: 'store_id',
       vehicleInfo: 'vehicle_info',
       timeExpire: 'time_expire',
@@ -13091,6 +13098,7 @@ export class CreateDubbridgeAlipayTradeRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       orderNo: 'string',
+      trafficPlatform: 'string',
       storeId: 'string',
       vehicleInfo: VehicleInfo,
       timeExpire: 'string',
@@ -21955,6 +21963,85 @@ export class QueryTdisaasSecurityPolicyResponse extends $tea.Model {
   }
 }
 
+export class QueryAirsaasSecurityPolicyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 风控时间咨询查询入参
+  eventInfo: EventInfo;
+  // 请求处理方式
+  riskType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      eventInfo: 'event_info',
+      riskType: 'risk_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      eventInfo: EventInfo,
+      riskType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAirsaasSecurityPolicyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 场景分
+  modelDetails?: ModelDetails[];
+  // 安全请求id
+  securityId?: string;
+  // 策略结果
+  securityResult?: string;
+  // 策略结果详情
+  strategyDetails?: StrategyDetails[];
+  // 决策流信息
+  dfSceneInfos?: DfSceneInfos[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      modelDetails: 'model_details',
+      securityId: 'security_id',
+      securityResult: 'security_result',
+      strategyDetails: 'strategy_details',
+      dfSceneInfos: 'df_scene_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      modelDetails: { 'type': 'array', 'itemType': ModelDetails },
+      securityId: 'string',
+      securityResult: 'string',
+      strategyDetails: { 'type': 'array', 'itemType': StrategyDetails },
+      dfSceneInfos: { 'type': 'array', 'itemType': DfSceneInfos },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class UploadUmktParamsFileRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -25477,7 +25564,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.26.8",
+          sdk_version: "1.26.9",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -29504,6 +29591,25 @@ export default class Client {
   async queryTdisaasSecurityPolicyEx(request: QueryTdisaasSecurityPolicyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTdisaasSecurityPolicyResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryTdisaasSecurityPolicyResponse>(await this.doRequest("1.0", "riskplus.tdisaas.security.policy.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTdisaasSecurityPolicyResponse({}));
+  }
+
+  /**
+   * Description: saas风险咨询（air引擎）
+   * Summary: saas风险咨询（air引擎）
+   */
+  async queryAirsaasSecurityPolicy(request: QueryAirsaasSecurityPolicyRequest): Promise<QueryAirsaasSecurityPolicyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAirsaasSecurityPolicyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: saas风险咨询（air引擎）
+   * Summary: saas风险咨询（air引擎）
+   */
+  async queryAirsaasSecurityPolicyEx(request: QueryAirsaasSecurityPolicyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAirsaasSecurityPolicyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAirsaasSecurityPolicyResponse>(await this.doRequest("1.0", "riskplus.airsaas.security.policy.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAirsaasSecurityPolicyResponse({}));
   }
 
   /**
