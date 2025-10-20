@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.0"),
+                    new TeaPair("sdk_version", "1.2.0"),
                     new TeaPair("_prod_code", "DTAIAGT"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -249,5 +249,110 @@ public class Client {
     public StartAgentCchatResponse startAgentCchatEx(StartAgentCchatRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.dtaiagt.agent.cchat.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartAgentCchatResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询已订阅的mcp清单
+     * Summary: 查询已订阅的mcp清单</p>
+     */
+    public PagequeryAgentMcplistResponse pagequeryAgentMcplist(PagequeryAgentMcplistRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryAgentMcplistEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询已订阅的mcp清单
+     * Summary: 查询已订阅的mcp清单</p>
+     */
+    public PagequeryAgentMcplistResponse pagequeryAgentMcplistEx(PagequeryAgentMcplistRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.dtaiagt.agent.mcplist.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryAgentMcplistResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: mcp详情
+     * Summary: mcp详情</p>
+     */
+    public DetailAgentMcpResponse detailAgentMcp(DetailAgentMcpRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailAgentMcpEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: mcp详情
+     * Summary: mcp详情</p>
+     */
+    public DetailAgentMcpResponse detailAgentMcpEx(DetailAgentMcpRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.dtaiagt.agent.mcp.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailAgentMcpResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 长任务对话，发起任务&amp;重连任务
+     * Summary: 长任务对话</p>
+     */
+    public StartAgentTaskResponse startAgentTask(StartAgentTaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.startAgentTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 长任务对话，发起任务&amp;重连任务
+     * Summary: 长任务对话</p>
+     */
+    public StartAgentTaskResponse startAgentTaskEx(StartAgentTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.dtaiagt.agent.task.start", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StartAgentTaskResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 终止任务
+     * Summary: 终止任务</p>
+     */
+    public StopAgentTaskResponse stopAgentTask(StopAgentTaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.stopAgentTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 终止任务
+     * Summary: 终止任务</p>
+     */
+    public StopAgentTaskResponse stopAgentTaskEx(StopAgentTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.dtaiagt.agent.task.stop", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StopAgentTaskResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 获取前序消息流
+     * Summary: 获取前序消息流</p>
+     */
+    public OperateAgentTaskResponse operateAgentTask(OperateAgentTaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateAgentTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 获取前序消息流
+     * Summary: 获取前序消息流</p>
+     */
+    public OperateAgentTaskResponse operateAgentTaskEx(OperateAgentTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.dtaiagt.agent.task.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateAgentTaskResponse());
     }
 }
