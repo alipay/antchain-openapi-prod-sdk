@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 工具入参的json schema
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.0',
+                    'sdk_version': '1.2.0',
                     '_prod_code': 'DTAIAGT',
                     '_prod_channel': 'default'
                 }
@@ -212,7 +213,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 工具入参的json schema
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.0',
+                    'sdk_version': '1.2.0',
                     '_prod_code': 'DTAIAGT',
                     '_prod_channel': 'default'
                 }
@@ -439,4 +441,284 @@ class Client:
         return TeaCore.from_map(
             dtaiagt_models.StartAgentCchatResponse(),
             await self.do_request_async('1.0', 'antdigital.dtaiagt.agent.cchat.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_agent_mcplist(
+        self,
+        request: dtaiagt_models.PagequeryAgentMcplistRequest,
+    ) -> dtaiagt_models.PagequeryAgentMcplistResponse:
+        """
+        Description: 查询已订阅的mcp清单
+        Summary: 查询已订阅的mcp清单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_agent_mcplist_ex(request, headers, runtime)
+
+    async def pagequery_agent_mcplist_async(
+        self,
+        request: dtaiagt_models.PagequeryAgentMcplistRequest,
+    ) -> dtaiagt_models.PagequeryAgentMcplistResponse:
+        """
+        Description: 查询已订阅的mcp清单
+        Summary: 查询已订阅的mcp清单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_agent_mcplist_ex_async(request, headers, runtime)
+
+    def pagequery_agent_mcplist_ex(
+        self,
+        request: dtaiagt_models.PagequeryAgentMcplistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dtaiagt_models.PagequeryAgentMcplistResponse:
+        """
+        Description: 查询已订阅的mcp清单
+        Summary: 查询已订阅的mcp清单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dtaiagt_models.PagequeryAgentMcplistResponse(),
+            self.do_request('1.0', 'antdigital.dtaiagt.agent.mcplist.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_agent_mcplist_ex_async(
+        self,
+        request: dtaiagt_models.PagequeryAgentMcplistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dtaiagt_models.PagequeryAgentMcplistResponse:
+        """
+        Description: 查询已订阅的mcp清单
+        Summary: 查询已订阅的mcp清单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dtaiagt_models.PagequeryAgentMcplistResponse(),
+            await self.do_request_async('1.0', 'antdigital.dtaiagt.agent.mcplist.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_agent_mcp(
+        self,
+        request: dtaiagt_models.DetailAgentMcpRequest,
+    ) -> dtaiagt_models.DetailAgentMcpResponse:
+        """
+        Description: mcp详情
+        Summary: mcp详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_agent_mcp_ex(request, headers, runtime)
+
+    async def detail_agent_mcp_async(
+        self,
+        request: dtaiagt_models.DetailAgentMcpRequest,
+    ) -> dtaiagt_models.DetailAgentMcpResponse:
+        """
+        Description: mcp详情
+        Summary: mcp详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_agent_mcp_ex_async(request, headers, runtime)
+
+    def detail_agent_mcp_ex(
+        self,
+        request: dtaiagt_models.DetailAgentMcpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dtaiagt_models.DetailAgentMcpResponse:
+        """
+        Description: mcp详情
+        Summary: mcp详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dtaiagt_models.DetailAgentMcpResponse(),
+            self.do_request('1.0', 'antdigital.dtaiagt.agent.mcp.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_agent_mcp_ex_async(
+        self,
+        request: dtaiagt_models.DetailAgentMcpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dtaiagt_models.DetailAgentMcpResponse:
+        """
+        Description: mcp详情
+        Summary: mcp详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dtaiagt_models.DetailAgentMcpResponse(),
+            await self.do_request_async('1.0', 'antdigital.dtaiagt.agent.mcp.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def start_agent_task(
+        self,
+        request: dtaiagt_models.StartAgentTaskRequest,
+    ) -> dtaiagt_models.StartAgentTaskResponse:
+        """
+        Description: 长任务对话，发起任务&重连任务
+        Summary: 长任务对话
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_agent_task_ex(request, headers, runtime)
+
+    async def start_agent_task_async(
+        self,
+        request: dtaiagt_models.StartAgentTaskRequest,
+    ) -> dtaiagt_models.StartAgentTaskResponse:
+        """
+        Description: 长任务对话，发起任务&重连任务
+        Summary: 长任务对话
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_agent_task_ex_async(request, headers, runtime)
+
+    def start_agent_task_ex(
+        self,
+        request: dtaiagt_models.StartAgentTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dtaiagt_models.StartAgentTaskResponse:
+        """
+        Description: 长任务对话，发起任务&重连任务
+        Summary: 长任务对话
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dtaiagt_models.StartAgentTaskResponse(),
+            self.do_request('1.0', 'antdigital.dtaiagt.agent.task.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_agent_task_ex_async(
+        self,
+        request: dtaiagt_models.StartAgentTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dtaiagt_models.StartAgentTaskResponse:
+        """
+        Description: 长任务对话，发起任务&重连任务
+        Summary: 长任务对话
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dtaiagt_models.StartAgentTaskResponse(),
+            await self.do_request_async('1.0', 'antdigital.dtaiagt.agent.task.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def stop_agent_task(
+        self,
+        request: dtaiagt_models.StopAgentTaskRequest,
+    ) -> dtaiagt_models.StopAgentTaskResponse:
+        """
+        Description: 终止任务
+        Summary: 终止任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.stop_agent_task_ex(request, headers, runtime)
+
+    async def stop_agent_task_async(
+        self,
+        request: dtaiagt_models.StopAgentTaskRequest,
+    ) -> dtaiagt_models.StopAgentTaskResponse:
+        """
+        Description: 终止任务
+        Summary: 终止任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.stop_agent_task_ex_async(request, headers, runtime)
+
+    def stop_agent_task_ex(
+        self,
+        request: dtaiagt_models.StopAgentTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dtaiagt_models.StopAgentTaskResponse:
+        """
+        Description: 终止任务
+        Summary: 终止任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dtaiagt_models.StopAgentTaskResponse(),
+            self.do_request('1.0', 'antdigital.dtaiagt.agent.task.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def stop_agent_task_ex_async(
+        self,
+        request: dtaiagt_models.StopAgentTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dtaiagt_models.StopAgentTaskResponse:
+        """
+        Description: 终止任务
+        Summary: 终止任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dtaiagt_models.StopAgentTaskResponse(),
+            await self.do_request_async('1.0', 'antdigital.dtaiagt.agent.task.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_agent_task(
+        self,
+        request: dtaiagt_models.OperateAgentTaskRequest,
+    ) -> dtaiagt_models.OperateAgentTaskResponse:
+        """
+        Description: 获取前序消息流
+        Summary: 获取前序消息流
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_agent_task_ex(request, headers, runtime)
+
+    async def operate_agent_task_async(
+        self,
+        request: dtaiagt_models.OperateAgentTaskRequest,
+    ) -> dtaiagt_models.OperateAgentTaskResponse:
+        """
+        Description: 获取前序消息流
+        Summary: 获取前序消息流
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_agent_task_ex_async(request, headers, runtime)
+
+    def operate_agent_task_ex(
+        self,
+        request: dtaiagt_models.OperateAgentTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dtaiagt_models.OperateAgentTaskResponse:
+        """
+        Description: 获取前序消息流
+        Summary: 获取前序消息流
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dtaiagt_models.OperateAgentTaskResponse(),
+            self.do_request('1.0', 'antdigital.dtaiagt.agent.task.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_agent_task_ex_async(
+        self,
+        request: dtaiagt_models.OperateAgentTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> dtaiagt_models.OperateAgentTaskResponse:
+        """
+        Description: 获取前序消息流
+        Summary: 获取前序消息流
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            dtaiagt_models.OperateAgentTaskResponse(),
+            await self.do_request_async('1.0', 'antdigital.dtaiagt.agent.task.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
