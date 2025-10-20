@@ -79,18 +79,18 @@ export class Config extends $tea.Model {
 
 // 工具入参的json schema
 export class JsonSchema extends $tea.Model {
+  // 工具属性，Map<String, Object> 类型，适配网关透出，使用字符串方式存储
+  propertiesJson: string;
   // 类型
   type: string;
-  //  Map<String, Object> 类型
-  properties: string;
   // 必填项
   required: string[];
   // 是否允许额外属性
   additionalProperties: boolean;
   static names(): { [key: string]: string } {
     return {
+      propertiesJson: 'properties_json',
       type: 'type',
-      properties: 'properties',
       required: 'required',
       additionalProperties: 'additional_properties',
     };
@@ -98,8 +98,8 @@ export class JsonSchema extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
+      propertiesJson: 'string',
       type: 'string',
-      properties: 'string',
       required: { 'type': 'array', 'itemType': 'string' },
       additionalProperties: 'boolean',
     };
@@ -1011,7 +1011,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.0",
+          sdk_version: "1.3.0",
           _prod_code: "DTAIAGT",
           _prod_channel: "default",
         };
