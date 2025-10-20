@@ -847,6 +847,7 @@ class SubmitRightsprodGrantRequest(TeaModel):
         out_grant_order_no: str = None,
         ext_info: str = None,
         grant_info: str = None,
+        tech_tenant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -869,6 +870,8 @@ class SubmitRightsprodGrantRequest(TeaModel):
         self.ext_info = ext_info
         # 发放信息,如活动ID等信息
         self.grant_info = grant_info
+        # 技术租户ID、当开通权益中心产品在非数科的应用租户下时需要填写对应的技术租户ID（涉及到时技术对接时 技术会分配，如未分配则不需要传参数）
+        self.tech_tenant_id = tech_tenant_id
 
     def validate(self):
         self.validate_required(self.rights_code, 'rights_code')
@@ -903,6 +906,8 @@ class SubmitRightsprodGrantRequest(TeaModel):
             result['ext_info'] = self.ext_info
         if self.grant_info is not None:
             result['grant_info'] = self.grant_info
+        if self.tech_tenant_id is not None:
+            result['tech_tenant_id'] = self.tech_tenant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -929,6 +934,8 @@ class SubmitRightsprodGrantRequest(TeaModel):
             self.ext_info = m.get('ext_info')
         if m.get('grant_info') is not None:
             self.grant_info = m.get('grant_info')
+        if m.get('tech_tenant_id') is not None:
+            self.tech_tenant_id = m.get('tech_tenant_id')
         return self
 
 
@@ -989,6 +996,7 @@ class QueryRightsprodGrantRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         out_grant_order_no: str = None,
+        tech_tenant_id: str = None,
         ext_info: str = None,
     ):
         # OAuth模式下的授权token
@@ -996,6 +1004,8 @@ class QueryRightsprodGrantRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 外部发放订单号
         self.out_grant_order_no = out_grant_order_no
+        # 技术租户ID、当开通权益中心产品在非数科的应用租户下时需要填写对应的技术租户ID（涉及到时技术对接时 技术会分配，如未分配则不需要传值）
+        self.tech_tenant_id = tech_tenant_id
         # 扩展信息
         self.ext_info = ext_info
 
@@ -1014,6 +1024,8 @@ class QueryRightsprodGrantRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.out_grant_order_no is not None:
             result['out_grant_order_no'] = self.out_grant_order_no
+        if self.tech_tenant_id is not None:
+            result['tech_tenant_id'] = self.tech_tenant_id
         if self.ext_info is not None:
             result['ext_info'] = self.ext_info
         return result
@@ -1026,6 +1038,8 @@ class QueryRightsprodGrantRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('out_grant_order_no') is not None:
             self.out_grant_order_no = m.get('out_grant_order_no')
+        if m.get('tech_tenant_id') is not None:
+            self.tech_tenant_id = m.get('tech_tenant_id')
         if m.get('ext_info') is not None:
             self.ext_info = m.get('ext_info')
         return self
