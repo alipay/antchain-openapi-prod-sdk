@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.0',
+    sdk_version = '1.4.0',
     _prod_code = 'SDS',
     _prod_channel = 'default'
   };
@@ -169,6 +169,20 @@ model BatchResult {
   bizNoType: string(maxLength=32, name='biz_no_type', example='PHONE_SHA1'),
   // 结果
   result: string(name='result', example='Y'),
+}
+
+// 任务详细结果包含任务的统计数据信息
+model TaskDetailResult {
+  // 总数量
+  totalCount?: long(name='total_count', example='100'),
+  // 成功数量
+  successCount?: long(name='success_count', example='100'),
+  // 失败数量
+  failCount?: long(name='fail_count', example='0'),
+  // 处理中数量
+  processingCount?: long(name='processing_count', example='0'),
+  // 当状态为无效时，显示具体的错误信息
+  errorInfo?: string(name='error_info', example='xxx'),
 }
 
 // 地址，包含省、市、区(县)
@@ -348,6 +362,7 @@ async function uploadScenedataFileEx(request: UploadScenedataFileRequest, header
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.sds.scenedata.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -445,6 +460,58 @@ async function queryScenedataOnline(request: QueryScenedataOnlineRequest): Query
 async function queryScenedataOnlineEx(request: QueryScenedataOnlineRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryScenedataOnlineResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.sds.scenedata.online.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryScenedataTaskinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 批次号
+  batchNo: string(name='batch_no'),
+}
+
+model QueryScenedataTaskinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // -1-无效，0-待处理，1-处理中，2-处理完成
+  taskStatus?: string(name='task_status'),
+  // 业务日期
+  bizDate?: string(name='biz_date'),
+  // 场景
+  scene?: string(name='scene'),
+  // 任务类型
+  taskType?: string(name='task_type'),
+  // 批次所属租户id
+  tenantId?: string(name='tenant_id'),
+  // 来源标识
+  sourceMark?: string(name='source_mark'),
+  // 任务创建时间
+  createTime?: string(name='create_time'),
+  // 批次统计结果信息
+  result?: TaskDetailResult(name='result'),
+}
+
+/**
+ * Description: 通过批次号查询任务详细信息
+ * Summary: 批次任务信息查询
+ */
+async function queryScenedataTaskinfo(request: QueryScenedataTaskinfoRequest): QueryScenedataTaskinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryScenedataTaskinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过批次号查询任务详细信息
+ * Summary: 批次任务信息查询
+ */
+async function queryScenedataTaskinfoEx(request: QueryScenedataTaskinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryScenedataTaskinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.sds.scenedata.taskinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
