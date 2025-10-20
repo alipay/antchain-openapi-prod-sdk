@@ -688,6 +688,8 @@ type SubmitRightsprodGrantRequest struct {
 	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 	// 发放信息,如活动ID等信息
 	GrantInfo *string `json:"grant_info,omitempty" xml:"grant_info,omitempty"`
+	// 技术租户ID、当开通权益中心产品在非数科的应用租户下时需要填写对应的技术租户ID（涉及到时技术对接时 技术会分配，如未分配则不需要传参数）
+	TechTenantId *string `json:"tech_tenant_id,omitempty" xml:"tech_tenant_id,omitempty"`
 }
 
 func (s SubmitRightsprodGrantRequest) String() string {
@@ -753,6 +755,11 @@ func (s *SubmitRightsprodGrantRequest) SetGrantInfo(v string) *SubmitRightsprodG
 	return s
 }
 
+func (s *SubmitRightsprodGrantRequest) SetTechTenantId(v string) *SubmitRightsprodGrantRequest {
+	s.TechTenantId = &v
+	return s
+}
+
 type SubmitRightsprodGrantResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -798,6 +805,8 @@ type QueryRightsprodGrantRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 外部发放订单号
 	OutGrantOrderNo *string `json:"out_grant_order_no,omitempty" xml:"out_grant_order_no,omitempty" require:"true"`
+	// 技术租户ID、当开通权益中心产品在非数科的应用租户下时需要填写对应的技术租户ID（涉及到时技术对接时 技术会分配，如未分配则不需要传值）
+	TechTenantId *string `json:"tech_tenant_id,omitempty" xml:"tech_tenant_id,omitempty"`
 	// 扩展信息
 	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
@@ -822,6 +831,11 @@ func (s *QueryRightsprodGrantRequest) SetProductInstanceId(v string) *QueryRight
 
 func (s *QueryRightsprodGrantRequest) SetOutGrantOrderNo(v string) *QueryRightsprodGrantRequest {
 	s.OutGrantOrderNo = &v
+	return s
+}
+
+func (s *QueryRightsprodGrantRequest) SetTechTenantId(v string) *QueryRightsprodGrantRequest {
+	s.TechTenantId = &v
 	return s
 }
 
@@ -991,7 +1005,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.5"),
+				"sdk_version":      tea.String("1.2.6"),
 				"_prod_code":       tea.String("GESAAS"),
 				"_prod_channel":    tea.String("default"),
 			}
