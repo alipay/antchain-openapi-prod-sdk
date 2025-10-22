@@ -63,7 +63,7 @@ namespace AntChain.SDK.DTAIAGT.Models
         // 工具列表
         [NameInMap("tool_list")]
         [Validation(Required=true)]
-        public ToolInfoVO ToolList { get; set; }
+        public List<ToolInfoVO> ToolList { get; set; }
 
     }
 
