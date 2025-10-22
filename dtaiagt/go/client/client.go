@@ -277,7 +277,7 @@ type DigitalGatewayMCPDetailVO struct {
 	// mcp上架信息（富文本）
 	Docs *string `json:"docs,omitempty" xml:"docs,omitempty" require:"true"`
 	// 工具列表
-	ToolList *ToolInfoVO `json:"tool_list,omitempty" xml:"tool_list,omitempty" require:"true"`
+	ToolList []*ToolInfoVO `json:"tool_list,omitempty" xml:"tool_list,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s DigitalGatewayMCPDetailVO) String() string {
@@ -338,7 +338,7 @@ func (s *DigitalGatewayMCPDetailVO) SetDocs(v string) *DigitalGatewayMCPDetailVO
 	return s
 }
 
-func (s *DigitalGatewayMCPDetailVO) SetToolList(v *ToolInfoVO) *DigitalGatewayMCPDetailVO {
+func (s *DigitalGatewayMCPDetailVO) SetToolList(v []*ToolInfoVO) *DigitalGatewayMCPDetailVO {
 	s.ToolList = v
 	return s
 }
@@ -1298,7 +1298,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.0"),
+				"sdk_version":      tea.String("1.3.1"),
 				"_prod_code":       tea.String("DTAIAGT"),
 				"_prod_channel":    tea.String("default"),
 			}
