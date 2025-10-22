@@ -7,7 +7,7 @@ public class CrossAccountListVO extends TeaModel {
     // 项目ID
     /**
      * <strong>example:</strong>
-     * <p>项目ID</p>
+     * <p>02aa0864b0e347b780f82769d7665baf</p>
      */
     @NameInMap("project_id")
     public String projectId;
@@ -15,7 +15,7 @@ public class CrossAccountListVO extends TeaModel {
     // 资产项目合约地址
     /**
      * <strong>example:</strong>
-     * <p>资产项目合约地址</p>
+     * <p>0xc60c23aec15324cd51bf6c291c2768bc7287ada1</p>
      */
     @NameInMap("asset_project_address")
     public String assetProjectAddress;
@@ -23,7 +23,7 @@ public class CrossAccountListVO extends TeaModel {
     // 红利合约地址
     /**
      * <strong>example:</strong>
-     * <p>红利合约地址</p>
+     * <p>0xb75dd55da39f778f759493a04d5955ba7435f102</p>
      */
     @NameInMap("bonus_address")
     public String bonusAddress;
@@ -31,7 +31,7 @@ public class CrossAccountListVO extends TeaModel {
     // 用户ID
     /**
      * <strong>example:</strong>
-     * <p>用户ID</p>
+     * <p>8a18b4fc7c8341238bd7eac27f63025a</p>
      */
     @NameInMap("user_id")
     public String userId;
@@ -39,7 +39,7 @@ public class CrossAccountListVO extends TeaModel {
     // 代销机构ID
     /**
      * <strong>example:</strong>
-     * <p>代销机构ID</p>
+     * <p>d9becf0366ff471eb2f3879e5e2f9eb7</p>
      */
     @NameInMap("distributor_institution_id")
     public String distributorInstitutionId;
@@ -47,7 +47,7 @@ public class CrossAccountListVO extends TeaModel {
     // 发行链名称
     /**
      * <strong>example:</strong>
-     * <p>发行链名称</p>
+     * <p>ANTCHAIN</p>
      */
     @NameInMap("chain_name")
     public String chainName;
@@ -55,7 +55,7 @@ public class CrossAccountListVO extends TeaModel {
     // 投资者用户账户ID
     /**
      * <strong>example:</strong>
-     * <p>投资者用户账户ID</p>
+     * <p>40809209519a47179b7110ef0b8e9dff</p>
      */
     @NameInMap("sub_user_account_id")
     public String subUserAccountId;
@@ -63,7 +63,7 @@ public class CrossAccountListVO extends TeaModel {
     // 投资者用户红利账户ID
     /**
      * <strong>example:</strong>
-     * <p>投资者用户红利账户ID</p>
+     * <p>043bb2fbcd2947ea8ddea4087eae233f</p>
      */
     @NameInMap("sub_user_bonus_account_id")
     public String subUserBonusAccountId;
@@ -71,7 +71,7 @@ public class CrossAccountListVO extends TeaModel {
     // 目标链名称
     /**
      * <strong>example:</strong>
-     * <p>目标链名称</p>
+     * <p>CONFLUX_TEST_NET</p>
      */
     @NameInMap("target_chain_name")
     public String targetChainName;
@@ -79,7 +79,7 @@ public class CrossAccountListVO extends TeaModel {
     // 目标链资产合约地址
     /**
      * <strong>example:</strong>
-     * <p>目标链资产合约地址</p>
+     * <p>0x77038f22e1b3210d455662fe0071dae5d5ad0c97</p>
      */
     @NameInMap("target_chain_asset_token_address")
     public String targetChainAssetTokenAddress;
@@ -87,7 +87,7 @@ public class CrossAccountListVO extends TeaModel {
     // 目标链红利合约地址
     /**
      * <strong>example:</strong>
-     * <p>目标链红利合约地址</p>
+     * <p>0x89b7556c61fa90185ab32a99727b2ccdad9fcd36</p>
      */
     @NameInMap("target_chain_bonus_address")
     public String targetChainBonusAddress;

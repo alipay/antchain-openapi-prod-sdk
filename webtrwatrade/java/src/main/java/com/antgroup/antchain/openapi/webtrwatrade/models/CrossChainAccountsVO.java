@@ -7,7 +7,7 @@ public class CrossChainAccountsVO extends TeaModel {
     // 对侧链用户地址
     /**
      * <strong>example:</strong>
-     * <p>对侧链用户地址</p>
+     * <p>0xce81adcd4b9b78293c73caed55840c81b4c3b8f5</p>
      */
     @NameInMap("cross_chain_user_address")
     public String crossChainUserAddress;
@@ -15,7 +15,7 @@ public class CrossChainAccountsVO extends TeaModel {
     // 对侧链账户ID
     /**
      * <strong>example:</strong>
-     * <p>对侧链账户ID</p>
+     * <p>1938129653756694529</p>
      */
     @NameInMap("cross_chain_user_account_id")
     public String crossChainUserAccountId;
@@ -23,7 +23,7 @@ public class CrossChainAccountsVO extends TeaModel {
     // 对侧链红利账户ID
     /**
      * <strong>example:</strong>
-     * <p>对侧链红利账户ID</p>
+     * <p>1928364866666541058</p>
      */
     @NameInMap("cross_chain_user_bonus_account_id")
     public String crossChainUserBonusAccountId;

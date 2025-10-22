@@ -11,31 +11,31 @@ public class ListIssuerCrossaccountRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 资产项目ID
+    // 资产项目ID - 资产项目ID & 资产项目合约地址+项目所在链 二选一
     @NameInMap("asset_project_id")
     public String assetProjectId;
 
-    // 资产项目合约地址
+    // 资产项目ID - 资产项目ID & 资产项目合约地址+项目所在链 二选一
     @NameInMap("asset_project_address")
     public String assetProjectAddress;
 
-    // 项目所在链
+    // 项目所在链 - 资产项目ID & 资产项目合约地址+项目所在链 二选一
     @NameInMap("chain_name")
     public String chainName;
 
-    // 用户ID
+    // 用户ID - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
     @NameInMap("user_id")
     public String userId;
 
-    // 本侧链用户地址
+    // 本侧链用户地址 - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
     @NameInMap("user_address")
     public String userAddress;
 
-    // 登录名
+    // 本侧链用户地址 - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
     @NameInMap("login_name")
     public String loginName;
 
-    // 登录名类型(EMAIL)
+    // 登录名类型(EMAIL) - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
     @NameInMap("login_account_type")
     public String loginAccountType;
 

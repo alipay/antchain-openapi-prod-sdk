@@ -7,7 +7,7 @@ public class UserOperatorInfoBO extends TeaModel {
     // userId
     /**
      * <strong>example:</strong>
-     * <p>1</p>
+     * <p>039d0196752c48f4ad71fcfece5ca459</p>
      */
     @NameInMap("user_id")
     public String userId;
@@ -15,7 +15,7 @@ public class UserOperatorInfoBO extends TeaModel {
     // 别名
     /**
      * <strong>example:</strong>
-     * <p>1</p>
+     * <p>测试用户</p>
      */
     @NameInMap("alias")
     public String alias;
@@ -23,24 +23,16 @@ public class UserOperatorInfoBO extends TeaModel {
     // 钱包地址
     /**
      * <strong>example:</strong>
-     * <p>1</p>
+     * <p>0xf7d48f098440a166e9785ced7073baa6964acc80</p>
      */
     @NameInMap("address")
     public String address;
 
     // 登录账号类型列表
-    /**
-     * <strong>example:</strong>
-     * <p>1</p>
-     */
     @NameInMap("user_login_account_list")
     public java.util.List<LoginAccountTypeBO> userLoginAccountList;
 
     // 机构类型列表
-    /**
-     * <strong>example:</strong>
-     * <p>1</p>
-     */
     @NameInMap("user_institution_type_list")
     public java.util.List<String> userInstitutionTypeList;
 

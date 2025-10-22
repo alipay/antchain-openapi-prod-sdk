@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.webtrwatrade.models;
 
 import com.aliyun.tea.*;
 
-public class DetailIssuerProjectwithroleRequest extends TeaModel {
+public class ListIssuerSubuserRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,27 +11,24 @@ public class DetailIssuerProjectwithroleRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 项目id - 项目id和
-    // 项目合约地址+所在链组合 二选一
+    // 资产项目ID（资产项目ID、资产项目合约地址+所在链 二选一必填）
     @NameInMap("asset_project_id")
     public String assetProjectId;
 
-    // 资产项目合约地址，项目id和
-    // 项目合约地址+所在链组合 二选一
+    // 资产项目合约地址（资产项目ID、资产项目合约地址+所在链 二选一必填）
     @NameInMap("asset_project_address")
     public String assetProjectAddress;
 
-    // 所在链，项目资产ID和
-    // 项目合约地址+所在链组合 二选一
+    // 项目所在链（资产项目ID、资产项目合约地址+所在链 二选一必填）
     @NameInMap("chain_name")
     public String chainName;
 
-    public static DetailIssuerProjectwithroleRequest build(java.util.Map<String, ?> map) throws Exception {
-        DetailIssuerProjectwithroleRequest self = new DetailIssuerProjectwithroleRequest();
+    public static ListIssuerSubuserRequest build(java.util.Map<String, ?> map) throws Exception {
+        ListIssuerSubuserRequest self = new ListIssuerSubuserRequest();
         return TeaModel.build(map, self);
     }
 
-    public DetailIssuerProjectwithroleRequest setAuthToken(String authToken) {
+    public ListIssuerSubuserRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -39,7 +36,7 @@ public class DetailIssuerProjectwithroleRequest extends TeaModel {
         return this.authToken;
     }
 
-    public DetailIssuerProjectwithroleRequest setProductInstanceId(String productInstanceId) {
+    public ListIssuerSubuserRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -47,7 +44,7 @@ public class DetailIssuerProjectwithroleRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public DetailIssuerProjectwithroleRequest setAssetProjectId(String assetProjectId) {
+    public ListIssuerSubuserRequest setAssetProjectId(String assetProjectId) {
         this.assetProjectId = assetProjectId;
         return this;
     }
@@ -55,7 +52,7 @@ public class DetailIssuerProjectwithroleRequest extends TeaModel {
         return this.assetProjectId;
     }
 
-    public DetailIssuerProjectwithroleRequest setAssetProjectAddress(String assetProjectAddress) {
+    public ListIssuerSubuserRequest setAssetProjectAddress(String assetProjectAddress) {
         this.assetProjectAddress = assetProjectAddress;
         return this;
     }
@@ -63,7 +60,7 @@ public class DetailIssuerProjectwithroleRequest extends TeaModel {
         return this.assetProjectAddress;
     }
 
-    public DetailIssuerProjectwithroleRequest setChainName(String chainName) {
+    public ListIssuerSubuserRequest setChainName(String chainName) {
         this.chainName = chainName;
         return this;
     }

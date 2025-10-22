@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.webtrwatrade.models;
 
 import com.aliyun.tea.*;
 
-public class UpdateIssuerNetvalueResponse extends TeaModel {
+public class ListIssuerAlloperationlogResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,16 @@ public class UpdateIssuerNetvalueResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static UpdateIssuerNetvalueResponse build(java.util.Map<String, ?> map) throws Exception {
-        UpdateIssuerNetvalueResponse self = new UpdateIssuerNetvalueResponse();
+    // 所有操作日志
+    @NameInMap("data")
+    public java.util.List<OperationLogVO> data;
+
+    public static ListIssuerAlloperationlogResponse build(java.util.Map<String, ?> map) throws Exception {
+        ListIssuerAlloperationlogResponse self = new ListIssuerAlloperationlogResponse();
         return TeaModel.build(map, self);
     }
 
-    public UpdateIssuerNetvalueResponse setReqMsgId(String reqMsgId) {
+    public ListIssuerAlloperationlogResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +33,7 @@ public class UpdateIssuerNetvalueResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public UpdateIssuerNetvalueResponse setResultCode(String resultCode) {
+    public ListIssuerAlloperationlogResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,12 +41,20 @@ public class UpdateIssuerNetvalueResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public UpdateIssuerNetvalueResponse setResultMsg(String resultMsg) {
+    public ListIssuerAlloperationlogResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public ListIssuerAlloperationlogResponse setData(java.util.List<OperationLogVO> data) {
+        this.data = data;
+        return this;
+    }
+    public java.util.List<OperationLogVO> getData() {
+        return this.data;
     }
 
 }
