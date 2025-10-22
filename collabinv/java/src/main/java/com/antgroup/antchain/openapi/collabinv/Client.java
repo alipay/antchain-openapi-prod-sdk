@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.46"),
+                    new TeaPair("sdk_version", "1.0.52"),
                     new TeaPair("_prod_code", "COLLABINV"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -333,6 +333,91 @@ public class Client {
     public QueryAgentCompletionResponse queryAgentCompletionEx(QueryAgentCompletionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.agent.completion.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAgentCompletionResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 车抵贷人群匹配
+     * Summary: 车抵贷人群匹配</p>
+     */
+    public MatchCarloanUsersResponse matchCarloanUsers(MatchCarloanUsersRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.matchCarloanUsersEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 车抵贷人群匹配
+     * Summary: 车抵贷人群匹配</p>
+     */
+    public MatchCarloanUsersResponse matchCarloanUsersEx(MatchCarloanUsersRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.carloan.users.match", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new MatchCarloanUsersResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 批量碰撞人群数据
+     * Summary: 批量碰撞人群数据</p>
+     */
+    public BatchqueryCarloanUsersResponse batchqueryCarloanUsers(BatchqueryCarloanUsersRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchqueryCarloanUsersEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 批量碰撞人群数据
+     * Summary: 批量碰撞人群数据</p>
+     */
+    public BatchqueryCarloanUsersResponse batchqueryCarloanUsersEx(BatchqueryCarloanUsersRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.carloan.users.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryCarloanUsersResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 导入人群文件
+     * Summary: 导入人群文件</p>
+     */
+    public ImportCarloanUsersResponse importCarloanUsers(ImportCarloanUsersRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importCarloanUsersEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 导入人群文件
+     * Summary: 导入人群文件</p>
+     */
+    public ImportCarloanUsersResponse importCarloanUsersEx(ImportCarloanUsersRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antchain.zkcollabinv.carloan.users.import"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                ImportCarloanUsersResponse importCarloanUsersResponse = ImportCarloanUsersResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return importCarloanUsersResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.carloan.users.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportCarloanUsersResponse());
     }
 
     /**
@@ -732,5 +817,26 @@ public class Client {
     public QueryModelWorkscoreResponse queryModelWorkscoreEx(QueryModelWorkscoreRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.model.workscore.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryModelWorkscoreResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建</p>
+     */
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse());
     }
 }
