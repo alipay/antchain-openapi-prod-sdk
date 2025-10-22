@@ -6,6 +6,7 @@ import (
 	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
+	"io"
 )
 
 /**
@@ -343,6 +344,32 @@ func (s *FeatureSetInfo) SetDesc(v string) *FeatureSetInfo {
 	return s
 }
 
+// 用户匹配信息
+type CarUserMatch struct {
+	// 设备号或者手机号md5
+	MatchId *string `json:"match_id,omitempty" xml:"match_id,omitempty" require:"true"`
+	// 需要匹配的id类型：手机号md5、安卓设备号md5、ios设备号md5
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty" require:"true"`
+}
+
+func (s CarUserMatch) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CarUserMatch) GoString() string {
+	return s.String()
+}
+
+func (s *CarUserMatch) SetMatchId(v string) *CarUserMatch {
+	s.MatchId = &v
+	return s
+}
+
+func (s *CarUserMatch) SetIdType(v string) *CarUserMatch {
+	s.IdType = &v
+	return s
+}
+
 // 指标数据
 type IndexData struct {
 	// 月份
@@ -552,6 +579,32 @@ func (s *PageInfo) SetPageIndex(v int64) *PageInfo {
 
 func (s *PageInfo) SetPageSize(v int64) *PageInfo {
 	s.PageSize = &v
+	return s
+}
+
+// 键值对
+type XNameValuePair struct {
+	// 键名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 键值
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s XNameValuePair) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XNameValuePair) GoString() string {
+	return s.String()
+}
+
+func (s *XNameValuePair) SetName(v string) *XNameValuePair {
+	s.Name = &v
+	return s
+}
+
+func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
+	s.Value = &v
 	return s
 }
 
@@ -1161,6 +1214,230 @@ func (s *QueryAgentCompletionResponse) SetResultMsg(v string) *QueryAgentComplet
 
 func (s *QueryAgentCompletionResponse) SetMessage(v string) *QueryAgentCompletionResponse {
 	s.Message = &v
+	return s
+}
+
+type MatchCarloanUsersRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 需要匹配的值
+	MatchId *string `json:"match_id,omitempty" xml:"match_id,omitempty" require:"true"`
+	// 需要匹配的id类型：手机号md5、安卓设备号md5、ios设备号md5
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty" require:"true"`
+}
+
+func (s MatchCarloanUsersRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MatchCarloanUsersRequest) GoString() string {
+	return s.String()
+}
+
+func (s *MatchCarloanUsersRequest) SetAuthToken(v string) *MatchCarloanUsersRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *MatchCarloanUsersRequest) SetProductInstanceId(v string) *MatchCarloanUsersRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *MatchCarloanUsersRequest) SetMatchId(v string) *MatchCarloanUsersRequest {
+	s.MatchId = &v
+	return s
+}
+
+func (s *MatchCarloanUsersRequest) SetIdType(v string) *MatchCarloanUsersRequest {
+	s.IdType = &v
+	return s
+}
+
+type MatchCarloanUsersResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 成功或者失败
+	IsSuccess *string `json:"is_success,omitempty" xml:"is_success,omitempty"`
+}
+
+func (s MatchCarloanUsersResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MatchCarloanUsersResponse) GoString() string {
+	return s.String()
+}
+
+func (s *MatchCarloanUsersResponse) SetReqMsgId(v string) *MatchCarloanUsersResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *MatchCarloanUsersResponse) SetResultCode(v string) *MatchCarloanUsersResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *MatchCarloanUsersResponse) SetResultMsg(v string) *MatchCarloanUsersResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *MatchCarloanUsersResponse) SetIsSuccess(v string) *MatchCarloanUsersResponse {
+	s.IsSuccess = &v
+	return s
+}
+
+type BatchqueryCarloanUsersRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户匹配数据
+	UserMatch []*CarUserMatch `json:"user_match,omitempty" xml:"user_match,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s BatchqueryCarloanUsersRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryCarloanUsersRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryCarloanUsersRequest) SetAuthToken(v string) *BatchqueryCarloanUsersRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchqueryCarloanUsersRequest) SetProductInstanceId(v string) *BatchqueryCarloanUsersRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchqueryCarloanUsersRequest) SetUserMatch(v []*CarUserMatch) *BatchqueryCarloanUsersRequest {
+	s.UserMatch = v
+	return s
+}
+
+type BatchqueryCarloanUsersResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 匹配成功的index
+	MatchResult []*int64 `json:"match_result,omitempty" xml:"match_result,omitempty" type:"Repeated"`
+}
+
+func (s BatchqueryCarloanUsersResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryCarloanUsersResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryCarloanUsersResponse) SetReqMsgId(v string) *BatchqueryCarloanUsersResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchqueryCarloanUsersResponse) SetResultCode(v string) *BatchqueryCarloanUsersResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchqueryCarloanUsersResponse) SetResultMsg(v string) *BatchqueryCarloanUsersResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BatchqueryCarloanUsersResponse) SetMatchResult(v []*int64) *BatchqueryCarloanUsersResponse {
+	s.MatchResult = v
+	return s
+}
+
+type ImportCarloanUsersRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 文件id
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s ImportCarloanUsersRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportCarloanUsersRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ImportCarloanUsersRequest) SetAuthToken(v string) *ImportCarloanUsersRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ImportCarloanUsersRequest) SetProductInstanceId(v string) *ImportCarloanUsersRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ImportCarloanUsersRequest) SetFileObject(v io.Reader) *ImportCarloanUsersRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *ImportCarloanUsersRequest) SetFileObjectName(v string) *ImportCarloanUsersRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *ImportCarloanUsersRequest) SetFileId(v string) *ImportCarloanUsersRequest {
+	s.FileId = &v
+	return s
+}
+
+type ImportCarloanUsersResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ImportCarloanUsersResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportCarloanUsersResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ImportCarloanUsersResponse) SetReqMsgId(v string) *ImportCarloanUsersResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ImportCarloanUsersResponse) SetResultCode(v string) *ImportCarloanUsersResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ImportCarloanUsersResponse) SetResultMsg(v string) *ImportCarloanUsersResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -3174,6 +3451,126 @@ func (s *QueryModelWorkscoreResponse) SetScore(v string) *QueryModelWorkscoreRes
 	return s
 }
 
+type CreateAntcloudGatewayxFileUploadRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 上传文件作用的openapi method
+	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty" require:"true"`
+	// 文件标签，多个标签;分割
+	FileLabel *string `json:"file_label,omitempty" xml:"file_label,omitempty" maxLength:"100"`
+	// 自定义的文件元数据
+	FileMetadata *string `json:"file_metadata,omitempty" xml:"file_metadata,omitempty" maxLength:"1000"`
+	// 文件名，不传则随机生成文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" maxLength:"100"`
+	// 文件的多媒体类型
+	MimeType *string `json:"mime_type,omitempty" xml:"mime_type,omitempty"`
+	// 产品方的api归属集群，即productInstanceId
+	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetAuthToken(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCode(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileLabel(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileLabel = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileMetadata(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileMetadata = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileName(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetMimeType(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.MimeType = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCluster = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传有效期
+	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 32位文件唯一id
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 放入http请求头里
+	UploadHeaders []*XNameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
+	// 文件上传地址
+	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetReqMsgId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultCode(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultMsg(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetExpiredTime(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ExpiredTime = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetFileId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.FileId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*XNameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadHeaders = v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadUrl(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadUrl = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -3296,7 +3693,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.46"),
+				"sdk_version":      tea.String("1.0.52"),
 				"_prod_code":       tea.String("COLLABINV"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -3585,6 +3982,138 @@ func (client *Client) QueryAgentCompletionEx(request *QueryAgentCompletionReques
 	}
 	_result = &QueryAgentCompletionResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.agent.completion.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 车抵贷人群匹配
+ * Summary: 车抵贷人群匹配
+ */
+func (client *Client) MatchCarloanUsers(request *MatchCarloanUsersRequest) (_result *MatchCarloanUsersResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &MatchCarloanUsersResponse{}
+	_body, _err := client.MatchCarloanUsersEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 车抵贷人群匹配
+ * Summary: 车抵贷人群匹配
+ */
+func (client *Client) MatchCarloanUsersEx(request *MatchCarloanUsersRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *MatchCarloanUsersResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &MatchCarloanUsersResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.carloan.users.match"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 批量碰撞人群数据
+ * Summary: 批量碰撞人群数据
+ */
+func (client *Client) BatchqueryCarloanUsers(request *BatchqueryCarloanUsersRequest) (_result *BatchqueryCarloanUsersResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchqueryCarloanUsersResponse{}
+	_body, _err := client.BatchqueryCarloanUsersEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 批量碰撞人群数据
+ * Summary: 批量碰撞人群数据
+ */
+func (client *Client) BatchqueryCarloanUsersEx(request *BatchqueryCarloanUsersRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryCarloanUsersResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchqueryCarloanUsersResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.carloan.users.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 导入人群文件
+ * Summary: 导入人群文件
+ */
+func (client *Client) ImportCarloanUsers(request *ImportCarloanUsersRequest) (_result *ImportCarloanUsersResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ImportCarloanUsersResponse{}
+	_body, _err := client.ImportCarloanUsersEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 导入人群文件
+ * Summary: 导入人群文件
+ */
+func (client *Client) ImportCarloanUsersEx(request *ImportCarloanUsersRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportCarloanUsersResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antchain.zkcollabinv.carloan.users.import"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			importCarloanUsersResponse := &ImportCarloanUsersResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = importCarloanUsersResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ImportCarloanUsersResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.carloan.users.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -4231,6 +4760,40 @@ func (client *Client) QueryModelWorkscoreEx(request *QueryModelWorkscoreRequest,
 	}
 	_result = &QueryModelWorkscoreResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.model.workscore.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUpload(request *CreateAntcloudGatewayxFileUploadRequest) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.CreateAntcloudGatewayxFileUploadEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+func (client *Client) CreateAntcloudGatewayxFileUploadEx(request *CreateAntcloudGatewayxFileUploadRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.gatewayx.file.upload.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
