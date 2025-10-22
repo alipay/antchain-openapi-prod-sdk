@@ -92,7 +92,7 @@ class DigitalGatewayMCPDetailVO extends Model
     /**
      * @example
      *
-     * @var ToolInfoVO
+     * @var ToolInfoVO[]
      */
     public $toolList;
     protected $_name = [
@@ -158,7 +158,13 @@ class DigitalGatewayMCPDetailVO extends Model
             $res['docs'] = $this->docs;
         }
         if (null !== $this->toolList) {
-            $res['tool_list'] = null !== $this->toolList ? $this->toolList->toMap() : null;
+            $res['tool_list'] = [];
+            if (null !== $this->toolList && \is_array($this->toolList)) {
+                $n = 0;
+                foreach ($this->toolList as $item) {
+                    $res['tool_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -203,7 +209,13 @@ class DigitalGatewayMCPDetailVO extends Model
             $model->docs = $map['docs'];
         }
         if (isset($map['tool_list'])) {
-            $model->toolList = ToolInfoVO::fromMap($map['tool_list']);
+            if (!empty($map['tool_list'])) {
+                $model->toolList = [];
+                $n               = 0;
+                foreach ($map['tool_list'] as $item) {
+                    $model->toolList[$n++] = null !== $item ? ToolInfoVO::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
