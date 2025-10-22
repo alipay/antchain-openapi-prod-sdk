@@ -8,9 +8,9 @@ use AlibabaCloud\Tea\Model;
 
 class LoginAccountTypeBO extends Model
 {
-    // 登录类型
+    // 登录类型：EMAIL-邮箱
     /**
-     * @example 1
+     * @example EMAIL
      *
      * @var string
      */
@@ -18,7 +18,7 @@ class LoginAccountTypeBO extends Model
 
     // 登录名称
     /**
-     * @example 1
+     * @example 123@qq.com
      *
      * @var string
      */

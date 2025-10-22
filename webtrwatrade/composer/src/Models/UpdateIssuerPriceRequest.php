@@ -6,7 +6,7 @@ namespace AntChain\WEBTRWATRADE\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UpdateIssuerNetvalueRequest extends Model
+class UpdateIssuerPriceRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -30,17 +30,32 @@ class UpdateIssuerNetvalueRequest extends Model
      * @var string
      */
     public $netValue;
+
+    // 要修改的价格类型（必须与项目创建时设定的类型一致）
+    /**
+     * @var string
+     */
+    public $priceType;
+
+    // 修改说明或备注
+    /**
+     * @var string
+     */
+    public $remark;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'projectId'         => 'project_id',
         'netValue'          => 'net_value',
+        'priceType'         => 'price_type',
+        'remark'            => 'remark',
     ];
 
     public function validate()
     {
         Model::validateRequired('projectId', $this->projectId, true);
         Model::validateRequired('netValue', $this->netValue, true);
+        Model::validateRequired('priceType', $this->priceType, true);
     }
 
     public function toMap()
@@ -58,6 +73,12 @@ class UpdateIssuerNetvalueRequest extends Model
         if (null !== $this->netValue) {
             $res['net_value'] = $this->netValue;
         }
+        if (null !== $this->priceType) {
+            $res['price_type'] = $this->priceType;
+        }
+        if (null !== $this->remark) {
+            $res['remark'] = $this->remark;
+        }
 
         return $res;
     }
@@ -65,7 +86,7 @@ class UpdateIssuerNetvalueRequest extends Model
     /**
      * @param array $map
      *
-     * @return UpdateIssuerNetvalueRequest
+     * @return UpdateIssuerPriceRequest
      */
     public static function fromMap($map = [])
     {
@@ -81,6 +102,12 @@ class UpdateIssuerNetvalueRequest extends Model
         }
         if (isset($map['net_value'])) {
             $model->netValue = $map['net_value'];
+        }
+        if (isset($map['price_type'])) {
+            $model->priceType = $map['price_type'];
+        }
+        if (isset($map['remark'])) {
+            $model->remark = $map['remark'];
         }
 
         return $model;

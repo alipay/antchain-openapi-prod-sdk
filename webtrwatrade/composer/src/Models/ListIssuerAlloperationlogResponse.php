@@ -6,7 +6,7 @@ namespace AntChain\WEBTRWATRADE\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UpdateIssuerNetvalueResponse extends Model
+class ListIssuerAlloperationlogResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,10 +25,17 @@ class UpdateIssuerNetvalueResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 所有操作日志
+    /**
+     * @var OperationLogVO[]
+     */
+    public $data;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'data'       => 'data',
     ];
 
     public function validate()
@@ -47,6 +54,15 @@ class UpdateIssuerNetvalueResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->data) {
+            $res['data'] = [];
+            if (null !== $this->data && \is_array($this->data)) {
+                $n = 0;
+                foreach ($this->data as $item) {
+                    $res['data'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
 
         return $res;
     }
@@ -54,7 +70,7 @@ class UpdateIssuerNetvalueResponse extends Model
     /**
      * @param array $map
      *
-     * @return UpdateIssuerNetvalueResponse
+     * @return ListIssuerAlloperationlogResponse
      */
     public static function fromMap($map = [])
     {
@@ -67,6 +83,15 @@ class UpdateIssuerNetvalueResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['data'])) {
+            if (!empty($map['data'])) {
+                $model->data = [];
+                $n           = 0;
+                foreach ($map['data'] as $item) {
+                    $model->data[$n++] = null !== $item ? OperationLogVO::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

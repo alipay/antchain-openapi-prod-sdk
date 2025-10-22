@@ -6,7 +6,7 @@ namespace AntChain\WEBTRWATRADE\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class DetailIssuerProjectwithroleRequest extends Model
+class ListIssuerSubuserRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,22 +19,19 @@ class DetailIssuerProjectwithroleRequest extends Model
      */
     public $productInstanceId;
 
-    // 项目id - 项目id和
-    // 项目合约地址+所在链组合 二选一
+    // 资产项目ID（资产项目ID、资产项目合约地址+所在链 二选一必填）
     /**
      * @var string
      */
     public $assetProjectId;
 
-    // 资产项目合约地址，项目id和
-    // 项目合约地址+所在链组合 二选一
+    // 资产项目合约地址（资产项目ID、资产项目合约地址+所在链 二选一必填）
     /**
      * @var string
      */
     public $assetProjectAddress;
 
-    // 所在链，项目资产ID和
-    // 项目合约地址+所在链组合 二选一
+    // 项目所在链（资产项目ID、资产项目合约地址+所在链 二选一必填）
     /**
      * @var string
      */
@@ -76,7 +73,7 @@ class DetailIssuerProjectwithroleRequest extends Model
     /**
      * @param array $map
      *
-     * @return DetailIssuerProjectwithroleRequest
+     * @return ListIssuerSubuserRequest
      */
     public static function fromMap($map = [])
     {

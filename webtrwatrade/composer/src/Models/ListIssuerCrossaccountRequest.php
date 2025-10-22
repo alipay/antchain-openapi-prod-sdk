@@ -19,43 +19,43 @@ class ListIssuerCrossaccountRequest extends Model
      */
     public $productInstanceId;
 
-    // 资产项目ID
+    // 资产项目ID - 资产项目ID & 资产项目合约地址+项目所在链 二选一
     /**
      * @var string
      */
     public $assetProjectId;
 
-    // 资产项目合约地址
+    // 资产项目ID - 资产项目ID & 资产项目合约地址+项目所在链 二选一
     /**
      * @var string
      */
     public $assetProjectAddress;
 
-    // 项目所在链
+    // 项目所在链 - 资产项目ID & 资产项目合约地址+项目所在链 二选一
     /**
      * @var string
      */
     public $chainName;
 
-    // 用户ID
+    // 用户ID - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
     /**
      * @var string
      */
     public $userId;
 
-    // 本侧链用户地址
+    // 本侧链用户地址 - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
     /**
      * @var string
      */
     public $userAddress;
 
-    // 登录名
+    // 本侧链用户地址 - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
     /**
      * @var string
      */
     public $loginName;
 
-    // 登录名类型(EMAIL)
+    // 登录名类型(EMAIL) - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
     /**
      * @var string
      */

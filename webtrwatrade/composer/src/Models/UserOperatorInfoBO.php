@@ -10,7 +10,7 @@ class UserOperatorInfoBO extends Model
 {
     // userId
     /**
-     * @example 1
+     * @example 039d0196752c48f4ad71fcfece5ca459
      *
      * @var string
      */
@@ -18,7 +18,7 @@ class UserOperatorInfoBO extends Model
 
     // 别名
     /**
-     * @example 1
+     * @example 测试用户
      *
      * @var string
      */
@@ -26,7 +26,7 @@ class UserOperatorInfoBO extends Model
 
     // 钱包地址
     /**
-     * @example 1
+     * @example 0xf7d48f098440a166e9785ced7073baa6964acc80
      *
      * @var string
      */
@@ -34,7 +34,7 @@ class UserOperatorInfoBO extends Model
 
     // 登录账号类型列表
     /**
-     * @example 1
+     * @example
      *
      * @var LoginAccountTypeBO[]
      */
@@ -42,7 +42,7 @@ class UserOperatorInfoBO extends Model
 
     // 机构类型列表
     /**
-     * @example 1
+     * @example
      *
      * @var string[]
      */

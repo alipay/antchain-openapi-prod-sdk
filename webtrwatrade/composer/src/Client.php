@@ -48,14 +48,22 @@ use AntChain\WEBTRWATRADE\Models\EnableIssuerProjectRequest;
 use AntChain\WEBTRWATRADE\Models\EnableIssuerProjectResponse;
 use AntChain\WEBTRWATRADE\Models\IssueIssuerSubusertradeRequest;
 use AntChain\WEBTRWATRADE\Models\IssueIssuerSubusertradeResponse;
+use AntChain\WEBTRWATRADE\Models\ListDistributorAlloperationlogRequest;
+use AntChain\WEBTRWATRADE\Models\ListDistributorAlloperationlogResponse;
 use AntChain\WEBTRWATRADE\Models\ListDistributorCrossaccountRequest;
 use AntChain\WEBTRWATRADE\Models\ListDistributorCrossaccountResponse;
 use AntChain\WEBTRWATRADE\Models\ListDistributorDatasummaryRequest;
 use AntChain\WEBTRWATRADE\Models\ListDistributorDatasummaryResponse;
 use AntChain\WEBTRWATRADE\Models\ListDistributorOperationlogRequest;
 use AntChain\WEBTRWATRADE\Models\ListDistributorOperationlogResponse;
+use AntChain\WEBTRWATRADE\Models\ListDistributorProjectRequest;
+use AntChain\WEBTRWATRADE\Models\ListDistributorProjectResponse;
 use AntChain\WEBTRWATRADE\Models\ListDistributorReportRequest;
 use AntChain\WEBTRWATRADE\Models\ListDistributorReportResponse;
+use AntChain\WEBTRWATRADE\Models\ListDistributorSubuserRequest;
+use AntChain\WEBTRWATRADE\Models\ListDistributorSubuserResponse;
+use AntChain\WEBTRWATRADE\Models\ListIssuerAlloperationlogRequest;
+use AntChain\WEBTRWATRADE\Models\ListIssuerAlloperationlogResponse;
 use AntChain\WEBTRWATRADE\Models\ListIssuerCrossaccountRequest;
 use AntChain\WEBTRWATRADE\Models\ListIssuerCrossaccountResponse;
 use AntChain\WEBTRWATRADE\Models\ListIssuerDatasummaryRequest;
@@ -68,8 +76,12 @@ use AntChain\WEBTRWATRADE\Models\ListIssuerOperationlogRequest;
 use AntChain\WEBTRWATRADE\Models\ListIssuerOperationlogResponse;
 use AntChain\WEBTRWATRADE\Models\ListIssuerProjectkeyRequest;
 use AntChain\WEBTRWATRADE\Models\ListIssuerProjectkeyResponse;
+use AntChain\WEBTRWATRADE\Models\ListIssuerProjectRequest;
+use AntChain\WEBTRWATRADE\Models\ListIssuerProjectResponse;
 use AntChain\WEBTRWATRADE\Models\ListIssuerReportRequest;
 use AntChain\WEBTRWATRADE\Models\ListIssuerReportResponse;
+use AntChain\WEBTRWATRADE\Models\ListIssuerSubuserRequest;
+use AntChain\WEBTRWATRADE\Models\ListIssuerSubuserResponse;
 use AntChain\WEBTRWATRADE\Models\PagequeryDistributorProjectRequest;
 use AntChain\WEBTRWATRADE\Models\PagequeryDistributorProjectResponse;
 use AntChain\WEBTRWATRADE\Models\PagequeryDistributorSubuserRequest;
@@ -104,8 +116,8 @@ use AntChain\WEBTRWATRADE\Models\TransferIssuerSubusertradeRequest;
 use AntChain\WEBTRWATRADE\Models\TransferIssuerSubusertradeResponse;
 use AntChain\WEBTRWATRADE\Models\UpdateDistributorSubuserRequest;
 use AntChain\WEBTRWATRADE\Models\UpdateDistributorSubuserResponse;
-use AntChain\WEBTRWATRADE\Models\UpdateIssuerNetvalueRequest;
-use AntChain\WEBTRWATRADE\Models\UpdateIssuerNetvalueResponse;
+use AntChain\WEBTRWATRADE\Models\UpdateIssuerPriceRequest;
+use AntChain\WEBTRWATRADE\Models\UpdateIssuerPriceResponse;
 use AntChain\WEBTRWATRADE\Models\UploadIssuerReportRequest;
 use AntChain\WEBTRWATRADE\Models\UploadIssuerReportResponse;
 use Exception;
@@ -254,7 +266,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.26',
+                    'sdk_version'      => '1.0.30',
                     '_prod_code'       => 'WEBTRWATRADE',
                     '_prod_channel'    => 'default',
                 ];
@@ -597,6 +609,72 @@ class Client
         Utils::validateModel($request);
 
         return DetailIssuerProjectwithroleResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.issuer.projectwithrole.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询发行机构下所有的项目
+     * Summary: 查询发行机构下所有的项目.
+     *
+     * @param ListIssuerProjectRequest $request
+     *
+     * @return ListIssuerProjectResponse
+     */
+    public function listIssuerProject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listIssuerProjectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询发行机构下所有的项目
+     * Summary: 查询发行机构下所有的项目.
+     *
+     * @param ListIssuerProjectRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return ListIssuerProjectResponse
+     */
+    public function listIssuerProjectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListIssuerProjectResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.issuer.project.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询代销机构下所有的项目
+     * Summary: 查询代销机构下所有的项目.
+     *
+     * @param ListDistributorProjectRequest $request
+     *
+     * @return ListDistributorProjectResponse
+     */
+    public function listDistributorProject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listDistributorProjectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询代销机构下所有的项目
+     * Summary: 查询代销机构下所有的项目.
+     *
+     * @param ListDistributorProjectRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return ListDistributorProjectResponse
+     */
+    public function listDistributorProjectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListDistributorProjectResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.distributor.project.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1029,6 +1107,72 @@ class Client
     }
 
     /**
+     * Description: 发行机构查询所有操作员的操作日志
+     * Summary: 发行机构查询所有操作员的操作日志.
+     *
+     * @param ListIssuerAlloperationlogRequest $request
+     *
+     * @return ListIssuerAlloperationlogResponse
+     */
+    public function listIssuerAlloperationlog($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listIssuerAlloperationlogEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发行机构查询所有操作员的操作日志
+     * Summary: 发行机构查询所有操作员的操作日志.
+     *
+     * @param ListIssuerAlloperationlogRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return ListIssuerAlloperationlogResponse
+     */
+    public function listIssuerAlloperationlogEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListIssuerAlloperationlogResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.issuer.alloperationlog.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代销机构查询所有操作员的操作日志
+     * Summary: 代销机构查询所有操作员的操作日志.
+     *
+     * @param ListDistributorAlloperationlogRequest $request
+     *
+     * @return ListDistributorAlloperationlogResponse
+     */
+    public function listDistributorAlloperationlog($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listDistributorAlloperationlogEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代销机构查询所有操作员的操作日志
+     * Summary: 代销机构查询所有操作员的操作日志.
+     *
+     * @param ListDistributorAlloperationlogRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return ListDistributorAlloperationlogResponse
+     */
+    public function listDistributorAlloperationlogEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListDistributorAlloperationlogResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.distributor.alloperationlog.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 发行机构添加项目密钥
      * Summary: 发行机构添加项目密钥.
      *
@@ -1164,33 +1308,33 @@ class Client
      * Description: 更新项目净值
      * Summary: 更新项目净值
      *
-     * @param UpdateIssuerNetvalueRequest $request
+     * @param UpdateIssuerPriceRequest $request
      *
-     * @return UpdateIssuerNetvalueResponse
+     * @return UpdateIssuerPriceResponse
      */
-    public function updateIssuerNetvalue($request)
+    public function updateIssuerPrice($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->updateIssuerNetvalueEx($request, $headers, $runtime);
+        return $this->updateIssuerPriceEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 更新项目净值
      * Summary: 更新项目净值
      *
-     * @param UpdateIssuerNetvalueRequest $request
-     * @param string[]                    $headers
-     * @param RuntimeOptions              $runtime
+     * @param UpdateIssuerPriceRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
      *
-     * @return UpdateIssuerNetvalueResponse
+     * @return UpdateIssuerPriceResponse
      */
-    public function updateIssuerNetvalueEx($request, $headers, $runtime)
+    public function updateIssuerPriceEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return UpdateIssuerNetvalueResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.issuer.netvalue.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return UpdateIssuerPriceResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.issuer.price.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1785,6 +1929,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryDistributorResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.distributor.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询发行机构和项目下所有关联的二级用户信息
+     * Summary: 查询机构和项目下所有关联的二级用户信息.
+     *
+     * @param ListIssuerSubuserRequest $request
+     *
+     * @return ListIssuerSubuserResponse
+     */
+    public function listIssuerSubuser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listIssuerSubuserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询发行机构和项目下所有关联的二级用户信息
+     * Summary: 查询机构和项目下所有关联的二级用户信息.
+     *
+     * @param ListIssuerSubuserRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return ListIssuerSubuserResponse
+     */
+    public function listIssuerSubuserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListIssuerSubuserResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.issuer.subuser.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询代销机构和项目下所有关联的二级用户信息
+     * Summary: 查询机构和项目下所有关联的二级用户信息.
+     *
+     * @param ListDistributorSubuserRequest $request
+     *
+     * @return ListDistributorSubuserResponse
+     */
+    public function listDistributorSubuser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listDistributorSubuserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询代销机构和项目下所有关联的二级用户信息
+     * Summary: 查询机构和项目下所有关联的二级用户信息.
+     *
+     * @param ListDistributorSubuserRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return ListDistributorSubuserResponse
+     */
+    public function listDistributorSubuserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListDistributorSubuserResponse::fromMap($this->doRequest('1.0', 'antdigital.webtrwatrade.distributor.subuser.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -10,7 +10,7 @@ class ProjectWithRole extends Model
 {
     // 项目id
     /**
-     * @example 1
+     * @example 0628455d41d044ed97783db554149d4b
      *
      * @var string
      */
@@ -18,7 +18,7 @@ class ProjectWithRole extends Model
 
     // 项目名称
     /**
-     * @example 1
+     * @example 测试项目
      *
      * @var string
      */
@@ -26,7 +26,7 @@ class ProjectWithRole extends Model
 
     // 描述
     /**
-     * @example 1
+     * @example 测试
      *
      * @var string
      */
@@ -34,7 +34,7 @@ class ProjectWithRole extends Model
 
     // token名称
     /**
-     * @example 1
+     * @example token
      *
      * @var string
      */
@@ -42,7 +42,7 @@ class ProjectWithRole extends Model
 
     // 最大供应量
     /**
-     * @example 1
+     * @example 1000000
      *
      * @var string
      */
@@ -56,9 +56,9 @@ class ProjectWithRole extends Model
      */
     public $netValue;
 
-    // 价格类型
+    // 价格类型：PROJECT_NAV 项目净值 TOKEN_PRICE token
     /**
-     * @example 1
+     * @example TOKEN_PRICE
      *
      * @var string
      */
@@ -74,7 +74,7 @@ class ProjectWithRole extends Model
 
     // 最大限额
     /**
-     * @example 1
+     * @example 10000
      *
      * @var string
      */
@@ -82,7 +82,7 @@ class ProjectWithRole extends Model
 
     // 部署类型 DIRECT_PUBLIC_CHAIN 直发公链，NORMAL 普通模式
     /**
-     * @example 1
+     * @example NORMAL
      *
      * @var string
      */
@@ -90,7 +90,7 @@ class ProjectWithRole extends Model
 
     // 项目所在链
     /**
-     * @example 1
+     * @example ANTCHAIN
      *
      * @var string
      */
@@ -98,7 +98,7 @@ class ProjectWithRole extends Model
 
     // 操作角色列表
     /**
-     * @example 1
+     * @example
      *
      * @var UserOperatorInfoBO[]
      */
@@ -106,7 +106,7 @@ class ProjectWithRole extends Model
 
     // 代销者机构集合
     /**
-     * @example 1
+     * @example
      *
      * @var ParticipantInfo[]
      */
