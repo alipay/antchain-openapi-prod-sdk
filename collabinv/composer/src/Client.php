@@ -13,12 +13,18 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\COLLABINV\Models\BatchdeleteAgentConversationRequest;
 use AntChain\COLLABINV\Models\BatchdeleteAgentConversationResponse;
+use AntChain\COLLABINV\Models\BatchqueryCarloanUsersRequest;
+use AntChain\COLLABINV\Models\BatchqueryCarloanUsersResponse;
 use AntChain\COLLABINV\Models\BatchqueryModelCommonscoreRequest;
 use AntChain\COLLABINV\Models\BatchqueryModelCommonscoreResponse;
+use AntChain\COLLABINV\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\COLLABINV\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\COLLABINV\Models\DeleteAgentConversationRequest;
 use AntChain\COLLABINV\Models\DeleteAgentConversationResponse;
 use AntChain\COLLABINV\Models\ExecModelSampletaskRequest;
 use AntChain\COLLABINV\Models\ExecModelSampletaskResponse;
+use AntChain\COLLABINV\Models\ImportCarloanUsersRequest;
+use AntChain\COLLABINV\Models\ImportCarloanUsersResponse;
 use AntChain\COLLABINV\Models\ImportIdmapPsiresultfileRequest;
 use AntChain\COLLABINV\Models\ImportIdmapPsiresultfileResponse;
 use AntChain\COLLABINV\Models\ImportIdmapSamplefileRequest;
@@ -27,6 +33,8 @@ use AntChain\COLLABINV\Models\ListAgentConversationRequest;
 use AntChain\COLLABINV\Models\ListAgentConversationResponse;
 use AntChain\COLLABINV\Models\ListAgentMessageRequest;
 use AntChain\COLLABINV\Models\ListAgentMessageResponse;
+use AntChain\COLLABINV\Models\MatchCarloanUsersRequest;
+use AntChain\COLLABINV\Models\MatchCarloanUsersResponse;
 use AntChain\COLLABINV\Models\PushModelSamplefileRequest;
 use AntChain\COLLABINV\Models\PushModelSamplefileResponse;
 use AntChain\COLLABINV\Models\QueryAgentCompletionRequest;
@@ -210,7 +218,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.46',
+                    'sdk_version'      => '1.0.52',
                     '_prod_code'       => 'COLLABINV',
                     '_prod_channel'    => 'default',
                 ];
@@ -487,6 +495,124 @@ class Client
         Utils::validateModel($request);
 
         return QueryAgentCompletionResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.agent.completion.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 车抵贷人群匹配
+     * Summary: 车抵贷人群匹配.
+     *
+     * @param MatchCarloanUsersRequest $request
+     *
+     * @return MatchCarloanUsersResponse
+     */
+    public function matchCarloanUsers($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->matchCarloanUsersEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 车抵贷人群匹配
+     * Summary: 车抵贷人群匹配.
+     *
+     * @param MatchCarloanUsersRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return MatchCarloanUsersResponse
+     */
+    public function matchCarloanUsersEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return MatchCarloanUsersResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.carloan.users.match', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批量碰撞人群数据
+     * Summary: 批量碰撞人群数据.
+     *
+     * @param BatchqueryCarloanUsersRequest $request
+     *
+     * @return BatchqueryCarloanUsersResponse
+     */
+    public function batchqueryCarloanUsers($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryCarloanUsersEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批量碰撞人群数据
+     * Summary: 批量碰撞人群数据.
+     *
+     * @param BatchqueryCarloanUsersRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return BatchqueryCarloanUsersResponse
+     */
+    public function batchqueryCarloanUsersEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryCarloanUsersResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.carloan.users.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 导入人群文件
+     * Summary: 导入人群文件.
+     *
+     * @param ImportCarloanUsersRequest $request
+     *
+     * @return ImportCarloanUsersResponse
+     */
+    public function importCarloanUsers($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importCarloanUsersEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 导入人群文件
+     * Summary: 导入人群文件.
+     *
+     * @param ImportCarloanUsersRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ImportCarloanUsersResponse
+     */
+    public function importCarloanUsersEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antchain.zkcollabinv.carloan.users.import',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new ImportCarloanUsersResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return ImportCarloanUsersResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.carloan.users.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1114,5 +1240,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryModelWorkscoreResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.model.workscore.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
