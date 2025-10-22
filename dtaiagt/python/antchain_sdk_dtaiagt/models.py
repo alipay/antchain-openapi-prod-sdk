@@ -308,7 +308,7 @@ class DigitalGatewayMCPDetailVO(TeaModel):
         icon: str = None,
         description: str = None,
         docs: str = None,
-        tool_list: ToolInfoVO = None,
+        tool_list: List[ToolInfoVO] = None,
     ):
         # server_host
         self.server_host = server_host
@@ -346,7 +346,9 @@ class DigitalGatewayMCPDetailVO(TeaModel):
         self.validate_required(self.docs, 'docs')
         self.validate_required(self.tool_list, 'tool_list')
         if self.tool_list:
-            self.tool_list.validate()
+            for k in self.tool_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -374,8 +376,10 @@ class DigitalGatewayMCPDetailVO(TeaModel):
             result['description'] = self.description
         if self.docs is not None:
             result['docs'] = self.docs
+        result['tool_list'] = []
         if self.tool_list is not None:
-            result['tool_list'] = self.tool_list.to_map()
+            for k in self.tool_list:
+                result['tool_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -400,9 +404,11 @@ class DigitalGatewayMCPDetailVO(TeaModel):
             self.description = m.get('description')
         if m.get('docs') is not None:
             self.docs = m.get('docs')
+        self.tool_list = []
         if m.get('tool_list') is not None:
-            temp_model = ToolInfoVO()
-            self.tool_list = temp_model.from_map(m['tool_list'])
+            for k in m.get('tool_list'):
+                temp_model = ToolInfoVO()
+                self.tool_list.append(temp_model.from_map(k))
         return self
 
 
