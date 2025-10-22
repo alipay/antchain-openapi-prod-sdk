@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.26',
+    sdk_version = '1.0.30',
     _prod_code = 'WEBTRWATRADE',
     _prod_channel = 'default'
   };
@@ -196,19 +196,19 @@ model InstitutionType {
 // 跨链账号明细
 model CrossChainAccountsDetailVO {
   // 明细ID
-  id?: string(name='id', example='明细ID'),
+  id?: string(name='id', example='0ef1c7f82ffb44989e8b6e6b6360a3a7'),
   // 交易链上Hash
-  transactionHash?: string(name='transaction_hash', example='交易链上Hash'),
+  transactionHash?: string(name='transaction_hash', example='0xf1ada29c07fd95444030d9001ad09b7fd2111aed063ee0753e181fb2a3f53057'),
   // 交易前余额
-  preBalance?: string(name='pre_balance', example='交易前余额'),
+  preBalance?: string(name='pre_balance', example='1000.000000000'),
   // 交易数量
-  transactionAmount?: string(name='transaction_amount', example='交易数量'),
+  transactionAmount?: string(name='transaction_amount', example='1000.000000000'),
   // 交易后余额
-  postBalance?: string(name='post_balance', example='交易后余额'),
-  // 交易类别
-  transactionType?: string(name='transaction_type', example='交易类别(LOCK_MINT/BURN_RETRIEVE/INNER_TRANSFER/OTC_TRANSFER)'),
+  postBalance?: string(name='post_balance', example='2000.000000000'),
+  // 交易类别(LOCK_MINT/BURN_RETRIEVE/INNER_TRANSFER/OTC_TRANSFER)
+  transactionType?: string(name='transaction_type', example='LOCK_MINT'),
   // 对手地址
-  counterAddress?: string(name='counter_address', example='对手地址'),
+  counterAddress?: string(name='counter_address', example='0x5639ede048dc910b917b518ae8d3cbb184fc749d'),
   // 创建时间
   gmtCreated?: long(name='gmt_created', example='1755754919690'),
   // 更新时间
@@ -223,28 +223,28 @@ model UserInfo {
 
 // 登录类型
 model LoginAccountTypeBO {
-  // 登录类型
-  userLoginType?: string(name='user_login_type', example='1'),
+  // 登录类型：EMAIL-邮箱
+  userLoginType?: string(name='user_login_type', example='EMAIL'),
   // 登录名称
-  loginName?: string(name='login_name', example='1'),
+  loginName?: string(name='login_name', example='123@qq.com'),
 }
 
 // 跨链账号红利明细
 model CrossChainBonusAccountsDetailVO {
   // 明细ID
-  id?: string(name='id', example='明细ID'),
+  id?: string(name='id', example='3e695195a5634f0c856a6c30358c9f5b'),
   // 交易链上Hash
-  transactionHash?: string(name='transaction_hash', example='交易链上Hash'),
+  transactionHash?: string(name='transaction_hash', example='0xeede426617346ebe76481ab4a8f0fad46997e8f38f13d1c4cc6135cdc1d7553c'),
   // 交易前余额
-  preBalance?: string(name='pre_balance', example='交易前余额'),
+  preBalance?: string(name='pre_balance', example='7'),
   // 交易数量
-  transactionAmount?: string(name='transaction_amount', example='交易数量'),
+  transactionAmount?: string(name='transaction_amount', example='1'),
   // 交易后余额
-  postBalance?: string(name='post_balance', example='交易后余额'),
-  // 交易类型
-  transactionType?: string(name='transaction_type', example='交易类型(LOCK_MINT_BONUS/BURN_RETRIEVE_BONUS/INNER_TRANSFER_BONUS/OTC_TRANSFER_BONUS)'),
+  postBalance?: string(name='post_balance', example='8'),
+  // 交易类型(LOCK_MINT_BONUS/BURN_RETRIEVE_BONUS/INNER_TRANSFER_BONUS/OTC_TRANSFER_BONUS)
+  transactionType?: string(name='transaction_type', example='INNER_TRANSFER_BONUS'),
   // 对手地址
-  counterAddress?: string(name='counter_address', example='对手地址'),
+  counterAddress?: string(name='counter_address', example='0x644081f8086c1e9ad9597d8fef6249f5f2d80563'),
   // 创建时间
   gmtCreated?: long(name='gmt_created', example='1755754919690'),
   // 更新时间
@@ -254,23 +254,23 @@ model CrossChainBonusAccountsDetailVO {
 // 资产账户明细VO
 model SubUserAccountDetailsVO {
   // 明细ID
-  id: string(name='id', example='明细ID'),
+  id: string(name='id', example='1'),
   // 交易链上Hash
-  transactionHash: string(name='transaction_hash', example='交易链上Hash'),
+  transactionHash: string(name='transaction_hash', example='0x9fe688e456d3c4b15edceff3c23380300d71b48649ae8d61c6a9e513bb095262'),
   // 交易前余额
-  preBalance: string(name='pre_balance', example='交易前余额'),
+  preBalance: string(name='pre_balance', example='1.0'),
   // 交易数量
-  transactionAmount: string(name='transaction_amount', example='交易数量'),
+  transactionAmount: string(name='transaction_amount', example='1'),
   // 交易后余额
-  postBalance: string(name='post_balance', example='交易后余额'),
+  postBalance: string(name='post_balance', example='1.0'),
   // 交易类别
-  transactionType: string(name='transaction_type', example='交易类别'),
+  transactionType: string(name='transaction_type', example='ISSUE'),
   // 对手地址
-  counterAddress: string(name='counter_address', example='对手地址'),
+  counterAddress: string(name='counter_address', example='0x9f6a540f4079d29ff5a9c5985e9ee87f3b713117'),
   // 创建时间
-  gmtCreated: long(name='gmt_created', example='创建时间'),
+  gmtCreated: long(name='gmt_created', example='1755754919690'),
   // 更新时间
-  gmtModified: string(name='gmt_modified', example='更新时间'),
+  gmtModified: string(name='gmt_modified', example='1755754919690'),
 }
 
 // 多币种金额
@@ -286,23 +286,23 @@ model MultiCurrencyMoney {
 // 红利账户明细
 model SubUserBonusAccountDetailVO {
   // 明细ID
-  id: string(name='id', example='明细ID'),
+  id: string(name='id', example='1'),
   // 交易链上Hash
-  transactionHash: string(name='transaction_hash', example='交易链上Hash'),
+  transactionHash: string(name='transaction_hash', example='0x9fe688e456d3c4b15edceff3c23380300d71b48649ae8d61c6a9e513bb095262'),
   // 交易前余额
-  preBalance: string(name='pre_balance', example='交易前余额'),
+  preBalance: string(name='pre_balance', example='1.0'),
   // 交易数量
-  transactionAmount: string(name='transaction_amount', example='交易数量'),
+  transactionAmount: string(name='transaction_amount', example='1'),
   // 交易后余额
-  postBalance: string(name='post_balance', example='交易后余额'),
+  postBalance: string(name='post_balance', example='1.0'),
   // 交易类别
-  transactionType: string(name='transaction_type', example='交易类别'),
+  transactionType: string(name='transaction_type', example='ISSUE'),
   // 对手地址
-  counterAddress: string(name='counter_address', example='对手地址'),
+  counterAddress: string(name='counter_address', example='0x9f6a540f4079d29ff5a9c5985e9ee87f3b713117'),
   // 创建时间
-  gmtCreated: long(name='gmt_created', example='创建时间'),
+  gmtCreated: long(name='gmt_created', example='1755754919690'),
   // 更新时间
-  gmtModified: long(name='gmt_modified', example='更新时间'),
+  gmtModified: long(name='gmt_modified', example='1755754919690'),
 }
 
 // 净值信息
@@ -422,11 +422,11 @@ model ParticipantInfo {
 // 跨链账户信息
 model CrossChainAccountsVO {
   // 对侧链用户地址
-  crossChainUserAddress?: string(name='cross_chain_user_address', example='对侧链用户地址'),
+  crossChainUserAddress?: string(name='cross_chain_user_address', example='0xce81adcd4b9b78293c73caed55840c81b4c3b8f5'),
   // 对侧链账户ID
-  crossChainUserAccountId?: string(name='cross_chain_user_account_id', example='对侧链账户ID'),
+  crossChainUserAccountId?: string(name='cross_chain_user_account_id', example='1938129653756694529'),
   // 对侧链红利账户ID
-  crossChainUserBonusAccountId?: string(name='cross_chain_user_bonus_account_id', example='对侧链红利账户ID'),
+  crossChainUserBonusAccountId?: string(name='cross_chain_user_bonus_account_id', example='1928364866666541058'),
   // 对侧链资产账户明细
   crossChainUserAccountsDetails?: [ CrossChainAccountsDetailVO ](name='cross_chain_user_accounts_details', example='对侧链资产账户明细'),
   // 对侧链账户信息
@@ -472,15 +472,15 @@ model AssetProject {
 // 操作角色
 model UserOperatorInfoBO {
   // userId
-  userId?: string(name='user_id', example='1'),
+  userId?: string(name='user_id', example='039d0196752c48f4ad71fcfece5ca459'),
   // 别名
-  alias?: string(name='alias', example='1'),
+  alias?: string(name='alias', example='测试用户'),
   // 钱包地址
-  address?: string(name='address', example='1'),
+  address?: string(name='address', example='0xf7d48f098440a166e9785ced7073baa6964acc80'),
   // 登录账号类型列表
-  userLoginAccountList?: [ LoginAccountTypeBO ](name='user_login_account_list', example='1'),
+  userLoginAccountList?: [ LoginAccountTypeBO ](name='user_login_account_list', example=''),
   // 机构类型列表
-  userInstitutionTypeList?: [ string ](name='user_institution_type_list', example='1'),
+  userInstitutionTypeList?: [ string ](name='user_institution_type_list', example=''),
 }
 
 // 项目报告
@@ -519,6 +519,64 @@ model ProjectResource {
   gmtCreated: long(name='gmt_created', example='1726024364000'),
 }
 
+// 所有系统操作日志
+model OperationLogVO {
+  // ID主键
+  id: string(name='id', example='0628455d41d044ed97783db554149d4b'),
+  // 创建时间戳（毫秒）
+  gmtCreated?: string(name='gmt_created', example='1755754919690'),
+  // 创建人
+  createdBy?: string(name='created_by', example='0628455d41d044ed97783db554149d4b'),
+  // 更新时间戳（毫秒）
+  gmtModified?: string(name='gmt_modified', example='1755754919690'),
+  // 更新人
+  modifieBy?: string(name='modifie_by', example='0628455d41d044ed97783db554149d4b'),
+  // 用户id
+  userId?: string(name='user_id', example='0628455d41d044ed97783db554149d4b'),
+  // 用户地址
+  userAddress?: string(name='user_address', example='0628455d41d044ed97783db554149d4b'),
+  // 发起操作的URL接口
+  requestUrl?: string(name='request_url', example='/openapi/v1/trade/issuer/project/create'),
+  // 发起操作的URL接口描述code值
+  apiDesc?: string(name='api_desc', example='OPENAPI_ISSUER_PROJECT_CREATE'),
+  // 发起操作的URL接口中文描述
+  chDesc?: string(name='ch_desc', example='openapi创建项目'),
+  // 设备信息
+  deviceInfo?: string(name='device_info', example='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36'),
+  // 设备Hash
+  deviceHash?: string(name='device_hash', example='30fdb4cb'),
+  // 操作种类
+  operationType?: string(name='operation_type', example='QUERY'),
+  // 请求输入
+  requestInput?: string(name='request_input', example='{"request":{"requestFrom":"inner","operatorBy":null,"projectId":"17cef416378c4f238ec42cdc142b54c7","targetChainName":null}}'),
+  // 请求输出
+  requestOutput?: string(name='request_output', example='{"success":true,"data":[],"total":0,"errorMessage":null,"retry":false,"traceId":"T2ce514e6f60a409f9e3926115f9742dd"}'),
+  // 操作状态0：失败   1：成功
+  success?: string(name='success', example='1'),
+  // 操作来源
+  requestFrom?: string(name='request_from', example='WEB'),
+  // 发起IP地址
+  ip?: string(name='ip', example='127.0.0.1'),
+  // 扩展字段
+  extInfo?: string(name='ext_info', example='{}'),
+  // 登录名类型(EMAIL)
+  loginAccountType?: string(name='login_account_type', example='EMAIL'),
+  // 登录名
+  loginAccount?: string(name='login_account', example='alice'),
+}
+
+// 二级用户基础信息
+model SubUserAccountBaseVO {
+  // 二级用户ID
+  subUserAccountId: string(name='sub_user_account_id', example='b20167e21a8d4cc2b5f1022d24f43815'),
+  // 用户地址
+  userAddress?: string(name='user_address', example='0x9f18be920360500f216495cd589895d3917cd9f2'),
+  // 用户邮箱
+  contact?: string(name='contact', example='test@gamil.com'),
+  // 用户昵称
+  alias?: string(name='alias', example='Alice'),
+}
+
 // 机构分页信息
 model InstitutionPageData {
   // 总记录
@@ -544,57 +602,57 @@ model DataSummaryStatisticsItem {
 // 项目角色信息
 model ProjectWithRole {
   // 项目id
-  projectId?: string(name='project_id', example='1'),
+  projectId?: string(name='project_id', example='0628455d41d044ed97783db554149d4b'),
   // 项目名称
-  projcetName?: string(name='projcet_name', example='1'),
+  projcetName?: string(name='projcet_name', example='测试项目'),
   // 描述
-  description?: string(name='description', example='1'),
+  description?: string(name='description', example='测试'),
   // token名称
-  tokenName?: string(name='token_name', example='1'),
+  tokenName?: string(name='token_name', example='token'),
   // 最大供应量
-  capacity?: string(name='capacity', example='1'),
+  capacity?: string(name='capacity', example='1000000'),
   // 净值
   netValue?: string(name='net_value', example='1'),
-  // 价格类型
-  priceType?: string(name='price_type', example='1'),
+  // 价格类型：PROJECT_NAV 项目净值 TOKEN_PRICE token
+  priceType?: string(name='price_type', example='TOKEN_PRICE'),
   // 项目净值
   projectNetValue?: string(name='project_net_value', example='1'),
   // 最大限额
-  maxSubscriptionAmount?: string(name='max_subscription_amount', example='1'),
+  maxSubscriptionAmount?: string(name='max_subscription_amount', example='10000'),
   // 部署类型 DIRECT_PUBLIC_CHAIN 直发公链，NORMAL 普通模式
-  deploymentType?: string(name='deployment_type', example='1'),
+  deploymentType?: string(name='deployment_type', example='NORMAL'),
   // 项目所在链
-  chainType?: string(name='chain_type', example='1'),
+  chainType?: string(name='chain_type', example='ANTCHAIN'),
   // 操作角色列表
-  userOperatorList?: [ UserOperatorInfoBO ](name='user_operator_list', example='1'),
+  userOperatorList?: [ UserOperatorInfoBO ](name='user_operator_list', example=''),
   // 代销者机构集合
-  participantInfos?: [ ParticipantInfo ](name='participant_infos', example='1'),
+  participantInfos?: [ ParticipantInfo ](name='participant_infos', example=''),
 }
 
 // 跨链账号明细
 model CrossAccountListVO {
   // 项目ID
-  projectId?: string(name='project_id', example='项目ID'),
+  projectId?: string(name='project_id', example='02aa0864b0e347b780f82769d7665baf'),
   // 资产项目合约地址
-  assetProjectAddress?: string(name='asset_project_address', example='资产项目合约地址'),
+  assetProjectAddress?: string(name='asset_project_address', example='0xc60c23aec15324cd51bf6c291c2768bc7287ada1'),
   // 红利合约地址
-  bonusAddress?: string(name='bonus_address', example='红利合约地址'),
+  bonusAddress?: string(name='bonus_address', example='0xb75dd55da39f778f759493a04d5955ba7435f102'),
   // 用户ID
-  userId?: string(name='user_id', example='用户ID'),
+  userId?: string(name='user_id', example='8a18b4fc7c8341238bd7eac27f63025a'),
   // 代销机构ID
-  distributorInstitutionId?: string(name='distributor_institution_id', example='代销机构ID'),
+  distributorInstitutionId?: string(name='distributor_institution_id', example='d9becf0366ff471eb2f3879e5e2f9eb7'),
   // 发行链名称
-  chainName?: string(name='chain_name', example='发行链名称'),
+  chainName?: string(name='chain_name', example='ANTCHAIN'),
   // 投资者用户账户ID
-  subUserAccountId?: string(name='sub_user_account_id', example='投资者用户账户ID'),
+  subUserAccountId?: string(name='sub_user_account_id', example='40809209519a47179b7110ef0b8e9dff'),
   // 投资者用户红利账户ID
-  subUserBonusAccountId?: string(name='sub_user_bonus_account_id', example='投资者用户红利账户ID'),
+  subUserBonusAccountId?: string(name='sub_user_bonus_account_id', example='043bb2fbcd2947ea8ddea4087eae233f'),
   // 目标链名称
-  targetChainName?: string(name='target_chain_name', example='目标链名称'),
+  targetChainName?: string(name='target_chain_name', example='CONFLUX_TEST_NET'),
   // 目标链资产合约地址
-  targetChainAssetTokenAddress?: string(name='target_chain_asset_token_address', example='目标链资产合约地址'),
+  targetChainAssetTokenAddress?: string(name='target_chain_asset_token_address', example='0x77038f22e1b3210d455662fe0071dae5d5ad0c97'),
   // 目标链红利合约地址
-  targetChainBonusAddress?: string(name='target_chain_bonus_address', example='目标链红利合约地址'),
+  targetChainBonusAddress?: string(name='target_chain_bonus_address', example='0x89b7556c61fa90185ab32a99727b2ccdad9fcd36'),
   // 对侧链账户信息
   crossChainAccountsInfo?: [ CrossChainAccountsVO ](name='cross_chain_accounts_info', example='对侧链账户信息'),
 }
@@ -634,21 +692,21 @@ model LoginOperationLogVO {
 // 资产账户明细与红利账户明细
 model SubUserAccountDetailVO {
   // 项目ID
-  projectId: string(name='project_id', example='项目ID'),
+  projectId: string(name='project_id', example='1000'),
   // 资产项目合约地址
-  assetProjectAddress?: string(name='asset_project_address', example='资产项目合约地址'),
+  assetProjectAddress?: string(name='asset_project_address', example='0x44b2c05769202f0001ab5beb5d583bb8a630677e'),
   // 红利合约地址
-  bonusAddress?: string(name='bonus_address', example='红利合约地址'),
+  bonusAddress?: string(name='bonus_address', example='0x6dd8c1ab208dd3d2b20ff28fe97babb6154ff9db'),
   // 用户ID
-  userId?: string(name='user_id', example='用户ID'),
+  userId?: string(name='user_id', example='1'),
   // 代销机构ID
-  distributorInstitutionId?: string(name='distributor_institution_id', example='代销机构ID'),
+  distributorInstitutionId?: string(name='distributor_institution_id', example='1000'),
   // 发行链名称
-  chainName?: string(name='chain_name', example='发行链名称'),
+  chainName?: string(name='chain_name', example='ANTCHAIN'),
   // 投资者用户账户ID
-  subUserAccountId?: string(name='sub_user_account_id', example='投资者用户账户ID'),
+  subUserAccountId?: string(name='sub_user_account_id', example='1'),
   // 投资者用户红利账户ID
-  subUserBonusAccountId?: string(name='sub_user_bonus_account_id', example='投资者用户红利账户ID'),
+  subUserBonusAccountId?: string(name='sub_user_bonus_account_id', example='11'),
   // 资产账户明细
   subUserAccountDetails?: [ SubUserAccountDetailsVO ](name='sub_user_account_details', example='资产账户明细'),
   // 红利账户明细
@@ -661,6 +719,23 @@ model SupportedSettlementMethodInfo {
   settlementMethodEnum?: string(name='settlement_method_enum', example='TD'),
   // 结算银行账户id
   relatedSettlementAccountId?: string(name='related_settlement_account_id', example='18129343249234'),
+}
+
+// 项目基础信息
+model ProjectBaseInfoVo {
+  // 项目id
+  projectId: string(name='project_id', example='0628455d41d044ed97783db554149d4b'),
+  // 资产项目合约地址
+  // （Launch Network/Shares token ）
+  assetProjectAddress?: string(name='asset_project_address', example='0xf7d48f098440a166e9785ced7073baa6964acc80'),
+  // 项目名称
+  projcetName?: string(name='projcet_name', example='测试项目'),
+  // 描述
+  description?: string(name='description', example='测试'),
+  // 项目状态
+  projectStatus?: string(name='project_status', example='Active'),
+  // 项目所在链（Launch Network）
+  chainType?: string(name='chain_type', example='ANTCHAIN'),
 }
 
 // 总览统计数据
@@ -1149,10 +1224,10 @@ model DetailIssuerProjectwithroleRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 项目id，项目资产ID和
+  // 项目id - 项目id和
   // 项目合约地址+所在链组合 二选一
   assetProjectId?: string(name='asset_project_id'),
-  // 资产项目合约地址，项目资产ID和
+  // 资产项目合约地址，项目id和
   // 项目合约地址+所在链组合 二选一
   assetProjectAddress?: string(name='asset_project_address'),
   // 所在链，项目资产ID和
@@ -1190,23 +1265,103 @@ async function detailIssuerProjectwithroleEx(request: DetailIssuerProjectwithrol
   return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.projectwithrole.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model ListIssuerProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 开始时间 (时间戳)（毫秒）
+  startTimeMills?: long(name='start_time_mills'),
+  // 结束时间 (时间戳)（毫秒）
+  endTimeMills?: long(name='end_time_mills'),
+}
+
+model ListIssuerProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 项目基础信息
+  data?: [ ProjectBaseInfoVo ](name='data'),
+}
+
+/**
+ * Description: 查询发行机构下所有的项目
+ * Summary: 查询发行机构下所有的项目
+ */
+async function listIssuerProject(request: ListIssuerProjectRequest): ListIssuerProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listIssuerProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询发行机构下所有的项目
+ * Summary: 查询发行机构下所有的项目
+ */
+async function listIssuerProjectEx(request: ListIssuerProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListIssuerProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.project.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListDistributorProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 开始时间 (时间戳)（毫秒）
+  startTimeMills?: long(name='start_time_mills'),
+  // 结束时间 (时间戳)（毫秒）
+  endTimeMills?: long(name='end_time_mills'),
+}
+
+model ListDistributorProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 项目基础信息
+  data?: [ ProjectBaseInfoVo ](name='data'),
+}
+
+/**
+ * Description: 查询代销机构下所有的项目
+ * Summary: 查询代销机构下所有的项目
+ */
+async function listDistributorProject(request: ListDistributorProjectRequest): ListDistributorProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listDistributorProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询代销机构下所有的项目
+ * Summary: 查询代销机构下所有的项目
+ */
+async function listDistributorProjectEx(request: ListDistributorProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListDistributorProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.project.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model ListIssuerCrossaccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 资产项目ID
+  // 资产项目ID - 资产项目ID & 资产项目合约地址+项目所在链 二选一
   assetProjectId?: string(name='asset_project_id'),
-  // 资产项目合约地址
+  // 资产项目ID - 资产项目ID & 资产项目合约地址+项目所在链 二选一
   assetProjectAddress?: string(name='asset_project_address'),
-  // 项目所在链
+  // 项目所在链 - 资产项目ID & 资产项目合约地址+项目所在链 二选一
   chainName?: string(name='chain_name'),
-  // 用户ID
+  // 用户ID - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
   userId?: string(name='user_id'),
-  // 本侧链用户地址
+  // 本侧链用户地址 - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
   userAddress?: string(name='user_address'),
-  // 登录名
+  // 本侧链用户地址 - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
   loginName?: string(name='login_name'),
-  // 登录名类型(EMAIL)
+  // 登录名类型(EMAIL) - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
   loginAccountType?: string(name='login_account_type'),
   // 对侧链用户地址
   crossChainUserAddress?: string(name='cross_chain_user_address'),
@@ -1250,19 +1405,19 @@ model ListDistributorCrossaccountRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 资产项目ID
+  // 资产项目ID - 资产项目ID & 资产项目合约地址+项目所在链  二选一
   assetProjectId?: string(name='asset_project_id'),
-  // 资产项目合约地址
+  // 资产项目合约地址 - 资产项目ID & 资产项目合约地址+项目所在链  二选一
   assetProjectAddress?: string(name='asset_project_address'),
-  // 项目所在链
+  // 项目所在链 - 资产项目ID & 资产项目合约地址+项目所在链  二选一
   chainName?: string(name='chain_name'),
-  // 用户ID
+  // 用户ID - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
   userId?: string(name='user_id'),
-  // 本侧链用户地址
+  // 本侧链用户地址 - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
   userAddress?: string(name='user_address'),
-  // 登录名
+  // 登录名 - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
   loginName?: string(name='login_name'),
-  // 登录名类型(EMAIL)
+  // 登录名类型(EMAIL) - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
   loginAccountType?: string(name='login_account_type'),
   // 对侧链用户地址
   crossChainUserAddress?: string(name='cross_chain_user_address'),
@@ -1742,6 +1897,102 @@ async function listDistributorOperationlogEx(request: ListDistributorOperationlo
   return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.operationlog.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model ListIssuerAlloperationlogRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 操作员用户id
+  userId?: string(name='user_id'),
+  // 用户地址（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
+  userAddress?: string(name='user_address'),
+  // 登录名类型(EMAIL)（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
+  loginAccoutType?: string(name='login_accout_type'),
+  // 登录名（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
+  loginAccout?: string(name='login_accout'),
+  // 开始时间 (时间戳)
+  startTimeMills?: long(name='start_time_mills'),
+  // 结束时间 (时间戳)
+  endTimeMills?: long(name='end_time_mills'),
+}
+
+model ListIssuerAlloperationlogResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 所有操作日志
+  data?: [ OperationLogVO ](name='data'),
+}
+
+/**
+ * Description: 发行机构查询所有操作员的操作日志
+ * Summary: 发行机构查询所有操作员的操作日志
+ */
+async function listIssuerAlloperationlog(request: ListIssuerAlloperationlogRequest): ListIssuerAlloperationlogResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listIssuerAlloperationlogEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发行机构查询所有操作员的操作日志
+ * Summary: 发行机构查询所有操作员的操作日志
+ */
+async function listIssuerAlloperationlogEx(request: ListIssuerAlloperationlogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListIssuerAlloperationlogResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.alloperationlog.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListDistributorAlloperationlogRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 操作员用户id
+  userId?: string(name='user_id'),
+  // 用户地址（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
+  userAddress?: string(name='user_address'),
+  // 登录名类型(EMAIL)（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
+  loginAccoutType?: string(name='login_accout_type'),
+  // 登录名（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
+  loginAccout?: string(name='login_accout'),
+  // 开始时间 (时间戳)
+  startTimeMills?: long(name='start_time_mills'),
+  // 结束时间 (时间戳)
+  endTimeMills?: long(name='end_time_mills'),
+}
+
+model ListDistributorAlloperationlogResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 所有操作日志
+  data?: [ OperationLogVO ](name='data'),
+}
+
+/**
+ * Description: 代销机构查询所有操作员的操作日志
+ * Summary: 代销机构查询所有操作员的操作日志
+ */
+async function listDistributorAlloperationlog(request: ListDistributorAlloperationlogRequest): ListDistributorAlloperationlogResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listDistributorAlloperationlogEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代销机构查询所有操作员的操作日志
+ * Summary: 代销机构查询所有操作员的操作日志
+ */
+async function listDistributorAlloperationlogEx(request: ListDistributorAlloperationlogRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListDistributorAlloperationlogResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.alloperationlog.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model AddIssuerProjectkeyRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1900,7 +2151,7 @@ async function pagequeryIssuerProjectkeyEx(request: PagequeryIssuerProjectkeyReq
   return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.projectkey.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model UpdateIssuerNetvalueRequest = {
+model UpdateIssuerPriceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -1908,9 +2159,13 @@ model UpdateIssuerNetvalueRequest = {
   projectId: string(name='project_id'),
   // 项目净值
   netValue: string(name='net_value'),
+  // 要修改的价格类型（必须与项目创建时设定的类型一致）
+  priceType: string(name='price_type'),
+  // 修改说明或备注
+  remark?: string(name='remark'),
 }
 
-model UpdateIssuerNetvalueResponse = {
+model UpdateIssuerPriceResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -1923,19 +2178,19 @@ model UpdateIssuerNetvalueResponse = {
  * Description: 更新项目净值
  * Summary: 更新项目净值
  */
-async function updateIssuerNetvalue(request: UpdateIssuerNetvalueRequest): UpdateIssuerNetvalueResponse {
+async function updateIssuerPrice(request: UpdateIssuerPriceRequest): UpdateIssuerPriceResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return updateIssuerNetvalueEx(request, headers, runtime);
+  return updateIssuerPriceEx(request, headers, runtime);
 }
 
 /**
  * Description: 更新项目净值
  * Summary: 更新项目净值
  */
-async function updateIssuerNetvalueEx(request: UpdateIssuerNetvalueRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateIssuerNetvalueResponse {
+async function updateIssuerPriceEx(request: UpdateIssuerPriceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateIssuerPriceResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.netvalue.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.price.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ListIssuerNetvalueRequest = {
@@ -2608,24 +2863,24 @@ model QueryIssuerRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 资产项目ID
+  // 资产项目ID（资产项目ID、资产项目合约地址+所在链 二选一必填）
   assetProjectId?: string(name='asset_project_id'),
-  // 资产项目合约地址
+  // 资产项目合约地址（资产项目ID、资产项目合约地址+所在链 二选一必填）
   assetProjectAddress?: string(name='asset_project_address'),
-  // 用户ID
+  // 项目所在链（资产项目ID、资产项目合约地址+所在链 二选一必填）
+  chainName?: string(name='chain_name'),
+  // 用户ID（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
   userId?: string(name='user_id'),
-  // 用户地址
+  // 用户地址（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
   userAddress?: string(name='user_address'),
-  // 登录名
+  // 登录名（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
   loginName?: string(name='login_name'),
-  // 登录名类型(EMAIL)
+  // 登录名类型(EMAIL)（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
   loginAccoutType?: string(name='login_accout_type'),
   // 开始时间 (时间戳)
   startTimeMills: long(name='start_time_mills'),
   // 结束时间 (时间戳)
   endTimeMills: long(name='end_time_mills'),
-  // 项目所在链
-  chainName?: string(name='chain_name'),
 }
 
 model QueryIssuerResponse = {
@@ -2662,19 +2917,19 @@ model QueryDistributorRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 资产项目ID
+  // 资产项目ID（资产项目ID、资产项目合约地址+所在链  二选一必填）
   assetProjectId?: string(name='asset_project_id'),
-  // 资产项目合约地址
+  // 资产项目合约地址（资产项目ID、资产项目合约地址+所在链  二选一必填）
   assetProjectAddress?: string(name='asset_project_address'),
-  // 项目所在链
+  // 项目所在链（资产项目ID、资产项目合约地址+所在链  二选一必填）
   chainName?: string(name='chain_name'),
-  // 用户ID
+  // 用户ID（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
   userId?: string(name='user_id'),
-  // 用户地址
+  // 用户地址（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
   userAddress?: string(name='user_address'),
-  // 登录名
+  // 登录名（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
   loginName?: string(name='login_name'),
-  // 登录名类型(EMAIL)
+  // 登录名类型(EMAIL)（用户ID、用户地址、登录名+登录名类型，三组信息任选一组输入）
   loginAccoutType?: string(name='login_accout_type'),
   // 开始时间 (时间戳)
   startTimeMills: long(name='start_time_mills'),
@@ -2710,6 +2965,90 @@ async function queryDistributor(request: QueryDistributorRequest): QueryDistribu
 async function queryDistributorEx(request: QueryDistributorRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDistributorResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListIssuerSubuserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 资产项目ID（资产项目ID、资产项目合约地址+所在链 二选一必填）
+  assetProjectId?: string(name='asset_project_id'),
+  // 资产项目合约地址（资产项目ID、资产项目合约地址+所在链 二选一必填）
+  assetProjectAddress?: string(name='asset_project_address'),
+  // 项目所在链（资产项目ID、资产项目合约地址+所在链 二选一必填）
+  chainName?: string(name='chain_name'),
+}
+
+model ListIssuerSubuserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 二级用户基本信息
+  data?: [ SubUserAccountBaseVO ](name='data'),
+}
+
+/**
+ * Description: 查询发行机构和项目下所有关联的二级用户信息
+ * Summary: 查询机构和项目下所有关联的二级用户信息
+ */
+async function listIssuerSubuser(request: ListIssuerSubuserRequest): ListIssuerSubuserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listIssuerSubuserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询发行机构和项目下所有关联的二级用户信息
+ * Summary: 查询机构和项目下所有关联的二级用户信息
+ */
+async function listIssuerSubuserEx(request: ListIssuerSubuserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListIssuerSubuserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.subuser.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListDistributorSubuserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 资产项目ID（资产项目ID、资产项目合约地址+所在链 二选一必填）
+  assetProjectId?: string(name='asset_project_id'),
+  // 资产项目合约地址（资产项目ID、资产项目合约地址+所在链 二选一必填）
+  assetProjectAddress?: string(name='asset_project_address'),
+  // 项目所在链（资产项目ID、资产项目合约地址+所在链 二选一必填）
+  chainName?: string(name='chain_name'),
+}
+
+model ListDistributorSubuserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 二级用户基础信息
+  data?: [ SubUserAccountBaseVO ](name='data'),
+}
+
+/**
+ * Description: 查询代销机构和项目下所有关联的二级用户信息
+ * Summary: 查询机构和项目下所有关联的二级用户信息
+ */
+async function listDistributorSubuser(request: ListDistributorSubuserRequest): ListDistributorSubuserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listDistributorSubuserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询代销机构和项目下所有关联的二级用户信息
+ * Summary: 查询机构和项目下所有关联的二级用户信息
+ */
+async function listDistributorSubuserEx(request: ListDistributorSubuserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListDistributorSubuserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.subuser.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model IssueIssuerSubusertradeRequest = {
