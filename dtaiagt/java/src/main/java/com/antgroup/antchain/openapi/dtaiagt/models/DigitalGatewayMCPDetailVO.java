@@ -97,7 +97,7 @@ public class DigitalGatewayMCPDetailVO extends TeaModel {
     // 工具列表
     @NameInMap("tool_list")
     @Validation(required = true)
-    public ToolInfoVO toolList;
+    public java.util.List<ToolInfoVO> toolList;
 
     public static DigitalGatewayMCPDetailVO build(java.util.Map<String, ?> map) throws Exception {
         DigitalGatewayMCPDetailVO self = new DigitalGatewayMCPDetailVO();
@@ -184,11 +184,11 @@ public class DigitalGatewayMCPDetailVO extends TeaModel {
         return this.docs;
     }
 
-    public DigitalGatewayMCPDetailVO setToolList(ToolInfoVO toolList) {
+    public DigitalGatewayMCPDetailVO setToolList(java.util.List<ToolInfoVO> toolList) {
         this.toolList = toolList;
         return this;
     }
-    public ToolInfoVO getToolList() {
+    public java.util.List<ToolInfoVO> getToolList() {
         return this.toolList;
     }
 
