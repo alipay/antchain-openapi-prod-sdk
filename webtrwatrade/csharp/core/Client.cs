@@ -137,7 +137,7 @@ namespace AntChain.SDK.WEBTRWATRADE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.26"},
+                        {"sdk_version", "1.0.30"},
                         {"_prod_code", "WEBTRWATRADE"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.WEBTRWATRADE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.26"},
+                        {"sdk_version", "1.0.30"},
                         {"_prod_code", "WEBTRWATRADE"},
                         {"_prod_channel", "default"},
                     };
@@ -697,6 +697,90 @@ namespace AntChain.SDK.WEBTRWATRADE
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<DetailIssuerProjectwithroleResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.issuer.projectwithrole.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询发行机构下所有的项目
+         * Summary: 查询发行机构下所有的项目
+         */
+        public ListIssuerProjectResponse ListIssuerProject(ListIssuerProjectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListIssuerProjectEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询发行机构下所有的项目
+         * Summary: 查询发行机构下所有的项目
+         */
+        public async Task<ListIssuerProjectResponse> ListIssuerProjectAsync(ListIssuerProjectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListIssuerProjectExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询发行机构下所有的项目
+         * Summary: 查询发行机构下所有的项目
+         */
+        public ListIssuerProjectResponse ListIssuerProjectEx(ListIssuerProjectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListIssuerProjectResponse>(DoRequest("1.0", "antdigital.webtrwatrade.issuer.project.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询发行机构下所有的项目
+         * Summary: 查询发行机构下所有的项目
+         */
+        public async Task<ListIssuerProjectResponse> ListIssuerProjectExAsync(ListIssuerProjectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListIssuerProjectResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.issuer.project.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询代销机构下所有的项目
+         * Summary: 查询代销机构下所有的项目
+         */
+        public ListDistributorProjectResponse ListDistributorProject(ListDistributorProjectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListDistributorProjectEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询代销机构下所有的项目
+         * Summary: 查询代销机构下所有的项目
+         */
+        public async Task<ListDistributorProjectResponse> ListDistributorProjectAsync(ListDistributorProjectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListDistributorProjectExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询代销机构下所有的项目
+         * Summary: 查询代销机构下所有的项目
+         */
+        public ListDistributorProjectResponse ListDistributorProjectEx(ListDistributorProjectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListDistributorProjectResponse>(DoRequest("1.0", "antdigital.webtrwatrade.distributor.project.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询代销机构下所有的项目
+         * Summary: 查询代销机构下所有的项目
+         */
+        public async Task<ListDistributorProjectResponse> ListDistributorProjectExAsync(ListDistributorProjectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListDistributorProjectResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.distributor.project.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -1246,6 +1330,90 @@ namespace AntChain.SDK.WEBTRWATRADE
         }
 
         /**
+         * Description: 发行机构查询所有操作员的操作日志
+         * Summary: 发行机构查询所有操作员的操作日志
+         */
+        public ListIssuerAlloperationlogResponse ListIssuerAlloperationlog(ListIssuerAlloperationlogRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListIssuerAlloperationlogEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发行机构查询所有操作员的操作日志
+         * Summary: 发行机构查询所有操作员的操作日志
+         */
+        public async Task<ListIssuerAlloperationlogResponse> ListIssuerAlloperationlogAsync(ListIssuerAlloperationlogRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListIssuerAlloperationlogExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发行机构查询所有操作员的操作日志
+         * Summary: 发行机构查询所有操作员的操作日志
+         */
+        public ListIssuerAlloperationlogResponse ListIssuerAlloperationlogEx(ListIssuerAlloperationlogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListIssuerAlloperationlogResponse>(DoRequest("1.0", "antdigital.webtrwatrade.issuer.alloperationlog.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发行机构查询所有操作员的操作日志
+         * Summary: 发行机构查询所有操作员的操作日志
+         */
+        public async Task<ListIssuerAlloperationlogResponse> ListIssuerAlloperationlogExAsync(ListIssuerAlloperationlogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListIssuerAlloperationlogResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.issuer.alloperationlog.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代销机构查询所有操作员的操作日志
+         * Summary: 代销机构查询所有操作员的操作日志
+         */
+        public ListDistributorAlloperationlogResponse ListDistributorAlloperationlog(ListDistributorAlloperationlogRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListDistributorAlloperationlogEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代销机构查询所有操作员的操作日志
+         * Summary: 代销机构查询所有操作员的操作日志
+         */
+        public async Task<ListDistributorAlloperationlogResponse> ListDistributorAlloperationlogAsync(ListDistributorAlloperationlogRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListDistributorAlloperationlogExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代销机构查询所有操作员的操作日志
+         * Summary: 代销机构查询所有操作员的操作日志
+         */
+        public ListDistributorAlloperationlogResponse ListDistributorAlloperationlogEx(ListDistributorAlloperationlogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListDistributorAlloperationlogResponse>(DoRequest("1.0", "antdigital.webtrwatrade.distributor.alloperationlog.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代销机构查询所有操作员的操作日志
+         * Summary: 代销机构查询所有操作员的操作日志
+         */
+        public async Task<ListDistributorAlloperationlogResponse> ListDistributorAlloperationlogExAsync(ListDistributorAlloperationlogRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListDistributorAlloperationlogResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.distributor.alloperationlog.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 发行机构添加项目密钥
          * Summary: 发行机构添加项目密钥
          */
@@ -1417,42 +1585,42 @@ namespace AntChain.SDK.WEBTRWATRADE
          * Description: 更新项目净值
          * Summary: 更新项目净值
          */
-        public UpdateIssuerNetvalueResponse UpdateIssuerNetvalue(UpdateIssuerNetvalueRequest request)
+        public UpdateIssuerPriceResponse UpdateIssuerPrice(UpdateIssuerPriceRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return UpdateIssuerNetvalueEx(request, headers, runtime);
+            return UpdateIssuerPriceEx(request, headers, runtime);
         }
 
         /**
          * Description: 更新项目净值
          * Summary: 更新项目净值
          */
-        public async Task<UpdateIssuerNetvalueResponse> UpdateIssuerNetvalueAsync(UpdateIssuerNetvalueRequest request)
+        public async Task<UpdateIssuerPriceResponse> UpdateIssuerPriceAsync(UpdateIssuerPriceRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await UpdateIssuerNetvalueExAsync(request, headers, runtime);
+            return await UpdateIssuerPriceExAsync(request, headers, runtime);
         }
 
         /**
          * Description: 更新项目净值
          * Summary: 更新项目净值
          */
-        public UpdateIssuerNetvalueResponse UpdateIssuerNetvalueEx(UpdateIssuerNetvalueRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public UpdateIssuerPriceResponse UpdateIssuerPriceEx(UpdateIssuerPriceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<UpdateIssuerNetvalueResponse>(DoRequest("1.0", "antdigital.webtrwatrade.issuer.netvalue.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<UpdateIssuerPriceResponse>(DoRequest("1.0", "antdigital.webtrwatrade.issuer.price.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 更新项目净值
          * Summary: 更新项目净值
          */
-        public async Task<UpdateIssuerNetvalueResponse> UpdateIssuerNetvalueExAsync(UpdateIssuerNetvalueRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<UpdateIssuerPriceResponse> UpdateIssuerPriceExAsync(UpdateIssuerPriceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<UpdateIssuerNetvalueResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.issuer.netvalue.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<UpdateIssuerPriceResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.issuer.price.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -2209,6 +2377,90 @@ namespace AntChain.SDK.WEBTRWATRADE
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDistributorResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.distributor.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询发行机构和项目下所有关联的二级用户信息
+         * Summary: 查询机构和项目下所有关联的二级用户信息
+         */
+        public ListIssuerSubuserResponse ListIssuerSubuser(ListIssuerSubuserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListIssuerSubuserEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询发行机构和项目下所有关联的二级用户信息
+         * Summary: 查询机构和项目下所有关联的二级用户信息
+         */
+        public async Task<ListIssuerSubuserResponse> ListIssuerSubuserAsync(ListIssuerSubuserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListIssuerSubuserExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询发行机构和项目下所有关联的二级用户信息
+         * Summary: 查询机构和项目下所有关联的二级用户信息
+         */
+        public ListIssuerSubuserResponse ListIssuerSubuserEx(ListIssuerSubuserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListIssuerSubuserResponse>(DoRequest("1.0", "antdigital.webtrwatrade.issuer.subuser.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询发行机构和项目下所有关联的二级用户信息
+         * Summary: 查询机构和项目下所有关联的二级用户信息
+         */
+        public async Task<ListIssuerSubuserResponse> ListIssuerSubuserExAsync(ListIssuerSubuserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListIssuerSubuserResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.issuer.subuser.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询代销机构和项目下所有关联的二级用户信息
+         * Summary: 查询机构和项目下所有关联的二级用户信息
+         */
+        public ListDistributorSubuserResponse ListDistributorSubuser(ListDistributorSubuserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListDistributorSubuserEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询代销机构和项目下所有关联的二级用户信息
+         * Summary: 查询机构和项目下所有关联的二级用户信息
+         */
+        public async Task<ListDistributorSubuserResponse> ListDistributorSubuserAsync(ListDistributorSubuserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListDistributorSubuserExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询代销机构和项目下所有关联的二级用户信息
+         * Summary: 查询机构和项目下所有关联的二级用户信息
+         */
+        public ListDistributorSubuserResponse ListDistributorSubuserEx(ListDistributorSubuserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListDistributorSubuserResponse>(DoRequest("1.0", "antdigital.webtrwatrade.distributor.subuser.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询代销机构和项目下所有关联的二级用户信息
+         * Summary: 查询机构和项目下所有关联的二级用户信息
+         */
+        public async Task<ListDistributorSubuserResponse> ListDistributorSubuserExAsync(ListDistributorSubuserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListDistributorSubuserResponse>(await DoRequestAsync("1.0", "antdigital.webtrwatrade.distributor.subuser.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.WEBTRWATRADE.Models
 {
-    public class UpdateIssuerNetvalueResponse : TeaModel {
+    public class ListDistributorAlloperationlogResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -23,6 +23,11 @@ namespace AntChain.SDK.WEBTRWATRADE.Models
         [NameInMap("result_msg")]
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
+
+        // 所有操作日志
+        [NameInMap("data")]
+        [Validation(Required=false)]
+        public List<OperationLogVO> Data { get; set; }
 
     }
 

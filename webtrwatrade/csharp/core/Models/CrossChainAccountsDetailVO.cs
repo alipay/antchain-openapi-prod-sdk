@@ -35,7 +35,7 @@ namespace AntChain.SDK.WEBTRWATRADE.Models
         [Validation(Required=false)]
         public string PostBalance { get; set; }
 
-        // 交易类别
+        // 交易类别(LOCK_MINT/BURN_RETRIEVE/INNER_TRANSFER/OTC_TRANSFER)
         [NameInMap("transaction_type")]
         [Validation(Required=false)]
         public string TransactionType { get; set; }

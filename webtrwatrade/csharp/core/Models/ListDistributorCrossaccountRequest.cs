@@ -18,37 +18,37 @@ namespace AntChain.SDK.WEBTRWATRADE.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 资产项目ID
+        // 资产项目ID - 资产项目ID & 资产项目合约地址+项目所在链  二选一
         [NameInMap("asset_project_id")]
         [Validation(Required=false)]
         public string AssetProjectId { get; set; }
 
-        // 资产项目合约地址
+        // 资产项目合约地址 - 资产项目ID & 资产项目合约地址+项目所在链  二选一
         [NameInMap("asset_project_address")]
         [Validation(Required=false)]
         public string AssetProjectAddress { get; set; }
 
-        // 项目所在链
+        // 项目所在链 - 资产项目ID & 资产项目合约地址+项目所在链  二选一
         [NameInMap("chain_name")]
         [Validation(Required=false)]
         public string ChainName { get; set; }
 
-        // 用户ID
+        // 用户ID - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
         [NameInMap("user_id")]
         [Validation(Required=false)]
         public string UserId { get; set; }
 
-        // 本侧链用户地址
+        // 本侧链用户地址 - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
         [NameInMap("user_address")]
         [Validation(Required=false)]
         public string UserAddress { get; set; }
 
-        // 登录名
+        // 登录名 - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
         [NameInMap("login_name")]
         [Validation(Required=false)]
         public string LoginName { get; set; }
 
-        // 登录名类型(EMAIL)
+        // 登录名类型(EMAIL) - 用户ID & 本侧链用户地址 & 登录名+登录名类型(EMAIL) 三选一
         [NameInMap("login_account_type")]
         [Validation(Required=false)]
         public string LoginAccountType { get; set; }

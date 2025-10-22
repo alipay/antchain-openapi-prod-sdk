@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.WEBTRWATRADE.Models
 {
-    public class UpdateIssuerNetvalueRequest : TeaModel {
+    public class UpdateIssuerPriceRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -27,6 +27,16 @@ namespace AntChain.SDK.WEBTRWATRADE.Models
         [NameInMap("net_value")]
         [Validation(Required=true)]
         public string NetValue { get; set; }
+
+        // 要修改的价格类型（必须与项目创建时设定的类型一致）
+        [NameInMap("price_type")]
+        [Validation(Required=true)]
+        public string PriceType { get; set; }
+
+        // 修改说明或备注
+        [NameInMap("remark")]
+        [Validation(Required=false)]
+        public string Remark { get; set; }
 
     }
 
