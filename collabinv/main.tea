@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.46',
+    sdk_version = '1.0.52',
     _prod_code = 'COLLABINV',
     _prod_channel = 'default'
   };
@@ -219,6 +219,14 @@ model FeatureSetInfo {
   desc: string(name='desc', example='公共特征类'),
 }
 
+// 用户匹配信息
+model CarUserMatch {
+  // 设备号或者手机号md5
+  matchId: string(name='match_id', example='12312asdasd123123123'),
+  // 需要匹配的id类型：手机号md5、安卓设备号md5、ios设备号md5
+  idType: string(name='id_type', example='phoneMd5/oaidMd5/idfaMd5'),
+}
+
 // 指标数据
 model IndexData {
   // 月份
@@ -280,6 +288,14 @@ model PageInfo {
   pageIndex: long(name='page_index', example='1'),
   // 页容量
   pageSize: long(name='page_size', example='10'),
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
 }
 
 model QueryAgentSseRequest = {
@@ -580,6 +596,142 @@ async function queryAgentCompletion(request: QueryAgentCompletionRequest): Query
 async function queryAgentCompletionEx(request: QueryAgentCompletionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAgentCompletionResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.zkcollabinv.agent.completion.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model MatchCarloanUsersRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 需要匹配的值
+  matchId: string(name='match_id'),
+  // 需要匹配的id类型：手机号md5、安卓设备号md5、ios设备号md5
+  idType: string(name='id_type'),
+}
+
+model MatchCarloanUsersResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 成功或者失败
+  isSuccess?: string(name='is_success'),
+}
+
+/**
+ * Description: 车抵贷人群匹配
+ * Summary: 车抵贷人群匹配
+ */
+async function matchCarloanUsers(request: MatchCarloanUsersRequest): MatchCarloanUsersResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return matchCarloanUsersEx(request, headers, runtime);
+}
+
+/**
+ * Description: 车抵贷人群匹配
+ * Summary: 车抵贷人群匹配
+ */
+async function matchCarloanUsersEx(request: MatchCarloanUsersRequest, headers: map[string]string, runtime: Util.RuntimeOptions): MatchCarloanUsersResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.carloan.users.match', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryCarloanUsersRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户匹配数据
+  userMatch: [ CarUserMatch ](name='user_match'),
+}
+
+model BatchqueryCarloanUsersResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 匹配成功的index
+  matchResult?: [ long ](name='match_result'),
+}
+
+/**
+ * Description: 批量碰撞人群数据
+ * Summary: 批量碰撞人群数据
+ */
+async function batchqueryCarloanUsers(request: BatchqueryCarloanUsersRequest): BatchqueryCarloanUsersResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryCarloanUsersEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批量碰撞人群数据
+ * Summary: 批量碰撞人群数据
+ */
+async function batchqueryCarloanUsersEx(request: BatchqueryCarloanUsersRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryCarloanUsersResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.carloan.users.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportCarloanUsersRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model ImportCarloanUsersResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 导入人群文件
+ * Summary: 导入人群文件
+ */
+async function importCarloanUsers(request: ImportCarloanUsersRequest): ImportCarloanUsersResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importCarloanUsersEx(request, headers, runtime);
+}
+
+/**
+ * Description: 导入人群文件
+ * Summary: 导入人群文件
+ */
+async function importCarloanUsersEx(request: ImportCarloanUsersRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportCarloanUsersResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.zkcollabinv.carloan.users.import',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var importCarloanUsersResponse = new ImportCarloanUsersResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return importCarloanUsersResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.carloan.users.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ImportIdmapSamplefileRequest = {
@@ -1502,5 +1654,58 @@ async function queryModelWorkscore(request: QueryModelWorkscoreRequest): QueryMo
 async function queryModelWorkscoreEx(request: QueryModelWorkscoreRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryModelWorkscoreResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.zkcollabinv.model.workscore.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
