@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.46',
+                    'sdk_version': '1.0.52',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.46',
+                    'sdk_version': '1.0.52',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -665,6 +665,210 @@ class Client:
         return TeaCore.from_map(
             collabinv_models.QueryAgentCompletionResponse(),
             await self.do_request_async('1.0', 'antchain.zkcollabinv.agent.completion.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def match_carloan_users(
+        self,
+        request: collabinv_models.MatchCarloanUsersRequest,
+    ) -> collabinv_models.MatchCarloanUsersResponse:
+        """
+        Description: 车抵贷人群匹配
+        Summary: 车抵贷人群匹配
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.match_carloan_users_ex(request, headers, runtime)
+
+    async def match_carloan_users_async(
+        self,
+        request: collabinv_models.MatchCarloanUsersRequest,
+    ) -> collabinv_models.MatchCarloanUsersResponse:
+        """
+        Description: 车抵贷人群匹配
+        Summary: 车抵贷人群匹配
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.match_carloan_users_ex_async(request, headers, runtime)
+
+    def match_carloan_users_ex(
+        self,
+        request: collabinv_models.MatchCarloanUsersRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.MatchCarloanUsersResponse:
+        """
+        Description: 车抵贷人群匹配
+        Summary: 车抵贷人群匹配
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.MatchCarloanUsersResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.carloan.users.match', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def match_carloan_users_ex_async(
+        self,
+        request: collabinv_models.MatchCarloanUsersRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.MatchCarloanUsersResponse:
+        """
+        Description: 车抵贷人群匹配
+        Summary: 车抵贷人群匹配
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.MatchCarloanUsersResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.carloan.users.match', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_carloan_users(
+        self,
+        request: collabinv_models.BatchqueryCarloanUsersRequest,
+    ) -> collabinv_models.BatchqueryCarloanUsersResponse:
+        """
+        Description: 批量碰撞人群数据
+        Summary: 批量碰撞人群数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_carloan_users_ex(request, headers, runtime)
+
+    async def batchquery_carloan_users_async(
+        self,
+        request: collabinv_models.BatchqueryCarloanUsersRequest,
+    ) -> collabinv_models.BatchqueryCarloanUsersResponse:
+        """
+        Description: 批量碰撞人群数据
+        Summary: 批量碰撞人群数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_carloan_users_ex_async(request, headers, runtime)
+
+    def batchquery_carloan_users_ex(
+        self,
+        request: collabinv_models.BatchqueryCarloanUsersRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.BatchqueryCarloanUsersResponse:
+        """
+        Description: 批量碰撞人群数据
+        Summary: 批量碰撞人群数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.BatchqueryCarloanUsersResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.carloan.users.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_carloan_users_ex_async(
+        self,
+        request: collabinv_models.BatchqueryCarloanUsersRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.BatchqueryCarloanUsersResponse:
+        """
+        Description: 批量碰撞人群数据
+        Summary: 批量碰撞人群数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.BatchqueryCarloanUsersResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.carloan.users.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_carloan_users(
+        self,
+        request: collabinv_models.ImportCarloanUsersRequest,
+    ) -> collabinv_models.ImportCarloanUsersResponse:
+        """
+        Description: 导入人群文件
+        Summary: 导入人群文件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_carloan_users_ex(request, headers, runtime)
+
+    async def import_carloan_users_async(
+        self,
+        request: collabinv_models.ImportCarloanUsersRequest,
+    ) -> collabinv_models.ImportCarloanUsersResponse:
+        """
+        Description: 导入人群文件
+        Summary: 导入人群文件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_carloan_users_ex_async(request, headers, runtime)
+
+    def import_carloan_users_ex(
+        self,
+        request: collabinv_models.ImportCarloanUsersRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.ImportCarloanUsersResponse:
+        """
+        Description: 导入人群文件
+        Summary: 导入人群文件
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = collabinv_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.zkcollabinv.carloan.users.import',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                import_carloan_users_response = collabinv_models.ImportCarloanUsersResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return import_carloan_users_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.ImportCarloanUsersResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.carloan.users.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_carloan_users_ex_async(
+        self,
+        request: collabinv_models.ImportCarloanUsersRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.ImportCarloanUsersResponse:
+        """
+        Description: 导入人群文件
+        Summary: 导入人群文件
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = collabinv_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.zkcollabinv.carloan.users.import',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                import_carloan_users_response = collabinv_models.ImportCarloanUsersResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return import_carloan_users_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.ImportCarloanUsersResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.carloan.users.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def import_idmap_samplefile(
@@ -1729,4 +1933,60 @@ class Client:
         return TeaCore.from_map(
             collabinv_models.QueryModelWorkscoreResponse(),
             await self.do_request_async('1.0', 'antchain.zkcollabinv.model.workscore.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_antcloud_gatewayx_file_upload(
+        self,
+        request: collabinv_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> collabinv_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_antcloud_gatewayx_file_upload_ex(request, headers, runtime)
+
+    async def create_antcloud_gatewayx_file_upload_async(
+        self,
+        request: collabinv_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> collabinv_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_antcloud_gatewayx_file_upload_ex_async(request, headers, runtime)
+
+    def create_antcloud_gatewayx_file_upload_ex(
+        self,
+        request: collabinv_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.CreateAntcloudGatewayxFileUploadResponse(),
+            self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_antcloud_gatewayx_file_upload_ex_async(
+        self,
+        request: collabinv_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.CreateAntcloudGatewayxFileUploadResponse(),
+            await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
