@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.22.0',
+                    'sdk_version': '1.22.5',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.22.0',
+                    'sdk_version': '1.22.5',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -3717,6 +3717,566 @@ class Client:
         return TeaCore.from_map(
             realperson_models.QueryCarinfoBriefResponse(),
             await self.do_request_async('1.0', 'di.realperson.carinfo.brief.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_cutpayment_pre(
+        self,
+        request: realperson_models.BindCutpaymentPreRequest,
+    ) -> realperson_models.BindCutpaymentPreResponse:
+        """
+        Description: 银行卡代扣预绑定
+        Summary: 银行卡代扣预绑定
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_cutpayment_pre_ex(request, headers, runtime)
+
+    async def bind_cutpayment_pre_async(
+        self,
+        request: realperson_models.BindCutpaymentPreRequest,
+    ) -> realperson_models.BindCutpaymentPreResponse:
+        """
+        Description: 银行卡代扣预绑定
+        Summary: 银行卡代扣预绑定
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_cutpayment_pre_ex_async(request, headers, runtime)
+
+    def bind_cutpayment_pre_ex(
+        self,
+        request: realperson_models.BindCutpaymentPreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.BindCutpaymentPreResponse:
+        """
+        Description: 银行卡代扣预绑定
+        Summary: 银行卡代扣预绑定
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.BindCutpaymentPreResponse(),
+            self.do_request('1.0', 'di.realperson.cutpayment.pre.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_cutpayment_pre_ex_async(
+        self,
+        request: realperson_models.BindCutpaymentPreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.BindCutpaymentPreResponse:
+        """
+        Description: 银行卡代扣预绑定
+        Summary: 银行卡代扣预绑定
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.BindCutpaymentPreResponse(),
+            await self.do_request_async('1.0', 'di.realperson.cutpayment.pre.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_cutpayment_sign(
+        self,
+        request: realperson_models.BindCutpaymentSignRequest,
+    ) -> realperson_models.BindCutpaymentSignResponse:
+        """
+        Description: 银行卡代扣绑卡签约
+        Summary: 银行卡代扣绑卡签约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_cutpayment_sign_ex(request, headers, runtime)
+
+    async def bind_cutpayment_sign_async(
+        self,
+        request: realperson_models.BindCutpaymentSignRequest,
+    ) -> realperson_models.BindCutpaymentSignResponse:
+        """
+        Description: 银行卡代扣绑卡签约
+        Summary: 银行卡代扣绑卡签约
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_cutpayment_sign_ex_async(request, headers, runtime)
+
+    def bind_cutpayment_sign_ex(
+        self,
+        request: realperson_models.BindCutpaymentSignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.BindCutpaymentSignResponse:
+        """
+        Description: 银行卡代扣绑卡签约
+        Summary: 银行卡代扣绑卡签约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.BindCutpaymentSignResponse(),
+            self.do_request('1.0', 'di.realperson.cutpayment.sign.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_cutpayment_sign_ex_async(
+        self,
+        request: realperson_models.BindCutpaymentSignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.BindCutpaymentSignResponse:
+        """
+        Description: 银行卡代扣绑卡签约
+        Summary: 银行卡代扣绑卡签约
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.BindCutpaymentSignResponse(),
+            await self.do_request_async('1.0', 'di.realperson.cutpayment.sign.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def unbind_cutpayment_sign(
+        self,
+        request: realperson_models.UnbindCutpaymentSignRequest,
+    ) -> realperson_models.UnbindCutpaymentSignResponse:
+        """
+        Description: 银行卡代扣解绑
+        Summary: 银行卡代扣解绑
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.unbind_cutpayment_sign_ex(request, headers, runtime)
+
+    async def unbind_cutpayment_sign_async(
+        self,
+        request: realperson_models.UnbindCutpaymentSignRequest,
+    ) -> realperson_models.UnbindCutpaymentSignResponse:
+        """
+        Description: 银行卡代扣解绑
+        Summary: 银行卡代扣解绑
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.unbind_cutpayment_sign_ex_async(request, headers, runtime)
+
+    def unbind_cutpayment_sign_ex(
+        self,
+        request: realperson_models.UnbindCutpaymentSignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.UnbindCutpaymentSignResponse:
+        """
+        Description: 银行卡代扣解绑
+        Summary: 银行卡代扣解绑
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.UnbindCutpaymentSignResponse(),
+            self.do_request('1.0', 'di.realperson.cutpayment.sign.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def unbind_cutpayment_sign_ex_async(
+        self,
+        request: realperson_models.UnbindCutpaymentSignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.UnbindCutpaymentSignResponse:
+        """
+        Description: 银行卡代扣解绑
+        Summary: 银行卡代扣解绑
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.UnbindCutpaymentSignResponse(),
+            await self.do_request_async('1.0', 'di.realperson.cutpayment.sign.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_cutpayment_bind(
+        self,
+        request: realperson_models.QueryCutpaymentBindRequest,
+    ) -> realperson_models.QueryCutpaymentBindResponse:
+        """
+        Description: 银行卡代扣绑定结果查询
+        Summary: 银行卡代扣绑定结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_cutpayment_bind_ex(request, headers, runtime)
+
+    async def query_cutpayment_bind_async(
+        self,
+        request: realperson_models.QueryCutpaymentBindRequest,
+    ) -> realperson_models.QueryCutpaymentBindResponse:
+        """
+        Description: 银行卡代扣绑定结果查询
+        Summary: 银行卡代扣绑定结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_cutpayment_bind_ex_async(request, headers, runtime)
+
+    def query_cutpayment_bind_ex(
+        self,
+        request: realperson_models.QueryCutpaymentBindRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryCutpaymentBindResponse:
+        """
+        Description: 银行卡代扣绑定结果查询
+        Summary: 银行卡代扣绑定结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryCutpaymentBindResponse(),
+            self.do_request('1.0', 'di.realperson.cutpayment.bind.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_cutpayment_bind_ex_async(
+        self,
+        request: realperson_models.QueryCutpaymentBindRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryCutpaymentBindResponse:
+        """
+        Description: 银行卡代扣绑定结果查询
+        Summary: 银行卡代扣绑定结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryCutpaymentBindResponse(),
+            await self.do_request_async('1.0', 'di.realperson.cutpayment.bind.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_cutpayment_payment(
+        self,
+        request: realperson_models.ApplyCutpaymentPaymentRequest,
+    ) -> realperson_models.ApplyCutpaymentPaymentResponse:
+        """
+        Description: 银行卡代扣支付分账扣款
+        Summary: 银行卡代扣支付分账扣款
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_cutpayment_payment_ex(request, headers, runtime)
+
+    async def apply_cutpayment_payment_async(
+        self,
+        request: realperson_models.ApplyCutpaymentPaymentRequest,
+    ) -> realperson_models.ApplyCutpaymentPaymentResponse:
+        """
+        Description: 银行卡代扣支付分账扣款
+        Summary: 银行卡代扣支付分账扣款
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_cutpayment_payment_ex_async(request, headers, runtime)
+
+    def apply_cutpayment_payment_ex(
+        self,
+        request: realperson_models.ApplyCutpaymentPaymentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.ApplyCutpaymentPaymentResponse:
+        """
+        Description: 银行卡代扣支付分账扣款
+        Summary: 银行卡代扣支付分账扣款
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.ApplyCutpaymentPaymentResponse(),
+            self.do_request('1.0', 'di.realperson.cutpayment.payment.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_cutpayment_payment_ex_async(
+        self,
+        request: realperson_models.ApplyCutpaymentPaymentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.ApplyCutpaymentPaymentResponse:
+        """
+        Description: 银行卡代扣支付分账扣款
+        Summary: 银行卡代扣支付分账扣款
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.ApplyCutpaymentPaymentResponse(),
+            await self.do_request_async('1.0', 'di.realperson.cutpayment.payment.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_cutpayment_payment(
+        self,
+        request: realperson_models.QueryCutpaymentPaymentRequest,
+    ) -> realperson_models.QueryCutpaymentPaymentResponse:
+        """
+        Description: 银行卡代扣支付分账查询
+        Summary: 银行卡代扣支付分账查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_cutpayment_payment_ex(request, headers, runtime)
+
+    async def query_cutpayment_payment_async(
+        self,
+        request: realperson_models.QueryCutpaymentPaymentRequest,
+    ) -> realperson_models.QueryCutpaymentPaymentResponse:
+        """
+        Description: 银行卡代扣支付分账查询
+        Summary: 银行卡代扣支付分账查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_cutpayment_payment_ex_async(request, headers, runtime)
+
+    def query_cutpayment_payment_ex(
+        self,
+        request: realperson_models.QueryCutpaymentPaymentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryCutpaymentPaymentResponse:
+        """
+        Description: 银行卡代扣支付分账查询
+        Summary: 银行卡代扣支付分账查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryCutpaymentPaymentResponse(),
+            self.do_request('1.0', 'di.realperson.cutpayment.payment.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_cutpayment_payment_ex_async(
+        self,
+        request: realperson_models.QueryCutpaymentPaymentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryCutpaymentPaymentResponse:
+        """
+        Description: 银行卡代扣支付分账查询
+        Summary: 银行卡代扣支付分账查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryCutpaymentPaymentResponse(),
+            await self.do_request_async('1.0', 'di.realperson.cutpayment.payment.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_cutpayment_refund(
+        self,
+        request: realperson_models.ApplyCutpaymentRefundRequest,
+    ) -> realperson_models.ApplyCutpaymentRefundResponse:
+        """
+        Description: 银行卡代扣退款申请
+        Summary: 银行卡代扣退款申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_cutpayment_refund_ex(request, headers, runtime)
+
+    async def apply_cutpayment_refund_async(
+        self,
+        request: realperson_models.ApplyCutpaymentRefundRequest,
+    ) -> realperson_models.ApplyCutpaymentRefundResponse:
+        """
+        Description: 银行卡代扣退款申请
+        Summary: 银行卡代扣退款申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_cutpayment_refund_ex_async(request, headers, runtime)
+
+    def apply_cutpayment_refund_ex(
+        self,
+        request: realperson_models.ApplyCutpaymentRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.ApplyCutpaymentRefundResponse:
+        """
+        Description: 银行卡代扣退款申请
+        Summary: 银行卡代扣退款申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.ApplyCutpaymentRefundResponse(),
+            self.do_request('1.0', 'di.realperson.cutpayment.refund.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_cutpayment_refund_ex_async(
+        self,
+        request: realperson_models.ApplyCutpaymentRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.ApplyCutpaymentRefundResponse:
+        """
+        Description: 银行卡代扣退款申请
+        Summary: 银行卡代扣退款申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.ApplyCutpaymentRefundResponse(),
+            await self.do_request_async('1.0', 'di.realperson.cutpayment.refund.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_cutpayment_refund(
+        self,
+        request: realperson_models.QueryCutpaymentRefundRequest,
+    ) -> realperson_models.QueryCutpaymentRefundResponse:
+        """
+        Description: 银行卡代扣退款查询
+        Summary: 银行卡代扣退款查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_cutpayment_refund_ex(request, headers, runtime)
+
+    async def query_cutpayment_refund_async(
+        self,
+        request: realperson_models.QueryCutpaymentRefundRequest,
+    ) -> realperson_models.QueryCutpaymentRefundResponse:
+        """
+        Description: 银行卡代扣退款查询
+        Summary: 银行卡代扣退款查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_cutpayment_refund_ex_async(request, headers, runtime)
+
+    def query_cutpayment_refund_ex(
+        self,
+        request: realperson_models.QueryCutpaymentRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryCutpaymentRefundResponse:
+        """
+        Description: 银行卡代扣退款查询
+        Summary: 银行卡代扣退款查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryCutpaymentRefundResponse(),
+            self.do_request('1.0', 'di.realperson.cutpayment.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_cutpayment_refund_ex_async(
+        self,
+        request: realperson_models.QueryCutpaymentRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryCutpaymentRefundResponse:
+        """
+        Description: 银行卡代扣退款查询
+        Summary: 银行卡代扣退款查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryCutpaymentRefundResponse(),
+            await self.do_request_async('1.0', 'di.realperson.cutpayment.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_cutpayment_statement(
+        self,
+        request: realperson_models.QueryCutpaymentStatementRequest,
+    ) -> realperson_models.QueryCutpaymentStatementResponse:
+        """
+        Description: 银行卡代扣对账
+        Summary: 银行卡代扣对账
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_cutpayment_statement_ex(request, headers, runtime)
+
+    async def query_cutpayment_statement_async(
+        self,
+        request: realperson_models.QueryCutpaymentStatementRequest,
+    ) -> realperson_models.QueryCutpaymentStatementResponse:
+        """
+        Description: 银行卡代扣对账
+        Summary: 银行卡代扣对账
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_cutpayment_statement_ex_async(request, headers, runtime)
+
+    def query_cutpayment_statement_ex(
+        self,
+        request: realperson_models.QueryCutpaymentStatementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryCutpaymentStatementResponse:
+        """
+        Description: 银行卡代扣对账
+        Summary: 银行卡代扣对账
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryCutpaymentStatementResponse(),
+            self.do_request('1.0', 'di.realperson.cutpayment.statement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_cutpayment_statement_ex_async(
+        self,
+        request: realperson_models.QueryCutpaymentStatementRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryCutpaymentStatementResponse:
+        """
+        Description: 银行卡代扣对账
+        Summary: 银行卡代扣对账
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryCutpaymentStatementResponse(),
+            await self.do_request_async('1.0', 'di.realperson.cutpayment.statement.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_face_threemeta(
+        self,
+        request: realperson_models.ExecFaceThreemetaRequest,
+    ) -> realperson_models.ExecFaceThreemetaResponse:
+        """
+        Description: 人像、证件号、姓名比对接口
+        Summary: 人像、证件号、姓名比对
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_face_threemeta_ex(request, headers, runtime)
+
+    async def exec_face_threemeta_async(
+        self,
+        request: realperson_models.ExecFaceThreemetaRequest,
+    ) -> realperson_models.ExecFaceThreemetaResponse:
+        """
+        Description: 人像、证件号、姓名比对接口
+        Summary: 人像、证件号、姓名比对
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_face_threemeta_ex_async(request, headers, runtime)
+
+    def exec_face_threemeta_ex(
+        self,
+        request: realperson_models.ExecFaceThreemetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.ExecFaceThreemetaResponse:
+        """
+        Description: 人像、证件号、姓名比对接口
+        Summary: 人像、证件号、姓名比对
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.ExecFaceThreemetaResponse(),
+            self.do_request('1.0', 'di.realperson.face.threemeta.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_face_threemeta_ex_async(
+        self,
+        request: realperson_models.ExecFaceThreemetaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.ExecFaceThreemetaResponse:
+        """
+        Description: 人像、证件号、姓名比对接口
+        Summary: 人像、证件号、姓名比对
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.ExecFaceThreemetaResponse(),
+            await self.do_request_async('1.0', 'di.realperson.face.threemeta.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
