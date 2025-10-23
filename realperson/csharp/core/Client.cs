@@ -137,7 +137,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.22.0"},
+                        {"sdk_version", "1.22.5"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.22.0"},
+                        {"sdk_version", "1.22.5"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3049,6 +3049,426 @@ namespace AntChain.SDK.REALPERSON
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryCarinfoBriefResponse>(await DoRequestAsync("1.0", "di.realperson.carinfo.brief.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 银行卡代扣预绑定
+         * Summary: 银行卡代扣预绑定
+         */
+        public BindCutpaymentPreResponse BindCutpaymentPre(BindCutpaymentPreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BindCutpaymentPreEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 银行卡代扣预绑定
+         * Summary: 银行卡代扣预绑定
+         */
+        public async Task<BindCutpaymentPreResponse> BindCutpaymentPreAsync(BindCutpaymentPreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BindCutpaymentPreExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 银行卡代扣预绑定
+         * Summary: 银行卡代扣预绑定
+         */
+        public BindCutpaymentPreResponse BindCutpaymentPreEx(BindCutpaymentPreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindCutpaymentPreResponse>(DoRequest("1.0", "di.realperson.cutpayment.pre.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 银行卡代扣预绑定
+         * Summary: 银行卡代扣预绑定
+         */
+        public async Task<BindCutpaymentPreResponse> BindCutpaymentPreExAsync(BindCutpaymentPreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindCutpaymentPreResponse>(await DoRequestAsync("1.0", "di.realperson.cutpayment.pre.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 银行卡代扣绑卡签约
+         * Summary: 银行卡代扣绑卡签约
+         */
+        public BindCutpaymentSignResponse BindCutpaymentSign(BindCutpaymentSignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BindCutpaymentSignEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 银行卡代扣绑卡签约
+         * Summary: 银行卡代扣绑卡签约
+         */
+        public async Task<BindCutpaymentSignResponse> BindCutpaymentSignAsync(BindCutpaymentSignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BindCutpaymentSignExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 银行卡代扣绑卡签约
+         * Summary: 银行卡代扣绑卡签约
+         */
+        public BindCutpaymentSignResponse BindCutpaymentSignEx(BindCutpaymentSignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindCutpaymentSignResponse>(DoRequest("1.0", "di.realperson.cutpayment.sign.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 银行卡代扣绑卡签约
+         * Summary: 银行卡代扣绑卡签约
+         */
+        public async Task<BindCutpaymentSignResponse> BindCutpaymentSignExAsync(BindCutpaymentSignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindCutpaymentSignResponse>(await DoRequestAsync("1.0", "di.realperson.cutpayment.sign.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 银行卡代扣解绑
+         * Summary: 银行卡代扣解绑
+         */
+        public UnbindCutpaymentSignResponse UnbindCutpaymentSign(UnbindCutpaymentSignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UnbindCutpaymentSignEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 银行卡代扣解绑
+         * Summary: 银行卡代扣解绑
+         */
+        public async Task<UnbindCutpaymentSignResponse> UnbindCutpaymentSignAsync(UnbindCutpaymentSignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UnbindCutpaymentSignExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 银行卡代扣解绑
+         * Summary: 银行卡代扣解绑
+         */
+        public UnbindCutpaymentSignResponse UnbindCutpaymentSignEx(UnbindCutpaymentSignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UnbindCutpaymentSignResponse>(DoRequest("1.0", "di.realperson.cutpayment.sign.unbind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 银行卡代扣解绑
+         * Summary: 银行卡代扣解绑
+         */
+        public async Task<UnbindCutpaymentSignResponse> UnbindCutpaymentSignExAsync(UnbindCutpaymentSignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UnbindCutpaymentSignResponse>(await DoRequestAsync("1.0", "di.realperson.cutpayment.sign.unbind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 银行卡代扣绑定结果查询
+         * Summary: 银行卡代扣绑定结果查询
+         */
+        public QueryCutpaymentBindResponse QueryCutpaymentBind(QueryCutpaymentBindRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCutpaymentBindEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 银行卡代扣绑定结果查询
+         * Summary: 银行卡代扣绑定结果查询
+         */
+        public async Task<QueryCutpaymentBindResponse> QueryCutpaymentBindAsync(QueryCutpaymentBindRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCutpaymentBindExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 银行卡代扣绑定结果查询
+         * Summary: 银行卡代扣绑定结果查询
+         */
+        public QueryCutpaymentBindResponse QueryCutpaymentBindEx(QueryCutpaymentBindRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCutpaymentBindResponse>(DoRequest("1.0", "di.realperson.cutpayment.bind.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 银行卡代扣绑定结果查询
+         * Summary: 银行卡代扣绑定结果查询
+         */
+        public async Task<QueryCutpaymentBindResponse> QueryCutpaymentBindExAsync(QueryCutpaymentBindRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCutpaymentBindResponse>(await DoRequestAsync("1.0", "di.realperson.cutpayment.bind.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 银行卡代扣支付分账扣款
+         * Summary: 银行卡代扣支付分账扣款
+         */
+        public ApplyCutpaymentPaymentResponse ApplyCutpaymentPayment(ApplyCutpaymentPaymentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyCutpaymentPaymentEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 银行卡代扣支付分账扣款
+         * Summary: 银行卡代扣支付分账扣款
+         */
+        public async Task<ApplyCutpaymentPaymentResponse> ApplyCutpaymentPaymentAsync(ApplyCutpaymentPaymentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyCutpaymentPaymentExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 银行卡代扣支付分账扣款
+         * Summary: 银行卡代扣支付分账扣款
+         */
+        public ApplyCutpaymentPaymentResponse ApplyCutpaymentPaymentEx(ApplyCutpaymentPaymentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyCutpaymentPaymentResponse>(DoRequest("1.0", "di.realperson.cutpayment.payment.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 银行卡代扣支付分账扣款
+         * Summary: 银行卡代扣支付分账扣款
+         */
+        public async Task<ApplyCutpaymentPaymentResponse> ApplyCutpaymentPaymentExAsync(ApplyCutpaymentPaymentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyCutpaymentPaymentResponse>(await DoRequestAsync("1.0", "di.realperson.cutpayment.payment.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 银行卡代扣支付分账查询
+         * Summary: 银行卡代扣支付分账查询
+         */
+        public QueryCutpaymentPaymentResponse QueryCutpaymentPayment(QueryCutpaymentPaymentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCutpaymentPaymentEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 银行卡代扣支付分账查询
+         * Summary: 银行卡代扣支付分账查询
+         */
+        public async Task<QueryCutpaymentPaymentResponse> QueryCutpaymentPaymentAsync(QueryCutpaymentPaymentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCutpaymentPaymentExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 银行卡代扣支付分账查询
+         * Summary: 银行卡代扣支付分账查询
+         */
+        public QueryCutpaymentPaymentResponse QueryCutpaymentPaymentEx(QueryCutpaymentPaymentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCutpaymentPaymentResponse>(DoRequest("1.0", "di.realperson.cutpayment.payment.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 银行卡代扣支付分账查询
+         * Summary: 银行卡代扣支付分账查询
+         */
+        public async Task<QueryCutpaymentPaymentResponse> QueryCutpaymentPaymentExAsync(QueryCutpaymentPaymentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCutpaymentPaymentResponse>(await DoRequestAsync("1.0", "di.realperson.cutpayment.payment.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 银行卡代扣退款申请
+         * Summary: 银行卡代扣退款申请
+         */
+        public ApplyCutpaymentRefundResponse ApplyCutpaymentRefund(ApplyCutpaymentRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyCutpaymentRefundEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 银行卡代扣退款申请
+         * Summary: 银行卡代扣退款申请
+         */
+        public async Task<ApplyCutpaymentRefundResponse> ApplyCutpaymentRefundAsync(ApplyCutpaymentRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyCutpaymentRefundExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 银行卡代扣退款申请
+         * Summary: 银行卡代扣退款申请
+         */
+        public ApplyCutpaymentRefundResponse ApplyCutpaymentRefundEx(ApplyCutpaymentRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyCutpaymentRefundResponse>(DoRequest("1.0", "di.realperson.cutpayment.refund.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 银行卡代扣退款申请
+         * Summary: 银行卡代扣退款申请
+         */
+        public async Task<ApplyCutpaymentRefundResponse> ApplyCutpaymentRefundExAsync(ApplyCutpaymentRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyCutpaymentRefundResponse>(await DoRequestAsync("1.0", "di.realperson.cutpayment.refund.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 银行卡代扣退款查询
+         * Summary: 银行卡代扣退款查询
+         */
+        public QueryCutpaymentRefundResponse QueryCutpaymentRefund(QueryCutpaymentRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCutpaymentRefundEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 银行卡代扣退款查询
+         * Summary: 银行卡代扣退款查询
+         */
+        public async Task<QueryCutpaymentRefundResponse> QueryCutpaymentRefundAsync(QueryCutpaymentRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCutpaymentRefundExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 银行卡代扣退款查询
+         * Summary: 银行卡代扣退款查询
+         */
+        public QueryCutpaymentRefundResponse QueryCutpaymentRefundEx(QueryCutpaymentRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCutpaymentRefundResponse>(DoRequest("1.0", "di.realperson.cutpayment.refund.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 银行卡代扣退款查询
+         * Summary: 银行卡代扣退款查询
+         */
+        public async Task<QueryCutpaymentRefundResponse> QueryCutpaymentRefundExAsync(QueryCutpaymentRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCutpaymentRefundResponse>(await DoRequestAsync("1.0", "di.realperson.cutpayment.refund.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 银行卡代扣对账
+         * Summary: 银行卡代扣对账
+         */
+        public QueryCutpaymentStatementResponse QueryCutpaymentStatement(QueryCutpaymentStatementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCutpaymentStatementEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 银行卡代扣对账
+         * Summary: 银行卡代扣对账
+         */
+        public async Task<QueryCutpaymentStatementResponse> QueryCutpaymentStatementAsync(QueryCutpaymentStatementRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCutpaymentStatementExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 银行卡代扣对账
+         * Summary: 银行卡代扣对账
+         */
+        public QueryCutpaymentStatementResponse QueryCutpaymentStatementEx(QueryCutpaymentStatementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCutpaymentStatementResponse>(DoRequest("1.0", "di.realperson.cutpayment.statement.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 银行卡代扣对账
+         * Summary: 银行卡代扣对账
+         */
+        public async Task<QueryCutpaymentStatementResponse> QueryCutpaymentStatementExAsync(QueryCutpaymentStatementRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCutpaymentStatementResponse>(await DoRequestAsync("1.0", "di.realperson.cutpayment.statement.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 人像、证件号、姓名比对接口
+         * Summary: 人像、证件号、姓名比对
+         */
+        public ExecFaceThreemetaResponse ExecFaceThreemeta(ExecFaceThreemetaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecFaceThreemetaEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 人像、证件号、姓名比对接口
+         * Summary: 人像、证件号、姓名比对
+         */
+        public async Task<ExecFaceThreemetaResponse> ExecFaceThreemetaAsync(ExecFaceThreemetaRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecFaceThreemetaExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 人像、证件号、姓名比对接口
+         * Summary: 人像、证件号、姓名比对
+         */
+        public ExecFaceThreemetaResponse ExecFaceThreemetaEx(ExecFaceThreemetaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecFaceThreemetaResponse>(DoRequest("1.0", "di.realperson.face.threemeta.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 人像、证件号、姓名比对接口
+         * Summary: 人像、证件号、姓名比对
+         */
+        public async Task<ExecFaceThreemetaResponse> ExecFaceThreemetaExAsync(ExecFaceThreemetaRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecFaceThreemetaResponse>(await DoRequestAsync("1.0", "di.realperson.face.threemeta.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
