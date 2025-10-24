@@ -65613,7 +65613,7 @@ class BatchcreateAuthNewcarRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         scene_code: str = None,
-        new_car_info: NewCarInfo = None,
+        new_car_info: List[NewCarInfo] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -65627,7 +65627,9 @@ class BatchcreateAuthNewcarRequest(TeaModel):
         self.validate_required(self.scene_code, 'scene_code')
         self.validate_required(self.new_car_info, 'new_car_info')
         if self.new_car_info:
-            self.new_car_info.validate()
+            for k in self.new_car_info:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -65641,8 +65643,10 @@ class BatchcreateAuthNewcarRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.scene_code is not None:
             result['scene_code'] = self.scene_code
+        result['new_car_info'] = []
         if self.new_car_info is not None:
-            result['new_car_info'] = self.new_car_info.to_map()
+            for k in self.new_car_info:
+                result['new_car_info'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -65653,9 +65657,11 @@ class BatchcreateAuthNewcarRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('scene_code') is not None:
             self.scene_code = m.get('scene_code')
+        self.new_car_info = []
         if m.get('new_car_info') is not None:
-            temp_model = NewCarInfo()
-            self.new_car_info = temp_model.from_map(m['new_car_info'])
+            for k in m.get('new_car_info'):
+                temp_model = NewCarInfo()
+                self.new_car_info.append(temp_model.from_map(k))
         return self
 
 
