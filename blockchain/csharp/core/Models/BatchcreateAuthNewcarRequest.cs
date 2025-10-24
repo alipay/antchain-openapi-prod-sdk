@@ -26,7 +26,7 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         // 新车线索集合
         [NameInMap("new_car_info")]
         [Validation(Required=true)]
-        public NewCarInfo NewCarInfo { get; set; }
+        public List<NewCarInfo> NewCarInfo { get; set; }
 
     }
 
