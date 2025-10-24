@@ -52405,7 +52405,7 @@ type BatchcreateAuthNewcarRequest struct {
 	// testchannleCode
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
 	// 新车线索集合
-	NewCarInfo *NewCarInfo `json:"new_car_info,omitempty" xml:"new_car_info,omitempty" require:"true"`
+	NewCarInfo []*NewCarInfo `json:"new_car_info,omitempty" xml:"new_car_info,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s BatchcreateAuthNewcarRequest) String() string {
@@ -52431,7 +52431,7 @@ func (s *BatchcreateAuthNewcarRequest) SetSceneCode(v string) *BatchcreateAuthNe
 	return s
 }
 
-func (s *BatchcreateAuthNewcarRequest) SetNewCarInfo(v *NewCarInfo) *BatchcreateAuthNewcarRequest {
+func (s *BatchcreateAuthNewcarRequest) SetNewCarInfo(v []*NewCarInfo) *BatchcreateAuthNewcarRequest {
 	s.NewCarInfo = v
 	return s
 }
@@ -71773,7 +71773,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.59"),
+				"sdk_version":      tea.String("1.28.60"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
