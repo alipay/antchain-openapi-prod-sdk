@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.28.59',
+    sdk_version = '1.28.60',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -23066,7 +23066,7 @@ model BatchcreateAuthNewcarRequest = {
   // testchannleCode
   sceneCode: string(name='scene_code'),
   // 新车线索集合
-  newCarInfo: NewCarInfo(name='new_car_info'),
+  newCarInfo: [ NewCarInfo ](name='new_car_info'),
 }
 
 model BatchcreateAuthNewcarResponse = {
