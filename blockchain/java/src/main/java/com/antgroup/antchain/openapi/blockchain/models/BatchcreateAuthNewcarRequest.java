@@ -19,7 +19,7 @@ public class BatchcreateAuthNewcarRequest extends TeaModel {
     // 新车线索集合
     @NameInMap("new_car_info")
     @Validation(required = true)
-    public NewCarInfo newCarInfo;
+    public java.util.List<NewCarInfo> newCarInfo;
 
     public static BatchcreateAuthNewcarRequest build(java.util.Map<String, ?> map) throws Exception {
         BatchcreateAuthNewcarRequest self = new BatchcreateAuthNewcarRequest();
@@ -50,11 +50,11 @@ public class BatchcreateAuthNewcarRequest extends TeaModel {
         return this.sceneCode;
     }
 
-    public BatchcreateAuthNewcarRequest setNewCarInfo(NewCarInfo newCarInfo) {
+    public BatchcreateAuthNewcarRequest setNewCarInfo(java.util.List<NewCarInfo> newCarInfo) {
         this.newCarInfo = newCarInfo;
         return this;
     }
-    public NewCarInfo getNewCarInfo() {
+    public java.util.List<NewCarInfo> getNewCarInfo() {
         return this.newCarInfo;
     }
 
