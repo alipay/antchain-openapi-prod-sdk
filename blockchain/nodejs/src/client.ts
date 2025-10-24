@@ -40335,7 +40335,7 @@ export class BatchcreateAuthNewcarRequest extends $tea.Model {
   // testchannleCode
   sceneCode: string;
   // 新车线索集合
-  newCarInfo: NewCarInfo;
+  newCarInfo: NewCarInfo[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -40350,7 +40350,7 @@ export class BatchcreateAuthNewcarRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       sceneCode: 'string',
-      newCarInfo: NewCarInfo,
+      newCarInfo: { 'type': 'array', 'itemType': NewCarInfo },
     };
   }
 
@@ -55269,7 +55269,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.59",
+          sdk_version: "1.28.60",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
