@@ -27,7 +27,7 @@ class BatchcreateAuthNewcarRequest extends Model
 
     // 新车线索集合
     /**
-     * @var NewCarInfo
+     * @var NewCarInfo[]
      */
     public $newCarInfo;
     protected $_name = [
@@ -56,7 +56,13 @@ class BatchcreateAuthNewcarRequest extends Model
             $res['scene_code'] = $this->sceneCode;
         }
         if (null !== $this->newCarInfo) {
-            $res['new_car_info'] = null !== $this->newCarInfo ? $this->newCarInfo->toMap() : null;
+            $res['new_car_info'] = [];
+            if (null !== $this->newCarInfo && \is_array($this->newCarInfo)) {
+                $n = 0;
+                foreach ($this->newCarInfo as $item) {
+                    $res['new_car_info'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -80,7 +86,13 @@ class BatchcreateAuthNewcarRequest extends Model
             $model->sceneCode = $map['scene_code'];
         }
         if (isset($map['new_car_info'])) {
-            $model->newCarInfo = NewCarInfo::fromMap($map['new_car_info']);
+            if (!empty($map['new_car_info'])) {
+                $model->newCarInfo = [];
+                $n                 = 0;
+                foreach ($map['new_car_info'] as $item) {
+                    $model->newCarInfo[$n++] = null !== $item ? NewCarInfo::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
