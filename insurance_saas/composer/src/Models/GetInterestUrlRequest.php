@@ -69,6 +69,18 @@ class GetInterestUrlRequest extends Model
      * @var string
      */
     public $sceneInfo;
+
+    // 权益版本
+    /**
+     * @var string
+     */
+    public $interestVersion;
+
+    // 产品信息
+    /**
+     * @var string
+     */
+    public $productInfo;
     protected $_name = [
         'authToken'        => 'auth_token',
         'rightApplyNo'     => 'right_apply_no',
@@ -80,6 +92,8 @@ class GetInterestUrlRequest extends Model
         'tbrPhone'         => 'tbr_phone',
         'tbrIdCard'        => 'tbr_id_card',
         'sceneInfo'        => 'scene_info',
+        'interestVersion'  => 'interest_version',
+        'productInfo'      => 'product_info',
     ];
 
     public function validate()
@@ -126,6 +140,12 @@ class GetInterestUrlRequest extends Model
         if (null !== $this->sceneInfo) {
             $res['scene_info'] = $this->sceneInfo;
         }
+        if (null !== $this->interestVersion) {
+            $res['interest_version'] = $this->interestVersion;
+        }
+        if (null !== $this->productInfo) {
+            $res['product_info'] = $this->productInfo;
+        }
 
         return $res;
     }
@@ -167,6 +187,12 @@ class GetInterestUrlRequest extends Model
         }
         if (isset($map['scene_info'])) {
             $model->sceneInfo = $map['scene_info'];
+        }
+        if (isset($map['interest_version'])) {
+            $model->interestVersion = $map['interest_version'];
+        }
+        if (isset($map['product_info'])) {
+            $model->productInfo = $map['product_info'];
         }
 
         return $model;

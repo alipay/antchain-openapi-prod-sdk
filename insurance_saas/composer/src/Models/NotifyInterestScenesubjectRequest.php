@@ -49,6 +49,12 @@ class NotifyInterestScenesubjectRequest extends Model
      * @var string
      */
     public $interestSubjectInfo;
+
+    // 权益版本
+    /**
+     * @var string
+     */
+    public $interestVersion;
     protected $_name = [
         'authToken'           => 'auth_token',
         'requestNo'           => 'request_no',
@@ -57,6 +63,7 @@ class NotifyInterestScenesubjectRequest extends Model
         'applyLimitAmount'    => 'apply_limit_amount',
         'applyLimitStatus'    => 'apply_limit_status',
         'interestSubjectInfo' => 'interest_subject_info',
+        'interestVersion'     => 'interest_version',
     ];
 
     public function validate()
@@ -91,6 +98,9 @@ class NotifyInterestScenesubjectRequest extends Model
         if (null !== $this->interestSubjectInfo) {
             $res['interest_subject_info'] = $this->interestSubjectInfo;
         }
+        if (null !== $this->interestVersion) {
+            $res['interest_version'] = $this->interestVersion;
+        }
 
         return $res;
     }
@@ -123,6 +133,9 @@ class NotifyInterestScenesubjectRequest extends Model
         }
         if (isset($map['interest_subject_info'])) {
             $model->interestSubjectInfo = $map['interest_subject_info'];
+        }
+        if (isset($map['interest_version'])) {
+            $model->interestVersion = $map['interest_version'];
         }
 
         return $model;
