@@ -4241,6 +4241,7 @@ class NotifyInterestScenesubjectRequest(TeaModel):
         apply_limit_amount: str = None,
         apply_limit_status: str = None,
         interest_subject_info: str = None,
+        interest_version: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4256,6 +4257,8 @@ class NotifyInterestScenesubjectRequest(TeaModel):
         self.apply_limit_status = apply_limit_status
         # 权益标的信息,JSON字符串
         self.interest_subject_info = interest_subject_info
+        # 权益版本
+        self.interest_version = interest_version
 
     def validate(self):
         self.validate_required(self.request_no, 'request_no')
@@ -4283,6 +4286,8 @@ class NotifyInterestScenesubjectRequest(TeaModel):
             result['apply_limit_status'] = self.apply_limit_status
         if self.interest_subject_info is not None:
             result['interest_subject_info'] = self.interest_subject_info
+        if self.interest_version is not None:
+            result['interest_version'] = self.interest_version
         return result
 
     def from_map(self, m: dict = None):
@@ -4301,6 +4306,8 @@ class NotifyInterestScenesubjectRequest(TeaModel):
             self.apply_limit_status = m.get('apply_limit_status')
         if m.get('interest_subject_info') is not None:
             self.interest_subject_info = m.get('interest_subject_info')
+        if m.get('interest_version') is not None:
+            self.interest_version = m.get('interest_version')
         return self
 
 
@@ -4558,6 +4565,8 @@ class GetInterestUrlRequest(TeaModel):
         tbr_phone: str = None,
         tbr_id_card: str = None,
         scene_info: str = None,
+        interest_version: str = None,
+        product_info: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4581,6 +4590,10 @@ class GetInterestUrlRequest(TeaModel):
         self.tbr_id_card = tbr_id_card
         # 场景方信息,JSON字符串
         self.scene_info = scene_info
+        # 权益版本
+        self.interest_version = interest_version
+        # 产品信息
+        self.product_info = product_info
 
     def validate(self):
         self.validate_required(self.right_apply_no, 'right_apply_no')
@@ -4617,6 +4630,10 @@ class GetInterestUrlRequest(TeaModel):
             result['tbr_id_card'] = self.tbr_id_card
         if self.scene_info is not None:
             result['scene_info'] = self.scene_info
+        if self.interest_version is not None:
+            result['interest_version'] = self.interest_version
+        if self.product_info is not None:
+            result['product_info'] = self.product_info
         return result
 
     def from_map(self, m: dict = None):
@@ -4641,6 +4658,10 @@ class GetInterestUrlRequest(TeaModel):
             self.tbr_id_card = m.get('tbr_id_card')
         if m.get('scene_info') is not None:
             self.scene_info = m.get('scene_info')
+        if m.get('interest_version') is not None:
+            self.interest_version = m.get('interest_version')
+        if m.get('product_info') is not None:
+            self.product_info = m.get('product_info')
         return self
 
 
