@@ -3472,6 +3472,8 @@ type NotifyInterestScenesubjectRequest struct {
 	ApplyLimitStatus *string `json:"apply_limit_status,omitempty" xml:"apply_limit_status,omitempty" require:"true"`
 	// 权益标的信息,JSON字符串
 	InterestSubjectInfo *string `json:"interest_subject_info,omitempty" xml:"interest_subject_info,omitempty"`
+	// 权益版本
+	InterestVersion *string `json:"interest_version,omitempty" xml:"interest_version,omitempty"`
 }
 
 func (s NotifyInterestScenesubjectRequest) String() string {
@@ -3514,6 +3516,11 @@ func (s *NotifyInterestScenesubjectRequest) SetApplyLimitStatus(v string) *Notif
 
 func (s *NotifyInterestScenesubjectRequest) SetInterestSubjectInfo(v string) *NotifyInterestScenesubjectRequest {
 	s.InterestSubjectInfo = &v
+	return s
+}
+
+func (s *NotifyInterestScenesubjectRequest) SetInterestVersion(v string) *NotifyInterestScenesubjectRequest {
+	s.InterestVersion = &v
 	return s
 }
 
@@ -3728,6 +3735,10 @@ type GetInterestUrlRequest struct {
 	TbrIdCard *string `json:"tbr_id_card,omitempty" xml:"tbr_id_card,omitempty" require:"true"`
 	// 场景方信息,JSON字符串
 	SceneInfo *string `json:"scene_info,omitempty" xml:"scene_info,omitempty"`
+	// 权益版本
+	InterestVersion *string `json:"interest_version,omitempty" xml:"interest_version,omitempty"`
+	// 产品信息
+	ProductInfo *string `json:"product_info,omitempty" xml:"product_info,omitempty"`
 }
 
 func (s GetInterestUrlRequest) String() string {
@@ -3785,6 +3796,16 @@ func (s *GetInterestUrlRequest) SetTbrIdCard(v string) *GetInterestUrlRequest {
 
 func (s *GetInterestUrlRequest) SetSceneInfo(v string) *GetInterestUrlRequest {
 	s.SceneInfo = &v
+	return s
+}
+
+func (s *GetInterestUrlRequest) SetInterestVersion(v string) *GetInterestUrlRequest {
+	s.InterestVersion = &v
+	return s
+}
+
+func (s *GetInterestUrlRequest) SetProductInfo(v string) *GetInterestUrlRequest {
+	s.ProductInfo = &v
 	return s
 }
 
@@ -4140,7 +4161,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.1"),
+				"sdk_version":      tea.String("1.10.2"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
