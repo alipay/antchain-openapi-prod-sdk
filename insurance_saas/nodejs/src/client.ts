@@ -2532,6 +2532,8 @@ export class NotifyInterestScenesubjectRequest extends $tea.Model {
   applyLimitStatus: string;
   // 权益标的信息,JSON字符串
   interestSubjectInfo?: string;
+  // 权益版本
+  interestVersion?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2541,6 +2543,7 @@ export class NotifyInterestScenesubjectRequest extends $tea.Model {
       applyLimitAmount: 'apply_limit_amount',
       applyLimitStatus: 'apply_limit_status',
       interestSubjectInfo: 'interest_subject_info',
+      interestVersion: 'interest_version',
     };
   }
 
@@ -2553,6 +2556,7 @@ export class NotifyInterestScenesubjectRequest extends $tea.Model {
       applyLimitAmount: 'string',
       applyLimitStatus: 'string',
       interestSubjectInfo: 'string',
+      interestVersion: 'string',
     };
   }
 
@@ -2740,6 +2744,10 @@ export class GetInterestUrlRequest extends $tea.Model {
   tbrIdCard: string;
   // 场景方信息,JSON字符串
   sceneInfo?: string;
+  // 权益版本
+  interestVersion?: string;
+  // 产品信息
+  productInfo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2752,6 +2760,8 @@ export class GetInterestUrlRequest extends $tea.Model {
       tbrPhone: 'tbr_phone',
       tbrIdCard: 'tbr_id_card',
       sceneInfo: 'scene_info',
+      interestVersion: 'interest_version',
+      productInfo: 'product_info',
     };
   }
 
@@ -2767,6 +2777,8 @@ export class GetInterestUrlRequest extends $tea.Model {
       tbrPhone: 'string',
       tbrIdCard: 'string',
       sceneInfo: 'string',
+      interestVersion: 'string',
+      productInfo: 'string',
     };
   }
 
@@ -3068,7 +3080,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.10.1",
+          sdk_version: "1.10.2",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
