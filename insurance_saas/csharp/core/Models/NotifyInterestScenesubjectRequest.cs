@@ -44,6 +44,11 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=false)]
         public string InterestSubjectInfo { get; set; }
 
+        // 权益版本
+        [NameInMap("interest_version")]
+        [Validation(Required=false)]
+        public string InterestVersion { get; set; }
+
     }
 
 }

@@ -61,6 +61,16 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=false)]
         public string SceneInfo { get; set; }
 
+        // 权益版本
+        [NameInMap("interest_version")]
+        [Validation(Required=false)]
+        public string InterestVersion { get; set; }
+
+        // 产品信息
+        [NameInMap("product_info")]
+        [Validation(Required=false)]
+        public string ProductInfo { get; set; }
+
     }
 
 }
