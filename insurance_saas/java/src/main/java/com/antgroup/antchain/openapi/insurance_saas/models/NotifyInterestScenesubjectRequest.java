@@ -36,6 +36,10 @@ public class NotifyInterestScenesubjectRequest extends TeaModel {
     @NameInMap("interest_subject_info")
     public String interestSubjectInfo;
 
+    // 权益版本
+    @NameInMap("interest_version")
+    public String interestVersion;
+
     public static NotifyInterestScenesubjectRequest build(java.util.Map<String, ?> map) throws Exception {
         NotifyInterestScenesubjectRequest self = new NotifyInterestScenesubjectRequest();
         return TeaModel.build(map, self);
@@ -95,6 +99,14 @@ public class NotifyInterestScenesubjectRequest extends TeaModel {
     }
     public String getInterestSubjectInfo() {
         return this.interestSubjectInfo;
+    }
+
+    public NotifyInterestScenesubjectRequest setInterestVersion(String interestVersion) {
+        this.interestVersion = interestVersion;
+        return this;
+    }
+    public String getInterestVersion() {
+        return this.interestVersion;
     }
 
 }

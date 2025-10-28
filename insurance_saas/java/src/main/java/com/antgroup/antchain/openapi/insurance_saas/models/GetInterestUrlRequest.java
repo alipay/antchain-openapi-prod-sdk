@@ -53,6 +53,14 @@ public class GetInterestUrlRequest extends TeaModel {
     @NameInMap("scene_info")
     public String sceneInfo;
 
+    // 权益版本
+    @NameInMap("interest_version")
+    public String interestVersion;
+
+    // 产品信息
+    @NameInMap("product_info")
+    public String productInfo;
+
     public static GetInterestUrlRequest build(java.util.Map<String, ?> map) throws Exception {
         GetInterestUrlRequest self = new GetInterestUrlRequest();
         return TeaModel.build(map, self);
@@ -136,6 +144,22 @@ public class GetInterestUrlRequest extends TeaModel {
     }
     public String getSceneInfo() {
         return this.sceneInfo;
+    }
+
+    public GetInterestUrlRequest setInterestVersion(String interestVersion) {
+        this.interestVersion = interestVersion;
+        return this;
+    }
+    public String getInterestVersion() {
+        return this.interestVersion;
+    }
+
+    public GetInterestUrlRequest setProductInfo(String productInfo) {
+        this.productInfo = productInfo;
+        return this;
+    }
+    public String getProductInfo() {
+        return this.productInfo;
     }
 
 }
