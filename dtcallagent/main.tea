@@ -1,0 +1,378 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.0',
+    _prod_code = 'DTCALLAGENT',
+    _prod_channel = 'default'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+model QueryVoiceserviceQuerycalldetailRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 分配的租户id
+  tenantId: string(name='tenant_id'),
+  // 分配的业务code
+  instanceCode: string(name='instance_code'),
+  // 通话的唯一识别 ID。调用外呼接口发起通话后，返回参数中会携带 CallId。
+  callId: string(name='call_id'),
+  // 通话发生的时间。格式为 Unix 时间戳，单位：毫秒。
+  queryDate: string(name='query_date'),
+}
+
+model QueryVoiceserviceQuerycalldetailResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求状态码。
+  // ● 返回 OK 代表请求成功。
+  code?: string(name='code'),
+  // 状态码的描述。
+  message?: string(name='message'),
+  // 返回的呼叫详情。JSON 格式。以下字段仅供参考，以具体返回详情为准。
+  // ● caller：主叫号码。
+  // ● startDate：通话开始时间。
+  // ● stateDesc：通话状态描述。
+  // ● duration：通话时长。单位：秒。0：用户未接通。
+  // ● callerShowNumber：被叫显号。
+  // ● gmtCreate：通话请求的接收时间。
+  // ● state：通话状态。通话状态是运营商实时返回的，更多状态信息，请参见通话结果状态码。
+  // ● endDate：通话结束时间。
+  // ● calleeShowNumber：被叫显号。
+  // ● callee：被叫号码。
+  // ● aRingTime：a 路响铃开始时间。格式：yyyy-MM-dd HH:mm:ss。
+  // ● aEndTime：a 路响铃结束时间。格式：yyyy-MM-dd HH:mm:ss。
+  // （待确认）
+  // ● bRingTime：b 路响铃开始时间。格式：yyyy-MM-dd HH:mm:ss。
+  // ● bEndTime：b 路响铃结束时间。格式：yyyy-MM-dd HH:mm:ss。
+  data?: string(name='data'),
+  // 本次调用请求的 ID，是由阿里云为该请求生成的唯一标识符，可用于排查和定位问题。
+  requestId?: string(name='request_id'),
+}
+
+/**
+ * Description: 通过租户ID、业务Code、通话的唯一识别ID以及通话时间查询呼叫详情数据
+ * Summary: 呼叫详情查询
+ */
+async function queryVoiceserviceQuerycalldetail(request: QueryVoiceserviceQuerycalldetailRequest): QueryVoiceserviceQuerycalldetailResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryVoiceserviceQuerycalldetailEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过租户ID、业务Code、通话的唯一识别ID以及通话时间查询呼叫详情数据
+ * Summary: 呼叫详情查询
+ */
+async function queryVoiceserviceQuerycalldetailEx(request: QueryVoiceserviceQuerycalldetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryVoiceserviceQuerycalldetailResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.dtcallagent.voiceservice.querycalldetail.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendVoiceserviceSinglecallRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 分配的租户id
+  tenantId: string(name='tenant_id'),
+  // 分配的业务code
+  instanceCode: string(name='instance_code'),
+  // 分配的主叫号码
+  calledShowNumber: string(name='called_show_number'),
+  // 被叫用户号码
+  calledNumber: string(name='called_number'),
+  // 播报文本内容
+  context: string(name='context'),
+  // 录音字段
+  voiceCode?: string(name='voice_code'),
+  // TTS 变量播放时的声音风格。
+  ttsStyle: string(name='tts_style'),
+  // TTS 变量播放的音量。取值范围：0~100，默认值为 50。
+  ttsVolume?: long(name='tts_volume'),
+  // TTS 变量播放时的声音速度。取值范围：0.5~2，默认值为 1。
+  ttsSpeed?: long(name='tts_speed'),
+  // 播放次数。取值范围：1~3，默认取值 3。
+  playTimes?: long(name='play_times'),
+  // 否	发起请求时预留给调用方的自定义 ID，最终会通过回执消息将此 ID 带回给调用方。
+  // 字符串类型，长度限制为 1~128 个字符。
+  outId?: string(name='out_id'),
+}
+
+model SendVoiceserviceSinglecallResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求状态码。
+  // 返回 OK 代表请求成功。
+  // 其他错误码，请参考API错误码
+  code?: string(name='code'),
+  // 状态码的描述。
+  message?: string(name='message'),
+  // 请求 ID
+  requestId?: string(name='request_id'),
+  // 此次通话的唯一回执 ID。
+  // 可以使用此 CallId，调用查询通话详情接口查询呼叫详情。
+  callId?: string(name='call_id'),
+}
+
+/**
+ * Description: 通知类外呼
+ * Summary: 通知类外呼
+ */
+async function sendVoiceserviceSinglecall(request: SendVoiceserviceSinglecallRequest): SendVoiceserviceSinglecallResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendVoiceserviceSinglecallEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通知类外呼
+ * Summary: 通知类外呼
+ */
+async function sendVoiceserviceSinglecallEx(request: SendVoiceserviceSinglecallRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendVoiceserviceSinglecallResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.dtcallagent.voiceservice.singlecall.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendVoiceserviceSmartcallRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 分配的租户id
+  tenantId: string(name='tenant_id'),
+  // 分配的业务code
+  instanceCode: string(name='instance_code'),
+  // 分配的主叫号码
+  calledShowNumber: string(name='called_show_number'),
+  // 被叫用户号码
+  calledNumber: string(name='called_number'),
+  // 播报文本内容
+  context: string(name='context'),
+  // code
+  voiceCode?: string(name='voice_code'),
+  // 停顿时长。用于设置用户停顿多久表示一句话结束。单位：毫秒，取值范围：300~1200。默认800。非特殊情况不建议调整
+  pauseTime?: long(name='pause_time'),
+  // 静音时长。用于设置用户多久不说话通话结束。单位：毫秒，取值范围：1000~20000。默认 10000
+  muteTime?: long(name='mute_time'),
+  // 当前返回的媒体文件是否可以被打断。默认取值为 true，即可被打断。
+  // 如果为 false，即使下一个动作 action_break 为 true，也无法打断当前放音。
+  actionCodeBreak?: boolean(name='action_code_break'),
+  // 基于用户持续说话时长打断。单位：毫秒。
+  // 如果当前媒体文件 ActionCodeBreak 为 true，用户持续说话可以打断当前播放。不设置或者为 0，不生效。
+  actionCodeTimeBreak?: long(name='action_code_time_break'),
+  // 最大通话时长，超时后自动挂断。单位：秒。
+  sessionTimeout?: long(name='session_timeout'),
+  // TTS 变量播放时的声音风格。
+  ttsStyle: string(name='tts_style'),
+  // TTS 变量播放的音量。取值范围：0~100，默认值为 50。
+  ttsVolume?: long(name='tts_volume'),
+  // TTS 变量播放时的声音速度。取值范围：0.5~2，默认值为 1。
+  ttsSpeed?: long(name='tts_speed'),
+  // 用户和机器人对话时播放的背景语音文件 ID。
+  backgroundFileCode?: string(name='background_file_code'),
+  // 否	发起请求时预留给调用方的自定义 ID，最终会通过回执消息将此 ID 带回给调用方。
+  // 字符串类型，长度限制为 1~128 个字符。
+  outId?: string(name='out_id'),
+  // 预留给调用方使用的动态扩展 ID。在回调地址中带回，用于客户的开发标识。
+  dynamicId?: string(name='dynamic_id'),
+  // 是否在后处理中执行 ITN。默认为 false，即不执行。
+  // 设置为 true 时，中文数字将转为阿拉伯数字输出。
+  enableITN?: boolean(name='enable_i_t_n'),
+}
+
+model SendVoiceserviceSmartcallResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求状态码。
+  // ● 返回 OK 代表请求成功。
+  code?: string(name='code'),
+  // 状态码的描述。
+  message?: string(name='message'),
+  // 请求 ID。
+  requestId?: string(name='request_id'),
+  // 此次通话的唯一回执 ID。
+  // 可以使用此 CallId，调用查询通话详情接口查询呼叫详情。
+  callId?: string(name='call_id'),
+}
+
+/**
+ * Description: 说明需要配合接入智能外呼回调接口联合使用，语音平台发起呼叫后会把转换后的语音文本回传给接入方，接入方把下一步的执行动作返回给语音平台
+ * Summary: 交互类外呼
+ */
+async function sendVoiceserviceSmartcall(request: SendVoiceserviceSmartcallRequest): SendVoiceserviceSmartcallResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendVoiceserviceSmartcallEx(request, headers, runtime);
+}
+
+/**
+ * Description: 说明需要配合接入智能外呼回调接口联合使用，语音平台发起呼叫后会把转换后的语音文本回传给接入方，接入方把下一步的执行动作返回给语音平台
+ * Summary: 交互类外呼
+ */
+async function sendVoiceserviceSmartcallEx(request: SendVoiceserviceSmartcallRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendVoiceserviceSmartcallResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.dtcallagent.voiceservice.smartcall.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
