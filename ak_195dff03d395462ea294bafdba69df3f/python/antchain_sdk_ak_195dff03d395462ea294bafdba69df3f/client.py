@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.3',
+                    'sdk_version': '1.6.4',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.3',
+                    'sdk_version': '1.6.4',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -2284,8 +2284,8 @@ class Client:
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundOrderfullinfoRequest,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundOrderfullinfoResponse:
         """
-        Description: 资方查询订单详情
-        Summary: 资方查询订单详情
+        Description: 资方调用、订单详情获取
+        Summary: 资方调用、订单详情获取
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2296,8 +2296,8 @@ class Client:
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundOrderfullinfoRequest,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundOrderfullinfoResponse:
         """
-        Description: 资方查询订单详情
-        Summary: 资方查询订单详情
+        Description: 资方调用、订单详情获取
+        Summary: 资方调用、订单详情获取
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2310,8 +2310,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundOrderfullinfoResponse:
         """
-        Description: 资方查询订单详情
-        Summary: 资方查询订单详情
+        Description: 资方调用、订单详情获取
+        Summary: 资方调用、订单详情获取
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2326,8 +2326,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundOrderfullinfoResponse:
         """
-        Description: 资方查询订单详情
-        Summary: 资方查询订单详情
+        Description: 资方调用、订单详情获取
+        Summary: 资方调用、订单详情获取
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -5549,6 +5549,174 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradePromoorderinfoResponse(),
             await self.do_request_async('1.0', 'antchain.ato.trade.promoorderinfo.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_antchain_ato_merchantexpand_settlecard(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.BindAntchainAtoMerchantexpandSettlecardRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.BindAntchainAtoMerchantexpandSettlecardResponse:
+        """
+        Description: 二级户进件绑定结算卡信息
+        Summary: 二级户进件绑定结算卡信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_antchain_ato_merchantexpand_settlecard_ex(request, headers, runtime)
+
+    async def bind_antchain_ato_merchantexpand_settlecard_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.BindAntchainAtoMerchantexpandSettlecardRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.BindAntchainAtoMerchantexpandSettlecardResponse:
+        """
+        Description: 二级户进件绑定结算卡信息
+        Summary: 二级户进件绑定结算卡信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_antchain_ato_merchantexpand_settlecard_ex_async(request, headers, runtime)
+
+    def bind_antchain_ato_merchantexpand_settlecard_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.BindAntchainAtoMerchantexpandSettlecardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.BindAntchainAtoMerchantexpandSettlecardResponse:
+        """
+        Description: 二级户进件绑定结算卡信息
+        Summary: 二级户进件绑定结算卡信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.BindAntchainAtoMerchantexpandSettlecardResponse(),
+            self.do_request('1.0', 'antchain.ato.merchantexpand.settlecard.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_antchain_ato_merchantexpand_settlecard_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.BindAntchainAtoMerchantexpandSettlecardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.BindAntchainAtoMerchantexpandSettlecardResponse:
+        """
+        Description: 二级户进件绑定结算卡信息
+        Summary: 二级户进件绑定结算卡信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.BindAntchainAtoMerchantexpandSettlecardResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.merchantexpand.settlecard.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_antchain_ato_trade_receiptorderfullinfo(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradeReceiptorderfullinfoRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradeReceiptorderfullinfoResponse:
+        """
+        Description: 资产订单同步
+        Summary: 资产订单同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_antchain_ato_trade_receiptorderfullinfo_ex(request, headers, runtime)
+
+    async def sync_antchain_ato_trade_receiptorderfullinfo_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradeReceiptorderfullinfoRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradeReceiptorderfullinfoResponse:
+        """
+        Description: 资产订单同步
+        Summary: 资产订单同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_antchain_ato_trade_receiptorderfullinfo_ex_async(request, headers, runtime)
+
+    def sync_antchain_ato_trade_receiptorderfullinfo_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradeReceiptorderfullinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradeReceiptorderfullinfoResponse:
+        """
+        Description: 资产订单同步
+        Summary: 资产订单同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradeReceiptorderfullinfoResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.receiptorderfullinfo.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_antchain_ato_trade_receiptorderfullinfo_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradeReceiptorderfullinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradeReceiptorderfullinfoResponse:
+        """
+        Description: 资产订单同步
+        Summary: 资产订单同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradeReceiptorderfullinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.receiptorderfullinfo.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_antchain_ato_trade_orderfullinfo(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoTradeOrderfullinfoRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoTradeOrderfullinfoResponse:
+        """
+        Description: 订单信息查询（新）
+        Summary: 订单获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_antchain_ato_trade_orderfullinfo_ex(request, headers, runtime)
+
+    async def get_antchain_ato_trade_orderfullinfo_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoTradeOrderfullinfoRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoTradeOrderfullinfoResponse:
+        """
+        Description: 订单信息查询（新）
+        Summary: 订单获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_antchain_ato_trade_orderfullinfo_ex_async(request, headers, runtime)
+
+    def get_antchain_ato_trade_orderfullinfo_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoTradeOrderfullinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoTradeOrderfullinfoResponse:
+        """
+        Description: 订单信息查询（新）
+        Summary: 订单获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoTradeOrderfullinfoResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.orderfullinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_antchain_ato_trade_orderfullinfo_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoTradeOrderfullinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoTradeOrderfullinfoResponse:
+        """
+        Description: 订单信息查询（新）
+        Summary: 订单获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoTradeOrderfullinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.orderfullinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
