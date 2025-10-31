@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.3"},
+                        {"sdk_version", "1.6.4"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.3"},
+                        {"sdk_version", "1.6.4"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -1848,8 +1848,8 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 资方查询订单详情
-         * Summary: 资方查询订单详情
+         * Description: 资方调用、订单详情获取
+         * Summary: 资方调用、订单详情获取
          */
         public GetAntchainAtoFundOrderfullinfoResponse GetAntchainAtoFundOrderfullinfo(GetAntchainAtoFundOrderfullinfoRequest request)
         {
@@ -1859,8 +1859,8 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 资方查询订单详情
-         * Summary: 资方查询订单详情
+         * Description: 资方调用、订单详情获取
+         * Summary: 资方调用、订单详情获取
          */
         public async Task<GetAntchainAtoFundOrderfullinfoResponse> GetAntchainAtoFundOrderfullinfoAsync(GetAntchainAtoFundOrderfullinfoRequest request)
         {
@@ -1870,8 +1870,8 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 资方查询订单详情
-         * Summary: 资方查询订单详情
+         * Description: 资方调用、订单详情获取
+         * Summary: 资方调用、订单详情获取
          */
         public GetAntchainAtoFundOrderfullinfoResponse GetAntchainAtoFundOrderfullinfoEx(GetAntchainAtoFundOrderfullinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -1880,8 +1880,8 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 资方查询订单详情
-         * Summary: 资方查询订单详情
+         * Description: 资方调用、订单详情获取
+         * Summary: 资方调用、订单详情获取
          */
         public async Task<GetAntchainAtoFundOrderfullinfoResponse> GetAntchainAtoFundOrderfullinfoExAsync(GetAntchainAtoFundOrderfullinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -4343,6 +4343,132 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SyncAntchainAtoTradePromoorderinfoResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.promoorderinfo.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 二级户进件绑定结算卡信息
+         * Summary: 二级户进件绑定结算卡信息
+         */
+        public BindAntchainAtoMerchantexpandSettlecardResponse BindAntchainAtoMerchantexpandSettlecard(BindAntchainAtoMerchantexpandSettlecardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BindAntchainAtoMerchantexpandSettlecardEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 二级户进件绑定结算卡信息
+         * Summary: 二级户进件绑定结算卡信息
+         */
+        public async Task<BindAntchainAtoMerchantexpandSettlecardResponse> BindAntchainAtoMerchantexpandSettlecardAsync(BindAntchainAtoMerchantexpandSettlecardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BindAntchainAtoMerchantexpandSettlecardExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 二级户进件绑定结算卡信息
+         * Summary: 二级户进件绑定结算卡信息
+         */
+        public BindAntchainAtoMerchantexpandSettlecardResponse BindAntchainAtoMerchantexpandSettlecardEx(BindAntchainAtoMerchantexpandSettlecardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindAntchainAtoMerchantexpandSettlecardResponse>(DoRequest("1.0", "antchain.ato.merchantexpand.settlecard.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 二级户进件绑定结算卡信息
+         * Summary: 二级户进件绑定结算卡信息
+         */
+        public async Task<BindAntchainAtoMerchantexpandSettlecardResponse> BindAntchainAtoMerchantexpandSettlecardExAsync(BindAntchainAtoMerchantexpandSettlecardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BindAntchainAtoMerchantexpandSettlecardResponse>(await DoRequestAsync("1.0", "antchain.ato.merchantexpand.settlecard.bind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资产订单同步
+         * Summary: 资产订单同步
+         */
+        public SyncAntchainAtoTradeReceiptorderfullinfoResponse SyncAntchainAtoTradeReceiptorderfullinfo(SyncAntchainAtoTradeReceiptorderfullinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncAntchainAtoTradeReceiptorderfullinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资产订单同步
+         * Summary: 资产订单同步
+         */
+        public async Task<SyncAntchainAtoTradeReceiptorderfullinfoResponse> SyncAntchainAtoTradeReceiptorderfullinfoAsync(SyncAntchainAtoTradeReceiptorderfullinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncAntchainAtoTradeReceiptorderfullinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资产订单同步
+         * Summary: 资产订单同步
+         */
+        public SyncAntchainAtoTradeReceiptorderfullinfoResponse SyncAntchainAtoTradeReceiptorderfullinfoEx(SyncAntchainAtoTradeReceiptorderfullinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncAntchainAtoTradeReceiptorderfullinfoResponse>(DoRequest("1.0", "antchain.ato.trade.receiptorderfullinfo.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资产订单同步
+         * Summary: 资产订单同步
+         */
+        public async Task<SyncAntchainAtoTradeReceiptorderfullinfoResponse> SyncAntchainAtoTradeReceiptorderfullinfoExAsync(SyncAntchainAtoTradeReceiptorderfullinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncAntchainAtoTradeReceiptorderfullinfoResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.receiptorderfullinfo.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 订单信息查询（新）
+         * Summary: 订单获取
+         */
+        public GetAntchainAtoTradeOrderfullinfoResponse GetAntchainAtoTradeOrderfullinfo(GetAntchainAtoTradeOrderfullinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetAntchainAtoTradeOrderfullinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 订单信息查询（新）
+         * Summary: 订单获取
+         */
+        public async Task<GetAntchainAtoTradeOrderfullinfoResponse> GetAntchainAtoTradeOrderfullinfoAsync(GetAntchainAtoTradeOrderfullinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetAntchainAtoTradeOrderfullinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 订单信息查询（新）
+         * Summary: 订单获取
+         */
+        public GetAntchainAtoTradeOrderfullinfoResponse GetAntchainAtoTradeOrderfullinfoEx(GetAntchainAtoTradeOrderfullinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAntchainAtoTradeOrderfullinfoResponse>(DoRequest("1.0", "antchain.ato.trade.orderfullinfo.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 订单信息查询（新）
+         * Summary: 订单获取
+         */
+        public async Task<GetAntchainAtoTradeOrderfullinfoResponse> GetAntchainAtoTradeOrderfullinfoExAsync(GetAntchainAtoTradeOrderfullinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAntchainAtoTradeOrderfullinfoResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.orderfullinfo.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

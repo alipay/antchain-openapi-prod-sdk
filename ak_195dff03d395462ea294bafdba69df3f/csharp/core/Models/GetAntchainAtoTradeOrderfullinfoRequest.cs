@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
 {
-    public class GetAntchainAtoFundOrderfullinfoRequest : TeaModel {
+    public class GetAntchainAtoTradeOrderfullinfoRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,24 +18,19 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 订单Id
+        // 订单id
         [NameInMap("order_id")]
-        [Validation(Required=true, MaxLength=50)]
+        [Validation(Required=true, MaxLength=49)]
         public string OrderId { get; set; }
 
-        // 订单所属商户的社会信用代码
+        // merchant_id
         [NameInMap("merchant_id")]
-        [Validation(Required=true, MaxLength=64)]
+        [Validation(Required=true, MaxLength=199)]
         public string MerchantId { get; set; }
 
-        // 订单所属商户的社会信用代码
-        [NameInMap("fund_id")]
-        [Validation(Required=true, MaxLength=64)]
-        public string FundId { get; set; }
-
-        // 123
+        // 订单业务类型
         [NameInMap("biz_type")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string BizType { get; set; }
 
     }
